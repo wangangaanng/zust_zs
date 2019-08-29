@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.2.xsd">
+
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类，并帮你自动生成相关bean -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.zghzbckj.manage.dao" />
+        <property name="annotationClass" value="com.zghzbckj.base.dao.MyBatisDao"/>
+    </bean>
+
+</beans>

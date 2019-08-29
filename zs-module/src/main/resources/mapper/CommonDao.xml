@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.CommonDao">
+
+
+    <select id="getEmploys" resultType="java.util.Map" parameterType="java.util.Map">
+        SELECT
+        a.*
+        FROM
+        ourway_sys_employs a
+        <where>
+             <if test="empOwid != null and empOwid !=''">
+                 AND a.owid = #{empOwid}
+             </if>
+            <if test="empWeixin != null and empWeixin !=''">
+                AND a.emp_weixin = #{empWeixin}
+            </if>
+            <if test="empType != null and empType !=''">
+                AND a.emp_type = #{empType}
+            </if>
+            <if test="empCard != null and empCard !=''">
+                AND a.emp_card = #{empCard}
+            </if>
+            <if test="empMobile1 != null and empMobile1 !=''">
+                AND a.emp_mobile = #{empMobile1}
+            </if>
+            <if test="empId != null and empId !=''">
+                AND a.emp_id = #{empId}
+            </if>
+        </where>
+    </select>
+    <select id="getEmploysNum" resultType="java.lang.Integer" parameterType="java.util.Map">
+        SELECT
+            count(a.owid)
+        FROM
+        ourway_sys_employs a
+        <where>
+            <if test="empWeixin != null and empWeixin !=''">
+                AND a.emp_weixin = #{empWeixin}
+            </if>
+            <if test="empCard != null and empCard !=''">
+                AND a.emp_card = #{empCard}
+            </if>
+            <if test="empId != null and empId !=''">
+                AND a.emp_id = #{empId}
+            </if>
+            <if test="empTel != null and empTel !=''">
+                AND (a.emp_tel = #{empTel}  OR  a.emp_id = #{empTel})
+            </if>
+        </where>
+    </select>
+
+
+    <select id="queryZjRole" parameterType="java.util.Map" resultType="java.lang.String">
+        SELECT
+        a.owid as owid
+        FROM
+        ourway_sys_roles a
+        <where>
+            a.LANGUAGE = #{language}
+        </where>
+    </select>
+
+
+    <update id="saveOrUpdateFile" parameterType="java.util.Map">
+        UPDATE
+           ourway_sys_files
+        SET
+            file_class_id = #{newOwid}
+        WHERE
+            file_class_id = #{oldOwid}
+    </update>
+
+
+    <select id="getDeptInfo" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT
+            *
+        FROM
+           ourway_sys_depat a
+        <where>
+            <if test="owid != null and owid !=''">
+                AND a.owid = #{owid}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="saveDicTree">
+        <selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO bckj_dic_tree(
+            owid,
+            fid,
+            path,
+            cc,
+            px,
+            dic_type,
+            dic_code,
+            dic_name,
+            alias,
+            dic_desc,
+            attach_file,
+            memo,
+            createtime,
+            creator,
+            creator_name,
+            lastupdate,
+            updator,
+            updator_name,
+            ver,
+            vertime,
+            dept_id,
+            dept_path,
+            delflg,
+            state,
+            exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+        ) VALUES (
+                     null,
+                     #{fid},
+                     #{path},
+                     #{cc},
+                     #{px},
+                     #{dicType},
+                     #{dicCode},
+                     #{dicName},
+                     #{alias},
+                     #{dicDesc},
+                     #{attachFile},
+                     #{memo},
+                     #{createtime},
+                     #{creator},
+                     #{creatorName},
+                     #{lastupdate},
+                     #{updator},
+                     #{updatorName},
+                     #{ver},
+                     #{vertime},
+                     #{deptId},
+                     #{deptPath},
+                     #{delflg},
+                     #{state},
+                     #{exp1},
+                    #{exp2},
+                    #{exp3},
+                    #{exp4},
+                    #{exp5},
+                    #{exp6},
+                    #{exp7},
+                    #{exp8},
+                    #{exp9},
+                    #{exp10}
+                 )
+    </insert>
+
+    <update id="updateDicTree">
+		UPDATE bckj_dic_tree SET
+			owid = #{owid},
+			fid = #{fid},
+			path = #{path},
+			cc = #{cc},
+			px = #{px},
+			dic_type = #{dicType},
+			dic_code = #{dicCode},
+			dic_name = #{dicName},
+			exp2 = #{exp2},
+		WHERE owid = #{owid}
+	</update>
+
+
+    <select id="getConfig" resultType="java.util.Map">
+        SELECT
+            a.CONFIG_NO,
+            a.CONFIG_VALUE
+        FROM ourway_sys_config  a
+        WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
+    </select>
+
+</mapper>

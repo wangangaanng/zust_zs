@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.zghzbckj</groupId>
-    <artifactId>common-module</artifactId>
+    <artifactId>zs-module</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>common-module</name>
-    <description>Demo project for Spring Boot</description>
+    <name>zs-module</name>
+    <description>招生模块</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -62,7 +62,7 @@
             <artifactId>spring-boot-starter-log4j</artifactId>
             <version>1.3.8.RELEASE</version>
         </dependency>
-        
+
         <!--base 包 -->
         <dependency>
             <groupId>com.bckj.base</groupId>

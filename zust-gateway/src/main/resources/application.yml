@@ -29,3 +29,12 @@ zuul:
     api-commonmodule:
       serviceId: zustCommonModule
       path: /zustcommon/**
+    api-zsmodule:
+      serviceId: zustZSModule
+        path: /zustzs/**
+    api-jymodule:
+      serviceId: zustJYModule
+        path: /zustjy/**
+    api-swytmodule:
+      serviceId: zustSWYTModule
+        path: /zustswyt/**

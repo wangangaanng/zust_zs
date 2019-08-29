@@ -14,7 +14,7 @@ import java.nio.charset.Charset;
 
 /**
  * <dl>
- * <dt>ZustCommonModuleFallBack</dt>
+ * <dt>ZustZSModuleFallBack</dt>
  * <dd>Description:</dd>
  * <dd>Copyright: Copyright (C) 2019</dd>
  * <dd>Company:</dd>
@@ -24,17 +24,16 @@ import java.nio.charset.Charset;
  * @author xby
  */
 @Component
-public class ZustCommonModuleFallBack implements FallbackProvider {
+public class ZustZSModuleFallBack implements FallbackProvider {
 
     @Override
     public String getRoute() {
-        return "zustCommonModule";
+        return "zustZSModule";
     }
 
     @Override
     public ClientHttpResponse fallbackResponse(String s, Throwable throwable) {
-
-        return new ZustCommonModuleFallBack.ResponseBack(s + ":=" + throwable.getMessage());
+        return new ZustZSModuleFallBack.ResponseBack(s + ":=" + throwable.getMessage());
     }
 
     /*返回调用不通的结果*/

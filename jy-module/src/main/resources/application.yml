@@ -1,0 +1,41 @@
+#共用配置
+server:
+    port: 8083
+spring:
+    profiles:
+        #dev 开发环境 pro生产环境
+        active: dev
+    application:
+        name: zustJYModule
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss #如果使用字符串表示，用这行设置格式
+        timezone: GMT+8
+        serialization:
+            write-dates-as-timestamps: false #使用时间戳，使用数值timestamp表示日期
+            #格式化输出
+            indent_output: true
+            #忽略无法转换的对象
+            fail_on_empty_beans: false
+        #设置空如何序列化
+        defaultPropertyInclusion: NON_EMPTY
+        deserialization:
+            #允许对象忽略json中不存在的属性
+            fail_on_unknown_properties: false
+        parser:
+          #允许出现特殊字符和转义符
+          allow_unquoted_control_chars: true
+          #允许出现单引号
+          allow_single_quotes: true
+    mvc:
+        static-path-pattern: /static/**
+    servlet:            #设置文件传输大小
+        multipart:
+            maxFileSize: 20MB
+            max-request-size: 30MB
+    main:                                            #解决SpringBoot2.1.x 以后多个@FeignClient 重名
+        allow-bean-definition-overriding: true
+
+mybatis:
+    config-location: classpath:mybatis-config.xml                   #mybatis主配置文件所在路径
+    type-aliases-package: com.zghzbckj.manage.entity                #定义所有操作类的别名所在包
+    mapper-locations: classpath*:/mapper/*.xml
