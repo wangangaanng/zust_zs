@@ -7,13 +7,15 @@ eureka:
     #prefer-ip-address: true
 server:
   port: 8888
+
 spring:
   application:
     name: zustZuul
-  http:
+    
+  servlet:
     multipart:
-      enabled: true
       max-file-size: 20MB
+      enabled: true
       max-request-size: 1000MB
 ribbon:
   ReadTimeout: 60000
@@ -24,6 +26,6 @@ zuul:
     connect-timeout-millis: 60000
     socket-timeout-millis: 60000
   routes:
-    api-review:
-      serviceId: projectReviewApi
-      path: /projectreview/**
+    api-commonmodule:
+      serviceId: zustCommonModule
+      path: /zustcommon/**
