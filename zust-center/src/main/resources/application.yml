@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: zustCenter
+server:
+  port: 8761
+eureka:
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    registry-fetch-interval-seconds: 30
+
+  instance:
+    #eureka server多久没有收到心跳，则表示对应的实例过期，单位：秒。
+    lease-expiration-duration-in-seconds: 90
+    #心跳，租约续约频率，单位：秒
+    lease-renewal-interval-in-seconds: 30

@@ -1,0 +1,29 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8761/eureka/
+  #instance:
+    #ip-address: 127.0.0.1:8762
+    #prefer-ip-address: true
+server:
+  port: 8888
+spring:
+  application:
+    name: zustZuul
+  http:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 1000MB
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+zuul:
+  retryable: true
+  host:
+    connect-timeout-millis: 60000
+    socket-timeout-millis: 60000
+  routes:
+    api-review:
+      serviceId: projectReviewApi
+      path: /projectreview/**
