@@ -1,0 +1,36 @@
+/*****UPMSample1*****/
+.UPMSample1 .msg span {
+	height: 15px;
+	padding-left:10px;
+	font-size:12px;
+}
+.UPMSample1 .z-progressmeter {
+	width: 200px;
+	height: 10px;
+}
+
+/*****UPMSample2*****/
+.UPMSample2 {
+	background:#F4F8FF;
+	border-top: 1px solid #99AABD;
+	border-bottom: 1px solid #99AABD;
+	font-family: tahoma,helvetica,arial,sans-serif;
+	font-size: 11px;
+	padding: 3px;
+	width: 542px;
+	color: #0F3B82;
+}
+.UPMSample2 a {
+	color: #0366AC;
+	font-weight: bold;
+	cursor: pointer;
+}
+.UPMSample2 .float-left {
+	float: left;
+}
+.UPMSample2 .float-right {
+	float: right;
+}
+.UPMSample2 .clear {
+	clear: both;
+}

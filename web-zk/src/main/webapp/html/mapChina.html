@@ -1,0 +1,66 @@
+<!--
+    time:2019.03.25
+    author:2515421994@qq.com
+    全国地图→省级地图 旧版图片显示方式
+-->
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+		<title>权重数据</title>
+		<link rel="icon" href="../charisma/img/qzsj.ico" type="image/x-icon"/>
+		<link rel="stylesheet" href="css/common.css" />
+		<link rel="stylesheet" href="css/index2.css" />
+		<style>
+			#china-map {
+				width: 1000px;
+				height: 700px;
+				margin: auto;
+			}
+			.china-map img{cursor: pointer;}
+		</style>
+	</head>
+
+	<body>
+
+		<!--header-->
+		<div class="login-header">
+			<div class="login-header_content">
+				<img src="img/img-login-logo.png">
+				<p><span id='cityName' style="display: none">内蒙古自治区</span>政府投资项目管理平台</p>
+			</div>
+			<img src="img/login-banner_top.png" class="banner-img">
+		</div>
+		<!--header end-->
+		
+		<!--china map 左边地图缩放-->
+		<div class="china-map" style="z-index: 9;display: none;" onclick="back(this)" >
+			<div style="position: relative">
+				<img src="img/countryMap.png" usemap="China">   
+            </map>
+			</div>
+		</div>
+		<!--china map end-->
+
+        <!--map detail start-->
+		<div id="china-map"></div>
+        <!--map detail end-->
+
+        <!--footer start-->
+		<div class="login-footer" style="bottom: 0px;width: 100%;margin-top: 10px;">
+			<div class="w1200">
+				<h6>技术支持：浙江权重数据科技有限公司<label>0571-88095566 0571-88091717</label></h6>
+			</div>
+		</div>
+        <!--footer end-->
+
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/echarts.min.js"></script>
+		<script type="text/javascript" src="../map/china.js"></script>
+		<script type="text/javascript" src="js/mapChina.js"></script>
+	</body>
+
+</html>

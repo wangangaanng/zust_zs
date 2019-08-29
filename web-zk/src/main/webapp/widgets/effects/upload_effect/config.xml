@@ -1,0 +1,29 @@
+<entry name="Upload Effect" tag="new" priority="1" ignore="mobile">
+	
+	<summary>
+		<snapshot src="upload_effect.png" />
+	</summary>
+	
+	<content layoutType="right">
+		<tip><![CDATA[
+			Click "Show" to display samples of progress monitor or apply them to a File Uploader (size < 10M)
+		]]></tip>
+		<main src="upload_effect.zul" />
+		<control src="upload_effect_ctrl.zul" />
+	</content>
+	
+	<info>
+		<info-tab id="desc" content="desc.html" />
+		<info-tab id="inXML">
+			<res ref="main" />
+			<res ref="control" />
+			<res name="Customize.css" src="Customize.css" />
+			<res name="UPMSamples.js" src="UPMSamples.js" />
+		</info-tab>
+	</info>
+	
+	<ext-links>
+		<ext-link id="sandbox" item="#u1" />
+	</ext-links>
+	
+</entry>

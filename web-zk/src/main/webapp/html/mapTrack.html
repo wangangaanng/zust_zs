@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="renderer" content="webkit" />
+		<link rel="stylesheet" href="css/mapTrack.css" />
+		<title>项目进度</title>
+	</head>
+
+	<body>
+		<div class="map-area-tip" >
+			<p>请点击右上角画图工具选取区域，双击结束绘图！</p>
+		</div>
+		<div class="map-point-content" id="map" >
+
+		</div>
+		<div class="map-area-bottom">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div id="point-list">
+					</div>
+				</div>
+			</div>
+			<button type="button" class="btn btn-primary btn-sm" id="resetBtn">重置</button><button type="button" class="btn btn-primary btn-sm" id="sureBtn">提交</button>
+		</div>
+	</body>
+
+	<script type="text/javascript" src="js/md5.min.js" ></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+	<script src="../js/layer/layer.js"></script>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=DDd05fcba9fea5b83bf648515e04fc4c"></script>
+	<!--加载鼠标绘制工具-->
+	<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+	<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+	<script src="js/common.js"></script>
+	<script src="js/mapTrack.js"></script>
+
+</html>

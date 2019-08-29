@@ -1,0 +1,35 @@
+html,body{overflow-x: hidden;font-family:"微软雅黑";margin: 0px;padding: 0px;font-size: 14px;line-height: 1.428571429;box-sizing: border-box;width: 100%;min-height: 100%;}
+html,body{height: 100%;}
+
+p{font-size:12px;}
+*{box-sizing: border-box;}
+.panel{background: 0 0;border:none;}
+.panel-body{padding:0px;}
+/*.layui-layer-title{background-color: #296cae !important;color:#fff !important;}*/
+.top{position: absolute; top: 0; left: 0; right: 0; height: 100px;padding-right: 20px;padding-left: 20px;}
+
+/*地图控件样式*/
+.map-cotroll_zoom{cursor:pointer;padding:9px 7px;background-color: #FFF;opacity: 0.85;position: fixed;bottom: 100px;right: 0px;border-radius: 4px;}
+.icon-add,.icon-reduce{font-size: 17px!important;padding-bottom: 5px;padding:0px 5px;color:#777;}
+.icon-add{border-bottom: 1px solid #999;}
+.zoom_font{padding: 0px 5px;}
+
+.map-point-content{height: 100%; position: absolute!important;width: 100%;overflow: hidden;margin:0;font-family:'微软雅黑';}
+.map-point-content .anchorBL{display:none;}
+.map-point-bottom{position: absolute;  bottom: 0;  left: 0; right: 0;  width: 100%;background: rgba(0,0,0,.75);height: 60px;color:#fff;}
+.map-point-bottom label{font-weight:normal;margin: 20px 20px;}
+.map-point-bottom input{background: 0 0;border:1px solid #fff;color:#fff;}
+.map-point-bottom div{display: inline-block;}
+.map-point-bottom button{position: absolute;top:15px;right:30px;}
+
+.map-area-tip{position: absolute;  top: 0;  left: 0; right: 0;  width: 200px;background: rgba(0,0,0,.75);min-height: 55px;color:#fff;padding: 10px;z-index:100;}
+.map-area-bottom{position: absolute;  bottom: 0;  left: 0; right: 0;  width: 100%;background: rgba(0,0,0,.75);color:#fff;padding: 10px 20px;min-height: 60px;}
+.map-area-bottom label{font-weight:normal;margin: 10px 20px 5px 5px;display: inline-block;}
+.map-area-bottom input{background: 0 0;border:1px solid #fff;color:#fff;width: 130px;font-family: inherit;font-size: inherit;line-height: inherit;}
+.map-area-bottom div{display: inline-block;margin-right: 25px;}
+.map-area-bottom button:first-of-type{position: absolute;top:10px;right:30px;}
+.map-area-bottom button:last-of-type{position: absolute;top:10px;right:80px;right: 104px;}
+
+.btn-primary {color: #ffffff;border-color: #4898d5;background-color: #2e8ded;padding: 5px 20px;font-size: 12px;line-height: 1.5;border-radius: 3px;}
+.map-area-tip p{margin: 0px;}
+

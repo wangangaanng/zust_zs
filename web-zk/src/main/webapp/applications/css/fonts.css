@@ -1,0 +1,114 @@
+@font-face{
+    font-family: 'z-icon';
+    src: url('../bootstrap/fonts/fontawesome-webfont.ttf')  format('truetype');
+    src: url('../bootstrap/fonts/fontawesome-webfont.eot');
+    src: url('../bootstrap/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../bootstrap/fonts/fontawesome-webfont.woff') format('woff'),
+    url('../bootstrap/fonts/fontawesome-webfont.svg#SingleMaltaRegular') format('svg');
+}
+.z-icon {
+    font-family: "z-icon" !important;
+    font-size: 20px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    /*-webkit-text-stroke-width: 0.2px;*/
+    -moz-osx-font-smoothing: grayscale;
+    /*color: #FFFFFF;*/
+}
+.z-icon-plane1:before{content:"\f196";}
+.z-icon-area1:before{content:"\f197";font-size: 19px;}
+.z-icon-user1:before{content:"\f198";font-size: 19px;}
+.z-icon-training1:before{content:"\f199"}
+.z-icon-plan1:before{content:"\f19a";font-size: 19px;}
+.z-icon-warning1:before{content:"\f19b"}
+.z-icon-airport1:before{content:"\f19c"}
+.z-icon-flight1:before{content:"\f19d"}
+.z-icon-dictionary1:before{content:"\f19e"}
+.z-icon-server1:before{content:"\f500"}
+.z-icon-logout1:before{content:"\e000"}
+.z-icon-home:before{content:"\2260"}
+.z-icon-mestips:before{content:"\F0E0"}
+
+/*左侧菜单*/
+.z-icon-setup:before{content:"\F013"}/*设置*/
+.z-icon-more:before{content:"\F0C9"}/*二级菜单*/
+.z-icon-dicmanage:before{content:"\221E"}/*字典管理*/
+.z-icon-business:before{content:"\205F"}/*业务类管理*/
+.z-icon-authority:before{content:"\F0E8"}/*人员权限管理*/
+.z-icon-pagedemo:before{content:"\202F"}/*页面demo*/
+.z-icon-systemmanage:before{content:"\200A"}/*系统管理*/
+
+/*按钮*/
+.z-icon-save:before{content:"\2009"}/*保存*/
+.z-icon-edit:before{content:"\2008"}/*修改*/
+.z-icon-copy:before{content:"\2007"}/*复制*/
+.z-icon-paste:before{content:"\2006"}/*黏贴*/
+.z-icon-add:before{content:"\2005"}/*增加*/
+.z-icon-export:before{content:"\2004"}/*导出*/
+.z-icon-import:before{content:"\2003"}/*导入*/
+.z-icon-search:before{content:"\f002";}/*搜索*/
+.z-icon-btnmore:before{content:"\2001";}/*更多*/
+.z-icon-delete:before{content:"\2000";}/*删除/作废*/
+.z-icon-fullscreen:before{content:"\02D9";}/*全屏*/
+.z-icon-refresh:before{content:"\0163";}/*刷新*/
+.z-icon-reset:before{content:"\00FD";}/*重置*/
+.z-icon-btnsearch:before{content:"\00FC";}/*搜索*/
+.z-icon-cancel:before{content:"\0171";}/*取消*/
+
+.z-icon-file:before{content:"\00FA";}/*文件上传*/
+.z-icon-preview:before{content:"\016F";}/*预览*/
+.z-icon-examine:before{content:"\0159";}/*审核*/
+.z-icon-return:before{content:"\00F6";}/*退审*/
+.z-icon-enclosure:before{content:"\0151";}/*附件*/
+.z-icon-history:before{content:"\00F4";}/*历史*/
+.z-icon-close:before{content:"\00F3";}/*关闭*/
+.z-icon-detail:before{content:"\0148";}/*详细*/
+
+
+/*footer*/
+.z-icon-phone:before{content:"\00C6";}/*phone*/
+
+.z-icon-folder:before{content:"\0001";}/*文件夹*/
+.z-icon-folderopen:before{content:"\0002";}
+
+/*权重数据*/
+.z-icon-project:before{content:"\0111";}/*我的项目*/
+.z-icon-message:before{content:"\010F";}/*消息中心*/
+.z-icon-policy:before{content:"\00EE";}/*政策公告*/
+.z-icon-personal:before{content:"\00ED";}/*个人中心*/
+
+.z-icon-permanage:before{content:"\011B";}/*人员管理*/
+.z-icon-flowmanage:before{content:"\0103";}/*项目流程管理*/
+.z-icon-formcenter:before{content:"\0119";}/*报表中心*/
+.z-icon-dictionary:before{content:"\00E9";}/*字典维护*/
+.z-icon-floder:before{content:"\010D";}/*文件中心*/
+.z-icon-privs:before{content:"\00E7";}/*人员权限管理*/
+.z-icon-sysfun:before{content:"\0107";}/*系统功能*/
+.z-icon-policylist:before{content:"\013A";}/*政策公告*/
+.z-icon-taskcenter:before{content:"\00E4";}/*任务中心*/
+.z-icon-flowset:before{content:"\00EB";}/*项目流程配置*/
+.z-icon-flowmodule:before{content:"\00E2";}/*流程模块定义*/
+
+.z-icon-yuan:before{content:"\00E1";}/*元*/
+.z-icon-theme:before{content:"\0155";}/*主题*/
+.z-icon-notice:before{content:"\00DF";}/*消息提示*/
+.z-icon-back:before{content:"\00DD";}/*打回*/
+.z-icon-pass:before{content:"\0162";}/*通过*/
+
+.z-icon-quanping:before{content:"\00D4";}/*全评*/
+.z-icon-pingshen:before{content:"\0150";}/*评审*/
+.z-icon-dabao:before{content:"\00D6";}/*打包*/
+.z-icon-dahui:before{content:"\00D7";}/*打回*/
+.z-icon-shenhe:before{content:"\0158";}/*审核*/
+.z-icon-shangbao:before{content:"\016E";}/*上报*/
+.z-icon-quantui:before{content:"\00DA";}/*全退*/
+.z-icon-biaoqian:before{content:"\0170";}/*标签*/
+.z-icon-guanli:before{content:"\00D3";}/*管理*/
+
+.z-icon-qiehuan1:before{content:"\0143";}/*切换账号1*/
+.z-icon-qiehuan2:before{content:"\0147";}/*切换账号2*/
+
+.z-single:before{content:"\F00B";}/*当个项目*/
+.z-double:before{content:"\F009";}/*多个项目*/
+
+

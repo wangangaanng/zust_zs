@@ -1,0 +1,24 @@
+<!--
+ * @Author: vivian
+ * @since: 2019-04-25 11:30:48
+ * @description:中转页面：专家扫码页面长链接转短链接
+ -->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+        <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="js/common.js"></script>
+        <script type="text/javascript">
+            var url = ${request.url}
+            // var testRefOwid = GetRequest();
+            // alert(testRefOwid);
+            // 从前边跳转过来的页面获取最后一个参数后去跳转链接生成二维码
+            // window.location.href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7b67f6112b40a98a&redirect_uri=https://test.qzsjcloud.com/weixin/scanGetUserInfo?testRefOwid="+testRefOwid+"&response_type=code&scope=snsapi_userinfo&state=wx01#wechat_redirect";
+            window.location.href=url ;
+        </script>
+	</head>
+	<body>
+	</body>
+</html>

@@ -1,0 +1,263 @@
+<!--
+    author：2515421994@qq.com
+    time：20190730
+    discription：专家注册
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>专家注册</title>
+    <link rel="stylesheet" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" href="../css/jquery-weui.css"/>
+    <link rel="stylesheet" href="../css/expertEva.css"/>
+    <style>
+        .weui-picker-modal {  background: #FFF;  }
+        .weui-dialog__hd {  padding: 2em 1.6em 1.8em;  }
+        * {  touch-action: pan-y;}
+    </style>
+</head>
+
+<body style="background: #f9f9f9;padding-top:10px">
+<div class="weui-cells weui-cells_form" style="margin-top: 0px;">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><span class="red">*</span>专家姓名</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入专家姓名">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd">
+            <label class="weui-label"><span class="red">*</span>手机号</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="tel" placeholder="请输入手机号">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="" class="weui-label"><span class="red">*</span>职称</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" placeholder="请输入职称">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label for="" class="weui-label"><span class="red">*</span>出生年月</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="选择出生年月" id='datetime-picker'>
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label"><span class="red">*</span>学历</label>
+        </div>
+        <div class="weui-cell__bd">
+            <select class="weui-select">
+                <option value="1">博士</option>
+                <option value="2">研究生</option>
+                <option value="3">本科</option>
+                <option value="4">大专</option>
+                <option value="5">高中或中专</option>
+                <option value="6">初中</option>
+                <option value="7">小学</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui-cell weui-cells_checkbox">
+        <div class="weui-cell__hd" style="padding-right: 0px;">
+            <label class="weui-label"><span class="red">*</span>学位</label>
+        </div>
+        <div class="weui-cell__bd">
+            <label>
+                <input type="radio" class="weui-check" name="headradio" id="s11" checked="checked" value="1">
+                <i class="weui-icon-checked"></i>学士
+            </label>
+            <label>
+                <input type="radio" class="weui-check" name="headradio" id="s12" value="2">
+                <i class="weui-icon-checked"></i>研究生
+            </label>
+            <label>
+                <input type="radio" class="weui-check" name="headradio" id="s13" value="3">
+                <i class="weui-icon-checked"></i>博士
+            </label>
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after" style="padding: 10px 15px">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label"><span class="red">*</span>地区</label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" id="end" type="text" value="" placeholder="请选择省市区">
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label"><span class="red">*</span>第一行业</label>
+        </div>
+        <div class="weui-cell__bd">
+            <select class="weui-select">
+                <option value="1">农、林、牧、渔业</option>
+                <option value="2">采矿业</option>
+                <option value="3">制造业</option>
+                <option value="4">电力、热力、燃气及水生产和供应业</option>
+                <option value="5">建筑业</option>
+                <option value="6">批发和零售业</option>
+                <option value="7">交通运输、仓储和邮政业</option>
+                <option value="8">住宿和餐饮业</option>
+                <option value="9">信息传输、软件和信息技术服务业</option>
+                <option value="10">金融业</option>
+                <option value="11">房地产业</option>
+                <option value="12">租赁和商务服务业</option>
+                <option value="13">科学研究和技术服务业</option>
+                <option value="14">水利、环境和公共设施管理业</option>
+                <option value="15">居民服务、修理和其他服务业</option>
+                <option value="16">教育</option>
+                <option value="17">卫生和社会工作</option>
+                <option value="18">文化、体育和娱乐业</option>
+                <option value="19">公共管理、社会保障和社会组织</option>
+                <option value="20">国际组织</option>
+                <option value="21">稀土行业</option>
+                <option value="22">环境、污水处理、节能减排</option>
+                <option value="23">生态环境和旅游服务业</option>
+                <option value="24">路桥、园林等市政工程</option>
+                <option value="25">政权建设</option>
+                <option value="26">日常，办公经费</option>
+                <option value="28">其它</option>
+                <option value="29">常规业务经费</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label">第二行业</label>
+        </div>
+        <div class="weui-cell__bd">
+            <select class="weui-select">
+                <option value="1">中国</option>
+                <option value="2">美国</option>
+                <option value="3">英国</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_select weui-cell_select-after">
+        <div class="weui-cell__hd">
+            <label for="" class="weui-label">第三行业</label>
+        </div>
+        <div class="weui-cell__bd">
+            <select class="weui-select">
+                <option value="1">中国</option>
+                <option value="2">美国</option>
+                <option value="3">英国</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<!-- 身份证上传 -->
+<div class="identity-photo">
+    <div class="weui-cell__hd">
+        <label class="weui-label lable-color" style="display: inline-block;">
+            <span style="color: #FF0000">*</span>身份证上传
+            <span></span>
+        </label>
+    </div>
+    <div class="identity-photo_wrap">
+        <div class="photo-wrap" id="imgFace">
+            <div>
+                <img src="../img/camera.png"/>
+            </div>
+            <h6>点击拍摄/上传人像面</h6>
+        </div>
+        <div class="photo-wrap" id="imgBck">
+            <div>
+                <img src="../img/camera.png"/>
+            </div>
+            <h6>点击拍摄/上传国徽面</h6>
+        </div>
+    </div>
+</div>
+
+<!-- 学历学位照片 -->
+<div class="identity-photo">
+    <div class="weui-cell__hd fl">
+        <label class="weui-label lable-color flex1" style="display: block;">学历证书</label>
+        <label class="weui-label lable-color flex1" style="display: block;">学位证书</label>
+    </div>
+    <div class="identity-photo_wrap">
+        <div class="photo-wrap" id="">
+            <div>
+                <img src="../img/camera.png"/>
+            </div>
+            <h6>点击拍摄/上传学历证书</h6>
+        </div>
+        <div class="photo-wrap" id="">
+            <div>
+                <img src="../img/camera.png"/>
+            </div>
+            <h6>点击拍摄/上传学位证书</h6>
+        </div>
+    </div>
+</div>
+
+<!-- 荣誉证书 -->
+<div class="identity-photo">
+    <div class="weui-cell__hd">
+        <label class="weui-label lable-color" style="display: block;">荣誉证书</label>
+    </div>
+    <div class="identity-photo_wrap">
+        <div class="photo-wrap" id="" style="max-width: 200px">
+            <div>
+                <img src="../img/camera.png">
+            </div>
+            <h6>点击拍摄/上传荣誉证书</h6>
+        </div>
+        <div class="photo-wrap" style="border: none"></div>
+    </div>
+</div>
+
+<div class="page__bd page__bd_spacing" style="margin: 30px 0px 40px;padding: 0px 40px;">
+    <a href="javascript:;" class="weui-btn weui-btn_primary exregister-btn">注册</a>
+</div>
+<script src="http://res2.wx.qq.com/open/js/jweixin-1.4.0.js"></script>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/jquery-weui.min.js"></script>
+<script src="../js/city-picker.min.js"></script>
+<script>
+    var province = "";//省
+    var city = "";//市
+    var area = "";//区
+    $("#end").cityPicker({
+        onChange: function (picker, values, displayValues) {
+            province = displayValues[0];
+            city = displayValues[1];
+            area = displayValues[2];
+        }
+    });
+
+    var year = [];
+    var myDate = getNowFormatDate();
+    var thisYear = parseInt(myDate.substr(0, 4)) + 1;
+    for (i = thisYear-90; i < thisYear; i++) {
+        year.push(i + "年");
+    }
+    year = year.reverse();
+    var month = ['01月', '02月', '03月', '04月', '05月', '06月', '07月', '08月', '09月', '10月', '11月', '12月'];
+    $("#datetime-picker").picker({
+            title: "选择出生年月",
+            cols: [
+                {
+                    textAlign: 'center',
+                    values: year
+                },
+                {
+                    textAlign: 'center',
+                    values: month
+                },
+            ]
+        }
+    );
+</script>
+</body>
+
+</html>

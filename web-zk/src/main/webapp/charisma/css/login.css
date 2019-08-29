@@ -1,0 +1,66 @@
+/*login*/
+.z-button:hover{color: #009cff}
+html{height: 100%;overflow-x: hidden;}
+body{min-height: 100%;}
+.login-body{background: url(../img/login/login-banner_top.png) no-repeat;background-size: 100% 55%;width:100%;height: 100%;}
+.login-title{width: 500px;position: absolute;top: 50%;left: 50%;margin-left: -250px;margin-top: -285px;}
+.login-title p{text-align: center;font-size: 26px;color: #fff;letter-spacing: 2px;}
+.login-logo{width: 500px;position: absolute;top: 50%;left: 50%;margin-left: -250px;margin-top: -340px;text-align: center;}
+.login-logo img{max-width: 80px;width: 15%;}
+.login-title img{max-width: 85px;display: block;margin: 0 auto;margin-bottom: 14px;width: 15%;}
+.login-content{padding: 10px 20px 0px 20px;
+    border-radius: 12px;width: 400px;margin-top: -180px;background: rgba(255,255,255,1);box-shadow: 1px 5px 19px rgba(0,156,255,0.1);}
+.login-content_wrap{position: absolute;top: 55%;left: 50%;margin-left: -200px;}
+.login-content p{font-size: 16px;padding-top: 8px;color: #c9caca;padding-bottom: 10px;}
+.login-content p span{width: calc(50% - 1px);text-align: center;display: inline-block;}
+.login-content .login-change:first-child{border-right: 1px dashed #c9caca;}
+.login-content p span.active{color: #009cff;}
+.login-ewm{text-align: center;padding: 10px;}
+.login-ewm img{width: 160px;height: 160px;}
+.login-tip{font-size: 16px;padding: 10px;color: #89bb4d;}
+.login-tip img{width: 26px;height: 17px;padding-right: 8px;vertical-align: baseline}
+.login-type p{text-align: right; font-size: 13px;padding-top: 0px;}
+.login-href p a:last-child span{width: 104px;color: #89bb4d}
+.login-href p a:first-child span{float: left;}
+.login-type a{color: #9fa0a0;}
+
+.login-form{display: flex;display: -webkit-flex;padding-left: 10px;padding: 20px 0px 22px 0px;}
+.login-div2 label{width: 100%;}
+.login-btn{width:100%;color: #FFF;height: 40px;border-radius: 5px;font-size: 15px;background: #ffa801;text-shadow: none;border: none;}
+.login-btn:hover,.login-btn:focus{background:rgba(255, 168, 1,0.9);color: #FFF}
+.login-content label{display: flex;margin-bottom: 12px;display: -webkit-flex;padding: 10px 10px 0px 10px;position: relative;}
+.login-content label input{background-color: #fff;border: 1px solid #d8d7d8;height: 50px;width: 100%;border-radius: 5px;padding: 0px 10px 0px 40px;}
+.register-form label,.select-area{display: flex;margin-bottom: 0px;display: -webkit-flex;padding: 10px 10px 0px 10px;position: relative;}
+.register-form label input{background-color: #fff;border: 1px solid rgb(234, 238, 241);height: 40px !important;width: 256px;border-radius: 0px;-webkit-flex: 1;
+    flex: 1;padding: 0px 10px 0px 40px;}
+.register-label{color: #333 !important;}
+.register-logo{margin-top: -350px;}
+.register-title{margin-top: -270px;}
+.register-content{margin-top: -256px;}
+.register-type a{color: #009cff;}
+.yzminput{padding-right: 120px !important;}
+.yzmDiv{position: absolute;height:28px;right: 20px;top: 17px;border:none;background: #009cff;color: #FFF;text-shadow: none;}
+.login-user{background: url(../img/login/img-user.png) no-repeat;background-size: 20px;background-position: 10px 12px;}
+.login-password{background: url(../img/login/img-mm.png) no-repeat;background-size: 20px;background-position: 10px 12px;}
+.icon-user{background: url(../img/login/icon-user.png) no-repeat;background-size: 20px;background-position: 10px 10px;}
+.icon-phone{background: url(../img/login/icon-phone.png) no-repeat;background-size: 20px;background-position: 10px 10px;}
+.icon-yz{background: url(../img/login/icon-yz.png) no-repeat;background-size: 20px;background-position: 10px 10px;}
+.icon-password{background: url(../img/login/icon-password.png) no-repeat;background-size: 20px;background-position: 10px 10px;}
+.icon-yingye{background: url(../img/login/icon-yingye.png) no-repeat;background-size: 20px;background-position: 10px 10px;}
+.icon-dz{background: url(../img/login/icon-dz.png) no-repeat;background-size: 20px;background-position: 10px 10px;}
+.login-bottom{color: #ff504d; font-size: 13px;text-align: center;width: 100%;margin-top: 8%;margin-bottom: 20px;}
+.login-bottom img{margin-left: 24px;margin-right: 2px;vertical-align: sub;}
+.register-back span{width: auto!important;}
+.w20{width:20px}
+.ml10{margin-left: 10px;}
+.list-style-none{list-style: none;}
+.pic-upload{width: 230px;height:40px;border: 1px solid #d8d7d8;border-radius:5px;margin-left:10px;overflow: hidden;display: inline-block;}
+.upload-img{width: 80px;height: 40px;float: right;margin-right: 20px;}
+.upload-label{color: #999;padding: 7px 7px !important;}
+/*上传按钮*/
+.uploadBtnCSS{width: 228px;height: 38px;border: none;}
+.uploadBtnCSS:hover,.uploadBtnCSS:focus{background: #009cff14; text-shadow: none;}
+.big-img{display: none;text-align: center;background: #FFF;max-height: 700px;overflow-y: auto}
+.lis-img{height:auto;max-width:100%;}
+
+.select-qylx{display: flex;margin-bottom: 0px;display: -webkit-flex;padding: 10px 10px 0px 10px;position: relative;}

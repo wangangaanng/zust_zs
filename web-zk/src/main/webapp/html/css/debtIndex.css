@@ -1,0 +1,20 @@
+.red{color: #ff0000;}
+.green{color: #5cbf45;}
+.debt-wrap{border-radius: 5px;margin: 10px;background: #FFF;}
+body{background-color: #f1f1f1;line-height: 1.2;}
+.debt-top_tip{background: #f5fbf5;color: #5cbf45;padding: 10px 20px;font-size: 16px;}
+.debt-top li{float: left;width: 20%;text-align: center;margin: 10px 0px;}
+.debt-top li div{border: 1px solid #f1f1f1;display: inline-block;padding: 10px;min-width: 60%;}
+.debt-top div h4{color: #424958;text-align: left;margin-bottom: 12px;}
+.debt-top div h1{font-size: 48px;margin-bottom: 7px;}
+.debt-top div h1 label{font-size: 24px;padding-left: 4px;}
+.debt-top div h6{color: #999999;font-size: 13px;}
+.debt-top ul{overflow: hidden;}
+.debt-top_small{border-left: 1px solid #e6e6e6;line-height: 1;padding-left: 6px;margin-left: 6px;font-size: 20px;}
+.debt-center,.debt-bottom{padding: 20px;}
+.debt-center p,.debt-bottom p{font-size: 16px;color: #199ed8;}
+.debt-center p img,.debt-bottom p img{margin-right: 4px;}
+.chart-wrap li{height: 330px;width: 25%;float: left;}
+.chart-wrap{width: 100%;}
+.bar-chart{height: 330px;}
+.debt-top h4 img{width: 12px;float: right;}

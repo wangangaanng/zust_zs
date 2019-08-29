@@ -1,0 +1,43 @@
+@charset "utf-8";
+/*系统登录页面css文件*/
+body {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    font-family: Microsoft YaHei, \\5FAE\8F6F\96C5\9ED1, STXihei, \\534E\6587\7EC6\9ED1, Georgia, Times New Roman, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #24292e;
+}
+
+#root, body, html {
+    height: 100%;
+}
+
+/*登录页面*/
+.LoginForm {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 25rem;
+    margin-left: -12.5rem;
+    margin-top: -135px;
+    border: 1px solid #e6e6e6;
+    border-radius: .5rem;
+}
+
+.LoginForm .header {
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid #d1d5da;
+}
+
+.LoginForm .header .title {
+    font-size: 2rem;
+}
+
+.LoginForm .body {
+    padding: 1.5rem 3rem;
+}
+
+.LoginForm .footer {
+    padding: 1.5rem 3rem;
+    border-top: 1px solid #d1d5da;
+}
