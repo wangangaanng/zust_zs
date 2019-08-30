@@ -1,4 +1,4 @@
-package com.ourway.CommonEvent;
+package com.ourway.ommonevent;
 //
 // Source code recreated from a .class file by IntelliJ IDEA
 // (powered by Fernflower decompiler)

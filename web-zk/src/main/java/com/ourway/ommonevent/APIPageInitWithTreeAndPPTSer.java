@@ -1,4 +1,4 @@
-package com.ourway.CommonEvent;
+package com.ourway.ommonevent;
 
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageVO;

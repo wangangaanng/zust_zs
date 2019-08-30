@@ -1,21 +1,20 @@
-package com.ourway.CommonEvent;
+package com.ourway.ommonevent;
 
 import com.ourway.base.zk.component.BaseTree;
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageControlVO;
-import com.ourway.base.zk.models.ResponseMessage;
 import com.ourway.base.zk.models.TreeVO;
 import com.ourway.base.zk.service.TreeListinerSer;
-import com.ourway.base.zk.utils.ComponentUtils;
+import com.ourway.base.zk.utils.AlterDialog;
 import com.ourway.base.zk.utils.JsonUtil;
-import com.ourway.base.zk.utils.PageUtils;
 import com.ourway.base.zk.utils.TextUtils;
-import com.ourway.base.zk.utils.data.JsonPostUtils;
+import com.ourway.base.zk.utils.data.MessUtil;
 import com.ourway.base.zk.utils.treeutils.NodeUtils;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Treeitem;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ import java.util.Map;
 *<li>@date 2019/7/4 14:00</li>
 *</ul>
 */
-public class TreeClickOpenTabAction implements TreeListinerSer {
+public class TreeClickOpenWindowsAction implements TreeListinerSer {
 
     @Override
     public void doAction(BaseWindow window, Event event, BaseTree tree, Treeitem treeitem, PageControlVO pgvo) {
@@ -81,53 +80,36 @@ public class TreeClickOpenTabAction implements TreeListinerSer {
                 treeVO = _treeVO;
         }
 
-        try {
-            window.setBaseTree(tree);
-            window.setBaseTreeItem(treeitem);
-            window.setBaseTreeType(pgvo.getTreeType());
-            if (!TextUtils.isEmpty(treeVO.getOwid())) {
-                Map<String, Object> params = JsonUtil.jsonToMap(JsonUtil.toJson(treeVO));
-                if (!TextUtils.isEmpty(_params.get("url").toString())) {
-                    ResponseMessage responseMessage = JsonPostUtils.executeAPI(params, _params.get("url").toString());
-                    if (null != responseMessage && responseMessage.getBackCode() == 0 && null != responseMessage.getBean()) {
-                        Map<String, Object> _ppt = (Map)responseMessage.getBean();
-                        _ppt.put("fid", treeVO.getFid());
-                        _ppt.put("path", treeVO.getPath());
-                        _ppt.put("px", treeVO.getPx());
-                        _ppt.put("cc", treeVO.getCc());
-                        window.setPpt(_ppt);
-                    } else {
-                        Map<String, Object> _ppt = new HashMap();
-                        _ppt.put("fid", treeVO.getFid());
-                        _ppt.put("path", treeVO.getPath());
-                        _ppt.put("px", treeVO.getPx());
-                        _ppt.put("cc", treeVO.getCc());
-                        window.setPpt(_ppt);
-                    }
-                } else {
-                    Map<String, Object> _ppt = new HashMap();
-                    _ppt.put("fid", treeVO.getFid());
-                    _ppt.put("path", treeVO.getPath());
-                    _ppt.put("px", treeVO.getPx());
-                    _ppt.put("cc", treeVO.getCc());
-                    window.setPpt(_ppt);
-                }
-            } else {
-                Map<String, Object> _ppt = new HashMap();
-                _ppt.put("fid", treeVO.getFid());
-                _ppt.put("path", treeVO.getPath());
-                _ppt.put("px", treeVO.getPx());
-                _ppt.put("cc", treeVO.getCc());
-                window.setPpt(_ppt);
-            }
+        //树操作类型
+        _params.put("tree", treeVO);
+        _params.put("treeType", pgvo.getTreeType());
 
-            ComponentUtils.setEditable(window);
-            window.setWindowType(1);
-            ComponentUtils.doCheckButtonStatus(window);
-            PageUtils.resetGridComponent(window);
-            window.bind2Page();
-        } catch (Exception e) {
-            e.printStackTrace();
+        //2、打开对应页面
+        if (TextUtils.isEmpty(_params.get("pageCa").toString())) {
+            AlterDialog.alert("请定义pageCa!");
+            return;
+        }
+        window.setBaseTree(tree);
+        window.setBaseTreeItem(treeitem);
+        window.setBaseTreeType(pgvo.getTreeType());
+        //3、打开绩效目标类型维护页面
+        openJxTargetTypeWindow(_params, window);
+
+
+    }
+
+    private void openJxTargetTypeWindow(Map<String, Object> dataMap, BaseWindow baseWindow) {
+        dataMap.put("pageType", 1);
+        String link = MessUtil.getLinkByPageCa(dataMap.get("pageCa").toString());
+        Component winEdit1 = Executions.createComponents(link, (Component) null, dataMap);
+        if (winEdit1 instanceof BaseWindow) {
+            BaseWindow _win = (BaseWindow) winEdit1;
+            _win.setStyle("width: 670px;height: 322px");
+            _win.setTopWindow(baseWindow);
+            _win.doModal();
+            if (_win.isClosePage() || _win.isDetach()) {
+                Map<String, Object> ppt = (Map<String, Object>) _win.getAttribute("rulePPt");
+            }
         }
     }
 }

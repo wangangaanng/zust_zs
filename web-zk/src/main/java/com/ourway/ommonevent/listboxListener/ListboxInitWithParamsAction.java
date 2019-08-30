@@ -1,4 +1,4 @@
-package com.ourway.CommonEvent.listboxListener;
+package com.ourway.ommonevent.listboxListener;
 
 import com.ourway.base.zk.component.BaseListbox;
 import com.ourway.base.zk.component.BaseWindow;

@@ -43,8 +43,7 @@
 				<image src="charisma/img/wait.gif" />
 			</h:div>
 			<h:div class="wait-tip">
-				<h:h4>实施国家数据战略，推进数据资源共享</h:h4>
-				<h:h6>欢迎进入云端可视化项目中心系统......</h:h6>
+				<h:h6>欢迎进入浙江科技学院网站后台管理系统......</h:h6>
 			</h:div>
 		</h:div>
 	</h:div>

@@ -1,4 +1,4 @@
-package com.ourway.CommonEvent;
+package com.ourway.ommonevent;
 
 import com.google.common.collect.Lists;
 import com.ourway.base.zk.component.BaseGrid;

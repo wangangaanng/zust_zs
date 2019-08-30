@@ -1,4 +1,4 @@
-package com.ourway.CommonEvent;
+package com.ourway.ommonevent;
 
 public enum BackMsg {
     LACKAPIURL("配置有误，请完善apiUrl！"),
