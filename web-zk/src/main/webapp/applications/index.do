@@ -1,4 +1,4 @@
-<?page title="政府投资项目管理平台"?>
+<?page title="浙江科技学院网站后台管理系统"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/bootstrap/themes/bootstrap-default.min.css" if="${empty param.theme}"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/docs.css" ?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/pygments-manni.css" ?>
@@ -90,7 +90,7 @@
         </hlayout>
         <div sclass="indexFooter">
             <label style="font-color:#000000;font-size:12px;text-align:center;width:100%;"
-                   value="Copyright © 2015-2019 权重数据. All Rights Reserved  "></label>
+                   value="Copyright © 2019 浙江科技学院. All Rights Reserved  "></label>
         </div>
     </window>
 </zk>

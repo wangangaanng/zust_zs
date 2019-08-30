@@ -22,7 +22,7 @@
 服务网关   
 
 ##zust-utils
-公用的方法都写在这个模块
+所有的公用的方法都写在这个模块
              
 ##web-zk
 ftl页面都写在 /WEB-INF/template 目录下，页面路径 com.ourway.syszk.controll该文件夹下新增controller
@@ -35,6 +35,9 @@ ftl页面都写在 /WEB-INF/template 目录下，页面路径 com.ourway.syszk.c
 招生模块 : /center/zustzs/**
 就业模块 : /center/zustjy/**
 三位一体模块 : /center/zustswyt/**
+
+
+
 
 
           
