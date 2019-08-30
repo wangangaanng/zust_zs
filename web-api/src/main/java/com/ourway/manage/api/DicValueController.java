@@ -29,6 +29,7 @@ import java.util.Map;
 public class DicValueController {
     private static final Logger log = LoggerFactory.getLogger(DicValueController.class);
 
+
     @Autowired
     CustomDicService customDicService;
 
@@ -42,7 +43,31 @@ public class DicValueController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return customDicService.getByType(mapData);
+            return ResponseMessage.sendOK(customDicService.getByType(mapData));
+        } catch (Exception e) {
+            log.info("获取字典数据失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+    @RequestMapping(value = "getWebType", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getWebType(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            mapData.put("dicType",100001);
+            List<Map<String, Object>> list=customDicService.getByType(mapData);
+            List<Map<String, Object>> mapList=new ArrayList<>();
+            for (Map map:list){
+                String label=map.get("dicVal1").toString();
+                String value=map.get("dicVal2").toString();
+                map.clear();
+                map.put("label",label);
+                map.put("value",value);
+                mapList.add(map);
+            }
+            return ResponseMessage.sendOK(mapList);
         } catch (Exception e) {
             log.info("获取字典数据失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
@@ -102,24 +127,6 @@ public class DicValueController {
     }
 
 
-    @RequestMapping(value = "saveArticle", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage saveArticle(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh", "lmbh2", "sxsj");
-            if (!validateMsg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
-            }
-            return customDicService.saveArticle(mapData);
-        } catch (Exception e) {
-            log.error("{}：" + e.toString(), e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
-        }
-    }
-
-
     @RequestMapping(value = "removeFiles", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage removeFiles(PublicDataVO dataVO) {
@@ -145,7 +152,7 @@ public class DicValueController {
      */
     @RequestMapping(value = "saveDic/{type}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage saveDic(@PathVariable("type") Integer type,PublicDataVO dataVO) {
+    public ResponseMessage saveDic(@PathVariable("type") Integer type, PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空

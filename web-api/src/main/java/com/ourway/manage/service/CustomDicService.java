@@ -4,21 +4,24 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.model.FilterModel;
 import com.ourway.base.model.ResponseMessage;
-import com.ourway.base.utils.*;
+import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.HqlStatement;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
 import com.ourway.manage.WebConstants;
-import com.ourway.manage.models.AppBizArticle;
-import com.ourway.manage.models.AppBizAtt;
 import com.ourway.sys.dao.SysDicDao;
 import com.ourway.sys.dao.SysMenusDao;
 import com.ourway.sys.dao.SysPrivsallocateDao;
-import com.ourway.sys.model.*;
+import com.ourway.sys.model.OurwaySysDic;
+import com.ourway.sys.model.OurwaySysDicValue;
+import com.ourway.sys.model.OurwaySysMenus;
+import com.ourway.sys.model.OurwaySysPrivsallocate;
 import com.ourway.sys.service.DicService;
 import com.ourway.sys.service.FilesService;
 import com.ourway.sys.service.MenusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service("customDicService")
@@ -36,10 +39,10 @@ public class CustomDicService {
     @Autowired
     SysPrivsallocateDao sysPrivsallocateDao;
 
-    public ResponseMessage getByType(Map<String, Object> mapData) {
+    public List<Map<String, Object>> getByType(Map<String, Object> mapData) {
         String type = mapData.get("dicType").toString();
         List<Map<String, Object>> values = sysDicDao.listAllDataByType(Integer.valueOf(type), " b.dicVal4 ");
-        return ResponseMessage.sendOK(values);
+        return values;
     }
 
 
@@ -63,64 +66,7 @@ public class CustomDicService {
         return ((OurwaySysDicValue) dicvals[1]).getDicVal2();
     }
 
-    public ResponseMessage saveArticle(Map<String, Object> mapData) throws IOException {
-        AppBizArticle article = JsonUtil.map2Bean(mapData, AppBizArticle.class);
-        article.setLmbt(getLbmh(article.getLmbh()));
-        Map mapParam = Maps.newHashMap();
-        mapParam.put("dicVal1", article.getLmbh2());
-        Object[] dicvals = sysDicDao.getSingleDicByType(article.getLmbh(), mapParam);
-        article.setLmbt2(((OurwaySysDicValue) dicvals[1]).getDicVal2());
-        article.setIsSingle(isSingle(article.getLmbh(), article.getLmbh2()));
-        article.setSxsj(mapData.get("sxsj").toString());
-        if (!TextUtils.isEmpty(mapData.get("fbsj"))) {
-            article.setFbsj(mapData.get("fbsj").toString());
-        } else {
-            article.setFbsj(DateUtil.getDateStr("yyyy-MM-dd"));
-        }
-        if (TextUtils.isEmpty(article.getOwid())) {
-            ResponseMessage res = null;
-//            String resStr = HttpUtils.doPost(WebConstants.BUSSINESS_BASEURL + WebConstants.BUSSINESS_URL_ADDOWID, null);
-            String resStr = "";
-            if (TextUtils.isEmpty(resStr)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "网络繁忙");
-            } else {
-                Map _map = JsonUtil.jsonToMap(resStr);
-                res = JsonUtil.map2Bean(_map, ResponseMessage.class);
-            }
-            article.setOwid(res.getBean().toString());
-        }
-        //附件owid更换
-        if (!TextUtils.isEmpty(mapData.get("fileExtId")) && !article.getOwid().equalsIgnoreCase(mapData.get("fileExtId").toString())) {
-            filesService.saveOrUpdate(article.getOwid(), mapData.get("fileExtId").toString());
-        }
-        //附件中心保存
-        List<OurwaySysFiles> list = filesService.listAllFilesByOwid(article.getOwid());
-        List<AppBizAtt> listBuss = Lists.newArrayList();
-        for (OurwaySysFiles oneFile : list) {
-            AppBizAtt att = new AppBizAtt();
-            att.setFjmc(oneFile.getFileName());
-            att.setDisplayname(oneFile.getFileLabel());
-            att.setFjlj(oneFile.getFilePath());
-            att.setOwid(oneFile.getOwid());
-            att.setWzRefOwid(article.getOwid());
-            listBuss.add(att);
-        }
-        article.setAttList(listBuss);
-        Map valParam = Maps.newHashMap();
-        valParam.put("data", JsonUtil.toJson((article)));
-//        String resStr = HttpUtils.doPost(WebConstants.BUSSINESS_BASEURL + WebConstants.BUSSINESS_URL, valParam);
-        String resStr = "";
-        if (TextUtils.isEmpty(resStr)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "网络繁忙");
-        } else {
-            Map _map = JsonUtil.jsonToMap(resStr);
-            ResponseMessage res = JsonUtil.map2Bean(_map, ResponseMessage.class);
-            if (res.getBackCode() != 0) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, res.getErrorMess());
-            }
-        }
-        return ResponseMessage.sendOK(article.getOwid());
-    }
+
 
     //
     public ResponseMessage removeFiles(Map<String, Object> mapData) {
@@ -179,16 +125,11 @@ public class CustomDicService {
             switch (oneDic.getUpdateFlag()) {
                 case 1:
                     count++;
-//                    if (oneDic.getDicVal5().equals("0")) {
-                        menusList.add(orgernizeMenu(oneDic, count));
-//                    }else{
-//                        desubMenuParam.put("language", oneDic.getDicRefOwid().toString());
-//                        menusService.removeMenu(desubMenuParam);
-//                    }
+                    menusList.add(orgernizeMenu(oneDic, count));
                     break;
                 case 2:
-                        desubMenuParam.put("language", oneDic.getDicRefOwid().toString());
-                        menusService.removeMenu(desubMenuParam);
+                    desubMenuParam.put("language", oneDic.getDicRefOwid().toString());
+                    menusService.removeMenu(desubMenuParam);
                     break;
             }
         }
@@ -215,10 +156,10 @@ public class CustomDicService {
             menus.setLanguage(oneDic.getDicVal1());
             menus.setCc(1);
             menus.setType(0);
-            menus.setFid(-1);
+            menus.setFid(990);
             menus.setPageCa("");
             menusService.saveOrUpdate(menus);
-            menus.setPath("-1/" + menus.getOwid() + "/");
+            menus.setPath("-1/990/" + menus.getOwid() + "/");
         }
         menus.setPx(Double.valueOf(px));
         menus.setName(oneDic.getDicVal2());
@@ -308,7 +249,19 @@ public class CustomDicService {
         List<OurwaySysDicValue> dicValues = new ArrayList();
         if (null != dataMap.get("dataList")) {
             List<Map<String, Object>> components = (List) dataMap.get("dataList");
-            dicValues = JsonUtil.map2List(components, OurwaySysDicValue.class);
+            String dicVal3 = "";
+            for (Map<String, Object> map:components){
+                if(map.get("dicVal3") instanceof List) {
+                    List<Map> mapWeb = (List<Map>) map.get("dicVal3");
+                    for (Map children : mapWeb) {
+                        dicVal3 = dicVal3 + children.get("value").toString() + ",";
+                    }
+                }
+                OurwaySysDicValue value=JsonUtil.map2Bean(map,OurwaySysDicValue.class);
+                value.setDicVal3(dicVal3);
+                dicValues.add(value);
+            }
+//            dicValues = JsonUtil.map2List(components, OurwaySysDicValue.class);
         }
         for (OurwaySysDicValue oneDic : dicValues) {
             if (oneDic.getUpdateFlag()==1&&isExistDicVal(100000,oneDic)){

@@ -71,13 +71,8 @@ public class LoginAction extends BaseWindow {
         } else {
             //已经登录过，不需要重复调用接口
             String cityId = _vo.getRmpOffice();
-            if (!"001".equalsIgnoreCase(_vo.getEmpType())) {
                 Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
-            } else if ("004".equalsIgnoreCase(_vo.getEmpType())) {
-                Executions.sendRedirect("/applications/pyIndex.do?" + System.currentTimeMillis());
-            } else {
-                Executions.sendRedirect("/applications/qyIndex.do?" + System.currentTimeMillis());
-            }
+
         }
 
     }
@@ -95,19 +90,11 @@ public class LoginAction extends BaseWindow {
             String contextPath = ((HttpServletRequest) Executions.getCurrent().getNativeRequest()).getContextPath();
 //            logger.info("contextPath:"+contextPath);
             //调用成功
-            if ("001".equalsIgnoreCase(_vo.getEmpType())) {
-                Executions.sendRedirect("/applications/qyIndex.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
-//                Clients.evalJavaScript("openUrl('" + contextPath + "/applications/qyIndex.do?" + System.currentTimeMillis() + "')");
-            }// Executions.sendRedirect("/applications/qyIndex.do?" + System.currentTimeMillis());
-            else if ("004".equalsIgnoreCase(_vo.getEmpType())) {
-                Executions.sendRedirect("/applications/pyIndex.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
-//                Clients.evalJavaScript("openUrl('" + contextPath + "/applications/pyIndex.do?" + System.currentTimeMillis() + "')");
-            } else {
+
                 // Clients.evalJavaScript("openUrl('" + contextPath + "/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId + "')");
                 Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
             }
 //               Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis());
-        }
 
     }
 
