@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.model.FilterModel;
 import com.ourway.base.model.ResponseMessage;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.HqlStatement;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.ourway.manage.WebConstants;
 import com.ourway.sys.dao.SysDicDao;
 import com.ourway.sys.dao.SysMenusDao;
@@ -95,6 +92,7 @@ public class CustomDicService {
         Map desubMenuParam = Maps.newHashMap();
         int count = 13;
         for (OurwaySysDicValue oneDic : dicValues) {
+            CacheUtil.setVal(WebConstants.LMBH+oneDic.getDicVal1(),oneDic.getDicVal2());
             switch (oneDic.getUpdateFlag()) {
                 case 1:
                     count++;
@@ -122,6 +120,7 @@ public class CustomDicService {
         Map desubMenuParam = Maps.newHashMap();
         int count = 0;
         for (OurwaySysDicValue oneDic : dicValues) {
+            CacheUtil.setVal(WebConstants.LMBH2+oneDic.getDicVal1(),oneDic.getDicVal2());
             switch (oneDic.getUpdateFlag()) {
                 case 1:
                     count++;

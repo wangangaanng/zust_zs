@@ -7,6 +7,14 @@ spring:
         active: dev
     application:
         name: zustCommonModule
+    freemarker:
+        request-context-attribute: request  #req访问request
+        suffix: .ftl  #后缀名
+        content-type: text/html
+        enabled: true
+        cache: false #缓存配置
+        template-loader-path: classpath:/templates/ #模板加载路径 按需配置
+        charset: UTF-8 #编码格式
     jackson:
         date-format: yyyy-MM-dd HH:mm:ss #如果使用字符串表示，用这行设置格式
         timezone: GMT+8

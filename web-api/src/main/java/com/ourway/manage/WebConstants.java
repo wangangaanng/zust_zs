@@ -13,4 +13,6 @@ public class WebConstants {
     public static final String PAGE_DETAIL_ARTICLE = "297e4bd46a204284016a2045edca0000";
     public static final String ADMIN_ROLE_OWID = "297e88ab6ce0205f016ce04dfcf20003";
 
+    public static final String LMBH="lmbh_";
+    public static final String LMBH2="lmbh2_";
 }

@@ -186,4 +186,12 @@
         WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
     </select>
 
+
+    <update id="updateFile">
+        UPDATE  ourway_sys_files set FILE_CLASS_ID= #{articleOwid} where FILE_CLASS_ID=#{fileExtId}
+    </update>
+
+    <select id="getSysFiles" resultType="java.util.Map">
+        SELECT FILE_LABEL ,FILE_PATH FROM  ourway_sys_files WHERE  FILE_CLASS_ID=#{fileExtId}
+    </select>
 </mapper>

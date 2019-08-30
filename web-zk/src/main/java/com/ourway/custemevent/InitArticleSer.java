@@ -19,7 +19,7 @@ import java.util.Set;
  * Created by jack on 2017/5/28.
  */
 public class InitArticleSer implements PageInitSer {
-    private static final String SINGLE_DETAIL_URL = "qcc/web/appBizArticle/getByEjLmbh";
+    private static final String SINGLE_DETAIL_URL = "center/zustcommon/appBizArticle/getByEjLmbh";
 
     @Override
     public void initPage(BaseWindow window, Map args, PageVO pageVO) {
@@ -50,11 +50,6 @@ public class InitArticleSer implements PageInitSer {
             }else{
 
                 if(null!=params.get("#lmbh")){
-                    params.put("lmbh",params.get("#lmbh"));
-                    params.remove("#lmbh");
-                    params.put("lmbh2",params.get("#lmbh2"));
-                    params.remove("#lmbh2");
-                    responseMessage = JsonPostUtils.executeAPI(params, SINGLE_DETAIL_URL);
                     window.getPpt().put("lmbh",params.get("lmbh"));
                     window.getPpt().put("lmbh2",params.get("lmbh2"));
                 }

@@ -12,4 +12,7 @@ package com.zghzbckj.common;
  * @author xby
  */
 public class CommonModuleContant {
+
+    public static final String LMBH="lmbh_";
+    public static final String LMBH2="lmbh2_";
 }

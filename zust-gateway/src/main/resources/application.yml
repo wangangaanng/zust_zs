@@ -31,10 +31,10 @@ zuul:
       path: /zustcommon/**
     api-zsmodule:
       serviceId: zustZSModule
-        path: /zustzs/**
+      path: /zustzs/**
     api-jymodule:
       serviceId: zustJYModule
-        path: /zustjy/**
+      path: /zustjy/**
     api-swytmodule:
       serviceId: zustSWYTModule
-        path: /zustswyt/**
+      path: /zustswyt/**
