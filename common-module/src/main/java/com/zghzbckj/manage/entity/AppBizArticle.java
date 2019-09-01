@@ -223,4 +223,12 @@ public class AppBizArticle extends DataWithExpEntity<AppBizArticle> {
 	public void setIstop(Integer istop) {
 		this.istop = istop;
 	}
+
+	public Integer getSxh() {
+		return sxh;
+	}
+
+	public void setSxh(Integer sxh) {
+		this.sxh = sxh;
+	}
 }

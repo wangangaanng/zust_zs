@@ -15,6 +15,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.CacheUtil;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.AppBizArticleDao;
 import com.zghzbckj.manage.dao.AppBizAttDao;
@@ -313,12 +314,27 @@ public class AppBizArticleService extends CrudService<AppBizArticleDao, AppBizAr
         }
         if (TextUtils.isEmpty(mapData.get("fbsj"))) {
             article.setFbsj(new Date());
+        }else{
+            article.setFbsj(DateUtil.getDate(mapData.get("fbsj").toString(), CommonConstant.DATE_FROMART));
+        }
+        if (!TextUtils.isEmpty(mapData.get("sxsj"))) {
+            article.setSxsj(DateUtil.getDate(mapData.get("sxsj").toString(), CommonConstant.DATE_FROMART));
         }
         saveOrUpdate(article);
         if(!TextUtils.isEmpty(mapData.get("fileExtId"))){
             mapData.put("articleOwid",article.getOwid());
-
             commonDao.updateFile(mapData);
+        }
+        Map param=Maps.newHashMap();
+        param.put("wzRefOwid",article.getOwid());
+        appBizAttService.deleteByMap(param);
+        List<Map> files=commonDao.getSysFiles(param);
+        for(Map mapFile:files){
+            AppBizAtt appBizAtt=new AppBizAtt();
+            appBizAtt.setWzRefOwid(article.getOwid());
+            appBizAtt.setFjmc(mapFile.get("FILE_LABEL").toString());
+            appBizAtt.setFjlj(mapFile.get("FILE_PATH").toString());
+            appBizAttService.saveOrUpdate(appBizAtt);
         }
         return ResponseMessage.sendOK(article);
     }

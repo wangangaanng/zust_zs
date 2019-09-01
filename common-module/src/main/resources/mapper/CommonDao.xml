@@ -192,6 +192,6 @@
     </update>
 
     <select id="getSysFiles" resultType="java.util.Map">
-        SELECT FILE_LABEL ,FILE_PATH FROM  ourway_sys_files WHERE  FILE_CLASS_ID=#{fileExtId}
+        SELECT FILE_LABEL ,FILE_PATH FROM  ourway_sys_files WHERE  FILE_CLASS_ID=#{wzRefOwid}
     </select>
 </mapper>
