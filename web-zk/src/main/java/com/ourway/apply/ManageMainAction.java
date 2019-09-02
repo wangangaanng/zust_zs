@@ -2,9 +2,7 @@ package com.ourway.apply;
 
 import com.ourway.base.zk.ERCode;
 import com.ourway.base.zk.ZKConstants;
-import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseTab;
-import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.EmployVO;
 import com.ourway.base.zk.models.TreeVO;
 import com.ourway.base.zk.utils.AlterDialog;
@@ -13,9 +11,6 @@ import com.ourway.base.zk.utils.ZKSessionUtils;
 import com.ourway.base.zk.utils.data.I18nUtil;
 import com.ourway.base.zk.utils.data.LoginUtil;
 import com.ourway.base.zk.utils.data.MenusDataUtil;
-import com.ourway.base.zk.utils.data.MessUtil;
-import com.ourway.syszk.constants.Constant;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.CreateEvent;
 import org.zkoss.zkmax.zul.Nav;
@@ -23,20 +18,17 @@ import org.zkoss.zkmax.zul.Navbar;
 import org.zkoss.zkmax.zul.Navitem;
 import org.zkoss.zul.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2017/12/24.
  */
 public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
-
+    
     private String currCity = "";//退出的通用页面路径
     @Override
     public void initFirstPage() {
         EmployVO employVO = ZKSessionUtils.getZkUser();
-        currCity = employVO.getRmpOffice();//放入city
         if (null != employVO) {
             if (!TextUtils.isEmpty(employVO.getEmpIndex())) {
                 openFunByPageCa(I18nUtil.getLabelContent(ERCode.INDEX_PAGE), employVO.getEmpIndex());
@@ -44,63 +36,12 @@ public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
             showUserInfor(employVO);
         }
         ZKSessionUtils.setGridDefaultLeft(250);
-        //判断用户密码是否是原始密码，如果是原始密码则添加弹出框强制修改密码
-//        if (!TextUtils.isEmpty(employVO) && !TextUtils.isEmpty(employVO.getEmpPsw())) {
-//            if (employVO.getEmpPsw().equals(TextUtils.MD5("123456").toUpperCase())
-//                    || employVO.getEmpPsw().equals(TextUtils.MD5(employVO.getEmpId()).toUpperCase())) {
-//                BaseMessagebox.show(Constant.CHANGEPASSWORDTIP, ZKConstants.SYSTEM_MESS, 1, "", new ForceToChangePsw());
-//            }
-//        }
-//        if (!TextUtils.isEmpty(employVO)) {
-//            if (TextUtils.isEmpty(employVO.getEmpTel())) {
-//                BaseMessagebox.show(Constant.CHANGETELTIP, ZKConstants.SYSTEM_MESS, 1, "", new ForceToChangeTel());
-//            }
-//        }
-    }
-
-    /**
-    *<p>功能描述：switchAccount 账号切换</p>
-    *<ul>
-    *<li>@param []</li>
-    *<li>@return void</li>
-    *<li>@throws </li>
-    *<li>@author My</li>
-    *<li>@date 2019/5/25 22:29</li>
-    *</ul>
-    */
-    public void switchAccount() {
-        EmployVO employVO = ZKSessionUtils.getZkUser();
-        String link = MessUtil.getLinkByPageCa(Constant.SWITCHACCOUNT);
-        Map<String, Object> params = new HashMap();
-        params.put("pageCa", Constant.SWITCHACCOUNT);
-        params.put("pageType", 1);
-        params.put("windowCss", "width: 600px; height: 300px; margin: 0px;");
-        params.put("gridId", "");
-        params.put("title", "切换账号");
-        Component winEdit1 = Executions.createComponents(link, (Component) null, params);
-        if (winEdit1 instanceof BaseWindow) {
-            BaseWindow _win1 = (BaseWindow) winEdit1;
-            if (!TextUtils.isEmpty(params.get("windowCss"))) {
-                _win1.setStyle(params.get("windowCss").toString());
-            }
-            if (!TextUtils.isEmpty(params.get("gridId"))) {
-                BaseGrid grid = (BaseGrid) getFellowIfAny(params.get("gridId").toString());
-                if (null != grid) {
-                    _win1.setBaseGrid(grid);
-                }
-            }
-            _win1.setTopWindow(this);
-            _win1.setParentPpt(params);
-            _win1.doModal();
-        }
     }
 
 
     @Override
     public void onCreate(CreateEvent event) {
         //根据用户类型判断是否出现账号切换按钮
-        hideOrShowSwitchButton();
-
         initTabPopup();
         resourceTabs = (Tabs) this.getFellowIfAny("resourceTabs");
         resourceTabpanels = (Tabpanels) this
@@ -155,11 +96,8 @@ public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
         if (null == menus || menus.size() <= 0) {
             return;
         }
-        Tabbox menuGroup = (Tabbox) getFellowIfAny("menuGroup");
         Tabs menuGroupTabs = (Tabs) getFellowIfAny("menuGroupTabs");
         Tabpanels menuGroupTabPanels = (Tabpanels) getFellowIfAny("menuGroupTabPanels");
-//        menuGroup.setHeight((ZKSessionUtils.getScreenHeight() - 120) + "px");
-//        menuGroup.setHeight((ZKSessionUtils.getScreenHeight() - 100) + "px");
         menuGroupTabPanels.setWidth("170px");
         for (TreeVO menu : menus) {
             //tab级别的菜单，系统的一级菜单
@@ -267,9 +205,9 @@ public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
         LoginUtil.logOut();
         ZKSessionUtils.clearUser();
         if (ZKConstants.LOGOUT_URL.indexOf("?") >= 0) {
-            Executions.sendRedirect(ZKConstants.LOGOUT_URL + currCity);
+            Executions.sendRedirect(ZKConstants.LOGOUT_URL);
         } else {
-            Executions.sendRedirect(ZKConstants.LOGOUT_URL + currCity + "&" + System.currentTimeMillis());
+            Executions.sendRedirect(ZKConstants.LOGOUT_URL + System.currentTimeMillis());
         }
     }
 }

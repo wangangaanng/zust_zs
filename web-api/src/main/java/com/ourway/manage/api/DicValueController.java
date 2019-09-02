@@ -59,7 +59,7 @@ public class DicValueController {
             mapData.put("dicType",100001);
             List<Map<String, Object>> list=customDicService.getByType(mapData);
             List<Map<String, Object>> mapList=new ArrayList<>();
-            for (Map map:list){
+            for (Map<String,Object> map:list){
                 String label=map.get("dicVal1").toString();
                 String value=map.get("dicVal2").toString();
                 map.clear();

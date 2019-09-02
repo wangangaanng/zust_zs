@@ -46,7 +46,7 @@
     </article>
 
 </div>
-<div style="width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #555555;">鄂尔多斯市转型发展投资有限责任公司版权所有<span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved</div>
+<div style="width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #555555;">浙江科技学院版权所有<span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved</div>
 <!--content-wrap end-->
 <script src="html/js/jquery.min.js"></script>
 <script src="html/js/layer/layer.js"></script>
