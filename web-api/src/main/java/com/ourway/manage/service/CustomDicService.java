@@ -223,7 +223,7 @@ public class CustomDicService {
             link = WebConstants.ARTCILE_DET_LINK.replace("LMBH", oneDic.getDicVal4()).replace("LB2", oneDic.getDicVal1());
             menus.setPageCa(WebConstants.ARTCILE_DET_PAGECA);
             menus.setPageType((byte) 2);
-        }else{   //图片列表
+        }else if (oneDic.getDicVal3().equals("2")){   //图片列表
             menus.setPageId(WebConstants.PAGE_LIST_PIC);
             link = WebConstants.ARTCILE_LIST_LINK.replace("LMBH", oneDic.getDicVal4()).replace("LB2", oneDic.getDicVal1());
             menus.setPageCa(WebConstants.PIC_LIST_PAGECA);
@@ -248,19 +248,7 @@ public class CustomDicService {
         List<OurwaySysDicValue> dicValues = new ArrayList();
         if (null != dataMap.get("dataList")) {
             List<Map<String, Object>> components = (List) dataMap.get("dataList");
-            String dicVal3 = "";
-            for (Map<String, Object> map:components){
-                if(map.get("dicVal3") instanceof List) {
-                    List<Map> mapWeb = (List<Map>) map.get("dicVal3");
-                    for (Map children : mapWeb) {
-                        dicVal3 = dicVal3 + children.get("value").toString() + ",";
-                    }
-                }
-                OurwaySysDicValue value=JsonUtil.map2Bean(map,OurwaySysDicValue.class);
-                value.setDicVal3(dicVal3);
-                dicValues.add(value);
-            }
-//            dicValues = JsonUtil.map2List(components, OurwaySysDicValue.class);
+            dicValues = JsonUtil.map2List(components, OurwaySysDicValue.class);
         }
         for (OurwaySysDicValue oneDic : dicValues) {
             if (oneDic.getUpdateFlag()==1&&isExistDicVal(100000,oneDic)){
