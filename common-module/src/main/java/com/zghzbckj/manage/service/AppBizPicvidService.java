@@ -12,6 +12,8 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
+import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.AppBizPicvidDao;
 import com.zghzbckj.manage.entity.AppBizPicvid;
 import org.apache.log4j.Logger;
@@ -91,10 +93,13 @@ public class AppBizPicvidService extends CrudService<AppBizPicvidDao, AppBizPicv
     @Transactional(readOnly = false)
     public ResponseMessage saveAppBizPicvid(Map<String, Object> mapData) {
         AppBizPicvid appBizPicvid = JsonUtil.map2Bean(mapData, AppBizPicvid.class);
-        if (!TextUtils.isEmpty(mapData.get("owid"))) {
-            AppBizPicvid appBizPicvidIndata = get(mapData.get("owid").toString());
+        if (!TextUtils.isEmpty(appBizPicvid.getOwid())) {
+            AppBizPicvid appBizPicvidIndata = get(appBizPicvid.getOwid());
             BeanUtil.copyPropertiesIgnoreNull(appBizPicvid, appBizPicvidIndata);
             appBizPicvid = appBizPicvidIndata;
+        }else{
+            appBizPicvid.setLmbt(CacheUtil.getVal(CommonModuleContant.LMBH+appBizPicvid.getLmbh()));
+            appBizPicvid.setLmbt2(CacheUtil.getVal(CommonModuleContant.LMBH2+appBizPicvid.getLmbh2()));
         }
         saveOrUpdate(appBizPicvid);
         return ResponseMessage.sendOK(appBizPicvid);
