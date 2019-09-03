@@ -56,22 +56,13 @@ public class LoginAction extends BaseWindow {
                 AlterDialog.alert("用户名或者密码错误，登录不成功");
                 return;
             } else {
-//                System.out.println(_vo.getSessionId());
                 ZKSessionUtils.setZkUser(_vo);
-                String cityId = _vo.getRmpOffice();
                 //调用成功
-                if ("001".equalsIgnoreCase(_vo.getEmpType())) {
-                    Executions.sendRedirect("/applications/qyIndex.do?" + System.currentTimeMillis());
-                } else if ("004".equalsIgnoreCase(_vo.getEmpType())) {
-                    Executions.sendRedirect("/applications/pyIndex.do?" + System.currentTimeMillis());
-                } else {
-                    Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
-                }
+                Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis());
             }
         } else {
             //已经登录过，不需要重复调用接口
-            String cityId = _vo.getRmpOffice();
-                Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
+            Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis());
 
         }
 
@@ -84,8 +75,7 @@ public class LoginAction extends BaseWindow {
             return;
         } else {
             ZKSessionUtils.setZkUser(_vo);
-//            System.out.println(_vo.getSessionId());
-            doHandleSystemName(cityId);
+//            doHandleSystemName(cityId);
             _vo.setRmpOffice(cityId);
             String contextPath = ((HttpServletRequest) Executions.getCurrent().getNativeRequest()).getContextPath();
 //            logger.info("contextPath:"+contextPath);
