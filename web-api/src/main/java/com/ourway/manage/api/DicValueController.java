@@ -45,7 +45,7 @@ public class DicValueController {
             }
             return ResponseMessage.sendOK(customDicService.getByType(mapData));
         } catch (Exception e) {
-            log.info("获取字典数据失败：" + e);
+            log.info("获取一级菜单失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
@@ -86,7 +86,7 @@ public class DicValueController {
             }
             return customDicService.getSeclm(mapData);
         } catch (Exception e) {
-            log.info("获取字典数据失败：" + e);
+            log.info("获取二级栏目：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }

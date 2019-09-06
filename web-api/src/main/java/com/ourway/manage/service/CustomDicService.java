@@ -37,9 +37,20 @@ public class CustomDicService {
     SysPrivsallocateDao sysPrivsallocateDao;
 
     public List<Map<String, Object>> getByType(Map<String, Object> mapData) {
-        String type = mapData.get("dicType").toString();
-        List<Map<String, Object>> values = sysDicDao.listAllDataByType(Integer.valueOf(type), " b.dicVal4 ");
-        return values;
+        String hql = " from OurwaySysDic a,OurwaySysDicValue b where a.owid=b.dicRefOwid and a.type=:dicType and ( b.dicVal3=:webType or b.dicVal3=2) and b.dicVal4=1 order by a.dicVal5 " ;
+        List<Object[]> objs = sysDicDao.listObjsAllByHql(hql, mapData);
+        List<Map<String, Object>> datas = new ArrayList(objs.size());
+        Iterator var7 = objs.iterator();
+        while (var7.hasNext()) {
+            Object[] objects = (Object[]) var7.next();
+//            OurwaySysDic dic = (OurwaySysDic) objects[0];
+            OurwaySysDicValue val = (OurwaySysDicValue) objects[1];
+            Map<String, Object> dataMap = new HashMap();
+            BeanUtil.obj2Map(val, dataMap);
+//            BeanUtil.obj2Map(dic, dataMap);
+            datas.add(dataMap);
+        }
+        return datas;
     }
 
 
@@ -268,11 +279,11 @@ public class CustomDicService {
         Iterator var7 = objs.iterator();
         while (var7.hasNext()) {
             Object[] objects = (Object[]) var7.next();
-            OurwaySysDic dic = (OurwaySysDic) objects[0];
+//            OurwaySysDic dic = (OurwaySysDic) objects[0];
             OurwaySysDicValue val = (OurwaySysDicValue) objects[1];
             Map<String, Object> dataMap = new HashMap();
             BeanUtil.obj2Map(val, dataMap);
-            BeanUtil.obj2Map(dic, dataMap);
+//            BeanUtil.obj2Map(dic, dataMap);
             datas.add(dataMap);
         }
         return ResponseMessage.sendOK(datas);
@@ -284,7 +295,7 @@ public class CustomDicService {
      * @return
      */
     public ResponseMessage getSeclm(Map<String, Object> mapData) {
-        String hql = " from OurwaySysDic a,OurwaySysDicValue b where a.owid=b.dicRefOwid and a.type=100010 and b.dicVal4=:dicVal4 and b.dicVal6=0 order by a.createtime " ;
+        String hql = " from OurwaySysDic a,OurwaySysDicValue b where a.owid=b.dicRefOwid and a.type=100010 and b.dicVal4=:dicVal4 and b.dicVal5=1 order by a.dicVal6 " ;
         List<Object[]> objs = sysDicDao.listObjsAllByHql(hql, mapData);
         List<Map<String, Object>> datas = new ArrayList(objs.size());
         Iterator var7 = objs.iterator();
