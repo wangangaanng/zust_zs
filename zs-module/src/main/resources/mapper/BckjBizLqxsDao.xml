@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizLqxsDao">
+    
+	<sql id="bckjBizLqxsColumns">
+		a.owid AS "owid",
+		a.xybh AS "xybh",
+		a.nf AS "nf",
+		a.lqlx AS "lqlx",
+		a.sfzh AS "sfzh",
+		a.ksh AS "ksh",
+		a.xm AS "xm",
+		a.xbdm AS "xbdm",
+		a.lqzy AS "lqzy",
+		a.lqzyok AS "lqzyok",
+		a.ntzzy AS "ntzzy",
+		a.lxdh AS "lxdh",
+		a.csny AS "csny",
+		a.zzmmdm AS "zzmmdm",
+		a.mzdm AS "mzdm",
+		a.kslbdm AS "kslbdm",
+		a.bylbdm AS "bylbdm",
+		a.zxdm AS "zxdm",
+		a.zxmc AS "zxmc",
+		a.dqdm AS "dqdm",
+		a.jtdz AS "jtdz",
+		a.yzbm AS "yzbm",
+		a.kstc AS "kstc",
+		a.ksjlhcf AS "ksjlhcf",
+		a.sjr AS "sjr",
+		a.tdcj AS "tdcj",
+		a.tdzy AS "tdzy",
+		a.yw AS "yw",
+		a.sx AS "sx",
+		a.wy AS "wy",
+		a.zhw AS "zhw",
+		a.zhl AS "zhl",
+		a.mk AS "mk",
+		a.mscj AS "mscj",
+		a.mszhcj AS "mszhcj",
+		a.xy AS "xy",
+		a.xz AS "xz",
+		a.lp AS "lp",
+		a.pc AS "pc",
+		a.sf AS "sf",
+		a.memo AS "memo",
+		a.jcsj AS "jcsj",
+		a.ems AS "ems",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.updatetime AS "updatetime",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName"
+	</sql>
+	
+	<sql id="bckjBizLqxsJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizLqxs">
+		SELECT 
+			<include refid="bckjBizLqxsColumns"/>
+		FROM bckj_biz_lqxs a
+		<include refid="bckjBizLqxsJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizLqxs">
+		SELECT 
+			<include refid="bckjBizLqxsColumns"/>
+		FROM bckj_biz_lqxs a
+		<include refid="bckjBizLqxsJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizLqxs">
+	        SELECT
+			<include refid="bckjBizLqxsColumns"/>
+		FROM bckj_biz_lqxs a
+		<include refid="bckjBizLqxsJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizLqxs">
+		SELECT 
+			<include refid="bckjBizLqxsColumns"/>
+		FROM bckj_biz_lqxs a
+		<include refid="bckjBizLqxsJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_lqxs(
+			owid,
+			xybh,
+			nf,
+			lqlx,
+			sfzh,
+			ksh,
+			xm,
+			xbdm,
+			lqzy,
+			lqzyok,
+			ntzzy,
+			lxdh,
+			csny,
+			zzmmdm,
+			mzdm,
+			kslbdm,
+			bylbdm,
+			zxdm,
+			zxmc,
+			dqdm,
+			jtdz,
+			yzbm,
+			kstc,
+			ksjlhcf,
+			sjr,
+			tdcj,
+			tdzy,
+			yw,
+			sx,
+			wy,
+			zhw,
+			zhl,
+			mk,
+			mscj,
+			mszhcj,
+			xy,
+			xz,
+			lp,
+			pc,
+			sf,
+			memo,
+			jcsj,
+			ems,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10,
+			createtime,
+			creator,
+			creator_name,
+			updatetime,
+			updator,
+			updator_name
+		) VALUES (
+			#{owid},
+			#{xybh},
+			#{nf},
+			#{lqlx},
+			#{sfzh},
+			#{ksh},
+			#{xm},
+			#{xbdm},
+			#{lqzy},
+			#{lqzyok},
+			#{ntzzy},
+			#{lxdh},
+			#{csny},
+			#{zzmmdm},
+			#{mzdm},
+			#{kslbdm},
+			#{bylbdm},
+			#{zxdm},
+			#{zxmc},
+			#{dqdm},
+			#{jtdz},
+			#{yzbm},
+			#{kstc},
+			#{ksjlhcf},
+			#{sjr},
+			#{tdcj},
+			#{tdzy},
+			#{yw},
+			#{sx},
+			#{wy},
+			#{zhw},
+			#{zhl},
+			#{mk},
+			#{mscj},
+			#{mszhcj},
+			#{xy},
+			#{xz},
+			#{lp},
+			#{pc},
+			#{sf},
+			#{memo},
+			#{jcsj},
+			#{ems},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{updatetime},
+			#{updator},
+			#{updatorName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_lqxs SET 	
+			owid = #{owid},
+			xybh = #{xybh},
+			nf = #{nf},
+			lqlx = #{lqlx},
+			sfzh = #{sfzh},
+			ksh = #{ksh},
+			xm = #{xm},
+			xbdm = #{xbdm},
+			lqzy = #{lqzy},
+			lqzyok = #{lqzyok},
+			ntzzy = #{ntzzy},
+			lxdh = #{lxdh},
+			csny = #{csny},
+			zzmmdm = #{zzmmdm},
+			mzdm = #{mzdm},
+			kslbdm = #{kslbdm},
+			bylbdm = #{bylbdm},
+			zxdm = #{zxdm},
+			zxmc = #{zxmc},
+			dqdm = #{dqdm},
+			jtdz = #{jtdz},
+			yzbm = #{yzbm},
+			kstc = #{kstc},
+			ksjlhcf = #{ksjlhcf},
+			sjr = #{sjr},
+			tdcj = #{tdcj},
+			tdzy = #{tdzy},
+			yw = #{yw},
+			sx = #{sx},
+			wy = #{wy},
+			zhw = #{zhw},
+			zhl = #{zhl},
+			mk = #{mk},
+			mscj = #{mscj},
+			mszhcj = #{mszhcj},
+			xy = #{xy},
+			xz = #{xz},
+			lp = #{lp},
+			pc = #{pc},
+			sf = #{sf},
+			memo = #{memo},
+			jcsj = #{jcsj},
+			ems = #{ems},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			updatetime = #{updatetime},
+			updator = #{updator},
+			updator_name = #{updatorName}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_lqxs
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>

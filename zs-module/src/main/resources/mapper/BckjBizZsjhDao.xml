@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizZsjhDao">
+    
+	<sql id="bckjBizZsjhColumns">
+		a.owid AS "owid",
+		a.xybh AS "xybh",
+		a.nf AS "nf",
+		a.sf AS "sf",
+		a.kl AS "kl",
+		a.pc AS "pc",
+		a.zy AS "zy",
+		a.xz AS "xz",
+		a.zss AS "zss",
+		a.xf AS "xf",
+		a.syxw AS "syxw",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.updatetime AS "updatetime",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName"
+	</sql>
+	
+	<sql id="bckjBizZsjhJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizZsjh">
+		SELECT 
+			<include refid="bckjBizZsjhColumns"/>
+		FROM bckj_biz_zsjh a
+		<include refid="bckjBizZsjhJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizZsjh">
+		SELECT 
+			<include refid="bckjBizZsjhColumns"/>
+		FROM bckj_biz_zsjh a
+		<include refid="bckjBizZsjhJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizZsjh">
+	        SELECT
+			<include refid="bckjBizZsjhColumns"/>
+		FROM bckj_biz_zsjh a
+		<include refid="bckjBizZsjhJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizZsjh">
+		SELECT 
+			<include refid="bckjBizZsjhColumns"/>
+		FROM bckj_biz_zsjh a
+		<include refid="bckjBizZsjhJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_zsjh(
+			owid,
+			xybh,
+			nf,
+			sf,
+			kl,
+			pc,
+			zy,
+			xz,
+			zss,
+			xf,
+			syxw,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10,
+			createtime,
+			creator,
+			creator_name,
+			updatetime,
+			updator,
+			updator_name
+		) VALUES (
+			#{owid},
+			#{xybh},
+			#{nf},
+			#{sf},
+			#{kl},
+			#{pc},
+			#{zy},
+			#{xz},
+			#{zss},
+			#{xf},
+			#{syxw},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{updatetime},
+			#{updator},
+			#{updatorName}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_zsjh SET 	
+			owid = #{owid},
+			xybh = #{xybh},
+			nf = #{nf},
+			sf = #{sf},
+			kl = #{kl},
+			pc = #{pc},
+			zy = #{zy},
+			xz = #{xz},
+			zss = #{zss},
+			xf = #{xf},
+			syxw = #{syxw},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			updatetime = #{updatetime},
+			updator = #{updator},
+			updator_name = #{updatorName}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_zsjh
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>
