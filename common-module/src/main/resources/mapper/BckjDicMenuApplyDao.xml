@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjDicMenuApplyDao">
+    
+	<sql id="bckjDicMenuApplyColumns">
+		a.menu_ref_owid AS "menuRefOwid",
+		a.owid AS "owid",
+		a.wzbh AS "wzbh",
+		a.px AS "px",
+		a.type AS "type",
+		a.name AS "name",
+		a.memo AS "memo",
+		a.ggt AS "ggt",
+		a.jsy AS "jsy",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+	
+	<sql id="bckjDicMenuApplyJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjDicMenuApply">
+		SELECT 
+			<include refid="bckjDicMenuApplyColumns"/>
+		FROM bckj_dic_menu_apply a
+		<include refid="bckjDicMenuApplyJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjDicMenuApply">
+		SELECT 
+			<include refid="bckjDicMenuApplyColumns"/>
+		FROM bckj_dic_menu_apply a
+		<include refid="bckjDicMenuApplyJoins"/>
+		<where>
+			
+			<if test="name != null and name != ''">
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjDicMenuApply">
+	        SELECT
+			<include refid="bckjDicMenuApplyColumns"/>
+		FROM bckj_dic_menu_apply a
+		<include refid="bckjDicMenuApplyJoins"/>
+		<where>
+			
+			<if test="name != null and name != ''">
+				AND a.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjDicMenuApply">
+		SELECT 
+			<include refid="bckjDicMenuApplyColumns"/>
+		FROM bckj_dic_menu_apply a
+		<include refid="bckjDicMenuApplyJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_dic_menu_apply(
+			menu_ref_owid,
+			owid,
+			wzbh,
+			px,
+			type,
+			name,
+			memo,
+			ggt,
+			jsy,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+		) VALUES (
+			#{menuRefOwid},
+			#{owid},
+			#{wzbh},
+			#{px},
+			#{type},
+			#{name},
+			#{memo},
+			#{ggt},
+			#{jsy},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_dic_menu_apply SET 	
+			menu_ref_owid = #{menuRefOwid},
+			owid = #{owid},
+			wzbh = #{wzbh},
+			px = #{px},
+			type = #{type},
+			name = #{name},
+			memo = #{memo},
+			ggt = #{ggt},
+			jsy = #{jsy},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_dic_menu_apply
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>

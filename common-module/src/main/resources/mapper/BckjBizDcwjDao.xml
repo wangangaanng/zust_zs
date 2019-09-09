@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizDcwjDao">
+    
+	<sql id="bckjBizDcwjColumns">
+		a.owid AS "owid",
+		a.wzbh AS "wzbh",
+		a.wjlx AS "wjlx",
+		a.wjmc AS "wjmc",
+		a.wjjjtp AS "wjjjtp",
+		a.wjjj AS "wjjj",
+		a.wjsm AS "wjsm",
+		a.kssj AS "kssj",
+		a.jssj AS "jssj",
+		a.dcrs AS "dcrs",
+		a.sfdl AS "sfdl",
+		a.mxdx AS "mxdx",
+		a.wjnd AS "wjnd",
+		a.sfyx AS "sfyx",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10",
+		a.creator AS "creator",
+		a.createtime AS "createtime",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state"
+	</sql>
+	
+	<sql id="bckjBizDcwjJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwj">
+		SELECT 
+			<include refid="bckjBizDcwjColumns"/>
+		FROM bckj_biz_dcwj a
+		<include refid="bckjBizDcwjJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizDcwj">
+		SELECT 
+			<include refid="bckjBizDcwjColumns"/>
+		FROM bckj_biz_dcwj a
+		<include refid="bckjBizDcwjJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizDcwj">
+	        SELECT
+			<include refid="bckjBizDcwjColumns"/>
+		FROM bckj_biz_dcwj a
+		<include refid="bckjBizDcwjJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizDcwj">
+		SELECT 
+			<include refid="bckjBizDcwjColumns"/>
+		FROM bckj_biz_dcwj a
+		<include refid="bckjBizDcwjJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_dcwj(
+			owid,
+			wzbh,
+			wjlx,
+			wjmc,
+			wjjjtp,
+			wjjj,
+			wjsm,
+			kssj,
+			jssj,
+			dcrs,
+			sfdl,
+			mxdx,
+			wjnd,
+			sfyx,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10,
+			creator,
+			createtime,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state
+		) VALUES (
+			#{owid},
+			#{wzbh},
+			#{wjlx},
+			#{wjmc},
+			#{wjjjtp},
+			#{wjjj},
+			#{wjsm},
+			#{kssj},
+			#{jssj},
+			#{dcrs},
+			#{sfdl},
+			#{mxdx},
+			#{wjnd},
+			#{sfyx},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10},
+			#{creator},
+			#{createtime},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_dcwj SET 	
+			owid = #{owid},
+			wzbh = #{wzbh},
+			wjlx = #{wjlx},
+			wjmc = #{wjmc},
+			wjjjtp = #{wjjjtp},
+			wjjj = #{wjjj},
+			wjsm = #{wjsm},
+			kssj = #{kssj},
+			jssj = #{jssj},
+			dcrs = #{dcrs},
+			sfdl = #{sfdl},
+			mxdx = #{mxdx},
+			wjnd = #{wjnd},
+			sfyx = #{sfyx},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10},
+			creator = #{creator},
+			createtime = #{createtime},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_dcwj
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>

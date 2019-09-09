@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizXyzyDao">
+    
+	<sql id="bckjBizXyzyColumns">
+		a.owid AS "owid",
+		a.parent_id AS "parent.id",
+		a.path AS "path",
+		a.bh AS "bh",
+		a.mz AS "mz",
+		a.jj AS "jj",
+		a.tp AS "tp",
+		a.article_url AS "articleUrl",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+	
+	<sql id="bckjBizXyzyJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+		SELECT 
+			<include refid="bckjBizXyzyColumns"/>
+		FROM bckj_biz_xyzy a
+		<include refid="bckjBizXyzyJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+		SELECT 
+			<include refid="bckjBizXyzyColumns"/>
+		FROM bckj_biz_xyzy a
+		<include refid="bckjBizXyzyJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+	        SELECT
+			<include refid="bckjBizXyzyColumns"/>
+		FROM bckj_biz_xyzy a
+		<include refid="bckjBizXyzyJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+		SELECT 
+			<include refid="bckjBizXyzyColumns"/>
+		FROM bckj_biz_xyzy a
+		<include refid="bckjBizXyzyJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_xyzy(
+			owid,
+			parent_id,
+			path,
+			bh,
+			mz,
+			jj,
+			tp,
+			article_url,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+		) VALUES (
+			#{owid},
+			#{parent.id},
+			#{path},
+			#{bh},
+			#{mz},
+			#{jj},
+			#{tp},
+			#{articleUrl},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_xyzy SET 	
+			owid = #{owid},
+			parent_id = #{parent.id},
+			path = #{path},
+			bh = #{bh},
+			mz = #{mz},
+			jj = #{jj},
+			tp = #{tp},
+			article_url = #{articleUrl},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_xyzy
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>
