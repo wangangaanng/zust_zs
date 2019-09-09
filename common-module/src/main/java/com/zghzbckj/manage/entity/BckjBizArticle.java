@@ -3,11 +3,11 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * ccEntity
@@ -38,10 +38,6 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	
 	public BckjBizArticle() {
 		super();
-	}
-
-	public BckjBizArticle(String id){
-		super(id);
 	}
 
 	
