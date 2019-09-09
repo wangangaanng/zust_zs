@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizJobDao">
+    
+	<sql id="bckjBizJobColumns">
+		a.owid AS "owid",
+		a.qyxx_ref_owid AS "qyxxRefOwid",
+		a.zwbt AS "zwbt",
+		a.zwgjz AS "zwgjz",
+		a.zwlx AS "zwlx",
+		a.lmlj AS "lmlj",
+		a.lmbh AS "lmbh",
+		a.zw_pro AS "zwPro",
+		a.zw_city AS "zwCity",
+		a.zw_area AS "zwArea",
+		a.zw_gzzn AS "zwGzzn",
+		a.zw_gzxz AS "zwGzxz",
+		a.zw_xs AS "zwXs",
+		a.zw_lxyx AS "zwLxyx",
+		a.zw_zprs AS "zwZprs",
+		a.zw_nlyq AS "zwNlyq",
+		a.zw_xlyq AS "zwXlyq",
+		a.zw_yyyq AS "zwYyyq",
+		a.zw_gznx AS "zwGznx",
+		a.zw_gwzz AS "zwGwzz",
+		a.zw_gzs AS "zwGzs",
+		a.zw_yds AS "zwYds",
+		a.zw_sxsj AS "zwSxsj",
+		a.zw_mxxy AS "zwMxxy",
+		a.zw_mxzy AS "zwMxzy",
+		a.zph_jbf AS "zphJbf",
+		a.zph_cbf AS "zphCbf",
+		a.zph_jbdd AS "zphJbdd",
+		a.zph_ksrq AS "zphKsrq",
+		a.zph_jtsj AS "zphJtsj",
+		a.zph_sfbm AS "zphSfbm",
+		a.zph_bmjzsj AS "zphBmjzsj",
+		a.zph_sfqd AS "zphSfqd",
+		a.zph_gpsjd AS "zphGpsjd",
+		a.zph_gpswd AS "zphGpswd",
+		a.zph_gpsbj AS "zphGpsbj",
+		a.memo AS "memo",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.xgfj AS "xgfj",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+	
+	<sql id="bckjBizJobJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+		SELECT 
+			<include refid="bckjBizJobColumns"/>
+		FROM bckj_biz_job a
+		<include refid="bckjBizJobJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+		SELECT 
+			<include refid="bckjBizJobColumns"/>
+		FROM bckj_biz_job a
+		<include refid="bckjBizJobJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+	        SELECT
+			<include refid="bckjBizJobColumns"/>
+		FROM bckj_biz_job a
+		<include refid="bckjBizJobJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+		SELECT 
+			<include refid="bckjBizJobColumns"/>
+		FROM bckj_biz_job a
+		<include refid="bckjBizJobJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_job(
+			owid,
+			qyxx_ref_owid,
+			zwbt,
+			zwgjz,
+			zwlx,
+			lmlj,
+			lmbh,
+			zw_pro,
+			zw_city,
+			zw_area,
+			zw_gzzn,
+			zw_gzxz,
+			zw_xs,
+			zw_lxyx,
+			zw_zprs,
+			zw_nlyq,
+			zw_xlyq,
+			zw_yyyq,
+			zw_gznx,
+			zw_gwzz,
+			zw_gzs,
+			zw_yds,
+			zw_sxsj,
+			zw_mxxy,
+			zw_mxzy,
+			zph_jbf,
+			zph_cbf,
+			zph_jbdd,
+			zph_ksrq,
+			zph_jtsj,
+			zph_sfbm,
+			zph_bmjzsj,
+			zph_sfqd,
+			zph_gpsjd,
+			zph_gpswd,
+			zph_gpsbj,
+			memo,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state,
+			xgfj,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+		) VALUES (
+			#{owid},
+			#{qyxxRefOwid},
+			#{zwbt},
+			#{zwgjz},
+			#{zwlx},
+			#{lmlj},
+			#{lmbh},
+			#{zwPro},
+			#{zwCity},
+			#{zwArea},
+			#{zwGzzn},
+			#{zwGzxz},
+			#{zwXs},
+			#{zwLxyx},
+			#{zwZprs},
+			#{zwNlyq},
+			#{zwXlyq},
+			#{zwYyyq},
+			#{zwGznx},
+			#{zwGwzz},
+			#{zwGzs},
+			#{zwYds},
+			#{zwSxsj},
+			#{zwMxxy},
+			#{zwMxzy},
+			#{zphJbf},
+			#{zphCbf},
+			#{zphJbdd},
+			#{zphKsrq},
+			#{zphJtsj},
+			#{zphSfbm},
+			#{zphBmjzsj},
+			#{zphSfqd},
+			#{zphGpsjd},
+			#{zphGpswd},
+			#{zphGpsbj},
+			#{memo},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state},
+			#{xgfj},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_job SET 	
+			owid = #{owid},
+			qyxx_ref_owid = #{qyxxRefOwid},
+			zwbt = #{zwbt},
+			zwgjz = #{zwgjz},
+			zwlx = #{zwlx},
+			lmlj = #{lmlj},
+			lmbh = #{lmbh},
+			zw_pro = #{zwPro},
+			zw_city = #{zwCity},
+			zw_area = #{zwArea},
+			zw_gzzn = #{zwGzzn},
+			zw_gzxz = #{zwGzxz},
+			zw_xs = #{zwXs},
+			zw_lxyx = #{zwLxyx},
+			zw_zprs = #{zwZprs},
+			zw_nlyq = #{zwNlyq},
+			zw_xlyq = #{zwXlyq},
+			zw_yyyq = #{zwYyyq},
+			zw_gznx = #{zwGznx},
+			zw_gwzz = #{zwGwzz},
+			zw_gzs = #{zwGzs},
+			zw_yds = #{zwYds},
+			zw_sxsj = #{zwSxsj},
+			zw_mxxy = #{zwMxxy},
+			zw_mxzy = #{zwMxzy},
+			zph_jbf = #{zphJbf},
+			zph_cbf = #{zphCbf},
+			zph_jbdd = #{zphJbdd},
+			zph_ksrq = #{zphKsrq},
+			zph_jtsj = #{zphJtsj},
+			zph_sfbm = #{zphSfbm},
+			zph_bmjzsj = #{zphBmjzsj},
+			zph_sfqd = #{zphSfqd},
+			zph_gpsjd = #{zphGpsjd},
+			zph_gpswd = #{zphGpswd},
+			zph_gpsbj = #{zphGpsbj},
+			memo = #{memo},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state},
+			xgfj = #{xgfj},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_job
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>

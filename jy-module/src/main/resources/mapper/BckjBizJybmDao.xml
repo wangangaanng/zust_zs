@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizJybmDao">
+    
+	<sql id="bckjBizJybmColumns">
+		a.owid AS "owid",
+		a.qyxx_ref_owid AS "qyxxRefOwid",
+		a.job_ref_owid AS "jobRefOwid",
+		a.yh_ref_owid AS "yhRefOwid",
+		a.bmlx AS "bmlx",
+		a.bmdx AS "bmdx",
+		a.bmsj AS "bmsj",
+		a.zwbh AS "zwbh",
+		a.lxdh AS "lxdh",
+		a.lxr AS "lxr",
+		a.qymc AS "qymc",
+		a.qysh AS "qysh",
+		a.xjhsqly AS "xjhsqly",
+		a.sfxz AS "sfxz",
+		a.xjsj AS "xjsj",
+		a.sftz AS "sftz",
+		a.tzsj AS "tzsj",
+		a.jkr AS "jkr",
+		a.jkrjs AS "jkrjs",
+		a.memo AS "memo",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.xgfj AS "xgfj",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+	
+	<sql id="bckjBizJybmJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+		SELECT 
+			<include refid="bckjBizJybmColumns"/>
+		FROM bckj_biz_jybm a
+		<include refid="bckjBizJybmJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+		SELECT 
+			<include refid="bckjBizJybmColumns"/>
+		FROM bckj_biz_jybm a
+		<include refid="bckjBizJybmJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+	        SELECT
+			<include refid="bckjBizJybmColumns"/>
+		FROM bckj_biz_jybm a
+		<include refid="bckjBizJybmJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+		SELECT 
+			<include refid="bckjBizJybmColumns"/>
+		FROM bckj_biz_jybm a
+		<include refid="bckjBizJybmJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_jybm(
+			owid,
+			qyxx_ref_owid,
+			job_ref_owid,
+			yh_ref_owid,
+			bmlx,
+			bmdx,
+			bmsj,
+			zwbh,
+			lxdh,
+			lxr,
+			qymc,
+			qysh,
+			xjhsqly,
+			sfxz,
+			xjsj,
+			sftz,
+			tzsj,
+			jkr,
+			jkrjs,
+			memo,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state,
+			xgfj,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+		) VALUES (
+			#{owid},
+			#{qyxxRefOwid},
+			#{jobRefOwid},
+			#{yhRefOwid},
+			#{bmlx},
+			#{bmdx},
+			#{bmsj},
+			#{zwbh},
+			#{lxdh},
+			#{lxr},
+			#{qymc},
+			#{qysh},
+			#{xjhsqly},
+			#{sfxz},
+			#{xjsj},
+			#{sftz},
+			#{tzsj},
+			#{jkr},
+			#{jkrjs},
+			#{memo},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state},
+			#{xgfj},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_jybm SET 	
+			owid = #{owid},
+			qyxx_ref_owid = #{qyxxRefOwid},
+			job_ref_owid = #{jobRefOwid},
+			yh_ref_owid = #{yhRefOwid},
+			bmlx = #{bmlx},
+			bmdx = #{bmdx},
+			bmsj = #{bmsj},
+			zwbh = #{zwbh},
+			lxdh = #{lxdh},
+			lxr = #{lxr},
+			qymc = #{qymc},
+			qysh = #{qysh},
+			xjhsqly = #{xjhsqly},
+			sfxz = #{sfxz},
+			xjsj = #{xjsj},
+			sftz = #{sftz},
+			tzsj = #{tzsj},
+			jkr = #{jkr},
+			jkrjs = #{jkrjs},
+			memo = #{memo},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state},
+			xgfj = #{xgfj},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_jybm
+		WHERE owid = #{owid}
+	</delete>
+	
+</mapper>
