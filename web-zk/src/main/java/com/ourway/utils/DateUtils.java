@@ -5,7 +5,8 @@ import java.util.Date;
 
 public class DateUtils {
 
-    public static String getYeanAndMonth() {
+    public static String getYeanAndMonth()
+    {
         Calendar now = Calendar.getInstance();
         String year = String.valueOf(now.get(Calendar.YEAR));//当前年
         Integer month = now.get(Calendar.MONTH) + 1;
@@ -15,7 +16,6 @@ public class DateUtils {
         }
         return year + "年" + monthStr + "月";
     }
-
     public static Integer getYean(Date date) {
         Calendar now = Calendar.getInstance();
         now.setTime(date);

@@ -17,7 +17,6 @@ import com.zghzbckj.base.entity.DataWithExpEntity;
 public class BckjBizPicvid extends DataWithExpEntity<BckjBizPicvid> {
 	
 	private static final long serialVersionUID = 1L;
-	private String owid;		// owid
 	private Integer lx;		// 0：图片 1视频
 	private Integer zszd;		// zszd
 	private String lmbh;		// lmbh
