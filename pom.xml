@@ -11,6 +11,7 @@
         <module>web-api</module>
         <module>web-zk</module>
         <module>zust-utils</module>
+        <module>jy-view</module>
     </modules>
    
     <build>
