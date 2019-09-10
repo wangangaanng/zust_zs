@@ -224,5 +224,13 @@
 		DELETE FROM bckj_biz_dacx
 		WHERE owid = #{owid}
 	</delete>
+
+
+	<select id="inquiryArchives" resultType="BckjBizDacx" parameterType="Map">
+		SELECT
+		<include refid="bckjBizDacxColumns"></include>
+		FROM `bckj_biz_dacx` a
+		WHERE a.XSXM=#{xsxm} AND a.SFZH=#{sfzh};
+	</select>
 	
 </mapper>

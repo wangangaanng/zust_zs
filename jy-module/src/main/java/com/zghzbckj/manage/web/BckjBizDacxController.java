@@ -3,6 +3,9 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.zghzbckj.common.CommonConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
@@ -14,12 +17,13 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.CommonConstants;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.zghzbckj.manage.entity.BckjBizDacx;
 import com.zghzbckj.manage.service.BckjBizDacxService;
-import org.apache.log4j.Logger;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -30,6 +34,10 @@ import org.apache.log4j.Logger;
 @Controller
 @RequestMapping(value = "bckjBizDacx")
 public class BckjBizDacxController extends BaseController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(BckjBizDacxController.class);
+
+
 	@Autowired
 	private BckjBizDacxService bckjBizDacxService;
 
@@ -98,6 +106,38 @@ public class BckjBizDacxController extends BaseController {
             }
             }
 
+
+    /**
+     * <p>功能描述:根据学生名字和身份证查询档案信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/10 </li>
+     * </ul>
+     */
+    @RequestMapping(value = "inquiryArchives", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage inquiryArchives(@RequestBody PublicDataVO dataVO) {
+        try {
+            Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "xsxm", "sfzh");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            //正则判断身份证号格式
+            String regex = "\\d{15}(\\d{2}[0-9xX])?";
+            if (datamap.get("sfzh").toString().matches(regex)) {
+                return bckjBizDacxService.inquiryArchives(datamap);
+            } else {
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+        } catch (Exception e) {
+            LOGGER.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 
 }

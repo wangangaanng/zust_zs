@@ -26,6 +26,10 @@ public class CommonConstant {
     public static final String MERCHASNT_MES = "获取商户信息失败！";
     public static final String SESSION_ID = "sessionId";
     public static final String SQL_MAP ="sqlMap";
+    public static  final String Fail_InquiryArchives="档案信息获取失败";
+    public static  final  String ErrorForIdentityCard="身份证号码格式错误";
+    public static  final String GetMessageFail="获取信息失败";
+
 
 
 

@@ -3,10 +3,12 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.ourway.base.utils.BeanUtil;
+
 import com.zghzbckj.common.CommonConstant;
 import org.springframework.stereotype.Service;
 import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.PublicDataVO;
+
 import com.zghzbckj.base.model.ResponseMessage;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -15,7 +17,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -118,5 +119,12 @@ public class BckjBizDacxService extends CrudService<BckjBizDacxDao, BckjBizDacx>
             }
             return ResponseMessage.sendOK(objs);
             }
-	
+
+    public ResponseMessage inquiryArchives(Map<String, Object> datamap) {
+        BckjBizDacx bckjBizDacx = this.dao.inquiryArchives(datamap);
+        if(bckjBizDacx==null){
+            return  ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.Fail_InquiryArchives);
+        }
+        return  ResponseMessage.sendOK(this.dao.inquiryArchives(datamap));
+    }
 }
