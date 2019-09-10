@@ -26,9 +26,6 @@ public class BckjDicKeys extends DataWithExpEntity<BckjDicKeys> {
 		super();
 	}
 
-	public BckjDicKeys(String id){
-		super(id);
-	}
 
 	
 	@Length(min=0, max=100, message="key_word长度必须介于 0 和 100 之间")

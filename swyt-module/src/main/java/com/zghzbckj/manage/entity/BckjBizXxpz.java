@@ -36,9 +36,6 @@ public class BckjBizXxpz extends DataWithExpEntity<BckjBizXxpz> {
 		super();
 	}
 
-	public BckjBizXxpz(String id){
-		super(id);
-	}
 	
 	@Length(min=0, max=20, message="xxbh长度必须介于 0 和 20 之间")
 	public String getXxbh() {

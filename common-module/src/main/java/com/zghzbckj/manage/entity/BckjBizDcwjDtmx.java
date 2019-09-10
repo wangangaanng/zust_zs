@@ -4,6 +4,8 @@
 package com.zghzbckj.manage.entity;
 
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -21,7 +23,7 @@ public class BckjBizDcwjDtmx extends DataWithExpEntity<BckjBizDcwjDtmx> {
 	private String dcwjjgRefOwid;		// dcwjjg_ref_owid
 	private String dcwjtmRefOwid;		// dcwjtm_ref_owid
 	private String wjda;		// wjda
-	private Custom tmdf;		// tmdf
+	private BigDecimal tmdf;		// tmdf
 	private String memo;		// memo
 
 	
@@ -29,9 +31,7 @@ public class BckjBizDcwjDtmx extends DataWithExpEntity<BckjBizDcwjDtmx> {
 		super();
 	}
 
-	public BckjBizDcwjDtmx(String id){
-		super(id);
-	}
+
 
 	
 	@Length(min=0, max=64, message="dcwjjg_ref_owid长度必须介于 0 和 64 之间")
@@ -61,11 +61,11 @@ public class BckjBizDcwjDtmx extends DataWithExpEntity<BckjBizDcwjDtmx> {
 		this.wjda = wjda;
 	}
 	
-	public Custom getTmdf() {
+	public BigDecimal getTmdf() {
 		return tmdf;
 	}
 
-	public void setTmdf(Custom tmdf) {
+	public void setTmdf(BigDecimal tmdf) {
 		this.tmdf = tmdf;
 	}
 	

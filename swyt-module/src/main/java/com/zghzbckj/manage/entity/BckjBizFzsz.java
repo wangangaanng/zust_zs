@@ -33,9 +33,6 @@ public class BckjBizFzsz extends DataWithExpEntity<BckjBizFzsz> {
 		super();
 	}
 
-	public BckjBizFzsz(String id){
-		super(id);
-	}
 	
 	@Length(min=0, max=100, message="zh长度必须介于 0 和 100 之间")
 	public String getZh() {

@@ -37,10 +37,6 @@ public class BckjBizDcwj extends DataWithExpEntity<BckjBizDcwj> {
 		super();
 	}
 
-	public BckjBizDcwj(String id){
-		super(id);
-	}
-
 	
 	@Length(min=0, max=20, message="wzbh长度必须介于 0 和 20 之间")
 	public String getWzbh() {

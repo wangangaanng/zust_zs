@@ -30,9 +30,6 @@ public class BckjBizYhgl extends DataWithExpEntity<BckjBizYhgl> {
 		super();
 	}
 
-	public BckjBizYhgl(String id){
-		super(id);
-	}
 
 
 	

@@ -37,9 +37,6 @@ public class BckjDicMenu extends DataWithExpEntity<BckjDicMenu> {
 		super();
 	}
 
-	public BckjDicMenu(String id){
-		super(id);
-	}
 
 	
 	public Integer getFid() {

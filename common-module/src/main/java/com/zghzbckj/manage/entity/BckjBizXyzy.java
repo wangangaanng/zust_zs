@@ -32,9 +32,6 @@ public class BckjBizXyzy extends DataWithExpEntity<BckjBizXyzy> {
 		super();
 	}
 
-	public BckjBizXyzy(String id){
-		super(id);
-	}
 
 
 	

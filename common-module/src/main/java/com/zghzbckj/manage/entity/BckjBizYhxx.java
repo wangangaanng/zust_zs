@@ -41,9 +41,6 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 		super();
 	}
 
-	public BckjBizYhxx(String id){
-		super(id);
-	}
 	
 	@Length(min=0, max=20, message="sjh长度必须介于 0 和 20 之间")
 	public String getSjh() {

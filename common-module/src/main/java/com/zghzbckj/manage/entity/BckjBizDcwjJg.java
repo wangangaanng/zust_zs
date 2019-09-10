@@ -4,6 +4,8 @@
 package com.zghzbckj.manage.entity;
 
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,16 +24,13 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	private Date ksdt;		// ksdt
 	private Date jsdt;		// jsdt
 	private Integer dtsc;		// dtsc
-	private Custom zdf;		// zdf
+	private BigDecimal zdf;		// zdf
 
 	
 	public BckjBizDcwjJg() {
 		super();
 	}
 
-	public BckjBizDcwjJg(String id){
-		super(id);
-	}
 
 	
 	@Length(min=0, max=64, message="dtrid长度必须介于 0 和 64 之间")
@@ -78,11 +77,11 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 		this.dtsc = dtsc;
 	}
 	
-	public Custom getZdf() {
+	public BigDecimal getZdf() {
 		return zdf;
 	}
 
-	public void setZdf(Custom zdf) {
+	public void setZdf(BigDecimal zdf) {
 		this.zdf = zdf;
 	}
 

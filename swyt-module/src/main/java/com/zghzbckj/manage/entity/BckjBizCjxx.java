@@ -4,6 +4,8 @@
 package com.zghzbckj.manage.entity;
 
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,7 +24,7 @@ public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 	private String kmbh;		// kmbh
 	private String kmsj;		// kmsj
 	private String kmdj;		// kmdj
-	private Custom kmcj;		// kmcj
+	private BigDecimal kmcj;		// kmcj
 	private Integer xssx;		// xssx
 
 	
@@ -30,9 +32,7 @@ public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 		super();
 	}
 
-	public BckjBizCjxx(String id){
-		super(id);
-	}
+
 
 	
 	@Length(min=0, max=64, message="yh_ref_owid长度必须介于 0 和 64 之间")
@@ -71,14 +71,14 @@ public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 		this.kmdj = kmdj;
 	}
 	
-	public Custom getKmcj() {
+	public BigDecimal getKmcj() {
 		return kmcj;
 	}
 
-	public void setKmcj(Custom kmcj) {
+	public void setKmcj(BigDecimal kmcj) {
 		this.kmcj = kmcj;
 	}
-	
+
 	public Integer getXssx() {
 		return xssx;
 	}
