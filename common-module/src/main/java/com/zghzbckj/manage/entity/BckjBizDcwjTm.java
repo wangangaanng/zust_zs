@@ -4,6 +4,8 @@
 package com.zghzbckj.manage.entity;
 
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,9 +24,9 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 	private String tmmc;		// tmmc
 	private Integer tmlx;		// tmlx
 	private String tmckda;		// tmckda
-	private Custom tmfz;		// tmfz
+	private BigDecimal tmfz;		// tmfz
 	private String tmsm;		// tmsm
-	private Custom tmsx;		// tmsx
+	private BigDecimal tmsx;		// tmsx
 	private String tmxxa;		// tmxxa
 	private String tmxxb;		// tmxxb
 	private String tmxxc;		// tmxxc
@@ -54,10 +56,6 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 	
 	public BckjBizDcwjTm() {
 		super();
-	}
-
-	public BckjBizDcwjTm(String id){
-		super(id);
 	}
 
 	
@@ -96,11 +94,11 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 		this.tmckda = tmckda;
 	}
 	
-	public Custom getTmfz() {
+	public BigDecimal getTmfz() {
 		return tmfz;
 	}
 
-	public void setTmfz(Custom tmfz) {
+	public void setTmfz(BigDecimal tmfz) {
 		this.tmfz = tmfz;
 	}
 	
@@ -113,11 +111,11 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 		this.tmsm = tmsm;
 	}
 	
-	public Custom getTmsx() {
+	public BigDecimal getTmsx() {
 		return tmsx;
 	}
 
-	public void setTmsx(Custom tmsx) {
+	public void setTmsx(BigDecimal tmsx) {
 		this.tmsx = tmsx;
 	}
 	

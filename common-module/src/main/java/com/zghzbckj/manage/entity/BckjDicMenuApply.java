@@ -31,9 +31,6 @@ public class BckjDicMenuApply extends DataWithExpEntity<BckjDicMenuApply> {
 		super();
 	}
 
-	public BckjDicMenuApply(String id){
-		super(id);
-	}
 
 	public Integer getMenuRefOwid() {
 		return menuRefOwid;

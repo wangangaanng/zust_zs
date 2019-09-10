@@ -45,9 +45,7 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 		super();
 	}
 
-	public BckjBizJbxx(String id){
-		super(id);
-	}
+
 	
 	@Length(min=0, max=64, message="yh_ref_owid长度必须介于 0 和 64 之间")
 	public String getYhRefOwid() {

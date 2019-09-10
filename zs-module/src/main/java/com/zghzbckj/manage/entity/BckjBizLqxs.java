@@ -4,6 +4,8 @@
 package com.zghzbckj.manage.entity;
 
 import org.hibernate.validator.constraints.Length;
+
+import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -17,7 +19,6 @@ import com.zghzbckj.base.entity.DataWithExpEntity;
 public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 	
 	private static final long serialVersionUID = 1L;
-	private String owid;		// owid
 	private String xybh;		// xybh
 	private String nf;		// nf
 	private String lqlx;		// lqlx
@@ -42,16 +43,16 @@ public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 	private String kstc;		// kstc
 	private String ksjlhcf;		// ksjlhcf
 	private String sjr;		// sjr
-	private Custom tdcj;		// tdcj
+	private BigDecimal tdcj;		// tdcj
 	private String tdzy;		// tdzy
-	private Custom yw;		// yw
-	private Custom sx;		// sx
-	private Custom wy;		// wy
-	private Custom zhw;		// zhw
-	private Custom zhl;		// zhl
-	private Custom mk;		// mk
-	private Custom mscj;		// mscj
-	private Custom mszhcj;		// mszhcj
+	private BigDecimal yw;		// yw
+	private BigDecimal sx;		// sx
+	private BigDecimal wy;		// wy
+	private BigDecimal zhw;		// zhw
+	private BigDecimal zhl;		// zhl
+	private BigDecimal mk;		// mk
+	private BigDecimal mscj;		// mscj
+	private BigDecimal mszhcj;		// mszhcj
 	private String xy;		// xy
 	private String xz;		// xz
 	private String lp;		// lp
@@ -60,39 +61,11 @@ public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 	private String memo;		// memo
 	private Date jcsj;		// jcsj
 	private String ems;		// ems
-	private String exp1;		// exp1
-	private String exp2;		// exp2
-	private String exp3;		// exp3
-	private String exp4;		// exp4
-	private String exp5;		// exp5
-	private String exp6;		// exp6
-	private String exp7;		// exp7
-	private String exp8;		// exp8
-	private String exp9;		// exp9
-	private String exp10;		// exp10
-	private Date createtime;		// createtime
-	private String creator;		// creator
-	private String creatorName;		// creator_name
-	private Date updatetime;		// updatetime
-	private String updator;		// updator
-	private String updatorName;		// updator_name
 	
 	public BckjBizLqxs() {
 		super();
 	}
 
-	public BckjBizLqxs(String id){
-		super(id);
-	}
-
-	@Length(min=1, max=64, message="owid长度必须介于 1 和 64 之间")
-	public String getOwid() {
-		return owid;
-	}
-
-	public void setOwid(String owid) {
-		this.owid = owid;
-	}
 	
 	@Length(min=0, max=20, message="xybh长度必须介于 0 和 20 之间")
 	public String getXybh() {
@@ -310,11 +283,11 @@ public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 		this.sjr = sjr;
 	}
 	
-	public Custom getTdcj() {
+	public BigDecimal getTdcj() {
 		return tdcj;
 	}
 
-	public void setTdcj(Custom tdcj) {
+	public void setTdcj(BigDecimal tdcj) {
 		this.tdcj = tdcj;
 	}
 	
@@ -327,67 +300,67 @@ public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 		this.tdzy = tdzy;
 	}
 	
-	public Custom getYw() {
+	public BigDecimal getYw() {
 		return yw;
 	}
 
-	public void setYw(Custom yw) {
+	public void setYw(BigDecimal yw) {
 		this.yw = yw;
 	}
 	
-	public Custom getSx() {
+	public BigDecimal getSx() {
 		return sx;
 	}
 
-	public void setSx(Custom sx) {
+	public void setSx(BigDecimal sx) {
 		this.sx = sx;
 	}
 	
-	public Custom getWy() {
+	public BigDecimal getWy() {
 		return wy;
 	}
 
-	public void setWy(Custom wy) {
+	public void setWy(BigDecimal wy) {
 		this.wy = wy;
 	}
 	
-	public Custom getZhw() {
+	public BigDecimal getZhw() {
 		return zhw;
 	}
 
-	public void setZhw(Custom zhw) {
+	public void setZhw(BigDecimal zhw) {
 		this.zhw = zhw;
 	}
 	
-	public Custom getZhl() {
+	public BigDecimal getZhl() {
 		return zhl;
 	}
 
-	public void setZhl(Custom zhl) {
+	public void setZhl(BigDecimal zhl) {
 		this.zhl = zhl;
 	}
 	
-	public Custom getMk() {
+	public BigDecimal getMk() {
 		return mk;
 	}
 
-	public void setMk(Custom mk) {
+	public void setMk(BigDecimal mk) {
 		this.mk = mk;
 	}
 	
-	public Custom getMscj() {
+	public BigDecimal getMscj() {
 		return mscj;
 	}
 
-	public void setMscj(Custom mscj) {
+	public void setMscj(BigDecimal mscj) {
 		this.mscj = mscj;
 	}
 	
-	public Custom getMszhcj() {
+	public BigDecimal getMszhcj() {
 		return mszhcj;
 	}
 
-	public void setMszhcj(Custom mszhcj) {
+	public void setMszhcj(BigDecimal mszhcj) {
 		this.mszhcj = mszhcj;
 	}
 	
@@ -462,149 +435,6 @@ public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 	public void setEms(String ems) {
 		this.ems = ems;
 	}
-	
-	@Length(min=0, max=160, message="exp1长度必须介于 0 和 160 之间")
-	public String getExp1() {
-		return exp1;
-	}
 
-	public void setExp1(String exp1) {
-		this.exp1 = exp1;
-	}
-	
-	@Length(min=0, max=200, message="exp2长度必须介于 0 和 200 之间")
-	public String getExp2() {
-		return exp2;
-	}
-
-	public void setExp2(String exp2) {
-		this.exp2 = exp2;
-	}
-	
-	@Length(min=0, max=200, message="exp3长度必须介于 0 和 200 之间")
-	public String getExp3() {
-		return exp3;
-	}
-
-	public void setExp3(String exp3) {
-		this.exp3 = exp3;
-	}
-	
-	@Length(min=0, max=200, message="exp4长度必须介于 0 和 200 之间")
-	public String getExp4() {
-		return exp4;
-	}
-
-	public void setExp4(String exp4) {
-		this.exp4 = exp4;
-	}
-	
-	@Length(min=0, max=200, message="exp5长度必须介于 0 和 200 之间")
-	public String getExp5() {
-		return exp5;
-	}
-
-	public void setExp5(String exp5) {
-		this.exp5 = exp5;
-	}
-	
-	@Length(min=0, max=200, message="exp6长度必须介于 0 和 200 之间")
-	public String getExp6() {
-		return exp6;
-	}
-
-	public void setExp6(String exp6) {
-		this.exp6 = exp6;
-	}
-	
-	@Length(min=0, max=200, message="exp7长度必须介于 0 和 200 之间")
-	public String getExp7() {
-		return exp7;
-	}
-
-	public void setExp7(String exp7) {
-		this.exp7 = exp7;
-	}
-	
-	@Length(min=0, max=200, message="exp8长度必须介于 0 和 200 之间")
-	public String getExp8() {
-		return exp8;
-	}
-
-	public void setExp8(String exp8) {
-		this.exp8 = exp8;
-	}
-	
-	@Length(min=0, max=200, message="exp9长度必须介于 0 和 200 之间")
-	public String getExp9() {
-		return exp9;
-	}
-
-	public void setExp9(String exp9) {
-		this.exp9 = exp9;
-	}
-	
-	@Length(min=0, max=200, message="exp10长度必须介于 0 和 200 之间")
-	public String getExp10() {
-		return exp10;
-	}
-
-	public void setExp10(String exp10) {
-		this.exp10 = exp10;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getCreatetime() {
-		return createtime;
-	}
-
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-	
-	@Length(min=0, max=36, message="creator长度必须介于 0 和 36 之间")
-	public String getCreator() {
-		return creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
-	
-	@Length(min=0, max=100, message="creator_name长度必须介于 0 和 100 之间")
-	public String getCreatorName() {
-		return creatorName;
-	}
-
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getUpdatetime() {
-		return updatetime;
-	}
-
-	public void setUpdatetime(Date updatetime) {
-		this.updatetime = updatetime;
-	}
-	
-	@Length(min=0, max=36, message="updator长度必须介于 0 和 36 之间")
-	public String getUpdator() {
-		return updator;
-	}
-
-	public void setUpdator(String updator) {
-		this.updator = updator;
-	}
-	
-	@Length(min=0, max=100, message="updator_name长度必须介于 0 和 100 之间")
-	public String getUpdatorName() {
-		return updatorName;
-	}
-
-	public void setUpdatorName(String updatorName) {
-		this.updatorName = updatorName;
-	}
 	
 }
