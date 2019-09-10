@@ -3,25 +3,21 @@
  */
 package com.zghzbckj.manage.entity;
 
-import javax.validation.constraints.NotNull;
+import com.zghzbckj.base.entity.DataWithIntegerExpEntity;
 import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.zghzbckj.base.entity.DataWithExpEntity;
 
 /**
  * ccEntity
  * @author cc
  * @version 2019-09-09
  */
-public class BckjDicMenu extends DataWithExpEntity<BckjDicMenu> {
+public class BckjDicMenu extends DataWithIntegerExpEntity<BckjDicMenu> {
 	
 	private static final long serialVersionUID = 1L;
 	private Integer fid;		// fid
 	private String path;		// path
 	private Integer cc;		// cc
-	private String px;		// px
+	private Double px;		// px
 	private Integer type;		// type
 	private String code;		// code
 	private String name;		// name
@@ -64,11 +60,11 @@ public class BckjDicMenu extends DataWithExpEntity<BckjDicMenu> {
 		this.cc = cc;
 	}
 	
-	public String getPx() {
+	public Double getPx() {
 		return px;
 	}
 
-	public void setPx(String px) {
+	public void setPx(Double px) {
 		this.px = px;
 	}
 	
