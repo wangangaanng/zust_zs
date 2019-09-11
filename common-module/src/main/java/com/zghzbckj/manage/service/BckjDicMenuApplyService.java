@@ -134,7 +134,13 @@ public class BckjDicMenuApplyService extends CrudService<BckjDicMenuApplyDao, Bc
                     continue;
                 } else {
                     BckjDicMenuApply menuApply = JsonUtil.map2Bean(map, BckjDicMenuApply.class);
-                    menuApply.setMenuRefOwid(owid);
+                    if(!TextUtils.isEmpty(menuApply.getOwid())){
+                        BckjDicMenuApply   menuApplyIndata=this.get(menuApply.getOwid());
+                        BeanUtil.copyPropertiesIgnoreNull(menuApply,menuApplyIndata);
+                        menuApply=menuApplyIndata;
+                    }else {
+                        menuApply.setMenuRefOwid(owid);
+                    }
                     this.saveOrUpdate(menuApply);
                 }
             }

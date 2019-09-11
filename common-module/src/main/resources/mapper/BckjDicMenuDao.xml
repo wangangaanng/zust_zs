@@ -52,8 +52,15 @@
 		<include refid="bckjDicMenuJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjDicMenu">
+    <select id="getByCode" resultType="com.zghzbckj.manage.entity.BckjDicMenu">
+        SELECT
+        <include refid="bckjDicMenuColumns"/>
+        FROM bckj_dic_menu a
+        <include refid="bckjDicMenuJoins"/>
+        WHERE a.code = #{code}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjDicMenu">
 		SELECT 
 			<include refid="bckjDicMenuColumns"/>
 		FROM bckj_dic_menu a
@@ -249,4 +256,8 @@
 		WHERE owid = #{owid}
 	</delete>
 
+	<select id="getYjlm" resultType="Map">
+		SELECT a.OWID,a.CODE,a.BXLX,a.SJHQDX,a.TZLJ,b.NAME,b.GGT,b.JSY,b.PX FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
+		a.OWID=b.MENU_REF_OWID AND b.TYPE=#{type} and b.WZBH=#{wzbh} and a.FID=#{fid} ORDER BY b.PX
+	</select>
 </mapper>
