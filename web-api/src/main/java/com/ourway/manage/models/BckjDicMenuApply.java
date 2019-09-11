@@ -1,9 +1,8 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.zghzbckj.manage.entity;
+package com.ourway.manage.models;
 
-import com.zghzbckj.base.entity.DataWithLongExpEntity;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -11,7 +10,7 @@ import org.hibernate.validator.constraints.Length;
  * @author cc
  * @version 2019-09-09
  */
-public class BckjDicMenuApply extends DataWithLongExpEntity<BckjDicMenuApply> {
+public class BckjDicMenuApply  {
 	
 	private static final long serialVersionUID = 1L;
 	private Integer menuRefOwid;		// menu_ref_owid

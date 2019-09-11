@@ -1,9 +1,8 @@
 /**
  * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
  */
-package com.zghzbckj.manage.entity;
+package com.ourway.manage.models;
 
-import com.zghzbckj.base.entity.DataWithLongExpEntity;
 import org.hibernate.validator.constraints.Length;
 
 /**
@@ -11,13 +10,13 @@ import org.hibernate.validator.constraints.Length;
  * @author cc
  * @version 2019-09-09
  */
-public class BckjDicMenu extends DataWithLongExpEntity<BckjDicMenu> {
+public class BckjDicMenu  {
 	
 	private static final long serialVersionUID = 1L;
 	private Integer fid;		// fid
 	private String path;		// path
 	private Integer cc;		// cc
-	private Double px;		// px
+	private String px;		// px
 	private Integer type;		// type
 	private String code;		// code
 	private String name;		// name
@@ -60,11 +59,11 @@ public class BckjDicMenu extends DataWithLongExpEntity<BckjDicMenu> {
 		this.cc = cc;
 	}
 	
-	public Double getPx() {
+	public String getPx() {
 		return px;
 	}
 
-	public void setPx(Double px) {
+	public void setPx(String px) {
 		this.px = px;
 	}
 	

@@ -60,6 +60,9 @@
 					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
 			</if>
+			<if test="menuRefOwid != null and menuRefOwid != ''">
+				AND a.menu_ref_owid =#{menuRefOwid}
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -109,9 +112,12 @@
 	</select>
 	
 	<insert id="insert">
+		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO bckj_dic_menu_apply(
-			menu_ref_owid,
 			owid,
+			menu_ref_owid,
 			wzbh,
 			px,
 			type,
@@ -142,8 +148,8 @@
 			exp9,
 			exp10
 		) VALUES (
+			null,
 			#{menuRefOwid},
-			#{owid},
 			#{wzbh},
 			#{px},
 			#{type},
@@ -216,5 +222,9 @@
 		DELETE FROM bckj_dic_menu_apply
 		WHERE owid = #{owid}
 	</delete>
-	
+	<delete id="deleteByMap">
+		DELETE FROM bckj_dic_menu_apply
+		WHERE owid = #{owid}
+	</delete>
+
 </mapper>
