@@ -100,7 +100,16 @@ public class BckjDicMenuController extends BaseController {
     public ResponseMessage saveTree(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "code", "name");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
             //判断id是否为
+            boolean flag = bckjDicMenuService.isSingle(mapData);
+            if (!flag) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "已存在相同的编码");
+            }
             return ResponseMessage.sendOK(bckjDicMenuService.saveTree(mapData));
         } catch (Exception e) {
             log.error(e + "保存BckjDicMenu信息失败\r\n" + e.getStackTrace()[0], e);
@@ -168,5 +177,21 @@ public class BckjDicMenuController extends BaseController {
     }
 
 
+    @RequestMapping(value = "getLmMenu", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getLmMenu(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "wzbh", "fid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjDicMenuService.getLmMenu(mapData));
+        } catch (Exception e) {
+            log.info("获取一级栏目失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 
 }

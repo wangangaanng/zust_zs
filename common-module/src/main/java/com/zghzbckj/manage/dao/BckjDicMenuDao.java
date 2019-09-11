@@ -7,6 +7,9 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjDicMenu;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +17,8 @@ import com.zghzbckj.manage.entity.BckjDicMenu;
  */
 @MyBatisDao
 public interface BckjDicMenuDao extends CrudDao<BckjDicMenu> {
-	
+
+    BckjDicMenu getByCode(String code);
+
+    List<Map> getYjlm(Map<String, Object> mapData);
 }
