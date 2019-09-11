@@ -35,25 +35,46 @@ header .nav {
     height: 53px;
 }
 
-header .nav ul {
+header .nav>ul {
     height: 53px;
     list-style: none;
     margin-bottom: 0;
+    padding-left: 40px;
+}
+header ul {
+    list-style: none;
+}
+header .nav>ul>li {float: left;font-size: 18px;line-height: 18px;padding: 17px 35px;color: #fff;cursor: pointer;position: relative;}
+header .nav>ul>li:hover {
+    /* background: #fff; */
+    color: #f5b900;
 }
 
-header .nav ul li {
-    float: left;
-    font-size: 18px;
-    line-height: 18px;
-    padding: 17px 35px;
-    color: #fff;
-    cursor: pointer;
+/*二级导航*/
+header .nav>ul>li:hover .subnav{display: block;}
+header .subnav{
+    display: none;
+    z-index: 999;
+    width: 130px;
+    position: absolute;
+    color: white;
+    top: 50px;
+    left: 0px;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
 }
-
-header .nav ul li:hover {
-    background: #fff;
-    opacity: 0.6;
-    color: #008784;
+header .subnav li{
+    height: 50px;
+    color: white;
+    background-color: rgb(0,135,131);
+}
+header .subnav li a{
+    display: block;
+    font-size: 16px;
+    color: white;
+    line-height: 50px;
+    text-align: center;
 }
 
 .bottom {
