@@ -107,6 +107,7 @@ public class BckjDicMenuController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
     @RequestMapping(value = "getOne", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getOne(PublicDataVO dataVO) {
@@ -165,5 +166,7 @@ public class BckjDicMenuController extends BaseController {
         }
 
     }
+
+
 
 }

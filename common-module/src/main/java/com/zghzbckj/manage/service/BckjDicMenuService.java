@@ -116,7 +116,7 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         for (String owid : codes) {
             Map<String, Object> params = new HashMap<String, Object>(1);
             BckjDicMenu bckjDicMenu = new BckjDicMenu();
-            bckjDicMenu.setOwid(Integer.valueOf(owid));
+            bckjDicMenu.setOwid(Long.valueOf(owid));
             this.dao.delete(bckjDicMenu);
             params.put("owid", owid);
             objs.add(params);
@@ -131,7 +131,7 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         if(menus.size()>0){
             for(BckjDicMenu oneMenu:menus){
                 BaseTree bt = new BaseTree();
-                bt.setOwid(oneMenu.getOwid());
+                bt.setOwid(oneMenu.getOwid().intValue());
                 bt.setFid(oneMenu.getFid());
                 bt.setName(oneMenu.getName());
                 bt.setPath(oneMenu.getPath());
@@ -154,7 +154,7 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
 
     @Transactional(readOnly = false)
     public BaseTree saveTree(Map<String, Object> mapData) {
-        BckjDicMenu menu = BeanUtil.map2Obj(mapData, BckjDicMenu.class);
+        BckjDicMenu menu = JsonUtil.map2Bean(mapData, BckjDicMenu.class);
         if(TextUtils.isEmpty(menu.getOwid())) {
             this.save(menu);
             if(!TextUtils.isEmpty(menu.getPath()) && menu.getPath().endsWith("//")){
@@ -166,8 +166,8 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         }
         this.saveOrUpdate(menu);
         BaseTree tree = new BaseTree();
-        tree.setOwid(menu.getOwid());
-        tree.setId(menu.getOwid());
+        tree.setOwid(menu.getOwid().intValue());
+        tree.setId(menu.getOwid().intValue());
         tree.setFid(menu.getFid());
         tree.setName(menu.getName());
         tree.setPath(menu.getPath());

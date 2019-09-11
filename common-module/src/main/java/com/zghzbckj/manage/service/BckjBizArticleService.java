@@ -3,25 +3,24 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.zghzbckj.common.CommonConstant;
-import org.springframework.stereotype.Service;
-import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.PublicDataVO;
-import com.zghzbckj.base.model.ResponseMessage;
+import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.dao.BckjBizArticleDao;
+import com.zghzbckj.manage.entity.BckjBizArticle;
+import org.apache.log4j.Logger;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import net.sf.json.JSONArray;
-import org.apache.log4j.Logger;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.entity.BckjBizArticle;
-import com.zghzbckj.manage.dao.BckjBizArticleDao;
 
 /**
  * ccService
