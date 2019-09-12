@@ -104,7 +104,7 @@ public class BckjBizYhkzController extends BaseController {
 
 
     /**
-     * <p>功能描述:根据owid查询用户信息</p >
+     * <p>功能描述:根据yhRefOwid查询用户信息</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
