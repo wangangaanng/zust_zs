@@ -123,6 +123,6 @@
   </error-page>
 
   <welcome-file-list>
-    <welcome-file>/indexPage.htm</welcome-file>
+    <welcome-file>/index.htm</welcome-file>
   </welcome-file-list>
 </web-app>
