@@ -17,8 +17,9 @@
     社会招聘会、企业招聘会——recruitment.html类
     职位招聘会——recruitment.html类
     招考公告——announcement.html
-    
-    
+    职位详情——positionDetail.html
+    职来职往、社会招聘会、企业招聘会详情——positionDetail.html类
+    招考公告详情——newsDetail.html类
     
 
                           
