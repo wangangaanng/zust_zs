@@ -4,10 +4,11 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <title>就业网</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/swiper.min.css" />
-    <link rel="stylesheet" href="css/jui.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <#include "com/config.ftl">
+    <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="${base}/css/swiper.min.css" />
+    <link rel="stylesheet" href="${base}/css/jui.css" />
+    <link rel="stylesheet" href="${base}/css/style.css" />
 </head>
 <body>
 <!-- S frame-content -->
@@ -194,9 +195,9 @@
     <!-- E b -->
     <div>
         <ul class="adv">
-            <li><img src="img/pic1.png" /></li>
-            <li><img src="img/pic2.png" /></li>
-            <li><img src="img/pic3.png" /></li>
+            <li><img src="${base}/img/pic1.png" /></li>
+            <li><img src="${base}/img/pic2.png" /></li>
+            <li><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
     <!-- S c -->
@@ -250,7 +251,7 @@
                 <div class="menue-parent">
                     <div class="menue-item">
                         <div>
-                            <img src="img/menu1.png" />
+                            <img src="${base}/img/menu1.png" />
                             <div>
                                 <strong>全国大学生</strong><br><span>一站式服务系统</span>
                             </div>
@@ -258,7 +259,7 @@
                     </div>
                     <div class="menue-item">
                         <div>
-                            <img src="img/menu2.png" />
+                            <img src="${base}/img/menu2.png" />
                             <div>
                                 <br><strong>职业规划测评</strong>
                             </div>
@@ -268,7 +269,7 @@
                 <div class="menue-parent">
                     <div class="menue-item">
                         <div>
-                            <img src="img/menu3.png" />
+                            <img src="${base}/img/menu3.png" />
                             <div>
                                 <br><strong>职业咨询预约</strong>
                             </div>
@@ -276,7 +277,7 @@
                     </div>
                     <div class="menue-item">
                         <div>
-                            <img src="img/menu4.png" />
+                            <img src="${base}/img/menu4.png" />
                             <div>
                                 <br><strong>就业调查</strong>
                             </div>
@@ -289,22 +290,22 @@
     <!-- E c -->
     <div>
         <ul class="link">
-            <li><img src="img/link1.png" /></li>
-            <li><img src="img/link2.png" /></li>
-            <li><img src="img/link3.png" /></li>
-            <li><img src="img/link4.png" /></li>
-            <li><img src="img/link5.png" /></li>
+            <li><img src="${base}/img/link1.png" /></li>
+            <li><img src="${base}/img/link2.png" /></li>
+            <li><img src="${base}/img/link3.png" /></li>
+            <li><img src="${base}/img/link4.png" /></li>
+            <li><img src="${base}/img/link5.png" /></li>
         </ul>
     </div>
 </div>
 <!-- E frame-content -->
 <#include "com/footer.ftl">
-<script src="js/jquery-2.1.4.min.js"></script>
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/common.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/jui.min.js"></script>
-<script src="js/jquery.jdate.js"></script>
+<script src="${base}/js/jquery-2.1.4.min.js"></script>
+<script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${base}/js/common.js"></script>
+<script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/jui.min.js"></script>
+<script src="${base}/js/jquery.jdate.js"></script>
 <script>
     var swiper = new Swiper('.news-swiper', {
         pagination: {
