@@ -3,28 +3,24 @@
  */
 package com.zghzbckj.manage.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.CommonConstants;
+import com.zghzbckj.manage.service.BckjBizJypmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.zghzbckj.manage.entity.BckjBizJypm;
-import com.zghzbckj.manage.service.BckjBizJypmService;
-import org.apache.log4j.Logger;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -38,6 +34,35 @@ public class BckjBizJypmController extends BaseController {
 	@Autowired
 	private BckjBizJypmService bckjBizJypmService;
 
+	/**
+     *<p>功能描述:就业排行榜显示 jypmList</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/9/10 14:13</li>
+     *</ul>
+     */
+    @PostMapping(value = "jypmList")
+    @ResponseBody
+    public ResponseMessage jypmList(PublicDataVO dataVO) {
+        try {
+            Map<String, List<Map<String, Object>>> jypmMap = bckjBizJypmService.listAll();
+            List<Map<String, Object>> result = new ArrayList<>(jypmMap.size());
+            Set<String> set = jypmMap.keySet();
+            for (String key: set) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("szxy", key);
+                map.put("pmzyList", jypmMap.get(key));
+                result.add(map);
+            }
+            return ResponseMessage.sendOK(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");
+        }
+    }
 
 	@RequestMapping(value = "/getList")
     @ResponseBody

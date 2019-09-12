@@ -4,6 +4,9 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
+import com.zghzbckj.common.CommonConstant;
+import org.springframework.stereotype.Service;
+import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
@@ -21,6 +24,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.entity.BckjDicMenuApply;
+import com.zghzbckj.manage.dao.BckjDicMenuApplyDao;
 
 /**
  * ccService
@@ -134,7 +144,13 @@ public class BckjDicMenuApplyService extends CrudService<BckjDicMenuApplyDao, Bc
                     continue;
                 } else {
                     BckjDicMenuApply menuApply = JsonUtil.map2Bean(map, BckjDicMenuApply.class);
-                    menuApply.setMenuRefOwid(owid);
+                    if(!TextUtils.isEmpty(menuApply.getOwid())){
+                        BckjDicMenuApply   menuApplyIndata=this.get(menuApply.getOwid());
+                        BeanUtil.copyPropertiesIgnoreNull(menuApply,menuApplyIndata);
+                        menuApply=menuApplyIndata;
+                    }else {
+                        menuApply.setMenuRefOwid(owid);
+                    }
                     this.saveOrUpdate(menuApply);
                 }
             }

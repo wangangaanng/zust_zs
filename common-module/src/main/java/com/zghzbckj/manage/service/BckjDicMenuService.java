@@ -177,4 +177,23 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
          tree.setCc(menu.getCc());
         return tree;
     }
+
+    public boolean isSingle(Map<String, Object> mapData) {
+        Object owid=mapData.get("owid");
+        BckjDicMenu menu=this.dao.getByCode(mapData.get("code").toString());
+        if(null!=menu){
+            if(owid!=null&& menu.getOwid().toString().equals(owid.toString())) {
+                return true;
+            }else{
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public List<Map> getLmMenu(Map<String, Object> mapData) {
+        mapData.put("type",0);
+        List<Map> yjMenu=this.dao.getYjlm(mapData);
+        return yjMenu;
+    }
 }

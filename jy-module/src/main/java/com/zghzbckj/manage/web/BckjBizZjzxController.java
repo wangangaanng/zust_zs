@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.zghzbckj.common.CommonConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
@@ -102,6 +103,119 @@ public class BckjBizZjzxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
             }
             }
+        /**
+         * <p>功能描述:咨询导师列表展示</p >
+         * <ul>
+         * <li>@param </li>
+         * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+         * <li>@throws </li>
+         * <li>@author wangangaanng</li>
+         * <li>@date 2019/9/11</li>
+         * </ul>
+         */
+            @RequestMapping(value = "supervisorList",method=RequestMethod.POST)
+            @ResponseBody
+            public ResponseMessage supervisorList(PublicDataVO dataVO){
+                try {
+                    Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                    ValidateMsg msg= ValidateUtils.isEmpty(dataMap,"pageSize","pageNo");
+                    if(!msg.getSuccess()){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+                    }
+                    return bckjBizZjzxService.supervisorList(dataMap);
+                }
+                catch (Exception e){
+                    log.error(CommonConstant.ERROR_MESSAGE,e);
+                    return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+                }
+            }
+
+    /**
+     * <p>功能描述:显示老师详情</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11</li>
+     * </ul>
+     */
+    @PostMapping("details")
+    @ResponseBody
+    public ResponseMessage details(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizZjzxService.get(dataMap.get("owid").toString()));
+        }
+        catch (Exception e ){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+    /**
+     * <p>功能描述:查看历史咨询信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11</li>
+     * </ul>
+     */
+    @PostMapping(value = "historyConsult")
+    @ResponseBody
+    public ResponseMessage historyConsult(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize","zxlx","owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return  bckjBizZjzxService.historyConsult(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    /**
+     * <p>功能描述:删除某条历史咨询信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11</li>
+     * </ul>
+     */
+    @PostMapping(value = "removeHistoryConsult")
+    @ResponseBody
+
+    public ResponseMessage removeHistoryConsult(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if (!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizZjzxService.removeHistoryConsult(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
+
+
 
 
 

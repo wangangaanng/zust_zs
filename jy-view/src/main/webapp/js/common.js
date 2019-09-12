@@ -8,7 +8,7 @@ $(document).ready(function () {
 })
 var data={nav:[
     {url:'',title:'首页'},
-    {url:'',title:'学员概况'},
+    {url:'',title:'学院概况'},
     {url:'',title:'新闻公告'},
     {url:'',title:'招聘信息'},
     {url:'',title:'职业指导'},
