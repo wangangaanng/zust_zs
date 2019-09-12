@@ -10,24 +10,7 @@
     <link rel="import" href="footer.html" id="footer"/>
 </head>
 <style>
-    .menu-nav {
-        width: 225px;
-        border: 1px solid #008784;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
-        float: left;
-        margin-right: 20px;
-    }
-    
-    .content {
-        overflow: hidden;
-    }
-    .content-list {
-        width: calc(100% - 255px);
-        float: left;
-        height: 707px;
-        border: solid 1px #e0e0e0;
-    }
+    .content-list{height: auto !important;}
 </style>
 
 <body>
@@ -122,21 +105,21 @@
                                     <dt>薪资<i class="arrowdown"></i></dt>
                                     <dd>
                                         <ul>
-                                            <li><label><input type="radio" />面议</label></li>
-                                            <li><label><input type="radio" />1500以下</label></li>
+                                            <li><label class="radio"><input type="radio" /><span>面议</span></label></li>
+                                            <li><label class="radio"><input type="radio" /><span>1500以下</span></label></li>
                                         </ul>
                                         <p>更多</p>
                                     </dd>
                                     <dt>学历要求<i class="arrowdown"></i></dt>
                                     <dd>
                                         <ul>
-                                            <li><label><input type="radio" />不限</label></li>
+                                            <li><label class="radio"><input type="radio" /><span>不限</span></label></li>
                                         </ul>
                                     </dd>
                                     <dt>发布时间<i class="arrowdown"></i></dt>
                                     <dd>
                                         <ul>
-                                            <li><label><input type="radio" />不限</label></li>
+                                            <li><label class="radio"><input type="radio" /><span>不限</span></label></li>
                                         </ul>
                                     </dd>
                                 </dl>
