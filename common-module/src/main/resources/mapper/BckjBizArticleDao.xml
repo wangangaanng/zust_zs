@@ -79,7 +79,34 @@
 		FROM bckj_biz_article a
 		<include refid="bckjBizArticleJoins"/>
 		<where>
-			
+            <if test="wzbt != null and wzbt != ''">
+                AND a.wzbt LIKE concat('%',#{wzbt},'%')
+            </if>
+            <if test="fbsj1 != null and fbsj1 != ''">
+                AND a.fbsj &gt; #{fbsj1}
+            </if>
+            <if test="fbsj2 != null and fbsj2 != ''">
+                AND a.fbsj &lt; #{fbsj2}
+            </if>
+            <if test="sxsj1 != null and sxsj1 != ''">
+                AND a.sxsj &gt; #{sxsj1}
+            </if>
+            <if test="sxsj2 != null and sxsj2 != ''">
+                AND a.sxsj &lt; #{sxsj2}
+            </if>
+            <if test="lmbh != null and lmbh != ''">
+                AND a.lmbh = #{lmbh}
+            </if>
+
+            <if test="wzly != null and wzly != ''">
+                AND a.wzly = LIKE concat('%',#{wzly},'%')
+            </if>
+            <if test="fbr != null and fbr != ''">
+                AND a.fbr = #{fbr}
+            </if>
+            <if test="wzzt != null and wzzt != ''">
+                AND a.wzzt = #{wzzt}
+            </if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -89,6 +116,25 @@
 			</otherwise>
 		</choose>
 	</select>
+
+    <select id="findMapByShort" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
+        SELECT
+        a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj"
+        FROM bckj_biz_article a
+        <where>
+            a.sxsj &gt; SYSDATE()
+            <if test="lmbh != null and lmbh != ''">
+                AND a.lmbh = #{lmbh}
+            </if>
+            <if test="wzzt != null and wzzt != ''">
+                AND a.wzzt = #{wzzt}
+            </if>
+            <if test="wzbt != null and wzbt != ''">
+				AND a.wzbt LIKE concat('%',#{wzbt},'%')
+            </if>
+        </where>
+        ORDER BY ${orderBy}
+    </select>
 	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
 		SELECT 
 			<include refid="bckjBizArticleColumns"/>

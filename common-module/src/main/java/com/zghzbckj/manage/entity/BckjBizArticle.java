@@ -8,6 +8,8 @@ import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ccEntity
@@ -34,7 +36,7 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	private Integer sxh;		// sxh
 	private String gjz;		// gjz
 	private String memo;		// memo
-
+    private List<Map> fileList;
 	
 	public BckjBizArticle() {
 		super();
@@ -189,5 +191,12 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 		this.memo = memo;
 	}
 
-	
+
+    public List<Map> getFileList() {
+        return fileList;
+    }
+
+    public void setFileList(List<Map> fileList) {
+        this.fileList = fileList;
+    }
 }

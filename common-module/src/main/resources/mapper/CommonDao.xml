@@ -194,4 +194,8 @@
     <select id="getSysFiles" resultType="java.util.Map">
         SELECT FILE_LABEL ,FILE_PATH FROM  ourway_sys_files WHERE  FILE_CLASS_ID=#{wzRefOwid}
     </select>
+    <delete id="deleteFiles">
+        DELETE  FROM ourway_sys_files where FILE_CLASS_ID=#{owid}
+    </delete>
+
 </mapper>

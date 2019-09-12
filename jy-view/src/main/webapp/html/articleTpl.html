@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="import" href="footer.html" id="footer"/>
+</head>
+<style>
+    .menu-nav {
+        width: 225px;
+        border: 1px solid #008784;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        float: left;
+        margin-right: 20px;
+    }
+    
+    .menu-title {
+        width: 100%;
+        height: 71px;
+        background: #008784;
+        color: #fff;
+        padding: 16px 0 0 16px;
+    }
+    
+    .title-chn {
+        font-size: 22px;
+        line-height: 22px;
+    }
+    
+    .title-en {
+        font-size: 16px;
+        line-height: 16px;
+        margin-top: 4px;
+    }
+    
+    .menu-nav-icon {
+        background: url('../img/img.png') 100% 100%;
+        background-position: 0 0;
+        width: 15px;
+        height: 15px;
+        margin-right: 16px;
+        margin-top: -2px;
+        float: right;
+    }
+    
+    .list-group {
+        margin-bottom: 0 !important;
+    }
+    
+    .list-group-item {
+        font-size: 16px;
+        color: #595959;
+        cursor: pointer;
+        padding: 15px;
+        border-radius: 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
+    }
+    
+    .list-group-item:first-child {
+        border-top: none;
+    }
+    
+    .list-group-item.active1 {
+        color: #008784;
+    }
+    
+    .ic-menu {
+        background: url('../img/img.png') 100% 100% no-repeat;
+        background-position: -55px 0;
+        width: 20px;
+        height: 20px;
+        float: right;
+    }
+    
+    .list-group-item.active1 .ic-menu {
+        background: url('../img/img.png') 100% 100% no-repeat;
+        background-position: -35px 0;
+    }
+    .content {
+        overflow: hidden;
+    }
+    .content-list {
+        width: calc(100% - 255px);
+        float: left;
+        height: 707px;
+        border: solid 1px #e0e0e0;
+    }
+    .articleTpl-title{
+        margin: 0 20px;
+        height: 70px;
+        line-height: 70px;
+        border-bottom: 1px solid #c6c6c6;
+        font-size: 18px;
+        color: #008784;
+    }
+    .articleTpl-title::before{
+        content: '';
+        display: inline-block;
+        width: 3px;
+        height: 30px;
+        margin-right: 8px;
+        background: #008784;
+        vertical-align: middle;
+        
+    }
+</style>
+
+<body>
+    <div class="main">
+        <div class="container">
+            <div class="routes">
+                <div class="location">
+                    <i></i>
+                    <!-- <img src="img/ic-home.png"> -->
+                    当前位置：
+                </div>
+
+                <ol class="breadcrumb">
+                    <li><a href="#">首页</a></li>
+                    <li><a href="#">学院概况</a></li>
+                    <li class="active">学校简介</li>
+                </ol>
+            </div>
+            <div class="content">
+                <div class="menu-nav">
+                    <div class="menu-title">
+                        <div class="title-chn">学院概况</div>
+                        <div class="title-en">College Profile
+                            <div class="menu-nav-icon"></div>
+                        </div>
+
+                    </div>
+                    <div class="menu-list">
+                        <ul class="list-group">
+                            <li class="list-group-item active1">
+                                <span class="ic-menu"></span> 学校简介
+                            </li>
+                            <li class="list-group-item">
+                                <span class="ic-menu"></span> 学院专业
+                            </li>
+                            <li class="list-group-item">
+                                <span class="ic-menu"></span> 中心介绍
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="content-list">
+                    <div class="articleTpl-detail">
+                        <div class="articleTpl-title">
+                           学校简介
+                        </div>
+                        <div class="article-detail-text">
+                            <!--学校简介、中心介绍-->
+                            <!--<style>-->
+                                <!--.article-detail-text p {padding: 20px;  color: #5d5d5d;  line-height: 25px;  }-->
+                            <!--</style>-->
+                            <!--<p></p>-->
+                            <!--学院专业-->
+                            <style>
+                                .xyzy{color: #008784;padding-right: 20px;padding-top: 15px;}
+                                .xyzy li a{color: #292929;font-size: 16px;}
+                                .xyzy li{height: 60px;line-height: 60px;
+                                    border-bottom:1px dashed #008784;}
+                            </style>
+                            <ul class="xyzy">
+                                <li><a>信息学院</a></li>
+                                <li><a>艺术学院</a></li>
+                            </ul>
+                            <!--学院详情-->
+                            <!--newsDetail.html类-->
+
+
+                            <!--新闻公告、新闻快递、校内公示-->
+                            <!--newsList.html类-->
+                            <!--详情-->
+                            <!--newsDetail.html类-->
+
+
+                        </div>
+                    </div>
+                </div>
+               </div>
+
+        </div>
+    </div>
+    <script type="text/javascript">
+        document.write(footer.import.body.innerHTML);
+    </script>
+    <script src="../js/jquery-2.1.4.min.js" type="text/javascript"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript"></script>
+</body>
+
+</html>

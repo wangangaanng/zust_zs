@@ -49,11 +49,12 @@
         <typeAlias alias="Page" type="com.zghzbckj.base.entity.Page" /><!--分页  -->
     </typeAliases>
 
-	<!-- 插件配置 -->
-	<!--<plugins>-->
-		<!--<plugin interceptor="com.zghzbckj.base.interceptor.PaginationInterceptor" />-->
-		<!--&lt;!&ndash;日志注入方法，进行统计写日志&ndash;&gt;-->
-		<!--<plugin interceptor="com.zghzbckj.base.interceptor.LogInterceptor" />-->
-    <!--</plugins>-->
 
+
+	<!-- 插件配置 -->
+	<plugins>
+		<plugin interceptor="com.zghzbckj.base.interceptor.PaginationInterceptor" />
+		<!--日志注入方法，进行统计写日志-->
+		<plugin interceptor="com.zghzbckj.base.interceptor.LogInterceptor" />
+    </plugins>
 </configuration>
