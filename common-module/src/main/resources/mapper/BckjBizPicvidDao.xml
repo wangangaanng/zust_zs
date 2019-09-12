@@ -70,7 +70,12 @@
 		FROM bckj_biz_picvid a
 		<include refid="bckjBizPicvidJoins"/>
 		<where>
-			
+			<if test="lmbh!=null and lmbh!='' ">
+				a.lmbh=#{lmbh}
+			</if>
+			<if test="zszd!=null and zszd!='' ">
+			 AND	a.zszd=#{zszd}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
