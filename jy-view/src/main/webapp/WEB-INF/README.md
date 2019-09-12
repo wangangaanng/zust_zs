@@ -25,4 +25,33 @@
     同新闻公告——newsList.html，newsDetail.html
     
 
+**企业服务**
+    enterpriseService.html
+
+**咨询列表**
+    askList.html
+    
+**联系我们**
+    contactUs.html
+  
+**企业指南**
+  enterpriseGuide.html
+
+**企业注册**
+    enterpriseReg.html
+  
+**招聘会申请**
+  jobFair.html
+    
+**新闻详情**
+  newsDetail.html
+    
+**新闻列表**
+  newsList.html
+  
+**学生服务**
+    studentService.html
+  
+**导师详情**
+    teacherDetail.html
                           

@@ -35,36 +35,3 @@ ftl页面都写在 /WEB-INF/template 目录下，页面路径 com.ourway.syszk.c
 招生模块 : /center/zustzs/**
 就业模块 : /center/zustjy/**
 三位一体模块 : /center/zustswyt/**
-
-
-
-
-**企业服务**
-    enterpriseService.html
-
-**咨询列表**
-    askList.html
-    
-**联系我们**
-    contactUs.html
-  
-**企业指南**
-  enterpriseGuide.html
-
-**企业注册**
-    enterpriseReg.html
-  
-**招聘会申请**
-  jobFair.html
-    
-**新闻详情**
-  newsDetail.html
-    
-**新闻列表**
-  newsList.html
-  
-**学生服务**
-    studentService.html
-  
-**导师详情**
-    teacherDetail.html
