@@ -18,7 +18,6 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.CommonConstants;
 import org.springframework.web.bind.annotation.*;
-import com.zghzbckj.manage.entity.BckjBizDacx;
 import com.zghzbckj.manage.service.BckjBizDacxService;
 
 import java.util.ArrayList;
@@ -34,8 +33,6 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "bckjBizDacx")
 public class BckjBizDacxController extends BaseController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(BckjBizDacxController.class);
 
 
 	@Autowired
@@ -119,7 +116,7 @@ public class BckjBizDacxController extends BaseController {
      */
     @RequestMapping(value = "inquiryArchives", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage inquiryArchives(@RequestBody PublicDataVO dataVO) {
+    public ResponseMessage inquiryArchives( PublicDataVO dataVO) {
         try {
             Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(datamap, "xsxm", "sfzh");
@@ -134,7 +131,7 @@ public class BckjBizDacxController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
         } catch (Exception e) {
-            LOGGER.error(CommonConstant.ERROR_MESSAGE, e);
+            log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }

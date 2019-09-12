@@ -3,6 +3,9 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.zghzbckj.common.CommonConstant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
@@ -16,9 +19,9 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.CommonConstants;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.zghzbckj.manage.entity.BckjBizXsgz;
+
 import com.zghzbckj.manage.service.BckjBizXsgzService;
-import org.apache.log4j.Logger;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,6 +38,7 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "bckjBizXsgz")
 public class BckjBizXsgzController extends BaseController {
+
 	@Autowired
 	private BckjBizXsgzService bckjBizXsgzService;
 
@@ -44,10 +48,10 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize());
     } catch (Exception e) {
-    log.error(e+"获取bckjBizXsgz列表失败\r\n"+e.getStackTrace()[0] , e);
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+            log.error(e+"获取bckjBizXsgz列表失败\r\n"+e.getStackTrace()[0] ,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
     }
     }
     
@@ -104,5 +108,31 @@ public class BckjBizXsgzController extends BaseController {
             }
 
 
+
+    /**
+     * <p>功能描述:学生签到 或关注企业职位</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11</li>
+     * </ul>
+     */
+    @RequestMapping(value = "signInOrScribe", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage signInOrScribe(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap,"jobRefOwid","owid","xxlb");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizXsgzService.signInOrScribe(datamap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 }

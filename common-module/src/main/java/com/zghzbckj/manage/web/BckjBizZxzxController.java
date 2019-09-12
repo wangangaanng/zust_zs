@@ -12,7 +12,11 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizZxzxService;
+import com.zghzbckj.util.IpAdrressUtil;
+import org.apache.poi.poifs.crypt.DataSpaceMapUtils;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +106,33 @@ public class BckjBizZxzxController extends BaseController {
             }
             }
 
-
+            /**
+             * <p>功能描述:在线咨询</p >
+             * <ul>
+             * <li>@param </li>
+             * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+             * <li>@throws </li>
+             * <li>@author wangangaanng</li>
+             * <li>@date 2019/9/11 </li>
+             * </ul>
+             */
+            @PostMapping(value = "consult")
+            @ResponseBody
+            public ResponseMessage consult(HttpServletRequest request,PublicDataVO dataVO){
+                try {
+                    Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                    ValidateMsg msg = ValidateUtils.isEmpty(dataMap,  "wtnr", "zxlx");
+                    if(!msg.getSuccess()){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+                    }
+                    String ipAdrress = IpAdrressUtil.getIpAdrress(request);
+                    dataMap.put("ipAdrress",ipAdrress);
+                    return bckjBizZxzxService.consult(dataMap);
+                }
+                catch (Exception e){
+                    log.error(CommonConstant.ERROR_MESSAGE,e);
+                    return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+                }
+            }
 
 }

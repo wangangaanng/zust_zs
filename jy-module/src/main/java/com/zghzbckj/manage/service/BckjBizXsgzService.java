@@ -5,17 +5,20 @@ package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.feign.BckjBizYhxxSer;
+import com.zghzbckj.manage.entity.BckjBizJob;
+import com.zghzbckj.util.LocationUtils;
+import com.zghzbckj.vo.BckjBizYhxxVo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.math.BigDecimal;
+import java.util.*;
 
 import org.apache.log4j.Logger;
 import com.zghzbckj.base.entity.Page;
@@ -57,6 +60,10 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
 	public void delete(BckjBizXsgz bckjBizXsgz) {
 		super.delete(bckjBizXsgz);
 	}
+    @Autowired
+	BckjBizJobService bckjBizJobService;
+    @Autowired
+    BckjBizYhxxSer bckjBizYhxxSer;
 
 
 	/**
@@ -119,5 +126,48 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             }
             return ResponseMessage.sendOK(objs);
             }
-	
+
+    /**
+     * <p>功能描述:学生签到或关注企业 职位</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11 </li>
+     * </ul>
+     */
+    public ResponseMessage signInOrScribe(Map<String, Object> datamap) {
+        BckjBizYhxxVo yhxxVo = bckjBizYhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
+        BckjBizJob bckjBizJob = bckjBizJobService.get(datamap.get("jobRefOwid").toString());
+        //如果为签到
+        if (Integer.parseInt(datamap.get("xxlb").toString())==1){
+            Double distance=LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(),bckjBizJob.getZphGpswd().doubleValue(),Double.valueOf(datamap.get("gpsJd").toString()),Double.valueOf(datamap.get("gpsWd").toString()));
+            Integer bj=bckjBizJob.getZphGpsbj();
+            if (distance>bj){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.OutOfCheckInRange);
+            }
+        }
+        if(TextUtils.isEmpty(yhxxVo)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.GetMessageFail);
+        }
+        if(TextUtils.isEmpty(bckjBizJob)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.GetMessageFail);
+        }
+        BckjBizXsgz bckjBizXsgz=new BckjBizXsgz();
+        bckjBizXsgz.setGzlx(Integer.parseInt(datamap.get("gzlx").toString()));
+        bckjBizXsgz.setXxlb(Integer.parseInt(datamap.get("xxlb").toString()));
+        bckjBizXsgz.setGzsj(new Date());
+        bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
+        bckjBizXsgz.setYhRefOwid(yhxxVo.getOwid());
+        bckjBizXsgz.setLxdh(yhxxVo.getSjh());
+        bckjBizXsgz.setLxr(yhxxVo.getMz());
+        bckjBizXsgz.setGpsJd(bckjBizJob.getZphGpsjd());
+        bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
+        bckjBizXsgz.setState(1);
+        this.dao.insert(bckjBizXsgz);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
 }

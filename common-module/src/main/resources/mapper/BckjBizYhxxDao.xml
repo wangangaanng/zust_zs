@@ -248,5 +248,39 @@
 		DELETE FROM bckj_biz_yhxx
 		WHERE owid = #{owid}
 	</delete>
-	
+
+	<select id="studentLogin" parameterType="Map" resultType="BckjBizYhxx">
+		SELECT
+	</select>
+
+
+	<select id="getOneByCondition" resultType="BckjBizYhxx" parameterType="Map">
+		SELECT
+		<include refid="bckjBizYhxxColumns"/>
+		FROM bckj_biz_yhxx a
+		<where>
+			1=1
+			<if test="owid != null and owid !=''">
+				AND a.owid = #{owid}
+			</if>
+			<if test="sjh != null and sjh !=''">
+				AND a.sjh = #{sjh}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="logIn" parameterType="Map" resultType="Map">
+		SELECT
+		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh",b.OLX as "olx" ,b.XSXM as "xsxm" ,b.XSXH as "xsxh",
+		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm"
+		FROM bckj_biz_yhxx a ,bckj_biz_yhkz b
+		WHERE a.`OWID`=b.`YH_REF_OWID` AND a.`YH_DLZH`=#{yhDlzh};
+	</select>
+
+    <update id="modfiyPassword" parameterType="Map">
+		update bckj_biz_yhxx set  YH_DLMM=#{yhDlmm} where OWID=#{owid};
+	</update>
+
+
 </mapper>

@@ -12,13 +12,15 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +35,9 @@ import java.util.Map;
 @Controller
 @RequestMapping(value = "bckjBizYhxx")
 public class BckjBizYhxxController extends BaseController {
+
+
+
 	@Autowired
 	private BckjBizYhxxService bckjBizYhxxService;
 
@@ -103,4 +108,83 @@ public class BckjBizYhxxController extends BaseController {
 
 
 
+
+    /**
+     * <p>功能描述:学生登入</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11 </li>
+     * </ul>
+     */
+
+    @ResponseBody
+    @RequestMapping(value = "logIn", method = RequestMethod.POST)
+    public ResponseMessage logIn(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "yhDlzh", "yhDlmm");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizYhxxService.logIn(datamap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    /**
+     * <p>功能描述:更改密码</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11 </li>
+     * </ul>
+     */
+    @ResponseBody
+    @RequestMapping(value = "modfiyPassword", method = RequestMethod.POST)
+    public ResponseMessage modfiyPassword(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "newPassword", "oldPassword","newPasswordAgain","owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizYhxxService.modfiyPassword(datamap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * <p>功能描述:根据owid查询用户信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11 </li>
+     * </ul>
+     */
+
+    @PostMapping(value = "getOneByOwid")
+    @ResponseBody
+    public ResponseMessage getOneByOwid(@RequestParam("owid") String owid) {
+        try {
+            if (ValidateUtils.isEmpty(owid)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_NOPARAMS);
+            }
+            return  bckjBizYhxxService.getOneByOwid(owid);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 }

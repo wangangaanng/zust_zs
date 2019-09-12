@@ -7,6 +7,8 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +16,12 @@ import com.zghzbckj.manage.entity.BckjBizYhxx;
  */
 @MyBatisDao
 public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
-	
+
+    BckjBizYhxx studentLogin(Map<String, Object> datamap);
+
+    BckjBizYhxx getOneByCondition(Map<String, Object> datamap);
+
+    Map<String, Object>  logIn(Map<String, Object> datamap);
+
+    Integer modfiyPassword(Map<String, Object> datamap);
 }

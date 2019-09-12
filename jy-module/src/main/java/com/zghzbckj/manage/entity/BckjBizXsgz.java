@@ -39,9 +39,6 @@ public class BckjBizXsgz extends DataWithExpEntity<BckjBizXsgz> {
 		super();
 	}
 
-
-
-
 	@Length(min=0, max=64, message="job_ref_owid长度必须介于 0 和 64 之间")
 	public String getJobRefOwid() {
 		return jobRefOwid;
