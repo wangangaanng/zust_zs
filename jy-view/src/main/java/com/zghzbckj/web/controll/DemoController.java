@@ -32,9 +32,9 @@ import java.util.Properties;
 public class DemoController {
     private static final Logger log = Logger.getLogger(DemoController.class);
 
-    @RequestMapping(value = "indexPage", method = RequestMethod.GET)
+    @RequestMapping(value = "index", method = RequestMethod.GET)
     public String index(HttpServletRequest request) {
-        return "indexPage";
+        return "index";
     }
 
     @RequestMapping(value = "aboutUs", method = RequestMethod.GET)
