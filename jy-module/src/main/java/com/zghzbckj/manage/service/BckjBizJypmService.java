@@ -71,7 +71,10 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      *</ul>
      */
     public Map<String, List<Map<String, Object>>> listAll() {
-        List<BckjBizJypm> dataList = bckjBizJypmDao.listAll("szxy");
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("orderBy", "szxy");
+        //根据所在学院字段分组
+        List<BckjBizJypm> dataList = this.dao.findListByMap(dataMap);
         if (null == dataList) {
             return null;
         }
@@ -89,6 +92,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
             map.put("pmmc", pm.getPmmc());
             jypmList.add(map);
         }
+        //根据所在学院合并
         Map<String, List<Map<String, Object>>> result = new HashMap<>();
         for (Map<String, Object> map : jypmList) {
             if (result.containsKey(map.get("szxy"))) {

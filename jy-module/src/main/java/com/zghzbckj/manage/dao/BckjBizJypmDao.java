@@ -18,6 +18,4 @@ import java.util.List;
 @MyBatisDao
 public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
 
-    List<BckjBizJypm> listAll(@Param("groupBy") String groupBy);
-
 }
