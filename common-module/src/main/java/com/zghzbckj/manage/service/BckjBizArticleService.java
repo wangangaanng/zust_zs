@@ -5,32 +5,27 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
-import com.zghzbckj.common.CommonConstant;
-import org.springframework.stereotype.Service;
+import com.ourway.base.utils.DateUtil;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.config.Global;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.BckjBizArticleDao;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizArticle;
+import com.zghzbckj.manage.utils.FtlFileUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.apache.log4j.Logger;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.entity.BckjBizArticle;
-import com.zghzbckj.manage.dao.BckjBizArticleDao;
+import java.util.*;
 
 /**
  * ccService
@@ -129,6 +124,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
             bckjBizArticle.setOwid(owid);
             this.dao.delete(bckjBizArticle);
             params.put("owid", owid);
+            commonDao.deleteFiles(params);
             objs.add(params);
         }
         return ResponseMessage.sendOK(objs);
@@ -164,4 +160,50 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
             return null;
         }
     }
+
+    @Transactional( readOnly = false)
+    public ResponseMessage saveArticle(Map<String, Object> mapData) throws Exception{
+        BckjBizArticle article = JsonUtil.map2Bean(mapData, BckjBizArticle.class);
+        if (TextUtils.isEmpty(mapData.get("fbsj"))) {
+            article.setFbsj(new Date());
+        }else{
+            article.setFbsj(DateUtil.getDate(mapData.get("fbsj").toString(), CommonConstant.DATE_FROMART));
+        }
+        if (!TextUtils.isEmpty(mapData.get("sxsj"))) {
+            article.setSxsj(DateUtil.getDate(mapData.get("sxsj").toString(), CommonConstant.DATE_FROMART));
+        }
+        saveOrUpdate(article);
+        if(!TextUtils.isEmpty(mapData.get("fileExtId"))){
+            mapData.put("articleOwid",article.getOwid());
+            commonDao.updateFile(mapData);
+        }
+        return ResponseMessage.sendOK(article);
+    }
+
+    //生成所有文章代码
+    public ResponseMessage genralAll(Map<String, Object> mapData) {
+        BckjBizArticle param=new BckjBizArticle();
+        List<BckjBizArticle> list=this.findList(param);
+        Map attParam=Maps.newHashMap();
+        for(BckjBizArticle article:list){
+            attParam.put("wzRefOwid",article.getOwid());
+            List<Map> attList=commonDao.getSysFiles(attParam);
+            article.setFileList(attList);
+            genrateHtmlFile(article);
+        }
+        return ResponseMessage.sendOK(list.size());
+    }
+    private void genrateHtmlFile(BckjBizArticle article) {
+        Map rootDate=Maps.newHashMap();
+        rootDate.put("WZBT",article.getWzbt());
+        rootDate.put("FBRQ", DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART));
+        rootDate.put("WZLY",article.getWzly());
+        rootDate.put("FBR",article.getFbr());
+        rootDate.put("FJLB",article.getFileList());
+        rootDate.put("WZNR",article.getWznr());
+        rootDate.put("EJLM",article.getLmbh());
+        String path= Global.getConfig(CommonModuleContant.HPATH);
+        FtlFileUtil.freeMarkerContent(rootDate,article.getOwid(),path);
+    }
+
 }

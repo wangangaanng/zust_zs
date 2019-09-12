@@ -79,8 +79,30 @@
 		FROM bckj_biz_article a
 		<include refid="bckjBizArticleJoins"/>
 		<where>
+            <if test="wzbt != null and wzbt != ''">
+                AND a.wzbt LIKE concat('%',#{wzbt},'%')
+            </if>
+            <if test="fbsj1 != null and fbsj1 != ''">
+                AND a.fbsj &gt; #{fbsj1}
+            </if>
+            <if test="fbsj2 != null and fbsj2 != ''">
+                AND a.fbsj &lt; #{fbsj2}
+            </if>
+            <if test="sxsj1 != null and sxsj1 != ''">
+                AND a.sxsj &gt; #{sxsj1}
+            </if>
+            <if test="sxsj2 != null and sxsj2 != ''">
+                AND a.sxsj &lt; #{sxsj2}
+            </if>
             <if test="lmbh != null and lmbh != ''">
                 AND a.lmbh = #{lmbh}
+            </if>
+
+            <if test="wzly != null and wzly != ''">
+                AND a.wzly = LIKE concat('%',#{wzly},'%')
+            </if>
+            <if test="fbr != null and fbr != ''">
+                AND a.fbr = #{fbr}
             </if>
             <if test="wzzt != null and wzzt != ''">
                 AND a.wzzt = #{wzzt}

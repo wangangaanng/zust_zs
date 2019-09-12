@@ -144,8 +144,26 @@ public class BckjBizArticleController extends BaseController {
 
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
-            log.info("获取文章列表：" + e);
+            log.info("关键字获取文章列表：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+    @RequestMapping(value = "saveArticle", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveArticle(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh", "sxsj");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return bckjBizArticleService.saveArticle(mapData);
+        } catch (Exception e) {
+            log.error("{}：" + e.toString(), e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
 }
