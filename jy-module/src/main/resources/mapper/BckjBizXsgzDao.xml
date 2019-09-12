@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizXsgzDao">
-    
-	<sql id="bckjBizXsgzColumns">
+
+    <sql id="bckjBizXsgzColumns">
 		a.owid AS "owid",
 		a.job_ref_owid AS "jobRefOwid",
 		a.yh_ref_owid AS "yhRefOwid",
@@ -41,68 +41,79 @@
 		a.exp9 AS "exp9",
 		a.exp10 AS "exp10"
 	</sql>
-	
-	<sql id="bckjBizXsgzJoins">
-	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
-		SELECT 
-			<include refid="bckjBizXsgzColumns"/>
-		FROM bckj_biz_xsgz a
-		<include refid="bckjBizXsgzJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
-		SELECT 
-			<include refid="bckjBizXsgzColumns"/>
-		FROM bckj_biz_xsgz a
-		<include refid="bckjBizXsgzJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
-	        SELECT
-			<include refid="bckjBizXsgzColumns"/>
-		FROM bckj_biz_xsgz a
-		<include refid="bckjBizXsgzJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
-		SELECT 
-			<include refid="bckjBizXsgzColumns"/>
-		FROM bckj_biz_xsgz a
-		<include refid="bckjBizXsgzJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
+
+    <sql id="bckjBizXsgzJoins">
+    </sql>
+
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
+        SELECT
+        <include refid="bckjBizXsgzColumns"/>
+        FROM bckj_biz_xsgz a
+        <include refid="bckjBizXsgzJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
+        SELECT
+        <include refid="bckjBizXsgzColumns"/>
+        FROM bckj_biz_xsgz a
+        <include refid="bckjBizXsgzJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
+        SELECT
+        <include refid="bckjBizXsgzColumns"/>
+        FROM bckj_biz_xsgz a
+        <include refid="bckjBizXsgzJoins"/>
+        <where>
+            <if test="jobRefOwid != null and jobRefOwid != ''">
+                AND a.job_ref_owid = #{jobRefOwid}
+            </if>
+            <if test="gzlx != null and gzlx != ''">
+                AND a.gzlx = #{gzlx}
+            </if>
+            <if test="xxlb != null and xxlb != ''">
+                AND a.xxlb = #{xxlb}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
+        SELECT
+        <include refid="bckjBizXsgzColumns"/>
+        FROM bckj_biz_xsgz a
+        <include refid="bckjBizXsgzJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_xsgz(
 			owid,
 			job_ref_owid,
@@ -181,8 +192,8 @@
 			#{exp10}
 		)
 	</insert>
-	
-	<update id="update">
+
+    <update id="update">
 		UPDATE bckj_biz_xsgz SET 	
 			owid = #{owid},
 			job_ref_owid = #{jobRefOwid},
@@ -223,10 +234,10 @@
 			exp10 = #{exp10}
 		WHERE owid = #{owid}
 	</update>
-	
-	<delete id="delete">
+
+    <delete id="delete">
 		DELETE FROM bckj_biz_xsgz
 		WHERE owid = #{owid}
 	</delete>
-	
+
 </mapper>

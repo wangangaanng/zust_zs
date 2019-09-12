@@ -14,5 +14,6 @@ import com.zghzbckj.manage.entity.BckjBizJob;
  */
 @MyBatisDao
 public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
-	
+
+//    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }
