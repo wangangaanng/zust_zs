@@ -102,4 +102,31 @@ public class BckjBizYhkzController extends BaseController {
             }
 
 
+
+    /**
+     * <p>功能描述:根据owid查询用户信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11 </li>
+     * </ul>
+     */
+
+    @PostMapping(value = "getOneByYhRefOwid")
+    @ResponseBody
+    public ResponseMessage getOneByYhRefOwid(@RequestParam("yhRefOwid") String yhRefOwid) {
+        try {
+            if (ValidateUtils.isEmpty(yhRefOwid)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_NOPARAMS);
+            }
+            return  bckjBizYhkzService.getOneByYhRefOwid(yhRefOwid);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

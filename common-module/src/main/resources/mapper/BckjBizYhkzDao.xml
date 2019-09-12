@@ -213,5 +213,11 @@
 		WHERE owid = #{owid}
 	</delete>
 
+	<select id="getOneByYhRefOwid" resultType="BckjBizYhkz" parameterType="Map">
+		select <include refid="BckjBizYhkzColumns"></include>
+		from bckj_biz_yhkz a
+		where  a.owid=#{yhRefOwid}
+	</select>
+
 	
 </mapper>

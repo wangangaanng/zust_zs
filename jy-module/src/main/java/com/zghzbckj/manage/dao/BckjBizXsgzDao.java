@@ -7,6 +7,8 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +16,5 @@ import com.zghzbckj.manage.entity.BckjBizXsgz;
  */
 @MyBatisDao
 public interface BckjBizXsgzDao extends CrudDao<BckjBizXsgz> {
-
+    BckjBizXsgz getOneByJobYh(Map<String, Object> datamap);
 }

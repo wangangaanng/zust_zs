@@ -5,9 +5,11 @@ package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.feign.BckjBizYhxxSer;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.util.LocationUtils;
+import com.zghzbckj.vo.BckjBizYhkzVo;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,6 @@ import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 import org.apache.log4j.Logger;
@@ -37,7 +38,6 @@ import com.zghzbckj.manage.dao.BckjBizXsgzDao;
 public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz> {
 
 	private static final Logger log = Logger.getLogger(BckjBizXsgzService.class);
-
     @Override
 	public BckjBizXsgz get(String owid) {
 		return super.get(owid);
@@ -63,7 +63,9 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
     @Autowired
 	BckjBizJobService bckjBizJobService;
     @Autowired
-    BckjBizYhxxSer bckjBizYhxxSer;
+    BckjBizYhxxSer bckjbizyhxxSer;
+    @Autowired
+    BckjBizYhkzSer bckjbizyhkzSer;
 
 
 	/**
@@ -137,25 +139,57 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
      * <li>@date 2019/9/11 </li>
      * </ul>
      */
+    @Transactional(readOnly = false , rollbackFor =  Exception.class)
     public ResponseMessage signInOrScribe(Map<String, Object> datamap) {
-        BckjBizYhxxVo yhxxVo = bckjBizYhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
+
+       BckjBizXsgz xsgz= this.dao.getOneByJobYh(datamap);
+       if(!TextUtils.isEmpty(xsgz)&&xsgz.getState()==1){
+           return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.Already);
+       }
         BckjBizJob bckjBizJob = bckjBizJobService.get(datamap.get("jobRefOwid").toString());
-        //如果为签到
-        if (Integer.parseInt(datamap.get("xxlb").toString())==1){
-            Double distance=LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(),bckjBizJob.getZphGpswd().doubleValue(),Double.valueOf(datamap.get("gpsJd").toString()),Double.valueOf(datamap.get("gpsWd").toString()));
-            Integer bj=bckjBizJob.getZphGpsbj();
-            if (distance>bj){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.OutOfCheckInRange);
-            }
+        ResponseMessage responseYhxx = bckjbizyhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
+        if(TextUtils.isEmpty(responseYhxx)&&responseYhxx.getBackCode()!=0&&TextUtils.isEmpty(responseYhxx.getBean())){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.GetMessageFail);
         }
+        BckjBizYhxxVo yhxxVo=JsonUtil.map2Bean((Map)responseYhxx.getBean(),BckjBizYhxxVo.class);
         if(TextUtils.isEmpty(yhxxVo)){
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.GetMessageFail);
         }
         if(TextUtils.isEmpty(bckjBizJob)){
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.GetMessageFail);
         }
+        ResponseMessage responseYhkz=bckjbizyhkzSer.getOneByOwid(yhxxVo.getOwid());
+        if(TextUtils.isEmpty(responseYhkz)||responseYhkz.getBackCode()!=0||TextUtils.isEmpty(responseYhkz.getBean())){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+        BckjBizYhkzVo bckjBizYhkzVo = JsonUtil.map2Bean((Map) responseYhkz.getBean(), BckjBizYhkzVo.class);
+        if (bckjBizYhkzVo.getOLX()!=0){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
+        }
+        //如果为签到
+        if (Integer.parseInt(datamap.get("xxlb").toString())==1){
+            if(bckjBizJob.getZwSxsj().compareTo(new Date())>0){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
+            }
+            if(bckjBizJob.getZphBmjzsj().compareTo(new Date())<0){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.BeyondTime);
+            }
+            if(bckjBizJob.getZphSfqd()!=1){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
+            }
+            Double distance=LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(),bckjBizJob.getZphGpswd().doubleValue(),Double.valueOf(datamap.get("gpsJd").toString()),Double.valueOf(datamap.get("gpsWd").toString()));
+            Integer bj=bckjBizJob.getZphGpsbj();
+            if (distance>bj){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.OutOfCheckInRange);
+            }
+        }
+        //如果为关注
+        if(Integer.parseInt(datamap.get("xxlb").toString())==0){
+            int count =bckjBizJob.getZwGzs()+1;
+            bckjBizJob.setZwGzs(count);
+        }
         BckjBizXsgz bckjBizXsgz=new BckjBizXsgz();
-        bckjBizXsgz.setGzlx(Integer.parseInt(datamap.get("gzlx").toString()));
+        bckjBizXsgz.setGzlx(bckjBizJob.getZwlx());
         bckjBizXsgz.setXxlb(Integer.parseInt(datamap.get("xxlb").toString()));
         bckjBizXsgz.setGzsj(new Date());
         bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
@@ -164,8 +198,9 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setLxr(yhxxVo.getMz());
         bckjBizXsgz.setGpsJd(bckjBizJob.getZphGpsjd());
         bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
+        bckjBizXsgz.setCreatetime(new Date());
         bckjBizXsgz.setState(1);
-        this.dao.insert(bckjBizXsgz);
+        saveOrUpdate(bckjBizXsgz);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 

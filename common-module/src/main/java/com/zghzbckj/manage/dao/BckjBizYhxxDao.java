@@ -17,11 +17,12 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
-    BckjBizYhxx studentLogin(Map<String, Object> datamap);
 
     BckjBizYhxx getOneByCondition(Map<String, Object> datamap);
 
     Map<String, Object>  logIn(Map<String, Object> datamap);
 
     Integer modfiyPassword(Map<String, Object> datamap);
+
+    void updateDlsj(String owid);
 }
