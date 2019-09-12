@@ -6,6 +6,9 @@ package com.zghzbckj.manage.dao;
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJypm;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * ccDAO接口
@@ -14,5 +17,7 @@ import com.zghzbckj.manage.entity.BckjBizJypm;
  */
 @MyBatisDao
 public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
-	
+
+    List<BckjBizJypm> listAll(@Param("groupBy") String groupBy);
+
 }
