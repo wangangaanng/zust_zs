@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizJybmDao">
-    
-	<sql id="bckjBizJybmColumns">
+
+    <sql id="bckjBizJybmColumns">
 		a.owid AS "owid",
 		a.qyxx_ref_owid AS "qyxxRefOwid",
 		a.job_ref_owid AS "jobRefOwid",
@@ -47,68 +47,82 @@
 		a.exp9 AS "exp9",
 		a.exp10 AS "exp10"
 	</sql>
-	
-	<sql id="bckjBizJybmJoins">
-	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
-		SELECT 
-			<include refid="bckjBizJybmColumns"/>
-		FROM bckj_biz_jybm a
-		<include refid="bckjBizJybmJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
-		SELECT 
-			<include refid="bckjBizJybmColumns"/>
-		FROM bckj_biz_jybm a
-		<include refid="bckjBizJybmJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
-	        SELECT
-			<include refid="bckjBizJybmColumns"/>
-		FROM bckj_biz_jybm a
-		<include refid="bckjBizJybmJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
-		SELECT 
-			<include refid="bckjBizJybmColumns"/>
-		FROM bckj_biz_jybm a
-		<include refid="bckjBizJybmJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
+
+    <sql id="bckjBizJybmJoins">
+    </sql>
+
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+        SELECT
+        <include refid="bckjBizJybmColumns"/>
+        FROM bckj_biz_jybm a
+        <include refid="bckjBizJybmJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+        SELECT
+        <include refid="bckjBizJybmColumns"/>
+        FROM bckj_biz_jybm a
+        <include refid="bckjBizJybmJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+        SELECT
+        <include refid="bckjBizJybmColumns"/>
+        FROM bckj_biz_jybm a
+        <include refid="bckjBizJybmJoins"/>
+        <where>
+            <if test="qyxxRefOwid != null qyxxRefOwid xwlx != ''">
+                AND a.qyxx_ref_owid = #{qyxxRefOwid}
+            </if>
+            <if test="yhRefOwid != null and yhRefOwid != ''">
+                AND a.yh_ref_owid = #{yhRefOwid}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+            <if test="bmlx != null and bmlx != ''">
+                AND a.bmlx = #{bmlx}
+            </if>
+            <if test="bmdx != null and bmdx != ''">
+                AND a.bmdx = #{bmdx}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+        SELECT
+        <include refid="bckjBizJybmColumns"/>
+        FROM bckj_biz_jybm a
+        <include refid="bckjBizJybmJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_jybm(
 			owid,
 			qyxx_ref_owid,
@@ -199,8 +213,8 @@
 			#{exp10}
 		)
 	</insert>
-	
-	<update id="update">
+
+    <update id="update">
 		UPDATE bckj_biz_jybm SET 	
 			owid = #{owid},
 			qyxx_ref_owid = #{qyxxRefOwid},
@@ -247,10 +261,10 @@
 			exp10 = #{exp10}
 		WHERE owid = #{owid}
 	</update>
-	
-	<delete id="delete">
+
+    <delete id="delete">
 		DELETE FROM bckj_biz_jybm
 		WHERE owid = #{owid}
 	</delete>
-	
+
 </mapper>

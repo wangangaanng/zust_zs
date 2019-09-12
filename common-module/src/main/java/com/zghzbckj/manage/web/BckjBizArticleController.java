@@ -135,13 +135,11 @@ public class BckjBizArticleController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "pageSize","pageNo","wzbt","wzzt");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "pageSize","pageNo","gjz","wzzt","lmbh");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
             Object  result = bckjBizArticleService.getWzList(mapData);
-
-
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             log.info("关键字获取文章列表：" + e);
