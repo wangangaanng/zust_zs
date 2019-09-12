@@ -129,8 +129,8 @@
             <if test="wzzt != null and wzzt != ''">
                 AND a.wzzt = #{wzzt}
             </if>
-            <if test="wzbt != null and wzbt != ''">
-				AND a.wzbt LIKE concat('%',#{wzbt},'%')
+            <if test="gjz != null and gjz != ''">
+				AND a.gjz LIKE concat('%',#{gjz},'%')
             </if>
         </where>
         ORDER BY ${orderBy}
