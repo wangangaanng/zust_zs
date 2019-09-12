@@ -4,7 +4,10 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.util.PageUtils;
+import com.zghzbckj.util.ToolUtils;
 import org.springframework.stereotype.Service;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -118,5 +121,26 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             }
             return ResponseMessage.sendOK(objs);
             }
-	
+
+    public ResponseMessage supervisorList(Map<String, Object> dataMap) {
+        Page<BckjBizZjzx> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        dataMap.put("page", page);
+        page.setList(this.dao.zjList(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+
+    public ResponseMessage historyConsult(Map<String, Object> dataMap) {
+            if(Integer.parseInt(dataMap.get("zxlx").toString())!=2){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            }
+        Page<BckjBizZjzx> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        dataMap.put("page", page);
+        page.setList(this.dao.findListByOwid(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+
+    public ResponseMessage removeHistoryConsult(Map<String, Object> dataMap ) {
+            this.dao.deleteByMap(dataMap);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
 }

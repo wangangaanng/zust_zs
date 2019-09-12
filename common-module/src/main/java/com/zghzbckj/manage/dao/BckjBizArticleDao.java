@@ -7,6 +7,9 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizArticle;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +17,7 @@ import com.zghzbckj.manage.entity.BckjBizArticle;
  */
 @MyBatisDao
 public interface BckjBizArticleDao extends CrudDao<BckjBizArticle> {
-	
+
+
+    List<BckjBizArticle> findMapByShort(Map<String, Object> mapData);
 }

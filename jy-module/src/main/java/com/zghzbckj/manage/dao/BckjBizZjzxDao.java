@@ -7,6 +7,9 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizZjzx;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +17,8 @@ import com.zghzbckj.manage.entity.BckjBizZjzx;
  */
 @MyBatisDao
 public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
-	
+
+    List<BckjBizZjzx> zjList(Map<String, Object> dataMap);
+
+    List<BckjBizZjzx> findListByOwid(Map<String, Object> dataMap);
 }

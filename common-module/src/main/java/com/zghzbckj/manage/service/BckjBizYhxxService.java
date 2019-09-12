@@ -3,12 +3,19 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleSelectRestriction;
+import com.google.common.collect.Maps;
+import com.ourway.base.utils.BeanUtil;
+
+import com.zghzbckj.common.CommonConstant;
+import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
+
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
@@ -21,6 +28,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Logger;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 
 /**
  * ccService
@@ -117,5 +130,67 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             }
             return ResponseMessage.sendOK(objs);
             }
-	
+
+
+    /**
+     *<p>功能描述: 学生登录 </p >
+     *<ul>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author wangangaanng</li>
+     *<li>@date 2019/9/11 </li>
+     *</ul>
+     */
+    public ResponseMessage logIn(Map<String, Object> datamap) {
+        Map<String,Object> resMap = Maps.newHashMap();
+        String psw = TextUtils.MD5(datamap.get("yhDlmm").toString()).toUpperCase();
+        datamap.remove("psw");
+        Map<String, Object> map = this.dao.logIn(datamap);
+        if(TextUtils.isEmpty(map)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+        }
+        if(!psw.equalsIgnoreCase(map.get("yhDlzh").toString())){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
+        }
+        if(Integer.parseInt(map.get("olx").toString())!=0){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+        }
+        resMap.get(map.get("owid"));
+        resMap.get(map.get("yhtx"));
+        resMap.get(map.get("sjh"));
+        return ResponseMessage.sendOK(resMap);
+    }
+    /**
+     *<p>功能描述: 修改密码 </p >
+     *<ul>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author wangangaanng</li>
+     *<li>@date 2019/9/11 </li>
+     *</ul>
+     */
+    @Transactional(readOnly = false ,rollbackFor = Exception.class)
+    public ResponseMessage modfiyPassword(Map<String, Object> datamap) {
+        HashMap<Object, Object> map = Maps.newHashMap();
+        String newPassword=datamap.get("newPassword").toString();
+        String newPasswordAgain=datamap.get("newPasswordAgain").toString();
+        if(!newPassword.equals(newPasswordAgain)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NewPasswordNotMatch);
+        }
+        BckjBizYhxx bckjbizyhxx = this.dao.getOneByCondition(datamap);
+       if(TextUtils.isEmpty(bckjbizyhxx)) {
+            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+        }
+        map.put("owid",datamap.get("owid"));
+        map.put("yhDlmm",datamap.get("newPassword"));
+        this.dao.modfiyPassword(datamap);
+        return  ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+    public ResponseMessage getOneByOwid(String owid) {
+        HashMap<String, Object> map = Maps.newHashMap();
+        map.put("owid",owid);
+        return ResponseMessage.sendOK(this.dao.getOneByCondition(map));
+    }
 }

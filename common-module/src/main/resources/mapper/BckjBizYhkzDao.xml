@@ -212,5 +212,6 @@
 		DELETE FROM bckj_biz_yhkz
 		WHERE owid = #{owid}
 	</delete>
+
 	
 </mapper>

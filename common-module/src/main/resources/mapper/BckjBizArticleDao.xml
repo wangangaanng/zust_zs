@@ -79,7 +79,12 @@
 		FROM bckj_biz_article a
 		<include refid="bckjBizArticleJoins"/>
 		<where>
-			
+            <if test="lmbh != null and lmbh != ''">
+                AND a.lmbh = #{lmbh}
+            </if>
+            <if test="wzzt != null and wzzt != ''">
+                AND a.wzzt = #{wzzt}
+            </if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -89,6 +94,25 @@
 			</otherwise>
 		</choose>
 	</select>
+
+    <select id="findMapByShort" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
+        SELECT
+        a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj"
+        FROM bckj_biz_article a
+        <where>
+            a.sxsj &gt; SYSDATE()
+            <if test="lmbh != null and lmbh != ''">
+                AND a.lmbh = #{lmbh}
+            </if>
+            <if test="wzzt != null and wzzt != ''">
+                AND a.wzzt = #{wzzt}
+            </if>
+            <if test="wzbt != null and wzbt != ''">
+				AND a.wzbt LIKE concat('%',#{wzbt},'%')
+            </if>
+        </where>
+        ORDER BY ${orderBy}
+    </select>
 	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
 		SELECT 
 			<include refid="bckjBizArticleColumns"/>

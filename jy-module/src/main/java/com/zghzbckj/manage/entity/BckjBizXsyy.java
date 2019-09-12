@@ -21,7 +21,7 @@ public class BckjBizXsyy extends DataWithExpEntity<BckjBizXsyy> {
 	private String yhid;		// yhid
 	private String xsxh;		// xsxh
 	private String xsxm;		// xsxm
-	private Date yysj;		// yysj
+	private Date yysj;			// yysj
 	private String yybz;		// yybz
 	private String memo;		// memo
 	
