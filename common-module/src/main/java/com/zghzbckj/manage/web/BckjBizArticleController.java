@@ -128,4 +128,24 @@ public class BckjBizArticleController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+    @RequestMapping(value = "getArticleByKeys", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getArticleByKeys(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "pageSize","pageNo","wzbt","wzzt");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            Object  result = bckjBizArticleService.getWzList(mapData);
+
+
+            return ResponseMessage.sendOK(result);
+        } catch (Exception e) {
+            log.info("获取文章列表：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }
