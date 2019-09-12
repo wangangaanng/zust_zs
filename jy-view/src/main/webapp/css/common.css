@@ -751,7 +751,7 @@ ul.pagination {
     background: #008784;
 }
 
-.box {
+.jf-box {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -764,7 +764,7 @@ ul.pagination {
     right: -36px;
 }
 
-.box1 {
+.jf-box1 {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -777,7 +777,7 @@ ul.pagination {
     right: -39px;
 }
 
-.box2 {
+.jf-box2 {
     width: 3px;
     height: 50px;
     background-color: #fff;
@@ -787,7 +787,7 @@ ul.pagination {
     right: -3px;
 }
 
-.jf-item.jf-active .box {
+.jf-item.jf-active .jf-box {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -800,7 +800,7 @@ ul.pagination {
     right: -36px;
 }
 
-.jf-item.jf-active .box1 {
+.jf-item.jf-active .jf-box1 {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -813,7 +813,7 @@ ul.pagination {
     right: -39px;
 }
 
-.jf-item.jf-active .box2 {
+.jf-item.jf-active .jf-box2 {
     width: 3px;
     height: 50px;
     background-color: #fff;
