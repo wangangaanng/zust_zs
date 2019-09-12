@@ -9,7 +9,6 @@
 **新闻公告**
     
     新闻公告、新闻快递、校内公示——newsList.html
-    
     详情——newsDetail.html
 **招聘信息**
     
@@ -20,6 +19,10 @@
     职位详情——positionDetail.html
     职来职往、社会招聘会、企业招聘会详情——positionDetail.html类
     招考公告详情——newsDetail.html类
+    
+**职业指导**
+
+    同新闻公告——newsList.html，newsDetail.html
     
 
                           
