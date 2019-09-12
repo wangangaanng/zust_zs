@@ -125,6 +125,6 @@ public class BckjBizDacxService extends CrudService<BckjBizDacxDao, BckjBizDacx>
         if(bckjBizDacx==null){
             return  ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.Fail_InquiryArchives);
         }
-        return  ResponseMessage.sendOK(this.dao.inquiryArchives(datamap));
+        return  ResponseMessage.sendOK(bckjBizDacx);
     }
 }

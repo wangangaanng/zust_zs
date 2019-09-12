@@ -35,6 +35,26 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 	private String area;		// area
 	private String dlzh;		// dlzh
 	private Date dlzhsj;		// dlzhsj
+	private String yhdlzh;
+	private String yhdlmm;
+
+
+	public String getYhdlzh() {
+		return yhdlzh;
+	}
+
+	public void setYhdlzh(String yhdlzh) {
+		this.yhdlzh = yhdlzh;
+	}
+
+	public String getYhdlmm() {
+		return yhdlmm;
+	}
+
+	public void setYhdlmm(String yhdlmm) {
+		this.yhdlmm = yhdlmm;
+	}
+
 
 	
 	public BckjBizYhxx() {

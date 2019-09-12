@@ -4,11 +4,15 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
+
+import org.springframework.stereotype.Service;
+import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
+
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizYhkzDao;
@@ -21,6 +25,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.entity.BckjBizYhkz;
+import com.zghzbckj.manage.dao.BckjBizYhkzDao;
 
 /**
  * ccService
@@ -117,5 +128,6 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
             }
             return ResponseMessage.sendOK(objs);
             }
-	
+
+
 }

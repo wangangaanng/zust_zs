@@ -1,6 +1,8 @@
 package com.zghzbckj.util;
 
 import com.google.common.collect.Lists;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -241,5 +243,8 @@ public class ToolUtils {
         cs[index] = ss;
         return new String(cs);
     }
+
+
+
 
 }
