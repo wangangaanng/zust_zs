@@ -74,7 +74,12 @@
 		FROM bckj_biz_dcwj a
 		<include refid="bckjBizDcwjJoins"/>
 		<where>
-			
+			<if test="wjmc != null">
+				AND a.wjmc LIKE concat('%',#{wjmc},'%')
+			</if>
+			<if test="wzbh != null and wzbh != ''">
+				AND a.wzbh=#{wzbh}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

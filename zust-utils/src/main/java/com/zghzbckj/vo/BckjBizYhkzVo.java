@@ -1,9 +1,10 @@
 package com.zghzbckj.vo;
 
 public class BckjBizYhkzVo {
+
     private  String owid;
     private String yhRefOwid;		// yh_ref_owid
-    private Integer OLX;		// 0lx
+    private Integer olx;		// 0lx
     private String xsxh;		// xsxh
     private String xsxy;		// xsxy
     private String xszy;		// xszy
@@ -24,6 +25,7 @@ public class BckjBizYhkzVo {
     private String exp9;
     private String exp10;
 
+
     public BckjBizYhkzVo() {
     }
 
@@ -43,12 +45,12 @@ public class BckjBizYhkzVo {
         this.yhRefOwid = yhRefOwid;
     }
 
-    public Integer getOLX() {
-        return OLX;
+    public Integer getOlx() {
+        return olx;
     }
 
-    public void setOLX(Integer OLX) {
-        this.OLX = OLX;
+    public void setOlx(Integer olx) {
+        this.olx = olx;
     }
 
     public String getXsxh() {

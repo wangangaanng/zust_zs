@@ -7,6 +7,8 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc

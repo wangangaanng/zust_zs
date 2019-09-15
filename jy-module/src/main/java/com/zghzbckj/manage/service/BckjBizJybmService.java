@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -160,5 +157,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         pageInfo.setTotalCount(page.getCount());
         pageInfo.setCurrentPage((long) page.getPageNo());
         return pageInfo;
+    }
+
+    public BckjBizJybm getOneByJobHy(Map<String, Object> datamap) {
+       return this.dao.getOneByJobHy(datamap);
     }
 }

@@ -50,12 +50,6 @@
 		<include refid="bckjBizJypmJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
-
-	<select id="listAll" resultType="com.zghzbckj.manage.entity.BckjBizJypm" parameterType="java.util.Map">
-		select <include refid="bckjBizJypmColumns"/>
-		from bckj_biz_jypm a
-		order by #{groupBy} desc
-	</select>
 	
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		SELECT 
@@ -79,7 +73,7 @@
 		FROM bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"/>
 		<where>
-			
+
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
