@@ -19,5 +19,5 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
 
-    BckjBizYhxx getOneByYhRefOwid(HashMap<String, Object> map);
+    BckjBizYhkz getOneByYhRefOwid(HashMap<String, Object> map);
 }

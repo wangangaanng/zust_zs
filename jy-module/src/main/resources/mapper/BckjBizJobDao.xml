@@ -332,4 +332,5 @@
 		WHERE owid = #{owid}
 	</delete>
 
+
 </mapper>

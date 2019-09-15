@@ -21,6 +21,6 @@ public interface BckjBizYhkzSer {
          *</ul>
          */
         @RequestMapping(value = "/bckjBizYhkz/getOneByYhRefOwid",method = RequestMethod.POST)
-        ResponseMessage getOneByOwid(@RequestParam("yhRefOwid") String yhRefOwid);
+        ResponseMessage getOneByYhRefOwid(@RequestParam("yhRefOwid") String yhRefOwid);
 
 }
