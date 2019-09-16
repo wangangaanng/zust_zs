@@ -7,6 +7,7 @@ import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.ourway.manage.service.CustomDicService;
+import com.ourway.sys.service.DicService;
 import com.ourway.sys.utils.I18nUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,8 @@ import java.util.Map;
 public class DicValueController {
     private static final Logger log = LoggerFactory.getLogger(DicValueController.class);
 
-
+    @Autowired
+    DicService dicService;
     @Autowired
     CustomDicService customDicService;
 
@@ -50,21 +52,40 @@ public class DicValueController {
         }
     }
 
+
+    @RequestMapping(value = "getValueByDic", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getValueByDic(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "type");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(mapData.get("type").toString()), null));
+        } catch (Exception e) {
+            log.info("获取一级菜单失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
     @RequestMapping(value = "getWebType", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getWebType(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            mapData.put("dicType",100001);
-            List<Map<String, Object>> list=customDicService.getByType(mapData);
-            List<Map<String, Object>> mapList=new ArrayList<>();
-            for (Map<String,Object> map:list){
-                String label=map.get("dicVal1").toString();
-                String value=map.get("dicVal2").toString();
+            mapData.put("dicType", 100001);
+            List<Map<String, Object>> list = customDicService.getByType(mapData);
+            List<Map<String, Object>> mapList = new ArrayList<>();
+            for (Map<String, Object> map : list) {
+                String label = map.get("dicVal1").toString();
+                String value = map.get("dicVal2").toString();
                 map.clear();
-                map.put("label",label);
-                map.put("value",value);
+                map.put("label", label);
+                map.put("value", value);
                 mapList.add(map);
             }
             return ResponseMessage.sendOK(mapList);
@@ -146,6 +167,7 @@ public class DicValueController {
 
     /**
      * 处理二级菜单
+     *
      * @param type
      * @param dataVO
      * @return
@@ -156,10 +178,10 @@ public class DicValueController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            if (null==type) {
+            if (null == type) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "type为空");
             }
-            return customDicService.saveDic(mapData,type);
+            return customDicService.saveDic(mapData, type);
         } catch (Exception e) {
             log.error("{}：" + e.toString(), e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
@@ -168,6 +190,7 @@ public class DicValueController {
 
     /**
      * 处理一级菜单
+     *
      * @param dataVO
      * @return
      */
@@ -195,7 +218,7 @@ public class DicValueController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, I18nUtils.getLanguageContent("public.common.noargs", data.getCurrLanguage()));
         } else {
             List<FilterModel> filters = JsonUtil.jsonToList(data.getData(), FilterModel.class);
-            return customDicService.listEjlm(filters,type);
+            return customDicService.listEjlm(filters, type);
         }
     }
 }

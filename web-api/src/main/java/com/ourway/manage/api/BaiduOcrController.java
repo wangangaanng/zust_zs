@@ -1,11 +1,9 @@
 package com.ourway.manage.api;
 
 import com.ourway.baiduapi.constants.BaiDuApiInfo;
-import com.ourway.baiduapi.dto.IdcardDTO;
 import com.ourway.baiduapi.dto.InfoDTO;
 import com.ourway.baiduapi.utils.Base64ImageUtils;
 import com.ourway.baiduapi.utils.HttpClientUtils;
-import com.ourway.baiduapi.utils.ValueUtils;
 import com.ourway.base.model.PublicDataVO;
 import com.ourway.base.model.ResponseMessage;
 import com.ourway.base.utils.*;
@@ -72,7 +70,7 @@ public class BaiduOcrController {
                     Image srcFile = ImageIO.read(file.getInputStream());
                     file.transferTo(new File(path));
                     Map resultMap = new HashMap();
-                    resultMap = ocrPic(path, trueFileName, Integer.parseInt(type));
+                    resultMap = ocrPic(path, trueFileName, Integer.parseInt(dataMap.get("type").toString()));
                     return ResponseMessage.sendOK(resultMap);
                 } catch (IOException e) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "upload failed");
@@ -113,8 +111,10 @@ public class BaiduOcrController {
             String result = HttpClientUtils.toString(backResponse);
             if (!TextUtils.isEmpty(result)) {
                 Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
-                Map value = (Map) idcardDTO.get("words_result");
-                vat = ValueUtils.getDriverCardValue(value);
+                vat = (Map<String, String>) idcardDTO.get("words_result");
+                if (null == vat) {
+                    vat = new HashMap(1);
+                }
                 vat.put("fileName", fileName);
             }
         } else if (2 == type) {
@@ -123,12 +123,12 @@ public class BaiduOcrController {
             CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonConstant.ID_URL + baidToken, headers, bodys);
             String result = HttpClientUtils.toString(backResponse);
             if (!TextUtils.isEmpty(result)) {
-                IdcardDTO idcardDTO = JackSonJsonUtils.fromJson(result, IdcardDTO.class);
-                vat = ValueUtils.getIdCardValue(idcardDTO.getWords_result());
+                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
+                vat = (Map<String, String>) idcardDTO.get("words_result");
                 if (null == vat) {
                     vat = new HashMap(1);
                 }
-//                vat.put("image_status", idcardDTO.getImage_status());
+                vat.put("image_status", idcardDTO.get("image_status").toString());
                 vat.put("fileName", fileName);
             }
         }

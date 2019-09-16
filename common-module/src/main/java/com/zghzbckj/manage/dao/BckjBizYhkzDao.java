@@ -8,6 +8,7 @@ import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -18,5 +19,5 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
 
-
+    BckjBizYhkz getOneByYhRefOwid(HashMap<String, Object> map);
 }

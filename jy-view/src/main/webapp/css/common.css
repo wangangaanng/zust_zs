@@ -673,6 +673,47 @@ ul.pagination {
   .news-content{height: 58px;font: bold 15px/24px '微软雅黑';color: #6d6d6d;}
   .news-ul li::after{content: ' '; display: block;width: calc(100% - 75px);height: 1px;border-bottom: 1px dashed #dcdcdc;float: right;}
 
+  /* 岗位详情 */
+.position-detail{    padding: 23px;}
+.position-head h1 {line-height: 40px;color: #333;font-size: 22px;font-family: "微软雅黑";    margin-top: 10px;}
+.position-head .info{    height: 30px;border-bottom: 1px solid #d9d9d9;margin-bottom: 0px;}
+.position-head .info dt { float: left; font-weight: normal;}
+.position-head .info dt a {  color: #008784; }
+.position-head .info dd { float: right; width: 380px;color: #5d5d5d;}
+.position-head .info dd .vieCount {float:left;padding-right:4px;}
+/*二维码*/
+
+/*分享*/
+
+.share { float: left; }
+/**/
+.xInfo { padding-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #ececec; padding-left: 0px;list-style: none;margin: 0;}
+.xInfo li { height: 30px; line-height: 22px; color: #aaaaaa; }
+.xInfo li span { color: #666666; }
+.xInfo-2 { border-bottom: 0; }
+.xInfo-2 li { width: 33%; float: left; }
+.tInfo-2 li { width: auto; float: none; }
+
+/*详情按钮*/
+.tools { height: 30px; }
+.tools a { float: left; display: block; width: 106px; text-align: center; height: 30px; line-height: 30px; color: #008784; }
+.tools .btn_1 { width: 113px; height: 30px; background: #008784; color: #fff; }
+.cl:after {display: table;content: "";line-height: 0;clear: both;}
+.vTools .warn{ margin-top:10px; color:#F00; height:22px; line-height:22px; }
+.vTools .warn span{ float:right; color:#000;}
+.vTools .warn img{ width: 25px;margin-right: 5px;}
+
+.position-tabbar{width: 100%;height: 48px;background: #fff;overflow: hidden;border-bottom: 1px solid #dfdfdf;}
+.position-tabbar ul{list-style: none;width: 100%;padding-left: 0px;}
+.position-tabbar ul li{display:inline-block;width: 150px;text-align: center;height: 48px;line-height: 48px;}
+.position-tabbar ul li.active{border-bottom: 3px solid #008784;}
+.position-tabbar ul li a{font-size: 16px;color: #6d6d6d;font-weight: normal; display: inline-block;width: 100%;white-space: nowrap;overflow: hidden;}
+.position-tabbar ul li.active a{color:#008784;}
+.position-detail .position-tabbar{margin-top: 30px;}
+.position-detail .tabbar-frame_content{padding: 20px 0px;}
+.position-company b{color: #008784;font-weight: bold;}
+.position-detail .tabbar-frame_content p{color: #474747;line-height: 25px;}
+
 .jf-content {
     width: 100%;
     border: solid 1px #e0e0e0;
@@ -710,7 +751,7 @@ ul.pagination {
     background: #008784;
 }
 
-.box {
+.jf-box {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -723,7 +764,7 @@ ul.pagination {
     right: -36px;
 }
 
-.box1 {
+.jf-box1 {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -736,7 +777,7 @@ ul.pagination {
     right: -39px;
 }
 
-.box2 {
+.jf-box2 {
     width: 3px;
     height: 50px;
     background-color: #fff;
@@ -746,7 +787,7 @@ ul.pagination {
     right: -3px;
 }
 
-.jf-item.jf-active .box {
+.jf-item.jf-active .jf-box {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -759,7 +800,7 @@ ul.pagination {
     right: -36px;
 }
 
-.jf-item.jf-active .box1 {
+.jf-item.jf-active .jf-box1 {
     width: 0;
     height: 0;
     border-top: 25px solid transparent;
@@ -772,7 +813,7 @@ ul.pagination {
     right: -39px;
 }
 
-.jf-item.jf-active .box2 {
+.jf-item.jf-active .jf-box2 {
     width: 3px;
     height: 50px;
     background-color: #fff;

@@ -7,6 +7,7 @@ import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleSelectRestriction;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.zghzbckj.common.CommonConstant;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
@@ -141,6 +142,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      *<li>@date 2019/9/11 </li>
      *</ul>
      */
+    @Transactional(readOnly = false ,rollbackFor = Exception.class)
     public ResponseMessage logIn(Map<String, Object> datamap) {
         Map<String,Object> resMap = Maps.newHashMap();
         String psw = TextUtils.MD5(datamap.get("yhDlmm").toString()).toUpperCase();
@@ -149,17 +151,22 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if(TextUtils.isEmpty(map)){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-        if(!psw.equalsIgnoreCase(map.get("yhDlzh").toString())){
+        if(!psw.equalsIgnoreCase(map.get("yhDlmm").toString())){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
         }
         if(Integer.parseInt(map.get("olx").toString())!=0){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-        resMap.get(map.get("owid"));
-        resMap.get(map.get("yhtx"));
-        resMap.get(map.get("sjh"));
+        //设置最近登录时间
+        this.dao.updateDlsj(map.get("owid").toString());
+        resMap.put("owid",map.get("owid"));
+        resMap.put("yhtx",map.get("yhtx"));
+        resMap.put("sjh",map.get("sjh"));
         return ResponseMessage.sendOK(resMap);
     }
+
+
+
     /**
      *<p>功能描述: 修改密码 </p >
      *<ul>
@@ -171,19 +178,24 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     @Transactional(readOnly = false ,rollbackFor = Exception.class)
     public ResponseMessage modfiyPassword(Map<String, Object> datamap) {
-        HashMap<Object, Object> map = Maps.newHashMap();
+        HashMap<String, Object> map = Maps.newHashMap();
         String newPassword=datamap.get("newPassword").toString();
         String newPasswordAgain=datamap.get("newPasswordAgain").toString();
         if(!newPassword.equals(newPasswordAgain)){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NewPasswordNotMatch);
         }
+        String oldPsw = TextUtils.MD5(datamap.get("oldPassword").toString()).toUpperCase();
         BckjBizYhxx bckjbizyhxx = this.dao.getOneByCondition(datamap);
        if(TextUtils.isEmpty(bckjbizyhxx)) {
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
+       if(!bckjbizyhxx.getYhdlmm().equalsIgnoreCase(oldPsw)){
+           return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
+       }
+        String newPsw = TextUtils.MD5(datamap.get("newPassword").toString()).toUpperCase();
         map.put("owid",datamap.get("owid"));
-        map.put("yhDlmm",datamap.get("newPassword"));
-        this.dao.modfiyPassword(datamap);
+        map.put("yhDlmm",newPsw);
+        this.dao.modfiyPassword(map);
         return  ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 

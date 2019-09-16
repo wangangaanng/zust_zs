@@ -236,14 +236,4 @@
  		order by a.createtime
 	</select>
 
-	<select id="findListByOwid" parameterType="Map" resultType="BckjBizZjzx">
-		select <include refid="bckjBizZjzxColumns"></include>
-		from bckj_biz_zjzx a
-		where owid=#{owid}
-		order by a.createtime
-	</select>
-	<update id="deleteByMap" parameterType="Map">
-		delete FROM bckj_biz_zjzx a
-		where owid = #{owid}
-	</update>
 </mapper>

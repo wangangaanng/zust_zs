@@ -102,6 +102,32 @@ public class BckjBizQyxxController extends BaseController {
         }
     }
 
+
+    /**
+     * 企业详情
+     *
+     * @param dataVO
+     * @return
+     */
+    @RequestMapping(value = "getOneCompany", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOneCompany(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizQyxxService.getOneCompany(mapData.get("owid").toString()));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizQyxx\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
     /**
      * <p>接口 companyRegister.java : <p>
      * <p>说明：企业注册</p>
@@ -121,7 +147,7 @@ public class BckjBizQyxxController extends BaseController {
             }
             Map resultMap = bckjBizQyxxService.companyRegister(mapData);
             if ("true".equals(resultMap.get("result").toString())) {
-                return ResponseMessage.sendOK("");
+                return ResponseMessage.sendOK(resultMap.get("bean"));
             } else {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
             }
@@ -131,6 +157,7 @@ public class BckjBizQyxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
 
 
     /**

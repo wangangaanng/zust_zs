@@ -105,6 +105,34 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
+
+    /**
+     * <p>接口 getOneJob.java : <p>
+     * <p>说明：职位详情</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/16 15:06
+     * </pre>
+     */
+    @RequestMapping(value = "getOneJob", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOneJob(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJobService.getOneJob(mapData.get("owid").toString()));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizJob\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
     /**
      * <p>接口 addOneJob.java : <p>
      * <p>说明：新增职位</p>
@@ -119,7 +147,7 @@ public class BckjBizJobController extends BaseController {
     public ResponseMessage addOneJob(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "qyYyzzzp", "qyTysh");
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "qyxxRefOwid", "zwbt");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
@@ -150,7 +178,7 @@ public class BckjBizJobController extends BaseController {
                                      PublicDataVO dataVO) {
 
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "xwlx", "pageSize");
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "zwlx", "pageSize");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }

@@ -8,6 +8,7 @@ import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
+import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
@@ -49,16 +50,10 @@ public class BckjBizJypmController extends BaseController {
     @ResponseBody
     public ResponseMessage jypmList(PublicDataVO dataVO) {
         try {
-            Map<String, List<Map<String, Object>>> jypmMap = bckjBizJypmService.listAll();
-            List<Map<String, Object>> result = new ArrayList<>(jypmMap.size());
-            Set<String> set = jypmMap.keySet();
-            for (String key : set) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("szxy", key);
-                map.put("pmzyList", jypmMap.get(key));
-                result.add(map);
-            }
-            return ResponseMessage.sendOK(result);
+            Map<String, Object> dataMap = new HashMap<>();
+            dataMap.put("orderBy", "szxy");
+            PageInfo<Map<String, Object>> pageInfo = bckjBizJypmService.rankPage(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
+            return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");

@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -14,8 +11,11 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJybmDao;
+import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
+import com.zghzbckj.manage.entity.BckjBizQyxx;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +35,10 @@ import java.util.Map;
 public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm> {
 
     private static final Logger log = Logger.getLogger(BckjBizJybmService.class);
+    @Autowired
+    BckjBizQyxxService qyxxService;
+    @Autowired
+    BckjBizJobService jobService;
 
     @Override
     public BckjBizJybm get(String owid) {
@@ -126,10 +130,27 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
+
         Map resultMap = new HashMap<>(2);
         BckjBizJybm jybm = new BckjBizJybm();
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
+            //报名类型企业
+            if (JyContant.BMLX_QY == 0) {
+                BckjBizQyxx qyxx = qyxxService.get(mapData.get("qyxxRefOwid").toString());
+                //企业名称，税号
+                jybm.setQymc(qyxx.getQymc());
+                jybm.setQysh(qyxx.getQyTysh());
+            }
+            //报名对象宣讲会
+            if (JyContant.BMDX_XJH == 1) {
+                BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
+                //申请宣讲会
+                jybm.setSfxz(0);
+                if(!TextUtils.isEmpty(job.getZphKsrq())){
+                    jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
+                }
+            }
             //待审核
             jybm.setState(JyContant.JOB_ZT_DSH);
             saveOrUpdate(jybm);
@@ -160,5 +181,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         pageInfo.setTotalCount(page.getCount());
         pageInfo.setCurrentPage((long) page.getPageNo());
         return pageInfo;
+    }
+
+    public BckjBizJybm getOneByJobHy(Map<String, Object> datamap) {
+        return this.dao.getOneByJobHy(datamap);
     }
 }

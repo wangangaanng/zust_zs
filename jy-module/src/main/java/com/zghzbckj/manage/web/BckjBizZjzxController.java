@@ -156,61 +156,7 @@ public class BckjBizZjzxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-    /**
-     * <p>功能描述:查看历史咨询信息</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/11</li>
-     * </ul>
-     */
-    @PostMapping(value = "historyConsult")
-    @ResponseBody
-    public ResponseMessage historyConsult(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize","zxlx","owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return  bckjBizZjzxService.historyConsult(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
 
-
-    /**
-     * <p>功能描述:删除某条历史咨询信息</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/11</li>
-     * </ul>
-     */
-    @PostMapping(value = "removeHistoryConsult")
-    @ResponseBody
-
-    public ResponseMessage removeHistoryConsult(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if (!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return bckjBizZjzxService.removeHistoryConsult(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
 
 
 

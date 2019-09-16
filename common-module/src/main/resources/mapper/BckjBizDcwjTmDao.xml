@@ -78,7 +78,7 @@
 		FROM bckj_biz_dcwj_tm a
 		<include refid="bckjBizDcwjTmJoins"/>
 		<where>
-			
+
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -94,7 +94,9 @@
 		FROM bckj_biz_dcwj_tm a
 		<include refid="bckjBizDcwjTmJoins"/>
 		<where>
-			
+			<if test="dcwjRefOwid != null and dcwjRefOwid != ''">
+				a.dcwj_ref_owid = #{dcwjRefOwid}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

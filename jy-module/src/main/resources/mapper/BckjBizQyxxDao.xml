@@ -80,7 +80,20 @@
 
     </select>
 
+    <select id="getExistOne" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
+        SELECT
+        <include refid="bckjBizQyxxColumns"/>
+        FROM bckj_biz_qyxx a
+        <include refid="bckjBizQyxxJoins"/>
+        <where>
+            <if test="qyTysh != null and qyTysh != ''">
+                AND a.qy_tysh = #{qyTysh}
+            </if>
+            AND( a.state = 1 OR a.state = 2 OR a.state = 3)
+        </where>
 
+
+    </select>
     <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
         SELECT
         <include refid="bckjBizQyxxColumns"/>
@@ -283,5 +296,19 @@
 		DELETE FROM bckj_biz_qyxx
 		WHERE owid = #{owid}
 	</delete>
+
+
+
+
+	<select id="queryDic" resultType="java.lang.String">
+		SELECT a.dic_val2
+		FROM ourway_sys_dic b,ourway_sys_dic_value a
+		<where>
+			b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val1 = #{dicVal1}
+		</where>
+	</select>
+
+
+
 
 </mapper>

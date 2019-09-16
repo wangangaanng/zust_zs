@@ -131,6 +131,16 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     @Transactional(readOnly = false)
     public Map companyRegister(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
+        //统一税号
+        Map params = new HashMap<>(1);
+        params.put("qyTysh", mapData.get("qyTysh").toString());
+        BckjBizQyxx existCompany = qyxxDao.getExistOne(params);
+        if (!TextUtils.isEmpty(existCompany)) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", JyContant.SHCF_ERROR_MESSAGE);
+            return resultMap;
+        }
+
         BckjBizQyxx company = new BckjBizQyxx();
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
@@ -152,8 +162,9 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         Map resultMap = new HashMap<>(2);
         Map params = new HashMap<>();
         params.put("state", JyContant.QY_ZT_TG);
-        params.put("qyTysh", resultMap.get("qyTysh"));
-        BckjBizQyxx company = qyxxDao.getOne(params);
+        params.put("qyTysh", mapData.get("qyTysh"));
+        BckjBizQyxx company = new BckjBizQyxx();
+        company = qyxxDao.getOne(params);
         if (TextUtils.isEmpty(company)) {
             resultMap.put("result", "false");
             resultMap.put("msg", JyContant.SH_ERROR_MESSAGE);
@@ -171,12 +182,15 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         return resultMap;
     }
 
+    @Transactional(readOnly = false)
     public Map fixCompany(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
-        BckjBizQyxx company =new BckjBizQyxx();
+        BckjBizQyxx company = new BckjBizQyxx();
+        BckjBizQyxx oldCompany = get(mapData.get("owid").toString());
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
-            saveOrUpdate(company);
+            BeanUtil.copyPropertiesIgnoreNull(company, oldCompany);
+            saveOrUpdate(oldCompany);
         } catch (Exception e) {
             e.printStackTrace();
             resultMap.put("result", "false");
@@ -186,5 +200,29 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         resultMap.put("result", "true");
         resultMap.put("bean", company);
         return resultMap;
+    }
+
+    public BckjBizQyxx getOneCompany(String owid) {
+        BckjBizQyxx qyxx = get(owid);
+        Map params = new HashMap<>(2);
+        if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
+            params.put("type", JyContant.GSGM);
+            params.put("dicVal1", qyxx.getQyGsgm());
+            String gsgmStr = qyxxDao.queryDic(params);
+            qyxx.setQyGsgmStr(gsgmStr);
+        }
+        if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
+            params.put("type", JyContant.HYLB);
+            params.put("dicVal1", qyxx.getQyHylb());
+            String hylbStr = qyxxDao.queryDic(params);
+            qyxx.setQyHylbStr(hylbStr);
+        }
+        if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
+            params.put("type", JyContant.GSXZ);
+            params.put("dicVal1", qyxx.getQyGsxz());
+            String gsxzStr = qyxxDao.queryDic(params);
+            qyxx.setQyGsxzStr(gsxzStr);
+        }
+        return qyxx;
     }
 }

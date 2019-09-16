@@ -18,7 +18,7 @@ public class BckjBizYhkz extends DataWithExpEntity<BckjBizYhkz> {
 	
 	private static final long serialVersionUID = 1L;
 	private String yhRefOwid;		// yh_ref_owid
-	private Integer OLX;		// 0lx
+	private Integer olx;		// 0lx
 	private String xsxh;		// xsxh
 	private String xsxy;		// xsxy
 	private String xszy;		// xszy
@@ -42,12 +42,12 @@ public class BckjBizYhkz extends DataWithExpEntity<BckjBizYhkz> {
 		this.yhRefOwid = yhRefOwid;
 	}
 	
-	public Integer getOLX() {
-		return OLX;
+	public Integer getOlx() {
+		return olx;
 	}
 
-	public void set0lx(Integer OLX) {
-		this.OLX = OLX;
+	public void setOlx(Integer olx) {
+		this.olx = olx;
 	}
 	
 	@Length(min=0, max=40, message="xsxh长度必须介于 0 和 40 之间")

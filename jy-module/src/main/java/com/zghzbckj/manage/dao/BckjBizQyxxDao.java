@@ -18,4 +18,8 @@ import java.util.Map;
 public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
 
     BckjBizQyxx getOne(Map params);
+
+    BckjBizQyxx getExistOne(Map params);
+
+    String queryDic(Map params);
 }

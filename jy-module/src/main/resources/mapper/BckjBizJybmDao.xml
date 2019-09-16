@@ -79,9 +79,8 @@
         SELECT
         <include refid="bckjBizJybmColumns"/>
         FROM bckj_biz_jybm a
-        <include refid="bckjBizJybmJoins"/>
         <where>
-            <if test="qyxxRefOwid != null qyxxRefOwid xwlx != ''">
+            <if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
                 AND a.qyxx_ref_owid = #{qyxxRefOwid}
             </if>
             <if test="yhRefOwid != null and yhRefOwid != ''">
@@ -266,5 +265,11 @@
 		DELETE FROM bckj_biz_jybm
 		WHERE owid = #{owid}
 	</delete>
+
+	<select id="getOneByJobHy" resultType="BckjBizJybm" parameterType="Map">
+		select <include refid="bckjBizJybmColumns"></include> from
+		bckj_biz_jybm a
+		where a.JOB_REF_OWID =#{jobRefOwid} and a.YH_REF_OWID=#{yhRefOwid}
+	</select>
 
 </mapper>

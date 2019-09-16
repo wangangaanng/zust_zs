@@ -249,9 +249,7 @@
 		WHERE owid = #{owid}
 	</delete>
 
-	<select id="studentLogin" parameterType="Map" resultType="BckjBizYhxx">
-		SELECT
-	</select>
+
 
 
 	<select id="getOneByCondition" resultType="BckjBizYhxx" parameterType="Map">
@@ -279,7 +277,11 @@
 	</select>
 
     <update id="modfiyPassword" parameterType="Map">
-		update bckj_biz_yhxx set  YH_DLMM=#{yhDlmm} where OWID=#{owid};
+		UPDATE bckj_biz_yhxx SET YH_DLMM=#{yhDlmm} where OWID=#{owid};
+	</update>
+
+	<update id="updateDlsj" parameterType="String" >
+		update bckj_biz_yhxx set dlzhsj=now() where owid = #{value}
 	</update>
 
 

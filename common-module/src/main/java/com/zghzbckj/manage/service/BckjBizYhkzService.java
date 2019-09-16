@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 
 import org.springframework.stereotype.Service;
@@ -130,4 +131,9 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
             }
 
 
+    public ResponseMessage getOneByYhRefOwid(String yhRefOwid) {
+        HashMap<String, Object> map = Maps.newHashMap();
+        map.put("yhRefOwid",yhRefOwid);
+        return ResponseMessage.sendOK(this.dao.getOneByYhRefOwid(map));
+    }
 }

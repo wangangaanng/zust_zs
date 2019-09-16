@@ -1,0 +1,3 @@
+/**index.wxss**/
+.index-swiper{height: 300rpx;}
+.index-swiper image{width:750rpx;height: 100%;}

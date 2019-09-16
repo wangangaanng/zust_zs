@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
+import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.dao.BckjBizXsgzDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
@@ -40,6 +41,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     private static final Logger log = Logger.getLogger(BckjBizJobService.class);
     @Autowired
     BckjBizXsgzDao xsgzDao;
+    @Autowired
+    BckjBizQyxxDao qyxxDao;
+
 
     @Override
     public BckjBizJob get(String owid) {
@@ -154,6 +158,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
+//        if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
+//            dataMap.put("zwlx", Integer.parseInt(dataMap.get("zwlx").toString()));
+//        }
+//        if (!TextUtils.isEmpty(dataMap.get("gzlx"))) {
+//            dataMap.put("gzlx", Integer.parseInt(dataMap.get("gzlx").toString()));
+//        }
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
 
         if (!TextUtils.isEmpty(jobList) && !TextUtils.isEmpty(dataMap.get("yhRefOwid"))) {
@@ -185,5 +195,53 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public List<BckjBizJob> jobByMonth(Map<String, Object> dataMap) {
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
         return jobList;
+    }
+
+    public BckjBizJob getOneJob(String owid) {
+        BckjBizJob job = get(owid);
+        Map params = new HashMap<>(2);
+        if (!TextUtils.isEmpty(job.getZwGzzn())) {
+            params.put("type", JyContant.GZZN);
+            params.put("dicVal1", job.getZwGzzn());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGzznStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwGzzn())) {
+            params.put("type", JyContant.GZZN);
+            params.put("dicVal1", job.getZwGzzn());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGzznStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwGzxz())) {
+            params.put("type", JyContant.GZXZ);
+            params.put("dicVal1", job.getZwGzxz());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGzxzStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwNlyq())) {
+            params.put("type", JyContant.NLYQ);
+            params.put("dicVal1", job.getZwNlyq());
+            String str = qyxxDao.queryDic(params);
+            job.setZwNlyqStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwXlyq())) {
+            params.put("type", JyContant.XLYQ);
+            params.put("dicVal1", job.getZwXlyq());
+            String str = qyxxDao.queryDic(params);
+            job.setZwXlyqStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwYyyq())) {
+            params.put("type", JyContant.YYYQ);
+            params.put("dicVal1", job.getZwYyyq());
+            String str = qyxxDao.queryDic(params);
+            job.setZwYyyqStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwGznx())) {
+            params.put("type", JyContant.GZNX);
+            params.put("dicVal1", job.getZwGznx());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGznxStr(str);
+        }
+        return job;
     }
 }
