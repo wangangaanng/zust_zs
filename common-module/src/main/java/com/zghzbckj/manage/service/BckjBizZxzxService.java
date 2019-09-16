@@ -6,6 +6,7 @@ package com.zghzbckj.manage.service;
 import com.ourway.base.utils.*;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
@@ -132,24 +133,29 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
             }
             return ResponseMessage.sendOK(objs);
             }
-
+@Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage consult(Map<String, Object> dataMap) {
             BckjBizZxzx bckjBizZxzx=new BckjBizZxzx();
             //就业专家咨询
+        if(Integer.parseInt(dataMap.get("zxlx").toString())!=2&&Integer.parseInt(dataMap.get("zxlx").toString())!=5){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 2) {
                 ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid", "studentOwid");
                 if (!msg.getSuccess()) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
                 }
                 ResponseMessage teachMessage = bckjBizYhxxService.getOneByOwid(dataMap.get("owid").toString());
-                if (teachMessage == null && teachMessage.getBackCode() == 0 && teachMessage.getBean() == null) {
+                if (teachMessage == null || teachMessage.getBackCode() != 0 || teachMessage.getBean() == null) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
                 }
                 ResponseMessage studentMessage = bckjBizYhxxService.getOneByOwid(dataMap.get("studentOwid").toString());
                 if (studentMessage == null && studentMessage.getBackCode() == 0 && studentMessage.getBean() == null) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
                 }
-            BckjBizYhxx bckjBizYhxx = JsonUtil.map2Bean((Map<String, Object>) studentMessage.getBean(), BckjBizYhxx.class);
+
+
+            BckjBizYhxx bckjBizYhxx=(BckjBizYhxx)studentMessage.getBean();
             if(!TextUtils.isEmpty(bckjBizYhxx.getYx())){
                 bckjBizZxzx.setYx(bckjBizYhxx.getYx());
             }
@@ -162,7 +168,6 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
             if (!TextUtils.isEmpty(bckjBizYhxx.getOwid())){
                 bckjBizZxzx.setTwOwid(bckjBizYhxx.getOwid());
             }
-
         }
         //就业咨询
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 5){
@@ -178,7 +183,22 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
             bckjBizZxzx.setTwrq(new Date());
             bckjBizZxzx.setSfxs(1);
             bckjBizZxzx.setLyip(dataMap.get("ipAdrress").toString());
-            this.dao.insert(bckjBizZxzx);
+            saveOrUpdate(bckjBizZxzx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    public ResponseMessage historyConsult(Map<String, Object> dataMap) {
+        if(Integer.parseInt(dataMap.get("zxlx").toString())!=2){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+        Page<BckjBizZxzx> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        dataMap.put("page", page);
+        page.setList(this.dao.findListByOwid(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage removeHistoryConsult(Map<String, Object> dataMap ) {
+        this.dao.deleteByMap(dataMap);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 }

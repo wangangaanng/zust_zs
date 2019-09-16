@@ -167,11 +167,11 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         if (TextUtils.isEmpty(bckjBizYhkzVo)||bckjBizYhkzVo.getOlx()!=0){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
         }
-        //判断是否已经存在
+        //如果已经存在
         BckjBizXsgz xsgz= this.dao.getOneByJobYh(datamap);
         if(!TextUtils.isEmpty(xsgz)&&xsgz.getState()==1){
             //如果为关注
-            if(xsgz.getXxlb()==0&&datamap.get("xxlb")==xsgz.getXxlb()) {
+            if(xsgz.getXxlb()==0&&Integer.parseInt(datamap.get("xxlb").toString())==xsgz.getXxlb()) {
                 int x = -(Integer.parseInt(xsgz.getExp1()));
                 xsgz.setExp1("" + x);
                 saveOrUpdate(xsgz);
@@ -191,7 +191,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.AlreadyCheck);
             }
         }
-        //如果为签到
+        //如果为新的签到
         if (Integer.parseInt(datamap.get("xxlb").toString())==1){
             //如果需要报名的
             if(bckjBizJob.getZphSfbm()==1){
@@ -231,7 +231,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.OutOfCheckInRange);
             }
         }
-        //如果为关注
+        //如果为新的关注
         if(Integer.parseInt(datamap.get("xxlb").toString())==0){
             int count =bckjBizJob.getZwGzs()+1;
             bckjBizJob.setZwGzs(count);

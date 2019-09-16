@@ -19,6 +19,4 @@ import java.util.Map;
 public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
 
     List<BckjBizZjzx> zjList(Map<String, Object> dataMap);
-
-    List<BckjBizZjzx> findListByOwid(Map<String, Object> dataMap);
 }
