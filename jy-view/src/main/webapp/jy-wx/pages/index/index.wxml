@@ -6,3 +6,6 @@
     </swiper-item>
   </block>
 </swiper>
+<van-grid square>
+  <van-grid-item image="{{menuList.image}}" text="{{item.text}}" wx:for="{{ menuList }}"></van-grid-item>
+</van-grid>
