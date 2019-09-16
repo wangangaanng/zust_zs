@@ -33,6 +33,11 @@ public class CommonConstant {
     public  static  final  String PasswordError="密码错误";
     public   static  final String NewPasswordNotMatch="两次新密码不一致";
     public   static  final String OutOfCheckInRange="超出签到范围";
+    public static  final String BeyondTime="超出截止时间";
+    public static  final String Unfollow="取消关注";
+    public static  final String AlreadyCheck="已签到";
+    public static  final String OutOfCheckTime="不在签到时间";
+
 
 
 

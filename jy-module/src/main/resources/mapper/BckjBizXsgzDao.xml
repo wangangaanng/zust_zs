@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizXsgzDao">
-
-    <sql id="bckjBizXsgzColumns">
+    
+	<sql id="bckjBizXsgzColumns">
 		a.owid AS "owid",
 		a.job_ref_owid AS "jobRefOwid",
 		a.yh_ref_owid AS "yhRefOwid",
@@ -192,8 +192,8 @@
 			#{exp10}
 		)
 	</insert>
-
-    <update id="update">
+	
+	<update id="update">
 		UPDATE bckj_biz_xsgz SET 	
 			owid = #{owid},
 			job_ref_owid = #{jobRefOwid},
@@ -234,10 +234,16 @@
 			exp10 = #{exp10}
 		WHERE owid = #{owid}
 	</update>
-
-    <delete id="delete">
+	
+	<delete id="delete">
 		DELETE FROM bckj_biz_xsgz
 		WHERE owid = #{owid}
 	</delete>
+
+	<select id="getOneByJobYh" parameterType="Map" resultType="BckjBizXsgz">
+		select <include refid="bckjBizXsgzColumns"></include>
+		from bckj_biz_xsgz a
+		where a.job_ref_owid=#{jobRefOwid} and a.yh_ref_owid=#{yhRefOwid}
+	</select>
 
 </mapper>

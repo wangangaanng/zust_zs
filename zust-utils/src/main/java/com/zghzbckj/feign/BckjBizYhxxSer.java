@@ -3,14 +3,15 @@ package com.zghzbckj.feign;
 
 
 
+import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.vo.BckjBizYhxxVo;
-import jdk.internal.org.objectweb.asm.tree.analysis.Value;
+
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import sun.awt.SunHints;
+
 
 
 /**
@@ -20,7 +21,7 @@ import sun.awt.SunHints;
  * </dl>
  * @author wangangaanng
  */
-@Component
+@Component("bckjbizyhxxSer")
 @FeignClient(value = "zustCommonModule")
 public interface BckjBizYhxxSer {
     /**
@@ -34,5 +35,5 @@ public interface BckjBizYhxxSer {
      *</ul>
      */
     @RequestMapping(value = "/bckjBizYhxx/getOneByOwid",method = RequestMethod.POST)
-    BckjBizYhxxVo getOneByOwid(@RequestParam("owid") String owid);
+    ResponseMessage getOneByOwid(@RequestParam("owid") String owid);
 }

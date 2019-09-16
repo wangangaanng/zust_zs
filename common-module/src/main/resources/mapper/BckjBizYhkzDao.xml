@@ -5,7 +5,7 @@
 	<sql id="bckjBizYhkzColumns">
 		a.owid AS "owid",
 		a.yh_ref_owid AS "yhRefOwid",
-		a.0lx AS "0lx",
+		a.OLX AS "olx",
 		a.xsxh AS "xsxh",
 		a.xsxy AS "xsxy",
 		a.xszy AS "xszy",
@@ -212,6 +212,12 @@
 		DELETE FROM bckj_biz_yhkz
 		WHERE owid = #{owid}
 	</delete>
+
+	<select id="getOneByYhRefOwid" resultType="BckjBizYhkz" parameterType="Map">
+		select <include refid="bckjBizYhkzColumns"></include>
+		from bckj_biz_yhkz a
+		where  a.YH_REF_OWID=#{yhRefOwid}
+	</select>
 
 	
 </mapper>

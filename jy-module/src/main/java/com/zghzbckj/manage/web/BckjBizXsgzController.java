@@ -124,7 +124,7 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage signInOrScribe(PublicDataVO dataVO) {
         try {
             Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(datamap,"jobRefOwid","owid","xxlb");
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap,"yhRefOwid","jobRefOwid","xxlb");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }

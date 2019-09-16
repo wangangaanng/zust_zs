@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class BckjBizYhxxVo {
 
-    private static final long serialVersionUID = 1L;
-
     private  String owid;
     private String sjh;		// sjh
     private String unionid;		// unionid
@@ -26,7 +24,6 @@ public class BckjBizYhxxVo {
     private Date dlzhsj;		// dlzhsj
     private String yhdlzh;
     private String yhdlmm;
-
     private String exp1;
     private String exp2;
     private String exp3;
@@ -50,9 +47,6 @@ public class BckjBizYhxxVo {
     public BckjBizYhxxVo() {
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     public String getSjh() {
         return sjh;

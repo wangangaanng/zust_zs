@@ -267,4 +267,10 @@
 		WHERE owid = #{owid}
 	</delete>
 
+	<select id="getOneByJobHy" resultType="BckjBizJybm" parameterType="Map">
+		select <include refid="bckjBizJybmColumns"></include> from
+		bckj_biz_jybm a
+		where a.JOB_REF_OWID =#{jobRefOwid} and a.YH_REF_OWID=#{yhRefOwid}
+	</select>
+
 </mapper>

@@ -128,7 +128,7 @@ public class BckjBizDacxController extends BaseController {
             if (datamap.get("sfzh").toString().matches(regex)) {
                 return bckjBizDacxService.inquiryArchives(datamap);
             } else {
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ErrorForIdentityCard);
             }
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
