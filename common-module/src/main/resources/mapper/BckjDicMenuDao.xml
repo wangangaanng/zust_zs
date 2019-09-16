@@ -260,4 +260,8 @@
 		SELECT a.OWID,a.CODE,a.BXLX,a.SJHQDX,a.TZLJ,b.NAME,b.GGT,b.JSY,b.PX FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
 		a.OWID=b.MENU_REF_OWID AND b.TYPE=#{type} and b.WZBH=#{wzbh} and a.FID=#{fid} ORDER BY b.PX
 	</select>
+
+	<select id="countMenu" resultType="java.lang.Long">
+		SELECT COUNT(OWID) FROM bckj_dic_menu
+	</select>
 </mapper>

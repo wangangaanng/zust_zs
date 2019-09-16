@@ -194,4 +194,17 @@ public class BckjDicMenuController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "countMenu", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage countMenu(PublicDataVO dataVO) {
+        try {
+//            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            return ResponseMessage.sendOK(bckjDicMenuService.countMenu());
+        } catch (Exception e) {
+            log.info("获取菜单总数失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
 }

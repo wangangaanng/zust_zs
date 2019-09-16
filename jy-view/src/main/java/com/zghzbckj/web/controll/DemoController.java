@@ -10,6 +10,7 @@ import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -47,8 +48,9 @@ public class DemoController {
         return "detail";
     }
 
-    @RequestMapping(value = "detail2", method = RequestMethod.GET)
-    public String detail2(HttpServletRequest request) {
+    @RequestMapping(value = "detail2/{path}", method = RequestMethod.GET)
+    public String detail2(HttpServletRequest request, @PathVariable String path) {
+
         return "detail2";
     }
 
