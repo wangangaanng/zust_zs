@@ -196,4 +196,8 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         List<Map> yjMenu=this.dao.getYjlm(mapData);
         return yjMenu;
     }
+
+    public Long countMenu() {
+       return this.dao.countMenu();
+    }
 }

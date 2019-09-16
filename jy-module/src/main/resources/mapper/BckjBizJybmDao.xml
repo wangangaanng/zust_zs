@@ -79,9 +79,8 @@
         SELECT
         <include refid="bckjBizJybmColumns"/>
         FROM bckj_biz_jybm a
-        <include refid="bckjBizJybmJoins"/>
         <where>
-            <if test="qyxxRefOwid != null qyxxRefOwid xwlx != ''">
+            <if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
                 AND a.qyxx_ref_owid = #{qyxxRefOwid}
             </if>
             <if test="yhRefOwid != null and yhRefOwid != ''">

@@ -96,10 +96,9 @@
         SELECT
         <include refid="bckjBizJobColumns"/>
         FROM bckj_biz_job a
-        <include refid="bckjBizJobJoins"/>
         <where>
-            <if test="xwlx != null and xwlx != ''">
-                AND a.xwlx = #{xwlx}
+            <if test="zwlx != null and zwlx != ''">
+                AND a.zwlx = #{zwlx}
             </if>
             <if test="qyxxRefOwid != null and qyxxRefOwid != ''">
                 AND a.qyxx_ref_owid = #{qyxxRefOwid}
@@ -107,9 +106,9 @@
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>
-			<if test="startTime != null and startTime != '' and endTime != null and endTime != ' ">
-				and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
-			</if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+                and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

@@ -18,10 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -60,50 +57,78 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
 		super.delete(bckjBizJypm);
 	}
 
-	/**
-     *<p>功能描述:返回根据学院合并过的map listAll</p >
+    /**
+     *<p>方法:根据学院统计分页 rankPage TODO </p>
      *<ul>
-     *<li>@param []</li>
-     *<li>@return java.util.Map</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/9/11 16:09</li>
+     *<li> @param dataMap TODO</li>
+     *<li> @param pageNo TODO</li>
+     *<li> @param pageSize TODO</li>
+     *<li>@return com.zghzbckj.base.entity.PageInfo</li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/16 14:39  </li>
      *</ul>
      */
-    public Map<String, List<Map<String, Object>>> listAll() {
-        Map<String, Object> dataMap = new HashMap<>();
-        dataMap.put("orderBy", "szxy");
-        //根据所在学院字段分组
-        List<BckjBizJypm> dataList = this.dao.findListByMap(dataMap);
-        if (null == dataList) {
+    public PageInfo<Map<String, Object>> rankPage(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
+        PageInfo<BckjBizJypm> result = findPage(dataMap, pageNo, pageSize, "szxy");
+        if (null == result) {
             return null;
         }
-        List<Map<String, Object>> jypmList = new ArrayList<>();
-        for (BckjBizJypm pm : dataList) {
+        List<Map<String, Object>> dataList = new ArrayList<>();
+        List<BckjBizJypm> rankList = result.getRecords();
+        for (BckjBizJypm rank : rankList) {
             Map<String, Object> map = new HashMap<>();
-            map.put("szxy", pm.getSzxy());
-            map.put("pmzy", pm.getPmzy());
-            map.put("pmbj", pm.getPmbj());
-            map.put("pmbyrs", pm.getPmbyrs());
-            map.put("pmyprs", pm.getPmyprs());
-            map.put("pmqyrs", pm.getPmqyrs());
-            map.put("pmqyl", pm.getPmqyl());
-            map.put("pmjyl", pm.getPmjyl());
-            map.put("pmmc", pm.getPmmc());
-            jypmList.add(map);
+            map.put("szxy", rank.getSzxy());
+            map.put("pmzy", rank.getPmzy());
+            map.put("pmbj", rank.getPmbj());
+            map.put("pmbyrs", rank.getPmbyrs());
+            map.put("pmyprs", rank.getPmyprs());
+            map.put("pmqyrs", rank.getPmqyrs());
+            map.put("pmqyl", rank.getPmqyl());
+            map.put("pmjyl", rank.getPmjyl());
+            map.put("pmmc", rank.getPmmc());
+            dataList.add(map);
         }
         //根据所在学院合并
-        Map<String, List<Map<String, Object>>> result = new HashMap<>();
-        for (Map<String, Object> map : jypmList) {
-            if (result.containsKey(map.get("szxy"))) {
-                result.get(map.get("szxy")).add(map);
+        Map<String, List<Map<String, Object>>> collegeMap = new HashMap<>();
+        for (Map<String, Object> map : dataList) {
+            if (collegeMap.containsKey(map.get("szxy"))) {
+                collegeMap.get(map.get("szxy")).add(map);
             } else {
                 List<Map<String, Object>> list = new ArrayList<>();
                 list.add(map);
-                result.put(map.get("szxy").toString(), list);
+                collegeMap.put(map.get("szxy").toString(), list);
             }
         }
-        return result;
+        List<Map<String, Object>> collegeList = new ArrayList<>(collegeMap.size());
+        Set<String> set = collegeMap.keySet();
+        for (String key : set) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("szxy", key);
+            map.put("pmzyList", collegeMap.get(key));
+            collegeList.add(map);
+        }
+        collegeList.sort(new Comparator<Map<String, Object>>() {
+            @Override
+            public int compare(Map<String, Object> s1, Map<String, Object> s2) {
+                String a = s1.get("szxy").toString();
+                String b = s1.get("szxy").toString();
+                if (a.compareTo(b) > -1) {
+                    return -1;
+                } else if (a.compareTo(b) == 0) {
+                    return 0;
+                } else {
+                    return 1;
+                }
+            }
+        });
+        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
+        pageInfo.setRecords(collegeList);
+        pageInfo.setCurrentIndex(result.getCurrentIndex());
+        pageInfo.setPageSize(result.getPageSize());
+        pageInfo.setTotalCount(collegeList.size());
+        pageInfo.setCurrentPage(result.getCurrentPage());
+        pageInfo.setTotalPage(result.getTotalPage());
+        return pageInfo;
     }
 
 	/**
@@ -118,53 +143,53 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
     * </ul>
      */
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
-    Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-    PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, null);
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, null);
         return ResponseMessage.sendOK(page);
-        }
+    }
 
-        /**
-        * <p>方法:savebckjBizJypm TODO保存BckjBizJypm信息 </p>
-        * <ul>
-            * <li> @param mapData TODO</li>
-            * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-            * <li>@author D.chen.g </li>
-            * <li>@date 2018/9/6 17:05  </li>
-            * </ul>
-        */
-        @Transactional(readOnly = false)
-        public ResponseMessage saveBckjBizJypm(Map<String, Object> mapData) {
+    /**
+     * <p>方法:savebckjBizJypm TODO保存BckjBizJypm信息 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2018/9/6 17:05  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public ResponseMessage saveBckjBizJypm(Map<String, Object> mapData) {
         BckjBizJypm bckjBizJypm = JsonUtil.map2Bean(mapData, BckjBizJypm.class);
-        if(!TextUtils.isEmpty(mapData.get("owid"))){
-        BckjBizJypm bckjBizJypmIndata=get(mapData.get("owid").toString());
-        BeanUtil.copyPropertiesIgnoreNull(bckjBizJypm,bckjBizJypmIndata);
-        bckjBizJypm=bckjBizJypmIndata;
+        if (!TextUtils.isEmpty(mapData.get("owid"))) {
+            BckjBizJypm bckjBizJypmIndata = get(mapData.get("owid").toString());
+            BeanUtil.copyPropertiesIgnoreNull(bckjBizJypm, bckjBizJypmIndata);
+            bckjBizJypm = bckjBizJypmIndata;
         }
         saveOrUpdate(bckjBizJypm);
         return ResponseMessage.sendOK(bckjBizJypm);
-        }
+    }
 
-        /**
-        *<p>方法:removeOrder TODO多条删除BckjBizJypm </p>
-        *<ul>
-            *<li> @param codes TODO</li>
-            *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-            *<li>@author D.chen.g </li>
-            *<li>@date 2018/9/6 17:14  </li>
-            *</ul>
-        */
-        @Transactional(readOnly = false)
-        public ResponseMessage removeOrder(List<String> codes) {
-            List<Map<String, Object>> objs = new ArrayList<Map<String, Object>>();
-            for (String owid : codes) {
+    /**
+     * <p>方法:removeOrder TODO多条删除BckjBizJypm </p>
+     * <ul>
+     * <li> @param codes TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2018/9/6 17:14  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public ResponseMessage removeOrder(List<String> codes) {
+        List<Map<String, Object>> objs = new ArrayList<Map<String, Object>>();
+        for (String owid : codes) {
             Map<String, Object> params = new HashMap<String, Object>(1);
             BckjBizJypm bckjBizJypm = new BckjBizJypm();
-        bckjBizJypm.setOwid(owid);
+            bckjBizJypm.setOwid(owid);
             this.dao.delete(bckjBizJypm);
             params.put("owid", owid);
             objs.add(params);
-            }
-            return ResponseMessage.sendOK(objs);
-            }
-	
+        }
+        return ResponseMessage.sendOK(objs);
+    }
+
 }
