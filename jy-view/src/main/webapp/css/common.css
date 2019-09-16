@@ -3,7 +3,7 @@ body {
 }
 
 header .container {
-    min-width: 1200px !important;
+    min-width: 1200px !important;padding: 0;
 }
 
 header .top {
@@ -33,6 +33,7 @@ header .title {
 
 header .nav {
     height: 53px;
+    position: relative;
 }
 
 header .nav>ul {
@@ -44,38 +45,57 @@ header .nav>ul {
 header ul {
     list-style: none;
 }
-header .nav>ul>li {float: left;font-size: 18px;line-height: 18px;padding: 17px 35px;color: #fff;cursor: pointer;position: relative;}
+header .nav>ul>li {float: left;font-size: 18px;line-height: 19px;padding: 17px 35px;color: #fff;cursor: pointer;position: relative;}
 header .nav>ul>li:hover {
     /* background: #fff; */
-    color: #f5b900;
+    /*color: #f5b900;*/
+}
+header .nav>ul>li.current{background: #fff;color:#008784;}
+/*二级导航*/
+.subnav-wrap{position: absolute;width: 100%;left: 0;top:53px;z-index: 500;background: rgba(255,255,255,0.9);}
+.subnav-cont{display: none;}
+.subnav-left{width: 720px;padding: 25px 0;}
+.subnav-left img{display: block;float: left;width: 409px;height: 136px;}
+.subnav-left img:hover{opacity: 0.9;filter:alpha(opacity=90);}
+.subnav-motto{width: 225px;margin: 33px 0 auto 455px;}
+.subnav-motto p{font-size: 16px;color: #008784;line-height: 34px;}
+.subnav-motto p{max-height: 68px;overflow: hidden;}
+.subnav{width: 450px;padding-top: 12px;padding: 25px 0;}
+.subnav li{float: left;width: 150px;font-size: 14px;line-height: 34px;}
+.subnav li a{color: #666;}
+.subnav li a:hover{color: #008784;}
+.fl{
+    float: left;}
+.fr{
+    float: right;
 }
 
 /*二级导航*/
-header .nav>ul>li:hover .subnav{display: block;}
-header .subnav{
-    display: none;
-    z-index: 999;
-    width: 130px;
-    position: absolute;
-    color: white;
-    top: 50px;
-    left: 0px;
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-}
-header .subnav li{
-    height: 50px;
-    color: white;
-    background-color: rgb(0,135,131);
-}
-header .subnav li a{
-    display: block;
-    font-size: 16px;
-    color: white;
-    line-height: 50px;
-    text-align: center;
-}
+/*header .nav>ul>li:hover .subnav{display: block;}*/
+/*header .subnav{*/
+    /*display: none;*/
+    /*z-index: 999;*/
+    /*width: 130px;*/
+    /*position: absolute;*/
+    /*color: white;*/
+    /*top: 50px;*/
+    /*left: 0px;*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+    /*list-style-type: none;*/
+/*}*/
+/*header .subnav li{*/
+    /*height: 50px;*/
+    /*color: white;*/
+    /*background-color: rgb(0,135,131);*/
+/*}*/
+/*header .subnav li a{*/
+    /*display: block;*/
+    /*font-size: 16px;*/
+    /*color: white;*/
+    /*line-height: 50px;*/
+    /*text-align: center;*/
+/*}*/
 
 .bottom {
     margin-top: 20px;

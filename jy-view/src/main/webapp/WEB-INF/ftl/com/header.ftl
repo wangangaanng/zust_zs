@@ -16,19 +16,57 @@
             <div class="nav">
                 <ul>
                     <#list nav as obj>
-                        <li onclick='openUrl("${obj.url!''}")'>${obj.title}
-                            <#if obj.sub??>
-                                <ul class='subnav'>
-                                    <#list obj.sub as sub>
-                                        <li onclick='openUrl("${sub.url!''}")'><a><span>${sub.title}</span></a></li>
-                                    </#list>
-                                </ul>
-                            </#if>
+                        <li class="nav-item" onclick='openUrl("${obj.url!''}")'>${obj.title}
+                            <#--<#if obj.sub??>-->
+                                <#--<ul class='subnav'>-->
+                                    <#--<#list obj.sub as sub>-->
+                                        <#--<li onclick='openUrl("${sub.url!''}")'><a><span>${sub.title}</span></a></li>-->
+                                    <#--</#list>-->
+                                <#--</ul>-->
+                            <#--</#if>-->
                         </li>
                     </#list>
 
                 </ul>
+                <div class="subnav-wrap">
+                <#list nav as obj>
+                    <#if obj.sub??>
+                        <div class="subnav-cont" rel="${obj_index}">
+                            <div class="subnav-left fl"><img alt="" src="">
+                                <div class="subnav-motto">
+                                    <p>真山真水，真是读书好地方。</p>
+                                    <p class="tr">——张德江</p>
+                                </div></div>
+                            <ul class="clearfix subnav fr">
+                                <#list obj.sub as sub>
+                                <li onclick='openUrl("${sub.url!''}")'><a>${sub.title}</a></li>
+                                </#list>
+                            </ul>
+                        </div>
+                    </#if>
+                </#list>
+                </div>
             </div>
         </div>
     </div>
 </header>
+<script>
+    $('.nav li').each(function(i,v){
+        $(this).hover(function(){
+            if(i != 0){
+                $(this).addClass('current').siblings().removeClass('current');
+                $('.subnav-wrap').show();
+                $('.subnav-wrap .subnav-cont').eq(i-1).stop().fadeIn().siblings().hide();
+            }else{
+                $('.nav li').removeClass('current');
+                $('.subnav-wrap').hide();
+                $('.subnav-wrap .subnav-cont').hide();
+            }
+        })
+    })
+    $('.nav-wrap').mouseleave(function(){
+        $('.nav li').removeClass('current');
+        $('.subnav-wrap').hide();
+        $('.subnav-wrap .subnav-cont').hide();
+    })
+</script>
