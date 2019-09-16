@@ -3,12 +3,12 @@
  */
 package com.zghzbckj.manage.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
+
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.zghzbckj.base.entity.DataWithExpEntity;
 
 /**
  * ccEntity
@@ -37,8 +37,16 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
 	private String jkr;		// jkr
 	private String jkrjs;		// jkrjs
 	private String memo;		// memo
+	private String xgfj;
 
-	
+	public String getXgfj() {
+		return xgfj;
+	}
+
+	public void setXgfj(String xgfj) {
+		this.xgfj = xgfj;
+	}
+
 	public BckjBizJybm() {
 		super();
 	}
