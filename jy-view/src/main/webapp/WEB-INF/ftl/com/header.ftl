@@ -53,7 +53,7 @@
 <script>
     $('.nav li').each(function(i,v){
         $(this).hover(function(){
-            if(i != 0){
+            if((i != 0)&&(i!=$('.nav>ul li').length-1)){
                 $(this).addClass('current').siblings().removeClass('current');
                 $('.subnav-wrap').show();
                 $('.subnav-wrap .subnav-cont').eq(i-1).stop().fadeIn().siblings().hide();
