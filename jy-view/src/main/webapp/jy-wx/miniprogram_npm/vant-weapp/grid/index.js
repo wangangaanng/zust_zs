@@ -8,9 +8,9 @@ VantComponent({
       this.children.push(child);
     },
     unlinked(child) {
-      this.children = this.children.filter(
-        // (item: WechatMiniprogram.Component.TrivialInstance) => item !== child
-      );
+      // this.children = this.children.filter(
+      //   (item: WechatMiniprogram.Component.TrivialInstance) => item !== child
+      // );
     }
   },
 
@@ -60,11 +60,11 @@ VantComponent({
 
   methods: {
     updateChildren() {
-      this.children.forEach(
-        // (child: WechatMiniprogram.Component.TrivialInstance) => {
-        //   child.updateStyle();
-        // }
-      );
+      // this.children.forEach(
+      //   // (child: WechatMiniprogram.Component.TrivialInstance) => {
+      //   //   child.updateStyle();
+      //   // }
+      // );
     }
   }
 });

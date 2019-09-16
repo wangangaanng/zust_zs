@@ -7,8 +7,9 @@
     </block>
     <block wx:else>
       <view class="van-grid-item__icon">
-        <van-icon wx:if="{{ icon }}" name="{{ icon }}" />
-        <slot wx:else name="icon"></slot>
+        <!-- <van-icon wx:if="{{ icon }}" name="{{ icon }}" /> -->
+        <image src="{{ icon }}"></image>
+        <!-- <slot wx:else name="icon"></slot> -->
       </view>
       <view class="van-grid-item__text">
         <text wx:if="{{ text }}">{{ text }}</text>

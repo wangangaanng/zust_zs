@@ -7,5 +7,5 @@
   </block>
 </swiper>
 <van-grid square>
-  <van-grid-item image="{{menuList.image}}" text="{{item.text}}" wx:for="{{ menuList }}"></van-grid-item>
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>
