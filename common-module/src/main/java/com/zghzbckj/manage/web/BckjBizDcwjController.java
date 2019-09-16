@@ -110,7 +110,7 @@ public class BckjBizDcwjController extends BaseController {
      *<p>功能描述:问卷答案提交 submit</p >
      *<ul>
      *<li>@param [dataVO]</li>
-     *<li>@return org.springframework.web.bind.annotation.ResponseBody</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
      *<li>@throws </li>
      *<li>@author xuyux</li>
      *<li>@date 2019/9/12 14:41</li>
@@ -132,8 +132,7 @@ public class BckjBizDcwjController extends BaseController {
             if (null == dataMap.get("answerList")) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "答案列表为空");
             }
-            bckjBizDcwjService.saveAnswer(dataMap);
-            return ResponseMessage.sendOK(dataMap);
+            return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");

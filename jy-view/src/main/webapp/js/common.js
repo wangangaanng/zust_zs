@@ -1,8 +1,8 @@
 /**
  * Created by zhang on 2019/9/11.
  */
-var prx='../'
-//var prx=''
+// var prx='../'//html路径
+var prx=''//ftl路径
 document.write('<link rel="stylesheet" href="'+prx+'css/common.css" />');
 document.write('<script language=javascript src="'+prx+'js/mustache.js"></script>');
 $(document).ready(function () {
@@ -17,7 +17,7 @@ var data={nav:[
     {url:'',title:'企业指南',sub:[{url:'',title:'招聘指南'},{url:'',title:'生源速览'}]},
     {url:'',title:'学生服务',sub:[{url:'',title:'办事流程'},{url:'',title:'常用下载'},{url:'',title:'档案查询'}]},
     {url:'',title:'联系我们'},
-]}
+]};
 var headerTpl='<header><div class="top"><div class="container"><div class="top-logo"><img class="logo" src="'+prx+'img/logo-zust.png"><div class="title">就业信息网</div> </div>'+
     '<div class="nav"><ul>{{>navList}}</ul></div> </div> </div></header>'
 var headerPart={navList:"{{#nav}}<li onclick='openUrl(\"{{url}}\")'>{{title}}<ul class='subnav'>{{>subnavList}}</ul></li>{{/nav}}",subnavList:"{{#sub}}<li onclick='openUrl(\"{{url}}\")'><a><span>{{title}}</span></a></li>{{/sub}}"}
