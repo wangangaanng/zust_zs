@@ -12,7 +12,6 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizDcwjDao;
-import com.zghzbckj.manage.dao.BckjBizDcwjDtmxDao;
 import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
 import com.zghzbckj.manage.entity.BckjBizDcwj;
 import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
@@ -22,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.activation.MailcapCommandMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -142,8 +140,17 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      *<li>@date 2019/9/12 16:53  </li>
      *</ul>
      */
-    public void saveAnswer(Map<String, Object> dataMap) {
-
+    @Transactional(readOnly = false)
+    public ResponseMessage saveAnswer(Map<String, Object> dataMap) {
+        List<Map<String, Object>> answerList = (List<Map<String, Object>>) dataMap.get("answerList");
+        if (TextUtils.isEmpty(answerList) || answerList.size() <= 0) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"答案列表为空");
+        }
+        for (Map<String, Object> map : answerList) {
+            BckjBizDcwjDtmx answer = JsonUtil.map2Bean(map, BckjBizDcwjDtmx.class);
+            bckjBizDcwjDtmxService.save(answer);
+        }
+        return ResponseMessage.sendOK("问卷答案已保存");
     }
 
     /**
