@@ -80,7 +80,20 @@
 
     </select>
 
+    <select id="getExistOne" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
+        SELECT
+        <include refid="bckjBizQyxxColumns"/>
+        FROM bckj_biz_qyxx a
+        <include refid="bckjBizQyxxJoins"/>
+        <where>
+            <if test="qyTysh != null and qyTysh != ''">
+                AND a.qy_tysh = #{qyTysh}
+            </if>
+            AND( a.state = 1 OR a.state = 2 OR a.state = 3)
+        </where>
 
+
+    </select>
     <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
         SELECT
         <include refid="bckjBizQyxxColumns"/>

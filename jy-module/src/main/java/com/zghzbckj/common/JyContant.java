@@ -16,8 +16,9 @@ public class JyContant {
     public static final Integer QY_ZT_DSH = 1;
     public static final Integer QY_ZT_TG = 2;
     public static final Integer QY_ZT_JJ = 3;
-    public static final Object SH_ERROR_MESSAGE = "企业统一税号输入有误";
-    public static final Object SFZ_ERROR_MESSAGE = "身份证输入有误";
+    public static final String SH_ERROR_MESSAGE = "企业统一税号输入有误";
+    public static final String SFZ_ERROR_MESSAGE = "身份证输入有误";
+    public static final String SHCF_ERROR_MESSAGE = "已存在该企业统一税号";
     //职位 待审核 通过 拒绝 下架
     public static final Integer JOB_ZT_DSH = 0;
     public static final Integer JOB_ZT_TG = 2;

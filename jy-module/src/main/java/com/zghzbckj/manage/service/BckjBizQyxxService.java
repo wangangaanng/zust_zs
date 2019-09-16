@@ -131,6 +131,16 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     @Transactional(readOnly = false)
     public Map companyRegister(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
+        //统一税号
+        Map params = new HashMap<>(1);
+        params.put("qyTysh", mapData.get("qyTysh").toString());
+        BckjBizQyxx existCompany = qyxxDao.getExistOne(params);
+        if (!TextUtils.isEmpty(existCompany)) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", JyContant.SHCF_ERROR_MESSAGE);
+            return resultMap;
+        }
+
         BckjBizQyxx company = new BckjBizQyxx();
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
@@ -173,7 +183,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
 
     public Map fixCompany(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
-        BckjBizQyxx company =new BckjBizQyxx();
+        BckjBizQyxx company = new BckjBizQyxx();
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
             saveOrUpdate(company);
