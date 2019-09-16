@@ -2,7 +2,6 @@
  * Created by zhang on 2019/9/11.
  */
 // var prx='../'//html路径
-// var prx=''//ftl路径
 // document.write('<link rel="stylesheet" href="'+prx+'css/common.css" />');
 // document.write('<script language=javascript src="'+prx+'js/mustache.js"></script>');
 // $(document).ready(function () {
