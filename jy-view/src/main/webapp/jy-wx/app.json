@@ -1,0 +1,12 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#008783",
+    "navigationBarTitleText": "浙江科技学院-就业",
+    "navigationBarTextStyle":"white"
+  }
+}
