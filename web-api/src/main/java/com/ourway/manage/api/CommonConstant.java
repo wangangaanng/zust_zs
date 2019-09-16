@@ -4,7 +4,7 @@ package com.ourway.manage.api;
  * Created by CC on 2019/1/21.
  */
 public class CommonConstant {
-    public final static String picPath = "C:\\files\\";
+    public final static String picPath = "C:\\files\\pic\\";
     public final static String PIC_PNG = "PNG";
     public final static String PIC_JPG = "JPG";
     public final static String PIC_JPEG = "JPEG";

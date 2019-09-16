@@ -25,6 +25,7 @@ import java.util.Map;
 
 /**
  * ccService
+ *
  * @author cc
  * @version 2019-09-09
  */
@@ -32,43 +33,46 @@ import java.util.Map;
 @Transactional(readOnly = true)
 public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm> {
 
-	private static final Logger log = Logger.getLogger(BckjBizJypmService.class);
+    private static final Logger log = Logger.getLogger(BckjBizJypmService.class);
 
-	@Autowired
+    @Autowired
     BckjBizJypmDao bckjBizJypmDao;
 
     @Override
-	public BckjBizJypm get(String owid) {
-		return super.get(owid);
-	}
-	@Override
-	public List<BckjBizJypm> findList(BckjBizJypm bckjBizJypm) {
-		return super.findList(bckjBizJypm);
-	}
-	@Override
-	public PageInfo<BckjBizJypm> findPage(Page<BckjBizJypm> page, BckjBizJypm bckjBizJypm) {
-		return super.findPage(page, bckjBizJypm);
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(BckjBizJypm bckjBizJypm) {
-		super.saveOrUpdate(bckjBizJypm);
-	}
-	@Override
-	@Transactional(readOnly = false)
-	public void delete(BckjBizJypm bckjBizJypm) {
-		super.delete(bckjBizJypm);
-	}
+    public BckjBizJypm get(String owid) {
+        return super.get(owid);
+    }
 
-	/**
-     *<p>功能描述:返回根据学院合并过的map listAll</p >
-     *<ul>
-     *<li>@param []</li>
-     *<li>@return java.util.Map</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/9/11 16:09</li>
-     *</ul>
+    @Override
+    public List<BckjBizJypm> findList(BckjBizJypm bckjBizJypm) {
+        return super.findList(bckjBizJypm);
+    }
+
+    @Override
+    public PageInfo<BckjBizJypm> findPage(Page<BckjBizJypm> page, BckjBizJypm bckjBizJypm) {
+        return super.findPage(page, bckjBizJypm);
+    }
+
+    @Transactional(readOnly = false)
+    public void save(BckjBizJypm bckjBizJypm) {
+        super.saveOrUpdate(bckjBizJypm);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void delete(BckjBizJypm bckjBizJypm) {
+        super.delete(bckjBizJypm);
+    }
+
+    /**
+     * <p>功能描述:返回根据学院合并过的map listAll</p >
+     * <ul>
+     * <li>@param []</li>
+     * <li>@return java.util.Map</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/9/11 16:09</li>
+     * </ul>
      */
     public Map<String, List<Map<String, Object>>> listAll() {
         Map<String, Object> dataMap = new HashMap<>();
@@ -106,65 +110,65 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         return result;
     }
 
-	/**
+    /**
      * <p>方法:findPagebckjBizJypm TODO后台BckjBizJypm分页列表</p>
      * <ul>
-    * <li> @param filters TODO</li>
-    * <li> @param pageNo TODO</li>
-    * <li> @param pageSize TODO</li>
-    * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    * <li>@author D.cehn.g </li>
-    * <li>@date 2018/9/5 9:47  </li>
-    * </ul>
+     * <li> @param filters TODO</li>
+     * <li> @param pageNo TODO</li>
+     * <li> @param pageSize TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.cehn.g </li>
+     * <li>@date 2018/9/5 9:47  </li>
+     * </ul>
      */
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
-    Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-    PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, null);
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, null);
         return ResponseMessage.sendOK(page);
-        }
+    }
 
-        /**
-        * <p>方法:savebckjBizJypm TODO保存BckjBizJypm信息 </p>
-        * <ul>
-            * <li> @param mapData TODO</li>
-            * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-            * <li>@author D.chen.g </li>
-            * <li>@date 2018/9/6 17:05  </li>
-            * </ul>
-        */
-        @Transactional(readOnly = false)
-        public ResponseMessage saveBckjBizJypm(Map<String, Object> mapData) {
+    /**
+     * <p>方法:savebckjBizJypm TODO保存BckjBizJypm信息 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2018/9/6 17:05  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public ResponseMessage saveBckjBizJypm(Map<String, Object> mapData) {
         BckjBizJypm bckjBizJypm = JsonUtil.map2Bean(mapData, BckjBizJypm.class);
-        if(!TextUtils.isEmpty(mapData.get("owid"))){
-        BckjBizJypm bckjBizJypmIndata=get(mapData.get("owid").toString());
-        BeanUtil.copyPropertiesIgnoreNull(bckjBizJypm,bckjBizJypmIndata);
-        bckjBizJypm=bckjBizJypmIndata;
+        if (!TextUtils.isEmpty(mapData.get("owid"))) {
+            BckjBizJypm bckjBizJypmIndata = get(mapData.get("owid").toString());
+            BeanUtil.copyPropertiesIgnoreNull(bckjBizJypm, bckjBizJypmIndata);
+            bckjBizJypm = bckjBizJypmIndata;
         }
         saveOrUpdate(bckjBizJypm);
         return ResponseMessage.sendOK(bckjBizJypm);
-        }
+    }
 
-        /**
-        *<p>方法:removeOrder TODO多条删除BckjBizJypm </p>
-        *<ul>
-            *<li> @param codes TODO</li>
-            *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-            *<li>@author D.chen.g </li>
-            *<li>@date 2018/9/6 17:14  </li>
-            *</ul>
-        */
-        @Transactional(readOnly = false)
-        public ResponseMessage removeOrder(List<String> codes) {
-            List<Map<String, Object>> objs = new ArrayList<Map<String, Object>>();
-            for (String owid : codes) {
+    /**
+     * <p>方法:removeOrder TODO多条删除BckjBizJypm </p>
+     * <ul>
+     * <li> @param codes TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2018/9/6 17:14  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public ResponseMessage removeOrder(List<String> codes) {
+        List<Map<String, Object>> objs = new ArrayList<Map<String, Object>>();
+        for (String owid : codes) {
             Map<String, Object> params = new HashMap<String, Object>(1);
             BckjBizJypm bckjBizJypm = new BckjBizJypm();
-        bckjBizJypm.setOwid(owid);
+            bckjBizJypm.setOwid(owid);
             this.dao.delete(bckjBizJypm);
             params.put("owid", owid);
             objs.add(params);
-            }
-            return ResponseMessage.sendOK(objs);
-            }
-	
+        }
+        return ResponseMessage.sendOK(objs);
+    }
+
 }

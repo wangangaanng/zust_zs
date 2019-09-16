@@ -58,7 +58,71 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private Integer zphGpsbj;        // zph_gpsbj
     private String memo;        // memo
     private List<BckjBizXsgz> xsgzList;
-    private  Integer number;
+    private Integer number;
+    private String xgfj;
+    private String zwGzznStr;
+    private String zwGzxzStr;
+    private String zwNlyqStr;
+    private String zwXlyqStr;
+    private String zwYyyqStr;
+    private String zwGznxStr;
+
+
+    public String getZwGzznStr() {
+        return zwGzznStr;
+    }
+
+    public void setZwGzznStr(String zwGzznStr) {
+        this.zwGzznStr = zwGzznStr;
+    }
+
+    public String getZwGzxzStr() {
+        return zwGzxzStr;
+    }
+
+    public void setZwGzxzStr(String zwGzxzStr) {
+        this.zwGzxzStr = zwGzxzStr;
+    }
+
+    public String getZwNlyqStr() {
+        return zwNlyqStr;
+    }
+
+    public void setZwNlyqStr(String zwNlyqStr) {
+        this.zwNlyqStr = zwNlyqStr;
+    }
+
+    public String getZwXlyqStr() {
+        return zwXlyqStr;
+    }
+
+    public void setZwXlyqStr(String zwXlyqStr) {
+        this.zwXlyqStr = zwXlyqStr;
+    }
+
+    public String getZwYyyqStr() {
+        return zwYyyqStr;
+    }
+
+    public void setZwYyyqStr(String zwYyyqStr) {
+        this.zwYyyqStr = zwYyyqStr;
+    }
+
+    public String getZwGznxStr() {
+        return zwGznxStr;
+    }
+
+    public void setZwGznxStr(String zwGznxStr) {
+        this.zwGznxStr = zwGznxStr;
+    }
+
+    public String getXgfj() {
+        return xgfj;
+    }
+
+    public void setXgfj(String xgfj) {
+        this.xgfj = xgfj;
+    }
 
     public Integer getNumber() {
         return number;
