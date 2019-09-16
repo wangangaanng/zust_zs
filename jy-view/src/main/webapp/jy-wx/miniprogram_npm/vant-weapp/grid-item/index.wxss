@@ -42,7 +42,7 @@
 .van-grid-item__icon image{width:60rpx;height: 60rpx;}
 .van-grid-item__text {
   color: initial;
-  font-size: initial;
+  font-size: 14px;
   word-break: break-all;
 }
 .van-grid-item__content:after {

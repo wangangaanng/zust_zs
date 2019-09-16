@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<swiper class='index-swiper' indicator-dots="true" autoplay="true">
+<swiper class='index-swiper' indicator-dots="true" autoplay="true" indicator-color="#ffffff" indicator-active-color="#008783">
   <block wx:for="{{imgUrls}}" wx:key="{{index}}">
     <swiper-item>
       <image src='{{item}}'></image>
@@ -9,3 +9,16 @@
 <van-grid square>
   <van-grid-item icon="{{item.icon}}" text="{{item.text}}" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>
+<van-tabs animated>
+  <van-tab title="最新职位">
+    <view>
+      
+      <!-- <block wx:for='{{}}'>
+
+      </block> -->
+    </view>
+  </van-tab>
+  <van-tab title="最新企业">内容 2</van-tab>
+  <van-tab title="招聘会信息">内容 3</van-tab>
+  <van-tab title="宣讲会信息">内容 4</van-tab>
+</van-tabs>

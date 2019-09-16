@@ -1,3 +1,6 @@
 /**index.wxss**/
+page{background: #f3f3f5;}
+.van-grid{background: #fff;}
+.van-tabs{margin-top: 10px;}
 .index-swiper{height: 300rpx;}
 .index-swiper image{width:750rpx;height: 100%;}

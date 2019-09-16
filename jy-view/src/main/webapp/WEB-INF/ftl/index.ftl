@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${base}/css/swiper.min.css" />
     <link rel="stylesheet" href="${base}/css/jui.css" />
+    <link rel="stylesheet" href="${base}/css/common.css" />
     <link rel="stylesheet" href="${base}/css/style.css" />
 </head>
 <body>
+<#include "com/header.ftl">
 <!-- S frame-content -->
 <div class="frame-wrap">
     <!-- S  a-->
