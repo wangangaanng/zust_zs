@@ -243,7 +243,7 @@
 	<select id="getOneByJobYh" parameterType="Map" resultType="BckjBizXsgz">
 		select <include refid="bckjBizXsgzColumns"></include>
 		from bckj_biz_xsgz a
-		where a.job_ref_owid=#{jobRefOwid} and a.yh_ref_owid=#{yhRefOwid}
+		where a.job_ref_owid=#{jobRefOwid} and a.yh_ref_owid=#{yhRefOwid} and  a.xxlb=#{xxlb}
 	</select>
 
 </mapper>

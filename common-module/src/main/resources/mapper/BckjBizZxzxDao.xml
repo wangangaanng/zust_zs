@@ -228,5 +228,16 @@
 		DELETE FROM bckj_biz_zxzx
 		WHERE owid = #{owid}
 	</delete>
+
+	<select id="findListByOwid" parameterType="Map" resultType="BckjBizZxzx">
+		select <include refid="bckjBizZxzxColumns"></include>
+		from bckj_biz_zxzx a
+		order by a.createtime
+	</select>
+
+	<update id="deleteByMap" parameterType="Map">
+		delete FROM bckj_biz_zxzx a
+		where owid = #{owid}
+	</update>
 	
 </mapper>

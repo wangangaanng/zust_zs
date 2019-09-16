@@ -57,8 +57,18 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private BigDecimal zphGpswd;        // zph_gpswd
     private Integer zphGpsbj;        // zph_gpsbj
     private String memo;        // memo
+    private String xgfj;
     private List<BckjBizXsgz> xsgzList;
     private  Integer number;
+    public String getXgfj() {
+        return xgfj;
+    }
+
+    public void setXgfj(String xgfj) {
+        this.xgfj = xgfj;
+    }
+
+
 
     public Integer getNumber() {
         return number;
