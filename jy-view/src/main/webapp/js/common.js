@@ -19,7 +19,7 @@ var data={nav:[
 ]};
 var headerTpl='<header><div class="top"><div class="container"><div class="top-logo"><img class="logo" src="'+prx+'img/logo-zust.png"><div class="title">就业信息网</div> </div>'+
     '<div class="nav"><ul>{{>navList}}</ul></div> </div> </div></header>'
-var headerPart={navList:"{{#nav}}<li onclick='openUrl(\"{{url}}\")'>{{title}}<ul class='subnav'>{{>subnavList}}</ul></li>{{/nav}}",subnavList:"{{#sub}}<li onclick='openUrl(\"{{url}}\")'><a><span>{{title}}</span></a></li>{{/sub}}"}
+var headerPart={navList:"{{#nav}}<li onclick='openUrl(\"{{url}}\")'>{{title}}<ul class='subnav-list'>{{>subnavList}}</ul></li>{{/nav}}",subnavList:"{{#sub}}<li onclick='openUrl(\"{{url}}\")'><a><span>{{title}}</span></a></li>{{/sub}}"}
 function mustache_init() {
     var header=Mustache.render(headerTpl, data,headerPart);
     $("body").prepend(header);
