@@ -5,10 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
     <title>就业网</title>
     <#include "com/config.ftl">
-    <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
     <link rel="stylesheet" href="${base}/css/swiper.min.css" />
     <link rel="stylesheet" href="${base}/css/jui.css" />
-    <link rel="stylesheet" href="${base}/css/common.css" />
     <link rel="stylesheet" href="${base}/css/style.css" />
 </head>
 <body>
