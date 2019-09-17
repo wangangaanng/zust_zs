@@ -200,4 +200,14 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
     public Long countMenu() {
        return this.dao.countMenu();
     }
+
+    public List<Map> getSyMenu(Map<String, Object> mapData) {
+        mapData.put("type",0);
+        List<Map> yjMenu=this.dao.getYjlm(mapData);
+        for(Map map:yjMenu){
+            mapData.put("fid",map.get("OWID").toString());
+            map.put("chirdMenu",this.dao.getYjlm(mapData));
+        }
+        return yjMenu;
+    }
 }

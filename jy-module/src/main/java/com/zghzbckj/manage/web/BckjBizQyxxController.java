@@ -15,10 +15,7 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.service.BckjBizQyxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +35,12 @@ public class BckjBizQyxxController extends BaseController {
     private BckjBizQyxxService bckjBizQyxxService;
 
 
-    @RequestMapping(value = "/getList")
+    @RequestMapping(value = "/getList/{state}")
     @ResponseBody
-    public ResponseMessage getListApi(PublicDataVO dataVO) {
+    public ResponseMessage getListApi(@PathVariable("state") Integer state, PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizQyxxService.findPageBckjBizQyxx(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizQyxxService.findPageBckjBizQyxx(filters, state,dataVO.getPageNo(), dataVO.getPageSize());
         } catch (Exception e) {
             log.error(e + "获取bckjBizQyxx列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

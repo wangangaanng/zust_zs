@@ -116,7 +116,15 @@
         FROM bckj_biz_qyxx a
         <include refid="bckjBizQyxxJoins"/>
         <where>
-
+            <if test=" qyLxr != null and qyLxr != '' ">
+                AND a.qy_lxr = #{qyLxr}
+            </if>
+            <if test=" qyLxrdh != null and qyLxrdh != '' ">
+                AND a.qy_lxrdh = #{qyLxrdh}
+            </if>
+            <if test=" qymc != null and qymc != '' ">
+                AND a.qymc like CONCAT('%',#{qymc},"%")
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -298,17 +306,13 @@
 	</delete>
 
 
-
-
-	<select id="queryDic" resultType="java.lang.String">
-		SELECT a.dic_val2
-		FROM ourway_sys_dic b,ourway_sys_dic_value a
-		<where>
-			b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val1 = #{dicVal1}
-		</where>
-	</select>
-
-
+    <select id="queryDic" resultType="java.lang.String">
+        SELECT a.dic_val2
+        FROM ourway_sys_dic b,ourway_sys_dic_value a
+        <where>
+            b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val1 = #{dicVal1}
+        </where>
+    </select>
 
 
 </mapper>

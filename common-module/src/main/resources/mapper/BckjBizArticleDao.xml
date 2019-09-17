@@ -130,7 +130,7 @@
                 AND a.wzzt = #{wzzt}
             </if>
             <if test="gjz != null and gjz != ''">
-				AND a.gjz LIKE concat('%',#{gjz},'%')
+				AND (a.gjz LIKE concat('%',#{gjz},'%')  OR a.wzbt  LIKE concat('%',#{gjz},'%'))
             </if>
         </where>
         ORDER BY ${orderBy}
