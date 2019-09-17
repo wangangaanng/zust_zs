@@ -64,7 +64,7 @@
             }
         })
     })
-    $('.nav-wrap').mouseleave(function(){
+    $('.nav').mouseleave(function(){
         $('.nav li').removeClass('current');
         $('.subnav-wrap').hide();
         $('.subnav-wrap .subnav-cont').hide();
