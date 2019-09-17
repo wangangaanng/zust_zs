@@ -4,6 +4,7 @@ import com.ourway.base.model.FilterModel;
 import com.ourway.base.model.PublicDataVO;
 import com.ourway.base.model.ResponseMessage;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.ourway.manage.service.CustomDicService;
@@ -13,10 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -55,15 +53,14 @@ public class DicValueController {
 
     @RequestMapping(value = "getValueByDic", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage getValueByDic(PublicDataVO dataVO) {
+    public ResponseMessage getValueByDic(@RequestBody Map<String, Object> dataMap) {
         try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "type");
-            if (!validateMsg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            String type = dataMap.get("dicType").toString();
+            if (TextUtils.isEmpty(type)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "null");
             }
-            return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(mapData.get("type").toString()), null));
+            return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(dataMap.get("dicType").toString()), null));
         } catch (Exception e) {
             log.info("获取一级菜单失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");

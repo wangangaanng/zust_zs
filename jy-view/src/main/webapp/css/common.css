@@ -62,7 +62,7 @@ header .nav>ul>li.current{background: #fff;color:#008784;}
 .subnav-motto p{max-height: 68px;overflow: hidden;}
 .subnav-wrap .subnav{width: 450px;padding-top: 12px;padding: 25px 0;}
 .subnav-wrap .subnav li{float: left;width: 150px;font-size: 14px;line-height: 34px;}
-.subnav-wrap .subnav li a{color: #666;}
+.subnav-wrap .subnav li a{color: #666;cursor: pointer;}
 .subnav-wrap .subnav li a:hover{color: #008784;}
 .fl{
     float: left;}
@@ -95,6 +95,24 @@ header .subnav-list li a{
     color: white;
     line-height: 50px;
     text-align: center;
+}
+.articleTpl-title{
+    margin: 0 20px;
+    height: 70px;
+    line-height: 70px;
+    border-bottom: 1px solid #c6c6c6;
+    font-size: 18px;
+    color: #008784;
+}
+.articleTpl-title::before{
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 30px;
+    margin-right: 8px;
+    background: #008784;
+    vertical-align: middle;
+
 }
 
 .bottom {

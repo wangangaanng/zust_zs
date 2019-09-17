@@ -116,7 +116,7 @@ public class BckjBizArticleController extends BaseController {
             Object result=null;
 
             String isDetail=mapData.get("isDetail").toString();
-            if(Integer.valueOf(isDetail)==0) {
+            if(Integer.valueOf(isDetail)==1) {
                 result = bckjBizArticleService.getWzList(mapData);
             }else{
                 result = bckjBizArticleService.getWzDetail(mapData);

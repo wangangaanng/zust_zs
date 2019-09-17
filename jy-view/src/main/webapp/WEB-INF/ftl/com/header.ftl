@@ -1,4 +1,4 @@
-<#assign nav=[{'url':'${base}/','title':'首页'},
+<#assign nav=[{'url':'${base}','title':'首页'},
 {'url':'','title':'学院概况','sub':[{'url':'${base}/articleTpl','title':'学校简介'},{'url':'${base}/articleTpl','title':'学院专业'},{'url':'${base}/articleTpl','title':'中心介绍'}]},
 {'url':'','title':'新闻公告','sub':[{'url':'${base}/newsList','title':'通知公告'},{'url':'${base}/newsList','title':'新闻快递'},{'url':'${base}/newsList','title':'校内公示'}]},
 {'url':'','title':'招聘信息','sub':[{'url':'${base}/recruitment','title':'浙科院·职来职往'},{'url':'${base}/recruitment','title':'社会招聘会'},{'url':'${base}/recruitment','title':'企业招聘信息'},{'url':'${base}/recruitment','title':'职位招聘信息'},{'url':'${base}/announcement','title':'招考公告'}]},
@@ -70,9 +70,14 @@
         $('.subnav-wrap .subnav-cont').hide();
     })
     function openUrl(url) {
-        if(url){
+        if(url=="${base}"){
             window.location.href=url
-            // window.open(url);
+        }else{
+            if(url){
+                window.location.href=url+'.htm'
+                // window.open(url);
+            }
         }
+
     }
 </script>

@@ -1,6 +1,7 @@
 package com.zghzbckj.manage.service;
 
 import com.beust.jcommander.internal.Maps;
+import com.zghzbckj.manage.utils.HttpUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.model.ResponseMessage;
@@ -59,4 +60,20 @@ public class CommonService {
         }
         return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
     }
+
+    public ResponseMessage getByType(Map<String, Object> mapData) {
+        try {
+//            String resStr = HttpBackUtil.doPost(CommonModuleContant.BACK_TYPE_URL_HOST, param, "utf-8", false);
+            String resStr =  HttpUtil.doPostJson(CommonModuleContant.BACK_TYPE_URL_HOST,  JsonUtil.toJson(mapData), "UTF-8", true);
+            if (!TextUtils.isEmpty(resStr)) {
+                Map value = JsonUtil.jsonToMap(resStr);
+                return JsonUtil.map2Bean(value, ResponseMessage.class);
+            }
+        } catch (IOException e) {
+            log.error("获取字典表数据失败", e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+        return ResponseMessage.sendOK(null);
+    }
+
 }

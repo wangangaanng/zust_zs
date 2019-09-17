@@ -41,7 +41,27 @@ public class DemoController {
         param.put("fid","-1");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjDicMenu/getLmMenu");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("bean",result.getBean());
+        view.addObject("header",result.getBean());
+        return view;
+    }
+    @RequestMapping(value = "announcement", method = RequestMethod.GET)
+    public ModelAndView announcement(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("announcement");
+        return view;
+    }
+    @RequestMapping(value = "articleTpl", method = RequestMethod.GET)
+    public ModelAndView articleTpl(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("articleTpl");
+        return view;
+    }
+    @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
+    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("positionDetail");
+        return view;
+    }
+    @RequestMapping(value = "recruitment", method = RequestMethod.GET)
+    public ModelAndView recruitment(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("recruitment");
         return view;
     }
 
