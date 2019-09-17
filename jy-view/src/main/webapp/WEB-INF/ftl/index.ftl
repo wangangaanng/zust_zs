@@ -17,7 +17,16 @@
     <div class="frame-a">
         <!-- S  a_left-->
         <div class="frame-a_left box">
-            <div class="tabbar"><ul><li class="active"><a>新闻快递</a></li><li><a>通知公告</a></li><li><a>校内公告</a></li></ul><a>MORE+</a></div>
+            <div class="tabbar">
+                <ul>
+                    <#list nav1 as obj>
+                        <#if obj_index==0>
+                            <li onclick="openUrl('${obj.TZLJ!}')" class="active"><a>${obj.NAME}</a></li>
+                        <#else >
+                            <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
+                        </#if>
+                    </#list>
+                </ul><a>MORE+</a></div>
             <div class="frame-body">
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
@@ -32,42 +41,55 @@
                 <div class="index-news_list">
                     <div class="tabbar-frame_content">
                         <ul class="news-ul">
-                            <li>
-                                <div class="news-date">
-                                    <span>04.24</span>
-                                    <em>2019</em>
-                                </div>
-                                <div class="news-content">
-                                    关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
-                                </div>
-                            </li>
-                            <li>
-                                <div class="news-date">
-                                    <span>04.24</span>
-                                    <em>2019</em>
-                                </div>
-                                <div class="news-content">
-                                    关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
-                                </div>
-                            </li>
-                            <li>
-                                <div class="news-date">
-                                    <span>04.24</span>
-                                    <em>2019</em>
-                                </div>
-                                <div class="news-content">
-                                    关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
-                                </div>
-                            </li>
-                            <li>
-                                <div class="news-date">
-                                    <span>04.24</span>
-                                    <em>2019</em>
-                                </div>
-                                <div class="news-content">
-                                    关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
-                                </div>
-                            </li>
+                            <#if (first1??)&&(first1?size>0)>
+                                <#list first1 as obj>
+                                    <#if obj_index<4>
+                                        <li>
+                                            <div class="news-date">
+                                                <span>04.24</span>
+                                                <em>2019</em>
+                                            </div>
+                                            <div class="news-content">
+                                                关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
+                                            </div>
+                                        </li>
+                                    </#if>
+                                </#list>
+                            </#if>
+                        </ul>
+                        <ul class="news-ul" style="display: none">
+                        <#if (first2??)&&(first2?size>0)>
+                            <#list first2 as obj>
+                                <#if obj_index<4>
+                                    <li>
+                                        <div class="news-date">
+                                            <span>04.24</span>
+                                            <em>2019</em>
+                                        </div>
+                                        <div class="news-content">
+                                            关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
+                                        </div>
+                                    </li>
+                                </#if>
+                            </#list>
+                        </#if>
+                        </ul>
+                        <ul class="news-ul" style="display: none">
+                        <#if (first3??)&&(first3?size>0)>
+                            <#list first3 as obj>
+                                <#if obj_index<4>
+                                    <li>
+                                        <div class="news-date">
+                                            <span>04.24</span>
+                                            <em>2019</em>
+                                        </div>
+                                        <div class="news-content">
+                                            关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
+                                        </div>
+                                    </li>
+                                </#if>
+                            </#list>
+                        </#if>
                         </ul>
                     </div>
 
@@ -118,7 +140,15 @@
     <!-- S b -->
     <div class="frame-b">
         <div class="frame-b_left box">
-            <div class="tabbar"><ul><li class="active"><a>浙科院·职来职往</a></li><li><a>社会招聘会</a></li><li><a>企业招聘信息</a></li><li><a>职位招聘信息</a></li><li><a>招考公告</a></li></ul><a>MORE+</a></div>
+            <div class="tabbar"><ul>
+            <#list nav2 as obj>
+                <#if obj_index==0>
+                    <li onclick="openUrl('${obj.TZLJ!}')" class="active"><a>${obj.NAME}</a></li>
+                <#else >
+                    <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
+                </#if>
+            </#list>
+            </ul><a>MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <ul class="frame-list">
                     <li>
@@ -202,8 +232,16 @@
     </div>
     <!-- S c -->
     <div class="frame-c">
-        <div class="frame-c_left box">
-            <div class="tabbar"><ul><li class="active"><a>政策法规</a></li><li><a>就业指导</a></li><li><a>创业指导</a></li><li><a>生涯规划</a></li><li><a>技能培训</a></li></ul><a>MORE+</a></div>
+        <div class="frame-b_left box">
+            <div class="tabbar"><ul>
+            <#list nav3 as obj>
+                <#if obj_index==0>
+                    <li onclick="openUrl('${obj.TZLJ!}')" class="active"><a>${obj.NAME}</a></li>
+                <#else >
+                    <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
+                </#if>
+            </#list>
+            </ul><a>MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <ul class="frame-list">
                     <li>

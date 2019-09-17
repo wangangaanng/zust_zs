@@ -64,7 +64,7 @@
     <bean id="viewResolverFtl" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
         <property name="contentType" value="text/html; charset=utf-8"/>
-        <property name="cache" value="true" />
+        <property name="cache" value="false" />
         <property name="suffix" value=".ftl" />
         <property name="allowSessionOverride" value="true" />
         <property name="allowRequestOverride" value="true" />
@@ -90,7 +90,7 @@
         </property>
         <property name="freemarkerSettings">
             <props>
-                <prop key="template_update_delay">3600</prop>
+                <prop key="template_update_delay">0</prop>
             </props>
         </property>
     </bean>

@@ -36,12 +36,50 @@ public class DemoController {
     @RequestMapping(value = "index", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
-        Map param=Maps.newHashMap();
-        param.put("wzbh","1");
-        param.put("fid","-1");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjDicMenu/getLmMenu");
-        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("header",result.getBean());
+        view.addObject("header",getHeader().getBean());
+        //新闻公告-菜单
+        Map param2=Maps.newHashMap();
+        param2.put("wzbh","1");
+        param2.put("fid","16");
+        PublicData publicData1= UnionHttpUtils.manageParam(param2,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("nav1",result1.getBean());
+        List<Map> beanList = (List<Map>) result1.getBean();
+        ResponseMessage resultMess  = new ResponseMessage();
+        if(beanList!=null&&beanList.size()>0){
+            String first="first";
+            int index=1;
+            for(Map map:beanList){
+                String owid = map.get("CODE").toString();
+                String isDetail = map.get("BXLX").toString();
+                Map paramn=Maps.newHashMap();
+                paramn.put("lmbh",owid);
+                paramn.put("wzzt","1");
+                paramn.put("isDetail",isDetail);
+                paramn.put("pageNo",'1');
+                paramn.put("pageSize","4");
+                PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
+                resultMess = UnionHttpUtils.doPosts(_data);
+                view.addObject(first+index,((Map)resultMess.getBean()).get("records"));
+                index++;
+            }
+        }
+        //招聘信息-菜单
+        Map param3=Maps.newHashMap();
+        param3.put("wzbh","1");
+        param3.put("fid","17");
+        PublicData publicData2= UnionHttpUtils.manageParam(param3,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result2  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("nav2",result2.getBean());
+        //职业指导-菜单
+        Map param4=Maps.newHashMap();
+        param4.put("wzbh","1");
+        param4.put("fid","18");
+        PublicData publicData3= UnionHttpUtils.manageParam(param4,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("nav3",result3.getBean());
+
+//        view.addObject("headerStr",result.getBean().toString());
         return view;
     }
     @RequestMapping(value = "announcement", method = RequestMethod.GET)
@@ -206,6 +244,15 @@ public class DemoController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public ResponseMessage getHeader() {
+        Map param=Maps.newHashMap();
+        param.put("wzbh","1");
+        param.put("fid","-1");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        return result;
     }
 
     /**

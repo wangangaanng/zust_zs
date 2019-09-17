@@ -1,11 +1,13 @@
-<#assign nav=[{'url':'${base}','title':'首页'},
-{'url':'','title':'学院概况','sub':[{'url':'${base}/articleTpl','title':'学校简介'},{'url':'${base}/articleTpl','title':'学院专业'},{'url':'${base}/articleTpl','title':'中心介绍'}]},
-{'url':'','title':'新闻公告','sub':[{'url':'${base}/newsList','title':'通知公告'},{'url':'${base}/newsList','title':'新闻快递'},{'url':'${base}/newsList','title':'校内公示'}]},
-{'url':'','title':'招聘信息','sub':[{'url':'${base}/recruitment','title':'浙科院·职来职往'},{'url':'${base}/recruitment','title':'社会招聘会'},{'url':'${base}/recruitment','title':'企业招聘信息'},{'url':'${base}/recruitment','title':'职位招聘信息'},{'url':'${base}/announcement','title':'招考公告'}]},
-{'url':'','title':'职业指导','sub':[{'url':'${base}/newsList','title':'政策法规'},{'url':'${base}/newsList','title':'就业指导'},{'url':'${base}/newsList','title':'创业指导'},{'url':'${base}/newsList','title':'生涯规划'},{'url':'${base}/newsList','title':'技能培训'}]},
-{'url':'','title':'企业指南','sub':[{'url':'${base}/enterpriseGuide','title':'招聘指南'},{'url':'${base}/enterpriseGuide','title':'生源速览'}]},
-{'url':'','title':'学生服务','sub':[{'url':'${base}/studentService','title':'办事流程'},{'url':'${base}/studentService','title':'常用下载'},{'url':'${base}/studentService','title':'档案查询'}]},
-{'url':'${base}/contactUs','title':'联系我们'}]>
+<#--<#assign nav=-->
+<#--[{'url':'','title':'首页'},-->
+<#--{'url':'','title':'学院概况','sub':[{'url':'articleTpl/0','title':'学校简介'},{'url':'articleTpl/1','title':'学院专业'},{'url':'articleTpl/2','title':'中心介绍'}]},-->
+<#--{'url':'','title':'新闻公告','sub':[{'url':'newsList','title':'通知公告'},{'url':'/newsList','title':'新闻快递'},{'url':'/newsList','title':'校内公示'}]},-->
+<#--{'url':'','title':'招聘信息','sub':[{'url':'recruitment','title':'浙科院·职来职往'},{'url':'recruitment','title':'社会招聘会'},{'url':'recruitment','title':'企业招聘信息'},{'url':'recruitment','title':'职位招聘信息'},{'url':'announcement','title':'招考公告'}]},-->
+<#--{'url':'','title':'职业指导','sub':[{'url':'newsList','title':'政策法规'},{'url':'newsList','title':'就业指导'},{'url':'newsList','title':'创业指导'},{'url':'newsList','title':'生涯规划'},{'url':'newsList','title':'技能培训'}]},-->
+<#--{'url':'','title':'企业指南','sub':[{'url':'enterpriseGuide','title':'招聘指南'},{'url':'enterpriseGuide','title':'生源速览'}]},-->
+<#--{'url':'','title':'学生服务','sub':[{'url':'studentService','title':'办事流程'},{'url':'studentService','title':'常用下载'},{'url':'studentService','title':'档案查询'}]},-->
+<#--{'url':'contactUs','title':'联系我们'}]-->
+<#-->-->
 <header>
     <div class="top">
         <div class="container">
@@ -15,8 +17,8 @@
             </div>
             <div class="nav">
                 <ul>
-                    <#list nav as obj>
-                        <li class="nav-item" onclick='openUrl("${obj.url!''}")'>${obj.title}
+                    <#list header as obj>
+                        <li class="nav-item" onclick='openUrl("${obj.url!''}")'>${obj.NAME}
                             <#--<#if obj.sub??>-->
                                 <#--<ul class='subnav'>-->
                                     <#--<#list obj.sub as sub>-->
@@ -29,17 +31,17 @@
 
                 </ul>
                 <div class="subnav-wrap">
-                <#list nav as obj>
-                    <#if obj.sub??>
+                <#list header as obj>
+                    <#if obj.chirdMenu??>
                         <div class="subnav-cont" rel="${obj_index}">
-                            <div class="subnav-left fl"><img alt="" src="">
+                            <div class="subnav-left fl"><img alt="${imagePath}${GGT!'defaultImg.png'}" src="${imagePath}${GGT!'defaultImg.png'}">
                                 <div class="subnav-motto">
-                                    <p>真山真水，真是读书好地方。</p>
-                                    <p class="tr">——张德江</p>
+                                    <p>${obj.JSY}</p>
+                                    <#--<p class="tr">——张德江</p>-->
                                 </div></div>
                             <ul class="clearfix subnav fr">
-                                <#list obj.sub as sub>
-                                <li onclick='openUrl("${sub.url!''}")'><a>${sub.title}</a></li>
+                                <#list obj.chirdMenu as sub>
+                                <li onclick='openUrl("${sub.url!''}")'><a>${sub.NAME}</a></li>
                                 </#list>
                             </ul>
                         </div>
