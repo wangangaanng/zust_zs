@@ -37,6 +37,7 @@ public class DemoController {
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());
+
         //新闻公告-菜单
         Map param2=Maps.newHashMap();
         param2.put("wzbh","1");
@@ -57,7 +58,7 @@ public class DemoController {
                 paramn.put("wzzt","1");
                 paramn.put("isDetail",isDetail);
                 paramn.put("pageNo",'1');
-                paramn.put("pageSize","4");
+                paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess = UnionHttpUtils.doPosts(_data);
                 view.addObject(first+index,((Map)resultMess.getBean()).get("records"));
@@ -71,6 +72,26 @@ public class DemoController {
         PublicData publicData2= UnionHttpUtils.manageParam(param3,"/zustcommon/bckjDicMenu/getSyMenu");
         ResponseMessage result2  = UnionHttpUtils.doPosts(publicData2);
         view.addObject("nav2",result2.getBean());
+        List<Map> beanList2 = (List<Map>) result2.getBean();
+        ResponseMessage resultMess2  = new ResponseMessage();
+        if(beanList2!=null&&beanList2.size()>0){
+            String second="second";
+            int index=1;
+//            for(Map map:beanList2){
+//                String owid = map.get("CODE").toString();
+//                String isDetail = map.get("BXLX").toString();
+//                Map paramn=Maps.newHashMap();
+//                paramn.put("lmbh",owid);
+//                paramn.put("wzzt","1");
+//                paramn.put("isDetail",isDetail);
+//                paramn.put("pageNo",'1');
+//                paramn.put("pageSize","10");
+//                PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
+//                resultMess2 = UnionHttpUtils.doPosts(_data);
+//                view.addObject(second+index,((Map)resultMess2.getBean()).get("records"));
+//                index++;
+//            }
+        }
         //职业指导-菜单
         Map param4=Maps.newHashMap();
         param4.put("wzbh","1");

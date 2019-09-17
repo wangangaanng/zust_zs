@@ -31,9 +31,13 @@
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide"><img src="" /></div>
-                        <div class="swiper-slide"><img src="" /></div>
-                        <div class="swiper-slide"><img src="" /></div>
+                    <#if (first1??)&&(first1?size>0)>
+                        <#list first1 as obj>
+                        <#if obj.tpjj??>
+                            <div class="swiper-slide"><img alt="${obj.wzbt}" src="${imagePath+obj.tpjj}" /></div>
+                        </#if>
+                        </#list>
+                    </#if>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
@@ -46,11 +50,13 @@
                                     <#if obj_index<4>
                                         <li>
                                             <div class="news-date">
-                                                <span>04.24</span>
-                                                <em>2019</em>
+                                                <#if obj.fbsj?exists>
+                                                    <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
+                                                    <em>${obj.fbsj?substring(0,4)}</em>
+                                                </#if>
                                             </div>
                                             <div class="news-content">
-                                                关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
+                                                ${obj.wzbt!''}
                                             </div>
                                         </li>
                                     </#if>
@@ -63,11 +69,13 @@
                                 <#if obj_index<4>
                                     <li>
                                         <div class="news-date">
-                                            <span>04.24</span>
-                                            <em>2019</em>
+                                            <#if obj.fbsj?exists>
+                                                <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
+                                                <em>${obj.fbsj?substring(0,4)}</em>
+                                            </#if>
                                         </div>
                                         <div class="news-content">
-                                            关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
+                                        ${obj.wzbt!''}
                                         </div>
                                     </li>
                                 </#if>
@@ -80,11 +88,13 @@
                                 <#if obj_index<4>
                                     <li>
                                         <div class="news-date">
-                                            <span>04.24</span>
-                                            <em>2019</em>
+                                            <#if obj.fbsj?exists>
+                                                <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
+                                                <em>${obj.fbsj?substring(0,4)}</em>
+                                            </#if>
                                         </div>
                                         <div class="news-content">
-                                            关于举办第十一届浙江省大学生职业生涯规划大赛赛前指导教师培训班的通知
+                                        ${obj.wzbt!''}
                                         </div>
                                     </li>
                                 </#if>
@@ -151,62 +161,19 @@
             </ul><a>MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <ul class="frame-list">
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                            <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
+                <#if (second1??)&&(second1?size>0)>
+                    <#list second1 as obj>
+                        <#if obj_index<8>
+                            <li>
+                                <ul class="job">
+                                    <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
+                                    <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
+                                    <li>2019-04-08</li>
+                                </ul>
+                            </li>
+                        </#if>
+                    </#list>
+                </#if>
 
                 </ul>
             </div>
