@@ -5,14 +5,14 @@ package com.zghzbckj.manage.service;
 
 import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleSelectRestriction;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.*;
 
 import com.sun.org.apache.regexp.internal.RE;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjBizYhgl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -25,10 +25,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import org.apache.log4j.Logger;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -69,6 +67,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 	public void delete(BckjBizYhxx bckjBizYhxx) {
 		super.delete(bckjBizYhxx);
 	}
+	@Autowired
+    BckjBizYhglService bckjBizYhglService;
 
 
 	/**
@@ -189,7 +189,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
        if(TextUtils.isEmpty(bckjbizyhxx)) {
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-       if(!bckjbizyhxx.getYhdlmm().equalsIgnoreCase(oldPsw)){
+       if(!bckjbizyhxx.getYhdlmm().equals(oldPsw)){
            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
        }
         String newPsw = TextUtils.MD5(datamap.get("newPassword").toString()).toUpperCase();
@@ -204,5 +204,59 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         HashMap<String, Object> map = Maps.newHashMap();
         map.put("owid",owid);
         return ResponseMessage.sendOK(this.dao.getOneByCondition(map));
+    }
+
+    @Transactional(readOnly = false ,rollbackFor = Exception.class)
+    public ResponseMessage appletLogin(Map<String, Object> dataMap) {
+        Map<String,Object> resMap = Maps.newHashMap();
+        String psw = TextUtils.MD5(dataMap.get("yhDlmm").toString()).toUpperCase();
+        dataMap.remove("psw");
+        Map<String, Object> map = this.dao.logIn(dataMap);
+        if(TextUtils.isEmpty(map)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+        }
+        if(!psw.equalsIgnoreCase(map.get("yhDlmm").toString())){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
+        }
+        if(Integer.parseInt(map.get("olx").toString())!=0){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+        }
+        BckjBizYhxx bckjBizYhxx = this.dao.getOneByCondition(map);
+        BckjBizYhgl bckjBizYhgl=new BckjBizYhgl();
+       if(TextUtils.isEmpty(bckjBizYhxx.getUnionid())){
+           bckjBizYhxx.setUnionid(dataMap.get("unionid").toString());
+           bckjBizYhgl.setOpenid(dataMap.get("openid").toString());
+           bckjBizYhgl.setWxbh(dataMap.get("wxid").toString());
+           bckjBizYhgl.setGzsj(new Date());
+           if(TextUtils.isEmpty(dataMap.get("nickname"))){
+               bckjBizYhxx.setXm(dataMap.get("nickname").toString());
+           }
+           if(TextUtils.isEmpty(dataMap.get("gender"))){
+               bckjBizYhxx.setXb(Integer.parseInt(dataMap.get("gender").toString()));
+           }
+           if(TextUtils.isEmpty(dataMap.get("city"))){
+               bckjBizYhxx.setCity(dataMap.get("city").toString());
+           }
+           if(TextUtils.isEmpty(dataMap.get("province"))){
+               bckjBizYhxx.setProv(dataMap.get("province").toString());
+           }
+           if(TextUtils.isEmpty(dataMap.get("country"))){
+               bckjBizYhxx.setArea(dataMap.get("country").toString());
+           }
+           if(TextUtils.isEmpty(dataMap.get("avatarUrl"))){
+               bckjBizYhxx.setYhtx(dataMap.get("avatarUrl").toString());
+           }
+       }
+        bckjBizYhxx.setDlzhsj(new Date());
+        saveOrUpdate(bckjBizYhxx);
+        bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
+        resMap.put("owid",bckjBizYhxx.getOwid());
+        resMap.put("yhtx",bckjBizYhxx.getYhtx());
+        resMap.put("sjh",bckjBizYhxx.getSjh());
+        return ResponseMessage.sendOK(resMap);
+    }
+
+    public BckjBizYhxx getOneByUnionId(String unionid) {
+        return this.dao.getOneByUnionId(unionid);
     }
 }

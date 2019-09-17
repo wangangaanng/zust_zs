@@ -5,10 +5,13 @@ import com.thoughtworks.xstream.core.util.QuickWriter;
 import com.thoughtworks.xstream.io.HierarchicalStreamWriter;
 import com.thoughtworks.xstream.io.xml.PrettyPrintWriter;
 import com.thoughtworks.xstream.io.xml.XppDriver;
-import com.zghzbckj.wechat.model.MusicMessage;
-import com.zghzbckj.wechat.model.NewsMessage;
-import com.zghzbckj.wechat.model.TextMessage;
+
+
+
 import com.zghzbckj.wechat.utils.response.Article;
+import com.zghzbckj.wechat.utils.response.MusicMessage;
+import com.zghzbckj.wechat.utils.response.NewsMessage;
+import com.zghzbckj.wechat.utils.response.TextMessage;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
@@ -21,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 /**
  * <p>方法: 消息工具类 </p>

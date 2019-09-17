@@ -10,10 +10,15 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.feign.BckjBizYhxxSer;
 import com.zghzbckj.manage.dao.BckjBizYhglDao;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.entity.SysWxconfig;
 import com.zghzbckj.util.TextUtils;
+import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,7 +50,7 @@ public class BckjBizYhglService extends CrudService<BckjBizYhglDao, BckjBizYhgl>
 	public PageInfo<BckjBizYhgl> findPage(Page<BckjBizYhgl> page, BckjBizYhgl bckjBizYhgl) {
 		return super.findPage(page, bckjBizYhgl);
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void save(BckjBizYhgl bckjBizYhgl) {
 		super.saveOrUpdate(bckjBizYhgl);
@@ -56,7 +61,10 @@ public class BckjBizYhglService extends CrudService<BckjBizYhglDao, BckjBizYhgl>
 		super.delete(bckjBizYhgl);
 	}
 
-
+    @Autowired
+    BckjBizYhxxService bckjBizYhxxService;
+    @Autowired
+    BckjBizYhglService bckjBizYhglService;
 	/**
      * <p>方法:findPagebckjBizYhgl TODO后台BckjBizYhgl分页列表</p>
      * <ul>
@@ -117,5 +125,23 @@ public class BckjBizYhglService extends CrudService<BckjBizYhglDao, BckjBizYhgl>
             }
             return ResponseMessage.sendOK(objs);
             }
-	
+
+    public ResponseMessage getInfoByUnionId(WxXcxUserModel xcxUserModel) {
+        BckjBizYhxx bckjBizYhxx= bckjBizYhxxService.getOneByUnionId(xcxUserModel.getUnionid());
+        if(bckjBizYhxx==null){
+            xcxUserModel.setIsBind(0);
+        }
+        if(bckjBizYhxx.getYhlx()==1){
+            xcxUserModel.setUserOwid(bckjBizYhxx.getOwid());
+
+        }
+        if(bckjBizYhxx.getYhlx()==2){
+            xcxUserModel.setCompOwid(bckjBizYhxx.getOwid());
+        }
+        return ResponseMessage.sendOK(xcxUserModel);
+    }
+
+    private BckjBizYhgl getOneByYhRefOwid(String owid) {
+            return this.dao.getOneByYhRefOwid(owid);
+    }
 }

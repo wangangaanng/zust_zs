@@ -12,7 +12,10 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.SysWxconfig;
 import com.zghzbckj.manage.service.BckjBizYhglService;
+import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,7 +38,6 @@ import java.util.Map;
 public class BckjBizYhglController extends BaseController {
 	@Autowired
 	private BckjBizYhglService bckjBizYhglService;
-
 
 	@RequestMapping(value = "/getList")
     @ResponseBody
@@ -101,6 +103,34 @@ public class BckjBizYhglController extends BaseController {
             }
             }
 
-
-
+            /**
+             * <p>功能描述:根据openid获得小程序用户的基础信息</p >
+             * <ul>
+             * <li>@param </li>
+             * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+             * <li>@throws </li>
+             * <li>@author wangangaanng</li>
+             * <li>@date 2019/9/17 </li>
+             * </ul>
+             */
+            @RequestMapping(value = "/getYhInfoByOpenid",method = RequestMethod.POST)
+            @ResponseBody
+            public ResponseMessage getYhInfoByOpenid(PublicDataVO dataVO) {
+                try {
+                    Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                    ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "code", "iv", "encryptedData", "wxid");
+                    if (!msg.getSuccess()) {
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+                    }
+                    ResponseMessage responseWx = WxController.getOpenId(dataMap);
+                    if (responseWx.getBackCode() == 0) {
+                        return bckjBizYhglService.getInfoByUnionId((WxXcxUserModel)responseWx.getBean());
+                    }else {
+                        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+                    }
+                } catch(Exception e){
+                        log.error(CommonConstant.ERROR_MESSAGE, e);
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+                    }
+            }
 }
