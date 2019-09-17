@@ -31,9 +31,9 @@
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
                 </div>
-                <div class="news-list">
+                <div class="index-news_list">
                     <div class="tabbar-frame_content">
-                        <ul>
+                        <ul class="news-ul">
                             <li>
                                 <div class="news-date">
                                     <span>04.24</span>
