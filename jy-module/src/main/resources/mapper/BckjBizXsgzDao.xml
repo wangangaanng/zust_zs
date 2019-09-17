@@ -78,6 +78,9 @@
             <if test="jobRefOwid != null and jobRefOwid != ''">
                 AND a.job_ref_owid = #{jobRefOwid}
             </if>
+			<if test="yhRefOwid != null and yhRefOwid != ''">
+				AND a.yh_ref_owid = #{yhRefOwid}
+			</if>
             <if test="gzlx != null and gzlx != ''">
                 AND a.gzlx = #{gzlx}
             </if>

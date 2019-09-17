@@ -3,28 +3,26 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.zghzbckj.common.CommonConstant;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.CommonConstants;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.service.BckjBizXsgzService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import com.zghzbckj.manage.service.BckjBizXsgzService;
-
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +30,7 @@ import java.util.Map;
 
 /**
  * ccController
+ *
  * @author cc
  * @version 2019-09-09
  */
@@ -39,74 +38,73 @@ import java.util.Map;
 @RequestMapping(value = "bckjBizXsgz")
 public class BckjBizXsgzController extends BaseController {
 
-	@Autowired
-	private BckjBizXsgzService bckjBizXsgzService;
+    @Autowired
+    private BckjBizXsgzService bckjBizXsgzService;
 
 
-	@RequestMapping(value = "/getList")
+    @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize());
-    } catch (Exception e) {
-            log.error(e+"获取bckjBizXsgz列表失败\r\n"+e.getStackTrace()[0] ,e);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizXsgz列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-    }
-    }
-    
-    @PostMapping(value = "deleteList")
-	@ResponseBody
-    public ResponseMessage deleteList(PublicDataVO dataVO) {
-    try {
-    if (TextUtils.isEmpty(dataVO.getData())) {
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+        }
     }
 
-     List<Object> list = JsonUtil.jsonToList(dataVO.getData());
-          List<String> codes = new ArrayList<String>(list.size());
+    @PostMapping(value = "deleteList")
+    @ResponseBody
+    public ResponseMessage deleteList(PublicDataVO dataVO) {
+        try {
+            if (TextUtils.isEmpty(dataVO.getData())) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+            }
+
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+            List<String> codes = new ArrayList<String>(list.size());
             for (Object obj : list) {
-            codes.add(((Map<String, Object>) obj).get("owid").toString());
+                codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
             ResponseMessage data = bckjBizXsgzService.removeOrder(codes);
             return data;
-            } catch (Exception e) {
-            log.error(e+"删除BckjBizXsgz列表失败\r\n" +e.getStackTrace()[0] , e);
+        } catch (Exception e) {
+            log.error(e + "删除BckjBizXsgz列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
+        }
+    }
 
-            @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage saveInfo(PublicDataVO dataVO) {
-            try {
+    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveInfo(PublicDataVO dataVO) {
+        try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
             return bckjBizXsgzService.saveBckjBizXsgz(mapData);
-            } catch (Exception e) {
-            log.error(e+"保存BckjBizXsgz信息失败\r\n"+e.getStackTrace()[0]  , e);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizXsgz信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
+        }
+    }
 
-            @RequestMapping(value = "getOne", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage getOne(PublicDataVO dataVO) {
-            try {
+    @RequestMapping(value = "getOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOne(PublicDataVO dataVO) {
+        try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
 
-            ValidateMsg msg = ValidateUtils.isEmpty(mapData,"owid");
-            if(!msg.getSuccess()){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return ResponseMessage.sendOK(bckjBizXsgzService.get(mapData.get("owid").toString()));
-            } catch (Exception e) {
+        } catch (Exception e) {
 
-            log.error(e+"初始BckjBizXsgz\r\n" +e.getStackTrace()[0] ,e);
+            log.error(e + "初始BckjBizXsgz\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
-
+        }
+    }
 
 
     /**
@@ -124,15 +122,61 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage signInOrScribe(PublicDataVO dataVO) {
         try {
             Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(datamap,"yhRefOwid","jobRefOwid","xxlb");
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "yhRefOwid", "jobRefOwid", "xxlb");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return bckjBizXsgzService.signInOrScribe(datamap);
         } catch (Exception e) {
-            log.error(CommonConstant.ERROR_MESSAGE,e);
+            log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+    /**
+     * <p>接口 myCareList.java : <p>
+     * <p>说明：学生关注</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/17 10:10
+     * </pre>
+     */
+    @RequestMapping(value = "myCareList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage myCareList(HttpServletResponse response, HttpServletRequest request,
+                                      PublicDataVO dataVO) {
+
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "yhRefOwid", "pageSize","gzlx","xxlb");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        try {
+            return ResponseMessage.sendOK(bckjBizXsgzService.myCareList(dataMap));
+        } catch (Exception e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
+    @RequestMapping(value = "getOneCare", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOneCare(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizXsgzService.getOneCare(mapData.get("owid").toString()));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizXsgz\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 }

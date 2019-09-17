@@ -158,12 +158,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
-//        if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
-//            dataMap.put("zwlx", Integer.parseInt(dataMap.get("zwlx").toString()));
-//        }
-//        if (!TextUtils.isEmpty(dataMap.get("gzlx"))) {
-//            dataMap.put("gzlx", Integer.parseInt(dataMap.get("gzlx").toString()));
-//        }
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
 
         if (!TextUtils.isEmpty(jobList)){

@@ -42,7 +42,20 @@
 	
 	<sql id="bckjBizJypmJoins">
 	</sql>
-    
+
+	<select id="collegeStats" resultType="java.util.Map">
+		select szxy, SUM(pmbyrs) as pmbyrs, SUM(pmyprs) as pmyprs, SUM(pmqyrs) as pmqyrs, SUM(pmqyl) as pmqyl, SUM(pmjyl) as pmjyl
+		from bckj_biz_jypm
+		group by szxy
+	</select>
+
+	<select id="majorList" resultType="java.util.Map">
+		select <include refid="bckjBizJypmColumns"/>
+		from bckj_biz_jypm a
+		<include refid="bckjBizJypmJoins"/>
+		where a.szxy=#{szxy} order by pmjyl desc
+	</select>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		SELECT 
 			<include refid="bckjBizJypmColumns"/>
