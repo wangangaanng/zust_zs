@@ -12,7 +12,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .overh{overflow: hidden;}
 .bold{font-weight: bold;}
 .frame-a,.frame-b,.frame-c{margin-top: 20px;overflow: hidden;}
-.frame-a_left{min-width: 840px;width: 70%;height: 323px;float: left;}
+.frame-a_left{min-width: 840px;width: 70%;height: 323px;float: left;border: none;}
 .frame-a_right{min-width: 340px;width: 28.3%;width: calc(30% - 20px);height: 323px;float: right;border: 2px solid #008784;}
 .frame-b_left{min-width: 840px;width: 70%;height: 360px;float: left;}
 .frame-b_right{min-width: 340px;width: 28.3%;width: calc(30% - 20px);height: 360px;float: right;border: 2px solid #008784;}

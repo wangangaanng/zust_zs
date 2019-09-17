@@ -3,9 +3,9 @@
 {'url':'','title':'新闻公告','sub':[{'url':'${base}/newsList','title':'通知公告'},{'url':'${base}/newsList','title':'新闻快递'},{'url':'${base}/newsList','title':'校内公示'}]},
 {'url':'','title':'招聘信息','sub':[{'url':'${base}/recruitment','title':'浙科院·职来职往'},{'url':'${base}/recruitment','title':'社会招聘会'},{'url':'${base}/recruitment','title':'企业招聘信息'},{'url':'${base}/recruitment','title':'职位招聘信息'},{'url':'${base}/announcement','title':'招考公告'}]},
 {'url':'','title':'职业指导','sub':[{'url':'${base}/newsList','title':'政策法规'},{'url':'${base}/newsList','title':'就业指导'},{'url':'${base}/newsList','title':'创业指导'},{'url':'${base}/newsList','title':'生涯规划'},{'url':'${base}/newsList','title':'技能培训'}]},
-{'url':'','title':'企业指南','sub':[{'url':'${base}/articleTpl','title':'招聘指南'},{'url':'${base}/newsList','title':'生源速览'}]},
-{'url':'','title':'学生服务','sub':[{'url':'${base}/newsList','title':'办事流程'},{'url':'${base}/newsList','title':'常用下载'},{'url':'','title':'档案查询'}]},
-{'url':'','title':'联系我们'}]>
+{'url':'','title':'企业指南','sub':[{'url':'${base}/enterpriseGuide','title':'招聘指南'},{'url':'${base}/enterpriseGuide','title':'生源速览'}]},
+{'url':'','title':'学生服务','sub':[{'url':'${base}/studentService','title':'办事流程'},{'url':'${base}/studentService','title':'常用下载'},{'url':'${base}/studentService','title':'档案查询'}]},
+{'url':'${base}/contactUs','title':'联系我们'}]>
 <header>
     <div class="top">
         <div class="container">
