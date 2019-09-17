@@ -77,9 +77,10 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizQyxx(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizQyxx(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizQyxx> page = findPage(dataMap, pageNo, pageSize, null);
+        dataMap.put("state", state);
+        PageInfo<BckjBizQyxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 
