@@ -194,6 +194,23 @@ public class BckjDicMenuController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "getSyMenu", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getSyMenu(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "wzbh");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjDicMenuService.getSyMenu(mapData));
+        } catch (Exception e) {
+            log.info("获取一级栏目失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
     @RequestMapping(value = "countMenu", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage countMenu(PublicDataVO dataVO) {

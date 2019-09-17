@@ -23,4 +23,5 @@ public interface BckjDicMenuDao extends CrudDao<BckjDicMenu> {
     List<Map> getYjlm(Map<String, Object> mapData);
 
     Long countMenu();
+
 }

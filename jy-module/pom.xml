@@ -48,16 +48,21 @@
         <jackson.version>2.9.6</jackson.version>
         <baiduapisdk.version>4.1.0</baiduapisdk.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
-        <zust-utils>1.0</zust-utils>
+        <zust-utils>1.0.0</zust-utils>
     </properties>
 
     <dependencies>
-        <!--工具类依赖-->
         <dependency>
+            <groupId>com.zust</groupId>
+            <artifactId>zjc-util</artifactId>
+            <version>${zust-utils}</version>
+        </dependency>
+        <!--工具类依赖-->
+     <!--   <dependency>
             <groupId>com.zghzbckj</groupId>
             <artifactId>zust-utils</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <!---->
         <!--<dependency>-->
             <!--<groupId>com.zghzbckj</groupId>-->
