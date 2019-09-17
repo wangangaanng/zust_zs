@@ -34,8 +34,13 @@ public class DemoController {
     private static final Logger log = Logger.getLogger(DemoController.class);
 
     @RequestMapping(value = "index", method = RequestMethod.GET)
-    public String index(HttpServletRequest request) {
-        return "index";
+    public ModelAndView index(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("index");
+        Map param=Maps.newHashMap();
+        PublicData publicData= UnionHttpUtils.manageParam(param);
+        Map result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("bean",result);
+        return view;
     }
 
     @RequestMapping(value = "aboutUs", method = RequestMethod.GET)
@@ -106,8 +111,8 @@ public class DemoController {
     }
 
     private void initProperty() {
-        PropertiesUtil propertiesUtil = new PropertiesUtil();
         if (TextUtils.isEmpty(Constant.APP_KEY) || TextUtils.isEmpty(Constant.URL_HOST)) {
+        PropertiesUtil propertiesUtil = new PropertiesUtil();
             Properties p = propertiesUtil.loadProperties("config.properties");
             Constant.APP_KEY = PropertiesUtil.readProperty(p, Constant.CLIENT_KEY);
             Constant.URL_HOST = PropertiesUtil.readProperty(p, Constant.HOST_KEY);

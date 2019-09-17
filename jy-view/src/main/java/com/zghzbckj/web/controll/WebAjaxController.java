@@ -82,8 +82,8 @@ public class WebAjaxController {
     }
 
     private void initProperty(PublicData data) {
-        PropertiesUtil propertiesUtil = new PropertiesUtil();
         if (TextUtils.isEmpty(Constant.APP_KEY) || TextUtils.isEmpty(Constant.URL_HOST)) {
+        PropertiesUtil propertiesUtil = new PropertiesUtil();
             Properties p = propertiesUtil.loadProperties("config.properties");
             Constant.APP_KEY = PropertiesUtil.readProperty(p, Constant.CLIENT_KEY);
             Constant.URL_HOST = PropertiesUtil.readProperty(p, Constant.HOST_KEY);

@@ -14,7 +14,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,16 @@ import java.util.Map;
 public class UnionHttpUtils {
     private static final Logger log = LoggerFactory.getLogger(UnionHttpUtils.class);
 
+    /**
+     * 组参数
+     * @param param
+     * @return
+     */
+    public static PublicData manageParam(Map param){
+        PublicData data =new PublicData();
+        data.setData(JsonUtil.toJson(param));
+        return data;
+    }
 
     public static ResponseMessage invoke(PublicData vo) {
         try {
@@ -42,9 +51,12 @@ public class UnionHttpUtils {
             return null;
         }
     }
-
     //带cookie的调用
-    public static String doPost(PublicData data) throws IOException {
+    public static Map doPosts(PublicData data) {
+       return JsonUtil.jsonToMap(doPost(data));
+    }
+    //带cookie的调用
+    public static String doPost(PublicData data) {
         String baseUrl = "";
         if (!TextUtils.isEmpty(data.getBaseUrl())) {
             baseUrl = data.getBaseUrl();
