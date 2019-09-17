@@ -9,6 +9,7 @@ import com.zghzbckj.manage.entity.BckjBizJypm;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ccDAO接口
@@ -17,5 +18,9 @@ import java.util.List;
  */
 @MyBatisDao
 public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
+
+    List<Map<String, Object>> collegeStats();
+
+    List<Map<String, Object>> majorList(@Param("szxy") String szxy);
 
 }

@@ -54,6 +54,59 @@ public class DemoController {
         return "detail2";
     }
 
+
+    @RequestMapping(value = "askList", method = RequestMethod.GET)
+    public String askList(HttpServletRequest request) {
+        return "askList";
+    }
+
+    @RequestMapping(value = "contactUs", method = RequestMethod.GET)
+    public String contactUs(HttpServletRequest request) {
+        return "contactUs";
+    }
+
+    @RequestMapping(value = "enterpriseGuide", method = RequestMethod.GET)
+    public String enterpriseGuide(HttpServletRequest request) {
+        return "enterpriseGuide";
+    }
+
+    @RequestMapping(value = "enterpriseReg", method = RequestMethod.GET)
+    public String enterpriseReg(HttpServletRequest request) {
+        return "enterpriseReg";
+    }
+
+    @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
+    public String enterpriseService(HttpServletRequest request) {
+        return "enterpriseService";
+    }
+
+    @RequestMapping(value = "jobFair", method = RequestMethod.GET)
+    public String jobFair(HttpServletRequest request) {
+        return "jobFair";
+    }
+
+    @RequestMapping(value = "newsDetail", method = RequestMethod.GET)
+    public String newsDetail(HttpServletRequest request) {
+        return "newsDetail";
+    }
+
+    @RequestMapping(value = "newsList", method = RequestMethod.GET)
+    public String newsList(HttpServletRequest request) {
+        return "newsList";
+    }
+
+    @RequestMapping(value = "studentService", method = RequestMethod.GET)
+    public String studentService(HttpServletRequest request) {
+        return "studentService";
+    }
+
+    @RequestMapping(value = "teacherDetail", method = RequestMethod.GET)
+    public String teacherDetail(HttpServletRequest request) {
+        return "teacherDetail";
+    }
+
+
+
 //    @RequestMapping(value = "table1", method = RequestMethod.GET)
 //    public String table1(HttpServletRequest request) {
 //        return "table1";

@@ -15,6 +15,7 @@
     <description>Demo project for Spring Boot</description>
 
     <properties>
+        <dom4j.version>2.1.0</dom4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -48,16 +49,45 @@
         <jackson.version>2.9.6</jackson.version>
         <baiduapisdk.version>4.1.0</baiduapisdk.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
-        <zust-utils></zust-utils>
+        <zust-utils>1.0.0</zust-utils>
+        <netjson.version>2.4</netjson.version>
+        <ezmorph.version>1.0.6</ezmorph.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.json-lib</groupId>
+            <artifactId>json-lib</artifactId>
+            <version>${netjson.version}</version>
+            <classifier>jdk15</classifier>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.ezmorph</groupId>
+            <artifactId>ezmorph</artifactId>
+            <version>${ezmorph.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>${dom4j.version}</version>
+        </dependency>
 
+        <!--处理表情-->
+        <dependency>
+            <groupId>com.vdurmont</groupId>
+            <artifactId>emoji-java</artifactId>
+            <version>3.1.3</version>
+        </dependency>
         <!--工具类依赖-->
         <dependency>
-            <groupId>com.zghzbckj</groupId>
-            <artifactId>zust-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.zust</groupId>
+            <artifactId>zjc-util</artifactId>
+            <version>${zust-utils}</version>
         </dependency>
 
         <!--<dependency>-->
