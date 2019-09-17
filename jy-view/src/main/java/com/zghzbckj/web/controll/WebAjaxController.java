@@ -5,7 +5,6 @@ import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
-import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-import java.util.Properties;
 
 /**
  * <p>方法 WebAjaxController : <p>
@@ -38,7 +36,6 @@ public class WebAjaxController {
     @ResponseBody
     @CrossOrigin("*")
     public String executeApi(HttpServletRequest request, PublicData data) {
-        initProperty(data);
         /*发起请求*/
         String result = "";
         ResponseMessage mess = null;
@@ -63,7 +60,6 @@ public class WebAjaxController {
     @CrossOrigin("*")
     public String execItemApi(HttpServletRequest request, PublicData data) {
         /*发起请求*/
-        initProperty(data);
         String result = null;
         ResponseMessage mess = null;
         try {
@@ -81,19 +77,6 @@ public class WebAjaxController {
         return JsonUtil.toJson(mess);
     }
 
-    private void initProperty(PublicData data) {
-        if (TextUtils.isEmpty(Constant.APP_KEY) || TextUtils.isEmpty(Constant.URL_HOST)) {
-        PropertiesUtil propertiesUtil = new PropertiesUtil();
-            Properties p = propertiesUtil.loadProperties("config.properties");
-            Constant.APP_KEY = PropertiesUtil.readProperty(p, Constant.CLIENT_KEY);
-            Constant.URL_HOST = PropertiesUtil.readProperty(p, Constant.HOST_KEY);
-            Constant.APP_SECTRECT = PropertiesUtil.readProperty(p, Constant.SECRECT_KEY);
-        }
-//        data.setRandNum(RandomUtil.getRandomCharacter(6));
-//        data.setAppKey(Constant.APP_KEY);
-//        /*生成私钥*/
-//        data.setPrivateKey(TextUtils.MD5(Constant.APP_SECTRECT + data.getRandNum()));
-    }
 
 //    @RequestMapping(value = "/getUserId", method = RequestMethod.POST)
 //    @ResponseBody

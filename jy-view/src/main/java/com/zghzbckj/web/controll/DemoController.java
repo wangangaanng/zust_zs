@@ -37,9 +37,11 @@ public class DemoController {
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         Map param=Maps.newHashMap();
-        PublicData publicData= UnionHttpUtils.manageParam(param);
-        Map result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("bean",result);
+        param.put("wzbh","1");
+        param.put("fid","-1");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjDicMenu/getLmMenu");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("bean",result.getBean());
         return view;
     }
 

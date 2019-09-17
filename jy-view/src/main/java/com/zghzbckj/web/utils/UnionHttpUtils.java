@@ -35,9 +35,10 @@ public class UnionHttpUtils {
      * @param param
      * @return
      */
-    public static PublicData manageParam(Map param){
+    public static PublicData manageParam(Map param,String method){
         PublicData data =new PublicData();
         data.setData(JsonUtil.toJson(param));
+        data.setMethod(method);
         return data;
     }
 
@@ -52,8 +53,8 @@ public class UnionHttpUtils {
         }
     }
     //带cookie的调用
-    public static Map doPosts(PublicData data) {
-       return JsonUtil.jsonToMap(doPost(data));
+    public static ResponseMessage doPosts(PublicData data) {
+       return JackSonJsonUtils.fromJson(doPost(data),ResponseMessage.class);
     }
     //带cookie的调用
     public static String doPost(PublicData data) {
