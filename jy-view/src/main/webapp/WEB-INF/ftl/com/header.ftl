@@ -71,7 +71,7 @@
     })
     function openUrl(url) {
         if(url){
-            window.location.href=url
+            window.location.href=url+'.htm'
             // window.open(url);
         }
     }
