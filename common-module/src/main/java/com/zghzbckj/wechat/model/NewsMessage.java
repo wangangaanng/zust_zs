@@ -1,7 +1,7 @@
 package com.zghzbckj.wechat.model;
 
 
-import com.zghzbckj.messageapi.wechat.utils.response.Article;
+import com.zghzbckj.wechat.utils.response.Article;
 
 import java.util.List;
 
