@@ -81,7 +81,7 @@
     <div class="contact">
         <div class="container text-center">
             <div class="contact-info text-center">
-                <div>浙江科技学院招生就业处大学生就业执导服务中心</div>
+                <div>浙江科技学院招生就业处大学生就业指导服务中心</div>
                 <div>电话：0571-85124573、85121710 &nbsp;&nbsp;&nbsp;传真：0571-85124573 &nbsp;&nbsp;&nbsp;电子邮件：zustjob@zust.edu.cn</div>
                 <div>Copyright © job.zust.edu.cn All Right reserved 沪ICP备10005749号-3</div>
             </div>
