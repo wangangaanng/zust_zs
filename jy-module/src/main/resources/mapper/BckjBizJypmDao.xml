@@ -53,7 +53,7 @@
 		select <include refid="bckjBizJypmColumns"/>
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"/>
-		where a.szxy=#{szxy}
+		where a.szxy=#{szxy} order by pmjyl desc
 	</select>
 
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
