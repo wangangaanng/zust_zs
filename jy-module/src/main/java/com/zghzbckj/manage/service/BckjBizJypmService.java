@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -73,52 +74,33 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         if (null == result) {
             return null;
         }
-        List<Map<String, Object>> dataList = new ArrayList<>();
-        List<BckjBizJypm> rankList = result.getRecords();
-        for (BckjBizJypm rank : rankList) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("szxy", rank.getSzxy());
-            map.put("pmzy", rank.getPmzy());
-            map.put("pmbj", rank.getPmbj());
-            map.put("pmbyrs", rank.getPmbyrs());
-            map.put("pmyprs", rank.getPmyprs());
-            map.put("pmqyrs", rank.getPmqyrs());
-            map.put("pmqyl", rank.getPmqyl());
-            map.put("pmjyl", rank.getPmjyl());
-            map.put("pmmc", rank.getPmmc());
-            dataList.add(map);
+        //统计学院就业情况
+        List<Map<String, Object>> collegeList = this.dao.collegeStats();
+        for (Map<String, Object> college : collegeList) {
+            List<Map<String, Object>> majorList = this.dao.majorList(college.get("szxy").toString());
+            Map<String, Object> statsMap = new HashMap<>();
+            BigDecimal qyl = (BigDecimal) college.get("pmqyl");
+            BigDecimal jyl = (BigDecimal) college.get("pmjyl");
+            statsMap.put("pmzy", "合计");
+            statsMap.put("pmbyrs", college.get("pmbyrs"));
+            statsMap.put("pmyprs", college.get("pmyprs"));
+            statsMap.put("pmqyrs", college.get("pmqyrs"));
+            statsMap.put("pmqyl", qyl.divide(BigDecimal.valueOf(majorList.size()),2));
+            statsMap.put("pmjyl", jyl.divide(BigDecimal.valueOf(majorList.size()),2));
+            college.put("avgjyl", jyl.divide(BigDecimal.valueOf(majorList.size()),2));
+            majorList.add(statsMap);
+            college.put("pmzyList", majorList);
         }
-        //根据所在学院合并
-        Map<String, List<Map<String, Object>>> collegeMap = new HashMap<>();
-        for (Map<String, Object> map : dataList) {
-            if (collegeMap.containsKey(map.get("szxy"))) {
-                collegeMap.get(map.get("szxy")).add(map);
+        //根据就业率排名
+        collegeList.sort((o1, o2) -> {
+            BigDecimal a = (BigDecimal) o1.get("avgjyl");
+            BigDecimal b = (BigDecimal) o2.get("avgjyl");
+            if (a.compareTo(b) > -1) {
+                return -1;
+            } else if (a.compareTo(b) == 0) {
+                return 0;
             } else {
-                List<Map<String, Object>> list = new ArrayList<>();
-                list.add(map);
-                collegeMap.put(map.get("szxy").toString(), list);
-            }
-        }
-        List<Map<String, Object>> collegeList = new ArrayList<>(collegeMap.size());
-        Set<String> set = collegeMap.keySet();
-        for (String key : set) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("szxy", key);
-            map.put("pmzyList", collegeMap.get(key));
-            collegeList.add(map);
-        }
-        collegeList.sort(new Comparator<Map<String, Object>>() {
-            @Override
-            public int compare(Map<String, Object> s1, Map<String, Object> s2) {
-                String a = s1.get("szxy").toString();
-                String b = s1.get("szxy").toString();
-                if (a.compareTo(b) > -1) {
-                    return -1;
-                } else if (a.compareTo(b) == 0) {
-                    return 0;
-                } else {
-                    return 1;
-                }
+                return 1;
             }
         });
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
