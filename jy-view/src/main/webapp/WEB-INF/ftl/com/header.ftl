@@ -1,10 +1,10 @@
-<#assign nav=[{'url':'index.html','title':'首页'},
-{'url':'','title':'学院概况','sub':[{'url':'articleTpl.html','title':'学校简介'},{'url':'','title':'学院专业'},{'url':'','title':'中心介绍'}]},
-{'url':'','title':'新闻公告','sub':[{'url':'newsList.html','title':'通知公告'},{'url':'','title':'新闻快递'},{'url':'','title':'校内公示'}]},
-{'url':'','title':'招聘信息','sub':[{'url':'','title':'浙科院·职来职往'},{'url':'','title':'社会招聘会'},{'url':'','title':'企业招聘信息'},{'url':'','title':'职位招聘信息'},{'url':'','title':'招考公告'}]},
-{'url':'','title':'职业指导','sub':[{'url':'','title':'政策法规'},{'url':'','title':'就业指导'},{'url':'','title':'创业指导'},{'url':'','title':'生涯规划'},{'url':'','title':'技能培训'}]},
-{'url':'','title':'企业指南','sub':[{'url':'','title':'招聘指南'},{'url':'','title':'生源速览'}]},
-{'url':'','title':'学生服务','sub':[{'url':'','title':'办事流程'},{'url':'','title':'常用下载'},{'url':'','title':'档案查询'}]},
+<#assign nav=[{'url':'${base}/','title':'首页'},
+{'url':'','title':'学院概况','sub':[{'url':'${base}/articleTpl','title':'学校简介'},{'url':'${base}/articleTpl','title':'学院专业'},{'url':'${base}/articleTpl','title':'中心介绍'}]},
+{'url':'','title':'新闻公告','sub':[{'url':'${base}/newsList','title':'通知公告'},{'url':'${base}/newsList','title':'新闻快递'},{'url':'${base}/newsList','title':'校内公示'}]},
+{'url':'','title':'招聘信息','sub':[{'url':'${base}/recruitment','title':'浙科院·职来职往'},{'url':'${base}/recruitment','title':'社会招聘会'},{'url':'${base}/recruitment','title':'企业招聘信息'},{'url':'${base}/recruitment','title':'职位招聘信息'},{'url':'${base}/announcement','title':'招考公告'}]},
+{'url':'','title':'职业指导','sub':[{'url':'${base}/newsList','title':'政策法规'},{'url':'${base}/newsList','title':'就业指导'},{'url':'${base}/newsList','title':'创业指导'},{'url':'${base}/newsList','title':'生涯规划'},{'url':'${base}/newsList','title':'技能培训'}]},
+{'url':'','title':'企业指南','sub':[{'url':'${base}/articleTpl','title':'招聘指南'},{'url':'${base}/newsList','title':'生源速览'}]},
+{'url':'','title':'学生服务','sub':[{'url':'${base}/newsList','title':'办事流程'},{'url':'${base}/newsList','title':'常用下载'},{'url':'','title':'档案查询'}]},
 {'url':'','title':'联系我们'}]>
 <header>
     <div class="top">
@@ -69,4 +69,10 @@
         $('.subnav-wrap').hide();
         $('.subnav-wrap .subnav-cont').hide();
     })
+    function openUrl(url) {
+        if(url){
+            window.location.href=url
+            // window.open(url);
+        }
+    }
 </script>
