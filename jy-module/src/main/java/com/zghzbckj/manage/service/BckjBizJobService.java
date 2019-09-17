@@ -166,14 +166,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 //        }
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
 
-        if (!TextUtils.isEmpty(jobList) && !TextUtils.isEmpty(dataMap.get("yhRefOwid"))) {
+        if (!TextUtils.isEmpty(jobList)){
             for (BckjBizJob job : jobList) {
                 Map params = new HashMap<>();
                 params.put("jobRefOwid", job.getOwid());
                 //0 职位 1 企业
                 params.put("gzlx", dataMap.get("gzlx"));
-                //0 关注 1签到 2 预约校园开放日
-                params.put("xxlb", 0);
                 List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
                 job.setXsgzList(xsgzList);
                 job.setNumber(xsgzList.size());

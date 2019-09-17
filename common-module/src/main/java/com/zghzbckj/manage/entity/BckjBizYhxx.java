@@ -19,6 +19,7 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 	private static final long serialVersionUID = 1L;
 
 	private String sjh;		// sjh
+	private Integer yhlx;   //yhlx
 	private String unionid;		// unionid
 	private String yhtx;		// yhtx
 	private String sfz;		// sfz
@@ -55,7 +56,13 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 		this.yhdlmm = yhdlmm;
 	}
 
+	public Integer getYhlx() {
+		return yhlx;
+	}
 
+	public void setYhlx(Integer yhlx) {
+		this.yhlx = yhlx;
+	}
 	
 	public BckjBizYhxx() {
 		super();
