@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
@@ -15,16 +16,14 @@ import com.zghzbckj.manage.dao.BckjBizDcwjDao;
 import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
 import com.zghzbckj.manage.entity.BckjBizDcwj;
 import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
+import com.zghzbckj.manage.entity.BckjBizDcwjJg;
 import com.zghzbckj.manage.entity.BckjBizDcwjTm;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -42,6 +41,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     BckjBizDcwjTmDao bckjBizDcwjTmDao;
     @Autowired
     BckjBizDcwjDtmxService bckjBizDcwjDtmxService;
+    @Autowired
+    BckjBizDcwjJgService bckjBizDcwjJgService;
 
     @Override
     public BckjBizDcwj get(String owid) {
@@ -146,8 +147,14 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         if (TextUtils.isEmpty(answerList) || answerList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL,"答案列表为空");
         }
+        BckjBizDcwjJg result = new BckjBizDcwjJg();
+        result.setKsdt(DateUtil.getDate(dataMap.get("ksdt").toString()));
+        result.setJsdt(DateUtil.getDate(dataMap.get("jsdt").toString()));
+        result.setDtsc(DateUtil.getBetweenMinutes(result.getJsdt(), result.getKsdt()));
+        bckjBizDcwjJgService.save(result);
         for (Map<String, Object> map : answerList) {
             BckjBizDcwjDtmx answer = JsonUtil.map2Bean(map, BckjBizDcwjDtmx.class);
+            answer.setDcwjjgRefOwid(result.getOwid());
             bckjBizDcwjDtmxService.save(answer);
         }
         return ResponseMessage.sendOK("问卷答案已保存");

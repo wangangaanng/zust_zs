@@ -129,9 +129,6 @@ public class BckjBizDcwjController extends BaseController {
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
             }
-            if (null == dataMap.get("answerList")) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "答案列表为空");
-            }
             return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
             e.printStackTrace();
