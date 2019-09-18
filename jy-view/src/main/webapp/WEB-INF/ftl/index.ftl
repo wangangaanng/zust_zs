@@ -53,7 +53,7 @@
                             <#if (objl??)&&(objl?size>0)>
                                 <#list objl as obj>
                                     <#if obj_index<4>
-                                        <li>
+                                        <li data-owid="${obj.owid}">
                                             <div class="news-date">
                                                 <#if obj.fbsj?exists>
                                                     <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
@@ -157,11 +157,15 @@
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
                             <#if obj_index<8>
-                                <li>
+                                <li data-owid="${obj.owid}">
                                     <ul class="job">
-                                        <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                                        <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                                        <li>2019-04-08</li>
+                                        <li>${obj.zwbt}</li>
+                                        <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea}</li>
+                                        <li>
+                                            <#if obj.zphKsrq?exists>
+                                               ${obj.zphKsrq?substring(0,10)}
+                                            </#if>
+                                        </li>
                                     </ul>
                                 </li>
                             </#if>
@@ -174,10 +178,14 @@
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
                             <#if obj_index<8>
-                                <li>
+                                <li data-owid="${obj.owid}">
                                     <ul class="job">
-                                        <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                                        <li>2019-04-08</li>
+                                        <li>${obj.wzbt!''}</li>
+                                        <li>
+                                            <#if obj.fbsj?exists>
+                                               ${obj.fbsj?substring(0,10)}
+                                            </#if>
+                                        </li>
                                     </ul>
                                 </li>
                             </#if>
@@ -228,10 +236,14 @@
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
                             <#if obj_index<6>
-                                <li>
+                                <li data-owid="${obj.owid}">
                                     <ul class="job">
-                                        <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                                        <li>2019-04-08</li>
+                                        <li>${obj.wzbt!''}</li>
+                                        <li>
+                                            <#if obj.fbsj?exists>
+                                               ${obj.fbsj?substring(0,10)}
+                                            </#if>
+                                        </li>
                                     </ul>
                                 </li>
                             </#if>

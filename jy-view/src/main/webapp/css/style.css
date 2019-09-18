@@ -70,7 +70,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .frame-list>li{height: 37px;line-height: 37px;float:left;width: 100%;}
 .job{float: left;width: 100%;}
 .job li{display: inline-block;white-space: nowrap;overflow: hidden;}
-.job li:nth-of-type(1){width:573px;width: calc(100% - 245px);text-overflow: ellipsis;}
+.job li:nth-of-type(1){width:573px;width: calc(100% - 315px);text-overflow: ellipsis;}
 .job li:nth-of-type(2):not(:last-of-type){color: #008784; font-size: 15px;}
 .job li:last-of-type{color:#8a8a8a;float: right;padding-right: 20px;}
 
