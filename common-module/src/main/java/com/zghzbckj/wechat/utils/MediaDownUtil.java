@@ -4,10 +4,10 @@ import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.util.CacheUtil;
 
 
-import com.zghzbckj.common.CommonConstant;
+
 import com.zghzbckj.wechat.WechatConstants;
 import com.zghzbckj.wechat.model.AccessToken;
-
+import com.zghzbckj.common.CommonConstant;
 
 import java.io.FileOutputStream;
 import java.io.IOException;

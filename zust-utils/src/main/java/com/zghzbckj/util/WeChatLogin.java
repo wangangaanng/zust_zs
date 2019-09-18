@@ -36,7 +36,7 @@ public class WeChatLogin {
     public void setCode(String code) {
         this.code = code;
     }
-    public Map<String,Object> (){
+    public Map<String,Object> weChatLogin(){
         String url =openid_url.replace("APPID",APPID).replace("SECRET",SECRET).replace("JSCODE",code);
         Map<String,Object> param=new HashMap<>();
         JSONObject jsonObject=new JSONObject();
