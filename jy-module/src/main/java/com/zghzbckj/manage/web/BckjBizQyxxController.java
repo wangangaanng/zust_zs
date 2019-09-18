@@ -177,7 +177,7 @@ public class BckjBizQyxxController extends BaseController {
             }
             Map resultMap = bckjBizQyxxService.login(mapData);
             if ("true".equals(resultMap.get("result").toString())) {
-                return ResponseMessage.sendOK("");
+                return ResponseMessage.sendOK(resultMap.get("bean"));
             } else {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
             }
