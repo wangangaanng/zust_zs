@@ -34,7 +34,7 @@ import java.util.Properties;
 public class DemoController {
     private static final Logger log = Logger.getLogger(DemoController.class);
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());
@@ -154,9 +154,14 @@ public class DemoController {
         view.setViewName("announcement");
         return view;
     }
-    @RequestMapping(value = "articleTpl", method = RequestMethod.GET)
-    public ModelAndView articleTpl(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "articleTpl/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView articleTpl(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("articleTpl");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+
         return view;
     }
     @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
