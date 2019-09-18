@@ -163,10 +163,20 @@ public class DemoController {
     public ModelAndView enterpriseReg(HttpServletRequest request,ModelAndView view) {
         view.setViewName("enterpriseReg");
         Map param=Maps.newHashMap();
-        param.put("type","20000");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"webApi/dicValue/getValueByDic.do");
+        param.put("dicType","20000");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
         ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
         view.addObject("qyGsxz",qyGsxz.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("dicType","20001");
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("qyHylb",qyHylb.getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("dicType","20002");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("qyGsgm",qyGsgm.getBean());
         return view;
     }
 

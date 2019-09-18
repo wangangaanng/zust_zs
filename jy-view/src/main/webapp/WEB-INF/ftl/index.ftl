@@ -147,19 +147,19 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" placeholder="请社会统一信用码" class="login-act">
+                        <input type="text" id="qyTysh" placeholder="请社会统一信用码" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="text" placeholder="请输入法人身份证后六位" class="login-pswd">
+                        <input type="text" id="qyFrsfz" placeholder="请输入法人身份证后六位" class="login-pswd">
                     </li>
                     <li>
-                        还没有账号？<a>注册</a>
+                        还没有账号？<a href="/enterpriseReg">注册</a>
                     </li>
                     <li>
-                        <input type="button" value="登录" class="login-btn">
+                        <input type="button" value="登录" onclick="qylogin()" class="login-btn">
                     </li>
                 </ul>
             </div>
@@ -352,6 +352,18 @@
         $(this).addClass('active').siblings().removeClass('active');
         $(".tabbar-frame_content").find("ul").eq($(this).index()).show().siblings().hide();
     })
+
+    function qylogin() {
+        var jsonObj={
+            "qyFrsfz":$("#qyFrsfz").val().trim(),
+            "qyTysh":$("#qyTysh").val().trim()
+        }
+        ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
+            if(data.backCode==0){
+                alert("登录成功")
+            }
+        })
+    }
 </script>
 </body>
 </html>
