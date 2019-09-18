@@ -126,7 +126,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmjyl");
         return ResponseMessage.sendOK(page);
     }
 

@@ -86,11 +86,16 @@
 		FROM bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"/>
 		<where>
-
+			<if test="szxy != null and szxy != ''">
+				a.szxy=#{szxy}
+			</if>
+			<if test="pmzy != null and pmzy != ''">
+				and a.pmzy=#{pmzy}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
+				ORDER BY ${orderBy} desc
 			</when>
 			<otherwise>
 			</otherwise>

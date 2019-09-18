@@ -100,7 +100,7 @@ public class BckjBizJypmController extends BaseController {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
             return bckjBizJypmService.saveBckjBizJypm(mapData);
-        } catch (Exception e) {
+        } catch (Exception  e) {
             log.error(e + "保存BckjBizJypm信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
