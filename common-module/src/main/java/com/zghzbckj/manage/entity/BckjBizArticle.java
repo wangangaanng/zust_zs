@@ -36,6 +36,7 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	private Integer sxh;		// sxh
 	private String gjz;		// gjz
 	private String memo;		// memo
+	private String xgfj;
     private List<Map> fileList;
 	
 	public BckjBizArticle() {
@@ -199,4 +200,12 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
     public void setFileList(List<Map> fileList) {
         this.fileList = fileList;
     }
+
+	public String getXgfj() {
+		return xgfj;
+	}
+
+	public void setXgfj(String xgfj) {
+		this.xgfj = xgfj;
+	}
 }
