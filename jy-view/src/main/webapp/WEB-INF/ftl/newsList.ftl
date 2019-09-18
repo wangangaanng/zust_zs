@@ -7,7 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>就业网</title>
     <#include "com/config.ftl">
-        <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
 </head>
 <style>
 
@@ -17,40 +16,9 @@
     <#include "com/header.ftl">
         <div class="main">
             <div class="container">
-                <div class="routes">
-                    <div class="location">
-                        <i></i> 当前位置：
-                    </div>
-
-                    <ol class="breadcrumb">
-                        <li><a href="#">首页</a></li>
-                        <li><a href="#">新闻公告</a></li>
-                        <li class="active">新闻快递</li>
-                    </ol>
-                </div>
+                <#include "com/route.ftl">
                 <div class="content">
-                    <div class="menu-nav">
-                        <div class="menu-title">
-                            <div class="title-chn">新闻公告</div>
-                            <div class="title-en">NEWS BULLETIN
-                                <div class="menu-nav-icon"></div>
-                            </div>
-
-                        </div>
-                        <div class="menu-list">
-                            <ul class="list-group">
-                                <li class="list-group-item active1">
-                                    <span class="ic-menu"></span> 通知公告
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="ic-menu"></span> 新闻快递
-                                </li>
-                                <li class="list-group-item">
-                                    <span class="ic-menu"></span> 校内公示
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                   <#include "com/subMenu.ftl">
                     <div class="content-list">
                         <div class="search-bar">
                             <div class="search-label">搜素关键字：</div>
@@ -169,8 +137,6 @@
         </div>
 
         <#include "com/footer.ftl">
-            <script src="${base}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
-            <script src="${base}/js/common.js"></script>
             <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 
