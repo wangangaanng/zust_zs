@@ -16,7 +16,6 @@
         <div class="routes">
             <div class="location">
                 <i></i>
-                <!-- <img src="img/ic-home.png"> -->
                 当前位置：
             </div>
 

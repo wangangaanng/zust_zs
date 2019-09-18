@@ -25,4 +25,6 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     Integer modfiyPassword(Map<String, Object> datamap);
 
     void updateDlsj(String owid);
+
+    BckjBizYhxx getOneByUnionId(String unionid);
 }

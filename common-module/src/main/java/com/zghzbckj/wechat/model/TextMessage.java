@@ -1,6 +1,8 @@
 package com.zghzbckj.wechat.model;
 
 
+
+
 import com.zghzbckj.wechat.utils.MessageUtil;
 
 import java.util.Map;
