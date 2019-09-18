@@ -1,6 +1,6 @@
 <#--<#assign nav=-->
 <#--[{'url':'','title':'首页'},-->
-<#--{'url':'','title':'学院概况','sub':[{'url':'articleTpl/0','title':'学校简介'},{'url':'articleTpl/1','title':'学院专业'},{'url':'articleTpl/2','title':'中心介绍'}]},-->
+<#--{'url':'','title':'学院概况','sub':[{'url':'articleTpl/college/0','title':'学校简介'},{'url':'articleTpl/1','title':'学院专业'},{'url':'articleTpl/2','title':'中心介绍'}]},-->
 <#--{'url':'','title':'新闻公告','sub':[{'url':'newsList','title':'通知公告'},{'url':'/newsList','title':'新闻快递'},{'url':'/newsList','title':'校内公示'}]},-->
 <#--{'url':'','title':'招聘信息','sub':[{'url':'recruitment','title':'浙科院·职来职往'},{'url':'recruitment','title':'社会招聘会'},{'url':'recruitment','title':'企业招聘信息'},{'url':'recruitment','title':'职位招聘信息'},{'url':'announcement','title':'招考公告'}]},-->
 <#--{'url':'','title':'职业指导','sub':[{'url':'newsList','title':'政策法规'},{'url':'newsList','title':'就业指导'},{'url':'newsList','title':'创业指导'},{'url':'newsList','title':'生涯规划'},{'url':'newsList','title':'技能培训'}]},-->
@@ -12,13 +12,13 @@
     <div class="top">
         <div class="container">
             <div class="top-logo">
-                <img class="logo" src="img/logo-zust.png">
+                <img class="logo" src="${base}/img/logo-zust.png">
                 <div class="title">就业信息网</div>
             </div>
             <div class="nav">
                 <ul>
                     <#list header as obj>
-                        <li class="nav-item" onclick='openUrl("${obj.url!''}")'>${obj.NAME}
+                        <li class="nav-item" onclick='openUrl("${obj.TZLJ!''}")'>${obj.NAME}
                             <#--<#if obj.sub??>-->
                                 <#--<ul class='subnav'>-->
                                     <#--<#list obj.sub as sub>-->
@@ -41,7 +41,7 @@
                                 </div></div>
                             <ul class="clearfix subnav fr">
                                 <#list obj.chirdMenu as sub>
-                                <li onclick='openUrl("${sub.url!''}")'><a>${sub.NAME}</a></li>
+                                <li onclick='openUrl("${sub.TZLJ!''}")'><a>${sub.NAME}</a></li>
                                 </#list>
                             </ul>
                         </div>
@@ -72,14 +72,14 @@
         $('.subnav-wrap .subnav-cont').hide();
     })
     function openUrl(url) {
-        if(url=="${base}"){
-            window.location.href=url
-        }else{
+        <#--if(url=="${base}"){-->
+            <#--window.location.href=url-->
+        <#--}else{-->
             if(url){
-                window.location.href=url+'.htm'
+                window.location.href="${base}/"+url
                 // window.open(url);
             }
-        }
+//        }
 
     }
 </script>

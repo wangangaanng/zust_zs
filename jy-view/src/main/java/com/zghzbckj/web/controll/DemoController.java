@@ -1,5 +1,6 @@
 package com.zghzbckj.web.controll;
 
+import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -33,7 +34,7 @@ import java.util.Properties;
 public class DemoController {
     private static final Logger log = Logger.getLogger(DemoController.class);
 
-    @RequestMapping(value = "index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());
@@ -48,8 +49,7 @@ public class DemoController {
         List<Map> beanList = (List<Map>) result1.getBean();
         ResponseMessage resultMess  = new ResponseMessage();
         if(beanList!=null&&beanList.size()>0){
-            String first="first";
-            int index=1;
+            List wzList= Lists.newArrayList();
             for(Map map:beanList){
                 String owid = map.get("CODE").toString();
                 String isDetail = map.get("BXLX").toString();
@@ -61,10 +61,15 @@ public class DemoController {
                 paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess = UnionHttpUtils.doPosts(_data);
-                view.addObject(first+index,((Map)resultMess.getBean()).get("records"));
-                index++;
+                if(null!=((Map) resultMess.getBean()).get("records")) {
+                    wzList.add(((Map) resultMess.getBean()).get("records"));
+                }else {
+                    wzList.add(Lists.newArrayList());
+                }
             }
+            view.addObject("first",wzList);
         }
+
         //招聘信息-菜单
         Map param3=Maps.newHashMap();
         param3.put("wzbh","1");
@@ -75,22 +80,42 @@ public class DemoController {
         List<Map> beanList2 = (List<Map>) result2.getBean();
         ResponseMessage resultMess2  = new ResponseMessage();
         if(beanList2!=null&&beanList2.size()>0){
-            String second="second";
-            int index=1;
-//            for(Map map:beanList2){
-//                String owid = map.get("CODE").toString();
-//                String isDetail = map.get("BXLX").toString();
-//                Map paramn=Maps.newHashMap();
-//                paramn.put("lmbh",owid);
-//                paramn.put("wzzt","1");
-//                paramn.put("isDetail",isDetail);
-//                paramn.put("pageNo",'1');
-//                paramn.put("pageSize","10");
-//                PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
-//                resultMess2 = UnionHttpUtils.doPosts(_data);
-//                view.addObject(second+index,((Map)resultMess2.getBean()).get("records"));
-//                index++;
-//            }
+            List wzList= Lists.newArrayList();
+            List wzListwz= Lists.newArrayList();
+            for(Map map:beanList2){
+                if(null!=map.get("SJHQDX")) {
+                    String SJHQDX = map.get("SJHQDX").toString();
+                    Map paramn = Maps.newHashMap();
+                    paramn.put("zwlx", SJHQDX);
+                    paramn.put("pageNo", '1');
+                    paramn.put("pageSize", "10");
+                    PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
+                    resultMess2 = UnionHttpUtils.doPosts(_data);
+                    if(null!=((Map) resultMess2.getBean()).get("records")) {
+                        wzList.add(((Map) resultMess2.getBean()).get("records"));
+                    }else {
+                        wzList.add(Lists.newArrayList());
+                    }
+                }else{
+                    String owid = map.get("CODE").toString();
+                    String isDetail = map.get("BXLX").toString();
+                    Map paramn=Maps.newHashMap();
+                    paramn.put("lmbh",owid);
+                    paramn.put("wzzt","1");
+                    paramn.put("isDetail",isDetail);
+                    paramn.put("pageNo",'1');
+                    paramn.put("pageSize","10");
+                    PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
+                    resultMess2 = UnionHttpUtils.doPosts(_data);
+                    if(null!=((Map) resultMess2.getBean()).get("records")) {
+                        wzListwz.add(((Map) resultMess2.getBean()).get("records"));
+                    }else {
+                        wzListwz.add(Lists.newArrayList());
+                    }
+                }
+            }
+            view.addObject("second",wzList);
+            view.addObject("secondwz",wzListwz);
         }
         //职业指导-菜单
         Map param4=Maps.newHashMap();
@@ -99,8 +124,29 @@ public class DemoController {
         PublicData publicData3= UnionHttpUtils.manageParam(param4,"/zustcommon/bckjDicMenu/getSyMenu");
         ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
         view.addObject("nav3",result3.getBean());
-
-//        view.addObject("headerStr",result.getBean().toString());
+        List<Map> beanList3 = (List<Map>) result3.getBean();
+        ResponseMessage resultMess3  = new ResponseMessage();
+        if(beanList3!=null&&beanList3.size()>0){
+            List wzList= Lists.newArrayList();
+            for(Map map:beanList3){
+                String owid = map.get("CODE").toString();
+                String isDetail = map.get("BXLX").toString();
+                Map paramn=Maps.newHashMap();
+                paramn.put("lmbh",owid);
+                paramn.put("wzzt","1");
+                paramn.put("isDetail",isDetail);
+                paramn.put("pageNo",'1');
+                paramn.put("pageSize","10");
+                PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
+                resultMess3 = UnionHttpUtils.doPosts(_data);
+                if(null!=((Map) resultMess3.getBean()).get("records")) {
+                    wzList.add(((Map) resultMess3.getBean()).get("records"));
+                }else{
+                    wzList.add(Lists.newArrayList());
+                }
+            }
+            view.addObject("third",wzList);
+        }
         return view;
     }
     @RequestMapping(value = "announcement", method = RequestMethod.GET)
@@ -108,9 +154,14 @@ public class DemoController {
         view.setViewName("announcement");
         return view;
     }
-    @RequestMapping(value = "articleTpl", method = RequestMethod.GET)
-    public ModelAndView articleTpl(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "articleTpl/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView articleTpl(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("articleTpl");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+
         return view;
     }
     @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
@@ -198,9 +249,13 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "newsList", method = RequestMethod.GET)
-    public ModelAndView newsList(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("newsList");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 

@@ -60,16 +60,16 @@
     <!--li类型-->
     <block wx:elif="{{item.tag == 'li'}}">
       <view class="{{item.classStr}} wxParse-li" style="{{item.styleStr}}">
-        <view class="{{item.classStr}} wxParse-li-inner">
+        <!-- <view class="{{item.classStr}} wxParse-li-inner">
           <view class="{{item.classStr}} wxParse-li-text">
             <view class="{{item.classStr}} wxParse-li-circle"></view>
-          </view>
-          <view class="{{item.classStr}} wxParse-li-text">
+          </view> -->
+          <!-- <view class="{{item.classStr}} wxParse-li-text"> -->
             <block wx:for="{{item.nodes}}" wx:for-item="item" wx:key="">
               <template is="wxParse1" data="{{item}}" />
             </block>
-          </view>
-        </view>
+          <!-- </view> -->
+        <!-- </view> -->
       </view>
     </block>
 
