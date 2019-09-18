@@ -16,6 +16,15 @@ header .top-logo {
     overflow: hidden;
 }
 
+.btn:active,
+.btn:focus,
+.btn:hover{
+    color: #fff !important;
+    background-color: #008784 !important;
+    border-color: #008784 !important;
+    opacity: 0.7 !important;
+}
+
 header .logo {
     width: 467px;
     margin: 40px 0 25px 0;

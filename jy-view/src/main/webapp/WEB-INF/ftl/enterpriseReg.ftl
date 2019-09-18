@@ -80,11 +80,11 @@
             </ol>
         </div>
         <div class="content-form">
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="registerForm">
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-2 control-label">填写代码*：</label>
+                    <label for="qyTysh" class="col-sm-2 control-label">填写代码*：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="inputEmail3" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qyTysh" name="qyTysh" placeholder="" autocomplete="off">
                     </div>
                     <div class="col-sm-2 upload-img">
                         <input type="file" value="" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
@@ -95,7 +95,7 @@
                 <div class="form-group">
                     <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号*：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="qyFrsfz" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qyFrsfz" name="qyFrsfz" placeholder="" autocomplete="off">
                     </div>
                     <div class="col-sm-2 upload-img">
                         <img src="${base}/img/upload.png" alt="" class="" />
@@ -105,20 +105,20 @@
                 <div class="form-group">
                     <label for="qymc" class="col-sm-2 control-label">公司名称*：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="qymc" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qymc" name="qymc" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="qyProv" class="col-sm-2 control-label">所在省份*：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" onchange="getCity()" id="qyProv">
+                        <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
                     <label for="qyCity" class="col-sm-2 control-label">所在市*：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" onchange="getArea()" id="qyCity">
+                        <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity">
                             <option value="">请选择</option>
 
                         </select>
@@ -127,7 +127,7 @@
                 <div class="form-group">
                     <label for="qyArea" class="col-sm-2 control-label">所在区*：</label>
                     <div class="col-sm-4">
-                        <select class="form-control" id="qyArea">
+                        <select class="form-control" name="qyArea" id="qyArea">
                             <option value="">请选择</option>
 
                         </select>
@@ -136,32 +136,32 @@
                 <div class="form-group">
                     <label for="qydz" class="col-sm-2 control-label">公司地址*：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="qydz" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qydz" name="qydz" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="qyLxr" class="col-sm-2 control-label">联系人*：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="qyLxr" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="qyLxrdh" class="col-sm-2 control-label">手机*：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="qyLxrdh" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="qyYx" class="col-sm-2 control-label">邮箱*：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="qyYx" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="qyGsxz" class="col-sm-2 control-label">公司性质：</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="qyGsxz">
+                        <select class="form-control" id="qyGsxz" name="qyGsxz">
                             <option>请选择</option>
 
                         </select>
@@ -170,7 +170,7 @@
                 <div class="form-group">
                     <label for="qyHylb" class="col-sm-2 control-label">行业类别：</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="qyHylb">
+                        <select class="form-control" id="qyHylb" name="qyHylb">
                             <option>请选择</option>
                         </select>
                     </div>
@@ -178,7 +178,7 @@
                 <div class="form-group">
                     <label for="qyGsgm" class="col-sm-2 control-label">公司规模：</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="qyGsgm">
+                        <select class="form-control" id="qyGsgm" name="qyGsgm">
                             <option>请选择</option>
 
                         </select>
@@ -188,7 +188,7 @@
                 <div class="form-group">
                     <label for="qyGsjs" class="col-sm-2 control-label">公司介绍：</label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" id="qyGsjs" rows="10"></textarea>
+                        <textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10"></textarea>
                     </div>
                 </div>
 
@@ -248,6 +248,16 @@
             }
         }
         $(document).ready(function () {
+
+
+
+            $("#registerForm").submit(function (envent){
+                envent.preventDefault();
+
+                var form = $(this);
+                console.log(form.serialize())
+            });
+
             var jsonObj = {
                 "dicType": 20000
             }
