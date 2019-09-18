@@ -7,6 +7,14 @@ var weekday= new Array(7);
 
 function initDatePicker(){
 	var dat = new Date();
+    var jsonObj = {
+        "startTime": '2018-08-01',
+		"endTime":'2018-08-31'
+    }
+    ajax("zustjy/bckjBizJob/jobByMonth", jsonObj, function (data) {
+        if(data.backCode==0){
+        }
+    })
 	// $.ajax({
 	// 	type: "post",
 	// 	url: ajaxUrl,

@@ -7,59 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>就业网</title>
     <#include "com/config.ftl">
-    <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="${base}/css/common.css" />
 </head>
 <style>
+
     .form-group {
         margin-right: 280px !important;
         position: relative;
-    }
-
-    .upload-sm {
-        position: absolute;
-        line-height: 34px;
-        width: 280px;
-        padding-right: 15px;
-        right: -280px;
-    }
-
-    .content-form {
-        border: solid 1px #e0e0e0;
-        padding: 30px 0;
-    }
-
-    .btn-common {
-        width: 260px;
-        height: 40px;
-        background-color: #008784;
-        color: #fff;
-        border-radius: 4px;
-    }
-    .upload-img{
-        position: relative;
-    }
-    .upload-img #file{
-        opacity: 0;
-        width: 100%;
-        height: 34px;
-        z-index: 99;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        padding-right: 15px;
-        cursor: pointer;
-    }
-    .upload-img img{
-        width: 100%;
-        height: 34px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-        padding-right: 15px;
     }
 </style>
 
@@ -80,7 +33,7 @@
             </ol>
         </div>
         <div class="content-form">
-            <form class="form-horizontal" id="registerForm">
+            <form class="form-horizontal" id="registerForm" method="" action="" target="rfFrame">
                 <div class="form-group">
                     <label for="qyTysh" class="col-sm-2 control-label">填写代码*：</label>
                     <div class="col-sm-8">
@@ -90,7 +43,7 @@
                         <input type="file" value="" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
                         <img src="${base}/img/upload.png" id="yyzz" alt="" />
                     </div>
-                    <div class="upload-sm">上传营业执照自动识别统一信用代码</div>
+                    <div class="upload-sm">上传营业执照自动识别统一信用代码*</div>
                 </div>
                 <div class="form-group">
                     <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号*：</label>
@@ -159,40 +112,47 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsxz" class="col-sm-2 control-label">公司性质：</label>
+                    <label for="qyGsxz" class="col-sm-2 control-label">公司性质*：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsxz" name="qyGsxz">
-                            <option>请选择</option>
-
+                            <option value="">请选择</option>
+                            <#list qyGsxz as obj>
+                                <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            </#list>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyHylb" class="col-sm-2 control-label">行业类别：</label>
+                    <label for="qyHylb" class="col-sm-2 control-label">行业类别*：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyHylb" name="qyHylb">
-                            <option>请选择</option>
+                            <option value="">请选择</option>
+                            <#list qyHylb as obj>
+                                <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            </#list>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsgm" class="col-sm-2 control-label">公司规模：</label>
+                    <label for="qyGsgm" class="col-sm-2 control-label">公司规模*：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsgm" name="qyGsgm">
-                            <option>请选择</option>
-
+                            <option value="">请选择</option>
+                            <#list qyGsgm as obj>
+                                <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            </#list>
                         </select>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="qyGsjs" class="col-sm-2 control-label">公司介绍：</label>
+                    <label for="qyGsjs" class="col-sm-2 control-label">公司介绍*：</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10"></textarea>
                     </div>
                 </div>
 
-
+                <input type="hidden" id="qyYyzzzp" name="qyYyzzzp" />
 
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
@@ -200,13 +160,14 @@
                     </div>
                 </div>
             </form>
+
+            <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
         </div>
     </div>
 
 <#include "com/footer.ftl">
-    <script src="${base}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="${base}/js/common.js" type="text/javascript"></script>
+    <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="${base}/js/city1.js" type="text/javascript"></script>
 
     <script>
@@ -248,86 +209,115 @@
             }
         }
         $(document).ready(function () {
-
-
-
-            $("#registerForm").submit(function (envent){
-                envent.preventDefault();
-
-                var form = $(this);
-                console.log(JSON.stringify($("#registerForm").serializeObject()))
-            });
-
-
-            $.fn.serializeObject = function() {
-                var o = {};
-                var a = this.serializeArray();
-                $.each(a, function() {
-                    if (o[this.name]) {
-                        if (!o[this.name].push) {
-                            o[this.name] = [ o[this.name] ];
-                        }
-                        o[this.name].push(this.value || '');
-                    } else {
-                        o[this.name] = this.value || '';
-                    }
-                });
-                return o;
-            };
-
-
-            var jsonObj = {
-                "dicType": 20000
+            var jsonObj={
+                "dicType":20000
             }
             ajax("zustcommon/common/getByType", jsonObj, function (data) {
                 if(data.backCode==0){
                 }
             })
 
-
             $("#file").change(function (e) {
                 var file = e.target.files[0] || e.dataTransfer.files[0];
-                $('#photoCover').val(document.getElementById("file").files[0].name);
+
+                // $('#photoCover').val(document.getElementById("file").files[0].name);
                 if (file) {
+                    console.log("file",file.name)
                     var reader = new FileReader();
                     reader.onload = function () {
+                        // console.log("file",file)
                         $("#yyzz").attr("src",this.result)
+                        var fd = new FormData();
+                        fd.append("file",file);
+                        fd.append('data', JSON.stringify({
+                            "type": 1
+                        }));
+                        // fd.append("method", "zustcommon/common/picUpload");
+                        $.ajax({
+                            url: "http://192.168.3.222:8888/zustcommon/common/picUpload",//localUrl,//
+                            type: "POST",
+                            processData: false,
+                            contentType: false,
+                            data: fd,
+                            success: function(d) {
+                                // console.log(d);
+                                if(d.bean){
+                                    if(d.bean["社会信用代码"]){
+                                        $("#qyTysh").val(d.bean["社会信用代码"].words)
+                                    }
+                                    if(d.bean.fileName){
+                                        $("#qyYyzzzp").val(d.bean.fileName)
+                                    }
+                                }
+                                console.log(d.bean["社会信用代码"])
+                            }
+                        });
                     }
 
                     reader.readAsDataURL(file);
                 }
             });
+
+            $("#registerForm").validate({
+                rules: {
+                    qyTysh:"required",
+                },
+                messages: {
+                    qyTysh: "请填写"
+                },
+                errorElement: "em",
+                errorPlacement: function ( error, element ) {
+                    // Add the `help-block` class to the error element
+                    error.addClass( "help-block" );
+
+                    if ( element.prop( "type" ) === "checkbox" ) {
+                        error.insertAfter( element.parent( "label" ) );
+                    } else {
+                        error.insertAfter( element );
+                    }
+                },
+                highlight: function ( element, errorClass, validClass ) {
+                    $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $( element ).parent().removeClass( "has-error" );
+                }
+            });
+
+
         })
 
-        function imgPreview(fileDom, i) {
-            console.log('fileDom',fileDom)
-            //判断是否支持FileReader
-            if (window.FileReader) {
-                var reader = new FileReader();
-            } else {
-                alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        $.validator.setDefaults({
+            submitHandler: function () {
+                companyRegister()
             }
-            //获取文件
-            var file = fileDom.files[0];
-            var imageType = /^image\//;
-            //是否是图片
-            if (!imageType.test(file.type)) {
-                alert("请选择图片！");
-                return;
-            }
-            //读取完成
-            reader.onload = function(e) {
-                //图片路径设置为读取的图片
-                // img.src = e.target.result;
-                // console.log(document.getElementsByClassName('file-box'));
-                $("#yyzz").attr("src",e.target.result);
-                // document.getElementsByClassName('file-box')[i].style.background = "url(" + e.target.result + ")no-repeat"; //回显图片
-                // document.getElementsByClassName('file-box')[i].style.backgroundSize = '200px 160px';
-                // console.log('reader', reader)
-            };
-            reader.readAsDataURL(file);
+        });
+
+        function companyRegister() {
+
+            var jsonObj = $("#registerForm").serializeObject()
+            console.log(jsonObj)
+            ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
+                if(data.backCode==0){
+                }
+            })
         }
 
+        $.fn.serializeObject = function() {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [ o[this.name] ];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
     </script>
 </body>
 

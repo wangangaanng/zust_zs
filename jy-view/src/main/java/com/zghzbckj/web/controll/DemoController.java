@@ -11,6 +11,7 @@ import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -91,10 +92,12 @@ public class DemoController {
                     paramn.put("pageSize", "10");
                     PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if((resultMess2.getBean()!=null)&&(null!=((Map) resultMess2.getBean()).get("records"))) {
-                        wzList.add(((Map) resultMess2.getBean()).get("records"));
-                    }else {
-                        wzList.add(Lists.newArrayList());
+                    if(null!=resultMess2.getBean()) {
+                        if(null!=((Map) resultMess2.getBean()).get("records")) {
+                            wzList.add(((Map) resultMess2.getBean()).get("records"));
+                        }else {
+                            wzList.add(Lists.newArrayList());
+                        }
                     }
                 }else{
                     String owid = map.get("CODE").toString();
@@ -225,16 +228,48 @@ public class DemoController {
     public ModelAndView enterpriseReg(HttpServletRequest request,ModelAndView view) {
         view.setViewName("enterpriseReg");
         Map param=Maps.newHashMap();
-        param.put("type","20000");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"webApi/dicValue/getValueByDic.do");
+        param.put("dicType","20000");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
         ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
         view.addObject("qyGsxz",qyGsxz.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("dicType","20001");
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("qyHylb",qyHylb.getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("dicType","20002");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("qyGsgm",qyGsgm.getBean());
         return view;
     }
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
-    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view) {
+    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
         view.setViewName("enterpriseService");
+        Map param=Maps.newHashMap();
+        param.put("dicType","20000");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+        ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("qyGsxz",qyGsxz.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("dicType","20001");
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("qyHylb",qyHylb.getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("dicType","20002");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("qyGsgm",qyGsgm.getBean());
+        Map param3=Maps.newHashMap();
+        System.out.print(qyOwid);
+        param3.put("owid",qyOwid);
+
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
+        ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("cInfo",cInfo.getBean());
         return view;
     }
 

@@ -128,7 +128,22 @@ public class BckjBizArticleController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
-
+    @RequestMapping(value = "getByEjLmbh", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getByEjLmbh(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return bckjBizArticleService.getByEjLmbh(mapData);
+        } catch (Exception e) {
+            log.error("{}：" + e.toString(), e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
     @RequestMapping(value = "getArticleByKeys", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getArticleByKeys(PublicDataVO dataVO) {

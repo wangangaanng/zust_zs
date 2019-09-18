@@ -1068,3 +1068,58 @@ ul.pagination {
     border-radius: 4px;
     color: #fff;
 }
+
+.red{
+    color: red;
+}
+
+.upload-sm {
+    position: absolute;
+    line-height: 34px;
+    width: 280px;
+    padding-right: 15px;
+    right: -280px;
+}
+
+.content-form {
+    border: solid 1px #e0e0e0;
+    padding: 30px 0;
+}
+
+.btn-common {
+    width: 260px;
+    height: 40px;
+    background-color: #008784;
+    color: #fff;
+    border-radius: 4px;
+}
+.upload-img{
+    position: relative;
+}
+.upload-img #file{
+    opacity: 0;
+    width: 100%;
+    height: 34px;
+    z-index: 99;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-right: 15px;
+    cursor: pointer;
+}
+.upload-img img{
+    width: 100%;
+    height: 34px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    padding-right: 15px;
+}
+em.error{
+    position: absolute;
+    top:3px;
+    right: 25px;
+}

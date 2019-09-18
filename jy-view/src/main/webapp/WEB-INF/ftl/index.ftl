@@ -115,22 +115,36 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" placeholder="请社会统一信用码" class="login-act">
+                        <input type="text" id="qyTysh" placeholder="请社会统一信用码" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="text" placeholder="请输入法人身份证后六位" class="login-pswd">
+                        <input type="text" id="qyFrsfz" placeholder="请输入法人身份证后六位" class="login-pswd">
                     </li>
                     <li>
-                        还没有账号？<a>注册</a>
+                        还没有账号？<a href="/enterpriseReg">注册</a>
                     </li>
                     <li>
-                        <input type="button" value="登录" class="login-btn">
+                        <input type="button" value="登录" onclick="qylogin()" class="login-btn">
                     </li>
                 </ul>
             </div>
+        </div>
+        <div class="frame-a_right box" id="qy_pipe" style="display: none;">
+            <ul class="company-form">
+                <li><p>专门为企业开通的绿色通道！</p></li>
+                <li>
+                    <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
+                </li>
+                <li>
+                    <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
+                </li>
+                <li>
+                    <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
+                </li>
+            </ul>
         </div>
         <!-- E a_right-->
     </div>
@@ -333,6 +347,31 @@
     $(".tabbar ul li").mouseover(function(){
         $(this).addClass('active').siblings().removeClass('active');
         $(this).parents('.box').find(".tabbar-frame_content>ul").eq($(this).index()).show().siblings().hide();
+    })
+
+    function qylogin() {
+        var jsonObj={
+            "qyFrsfz":$("#qyFrsfz").val().trim(),
+            "qyTysh":$("#qyTysh").val().trim()
+        }
+        ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
+            console.log(data)
+            if(data.backCode==0){
+                addCookie("qyOwid","7bc4bebaed0d40318db81b4098f980be")
+                alert("登录成功")
+                $(".frame-a_right").hide();
+                $("#qy_pipe").show();
+            }
+        })
+    }
+
+    $(document).ready(function () {
+        if(getCookie("qyOwid")){
+            $(".frame-a_right").hide();
+            $("#qy_pipe").show();
+        }
+
+
     })
 </script>
 </body>

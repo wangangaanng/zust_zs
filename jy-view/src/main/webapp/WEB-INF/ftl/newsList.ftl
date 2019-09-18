@@ -137,8 +137,6 @@
         </div>
 
         <#include "com/footer.ftl">
-            <script src="${base}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
-            <script src="${base}/js/common.js"></script>
             <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 
