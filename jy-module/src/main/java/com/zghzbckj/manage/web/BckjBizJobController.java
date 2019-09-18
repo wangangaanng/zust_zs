@@ -190,11 +190,18 @@ public class BckjBizJobController extends BaseController {
     }
 
 
-
+    /**
+     * <p>接口 firstJobList.java : <p>
+     * <p>说明：首页职位文章列表</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/18 11:20
+     * </pre>
+     */
     @RequestMapping(value = "firstJobList", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage firstJobList(HttpServletResponse response, HttpServletRequest request,
-                                     PublicDataVO dataVO) {
+                                        PublicDataVO dataVO) {
 
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
         ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "zwlx", "pageSize");

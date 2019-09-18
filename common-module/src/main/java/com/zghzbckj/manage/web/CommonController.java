@@ -108,7 +108,6 @@ public class CommonController {
     public ResponseMessage picUpload(PublicDataVO dataVO, @RequestParam(required = false) MultipartFile file, final HttpServletRequest request, HttpServletResponse response) throws Exception {
         response.setHeader("Access-Control-Allow-Origin", "*");
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-
         ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "type");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());

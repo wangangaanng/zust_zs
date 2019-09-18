@@ -158,6 +158,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
+        //状态为通过
+        dataMap.put("state", JyContant.JOB_ZT_TG);
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
 
         if (!TextUtils.isEmpty(jobList)) {
@@ -243,9 +245,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         List<BckjBizJob> jobList = new ArrayList<>();
+        //如果是职来职往，包括职来职往，招聘会，宣讲会 zwlx 1,2,4
         if ("1".equals(dataMap.get("zwlx").toString())) {
+            dataMap.put("state", JyContant.QY_ZT_TG);
             jobList = this.dao.findListByMapFirst(dataMap);
-        }else{
+        } else {
             jobList = this.dao.findListByMap(dataMap);
         }
         if (!TextUtils.isEmpty(jobList)) {
