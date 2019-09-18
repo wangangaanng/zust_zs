@@ -14,7 +14,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .frame-a,.frame-b,.frame-c{margin-top: 20px;overflow: hidden;}
 .frame-a_left{min-width: 840px;width: 70%;height: 323px;float: left;border: none;}
 .frame-a_right{min-width: 340px;width: 28.3%;width: calc(30% - 20px);height: 323px;float: right;border: 2px solid #008784;}
-.frame-b_left{min-width: 840px;width: 70%;float: left;padding-bottom: 8px;}
+.frame-b_left{min-width: 840px;width: 70%;height:360px;float: left;}
 .frame-b_right{min-width: 340px;width: 28.3%;width: calc(30% - 20px);height: 360px;float: right;border: 2px solid #008784;}
 .frame-c_left{min-width: 840px;width: 70%;height: 290px;float: left;}
 .frame-c_right{min-width: 340px;width: 28.3%;width: calc(30% - 20px);height: 290px;float: right;}
@@ -70,7 +70,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .frame-list>li{height: 37px;line-height: 37px;float:left;width: 100%;}
 .job{float: left;width: 100%;}
 .job li{display: inline-block;white-space: nowrap;overflow: hidden;}
-.job li:nth-of-type(1){width:573px;width: calc(100% - 245px);text-overflow: ellipsis;}
+.job li:nth-of-type(1){width:573px;width: calc(100% - 315px);text-overflow: ellipsis;}
 .job li:nth-of-type(2):not(:last-of-type){color: #008784; font-size: 15px;}
 .job li:last-of-type{color:#8a8a8a;float: right;padding-right: 20px;}
 
