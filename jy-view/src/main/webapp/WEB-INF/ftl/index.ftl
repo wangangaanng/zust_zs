@@ -309,6 +309,7 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/common.js"></script>
 <script src="${base}/js/jui.min.js"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
 <script>

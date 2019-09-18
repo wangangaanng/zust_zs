@@ -72,14 +72,6 @@
         $('.subnav-wrap .subnav-cont').hide();
     })
     function openUrl(url) {
-        <#--if(url=="${base}"){-->
-            <#--window.location.href=url-->
-        <#--}else{-->
-            if(url){
-                window.location.href="${base}/"+url
-                // window.open(url);
-            }
-//        }
-
+        window.location.href="${base}/"+url
     }
 </script>

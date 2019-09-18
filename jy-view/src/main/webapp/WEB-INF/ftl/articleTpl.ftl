@@ -19,15 +19,19 @@
             <div class="content-list">
                 <div class="articleTpl-detail">
                     <div class="articleTpl-title">
-                        学校简介
+                        ${thirdDirName!''}
                     </div>
                     <div class="article-detail-text">
                         <!--学校简介、中心介绍-->
-                        <!--<style>-->
-                        <!--.article-detail-text p {padding: 20px;  color: #5d5d5d;  line-height: 25px;  }-->
-                        <!--</style>-->
-                        <!--<p></p>-->
+                        <#if (bxlx??)&&(bxlx=="0")&&(result??)>
+                            <style>
+                                .article-detail-text p {padding: 20px;  color: #5d5d5d;  line-height: 25px;  }
+                            </style>
+                            <p>${result.jjnr!''}</p>
+                        </#if>
+
                         <!--学院专业-->
+                        <#if (bxlx??)&&(bxlx=="1")>
                         <style>
                             .xyzy{color: #008784;padding-right: 20px;padding-top: 15px;}
                             .xyzy li a{color: #292929;font-size: 16px;}
@@ -38,6 +42,7 @@
                             <li><a>信息学院</a></li>
                             <li><a>艺术学院</a></li>
                         </ul>
+                        </#if>
                         <!--学院详情-->
                         <!--newsDetail.html类-->
 
