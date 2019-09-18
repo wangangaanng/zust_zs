@@ -226,4 +226,26 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         }
         return qyxx;
     }
+
+
+    @Transactional(readOnly = false)
+    public Map submitPurchaseBack(List<String> codes, Integer state) {
+        Map resultMap = new HashMap<>(2);
+        BckjBizQyxx qyxx = get(codes.get(0));
+        //
+        if (JyContant.QY_ZT_TG.equals(state)) {
+            // TODO: 2019/9/18 通过短信
+
+        } else if (JyContant.QY_ZT_JJ.equals(state)) {
+            // TODO: 2019/9/18 拒绝短信
+        }
+        qyxx.setState(state);
+        saveOrUpdate(qyxx);
+        resultMap = new HashMap<>(2);
+        resultMap.put("result", "true");
+        List<Object> _list = new ArrayList();
+        _list.add(qyxx);
+        resultMap.put("bean", _list);
+        return resultMap;
+    }
 }

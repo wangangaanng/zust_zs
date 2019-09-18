@@ -12,10 +12,8 @@
 <van-tabs animated>
   <van-tab title="最新职位">
     <view>
-      
-      <!-- <block wx:for='{{}}'>
-
-      </block> -->
+      <import src="../../libs/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
     </view>
   </van-tab>
   <van-tab title="最新企业">内容 2</van-tab>

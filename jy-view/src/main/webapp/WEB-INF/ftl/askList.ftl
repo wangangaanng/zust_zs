@@ -7,8 +7,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>就业网</title>
     <#include "com/config.ftl">
-    <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="${base}/css/common.css" />
 </head>
 <style>
 
@@ -62,8 +60,6 @@
 </div>
 
 <#include "com/footer.ftl">
-<script src="${base}/js/jquery-2.1.4.min.js" type="text/javascript"></script>
-<script src="${base}/js/common.js"></script>
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 

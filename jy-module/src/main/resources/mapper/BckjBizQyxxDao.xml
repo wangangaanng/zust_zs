@@ -122,6 +122,9 @@
             <if test=" qyLxrdh != null and qyLxrdh != '' ">
                 AND a.qy_lxrdh = #{qyLxrdh}
             </if>
+			<if test=" state != null and state != '' ">
+				AND a.state = #{state}
+			</if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},"%")
             </if>
