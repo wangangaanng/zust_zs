@@ -6,6 +6,7 @@ public class BckjBizYhxxVo {
 
     private  String owid;
     private String sjh;		// sjh
+    private String yhlx;    //用户类型
     private String unionid;		// unionid
     private String yhtx;		// yhtx
     private String sfz;		// sfz
@@ -34,6 +35,15 @@ public class BckjBizYhxxVo {
     private String exp8;
     private String exp9;
     private String exp10;
+
+
+    public String getYhlx() {
+        return yhlx;
+    }
+
+    public void setYhlx(String yhlx) {
+        this.yhlx = yhlx;
+    }
 
     public String getOwid() {
         return owid;

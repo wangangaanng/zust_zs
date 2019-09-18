@@ -261,10 +261,11 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         saveOrUpdate(bckjBizXsgz);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage cancelSubcribe(Map<String, Object> dataMap) {
         BckjBizXsgz bckjBizXsgz = this.dao.get(dataMap.get("owid").toString());
-        BckjBizJob bckjBizJob = bckjBizJobService.get(bckjBizXsgz.getYhRefOwid());
+        BckjBizJob bckjBizJob = bckjBizJobService.get(bckjBizXsgz.getJobRefOwid());
         if(com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob)){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
         }
