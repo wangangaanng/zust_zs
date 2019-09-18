@@ -207,7 +207,7 @@ public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
         if (ZKConstants.LOGOUT_URL.indexOf("?") >= 0) {
             Executions.sendRedirect(ZKConstants.LOGOUT_URL);
         } else {
-            Executions.sendRedirect(ZKConstants.LOGOUT_URL + System.currentTimeMillis());
+            Executions.sendRedirect(ZKConstants.LOGOUT_URL+"?" + System.currentTimeMillis());
         }
     }
 }

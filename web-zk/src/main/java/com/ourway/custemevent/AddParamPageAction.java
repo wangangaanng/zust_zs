@@ -153,12 +153,12 @@ public class AddParamPageAction implements ComponentListinerSer {
                 params.put(filterModel.getKey(), filterModel.getDatas().get(0));
             }
         }
-        if (!TextUtils.isEmpty(keys) && null != window.getParentPpt()) {
+        if (!TextUtils.isEmpty(keys) && null != window.getParentArgs()) {
             String[] _keys = keys.split("\\,");
             for (String str : _keys) {
                 if (!TextUtils.isEmpty(str)) {
-                    if (null != window.getParentPpt().get("#"+str)) {
-                        params.put(str, window.getParentPpt().get("#"+str));
+                    if (null != window.getParentArgs().get("#"+str)) {
+                        params.put(str, window.getParentArgs().get("#"+str));
                     }
                 }
             }

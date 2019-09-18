@@ -42,8 +42,12 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     @Autowired
     CommonDao commonDao;
     @Override
+    @Transactional(readOnly = false)
     public BckjBizArticle get(String owid) {
-        return super.get(owid);
+         BckjBizArticle artcle=super.get(owid);
+        artcle.setYdcs(artcle.getYdcs()+1);
+        saveOrUpdate(artcle);
+        return artcle;
     }
 
     @Override
@@ -206,4 +210,11 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         FtlFileUtil.freeMarkerContent(rootDate,article.getOwid(),path);
     }
 
+    public ResponseMessage getByEjLmbh(Map<String, Object> mapData) {
+        List<BckjBizArticle> indataList=this.dao.findListByMap(mapData);
+        if(null!=indataList&&indataList.size()>0){
+            return ResponseMessage.sendOK(indataList.get(0));
+        }
+        return ResponseMessage.sendOK(null);
+    }
 }

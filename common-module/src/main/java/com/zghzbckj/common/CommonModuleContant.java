@@ -13,12 +13,13 @@ package com.zghzbckj.common;
  */
 public class CommonModuleContant {
 
-    public static final String LMBH="lmbh_";
-    public static final String LMBH2="lmbh2_";
-    public static final String HPATH="htmlfile.path";
-    public static final String BACKEJ_URL_HOST="http://127.0.0.1:8080/webApi/dicValue/getSeclm.do";
-    public static final String BACK_TYPE_URL_HOST="http://127.0.0.1:8080/webApi/dicValue/getValueByDic.do";
-    public final static String picPath = "C:\\files\\pic\\";
+    public static final String LMBH = "lmbh_";
+    public static final String LMBH2 = "lmbh2_";
+    public static final String HPATH = "htmlfile.path";
+    public static final String BACKEJ_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getSeclm.do";
+    public static final String BACK_TYPE_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getValueByDic.do";
+    //    public final static String picPath = "C:\\files\\pic\\";
+    public final static String picPath = "/home/tomcat8/webapps/zjcFiles/pic";
     public final static String PIC_PNG = "PNG";
     public final static String PIC_JPG = "JPG";
     public final static String PIC_JPEG = "JPEG";
