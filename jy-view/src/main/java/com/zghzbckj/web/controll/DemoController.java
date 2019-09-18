@@ -91,7 +91,7 @@ public class DemoController {
                     paramn.put("pageSize", "10");
                     PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if(null!=((Map) resultMess2.getBean()).get("records")) {
+                    if((resultMess2.getBean()!=null)&&(null!=((Map) resultMess2.getBean()).get("records"))) {
                         wzList.add(((Map) resultMess2.getBean()).get("records"));
                     }else {
                         wzList.add(Lists.newArrayList());
@@ -161,7 +161,18 @@ public class DemoController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
-
+        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        if(bxlx.equals("0")){
+            Map param=Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getByEjLmbh");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("bxlx",bxlx);
+            view.addObject("result",result.getBean());
+        }else if(bxlx.equals("1")){
+            view.addObject("bxlx",bxlx);
+        }
         return view;
     }
     @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
