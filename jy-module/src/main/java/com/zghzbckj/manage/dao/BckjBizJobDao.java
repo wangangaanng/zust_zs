@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +17,7 @@ import java.util.Map;
  */
 @MyBatisDao
 public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
+    List<BckjBizJob> findListByMapFirst(Map<String, Object> dataMap);
 
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }

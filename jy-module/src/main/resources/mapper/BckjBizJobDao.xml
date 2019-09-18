@@ -118,6 +118,33 @@
             </otherwise>
         </choose>
     </select>
+
+
+    <select id="findListByMapFirst" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+        SELECT
+        <include refid="bckjBizJobColumns"/>
+        FROM bckj_biz_job a WHERE 1=1  AND ( a.zwlx =1 OR a.zwlx =2 OR a.zwlx =4)
+        <where>
+            <if test="qyxxRefOwid != null and qyxxRefOwid != ''">
+                AND a.qyxx_ref_owid = #{qyxxRefOwid}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+            <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
+                and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+
     <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJob">
         SELECT
         <include refid="bckjBizJobColumns"/>

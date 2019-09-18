@@ -190,6 +190,24 @@ public class BckjBizJobController extends BaseController {
     }
 
 
+
+    @RequestMapping(value = "firstJobList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage firstJobList(HttpServletResponse response, HttpServletRequest request,
+                                     PublicDataVO dataVO) {
+
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "zwlx", "pageSize");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        try {
+            return ResponseMessage.sendOK(bckjBizJobService.firstJobList(dataMap));
+        } catch (Exception e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
     /**
      * <p>接口 jobByMonth.java : <p>
      * <p>说明：首页日历</p>

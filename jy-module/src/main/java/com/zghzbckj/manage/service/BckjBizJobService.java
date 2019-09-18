@@ -160,7 +160,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
 
-        if (!TextUtils.isEmpty(jobList)){
+        if (!TextUtils.isEmpty(jobList)) {
             for (BckjBizJob job : jobList) {
                 Map params = new HashMap<>();
                 params.put("jobRefOwid", job.getOwid());
@@ -235,5 +235,40 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             job.setZwGznxStr(str);
         }
         return job;
+    }
+
+    public PageInfo<BckjBizJob> firstJobList(Map<String, Object> dataMap) {
+        Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
+        Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
+        dataMap.put("orderBy", " a.createtime desc ");
+        Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
+        List<BckjBizJob> jobList = new ArrayList<>();
+        if ("1".equals(dataMap.get("zwlx").toString())) {
+            jobList = this.dao.findListByMapFirst(dataMap);
+        }else{
+            jobList = this.dao.findListByMap(dataMap);
+        }
+        if (!TextUtils.isEmpty(jobList)) {
+            for (BckjBizJob job : jobList) {
+                Map params = new HashMap<>();
+                params.put("jobRefOwid", job.getOwid());
+                //0 职位 1 企业
+                params.put("gzlx", dataMap.get("gzlx"));
+                List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
+                job.setXsgzList(xsgzList);
+                job.setNumber(xsgzList.size());
+            }
+
+        }
+
+        page.setList(jobList);
+        PageInfo<BckjBizJob> pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
     }
 }
