@@ -39,7 +39,7 @@
 	<sql id="sysWxconfigJoins">
 	</sql>
     
-	<select id="get" resultType="com.zghzbckj.messageapi.entity.SysWxconfig">
+	<select id="get" resultType="SysWxconfig">
 		SELECT 
 			<include refid="sysWxconfigColumns"/>
 		FROM ourway_sys_wxconfig a
@@ -47,7 +47,7 @@
 		WHERE a.owid = #{owid}
 	</select>
 	
-	<select id="findList" resultType="com.zghzbckj.messageapi.entity.SysWxconfig">
+	<select id="findList" resultType="SysWxconfig">
 		SELECT 
 			<include refid="sysWxconfigColumns"/>
 		FROM ourway_sys_wxconfig a
@@ -58,7 +58,7 @@
 
 	</select>
 	
-	<select id="findAllList" resultType="com.zghzbckj.messageapi.entity.SysWxconfig">
+	<select id="findAllList" resultType="SysWxconfig">
 		SELECT 
 			<include refid="sysWxconfigColumns"/>
 		FROM ourway_sys_wxconfig a
