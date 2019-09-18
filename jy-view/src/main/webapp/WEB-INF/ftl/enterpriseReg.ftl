@@ -90,7 +90,7 @@
                         <input type="file" value="" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
                         <img src="${base}/img/upload.png" id="yyzz" alt="" />
                     </div>
-                    <div class="upload-sm">上传营业执照自动识别统一信用代码</div>
+                    <div class="upload-sm">上传营业执照自动识别统一信用代码*</div>
                 </div>
                 <div class="form-group">
                     <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号*：</label>
@@ -159,16 +159,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsxz" class="col-sm-2 control-label">公司性质：</label>
+                    <label for="qyGsxz" class="col-sm-2 control-label">公司性质*：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsxz" name="qyGsxz">
                             <option>请选择</option>
-
+<#--<#list >-->
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyHylb" class="col-sm-2 control-label">行业类别：</label>
+                    <label for="qyHylb" class="col-sm-2 control-label">行业类别*：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyHylb" name="qyHylb">
                             <option>请选择</option>
@@ -176,7 +176,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsgm" class="col-sm-2 control-label">公司规模：</label>
+                    <label for="qyGsgm" class="col-sm-2 control-label">公司规模*：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsgm" name="qyGsgm">
                             <option>请选择</option>
@@ -186,7 +186,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="qyGsjs" class="col-sm-2 control-label">公司介绍：</label>
+                    <label for="qyGsjs" class="col-sm-2 control-label">公司介绍*：</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10"></textarea>
                     </div>
@@ -287,11 +287,45 @@
 
             $("#file").change(function (e) {
                 var file = e.target.files[0] || e.dataTransfer.files[0];
-                $('#photoCover').val(document.getElementById("file").files[0].name);
+
+                // $('#photoCover').val(document.getElementById("file").files[0].name);
                 if (file) {
+                    console.log("file",file.name)
                     var reader = new FileReader();
                     reader.onload = function () {
+                        // console.log("file",file)
                         $("#yyzz").attr("src",this.result)
+                        var fd = new FormData();
+                        fd.append("file",file);
+                        fd.append('data', JSON.stringify({
+                            "type": 1
+                        }));
+                        // fd.append("method", "zustcommon/common/picUpload");
+                        $.ajax({
+                            url: "http://192.168.3.222:8888/zustcommon/common/picUpload",//localUrl,//
+                            type: "POST",
+                            processData: false,
+                            contentType: false,
+                            data: fd,
+                            success: function(d) {
+                                console.log(d);
+                                console.log(d.bean["单位名称"])
+                            }
+                        });
+                        // var data1 = new FormData(); //以下为像后台提交图片数据 new FormData的参数是一个DOM对象，而非jQuery对象
+                        // data1.append('file', file);
+                        // data1.append('data', JSON.stringify({
+                        //     "type": 1
+                        // }));
+                        // console.log("data1",data1)
+                        // var jsonObj = {
+                        //     "type": 1,
+                        //     "files":file
+                        // }
+                        // ajax("zustcommon/common/picUpload", data1, function (data) {
+                        //     if(data.backCode==0){
+                        //     }
+                        // })
                     }
 
                     reader.readAsDataURL(file);
