@@ -98,7 +98,7 @@
                         <input type="button" value="登录" class="login-btn">
                     </li>
                 </ul>
-                <ul class="company-form" style="display:none">
+                <#--<ul class="company-form" style="display:none">
                     <li><p>专门为企业开通的绿色通道！</p></li>
                     <li>
                         <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
@@ -108,6 +108,26 @@
                     </li>
                     <li>
                         <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
+                    </li>
+                </ul>-->
+                <ul class="login-inform-qy" style="display:none">
+                    <li>
+                        <label>
+                            <i class="icon bg-login_user"></i>
+                        </label>
+                        <input type="text" placeholder="请社会统一信用码" class="login-act">
+                    </li>
+                    <li>
+                        <label>
+                            <i class="icon bg-login_password"></i>
+                        </label>
+                        <input type="text" placeholder="请输入法人身份证后六位" class="login-pswd">
+                    </li>
+                    <li>
+                        还没有账号？<a>注册</a>
+                    </li>
+                    <li>
+                        <input type="button" value="登录" class="login-btn">
                     </li>
                 </ul>
             </div>
@@ -290,10 +310,10 @@
     $(".login-tabbar a").click(function(){
         if($(this).index()==0){
             $(".login-inform").show();
-            $(".company-form").hide();
+            $(".login-inform-qy").hide();
         }else{
             $(".login-inform").hide();
-            $(".company-form").show();
+            $(".login-inform-qy").show();
         }
         $(this).addClass('active').siblings().removeClass('active');
     })

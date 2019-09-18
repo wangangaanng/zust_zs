@@ -15,12 +15,9 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
-    <url-pattern>*.htm</url-pattern>
+    <url-pattern>*</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>spring</servlet-name>
-    <url-pattern>*.reback</url-pattern>
-  </servlet-mapping>
+
   <filter>
     <filter-name>encodingFilter</filter-name>
     <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>

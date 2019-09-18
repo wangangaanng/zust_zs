@@ -188,53 +188,68 @@ public class DemoController {
 
 
     @RequestMapping(value = "askList", method = RequestMethod.GET)
-    public String askList(HttpServletRequest request) {
-        return "askList";
+    public ModelAndView askList(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("askList");
+        return view;
     }
 
     @RequestMapping(value = "contactUs", method = RequestMethod.GET)
-    public String contactUs(HttpServletRequest request) {
-        return "contactUs";
+    public ModelAndView contactUs(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("contactUs");
+        return view;
     }
 
     @RequestMapping(value = "enterpriseGuide", method = RequestMethod.GET)
-    public String enterpriseGuide(HttpServletRequest request) {
-        return "enterpriseGuide";
+    public ModelAndView enterpriseGuide(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("enterpriseGuide");
+        return view;
     }
 
     @RequestMapping(value = "enterpriseReg", method = RequestMethod.GET)
-    public String enterpriseReg(HttpServletRequest request) {
-        return "enterpriseReg";
+    public ModelAndView enterpriseReg(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("enterpriseReg");
+        Map param=Maps.newHashMap();
+        param.put("type","20000");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"webApi/dicValue/getValueByDic.do");
+        ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("qyGsxz",qyGsxz.getBean());
+        return view;
     }
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
-    public String enterpriseService(HttpServletRequest request) {
-        return "enterpriseService";
+    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("enterpriseService");
+        return view;
     }
 
     @RequestMapping(value = "jobFair", method = RequestMethod.GET)
-    public String jobFair(HttpServletRequest request) {
-        return "jobFair";
+    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("jobFair");
+        return view;
     }
 
     @RequestMapping(value = "newsDetail", method = RequestMethod.GET)
-    public String newsDetail(HttpServletRequest request) {
-        return "newsDetail";
+    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("newsDetail");
+        return view;
     }
 
     @RequestMapping(value = "newsList", method = RequestMethod.GET)
-    public String newsList(HttpServletRequest request) {
-        return "newsList";
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("newsList");
+        return view;
     }
 
     @RequestMapping(value = "studentService", method = RequestMethod.GET)
-    public String studentService(HttpServletRequest request) {
-        return "studentService";
+    public ModelAndView studentService(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("studentService");
+        return view;
     }
 
     @RequestMapping(value = "teacherDetail", method = RequestMethod.GET)
-    public String teacherDetail(HttpServletRequest request) {
-        return "teacherDetail";
+    public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("teacherDetail");
+        return view;
     }
 
 
