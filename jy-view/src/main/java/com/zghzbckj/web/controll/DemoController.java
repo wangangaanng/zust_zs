@@ -92,10 +92,12 @@ public class DemoController {
                     paramn.put("pageSize", "10");
                     PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if(null!=((Map) resultMess2.getBean()).get("records")) {
-                        wzList.add(((Map) resultMess2.getBean()).get("records"));
-                    }else {
-                        wzList.add(Lists.newArrayList());
+                    if(null!=resultMess2.getBean()) {
+                        if(null!=((Map) resultMess2.getBean()).get("records")) {
+                            wzList.add(((Map) resultMess2.getBean()).get("records"));
+                        }else {
+                            wzList.add(Lists.newArrayList());
+                        }
                     }
                 }else{
                     String owid = map.get("CODE").toString();
