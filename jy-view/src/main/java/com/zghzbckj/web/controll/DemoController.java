@@ -11,6 +11,7 @@ import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -232,7 +233,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
-    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view) {
+    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
         view.setViewName("enterpriseService");
         Map param=Maps.newHashMap();
         param.put("dicType","20000");
@@ -249,6 +250,13 @@ public class DemoController {
         PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
         ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
         view.addObject("qyGsgm",qyGsgm.getBean());
+        Map param3=Maps.newHashMap();
+        System.out.print(qyOwid);
+        param3.put("owid",qyOwid);
+
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
+        ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("cInfo",cInfo.getBean());
         return view;
     }
 
