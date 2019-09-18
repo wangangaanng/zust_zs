@@ -24,8 +24,6 @@ public class BckjBizYhgl extends DataWithExpEntity<BckjBizYhgl> {
 	private Date gzsj;		// gzsj
 	private String memo;		// memo
 
-
-	
 	public BckjBizYhgl() {
 		super();
 	}

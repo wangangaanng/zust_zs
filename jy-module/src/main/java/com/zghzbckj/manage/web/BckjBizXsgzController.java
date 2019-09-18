@@ -158,6 +158,34 @@ public class BckjBizXsgzController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+    /**
+     * <p>功能描述:学生取消关注</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/11</li>
+     * </ul>
+     */
+    @RequestMapping(value = "cancelSubcribe", method = RequestMethod.POST)
+    @ResponseBody
+    public  ResponseMessage cancelSubcribe(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return  bckjBizXsgzService.cancelSubcribe(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
 
 
 

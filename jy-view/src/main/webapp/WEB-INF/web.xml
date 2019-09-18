@@ -15,11 +15,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
-    <url-pattern>*.htm</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>spring</servlet-name>
-    <url-pattern>*.reback</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>encodingFilter</filter-name>
@@ -123,6 +119,6 @@
   </error-page>
 
   <welcome-file-list>
-    <welcome-file>/index.htm</welcome-file>
+    <welcome-file>/</welcome-file>
   </welcome-file-list>
 </web-app>

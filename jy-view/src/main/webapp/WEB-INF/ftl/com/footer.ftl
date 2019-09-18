@@ -88,7 +88,7 @@
             <div class="ewm">
                 <div class="ewmxq">
                     <div class="ewm-border">
-                        <img src="img/ewm-jiuye.png">
+                        <img src="${base}/img/ewm-jiuye.png">
                     </div>
                     <div class="ewmsm">
                         科院微就业
@@ -96,7 +96,7 @@
                 </div>
                 <div class="ewmxq">
                     <div class="ewm-border">
-                        <img src="img/ewm-qq.png">
+                        <img src="${base}/img/ewm-qq.png">
                     </div>
                     <div class="ewmsm">
                         企业QQ群

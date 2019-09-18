@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.SysWxconfigDao">
+    
+	<sql id="sysWxconfigColumns">
+		a.owid AS "owid",
+		a.we_code AS "weCode",
+		a.we_name AS "weName",
+		a.we_desc AS "weDesc",
+		a.we_parent AS "weParent",
+		a.we_type AS "weType",
+		a.we_appid AS "weAppid",
+		a.we_secrect AS "weSecrect",
+		a.we_macid AS "weMacid",
+		a.we_key AS "weKey",
+		a.we_notifyurl AS "weNotifyurl",
+		a.we_web_notifyurl AS "weWebNotifyurl",
+		a.we_redirecturl AS "weRedirecturl",
+		a.we_cert_path AS "weCertPath",
+		a.we_develop AS "weDevelop",
+		a.we_develop_addr AS "weDevelopAddr",
+		a.we_service_name AS "weServiceName",
+		a.language AS "language",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.we_gh AS "weGh"
+	</sql>
+	
+	<sql id="sysWxconfigJoins">
+	</sql>
+    
+	<select id="get" resultType="SysWxconfig">
+		SELECT 
+			<include refid="sysWxconfigColumns"/>
+		FROM ourway_sys_wxconfig a
+		<include refid="sysWxconfigJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="SysWxconfig">
+		SELECT 
+			<include refid="sysWxconfigColumns"/>
+		FROM ourway_sys_wxconfig a
+		<include refid="sysWxconfigJoins"/>
+		<where>
+			
+		</where>
+
+	</select>
+	
+	<select id="findAllList" resultType="SysWxconfig">
+		SELECT 
+			<include refid="sysWxconfigColumns"/>
+		FROM ourway_sys_wxconfig a
+		<include refid="sysWxconfigJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ourway_sys_wxconfig(
+			owid,
+			we_code,
+			we_name,
+			we_desc,
+			we_parent,
+			we_type,
+			we_appid,
+			we_secrect,
+			we_macid,
+			we_key,
+			we_notifyurl,
+			we_web_notifyurl,
+			we_redirecturl,
+			we_cert_path,
+			we_develop,
+			we_develop_addr,
+			we_service_name,
+			language,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			delflg,
+			state,
+			dept_id,
+			dept_path,
+			we_gh
+		) VALUES (
+			#{owid},
+			#{weCode},
+			#{weName},
+			#{weDesc},
+			#{weParent},
+			#{weType},
+			#{weAppid},
+			#{weSecrect},
+			#{weMacid},
+			#{weKey},
+			#{weNotifyurl},
+			#{weWebNotifyurl},
+			#{weRedirecturl},
+			#{weCertPath},
+			#{weDevelop},
+			#{weDevelopAddr},
+			#{weServiceName},
+			#{language},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{delflg},
+			#{state},
+			#{deptId},
+			#{deptPath},
+			#{weGh}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ourway_sys_wxconfig SET
+			we_code = #{weCode},
+			we_name = #{weName},
+			we_desc = #{weDesc},
+			we_parent = #{weParent},
+			we_type = #{weType},
+			we_appid = #{weAppid},
+			we_secrect = #{weSecrect},
+			we_macid = #{weMacid},
+			we_key = #{weKey},
+			we_notifyurl = #{weNotifyurl},
+			we_web_notifyurl = #{weWebNotifyurl},
+			we_redirecturl = #{weRedirecturl},
+			we_cert_path = #{weCertPath},
+			we_develop = #{weDevelop},
+			we_develop_addr = #{weDevelopAddr},
+			we_service_name = #{weServiceName},
+			language = #{language},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			delflg = #{delflg},
+			state = #{state},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			we_gh = #{weGh}
+		WHERE owid = #{owid}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM ourway_sys_wxconfig
+		WHERE owid = #{owid}
+	</update>
+	
+</mapper>

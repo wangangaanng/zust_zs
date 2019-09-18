@@ -13,41 +13,9 @@
 <#include "com/header.ftl">
 <div class="main">
     <div class="container">
-        <div class="routes">
-            <div class="location">
-                <i></i>
-                当前位置：
-            </div>
-
-            <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">学院概况</a></li>
-                <li class="active">学校简介</li>
-            </ol>
-        </div>
+        <#include "com/route.ftl">
         <div class="content">
-            <div class="menu-nav">
-                <div class="menu-title">
-                    <div class="title-chn">学院概况</div>
-                    <div class="title-en">College Profile
-                        <div class="menu-nav-icon"></div>
-                    </div>
-
-                </div>
-                <div class="menu-list">
-                    <ul class="list-group">
-                        <li class="list-group-item active1">
-                            <span class="ic-menu"></span> 学校简介
-                        </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 学院专业
-                        </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 中心介绍
-                        </li>
-                    </ul>
-                </div>
-            </div>
+           <#include "com/subMenu.ftl">
             <div class="content-list">
                 <div class="articleTpl-detail">
                     <div class="articleTpl-title">

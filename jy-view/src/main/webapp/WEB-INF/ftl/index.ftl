@@ -22,7 +22,7 @@
                     <#list nav1 as obj>
                         <#if obj_index==0>
                             <li onclick="openUrl('${obj.TZLJ!}')" class="active"><a>${obj.NAME}</a></li>
-                        <#else >
+                        <#elseif obj_index<5>
                             <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                         </#if>
                     </#list>
@@ -44,11 +44,16 @@
                 </div>
                 <div class="index-news_list">
                     <div class="tabbar-frame_content">
-                        <ul class="news-ul">
-                            <#if (first1??)&&(first1?size>0)>
-                                <#list first1 as obj>
+                    <#list first as objl>
+                        <#if objl_index==0>
+                            <ul class="news-ul">
+                        <#else >
+                            <ul class="news-ul" style="display: none">
+                        </#if>
+                            <#if (objl??)&&(objl?size>0)>
+                                <#list objl as obj>
                                     <#if obj_index<4>
-                                        <li>
+                                        <li data-owid="${obj.owid}">
                                             <div class="news-date">
                                                 <#if obj.fbsj?exists>
                                                     <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
@@ -56,51 +61,14 @@
                                                 </#if>
                                             </div>
                                             <div class="news-content">
-                                                ${obj.wzbt!''}
+                                            ${obj.wzbt!''}
                                             </div>
                                         </li>
                                     </#if>
                                 </#list>
                             </#if>
                         </ul>
-                        <ul class="news-ul" style="display: none">
-                        <#if (first2??)&&(first2?size>0)>
-                            <#list first2 as obj>
-                                <#if obj_index<4>
-                                    <li>
-                                        <div class="news-date">
-                                            <#if obj.fbsj?exists>
-                                                <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
-                                                <em>${obj.fbsj?substring(0,4)}</em>
-                                            </#if>
-                                        </div>
-                                        <div class="news-content">
-                                        ${obj.wzbt!''}
-                                        </div>
-                                    </li>
-                                </#if>
-                            </#list>
-                        </#if>
-                        </ul>
-                        <ul class="news-ul" style="display: none">
-                        <#if (first3??)&&(first3?size>0)>
-                            <#list first3 as obj>
-                                <#if obj_index<4>
-                                    <li>
-                                        <div class="news-date">
-                                            <#if obj.fbsj?exists>
-                                                <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
-                                                <em>${obj.fbsj?substring(0,4)}</em>
-                                            </#if>
-                                        </div>
-                                        <div class="news-content">
-                                        ${obj.wzbt!''}
-                                        </div>
-                                    </li>
-                                </#if>
-                            </#list>
-                        </#if>
-                        </ul>
+                    </#list>
                     </div>
 
                 </div>
@@ -130,7 +98,7 @@
                         <input type="button" value="登录" class="login-btn">
                     </li>
                 </ul>
-                <ul class="company-form" style="display:none">
+                <#--<ul class="company-form" style="display:none">
                     <li><p>专门为企业开通的绿色通道！</p></li>
                     <li>
                         <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
@@ -140,6 +108,26 @@
                     </li>
                     <li>
                         <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
+                    </li>
+                </ul>-->
+                <ul class="login-inform-qy" style="display:none">
+                    <li>
+                        <label>
+                            <i class="icon bg-login_user"></i>
+                        </label>
+                        <input type="text" placeholder="请社会统一信用码" class="login-act">
+                    </li>
+                    <li>
+                        <label>
+                            <i class="icon bg-login_password"></i>
+                        </label>
+                        <input type="text" placeholder="请输入法人身份证后六位" class="login-pswd">
+                    </li>
+                    <li>
+                        还没有账号？<a>注册</a>
+                    </li>
+                    <li>
+                        <input type="button" value="登录" class="login-btn">
                     </li>
                 </ul>
             </div>
@@ -154,28 +142,57 @@
             <#list nav2 as obj>
                 <#if obj_index==0>
                     <li onclick="openUrl('${obj.TZLJ!}')" class="active"><a>${obj.NAME}</a></li>
-                <#else >
+                <#elseif obj_index<5>
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
             </ul><a>MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
-                <ul class="frame-list">
-                <#if (second1??)&&(second1?size>0)>
-                    <#list second1 as obj>
-                        <#if obj_index<8>
-                            <li>
-                                <ul class="job">
-                                    <li>悉地（苏州）勘察设计顾问有限公司杭州分院招聘启示</li>
-                                    <li><i class="icon bg-icon_dz"></i>浙江 · 杭州</li>
-                                    <li>2019-04-08</li>
-                                </ul>
-                            </li>
-                        </#if>
-                    </#list>
-                </#if>
-
+                <#list second as objl>
+                    <#if objl_index==0>
+                    <ul class="frame-list">
+                    <#else >
+                    <ul class="frame-list" style="display: none">
+                    </#if>
+                    <#if (objl??)&&(objl?size>0)>
+                        <#list objl as obj>
+                            <#if obj_index<8>
+                                <li data-owid="${obj.owid}">
+                                    <ul class="job">
+                                        <li>${obj.zwbt}</li>
+                                        <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea}</li>
+                                        <li>
+                                            <#if obj.zphKsrq?exists>
+                                               ${obj.zphKsrq?substring(0,10)}
+                                            </#if>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </#if>
+                        </#list>
+                    </#if>
                 </ul>
+                </#list>
+                <#list secondwz as objl>
+                    <ul class="frame-list" style="display: none">
+                    <#if (objl??)&&(objl?size>0)>
+                        <#list objl as obj>
+                            <#if obj_index<8>
+                                <li data-owid="${obj.owid}">
+                                    <ul class="job">
+                                        <li>${obj.wzbt!''}</li>
+                                        <li>
+                                            <#if obj.fbsj?exists>
+                                               ${obj.fbsj?substring(0,10)}
+                                            </#if>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </#if>
+                        </#list>
+                    </#if>
+                </ul>
+                </#list>
             </div>
 
         </div>
@@ -199,56 +216,41 @@
     </div>
     <!-- S c -->
     <div class="frame-c">
-        <div class="frame-b_left box">
+        <div class="frame-c_left box">
             <div class="tabbar"><ul>
             <#list nav3 as obj>
                 <#if obj_index==0>
                     <li onclick="openUrl('${obj.TZLJ!}')" class="active"><a>${obj.NAME}</a></li>
-                <#else >
+                <#elseif obj_index<5>
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
             </ul><a>MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
-                <ul class="frame-list">
-                    <li>
-                        <ul class="job">
-                            <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <ul class="job">
-                            <li>浙江省人民政府办公厅关于加快发展众创空间促进创业创新得实施意见</li>
-                            <li>2019-04-08</li>
-                        </ul>
-                    </li>
-
+                <#list third as objl>
+                    <#if objl_index==0>
+                    <ul class="frame-list">
+                    <#else >
+                    <ul class="frame-list" style="display: none">
+                    </#if>
+                    <#if (objl??)&&(objl?size>0)>
+                        <#list objl as obj>
+                            <#if obj_index<6>
+                                <li data-owid="${obj.owid}">
+                                    <ul class="job">
+                                        <li>${obj.wzbt!''}</li>
+                                        <li>
+                                            <#if obj.fbsj?exists>
+                                               ${obj.fbsj?substring(0,10)}
+                                            </#if>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </#if>
+                        </#list>
+                    </#if>
                 </ul>
+                </#list>
             </div>
         </div>
         <div class="frame-c_right box">
@@ -320,17 +322,16 @@
     $(".login-tabbar a").click(function(){
         if($(this).index()==0){
             $(".login-inform").show();
-            $(".company-form").hide();
+            $(".login-inform-qy").hide();
         }else{
             $(".login-inform").hide();
-            $(".company-form").show();
+            $(".login-inform-qy").show();
         }
         $(this).addClass('active').siblings().removeClass('active');
     })
     $(".tabbar ul li").mouseover(function(){
-        // console.log($(this).index())
         $(this).addClass('active').siblings().removeClass('active');
-        $(".tabbar-frame_content").find("ul").eq($(this).index()).show().siblings().hide();
+        $(this).parents('.box').find(".tabbar-frame_content>ul").eq($(this).index()).show().siblings().hide();
     })
 </script>
 </body>

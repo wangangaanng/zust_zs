@@ -7,12 +7,17 @@
     <artifactId>zust_website</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
     <modules>
         <module>web-api</module>
         <module>web-zk</module>
         <module>zust-utils</module>
         <module>jy-view</module>
+        <module>common-module</module>
+        <module>jy-module</module>
     </modules>
+
+
    
     <build>
         <directory>target</directory>
