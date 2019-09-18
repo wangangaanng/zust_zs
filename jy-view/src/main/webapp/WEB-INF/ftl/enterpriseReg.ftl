@@ -64,7 +64,7 @@
 </style>
 
 <body>
-<#include "com/header.ftl">
+<#--<#include "com/header.ftl">-->
 <div class="main">
     <div class="container">
         <div class="routes">
@@ -255,8 +255,26 @@
                 envent.preventDefault();
 
                 var form = $(this);
-                console.log(form.serialize())
+                console.log(JSON.stringify($("#registerForm").serializeObject()))
             });
+
+
+            $.fn.serializeObject = function() {
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function() {
+                    if (o[this.name]) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [ o[this.name] ];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = this.value || '';
+                    }
+                });
+                return o;
+            };
+
 
             var jsonObj = {
                 "dicType": 20000
