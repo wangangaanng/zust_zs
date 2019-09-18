@@ -239,9 +239,13 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "newsList", method = RequestMethod.GET)
-    public ModelAndView newsList(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("newsList");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 
