@@ -132,6 +132,20 @@
                 </ul>
             </div>
         </div>
+        <div class="frame-a_right box" id="qy_pipe" style="display: none;">
+            <ul class="company-form">
+                <li><p>专门为企业开通的绿色通道！</p></li>
+                <li>
+                    <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
+                </li>
+                <li>
+                    <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
+                </li>
+                <li>
+                    <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
+                </li>
+            </ul>
+        </div>
         <!-- E a_right-->
     </div>
     <!-- E a -->
@@ -340,11 +354,24 @@
             "qyTysh":$("#qyTysh").val().trim()
         }
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
+            console.log(data)
             if(data.backCode==0){
+                addCookie("qyOwid","7bc4bebaed0d40318db81b4098f980be")
                 alert("登录成功")
+                $(".frame-a_right").hide();
+                $("#qy_pipe").show();
             }
         })
     }
+
+    $(document).ready(function () {
+        if(getCookie("qyOwid")){
+            $(".frame-a_right").hide();
+            $("#qy_pipe").show();
+        }
+
+
+    })
 </script>
 </body>
 </html>
