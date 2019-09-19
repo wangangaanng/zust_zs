@@ -164,7 +164,52 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
         if (!TextUtils.isEmpty(jobList)) {
             for (BckjBizJob job : jobList) {
+
+
                 Map params = new HashMap<>();
+                if (!TextUtils.isEmpty(job.getZwGzzn())) {
+                    params.put("type", JyContant.GZZN);
+                    params.put("dicVal1", job.getZwGzzn());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwGzznStr(str);
+                }
+                if (!TextUtils.isEmpty(job.getZwGzzn())) {
+                    params.put("type", JyContant.GZZN);
+                    params.put("dicVal1", job.getZwGzzn());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwGzznStr(str);
+                }
+                if (!TextUtils.isEmpty(job.getZwGzxz())) {
+                    params.put("type", JyContant.GZXZ);
+                    params.put("dicVal1", job.getZwGzxz());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwGzxzStr(str);
+                }
+                if (!TextUtils.isEmpty(job.getZwNlyq())) {
+                    params.put("type", JyContant.NLYQ);
+                    params.put("dicVal1", job.getZwNlyq());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwNlyqStr(str);
+                }
+                if (!TextUtils.isEmpty(job.getZwXlyq())) {
+                    params.put("type", JyContant.XLYQ);
+                    params.put("dicVal1", job.getZwXlyq());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwXlyqStr(str);
+                }
+                if (!TextUtils.isEmpty(job.getZwYyyq())) {
+                    params.put("type", JyContant.YYYQ);
+                    params.put("dicVal1", job.getZwYyyq());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwYyyqStr(str);
+                }
+                if (!TextUtils.isEmpty(job.getZwGznx())) {
+                    params.put("type", JyContant.GZNX);
+                    params.put("dicVal1", job.getZwGznx());
+                    String str = qyxxDao.queryDic(params);
+                    job.setZwGznxStr(str);
+                }
+                params.clear();
                 params.put("jobRefOwid", job.getOwid());
                 //0 职位 1 企业
                 params.put("gzlx", dataMap.get("gzlx"));

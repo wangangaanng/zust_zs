@@ -43,7 +43,7 @@ public class BckjBizJobController extends BaseController {
     public ResponseMessage getListApi(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizJobService.findPageBckjBizJob(filters, zwlx,dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizJobService.findPageBckjBizJob(filters, zwlx, dataVO.getPageNo(), dataVO.getPageSize());
         } catch (Exception e) {
             log.error(e + "获取bckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -71,14 +71,45 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
+    /**
+     * <p>接口 deleteOneJob.java : <p>
+     * <p>说明：删除职位</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/19 11:57
+     * </pre>
+     */
+    @PostMapping(value = "deleteOneJob")
+    @ResponseBody
+    public ResponseMessage deleteOneJob(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            List<Object> list = new ArrayList<>();
+            List<String> codes = new ArrayList<String>(list.size());
+            for (Object obj : list) {
+                codes.add(mapData.get("owid").toString());
+            }
+            ResponseMessage data = bckjBizJobService.removeOrder(codes);
+            return data;
+        } catch (Exception e) {
+            log.error(e + "删除BckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
     @RequestMapping(value = "saveInfo/{zwlx}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage saveInfo(@PathVariable("zwlx") Integer zwlx,PublicDataVO dataVO) {
+    public ResponseMessage saveInfo(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
 
-            return bckjBizJobService.saveBckjBizJob(mapData,zwlx);
+            return bckjBizJobService.saveBckjBizJob(mapData, zwlx);
         } catch (Exception e) {
             log.error(e + "保存BckjBizJob信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
