@@ -18,4 +18,6 @@ import java.util.Map;
 public interface BckjBizJybmDao extends CrudDao<BckjBizJybm> {
 
     BckjBizJybm getOneByJobHy(Map<String, Object> datamap);
+
+    BckjBizJybm getOneByParam(Map params);
 }

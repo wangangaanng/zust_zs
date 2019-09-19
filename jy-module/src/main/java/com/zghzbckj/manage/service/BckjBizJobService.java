@@ -11,9 +11,11 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
+import com.zghzbckj.manage.dao.BckjBizJybmDao;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.dao.BckjBizXsgzDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
+import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +39,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     BckjBizXsgzDao xsgzDao;
     @Autowired
     BckjBizQyxxDao qyxxDao;
+    @Autowired
+    BckjBizJybmService bmService;
+    @Autowired
+    BckjBizJybmDao bmDao;
 
 
     @Override
@@ -78,11 +84,36 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
      * </ul>
      */
     public ResponseMessage findPageBckjBizJob(List<FilterModel> filters, Integer zwlx, Integer pageNo, Integer pageSize) {
+        PageInfo<BckjBizJob> page = new PageInfo<>();
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
         dataMap.put("zwlx", zwlx);
-        PageInfo<BckjBizJob> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+        if (JyContant.ZWLB_ZW == zwlx) {
+            page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
+        } else {
+            page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+        }
+
         return ResponseMessage.sendOK(page);
+    }
+
+    private PageInfo<BckjBizJob> findPageWithCompany(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
+        Page page = new Page(pageNo, pageSize);
+        paramsMap.put("page", page);
+        if (!TextUtils.isEmpty(orderBy)) {
+            paramsMap.put("orderBy", orderBy);
+        }
+
+        page.setList(this.dao.findListByMapWithCompany(paramsMap));
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
+
     }
 
     /**
@@ -129,6 +160,16 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             this.dao.delete(bckjBizJob);
             params.put("owid", owid);
             objs.add(params);
+
+
+            params.clear();
+            params.put("jobRefOwid", owid);
+            List<BckjBizJybm> bmList = bmService.findListByParams(params, "");
+            if (bmList != null && bmList.size() > 0) {
+                for (BckjBizJybm bm : bmList) {
+                    bmService.delete(bm);
+                }
+            }
         }
         return ResponseMessage.sendOK(objs);
     }
@@ -160,12 +201,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         //状态为通过
         dataMap.put("state", JyContant.JOB_ZT_TG);
+        dataMap.put("page", page);
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
-
         if (!TextUtils.isEmpty(jobList)) {
             for (BckjBizJob job : jobList) {
-
-
                 Map params = new HashMap<>();
                 if (!TextUtils.isEmpty(job.getZwGzzn())) {
                     params.put("type", JyContant.GZZN);
@@ -303,6 +342,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         List<BckjBizJob> jobList = new ArrayList<>();
+        dataMap.put("page", page);
         //如果是职来职往，包括职来职往，招聘会，宣讲会 zwlx 1,2,4
         if ("1".equals(dataMap.get("zwlx").toString())) {
             dataMap.put("state", JyContant.QY_ZT_TG);

@@ -19,5 +19,7 @@ import java.util.Map;
 public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
     List<BckjBizJob> findListByMapFirst(Map<String, Object> dataMap);
 
+    List findListByMapWithCompany(Map<String, Object> paramsMap);
+
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }

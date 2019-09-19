@@ -67,6 +67,15 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private String zwYyyqStr;
     private String zwGznxStr;
 
+    private String qymc;
+
+    public String getQymc() {
+        return qymc;
+    }
+
+    public void setQymc(String qymc) {
+        this.qymc = qymc;
+    }
 
     public String getZwGzznStr() {
         return zwGzznStr;
