@@ -331,9 +331,10 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "jobFair", method = RequestMethod.GET)
-    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "jobFair/{step}", method = RequestMethod.GET)
+    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
         view.setViewName("jobFair");
+        view.addObject("step",step);
         return view;
     }
 

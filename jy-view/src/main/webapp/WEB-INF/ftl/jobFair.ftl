@@ -32,8 +32,8 @@
             <div class="jf-content">
                 <div class="jf-steps">
                     <div class="jf-items">
+                        <#if step=='0'>
                         <div class="jf-item jf-active">1、招聘会列表
-
                             <div class="jf-box"></div>
                             <div class="jf-box1"></div>
                             <div class="jf-box2"></div>
@@ -44,6 +44,57 @@
                             <div class="jf-box2"></div>
                         </div>
                         <div class="jf-item ">3、完成</div>
+                        <#elseif step=='1'>
+                        <div class="jf-item jf-active">1、招聘会列表
+                        <div class="jf-box"></div>
+                        <div class="jf-box1"></div>
+                        <div class="jf-box2"></div>
+                        </div>
+                        <div class="jf-item jf-active">2、预定展位
+                        <div class="jf-box"></div>
+                        <div class="jf-box1"></div>
+                        <div class="jf-box2"></div>
+                        </div>
+                        <div class="jf-item ">3、完成</div>
+                        <#elseif step=='2'>
+                        <div class="jf-item jf-active">1、招聘会列表
+                        <div class="jf-box"></div>
+                        <div class="jf-box1"></div>
+                        <div class="jf-box2"></div>
+                        </div>
+                        <div class="jf-item jf-active">2、预定展位
+                        <div class="jf-box"></div>
+                        <div class="jf-box1"></div>
+                        <div class="jf-box2"></div>
+                        </div>
+                        <div class="jf-item jf-active">3、完成</div>
+                        </#if>
+                            <#--<#if (step==1)>-->
+                                <#--<div class="jf-item jf-active">1、招聘会列表-->
+                                    <#--<div class="jf-box"></div>-->
+                                    <#--<div class="jf-box1"></div>-->
+                                    <#--<div class="jf-box2"></div>-->
+                                <#--</div>-->
+                                <#--<div class="jf-item jf-active">2、预定展位-->
+                                    <#--<div class="jf-box"></div>-->
+                                    <#--<div class="jf-box1"></div>-->
+                                    <#--<div class="jf-box2"></div>-->
+                                <#--</div>-->
+                                <#--<div class="jf-item ">3、完成</div>-->
+                            <#--</#if>-->
+                            <#--<#if (step==2)>-->
+                                <#--<div class="jf-item jf-active">1、招聘会列表-->
+                                    <#--<div class="jf-box"></div>-->
+                                    <#--<div class="jf-box1"></div>-->
+                                    <#--<div class="jf-box2"></div>-->
+                                <#--</div>-->
+                                <#--<div class="jf-item jf-active">2、预定展位-->
+                                    <#--<div class="jf-box"></div>-->
+                                    <#--<div class="jf-box1"></div>-->
+                                    <#--<div class="jf-box2"></div>-->
+                                <#--</div>-->
+                                <#--<div class="jf-item jf-active">3、完成</div>-->
+                        <#--</#if>-->
                     </div>
                 </div>
                 <div>

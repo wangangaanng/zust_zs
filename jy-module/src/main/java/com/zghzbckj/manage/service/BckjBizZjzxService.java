@@ -6,8 +6,10 @@ package com.zghzbckj.manage.service;
 import com.ourway.base.utils.BeanUtil;
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.feign.BckjBizZxzxSer;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.util.ToolUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -59,7 +61,8 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
 	public void delete(BckjBizZjzx bckjBizZjzx) {
 		super.delete(bckjBizZjzx);
 	}
-
+    @Autowired
+    BckjBizZxzxSer bckjbizzxzxSer;
 
 	/**
      * <p>方法:findPagebckjBizZjzx TODO后台BckjBizZjzx分页列表</p>
@@ -130,4 +133,21 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
     }
 
 
+    public ResponseMessage showStudentReplyList(Map<String, Object> dataMap) {
+        //根据专家yhid得到owid
+        BckjBizZjzx bckjBizZjzx = this.dao.getOneByCondition(dataMap);
+        dataMap.put("zxzyid",bckjBizZjzx.getOwid());
+        return bckjbizzxzxSer.getListByZxzyid(dataMap);
+    }
+
+
+
+    public ResponseMessage replyConsult(Map<String, Object> dataMap) {
+        //根据专家yhid得到owid
+        BckjBizZjzx bckjBizZjzx = this.dao.getOneByCondition(dataMap);
+        dataMap.put("hfOwid",bckjBizZjzx.getYhid());
+        dataMap.put("hfName",bckjBizZjzx.getZjxm());
+        dataMap.put("zxzyid",bckjBizZjzx.getOwid());
+        return bckjbizzxzxSer.replyConsult(dataMap);
+    }
 }

@@ -75,7 +75,16 @@
 		FROM bckj_biz_zxzx a
 		<include refid="bckjBizZxzxJoins"/>
 		<where>
-			
+		1=1 and a.sfxs=1
+			<if test="zxzyid!=null and zxzyid!=''">
+				and a.zxzyid=#{zxzyid}
+			</if>
+			<if test="zxlx!=null and zxlx!=''">
+				and a.zxlx=#{zxlx}
+			</if>
+			<if test="state!=null and state!=''">
+				and a.state=#{state}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -229,15 +238,52 @@
 		WHERE owid = #{owid}
 	</delete>
 
-	<select id="findListByOwid" parameterType="Map" resultType="BckjBizZxzx">
+	<select id="findListByZxlx" parameterType="Map" resultType="BckjBizZxzx">
 		select <include refid="bckjBizZxzxColumns"></include>
 		from bckj_biz_zxzx a
-		order by a.createtime
+		<where>
+		1=1
+			<if test="zxlx!=null and zxlx!=''">
+				and a.zxlx =#{zxlx}
+			</if>
+			<if test="twOwid!=null and twOwid!=''">
+				and a.tw_owid=#{twOwid}
+			</if>
+		</where>
+		order by a.state asc , a.createtime desc
 	</select>
 
 	<update id="deleteByMap" parameterType="Map">
 		delete FROM bckj_biz_zxzx a
-		where owid = #{owid}
+		<where>
+		1=1
+			<if test="owid!=null and owid!=''">
+				and a.owid = #{owid}
+			</if>
+			<if test="zxzyid!=null and zxzxid!=''">
+				and a.zxzyid =#{zxzyid}
+			</if>
+		</where>
 	</update>
+	<select id="getOneByCondition" resultType="BckjBizZxzx" parameterType="Map">
+		select
+		<include refid="bckjBizZxzxColumns"></include>
+		from bckj_biz_zxzx a
+		<where>
+			1=1
+			<if test="zxlx!=null and zxlx!=''">
+				and a.zxlx=#{zxlx}
+			</if>
+			<if test="owid != null and owid !=''">
+				and a.owid =#{owid}
+			</if>
+			<if test="state!=null and state !=''">
+				and a.state =#{state}
+			</if>
+			<if test="zxzyid!=null and zxzyid!=''">
+				and a.zxzyid=#{zxzyid}
+			</if>
+		</where>
+	</select>
 	
 </mapper>
