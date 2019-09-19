@@ -39,8 +39,11 @@
                                 border-bottom:1px dashed #008784;}
                         </style>
                         <ul class="xyzy">
-                            <li><a>信息学院</a></li>
-                            <li><a>艺术学院</a></li>
+                            <#if (result??)&&(result?size>0)>
+                                <#list result as obj>
+                                    <li><a>信息学院</a></li>
+                                </#list>
+                            </#if>
                         </ul>
                         </#if>
                         <!--学院详情-->

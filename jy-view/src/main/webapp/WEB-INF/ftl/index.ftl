@@ -325,6 +325,7 @@
 <script src="${base}/js/swiper.min.js"></script>
 <script src="${base}/js/common.js"></script>
 <script src="${base}/js/jui.min.js"></script>
+<script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
 <script>
     var swiper = new Swiper('.news-swiper', {
