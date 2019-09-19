@@ -351,6 +351,12 @@ public class DemoController {
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
+        String key = request.getParameter("key");
+        if(null!=key){
+//            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
         view.setViewName("newsList");
         view.addObject("header",getHeader().getBean());
         view.addObject("secondDir",secondDir);
@@ -368,9 +374,9 @@ public class DemoController {
             param.put("lmbh",lmbh);
             param.put("wzzt","1");
             param.put("isDetail",bxlx);
-            param.put("gjz","");
+            param.put("gjz",key);
             param.put("pageNo", '1');
-            param.put("pageSize", "2");
+            param.put("pageSize", "20");
             ResponseMessage resultMess  = new ResponseMessage();
             PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
             resultMess = UnionHttpUtils.doPosts(_data);
@@ -408,7 +414,7 @@ public class DemoController {
             param.put("isDetail",bxlx);
             param.put("gjz",key);
             param.put("pageNo", currentPage);
-            param.put("pageSize", "2");
+            param.put("pageSize", "20");
             ResponseMessage resultMess  = new ResponseMessage();
             PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
             resultMess = UnionHttpUtils.doPosts(_data);
@@ -419,39 +425,6 @@ public class DemoController {
         }
         return view;
     }
-//    @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}/{gjz}", method = RequestMethod.GET)
-//    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage, @PathVariable String gjz) throws UnsupportedEncodingException {
-//        view.setViewName("newsList");
-//        view.addObject("header",getHeader().getBean());
-//        view.addObject("secondDir",secondDir);
-//        view.addObject("thirdDir",thirdDir);
-//        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
-//        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
-//        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
-//        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
-//        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
-//        gjz = new String(gjz.getBytes("ISO-8859-1"),"utf-8");
-//        if(bxlx.equals("0")){//文章类型
-//
-//        }else if(bxlx.equals("1")){//列表
-//            view.addObject("bxlx",bxlx);
-//            Map param = Maps.newHashMap();
-//            param.put("lmbh",lmbh);
-//            param.put("wzzt","1");
-//            param.put("isDetail",bxlx);
-//            param.put("gjz",gjz);
-//            param.put("pageNo", currentPage);
-//            param.put("pageSize", "2");
-//            ResponseMessage resultMess  = new ResponseMessage();
-//            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
-//            resultMess = UnionHttpUtils.doPosts(_data);
-//            if(null!=resultMess.getBean()) {
-//                view.addObject("result",(Map) resultMess.getBean());
-//            }
-//
-//        }
-//        return view;
-//    }
 
     @RequestMapping(value = "studentService", method = RequestMethod.GET)
     public ModelAndView studentService(HttpServletRequest request,ModelAndView view) {
