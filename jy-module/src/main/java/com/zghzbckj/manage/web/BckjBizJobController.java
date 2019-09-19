@@ -16,10 +16,7 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,12 +38,12 @@ public class BckjBizJobController extends BaseController {
     private BckjBizJobService bckjBizJobService;
 
 
-    @RequestMapping(value = "/getList")
+    @RequestMapping(value = "/getList/{zwlx}")
     @ResponseBody
-    public ResponseMessage getListApi(PublicDataVO dataVO) {
+    public ResponseMessage getListApi(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizJobService.findPageBckjBizJob(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizJobService.findPageBckjBizJob(filters, zwlx,dataVO.getPageNo(), dataVO.getPageSize());
         } catch (Exception e) {
             log.error(e + "获取bckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -74,13 +71,14 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "saveInfo/{zwlx}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage saveInfo(PublicDataVO dataVO) {
+    public ResponseMessage saveInfo(@PathVariable("zwlx") Integer zwlx,PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizJobService.saveBckjBizJob(mapData);
+
+            return bckjBizJobService.saveBckjBizJob(mapData,zwlx);
         } catch (Exception e) {
             log.error(e + "保存BckjBizJob信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

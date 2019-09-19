@@ -106,6 +106,12 @@
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>
+			<if test="zphJbf != null and zphJbf != ''">
+				AND a.zph_jbf = #{zphJbf}
+			</if>
+			<if test="zphCbf != null and zphCbf != ''">
+				AND a.zph_cbf = #{zphCbf}
+			</if>
             <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
                 and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
             </if>
@@ -123,17 +129,8 @@
     <select id="findListByMapFirst" resultType="com.zghzbckj.manage.entity.BckjBizJob">
         SELECT
         <include refid="bckjBizJobColumns"/>
-        FROM bckj_biz_job a WHERE 1=1  AND ( a.zwlx =1 OR a.zwlx =2 OR a.zwlx =4)
+        FROM bckj_biz_job a WHERE  ( a.zwlx =1 OR a.zwlx =2 OR a.zwlx =4)  AND a.state = #{state}
         <where>
-            <if test="qyxxRefOwid != null and qyxxRefOwid != ''">
-                AND a.qyxx_ref_owid = #{qyxxRefOwid}
-            </if>
-            <if test="state != null and state != ''">
-                AND a.state = #{state}
-            </if>
-            <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
-                and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
-            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
