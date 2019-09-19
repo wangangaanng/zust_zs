@@ -193,9 +193,15 @@ public class DemoController {
         }
         return view;
     }
-    @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
-    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "positionDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("positionDetail");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
     @RequestMapping(value = "recruitment", method = RequestMethod.GET)
