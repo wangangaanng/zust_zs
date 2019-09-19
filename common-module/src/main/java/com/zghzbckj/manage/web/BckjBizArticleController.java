@@ -102,6 +102,23 @@ public class BckjBizArticleController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "getArticlDeatil", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getArticlDeatil(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizArticleService.getArticlDeatil(mapData.get("owid").toString()));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizArticle\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     @RequestMapping(value = "getMuArticle", method = RequestMethod.POST)
     @ResponseBody
