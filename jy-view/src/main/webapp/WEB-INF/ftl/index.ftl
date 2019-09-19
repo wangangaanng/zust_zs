@@ -357,7 +357,9 @@
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
             console.log(data)
             if(data.backCode==0){
-                addCookie("qyOwid","7bc4bebaed0d40318db81b4098f980be")
+                addCookie("qyOwid",data.bean.owid)
+                addCookie("qyInfo",JSON.stringify(data.bean))
+                console.log(data.bean)
                 alert("登录成功")
                 $(".frame-a_right").hide();
                 $("#qy_pipe").show();
@@ -366,6 +368,8 @@
     }
 
     $(document).ready(function () {
+        console.log(getCookie("qyInfo"))
+        console.log(JSON.parse(getCookie("qyInfo")).owid)
         if(getCookie("qyOwid")){
             $(".frame-a_right").hide();
             $("#qy_pipe").show();

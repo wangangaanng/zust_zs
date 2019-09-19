@@ -243,26 +243,61 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "newJob", method = RequestMethod.GET)
+    public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("newJob");
+        Map param=Maps.newHashMap();
+        param.put("dicType","20005");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+        ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("zwNlyq",zwNlyq.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("dicType","20006");
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+        ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("zwXlyq",zwXlyq.getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("dicType","20007");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("zwYyyq",zwYyyq.getBean());
+        Map param3=Maps.newHashMap();
+        param3.put("dicType","20008");
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+        ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("zwGznx",zwGznx.getBean());
+        Map param4=Maps.newHashMap();
+        param4.put("dicType","20003");
+        PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+        ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
+        view.addObject("zwGzzn",zwGzzn.getBean());
+        Map param5=Maps.newHashMap();
+        param5.put("dicType","20004");
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+        ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("zwGzxz",zwGzxz.getBean());
+        return view;
+    }
+
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
-        view.setViewName("enterpriseService");
-        Map param=Maps.newHashMap();
-        param.put("dicType","20000");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-        ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("qyGsxz",qyGsxz.getBean());
-        Map param1=Maps.newHashMap();
-        param1.put("dicType","20001");
-        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
-        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
-        view.addObject("qyHylb",qyHylb.getBean());
-        Map param2=Maps.newHashMap();
-        param2.put("dicType","20002");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
-        view.addObject("qyGsgm",qyGsgm.getBean());
+//        view.setViewName("enterpriseService");
+//        Map param=Maps.newHashMap();
+//        param.put("dicType","20000");
+//        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+//        ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
+//        view.addObject("qyGsxz",qyGsxz.getBean());
+//        Map param1=Maps.newHashMap();
+//        param1.put("dicType","20001");
+//        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+//        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+//        view.addObject("qyHylb",qyHylb.getBean());
+//        Map param2=Maps.newHashMap();
+//        param2.put("dicType","20002");
+//        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+//        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+//        view.addObject("qyGsgm",qyGsgm.getBean());
         Map param3=Maps.newHashMap();
-        System.out.print(qyOwid);
         param3.put("owid",qyOwid);
 
         PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");

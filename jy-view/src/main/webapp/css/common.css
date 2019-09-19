@@ -1123,3 +1123,17 @@ em.error{
     top:3px;
     right: 25px;
 }
+
+button.green{
+    background-color: #008784;
+    color: #fff;
+}
+
+.table .thead1 th {
+    color: #6c9d9c;
+    background-color: #f1f8f8;
+    text-align: center;
+}
+
+.page-list{
+    display: none !important;}
