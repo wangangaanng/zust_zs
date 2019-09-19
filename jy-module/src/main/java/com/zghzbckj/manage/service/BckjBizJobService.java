@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -23,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -186,9 +180,22 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return pageInfo;
     }
 
-    public List<BckjBizJob> jobByMonth(Map<String, Object> dataMap) {
+    public Map jobByMonth(Map<String, Object> dataMap) {
+        Map<String, List> map = new HashMap<>();
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
-        return jobList;
+        if (jobList != null && jobList.size() > 0) {
+            for (BckjBizJob job : jobList) {
+                String dateKey = DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd");
+                if (map.containsKey(dateKey)) {
+                    map.get(dateKey).add(job);
+                } else {
+                    List<BckjBizJob> newList = new ArrayList<>();
+                    newList.add(job);
+                    map.put(dateKey, newList);
+                }
+            }
+        }
+        return map;
     }
 
     public BckjBizJob getOneJob(String owid) {
