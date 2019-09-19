@@ -7,7 +7,8 @@
     中心介绍——articleTpl.html
     
 **新闻公告**
-    
+    新闻列表页面：'newsList/${secondDir!""}/${thirdDir!""}/'+currentPage?key=关键字
+    新闻列表页面：'newsList/一级菜单index/二级菜单index/'+当前页1开始?key=关键字
     新闻公告、新闻快递、校内公示——newsList.html
     详情——newsDetail.html
 **招聘信息**

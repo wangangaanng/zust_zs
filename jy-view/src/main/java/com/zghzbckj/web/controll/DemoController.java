@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +64,7 @@ public class DemoController {
                 paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess = UnionHttpUtils.doPosts(_data);
-                if(null!=((Map) resultMess.getBean()).get("records")) {
+                if((null!=((Map) resultMess.getBean()))&&(null!=((Map) resultMess.getBean()).get("records"))) {
                     wzList.add(((Map) resultMess.getBean()).get("records"));
                 }else {
                     wzList.add(Lists.newArrayList());
@@ -92,7 +94,7 @@ public class DemoController {
                     paramn.put("pageSize", "10");
                     PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if(null!=((Map) resultMess2.getBean()).get("records")) {
+                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
                         wzList.add(((Map) resultMess2.getBean()).get("records"));
                     }else {
                         wzList.add(Lists.newArrayList());
@@ -108,7 +110,7 @@ public class DemoController {
                     paramn.put("pageSize","10");
                     PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if(null!=((Map) resultMess2.getBean()).get("records")) {
+                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
                         wzListwz.add(((Map) resultMess2.getBean()).get("records"));
                     }else {
                         wzListwz.add(Lists.newArrayList());
@@ -140,7 +142,7 @@ public class DemoController {
                 paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess3 = UnionHttpUtils.doPosts(_data);
-                if(null!=((Map) resultMess3.getBean()).get("records")) {
+                if((null!=((Map) resultMess3.getBean()))&&(null!=((Map) resultMess3.getBean()).get("records"))) {
                     wzList.add(((Map) resultMess3.getBean()).get("records"));
                 }else{
                     wzList.add(Lists.newArrayList());
@@ -316,11 +318,105 @@ public class DemoController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("newsList");
         view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        if(bxlx.equals("0")){//文章类型
+
+        }else if(bxlx.equals("1")){//列表
+            view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("gjz","");
+            param.put("pageNo", '1');
+            param.put("pageSize", "2");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                view.addObject("result",(Map) resultMess.getBean());
+            }
+
+        }
         return view;
     }
+    @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
+        String key = request.getParameter("key");
+        if(null!=key){
+//            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("newsList");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        if(bxlx.equals("0")){//文章类型
+
+        }else if(bxlx.equals("1")){//列表
+            view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("gjz",key);
+            param.put("pageNo", currentPage);
+            param.put("pageSize", "2");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                view.addObject("result",(Map) resultMess.getBean());
+            }
+
+        }
+        return view;
+    }
+//    @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}/{gjz}", method = RequestMethod.GET)
+//    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage, @PathVariable String gjz) throws UnsupportedEncodingException {
+//        view.setViewName("newsList");
+//        view.addObject("header",getHeader().getBean());
+//        view.addObject("secondDir",secondDir);
+//        view.addObject("thirdDir",thirdDir);
+//        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+//        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+//        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+//        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+//        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+//        gjz = new String(gjz.getBytes("ISO-8859-1"),"utf-8");
+//        if(bxlx.equals("0")){//文章类型
+//
+//        }else if(bxlx.equals("1")){//列表
+//            view.addObject("bxlx",bxlx);
+//            Map param = Maps.newHashMap();
+//            param.put("lmbh",lmbh);
+//            param.put("wzzt","1");
+//            param.put("isDetail",bxlx);
+//            param.put("gjz",gjz);
+//            param.put("pageNo", currentPage);
+//            param.put("pageSize", "2");
+//            ResponseMessage resultMess  = new ResponseMessage();
+//            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+//            resultMess = UnionHttpUtils.doPosts(_data);
+//            if(null!=resultMess.getBean()) {
+//                view.addObject("result",(Map) resultMess.getBean());
+//            }
+//
+//        }
+//        return view;
+//    }
 
     @RequestMapping(value = "studentService", method = RequestMethod.GET)
     public ModelAndView studentService(HttpServletRequest request,ModelAndView view) {
