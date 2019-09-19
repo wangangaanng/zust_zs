@@ -331,7 +331,7 @@ header .subnav-list li a{
     width: -moz-calc(100% - 255px);
     width: calc(100% - 255px);
     float: left;
-    height: 707px;
+    min-height: 707px;
     border: solid 1px #e0e0e0;
 }
 
@@ -438,7 +438,7 @@ ul.pagination {
 }
 
 .article-detail-text p {
-    padding: 20px;
+    /*padding: 20px;*/
 }
 
 .article-pager {

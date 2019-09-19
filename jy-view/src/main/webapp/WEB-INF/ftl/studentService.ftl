@@ -96,17 +96,7 @@
 <#include "com/header.ftl">
 <div class="main">
     <div class="container">
-        <div class="routes">
-            <div class="location">
-                <i></i> 当前位置：
-            </div>
-
-            <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">学生服务</a></li>
-                <li class="active">办事流程</li>
-            </ol>
-        </div>
+       <#include "com/route.ftl">
         <div class="content">
             <div class="menu-nav">
                 <div class="menu-title">

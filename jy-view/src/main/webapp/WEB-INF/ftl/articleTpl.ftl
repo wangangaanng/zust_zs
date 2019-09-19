@@ -25,7 +25,8 @@
                         <!--学校简介、中心介绍-->
                         <#if (bxlx??)&&(bxlx=="0")&&(result??)>
                             <style>
-                                .article-detail-text p {padding: 20px;  color: #5d5d5d;  line-height: 25px;  }
+                                .article-detail-text{padding:20px;}
+                                .article-detail-text p { color: #5d5d5d;  line-height: 25px;  }
                             </style>
                             <p>${result.wznr!''}</p>
                         </#if>
