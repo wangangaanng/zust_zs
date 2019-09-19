@@ -233,7 +233,17 @@
 	<select id="zjList" parameterType="map" resultType="BckjBizZjzx">
 		select <include refid="bckjBizZjzxColumns"></include>
 		from bckj_biz_zjzx a
- 		order by a.createtime
+ 		order by a.createtime  desc
 	</select>
-
+	
+	<select id="getOneByCondition" parameterType="Map" resultType="BckjBizZjzx">
+		select <include refid="bckjBizZjzxColumns"></include>
+		from bckj_biz_zjzx a
+		<where>
+			<if  test="yhid!=null and yhid!=''">
+				and a.yhid=#{yhid}
+			</if>
+		</where>
+	</select>
+	
 </mapper>

@@ -34,6 +34,8 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 
+import javax.xml.soap.Text;
+
 /**
  * ccService
  * @author cc
@@ -134,7 +136,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
 
     /**
-     *<p>功能描述: 学生登录 </p >
+     *<p>功能描述: 用户登录 </p >
      *<ul>
      *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
      *<li>@throws </li>
@@ -154,11 +156,12 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if(!psw.equalsIgnoreCase(map.get("yhDlmm").toString())){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
         }
-        if(Integer.parseInt(map.get("olx").toString())!=0){
+        if(Integer.parseInt(map.get("olx").toString())!=0&&Integer.parseInt(map.get("olx").toString())!=1){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
         //设置最近登录时间
         this.dao.updateDlsj(map.get("owid").toString());
+        resMap.put("olx",map.get("olx"));
         resMap.put("owid",map.get("owid"));
         resMap.put("yhtx",map.get("yhtx"));
         resMap.put("sjh",map.get("sjh"));
