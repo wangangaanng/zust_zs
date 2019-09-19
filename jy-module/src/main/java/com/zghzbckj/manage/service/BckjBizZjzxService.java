@@ -133,22 +133,14 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
     }
 
 
-    public ResponseMessage showStudentNoReplyList(Map<String, Object> dataMap) {
-        //根据专家yhid得到owid
-        BckjBizZjzx bckjBizZjzx = this.dao.getOneByCondition(dataMap);
-        dataMap.put("state","1");
-        dataMap.put("zxzyid",bckjBizZjzx.getOwid());
-        return bckjbizzxzxSer.getListByZxzyid(dataMap);
-    }
-
-
     public ResponseMessage showStudentReplyList(Map<String, Object> dataMap) {
         //根据专家yhid得到owid
         BckjBizZjzx bckjBizZjzx = this.dao.getOneByCondition(dataMap);
-        dataMap.put("state","2");
         dataMap.put("zxzyid",bckjBizZjzx.getOwid());
         return bckjbizzxzxSer.getListByZxzyid(dataMap);
     }
+
+
 
     public ResponseMessage replyConsult(Map<String, Object> dataMap) {
         //根据专家yhid得到owid

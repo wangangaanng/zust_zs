@@ -167,50 +167,23 @@ public class BckjBizZjzxController extends BaseController {
      * <li>@date 2019/9/11</li>
      * </ul>
      */
-    @PostMapping("showStudentNoReplyList")
-    @ResponseBody
-    public ResponseMessage showStudentNoReplyList(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhid","pageSize","pageNo","zxlx");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-           return bckjBizZjzxService.showStudentNoReplyList(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
-
-
-    /**
-     * <p>功能描述:显示学生咨询列表(已回复)</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/11</li>
-     * </ul>
-     */
     @PostMapping("showStudentReplyList")
     @ResponseBody
     public ResponseMessage showStudentReplyList(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhid","pageSize","pageNo","zxlx");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "state","yhid","pageSize","pageNo","zxlx");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return bckjBizZjzxService.showStudentReplyList(dataMap);
+           return bckjBizZjzxService.showStudentReplyList(dataMap);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
 
     /**
      * <p>功能描述:回复咨询</p >
