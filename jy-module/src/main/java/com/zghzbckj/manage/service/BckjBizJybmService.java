@@ -130,26 +130,45 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
-
         Map resultMap = new HashMap<>(2);
         BckjBizJybm jybm = new BckjBizJybm();
+        Integer bmlx = Integer.parseInt(mapData.get("bmlx").toString());
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
             //报名类型企业
-            if (JyContant.BMLX_QY == 0) {
+            if (bmlx == JyContant.BMLX_QY) {
                 BckjBizQyxx qyxx = qyxxService.get(mapData.get("qyxxRefOwid").toString());
                 //企业名称，税号
                 jybm.setQymc(qyxx.getQymc());
                 jybm.setQysh(qyxx.getQyTysh());
+                Map params = new HashMap<>();
+                params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
+                params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+                BckjBizJybm existBm = this.dao.getOneByParam(params);
+                if (!TextUtils.isEmpty(existBm)) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "已存在报名信息");
+                    return resultMap;
+                }
+            } else if (JyContant.BMLX_XS == bmlx) {
+                Map params = new HashMap<>();
+                params.put("yhRefOwid", mapData.get("yhRefOwid").toString());
+                params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+                BckjBizJybm existBm = this.dao.getOneByParam(params);
+                if (!TextUtils.isEmpty(existBm)) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "已存在报名信息");
+                    return resultMap;
+                }
             }
+            BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
             //报名对象宣讲会
             if (JyContant.BMDX_XJH == 1) {
-                BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
                 //申请宣讲会
                 jybm.setSfxz(0);
-                if(!TextUtils.isEmpty(job.getZphKsrq())){
-                    jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
-                }
+            }
+            if (!TextUtils.isEmpty(job.getZphKsrq())) {
+                jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
             }
             //待审核
             jybm.setState(JyContant.JOB_ZT_DSH);
@@ -170,7 +189,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJybm> page = new Page<>(pageNo, pageSize);
-
+        dataMap.put("page", page);
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();

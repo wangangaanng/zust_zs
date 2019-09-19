@@ -19,4 +19,6 @@ import java.util.Map;
 public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
 
     List<BckjBizZjzx> zjList(Map<String, Object> dataMap);
+
+    BckjBizZjzx  getOneByCondition(Object owid);
 }

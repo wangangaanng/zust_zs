@@ -27,7 +27,7 @@
                             <style>
                                 .article-detail-text p {padding: 20px;  color: #5d5d5d;  line-height: 25px;  }
                             </style>
-                            <p>${result.jjnr!''}</p>
+                            <p>${result.wznr!''}</p>
                         </#if>
 
                         <!--学院专业-->
@@ -39,8 +39,11 @@
                                 border-bottom:1px dashed #008784;}
                         </style>
                         <ul class="xyzy">
-                            <li><a>信息学院</a></li>
-                            <li><a>艺术学院</a></li>
+                            <#if (result??)&&(result?size>0)>
+                                <#list result as obj>
+                                    <li><a href="${base}/newsDetail/${obj.owid!''}">${obj.wzbt!''}</a></li>
+                                </#list>
+                            </#if>
                         </ul>
                         </#if>
                         <!--学院详情-->

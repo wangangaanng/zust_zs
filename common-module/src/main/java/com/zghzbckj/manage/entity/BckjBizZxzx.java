@@ -17,7 +17,6 @@ import com.zghzbckj.base.entity.DataWithExpEntity;
 public class BckjBizZxzx extends DataWithExpEntity<BckjBizZxzx> {
 	
 	private static final long serialVersionUID = 1L;
-
 	private Integer zxlx;		// zxlx
 	private String wtnr;		// wtnr
 	private String danr;		// danr

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +64,7 @@ public class DemoController {
                 paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess = UnionHttpUtils.doPosts(_data);
-                if(null!=((Map) resultMess.getBean()).get("records")) {
+                if((null!=((Map) resultMess.getBean()))&&(null!=((Map) resultMess.getBean()).get("records"))) {
                     wzList.add(((Map) resultMess.getBean()).get("records"));
                 }else {
                     wzList.add(Lists.newArrayList());
@@ -92,12 +94,10 @@ public class DemoController {
                     paramn.put("pageSize", "10");
                     PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if(null!=resultMess2.getBean()) {
-                        if(null!=((Map) resultMess2.getBean()).get("records")) {
-                            wzList.add(((Map) resultMess2.getBean()).get("records"));
-                        }else {
-                            wzList.add(Lists.newArrayList());
-                        }
+                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
+                        wzList.add(((Map) resultMess2.getBean()).get("records"));
+                    }else {
+                        wzList.add(Lists.newArrayList());
                     }
                 }else{
                     String owid = map.get("CODE").toString();
@@ -110,7 +110,7 @@ public class DemoController {
                     paramn.put("pageSize","10");
                     PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if(null!=((Map) resultMess2.getBean()).get("records")) {
+                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
                         wzListwz.add(((Map) resultMess2.getBean()).get("records"));
                     }else {
                         wzListwz.add(Lists.newArrayList());
@@ -142,7 +142,7 @@ public class DemoController {
                 paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess3 = UnionHttpUtils.doPosts(_data);
-                if(null!=((Map) resultMess3.getBean()).get("records")) {
+                if((null!=((Map) resultMess3.getBean()))&&(null!=((Map) resultMess3.getBean()).get("records"))) {
                     wzList.add(((Map) resultMess3.getBean()).get("records"));
                 }else{
                     wzList.add(Lists.newArrayList());
@@ -175,12 +175,35 @@ public class DemoController {
             view.addObject("result",result.getBean());
         }else if(bxlx.equals("1")){
             view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("pageNo", '1');
+            param.put("pageSize", "20");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                if(null!=((Map) resultMess.getBean()).get("records")) {
+                    view.addObject("result",((Map) resultMess.getBean()).get("records"));
+                }else {
+                    view.addObject("result",Lists.newArrayList());
+                }
+            }
+
         }
         return view;
     }
-    @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
-    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "positionDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("positionDetail");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
     @RequestMapping(value = "recruitment", method = RequestMethod.GET)
@@ -245,26 +268,61 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "newJob", method = RequestMethod.GET)
+    public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("newJob");
+        Map param=Maps.newHashMap();
+        param.put("dicType","20005");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+        ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("zwNlyq",zwNlyq.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("dicType","20006");
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+        ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("zwXlyq",zwXlyq.getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("dicType","20007");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("zwYyyq",zwYyyq.getBean());
+        Map param3=Maps.newHashMap();
+        param3.put("dicType","20008");
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+        ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("zwGznx",zwGznx.getBean());
+        Map param4=Maps.newHashMap();
+        param4.put("dicType","20003");
+        PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+        ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
+        view.addObject("zwGzzn",zwGzzn.getBean());
+        Map param5=Maps.newHashMap();
+        param5.put("dicType","20004");
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+        ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("zwGzxz",zwGzxz.getBean());
+        return view;
+    }
+
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
-        view.setViewName("enterpriseService");
-        Map param=Maps.newHashMap();
-        param.put("dicType","20000");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-        ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("qyGsxz",qyGsxz.getBean());
-        Map param1=Maps.newHashMap();
-        param1.put("dicType","20001");
-        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
-        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
-        view.addObject("qyHylb",qyHylb.getBean());
-        Map param2=Maps.newHashMap();
-        param2.put("dicType","20002");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
-        view.addObject("qyGsgm",qyGsgm.getBean());
+//        view.setViewName("enterpriseService");
+//        Map param=Maps.newHashMap();
+//        param.put("dicType","20000");
+//        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+//        ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
+//        view.addObject("qyGsxz",qyGsxz.getBean());
+//        Map param1=Maps.newHashMap();
+//        param1.put("dicType","20001");
+//        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+//        ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+//        view.addObject("qyHylb",qyHylb.getBean());
+//        Map param2=Maps.newHashMap();
+//        param2.put("dicType","20002");
+//        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+//        ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+//        view.addObject("qyGsgm",qyGsgm.getBean());
         Map param3=Maps.newHashMap();
-        System.out.print(qyOwid);
         param3.put("owid",qyOwid);
 
         PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
@@ -279,19 +337,92 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "newsDetail", method = RequestMethod.GET)
-    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "newsDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("newsDetail");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getOne");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
+        String key = request.getParameter("key");
+        if(null!=key){
+//            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
         view.setViewName("newsList");
         view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        if(bxlx.equals("0")){//文章类型
+
+        }else if(bxlx.equals("1")){//列表
+            view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("gjz",key);
+            param.put("pageNo", '1');
+            param.put("pageSize", "20");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                view.addObject("result",(Map) resultMess.getBean());
+            }
+
+        }
+        return view;
+    }
+    @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
+        String key = request.getParameter("key");
+        if(null!=key){
+//            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("newsList");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        if(bxlx.equals("0")){//文章类型
+
+        }else if(bxlx.equals("1")){//列表
+            view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("gjz",key);
+            param.put("pageNo", currentPage);
+            param.put("pageSize", "20");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                view.addObject("result",(Map) resultMess.getBean());
+            }
+
+        }
         return view;
     }
 

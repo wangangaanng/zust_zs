@@ -19,12 +19,10 @@ import org.apache.poi.poifs.crypt.DataSpaceMapUtils;
 import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -149,7 +147,7 @@ public class BckjBizZxzxController extends BaseController {
     public ResponseMessage historyConsult(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize","zxlx","owid");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize","zxlx","twOwid");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
@@ -188,5 +186,56 @@ public class BckjBizZxzxController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+    /**
+     * <p>功能描述:根据专家owid查询此学生咨询此专家的所有信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/19</li>
+     * </ul>
+     */
+    @PostMapping("getListByZxzyid")
+    @ResponseBody
+    public ResponseMessage getListByZxzyid(@RequestBody Map<String ,Object> dataMap){
+        try {
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "zxzyid","pageSize","pageNo");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return  bckjBizZxzxService.getListByZxzyid(dataMap);
+        }
+        catch(Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+    /**
+     * <p>功能描述:专家回复学生</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/19</li>
+     * </ul>
+     */
+    @ResponseBody
+    @PostMapping("replyConsult")
+    public ResponseMessage replyConsult(@RequestBody Map<String,Object> dataMap){
+        try{
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid", "hfOwid", "hfName", "zxzyid", "zxlx", "danr");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizZxzxService.replyConsult(dataMap);
+        }catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+
     }
 }

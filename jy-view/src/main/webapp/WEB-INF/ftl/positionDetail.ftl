@@ -13,13 +13,14 @@
 <#include "com/header.ftl">
     <div class="main">
         <div class="container">
+            <#include "com/route.ftl">
             <div class="content">
                 <div class="article-detail">
                         <div class="position-detail">
                                 <div class="position-head">
-                                    <h1>综合柜员</h1>
+                                    <h1>${result.zwbt!''}</h1>
                                     <dl class="info">
-                                        <dt><a href="/company/view/id/88487">宁波银行股份有限公司金华分行</a></dt>
+                                        <dt><a href="">宁波银行股份有限公司金华分行</a></dt>
                                         <dd>
                                             <div class="vieCount">浏览：7次 | </div>
                                             <div class="qrcode" id="qrcode">

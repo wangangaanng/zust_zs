@@ -8,4 +8,5 @@
 <script src="${base}/js/common.js"></script>
 <script>
     var imagePath='${imagePath!""}';
+    var base='${base!""}'
 </script>
