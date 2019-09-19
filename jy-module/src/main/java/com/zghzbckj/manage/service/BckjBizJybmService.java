@@ -170,7 +170,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJybm> page = new Page<>(pageNo, pageSize);
-
+        dataMap.put("page",page);
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();

@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.service.BckjBizJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -88,11 +89,8 @@ public class BckjBizJobController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            List<Object> list = new ArrayList<>();
-            List<String> codes = new ArrayList<String>(list.size());
-            for (Object obj : list) {
-                codes.add(mapData.get("owid").toString());
-            }
+            List<String> codes = new ArrayList<String>();
+            codes.add(mapData.get("owid").toString());
             ResponseMessage data = bckjBizJobService.removeOrder(codes);
             return data;
         } catch (Exception e) {
@@ -267,6 +265,33 @@ public class BckjBizJobController extends BaseController {
         } catch (Exception e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+
+
+    /**
+     * <p>接口 setStop.java : <p>
+     * <p>说明：下架职位</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/19 15:16
+     * </pre>
+     */
+    @RequestMapping(value = "setStop", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage setStop(PublicDataVO publicDataVO) {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "stop");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        BckjBizJob job = bckjBizJobService.get(mapData.get("owid").toString());
+        if (job == null) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
+        }
+        Integer stop = Integer.parseInt(mapData.get("stop").toString());
+        job.setState(stop);
+        bckjBizJobService.saveOrUpdate(job);
+        return ResponseMessage.sendOK(job);
     }
 
 
