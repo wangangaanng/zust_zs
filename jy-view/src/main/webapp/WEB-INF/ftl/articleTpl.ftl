@@ -27,7 +27,7 @@
                             <style>
                                 .article-detail-text p {padding: 20px;  color: #5d5d5d;  line-height: 25px;  }
                             </style>
-                            <p>${result.jjnr!''}</p>
+                            <p>${result.wznr!''}</p>
                         </#if>
 
                         <!--学院专业-->

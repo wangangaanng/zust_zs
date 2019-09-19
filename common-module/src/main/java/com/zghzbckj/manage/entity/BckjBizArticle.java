@@ -133,6 +133,9 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	}
 	
 	public Integer getYdcs() {
+		if(null==ydcs){
+			return 0;
+		}
 		return ydcs;
 	}
 

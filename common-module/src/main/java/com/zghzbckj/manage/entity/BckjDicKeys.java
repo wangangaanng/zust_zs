@@ -3,11 +3,8 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * ccEntity
@@ -20,6 +17,8 @@ public class BckjDicKeys extends DataWithExpEntity<BckjDicKeys> {
 
 	private String keyWord;		// key_word
 	private String memo;		// memo
+
+	private Integer updateFlag;
 
 	
 	public BckjDicKeys() {
@@ -45,5 +44,12 @@ public class BckjDicKeys extends DataWithExpEntity<BckjDicKeys> {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	
+
+	public Integer getUpdateFlag() {
+		return updateFlag;
+	}
+
+	public void setUpdateFlag(Integer updateFlag) {
+		this.updateFlag = updateFlag;
+	}
 }

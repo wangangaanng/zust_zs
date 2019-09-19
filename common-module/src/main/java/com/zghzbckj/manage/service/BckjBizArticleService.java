@@ -44,11 +44,13 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     @Override
     @Transactional(readOnly = false)
     public BckjBizArticle get(String owid) {
-         BckjBizArticle artcle=super.get(owid);
+        BckjBizArticle artcle=super.get(owid);
         artcle.setYdcs(artcle.getYdcs()+1);
         saveOrUpdate(artcle);
         return artcle;
     }
+
+
 
     @Override
     public List<BckjBizArticle> findList(BckjBizArticle bckjBizArticle) {
@@ -168,6 +170,13 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     @Transactional( readOnly = false)
     public ResponseMessage saveArticle(Map<String, Object> mapData) throws Exception{
         BckjBizArticle article = JsonUtil.map2Bean(mapData, BckjBizArticle.class);
+        if (!TextUtils.isEmpty(mapData.get("owid"))) {
+            BckjBizArticle bckjBizArticleIndata = get(mapData.get("owid").toString());
+            BeanUtil.copyPropertiesIgnoreNull(article, bckjBizArticleIndata);
+            article = bckjBizArticleIndata;
+        }else{
+            article.setYdcs(0);
+        }
         if (TextUtils.isEmpty(mapData.get("fbsj"))) {
             article.setFbsj(new Date());
         }else{
@@ -216,5 +225,31 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
             return ResponseMessage.sendOK(indataList.get(0));
         }
         return ResponseMessage.sendOK(null);
+    }
+
+    @Transactional(readOnly = false)
+    public Map getArticlDeatil(String owid) {
+        BckjBizArticle article= get(owid);
+        article.setYdcs(article.getYdcs()+1);
+        saveOrUpdate(article);
+        Map mapArticle=Maps.newHashMap();
+        BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr");
+        mapArticle.put("fbsj",DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART));
+        Map param=Maps.newHashMap();
+        param.put("lmbh",article.getLmbh());
+        param.put("orderBy"," a.istop DESC,a.sxh ");
+        param.put("sxh"," AND a.sxh < "+ article.getSxh());
+        List<BckjBizArticle> mapList=this.dao.findMapByShort(param);
+        mapArticle.put("upArticle",0);
+        mapArticle.put("downArticle",0);
+        if(null!=mapList&&mapList.size()>0){
+            mapArticle.put("upArticle",mapList.get(mapList.size()-1));
+        }
+        param.put("sxh"," AND a.sxh > "+ article.getSxh());
+        List<BckjBizArticle> mapList2=this.dao.findMapByShort(param);
+        if(null!=mapList2&&mapList2.size()>0){
+            mapArticle.put("downArticle",mapList2.get(0));
+        }
+        return mapArticle;
     }
 }
