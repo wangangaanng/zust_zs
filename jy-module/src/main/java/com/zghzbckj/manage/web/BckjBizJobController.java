@@ -13,13 +13,11 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.service.BckjBizJobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,12 +39,12 @@ public class BckjBizJobController extends BaseController {
     private BckjBizJobService bckjBizJobService;
 
 
-    @RequestMapping(value = "/getList")
+    @RequestMapping(value = "/getList/{zwlx}")
     @ResponseBody
-    public ResponseMessage getListApi(PublicDataVO dataVO) {
+    public ResponseMessage getListApi(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizJobService.findPageBckjBizJob(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizJobService.findPageBckjBizJob(filters, zwlx, dataVO.getPageNo(), dataVO.getPageSize());
         } catch (Exception e) {
             log.error(e + "获取bckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -74,13 +72,42 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
+    /**
+     * <p>接口 deleteOneJob.java : <p>
+     * <p>说明：删除职位</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/19 11:57
+     * </pre>
+     */
+    @PostMapping(value = "deleteOneJob")
     @ResponseBody
-    public ResponseMessage saveInfo(PublicDataVO dataVO) {
+    public ResponseMessage deleteOneJob(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            List<String> codes = new ArrayList<String>();
+            codes.add(mapData.get("owid").toString());
+            ResponseMessage data = bckjBizJobService.removeOrder(codes);
+            return data;
+        } catch (Exception e) {
+            log.error(e + "删除BckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    @RequestMapping(value = "saveInfo/{zwlx}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveInfo(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizJobService.saveBckjBizJob(mapData);
+
+            return bckjBizJobService.saveBckjBizJob(mapData, zwlx);
         } catch (Exception e) {
             log.error(e + "保存BckjBizJob信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -238,6 +265,33 @@ public class BckjBizJobController extends BaseController {
         } catch (Exception e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+
+
+    /**
+     * <p>接口 setStop.java : <p>
+     * <p>说明：下架职位</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/19 15:16
+     * </pre>
+     */
+    @RequestMapping(value = "setStop", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage setStop(PublicDataVO publicDataVO) {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "stop");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        BckjBizJob job = bckjBizJobService.get(mapData.get("owid").toString());
+        if (job == null) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
+        }
+        Integer stop = Integer.parseInt(mapData.get("stop").toString());
+        job.setState(stop);
+        bckjBizJobService.saveOrUpdate(job);
+        return ResponseMessage.sendOK(job);
     }
 
 

@@ -173,12 +173,35 @@ public class DemoController {
             view.addObject("result",result.getBean());
         }else if(bxlx.equals("1")){
             view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("pageNo", '1');
+            param.put("pageSize", "20");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                if(null!=((Map) resultMess.getBean()).get("records")) {
+                    view.addObject("result",((Map) resultMess.getBean()).get("records"));
+                }else {
+                    view.addObject("result",Lists.newArrayList());
+                }
+            }
+
         }
         return view;
     }
-    @RequestMapping(value = "positionDetail", method = RequestMethod.GET)
-    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "positionDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("positionDetail");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
     @RequestMapping(value = "recruitment", method = RequestMethod.GET)
@@ -312,9 +335,15 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "newsDetail", method = RequestMethod.GET)
-    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "newsDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("newsDetail");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getOne");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
 

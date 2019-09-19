@@ -53,7 +53,7 @@
                             <#if (objl??)&&(objl?size>0)>
                                 <#list objl as obj>
                                     <#if obj_index<4>
-                                        <li data-owid="${obj.owid}">
+                                        <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                             <div class="news-date">
                                                 <#if obj.fbsj?exists>
                                                     <span>${obj.fbsj?substring(5,7)}.${obj.fbsj?substring(8,10)}</span>
@@ -171,7 +171,7 @@
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
                             <#if obj_index<8>
-                                <li data-owid="${obj.owid}">
+                                <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li>${obj.zwbt}</li>
                                         <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea}</li>
@@ -192,7 +192,7 @@
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
                             <#if obj_index<8>
-                                <li data-owid="${obj.owid}">
+                                <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li>${obj.wzbt!''}</li>
                                         <li>
@@ -325,6 +325,7 @@
 <script src="${base}/js/swiper.min.js"></script>
 <script src="${base}/js/common.js"></script>
 <script src="${base}/js/jui.min.js"></script>
+<script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
 <script>
     var swiper = new Swiper('.news-swiper', {
