@@ -294,9 +294,15 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "newsDetail", method = RequestMethod.GET)
-    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "newsDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("newsDetail");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getOne");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
 

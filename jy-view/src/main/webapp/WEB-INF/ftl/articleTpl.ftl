@@ -41,7 +41,7 @@
                         <ul class="xyzy">
                             <#if (result??)&&(result?size>0)>
                                 <#list result as obj>
-                                    <li><a>信息学院</a></li>
+                                    <li><a href="${base}/newsDetail/${obj.owid!''}">${obj.wzbt!''}</a></li>
                                 </#list>
                             </#if>
                         </ul>
