@@ -277,4 +277,24 @@
         where a.JOB_REF_OWID =#{jobRefOwid} and a.YH_REF_OWID=#{yhRefOwid}
     </select>
 
+
+    <select id="getOneByParam" resultType="BckjBizJybm" parameterType="Map">
+        select
+        <include refid="bckjBizJybmColumns"></include>
+        from
+        bckj_biz_jybm a
+        <where>
+            <if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
+                AND a.qyxx_ref_owid = #{qyxxRefOwid}
+            </if>
+            <if test="jobRefOwid != null and jobRefOwid  != ''">
+                AND a.job_ref_owid = #{jobRefOwid}
+            </if>
+            <if test="yhRefOwid != null and yhRefOwid != ''">
+                AND a.yh_ref_owid = #{yhRefOwid}
+            </if>
+        </where>
+    </select>
+
+
 </mapper>
