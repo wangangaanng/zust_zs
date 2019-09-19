@@ -106,6 +106,12 @@
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>
+			<if test="zphJbf != null and zphJbf != ''">
+				AND a.zph_jbf = #{zphJbf}
+			</if>
+			<if test="zphCbf != null and zphCbf != ''">
+				AND a.zph_cbf = #{zphCbf}
+			</if>
             <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
                 and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
             </if>

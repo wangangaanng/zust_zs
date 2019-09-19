@@ -77,9 +77,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizJob(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizJob(List<FilterModel> filters, Integer zwlx, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizJob> page = findPage(dataMap, pageNo, pageSize, null);
+        //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
+        dataMap.put("zwlx", zwlx);
+        PageInfo<BckjBizJob> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 
@@ -93,12 +95,16 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
      * </ul>
      */
     @Transactional(readOnly = false)
-    public ResponseMessage saveBckjBizJob(Map<String, Object> mapData) {
+    public ResponseMessage saveBckjBizJob(Map<String, Object> mapData, Integer zwlx) {
         BckjBizJob bckjBizJob = JsonUtil.map2Bean(mapData, BckjBizJob.class);
+
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
             BckjBizJob bckjBizJobIndata = get(mapData.get("owid").toString());
             BeanUtil.copyPropertiesIgnoreNull(bckjBizJob, bckjBizJobIndata);
             bckjBizJob = bckjBizJobIndata;
+        } else {
+            bckjBizJob.setZwlx(zwlx);
+            bckjBizJob.setState(JyContant.JOB_ZT_TG);
         }
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
