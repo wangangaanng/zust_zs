@@ -76,6 +76,17 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 
 /* 日历 */
 .calendar-bar{background: #008784;color: #fff;font-size: 15px;height: 58px;line-height: 58px;}
+.datePickerLayout {
+    width: 200px;
+}
+.datePickerLayout ul li{height:22px;line-height:22px;width: 200px;overflow:hidden;}
+.datePickerLayout ul li a{text-decoration:underline; font-weight: bold;}
+.aui_main .aui_content {
+    max-height: 200px;
+    overflow-y: auto;
+}
+.dayTip_last a{background: #a0a0a0;}
+.dayTip a{background: #f5b900;}
 
 .adv{display: flex;justify-content: space-between;margin: 20px 0px;}
 .link{display: flex;justify-content: space-around;margin: 20px 0px;background: #f7f7f7;padding: 15px 8px;}

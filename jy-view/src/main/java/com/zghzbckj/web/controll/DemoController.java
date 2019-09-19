@@ -173,6 +173,23 @@ public class DemoController {
             view.addObject("result",result.getBean());
         }else if(bxlx.equals("1")){
             view.addObject("bxlx",bxlx);
+            Map param = Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            param.put("pageNo", '1');
+            param.put("pageSize", "20");
+            ResponseMessage resultMess  = new ResponseMessage();
+            PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+            resultMess = UnionHttpUtils.doPosts(_data);
+            if(null!=resultMess.getBean()) {
+                if(null!=((Map) resultMess.getBean()).get("records")) {
+                    view.addObject("result",((Map) resultMess.getBean()).get("records"));
+                }else {
+                    view.addObject("result",Lists.newArrayList());
+                }
+            }
+
         }
         return view;
     }
