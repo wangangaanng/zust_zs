@@ -54,7 +54,7 @@ public class StopAction implements ComponentListinerSer {
                 return;
             }
 
-            if ("6".equals(stopParam.get("stop")) && !AlterDialog.corfirm("您确定下架该职位吗？")) {
+            if ("6".equals(stopParam.get("stop")) && !AlterDialog.corfirm("您确定下架该信息吗？")) {
                 return;
             }
             /**调用接口**/
@@ -67,8 +67,6 @@ public class StopAction implements ComponentListinerSer {
             /**/
             publicData.setData(JsonUtil.toJson(ppt));
             ResponseMessage e = JsonPostUtils.executeAPI(ppt, apiURL);
-//            String result = PostUtil.doPost(publicData, BaseConstants.UTF8, false);
-//            ResponseMessage e = com.ourway.base.zk.utils.JsonUtil.getResponseMsg(result);
             if (null != e && e.getBackCode() == 0) {
                 AlterDialog.alert("操作成功");
             } else if (null != e && e.getBackCode() != 0) {

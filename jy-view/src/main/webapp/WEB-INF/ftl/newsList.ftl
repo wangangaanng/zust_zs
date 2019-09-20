@@ -34,7 +34,7 @@
                             <ul>
                                 <#if (result??)&&(result.records??)&&(result.records?size>0)>
                                     <#list result.records as obj>
-                                        <li>
+                                        <li><a href="${base}/newsDetail/${obj.owid!''}">
                                             <div class="article">${obj.wzbt!''}</div>
                                             <div class="article-time">
                                                 <#if obj.fbsj?exists>
@@ -42,7 +42,7 @@
                                                 </#if>
                                             </div>
 
-                                        </li>
+                                        </a></li>
                                     </#list>
                                 </#if>
                             </ul>

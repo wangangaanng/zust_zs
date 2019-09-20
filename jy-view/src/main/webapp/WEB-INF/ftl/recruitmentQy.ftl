@@ -20,7 +20,9 @@
                 <div class="content-list">
                     <div class="search-group">
                         <table>
-                            <tr><th>关键词</th><th>所在城市</th><th>开始时间</th><th></th></tr>
+                            <tr><th>关键词</th><th>工作城市</th>
+                                <th>发布时间</th>
+                                <th></th></tr>
                             <tr>
                                 <td>
                                     <div class="input-group search-input">
@@ -35,10 +37,10 @@
                                     <input class="form-control" type="text" id="zwCity">
                                 </td>
                                 <td>
-                                    <input class="form-control" type="date" id="zphKsrq1" >
+                                    <input class="form-control" type="date" id="fbsj1" >
                                 </td>
                                 <td>
-                                    <input class="form-control" type="date" id="zphKsrq2" >
+                                    <input class="form-control" type="date" id="fbsj2" >
                                 </td>
                                 <td>
                                     <button class="search-button" onclick="initTable()">搜索</button>
@@ -88,9 +90,9 @@
                 ajax("zustjy/bckjBizJob/myJobList", {
                     "zwgjz":$("#zwgjz").val(),//关键字
 //                    "zwPro":$("#zwPro").val(),//省
-                    "zwCity":$("#zwCity").val(),//市
-                    "startTime":$("#zphKsrq1").val(),//招聘会开始时间
-                    "endTime":$("#zphKsrq2").val(),//结束时间
+                    "zwCity":$("#zwCity").val(),//工作城市
+                    "createtime1":$("#fbsj1").val(),//发布时间
+                    "createtime2":$("#fbsj2").val(),//发布时间
                     "zwlx":zwlx,
                     "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
@@ -110,7 +112,6 @@
                 })
             },
             responseHandler:function(res){
-                // return res
                 $('#table-zph').bootstrapTable('load', res.row);
                 return {
                     "total":res.total,
@@ -145,22 +146,14 @@
             columns: [{
                 align : 'center',
                 field: 'zwbt',
-                title: '标题',
-            }, {
-                align : 'center',
-                field: 'zphCbf',
-                title: '承办方'
-            }, {
+                title: '招聘公告',
+            },{
                 align : 'center',
                 field: 'zwCity',
-                title: '城市',
-            }, {
-                align : 'center',
-                field: 'zphJbdd',
-                title: '举办地点',
-            }, {
-                field: 'zphKsrq',
-                title: '具体时间',
+                title: '工作城市',
+            },{
+                field: 'createtime',
+                title: '发布时间',
                 align : 'center',
                 formatter:function(value,row,index){
                     var value=row.zphKsrq.substring(0,10);
