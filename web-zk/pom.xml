@@ -58,7 +58,7 @@
         <dependency>
             <groupId>com.bckj.base</groupId>
             <artifactId>base-zk</artifactId>
-            <version>32.7</version>
+            <version>33.1</version>
         </dependency>
         <!--web端的工具类-->
         <dependency>
