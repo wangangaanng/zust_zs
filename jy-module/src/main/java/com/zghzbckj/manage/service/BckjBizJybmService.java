@@ -19,10 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -78,8 +75,14 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizJybm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizJybm(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmlx"))) {
+            dataMap.put("bmlx", map.get("bmlx").toString());
+        }
         PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, null);
         return ResponseMessage.sendOK(page);
     }
@@ -131,7 +134,21 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
+
+        BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
+        if (TextUtils.isEmpty(job)) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", "招聘信息不存在");
+            return resultMap;
+        }
+        if (TextUtils.isEmpty(job.getZphSfbm()) || 0 == job.getZphSfbm()) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", "无需报名");
+            return resultMap;
+        }
+
         BckjBizJybm jybm = new BckjBizJybm();
+        jybm.setBmsj(new Date());
         Integer bmlx = Integer.parseInt(mapData.get("bmlx").toString());
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
@@ -161,7 +178,6 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     return resultMap;
                 }
             }
-            BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
             //报名对象宣讲会
             if (JyContant.BMDX_XJH == 1) {
                 //申请宣讲会
@@ -190,6 +206,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJybm> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
+        dataMap.put("bmlx", dataMap.get("bmlx").toString());
+        dataMap.put("bmdx", dataMap.get("bmdx").toString());
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();

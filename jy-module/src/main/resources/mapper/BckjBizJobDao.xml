@@ -122,10 +122,10 @@
                 AND a.zwgjz = #{zwgjz}
             </if>
             <if test="zwPro != null and zwPro != ''">
-                AND a.zw_pro = #{zwPro}
+                AND a.zw_pro like CONCAT('%', #{zwPro},'%')
             </if>
             <if test="zwCity != null and zwCity != ''">
-                AND a.zw_city = #{zwCity}
+                AND a.zw_city like CONCAT('%', #{zwCity},'%')
             </if>
             <if test="zphKsrq!= null and zphKsrq != ''">
                 AND a.zph_ksrq = #{zphKsrq}
@@ -147,6 +147,9 @@
             </if>
             <if test="zwGznx!= null and zwGznx != ''">
                 AND a.zw_gznx = #{zwGznx}
+            </if>
+            <if test="zwQymc!= null and zwQymc != ''">
+                AND a.exp1 like CONCAT('%', #{zwQymc},'%')
             </if>
         </where>
         <choose>

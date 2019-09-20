@@ -16,6 +16,7 @@ import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.dao.BckjBizXsgzDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
+import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         PageInfo<BckjBizJob> page = new PageInfo<>();
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
-        dataMap.put("zwlx", zwlx);
+        dataMap.put("zwlx", zwlx.toString());
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
         } else {
@@ -178,8 +179,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public Map addOneJob(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
         BckjBizJob job = new BckjBizJob();
+        BckjBizQyxx qyxx = qyxxDao.get(mapData.get("qyxxRefOwid").toString());
+
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
+            if (!TextUtils.isEmpty(qyxx)) {
+                job.setExp1(qyxx.getQymc());
+            }
             //状态通过
             job.setState(JyContant.JOB_ZT_TG);
             saveOrUpdate(job);
