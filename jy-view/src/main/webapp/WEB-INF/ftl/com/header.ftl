@@ -17,6 +17,7 @@
             </div>
             <div class="nav">
                 <ul>
+                    <#if header??>
                     <#list header as obj>
                         <li class="nav-item" onclick='openUrl("${obj.TZLJ!''}")'>${obj.NAME}
                             <#--<#if obj.sub??>-->
@@ -28,9 +29,10 @@
                             <#--</#if>-->
                         </li>
                     </#list>
-
+                    </#if>
                 </ul>
                 <div class="subnav-wrap">
+                <#if header??>
                 <#list header as obj>
                     <#if obj.chirdMenu??>
                         <div class="subnav-cont" rel="${obj_index}">
@@ -47,6 +49,7 @@
                         </div>
                     </#if>
                 </#list>
+                </#if>
                 </div>
             </div>
         </div>
