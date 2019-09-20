@@ -39,6 +39,6 @@ eureka:
         fetch-registry: true
 
 #整合logBack
-logging:
-  config: classpath:config/logback-spring-pro.xml
-  path: /usr/project/log
+#logging:
+#  config: classpath:config/logback-spring-pro.xml
+#  path: /usr/project/log

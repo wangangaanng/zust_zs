@@ -16,6 +16,7 @@ import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.dao.BckjBizXsgzDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
+import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         PageInfo<BckjBizJob> page = new PageInfo<>();
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
-        dataMap.put("zwlx", zwlx);
+        dataMap.put("zwlx", zwlx.toString());
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
         } else {
@@ -178,8 +179,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public Map addOneJob(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
         BckjBizJob job = new BckjBizJob();
+        BckjBizQyxx qyxx = qyxxDao.get(mapData.get("qyxxRefOwid").toString());
+
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
+            if (!TextUtils.isEmpty(qyxx)) {
+                job.setExp1(qyxx.getQymc());
+            }
             //状态通过
             job.setState(JyContant.JOB_ZT_TG);
             saveOrUpdate(job);
@@ -197,6 +203,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public PageInfo<BckjBizJob> myJobList(Map<String, Object> dataMap) {
         Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
+        if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
+            dataMap.put("zwlx", dataMap.get("zwlx").toString());
+        }
+
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         //状态为通过
@@ -251,7 +261,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 params.clear();
                 params.put("jobRefOwid", job.getOwid());
                 //0 职位 1 企业
-                params.put("gzlx", dataMap.get("gzlx"));
+                if (!TextUtils.isEmpty(dataMap.get("gzlx"))) {
+                    params.put("gzlx", dataMap.get("gzlx").toString());
+                }
+                if (!TextUtils.isEmpty(dataMap.get("xxlb"))) {
+                    params.put("xxlb", dataMap.get("xxlb").toString());
+                }
                 List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
                 job.setXsgzList(xsgzList);
                 job.setNumber(xsgzList.size());
