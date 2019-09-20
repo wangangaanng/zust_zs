@@ -67,7 +67,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -103,7 +103,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>

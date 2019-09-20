@@ -31,14 +31,14 @@ header .top-logo .user-info a{
     color: #fff;
 }
 
-.btn:active,
-.btn:focus,
-.btn:hover{
-    color: #fff !important;
-    background-color: #008784 !important;
-    border-color: #008784 !important;
-    opacity: 0.7 !important;
-}
+/*.btn:active,*/
+/*.btn:focus,*/
+/*.btn:hover{*/
+    /*color: #fff !important;*/
+    /*background-color: #008784 !important;*/
+    /*border-color: #008784 !important;*/
+    /*opacity: 0.7 !important;*/
+/*}*/
 
 header .logo {
     width: 467px;
