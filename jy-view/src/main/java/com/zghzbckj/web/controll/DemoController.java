@@ -499,18 +499,48 @@ public class DemoController {
     @RequestMapping(value = "stuService", method = RequestMethod.GET)
     public ModelAndView stuService(HttpServletRequest request,ModelAndView view) {
         view.setViewName("stuService");
+        view.addObject("header",getHeader().getBean());
+        return view;
+    }
+
+
+    @RequestMapping(value = "jydcList", method = RequestMethod.GET)
+    public ModelAndView jydcList(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("jydcList");
+        view.addObject("header",getHeader().getBean());
+        return view;
+    }
+
+
+    @RequestMapping(value = "jydcDetail", method = RequestMethod.GET)
+    public ModelAndView jydcDetail(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("jydcDetail");
+        view.addObject("header",getHeader().getBean());
         return view;
     }
 
     @RequestMapping(value = "stuCenter", method = RequestMethod.GET)
     public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view) {
         view.setViewName("stuCenter");
+        Map param=Maps.newHashMap();
+        param.put("pageNo",'1');
+        param.put("pageSize","9");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("tlist",result.getBean());
         return view;
     }
 
-    @RequestMapping(value = "teacherDetail", method = RequestMethod.GET)
-    public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "teacherDetail/{towid}", method = RequestMethod.GET)
+    public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view, @PathVariable String towid) {
         view.setViewName("teacherDetail");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("towid",towid);
+        Map param=Maps.newHashMap();
+        param.put("owid",towid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/details");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("detail",result.getBean());
         return view;
     }
 

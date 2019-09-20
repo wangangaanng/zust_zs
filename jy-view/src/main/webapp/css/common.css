@@ -31,14 +31,14 @@ header .top-logo .user-info a{
     color: #fff;
 }
 
-/*.btn:active,*/
-/*.btn:focus,*/
-/*.btn:hover{*/
+.btn:active,
+.btn:focus,
+.btn:hover{
     /*color: #fff !important;*/
     /*background-color: #008784 !important;*/
     /*border-color: #008784 !important;*/
-    /*opacity: 0.7 !important;*/
-/*}*/
+    opacity: 0.7 !important;
+}
 
 header .logo {
     width: 467px;
@@ -1061,8 +1061,11 @@ ul.pagination {
 }
 
 .td-detail .t-sm {
-    padding: 12px;
-    text-indent: 2em
+    margin: 12px;
+    text-indent: 2em;
+    display:-webkit-box;overflow:hidden;
+    white-space:normal!important;text-overflow:ellipsis;
+    word-wrap:break-word;-webkit-line-clamp:4;-webkit-box-orient:vertical;
 }
 
 .td-sm {
@@ -1243,8 +1246,11 @@ button.green:hover{
 }
 
 .teacher-detail .t-sm {
-    padding: 12px;
-    text-indent: 2em
+    margin: 12px;
+    text-indent: 2em;
+    display:-webkit-box;overflow:hidden;
+    white-space:normal!important;text-overflow:ellipsis;
+    word-wrap:break-word;-webkit-line-clamp:4;-webkit-box-orient:vertical;
 }
 
 .teacher-detail .t-btn {

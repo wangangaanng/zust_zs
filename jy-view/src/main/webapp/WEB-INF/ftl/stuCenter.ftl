@@ -10,11 +10,11 @@
 </head>
 <style>
 
-    .teacher-item .t-bg {
+    /*.teacher-item .t-bg {
         width: 100%;
         height: 260px;
         background: url("${base}/img/teacher.png") 100% no-repeat;
-    }
+    }*/
 
 </style>
 
@@ -48,6 +48,9 @@
                             <span class="ic-menu"></span> 导师咨询
                         </li>
                         <li class="list-group-item">
+                            <span class="ic-menu"></span> 咨询列表
+                        </li>
+                        <li class="list-group-item">
                             <span class="ic-menu"></span> 报名预约
                         </li>
                     </ul>
@@ -60,54 +63,23 @@
                         <div class="h3">指导老师</div>
                     </div>
                     <div class="teacher-list">
+                        <#if tlist??>
+                        <#list tlist.records as obj>
                         <div class="teacher-item">
-                            <div class="t-bg"></div>
+                            <div class="t-bg" style="background: url("${obj.zjtx}")"></div>
                             <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
+                                <div class="t-name">${obj.zjxm}</div>
                                 <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
+                                <div class="t-sm">${obj.zjxx}</div>
                                 <div class="t-btn">
                                     <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
+                                    <button class="btn t-xq" onclick="window.location.href='teacherDetail/${obj.owid}'">查看详情</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
+                        </#list>
+                        </#if>
+
                     </div>
                 </div>
             </div>
