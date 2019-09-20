@@ -18,7 +18,7 @@ spring:
         driver-class-name: com.mysql.jdbc.Driver                                    #  配置mysql的驱动程序类
         url: jdbc:mysql://127.0.0.1:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
         username: root                                                              #  数据库用户名
-        password: root11                                                            #  数据库密码
+        password: zhoubaogang                                                            #  数据库密码
         druid:
             filters: stat
             initialSize: 5
@@ -34,7 +34,7 @@ spring:
 eureka:
     client:
         serviceUrl:
-            defaultZone: http://172.18.222.149:8761/eureka/
+            defaultZone: http://127.0.0.1:8761/eureka/
         register-with-eureka: true
         fetch-registry: true
 
