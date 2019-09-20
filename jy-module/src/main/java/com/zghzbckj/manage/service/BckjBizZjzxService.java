@@ -4,29 +4,26 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.feign.BckjBizZxzxSer;
-import com.zghzbckj.util.PageUtils;
-import com.zghzbckj.util.ToolUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.PublicDataVO;
-import com.zghzbckj.base.model.ResponseMessage;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.feign.BckjBizZxzxSer;
+import com.zghzbckj.manage.dao.BckjBizZjzxDao;
+import com.zghzbckj.manage.entity.BckjBizZjzx;
+import com.zghzbckj.util.PageUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.entity.BckjBizZjzx;
-import com.zghzbckj.manage.dao.BckjBizZjzxDao;
 
 /**
  * ccService

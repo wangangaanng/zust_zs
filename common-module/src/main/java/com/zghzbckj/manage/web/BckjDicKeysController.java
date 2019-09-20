@@ -103,4 +103,21 @@ public class BckjDicKeysController extends BaseController {
     }
 
 
+    @RequestMapping(value = "keyFilter", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage keyFilter(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "content");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjDicKeysService.filterContent(mapData));
+        } catch (Exception e) {
+            log.info("关键字过滤失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
 }

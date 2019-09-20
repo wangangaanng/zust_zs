@@ -10,19 +10,6 @@
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
 </head>
 <style>
-    .step2-title{
-        text-align: center;
-        font-size: 24px;
-        color: #292929;
-        margin-top: 30px;
-    }
-    .zph-d{
-        margin-top: 15px;
-    }
-    .zph-d .row{
-        padding: 5px 0;
-    }
-
 
 </style>
 
@@ -38,85 +25,11 @@
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">企业服务</a></li>
-                <li class="active">招聘会申请</li>
+                <li class="active">宣讲会申请</li>
             </ol>
         </div>
         <div class="content">
             <div class="jf-content">
-                <div class="jf-steps">
-                     <#if step=='0'>
-                    <div class="jf-items">
-                        <div class="jf-item jf-active">1、招聘会列表
-                            <div class="jf-box"></div>
-                            <div class="jf-box1"></div>
-                            <div class="jf-box2"></div>
-                        </div>
-                        <div class="jf-item ">2、预定展位
-                            <div class="jf-box"></div>
-                            <div class="jf-box1"></div>
-                            <div class="jf-box2"></div>
-                        </div>
-                        <div class="jf-item ">3、完成</div>
-                    </div>
-                    <#elseif step=='1'>
-                    <div class="jf-items">
-                        <div class="jf-item jf-active">1、招聘会列表
-                        <div class="jf-box"></div>
-                        <div class="jf-box1"></div>
-                        <div class="jf-box2"></div>
-                        </div>
-                        <div class="jf-item jf-active">2、预定展位
-                        <div class="jf-box"></div>
-                        <div class="jf-box1"></div>
-                        <div class="jf-box2"></div>
-                        </div>
-                        <div class="jf-item ">3、完成</div>
-                    </div>
-                        <div class="step2-title">${oneJob.zwbt}招聘会火热报名中。。。</div>
-                     <#elseif step=='2'>
-                    <div class="jf-items">
-                        <div class="jf-item jf-active">1、招聘会列表
-                        <div class="jf-box"></div>
-                        <div class="jf-box1"></div>
-                        <div class="jf-box2"></div>
-                        </div>
-                        <div class="jf-item jf-active">2、预定展位
-                        <div class="jf-box"></div>
-                        <div class="jf-box1"></div>
-                        <div class="jf-box2"></div>
-                        </div>
-                        <div class="jf-item jf-active">3、完成</div>
-                    </div>
-                    </#if>
-                            <#--<#if (step==1)>-->
-                                <#--<div class="jf-item jf-active">1、招聘会列表-->
-                                    <#--<div class="jf-box"></div>-->
-                                    <#--<div class="jf-box1"></div>-->
-                                    <#--<div class="jf-box2"></div>-->
-                                <#--</div>-->
-                                <#--<div class="jf-item jf-active">2、预定展位-->
-                                    <#--<div class="jf-box"></div>-->
-                                    <#--<div class="jf-box1"></div>-->
-                                    <#--<div class="jf-box2"></div>-->
-                                <#--</div>-->
-                                <#--<div class="jf-item ">3、完成</div>-->
-                            <#--</#if>-->
-                            <#--<#if (step==2)>-->
-                                <#--<div class="jf-item jf-active">1、招聘会列表-->
-                                    <#--<div class="jf-box"></div>-->
-                                    <#--<div class="jf-box1"></div>-->
-                                    <#--<div class="jf-box2"></div>-->
-                                <#--</div>-->
-                                <#--<div class="jf-item jf-active">2、预定展位-->
-                                    <#--<div class="jf-box"></div>-->
-                                    <#--<div class="jf-box1"></div>-->
-                                    <#--<div class="jf-box2"></div>-->
-                                <#--</div>-->
-                                <#--<div class="jf-item jf-active">3、完成</div>-->
-                        <#--</#if>-->
-                    </div>
-
-                <#if step=='0'>
                 <div>
                     <div class="news-list">
                         <div class="e-table">
@@ -127,68 +40,21 @@
                         </div>
                     </div>
                 </div>
-                <#elseif step=='1'>
-                    <div class="zph-d">
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-1">举办时间：${oneJob.zphKsrq?substring(0,10)}</div>
-                            <div class="col-md-4">举办城市：${oneJob.zwPro}-${oneJob.zwCity}-${oneJob.zwArea}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-1">预定结束时间：${oneJob.zphBmjzsj?substring(0,10)}</div>
-                            <div class="col-md-4">举办地址：${oneJob.zphJbdd}</div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4 col-md-offset-1">主办方：${oneJob.zphJbf}</div>
-                            <div class="col-md-4">承办方：${oneJob.zphCbf}</div>
-                        </div>
-                        <div class="row btn-yd">
-                            <div class="col-md-8 col-md-offset-1 text-center">
-                                <button class="btn green" onclick="order()">预定展位</button>
-                            </div>
-                        </div>
-
-
-                    </div>
-                <#elseif step=='2'>
-                <div class="jf-result" >
-                    <div class="jf-tips">
-                        <div class="jf-tip-icon">
-                            <i></i>
-                        </div>
-                        <div class="jf-tip-text">
-                            <div>申请资料提交成功，您的申请一般在24小时内审核完成，</div>
-                            <div>将以电话的方式通知审核结果</div>
-                            <div>申请遇到问题请咨询浙江科技学院学生处就业指导中心:0571-85121710</div>
-                        </div>
-                    </div>
-                </div>
-
-                </#if>
             </div>
-            </div>
-
         </div>
 
     </div>
+
 </div>
-<#if zphOwid??>
-<input type="hidden" value="${zphOwid}" id="zphOwid" />
-</#if>
-<input type="hidden" value="${step}" id="current-step" />
+</div>
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/bootstrap-table.min.js" type="text/javascript"></script>
 <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
 <script>
 
-var pageNo=1;
-var pageSize=10;
     $(document).ready(function () {
-
-        if($("#current-step").val()==0){
             myJobList1()
-        }
-
     })
 
     var layer1;
@@ -243,7 +109,7 @@ var pageSize=10;
             if(data.backCode==0){
                 layer.close(layer1)
                 layer1=null;
-                <#--window.location.href="${base}/"+url-->
+            <#--window.location.href="${base}/"+url-->
                 window.location.href="${base}/jobFair/2"
             }else{
                 walert(data.errorMess)

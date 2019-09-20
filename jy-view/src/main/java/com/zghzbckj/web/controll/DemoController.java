@@ -331,6 +331,28 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "jobFair/{step}/{owid}", method = RequestMethod.GET)
+    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid) {
+        view.setViewName("jobFair");
+        view.addObject("step",step);
+        if(null!=owid){
+            view.addObject("zphOwid",owid);
+            Map param=Maps.newHashMap();
+            param.put("owid",owid);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("oneJob",result.getBean());
+        }
+        return view;
+    }
+
+
+    @RequestMapping(value = "xjhList", method = RequestMethod.GET)
+    public ModelAndView xjhList(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("xjhList");
+        return view;
+    }
+
     @RequestMapping(value = "jobFair/{step}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
         view.setViewName("jobFair");
