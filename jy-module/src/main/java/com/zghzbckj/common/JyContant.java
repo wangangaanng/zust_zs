@@ -52,4 +52,9 @@ public class JyContant {
     public static final int BMDX_XJH = 1;
     //职位类别 0职位
     public static final int ZWLB_ZW = 0;
+    public static final int ZWLB_XJH = 4;
+    public static final String ZW_PRO = "浙江省";
+    public static final String ZW_CITY = "杭州市";
+    public static final String ZW_AREA = "西湖区";
+    public static final String ZW_DD = "浙江科技学院";
 }

@@ -83,7 +83,7 @@ public class BckjBizJybmController extends BaseController {
     public ResponseMessage getXjhList(PublicDataVO dataVO) {
         try {
             map.clear();
-            map.put("bmlx", 1);
+            map.put("bmdx", 1);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {
@@ -207,7 +207,7 @@ public class BckjBizJybmController extends BaseController {
         Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
         List<String> codes = new ArrayList<String>();
         codes.add(mapData.get("owid").toString());
-        //通过 状态为2
+        //通过 状态为1
         Integer state = 1;
         Map resultMap = bckjBizJybmService.submitPurchaseBack(codes, state, mapData);
         if ("true".equals(resultMap.get("result").toString())) {
