@@ -155,6 +155,7 @@ public class DemoController {
     @RequestMapping(value = "announcement", method = RequestMethod.GET)
     public ModelAndView announcement(HttpServletRequest request,ModelAndView view) {
         view.setViewName("announcement");
+
         return view;
     }
     @RequestMapping(value = "articleTpl/{secondDir}/{thirdDir}", method = RequestMethod.GET)
@@ -206,9 +207,16 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
-    @RequestMapping(value = "recruitment", method = RequestMethod.GET)
-    public ModelAndView recruitment(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "recruitment/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView recruitment(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("recruitment");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+//        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String zwlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("SJHQDX").toString();
+        view.addObject("zwlx",zwlx);
         return view;
     }
 
