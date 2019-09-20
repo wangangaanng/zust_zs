@@ -115,6 +115,39 @@
             <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
                 and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
             </if>
+            <if test="zwbt != null and zwbt != ''">
+                AND a.zwbt like CONCAT('%', #{zwbt},'%')
+            </if>
+            <if test="zwgjz != null and zwgjz != ''">
+                AND a.zwgjz = #{zwgjz}
+            </if>
+            <if test="zwPro != null and zwPro != ''">
+                AND a.zw_pro = #{zwPro}
+            </if>
+            <if test="zwCity != null and zwCity != ''">
+                AND a.zw_city = #{zwCity}
+            </if>
+            <if test="zphKsrq!= null and zphKsrq != ''">
+                AND a.zph_ksrq = #{zphKsrq}
+            </if>
+            <if test="zwGzzn!= null and zwGzzn != ''">
+                AND a.zw_gzzn = #{zwGzzn}
+            </if>
+            <if test="zwGzxz!= null and zwGzxz != ''">
+                AND a.zw_gzxz = #{zwKszwGzxzrq}
+            </if>
+            <if test="zwNlyq!= null and zwNlyq != ''">
+                AND a.zw_nlyq = #{zwNlyq}
+            </if>
+            <if test="zwXlyq!= null and zwXlyq != ''">
+                AND a.zw_xlyq = #{zwXlyq}
+            </if>
+            <if test="zwYyyq!= null and zwYyyq != ''">
+                AND a.zw_yyyq = #{zwYyyq}
+            </if>
+            <if test="zwGznx!= null and zwGznx != ''">
+                AND a.zw_gznx = #{zwGznx}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

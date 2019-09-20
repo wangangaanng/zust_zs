@@ -1140,3 +1140,13 @@ button.green{
 
 .page-list{
     display: none !important;}
+
+.lxr-modal{
+    padding: 15px 0;
+}
+.layui-layer-content{
+    overflow: hidden !important;
+}
+.btn-yd{
+    margin-top: 20px;
+}

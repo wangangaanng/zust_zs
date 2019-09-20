@@ -9,6 +9,7 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.BckjDicKeysDao;
 import com.zghzbckj.manage.entity.BckjDicKeys;
 import org.apache.log4j.Logger;
@@ -125,6 +126,18 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
             objs.add(params);
         }
         return ResponseMessage.sendOK(objs);
+    }
+
+    public String filterContent(Map<String, Object> mapData) {
+        String content=mapData.get("content").toString();
+        List<BckjDicKeys> allKeys=this.dao.findListByMap(mapData);
+        StringBuffer sf=new StringBuffer();
+        for(BckjDicKeys oneKey:allKeys){
+            if(content.contains(oneKey.getKeyWord())){
+                sf.append(oneKey.getKeyWord()+ CommonModuleContant.SPILE_DOUHAO);
+            }
+        }
+        return sf.toString();
     }
 
 }

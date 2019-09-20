@@ -126,7 +126,7 @@
 				AND a.state = #{state}
 			</if>
             <if test=" qymc != null and qymc != '' ">
-                AND a.qymc like CONCAT('%',#{qymc},"%")
+                AND a.qymc like CONCAT('%',#{qymc},'%')
             </if>
         </where>
         <choose>
