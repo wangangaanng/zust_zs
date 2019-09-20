@@ -51,7 +51,6 @@
                             <table class="table table-hover" data-locale="zh-CN" id="table-zph" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -146,12 +145,8 @@
             columns: [{
                 align : 'center',
                 field: 'zwbt',
-                title: '标题',
-            }, {
-                align : 'center',
-                field: 'zphCbf',
-                title: '承办方'
-            }, {
+                title: '招聘会名称',
+            },{
                 align : 'center',
                 field: 'zwCity',
                 title: '城市',
