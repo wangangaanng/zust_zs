@@ -7,6 +7,7 @@ import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -43,6 +44,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     BckjBizDcwjDtmxService bckjBizDcwjDtmxService;
     @Autowired
     BckjBizDcwjJgService bckjBizDcwjJgService;
+    @Autowired
+    BckjBizDcwjTmService bckjBizDcwjTmService;
 
     @Override
     public BckjBizDcwj get(String owid) {
@@ -111,15 +114,16 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     }
 
     /**
-     *<p>方法:返回问题列表 listAllQuestions TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/9/12 16:52  </li>
-     *</ul>
+     * <p>方法:返回问题列表 listAllQuestions TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/12 16:52  </li>
+     * </ul>
      */
     public List<Map<String, Object>> listAllQuestions(Map<String, Object> dataMap) {
+        dataMap.put("orderBy", "tmsx");
         List<BckjBizDcwjTm> questionList = bckjBizDcwjTmDao.findListByMap(dataMap);
         if (null == questionList) {
             return null;
@@ -133,19 +137,19 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     }
 
     /**
-     *<p>方法:保存答案 saveAnswer TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li>@return void  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/9/12 16:53  </li>
-     *</ul>
+     * <p>方法:保存答案 saveAnswer TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return void  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/12 16:53  </li>
+     * </ul>
      */
     @Transactional(readOnly = false)
     public ResponseMessage saveAnswer(Map<String, Object> dataMap) {
         List<Map<String, Object>> answerList = (List<Map<String, Object>>) dataMap.get("answerList");
         if (TextUtils.isEmpty(answerList) || answerList.size() <= 0) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"答案列表为空");
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "答案列表为空");
         }
         BckjBizDcwjJg result = new BckjBizDcwjJg();
         result.setKsdt(DateUtil.getDate(dataMap.get("ksdt").toString()));
@@ -158,6 +162,35 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             bckjBizDcwjDtmxService.save(answer);
         }
         return ResponseMessage.sendOK("问卷答案已保存");
+    }
+
+    /**
+     * <p>方法:后台保存调查问卷和问卷题目saveAll TODO </p>
+     * <ul>
+     * <li> @param dcwj TODO</li>
+     * <li> @param tmList TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/20 9:29  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public ResponseMessage saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
+        if (null == tmList) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
+        }
+        //保存调查问卷表
+        save(dcwj);
+        //保存调查问卷题目表
+        for (BckjBizDcwjTm tm : tmList) {
+            if (null == tm.getDcwjRefOwid()) {
+                bckjBizDcwjTmService.delete(tm);
+            } else {
+                bckjBizDcwjTmService.saveOrUpdate(tm);
+            }
+        }
+//        bckjBizDcwjTmService.saveOrUpdateAll(tmList);
+        return ResponseMessage.sendOK("");
     }
 
     /**

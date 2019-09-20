@@ -156,7 +156,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-default btn-common">注册</button>
+                        <button type="submit" class="btn btn-default btn-common green">注册</button>
                     </div>
                 </div>
             </form>

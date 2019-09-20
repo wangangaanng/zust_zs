@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,6 @@ public interface BckjBizJybmDao extends CrudDao<BckjBizJybm> {
     BckjBizJybm getOneByJobHy(Map<String, Object> datamap);
 
     BckjBizJybm getOneByParam(Map params);
+
+    List findListByMapXjh(Map<String, Object> paramsMap);
 }

@@ -13,7 +13,7 @@
 </style>
 
 <body>
-<#--<#include "com/header.ftl">-->
+<#include "com/header.ftl">
 <div class="main">
     <div class="container">
         <div class="content-form">

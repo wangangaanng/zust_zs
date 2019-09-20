@@ -86,16 +86,16 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" placeholder="请输入用户名" class="login-act">
+                        <input type="text" id="yhDlzh" placeholder="请输入用户名" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="password" placeholder="请输入密码" class="login-pswd">
+                        <input type="password" id="yhDlmm" placeholder="请输入密码" class="login-pswd">
                     </li>
                     <li>
-                        <input type="button" value="登录" class="login-btn">
+                        <input type="button" onclick="stuLogin()" value="登录" class="login-btn">
                     </li>
                 </ul>
                 <#--<ul class="company-form" style="display:none">
@@ -127,7 +127,7 @@
                         还没有账号？<a href="/enterpriseReg">注册</a>
                     </li>
                     <li>
-                        <input type="button" value="登录" onclick="qylogin()" class="login-btn">
+                        <input type="button" value="登录" onclick="qyLogin()" class="login-btn">
                     </li>
                 </ul>
             </div>
@@ -350,7 +350,24 @@
         $(this).parents('.box').find(".tabbar-frame_content>ul").eq($(this).index()).show().siblings().hide();
     })
 
-    function qylogin() {
+    function stuLogin() {
+        var jsonObj={
+            "yhDlzh":$("#yhDlzh").val().trim(),
+            "yhDlmm":$("#yhDlmm").val().trim()
+        }
+        ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
+            console.log(data)
+            if(data.backCode==0){
+                addCookie("stuOwid",data.bean.owid)
+                addCookie("stuSjh",data.bean.sjh)
+                location.reload();
+                // $(".frame-a_right").hide();
+                // $("#qy_pipe").show();
+            }
+        })
+    }
+
+    function qyLogin() {
         var jsonObj={
             "qyFrsfz":$("#qyFrsfz").val().trim(),
             "qyTysh":$("#qyTysh").val().trim()
@@ -360,17 +377,14 @@
             if(data.backCode==0){
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
-                console.log(data.bean)
-                alert("登录成功")
-                $(".frame-a_right").hide();
-                $("#qy_pipe").show();
+                location.reload();
+                // $(".frame-a_right").hide();
+                // $("#qy_pipe").show();
             }
         })
     }
 
     $(document).ready(function () {
-        console.log(getCookie("qyInfo"))
-        console.log(JSON.parse(getCookie("qyInfo")).owid)
         if(getCookie("qyOwid")){
             $(".frame-a_right").hide();
             $("#qy_pipe").show();
