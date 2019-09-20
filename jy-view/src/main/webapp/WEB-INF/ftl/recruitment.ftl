@@ -110,7 +110,6 @@
                 })
             },
             responseHandler:function(res){
-                console.log("res",res)
                 // return res
                 $('#table-zph').bootstrapTable('load', res.row);
                 return {
