@@ -87,6 +87,9 @@
         FROM bckj_biz_jybm a
         LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
         <where>
+			<if test="zwbt != null and zwbt  != ''">
+				AND b.zwbt like CONCAT('%', #{zwbt},'%')
+			</if>
             <if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
                 AND a.qyxx_ref_owid = #{qyxxRefOwid}
             </if>

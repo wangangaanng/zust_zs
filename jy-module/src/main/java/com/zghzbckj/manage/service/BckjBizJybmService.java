@@ -133,20 +133,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
+        //0报名 1宣讲
+        Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         Map resultMap = new HashMap<>(2);
-
-        BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
-        if (TextUtils.isEmpty(job)) {
-            resultMap.put("result", "false");
-            resultMap.put("msg", "招聘信息不存在");
-            return resultMap;
-        }
-        if (TextUtils.isEmpty(job.getZphSfbm()) || 0 == job.getZphSfbm()) {
-            resultMap.put("result", "false");
-            resultMap.put("msg", "无需报名");
-            return resultMap;
-        }
-
         BckjBizJybm jybm = new BckjBizJybm();
         jybm.setBmsj(new Date());
         Integer bmlx = Integer.parseInt(mapData.get("bmlx").toString());
@@ -160,7 +149,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 jybm.setQysh(qyxx.getQyTysh());
                 Map params = new HashMap<>();
                 params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
-                params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+//                params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
                 BckjBizJybm existBm = this.dao.getOneByParam(params);
                 if (!TextUtils.isEmpty(existBm)) {
                     resultMap.put("result", "false");
@@ -179,12 +168,25 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 }
             }
             //报名对象宣讲会
-            if (JyContant.BMDX_XJH == 1) {
-                //申请宣讲会
-                jybm.setSfxz(0);
-            }
-            if (!TextUtils.isEmpty(job.getZphKsrq())) {
-                jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
+            if (JyContant.BMDX_XJH == bmdx) {
+                if (TextUtils.isEmpty(mapData.get("xjsj"))) {
+                    jybm.setXjsj(mapData.get("xjsj").toString());
+                }
+            } else if (JyContant.BMDX_ZPH == bmdx) {
+                BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
+                if (TextUtils.isEmpty(job)) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "招聘信息不存在");
+                    return resultMap;
+                }
+                if (TextUtils.isEmpty(job.getZphSfbm()) || 0 == job.getZphSfbm()) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "无需报名");
+                    return resultMap;
+                }
+                if (!TextUtils.isEmpty(job.getZphKsrq())) {
+                    jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
+                }
             }
             //待审核
             jybm.setState(JyContant.JOB_ZT_DSH);
@@ -222,5 +224,33 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     public BckjBizJybm getOneByJobHy(Map<String, Object> datamap) {
         return this.dao.getOneByJobHy(datamap);
+    }
+
+
+    @Transactional(readOnly = false)
+    public Map submitPurchaseBack(List<String> codes, Integer state, Map mapData) {
+        Map resultMap = new HashMap<>(2);
+        BckjBizJybm bm = get(codes.get(0));
+        //
+        if (1 == state) {
+            if (TextUtils.isEmpty(mapData.get("zwbh"))) {
+                resultMap.put("result", "false");
+                resultMap.put("msg", "审核通过时请填写分配的展位编号");
+                return resultMap;
+            }
+            bm.setZwbh(mapData.get("zwbh").toString());
+            // TODO: 2019/9/18 通过短信
+
+        } else if (2 == state) {
+            // TODO: 2019/9/18 拒绝短信
+        }
+        bm.setState(state);
+        saveOrUpdate(bm);
+        resultMap = new HashMap<>(2);
+        resultMap.put("result", "true");
+        List<Object> _list = new ArrayList();
+        _list.add(bm);
+        resultMap.put("bean", _list);
+        return resultMap;
     }
 }

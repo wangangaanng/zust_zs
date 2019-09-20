@@ -151,6 +151,12 @@
             <if test="zwQymc!= null and zwQymc != ''">
                 AND a.exp1 like CONCAT('%', #{zwQymc},'%')
             </if>
+			<if test="createtime1 != null and createtime1 !=''  ">
+				AND a.createtime &gt;= #{createtime1}
+			</if>
+			<if test="createtime2 != null and createtime2 !=''  ">
+				AND a.createtime &lt;= #{createtime2}
+			</if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

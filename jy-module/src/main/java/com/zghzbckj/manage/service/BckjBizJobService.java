@@ -203,6 +203,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public PageInfo<BckjBizJob> myJobList(Map<String, Object> dataMap) {
         Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
+        if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
+            dataMap.put("zwlx", dataMap.get("zwlx").toString());
+        }
+
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         //状态为通过
@@ -257,7 +261,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 params.clear();
                 params.put("jobRefOwid", job.getOwid());
                 //0 职位 1 企业
-                params.put("gzlx", dataMap.get("gzlx"));
+                if (!TextUtils.isEmpty(dataMap.get("gzlx"))) {
+                    params.put("gzlx", dataMap.get("gzlx").toString());
+                }
+                if (!TextUtils.isEmpty(dataMap.get("xxlb"))) {
+                    params.put("xxlb", dataMap.get("xxlb").toString());
+                }
                 List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
                 job.setXsgzList(xsgzList);
                 job.setNumber(xsgzList.size());

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +63,7 @@ public class BckjBizJybmController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizJybmService.findPageBckjBizJybm(filters, dataVO.getPageNo(), dataVO.getPageSize(),map);
+            return bckjBizJybmService.findPageBckjBizJybm(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {
             log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -135,7 +136,7 @@ public class BckjBizJybmController extends BaseController {
     public ResponseMessage applyJob(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "jobRefOwid", "bmlx", "bmdx");
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "bmlx", "bmdx");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
@@ -174,6 +175,48 @@ public class BckjBizJybmController extends BaseController {
             return ResponseMessage.sendOK(bckjBizJybmService.myBmList(dataMap));
         } catch (Exception e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    @RequestMapping(value = "backPassOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage backPassOne(PublicDataVO dataVo) throws Exception {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
+        List<String> codes = new ArrayList<String>();
+        codes.add(mapData.get("owid").toString());
+        //通过 状态为2
+        Integer state = 1;
+        Map resultMap = bckjBizJybmService.submitPurchaseBack(codes, state, mapData);
+        if ("true".equals(resultMap.get("result").toString())) {
+            //数据回写
+            return ResponseMessage.sendOK(resultMap.get("bean"));
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
+    }
+
+    /**
+     * 退款审核拒绝
+     *
+     * @param dataVo
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "backRejectOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage backRejectOne(PublicDataVO dataVo) throws Exception {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
+        List<String> codes = new ArrayList<String>();
+        codes.add(mapData.get("owid").toString());
+        //拒绝 状态为4
+        Integer state = 2;
+        Map resultMap = bckjBizJybmService.submitPurchaseBack(codes, state, mapData);
+        if ("true".equals(resultMap.get("result").toString())) {
+            //数据回写
+            return ResponseMessage.sendOK(resultMap.get("bean"));
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
         }
     }
 
