@@ -155,6 +155,7 @@ public class DemoController {
     @RequestMapping(value = "announcement", method = RequestMethod.GET)
     public ModelAndView announcement(HttpServletRequest request,ModelAndView view) {
         view.setViewName("announcement");
+
         return view;
     }
     @RequestMapping(value = "articleTpl/{secondDir}/{thirdDir}", method = RequestMethod.GET)
@@ -206,9 +207,57 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
-    @RequestMapping(value = "recruitment", method = RequestMethod.GET)
-    public ModelAndView recruitment(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("recruitment");
+    @RequestMapping(value = "recruitment/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView recruitment(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+//        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
+        String zwlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("SJHQDX").toString();
+        view.addObject("zwlx",zwlx);
+        if(zwlx.equals("1")){//职来职往
+            view.setViewName("recruitment");
+        }else if(zwlx.equals("2")){//企业招聘公告
+            view.setViewName("recruitmentQy");
+        }else if(zwlx.equals("3")){//社会招聘会
+            view.setViewName("recruitmentSh");
+        }else if(zwlx.equals("0")){//职位
+            //工作职能
+            Map param=Maps.newHashMap();
+            param.put("dicType","20003");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+            ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("typeList",type.getBean());
+            //工作性质
+            Map param1=Maps.newHashMap();
+            param1.put("dicType","20004");
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+            ResponseMessage type1  = UnionHttpUtils.doPosts(publicData1);
+            view.addObject("typeList1",type1.getBean());
+            //年龄要求
+            Map param2=Maps.newHashMap();
+            param2.put("dicType","20005");
+            PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+            ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
+            view.addObject("typeList2",type2.getBean());
+            //学历要求
+            Map param3=Maps.newHashMap();
+            param3.put("dicType","20006");
+            PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+            ResponseMessage type3  = UnionHttpUtils.doPosts(publicData3);
+            view.addObject("typeList3",type3.getBean());
+            //工作年限
+            Map param5=Maps.newHashMap();
+            param5.put("dicType","20008");
+            PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+            ResponseMessage type5  = UnionHttpUtils.doPosts(publicData5);
+            view.addObject("typeList5",type5.getBean());
+
+
+            view.setViewName("recruitmentZw");
+        }
+
         return view;
     }
 
@@ -250,6 +299,7 @@ public class DemoController {
     @RequestMapping(value = "enterpriseReg", method = RequestMethod.GET)
     public ModelAndView enterpriseReg(HttpServletRequest request,ModelAndView view) {
         view.setViewName("enterpriseReg");
+        view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20000");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -271,6 +321,7 @@ public class DemoController {
     @RequestMapping(value = "newJob", method = RequestMethod.GET)
     public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
         view.setViewName("newJob");
+        view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20005");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -306,7 +357,8 @@ public class DemoController {
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
-//        view.setViewName("enterpriseService");
+        view.setViewName("enterpriseService");
+        view.addObject("header",getHeader().getBean());
 //        Map param=Maps.newHashMap();
 //        param.put("dicType","20000");
 //        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -334,6 +386,7 @@ public class DemoController {
     @RequestMapping(value = "jobFair/{step}/{owid}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid) {
         view.setViewName("jobFair");
+        view.addObject("header",getHeader().getBean());
         view.addObject("step",step);
         if(null!=owid){
             view.addObject("zphOwid",owid);
@@ -346,16 +399,10 @@ public class DemoController {
         return view;
     }
 
-
-    @RequestMapping(value = "xjhList", method = RequestMethod.GET)
-    public ModelAndView xjhList(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("xjhList");
-        return view;
-    }
-
     @RequestMapping(value = "jobFair/{step}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
         view.setViewName("jobFair");
+        view.addObject("header",getHeader().getBean());
         view.addObject("step",step);
         return view;
     }
@@ -449,9 +496,15 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "studentService", method = RequestMethod.GET)
-    public ModelAndView studentService(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("studentService");
+    @RequestMapping(value = "stuService", method = RequestMethod.GET)
+    public ModelAndView stuService(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("stuService");
+        return view;
+    }
+
+    @RequestMapping(value = "stuCenter", method = RequestMethod.GET)
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("stuCenter");
         return view;
     }
 

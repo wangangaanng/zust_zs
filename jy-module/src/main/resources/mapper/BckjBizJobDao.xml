@@ -94,8 +94,10 @@
     </select>
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJob">
         SELECT
+		b.qymc AS "qymc",
         <include refid="bckjBizJobColumns"/>
         FROM bckj_biz_job a
+		LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
         <where>
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx = #{zwlx}
@@ -112,8 +114,11 @@
             <if test="zphCbf != null and zphCbf != ''">
                 AND a.zph_cbf = #{zphCbf}
             </if>
-            <if test="startTime != null and startTime != '' and endTime != null and endTime != '' ">
-                and a.zph_ksrq &gt;= #{startTime} and a.zph_ksrq &lt;= #{endTime}
+            <if test="startTime != null and startTime != '' ">
+                and a.zph_ksrq &gt;= #{startTime}
+            </if>
+            <if test="endTime != null and endTime != '' ">
+                and a.zph_ksrq &lt;= #{endTime}
             </if>
             <if test="zwbt != null and zwbt != ''">
                 AND a.zwbt like CONCAT('%', #{zwbt},'%')
@@ -151,11 +156,14 @@
             <if test="zwQymc!= null and zwQymc != ''">
                 AND a.exp1 like CONCAT('%', #{zwQymc},'%')
             </if>
-			<if test="createtime1 != null and createtime1 !=''  ">
-				AND a.createtime &gt;= #{createtime1}
-			</if>
-			<if test="createtime2 != null and createtime2 !=''  ">
-				AND a.createtime &lt;= #{createtime2}
+            <if test="createtime1 != null and createtime1 !=''  ">
+                AND a.createtime &gt;= #{createtime1}
+            </if>
+            <if test="createtime2 != null and createtime2 !=''  ">
+                AND a.createtime &lt;= #{createtime2}
+            </if>
+			<if test="qymc != null and qymc != ''">
+				AND b.qymc = #{qymc}
 			</if>
         </where>
         <choose>

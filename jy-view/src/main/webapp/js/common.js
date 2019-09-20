@@ -31,6 +31,25 @@
 //     }
 // }
 
+$(document).ready(function () {
+    if(getCookie("qyOwid")){
+        $("#qyInfo").show();
+        $("#qyName").html(JSON.parse(getCookie("qyInfo")).qymc);
+    }
+    if(getCookie("stuOwid")){
+        $("#stuInfo").show();
+        $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
+    }
+})
+
+function loginout() {
+    delCookie("qyInfo");
+    delCookie("qyOwid");
+    delCookie("stuSjh");
+    delCookie("stuOwid");
+    location.reload();
+}
+
 // var localUrl = 'http://www.hwhautomall.com/ajax/executeAPI';
 var localUrl = 'http://localhost:8080/webAjax/executeAPI';
 var userKey = '';

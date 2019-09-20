@@ -266,7 +266,7 @@ var pageSize=10;
                 }, function (data) {
                     if(data.backCode==0){
                         request.success({
-                            row : data.bean.records,
+                            row : convertStr(data.bean.records,[]),
                             total: data.bean.totalCount
                         });
 

@@ -83,8 +83,39 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         if (!TextUtils.isEmpty(map.get("bmlx"))) {
             dataMap.put("bmlx", map.get("bmlx").toString());
         }
-        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
+    }
+
+
+    public ResponseMessage findPageBckjBizJybmXjh(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmdx"))) {
+            dataMap.put("bmdx", map.get("bmdx").toString());
+        }
+        PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.createtime desc ");
+        return ResponseMessage.sendOK(page);
+    }
+
+    private PageInfo<BckjBizJybm> findPageXjh(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
+        Page page = new Page(pageNo, pageSize);
+        paramsMap.put("page", page);
+        if (!TextUtils.isEmpty(orderBy)) {
+            paramsMap.put("orderBy", orderBy);
+        }
+
+        page.setList(this.dao.findListByMapXjh(paramsMap));
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
     }
 
     /**
@@ -137,10 +168,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         Map resultMap = new HashMap<>(2);
         BckjBizJybm jybm = new BckjBizJybm();
-        jybm.setBmsj(new Date());
+
         Integer bmlx = Integer.parseInt(mapData.get("bmlx").toString());
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
+            jybm.setBmsj(new Date());
             //报名类型企业
             if (bmlx == JyContant.BMLX_QY) {
                 BckjBizQyxx qyxx = qyxxService.get(mapData.get("qyxxRefOwid").toString());
@@ -231,14 +263,33 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
     public Map submitPurchaseBack(List<String> codes, Integer state, Map mapData) {
         Map resultMap = new HashMap<>(2);
         BckjBizJybm bm = get(codes.get(0));
-        //
+        //报名对象  0招聘会 1宣讲会
+        Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         if (1 == state) {
-            if (TextUtils.isEmpty(mapData.get("zwbh"))) {
-                resultMap.put("result", "false");
-                resultMap.put("msg", "审核通过时请填写分配的展位编号");
-                return resultMap;
+            if (bmdx == JyContant.BMDX_ZPH) {
+                if (TextUtils.isEmpty(mapData.get("zwbh"))) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "审核通过时请填写分配的展位编号");
+                    return resultMap;
+                }
+                bm.setZwbh(mapData.get("zwbh").toString());
+            } else if (bmdx == JyContant.BMDX_XJH) {
+                //如果是宣讲会，在职位表生成数据
+                BckjBizJob job = new BckjBizJob();
+                job.setQyxxRefOwid(bm.getQyxxRefOwid());
+                job.setZwlx(JyContant.ZWLB_XJH);
+                job.setZwPro(JyContant.ZW_PRO);
+                job.setZwCity(JyContant.ZW_CITY);
+                job.setZwArea(JyContant.ZW_AREA);
+                job.setZphJbdd(JyContant.ZW_DD);
+                job.setZphJbf(bm.getQymc());
+                job.setZwbt(bm.getQymc() + "宣讲会");
+                job.setZphCbf(JyContant.ZW_DD);
+                job.setZphKsrq(DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd HH:mm:ss"));
+                job.setState(JyContant.JOB_ZT_TG);
+                jobService.saveOrUpdate(job);
+                bm.setJobRefOwid(job.getOwid());
             }
-            bm.setZwbh(mapData.get("zwbh").toString());
             // TODO: 2019/9/18 通过短信
 
         } else if (2 == state) {
