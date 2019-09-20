@@ -9,87 +9,7 @@
     <#include "com/config.ftl">
 </head>
 <style>
-    .teacher-list {
-        padding: 20px 20px 0;
-        overflow: hidden;
-    }
 
-    .teacher-item {
-        width: calc((100% - 80px)/3);
-        margin-right: 40px;
-        /* margin-bottom:  */
-        float: left;
-        margin-bottom: 30px;
-    }
-
-    .teacher-item:nth-child(3n) {
-        margin-right: 0;
-    }
-
-    .teacher-item img {
-        width: 100%;
-        z-index: 1;
-    }
-
-    .teacher-item .t-bg {
-        width: 100%;
-        height: 260px;
-        background: url("${base}/img/teacher.png") 100% no-repeat;
-    }
-
-    .teacher-detail {
-        margin-top: -60px;
-        width: 80%;
-        background-color: #fff;
-        margin-left: 10%;
-        box-shadow: 0px 0px 2px 0px rgba(199, 199, 199, 0.75);
-        z-index: 9;
-    }
-
-    .teacher-detail .t-name {
-        line-height: 38px;
-        text-align: center;
-        font-size: 18px;
-        color: #000;
-    }
-
-    .teacher-detail .t-xhx {
-        text-align: center;
-        height: 1px;
-        line-height: 1px;
-    }
-
-    .teacher-detail .t-xhx span {
-        width: 31px;
-        height: 1px;
-        border: solid 1px #008784;
-        display: inline-block;
-    }
-
-    .teacher-detail .t-sm {
-        padding: 12px;
-        text-indent: 2em
-    }
-
-    .teacher-detail .t-btn {
-        overflow: hidden;
-    }
-
-    .teacher-detail .t-btn .btn {
-        width: 50%;
-        float: left;
-        border-radius: 0 !important;
-    }
-
-    .t-btn .t-zx {
-        background-color: #008784;
-        color: #fff;
-    }
-
-    .t-btn .t-xq {
-        background-color: #f0f0f0;
-        color: #3d3d3d;
-    }
 </style>
 
 <body>
@@ -127,24 +47,18 @@
                         <li class="list-group-item">
                             <span class="ic-menu"></span> 档案查询
                         </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 导师咨询
-                        </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 报名预约
-                        </li>
                     </ul>
                 </div>
             </div>
 
 
-            <div class="content-list" style="display: none">
+            <div class="content-list" style="">
                 <div class="search-bar">
                     <div class="search-label">搜素关键字：</div>
                     <div class="input-group search-input">
                         <input type="text" class="form-control" placeholder="输入内容">
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
                         </div>
                     </div>
@@ -196,7 +110,7 @@
                     <div class="input-group search-input">
                         <input type="text" class="form-control" placeholder="输入内容">
                         <div class="input-group-btn">
-                            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                            <button type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
                         </div>
                     </div>
@@ -265,7 +179,7 @@
                                     <input class="" type="text" placeholder="请输入身份证号码" />
                                 </div>
                                 <div class="archives-input">
-                                    <button class="btn">查询</button>
+                                    <button class="btn green">查询</button>
                                 </div>
                             </div>
                         </div>
@@ -287,7 +201,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -299,7 +213,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -311,7 +225,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -323,7 +237,7 @@
                                 <div class="t-xhx"><span></span></div>
                                 <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
                                 <div class="t-btn">
-                                    <button class="btn t-zx">我要咨询</button>
+                                    <button class="btn t-zx green">我要咨询</button>
                                     <button class="btn t-xq">查看详情</button>
                                 </div>
                             </div>
@@ -339,7 +253,29 @@
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+
 <script>
+
+    $(document).ready(function () {
+        supervisorList()
+    })
+
+    function supervisorList(){
+        var jsonObj ={
+            "pageSize":10,
+            "pageNo":1
+        }
+        ajax("zustjy/bckjBizZjzx/supervisorList", jsonObj, function (data) {
+            if(data.backCode==0){
+                layer.close(layer1)
+                layer1=null;
+            <#--window.location.href="${base}/"+url-->
+                window.location.href="${base}/jobFair/2"
+            }else{
+                walert(data.errorMess)
+            }
+        })
+    }
     $(".list-group-item").click(function(e) {
         $(this).siblings().removeClass("active1")
         $(this).addClass("active1")

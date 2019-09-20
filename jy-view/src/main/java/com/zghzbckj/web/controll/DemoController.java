@@ -250,6 +250,7 @@ public class DemoController {
     @RequestMapping(value = "enterpriseReg", method = RequestMethod.GET)
     public ModelAndView enterpriseReg(HttpServletRequest request,ModelAndView view) {
         view.setViewName("enterpriseReg");
+        view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20000");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -271,6 +272,7 @@ public class DemoController {
     @RequestMapping(value = "newJob", method = RequestMethod.GET)
     public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
         view.setViewName("newJob");
+        view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20005");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -306,7 +308,8 @@ public class DemoController {
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
-//        view.setViewName("enterpriseService");
+        view.setViewName("enterpriseService");
+        view.addObject("header",getHeader().getBean());
 //        Map param=Maps.newHashMap();
 //        param.put("dicType","20000");
 //        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -334,6 +337,7 @@ public class DemoController {
     @RequestMapping(value = "jobFair/{step}/{owid}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid) {
         view.setViewName("jobFair");
+        view.addObject("header",getHeader().getBean());
         view.addObject("step",step);
         if(null!=owid){
             view.addObject("zphOwid",owid);
@@ -346,16 +350,10 @@ public class DemoController {
         return view;
     }
 
-
-    @RequestMapping(value = "xjhList", method = RequestMethod.GET)
-    public ModelAndView xjhList(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("xjhList");
-        return view;
-    }
-
     @RequestMapping(value = "jobFair/{step}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
         view.setViewName("jobFair");
+        view.addObject("header",getHeader().getBean());
         view.addObject("step",step);
         return view;
     }
@@ -449,9 +447,15 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "studentService", method = RequestMethod.GET)
-    public ModelAndView studentService(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("studentService");
+    @RequestMapping(value = "stuService", method = RequestMethod.GET)
+    public ModelAndView stuService(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("stuService");
+        return view;
+    }
+
+    @RequestMapping(value = "stuCenter", method = RequestMethod.GET)
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("stuCenter");
         return view;
     }
 

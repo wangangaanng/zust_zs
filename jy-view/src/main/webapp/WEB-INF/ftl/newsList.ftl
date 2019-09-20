@@ -25,7 +25,7 @@
                             <div class="input-group search-input">
                                 <input type="text" id="key" class="form-control" placeholder="输入内容">
                                 <div class="input-group-btn">
-                                    <button onclick="search()" type="button" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+                                    <button onclick="search()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
                                 </div>
                             </div>
