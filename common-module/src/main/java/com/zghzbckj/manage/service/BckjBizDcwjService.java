@@ -177,7 +177,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     @Transactional(readOnly = false)
     public ResponseMessage saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
         if (null == tmList) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
         }
         //保存调查问卷表
         save(dcwj);
