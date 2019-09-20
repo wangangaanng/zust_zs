@@ -83,8 +83,39 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         if (!TextUtils.isEmpty(map.get("bmlx"))) {
             dataMap.put("bmlx", map.get("bmlx").toString());
         }
-        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
+    }
+
+
+    public ResponseMessage findPageBckjBizJybmXjh(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmlx"))) {
+            dataMap.put("bmlx", map.get("bmlx").toString());
+        }
+        PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.createtime desc ");
+        return ResponseMessage.sendOK(page);
+    }
+
+    private PageInfo<BckjBizJybm> findPageXjh(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
+        Page page = new Page(pageNo, pageSize);
+        paramsMap.put("page", page);
+        if (!TextUtils.isEmpty(orderBy)) {
+            paramsMap.put("orderBy", orderBy);
+        }
+
+        page.setList(this.dao.findListByMapXjh(paramsMap));
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
     }
 
     /**
@@ -137,10 +168,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         Map resultMap = new HashMap<>(2);
         BckjBizJybm jybm = new BckjBizJybm();
-        jybm.setBmsj(new Date());
+
         Integer bmlx = Integer.parseInt(mapData.get("bmlx").toString());
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
+            jybm.setBmsj(new Date());
             //报名类型企业
             if (bmlx == JyContant.BMLX_QY) {
                 BckjBizQyxx qyxx = qyxxService.get(mapData.get("qyxxRefOwid").toString());

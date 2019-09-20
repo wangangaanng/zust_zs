@@ -70,6 +70,28 @@ public class BckjBizJybmController extends BaseController {
         }
     }
 
+    /**
+     * <p>接口 getXjhList.java : <p>
+     * <p>说明：宣讲会列表</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/20 16:35
+     * </pre>
+     */
+    @RequestMapping(value = "/getXjhList")
+    @ResponseBody
+    public ResponseMessage getXjhList(PublicDataVO dataVO) {
+        try {
+            map.clear();
+            map.put("bmlx", 1);
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     @PostMapping(value = "deleteList")
     @ResponseBody
     public ResponseMessage deleteList(PublicDataVO dataVO) {
