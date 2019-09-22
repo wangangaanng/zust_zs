@@ -146,6 +146,12 @@
                 </li>
             </ul>
         </div>
+        <div class="frame-a_right box" id="stu_pipe" style="display: none;">
+            <div class="stu_info">
+                <img src="${base}/img/menu1.png" />
+                <p>欢迎您，<span id="stu_tel"></span></p>
+            </div>
+        </div>
         <!-- E a_right-->
     </div>
     <!-- E a -->
@@ -389,7 +395,11 @@
             $(".frame-a_right").hide();
             $("#qy_pipe").show();
         }
-
+        if(getCookie("stuOwid")){
+            $(".frame-a_right").hide();
+            $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
+            $("#stu_pipe").show();
+        }
 
     })
 </script>

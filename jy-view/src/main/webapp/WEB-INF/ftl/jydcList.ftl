@@ -28,7 +28,7 @@
     <script>
         $(document).ready(function () {
             var jsonObj={
-                "wzbh":""
+                "wzbh":1
             }
             ajax("zustjy/bckjBizDcwj/dcwjList", jsonObj, function (data) {
                 if(data.backCode==0){

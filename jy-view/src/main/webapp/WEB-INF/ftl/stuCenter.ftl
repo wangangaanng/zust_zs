@@ -56,33 +56,66 @@
                     </ul>
                 </div>
             </div>
-
             <div class="content-list" style="min-height: 707px;height:auto;">
                 <div class="article-detail" style="border: none;">
                     <div class="article-column-title">
                         <div class="h3">指导老师</div>
                     </div>
-                    <div class="teacher-list">
-                        <#if tlist??>
-                        <#list tlist.records as obj>
+                <div class="teacher-list">
+                <#if tlist??>
+                    <#list tlist.records as obj>
                         <div class="teacher-item">
                             <div class="t-bg" style="background: url("${obj.zjtx}")"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">${obj.zjxm}</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">${obj.zjxx}</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq" onclick="window.location.href='teacherDetail/${obj.owid}'">查看详情</button>
-                                </div>
+                        <div class="teacher-detail">
+                            <div class="t-name">${obj.zjxm}</div>
+                            <div class="t-xhx"><span></span></div>
+                            <div class="t-sm">${obj.zjxx}</div>
+                            <div class="t-btn">
+                                <button class="btn t-zx green">我要咨询</button>
+                                <button class="btn t-xq" onclick="window.location.href='teacherDetail/${obj.owid}'">查看详情</button>
                             </div>
                         </div>
-                        </#list>
-                        </#if>
-
                     </div>
+                    </#list>
+                </#if>
+
                 </div>
             </div>
+        </div>
+            <div class="content-list" style="display: none;">
+                <div class="ask-list">
+                    <#if tlist??>
+                        <#list asklist.records as obj>
+                    <div class="al-item "><#--active2-->
+                        <div class="al-question">
+                            <i></i> 我的提问：${obj.wtnr}
+                        </div>
+                        <#if obj.danr??>
+                        <div class="al-answer">
+                            <i></i> ${obj.hfName}的回复：${obj.danr}
+                        </div>
+                        </#if>
+                        <div class="al-btn">
+                            <button onclick="removeHistoryConsult('${obj.owid}',this)" class="btn">删除</button>
+                            <button class="btn">继续咨询</button>
+                        </div>
+                        <#--<span class="glyphicon glyphicon-menu-up "></span>-->
+                    </div>
+                        </#list>
+                        </#if>
+                    <#--<div class="al-item">-->
+                        <#--<div class="al-question">-->
+                            <#--<i></i> 我的提问：张老师，就业需要准备什么材料?-->
+                        <#--</div>-->
+                        <#--<div class="al-answer">-->
+                            <#--<i></i> 张老师的回复：简历，毕业证书等等。。-->
+                        <#--</div>-->
+                        <#--<span class="glyphicon glyphicon-menu-down "></span>-->
+                    <#--</div>-->
+
+                </div>
+            </div>
+
         </div>
 
     </div>
@@ -95,9 +128,49 @@
 <script>
 
     $(document).ready(function () {
-        supervisorList()
+//        supervisorList()
+        historyConsult()
     })
 
+    function removeHistoryConsult(a,obj){
+        layer.open({
+            title:'提示',
+            content: '确定要删除该条记录？',
+            yes: function(index, layero){
+                var jsonObj ={
+                    "owid":a
+                }
+                ajax("zustcommon/bckjBizZxzx/removeHistoryConsult", jsonObj, function (data) {
+                    if(data.backCode==0){
+                        walert("删除成功");
+                        $(obj).parent().parent().remove();
+                        layer.close(index);
+                    }else{
+                        walert(data.errorMess)
+                    }
+                })
+
+            }
+        });
+
+    }
+
+    function historyConsult(){
+        var jsonObj ={
+            "pageSize":10,
+            "pageNo":1,
+            "zxlx":2,
+            "twOwid":getCookie("stuOwid")
+        }
+        ajax("zustcommon/bckjBizZxzx/historyConsult", jsonObj, function (data) {
+            if(data.backCode==0){
+            <#--window.location.href="${base}/"+url-->
+            <#--window.location.href="${base}/jobFair/2"-->
+            }else{
+                walert(data.errorMess)
+            }
+        })
+    }
     function supervisorList(){
         var jsonObj ={
             "pageSize":10,
@@ -106,7 +179,7 @@
         ajax("zustjy/bckjBizZjzx/supervisorList", jsonObj, function (data) {
             if(data.backCode==0){
             <#--window.location.href="${base}/"+url-->
-                <#--window.location.href="${base}/jobFair/2"-->
+            <#--window.location.href="${base}/jobFair/2"-->
             }else{
                 walert(data.errorMess)
             }

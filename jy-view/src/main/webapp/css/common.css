@@ -943,17 +943,19 @@ ul.pagination {
 
 .ask-list {
     width: 100%;
-    border: solid 1px #e0e0e0;
-    padding: 40px 20px;
+    /*border: solid 1px #e0e0e0;*/
+    padding: 20px;
 }
 
 .al-item {
     width: 100%;
-    height: 118px;
+    /*height: 118px;*/
     background-color: #ffffff;
     border: solid 1px #e0e0e0;
     position: relative;
     margin-bottom: 20px;
+    padding-bottom: 20px;
+    overflow: hidden;
 }
 
 .al-item:last-child {

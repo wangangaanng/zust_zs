@@ -520,7 +520,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "stuCenter", method = RequestMethod.GET)
-    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view) {
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid) {
         view.setViewName("stuCenter");
         Map param=Maps.newHashMap();
         param.put("pageNo",'1');
@@ -528,6 +528,14 @@ public class DemoController {
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("tlist",result.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("pageNo",'1');
+        param1.put("pageSize","9");
+        param1.put("zxlx",'2');
+        param1.put("twOwid",stuOwid);
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
+        ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("asklist",result1.getBean());
         return view;
     }
 

@@ -40,9 +40,7 @@
                     </ul>
                 </div>
             </div>
-
-
-            <div class="content-list" style="">
+            <div class="content-list" style="dispay:none">
                 <div class="search-bar">
                     <div class="search-label">搜素关键字：</div>
                     <div class="input-group search-input">
