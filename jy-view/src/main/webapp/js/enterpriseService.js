@@ -76,17 +76,17 @@ function confirmQd() {
         walert("请填写联系人电话")
         return
     }else if(!$("#jkr").val().trim()){
-        walert("请填写联系人电话")
+        walert("请填写讲课人")
         return
     }else if(!$("#xjsj").val().trim()){
-        walert("请填写联系人电话")
+        walert("请填写宣讲时间")
         return
     }else if(!$("#xjhsqly").val().trim()){
-        walert("请填写联系人电话")
+        walert("请填写申请理由")
         return
     }
     else if(!$("#jkrjs").val().trim()){
-        walert("请填写联系人电话")
+        walert("请填写讲课人介绍")
         return
     }
     var jsonObj ={
@@ -101,7 +101,13 @@ function confirmQd() {
         if(data.backCode==0){
             layer.close(layer1)
             layer1=null;
-
+            layer.open({
+                title:'提示',
+                content: '宣讲会申请成功，请等待审核。',
+                yes: function(index, layero){
+                    layer.close(index);
+                }
+            });
         }else{
             walert(data.errorMess)
         }
@@ -171,6 +177,66 @@ $(document).ready(function () {
             myJobList1()
         }
     })
+
+    $("#registerForm").validate({
+        rules: {
+            qymc:"required",
+            qyProv:"required",
+            qyCity:"required",
+            qyArea:"required",
+            qydz:"required",
+            qyLxr:"required",
+            qyLxrdh:{
+                required: true,
+                isMobile: true
+            },
+            qyYx:{
+                required: true,
+                email: true
+            },
+            qyGsxz:"required",
+            qyHylb:"required",
+            qyGsgm:"required",
+            qyGsjs:"required",
+        },
+        messages: {
+            qymc: "请填写",
+            qyProv: "请选择",
+            qyCity: "请选择",
+            qyArea: "请选择",
+            qydz: "请填写",
+            qyLxr: "请填写",
+            qyLxrdh:  {
+                required: "请填写",
+                email: "请填写正确的11位手机号码"
+            },
+            qyYx: {
+                required: "请填写",
+                email: "请填写正确电子邮箱"
+            },
+            qyGsxz: "请选择",
+            qyHylb: "请选择",
+            qyGsgm: "请选择",
+            qyGsjs: "请填写",
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+            // Add the `help-block` class to the error element
+            error.addClass( "help-block" );
+
+            if ( element.prop( "type" ) === "checkbox" ) {
+                error.insertAfter( element.parent( "label" ) );
+            } else {
+                error.insertAfter( element );
+            }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+            $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $( element ).parent().removeClass( "has-error" );
+        }
+    });
 
 
 })
@@ -377,13 +443,23 @@ function myJobList1() {
     });
 
 }
+
+
+$.validator.setDefaults({
+    submitHandler: function () {
+        fixCompany()
+    }
+});
+
 function fixCompany() {
 
     var jsonObj = $("#registerForm").serializeObject()
     jsonObj.owid=getCookie("qyOwid")
     ajax("zustjy/bckjBizQyxx/fixCompany", jsonObj, function (data) {
         if(data.backCode==0){
-
+            walert("修改成功")
+        }else{
+            walert(data.errorMess)
         }
     })
 }

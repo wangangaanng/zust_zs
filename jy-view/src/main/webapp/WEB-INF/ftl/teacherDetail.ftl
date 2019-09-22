@@ -100,6 +100,10 @@
     }
 
     function ask(index) {
+        if(!$("#wtnr").val()){
+            walert("请填写咨询内容");
+            return;
+        }
         var jsonObj={
             "wtnr":$("#wtnr").val(),
             "owid": $("#teacherOwid").val(),
@@ -109,6 +113,13 @@
         ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
             if(data.backCode==0){
                 layer.close(index)
+                layer.open({
+                    title:'提示',
+                    content: '咨询已提交，请等待回复。',
+                    yes: function(index, layero){
+                        layer.close(index);
+                    }
+                });
             }
         })
     }

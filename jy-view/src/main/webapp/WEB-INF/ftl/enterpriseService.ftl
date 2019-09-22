@@ -176,7 +176,7 @@
 
                     <#--<div class="form-group">-->
                         <#--<div class="col-sm-12 text-center">-->
-                            <#--<button type="submit" onclick="fixCompany()" class="btn btn-default btn-common">修改</button>-->
+                            <#--<button type="submit" class="btn btn-default btn-common">修改</button>-->
                         <#--</div>-->
                     <#--</div>-->
                 <#--</form>-->

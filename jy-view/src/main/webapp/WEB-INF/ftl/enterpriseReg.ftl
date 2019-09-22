@@ -258,12 +258,56 @@
                 }
             });
 
+            jQuery.validator.addMethod("isMobile", function(value, element) {
+                var length = value.length;
+                var mobile = /^1[345789]\d{9}$/;/*/^1(3|4|5|7|8)\d{9}$/*/
+                return this.optional(element) || (length == 11 && mobile.test(value));
+            }, "请正确填写您的手机号码");
+
             $("#registerForm").validate({
                 rules: {
                     qyTysh:"required",
+                    qyFrsfz:"required",
+                    qymc:"required",
+                    qyProv:"required",
+                    qyCity:"required",
+                    qyArea:"required",
+                    qydz:"required",
+                    qyLxr:"required",
+                    qyLxrdh:{
+                        required: true,
+                        isMobile: true
+                    },
+                    qyYx:{
+                        required: true,
+                        email: true
+                    },
+                    qyGsxz:"required",
+                    qyHylb:"required",
+                    qyGsgm:"required",
+                    qyGsjs:"required",
                 },
                 messages: {
-                    qyTysh: "请填写"
+                    qyTysh: "请填写",
+                    qyFrsfz: "请填写",
+                    qymc: "请填写",
+                    qyProv: "请选择",
+                    qyCity: "请选择",
+                    qyArea: "请选择",
+                    qydz: "请填写",
+                    qyLxr: "请填写",
+                    qyLxrdh:  {
+                        required: "请填写",
+                        email: "请填写正确的11位手机号码"
+                    },
+                    qyYx: {
+                        required: "请填写",
+                        email: "请填写正确电子邮箱"
+                    },
+                    qyGsxz: "请选择",
+                    qyHylb: "请选择",
+                    qyGsgm: "请选择",
+                    qyGsjs: "请填写",
                 },
                 errorElement: "em",
                 errorPlacement: function ( error, element ) {
@@ -294,30 +338,26 @@
         });
 
         function companyRegister() {
+            if(!$("#qyYyzzzp").val()){
+                walert("请上传营业执照");
+                return;
+            }
 
             var jsonObj = $("#registerForm").serializeObject()
             console.log(jsonObj)
             ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
                 if(data.backCode==0){
+                    layer.open({
+                        title:'提示',
+                        content: '注册成功，待后台人员审核通过，便可登录。',
+                        yes: function(index, layero){
+                            layer.close(index);
+                        }
+                    });
                 }
             })
         }
 
-        $.fn.serializeObject = function() {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [ o[this.name] ];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
     </script>
 </body>
 
