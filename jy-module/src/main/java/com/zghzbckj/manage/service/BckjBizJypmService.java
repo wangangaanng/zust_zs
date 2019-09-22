@@ -113,6 +113,19 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         return pageInfo;
     }
 
+    /**
+     *<p>方法:根据专业名称查询 getByMajor TODO </p>
+     *<ul>
+     *<li> @param majorName TODO</li>
+     *<li>@return com.zghzbckj.manage.entity.BckjBizJypm  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/22 18:14  </li>
+     *</ul>
+     */
+    public BckjBizJypm getByMajor(String majorName) {
+        return this.dao.getByMajor(majorName);
+    }
+
 	/**
      * <p>方法:findPagebckjBizJypm TODO后台BckjBizJypm分页列表</p>
      * <ul>

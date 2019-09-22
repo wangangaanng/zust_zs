@@ -56,6 +56,13 @@
 		where a.szxy=#{szxy} order by pmjyl desc
 	</select>
 
+	<select id="getByMajor" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
+		select <include refid="bckjBizJypmColumns"></include>
+		from bckj_biz_jypm a
+		<include refid="bckjBizJypmJoins"></include>
+		where a.pmzy=#{majorName}
+	</select>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		SELECT 
 			<include refid="bckjBizJypmColumns"/>
