@@ -13,7 +13,9 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.manage.entity.BckjBizJypm;
 import com.zghzbckj.manage.service.BckjBizJypmService;
+import com.zghzbckj.util.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,6 +59,38 @@ public class BckjBizJypmController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");
+        }
+    }
+
+    /**
+     *<p>功能描述:从excel导入就业排行榜</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/9/20 16:43</li>
+     *</ul>
+     */
+    @PostMapping(value = "importRankFromExcel")
+    @ResponseBody
+    public ResponseMessage importRankFromExcel(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "excelUrl");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            ArrayList<ArrayList<String>> list = ExcelUtils.xlsx_reader(dataMap.get("excelUrl").toString());
+            //根据专业判断专业是否存在，不存在则添加专业记录
+            for (ArrayList<String> major : list) {
+                //查看专业是否存在
+                BckjBizJypm jypm = bckjBizJypmService.getByMajor(major.get(1));
+            }
+            return ResponseMessage.sendOK("导入成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
 

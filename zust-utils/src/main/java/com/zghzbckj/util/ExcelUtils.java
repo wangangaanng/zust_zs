@@ -67,7 +67,7 @@ public class ExcelUtils {
     }
 
 
-    public ArrayList<ArrayList<String>> xlsx_reader(String excel_url) throws IOException {
+    public static ArrayList<ArrayList<String>> xlsx_reader(String excel_url) throws IOException {
         //读取xlsx文件
         XSSFWorkbook xssfWorkbook = null;
         //寻找目录读取文件
