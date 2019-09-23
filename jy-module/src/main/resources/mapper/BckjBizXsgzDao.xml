@@ -249,4 +249,53 @@
 		where a.job_ref_owid=#{jobRefOwid} and a.yh_ref_owid=#{yhRefOwid} and  a.xxlb=#{xxlb}
 	</select>
 
+	<select id="studentSubcribeList" parameterType="Map" resultType="Map">
+		SELECT
+		a.owid AS "owid",
+		a.job_ref_owid AS "jobRefOwid",
+		a.yh_ref_owid AS "yhRefOwid",
+		a.gzlx AS "gzlx",
+		a.xxlb AS "xxlb",
+		a.gzsj AS "gzsj",
+		a.lxdh AS "lxdh",
+		a.lxr AS "lxr",
+        a.exp1 as exp1,
+		a.delflg AS "delflg",
+		a.state AS "state",
+
+		b.qyxx_ref_owid AS "qyxxRefOwid",
+		b.zwbt AS "zwbt",
+		b.zwgjz AS "zwgjz",
+		b.zwlx AS "zwlx",
+		b.zw_pro AS "zwPro",
+		b.zw_city AS "zwCity",
+		b.zw_area AS "zwArea",
+		b.zw_gzzn AS "zwGzzn",
+		b.zw_gzxz AS "zwGzxz",
+		b.zw_xs AS "zwXs",
+		b.zw_lxyx AS "zwLxyx",
+		b.zw_zprs AS "zwZprs",
+		b.zw_nlyq AS "zwNlyq",
+		b.zw_xlyq AS "zwXlyq",
+		b.zw_yyyq AS "zwYyyq",
+		b.zw_gznx AS "zwGznx",
+		b.zw_gwzz AS "zwGwzz",
+		b.zw_gzs AS "zwGzs",
+		b.zw_yds AS "zwYds",
+		b.zw_sxsj AS "zwSxsj",
+		b.zw_mxxy AS "zwMxxy",
+		b.zw_mxzy AS "zwMxzy",
+		b.zph_jbf AS "zphJbf",
+		b.zph_cbf AS "zphCbf",
+		b.zph_jbdd AS "zphJbdd",
+		b.zph_ksrq AS "zphKsrq",
+		b.zph_jtsj AS "zphJtsj",
+		b.zph_sfbm AS "zphSfbm",
+		b.zph_bmjzsj AS "zphBmjzsj",
+		b.zph_sfqd AS "zphSfqd"
+		  FROM `bckj_biz_job` b ,
+        (SELECT * FROM `bckj_biz_xsgz`  WHERE yh_ref_owid=#{yhOwid})
+        a WHERE a.job_ref_owid=b.owid and b.zwlx =#{zwlx}
+	</select>
+
 </mapper>

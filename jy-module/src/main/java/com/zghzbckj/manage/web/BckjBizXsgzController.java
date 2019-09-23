@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -221,5 +222,34 @@ public class BckjBizXsgzController extends BaseController {
         }
     }
 
+    /**
+     * <p>功能描述:学生关注列表</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/23</li>
+     * </ul>
+     */
+    @PostMapping("studentSubcribeList")
+    @ResponseBody
+    public ResponseMessage studentSubcribeList(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhOwid","zwlx","pageNo","pageSize");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizXsgzService.studentSubcribeList(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+
+
+    }
 
 }
