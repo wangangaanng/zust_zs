@@ -9,6 +9,7 @@ import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,6 @@ import java.util.Map;
 public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
 
     BckjBizYhkz getOneByYhRefOwid(HashMap<String, Object> map);
+
+    List<String> getXsxhList();
 }

@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
@@ -222,5 +223,14 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         bckjBizZxzx.setHdrq(new Date());
         saveOrUpdate(bckjBizZxzx);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    public ResponseMessage showJyMessageList(Integer pageNo,Integer pageSize) {
+        Page<BckjBizZxzx> page=new Page<>(pageNo,pageSize);
+        HashMap<String, Object> dataMap = Maps.newHashMap();
+        dataMap.put("zxlx",5);
+        dataMap.put("page",page);
+        page.setList(this.dao.findListByZxlx(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 }

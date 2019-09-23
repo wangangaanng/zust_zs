@@ -346,4 +346,8 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         }
         return xsgz;
     }
+
+    public List<BckjBizXsgz> findListByMap(HashMap<String, Object> sendMap) {
+        return this.dao.findListByMap(sendMap);
+    }
 }
