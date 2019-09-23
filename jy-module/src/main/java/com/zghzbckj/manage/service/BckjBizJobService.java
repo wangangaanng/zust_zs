@@ -44,6 +44,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     BckjBizJybmService bmService;
     @Autowired
     BckjBizJybmDao bmDao;
+    @Autowired
+    BckjBizQyxxService qyxxService;
 
 
     @Override
@@ -183,6 +185,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
+            job.setZwGzs(0);
+            job.setZwYds(0);
             if (!TextUtils.isEmpty(qyxx)) {
                 job.setExp1(qyxx.getQymc());
             }
@@ -348,6 +352,40 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             String str = qyxxDao.queryDic(params);
             job.setZwGznxStr(str);
         }
+        if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
+            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
+                params.put("type", JyContant.GSGM);
+                params.put("dicVal1", qyxx.getQyGsgm());
+                String gsgmStr = qyxxDao.queryDic(params);
+                qyxx.setQyGsgmStr(gsgmStr);
+            }
+            if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
+                params.put("type", JyContant.HYLB);
+                params.put("dicVal1", qyxx.getQyHylb());
+                String hylbStr = qyxxDao.queryDic(params);
+                qyxx.setQyHylbStr(hylbStr);
+            }
+            if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
+                params.put("type", JyContant.GSXZ);
+                params.put("dicVal1", qyxx.getQyGsxz());
+                String gsxzStr = qyxxDao.queryDic(params);
+                qyxx.setQyGsxzStr(gsxzStr);
+            }
+            job.setQyxx(qyxx);
+        }
+        if (!TextUtils.isEmpty(job.getZwYds())) {
+            job.setZwYds(job.getZwYds() + 1);
+        } else {
+            job.setZwYds(0);
+        }
+
+        if (!TextUtils.isEmpty(job.getZwGzs())) {
+            job.setZwGzs(job.getZwGzs() + 1);
+        } else {
+            job.setZwGzs(0);
+        }
+
         return job;
     }
 
@@ -359,12 +397,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         List<BckjBizJob> jobList = new ArrayList<>();
         dataMap.put("page", page);
         //如果是职来职往，包括职来职往，招聘会，宣讲会 zwlx 1,2,4
-        if ("1".equals(dataMap.get("zwlx").toString())) {
-            dataMap.put("state", JyContant.QY_ZT_TG);
-            jobList = this.dao.findListByMapFirst(dataMap);
-        } else {
-            jobList = this.dao.findListByMap(dataMap);
-        }
+//        if ("1".equals(dataMap.get("zwlx").toString())) {
+//            dataMap.put("state", JyContant.QY_ZT_TG);
+//            jobList = this.dao.findListByMapFirst(dataMap);
+//        } else {
+//            jobList = this.dao.findListByMap(dataMap);
+//        }
+        jobList = this.dao.findListByMap(dataMap);
         if (!TextUtils.isEmpty(jobList)) {
             for (BckjBizJob job : jobList) {
                 Map params = new HashMap<>();

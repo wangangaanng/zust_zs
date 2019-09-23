@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.service.BckjBizXsgzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,6 +42,21 @@ public class BckjBizXsgzController extends BaseController {
 
     @Autowired
     private BckjBizXsgzService bckjBizXsgzService;
+    private static Map<String, Object> map = new HashMap<>();
+
+    @RequestMapping(value = "/setOwid")
+    @ResponseBody
+    public void setOwid(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            map.put("jobRefOwid", mapData.get("owid"));
+            map.put("gzlx", JyContant.ZWLB_ZW);
+            map.put("xxlb", JyContant.ZWLB_ZW);
+        } catch (Exception e) {
+            log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
+        }
+
+    }
 
 
     @RequestMapping(value = "/getList")
@@ -47,7 +64,7 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize(),map);
         } catch (Exception e) {
             log.error(e + "获取bckjBizXsgz列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -148,7 +165,7 @@ public class BckjBizXsgzController extends BaseController {
                                       PublicDataVO dataVO) {
 
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "yhRefOwid", "pageSize","gzlx","xxlb");
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "yhRefOwid", "pageSize", "gzlx", "xxlb");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
@@ -158,6 +175,7 @@ public class BckjBizXsgzController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * <p>功能描述:学生取消关注</p >
      * <ul>
@@ -170,23 +188,20 @@ public class BckjBizXsgzController extends BaseController {
      */
     @RequestMapping(value = "cancelSubcribe", method = RequestMethod.POST)
     @ResponseBody
-    public  ResponseMessage cancelSubcribe(PublicDataVO dataVO){
-        try{
+    public ResponseMessage cancelSubcribe(PublicDataVO dataVO) {
+        try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return  bckjBizXsgzService.cancelSubcribe(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            return bckjBizXsgzService.cancelSubcribe(dataMap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
 
     }
-
-
 
 
     @RequestMapping(value = "getOneCare", method = RequestMethod.POST)
