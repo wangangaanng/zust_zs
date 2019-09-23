@@ -146,6 +146,7 @@
                 align : 'center',
                 field: 'zwbt',
                 title: '标题',
+                formatter: operateFormatterZph
             }, {
                 align : 'center',
                 field: 'zphCbf',
@@ -171,6 +172,15 @@
         });
 
     }
+    function operateFormatterZph(value, row, index) {
+                var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+                return c;
+    }
+//    window.operateEvents = {
+//        'click': function (e, value, row, index) {
+//            alert(row.owid)
+//        }
+//    }
 </script>
 </body>
 

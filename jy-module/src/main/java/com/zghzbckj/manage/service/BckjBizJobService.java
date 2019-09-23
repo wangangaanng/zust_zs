@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -79,6 +80,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public void delete(BckjBizJob bckjBizJob) {
         super.delete(bckjBizJob);
     }
+
+    @Autowired
+    BckjBizXsgzService bckjBizXsgzService;
 
 
     /**
@@ -332,7 +336,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
-    public BckjBizJob getOneJob(String owid) {
+    public BckjBizJob getOneJob(String owid,String yhOwid) {
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
@@ -405,12 +409,18 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             job.setZwYds(1);
         }
 
-        if (!TextUtils.isEmpty(job.getZwGzs())) {
-            job.setZwGzs(job.getZwGzs() + 1);
-        } else {
-            job.setZwGzs(1);
-        }
 
+
+        //查看是否被关注
+        HashMap<String, Object> sendMap = Maps.newHashMap();
+        sendMap.put("jobRefOwid",owid);
+        sendMap.put("yhRefOwid",yhOwid);
+        List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+        if(bckjBizXsgzs.size()>0){
+            job.setExp1("1");
+        }else {
+            job.setExp1("0");
+        }
         return job;
     }
 

@@ -212,4 +212,79 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+    /**
+     * <p>功能描述:后台录入师生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/20</li>
+     * </ul>
+     */
+    @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+           return bckjBizYhxxService.recordInfo(dataMap.get("path").toString());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+    /**
+     * <p>功能描述:后台显示师生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/20</li>
+     * </ul>
+     */
+    @PostMapping("showStudentInfoList")
+    @ResponseBody
+    public ResponseMessage showStudentInfoList(PublicDataVO dataVO){
+        try {
+            return bckjBizYhxxService.showStudentInfoList(dataVO.getPageNo(),dataVO.getPageSize());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+    /**
+     * <p>功能描述:后台保存师生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/23</li>
+     * </ul>
+     */
+    @PostMapping("saveStudentInfo")
+    @ResponseBody
+    public ResponseMessage saveStudentInfo(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"无更新数据");
+            }
+            List<Map<String, Object>> components = (List)dataMap.get("dataList");
+            return bckjBizYhxxService.saveStudentInfo(components);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
 }

@@ -102,7 +102,7 @@
 		INSERT INTO bckj_biz_yhkz(
 			owid,
 			yh_ref_owid,
-			0lx,
+			olx,
 			xsxh,
 			xsxy,
 			xszy,
@@ -136,7 +136,7 @@
 		) VALUES (
 			#{owid},
 			#{yhRefOwid},
-			#{0lx},
+			#{olx},
 			#{xsxh},
 			#{xsxy},
 			#{xszy},
@@ -174,7 +174,7 @@
 		UPDATE bckj_biz_yhkz SET 	
 			owid = #{owid},
 			yh_ref_owid = #{yhRefOwid},
-			0lx = #{0lx},
+			olx = #{olx},
 			xsxh = #{xsxh},
 			xsxy = #{xsxy},
 			xszy = #{xszy},
@@ -217,6 +217,11 @@
 		select <include refid="bckjBizYhkzColumns"></include>
 		from bckj_biz_yhkz a
 		where  a.YH_REF_OWID=#{yhRefOwid}
+	</select>
+
+
+	<select id="getXsxhList" resultType="String">
+		SELECT a.xsxh AS xsxh FROM `bckj_biz_yhkz` a where a.xsxh is not null;
 	</select>
 
 	

@@ -749,17 +749,17 @@ ul.pagination {
 
 .share { float: left; }
 /**/
-.xInfo { padding-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #ececec; padding-left: 0px;list-style: none;margin: 0;}
+.xInfo { padding-top: 15px; padding-bottom: 15px;padding-left: 0px;list-style: none;margin: 0;}
 .xInfo li { height: 30px; line-height: 22px; color: #aaaaaa; }
 .xInfo li span { color: #666666; }
-.xInfo-2 { border-bottom: 0; }
+.xInfo-2 { border-bottom: 0; border-top: 1px solid #ececec; }
 .xInfo-2 li { width: 33%; float: left; }
 .tInfo-2 li { width: auto; float: none; }
 
 /*详情按钮*/
 .tools { height: 30px; }
-.tools a { float: left; display: block; width: 106px; text-align: center; height: 30px; line-height: 30px; color: #008784; }
-.tools .btn_1 { width: 113px; height: 30px; background: #008784; color: #fff; }
+.tools a { float: left; display: block; width: 106px; text-align: center; height: 30px; line-height: 30px; color: #008784; cursor: pointer;}
+.tools .btn_1 { width: 113px; height: 30px; background: #008784; color: #fff;}
 .cl:after {display: table;content: "";line-height: 0;clear: both;}
 .vTools .warn{ margin-top:10px; color:#F00; height:22px; line-height:22px; }
 .vTools .warn span{ float:right; color:#000;}
