@@ -39,8 +39,9 @@ public class CommonConstant {
     public static  final String Unfollow="取消关注";
     public static  final String AlreadyCheck="已签到";
     public static  final String OutOfCheckTime="不在签到时间";
-    public static final String SYSTEM_FILE_PATH = "";
+    public static final String SYSTEM_FILE_PATH = "F:\\img\\";
     public  static String WX_CODE="";
+    public  static String RepeatXsxh="重复学生学号";
 
 
     public final static String picPath = "C:\\files\\pic\\";
@@ -54,4 +55,6 @@ public class CommonConstant {
     public static String APP_ID = "17232634";
     public static String API_KEY = "dMST2glOiL4Z1RCx6I42AG0N";
     public static String SECRET_KEY = "QQ2PADGVib0vzlz0GZN9EpSRFtKtZla4";
+
+
 }

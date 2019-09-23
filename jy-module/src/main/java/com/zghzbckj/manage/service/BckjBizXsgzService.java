@@ -89,9 +89,18 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizXsgz(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizXsgz(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizXsgz> page = findPage(dataMap, pageNo, pageSize, null);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("gzlx"))) {
+            dataMap.put("gzlx", map.get("gzlx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("xxlb"))) {
+            dataMap.put("xxlb", map.get("xxlb").toString());
+        }
+        PageInfo<BckjBizXsgz> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 
@@ -345,5 +354,9 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             xsgz.setJob(job);
         }
         return xsgz;
+    }
+
+    public List<BckjBizXsgz> findListByMap(HashMap<String, Object> sendMap) {
+        return this.dao.findListByMap(sendMap);
     }
 }

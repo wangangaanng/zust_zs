@@ -26,7 +26,7 @@
                             <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                         </#if>
                     </#list>
-                </ul><a>MORE+</a></div>
+                </ul><a href="${base}/newsList/2/0" target="_blank">MORE+</a></div>
             <div class="frame-body">
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
@@ -166,7 +166,7 @@
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
-            </ul><a>MORE+</a></div>
+            </ul><a href="${base}/newsList/3/0" target="_blank">MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <#list second as objl>
                     <#if objl_index==0>
@@ -245,7 +245,7 @@
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
-            </ul><a>MORE+</a></div>
+            </ul><a href="${base}/newsList/4/0" target="_blank">MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <#list third as objl>
                     <#if objl_index==0>
@@ -302,7 +302,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="menue-item">
+                    <div class="menue-item" onclick="openUrl('inquiry')">
                         <div>
                             <img src="${base}/img/menu4.png" />
                             <div>

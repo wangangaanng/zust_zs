@@ -144,6 +144,7 @@
                 align : 'center',
                 field: 'zwbt',
                 title: '招聘会名称',
+                formatter: operateFormatterZph
             },{
                 align : 'center',
                 field: 'zwCity',
@@ -164,6 +165,10 @@
 
         });
 
+    }
+    function operateFormatterZph(value, row, index) {
+        var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+        return c;
     }
 </script>
 </body>

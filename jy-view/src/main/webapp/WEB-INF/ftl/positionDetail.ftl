@@ -16,73 +16,333 @@
             <#include "com/route.ftl">
             <div class="content">
                 <div class="article-detail">
-                        <div class="position-detail">
-                                <div class="position-head">
-                                    <h1>${result.zwbt!''}</h1>
-                                    <dl class="info">
-                                        <dt><a href="">宁波银行股份有限公司金华分行</a></dt>
-                                        <dd>
-                                            <div class="vieCount">浏览：7次 | </div>
-                                            <div class="qrcode" id="qrcode">
-                                                <div class="qrcode" id="qrcode">
-                                                    <div id="qricon" onclick="showQRcode(this,'http://job.zust.edu.cn/qrcode/image/t/1/i/176052/domain/zust');">二维码</div>
-                                                    <!-- <div class="qrwp" id="qrwp">
-                                                        <div class="c_arrow"><div class="c_arrow_d"></div><div class="c_arrow_u"></div></div>
-                                                        <a class="qrclose" onclick="hideQRcode(this);" href="javascript:;"></a>
-                                                        <div id="qrimg"></div>
-                                                        <p>扫描二维码，在手机中查看。</p>
-                                                    </div> -->
-                                                </div>
-                                            </div>
-                                        </dd>
-                                    </dl>
-                                </div>
-                                <ul class="xInfo">
-                                    <li>公司性质：<span>外资企业</span></li>
-                                    <li>公司行业：<span>金融业</span></li>
-                                    <li>公司规模：<span>500-1000人</span></li>
-                                </ul>
-                                <ul class="xInfo xInfo-2 cl">
-                                    <li>职位性质：<span>全职</span></li>
-                                    <li>发布日期：<span>2019-09-12</span></li>
-                                    <li>工作经验：<span>应届毕业生</span></li>
-                                    <li>学历要求：<span>本科</span></li>
-                                    <li>招聘人数：<span>25人</span></li>
-                                    <li>语言能力：<span>不限</span></li>
-                                    <li>工作地点：<span>浙江省 - 金华市</span></li>
-                                    <li>薪资待遇：<span>6000-7999</span></li>
-                                    <li>职位类别：<span>金融/保险类</span></li>
-                                </ul>
-                                <div class="tools cl"> <a class="btn_1" href="javascript:;">申请职位</a> <a class="link_1" href="javascript:;">收藏职位</a> <!--<a class="link_1" href="/company/jobs/id/16984">公司其他职位</a>--> </div>
-                        
-                                <div class="vTools">
-                                    <div class="warn">
-                                        <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
-                                        温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
-                                    </div>
-                                </div>
-                        
-                                <div class="position-tabbar"><ul><li class="active"><a>岗位说明</a></li></ul></div>
-                                <div class="frame-body tabbar-frame_content">
-                                    <div><p>主要从事运营相关岗位工作，面向我行客户提供优质的柜面服务，如各类会计结算业务、账户开立和维护业务等。</p></div>
-                                </div>
-                                <div class="position-tabbar"><ul><li class="active"><a>公司简介</a></li><li><a>联系方式</a></li></ul></div>
-                                <div class="frame-body tabbar-frame_content">
-                                    <div class="position-company">
-                                        <b>宁波银行股份有限公司金华分行</b>
-                                        <p>
-                                            成立于1997年4月10日，2007年7月19日成为国内首家在深圳证券交易所挂牌上市的城市商业银行。宁波银行除了在宁波地区经营之外，已在上海、杭州、南京、深圳、苏州、温州、北京、无锡、金华、绍兴、台州、嘉兴和丽水设立13家分行，营业网点352家。2013年11月，宁波银行发起设立永赢基金管理有限公司
-                                        </p>
-                                    </div>
-                                    <div></div>
+                    <div class="position-detail">
+                        <#if (result??)&&(result.zwlx==1)>
+                            <div class="position-head">
+                                <h1>${result.zwbt!''}</h1>
+                                <dl class="info">
+                                    <dt><a href="">${result.zphCbf!''}</a></dt>
+                                    <dd>
+                                        <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <ul class="xInfo">
+                                <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                            </ul>
+                            <div class="tools cl">
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
+                            <div class="vTools">
+                                <div class="warn">
+                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
+                            <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
+                            <div class="frame-body tabbar-frame_content">
+                                <div><p>${result.memo!''}</p></div>
+                            </div>
+                        </#if>
+                        <#if (result??)&&(result.zwlx==2)>
+                            <div class="position-head">
+                                <h1>${result.zwbt!''}</h1>
+                                <dl class="info">
+                                    <dt><a href="">企业招聘公告</a></dt>
+                                    <dd>
+                                        <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <ul class="xInfo xInfo-2 cl">
+                                <li>工作城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>发布日期：<span>${result.createtime?substring(0,16)}</span></li>
+                            </ul>
+                            <div class="tools cl">
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
+                            <div class="vTools">
+                                <div class="warn">
+                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
+                                </div>
+                            </div>
+                            <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
+                            <div class="frame-body tabbar-frame_content">
+                                <div><p>${result.memo!''}</p></div>
+                            </div>
+                        </#if>
+                        <#if (result??)&&(result.zwlx==3)>
+                            <div class="position-head">
+                                <h1>${result.zwbt!''}</h1>
+                                <dl class="info">
+                                    <dt><a href="">社会招聘会</a></dt>
+                                    <dd>
+                                        <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <ul class="xInfo">
+                                <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                            </ul>
+                            <div class="tools cl"> <a class="btn_1 shoucang" onclick="applyJob()">学生报名参加</a>
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
+                            <div class="vTools">
+                                <div class="warn">
+                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
+                                </div>
+                            </div>
+                            <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
+                            <div class="frame-body tabbar-frame_content">
+                                <div><p>${result.memo!''}</p></div>
+                            </div>
+                        </#if>
+                        <#if (result??)&&(result.zwlx==4)>
+                            <div class="position-head">
+                                <h1>${result.zwbt!''}</h1>
+                                <dl class="info">
+                                    <dt><a href="">宣讲会</a></dt>
+                                    <dd>
+                                        <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <ul class="xInfo">
+                                <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                            </ul>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
+                            <div class="vTools">
+                                <div class="warn">
+                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
+                                </div>
+                            </div>
+                            <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
+                            <div class="frame-body tabbar-frame_content">
+                                <div><p>${result.memo!''}</p></div>
+                            </div>
+                        </#if>
+                        <#if (result??)&&(result.zwlx==0)>
+                            <div class="position-head">
+                                <h1>${result.zwbt!''}</h1>
+                                <#assign qy=result.qyxx>
+                                <dl class="info">
+                                    <dt><a href="">${qy.qymc!''}</a></dt>
+                                    <dd>
+                                        <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
+                                    </dd>
+                                </dl>
+                            </div>
+                            <ul class="xInfo">
+                                <li>公司性质：<span>${qy.qyGsxzStr!''}</span></li>
+                                <li>公司行业：<span>${qy.qyHylbStr!''}</span></li>
+                                <li>公司规模：<span>${qy.qyGsgmStr}</span></li>
+                            </ul>
+                            <ul class="xInfo xInfo-2 cl">
+                                <li>工作性质：<span>${result.zwGzxzStr!''}</span></li>
+                                <li>发布日期：<span>${result.createtime?substring(0,10)}</span></li>
+                                <li>工作年限：<span>${result.zwGznxStr!''}</span></li>
+                                <li>学历要求：<span>${result.zwXlyqStr!''}</span></li>
+                                <li>年龄要求：<span>${result.zwNlyqStr!''}</span></li>
+                                <li>招聘人数：<span>${result.zwZprs!'0'}人</span></li>
+                                <li>语言能力：<span>${result.zwYyyqStr!''}</span></li>
+                                <li>工作地点：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>薪资待遇：<span>${result.zwXs!''}</span></li>
+                                <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
+                            </ul>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a>
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
+
+                            <div class="vTools">
+                                <div class="warn">
+                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
+                                </div>
+                            </div>
+
+                            <div class="position-tabbar"><ul><li class="active"><a>岗位说明</a></li></ul></div>
+                            <div class="frame-body tabbar-frame_content">
+                                <div><p>${result.zwGwzz!''}</p></div>
+                            </div>
+                            <div class="position-tabcontent">
+                                <div class="position-tabbar"><ul><li class="active"><a>公司简介</a></li><li><a>联系方式</a></li></ul></div>
+                                <div class="frame-body tabbar-frame_content">
+                                    <div class="tabcontent position-company">
+                                        <b>${qy.qymc!''}</b>
+                                        <p>${qy.qyGsjs!''}</p>
+                                    </div>
+                                    <div class="tabcontent" style="display: none;">
+                                        <ul class="xInfo">
+                                            <li>联系人：<span>${qy.qyLxr!''}</span></li>
+                                            <li>联系电话：<span>${qy.qyLxrdh!''}</span></li>
+                                            <li>企业邮箱：<span>${qy.qyYx!''}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </#if>
+
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
     <#include "com/footer.ftl">
+    <script>
+        $(".position-tabbar ul li").hover(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+            $(this).parents(".position-tabcontent").find(".tabcontent").eq($(this).index()).show().siblings().hide();
+        })
+        function applyJob() {
+            var bmdx="${result.zwlx!''}";
+            if(bmdx=='0'){
+                bmdx=2
+            }else if(bmdx=='3'){
+                bmdx=0
+            }else if(bmdx=='4'){
+                bmdx=1
+            }
+            if(getCookie('stuOwid')){
+                var jsonObj={
+                    "jobRefOwid":"${result.owid!''}",
+                    "bmlx":'1',
+                    "bmdx":bmdx,
+                    "yhRefOwid":getCookie('stuOwid'),
+                }
+                ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
+                    layer.msg('申请成功', {icon: 1});
+                })
+            }else{
+                login();
+
+            }
+        }
+        function saveJob() {
+            if(getCookie('stuOwid')){
+                var jsonObj={
+                    "jobRefOwid":"${result.owid!''}",
+                    "xxlb":'0',
+                    "yhRefOwid":getCookie('stuOwid'),
+                }
+                ajax("zustjy/bckjBizXsgz/signInOrScribe", jsonObj, function (data) {
+                    if(data.backCode==0){
+                        layer.msg('收藏成功', {icon: 1});
+                        $(".shoucang").hide();
+                        $(".quxiao").show();
+                    }else {
+                        layer.msg('收藏失败', {icon: 2});
+                    }
+
+                })
+            }else{
+                login();
+
+            }
+        }
+        function cancelJob() {
+            if(getCookie('stuOwid')){
+                var jsonObj={
+                    "owid":"${result.owid!''}",
+                }
+                ajax("zustjy/bckjBizXsgz/cancelSubcribe", jsonObj, function (data) {
+                    if(data.backCode==0){
+                        layer.msg('取消成功', {icon: 1});
+                        $(".shoucang").show();
+                        $(".quxiao").hide();
+                    }else {
+                        layer.msg('取消失败', {icon: 2});
+                    }
+
+                })
+            }else{
+                login();
+
+            }
+        }
+        //登录
+        function login() {
+            var layer1;
+            layer1=layer.open({
+                type: 1,
+                title:'登录信息',
+                skin: 'layui-layer-rim', //加上边框
+                area: ['420px', '240px'], //宽高
+                content: '<div class="lxr-modal"><div class="row">\n' +
+                '                            <div class="form-group">\n' +
+                '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
+                '                                <div class="col-sm-6">\n' +
+                '                                    <input type="text" class="form-control" id="username" name="lxr" placeholder="" autocomplete="off">\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                        <div class="row">\n' +
+                '                            <div class="form-group">\n' +
+                '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">密码：</label>\n' +
+                '                                <div class="col-sm-6">\n' +
+                '                                    <input type="text" class="form-control" id="psd" name="lxdh" placeholder="" autocomplete="off">\n' +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                        </div><div class="row btn-yd">\n' +
+                '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+                '                                <button class="btn green" onclick="confirmQd()">确定</button>\n' +
+                '                            </div>\n' +
+                '                        </div></div>'
+            });
+        }
+        function confirmQd() {
+            if(!$("#username").val().trim()){
+                walert("请填写账号")
+                return
+            }else if(!$("#psd").val().trim()){
+                walert("请填写密码")
+                return
+            }
+            var jsonObj={
+                "yhDlzh":$("#username").val().trim(),
+                "yhDlmm":$("#psd").val().trim()
+            }
+            ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
+                if(data.backCode==0){
+                    addCookie("stuOwid",data.bean.owid)
+                    addCookie("stuSjh",data.bean.sjh)
+                    location.reload();
+                }
+            })
+
+        }
+    </script>
 </body>
 
 </html>

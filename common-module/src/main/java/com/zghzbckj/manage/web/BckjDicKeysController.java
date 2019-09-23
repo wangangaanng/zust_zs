@@ -15,10 +15,7 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.service.BckjDicKeysService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,4 +117,15 @@ public class BckjDicKeysController extends BaseController {
         }
     }
 
+
+    @RequestMapping(value = "keyFilterQuery", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage keyFilterQuery(@RequestBody Map<String ,Object> dataMap) {
+        try {
+            return ResponseMessage.sendOK(bckjDicKeysService.filterContent(dataMap));
+        } catch (Exception e) {
+            log.info("关键字过滤失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

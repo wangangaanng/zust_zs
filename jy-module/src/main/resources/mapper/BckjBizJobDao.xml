@@ -139,7 +139,7 @@
                 AND a.zw_gzzn = #{zwGzzn}
             </if>
             <if test="zwGzxz!= null and zwGzxz != ''">
-                AND a.zw_gzxz = #{zwKszwGzxzrq}
+                AND a.zw_gzxz = #{zwGzxz}
             </if>
             <if test="zwNlyq!= null and zwNlyq != ''">
                 AND a.zw_nlyq = #{zwNlyq}
@@ -162,8 +162,8 @@
             <if test="createtime2 != null and createtime2 !=''  ">
                 AND a.createtime &lt;= #{createtime2}
             </if>
-			<if test="qymc != null and qymc != ''">
-				AND b.qymc = #{qymc}
+			<if test="zwQymc != null and zwQymc != ''">
+				AND b.qymc = #{zwQymc}
 			</if>
         </where>
         <choose>
