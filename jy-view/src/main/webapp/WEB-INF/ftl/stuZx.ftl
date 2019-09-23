@@ -75,12 +75,15 @@
                         </#if>
                         <div class="al-btn">
                             <button onclick="removeHistoryConsult('${obj.owid}',this)" class="btn">删除</button>
-                            <button class="btn">继续咨询</button>
+                            <#if obj.hfOwid??>
+                            <button class="btn" onclick="question('${obj.hfOwid}')">继续咨询</button>
+                            </#if>
                         </div>
                     <#--<span class="glyphicon glyphicon-menu-up "></span>-->
                     </div>
                         </#list>
                     </#if>
+
             <#--<div class="al-item">-->
             <#--<div class="al-question">-->
             <#--<i></i> 我的提问：张老师，就业需要准备什么材料?-->
@@ -90,7 +93,27 @@
             <#--</div>-->
             <#--<span class="glyphicon glyphicon-menu-down "></span>-->
             <#--</div>-->
-
+                <div class="text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                        <#--<li>-->
+                        <#--<a href="#" aria-label="Previous">-->
+                        <#--<span aria-hidden="true">&laquo;</span>-->
+                        <#--</a>-->
+                        <#--</li>-->
+                        <#--<li><a href="#">1</a></li>-->
+                        <#--<li><a href="#">2</a></li>-->
+                        <#--<li><a href="#">3</a></li>-->
+                        <#--<li><a href="#">4</a></li>-->
+                        <#--<li><a href="#">5</a></li>-->
+                        <#--<li>-->
+                        <#--<a href="#" aria-label="Next">-->
+                        <#--<span aria-hidden="true">&raquo;</span>-->
+                        <#--</a>-->
+                        <#--</li>-->
+                        </ul>
+                    </nav>
+                </div>
             </div>
         </div>
         </div>
@@ -101,16 +124,76 @@
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
-
+<script src="${base}/js/bootstrap-paginator.min.js" type="text/javascript"></script>
 <script>
-
+    var currentPage="${asklist.currentPage!'1'}"
     $(document).ready(function () {
+        setPage(currentPage, "${asklist.totalPage!'1'}", function () {
+            openUrl('sutCenter/1/'+currentPage)
+        })
         historyConsult()
         $(".list-group-item").click(function(e) {
             var index=$(this).index()
             window.location.href="/stuCenter/"+index
         })
     })
+
+
+    function setPage(pageCurrent, pageSum, callback) {
+        $(".pagination").bootstrapPaginator({
+            //设置版本号
+            bootstrapMajorVersion: 3,
+            // 显示第几页
+            currentPage: pageCurrent,
+            // 总页数
+            totalPages: pageSum,
+            //当单击操作按钮的时候, 执行该函数, 调用ajax渲染页面
+            onPageClicked: function (event,originalEvent,type,page) {
+                // 把当前点击的页码赋值给currentPage, 调用ajax,渲染页面
+                currentPage = page
+                callback && callback()
+            }
+        })
+    }
+
+    function question(o) {
+        layer.open({
+            type: 1,
+            title:'填写咨询内容',
+            btn:["提交","取消"],
+            skin: 'layui-layer-rim', //加上边框
+            area: ['450px', '320px'], //宽高
+            content: '<div class="zx-textarea"><textarea id="wtnr"></textarea></div>',
+            yes:function(index){
+                ask(index,o);
+            }
+        })
+    }
+
+    function ask(index) {
+        if(!$("#wtnr").val()){
+            walert("请填写咨询内容");
+            return;
+        }
+        var jsonObj={
+            "wtnr":$("#wtnr").val(),
+            "owid": o,
+            "zxlx": 2,
+            "studentOwid": getCookie("stuOwid")
+        }
+        ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
+            if(data.backCode==0){
+                layer.close(index)
+                layer.open({
+                    title:'提示',
+                    content: '咨询已提交，请等待回复。',
+                    yes: function(index, layero){
+                        layer.close(index);
+                    }
+                });
+            }
+        })
+    }
 
     function removeHistoryConsult(a,obj){
         layer.open({

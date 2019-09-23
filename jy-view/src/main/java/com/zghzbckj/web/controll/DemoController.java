@@ -618,6 +618,37 @@ public class DemoController {
         return view;
     }
 
+
+    @RequestMapping(value = "stuCenter/{secondDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid, @PathVariable String secondDir, @PathVariable String currentPage) {
+        view.addObject("header",getHeader().getBean());
+        if(secondDir.equals("0")){//导师咨询
+            view.setViewName("stuCenter");
+            Map param=Maps.newHashMap();
+            param.put("pageNo",currentPage);
+            param.put("pageSize","12");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("tlist",result.getBean());
+        }else if(secondDir.equals("1")){//咨询列表
+            view.setViewName("stuZx");
+            Map param1=Maps.newHashMap();
+            param1.put("pageNo",currentPage);
+            param1.put("pageSize","10");
+            param1.put("zxlx",'2');
+            param1.put("twOwid",stuOwid);
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
+            ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+            view.addObject("asklist",result1.getBean());
+        }else if(secondDir.equals("2")){//报名预约
+            view.setViewName("stuBm");
+        }else if(secondDir.equals("3")){//我的收藏
+            view.setViewName("stuSc");
+        }
+
+        return view;
+    }
+
     @RequestMapping(value = "teacherDetail/{towid}", method = RequestMethod.GET)
     public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view, @PathVariable String towid) {
         view.setViewName("teacherDetail");

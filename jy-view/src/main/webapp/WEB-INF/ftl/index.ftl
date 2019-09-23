@@ -231,7 +231,7 @@
         <ul class="adv">
             <li><img src="${base}/img/pic1.png" /></li>
             <li><img src="${base}/img/pic2.png" /></li>
-            <li><img src="${base}/img/pic3.png" /></li>
+            <li onclick="openUrl('ranking')"><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
     <!-- S c -->
