@@ -210,7 +210,14 @@
 	
 	<delete id="delete">
 		DELETE FROM bckj_biz_yhkz
-		WHERE owid = #{owid}
+		<where>
+			<if test="owid != null and owid ！=''">
+				and owid =#{owid}
+			</if>
+			<if test="yhRefOwid != null and yhRefOwid ！=''">
+				and yhRefOwid =#{yhRefOwid}
+			</if>
+		</where>
 	</delete>
 
 	<select id="getOneByYhRefOwid" resultType="BckjBizYhkz" parameterType="Map">

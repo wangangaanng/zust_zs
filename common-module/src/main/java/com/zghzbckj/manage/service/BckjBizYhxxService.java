@@ -8,8 +8,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 
-import com.zghzbckj.base.entity.BaseEntity;
-import com.zghzbckj.base.entity.DataWithExpEntity;
+
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
@@ -18,9 +17,8 @@ import com.zghzbckj.util.CustomSaveALL;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
-import com.zghzbckj.vo.BckjBizStudentXxVo;
-import org.apache.ibatis.annotations.Update;
-import org.apache.poi.ss.formula.functions.T;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
@@ -157,7 +155,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if(TextUtils.isEmpty(map)){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-        if(!datamap.get("yhDlmm").toString().equals(map.get("yhDlmm").toString())){
+        if(!(datamap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString()))){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
         }
         //如果不是为老师或者学生
@@ -409,29 +407,16 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             for (Map<String,Object>  component:components){
                 //如果為刪除的記錄
                 if (Integer.parseInt(component.get("updateFlag").toString())==2){
-                    HashMap<String, Object> deleteMap = Maps.newHashMap();
-                    deleteMap.put("delete",component.get("owid").toString());
-                    component.put("delete","true");
-                    lists.add(deleteMap);
+                    delete(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
+/*
+                    bckjBizYhkz.
+                    bckjBizYhkzService.delete();
+*/
+                    components.remove(component);
+                    break;
                 }
-                for (Map<String,Object> listRule:listRules){
-                    if(component.get("owid")!=null&&component.get("owid").equals(listRule.get("owid"))&&component.get("delete")==null){
-                        saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
-                        component.put("commit","true");
-                        break;
-                    }
-                }
-                if (component.get("commit")==null&&component.get("owid")==null&&component.get("delete")==null){
-                    component.put("owid",UUID.randomUUID().toString().replace("-", ""));
-                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
-                }
-            }
-            //保存刪除的記錄
-            if (lists.size()>0) {
-                for (Map<String,Object> map :lists){
-                    this.deleteByMap(map);
-
-                }
+               saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
             }
         }
         catch (Exception e){
