@@ -541,6 +541,7 @@ public class DemoController {
     @RequestMapping(value = "stuCenter", method = RequestMethod.GET)
     public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid) {
         view.setViewName("stuCenter");
+        view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("pageNo",'1');
         param.put("pageSize","9");
