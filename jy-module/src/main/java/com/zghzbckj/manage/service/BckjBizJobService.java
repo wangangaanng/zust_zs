@@ -147,7 +147,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         params.put("content", zwbt);
         ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
         if (!TextUtils.isEmpty(responseYhxx.getBean())) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
         }
 
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
@@ -336,8 +336,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
-    public BckjBizJob getOneJob(Map<String ,Object> mapData) {
-        String owid=mapData.get("owid").toString();
+    public BckjBizJob getOneJob(Map<String, Object> mapData) {
+        String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
@@ -384,7 +384,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
             BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
-            if(!TextUtils.isEmpty(qyxx)) {
+            if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
                     params.put("dicVal1", qyxx.getQyGsgm());
@@ -412,17 +412,15 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             job.setZwYds(1);
         }
         //查看是否被关注
-        if(!TextUtils.isEmpty(mapData.get("yhOwid"))){
+        if (!TextUtils.isEmpty(mapData.get("yhOwid"))) {
             HashMap<String, Object> sendMap = Maps.newHashMap();
-            sendMap.put("jobRefOwid",owid);
-            sendMap.put("yhRefOwid",mapData.get("yhOwid"));
+            sendMap.put("jobRefOwid", owid);
+            sendMap.put("yhRefOwid", mapData.get("yhOwid"));
             List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
-            if(!TextUtils.isEmpty(bckjBizXsgzs)){
-                if(bckjBizXsgzs.size()>0){
-                    job.setExp1("1");
-                }else {
-                    job.setExp1("0");
-                }
+            if (TextUtils.isEmpty(bckjBizXsgzs)) {
+                job.setExp1("0");
+            } else {
+                job.setExp1("1");
             }
         }
         return job;
