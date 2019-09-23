@@ -81,10 +81,11 @@
                     </div>
                     </#list>
                 </#if>
-                    <div class="text-center">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                            <#--<li>-->
+                </div>
+                <div class="text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                        <#--<li>-->
                             <#--<a href="#" aria-label="Previous">-->
                             <#--<span aria-hidden="true">&laquo;</span>-->
                             <#--</a>-->
@@ -99,9 +100,8 @@
                             <#--<span aria-hidden="true">&raquo;</span>-->
                             <#--</a>-->
                             <#--</li>-->
-                            </ul>
-                        </nav>
-                    </div>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>

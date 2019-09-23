@@ -293,57 +293,6 @@
 
             }
         }
-        //登录
-        function login() {
-            var layer1;
-            layer1=layer.open({
-                type: 1,
-                title:'登录信息',
-                skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '240px'], //宽高
-                content: '<div class="lxr-modal"><div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
-                '                                <div class="col-sm-6">\n' +
-                '                                    <input type="text" class="form-control" id="username" name="lxr" placeholder="" autocomplete="off">\n' +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                        <div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">密码：</label>\n' +
-                '                                <div class="col-sm-6">\n' +
-                '                                    <input type="text" class="form-control" id="psd" name="lxdh" placeholder="" autocomplete="off">\n' +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                        </div><div class="row btn-yd">\n' +
-                '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                '                                <button class="btn green" onclick="confirmQd()">确定</button>\n' +
-                '                            </div>\n' +
-                '                        </div></div>'
-            });
-        }
-        function confirmQd() {
-            if(!$("#username").val().trim()){
-                walert("请填写账号")
-                return
-            }else if(!$("#psd").val().trim()){
-                walert("请填写密码")
-                return
-            }
-            var jsonObj={
-                "yhDlzh":$("#username").val().trim(),
-                "yhDlmm":$("#psd").val().trim()
-            }
-            ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
-                if(data.backCode==0){
-                    addCookie("stuOwid",data.bean.owid)
-                    addCookie("stuSjh",data.bean.sjh)
-                    location.reload();
-                }
-            })
-
-        }
     </script>
 </body>
 
