@@ -15,10 +15,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizDcwjDao;
 import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
-import com.zghzbckj.manage.entity.BckjBizDcwj;
-import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
-import com.zghzbckj.manage.entity.BckjBizDcwjJg;
-import com.zghzbckj.manage.entity.BckjBizDcwjTm;
+import com.zghzbckj.manage.entity.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +43,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     BckjBizDcwjJgService bckjBizDcwjJgService;
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
+    @Autowired
+    BckjBizYhxxService bckjBizYhxxService;
 
     @Override
     public BckjBizDcwj get(String owid) {

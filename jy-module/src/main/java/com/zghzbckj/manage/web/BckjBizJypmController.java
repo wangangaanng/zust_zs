@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -53,7 +50,11 @@ public class BckjBizJypmController extends BaseController {
     @ResponseBody
     public ResponseMessage jypmList(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = new HashMap<>();
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pmnf");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+            }
             dataMap.put("orderBy", "szxy");
             PageInfo<Map<String, Object>> pageInfo = bckjBizJypmService.rankPage(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
@@ -61,6 +62,31 @@ public class BckjBizJypmController extends BaseController {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");
         }
+    }
+
+    /**
+     *<p>功能描述:最近几年 getRecentYears</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/9/23 17:22</li>
+     *</ul>
+     */
+    @PostMapping(value = "getRecentYears")
+    @ResponseBody
+    public ResponseMessage getRecentYears(PublicDataVO dataVO) {
+        Calendar calendar = Calendar.getInstance();
+        String[] recentYears = new String[3];
+        int thisYear = calendar.get(Calendar.YEAR);
+        for (int i = 0; i < 3; i++) {
+            recentYears[i] = String.valueOf(thisYear);
+            thisYear = thisYear - 1;
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("recentYears", recentYears);
+        return ResponseMessage.sendOK(result);
     }
 
     /**
