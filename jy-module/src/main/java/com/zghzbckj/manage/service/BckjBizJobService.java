@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -80,6 +81,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         super.delete(bckjBizJob);
     }
 
+    @Autowired
+    BckjBizXsgzService bckjBizXsgzService;
+
 
     /**
      * <p>方法:findPagebckjBizJob TODO后台BckjBizJob分页列表</p>
@@ -143,7 +147,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         params.put("content", zwbt);
         ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
         if (!TextUtils.isEmpty(responseYhxx.getBean())) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
         }
 
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
@@ -332,7 +336,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
-    public BckjBizJob getOneJob(String owid) {
+    public BckjBizJob getOneJob(Map<String, Object> mapData) {
+        String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
@@ -379,38 +384,45 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
             BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
-            if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
-                params.put("type", JyContant.GSGM);
-                params.put("dicVal1", qyxx.getQyGsgm());
-                String gsgmStr = qyxxDao.queryDic(params);
-                qyxx.setQyGsgmStr(gsgmStr);
+            if (!TextUtils.isEmpty(qyxx)) {
+                if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
+                    params.put("type", JyContant.GSGM);
+                    params.put("dicVal1", qyxx.getQyGsgm());
+                    String gsgmStr = qyxxDao.queryDic(params);
+                    qyxx.setQyGsgmStr(gsgmStr);
+                }
+                if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
+                    params.put("type", JyContant.HYLB);
+                    params.put("dicVal1", qyxx.getQyHylb());
+                    String hylbStr = qyxxDao.queryDic(params);
+                    qyxx.setQyHylbStr(hylbStr);
+                }
+                if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
+                    params.put("type", JyContant.GSXZ);
+                    params.put("dicVal1", qyxx.getQyGsxz());
+                    String gsxzStr = qyxxDao.queryDic(params);
+                    qyxx.setQyGsxzStr(gsxzStr);
+                }
+                job.setQyxx(qyxx);
             }
-            if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
-                params.put("type", JyContant.HYLB);
-                params.put("dicVal1", qyxx.getQyHylb());
-                String hylbStr = qyxxDao.queryDic(params);
-                qyxx.setQyHylbStr(hylbStr);
-            }
-            if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
-                params.put("type", JyContant.GSXZ);
-                params.put("dicVal1", qyxx.getQyGsxz());
-                String gsxzStr = qyxxDao.queryDic(params);
-                qyxx.setQyGsxzStr(gsxzStr);
-            }
-            job.setQyxx(qyxx);
         }
         if (!TextUtils.isEmpty(job.getZwYds())) {
             job.setZwYds(job.getZwYds() + 1);
         } else {
             job.setZwYds(1);
         }
-
-        if (!TextUtils.isEmpty(job.getZwGzs())) {
-            job.setZwGzs(job.getZwGzs() + 1);
-        } else {
-            job.setZwGzs(1);
+        //查看是否被关注
+        if (!TextUtils.isEmpty(mapData.get("yhOwid"))) {
+            HashMap<String, Object> sendMap = Maps.newHashMap();
+            sendMap.put("jobRefOwid", owid);
+            sendMap.put("yhRefOwid", mapData.get("yhOwid"));
+            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            if (TextUtils.isEmpty(bckjBizXsgzs)) {
+                job.setExp1("0");
+            } else {
+                job.setExp1("1");
+            }
         }
-
         return job;
     }
 

@@ -171,7 +171,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
-        //0报名 1宣讲
+        //0报名 1宣讲 2职位
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         Map resultMap = new HashMap<>(2);
         BckjBizJybm jybm = new BckjBizJybm();

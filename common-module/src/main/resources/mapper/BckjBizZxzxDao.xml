@@ -249,6 +249,9 @@
 			<if test="twOwid!=null and twOwid!=''">
 				and a.tw_owid=#{twOwid}
 			</if>
+			<if test="zxlx!=null and zxlx!=''">
+			    and a.zxlx=#{zxlx}
+			</if>
 		</where>
 		order by a.state asc , a.createtime desc
 	</select>

@@ -15,14 +15,11 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizZxzxService;
 import com.zghzbckj.util.IpAdrressUtil;
-import org.apache.poi.poifs.crypt.DataSpaceMapUtils;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -235,7 +232,28 @@ public class BckjBizZxzxController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
-
-
     }
+    /**
+     * <p>功能描述:后台显示就业留言列表</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/20</li>
+     * </ul>
+     */
+    @PostMapping("showJyMessageList")
+    @ResponseBody
+    public  ResponseMessage showJyMessageList(PublicDataVO dataVO){
+        try {
+            return bckjBizZxzxService.showJyMessageList(dataVO.getPageNo(),dataVO.getPageSize());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

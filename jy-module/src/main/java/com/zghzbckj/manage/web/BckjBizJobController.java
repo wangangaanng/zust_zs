@@ -151,7 +151,7 @@ public class BckjBizJobController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizJobService.getOneJob(mapData.get("owid").toString()));
+            return ResponseMessage.sendOK(bckjBizJobService.getOneJob(mapData));
         } catch (Exception e) {
 
             log.error(e + "初始BckjBizJob\r\n" + e.getStackTrace()[0], e);
