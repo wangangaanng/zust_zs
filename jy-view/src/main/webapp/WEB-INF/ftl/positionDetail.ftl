@@ -32,7 +32,13 @@
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"><a class="btn_1" onclick="saveJob()">收藏</a></div>
+                            <div class="tools cl">
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
                             <div class="vTools">
                                 <div class="warn">
                                     <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
@@ -58,7 +64,13 @@
                                 <li>工作城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>发布日期：<span>${result.createtime?substring(0,16)}</span></li>
                             </ul>
-                            <div class="tools cl"><a class="btn_1" onclick="saveJob()">收藏</a></div>
+                            <div class="tools cl">
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
                             <div class="vTools">
                                 <div class="warn">
                                     <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
@@ -85,7 +97,13 @@
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a> <a class="link_1" onclick="saveJob()">收藏</a></div>
+                            <div class="tools cl"> <a class="btn_1 shoucang" onclick="applyJob()">学生报名参加</a>
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
                             <div class="vTools">
                                 <div class="warn">
                                     <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
@@ -112,7 +130,13 @@
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a> <a class="link_1" onclick="saveJob()">收藏</a></div>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
                             <div class="vTools">
                                 <div class="warn">
                                     <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
@@ -152,7 +176,13 @@
                                 <li>薪资待遇：<span>${result.zwXs!''}</span></li>
                                 <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a> <a class="link_1" onclick="saveJob()">收藏职位</a></div>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a>
+                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                <#else >
+                                    <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+                            </div>
 
                             <div class="vTools">
                                 <div class="warn">
@@ -229,8 +259,30 @@
                 ajax("zustjy/bckjBizXsgz/signInOrScribe", jsonObj, function (data) {
                     if(data.backCode==0){
                         layer.msg('收藏成功', {icon: 1});
+                        $(".shoucang").hide();
+                        $(".quxiao").show();
                     }else {
                         layer.msg('收藏失败', {icon: 2});
+                    }
+
+                })
+            }else{
+                login();
+
+            }
+        }
+        function cancelJob() {
+            if(getCookie('stuOwid')){
+                var jsonObj={
+                    "owid":"${result.owid!''}",
+                }
+                ajax("zustjy/bckjBizXsgz/cancelSubcribe", jsonObj, function (data) {
+                    if(data.backCode==0){
+                        layer.msg('取消成功', {icon: 1});
+                        $(".shoucang").show();
+                        $(".quxiao").hide();
+                    }else {
+                        layer.msg('取消失败', {icon: 2});
                     }
 
                 })

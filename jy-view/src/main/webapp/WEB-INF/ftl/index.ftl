@@ -302,7 +302,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="menue-item">
+                    <div class="menue-item" onclick="openUrl('inquiry')">
                         <div>
                             <img src="${base}/img/menu4.png" />
                             <div>

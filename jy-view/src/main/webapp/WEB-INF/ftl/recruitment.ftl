@@ -176,11 +176,6 @@
                 var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
                 return c;
     }
-//    window.operateEvents = {
-//        'click': function (e, value, row, index) {
-//            alert(row.owid)
-//        }
-//    }
 </script>
 </body>
 
