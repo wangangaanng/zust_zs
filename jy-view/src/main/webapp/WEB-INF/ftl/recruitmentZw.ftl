@@ -263,6 +263,7 @@
                 align : 'center',
                 field: 'zwbt',
                 title: '职位名称',
+                formatter: operateFormatterZph
             }, {
                 align : 'center',
                 field: 'zwQymc',
@@ -283,6 +284,10 @@
 
         });
 
+    }
+    function operateFormatterZph(value, row, index) {
+        var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+        return c;
     }
 </script>
 </body>
