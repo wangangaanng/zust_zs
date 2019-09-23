@@ -284,12 +284,6 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "contactUs", method = RequestMethod.GET)
-    public ModelAndView contactUs(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("contactUs");
-        return view;
-    }
-
     @RequestMapping(value = "enterpriseGuide", method = RequestMethod.GET)
     public ModelAndView enterpriseGuide(HttpServletRequest request,ModelAndView view) {
         view.setViewName("enterpriseGuide");
@@ -496,13 +490,33 @@ public class DemoController {
         return view;
     }
 
-    @RequestMapping(value = "stuService", method = RequestMethod.GET)
-    public ModelAndView stuService(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "stuService/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView stuService(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("stuService");
         view.addObject("header",getHeader().getBean());
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+
         return view;
     }
 
+    @RequestMapping(value = "contactUs/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView contactUs(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
+        view.setViewName("contactUs");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+
+        return view;
+    }
 
     @RequestMapping(value = "jydcList", method = RequestMethod.GET)
     public ModelAndView jydcList(HttpServletRequest request,ModelAndView view) {
@@ -512,30 +526,76 @@ public class DemoController {
     }
 
 
-    @RequestMapping(value = "jydcDetail", method = RequestMethod.GET)
-    public ModelAndView jydcDetail(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("jydcDetail");
+    @RequestMapping(value = "ranking", method = RequestMethod.GET)
+    public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("ranking");
         view.addObject("header",getHeader().getBean());
         return view;
     }
 
-    @RequestMapping(value = "stuCenter", method = RequestMethod.GET)
-    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid) {
-        view.setViewName("stuCenter");
-        Map param=Maps.newHashMap();
-        param.put("pageNo",'1');
-        param.put("pageSize","9");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
-        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("tlist",result.getBean());
-        Map param1=Maps.newHashMap();
-        param1.put("pageNo",'1');
-        param1.put("pageSize","9");
-        param1.put("zxlx",'2');
-        param1.put("twOwid",stuOwid);
-        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
-        ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
-        view.addObject("asklist",result1.getBean());
+    @RequestMapping(value = "enterpriseService/{secondDir}", method = RequestMethod.GET)
+    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid, @PathVariable String secondDir) {
+        view.addObject("header",getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        if(secondDir.equals("0")){//基本信息
+            view.setViewName("enterpriseService");
+            Map param=Maps.newHashMap();
+            param.put("dicType","20000");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+            ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("qyGsxz",qyGsxz.getBean());
+            Map param1=Maps.newHashMap();
+            param1.put("dicType","20001");
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+            ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+            view.addObject("qyHylb",qyHylb.getBean());
+            Map param2=Maps.newHashMap();
+            param2.put("dicType","20002");
+            PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+            ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+            view.addObject("qyGsgm",qyGsgm.getBean());
+            Map param3=Maps.newHashMap();
+            param3.put("owid",qyOwid);
+            PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
+            ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
+            view.addObject("cInfo",cInfo.getBean());
+        }else if(secondDir.equals("1")){//职位信息
+            view.setViewName("enterpriseZw");
+        }else if(secondDir.equals("2")){//宣讲会
+            view.setViewName("enterpriseXjh");
+        }else if(secondDir.equals("3")){//招聘会
+            view.setViewName("enterpriseZph");
+        }
+        return view;
+    }
+
+    @RequestMapping(value = "stuCenter/{secondDir}", method = RequestMethod.GET)
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid, @PathVariable String secondDir) {
+        view.addObject("header",getHeader().getBean());
+        if(secondDir.equals("0")){//导师咨询
+            view.setViewName("stuCenter");
+            Map param=Maps.newHashMap();
+            param.put("pageNo",'1');
+            param.put("pageSize","9");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("tlist",result.getBean());
+        }else if(secondDir.equals("1")){//咨询列表
+            view.setViewName("stuZx");
+            Map param1=Maps.newHashMap();
+            param1.put("pageNo",'1');
+            param1.put("pageSize","9");
+            param1.put("zxlx",'2');
+            param1.put("twOwid",stuOwid);
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
+            ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+            view.addObject("asklist",result1.getBean());
+        }else if(secondDir.equals("2")){//报名预约
+            view.setViewName("stuBm");
+        }else if(secondDir.equals("3")){//我的收藏
+            view.setViewName("stuSc");
+        }
+
         return view;
     }
 

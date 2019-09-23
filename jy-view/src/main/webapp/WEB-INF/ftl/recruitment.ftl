@@ -69,6 +69,7 @@
     var pageSize=10;
     var zwlx="${zwlx?number!0}";
     $(document).ready(function () {
+        console.log(zwlx)
         myJobList()
     })
 

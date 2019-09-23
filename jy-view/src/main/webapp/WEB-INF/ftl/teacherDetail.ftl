@@ -9,17 +9,7 @@
     <#include "com/config.ftl">
 </head>
 <style>
-    .zx-textarea{
-        padding: 15px 20px;
-        width: 100%;
-        height: 100%;
-    }
-    .zx-textarea textarea{
-        width: 100%;
-        height: 190px;
-        resize:none;
-        border-radius: 5px;
-    }
+
 </style>
 
 <body>
@@ -73,12 +63,6 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script>
-    $(".list-group-item").click(function(e) {
-        $(this).siblings().removeClass("active1")
-        $(this).addClass("active1")
-        $(".content-list").hide();
-        $(".content-list").eq($(this).index()).show();
-    })
 
     $(document).ready(function () {
 

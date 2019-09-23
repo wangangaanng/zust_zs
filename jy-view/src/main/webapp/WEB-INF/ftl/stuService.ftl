@@ -9,7 +9,10 @@
     <#include "com/config.ftl">
 </head>
 <style>
-
+    .control-label{
+        color: #999 !important;
+    }
+    .form-group div{line-height: 34px !important;}
 </style>
 
 <body>
@@ -18,137 +21,11 @@
     <div class="container">
        <#include "com/route.ftl">
         <div class="content">
-            <div class="menu-nav">
-                <div class="menu-title">
-                    <div class="title-chn">学生服务</div>
-                    <div class="title-en">STUDENT SERVICE
-                        <div class="menu-nav-icon"></div>
-                    </div>
-
-                </div>
-                <div class="menu-list">
-                    <ul class="list-group">
-                        <li class="list-group-item active1">
-                            <span class="ic-menu"></span> 办事流程
-                        </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 常用下载
-                        </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 档案查询
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="content-list" style="dispay:none">
-                <div class="search-bar">
-                    <div class="search-label">搜素关键字：</div>
-                    <div class="input-group search-input">
-                        <input type="text" class="form-control" placeholder="输入内容">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="news-list">
-                    <ul>
-                        <li>
-                            <div class="article">毕业生就业流程图</div>
-                            <div class="article-time">2019-04-29</div>
-
-                        </li>
-                        <li>
-                            <div class="article">毕业生就业流程图</div>
-                            <div class="article-time">2019-04-29</div>
-
-                        </li>
-                        <li>
-                            <div class="article">毕业生就业流程图</div>
-                            <div class="article-time">2019-04-29</div>
-
-                        </li>
-                    </ul>
-                    <div class="text-center">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="content-list" style="display: none;">
-                <div class="search-bar">
-                    <div class="search-label">搜素关键字：</div>
-                    <div class="input-group search-input">
-                        <input type="text" class="form-control" placeholder="输入内容">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="news-list">
-                    <ul>
-                        <li>
-                            <div class="article">2016浙江科技学院毕业生离校手续单</div>
-                            <div class="article-time">2019-04-29</div>
-
-                        </li>
-                        <li>
-                            <div class="article">2016浙江科技学院毕业生离校手续单</div>
-                            <div class="article-time">2019-04-29</div>
-
-                        </li>
-                        <li>
-                            <div class="article">2016浙江科技学院毕业生离校手续单</div>
-                            <div class="article-time">2019-04-29</div>
-
-                        </li>
-                    </ul>
-                    <div class="text-center">
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-
-            <div class="content-list" style="display: none;">
+            <#include "com/subMenu.ftl">
+            <div class="content-list" >
                 <div class="article-detail" style="border: none;">
                     <div class="article-column-title">
-                        <div class="h3">档案去向查询</div>
+                        <div class="h3">${thirdDirName!''}</div>
                     </div>
                     <div class="article-detail-text text-center">
                         <div class="archives">
@@ -158,16 +35,16 @@
                                     <label>
                                         <i class="icon ic-name"></i>
                                     </label>
-                                    <input class="" type="text" placeholder="请输入姓名" />
+                                    <input class="" id="xsxm" type="text" placeholder="请输入姓名" />
                                 </div>
                                 <div class="archives-input">
                                     <label>
                                         <i class="icon ic-sfz"></i>
                                     </label>
-                                    <input class="" type="text" placeholder="请输入身份证号码" />
+                                    <input class="" id="sfzh" type="text" placeholder="请输入身份证号码" />
                                 </div>
                                 <div class="archives-input">
-                                    <button class="btn green">查询</button>
+                                    <button class="btn green" onclick="inquiryArchives()">查询</button>
                                 </div>
                             </div>
                         </div>
@@ -176,63 +53,7 @@
                 </div>
 
             </div>
-            <div class="content-list" style="min-height: 707px;height:auto;display: none;">
-                <div class="article-detail" style="border: none;">
-                    <div class="article-column-title">
-                        <div class="h3">指导老师</div>
-                    </div>
-                    <div class="teacher-list">
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="teacher-item">
-                            <div class="t-bg"></div>
-                            <div class="teacher-detail">
-                                <div class="t-name">张立庆</div>
-                                <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程。</div>
-                                <div class="t-btn">
-                                    <button class="btn t-zx green">我要咨询</button>
-                                    <button class="btn t-xq">查看详情</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
 
     </div>
@@ -243,27 +64,105 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 
 <script>
-
+    var index;
     $(document).ready(function () {
-        supervisorList()
+
     })
 
-    function supervisorList(){
-        var jsonObj ={
-            "pageSize":10,
-            "pageNo":1
+    function inquiryArchives(){
+        if(!$("#xsxm").val().trim()){
+            walert("请输入姓名")
+            return;
         }
-        ajax("zustjy/bckjBizZjzx/supervisorList", jsonObj, function (data) {
+        if(!$("#sfzh").val().trim()){
+            walert("请输入身份证号码")
+            return;
+        }
+        var jsonObj ={
+            "xsxm":$("#xsxm").val().trim(),
+            "sfzh":$("#sfzh").val().trim()
+        }
+        ajax("zustjy/bckjBizDacx/inquiryArchives", jsonObj, function (data) {
             if(data.backCode==0){
-                layer.close(layer1)
-                layer1=null;
-            <#--window.location.href="${base}/"+url-->
-                window.location.href="${base}/jobFair/2"
+                var index;
+                index=layer.open({
+                    type: 1,
+                    title:'查询结果',
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['750px', '450px'], //宽高
+                    content: '<div class="lxr-modal"><div class="row">\n' +
+                    '                            <div class="form-group">\n' +
+                    '                                <label for="lxr" class="col-sm-3 control-label text-right" style="line-height: 34px;">姓名：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.xsxm +
+                    '                                </div>\n' +
+                    '                                <label for="lxdh" class="col-sm-3 control-label text-right" style="line-height: 34px;">学号：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.xsxh +
+                    '                                </div>\n' +
+                    '                            </div>\n' +
+                    '                        </div>\n' +
+                    '                        <div class="row">\n' +
+                    '                            <div class="form-group">\n' +
+                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">身份证号：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.sfzh +
+                    '                                </div>\n' +
+                    '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">毕业时间：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.bysj.substring(0,10) +
+                    '                                </div>\n' +
+                    '                            </div>\n' +
+                    '                            </div>\n' +
+                    '                        <div class="row">\n' +
+                    '                            <div class="form-group">\n' +
+                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在院系：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.szxy +
+                    '                                </div>\n' +
+                    '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在班级：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.szbj.substring(0,10) +
+                    '                                </div>\n' +
+                    '                            </div>\n' +
+                    '                            </div>\n' +
+                    '                        <div class="row">\n' +
+                    '                            <div class="form-group">\n' +
+                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">报到证签往单位名称：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.bdzDwmc +
+                    '                                </div>\n' +
+                    '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位名称：</label>\n' +
+                    '                                <div class="col-sm-3">\n' +
+                    '                                    \n' + data.bean.dazjDwmc +
+                    '                                </div>\n' +
+                    '                            </div>\n' +
+                    '                            </div>\n' +
+                    '                        <div class="row">\n' +
+                    '                            <div class="form-group">\n' +
+                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位地址：</label>\n' +
+                    '                                <div class="col-sm-8">\n' +
+                    '                                    \n' + data.bean.dazjDwdz +
+                    '                                </div>\n' +
+                    '                            </div>\n' +
+                    '                            </div>\n' +
+                    '                        <div class="row btn-yd">\n' +
+                    '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+                    '                                <button class="btn green" onclick="closeLayer()">确定</button>\n' +
+                    '                            </div>\n' +
+                    '                        </div></div>'
+                });
             }else{
                 walert(data.errorMess)
             }
         })
     }
+
+    function closeLayer(){
+        layer.close(index)
+        index=null;
+    }
+
     $(".list-group-item").click(function(e) {
         $(this).siblings().removeClass("active1")
         $(this).addClass("active1")

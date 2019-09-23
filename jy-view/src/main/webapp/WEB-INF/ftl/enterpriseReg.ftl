@@ -17,13 +17,12 @@
 </style>
 
 <body>
-<#--<#include "com/header.ftl">-->
+<#include "com/header.ftl">
 <div class="main">
     <div class="container">
         <div class="routes">
             <div class="location">
                 <i></i>
-                <!-- <img src="img/ic-home.png"> -->
                 当前位置：
             </div>
 
@@ -35,41 +34,42 @@
         <div class="content-form">
             <form class="form-horizontal" id="registerForm" method="" action="" target="rfFrame">
                 <div class="form-group">
-                    <label for="qyTysh" class="col-sm-2 control-label">填写代码*：</label>
+                    <label for="qyTysh" class="col-sm-2 control-label">填写代码<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="qyTysh" name="qyTysh" placeholder="" autocomplete="off">
                     </div>
                     <div class="col-sm-2 upload-img">
-                        <input type="file" value="" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                        <input type="file" value="" class="file1" data-type="1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
                         <img src="${base}/img/upload.png" id="yyzz" alt="" />
                     </div>
-                    <div class="upload-sm">上传营业执照自动识别统一信用代码*</div>
+                    <div class="upload-sm">上传营业执照自动识别统一信用代码<span class="red">*</span></div>
                 </div>
                 <div class="form-group">
-                    <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号*：</label>
+                    <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="qyFrsfz" name="qyFrsfz" placeholder="" autocomplete="off">
                     </div>
                     <div class="col-sm-2 upload-img">
-                        <img src="${base}/img/upload.png" alt="" class="" />
+                        <input type="file" value="" class="file1" data-type="2" name="file1" id="file1" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                        <img src="${base}/img/upload.png" id="sfz" alt="" />
                     </div>
                     <div class="upload-sm">上传法人身份证正面照，自动识别、填充</div>
                 </div>
                 <div class="form-group">
-                    <label for="qymc" class="col-sm-2 control-label">公司名称*：</label>
+                    <label for="qymc" class="col-sm-2 control-label">公司名称<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="qymc" name="qymc" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyProv" class="col-sm-2 control-label">所在省份*：</label>
+                    <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                     <div class="col-sm-4">
                         <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
-                    <label for="qyCity" class="col-sm-2 control-label">所在市*：</label>
+                    <label for="qyCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
                     <div class="col-sm-4">
                         <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity">
                             <option value="">请选择</option>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyArea" class="col-sm-2 control-label">所在区*：</label>
+                    <label for="qyArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
                     <div class="col-sm-4">
                         <select class="form-control" name="qyArea" id="qyArea">
                             <option value="">请选择</option>
@@ -87,32 +87,32 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qydz" class="col-sm-2 control-label">公司地址*：</label>
+                    <label for="qydz" class="col-sm-2 control-label">公司地址<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="qydz" name="qydz" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyLxr" class="col-sm-2 control-label">联系人*：</label>
+                    <label for="qyLxr" class="col-sm-2 control-label">联系人<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyLxrdh" class="col-sm-2 control-label">手机*：</label>
+                    <label for="qyLxrdh" class="col-sm-2 control-label">手机<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="qyYx" class="col-sm-2 control-label">邮箱*：</label>
+                    <label for="qyYx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsxz" class="col-sm-2 control-label">公司性质*：</label>
+                    <label for="qyGsxz" class="col-sm-2 control-label">公司性质<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsxz" name="qyGsxz">
                             <option value="">请选择</option>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyHylb" class="col-sm-2 control-label">行业类别*：</label>
+                    <label for="qyHylb" class="col-sm-2 control-label">行业类别<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyHylb" name="qyHylb">
                             <option value="">请选择</option>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsgm" class="col-sm-2 control-label">公司规模*：</label>
+                    <label for="qyGsgm" class="col-sm-2 control-label">公司规模<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsgm" name="qyGsgm">
                             <option value="">请选择</option>
@@ -146,7 +146,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="qyGsjs" class="col-sm-2 control-label">公司介绍*：</label>
+                    <label for="qyGsjs" class="col-sm-2 control-label">公司介绍<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10"></textarea>
                     </div>
@@ -217,21 +217,31 @@
                 }
             })
 
-            $("#file").change(function (e) {
+            $(".file1").change(function (e) {
                 var file = e.target.files[0] || e.dataTransfer.files[0];
-
+                console.log(this.getAttribute("data-type"))
+                var type=this.getAttribute("data-type")
                 // $('#photoCover').val(document.getElementById("file").files[0].name);
                 if (file) {
                     console.log("file",file.name)
                     var reader = new FileReader();
                     reader.onload = function () {
                         // console.log("file",file)
-                        $("#yyzz").attr("src",this.result)
+
                         var fd = new FormData();
                         fd.append("file",file);
-                        fd.append('data', JSON.stringify({
-                            "type": 1
-                        }));
+                        if(type==1){
+                            $("#yyzz").attr("src",this.result)
+                            fd.append('data', JSON.stringify({
+                                "type": 1
+                            }));
+                        }else if(type==2){
+                            $("#sfz").attr("src",this.result)
+                            fd.append('data', JSON.stringify({
+                                "type": 2
+                            }));
+                        }
+
                         // fd.append("method", "zustcommon/common/picUpload");
                         $.ajax({
                             url: "http://192.168.3.222:8888/zustcommon/common/picUpload",//localUrl,//
@@ -242,12 +252,31 @@
                             success: function(d) {
                                 // console.log(d);
                                 if(d.bean){
-                                    if(d.bean["社会信用代码"]){
-                                        $("#qyTysh").val(d.bean["社会信用代码"].words)
+                                    if(type==1){
+                                        if(d.bean["社会信用代码"]){
+                                            if(d.bean["社会信用代码"].words){
+                                                $("#qyTysh").val(d.bean["社会信用代码"].words)
+                                            }else{
+                                                walert("识别失败，请重新上传")
+                                            }
+                                        }else{
+                                            walert("识别失败，请重新上传")
+                                        }
+                                        if(d.bean.fileName){
+                                            $("#qyYyzzzp").val(d.bean.fileName)
+                                        }
+                                    }else if(type==2){
+                                        if(d.bean["公民身份号码"]){
+                                            if(d.bean["公民身份号码"].words){
+                                                $("#qyFrsfz").val(d.bean["公民身份号码"].words)
+                                            }else{
+                                                walert("识别失败，请重新上传")
+                                            }
+                                        }else{
+                                            walert("识别失败，请重新上传")
+                                        }
                                     }
-                                    if(d.bean.fileName){
-                                        $("#qyYyzzzp").val(d.bean.fileName)
-                                    }
+
                                 }
                                 console.log(d.bean["社会信用代码"])
                             }
