@@ -10,10 +10,12 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.JyContant;
+import com.zghzbckj.feign.BckjBizYhxxSer;
 import com.zghzbckj.manage.dao.BckjBizJybmDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
+import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +38,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
     BckjBizQyxxService qyxxService;
     @Autowired
     BckjBizJobService jobService;
+    @Autowired
+    BckjBizYhxxSer bckjbizyhxxSer;
 
     @Override
     public BckjBizJybm get(String owid) {
@@ -95,6 +99,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         }
         if (!TextUtils.isEmpty(map.get("bmdx"))) {
             dataMap.put("bmdx", map.get("bmdx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmlx"))) {
+            dataMap.put("bmlx", map.get("bmlx").toString());
         }
         PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
@@ -198,6 +205,17 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     resultMap.put("msg", "已存在报名信息");
                     return resultMap;
                 }
+                ResponseMessage responseYhxx = bckjbizyhxxSer.getOneByOwid(mapData.get("yhRefOwid").toString());
+                if (TextUtils.isEmpty(responseYhxx) || responseYhxx.getBackCode() != 0 || TextUtils.isEmpty(responseYhxx.getBean())) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "不存在该用户");
+                    return resultMap;
+                }
+                BckjBizYhxxVo yhxxVo = JsonUtil.map2Bean((Map) responseYhxx.getBean(), BckjBizYhxxVo.class);
+                jybm.setLxdh(yhxxVo.getXm());
+                jybm.setLxr(yhxxVo.getSjh());
+                jybm.setBmlx(JyContant.BMDX_ZW);
+                jybm.setYhRefOwid(yhxxVo.getOwid());
             }
             //报名对象宣讲会
             if (JyContant.BMDX_XJH == bmdx) {

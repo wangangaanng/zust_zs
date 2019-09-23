@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 
@@ -82,11 +83,38 @@ public class BckjBizJypmController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             ArrayList<ArrayList<String>> list = ExcelUtils.xlsx_reader(dataMap.get("excelUrl").toString());
-            //根据专业判断专业是否存在，不存在则添加专业记录
-            for (ArrayList<String> major : list) {
-                //查看专业是否存在
-                BckjBizJypm jypm = bckjBizJypmService.getByMajor(major.get(1));
+            if (null == list) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "Excel表为空");
             }
+            List<BckjBizJypm> jypmList = new ArrayList<>();
+            for (int i = 1; i < list.size(); i++) {
+                ArrayList<String> cellList = list.get(i);
+                String szxy = cellList.get(0);    //所在学院
+                String pmzy = cellList.get(1);    //排名专业
+                String pmbj = cellList.get(2);    //排名班级
+                String pmnf = cellList.get(3);    //排名年份
+                String pmyf = cellList.get(4);    //排名月份
+                String pmbyrs = cellList.get(5);  //排名毕业人数
+                String pmyprs = cellList.get(6);  //排名应聘人数
+                String pmqyrs = cellList.get(7);  //排名签约人数
+                String pmqyl = cellList.get(8);   //排名签约率
+                String pmjyl = cellList.get(9);   //排名就业率
+
+                BckjBizJypm jypm = new BckjBizJypm();
+                //根据专业名称查询
+                BckjBizJypm major = bckjBizJypmService.getByMajor(pmzy);
+                if (!TextUtils.isEmpty(major)) {
+                    jypm.setOwid(major.getOwid());
+                }
+                jypm.easySet("szxy", szxy, "pmzy", pmzy, "pmbj", pmbj, "pmnf", pmnf, "pmyf", pmyf);
+                jypm.setPmbyrs(Integer.parseInt(pmbyrs));
+                jypm.setPmyprs(Integer.parseInt(pmyprs));
+                jypm.setPmqyrs(Integer.parseInt(pmqyrs));
+                jypm.setPmqyl(new BigDecimal(pmqyl));
+                jypm.setPmjyl(new BigDecimal(pmjyl));
+                jypmList.add(jypm);
+            }
+            bckjBizJypmService.saveOrUpdateAll(jypmList);
             return ResponseMessage.sendOK("导入成功");
         } catch (Exception e) {
             e.printStackTrace();
