@@ -153,15 +153,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false ,rollbackFor = Exception.class)
     public ResponseMessage logIn(Map<String, Object> datamap) {
         Map<String,Object> resMap = Maps.newHashMap();
-        String psw = TextUtils.MD5(datamap.get("yhDlmm").toString()).toUpperCase();
-        datamap.remove("psw");
         Map<String, Object> map = this.dao.logIn(datamap);
         if(TextUtils.isEmpty(map)){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-        if(!psw.equalsIgnoreCase(map.get("yhDlmm").toString())){
+        if(!datamap.get("yhDlmm").toString().equals(map.get("yhDlmm").toString())){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
         }
+        //如果不是为老师或者学生
         if(Integer.parseInt(map.get("olx").toString())!=0&&Integer.parseInt(map.get("olx").toString())!=1){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }

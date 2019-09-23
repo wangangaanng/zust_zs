@@ -336,7 +336,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
-    public BckjBizJob getOneJob(String owid,String yhOwid) {
+    public BckjBizJob getOneJob(Map<String ,Object> mapData) {
+        String owid=mapData.get("owid").toString();
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
@@ -383,43 +384,46 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
             BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
-            if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
-                params.put("type", JyContant.GSGM);
-                params.put("dicVal1", qyxx.getQyGsgm());
-                String gsgmStr = qyxxDao.queryDic(params);
-                qyxx.setQyGsgmStr(gsgmStr);
+            if(!TextUtils.isEmpty(qyxx)) {
+                if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
+                    params.put("type", JyContant.GSGM);
+                    params.put("dicVal1", qyxx.getQyGsgm());
+                    String gsgmStr = qyxxDao.queryDic(params);
+                    qyxx.setQyGsgmStr(gsgmStr);
+                }
+                if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
+                    params.put("type", JyContant.HYLB);
+                    params.put("dicVal1", qyxx.getQyHylb());
+                    String hylbStr = qyxxDao.queryDic(params);
+                    qyxx.setQyHylbStr(hylbStr);
+                }
+                if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
+                    params.put("type", JyContant.GSXZ);
+                    params.put("dicVal1", qyxx.getQyGsxz());
+                    String gsxzStr = qyxxDao.queryDic(params);
+                    qyxx.setQyGsxzStr(gsxzStr);
+                }
+                job.setQyxx(qyxx);
             }
-            if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
-                params.put("type", JyContant.HYLB);
-                params.put("dicVal1", qyxx.getQyHylb());
-                String hylbStr = qyxxDao.queryDic(params);
-                qyxx.setQyHylbStr(hylbStr);
-            }
-            if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
-                params.put("type", JyContant.GSXZ);
-                params.put("dicVal1", qyxx.getQyGsxz());
-                String gsxzStr = qyxxDao.queryDic(params);
-                qyxx.setQyGsxzStr(gsxzStr);
-            }
-            job.setQyxx(qyxx);
         }
         if (!TextUtils.isEmpty(job.getZwYds())) {
             job.setZwYds(job.getZwYds() + 1);
         } else {
             job.setZwYds(1);
         }
-
-
-
         //查看是否被关注
-        HashMap<String, Object> sendMap = Maps.newHashMap();
-        sendMap.put("jobRefOwid",owid);
-        sendMap.put("yhRefOwid",yhOwid);
-        List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
-        if(bckjBizXsgzs.size()>0){
-            job.setExp1("1");
-        }else {
-            job.setExp1("0");
+        if(!TextUtils.isEmpty(mapData.get("yhOwid"))){
+            HashMap<String, Object> sendMap = Maps.newHashMap();
+            sendMap.put("jobRefOwid",owid);
+            sendMap.put("yhRefOwid",mapData.get("yhOwid"));
+            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            if(!TextUtils.isEmpty(bckjBizXsgzs)){
+                if(bckjBizXsgzs.size()>0){
+                    job.setExp1("1");
+                }else {
+                    job.setExp1("0");
+                }
+            }
         }
         return job;
     }
