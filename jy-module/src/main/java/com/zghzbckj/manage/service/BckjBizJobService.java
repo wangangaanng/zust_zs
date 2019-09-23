@@ -10,6 +10,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.JyContant;
+import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
 import com.zghzbckj.manage.dao.BckjBizJybmDao;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
@@ -23,7 +24,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ccService
@@ -46,6 +50,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     BckjBizJybmDao bmDao;
     @Autowired
     BckjBizQyxxService qyxxService;
+    @Autowired
+    BckjBizYhkzSer keyFilter;
 
 
     @Override
@@ -132,6 +138,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public ResponseMessage saveBckjBizJob(Map<String, Object> mapData, Integer zwlx) {
         BckjBizJob bckjBizJob = JsonUtil.map2Bean(mapData, BckjBizJob.class);
 
+        String zwbt = bckjBizJob.getZwbt();
+        Map params = new HashMap<>();
+        params.put("content", zwbt);
+        ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
+        if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+        }
+
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
             BckjBizJob bckjBizJobIndata = get(mapData.get("owid").toString());
             BeanUtil.copyPropertiesIgnoreNull(bckjBizJob, bckjBizJobIndata);
@@ -179,7 +193,18 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
     @Transactional(readOnly = false)
     public Map addOneJob(Map<String, Object> mapData) {
+
         Map resultMap = new HashMap<>(2);
+        //判断关键字
+        String zwbt = mapData.get("zwbt").toString();
+        Map params = new HashMap<>();
+        params.put("content", zwbt);
+        ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
+        if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+            return resultMap;
+        }
         BckjBizJob job = new BckjBizJob();
         BckjBizQyxx qyxx = qyxxDao.get(mapData.get("qyxxRefOwid").toString());
 
@@ -377,13 +402,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (!TextUtils.isEmpty(job.getZwYds())) {
             job.setZwYds(job.getZwYds() + 1);
         } else {
-            job.setZwYds(0);
+            job.setZwYds(1);
         }
 
         if (!TextUtils.isEmpty(job.getZwGzs())) {
             job.setZwGzs(job.getZwGzs() + 1);
         } else {
-            job.setZwGzs(0);
+            job.setZwGzs(1);
         }
 
         return job;
