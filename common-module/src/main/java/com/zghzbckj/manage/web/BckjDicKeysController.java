@@ -15,10 +15,7 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.service.BckjDicKeysService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,4 +100,32 @@ public class BckjDicKeysController extends BaseController {
     }
 
 
+    @RequestMapping(value = "keyFilter", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage keyFilter(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "content");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjDicKeysService.filterContent(mapData));
+        } catch (Exception e) {
+            log.info("关键字过滤失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    @RequestMapping(value = "keyFilterQuery", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage keyFilterQuery(@RequestBody Map<String ,Object> dataMap) {
+        try {
+            return ResponseMessage.sendOK(bckjDicKeysService.filterContent(dataMap));
+        } catch (Exception e) {
+            log.info("关键字过滤失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

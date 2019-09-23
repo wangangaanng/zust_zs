@@ -77,6 +77,50 @@
     </select>
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
         SELECT
+        b.zwbt AS "zwbt",
+        b.zw_pro AS "zwPro",
+        b.zw_city AS "zwCity",
+        b.zw_area AS "zwArea",
+        b.zph_jbdd AS "zphJbdd",
+        b.zph_ksrq AS "zphKsrq",
+        <include refid="bckjBizJybmColumns"/>
+        FROM bckj_biz_jybm a
+        LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
+        <where>
+            <if test="zwbt != null and zwbt  != ''">
+                AND b.zwbt like CONCAT('%', #{zwbt},'%')
+            </if>
+            <if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
+                AND a.qyxx_ref_owid = #{qyxxRefOwid}
+            </if>
+            <if test="jobRefOwid != null and jobRefOwid  != ''">
+                AND a.job_ref_owid = #{jobRefOwid}
+            </if>
+            <if test="yhRefOwid != null and yhRefOwid != ''">
+                AND a.yh_ref_owid = #{yhRefOwid}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+            <if test="bmlx != null and bmlx != ''">
+                AND a.bmlx = #{bmlx}
+            </if>
+            <if test="bmdx != null and bmdx != ''">
+                AND a.bmdx = #{bmdx}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="findListByMapXjh" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+        SELECT
         <include refid="bckjBizJybmColumns"/>
         FROM bckj_biz_jybm a
         <where>
@@ -107,6 +151,8 @@
             </otherwise>
         </choose>
     </select>
+
+
     <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
         SELECT
         <include refid="bckjBizJybmColumns"/>

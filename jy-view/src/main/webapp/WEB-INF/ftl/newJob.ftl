@@ -13,7 +13,7 @@
 </style>
 
 <body>
-<#--<#include "com/header.ftl">-->
+<#include "com/header.ftl">
 <div class="main">
     <div class="container">
         <div class="content-form">
@@ -198,67 +198,100 @@
         $(document).ready(function () {
 
 
-            // $("#registerForm").validate({
-            //     rules: {
-            //         qyTysh:"required",
-            //     },
-            //     messages: {
-            //         qyTysh: "请填写"
-            //     },
-            //     errorElement: "em",
-            //     errorPlacement: function ( error, element ) {
-            //         // Add the `help-block` class to the error element
-            //         error.addClass( "help-block" );
-            //
-            //         if ( element.prop( "type" ) === "checkbox" ) {
-            //             error.insertAfter( element.parent( "label" ) );
-            //         } else {
-            //             error.insertAfter( element );
-            //         }
-            //     },
-            //     highlight: function ( element, errorClass, validClass ) {
-            //         $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
-            //     },
-            //     unhighlight: function (element, errorClass, validClass) {
-            //         $( element ).parent().removeClass( "has-error" );
-            //     }
-            // });
+            $("#registerForm").validate({
+                rules: {
+                    zwbt:"required",
+                    zwPro:"required",
+                    zwCity:"required",
+                    zwArea:"required",
+                    zwGzzn:"required",
+                    zwGzxz:"required",
+                    qyLxrdh:{
+                        required: true,
+                        isMobile: true
+                    },
+                    zwLxyx:{
+                        required: true,
+                        email: true
+                    },
+                    zwXs:"required",
+                    zwZprs:"required",
+                    zwXs:"required",
+                    zwNlyq:"required",
+                    zwXlyq:"required",
+                    zwGznx:"required",
+                    zwYyyq:"required",
+                    zwGwzz:"required",
+                },
+                messages: {
+                    zwbt: "请填写",
+                    zwPro: "请选择",
+                    zwCity: "请选择",
+                    zwArea: "请选择",
+                    zwGzzn: "请选择",
+                    zwGzxz: "请选择",
+                    qyLxrdh:  {
+                        required: "请填写",
+                        email: "请填写正确的11位手机号码"
+                    },
+                    zwLxyx: {
+                        required: "请填写",
+                        email: "请填写正确电子邮箱"
+                    },
+                    zwXs: "请选择",
+                    zwZprs: "请填写",
+                    zwXs: "请填写",
+                    zwNlyq: "请选择",
+                    zwXlyq: "请选择",
+                    zwGznx: "请选择",
+                    zwYyyq: "请选择",
+                    zwGwzz: "请填写",
+                },
+                errorElement: "em",
+                errorPlacement: function ( error, element ) {
+                    // Add the `help-block` class to the error element
+                    error.addClass( "help-block" );
+
+                    if ( element.prop( "type" ) === "checkbox" ) {
+                        error.insertAfter( element.parent( "label" ) );
+                    } else {
+                        error.insertAfter( element );
+                    }
+                },
+                highlight: function ( element, errorClass, validClass ) {
+                    $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $( element ).parent().removeClass( "has-error" );
+                }
+            });
 
 
         })
 
         $.validator.setDefaults({
             submitHandler: function () {
-                // companyRegister()
+                addOneJob()
             }
         });
 
         function addOneJob() {
-
             var jsonObj = $("#registerForm").serializeObject()
             jsonObj.qyxxRefOwid=getCookie("qyOwid")
             console.log(jsonObj)
             ajax("zustjy/bckjBizJob/addOneJob", jsonObj, function (data) {
                 if(data.backCode==0){
+                    layer.open({
+                        title:'提示',
+                        content: '职位发布成功，请等待审核。',
+                        yes: function(index, layero){
+                            layer.close(index);
+                        }
+                    });
                 }
             })
         }
 
-        $.fn.serializeObject = function() {
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if (o[this.name]) {
-                    if (!o[this.name].push) {
-                        o[this.name] = [ o[this.name] ];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        };
     </script>
 </body>
 

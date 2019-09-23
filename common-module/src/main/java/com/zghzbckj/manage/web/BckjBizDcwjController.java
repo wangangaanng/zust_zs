@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.entity.BckjBizDcwj;
+import com.zghzbckj.manage.entity.BckjBizDcwjTm;
 import com.zghzbckj.manage.service.BckjBizDcwjService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,10 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -134,6 +132,63 @@ public class BckjBizDcwjController extends BaseController {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");
         }
+    }
+
+    /**
+     *<p>功能描述:后台根据问卷的owid列出所有题目 listQuestions</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/9/19 16:12</li>
+     *</ul>
+     */
+    @PostMapping(value = "listQuestions")
+    @ResponseBody
+    public ResponseMessage listQuestions(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            dataMap.put("dcwjRefOwid", dataMap.get("owid"));
+            List<Map<String, Object>> questionList = bckjBizDcwjService.listAllQuestions(dataMap);
+            return ResponseMessage.sendOK(questionList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     *<p>功能描述:后台保存调查问卷 saveQuestionnaire</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/9/19 17:32</li>
+     *</ul>
+     */
+    @PostMapping(value = "saveQuestionnaire")
+    @ResponseBody
+    public ResponseMessage saveQuestionnaire(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "wzbh", "wjmc");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "请填写网站编号和问卷名称");
+        }
+        BckjBizDcwj bckjBizDcwj = JsonUtil.map2Bean(dataMap, BckjBizDcwj.class);
+        List<BckjBizDcwjTm> tmList = new ArrayList<>();
+        if (!TextUtils.isEmpty(dataMap.get("dataList1"))) {
+            List<Map<String, Object>> dataList1 = (List)dataMap.get("dataList1");
+            for (Map<String, Object> data1 : dataList1) {
+                BckjBizDcwjTm bckjBizDcwjTm = JsonUtil.map2Bean(data1, BckjBizDcwjTm.class);
+                if (TextUtils.isEmpty(data1.get("dcwjrefowid"))) {
+                    bckjBizDcwjTm.setDcwjRefOwid(dataMap.get("owid").toString());
+                }
+                tmList.add(bckjBizDcwjTm);
+            }
+        }
+        return bckjBizDcwjService.saveAll(bckjBizDcwj, tmList);
     }
 
     @RequestMapping(value = "/getList")

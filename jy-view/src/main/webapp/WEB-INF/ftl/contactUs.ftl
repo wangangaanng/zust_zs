@@ -75,13 +75,13 @@
                                 <label>
                                     <i class="icon ic-name"></i>
                                 </label>
-                                <input class="" type="text" placeholder="姓名" />
+                                <input class="" type="text" id="xm" placeholder="姓名" />
                             </div>
                             <div class="message-input">
                                 <label>
                                     <i class="icon ic-tel"></i>
                                 </label>
-                                <input class="" type="text" placeholder="联系方式" />
+                                <input class="" type="text" id="sjh" placeholder="联系方式" />
                             </div>
                         </div>
                         <div class="message-content1">
@@ -89,11 +89,11 @@
                                 <label>
                                     <i class="icon ic-message"></i>
                                 </label>
-                                <textarea class="" type="text" placeholder="留言" /></textarea>
+                                <textarea class="" type="text" id="wtnr" placeholder="留言" /></textarea>
                             </div>
                         </div>
                         <div class="message-btn">
-                            <button class="btn">发送</button>
+                            <button class="btn" onclick="consult()">发送</button>
                         </div>
                     </div>
                 </div>
@@ -113,6 +113,34 @@
         $(".content-list").hide();
         $(".content-list").eq($(this).index()).show();
     })
+
+
+    function consult() {
+        if(!$("#sjh").val().trim()){
+            walert("请填写手机号");
+            return
+        }
+        if(!$("#xm").val().trim()){
+            walert("请填写姓名");
+            return
+        }
+        if(!$("#wtnr").val().trim()){
+            walert("请填写留言内容");
+            return
+        }
+        var jsonObj={
+            "wtnr":$("#wtnr").val(),
+            "zxlx": 5,
+            "sjh": $("#sjh").val().trim(),
+            "xm": $("#xm").val().trim(),
+            "studentOwid": getCookie("stuOwid")
+        }
+        ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
+            if(data.backCode==0){
+               walert("留言成功")
+            }
+        })
+    }
 </script>
 </body>
 

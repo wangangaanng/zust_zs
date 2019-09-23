@@ -31,6 +31,25 @@
 //     }
 // }
 
+$(document).ready(function () {
+    if(getCookie("qyOwid")){
+        $("#qyInfo").show();
+        $("#qyName").html(JSON.parse(getCookie("qyInfo")).qymc);
+    }
+    if(getCookie("stuOwid")){
+        $("#stuInfo").show();
+        $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
+    }
+})
+
+function loginout() {
+    delCookie("qyInfo");
+    delCookie("qyOwid");
+    delCookie("stuSjh");
+    delCookie("stuOwid");
+    location.reload();
+}
+
 // var localUrl = 'http://www.hwhautomall.com/ajax/executeAPI';
 var localUrl = 'http://localhost:8080/webAjax/executeAPI';
 var userKey = '';
@@ -349,6 +368,8 @@ function addCookie(name, value, expires, path, domain) {
     }
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
+    }else {
+        str += ";path=/";// 指定可访问cookie的目录
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域

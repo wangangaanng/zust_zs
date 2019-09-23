@@ -26,7 +26,7 @@
                             <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                         </#if>
                     </#list>
-                </ul><a>MORE+</a></div>
+                </ul><a href="${base}/newsList/2/0" target="_blank">MORE+</a></div>
             <div class="frame-body">
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
@@ -86,16 +86,16 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" placeholder="请输入用户名" class="login-act">
+                        <input type="text" id="yhDlzh" placeholder="请输入用户名" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="password" placeholder="请输入密码" class="login-pswd">
+                        <input type="password" id="yhDlmm" placeholder="请输入密码" class="login-pswd">
                     </li>
                     <li>
-                        <input type="button" value="登录" class="login-btn">
+                        <input type="button" onclick="stuLogin()" value="登录" class="login-btn">
                     </li>
                 </ul>
                 <#--<ul class="company-form" style="display:none">
@@ -127,7 +127,7 @@
                         还没有账号？<a href="/enterpriseReg">注册</a>
                     </li>
                     <li>
-                        <input type="button" value="登录" onclick="qylogin()" class="login-btn">
+                        <input type="button" value="登录" onclick="qyLogin()" class="login-btn">
                     </li>
                 </ul>
             </div>
@@ -146,6 +146,12 @@
                 </li>
             </ul>
         </div>
+        <div class="frame-a_right box" id="stu_pipe" style="display: none;">
+            <div class="stu_info">
+                <img src="${base}/img/menu1.png" />
+                <p>欢迎您，<span id="stu_tel"></span></p>
+            </div>
+        </div>
         <!-- E a_right-->
     </div>
     <!-- E a -->
@@ -160,7 +166,7 @@
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
-            </ul><a>MORE+</a></div>
+            </ul><a href="${base}/newsList/3/0" target="_blank">MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <#list second as objl>
                     <#if objl_index==0>
@@ -239,7 +245,7 @@
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
-            </ul><a>MORE+</a></div>
+            </ul><a href="${base}/newsList/4/0" target="_blank">MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <#list third as objl>
                     <#if objl_index==0>
@@ -350,7 +356,24 @@
         $(this).parents('.box').find(".tabbar-frame_content>ul").eq($(this).index()).show().siblings().hide();
     })
 
-    function qylogin() {
+    function stuLogin() {
+        var jsonObj={
+            "yhDlzh":$("#yhDlzh").val().trim(),
+            "yhDlmm":$("#yhDlmm").val().trim()
+        }
+        ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
+            console.log(data)
+            if(data.backCode==0){
+                addCookie("stuOwid",data.bean.owid)
+                addCookie("stuSjh",data.bean.sjh)
+                location.reload();
+                // $(".frame-a_right").hide();
+                // $("#qy_pipe").show();
+            }
+        })
+    }
+
+    function qyLogin() {
         var jsonObj={
             "qyFrsfz":$("#qyFrsfz").val().trim(),
             "qyTysh":$("#qyTysh").val().trim()
@@ -360,22 +383,23 @@
             if(data.backCode==0){
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
-                console.log(data.bean)
-                alert("登录成功")
-                $(".frame-a_right").hide();
-                $("#qy_pipe").show();
+                location.reload();
+                // $(".frame-a_right").hide();
+                // $("#qy_pipe").show();
             }
         })
     }
 
     $(document).ready(function () {
-        console.log(getCookie("qyInfo"))
-        console.log(JSON.parse(getCookie("qyInfo")).owid)
         if(getCookie("qyOwid")){
             $(".frame-a_right").hide();
             $("#qy_pipe").show();
         }
-
+        if(getCookie("stuOwid")){
+            $(".frame-a_right").hide();
+            $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
+            $("#stu_pipe").show();
+        }
 
     })
 </script>
