@@ -43,11 +43,17 @@ $(document).ready(function () {
 })
 
 function loginout() {
-    delCookie("qyInfo");
-    delCookie("qyOwid");
-    delCookie("stuSjh");
-    delCookie("stuOwid");
-    location.reload();
+    // delCookie("qyInfo");
+    // delCookie("qyOwid");
+    // delCookie("stuSjh");
+    // delCookie("stuOwid");
+    document.cookie  = "qyInfo=;path=/";
+    document.cookie  = "qyOwid=;path=/";
+    document.cookie  = "stuSjh=;path=/";
+    document.cookie  = "stuOwid=;path=/";
+
+    window.location.href='/'
+    // location.reload();
 }
 
 // var localUrl = 'http://www.hwhautomall.com/ajax/executeAPI';
@@ -554,7 +560,6 @@ function getQueryString(name) {
     }
     return result[1];
 }
-
 
 $.fn.serializeObject = function() {
     var o = {};

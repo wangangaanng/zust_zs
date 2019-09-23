@@ -57,6 +57,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .login-tabbar a{height: 60px;line-height: 60px;width: 50%;text-align: center;display: inline-block;color: #008784;}
 .login-tabbar a.active{background: #008784;color: #fff;}
 .company-form{padding: 20px;}
+.company-form .link2{cursor: pointer;}
 .company-form li p{text-align: center;color: #a3a3a3;margin-bottom: 20px;}
 .company-form li:not(:first-of-type){line-height: 46px;font-size: 15px;border-radius: 4px;text-align: center;}
 .company-form li:not(:first-of-type) em{font-weight: bold;font-style: normal;}

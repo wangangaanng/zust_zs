@@ -168,6 +168,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         resMap.put("owid",map.get("owid"));
         resMap.put("yhtx",map.get("yhtx"));
         resMap.put("sjh",map.get("sjh"));
+        resMap.put("xsxh",map.get("xsxh"));
         return ResponseMessage.sendOK(resMap);
     }
 

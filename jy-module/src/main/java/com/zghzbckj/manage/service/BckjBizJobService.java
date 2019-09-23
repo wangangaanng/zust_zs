@@ -417,10 +417,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
             List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
-            if (TextUtils.isEmpty(bckjBizXsgzs)) {
-                job.setExp1("0");
-            } else {
-                job.setExp1("1");
+            if (!TextUtils.isEmpty(bckjBizXsgzs)) {
+                if (bckjBizXsgzs.size() > 0) {
+                    job.setExp1("1");
+                } else {
+                    job.setExp1("0");
+                }
             }
         }
         return job;

@@ -135,13 +135,13 @@
         <div class="frame-a_right box" id="qy_pipe" style="display: none;">
             <ul class="company-form">
                 <li><p>专门为企业开通的绿色通道！</p></li>
-                <li>
+                <li class="link2" onclick="window.location.href='/enterpriseService/1'">
                     <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
                 </li>
-                <li>
+                <li class="link2" onclick="window.location.href='/enterpriseService/3'">
                     <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
                 </li>
-                <li>
+                <li class="link2" onclick="window.location.href='/enterpriseService/2'">
                     <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
                 </li>
             </ul>
@@ -231,7 +231,7 @@
         <ul class="adv">
             <li><img src="${base}/img/pic1.png" /></li>
             <li><img src="${base}/img/pic2.png" /></li>
-            <li><img src="${base}/img/pic3.png" /></li>
+            <li onclick="openUrl('ranking')"><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
     <!-- S c -->
@@ -331,6 +331,7 @@
 <script src="${base}/js/swiper.min.js"></script>
 <script src="${base}/js/common.js"></script>
 <script src="${base}/js/jui.min.js"></script>
+<script src="${base}/js/md5.min.js"></script>
 <script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
 <script>
@@ -359,7 +360,7 @@
     function stuLogin() {
         var jsonObj={
             "yhDlzh":$("#yhDlzh").val().trim(),
-            "yhDlmm":$("#yhDlmm").val().trim()
+            "yhDlmm":$("#yhDlmm").val().trim().MD5()
         }
         ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
             console.log(data)
@@ -367,8 +368,8 @@
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
                 location.reload();
-                // $(".frame-a_right").hide();
-                // $("#qy_pipe").show();
+            }else{
+                walert(data.errorMess)
             }
         })
     }
@@ -384,8 +385,8 @@
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
                 location.reload();
-                // $(".frame-a_right").hide();
-                // $("#qy_pipe").show();
+            }else{
+                walert(data.errorMess)
             }
         })
     }
