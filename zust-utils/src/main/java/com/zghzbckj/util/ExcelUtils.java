@@ -14,8 +14,12 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.xml.crypto.Data;
 import java.io.*;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -412,6 +416,17 @@ public class ExcelUtils {
         folder.renameTo(newFile);
 //        }
         return "重命名成功！";
+    }
+
+    public static Date stringtoDate(String str){
+        String year=str.substring(0,3);
+        String month=str.substring(4,5);
+        String day=str.substring(6,7);
+        String date=new String(year+"-"+month+"-"+day);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            ParsePosition pos = new ParsePosition(0);
+            Date strtodate = formatter.parse(date, pos);
+            return strtodate;
     }
 }
 

@@ -314,8 +314,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                         dataMap.put("xb",0);
                     }
                     String csrq = cellList.get(5);//出生日期
-                    csrq=ExcelUtils.stmodifyExcelData(csrq);
-                    dataMap.put("csrq",csrq);
+                    csrq=ExcelUtils.stmodifyExcelData(csrq);//进行变换
+                    dataMap.put("csrq",ExcelUtils.stringtoDate(csrq));
                     String yx = cellList.get(6);//邮箱
                     dataMap.put("yx",yx);
                     String prov = cellList.get(7);//家庭住址(省)
@@ -336,11 +336,11 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     dataMap.put("xsbj",xsbj);
                     String yhDlzh = cellList.get(14);
                     yhDlzh=ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
-                    dataMap.put("yhdlzh",yhDlzh);
+                    dataMap.put("yhDlzh",yhDlzh);
                     String yhDlmm = cellList.get(15);
                     yhDlmm=ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
                     yhDlmm=TextUtils.MD5(yhDlmm);//md5加密
-                    dataMap.put("yhdlmm",yhDlmm);
+                    dataMap.put("yhDlmm",yhDlmm);
                     BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
                     BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
 

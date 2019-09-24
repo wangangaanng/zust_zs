@@ -291,7 +291,7 @@
 			SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
 			a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
 			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
-			b.xsxh as xsxh, b.xsxy as xsxy, xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
+			b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
 			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b WHERE a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1
 			 order by a.lastupdate desc
 	</select>
