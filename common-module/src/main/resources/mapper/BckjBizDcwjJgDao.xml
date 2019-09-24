@@ -68,7 +68,7 @@
 		<include refid="bckjBizDcwjJgJoins"/>
 		<where>
 			<if test="dtrId != null and dtrId != ''">
-				a.dtrid=#{dtrId}
+				a.dtrid=#{yhOwid}
 			</if>
 		</where>
 		<choose>

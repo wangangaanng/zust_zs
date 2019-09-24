@@ -93,8 +93,19 @@ public class BckjBizDcwjController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "参数为空");
             }
             BckjBizDcwj questionnaire = bckjBizDcwjService.get(dataMap.get("dcwjRefOwid").toString());
+            //判断是否存在调查问卷
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
+            }
+            if (questionnaire.getSfyx() == 0) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷已失效");
+            }
+            //判断是否已答题
+            if (!TextUtils.isEmpty(dataMap.get("yhOwid")) && questionnaire.getSfdl() == 1) {
+                String tmOwid = bckjBizDcwjService.judgeAnswered(dataMap.get("yhOwid").toString());
+                if (tmOwid.equals(questionnaire.getOwid())) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "您已填写过该问卷");
+                }
             }
             List<Map<String, Object>> questionList = bckjBizDcwjService.listQuestions(dataMap);
             Map<String, Object> result = new HashMap<>();
@@ -135,19 +146,6 @@ public class BckjBizDcwjController extends BaseController {
             BckjBizDcwj questionnaire = bckjBizDcwjService.get(dataMap.get("dcwjRefOwid").toString());
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
-            }
-            //若有答题人id，查找答题结果，是否已经答过
-            if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
-                BckjBizDcwjJg jg = bckjBizDcwjJgService.findOneByParams(dataMap, null);
-                if (!TextUtils.isEmpty(jg)) {
-                    dataMap.remove("dtrId");
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, "您已填写该问卷");
-                }
-                BckjBizYhxx yhxx = bckjBizYhxxService.get(dataMap.get("dtrId").toString());
-                if (TextUtils.isEmpty(yhxx)) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, "用户信息为空");
-                }
-                dataMap.put("dtrXm", yhxx.getXm());
             }
             return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
