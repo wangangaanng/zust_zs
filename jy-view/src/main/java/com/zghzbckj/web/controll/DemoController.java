@@ -219,6 +219,7 @@ public class DemoController {
     @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
     public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("inquiryDetail");
+        view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dcwjRefOwid",owid);
