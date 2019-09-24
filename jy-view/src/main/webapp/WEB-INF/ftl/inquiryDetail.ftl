@@ -160,7 +160,6 @@
         ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {
             if(data.backCode==0){
                 layer.msg('提交成功', {icon: 1});
-                window.location.href="${base}/jobFair/2"
             }else{
                 layer.msg(data.errorMess, {icon: 2});
             }
