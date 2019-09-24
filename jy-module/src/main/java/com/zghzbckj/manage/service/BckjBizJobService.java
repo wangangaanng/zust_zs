@@ -214,7 +214,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
-            job.setZwGzs(0);
             job.setZwYds(0);
             if (!TextUtils.isEmpty(qyxx)) {
                 job.setExp1(qyxx.getQymc());
@@ -428,6 +427,19 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setExp1("0");
             }
         }
+
+        if (JyContant.ZWLB_ZW == job.getZwlx()) {
+            params.clear();
+            params.put("jobRefOwid", job.getOwid());
+            //0 职位 1 企业
+            params.put("gzlx", "0");
+            params.put("xxlb", "0");
+            List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
+            job.setXsgzList(xsgzList);
+            job.setNumber(xsgzList.size());
+        }
+
+
         return job;
     }
 
@@ -468,5 +480,25 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         pageInfo.setTotalCount(page.getCount());
         pageInfo.setCurrentPage((long) page.getPageNo());
         return pageInfo;
+    }
+
+    @Transactional(readOnly = false)
+    public Map fixJob(Map<String, Object> mapData) {
+        Map resultMap = new HashMap<>(2);
+        BckjBizJob newJob = new BckjBizJob();
+        BckjBizJob oldJob = get(mapData.get("owid").toString());
+        try {
+            newJob = MapUtils.map2Bean(mapData, BckjBizJob.class);
+            BeanUtil.copyPropertiesIgnoreNull(newJob, oldJob);
+            saveOrUpdate(oldJob);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "false");
+            resultMap.put("msg", e.getMessage());
+            return resultMap;
+        }
+        resultMap.put("result", "true");
+        resultMap.put("bean", oldJob);
+        return resultMap;
     }
 }
