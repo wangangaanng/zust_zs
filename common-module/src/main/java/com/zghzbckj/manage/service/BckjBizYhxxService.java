@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.service;
 
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
@@ -19,6 +20,7 @@ import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 
 
+import com.zghzbckj.wechat.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
@@ -337,6 +339,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     dataMap.put("yhdlzh",yhDlzh);
                     String yhDlmm = cellList.get(15);
                     yhDlmm=ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
+                    yhDlmm=TextUtils.MD5(yhDlmm);//md5加密
                     dataMap.put("yhdlmm",yhDlmm);
                     BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
                     BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
@@ -391,7 +394,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         }
     }
 
-    public ResponseMessage showStudentInfoList(Integer pageNo,Integer pageSize) {
+    public ResponseMessage showStudentInfoList( Integer pageNo,Integer pageSize) {
         HashMap<String, Object> dataMap = Maps.newHashMap();
         Page<Object> page=new Page(pageNo,pageSize);
         dataMap.put("page", page);
@@ -402,27 +405,32 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage saveStudentInfo(List<Map<String,Object>>components) {
-        List<Map<String,Object>> lists= Lists.newArrayList();
-        List<Map<String,Object>> listRules=this.dao.findAllMap();
         try {
             for (Map<String,Object>  component:components){
                 //如果為刪除的記錄
                 if (Integer.parseInt(component.get("updateFlag").toString())==2){
                     delete(JsonUtil.map2Bean(component,BckjBizYhxx.class));
                     BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
-/*
-                    bckjBizYhkz.
-                    bckjBizYhkzService.delete();
-*/
-                    components.remove(component);
-                    break;
-                }
-               saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    bckjBizYhkz.setYhRefOwid(component.get("owid").toString());
+                    component.put("yhRefOwid",component.get("owid"));
+                    bckjBizYhkzService.deletConditionByMap(component);
             }
+                //如果為更新
+                else if(Integer.parseInt(component.get("updateFlag").toString())==1&&component.get("owid")!=null)
+                {
+                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    component.put("yhOwid",component.get("owid"));
+                    bckjBizYhkzService.updateBycondition(component);
+                    //否则为新建
+                }else if(Integer.parseInt(component.get("updateFlag").toString())==1&&component.get("owid")==null){
+                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    bckjBizYhkzService.saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhkz.class));
+                }
+            }
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
         catch (Exception e){
             return ResponseMessage.sendError(ResponseMessage.FAIL,"请检查填入的格式是否正确");
         }
-        return ResponseMessage.sendOK("保存成功，请刷新页面");
     }
 }

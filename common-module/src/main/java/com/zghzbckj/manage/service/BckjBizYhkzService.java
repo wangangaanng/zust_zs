@@ -140,4 +140,12 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
     public List<String> getXsxhList() {
            return this.dao.getXsxhList();
     }
+
+    public void updateBycondition(Map<String, Object> component) {
+            this.dao.updateBycondition(component);
+    }
+
+    public void deletConditionByMap(Map<String, Object> component) {
+            this.dao.deletConditionByMap(component);
+    }
 }

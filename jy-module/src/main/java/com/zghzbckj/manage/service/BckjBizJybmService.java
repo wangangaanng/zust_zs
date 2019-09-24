@@ -195,7 +195,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     resultMap.put("msg", "已存在报名信息");
                     return resultMap;
                 }
-            } else if (JyContant.BMLX_XS == bmlx) {
+            }
+            //学生职位
+            else if (JyContant.BMLX_XS == bmlx && bmdx == JyContant.BMDX_ZW) {
                 Map params = new HashMap<>();
                 params.put("yhRefOwid", mapData.get("yhRefOwid").toString());
                 params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
@@ -214,15 +216,17 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 BckjBizYhxxVo yhxxVo = JsonUtil.map2Bean((Map) responseYhxx.getBean(), BckjBizYhxxVo.class);
                 jybm.setLxdh(yhxxVo.getXm());
                 jybm.setLxr(yhxxVo.getSjh());
-                jybm.setBmlx(JyContant.BMDX_ZW);
+                jybm.setBmdx(JyContant.BMDX_ZW);
                 jybm.setYhRefOwid(yhxxVo.getOwid());
             }
-            //报名对象宣讲会
+            //宣讲会
             if (JyContant.BMDX_XJH == bmdx) {
                 if (TextUtils.isEmpty(mapData.get("xjsj"))) {
                     jybm.setXjsj(mapData.get("xjsj").toString());
                 }
-            } else if (JyContant.BMDX_ZPH == bmdx) {
+            }
+            //招聘会
+            else if (JyContant.BMDX_ZPH == bmdx) {
                 BckjBizJob job = jobService.get(mapData.get("jobRefOwid").toString());
                 if (TextUtils.isEmpty(job)) {
                     resultMap.put("result", "false");
@@ -259,7 +263,10 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Page<BckjBizJybm> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
         dataMap.put("bmlx", dataMap.get("bmlx").toString());
-        dataMap.put("bmdx", dataMap.get("bmdx").toString());
+
+        if (!TextUtils.isEmpty(dataMap.get("bmdx"))){
+            dataMap.put("bmdx", dataMap.get("bmdx").toString());
+        }
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();

@@ -336,6 +336,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
+    @Transactional(readOnly = false)
     public BckjBizJob getOneJob(Map<String, Object> mapData) {
         String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
@@ -406,23 +407,25 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setQyxx(qyxx);
             }
         }
-        if (!TextUtils.isEmpty(job.getZwYds())) {
-            job.setZwYds(job.getZwYds() + 1);
+//阅读数+1
+        BckjBizJob newJob = get(owid);
+        if (!TextUtils.isEmpty(newJob.getZwYds())) {
+            newJob.setZwYds(newJob.getZwYds() + 1);
         } else {
-            job.setZwYds(1);
+            newJob.setZwYds(1);
         }
+        saveOrUpdate(newJob);
+        job.setZwYds(newJob.getZwYds());
         //查看是否被关注
         if (!TextUtils.isEmpty(mapData.get("yhOwid"))) {
             HashMap<String, Object> sendMap = Maps.newHashMap();
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
             List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
-            if (!TextUtils.isEmpty(bckjBizXsgzs)) {
-                if (bckjBizXsgzs.size() > 0) {
-                    job.setExp1("1");
-                } else {
-                    job.setExp1("0");
-                }
+            if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
+                job.setExp1(bckjBizXsgzs.get(0).getOwid());
+            } else {
+                job.setExp1("0");
             }
         }
         return job;
