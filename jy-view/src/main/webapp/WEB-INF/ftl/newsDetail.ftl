@@ -26,6 +26,16 @@
                     </div>
                     <div class="article-detail-text">
                         <p>${result.wznr!''}</p>
+                        <#if (result.fileList??)&&(result.fileList?size>0)>
+                            <div class="file">
+                                <div>附件</div>
+                                <ul>
+                                    <#list result.fileList as obj>
+                                        <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                    </#list>
+                                </ul>
+                            </div>
+                        </#if>
                         <#--<div class="article-pager">-->
                             <#--<div class="pull-left">上一篇：<a href="#">面试应战：面试的形式和种类 </a></div>-->
                             <#--<div class="pull-right">下一篇：<a href="#">没有英语证书的一则应聘面试故事</a></div>-->

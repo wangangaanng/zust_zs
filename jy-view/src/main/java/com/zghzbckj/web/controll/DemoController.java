@@ -170,7 +170,9 @@ public class DemoController {
         if(bxlx.equals("0")){
             Map param=Maps.newHashMap();
             param.put("lmbh",lmbh);
-            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getByEjLmbh");
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getMuArticle");
             ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
             view.addObject("bxlx",bxlx);
             view.addObject("result",result.getBean());
