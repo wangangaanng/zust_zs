@@ -217,7 +217,7 @@ public class BckjBizJybmController extends BaseController {
                                     PublicDataVO dataVO) {
 
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "bmlx", "pageSize", "bmdx");
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "bmlx", "pageSize");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
