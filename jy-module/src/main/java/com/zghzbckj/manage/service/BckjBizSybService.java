@@ -128,4 +128,34 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return ResponseMessage.sendOK(objs);
     }
 
+    public BckjBizSyb getSyInfo(Map<String, Object> mapData) {
+        Map userInfo=this.dao.getUserXh(mapData);
+        BckjBizSyb syb=null;
+        if(null!=userInfo.get("XSXH")){
+             syb=this.dao.findByXh(userInfo.get("XSXH").toString());
+            if(null==syb){
+                syb =new BckjBizSyb();
+                syb.setXh(userInfo.get("XSXH").toString());
+                if(null!=userInfo.get("XM")){
+                    syb.setXm(userInfo.get("XM").toString());
+                }
+                if(null!=userInfo.get("SHJ")){
+                    syb.setSjhm(userInfo.get("SHJ").toString());
+                }
+                if(null!=userInfo.get("SFZ")){
+                    syb.setSfzh(userInfo.get("SFZ").toString());
+                }
+                if(null!=userInfo.get("XB")){
+                    syb.setXb(Integer.valueOf(userInfo.get("XB").toString()));
+                }
+                if(null!=userInfo.get("MZ")){
+                    syb.setMz(userInfo.get("MZ").toString());
+                }
+                if(null!=userInfo.get("CSRQ")){
+                    syb.setCsrq(userInfo.get("CSRQ").toString());
+                }
+            }
+        }
+        return syb;
+    }
 }

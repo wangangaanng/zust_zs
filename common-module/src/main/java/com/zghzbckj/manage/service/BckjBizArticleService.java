@@ -49,6 +49,10 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         BckjBizArticle artcle=super.get(owid);
         artcle.setYdcs(artcle.getYdcs()+1);
         saveOrUpdate(artcle);
+        Map mapParam= Maps.newHashMap();
+        mapParam.put("wzRefOwid",owid);
+        List<Map> files=commonDao.getSysFiles(mapParam);
+        artcle.setFileList(files);
         return artcle;
     }
 

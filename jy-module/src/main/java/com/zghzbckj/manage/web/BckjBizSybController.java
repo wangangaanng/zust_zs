@@ -78,7 +78,7 @@ public class BckjBizSybController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            BckjBizSyb syb=JsonUtil.map2Bean(mapData,BckjBizSyb.class);
+            BckjBizSyb syb = JsonUtil.map2Bean(mapData, BckjBizSyb.class);
             return bckjBizSybService.saveBckjBizSyb(syb);
         } catch (Exception e) {
             log.error(e + "保存BckjBizSyb信息失败\r\n" + e.getStackTrace()[0], e);
@@ -119,6 +119,23 @@ public class BckjBizSybController extends BaseController {
         } catch (Exception e) {
             log.error(e + "保存BckjBizSyb信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @RequestMapping(value = "getSyInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getSyInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizSybService.getSyInfo(mapData));
+        } catch (Exception e) {
+            log.info("获取生源信息：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
 
