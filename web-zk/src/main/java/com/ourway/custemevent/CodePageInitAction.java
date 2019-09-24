@@ -1,13 +1,9 @@
 package com.ourway.custemevent;
 
-import com.google.common.collect.Maps;
-import com.ourway.base.zk.component.BaseTextbox;
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageVO;
-import com.ourway.base.zk.models.ResponseMessage;
 import com.ourway.base.zk.service.PageInitSer;
-import com.ourway.base.zk.utils.TextUtils;
-import com.ourway.base.zk.utils.data.JsonPostUtils;
+import com.ourway.base.zk.utils.AlterDialog;
 
 import java.util.Map;
 
@@ -18,15 +14,8 @@ public class CodePageInitAction implements PageInitSer {
 
     @Override
     public void initPage(BaseWindow window, Map args, PageVO pageVO) {
-        BaseTextbox textbox = (BaseTextbox) window.getFellowIfAny("leftTreeDiv_code");
-        ResponseMessage responseMessage = JsonPostUtils.executeAPI(Maps.newHashMap(),CODENO_URL);
-        if (TextUtils.isEmpty(responseMessage)) {
-            responseMessage = null;
-        }
-
-        if (null == responseMessage || responseMessage.getBackCode() != 0) {
-            return;
-        }
-        textbox.setValue(responseMessage.getBean().toString());
+       if(null==args.get("#lmbh")){
+           AlterDialog.alert("当前不存在栏目编号，请确认菜单配置正确");
+       }
     }
 }

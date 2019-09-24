@@ -67,7 +67,9 @@
 		FROM bckj_biz_dcwj_jg a
 		<include refid="bckjBizDcwjJgJoins"/>
 		<where>
-			
+			<if test="dtrId != null and dtrId != ''">
+				a.dtrid=#{dtrId}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

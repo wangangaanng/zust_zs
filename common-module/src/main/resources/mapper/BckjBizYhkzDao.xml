@@ -255,9 +255,6 @@
 	<delete id="deletConditionByMap" parameterType="Map">
 			DELETE FROM bckj_biz_yhkz
 			<where>
-				<if test="owid!=null and owid !=''">
-					and owid = #{owid}
-				</if>
 				<if test="yhRefOwid!=null and yhRefOwid!=''">
 					and yh_Ref_Owid = #{yhRefOwid}
 				</if>

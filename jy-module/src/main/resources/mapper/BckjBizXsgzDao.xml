@@ -295,7 +295,17 @@
 		b.zph_sfqd AS "zphSfqd"
 		  FROM `bckj_biz_job` b ,
         (SELECT * FROM `bckj_biz_xsgz`  WHERE yh_ref_owid=#{yhOwid})
-        a WHERE a.job_ref_owid=b.owid and b.zwlx =#{zwlx}
+        a
+         <where>
+			 	 a.job_ref_owid=b.owid
+			 <if test="zwlx!=null and zwlx!=''">
+				 and b.zwlx =#{zwlx}
+			 </if>
+			 <if test="zwbt!=null and zwbt!=''" >
+				 and b.zwbt like concat('%', #{zwbt}, '%')
+			 </if>
+		 </where>
+
 	</select>
 
 </mapper>
