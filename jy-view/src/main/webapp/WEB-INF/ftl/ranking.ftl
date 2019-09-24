@@ -90,27 +90,47 @@
 
     <script>
         $(document).ready(function () {
+            jypmList()
+            getRecentYears()
+        })
+
+        function getRecentYears() {
+            var jsonObj={
+            }
+            beginLoad()
+            ajax("zustjy/bckjBizJypm/getRecentYears", jsonObj, function (data) {
+                if(data.backCode==0){
+
+                }else{
+                    walert(data.errorMess)
+                }
+            })
+        }
+
+        function jypmList() {
             $(".table tbody").html("")
             var jsonObj={
                 "pmnf":(new Date()).getFullYear()
             }
+            beginLoad()
             ajax("zustjy/bckjBizJypm/jypmList", jsonObj, function (data) {
                 if(data.backCode==0){
+                    finishLoad()
                     if(data.bean.records){
                         $.each(data.bean.records,function (k,p) {
                             var str='';
                             $.each(p.pmzyList,function (m,n) {
                                 if(m==0){
                                     str='<tr>\n' +
-                                        '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
-                                        '<td>'+n.pmzy+'</td>\n' +
-                                        '<td>'+n.pmbyrs+'</td>\n' +
-                                        '<td>'+n.pmqyrs+'</td>\n' +
-                                        '<td>'+n.pmyprs+'</td>\n' +
-                                        '<td>'+n.pmqyl+'%</td>\n' +
-                                        '<td>'+n.pmjyl+'%</td>\n' +
-                                        '<td rowspan="'+p.pmzyList.length+'" class="xypm">'+parseInt(k+1)+'</td>\n' +
-                                        '</tr>'
+                                            '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
+                                            '<td>'+n.pmzy+'</td>\n' +
+                                            '<td>'+n.pmbyrs+'</td>\n' +
+                                            '<td>'+n.pmqyrs+'</td>\n' +
+                                            '<td>'+n.pmyprs+'</td>\n' +
+                                            '<td>'+n.pmqyl+'%</td>\n' +
+                                            '<td>'+n.pmjyl+'%</td>\n' +
+                                            '<td rowspan="'+p.pmzyList.length+'" class="xypm">'+parseInt(k+1)+'</td>\n' +
+                                            '</tr>'
                                 }else{
                                     var totalClass='';
                                     if(n.pmzy=="合计"){
@@ -135,11 +155,11 @@
                             $(".table tbody").append(str);
                         })
                     }
+                }else{
+                    walert(data.errorMess)
                 }
             })
-
-        })
-
+        }
     </script>
 </body>
 

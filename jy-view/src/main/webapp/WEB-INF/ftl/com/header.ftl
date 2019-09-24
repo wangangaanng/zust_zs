@@ -61,6 +61,7 @@
         </div>
     </div>
 </header>
+<script src="${base}/js/md5.min.js"></script>
 <script>
     $('.nav li').each(function(i,v){
         $(this).hover(function(){
@@ -82,5 +83,12 @@
     })
     function openUrl(url) {
         window.location.href="${base}/"+url
+    }
+    function isopenUrl(url) {
+        if(getCookie('stuOwid')){
+            window.location.href="${base}/"+url
+        }else {
+           login(url)
+        }
     }
 </script>

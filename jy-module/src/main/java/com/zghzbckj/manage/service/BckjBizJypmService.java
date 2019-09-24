@@ -75,9 +75,9 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
             return null;
         }
         //统计学院就业情况
-        List<Map<String, Object>> collegeList = this.dao.collegeStats();
+        List<Map<String, Object>> collegeList = this.dao.collegeStats(dataMap.get("pmnf").toString());
         for (Map<String, Object> college : collegeList) {
-            List<Map<String, Object>> majorList = this.dao.majorList(college.get("szxy").toString());
+            List<Map<String, Object>> majorList = this.dao.majorList(college.get("szxy").toString(), college.get("pmnf").toString());
             Map<String, Object> statsMap = new HashMap<>();
             BigDecimal qyl = (BigDecimal) college.get("pmqyl");
             BigDecimal jyl = (BigDecimal) college.get("pmjyl");

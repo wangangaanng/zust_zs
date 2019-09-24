@@ -81,7 +81,27 @@
                     </div>
                     </#list>
                 </#if>
-
+                </div>
+                <div class="text-center">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                        <#--<li>-->
+                            <#--<a href="#" aria-label="Previous">-->
+                            <#--<span aria-hidden="true">&laquo;</span>-->
+                            <#--</a>-->
+                            <#--</li>-->
+                            <#--<li><a href="#">1</a></li>-->
+                            <#--<li><a href="#">2</a></li>-->
+                            <#--<li><a href="#">3</a></li>-->
+                            <#--<li><a href="#">4</a></li>-->
+                            <#--<li><a href="#">5</a></li>-->
+                            <#--<li>-->
+                            <#--<a href="#" aria-label="Next">-->
+                            <#--<span aria-hidden="true">&raquo;</span>-->
+                            <#--</a>-->
+                            <#--</li>-->
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </div>
@@ -93,16 +113,36 @@
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
-
+<script src="${base}/js/bootstrap-paginator.min.js" type="text/javascript"></script>
 <script>
-
+    var currentPage="${tlist.currentPage!'1'}"
     $(document).ready(function () {
+        setPage(currentPage, "${tlist.totalPage!'1'}", function () {
+            openUrl('sutCenter/0/'+currentPage)
+        })
+
         $(".list-group-item").click(function(e) {
             var index=$(this).index()
             window.location.href="/stuCenter/"+index
         })
     })
 
+    function setPage(pageCurrent, pageSum, callback) {
+        $(".pagination").bootstrapPaginator({
+            //设置版本号
+            bootstrapMajorVersion: 3,
+            // 显示第几页
+            currentPage: pageCurrent,
+            // 总页数
+            totalPages: pageSum,
+            //当单击操作按钮的时候, 执行该函数, 调用ajax渲染页面
+            onPageClicked: function (event,originalEvent,type,page) {
+                // 把当前点击的页码赋值给currentPage, 调用ajax,渲染页面
+                currentPage = page
+                callback && callback()
+            }
+        })
+    }
 
     function question(o) {
         layer.open({

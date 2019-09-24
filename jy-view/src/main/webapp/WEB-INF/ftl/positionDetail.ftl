@@ -33,7 +33,7 @@
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl">
-                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                <#if (result.exp1??)&&(result.exp1!="0")>
                                     <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -65,7 +65,7 @@
                                 <li>发布日期：<span>${result.createtime?substring(0,16)}</span></li>
                             </ul>
                             <div class="tools cl">
-                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                <#if (result.exp1??)&&(result.exp1!="0")>
                                     <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -98,7 +98,7 @@
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1 shoucang" onclick="applyJob()">学生报名参加</a>
-                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                <#if (result.exp1??)&&(result.exp1!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -131,7 +131,7 @@
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
-                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                <#if (result.exp1??)&&(result.exp1!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -177,7 +177,7 @@
                                 <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a>
-                                <#if (result.exp1??)&&(result.exp1=="1")>
+                                <#if (result.exp1??)&&(result.exp1!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -221,6 +221,7 @@
     </div>
     <#include "com/footer.ftl">
     <script>
+        var jlowid="${result.exp1!'0'}"
         $(".position-tabbar ul li").hover(function () {
             $(this).addClass('active').siblings().removeClass('active');
             $(this).parents(".position-tabcontent").find(".tabcontent").eq($(this).index()).show().siblings().hide();
@@ -258,6 +259,7 @@
                 }
                 ajax("zustjy/bckjBizXsgz/signInOrScribe", jsonObj, function (data) {
                     if(data.backCode==0){
+                        jlowid=data.bean[0].owid;
                         layer.msg('收藏成功', {icon: 1});
                         $(".shoucang").hide();
                         $(".quxiao").show();
@@ -274,7 +276,7 @@
         function cancelJob() {
             if(getCookie('stuOwid')){
                 var jsonObj={
-                    "owid":"${result.owid!''}",
+                    "owid":jlowid,
                 }
                 ajax("zustjy/bckjBizXsgz/cancelSubcribe", jsonObj, function (data) {
                     if(data.backCode==0){
@@ -290,57 +292,6 @@
                 login();
 
             }
-        }
-        //登录
-        function login() {
-            var layer1;
-            layer1=layer.open({
-                type: 1,
-                title:'登录信息',
-                skin: 'layui-layer-rim', //加上边框
-                area: ['420px', '240px'], //宽高
-                content: '<div class="lxr-modal"><div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
-                '                                <div class="col-sm-6">\n' +
-                '                                    <input type="text" class="form-control" id="username" name="lxr" placeholder="" autocomplete="off">\n' +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                        <div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">密码：</label>\n' +
-                '                                <div class="col-sm-6">\n' +
-                '                                    <input type="text" class="form-control" id="psd" name="lxdh" placeholder="" autocomplete="off">\n' +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                        </div><div class="row btn-yd">\n' +
-                '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                '                                <button class="btn green" onclick="confirmQd()">确定</button>\n' +
-                '                            </div>\n' +
-                '                        </div></div>'
-            });
-        }
-        function confirmQd() {
-            if(!$("#username").val().trim()){
-                walert("请填写账号")
-                return
-            }else if(!$("#psd").val().trim()){
-                walert("请填写密码")
-                return
-            }
-            var jsonObj={
-                "yhDlzh":$("#username").val().trim(),
-                "yhDlmm":$("#psd").val().trim()
-            }
-            ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
-                if(data.backCode==0){
-                    addCookie("stuOwid",data.bean.owid)
-                    addCookie("stuSjh",data.bean.sjh)
-                    location.reload();
-                }
-            })
-
         }
     </script>
 </body>

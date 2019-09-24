@@ -231,7 +231,7 @@
         <ul class="adv">
             <li><img src="${base}/img/pic1.png" /></li>
             <li><img src="${base}/img/pic2.png" /></li>
-            <li><img src="${base}/img/pic3.png" /></li>
+            <li onclick="openUrl('ranking')"><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
     <!-- S c -->
@@ -294,7 +294,7 @@
                     </div>
                 </div>
                 <div class="menue-parent">
-                    <div class="menue-item">
+                    <div class="menue-item" onclick="isopenUrl('stuCenter/0')">
                         <div>
                             <img src="${base}/img/menu3.png" />
                             <div>
@@ -329,9 +329,8 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
-<script src="${base}/js/common.js"></script>
 <script src="${base}/js/jui.min.js"></script>
-<script src="${base}/js/md5.min.js"></script>
+
 <script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
 <script>
