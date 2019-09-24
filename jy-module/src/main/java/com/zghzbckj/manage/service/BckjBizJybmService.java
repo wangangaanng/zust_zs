@@ -263,7 +263,10 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Page<BckjBizJybm> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
         dataMap.put("bmlx", dataMap.get("bmlx").toString());
-        dataMap.put("bmdx", dataMap.get("bmdx").toString());
+
+        if (!TextUtils.isEmpty(dataMap.get("bmdx"))){
+            dataMap.put("bmdx", dataMap.get("bmdx").toString());
+        }
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();
