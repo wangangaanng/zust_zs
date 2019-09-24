@@ -123,7 +123,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     }
 
     /**
-     * <p>方法:返回问题列表 listAllQuestions TODO </p>
+     * <p>方法:后台返回问题列表 listAllQuestions TODO </p>
      * <ul>
      * <li> @param dataMap TODO</li>
      * <li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
@@ -140,6 +140,48 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         List<Map<String, Object>> dataList = new ArrayList<>();
         for (BckjBizDcwjTm question : questionList) {
             Map<String, Object> objectMap = BeanUtil.obj2Map(question, false);
+            dataList.add(objectMap);
+        }
+        return dataList;
+    }
+    
+    /**
+     *<p>方法:给前端返回问题列表 listQuestions TODO </p>
+     *<ul>
+     *<li> @param dataMap TODO</li>
+     *<li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/23 19:36  </li>
+     *</ul>
+     */
+    public List<Map<String, Object>> listQuestions(Map<String, Object> dataMap) {
+        dataMap.put("orderBy", "tmsx");
+        List<BckjBizDcwjTm> questionList = bckjBizDcwjTmDao.findListByMap(dataMap);
+        if (null == questionList) {
+            return null;
+        }
+        List<Map<String, Object>> dataList = new ArrayList<>();
+        for (BckjBizDcwjTm question : questionList) {
+            Map<String, Object> objectMap =  new HashMap<>();
+            objectMap.put("owid", question.getOwid());
+            objectMap.put("tmsx", question.getTmsx());
+            objectMap.put("tmfz", question.getTmfz());
+            objectMap.put("dcwjRefOwid", question.getDcwjRefOwid());
+            objectMap.put("tmlx", question.getTmlx());
+            objectMap.put("tmmc", question.getTmmc());
+            objectMap.put("tmckda", question.getTmckda());
+            List<Map<String, Object>> optionList = new ArrayList<>();
+            //查出选项，放入选项列表
+            Map<String, Object> tmMap = bckjBizDcwjTmDao.getOption(question.getOwid());
+            Set<String> keys = tmMap.keySet();
+            for (String key : keys) {
+                Map<String, Object> map = new HashMap<>();
+                if (null == tmMap.get(key) || "".equals(tmMap.get(key))) continue;
+                map.put("bh", key);
+                map.put("ms", tmMap.get(key));
+                optionList.add(map);
+            }
+            objectMap.put("xxList", optionList);
             dataList.add(objectMap);
         }
         return dataList;
@@ -164,6 +206,10 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         result.setKsdt(DateUtil.getDate(dataMap.get("ksdt").toString()));
         result.setJsdt(DateUtil.getDate(dataMap.get("jsdt").toString()));
         result.setDtsc(DateUtil.getBetweenMinutes(result.getJsdt(), result.getKsdt()));
+        if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
+            result.setDtrid(dataMap.get("dtrId").toString());
+            result.setDtrxm(dataMap.get("dtrXm").toString());
+        }
         bckjBizDcwjJgService.save(result);
         for (Map<String, Object> map : answerList) {
             BckjBizDcwjDtmx answer = JsonUtil.map2Bean(map, BckjBizDcwjDtmx.class);
@@ -198,7 +244,6 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
                 bckjBizDcwjTmService.saveOrUpdate(tm);
             }
         }
-//        bckjBizDcwjTmService.saveOrUpdateAll(tmList);
         return ResponseMessage.sendOK("");
     }
 
