@@ -140,6 +140,13 @@ public class BckjBizSybController extends BaseController {
     }
 
     private String doValid(BckjBizSyb syb) {
+        if (TextUtils.isEmpty(syb.getXh())) {
+            return "学号不能为空";
+        } else {
+            if (syb.getXh().length() > 30) {
+                return "学号不能超过30个字符";
+            }
+        }
         if (TextUtils.isEmpty(syb.getKsh())) {
             return "考生号不能为空";
         } else {
