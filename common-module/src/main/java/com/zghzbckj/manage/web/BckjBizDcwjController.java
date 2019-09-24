@@ -204,9 +204,6 @@ public class BckjBizDcwjController extends BaseController {
             List<Map<String, Object>> dataList1 = (List)dataMap.get("dataList1");
             for (Map<String, Object> data1 : dataList1) {
                 BckjBizDcwjTm bckjBizDcwjTm = JsonUtil.map2Bean(data1, BckjBizDcwjTm.class);
-                if (TextUtils.isEmpty(data1.get("dcwjrefowid"))) {
-                    bckjBizDcwjTm.setDcwjRefOwid(dataMap.get("owid").toString());
-                }
                 tmList.add(bckjBizDcwjTm);
             }
         }
