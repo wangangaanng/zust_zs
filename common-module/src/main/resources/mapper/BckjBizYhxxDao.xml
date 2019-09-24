@@ -112,6 +112,7 @@
 			owid,
 			sjh,
 			unionid,
+			yhlx,
 			yhtx,
 			sfz,
 			xm,
@@ -155,6 +156,7 @@
 			#{owid},
 			#{sjh},
 			#{unionid},
+			#{yhlx},
 			#{yhtx},
 			#{sfz},
 			#{xm},
@@ -291,6 +293,7 @@
 			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
 			b.xsxh as xsxh, b.xsxy as xsxy, xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
 			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b WHERE a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1
+			 order by a.lastupdate desc
 	</select>
 
 	<resultMap id="BckjBizStudentXxVo" type="com.zghzbckj.vo.BckjBizStudentXxVo">
