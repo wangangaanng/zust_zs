@@ -23,4 +23,8 @@ public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
     BckjBizYhkz getOneByYhRefOwid(HashMap<String, Object> map);
 
     List<String> getXsxhList();
+
+    void updateBycondition(Map<String,Object> dataMap);
+
+    void deletConditionByMap(Map<String, Object> component);
 }

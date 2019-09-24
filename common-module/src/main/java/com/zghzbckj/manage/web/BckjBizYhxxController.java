@@ -275,10 +275,13 @@ public class BckjBizYhxxController extends BaseController {
         try{
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
-            if(!msg.getSuccess()){
+            if(((ArrayList)dataMap.get("dataList")).size()==0){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"无更新数据");
             }
             List<Map<String, Object>> components = (List)dataMap.get("dataList");
+            if(components.size()==0){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"无更新数据");
+            }
             return bckjBizYhxxService.saveStudentInfo(components);
         }
         catch (Exception e){

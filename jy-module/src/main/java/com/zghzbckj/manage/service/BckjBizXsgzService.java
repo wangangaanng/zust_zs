@@ -369,7 +369,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         return this.dao.findListByMap(sendMap);
     }
 
-    public ResponseMessage studentSubcribeList(Map<String,Object> dataMap) {
+    public ResponseMessage  studentSubcribeList(Map<String,Object> dataMap) {
          Page<Map<String,Object>>page=new Page(Integer.parseInt(dataMap.get("pageNo").toString()),Integer.parseInt(dataMap.get("pageSize").toString()));
          dataMap.put("page",page);
         page.setList(this.dao.studentSubcribeList(dataMap));
