@@ -72,7 +72,13 @@
 		<include refid="bckjBizSybJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
-	
+	<select id="findByXh" resultType="com.zghzbckj.manage.entity.BckjBizSyb">
+		SELECT
+		a.owid AS "owid"
+		FROM bckj_biz_syb a
+		<include refid="bckjBizSybJoins"/>
+		WHERE a.xh = #{xh}
+	</select>
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizSyb">
 		SELECT 
 			<include refid="bckjBizSybColumns"/>
@@ -83,14 +89,11 @@
 			<if test="xh != null and xh != ''">
 				AND a.xh = #{xh}
 			</if>
-			<if test="xm != null and xm != ''">
-				AND a.xm LIKE 
-					<if test="dbName == 'oracle'">'%'||#{xm}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{xm}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{xm},'%')</if>
-			</if>
 			<if test="xb != null and xb != ''">
 				AND a.xb = #{xb}
+			</if>
+			<if test="xm != null and xm != ''">
+				AND a.xm LIKE concat('%',#{xm},'%')
 			</if>
 		</where>
 		<choose>
@@ -112,10 +115,7 @@
 				AND a.xh = #{xh}
 			</if>
 			<if test="xm != null and xm != ''">
-				AND a.xm LIKE
-					<if test="dbName == 'oracle'">'%'||#{xm}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{xm}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{xm},'%')</if>
+				AND a.xm LIKE concat('%',#{xm},'%')
 			</if>
 			<if test="xb != null and xb != ''">
 				AND a.xb = #{xb}

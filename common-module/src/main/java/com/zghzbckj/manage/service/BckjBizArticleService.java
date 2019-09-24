@@ -40,6 +40,8 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     private static final Logger log = Logger.getLogger(BckjBizArticleService.class);
 
     @Autowired
+    BckjDicKeysService bckjDicKeysService;
+    @Autowired
     CommonDao commonDao;
     @Override
     @Transactional(readOnly = false)
@@ -184,6 +186,17 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         }
         if (!TextUtils.isEmpty(mapData.get("sxsj"))) {
             article.setSxsj(DateUtil.getDate(mapData.get("sxsj").toString(), CommonConstant.DATE_FROMART));
+        }
+        Map mapFilter=Maps.newHashMap();
+        mapFilter.put("content",article.getWzbt()+article.getJjnr());
+        String filterResult=bckjDicKeysService.filterContent(mapFilter);
+        if(!TextUtils.isEmpty(filterResult)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词"+filterResult);
+        }
+        mapFilter.put("content",article.getWznr());
+         filterResult=bckjDicKeysService.filterContent(mapFilter);
+        if(!TextUtils.isEmpty(filterResult)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"文章内容中请去除如下字词"+filterResult);
         }
         saveOrUpdate(article);
         if(!TextUtils.isEmpty(mapData.get("fileExtId"))){

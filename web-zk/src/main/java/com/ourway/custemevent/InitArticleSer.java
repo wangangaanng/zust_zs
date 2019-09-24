@@ -64,6 +64,7 @@ public class InitArticleSer implements PageInitSer {
                     window.setPpt((Map<String, Object>) responseMessage.getBean());
                 }
             }
+
             //查看初始化的时候，是否有页面标题传入，如果标题是变量名，则取ppt中的值
             PageUtils.changeWindowTitle(window, args);
 

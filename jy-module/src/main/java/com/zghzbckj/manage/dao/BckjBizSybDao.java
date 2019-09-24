@@ -14,5 +14,5 @@ import com.zghzbckj.manage.entity.BckjBizSyb;
  */
 @MyBatisDao
 public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
-	
+    BckjBizSyb findByXh(String xh);
 }
