@@ -166,7 +166,7 @@
                     <li onclick="openUrl('${obj.TZLJ!}')"><a>${obj.NAME}</a></li>
                 </#if>
             </#list>
-            </ul><a href="${base}/newsList/3/0" target="_blank">MORE+</a></div>
+            </ul><a href="${base}/recruitment/3/0" target="_blank">MORE+</a></div>
             <div class="frame-body tabbar-frame_content">
                 <#list second as objl>
                     <#if objl_index==0>
