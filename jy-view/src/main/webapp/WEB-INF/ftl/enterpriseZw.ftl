@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
     <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
 </head>
-<style>
-    .e-table {
-        padding: 20px;
-    }
-
-</style>
 
 <body>
 
@@ -72,7 +66,7 @@
                     <button class="btn pull-right green" onclick='window.location.href="/newJob"'>新增</button>
                 </div>
                 <div class="news-list">
-                    <div class="e-table">
+                    <div class="e-table" style="padding: 0 20px;">
                         <table class="table table-hover" data-locale="zh-CN" id="table-job" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
                         </table>

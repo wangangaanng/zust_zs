@@ -7,14 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>就业网</title>
     <#include "com/config.ftl">
+    <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
 </head>
 <style>
-
-    /*.teacher-item .t-bg {
-        width: 100%;
-        height: 260px;
-        background: url("${base}/img/teacher.png") 100% no-repeat;
-    }*/
 
 </style>
 
@@ -36,8 +31,8 @@
         <div class="content">
             <div class="menu-nav">
                 <div class="menu-title">
-                    <div class="title-chn">学生服务</div>
-                    <div class="title-en">STUDENT SERVICE
+                    <div class="title-chn">个人中心</div>
+                    <div class="title-en">INFORMATION
                         <div class="menu-nav-icon"></div>
                     </div>
 
@@ -56,41 +51,29 @@
                         <li class="list-group-item">
                             <span class="ic-menu"></span> 我的收藏
                         </li>
+                        <li class="list-group-item">
+                            <span class="ic-menu"></span> 生源信息
+                        </li>
                     </ul>
                 </div>
             </div>
 
             <div class="content-list">
-                <div class="ask-list">
-                    <#if asklist??>
-                        <#list asklist.records as obj>
-                    <div class="al-item "><#--active2-->
-                        <div class="al-question">
-                            <i></i> 我的提问：${obj.wtnr}
+                <div class="search-bar">
+                    <div class="input-group search-input">
+                        <input type="text" id="zwbt-xjh" class="form-control" placeholder="输入名称进行查询">
+                        <div class="input-group-btn">
+                            <button type="button" onclick="searchXjh()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>
-                        <#if obj.danr??>
-                        <div class="al-answer">
-                            <i></i> ${obj.hfName}的回复：${obj.danr}
-                        </div>
-                        </#if>
-                        <div class="al-btn">
-                            <button onclick="removeHistoryConsult('${obj.owid}',this)" class="btn">删除</button>
-                            <button class="btn">继续咨询</button>
-                        </div>
-                    <#--<span class="glyphicon glyphicon-menu-up "></span>-->
                     </div>
-                        </#list>
-                    </#if>
-                <#--<div class="al-item">-->
-                <#--<div class="al-question">-->
-                <#--<i></i> 我的提问：张老师，就业需要准备什么材料?-->
-                <#--</div>-->
-                <#--<div class="al-answer">-->
-                <#--<i></i> 张老师的回复：简历，毕业证书等等。。-->
-                <#--</div>-->
-                <#--<span class="glyphicon glyphicon-menu-down "></span>-->
-                <#--</div>-->
+                </div>
+                <div class="news-list">
+                    <div class="e-table" style="padding: 0 20px;">
+                        <table class="table table-hover" data-locale="zh-CN" id="table-xjh" style="table-layout: fixed;
+                          word-break:break-all; word-wrap:break-all;">
+                        </table>
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -101,17 +84,9 @@
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
-
-<script>
-
-    $(document).ready(function () {
-        $(".list-group-item").click(function(e) {
-            var index=$(this).index()
-            window.location.href="/stuCenter/"+index
-        })
-    })
-
-</script>
+<script src="${base}/js/bootstrap-table.min.js" type="text/javascript"></script>
+<script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
+<script src="${base}/js/stuBm.js" type="text/javascript"></script>
 </body>
 
 </html>

@@ -368,6 +368,49 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "fixJob/{owid}", method = RequestMethod.GET)
+    public ModelAndView fixJob(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue("qyOwid") String qyOwid) {
+        view.setViewName("fixJob");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("dicType","20005");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+        ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("zwNlyq",zwNlyq.getBean());
+        Map param1=Maps.newHashMap();
+        param1.put("dicType","20006");
+        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+        ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("zwXlyq",zwXlyq.getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("dicType","20007");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("zwYyyq",zwYyyq.getBean());
+        Map param3=Maps.newHashMap();
+        param3.put("dicType","20008");
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+        ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("zwGznx",zwGznx.getBean());
+        Map param4=Maps.newHashMap();
+        param4.put("dicType","20003");
+        PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+        ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
+        view.addObject("zwGzzn",zwGzzn.getBean());
+        Map param5=Maps.newHashMap();
+        param5.put("dicType","20004");
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+        ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("zwGzxz",zwGzxz.getBean());
+        Map param6=Maps.newHashMap();
+        param6.put("owid",owid);
+        param6.put("yhOwid",qyOwid);
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizJob/getOneJob");
+        ResponseMessage jobDetail  = UnionHttpUtils.doPosts(publicData6);
+        view.addObject("jobDetail",jobDetail.getBean());
+        return view;
+    }
+
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
         view.setViewName("enterpriseService");
@@ -613,6 +656,15 @@ public class DemoController {
             view.setViewName("stuBm");
         }else if(secondDir.equals("3")){//我的收藏
             view.setViewName("stuSc");
+        }else if(secondDir.equals("4")){//生源信息
+            view.setViewName("stuSyxx");
+            Map param1=Maps.newHashMap();
+            param1.put("owid",stuOwid);
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
+            ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+            if(null!=result1.getBean()) {
+                view.addObject("stuInfo",result1.getBean());
+            }
         }
 
         return view;
@@ -629,7 +681,10 @@ public class DemoController {
             param.put("pageSize","12");
             PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
             ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-            view.addObject("tlist",result.getBean());
+            if(null!=result.getBean()) {
+                view.addObject("tlist",result.getBean());
+            }
+//            view.addObject("tlist",result.getBean());
         }else if(secondDir.equals("1")){//咨询列表
             view.setViewName("stuZx");
             Map param1=Maps.newHashMap();
@@ -639,7 +694,10 @@ public class DemoController {
             param1.put("twOwid",stuOwid);
             PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
             ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
-            view.addObject("asklist",result1.getBean());
+            if(null!=result1.getBean()) {
+                view.addObject("asklist",result1.getBean());
+            }
+//            view.addObject("asklist",result1.getBean());
         }else if(secondDir.equals("2")){//报名预约
             view.setViewName("stuBm");
         }else if(secondDir.equals("3")){//我的收藏

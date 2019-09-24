@@ -16,6 +16,17 @@
 <#include "com/header.ftl">
 <div class="main">
     <div class="container">
+        <div class="routes">
+            <div class="location">
+                <i></i> 当前位置：
+            </div>
+
+            <ol class="breadcrumb">
+                <li><a href="#">首页</a></li>
+                <li><a href="#">企业服务</a></li>
+                <li class="active">新增职位</li>
+            </ol>
+        </div>
         <div class="content-form">
             <form class="form-horizontal" id="registerForm" method="" action="" target="rfFrame">
                 <div class="form-group">
@@ -143,7 +154,7 @@
 
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
-                        <button type="submit" onclick="addOneJob()" class="btn btn-default btn-common">提交</button>
+                        <button type="submit" class="btn btn-default btn-common green">提交</button>
                     </div>
                 </div>
             </form>
@@ -278,6 +289,7 @@
         function addOneJob() {
             var jsonObj = $("#registerForm").serializeObject()
             jsonObj.qyxxRefOwid=getCookie("qyOwid")
+            jsonObj.zwlx=0
             console.log(jsonObj)
             ajax("zustjy/bckjBizJob/addOneJob", jsonObj, function (data) {
                 if(data.backCode==0){

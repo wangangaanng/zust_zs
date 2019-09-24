@@ -30,8 +30,17 @@
                 <li class="active">就业排行榜</li>
             </ol>
         </div>
-        <div class="content">
-            <table class="table table-bordered">
+        <div class="content" style="margin-top: -20px;">
+            <div class="form-group">
+                <label for="year" class="col-sm-2 col-sm-offset-8 control-label text-right" style="line-height: 34px;padding-right: 0;">选择年份：</label>
+                <div class="col-sm-2" style="padding-left: 0;padding-right: 0;">
+                    <select class="form-control" onchange="jypmList()" name="year" id="year">
+                        <option value="">请选择</option>
+
+                    </select>
+                </div>
+            </div>
+            <table class="table table-bordered" style="margin-top: 50px;">
                 <thead class="thead1">
                 <tr>
                     <th>学院名称</th>
@@ -90,17 +99,23 @@
 
     <script>
         $(document).ready(function () {
-            jypmList()
             getRecentYears()
         })
 
         function getRecentYears() {
-            var jsonObj={
-            }
             beginLoad()
-            ajax("zustjy/bckjBizJypm/getRecentYears", jsonObj, function (data) {
+            ajax("zustjy/bckjBizJypm/getRecentYears", {}, function (data) {
                 if(data.backCode==0){
-
+                    if(data.bean && data.bean.recentYears && data.bean.recentYears.length>0){
+                        for(var i=0;i<data.bean.recentYears.length;i++){
+                            if(i==0){
+                                $("#year").append('<option value="'+data.bean.recentYears[i]+'" selected>'+data.bean.recentYears[i]+'</option>')
+                            }else{
+                                $("#year").append('<option value="'+data.bean.recentYears[i]+'">'+data.bean.recentYears[i]+'</option>')
+                            }
+                        }
+                        jypmList()
+                    }
                 }else{
                     walert(data.errorMess)
                 }
@@ -108,15 +123,19 @@
         }
 
         function jypmList() {
+            if(!$("#year").val()){
+                walert("请选择年份")
+                return
+            }
             $(".table tbody").html("")
             var jsonObj={
-                "pmnf":(new Date()).getFullYear()
+                "pmnf":$("#year").val()
             }
             beginLoad()
             ajax("zustjy/bckjBizJypm/jypmList", jsonObj, function (data) {
                 if(data.backCode==0){
                     finishLoad()
-                    if(data.bean.records){
+                    if(data.bean.records && data.bean.records.length>0){
                         $.each(data.bean.records,function (k,p) {
                             var str='';
                             $.each(p.pmzyList,function (m,n) {
@@ -154,6 +173,11 @@
                                     '</tr>'
                             $(".table tbody").append(str);
                         })
+                    }else{
+                        layer.open({
+                            title: '提示'
+                            ,content: '暂无数据'
+                        });
                     }
                 }else{
                     walert(data.errorMess)
