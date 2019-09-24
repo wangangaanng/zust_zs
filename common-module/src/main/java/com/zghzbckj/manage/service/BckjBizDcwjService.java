@@ -15,10 +15,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizDcwjDao;
 import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
-import com.zghzbckj.manage.entity.BckjBizDcwj;
-import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
-import com.zghzbckj.manage.entity.BckjBizDcwjJg;
-import com.zghzbckj.manage.entity.BckjBizDcwjTm;
+import com.zghzbckj.manage.entity.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +43,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     BckjBizDcwjJgService bckjBizDcwjJgService;
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
+    @Autowired
+    BckjBizYhxxService bckjBizYhxxService;
 
     @Override
     public BckjBizDcwj get(String owid) {
@@ -84,7 +83,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      * <li>@date 2019/9/12 11:27  </li>
      * </ul>
      */
-    public PageInfo<Map<String, Object>> listAllQuestionnaire(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
+    @Transactional(readOnly = false)
+    public PageInfo<Map<String, Object>> listAllQuestionnaire(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) throws Exception {
         PageInfo<BckjBizDcwj> result = findPage(dataMap, pageNo, pageSize, null);
         if (null == result) {
             return null;
@@ -100,7 +100,16 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             objectMap.put("wjsm", questionnaire.getWjsm());
             objectMap.put("kssj", questionnaire.getKssj());
             objectMap.put("jssj", questionnaire.getJssj());
-            objectMap.put("sfyx", questionnaire.getSfyx());
+            objectMap.put("sfdl", questionnaire.getSfdl());
+            Date endTime = questionnaire.getJssj();
+            //系统时间大于问卷结束时间，无效
+            if (System.currentTimeMillis() > endTime.getTime()) {
+                objectMap.put("sfyx", 0);
+                questionnaire.setSfyx(1);
+                save(questionnaire);
+            } else {
+                objectMap.put("sfyx", questionnaire.getJssj());
+            }
             dataList.add(objectMap);
         }
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();

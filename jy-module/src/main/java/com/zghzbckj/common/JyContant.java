@@ -50,6 +50,7 @@ public class JyContant {
     //报名对象 0招聘会 1宣讲会
     public static final int BMDX_ZPH = 0;
     public static final int BMDX_XJH = 1;
+    public static final int BMDX_ZW = 2;
     //职位类别 0职位
     public static final int ZWLB_ZW = 0;
     public static final int ZWLB_XJH = 4;

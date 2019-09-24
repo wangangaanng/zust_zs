@@ -16,58 +16,13 @@
 <#include "com/header.ftl">
 <div class="main">
     <div class="container">
-        <div class="routes">
-            <div class="location">
-                <i></i> 当前位置：
-            </div>
-
-            <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">联系我们</a></li>
-                <li class="active">联系我们</li>
-            </ol>
-        </div>
+        <#include "com/route.ftl">
         <div class="content">
-            <div class="menu-nav">
-                <div class="menu-title">
-                    <div class="title-chn">联系我们</div>
-                    <div class="title-en">CONTACT US
-                        <div class="menu-nav-icon"></div>
-                    </div>
-
-                </div>
-                <div class="menu-list">
-                    <ul class="list-group">
-                        <li class="list-group-item active1">
-                            <span class="ic-menu"></span> 联系我们
-                        </li>
-                        <li class="list-group-item">
-                            <span class="ic-menu"></span> 留言咨询
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="content-list" style="height: auto;">
-                <div class="article-detail" style="border: none;">
-                    <div class="article-detail-title">
-                        <div class="h3">联系我们</div>
-                        <div><span class="label1">作者：</span>浙江科技学院 &nbsp;&nbsp;&nbsp;<span class="label1">提交时间：</span>2019/4/28 20:04:08 &nbsp;&nbsp;&nbsp;<span class="label1">浏览：</span>21 次 </div>
-                    </div>
-                    <div class="article-detail-text">
-                        <p>
-                            电话：
-                        </p>
-
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="content-list" style="display: none;">
+            <#include "com/subMenu.ftl">
+            <div class="content-list">
                 <div class="article-detail" style="border: none;">
                     <div class="article-column-title">
-                        <div class="h3">留言咨询</div>
+                        <div class="h3">${thirdDirName!''}</div>
                     </div>
                     <div class="message">
                         <div class="message-content">
@@ -75,13 +30,13 @@
                                 <label>
                                     <i class="icon ic-name"></i>
                                 </label>
-                                <input class="" type="text" placeholder="姓名" />
+                                <input class="" type="text" id="xm" placeholder="姓名" />
                             </div>
                             <div class="message-input">
                                 <label>
                                     <i class="icon ic-tel"></i>
                                 </label>
-                                <input class="" type="text" placeholder="联系方式" />
+                                <input class="" type="text" id="sjh" placeholder="手机号" />
                             </div>
                         </div>
                         <div class="message-content1">
@@ -89,11 +44,11 @@
                                 <label>
                                     <i class="icon ic-message"></i>
                                 </label>
-                                <textarea class="" type="text" placeholder="留言" /></textarea>
+                                <textarea class="" type="text" id="wtnr" placeholder="留言" /></textarea>
                             </div>
                         </div>
                         <div class="message-btn">
-                            <button class="btn">发送</button>
+                            <button class="btn" onclick="consult()">发送</button>
                         </div>
                     </div>
                 </div>
@@ -107,12 +62,41 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script>
-    $(".list-group-item").click(function(e) {
-        $(this).siblings().removeClass("active1")
-        $(this).addClass("active1")
-        $(".content-list").hide();
-        $(".content-list").eq($(this).index()).show();
-    })
+
+    function consult() {
+        if(!$("#sjh").val().trim()){
+            walert("请填写手机号");
+            return
+        }else{
+
+            var length = $("#sjh").val().trim().length;
+            var mobile = /^1[345789]\d{9}$/;/*/^1(3|4|5|7|8)\d{9}$/*/
+            if(length!=11||!mobile.test($("#sjh").val().trim())){
+                walert("请填写11位手机号");
+                return
+            }
+        }
+        if(!$("#xm").val().trim()){
+            walert("请填写姓名");
+            return
+        }
+        if(!$("#wtnr").val().trim()){
+            walert("请填写留言内容");
+            return
+        }
+        var jsonObj={
+            "wtnr":$("#wtnr").val(),
+            "zxlx": 5,
+            "sjh": $("#sjh").val().trim(),
+            "xm": $("#xm").val().trim(),
+            "studentOwid": getCookie("stuOwid")
+        }
+        ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
+            if(data.backCode==0){
+               walert("留言成功")
+            }
+        })
+    }
 </script>
 </body>
 

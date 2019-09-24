@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -19,6 +20,7 @@ import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 import com.zghzbckj.util.JudgeInTimeIntervalUtils;
 import com.zghzbckj.util.LocationUtils;
+import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.vo.BckjBizYhkzVo;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.apache.log4j.Logger;
@@ -89,9 +91,18 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizXsgz(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizXsgz(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizXsgz> page = findPage(dataMap, pageNo, pageSize, null);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("gzlx"))) {
+            dataMap.put("gzlx", map.get("gzlx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("xxlb"))) {
+            dataMap.put("xxlb", map.get("xxlb").toString());
+        }
+        PageInfo<BckjBizXsgz> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 
@@ -258,9 +269,16 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
         bckjBizXsgz.setCreatetime(new Date());
         bckjBizXsgz.setState(1);
-        bckjBizXsgz.setExp1("1");
+        bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
-        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        HashMap<String, Object> sendMap = Maps.newHashMap();
+        sendMap.put("jobRefOwid",bckjBizXsgz.getJobRefOwid());
+        sendMap.put("yhRefOwid",bckjBizXsgz.getYhRefOwid());
+        List<BckjBizXsgz> bckjbiz = this.dao.findListByMap(sendMap);
+        if(!TextUtils.isEmpty(bckjbiz)&&bckjbiz.size()>0){
+            return ResponseMessage.sendOK(bckjbiz);
+        }
+        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)
@@ -345,5 +363,16 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             xsgz.setJob(job);
         }
         return xsgz;
+    }
+
+    public List<BckjBizXsgz> findListByMap(HashMap<String, Object> sendMap) {
+        return this.dao.findListByMap(sendMap);
+    }
+
+    public ResponseMessage studentSubcribeList(Map<String,Object> dataMap) {
+         Page<Map<String,Object>>page=new Page(Integer.parseInt(dataMap.get("pageNo").toString()),Integer.parseInt(dataMap.get("pageSize").toString()));
+         dataMap.put("page",page);
+        page.setList(this.dao.studentSubcribeList(dataMap));
+        return  ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 }

@@ -41,13 +41,75 @@ $(document).ready(function () {
         $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
     }
 })
+//登录
+function login(url) {
+    url=convertStr(url,'');
+    var layer1;
+    layer1=layer.open({
+        type: 1,
+        title:'登录信息',
+        skin: 'layui-layer-rim', //加上边框
+        area: ['420px', '240px'], //宽高
+        content: '<div class="lxr-modal"><div class="row">\n' +
+        '                            <div class="form-group">\n' +
+        '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
+        '                                <div class="col-sm-6">\n' +
+        '                                    <input type="text" class="form-control" id="username" name="lxr" placeholder="" autocomplete="off">\n' +
+        '                                </div>\n' +
+        '                            </div>\n' +
+        '                        </div>\n' +
+        '                        <div class="row">\n' +
+        '                            <div class="form-group">\n' +
+        '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">密码：</label>\n' +
+        '                                <div class="col-sm-6">\n' +
+        '                                    <input type="password" class="form-control" id="psd" name="lxdh" placeholder="" autocomplete="off">\n' +
+        '                                </div>\n' +
+        '                            </div>\n' +
+        '                        </div><div class="row btn-yd">\n' +
+        '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+        '                                <button class="btn green" onclick="confirmDl(\''+url+'\')">确定</button>\n' +
+        '                            </div>\n' +
+        '                        </div></div>'
+    });
+}
+function confirmDl(url) {
+    if(!$("#username").val().trim()){
+        walert("请填写账号")
+        return
+    }else if(!$("#psd").val().trim()){
+        walert("请填写密码")
+        return
+    }
+    var jsonObj={
+        "yhDlzh":$("#username").val().trim(),
+        "yhDlmm":$("#psd").val().trim().MD5(),
+    }
+    ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
+        if(data.backCode==0){
+            addCookie("stuOwid",data.bean.owid)
+            addCookie("stuSjh",data.bean.sjh)
+            if(url){
+                window.location.href=base+url
+            }else {
+                location.reload();
+            }
 
+        }
+    })
+
+}
 function loginout() {
-    delCookie("qyInfo");
-    delCookie("qyOwid");
-    delCookie("stuSjh");
-    delCookie("stuOwid");
-    location.reload();
+    // delCookie("qyInfo");
+    // delCookie("qyOwid");
+    // delCookie("stuSjh");
+    // delCookie("stuOwid");
+    document.cookie  = "qyInfo=;path=/";
+    document.cookie  = "qyOwid=;path=/";
+    document.cookie  = "stuSjh=;path=/";
+    document.cookie  = "stuOwid=;path=/";
+
+    window.location.href='/'
+    // location.reload();
 }
 
 // var localUrl = 'http://www.hwhautomall.com/ajax/executeAPI';
@@ -368,6 +430,8 @@ function addCookie(name, value, expires, path, domain) {
     }
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
+    }else {
+        str += ";path=/";// 指定可访问cookie的目录
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域
@@ -552,7 +616,6 @@ function getQueryString(name) {
     }
     return result[1];
 }
-
 
 $.fn.serializeObject = function() {
     var o = {};

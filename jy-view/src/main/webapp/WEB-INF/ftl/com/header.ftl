@@ -15,10 +15,10 @@
                 <img class="logo" src="${base}/img/logo-zust.png">
                 <div class="title">就业信息网</div>
                 <div class="user-info" id="qyInfo" style="display: none;">
-                    <a href="/enterpriseService">欢迎您<span id="qyName"></span></a>,<a href="#" onclick="loginout()">退出</a>
+                    <a href="/enterpriseService/0">欢迎您<span id="qyName"></span></a>,<a href="#" onclick="loginout()">退出</a>
                 </div>
                 <div class="user-info" id="stuInfo" style="display: none;">
-                    <a href="/stuCenter">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
+                    <a href="/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
                 </div>
             </div>
             <div class="nav">
@@ -61,10 +61,11 @@
         </div>
     </div>
 </header>
+<script src="${base}/js/md5.min.js"></script>
 <script>
     $('.nav li').each(function(i,v){
         $(this).hover(function(){
-            if((i != 0)&&(i!=$('.nav>ul li').length-1)){
+            if(i != 0){
                 $(this).addClass('current').siblings().removeClass('current');
                 $('.subnav-wrap').show();
                 $('.subnav-wrap .subnav-cont').eq(i-1).stop().fadeIn().siblings().hide();
@@ -82,5 +83,12 @@
     })
     function openUrl(url) {
         window.location.href="${base}/"+url
+    }
+    function isopenUrl(url) {
+        if(getCookie('stuOwid')){
+            window.location.href="${base}/"+url
+        }else {
+           login(url)
+        }
     }
 </script>

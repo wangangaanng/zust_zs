@@ -31,14 +31,14 @@ header .top-logo .user-info a{
     color: #fff;
 }
 
-/*.btn:active,*/
-/*.btn:focus,*/
-/*.btn:hover{*/
+.btn:active,
+.btn:focus,
+.btn:hover{
     /*color: #fff !important;*/
     /*background-color: #008784 !important;*/
     /*border-color: #008784 !important;*/
-    /*opacity: 0.7 !important;*/
-/*}*/
+    opacity: 0.7 !important;
+}
 
 header .logo {
     width: 467px;
@@ -701,11 +701,11 @@ ul.pagination {
 .radio {
     margin: 10px 0px;
   }
-  .radio input[type="radio"] {
+  .radio input[type="radio"],.checkbox input[type="checkbox"] {
     position: absolute;
     opacity: 0;
   }
-  .radio input[type="radio"]+span:before {
+  .radio input[type="radio"]+span:before{
     content: '';
     background: #f4f4f4;
     border-radius: 100%;
@@ -721,10 +721,53 @@ ul.pagination {
     -webkit-transition: all 250ms ease;
     transition: all 250ms ease;
   }
-  .radio input[type="radio"]:checked+span:before {
+.radio input[type="radio"]:checked+span:before {
     background-color: #008784;
     box-shadow: inset 0 0 0 3px #f4f4f4;
-  }
+}
+.checkbox input[type="checkbox"]+span:before{
+    content: '';
+    background: #f4f4f4;
+    /*border-radius: 100%;*/
+    border: 1px solid #b4b4b4;
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    position: relative;
+    margin-right: 8px;
+    vertical-align: top;
+    cursor: pointer;
+    text-align: center;
+}
+.checkbox input[type="checkbox"]:checked+span:before {
+    content: "\2714";
+    text-align: center;
+    font-size: 13px;
+    color: #008784;
+    font-weight: bold;
+}
+
+/*cehckbox*/
+/*input[type="checkbox"] +span{*/
+    /*display: block;*/
+    /*width: 20px;*/
+    /*height: 20px;*/
+    /*cursor: pointer;*/
+    /*position: absolute;*/
+    /*top: 2px;*/
+    /*left: 15px;*/
+    /*background: rgba(240, 84, 77, 1);;*/
+/*}*/
+/*input[type="checkbox"]:checked +span::before{*/
+    /*display: block;*/
+    /*content: "\2714";*/
+    /*text-align: center;*/
+    /*font-size: 16px;*/
+    /*color: white;*/
+/*}*/
+/*input[type=checkbox]{*/
+    /*visibility: hidden;*/
+/*}*/
   /* news */
   .index-news_list{width: 480px;height:260px;float: right;position: relative;}
   .news-ul{    list-style: none;}
@@ -749,17 +792,17 @@ ul.pagination {
 
 .share { float: left; }
 /**/
-.xInfo { padding-top: 15px; padding-bottom: 15px; border-bottom: 1px solid #ececec; padding-left: 0px;list-style: none;margin: 0;}
+.xInfo { padding-top: 15px; padding-bottom: 15px;padding-left: 0px;list-style: none;margin: 0;}
 .xInfo li { height: 30px; line-height: 22px; color: #aaaaaa; }
 .xInfo li span { color: #666666; }
-.xInfo-2 { border-bottom: 0; }
+.xInfo-2 { border-bottom: 0; border-top: 1px solid #ececec; }
 .xInfo-2 li { width: 33%; float: left; }
 .tInfo-2 li { width: auto; float: none; }
 
 /*详情按钮*/
 .tools { height: 30px; }
-.tools a { float: left; display: block; width: 106px; text-align: center; height: 30px; line-height: 30px; color: #008784; }
-.tools .btn_1 { width: 113px; height: 30px; background: #008784; color: #fff; }
+.tools a { float: left; display: block; width: 106px; text-align: center; height: 30px; line-height: 30px; color: #008784; cursor: pointer;}
+.tools .btn_1 { width: 113px; height: 30px; background: #008784; color: #fff;}
 .cl:after {display: table;content: "";line-height: 0;clear: both;}
 .vTools .warn{ margin-top:10px; color:#F00; height:22px; line-height:22px; }
 .vTools .warn span{ float:right; color:#000;}
@@ -943,17 +986,19 @@ ul.pagination {
 
 .ask-list {
     width: 100%;
-    border: solid 1px #e0e0e0;
-    padding: 40px 20px;
+    /*border: solid 1px #e0e0e0;*/
+    padding: 20px;
 }
 
 .al-item {
     width: 100%;
-    height: 118px;
+    /*height: 118px;*/
     background-color: #ffffff;
     border: solid 1px #e0e0e0;
     position: relative;
     margin-bottom: 20px;
+    padding-bottom: 20px;
+    overflow: hidden;
 }
 
 .al-item:last-child {
@@ -1061,8 +1106,11 @@ ul.pagination {
 }
 
 .td-detail .t-sm {
-    padding: 12px;
-    text-indent: 2em
+    margin: 12px;
+    text-indent: 2em;
+    display:-webkit-box;overflow:hidden;
+    white-space:normal!important;text-overflow:ellipsis;
+    word-wrap:break-word;-webkit-line-clamp:4;-webkit-box-orient:vertical;
 }
 
 .td-sm {
@@ -1111,7 +1159,7 @@ ul.pagination {
 .upload-img{
     position: relative;
 }
-.upload-img #file{
+.upload-img .file1{
     opacity: 0;
     width: 100%;
     height: 34px;
@@ -1243,8 +1291,11 @@ button.green:hover{
 }
 
 .teacher-detail .t-sm {
-    padding: 12px;
-    text-indent: 2em
+    margin: 12px;
+    text-indent: 2em;
+    display:-webkit-box;overflow:hidden;
+    white-space:normal!important;text-overflow:ellipsis;
+    word-wrap:break-word;-webkit-line-clamp:4;-webkit-box-orient:vertical;
 }
 
 .teacher-detail .t-btn {
@@ -1265,4 +1316,16 @@ button.green:hover{
 .t-btn .t-xq {
     background-color: #f0f0f0;
     color: #3d3d3d;
+}
+
+.zx-textarea{
+    padding: 15px 20px;
+    width: 100%;
+    height: 100%;
+}
+.zx-textarea textarea{
+    width: 100%;
+    height: 190px;
+    resize:none;
+    border-radius: 5px;
 }

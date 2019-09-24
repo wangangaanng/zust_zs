@@ -136,4 +136,8 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
         map.put("yhRefOwid",yhRefOwid);
         return ResponseMessage.sendOK(this.dao.getOneByYhRefOwid(map));
     }
+
+    public List<String> getXsxhList() {
+           return this.dao.getXsxhList();
+    }
 }

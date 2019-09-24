@@ -285,4 +285,52 @@
 	</update>
 
 
+	<select id="showStudentInfoList" resultMap="BckjBizStudentXxVo">
+			SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
+			a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
+			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
+			b.xsxh as xsxh, b.xsxy as xsxy, xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
+			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b WHERE a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1
+	</select>
+
+	<resultMap id="BckjBizStudentXxVo" type="com.zghzbckj.vo.BckjBizStudentXxVo">
+		<id column="owid" jdbcType="VARCHAR" property="owid" />
+		<result column="sjh" jdbcType="VARCHAR" property="sjh" />
+		<result column="yhlx" jdbcType="VARCHAR" property="yhlx" />
+		<result column="yhtx" jdbcType="VARCHAR" property="yhtx" />
+		<result column="sfz" jdbcType="VARCHAR" property="sfz" />
+		<result column="xm" jdbcType="VARCHAR" property="xm" />
+		<result column="xb" jdbcType="VARCHAR" property="xb" />
+		<result column="mz" jdbcType="VARCHAR" property="mz" />
+		<result column="csrq" jdbcType="DATE" property="csrq" />
+		<result column="yx" jdbcType="VARCHAR" property="yx" />
+		<result column="zcsj" jdbcType="VARCHAR" property="zcsj" />
+		<result column="fssj" jdbcType="VARCHAR" property="fssj" />
+		<result column="yzm" jdbcType="VARCHAR" property="yzm" />
+		<result column="prov" jdbcType="VARCHAR" property="prov" />
+		<result column="city" jdbcType="VARCHAR" property="city" />
+		<result column="area" jdbcType="VARCHAR" property="area" />
+		<result column="dlzh" jdbcType="VARCHAR" property="dlzh" />
+		<result column="dlzhsj" jdbcType="VARCHAR" property="dlzhsj" />
+		<result column="dlzhsj" jdbcType="VARCHAR" property="dlzhsj" />
+		<result column="YH_DLZH" jdbcType="VARCHAR" property="yhDlzh" />
+		<result column="YH_DLMM" jdbcType="VARCHAR" property="yhDlmm" />
+		<result  column="olx" jdbcType="VARCHAR" property="olx"/>
+		<result  column="xsxh" jdbcType="VARCHAR" property="xsxh"/>
+		<result  column="xsxy" jdbcType="VARCHAR" property="xsxy"/>
+		<result  column="xsbj" jdbcType="VARCHAR" property="xsbj"/>
+		<result  column="xsnj" jdbcType="VARCHAR" property="xsnj"/>
+		<result  column="xsxm" jdbcType="VARCHAR" property="xsxm"/>
+		<result  column="lxr" jdbcType="VARCHAR" property="lxr"/>
+		<result  column="memo" jdbcType="VARCHAR" property="memo"/>
+	</resultMap>
+	
+	<select id="findAllMap" resultType="Map">
+			SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
+			a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
+			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
+			b.xsxh as xsxh, b.xsxy as xsxy, xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
+			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b WHERE a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1
+	</select>
+
 </mapper>

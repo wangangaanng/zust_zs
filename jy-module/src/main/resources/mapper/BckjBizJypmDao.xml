@@ -44,8 +44,13 @@
 	</sql>
 
 	<select id="collegeStats" resultType="java.util.Map">
-		select szxy, SUM(pmbyrs) as pmbyrs, SUM(pmyprs) as pmyprs, SUM(pmqyrs) as pmqyrs, SUM(pmqyl) as pmqyl, SUM(pmjyl) as pmjyl
+		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmyprs) as pmyprs, SUM(pmqyrs) as pmqyrs, SUM(pmqyl) as pmqyl, SUM(pmjyl) as pmjyl
 		from bckj_biz_jypm
+		<where>
+			<if test="pmnf != null and pmnf != ''">
+				pmnf=#{pmnf}
+			</if>
+		</where>
 		group by szxy
 	</select>
 
@@ -53,7 +58,22 @@
 		select <include refid="bckjBizJypmColumns"/>
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"/>
-		where a.szxy=#{szxy} order by pmjyl desc
+		<where>
+			<if test="pmnf != null and pmnf != ''">
+				a.pmnf=#{pmnf}
+			</if>
+			<if test="szxy != null and szxy != ''">
+				and	a.szxy=#{szxy}
+			</if>
+		</where>
+		order by pmjyl desc
+	</select>
+
+	<select id="getByMajor" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
+		select <include refid="bckjBizJypmColumns"></include>
+		from bckj_biz_jypm a
+		<include refid="bckjBizJypmJoins"></include>
+		where a.pmzy=#{majorName}
 	</select>
 
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
@@ -91,6 +111,9 @@
 			</if>
 			<if test="pmzy != null and pmzy != ''">
 				and a.pmzy=#{pmzy}
+			</if>
+			<if test="pmnf != null and pmnf != ''">
+				and a.pmnf=#{pmnf}
 			</if>
 		</where>
 		<choose>

@@ -3,13 +3,22 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleSelectRestriction;
+
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 
-import com.sun.org.apache.regexp.internal.RE;
+
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
+import com.zghzbckj.manage.entity.BckjBizYhkz;
+import com.zghzbckj.util.CustomSaveALL;
+import com.zghzbckj.util.ExcelUtils;
+import com.zghzbckj.util.MapUtil;
+import com.zghzbckj.util.PageUtils;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
@@ -22,19 +31,12 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
-import org.apache.log4j.Logger;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.entity.BckjBizYhxx;
-import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 
-import javax.xml.soap.Text;
 
 /**
  * ccService
@@ -71,6 +73,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 	}
 	@Autowired
     BckjBizYhglService bckjBizYhglService;
+    @Autowired
+    BckjBizYhkzService bckjBizYhkzService;
 
 
 	/**
@@ -147,15 +151,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false ,rollbackFor = Exception.class)
     public ResponseMessage logIn(Map<String, Object> datamap) {
         Map<String,Object> resMap = Maps.newHashMap();
-        String psw = TextUtils.MD5(datamap.get("yhDlmm").toString()).toUpperCase();
-        datamap.remove("psw");
         Map<String, Object> map = this.dao.logIn(datamap);
         if(TextUtils.isEmpty(map)){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-        if(!psw.equalsIgnoreCase(map.get("yhDlmm").toString())){
+        if(!(datamap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString()))){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
         }
+        //如果不是为老师或者学生
         if(Integer.parseInt(map.get("olx").toString())!=0&&Integer.parseInt(map.get("olx").toString())!=1){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
@@ -165,6 +168,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         resMap.put("owid",map.get("owid"));
         resMap.put("yhtx",map.get("yhtx"));
         resMap.put("sjh",map.get("sjh"));
+        resMap.put("xsxh",map.get("xsxh"));
         return ResponseMessage.sendOK(resMap);
     }
 
@@ -192,7 +196,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
        if(TextUtils.isEmpty(bckjbizyhxx)) {
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
         }
-       if(!bckjbizyhxx.getYhdlmm().equals(oldPsw)){
+       if(!bckjbizyhxx.getYhDlmm().equals(oldPsw)){
            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.PasswordError);
        }
         String newPsw = TextUtils.MD5(datamap.get("newPassword").toString()).toUpperCase();
@@ -261,5 +265,164 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     public BckjBizYhxx getOneByUnionId(String unionid) {
         return this.dao.getOneByUnionId(unionid);
+    }
+
+    /**
+     * <p>功能描述:后台录入师生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/20</li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public ResponseMessage recordInfo(String path) {
+        //文件路径
+        String filename =path;
+        List<BckjBizYhxx> resultYhxx=new ArrayList<>();
+        List<BckjBizYhkz> resultYhkz=new ArrayList<>();
+        List<String> yhkzs=new ArrayList<>();
+        try {
+            ExcelUtils poi = new ExcelUtils();
+            System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+            List<List<String>> list = poi.read(filename);
+            System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+            int count = 0;
+            if (list != null) {
+                for (int i = 2; i < list.size(); i++) {     //行循环
+                    HashMap<Object, Object> dataMap = Maps.newHashMap();
+                    List<String> cellList = list.get(i);
+                    String xsxh = cellList.get(0);//学生学号/工号/税号
+                    xsxh=ExcelUtils.stmodifyExcelData(xsxh);
+                    yhkzs.add(xsxh);
+                    dataMap.put("xsxh",xsxh);
+                    String xm = cellList.get(1); //姓名
+                    dataMap.put("xm",xm);
+                    String mz = cellList.get(2);   //民族
+                    dataMap.put("mz",mz);
+                    String sjh = cellList.get(3);
+                    sjh=ExcelUtils.stmodifyExcelData(sjh);//手机号
+                    dataMap.put("sjh",sjh);
+                    String xb = cellList.get(4);//性别
+                    if(xb.indexOf("男")!=-1){
+                        dataMap.put("xb",1);
+                    }else if(xb.indexOf("女")!=-1){
+                        dataMap.put("xb",0);
+                    }
+                    String csrq = cellList.get(5);//出生日期
+                    csrq=ExcelUtils.stmodifyExcelData(csrq);
+                    dataMap.put("csrq",csrq);
+                    String yx = cellList.get(6);//邮箱
+                    dataMap.put("yx",yx);
+                    String prov = cellList.get(7);//家庭住址(省)
+                    dataMap.put("prov",prov);
+                    String city = cellList.get(8);//家庭住址(市)
+                    dataMap.put("city",city);
+                    String area = cellList.get(9);//家庭住址(区,乡镇)
+                    dataMap.put("area",area);
+                    String xsxy = cellList.get(10);//所在学院
+                    dataMap.put("xsxy",xsxy);
+                    String xszy = cellList.get(11);//所在专业
+                    dataMap.put("xszy",xszy);
+                    String xsnj = cellList.get(12);
+                    xsnj=ExcelUtils.modifyExcelData(xsnj);//所在年级
+                    dataMap.put("xsnj",xsnj);
+                    String xsbj = cellList.get(13);
+                    xsbj=ExcelUtils.modifyExcelData(xsbj);//所在班级
+                    dataMap.put("xsbj",xsbj);
+                    String yhDlzh = cellList.get(14);
+                    yhDlzh=ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
+                    dataMap.put("yhdlzh",yhDlzh);
+                    String yhDlmm = cellList.get(15);
+                    yhDlmm=ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
+                    dataMap.put("yhdlmm",yhDlmm);
+                    BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
+                    BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
+
+                    bckjBizYhkz.setOlx(0);  //类型 0 学生 1教师 2 工作人员 3 企业
+                    bckjBizYhxx.setYhlx(1); //类型 1学生或老师 2企业
+
+                    MapUtil.easySetByMap(dataMap,bckjBizYhxx);
+                    MapUtil.easySetByMap(dataMap,bckjBizYhkz);
+                    resultYhxx.add(bckjBizYhxx);
+                    String owid = CustomSaveALL.preInsert(bckjBizYhxx);
+                    bckjBizYhkz.setYhRefOwid(owid);
+                    resultYhkz.add(bckjBizYhkz);
+                }
+            }
+            //全部的学生的bcjkbizYhxx信息放入数据库
+            saveAll(resultYhxx);
+            //判断是否存在学号一样的数据
+            List<String> xsxhs=bckjBizYhkzService.getXsxhList();
+            ArrayList<String> operates=new ArrayList();
+            operates.addAll(xsxhs);
+            operates.addAll(yhkzs);
+            HashSet set=new HashSet();
+            for(String i:operates)
+                set.add(i);
+            if(!(set.size()==operates.size())){
+                throw new RepeatException("重复学生学号");
+            }
+            //全部的学生的bcjkbizYhkz信息放入数据库
+            bckjBizYhkzService.saveOrUpdateAll(resultYhkz);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        } catch (RepeatException e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendOK(CommonConstant.RepeatXsxh);
+        }
+        catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * insert 所有的entity
+     * @param entitys
+     * corder wangangaanng
+     */
+    public void saveAll(List<BckjBizYhxx> entitys){
+        Iterator var2 = entitys.iterator();
+        while(var2.hasNext()) {
+            BckjBizYhxx entity = (BckjBizYhxx)var2.next();
+            this.dao.insert(entity);
+        }
+    }
+
+    public ResponseMessage showStudentInfoList(Integer pageNo,Integer pageSize) {
+        HashMap<String, Object> dataMap = Maps.newHashMap();
+        Page<Object> page=new Page(pageNo,pageSize);
+        dataMap.put("page", page);
+        List<Object> lists=this.dao.showStudentInfoList(dataMap);
+        page.setList(lists);
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveStudentInfo(List<Map<String,Object>>components) {
+        List<Map<String,Object>> lists= Lists.newArrayList();
+        List<Map<String,Object>> listRules=this.dao.findAllMap();
+        try {
+            for (Map<String,Object>  component:components){
+                //如果為刪除的記錄
+                if (Integer.parseInt(component.get("updateFlag").toString())==2){
+                    delete(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
+/*
+                    bckjBizYhkz.
+                    bckjBizYhkzService.delete();
+*/
+                    components.remove(component);
+                    break;
+                }
+               saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+            }
+        }
+        catch (Exception e){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"请检查填入的格式是否正确");
+        }
+        return ResponseMessage.sendOK("保存成功，请刷新页面");
     }
 }

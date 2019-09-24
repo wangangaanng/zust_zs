@@ -23,8 +23,8 @@ public class BckjBizYhxxVo {
     private String area;		// area
     private String dlzh;		// dlzh
     private Date dlzhsj;		// dlzhsj
-    private String yhdlzh;
-    private String yhdlmm;
+    private String yhDlzh;
+    private String yhDlmm;
     private String exp1;
     private String exp2;
     private String exp3;
@@ -36,7 +36,21 @@ public class BckjBizYhxxVo {
     private String exp9;
     private String exp10;
 
+    public String getYhDlzh() {
+        return yhDlzh;
+    }
 
+    public void setYhDlzh(String yhDlzh) {
+        this.yhDlzh = yhDlzh;
+    }
+
+    public String getYhDlmm() {
+        return yhDlmm;
+    }
+
+    public void setYhDlmm(String yhDlmm) {
+        this.yhDlmm = yhDlmm;
+    }
     public String getYhlx() {
         return yhlx;
     }
@@ -194,21 +208,7 @@ public class BckjBizYhxxVo {
         this.dlzhsj = dlzhsj;
     }
 
-    public String getYhdlzh() {
-        return yhdlzh;
-    }
 
-    public void setYhdlzh(String yhdlzh) {
-        this.yhdlzh = yhdlzh;
-    }
-
-    public String getYhdlmm() {
-        return yhdlmm;
-    }
-
-    public void setYhdlmm(String yhdlmm) {
-        this.yhdlmm = yhdlmm;
-    }
 
     public String getExp1() {
         return exp1;

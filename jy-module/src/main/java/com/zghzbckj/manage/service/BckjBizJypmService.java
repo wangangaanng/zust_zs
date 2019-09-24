@@ -75,9 +75,9 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
             return null;
         }
         //统计学院就业情况
-        List<Map<String, Object>> collegeList = this.dao.collegeStats();
+        List<Map<String, Object>> collegeList = this.dao.collegeStats(dataMap.get("pmnf").toString());
         for (Map<String, Object> college : collegeList) {
-            List<Map<String, Object>> majorList = this.dao.majorList(college.get("szxy").toString());
+            List<Map<String, Object>> majorList = this.dao.majorList(college.get("szxy").toString(), college.get("pmnf").toString());
             Map<String, Object> statsMap = new HashMap<>();
             BigDecimal qyl = (BigDecimal) college.get("pmqyl");
             BigDecimal jyl = (BigDecimal) college.get("pmjyl");
@@ -111,6 +111,19 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         pageInfo.setCurrentPage(result.getCurrentPage());
         pageInfo.setTotalPage(result.getTotalPage());
         return pageInfo;
+    }
+
+    /**
+     *<p>方法:根据专业名称查询 getByMajor TODO </p>
+     *<ul>
+     *<li> @param majorName TODO</li>
+     *<li>@return com.zghzbckj.manage.entity.BckjBizJypm  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/22 18:14  </li>
+     *</ul>
+     */
+    public BckjBizJypm getByMajor(String majorName) {
+        return this.dao.getByMajor(majorName);
     }
 
 	/**

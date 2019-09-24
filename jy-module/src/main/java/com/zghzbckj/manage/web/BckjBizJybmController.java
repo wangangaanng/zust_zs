@@ -58,6 +58,19 @@ public class BckjBizJybmController extends BaseController {
     }
 
 
+    @RequestMapping(value = "/setOwidXsbm")
+    @ResponseBody
+    public void setOwidXsbm(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            map.put("jobRefOwid", mapData.get("owid"));
+            map.put("bmlx", JyContant.BMLX_XS);
+            map.put("bmdx", JyContant.BMDX_ZW);
+        } catch (Exception e) {
+            log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
+        }
+    }
+
     @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {
@@ -91,6 +104,21 @@ public class BckjBizJybmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
+
+
+    @RequestMapping(value = "/getXsbmList")
+    @ResponseBody
+    public ResponseMessage getXsbmList(PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     @PostMapping(value = "deleteList")
     @ResponseBody
