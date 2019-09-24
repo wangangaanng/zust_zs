@@ -82,12 +82,7 @@
         $('.subnav-wrap .subnav-cont').hide();
     })
     function openUrl(url) {
-        if(url){
-            window.location.href="${base}/"+url
-        }else{
-
-        }
-
+        window.location.href="${base}/"+url
     }
     function isopenUrl(url) {
         if(getCookie('stuOwid')){
