@@ -29,6 +29,17 @@
                                 .article-detail-text p { color: #5d5d5d;  line-height: 25px;  }
                             </style>
                             <p>${result.wznr!''}</p>
+                        <#if (result.fileList??)&&(result.fileList?size>0)>
+                            <div class="file">
+                                <div>附件</div>
+                                <ul>
+                                    <#list result.fileList as obj>
+                                        <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                    </#list>
+                                </ul>
+                            </div>
+                        </#if>
+
                         </#if>
 
                         <!--学院专业-->

@@ -237,7 +237,7 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage studentSubcribeList(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhOwid","zwlx","pageNo","pageSize");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhOwid","pageNo","pageSize");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
