@@ -14,8 +14,12 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.entity.BckjBizDcwj;
+import com.zghzbckj.manage.entity.BckjBizDcwjJg;
 import com.zghzbckj.manage.entity.BckjBizDcwjTm;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.service.BckjBizDcwjJgService;
 import com.zghzbckj.manage.service.BckjBizDcwjService;
+import com.zghzbckj.manage.service.BckjBizYhxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,6 +41,10 @@ import java.util.*;
 public class BckjBizDcwjController extends BaseController {
     @Autowired
     private BckjBizDcwjService bckjBizDcwjService;
+    @Autowired
+    BckjBizDcwjJgService bckjBizDcwjJgService;
+    @Autowired
+    BckjBizYhxxService bckjBizYhxxService;
 
     /**
      *<p>功能描述:调查问卷列表 dcwjList</p >
@@ -88,7 +96,7 @@ public class BckjBizDcwjController extends BaseController {
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
             }
-            List<Map<String, Object>> questionList = bckjBizDcwjService.listAllQuestions(dataMap);
+            List<Map<String, Object>> questionList = bckjBizDcwjService.listQuestions(dataMap);
             Map<String, Object> result = new HashMap<>();
             result.put("wjmc", questionnaire.getWjmc());
             result.put("wjjj", questionnaire.getWjjj());
@@ -123,9 +131,23 @@ public class BckjBizDcwjController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "参数为空");
             }
+            //查找调查问卷
             BckjBizDcwj questionnaire = bckjBizDcwjService.get(dataMap.get("dcwjRefOwid").toString());
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
+            }
+            //若有答题人id，查找答题结果，是否已经答过
+            if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
+                BckjBizDcwjJg jg = bckjBizDcwjJgService.findOneByParams(dataMap, null);
+                if (!TextUtils.isEmpty(jg)) {
+                    dataMap.remove("dtrId");
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "您已填写该问卷");
+                }
+                BckjBizYhxx yhxx = bckjBizYhxxService.get(dataMap.get("dtrId").toString());
+                if (TextUtils.isEmpty(yhxx)) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "用户信息为空");
+                }
+                dataMap.put("dtrXm", yhxx.getXm());
             }
             return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
@@ -182,9 +204,6 @@ public class BckjBizDcwjController extends BaseController {
             List<Map<String, Object>> dataList1 = (List)dataMap.get("dataList1");
             for (Map<String, Object> data1 : dataList1) {
                 BckjBizDcwjTm bckjBizDcwjTm = JsonUtil.map2Bean(data1, BckjBizDcwjTm.class);
-                if (TextUtils.isEmpty(data1.get("dcwjrefowid"))) {
-                    bckjBizDcwjTm.setDcwjRefOwid(dataMap.get("owid").toString());
-                }
                 tmList.add(bckjBizDcwjTm);
             }
         }

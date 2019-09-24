@@ -185,7 +185,7 @@ public class BckjBizArticleController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh", "sxsj");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }

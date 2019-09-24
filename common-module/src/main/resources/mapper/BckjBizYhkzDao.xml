@@ -210,14 +210,7 @@
 	
 	<delete id="delete">
 		DELETE FROM bckj_biz_yhkz
-		<where>
-			<if test="owid != null and owid ！=''">
-				and owid =#{owid}
-			</if>
-			<if test="yhRefOwid != null and yhRefOwid ！=''">
-				and yhRefOwid =#{yhRefOwid}
-			</if>
-		</where>
+		WHERE owid = #{owid}
 	</delete>
 
 	<select id="getOneByYhRefOwid" resultType="BckjBizYhkz" parameterType="Map">
@@ -230,6 +223,43 @@
 	<select id="getXsxhList" resultType="String">
 		SELECT a.xsxh AS xsxh FROM `bckj_biz_yhkz` a where a.xsxh is not null;
 	</select>
+
+	<update id="updateBycondition" parameterType="Map">
+		update bckj_biz_yhkz a set
+		<if test="xsxh!=null and xsxh!=''">
+			a.xsxh=#{xsxh},
+		</if>
+		<if test="xsxy!=null and xsxy!=''">
+			a.xsxy=#{xsxy},
+		</if>
+		<if test="xszy!=null and xszy!=''">
+			a.xszy=#{xszy},
+		</if>
+		<if test="xsbj!=null and xsbj!=''">
+			a.xsbj=#{xsbj},
+		</if>
+		<if test="xsnj!=null and xsnj!=''">
+			a.xsnj=#{xsnj},
+		</if>
+		<if test="xsbj!=null and xsbj!=''">
+			a.xsbj=#{xsbj}
+		</if>
+		<where>
+
+			<if test="yhOwid!=null and yhOwid!=''">
+				 a.yh_ref_owid = #{yhOwid}
+			</if>
+		</where>
+	</update>
+
+	<delete id="deletConditionByMap" parameterType="Map">
+			DELETE FROM bckj_biz_yhkz
+			<where>
+				<if test="yhRefOwid!=null and yhRefOwid!=''">
+					and yh_Ref_Owid = #{yhRefOwid}
+				</if>
+			</where>
+	</delete>
 
 	
 </mapper>

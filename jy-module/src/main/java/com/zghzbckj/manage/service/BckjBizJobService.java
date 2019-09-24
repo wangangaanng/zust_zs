@@ -214,7 +214,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
-            job.setZwGzs(0);
             job.setZwYds(0);
             if (!TextUtils.isEmpty(qyxx)) {
                 job.setExp1(qyxx.getQymc());
@@ -336,6 +335,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
+    @Transactional(readOnly = false)
     public BckjBizJob getOneJob(Map<String, Object> mapData) {
         String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
@@ -406,25 +406,40 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setQyxx(qyxx);
             }
         }
-        if (!TextUtils.isEmpty(job.getZwYds())) {
-            job.setZwYds(job.getZwYds() + 1);
+//阅读数+1
+        BckjBizJob newJob = get(owid);
+        if (!TextUtils.isEmpty(newJob.getZwYds())) {
+            newJob.setZwYds(newJob.getZwYds() + 1);
         } else {
-            job.setZwYds(1);
+            newJob.setZwYds(1);
         }
+        saveOrUpdate(newJob);
+        job.setZwYds(newJob.getZwYds());
         //查看是否被关注
         if (!TextUtils.isEmpty(mapData.get("yhOwid"))) {
             HashMap<String, Object> sendMap = Maps.newHashMap();
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
             List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
-            if (!TextUtils.isEmpty(bckjBizXsgzs)) {
-                if (bckjBizXsgzs.size() > 0) {
-                    job.setExp1("1");
-                } else {
-                    job.setExp1("0");
-                }
+            if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
+                job.setExp1(bckjBizXsgzs.get(0).getOwid());
+            } else {
+                job.setExp1("0");
             }
         }
+
+        if (JyContant.ZWLB_ZW == job.getZwlx()) {
+            params.clear();
+            params.put("jobRefOwid", job.getOwid());
+            //0 职位 1 企业
+            params.put("gzlx", "0");
+            params.put("xxlb", "0");
+            List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
+            job.setXsgzList(xsgzList);
+            job.setNumber(xsgzList.size());
+        }
+
+
         return job;
     }
 
@@ -465,5 +480,25 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         pageInfo.setTotalCount(page.getCount());
         pageInfo.setCurrentPage((long) page.getPageNo());
         return pageInfo;
+    }
+
+    @Transactional(readOnly = false)
+    public Map fixJob(Map<String, Object> mapData) {
+        Map resultMap = new HashMap<>(2);
+        BckjBizJob newJob = new BckjBizJob();
+        BckjBizJob oldJob = get(mapData.get("owid").toString());
+        try {
+            newJob = MapUtils.map2Bean(mapData, BckjBizJob.class);
+            BeanUtil.copyPropertiesIgnoreNull(newJob, oldJob);
+            saveOrUpdate(oldJob);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "false");
+            resultMap.put("msg", e.getMessage());
+            return resultMap;
+        }
+        resultMap.put("result", "true");
+        resultMap.put("bean", oldJob);
+        return resultMap;
     }
 }

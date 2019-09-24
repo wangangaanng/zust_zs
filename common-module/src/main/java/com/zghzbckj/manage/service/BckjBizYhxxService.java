@@ -4,34 +4,28 @@
 package com.zghzbckj.manage.service;
 
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.*;
-
-
+import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
+import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.util.CustomSaveALL;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
-
-
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ourway.base.utils.BeanUtil;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.model.FilterModel;
-
-import com.zghzbckj.base.model.ResponseMessage;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.dao.BckjBizYhxxDao;
-import com.zghzbckj.manage.entity.BckjBizYhxx;
-import org.apache.log4j.Logger;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -295,7 +289,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     HashMap<Object, Object> dataMap = Maps.newHashMap();
                     List<String> cellList = list.get(i);
                     String xsxh = cellList.get(0);//学生学号/工号/税号
-                    xsxh=ExcelUtils.stmodifyExcelData(xsxh);
+                    xsxh= ExcelUtils.stmodifyExcelData(xsxh);
                     yhkzs.add(xsxh);
                     dataMap.put("xsxh",xsxh);
                     String xm = cellList.get(1); //姓名
@@ -312,8 +306,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                         dataMap.put("xb",0);
                     }
                     String csrq = cellList.get(5);//出生日期
-                    csrq=ExcelUtils.stmodifyExcelData(csrq);
-                    dataMap.put("csrq",csrq);
+                    csrq=ExcelUtils.stmodifyExcelData(csrq);//进行变换
+                    dataMap.put("csrq",ExcelUtils.stringtoDate(csrq));
                     String yx = cellList.get(6);//邮箱
                     dataMap.put("yx",yx);
                     String prov = cellList.get(7);//家庭住址(省)
@@ -334,10 +328,11 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     dataMap.put("xsbj",xsbj);
                     String yhDlzh = cellList.get(14);
                     yhDlzh=ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
-                    dataMap.put("yhdlzh",yhDlzh);
+                    dataMap.put("yhDlzh",yhDlzh);
                     String yhDlmm = cellList.get(15);
                     yhDlmm=ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
-                    dataMap.put("yhdlmm",yhDlmm);
+                    yhDlmm=TextUtils.MD5(yhDlmm);//md5加密
+                    dataMap.put("yhDlmm",yhDlmm);
                     BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
                     BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
 
@@ -391,7 +386,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         }
     }
 
-    public ResponseMessage showStudentInfoList(Integer pageNo,Integer pageSize) {
+    public ResponseMessage showStudentInfoList( Integer pageNo,Integer pageSize) {
         HashMap<String, Object> dataMap = Maps.newHashMap();
         Page<Object> page=new Page(pageNo,pageSize);
         dataMap.put("page", page);
@@ -402,27 +397,32 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage saveStudentInfo(List<Map<String,Object>>components) {
-        List<Map<String,Object>> lists= Lists.newArrayList();
-        List<Map<String,Object>> listRules=this.dao.findAllMap();
         try {
             for (Map<String,Object>  component:components){
                 //如果為刪除的記錄
                 if (Integer.parseInt(component.get("updateFlag").toString())==2){
                     delete(JsonUtil.map2Bean(component,BckjBizYhxx.class));
                     BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
-/*
-                    bckjBizYhkz.
-                    bckjBizYhkzService.delete();
-*/
-                    components.remove(component);
-                    break;
-                }
-               saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    bckjBizYhkz.setYhRefOwid(component.get("owid").toString());
+                    component.put("yhRefOwid",component.get("owid"));
+                    bckjBizYhkzService.deletConditionByMap(component);
             }
+                //如果為更新
+                else if(Integer.parseInt(component.get("updateFlag").toString())==1&&component.get("owid")!=null)
+                {
+                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    component.put("yhOwid",component.get("owid"));
+                    bckjBizYhkzService.updateBycondition(component);
+                    //否则为新建
+                }else if(Integer.parseInt(component.get("updateFlag").toString())==1&&component.get("owid")==null){
+                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
+                    bckjBizYhkzService.saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhkz.class));
+                }
+            }
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
         catch (Exception e){
             return ResponseMessage.sendError(ResponseMessage.FAIL,"请检查填入的格式是否正确");
         }
-        return ResponseMessage.sendOK("保存成功，请刷新页面");
     }
 }

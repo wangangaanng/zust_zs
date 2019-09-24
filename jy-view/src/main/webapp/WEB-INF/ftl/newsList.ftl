@@ -33,6 +33,7 @@
                         <div class="news-list">
                             <ul>
                                 <#if (result??)&&(result.records??)&&(result.records?size>0)>
+                                    <#assign flag=1>
                                     <#list result.records as obj>
                                         <li><a href="${base}/newsDetail/${obj.owid!''}">
                                             <div class="article">${obj.wzbt!''}</div>
@@ -44,6 +45,8 @@
 
                                         </a></li>
                                     </#list>
+                                <#else >
+                                    <#assign flag=0>
                                 </#if>
                             </ul>
                             <div class="text-center">
@@ -80,9 +83,14 @@
 <script>
     var currentPage="${result.currentPage!'1'}"
     $(document).ready(function () {
-        setPage(currentPage, "${result.totalPage!'1'}", function () {
-            openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
-        })
+        if("${flag}"==0){
+            $(".content-list").append(nulltip)
+        }else {
+            setPage(currentPage, "${result.totalPage!'1'}", function () {
+                openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+            })
+        }
+
     })
     function search() {
         var key=$("#key").val();

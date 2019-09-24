@@ -1,6 +1,5 @@
 package com.zghzbckj.common;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 /**
  * <dl>

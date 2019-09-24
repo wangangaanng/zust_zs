@@ -30,7 +30,7 @@
 //         // window.open(url);
 //     }
 // }
-
+var nulltip="<p style='text-align: center;'>暂无数据</p>"
 $(document).ready(function () {
     if(getCookie("qyOwid")){
         $("#qyInfo").show();
@@ -67,12 +67,12 @@ function login(url) {
         '                            </div>\n' +
         '                        </div><div class="row btn-yd">\n' +
         '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-        '                                <button class="btn green" onclick="confirmQd(\''+url+'\')">确定</button>\n' +
+        '                                <button class="btn green" onclick="confirmDl(\''+url+'\')">确定</button>\n' +
         '                            </div>\n' +
         '                        </div></div>'
     });
 }
-function confirmQd(url) {
+function confirmDl(url) {
     if(!$("#username").val().trim()){
         walert("请填写账号")
         return
