@@ -336,6 +336,6 @@
 
 
 	<select id="getUserXh" resultType="Map">
-		SELECT a.XM ,b.XSXH,a.SHJ,a.SFZ,a.XB ,a.MZ,a.CSRQ  FROM BCKJ_BIZ_YHXX a LEFT JOIN  BCKJ_BIZ_YHKZ b ON a.owid =b.yh_ref_owid WHERE a.owid=#{owid}
+		SELECT a.XM ,b.XSXH,a.SJH,a.SFZ,a.XB ,a.MZ,a.CSRQ  FROM BCKJ_BIZ_YHXX a LEFT JOIN  BCKJ_BIZ_YHKZ b ON a.owid =b.yh_ref_owid WHERE a.owid=#{owid}
 	</select>
 </mapper>

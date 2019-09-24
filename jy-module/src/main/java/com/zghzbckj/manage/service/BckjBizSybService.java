@@ -139,8 +139,8 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 if(null!=userInfo.get("XM")){
                     syb.setXm(userInfo.get("XM").toString());
                 }
-                if(null!=userInfo.get("SHJ")){
-                    syb.setSjhm(userInfo.get("SHJ").toString());
+                if(null!=userInfo.get("SJH")){
+                    syb.setSjhm(userInfo.get("SJH").toString());
                 }
                 if(null!=userInfo.get("SFZ")){
                     syb.setSfzh(userInfo.get("SFZ").toString());
