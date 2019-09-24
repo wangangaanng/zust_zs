@@ -4,36 +4,28 @@
 package com.zghzbckj.manage.service;
 
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.*;
-
-
+import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
+import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.util.CustomSaveALL;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
-
-
-import com.zghzbckj.wechat.utils.MD5Util;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ourway.base.utils.BeanUtil;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.model.FilterModel;
-
-import com.zghzbckj.base.model.ResponseMessage;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.dao.BckjBizYhxxDao;
-import com.zghzbckj.manage.entity.BckjBizYhxx;
-import org.apache.log4j.Logger;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -297,7 +289,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     HashMap<Object, Object> dataMap = Maps.newHashMap();
                     List<String> cellList = list.get(i);
                     String xsxh = cellList.get(0);//学生学号/工号/税号
-                    xsxh=ExcelUtils.stmodifyExcelData(xsxh);
+                    xsxh= ExcelUtils.stmodifyExcelData(xsxh);
                     yhkzs.add(xsxh);
                     dataMap.put("xsxh",xsxh);
                     String xm = cellList.get(1); //姓名

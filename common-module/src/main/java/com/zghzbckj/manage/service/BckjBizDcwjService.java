@@ -105,10 +105,10 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             //系统时间大于问卷结束时间，无效
             if (System.currentTimeMillis() > endTime.getTime()) {
                 objectMap.put("sfyx", 0);
-                questionnaire.setSfyx(1);
+                questionnaire.setSfyx(0);
                 save(questionnaire);
             } else {
-                objectMap.put("sfyx", questionnaire.getJssj());
+                objectMap.put("sfyx", questionnaire.getSfyx());
             }
             dataList.add(objectMap);
         }
@@ -203,9 +203,11 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             return ResponseMessage.sendError(ResponseMessage.FAIL, "答案列表为空");
         }
         BckjBizDcwjJg result = new BckjBizDcwjJg();
-        result.setKsdt(DateUtil.getDate(dataMap.get("ksdt").toString()));
-        result.setJsdt(DateUtil.getDate(dataMap.get("jsdt").toString()));
-        result.setDtsc(DateUtil.getBetweenMinutes(result.getJsdt(), result.getKsdt()));
+        if (!TextUtils.isEmpty(dataMap.get("ksdt")) && !TextUtils.isEmpty(dataMap.get("jsdt"))) {
+            result.setKsdt(DateUtil.getDate(dataMap.get("ksdt").toString()));
+            result.setJsdt(DateUtil.getDate(dataMap.get("jsdt").toString()));
+            result.setDtsc(DateUtil.getBetweenMinutes(result.getJsdt(), result.getKsdt()));
+        }
         if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
             result.setDtrid(dataMap.get("dtrId").toString());
             result.setDtrxm(dataMap.get("dtrXm").toString());
@@ -231,16 +233,17 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      */
     @Transactional(readOnly = false)
     public ResponseMessage saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
-        if (null == tmList) {
+        if (tmList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
         }
         //保存调查问卷表
         save(dcwj);
         //保存调查问卷题目表
         for (BckjBizDcwjTm tm : tmList) {
-            if (null == tm.getDcwjRefOwid()) {
+            if (null == tm.getDcwjRefOwid() && !TextUtils.isEmpty(tm.getOwid())) {
                 bckjBizDcwjTmService.delete(tm);
             } else {
+                tm.setDcwjRefOwid(dcwj.getOwid());
                 bckjBizDcwjTmService.saveOrUpdate(tm);
             }
         }
