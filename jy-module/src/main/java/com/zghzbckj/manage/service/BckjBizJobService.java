@@ -238,11 +238,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
             dataMap.put("zwlx", dataMap.get("zwlx").toString());
         }
-
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
-        //状态为通过
-        dataMap.put("state", JyContant.JOB_ZT_TG);
+        //如果是外面列表，查看所有状态为通过记录，如果是我的个人中心，查看所有状态
+        if (TextUtils.isEmpty(dataMap.get("qyxxRefOwid")) && TextUtils.isEmpty(dataMap.get("yhRefOwid"))) {
+            dataMap.put("state", JyContant.JOB_ZT_TG);
+        }
         dataMap.put("page", page);
         List<BckjBizJob> jobList = this.dao.findListByMap(dataMap);
         if (!TextUtils.isEmpty(jobList)) {
@@ -428,16 +429,16 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
         }
 
-        if (JyContant.ZWLB_ZW == job.getZwlx()) {
-            params.clear();
-            params.put("jobRefOwid", job.getOwid());
-            //0 职位 1 企业
-            params.put("gzlx", "0");
-            params.put("xxlb", "0");
-            List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
-            job.setXsgzList(xsgzList);
-            job.setNumber(xsgzList.size());
-        }
+//        if (JyContant.ZWLB_ZW == job.getZwlx()) {
+//            params.clear();
+//            params.put("jobRefOwid", job.getOwid());
+//            //0 职位 1 企业
+//            params.put("gzlx", "0");
+//            params.put("xxlb", "0");
+//            List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
+//            job.setXsgzList(xsgzList);
+//            job.setNumber(xsgzList.size());
+//        }
 
 
         return job;
@@ -490,6 +491,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         try {
             newJob = MapUtils.map2Bean(mapData, BckjBizJob.class);
             BeanUtil.copyPropertiesIgnoreNull(newJob, oldJob);
+            oldJob.setState(JyContant.JOB_ZT_TG);
             saveOrUpdate(oldJob);
         } catch (Exception e) {
             e.printStackTrace();
