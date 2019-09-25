@@ -277,7 +277,7 @@
                 title: '发布日期',
                 align : 'center',
                 formatter:function(value,row,index){
-                    var value=row.zphKsrq.substring(0,10);
+                    var value=row.createtime.substring(0,10);
                     return value;
                 }
             }], //列设置

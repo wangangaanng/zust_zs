@@ -245,6 +245,8 @@ public class DemoController {
             view.setViewName("recruitmentQy");
         }else if(zwlx.equals("3")){//社会招聘会
             view.setViewName("recruitmentSh");
+        }else if(zwlx.equals("4")){//宣讲会
+            view.setViewName("recruitment");
         }else if(zwlx.equals("0")){//职位
             //工作职能
             Map param=Maps.newHashMap();
