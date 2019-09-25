@@ -357,6 +357,14 @@
     })
 
     function stuLogin() {
+        if(!$("#yhDlzh").val().trim()){
+            walert("请填写账号");
+            return;
+        }
+        if(!$("#yhDlmm").val().trim()){
+            walert("请填写密码");
+            return;
+        }
         var jsonObj={
             "yhDlzh":$("#yhDlzh").val().trim(),
             "yhDlmm":$("#yhDlmm").val().trim().MD5()
@@ -374,6 +382,14 @@
     }
 
     function qyLogin() {
+        if(!$("#qyTysh").val().trim()){
+            walert("请填写社会统一信用码");
+            return;
+        }
+        if(!$("#qyFrsfz").val().trim()){
+            walert("请填写法人身份证后六位");
+            return;
+        }
         var jsonObj={
             "qyFrsfz":$("#qyFrsfz").val().trim(),
             "qyTysh":$("#qyTysh").val().trim()

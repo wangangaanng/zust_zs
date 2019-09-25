@@ -71,6 +71,12 @@
 		from bckj_biz_dcwj_tm a
 		where a.owid=#{owid}
 	</select>
+
+	<select id="getWjOwid" resultType="java.lang.String">
+		select a.dcwj_ref_owid
+		from bckj_biz_dcwj_tm a
+		where a.owid=#{tmOwid}
+	</select>
     
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjTm">
 		SELECT 

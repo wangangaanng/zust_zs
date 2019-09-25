@@ -36,6 +36,13 @@
 	<sql id="bckjBizDcwjDtmxJoins">
 	</sql>
     
+	<select id="getTmOwid" resultType="java.lang.String">
+		select a.dcwjtm_ref_owid
+		from bckj_biz_dcwj_dtmx a
+		where a.dcwjjg_ref_owid in (select b.owid from bckj_biz_dcwj_jg b where b.dtrid=#{yhOwid})
+		limit 1
+	</select>
+	
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjDtmx">
 		SELECT 
 			<include refid="bckjBizDcwjDtmxColumns"/>

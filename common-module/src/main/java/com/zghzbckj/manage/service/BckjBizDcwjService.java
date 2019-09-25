@@ -144,15 +144,15 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         }
         return dataList;
     }
-    
+
     /**
-     *<p>方法:给前端返回问题列表 listQuestions TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/9/23 19:36  </li>
-     *</ul>
+     * <p>方法:给前端返回问题列表 listQuestions TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/23 19:36  </li>
+     * </ul>
      */
     public List<Map<String, Object>> listQuestions(Map<String, Object> dataMap) {
         dataMap.put("orderBy", "tmsx");
@@ -162,7 +162,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         }
         List<Map<String, Object>> dataList = new ArrayList<>();
         for (BckjBizDcwjTm question : questionList) {
-            Map<String, Object> objectMap =  new HashMap<>();
+            Map<String, Object> objectMap = new HashMap<>();
             objectMap.put("owid", question.getOwid());
             objectMap.put("tmsx", question.getTmsx());
             objectMap.put("tmfz", question.getTmfz());
@@ -248,6 +248,21 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             }
         }
         return ResponseMessage.sendOK("");
+    }
+
+    /**
+     * <p>方法:判断是否已回答 judgeAnswered TODO </p>
+     * <ul>
+     * <li> @param wjOwid TODO</li>
+     * <li> @param yhOwid TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/24 17:46  </li>
+     * </ul>
+     */
+    public String judgeAnswered(String yhOwid) {
+        String tmOwid = bckjBizDcwjDtmxService.getTmOwid(yhOwid);
+        return bckjBizDcwjTmDao.getWjOwid(tmOwid);
     }
 
     /**

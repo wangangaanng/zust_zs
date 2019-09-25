@@ -44,25 +44,16 @@
                 </div>
                 <div class="menu-list">
                     <ul class="list-group">
-                        <#if secondDir=="0">
-                            <#assign current1="active1" />
-                            <#elseif secondDir=="1">
-                                <#assign current2="active1" />
-                            <#elseif secondDir=="2">
-                                <#assign current3="active1" />
-                            <#elseif secondDir=="3">
-                                <#assign current4="active1" />
-                        </#if>
-                        <li class="list-group-item ${current1!''}">
+                        <li class="list-group-item active1">
                             <span class="ic-menu"></span> 基本信息
                         </li>
-                        <li class="list-group-item ${current2!''}">
+                        <li class="list-group-item">
                             <span class="ic-menu"></span> 职位信息发布
                         </li>
-                        <li class="list-group-item ${current3!''}">
+                        <li class="list-group-item">
                             <span class="ic-menu"></span> 宣讲会申请
                         </li>
-                        <li class="list-group-item ${current4!''}">
+                        <li class="list-group-item">
                             <span class="ic-menu"></span> 招聘会申请
                         </li>
                     </ul>
