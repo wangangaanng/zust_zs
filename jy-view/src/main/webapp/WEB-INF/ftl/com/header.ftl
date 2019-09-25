@@ -93,6 +93,18 @@
         }
 
     }
+    function linkUrl(url) {
+        if(url){
+            if(url=='/'){
+                window.open(url)
+            }else{
+                window.open("${base}/"+url)
+            }
+        }else{
+
+        }
+
+    }
     function isopenUrl(url) {
         if(getCookie('stuOwid')){
             window.location.href="${base}/"+url
