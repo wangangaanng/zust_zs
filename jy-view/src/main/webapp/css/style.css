@@ -83,7 +83,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .job li:last-of-type{color:#8a8a8a;float: right;padding-right: 20px;}
 
 /* 日历 */
-.calendar-bar{background: #008784;color: #fff;font-size: 15px;height: 58px;line-height: 58px;}
+.calendar-bar{background: #008784;color: #fff;font-size: 15px;height: 57px;line-height: 57px;}
 .datePickerLayout {
     width: 200px;
 }
