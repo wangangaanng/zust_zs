@@ -159,10 +159,13 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         return pageInfo;
     }
 
+    @Transactional( readOnly = false)
     public BckjBizArticle getWzDetail(Map<String, Object> mapData) {
         List<BckjBizArticle> articleList=this.dao.findListByMap(mapData);
         if(null!=articleList&&articleList.size()>0){
             BckjBizArticle oneArt=articleList.get(0);
+            oneArt.setYdcs(oneArt.getYdcs()+1);
+            saveOrUpdate(oneArt);
             Map mapParam= Maps.newHashMap();
             mapParam.put("wzRefOwid",oneArt.getOwid());
             List<Map> files=commonDao.getSysFiles(mapParam);
