@@ -94,6 +94,8 @@ function confirmDl(url) {
                 location.reload();
             }
 
+        }else{
+            walert(data.errorMess);
         }
     })
 

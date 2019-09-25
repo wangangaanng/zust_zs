@@ -103,6 +103,13 @@
 <script>
     var answerList=[];
     $(document).ready(function () {
+//        layer.open({
+//            title:'提示',
+//            content: '您已提交，请勿重复提交',
+//            yes: function(index, layero){
+//                layer.close(index);
+//            }
+//        });
         $(".wjcontent dt").each(function (k, p) {
             var obj={};
             obj.dcwjtmRefOwid=$(this).data("owid");
@@ -110,7 +117,6 @@
             obj.tmlx=$(this).data("lx");
             answerList.push(obj);
         })
-        console.log(answerList)
     })
     function commitWj() {
         $.each(answerList,function (k, p) {
@@ -133,32 +139,38 @@
             if(answerList[k].wjda==""){
                 $(".wjcontent").find("dt").eq(k).addClass('warn');
                 $(".wjcontent").find("dd").eq(k).addClass('warn');
-                layer.msg('请填写完整', {icon: 2});
             }else {
                 $(".wjcontent").find("dt").eq(k).removeClass('warn');
                 $(".wjcontent").find("dd").eq(k).removeClass('warn');
             }
         })
-
-        console.log(answerList);
-
-        <#--var jsonObj ={-->
-            <#--"dcwjRefOwid":"${owid!''}",-->
-            <#--"answerList":answerList,-->
-            <#--"ksdt":"",-->
-            <#--"jsdt":"",-->
-            <#--"dtrId":getCookie("stuOwid"),-->
-        <#--}-->
-        <#--ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {-->
-            <#--if(data.backCode==0){-->
-                <#--layer.close(layer1)-->
-                <#--layer1=null;-->
-            <#--&lt;#&ndash;window.location.href="${base}/"+url&ndash;&gt;-->
-                <#--window.location.href="${base}/jobFair/2"-->
-            <#--}else{-->
-                <#--walert(data.errorMess)-->
-            <#--}-->
-        <#--})-->
+        if($(".wjcontent").find("dt").hasClass("warn")){
+            layer.msg('请填写完整', {icon: 2});
+            return false;
+        }
+        if(getCookie("stuOwid")){
+            var jsonObj ={
+                "dcwjRefOwid":"${owid!''}",
+                "answerList":answerList,
+                "ksdt":"",
+                "jsdt":"",
+                "dtrId":convertStr(getCookie("stuOwid"),""),
+            }
+        }else {
+            var jsonObj ={
+                "dcwjRefOwid":"${owid!''}",
+                "answerList":answerList,
+                "ksdt":"",
+                "jsdt":"",
+            }
+        }
+        ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {
+            if(data.backCode==0){
+                layer.msg('提交成功', {icon: 1});
+            }else{
+                layer.msg(data.errorMess, {icon: 2});
+            }
+        })
     }
 </script>
 </body>
