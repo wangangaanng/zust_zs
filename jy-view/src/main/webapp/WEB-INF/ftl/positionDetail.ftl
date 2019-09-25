@@ -33,7 +33,7 @@
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl">
-                                <#if (result.exp1??)&&(result.exp1!="0")>
+                                <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -65,7 +65,7 @@
                                 <li>发布日期：<span>${result.createtime?substring(0,16)}</span></li>
                             </ul>
                             <div class="tools cl">
-                                <#if (result.exp1??)&&(result.exp1!="0")>
+                                <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="btn_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="btn_1 shoucang" onclick="saveJob()">收藏</a><a class="btn_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -98,7 +98,7 @@
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
-                                <#if (result.exp1??)&&(result.exp1!="0")>
+                                <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -131,7 +131,7 @@
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
-                                <#if (result.exp1??)&&(result.exp1!="0")>
+                                <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -177,7 +177,7 @@
                                 <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a>
-                                <#if (result.exp1??)&&(result.exp1!="0")>
+                                <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
@@ -221,7 +221,7 @@
     </div>
     <#include "com/footer.ftl">
     <script>
-        var jlowid="${result.exp1!'0'}"
+        var jlowid="${result.exp2!'0'}"
         $(".position-tabbar ul li").hover(function () {
             $(this).addClass('active').siblings().removeClass('active');
             $(this).parents(".position-tabcontent").find(".tabcontent").eq($(this).index()).show().siblings().hide();
