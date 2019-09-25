@@ -15,7 +15,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @MyBatisDao
 public interface BckjBizDcwjDtmxDao extends CrudDao<BckjBizDcwjDtmx> {
-
-    String getTmOwid(@Param("yhOwid") String yhOwid);
 	
 }

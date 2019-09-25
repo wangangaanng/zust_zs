@@ -106,10 +106,17 @@ public class BckjBizDcwjController extends BaseController {
             result.put("kssj", questionnaire.getKssj());
             result.put("jssj", questionnaire.getJssj());
             result.put("questionList", questionList);
+            //判断调查人数是否已满
+            int maxNumber = bckjBizDcwjJgService.countPeople(dataMap.get("dcwjRefOwid").toString());
+            if (maxNumber > questionnaire.getDcrs()) {
+                result.put("tips", "调查人数已满，无需再填写");
+                return ResponseMessage.sendOK(result);
+            }
             //判断是否已答题
             if (!TextUtils.isEmpty(dataMap.get("yhOwid")) && questionnaire.getSfdl() == 1) {
-                String tmOwid = bckjBizDcwjService.judgeAnswered(dataMap.get("yhOwid").toString());
-                if (tmOwid.equals(questionnaire.getOwid())) {
+                dataMap.remove("orderBy");
+                BckjBizDcwjJg jg = bckjBizDcwjJgService.findOneByParams(dataMap, null);
+                if (!TextUtils.isEmpty(jg)) {
                     result.put("tips", "您已填写过该问卷");
                     return ResponseMessage.sendOK(result);
                 }
@@ -145,11 +152,20 @@ public class BckjBizDcwjController extends BaseController {
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
             }
+            //判断调查人数是否已满
+            int maxNumber = bckjBizDcwjJgService.countPeople(dataMap.get("dcwjRefOwid").toString());
+            if (maxNumber > questionnaire.getDcrs()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "调查人数已满，无需再填写");
+            }
             //若有答题人id，查找答题人姓名
             if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
                 BckjBizYhxx yhxx = bckjBizYhxxService.get(dataMap.get("dtrId").toString());
                 if (TextUtils.isEmpty(yhxx)) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "用户信息为空");
+                }
+                BckjBizDcwjJg jg = bckjBizDcwjJgService.findOneByParams(dataMap, null);
+                if (!TextUtils.isEmpty(jg)) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "您已填写过该问卷");
                 }
                 dataMap.put("dtrXm", yhxx.getXm());
             }
@@ -208,6 +224,10 @@ public class BckjBizDcwjController extends BaseController {
             List<Map<String, Object>> dataList1 = (List)dataMap.get("dataList1");
             for (Map<String, Object> data1 : dataList1) {
                 BckjBizDcwjTm bckjBizDcwjTm = JsonUtil.map2Bean(data1, BckjBizDcwjTm.class);
+                //判断是否删除，给删除的记录添加一个扩展字段
+                if (!TextUtils.isEmpty(data1.get("updateFlag")) && data1.get("updateFlag").toString().equals("2")) {
+                    bckjBizDcwjTm.setExp1("delete");
+                }
                 tmList.add(bckjBizDcwjTm);
             }
         }
