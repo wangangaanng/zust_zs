@@ -37,62 +37,69 @@
     <div class="container">
     <#include "com/route.ftl">
         <div class="content">
-            <div class="article-detail-title">
-                <div class="h3">${result.wjmc!''}</div>
-            </div>
-            <#if result.wjjj??>
-                <div class="article-detail-text">
-                <p>${result.wjjj!''}</p>
+            <#if result??>
+                <div class="article-detail-title">
+                    <div class="h3">${result.wjmc!''}</div>
+                </div>
+                <#if result.wjjj??>
+                    <div class="article-detail-text">
+                        <p>${result.wjjj!''}</p>
+                    </div>
+                </#if>
+                <div>
+                    <dl class="wjcontent">
+                        <#if (result.questionList??)&&(result.questionList?size>0)>
+                            <#list result.questionList?sort_by("tmsx") as obj>
+                                <#if obj.tmlx?number==1>
+                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
+                                    <dd>
+                                        <ul>
+                                            <li><input type="text" name="input${obj_index}" class="form-control" /></li>
+                                        </ul>
+                                    </dd>
+                                </#if>
+                                <#if obj.tmlx?number==2>
+                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
+                                    <dd>
+                                        <ul>
+                                            <#if (obj.xxList??)&&(obj.xxList?size>0)>
+                                                <#list obj.xxList as xx>
+                                                    <li><label class="radio"><input type="radio" name="radio${obj_index}" value="${xx.bh!''}" /><span>${xx.ms!''}</span></label></li>
+                                                </#list>
+                                            </#if>
+                                        </ul>
+                                    </dd>
+                                </#if>
+                                <#if obj.tmlx?number==3>
+                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
+                                    <dd>
+                                        <ul>
+                                            <#if (obj.xxList??)&&(obj.xxList?size>0)>
+                                                <#list obj.xxList as xx>
+                                                    <li><label class="checkbox"><input type="checkbox" name="checkbox${obj_index}" value="${xx.bh!''}" /><span>${xx.ms!''}</span></label></li>
+                                                </#list>
+                                            </#if>
+                                        </ul>
+                                    </dd>
+                                </#if>
+
+                            </#list>
+                        </#if>
+
+                    </dl>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 text-center">
+                        <#if result.tips??>
+                            <button type="submit" class="btn btn-default btn-common" style="background-color: #e6e6e6;color: #333;">不可作答</button>
+                        <#else >
+                            <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
+                        </#if>
+
+                    </div>
                 </div>
             </#if>
-            <div>
-                <dl class="wjcontent">
-                    <#if (result.questionList??)&&(result.questionList?size>0)>
-                        <#list result.questionList?sort_by("tmsx") as obj>
-                            <#if obj.tmlx?number==1>
-                                <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
-                                <dd>
-                                    <ul>
-                                        <li><input type="text" name="input${obj_index}" class="form-control" /></li>
-                                    </ul>
-                                </dd>
-                            </#if>
-                            <#if obj.tmlx?number==2>
-                            <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
-                            <dd>
-                                <ul>
-                                    <#if (obj.xxList??)&&(obj.xxList?size>0)>
-                                        <#list obj.xxList as xx>
-                                            <li><label class="radio"><input type="radio" name="radio${obj_index}" value="${xx.bh!''}" /><span>${xx.ms!''}</span></label></li>
-                                        </#list>
-                                    </#if>
-                                </ul>
-                            </dd>
-                        </#if>
-                        <#if obj.tmlx?number==3>
-                            <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
-                            <dd>
-                                <ul>
-                                    <#if (obj.xxList??)&&(obj.xxList?size>0)>
-                                        <#list obj.xxList as xx>
-                                            <li><label class="checkbox"><input type="checkbox" name="checkbox${obj_index}" value="${xx.bh!''}" /><span>${xx.ms!''}</span></label></li>
-                                        </#list>
-                                    </#if>
-                                </ul>
-                            </dd>
-                        </#if>
-
-                        </#list>
-                    </#if>
-
-                </dl>
-
-            </div>
-            <div class="form-group">
-                <div class="col-sm-12 text-center">
-                    <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -102,14 +109,18 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script>
     var answerList=[];
+    var tips="${result.tips!''}"
     $(document).ready(function () {
-//        layer.open({
-//            title:'提示',
-//            content: '您已提交，请勿重复提交',
-//            yes: function(index, layero){
-//                layer.close(index);
-//            }
-//        });
+        if(tips){
+            layer.open({
+                title:'提示',
+                content: tips,
+                yes: function(index, layero){
+                    layer.close(index);
+                }
+            });
+        }
+
         $(".wjcontent dt").each(function (k, p) {
             var obj={};
             obj.dcwjtmRefOwid=$(this).data("owid");

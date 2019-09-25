@@ -7,6 +7,10 @@ $(document).ready(function () {
     myBmList()
 })
 
+function searchXjh() {
+    $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
+}
+
 function myBmList() {
     $('#table-xjh').bootstrapTable('destroy');
     $('#table-xjh').bootstrapTable({

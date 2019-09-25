@@ -30,6 +30,7 @@
 //         // window.open(url);
 //     }
 // }
+
 var nulltip="<p style='text-align: center;'>暂无数据</p>"
 $(document).ready(function () {
     if(getCookie("qyOwid")){

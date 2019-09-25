@@ -210,6 +210,31 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
+
+    @RequestMapping(value = "positionDetail/{qybz}/{owid}", method = RequestMethod.GET)
+    public ModelAndView positionDetailQy(HttpServletRequest request,ModelAndView view, @PathVariable String qybz, @PathVariable String owid) {
+        view.setViewName("positionDetailQy");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("qybz",qybz);
+        view.addObject("result",result.getBean());
+        return view;
+    }
+    @RequestMapping(value = "positionDetail/{qybz}/{zw}/{owid}", method = RequestMethod.GET)
+    public ModelAndView positionDetailQyzw(HttpServletRequest request,ModelAndView view, @PathVariable String qybz, @PathVariable String zw, @PathVariable String owid) {
+        view.setViewName("positionDetailQy");
+        view.addObject("header",getHeader().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("zw",zw);
+        view.addObject("result",result.getBean());
+        return view;
+    }
     @RequestMapping(value = "inquiry", method = RequestMethod.GET)
     public ModelAndView inquiry(HttpServletRequest request,ModelAndView view) {
         view.setViewName("inquiry");

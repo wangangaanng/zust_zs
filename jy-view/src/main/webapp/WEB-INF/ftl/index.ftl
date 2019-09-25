@@ -356,6 +356,13 @@
         $(this).parents('.box').find(".tabbar-frame_content>ul").eq($(this).index()).show().siblings().hide();
     })
 
+    // function keyLogin(){
+    //     if (event.keyCode==13){  //回车键的键值为13
+    //         // $("#xxxx").click();  //xxxx为登录按钮的id
+    //         console.log(123)
+    //     }
+    // }
+
     function stuLogin() {
         if(!$("#yhDlzh").val().trim()){
             walert("请填写账号");
