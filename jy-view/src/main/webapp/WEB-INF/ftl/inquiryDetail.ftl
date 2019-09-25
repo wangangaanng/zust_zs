@@ -92,7 +92,7 @@
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
                         <#if result.tips??>
-                            <button type="submit" class="btn btn-default btn-common" style="background-color: #e6e6e6;color: #333;">已提交</button>
+                            <button type="submit" class="btn btn-default btn-common" style="background-color: #e6e6e6;color: #333;">不可作答</button>
                         <#else >
                             <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
                         </#if>
