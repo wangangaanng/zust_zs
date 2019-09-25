@@ -142,7 +142,7 @@ function fixJob() {
     jsonObj.qyxxRefOwid=getCookie("qyOwid")
     jsonObj.zwlx=0
     jsonObj.owid=$("#zwOwid").val();
-    console.log(jsonObj)
+    // console.log(jsonObj)
     ajax("zustjy/bckjBizJob/fixJob", jsonObj, function (data) {
         if(data.backCode==0){
             layer.open({
