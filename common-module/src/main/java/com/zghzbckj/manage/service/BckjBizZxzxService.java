@@ -193,9 +193,10 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         if(Integer.parseInt(dataMap.get("zxlx").toString())!=2){
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
-        Page<BckjBizZxzx> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        Page<Map<String,Object>> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
         dataMap.put("page", page);
-        page.setList(this.dao.findListByZxlx(dataMap));
+        List<Map<String, Object>> listByZxlx = this.dao.findListByZxlx(dataMap);
+        page.setList(listByZxlx);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
 }
     @Transactional(readOnly = false,rollbackFor = Exception.class)
@@ -229,11 +230,11 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
     }
 
     public ResponseMessage showJyMessageList(Integer pageNo,Integer pageSize) {
-        Page<BckjBizZxzx> page=new Page<>(pageNo,pageSize);
+        Page<Map<String,Object>> page=new Page<>(pageNo,pageSize);
         HashMap<String, Object> dataMap = Maps.newHashMap();
         dataMap.put("zxlx",5);
         dataMap.put("page",page);
-        page.setList(this.dao.findListByZxlx(dataMap));
+        page.setList(this.dao.findlyList(dataMap));
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 }
