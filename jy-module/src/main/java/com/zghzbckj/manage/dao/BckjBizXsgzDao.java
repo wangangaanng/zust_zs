@@ -5,7 +5,6 @@ package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
-import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 
 import java.util.List;
@@ -21,4 +20,6 @@ public interface BckjBizXsgzDao extends CrudDao<BckjBizXsgz> {
     BckjBizXsgz getOneByJobYh(Map<String, Object> datamap);
 
     List<Map<String,Object>> studentSubcribeList(Map<String, Object> dataMap);
+
+    List<Map<String,Object>> zwSubcribeList(Map<String, Object> dataMap);
 }

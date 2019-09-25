@@ -217,13 +217,14 @@ public class DemoController {
         return view;
     }
     @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
-    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "stuOwid",required = false) String stuOwid) {
         view.setViewName("inquiryDetail");
         view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dcwjRefOwid",owid);
         param.put("wzbh","1");
+        param.put("yhOwid",stuOwid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizDcwj/dcwjDetail");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());
@@ -244,6 +245,8 @@ public class DemoController {
             view.setViewName("recruitmentQy");
         }else if(zwlx.equals("3")){//社会招聘会
             view.setViewName("recruitmentSh");
+        }else if(zwlx.equals("4")){//宣讲会
+            view.setViewName("recruitment");
         }else if(zwlx.equals("0")){//职位
             //工作职能
             Map param=Maps.newHashMap();
@@ -479,14 +482,15 @@ public class DemoController {
     }
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
-    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
         String key = request.getParameter("key");
         if(null!=key){
-//            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
         }else {
             key="";
         }
         view.setViewName("newsList");
+        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -520,11 +524,12 @@ public class DemoController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = request.getParameter("key");
         if(null!=key){
-//            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
         }else {
             key="";
         }
         view.setViewName("newsList");
+        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);

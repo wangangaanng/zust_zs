@@ -134,7 +134,7 @@ function myBmList() {
 }
 
 function operateFormatterZph(value, row, index) {
-    var c = '<a class="green-color detail"  href="/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+    var c = '<a class="green-color detail"  href="/positionDetail/'+row.jobRefOwid+'">'+row.zwbt+'</a> ';
     return c;
 }
 

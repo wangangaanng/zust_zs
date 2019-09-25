@@ -161,7 +161,7 @@
         })
     }
 
-    function ask(index) {
+    function ask(index,o) {
         if(!$("#wtnr").val()){
             walert("请填写咨询内容");
             return;

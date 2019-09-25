@@ -11,7 +11,7 @@
 </head>
 
 <body>
-<#--<#include "com/header.ftl">-->
+<#include "com/header.ftl">
 <div class="main">
     <div class="container">
         <div class="routes">
@@ -20,7 +20,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li class="active">就业调查</li>
             </ol>
         </div>
@@ -64,7 +64,12 @@ var pageSize=10;
     $(document).ready(function () {
         initTable1();
     })
-
+    document.onkeydown = function(e){
+        if(e.keyCode==13)
+        {
+            initTable1();
+        }
+    }
     function initTable1(){
         $('#table-zph').bootstrapTable('destroy');
         $('#table-zph').bootstrapTable({
@@ -154,9 +159,22 @@ var pageSize=10;
     }
 
     function operateFormatterZph(value, row, index) {
-        var c = '<a class="green-color" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
+        if(row.sfdl==0){
+            if(row.sfyx==1){
+                var c = '<a class="green-color" style="cursor: pointer;" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
+            }else{
+                var c = '<a class="green-color" style="color:#000;">'+row.wjmc+'</a> ';
+            }
+        }else if(row.sfdl==1){
+            if(row.sfyx==1) {
+                var c = '<a class="green-color" style="cursor: pointer;" onclick="isopenUrl(\'inquiryDetail/' + row.owid + '\')">' + row.wjmc + '</a> ';
+            }else{
+                var c = '<a class="green-color" style="color:#000;">' + row.wjmc + '</a> ';
+            }
+        }
         return c;
     }
+
     function operateFormatterZt(value, row, index) {
         if(row.sfyx==1){
             var c = '<span style="color: green;">进行中</span>';

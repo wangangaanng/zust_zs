@@ -357,11 +357,11 @@
     })
 
     function stuLogin() {
-        if(!$("#qyTysh").val().trim()){
+        if(!$("#yhDlzh").val().trim()){
             walert("请填写账号");
             return;
         }
-        if(!$("#qyFrsfz").val().trim()){
+        if(!$("#yhDlmm").val().trim()){
             walert("请填写密码");
             return;
         }
