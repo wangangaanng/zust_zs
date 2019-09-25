@@ -4,17 +4,15 @@
 package com.zghzbckj.manage.service;
 
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.ResponseMessage;
-import com.zghzbckj.base.service.CrudService;
+import com.ourway.base.utils.*;
+
+
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
+import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
@@ -23,9 +21,21 @@ import com.zghzbckj.util.CustomSaveALL;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
-import org.apache.log4j.Logger;
+
+import com.zghzbckj.wechat.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.ourway.base.utils.BeanUtil;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.FilterModel;
+
+import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.dao.BckjBizYhxxDao;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
+import org.apache.log4j.Logger;
+
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
@@ -271,158 +281,249 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * <li>@date 2019/9/20</li>
      * </ul>
      */
-    @Transactional(readOnly = false)
-    public ResponseMessage recordInfo(String path) {
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage recordInfo(String path) throws ParseException, RepeatException {
         //文件路径
-        String filename =path;
-        List<BckjBizYhxx> resultYhxx=new ArrayList<>();
-        List<BckjBizYhkz> resultYhkz=new ArrayList<>();
-        List<String> yhkzs=new ArrayList<>();
-        try {
-            ExcelUtils poi = new ExcelUtils();
-            System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
-            List<List<String>> list = poi.read(filename);
-            System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
-            int count = 0;
-            if (list != null) {
-                for (int i = 2; i < list.size(); i++) {     //行循环
-                    HashMap<Object, Object> dataMap = Maps.newHashMap();
-                    List<String> cellList = list.get(i);
-                    String xsxh = cellList.get(0);//学生学号/工号/税号
-                    xsxh= ExcelUtils.stmodifyExcelData(xsxh);
-                    yhkzs.add(xsxh);
-                    dataMap.put("xsxh",xsxh);
-                    String xm = cellList.get(1); //姓名
-                    dataMap.put("xm",xm);
-                    String mz = cellList.get(2);   //民族
-                    dataMap.put("mz",mz);
-                    String sjh = cellList.get(3);
-                    sjh=ExcelUtils.stmodifyExcelData(sjh);//手机号
-                    dataMap.put("sjh",sjh);
-                    String xb = cellList.get(4);//性别
-                    if(xb.indexOf("男")!=-1){
-                        dataMap.put("xb",1);
-                    }else if(xb.indexOf("女")!=-1){
-                        dataMap.put("xb",0);
-                    }
-                    String csrq = cellList.get(5);//出生日期
-                    csrq=ExcelUtils.stmodifyExcelData(csrq);//进行变换
-                    dataMap.put("csrq",ExcelUtils.stringtoDate(csrq));
-                    String yx = cellList.get(6);//邮箱
-                    dataMap.put("yx",yx);
-                    String prov = cellList.get(7);//家庭住址(省)
-                    dataMap.put("prov",prov);
-                    String city = cellList.get(8);//家庭住址(市)
-                    dataMap.put("city",city);
-                    String area = cellList.get(9);//家庭住址(区,乡镇)
-                    dataMap.put("area",area);
-                    String xsxy = cellList.get(10);//所在学院
-                    dataMap.put("xsxy",xsxy);
-                    String xszy = cellList.get(11);//所在专业
-                    dataMap.put("xszy",xszy);
-                    String xsnj = cellList.get(12);
-                    xsnj=ExcelUtils.modifyExcelData(xsnj);//所在年级
-                    dataMap.put("xsnj",xsnj);
-                    String xsbj = cellList.get(13);
-                    xsbj=ExcelUtils.modifyExcelData(xsbj);//所在班级
-                    dataMap.put("xsbj",xsbj);
-                    String yhDlzh = cellList.get(14);
-                    yhDlzh=ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
-                    dataMap.put("yhDlzh",yhDlzh);
-                    String yhDlmm = cellList.get(15);
-                    yhDlmm=ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
-                    yhDlmm=TextUtils.MD5(yhDlmm);//md5加密
-                    dataMap.put("yhDlmm",yhDlmm);
-                    BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
-                    BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
-
-                    bckjBizYhkz.setOlx(0);  //类型 0 学生 1教师 2 工作人员 3 企业
-                    bckjBizYhxx.setYhlx(1); //类型 1学生或老师 2企业
-
-                    MapUtil.easySetByMap(dataMap,bckjBizYhxx);
-                    MapUtil.easySetByMap(dataMap,bckjBizYhkz);
-                    resultYhxx.add(bckjBizYhxx);
-                    String owid = CustomSaveALL.preInsert(bckjBizYhxx);
-                    bckjBizYhkz.setYhRefOwid(owid);
-                    resultYhkz.add(bckjBizYhkz);
+        String filename = path;
+        List<BckjBizYhxx> resultYhxx = new ArrayList<>();
+        List<BckjBizYhkz> resultYhkz = new ArrayList<>();
+        List<String> excelXh = new ArrayList<>();
+        List<String> excelSfz = new ArrayList<>();
+        List<String> excelSjh = new ArrayList<>();
+        ExcelUtils poi = new ExcelUtils();
+        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = poi.read(filename);
+        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        if (list != null) {
+            for (int i = 2; i < list.size(); i++) {     //行循环
+                HashMap<Object, Object> dataMap = Maps.newHashMap();
+                List<String> cellList = list.get(i);
+                String xsxh = cellList.get(0);//学生学号/工号/税号
+                xsxh = ExcelUtils.stmodifyExcelData(xsxh);
+                excelXh.add(xsxh);
+                dataMap.put("xsxh", xsxh);
+                String xm = cellList.get(1); //姓名
+                dataMap.put("xm", xm);
+                String sfz = cellList.get(2);//身份证号
+                String regex = "\\d{15}(\\d{2}[0-9xX])?";
+                if (!sfz.matches(regex)) {
+                    return ResponseMessage.sendOK("存在错误的身份证格式录入");
                 }
+                excelSfz.add(sfz);
+                dataMap.put("sfz", sfz);
+                String mz = cellList.get(3);   //民族
+                dataMap.put("mz", mz);
+                String sjh = cellList.get(4);
+                sjh = ExcelUtils.stmodifyExcelData(sjh);//手机号
+                dataMap.put("sjh", sjh);
+                if (dataMap.get("sjh").toString().length() != 11) {
+                    return ResponseMessage.sendOK("存在错误的手机格式录入");
+                }
+                excelSjh.add(sjh);
+                String xb = cellList.get(5);//性别
+                if (xb.indexOf("男") != -1) {
+                    dataMap.put("xb", 1);
+                } else if (xb.indexOf("女") != -1) {
+                    dataMap.put("xb", 0);
+                }
+                String csrq = cellList.get(6);//出生日期
+                csrq = ExcelUtils.stmodifyExcelData(csrq);//进行变换
+                dataMap.put("csrq", ExcelUtils.stringtoDate(csrq));
+                String yx = cellList.get(7);//邮箱
+                dataMap.put("yx", yx);
+                String prov = cellList.get(8);//家庭住址(省)
+                dataMap.put("prov", prov);
+                String city = cellList.get(9);//家庭住址(市)
+                dataMap.put("city", city);
+                String area = cellList.get(10);//家庭住址(区,乡镇)
+                dataMap.put("area", area);
+                String xsxy = cellList.get(11);//所在学院
+                dataMap.put("xsxy", xsxy);
+                String xszy = cellList.get(12);//所在专业
+                dataMap.put("xszy", xszy);
+                String xsnj = cellList.get(13);
+                xsnj = ExcelUtils.modifyExcelData(xsnj);//所在年级
+                dataMap.put("xsnj", xsnj);
+                String xsbj = cellList.get(14);
+                xsbj = ExcelUtils.modifyExcelData(xsbj);//所在班级
+                dataMap.put("xsbj", xsbj);
+                String yhDlzh = cellList.get(15);
+                yhDlzh = ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
+                dataMap.put("yhDlzh", yhDlzh);
+                String yhDlmm = cellList.get(16);
+                yhDlmm = ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
+                dataMap.put("lxr", yhDlmm);
+                yhDlmm = TextUtils.MD5(yhDlmm);//md5加密
+                dataMap.put("yhDlmm", yhDlmm);
+                BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
+                BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
+
+                bckjBizYhkz.setOlx(0);  //类型 0 学生 1教师 2 工作人员 3 企业
+                bckjBizYhxx.setYhlx(1); //类型 1学生或老师 2企业
+
+                MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+                MapUtil.easySetByMap(dataMap, bckjBizYhkz);
+                resultYhxx.add(bckjBizYhxx);
+                String owid = CustomSaveALL.preInsert(bckjBizYhxx);
+                bckjBizYhkz.setYhRefOwid(owid);
+                resultYhkz.add(bckjBizYhkz);
             }
-            //全部的学生的bcjkbizYhxx信息放入数据库
-            saveAll(resultYhxx);
-            //判断是否存在学号一样的数据
-            List<String> xsxhs=bckjBizYhkzService.getXsxhList();
-            ArrayList<String> operates=new ArrayList();
-            operates.addAll(xsxhs);
-            operates.addAll(yhkzs);
-            HashSet set=new HashSet();
-            for(String i:operates)
-                set.add(i);
-            if(!(set.size()==operates.size())){
-                throw new RepeatException("重复学生学号");
-            }
-            //全部的学生的bcjkbizYhkz信息放入数据库
-            bckjBizYhkzService.saveOrUpdateAll(resultYhkz);
-            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        } catch (RepeatException e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendOK(CommonConstant.RepeatXsxh);
         }
-        catch (Exception e) {
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        //判断是否存在学号一样的数据
+        List<String> xsxhs = bckjBizYhkzService.getXsxhList();
+        List<String> sfzs = this.dao.getSfzList();
+        List<String> sjhs = this.dao.getSjhList();
+        ArrayList<String> operates = new ArrayList();
+        operates.addAll(xsxhs);
+        operates.addAll(excelXh);
+        HashSet xhSet = new HashSet();
+        HashSet sfzSet = new HashSet();
+        HashSet sjhSet = new HashSet();
+        for (String i : operates)
+            xhSet.add(i);
+        if (xhSet.size() != operates.size()) {
+            throw new RepeatException("存在学号重复录入");
         }
+        operates.clear();
+        operates.addAll(sfzs);
+        operates.addAll(excelSfz);
+        for (String i : operates)
+            sfzSet.add(i);
+        if (sfzSet.size() != operates.size()) {
+            throw new RepeatException("存在身份证号重复录入");
+        }
+        operates.clear();
+        operates.addAll(sjhs);
+        operates.addAll(excelSjh);
+        for (String i : operates)
+            sjhSet.add(i);
+        if (sjhSet.size() != operates.size()) {
+            throw new RepeatException("存在手机号重复录入");
+        }
+        //全部的学生的bcjkbizYhxx信息放入数据库
+        saveAll(resultYhxx);
+        //全部的学生的bcjkbizYhkz信息放入数据库
+        bckjBizYhkzService.saveOrUpdateAll(resultYhkz);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
     /**
      * insert 所有的entity
-     * @param entitys
-     * corder wangangaanng
+     *
+     * @param entitys corder wangangaanng
      */
-    public void saveAll(List<BckjBizYhxx> entitys){
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void saveAll(List<BckjBizYhxx> entitys) {
         Iterator var2 = entitys.iterator();
-        while(var2.hasNext()) {
-            BckjBizYhxx entity = (BckjBizYhxx)var2.next();
+        while (var2.hasNext()) {
+            BckjBizYhxx entity = (BckjBizYhxx) var2.next();
             this.dao.insert(entity);
         }
     }
 
-    public ResponseMessage showStudentInfoList( Integer pageNo,Integer pageSize) {
-        HashMap<String, Object> dataMap = Maps.newHashMap();
-        Page<Object> page=new Page(pageNo,pageSize);
+    public ResponseMessage showInfoList(Integer state ,List<FilterModel> filters,Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if(!TextUtils.isEmpty(dataMap.get("sfz"))){
+            String regex = "\\d{15}(\\d{2}[0-9xX])?";
+            if (!dataMap.get("sfz").toString().matches(regex)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
+            }
+        }
+        Page<Object> page = new Page(pageNo, pageSize);
         dataMap.put("page", page);
-        List<Object> lists=this.dao.showStudentInfoList(dataMap);
+        //state :0是学生 1 是老师
+        dataMap.put("olx",state);
+        List<Object> lists = this.dao.showStudentInfoList(dataMap);
         page.setList(lists);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 
-    @Transactional(readOnly = false,rollbackFor = Exception.class)
-    public ResponseMessage saveStudentInfo(List<Map<String,Object>>components) {
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage saveStudentInfo(List<Map<String, Object>> components) {
         try {
-            for (Map<String,Object>  component:components){
+            for (Map<String, Object> component : components) {
+                //判断手机号和身份证号
+                if (!TextUtils.isEmpty(component.get("sfz"))) {
+                    String regex = "\\d{15}(\\d{2}[0-9xX])?";
+                    if (!component.get("sfz").toString().matches(regex)) {
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
+                    }
+                }
+                if (!TextUtils.isEmpty(component.get("sjh"))) {
+                    if (component.get("sjh").toString().length() != 11) {
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);
+                    }
+                }
                 //如果為刪除的記錄
-                if (Integer.parseInt(component.get("updateFlag").toString())==2){
-                    delete(JsonUtil.map2Bean(component,BckjBizYhxx.class));
-                    BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
-                    bckjBizYhkz.setYhRefOwid(component.get("owid").toString());
-                    component.put("yhRefOwid",component.get("owid"));
-                    bckjBizYhkzService.deletConditionByMap(component);
-            }
+                if (Integer.parseInt(component.get("updateFlag").toString()) == 2) {
+                    delete(JsonUtil.map2Bean(component, BckjBizYhxx.class));
+                    if(!TextUtils.isEmpty(component.get("owid"))) {
+                        component.put("yhRefOwid", component.get("owid"));
+                        bckjBizYhkzService.deletConditionByMap(component);
+                    }
+                }
+                if (Integer.parseInt(component.get("updateFlag").toString()) == 1) {
+                    BckjBizYhkz bckjBizYhkz=null;
+                    BckjBizYhxx yhxxSjh=null;
+                    BckjBizYhxx yhxSfz=null;
+                    //判断是否存在一样的学号或工号
+                    if(!TextUtils.isEmpty(component.get("xsxh").toString())){
+                        bckjBizYhkz=bckjBizYhkzService.getByXsxh(component.get("xsxh").toString());
+                    }
+                    if(!TextUtils.isEmpty(component.get("sjh").toString())){
+                        yhxxSjh=this.dao.findBySjh(component.get("sjh").toString());
+                    }
+                    if(!TextUtils.isEmpty(component.get("sfz").toString())){
+                        yhxSfz=this.dao.findBySfz(component.get("sfz").toString());
+                    }
                 //如果為更新
-                else if(Integer.parseInt(component.get("updateFlag").toString())==1&&component.get("owid")!=null)
-                {
-                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
-                    component.put("yhOwid",component.get("owid"));
+                if (component.get("owid") != null) {
+                    if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizYhkz)) {
+                        if(!component.get("owid").equals(bckjBizYhkz.getYhRefOwid())){
+                            return ResponseMessage.sendError(ResponseMessage.FAIL, "存在学号重复录入");
+                        }
+                    }
+                    if(!TextUtils.isEmpty(yhxxSjh)){
+                        if(!component.get("owid").equals(yhxxSjh.getOwid())){
+                            return ResponseMessage.sendError(ResponseMessage.FAIL, "存在手机号重复录入");
+                        }
+                    }
+                    if(!TextUtils.isEmpty(yhxSfz)){
+                        if(!component.get("owid").equals(yhxSfz.getOwid())){
+                            return ResponseMessage.sendError(ResponseMessage.FAIL, "存在身份证重复录入");
+                        }
+                    }
+                    component.put("yhDlmm", com.zghzbckj.util.TextUtils.MD5(component.get("lxr").toString()));
+                    saveOrUpdate(JsonUtil.map2Bean(component, BckjBizYhxx.class));
+                    component.put("yhOwid", component.get("owid"));
                     bckjBizYhkzService.updateBycondition(component);
                     //否则为新建
-                }else if(Integer.parseInt(component.get("updateFlag").toString())==1&&component.get("owid")==null){
-                    saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhxx.class));
-                    bckjBizYhkzService.saveOrUpdate(JsonUtil.map2Bean(component,BckjBizYhkz.class));
+                } else if (component.get("owid") == null) {
+                    if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizYhkz)) {
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, "存在学号重复录入");
+                    }
+                    if(!TextUtils.isEmpty(yhxxSjh)){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, "存在手机号重复录入");
+                    }
+                    if(!TextUtils.isEmpty(yhxSfz)){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, "存在身份证重复录入");
+                    }
+                    component.put("yhlx", 1);
+                    component.put("olx", 0);
+                    component.put("yhDlmm", com.zghzbckj.util.TextUtils.MD5(component.get("lxr").toString()));
+                    BckjBizYhxx bckjBizYhxx1 = JsonUtil.map2Bean(component, BckjBizYhxx.class);
+                    String owid = CustomSaveALL.preInsert(bckjBizYhxx1);
+                    component.put("yhRefOwid", owid);
+                    this.dao.insert(bckjBizYhxx1);
+                    bckjBizYhkzService.saveOrUpdate(JsonUtil.map2Bean(component, BckjBizYhkz.class));
+                }
                 }
             }
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
         catch (Exception e){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"请检查填入的格式是否正确");
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 }

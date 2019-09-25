@@ -172,6 +172,9 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
             if (!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
+            if(dataMap.get("sjh").toString().length()!=11){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.SjHError);
+            }
             bckjBizZxzx.setDh(dataMap.get("sjh").toString());
                 bckjBizZxzx.setTwName(dataMap.get("xm").toString());
             }

@@ -263,7 +263,7 @@
 			<if test="owid!=null and owid!=''">
 				and a.owid = #{owid}
 			</if>
-			<if test="zxzyid!=null and zxzxid!=''">
+			<if test="zxzyid!=null and zxzyid!=''">
 				and a.zxzyid =#{zxzyid}
 			</if>
 		</where>
