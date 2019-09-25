@@ -70,10 +70,11 @@
                     <div class="al-item "><#--active2-->
                         <div class="al-question">
                             <i></i> 我的提问：${obj.wtnr}
+                            <div class="pull-right">${obj.twrq}</div>
                         </div>
                         <#if obj.danr??>
                         <div class="al-answer">
-                            <i></i> ${obj.hfName}的回复：${obj.danr}
+                            <i></i> ${obj.hfName}的回复：${obj.danr!"暂无回复"}
                         </div>
                         </#if>
                         <div class="al-btn">
@@ -132,7 +133,7 @@
     var currentPage="${asklist.currentPage!'1'}"
     $(document).ready(function () {
         setPage(currentPage, "${asklist.totalPage!'1'}", function () {
-            openUrl('sutCenter/1/'+currentPage)
+            openUrl('stuCenter/1/'+currentPage)
         })
         historyConsult()
         $(".list-group-item").click(function(e) {

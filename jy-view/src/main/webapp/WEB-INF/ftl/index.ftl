@@ -86,13 +86,13 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" id="yhDlzh" placeholder="请输入用户名" class="login-act">
+                        <input type="text" id="yhDlzh" onkeydown="keyLogin()" placeholder="请输入用户名" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="password" id="yhDlmm" placeholder="请输入密码" class="login-pswd">
+                        <input type="password" id="yhDlmm" onkeydown="keyLogin()" placeholder="请输入密码" class="login-pswd">
                     </li>
                     <li>
                         <input type="button" onclick="stuLogin()" value="登录" class="login-btn">
@@ -115,13 +115,13 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" id="qyTysh" placeholder="请社会统一信用码" class="login-act">
+                        <input type="text" id="qyTysh" onkeydown="keyLogin()" placeholder="请社会统一信用码" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="text" id="qyFrsfz" placeholder="请输入法人身份证后六位" class="login-pswd">
+                        <input type="text" id="qyFrsfz" onkeydown="keyLogin()" placeholder="请输入法人身份证后六位" class="login-pswd">
                     </li>
                     <li>
                         还没有账号？<a href="/enterpriseReg">注册</a>
@@ -147,10 +147,22 @@
             </ul>
         </div>
         <div class="frame-a_right box" id="stu_pipe" style="display: none;">
-            <div class="stu_info">
+            <#--<div class="stu_info">
                 <img src="${base}/img/menu1.png" />
                 <p>欢迎您，<span id="stu_tel"></span></p>
-            </div>
+            </div>-->
+            <ul class="company-form company-form1">
+                <li><p>欢迎您，<span id="stu_tel"></span></p></li>
+                <li class="link2" onclick="window.location.href='/stuCenter/4'">
+                    <i class="icon bg-qy_sq"></i><em>个人信息</em>
+                </li>
+                <li class="link2" onclick="window.location.href='/stuCenter/0'">
+                    <i class="icon bg-qy_fb"></i><em>导师咨询</em>
+                </li>
+                <li class="link2" onclick="window.location.href='/stuCenter/2'">
+                    <i class="icon bg-qy_xc"></i><em>报名预约</em>
+                </li>
+            </ul>
         </div>
         <!-- E a_right-->
     </div>
@@ -334,6 +346,7 @@
 <script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
 <script>
+    var loginType=0;
     var swiper = new Swiper('.news-swiper', {
         pagination: {
             el: '.swiper-pagination',
@@ -343,9 +356,11 @@
     });
     $(".login-tabbar a").click(function(){
         if($(this).index()==0){
+            loginType=0;
             $(".login-inform").show();
             $(".login-inform-qy").hide();
         }else{
+            loginType=1;
             $(".login-inform").hide();
             $(".login-inform-qy").show();
         }
@@ -356,12 +371,15 @@
         $(this).parents('.box').find(".tabbar-frame_content>ul").eq($(this).index()).show().siblings().hide();
     })
 
-    // function keyLogin(){
-    //     if (event.keyCode==13){  //回车键的键值为13
-    //         // $("#xxxx").click();  //xxxx为登录按钮的id
-    //         console.log(123)
-    //     }
-    // }
+    function keyLogin(){
+        if (event.keyCode==13){
+            if(loginType==0){
+                stuLogin();
+            }else if(loginType==1){
+                qyLogin();
+            }
+        }
+    }
 
     function stuLogin() {
         if(!$("#yhDlzh").val().trim()){
@@ -423,7 +441,6 @@
             $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
             $("#stu_pipe").show();
         }
-
     })
 </script>
 </body>

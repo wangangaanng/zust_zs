@@ -620,6 +620,7 @@ ul.pagination {
     height: 100%;
     padding-left: 40px;
     padding-top: 13px;
+    padding-right: 15px;
     border: solid 1px #c6c6c6;
     resize: none;
 }
