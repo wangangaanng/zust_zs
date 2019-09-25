@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label for="qydz" class="col-sm-2 control-label">薪水*：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="zwXs" name="zwXs" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
@@ -208,7 +208,9 @@
         }
         $(document).ready(function () {
 
-
+            jQuery.validator.addMethod("isNum", function(value, element) {
+                return this.optional(element) || !isNaN(value);
+            }, "请填写数字");
             $("#registerForm").validate({
                 rules: {
                     zwbt:"required",
@@ -217,17 +219,15 @@
                     zwArea:"required",
                     zwGzzn:"required",
                     zwGzxz:"required",
-                    qyLxrdh:{
-                        required: true,
-                        isMobile: true
-                    },
                     zwLxyx:{
                         required: true,
                         email: true
                     },
-                    zwXs:"required",
+                    zwXs:{
+                        required: true,
+                        isNum: true
+                    },
                     zwZprs:"required",
-                    zwXs:"required",
                     zwNlyq:"required",
                     zwXlyq:"required",
                     zwGznx:"required",
@@ -241,17 +241,15 @@
                     zwArea: "请选择",
                     zwGzzn: "请选择",
                     zwGzxz: "请选择",
-                    qyLxrdh:  {
-                        required: "请填写",
-                        email: "请填写正确的11位手机号码"
-                    },
                     zwLxyx: {
                         required: "请填写",
                         email: "请填写正确电子邮箱"
                     },
-                    zwXs: "请选择",
                     zwZprs: "请填写",
-                    zwXs: "请填写",
+                    zwXs: {
+                        required: "请填写",
+                        isNum: "请填写数字"
+                    },
                     zwNlyq: "请选择",
                     zwXlyq: "请选择",
                     zwGznx: "请选择",

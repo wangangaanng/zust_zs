@@ -20,4 +20,6 @@ public interface BckjBizDcwjTmDao extends CrudDao<BckjBizDcwjTm> {
 
     Map<String, Object> getOption(@Param("owid") String owid);
 
+    String getWjOwid (@Param("tmOwid") String tmOwid);
+
 }

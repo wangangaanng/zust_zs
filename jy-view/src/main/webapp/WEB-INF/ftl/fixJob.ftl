@@ -7,9 +7,17 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>就业网</title>
     <#include "com/config.ftl">
+    <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
 </head>
 <style>
-
+    /*.nav-tabs li a{color: #008784;}*/
+    /*.bootstrap-table .fixed-table-container.fixed-height:not(.has-footer) {*/
+        /*border-bottom: none !important;*/
+    /*}*/
+    /*.fixed-table-border{*/
+        /*border: none !important;*/
+        /*height: 0 !important;*/
+    /*}*/
 </style>
 
 <body>
@@ -24,10 +32,22 @@
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>
                 <li><a href="#">企业服务</a></li>
-                <li class="active">修改职位</li>
+                <li class="active">职位信息</li>
             </ol>
         </div>
-        <div class="content-form">
+        <ul class="nav nav-tabs" id="nav-tabs-job">
+            <li role="presentation" class="active"><a href="#" onclick="tabs(0)">职位信息</a></li>
+            <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
+        </ul>
+        <div class="content-form" style="border-top:none;display: none;padding: 0;" id="stuList">
+            <div class="e-table" style="padding: 0 20px;">
+                <table class="table table-hover" data-locale="zh-CN" id="table-job" style="table-layout: fixed;
+                          word-break:break-all; word-wrap:break-all;">
+                </table>
+
+            </div>
+        </div>
+        <div class="content-form" style="border-top:none;" id="jobInfo">
             <form class="form-horizontal" id="registerForm" method="" action="" target="rfFrame">
                 <div class="form-group">
                     <label for="zwbt" class="col-sm-2 control-label">职位名称*：</label>
@@ -85,7 +105,7 @@
                 <div class="form-group">
                     <label for="zwXs" class="col-sm-2 control-label">薪水*：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="zwXs" name="zwXs" value="${jobDetail.zwXs!''}" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" id="zwXs" name="zwXs" value="${jobDetail.zwXs!''}" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
@@ -165,7 +185,10 @@
 
 <#include "com/footer.ftl">
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${base}/js/bootstrap-table.min.js" type="text/javascript"></script>
+    <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
     <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="${base}/js/messages_zh.min.js" type="text/javascript"></script>
     <script src="${base}/js/city1.js" type="text/javascript"></script>
     <script src="${base}/js/fixJob.js" type="text/javascript"></script>
 </body>
