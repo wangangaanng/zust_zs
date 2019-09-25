@@ -449,9 +449,8 @@ ul.pagination {
     color: #008784;
 }
 
-.article-detail-text p {
-    /*padding: 20px;*/
-}
+ .article-detail-text{padding:20px;}
+.article-detail-text p { color: #5d5d5d;  line-height: 25px;  }
 
 .article-pager {
     overflow: hidden;
