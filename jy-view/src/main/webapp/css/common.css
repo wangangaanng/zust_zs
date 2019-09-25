@@ -763,7 +763,8 @@ ul.pagination {
   .news-ul li{margin-top: 10px;cursor: pointer;}
   .news-date{background: #9c9c9c;width: 60px;float: left;margin-right: 12px;font-size: 16px;text-align: center;}
   .news-date span{color: #fff;height: 29px;line-height: 29px;}
-  .news-date em{background: #008784;color: #fff;display: inherit;height: 29px;line-height: 29px;}
+  .news-date em{background: #008784;color: #fff;display: inherit;height: 29px;line-height: 29px;
+      font-size:16px;font-style: normal;}
   .news-content{height: 58px;font: bold 15px/24px '微软雅黑';color: #6d6d6d;}
   .news-ul li::after{content: ' '; display: block;width: calc(100% - 75px);height: 1px;border-bottom: 1px dashed #dcdcdc;float: right;}
 .file ul{list-style: none;}
