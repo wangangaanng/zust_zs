@@ -34,6 +34,8 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     List<Object> showStudentInfoList(Map<String,Object> dataMap);
 
+    List<Object> showTeatchInfoList(Map<String,Object> dataMap);
+
 
     List<String> getSfzList();
 

@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.*;
 
 
@@ -282,7 +283,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * </ul>
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public ResponseMessage recordInfo(String path) throws ParseException, RepeatException {
+    public ResponseMessage recordInfo(Integer olx,String path) throws ParseException, RepeatException {
         //文件路径
         String filename = path;
         List<BckjBizYhxx> resultYhxx = new ArrayList<>();
@@ -433,7 +434,13 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         dataMap.put("page", page);
         //state :0是学生 1 是老师
         dataMap.put("olx",state);
-        List<Object> lists = this.dao.showStudentInfoList(dataMap);
+        List<Object> lists=null;
+        if(state==0){
+            lists = this.dao.showStudentInfoList(dataMap);
+        }
+        if(state==1){
+            lists = this.dao.showTeatchInfoList(dataMap);
+        }
         page.setList(lists);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }

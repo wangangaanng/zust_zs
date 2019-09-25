@@ -311,6 +311,30 @@
 			 order by b.xsxh desc
 	</select>
 
+
+	<select id="showTeatchInfoList" resultMap="BckjBizStudentXxVo">
+		SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
+		a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
+		a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
+		b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo,
+		c.zjzw as zjzw,c.zjbgs as zjbgs,c.szxy as szxy,c.szzy as szzy
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b ,`bckj_biz_zjzx` c
+		<where>
+			a.owid = b.`YH_REF_OWID` and  a.owid = c.yhid AND b.`OLX`=#{olx} and a.yhlx=1
+			<if test="xm!=null and xm!=''">
+				and  a.xm like CONCAT('%',#{xm},'%')
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and  b.xsxh like CONCAT('%',#{xsxh},'%')
+			</if>
+			<if test="sfz!=null and sfz!=''">
+				and  a.sfz like CONCAT('%',#{sfz},'%')
+			</if>
+		</where>
+		order by b.xsxh desc
+	</select>
+
+
 	<resultMap id="BckjBizStudentXxVo" type="com.zghzbckj.vo.BckjBizStudentXxVo">
 		<id column="owid" jdbcType="VARCHAR" property="owid" />
 		<result column="sjh" jdbcType="VARCHAR" property="sjh" />
@@ -341,6 +365,10 @@
 		<result  column="xsxm" jdbcType="VARCHAR" property="xsxm"/>
 		<result  column="lxr" jdbcType="VARCHAR" property="lxr"/>
 		<result  column="memo" jdbcType="VARCHAR" property="memo"/>
+		<result  column="zjzw" jdbcType="VARCHAR" property="zjzw"/>
+		<result  column="zjbgs" jdbcType="VARCHAR" property="zjbgs"/>
+		<result  column="szxy" jdbcType="VARCHAR" property="szxy"/>
+		<result  column="szzy" jdbcType="VARCHAR" property="szzy"/>
 	</resultMap>
 	
 	<select id="findAllMap" resultType="Map">

@@ -10,6 +10,7 @@ import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.service.ComponentFileSer;
 import com.ourway.base.zk.utils.AlterDialog;
 import com.ourway.base.zk.utils.data.JsonPostUtils;
+import org.apache.poi.ss.formula.functions.Index;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,6 +27,14 @@ public class RecordInfo implements ComponentFileSer {
     public  final String FolderPath="F:\\img\\";
     @Override
     public void doAction(BaseWindow window, Map<String, Object> map, String s) {
+        String url="";
+        String pageCA = window.getPageCA();
+        if(pageCA.indexOf("student")!=-1){
+            url=URL+"/0";
+        }
+        if (pageCA.indexOf("teatch")!=-1){
+            url=URL+"/1";
+        }
         String result="";
         String path = map.get("filePath").toString();
         String filePath=FolderPath+path;
@@ -36,7 +45,7 @@ public class RecordInfo implements ComponentFileSer {
             params.put("path", filePath + ".xls");
         }
         try {
-             result=JsonPostUtils.executeAPIAsString(params,URL);
+             result=JsonPostUtils.executeAPIAsString(params,url);
         } catch (Exception e) {
             e.printStackTrace();
         }

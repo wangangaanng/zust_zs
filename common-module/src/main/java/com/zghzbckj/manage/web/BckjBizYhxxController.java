@@ -224,16 +224,16 @@ public class BckjBizYhxxController extends BaseController {
      * <li>@date 2019/9/20</li>
      * </ul>
      */
-    @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
+    @RequestMapping(value = "recordInfo/{state}",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage recordInfo(PublicDataVO dataVO){
+    public ResponseMessage recordInfo(@PathVariable("state") Integer olx,PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return bckjBizYhxxService.recordInfo(dataMap.get("path").toString());
+            return bckjBizYhxxService.recordInfo(olx,dataMap.get("path").toString());
         }
     catch (RepeatException e){
         log.error(CommonConstant.ERROR_MESSAGE,e);
