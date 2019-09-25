@@ -64,7 +64,12 @@ var pageSize=10;
     $(document).ready(function () {
         initTable1();
     })
-
+    document.onkeydown = function(e){
+        if(e.keyCode==13)
+        {
+            initTable1();
+        }
+    }
     function initTable1(){
         $('#table-zph').bootstrapTable('destroy');
         $('#table-zph').bootstrapTable({
@@ -155,9 +160,17 @@ var pageSize=10;
 
     function operateFormatterZph(value, row, index) {
         if(row.sfdl==0){
-            var c = '<a class="green-color" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
+            if(row.sfyx==1){
+                var c = '<a class="green-color" style="cursor: pointer;" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
+            }else{
+                var c = '<a class="green-color" style="color:#000;">'+row.wjmc+'</a> ';
+            }
         }else if(row.sfdl==1){
-            var c = '<a class="green-color" onclick="isopenUrl(\'inquiryDetail/'+row.owid+'\')">'+row.wjmc+'</a> ';
+            if(row.sfyx==1) {
+                var c = '<a class="green-color" style="cursor: pointer;" onclick="isopenUrl(\'inquiryDetail/' + row.owid + '\')">' + row.wjmc + '</a> ';
+            }else{
+                var c = '<a class="green-color" style="color:#000;">' + row.wjmc + '</a> ';
+            }
         }
         return c;
     }

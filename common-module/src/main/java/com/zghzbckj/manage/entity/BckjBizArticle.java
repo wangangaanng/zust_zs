@@ -80,7 +80,7 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 		this.fbr = fbr;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	public Date getFbsj() {
 		return fbsj;
 	}

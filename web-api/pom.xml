@@ -509,7 +509,7 @@
         <dependency>
             <groupId>com.bckj.base</groupId>
             <artifactId>sys-api</artifactId>
-            <version>32.2</version>
+            <version>1.0.1</version>
         </dependency>
         <!--<dependency>-->
         <!--<groupId>com.bckj.base</groupId>-->

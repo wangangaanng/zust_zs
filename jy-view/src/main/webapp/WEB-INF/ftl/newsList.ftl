@@ -23,7 +23,7 @@
                         <div class="search-bar">
                             <div class="search-label">搜素关键字：</div>
                             <div class="input-group search-input">
-                                <input type="text" id="key" class="form-control" placeholder="输入内容">
+                                <input type="text" id="key" class="form-control" placeholder="输入内容" value="${key!''}">
                                 <div class="input-group-btn">
                                     <button onclick="search()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
@@ -92,6 +92,12 @@
         }
 
     })
+    document.onkeydown = function(e){
+        if(e.keyCode==13)
+        {
+            search();
+        }
+    }
     function search() {
         var key=$("#key").val();
         openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
