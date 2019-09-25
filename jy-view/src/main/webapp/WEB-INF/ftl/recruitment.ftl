@@ -93,7 +93,7 @@
                     "startTime":$("#zphKsrq1").val(),//招聘会开始时间
                     "endTime":$("#zphKsrq2").val(),//结束时间
                     "zwlx":zwlx,
-                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
+                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || pageSize,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){

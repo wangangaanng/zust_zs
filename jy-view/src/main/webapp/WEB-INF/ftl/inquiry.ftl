@@ -77,7 +77,7 @@ var pageSize=10;
                 ajax("zustcommon/bckjBizDcwj/dcwjList", {
                     "wzbh":1,
                     "wjmc":$("#key").val(),
-                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
+                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || pageSize,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){

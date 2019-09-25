@@ -34,11 +34,8 @@ function myJobList1() {
                     request.success({
                         row : data.bean.records || [],
                         total: data.bean.totalCount,
-                        // pageNumber:data.bean.currentPage,
-                        // pageSize:data.bean.pageSize
                     });
 
-                    // $('#table-job').bootstrapTable('load', data.bean.records);
                 }
             })
         },
@@ -105,7 +102,7 @@ function myJobList1() {
             title: '展位',
         },{
             align : 'center',
-            events:'operateEvents',
+            // events:'operateEvents',
             field: 'owid',
             title: '操作',
             events: window.operateEvents,
@@ -118,7 +115,6 @@ function myJobList1() {
 
 function operateFormatterZph(value, row, index) {
     var c = '<a class="green-color detail" href="#" >查看</a> ';
-
     return c;
 }
 

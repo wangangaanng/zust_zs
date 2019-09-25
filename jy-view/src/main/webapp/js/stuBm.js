@@ -7,6 +7,12 @@ $(document).ready(function () {
     myBmList()
 })
 
+function keyLogin(){
+    if (event.keyCode==13){
+        searchXjh()
+    }
+}
+
 function searchXjh() {
     $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
 }
@@ -28,23 +34,16 @@ function myBmList() {
                     request.success({
                         row : data.bean.records || [],
                         total: data.bean.totalCount,
-                        // pageNumber:data.bean.currentPage,
-                        // pageSize:data.bean.pageSize
                     });
 
-                    // $('#table-job').bootstrapTable('load', data.bean.records);
                 }
             })
         },
 
         responseHandler:function(res){
-            // return res
             $('#table-xjh').bootstrapTable('load', res.row);
             return {
                 "total":res.total
-                // ,
-                // "pageNumber":res.pageNumber,
-                // "pageSize":res.pageSize
             }
         },
         toolbar: '#toolbar', //工具按钮用哪个容器
@@ -71,20 +70,17 @@ function myBmList() {
         queryParamsType:"limit",
         columns: [{
             align : 'center',
-            field: 'zwbt',
+            field: 'owid',
             title: '序号',
             formatter:function(value,row,index){
                 return index+1;
             }
-        }, {
+        },{
+            align : 'center',
             field: 'zwbt',
             title: '名称',
-            align : 'center',
-            formatter: operateFormatterZph
-            // formatter:function(value,row,index){
-            //     var value=row.xjsj.substring(0,10);
-            //     return value;
-            // }
+            events: window.operateEvents,
+            formatter: operateFormatter
         },{
             field: 'bmsj',
             title: '报名时间',
@@ -113,53 +109,21 @@ function myBmList() {
             field: 'state',
             title: '状态',
             formatter:function(value,row,index){
-                // var value=""
-                // if(row.state==0){
-                //     value="待审核"
-                // }else if(row.state==1){
-                //     value="审核通过"
-                // }else if(row.state==2){
-                //     value="审核拒绝"
-                // }
                 return "已报名";
             }
         }
-        // ,{
-        //     align : 'center',
-        //     events:'operateEvents',
-        //     field: 'owid',
-        //     title: '操作',
-        //     events: window.operateEvents,
-        //     formatter: operateFormatterZph
-        // }
         ], //列设置
 
     });
 }
 
-function operateFormatterZph(value, row, index) {
-    var c = '<a class="green-color detail"  href="/positionDetail/'+row.jobRefOwid+'">'+row.zwbt+'</a> ';
+function operateFormatter(value, row, index) {
+    var c = '<a class="green-color xq" href="#">'+row.zwbt+'</a> ';
     return c;
 }
 
 window.operateEvents = {
-    'click .detail': function (e, value, row, index) {
-        alert(row.owid)
-    },
-    'click .remove': function (e, value, row, index) {
-        layer.confirm('确定删除该条记录？', {
-            btn: ['确定'] //按钮
-        }, function(){
-            var jsonObj={
-                "owid":row.owid,
-            }
-            ajax("zustjy/bckjBizJob/deleteOneJob", jsonObj, function (data) {
-                if(data.backCode==0){
-                    $('#table-job').bootstrapTable('removeByUniqueId', row.owid);
-                    layer.msg('删除成功', {icon: 1});
-                }
-            })
-
-        });
+    'click .xq': function (e, value, row, index) {
+       window.open(base+"/positionDetail/"+row.jobRefOwid)
     }
 }

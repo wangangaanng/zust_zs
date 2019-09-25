@@ -94,7 +94,7 @@
                     "createtime1":$("#fbsj1").val(),//发布时间
                     "createtime2":$("#fbsj2").val(),//发布时间
                     "zwlx":zwlx,
-                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
+                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || pageSize,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){

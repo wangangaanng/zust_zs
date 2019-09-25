@@ -7,6 +7,12 @@ $(document).ready(function () {
     myBmList()
 })
 
+function keyLogin(){
+    if (event.keyCode==13){
+        searchXjh()
+    }
+}
+
 function searchXjh() {
     $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
 }
@@ -71,7 +77,7 @@ function myBmList() {
         queryParamsType:"limit",
         columns: [{
             align : 'center',
-            field: 'zwbt',
+            field: 'owid',
             title: '序号',
             formatter:function(value,row,index){
                 return index+1;
@@ -79,12 +85,10 @@ function myBmList() {
         }, {
             field: 'zwbt',
             title: '名称',
+            events:'operateEvents',
             align : 'center',
-            formatter: operateFormatterZph
-            // formatter:function(value,row,index){
-            //     var value=row.xjsj.substring(0,10);
-            //     return value;
-            // }
+            events: window.operateEvents1,
+            formatter: operateFormatterSc
         },{
             field: 'gzsj',
             title: '收藏时间',
@@ -113,42 +117,18 @@ function myBmList() {
                 return value;
             }
         }
-            // ,{
-            //     align : 'center',
-            //     events:'operateEvents',
-            //     field: 'owid',
-            //     title: '操作',
-            //     events: window.operateEvents,
-            //     formatter: operateFormatterZph
-            // }
         ], //列设置
 
     });
 }
 
-function operateFormatterZph(value, row, index) {
-    var c = '<a class="green-color detail"  href="/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+function operateFormatterSc(value, row, index) {
+    var c = '<a class="green-color detail" href="#" >'+row.zwbt+'</a> ';
     return c;
 }
 
-window.operateEvents = {
+window.operateEvents1 = {
     'click .detail': function (e, value, row, index) {
-        alert(row.owid)
-    },
-    'click .remove': function (e, value, row, index) {
-        layer.confirm('确定删除该条记录？', {
-            btn: ['确定'] //按钮
-        }, function(){
-            var jsonObj={
-                "owid":row.owid,
-            }
-            ajax("zustjy/bckjBizJob/deleteOneJob", jsonObj, function (data) {
-                if(data.backCode==0){
-                    $('#table-job').bootstrapTable('removeByUniqueId', row.owid);
-                    layer.msg('删除成功', {icon: 1});
-                }
-            })
-
-        });
+        window.open(base+"/positionDetail/"+row.jobRefOwid)
     }
 }
