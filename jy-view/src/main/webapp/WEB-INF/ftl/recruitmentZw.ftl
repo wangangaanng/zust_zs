@@ -210,7 +210,7 @@
                     "zwXlyq":$("input[name='xlyq-radio']:checked").attr("code"),
                     "zwGznx":$("input[name='gznx-radio']:checked").attr("code"),
                     "zwlx":zwlx,
-                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
+                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || pageSize,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){
