@@ -60,6 +60,18 @@ public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizD
         super.delete(bckjBizDcwjJg);
     }
 
+    /**
+     *<p>方法:查询调查人数 countPeople TODO </p>
+     *<ul>
+     *<li> @param dcwjRefOwid TODO</li>
+     *<li>@return int  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/25 15:54  </li>
+     *</ul>
+     */
+    public int countPeople(String dcwjRefOwid) {
+        return this.dao.countPeople(dcwjRefOwid);
+    }
 
     /**
      * <p>方法:findPagebckjBizDcwjJg TODO后台BckjBizDcwjJg分页列表</p>

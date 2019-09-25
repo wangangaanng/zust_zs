@@ -36,7 +36,13 @@
 	
 	<sql id="bckjBizDcwjJgJoins">
 	</sql>
-    
+
+	<select id="countPeople" resultType="java.lang.Integer">
+		select count(owid)
+		from bckj_biz_dcwj_jg
+		where exp1=#{dcwjRefOwid}
+	</select>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjJg">
 		SELECT 
 			<include refid="bckjBizDcwjJgColumns"/>
@@ -67,8 +73,11 @@
 		FROM bckj_biz_dcwj_jg a
 		<include refid="bckjBizDcwjJgJoins"/>
 		<where>
-			<if test="dtrId != null and dtrId != ''">
+			<if test="yhOwid != null and yhOwid != ''">
 				a.dtrid=#{yhOwid}
+			</if>
+			<if test="dcwjRefOwid != null and dcwjRefOwid !=''">
+				and a.exp1=#{dcwjRefOwid}
 			</if>
 		</where>
 		<choose>
