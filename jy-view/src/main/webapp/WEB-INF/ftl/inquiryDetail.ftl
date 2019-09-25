@@ -91,7 +91,12 @@
                 </div>
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
-                        <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
+                        <#if result.tips??>
+                            <button type="submit" class="btn btn-default btn-common" style="background-color: #e6e6e6;color: #333;">已提交</button>
+                        <#else >
+                            <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
+                        </#if>
+
                     </div>
                 </div>
             </#if>
@@ -104,14 +109,18 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script>
     var answerList=[];
+    var tips="${result.tips!''}"
     $(document).ready(function () {
-        <#--layer.open({-->
-            <#--title:'提示',-->
-            <#--content: "${result.errorMess}",-->
-            <#--yes: function(index, layero){-->
-                <#--layer.close(index);-->
-            <#--}-->
-        <#--});-->
+        if(tips){
+            layer.open({
+                title:'提示',
+                content: tips,
+                yes: function(index, layero){
+                    layer.close(index);
+                }
+            });
+        }
+
         $(".wjcontent dt").each(function (k, p) {
             var obj={};
             obj.dcwjtmRefOwid=$(this).data("owid");
