@@ -226,16 +226,6 @@
             $(this).addClass('active').siblings().removeClass('active');
             $(this).parents(".position-tabcontent").find(".tabcontent").eq($(this).index()).show().siblings().hide();
         })
-
-        $(document).ready(function () {
-            // var jsonObj={
-            //     "owid":"a44ae7bcae1f40b890d20695d1a63707",
-            //     "yhOwid":getCookie('qyOwid'),
-            // }
-            // ajax("zustjy/bckjBizJob/getOneJob", jsonObj, function (data) {
-            //
-            // })
-        })
         function applyJob() {
             var bmdx="${result.zwlx!''}";
             if(bmdx=='0'){

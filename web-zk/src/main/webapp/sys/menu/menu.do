@@ -146,7 +146,17 @@
                  </div>
 
 
-
+                <div class="row form-horizontal" style="height:50px;">
+                    <div class="col-sm-2 control-label" style="text-align:right;padding-right:2px;height:30px;line-height:2;">
+                        <label value="参数设定"  />
+                    </div>
+                    <div class="col-sm-4 control-label" style="text-align:left;padding-right:2px;">
+                        <textbox  class="form-control input-sm"   id="baseInfo_link" />
+                    </div>
+                    <div class="col-sm-4 control-label" style="text-align:left;padding-right:2px;height:30px;line-height:2;">
+                        <label value="在连接后接入参数" />
+                    </div>
+                </div>
 
 
             </div>
