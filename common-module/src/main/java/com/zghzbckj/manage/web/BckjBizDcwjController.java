@@ -147,6 +147,14 @@ public class BckjBizDcwjController extends BaseController {
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
             }
+            //若有答题人id，查找答题人姓名
+            if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
+                BckjBizYhxx yhxx = bckjBizYhxxService.get(dataMap.get("dtrId").toString());
+                if (TextUtils.isEmpty(yhxx)) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "用户信息为空");
+                }
+                dataMap.put("dtrXm", yhxx.getXm());
+            }
             return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
             e.printStackTrace();
