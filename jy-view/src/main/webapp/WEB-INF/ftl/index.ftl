@@ -382,6 +382,7 @@
     }
 
     function stuLogin() {
+        beginLoad()
         if(!$("#yhDlzh").val().trim()){
             walert("请填写账号");
             return;
@@ -395,7 +396,7 @@
             "yhDlmm":$("#yhDlmm").val().trim().MD5()
         }
         ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
-            console.log(data)
+            finishLoad()
             if(data.backCode==0){
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
@@ -407,6 +408,7 @@
     }
 
     function qyLogin() {
+        beginLoad()
         if(!$("#qyTysh").val().trim()){
             walert("请填写社会统一信用码");
             return;
@@ -420,7 +422,7 @@
             "qyTysh":$("#qyTysh").val().trim()
         }
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
-            console.log(data)
+            finishLoad()
             if(data.backCode==0){
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
