@@ -236,7 +236,6 @@ function close1() {
 var layer2;
 window.operateEvents = {
     'click .detail': function (e, value, row, index) {
-        console.log(row.owid)
         var jsonObj={
             "owid":row.owid,
         }

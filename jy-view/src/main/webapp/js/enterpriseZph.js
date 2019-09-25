@@ -116,28 +116,15 @@ function myJobList1() {
 
 }
 
-function operateFormatterZw(value, row, index) {
-    var c = '<a class="green-color detail" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">查看</a> ';
-    var d = '<a class="green-color remove" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">删除</a> ';
-
-    return c + d;
-}
-
 function operateFormatterZph(value, row, index) {
-    var c = '<a class="green-color detail" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">查看</a> ';
+    var c = '<a class="green-color detail" href="#" >查看</a> ';
 
     return c;
 }
 
 window.operateEvents = {
     'click .detail': function (e, value, row, index) {
-        alert(row.owid)
+        window.open(base+"/positionDetail/qy/"+row.zwbh+"/"+row.jobRefOwid)
     },
     'click .remove': function (e, value, row, index) {
         layer.confirm('确定删除该条记录？', {

@@ -27,7 +27,7 @@
 </style>
 
 <body>
-<#--<#include "com/header.ftl">-->
+<#include "com/header.ftl">
 <div class="main">
     <div class="container">
         <div class="routes">
@@ -307,6 +307,8 @@ var pageSize=10;
                 align : 'center',
                 field: 'zwbt',
                 title: '招聘会名称',
+                events: window.operateEvents,
+                formatter: operateFormatterZph2
             }, {
                 align : 'center',
                 field: 'zwArea',
@@ -325,7 +327,6 @@ var pageSize=10;
                 }
             }, {
                 align : 'center',
-                events:'operateEvents',
                 field: 'owid',
                 title: '操作',
                 events: window.operateEvents,
@@ -355,12 +356,17 @@ var pageSize=10;
 
     }
 
+function operateFormatterZph2(value, row, index) {
+    var c = '<a class="green-color zphxq" href="#">'+row.zwbt+'</a> ';
+    return c;
+}
+
     window.operateEvents = {
         'click .order': function (e, value, row, index) {
             window.location.href="${base}/jobFair/1/"+row.owid
         },
-        'click .detail': function (e, value, row, index) {
-            alert(row.owid)
+        'click .zphxq': function (e, value, row, index) {
+            window.open("${base}/positionDetail/qy/"+row.owid)
         },
         'click .remove': function (e, value, row, index) {
             layer.confirm('确定删除该条记录？', {

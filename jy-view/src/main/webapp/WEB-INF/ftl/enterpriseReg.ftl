@@ -209,13 +209,6 @@
             }
         }
         $(document).ready(function () {
-            var jsonObj={
-                "dicType":20000
-            }
-            ajax("zustcommon/common/getByType", jsonObj, function (data) {
-                if(data.backCode==0){
-                }
-            })
 
             $(".file1").change(function (e) {
                 var file = e.target.files[0] || e.dataTransfer.files[0];
@@ -223,10 +216,14 @@
                 var type=this.getAttribute("data-type")
                 // $('#photoCover').val(document.getElementById("file").files[0].name);
                 if (file) {
-                    console.log("file",file.name)
+                    console.log("file.size",file.size)
+                    if(file.size>2000000){
+                        walert("图片过大，请选择2M以下的图片")
+                        return
+                    }
                     var reader = new FileReader();
                     reader.onload = function () {
-                        // console.log("file",file)
+                        console.log("file",file)
 
                         var fd = new FormData();
                         fd.append("file",file);
@@ -243,6 +240,7 @@
                         }
 
                         // fd.append("method", "zustcommon/common/picUpload");
+                        beginLoad()
                         $.ajax({
                             url: "http://192.168.3.222:8888/zustcommon/common/picUpload",//localUrl,//
                             type: "POST",
@@ -251,11 +249,16 @@
                             data: fd,
                             success: function(d) {
                                 // console.log(d);
+                                finishLoad()
                                 if(d.bean){
                                     if(type==1){
                                         if(d.bean["社会信用代码"]){
                                             if(d.bean["社会信用代码"].words){
-                                                $("#qyTysh").val(d.bean["社会信用代码"].words)
+                                                if(d.bean["社会信用代码"].words!="无"){
+                                                    $("#qyTysh").val(d.bean["社会信用代码"].words)
+                                                }else{
+                                                    walert("识别失败")
+                                                }
                                             }else{
                                                 walert("识别失败，请重新上传")
                                             }
@@ -268,7 +271,11 @@
                                     }else if(type==2){
                                         if(d.bean["公民身份号码"]){
                                             if(d.bean["公民身份号码"].words){
-                                                $("#qyFrsfz").val(d.bean["公民身份号码"].words)
+                                                if(d.bean["公民身份号码"].words!="无"){
+                                                    $("#qyFrsfz").val(d.bean["公民身份号码"].words)
+                                                }else{
+                                                    walert("识别失败")
+                                                }
                                             }else{
                                                 walert("识别失败，请重新上传")
                                             }
@@ -278,7 +285,9 @@
                                     }
 
                                 }
-                                console.log(d.bean["社会信用代码"])
+                            },
+                            fail:function () {
+                                finishLoad()
                             }
                         });
                     }
@@ -378,8 +387,10 @@
                 if(data.backCode==0){
                     layer.open({
                         title:'提示',
+                        closeBtn: 0,
                         content: '注册成功，待后台人员审核通过，便可登录。',
                         yes: function(index, layero){
+                            window.location.href="/";
                             layer.close(index);
                         }
                     });
