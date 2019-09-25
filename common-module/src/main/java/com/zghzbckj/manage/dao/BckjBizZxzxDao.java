@@ -18,7 +18,9 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizZxzxDao extends CrudDao<BckjBizZxzx> {
 
-    List<BckjBizZxzx> findListByZxlx(Map<String, Object> dataMap);
+    List<Map<String,Object>> findListByZxlx(Map<String, Object> dataMap);
+
+    List<Map<String,Object>>  findlyList(Map<String, Object> dataMap);
 
     BckjBizZxzx getOneByCondition(Map<String, Object> dataMap);
 }

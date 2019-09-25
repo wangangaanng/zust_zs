@@ -238,11 +238,20 @@
 		WHERE owid = #{owid}
 	</delete>
 
-	<select id="findListByZxlx" parameterType="Map" resultType="BckjBizZxzx">
-		select <include refid="bckjBizZxzxColumns"></include>
-		from bckj_biz_zxzx a
+	<select id="findListByZxlx" parameterType="Map" resultType="Map">
+		select
+			a.tw_Owid as twOwid ,a.tw_Name as twName,
+			a.hf_Owid as hfOwid, a.hf_Name as hfName,
+			a.zxzyid as zxzyid,a.wtnr as wtnr ,a.danr as danr ,
+			a.twrq as twrq ,a.hdrq as hdrq,
+			a.owid as owid ,b.zjxm as zjxm,
+			b.zjtx as zjtx,b.zjjj as zjjj,
+			b.zjlxfs as zjlxfs,b.zjzw as zjzw,
+			b.zjbgs as zjbgs , b.szxy as szxy,
+			b.szzy as szzy, b.zjxx as zjxx
+		from bckj_biz_zxzx a ,bckj_biz_zjzx b
 		<where>
-		1=1
+		1=1 and b.owid = a.zxzyid
 			<if test="zxlx!=null and zxlx!=''">
 				and a.zxlx =#{zxlx}
 			</if>
@@ -251,6 +260,29 @@
 			</if>
 			<if test="zxlx!=null and zxlx!=''">
 			    and a.zxlx=#{zxlx}
+			</if>
+		</where>
+		order by a.state asc , a.createtime desc
+	</select>
+
+
+	<select id="findlyList" parameterType="Map" resultType="Map">
+		select
+		a.tw_Owid as twOwid ,a.tw_Name as twName,
+		a.hf_Owid as hfOwid, a.hf_Name as hfName,
+		a.zxzyid as zxzyid,a.wtnr as wtnr ,a.danr as danr ,
+		a.twrq as twrq ,a.hdrq as hdrq,
+		a.owid as owid
+		from bckj_biz_zxzx a
+		<where>
+			<if test="zxlx!=null and zxlx!=''">
+				and a.zxlx =#{zxlx}
+			</if>
+			<if test="twOwid!=null and twOwid!=''">
+				and a.tw_owid=#{twOwid}
+			</if>
+			<if test="zxlx!=null and zxlx!=''">
+				and a.zxlx=#{zxlx}
 			</if>
 		</where>
 		order by a.state asc , a.createtime desc
