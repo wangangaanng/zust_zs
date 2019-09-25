@@ -125,6 +125,12 @@ public class CommonController {
         if (type != null) {// 判断文件类型是否为空
             if (CommonModuleContant.PIC_PNG.equals(type.toUpperCase()) || CommonModuleContant.PIC_JPG.equals(type.toUpperCase()) || CommonModuleContant.PIC_JPEG.equals(type.toUpperCase())) {
                 // 项目在容器中实际发布运行的根路径
+                byte[] picbyte = file.getBytes();
+                float picsize = (float) picbyte.length / 1024 / 1024;
+                System.out.println("图片大小：" + picsize + "MB");
+                if (picsize > 5) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "图片不大于5MB");
+                }
                 String trueFileName = String.valueOf(System.currentTimeMillis()) + "." + type;
                 path = CommonModuleContant.picPath + File.separator + trueFileName;
                 try {
