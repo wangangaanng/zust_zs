@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+
     $(".list-group-item").click(function(e) {
         var index=$(this).index()
         window.location.href="/enterpriseService/"+index
@@ -221,28 +222,72 @@ function myJobList2() {
     });
 }
 
-function operateFormatterZw(value, row, index) {
-    var c = '<a class="green-color detail" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">查看</a> ';
-    var d = '<a class="green-color remove" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">删除</a> ';
-
-    return c + d;
-}
-
 function operateFormatterZph(value, row, index) {
-    var c = '<a class="green-color detail" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">查看</a> ';
+    var c = '<a class="green-color detail" href="#" >查看</a> ';
 
     return c;
 }
 
+function close1() {
+    layer.close(layer2);
+    layer2=null;
+}
+
+var layer2;
 window.operateEvents = {
     'click .detail': function (e, value, row, index) {
-        alert(row.owid)
+        console.log(row.owid)
+        var jsonObj={
+            "owid":row.owid,
+        }
+        ajax("zustjy/bckjBizJybm/getOne", jsonObj, function (data) {
+            layer2=layer.open({
+                type: 1,
+                title:'详情',
+                skin: 'layui-layer-rim', //加上边框
+                area: ['750px', '320px'], //宽高
+                content: '<div class="lxr-modal"><div class="row">\n' +
+                '                            <div class="form-group">\n' +
+                '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
+                '                                <div class="col-sm-3">\n' + data.bean.lxr +
+                '                                </div>\n' +
+                '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系电话：</label>\n' +
+                '                                <div class="col-sm-3">\n' + data.bean.lxdh +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                        <div class="row">\n' +
+                '                            <div class="form-group">\n' +
+                '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人：</label>\n' +
+                '                                <div class="col-sm-3">\n' + data.bean.jkr +
+                '                                </div>\n' +
+                '                                <label for="xjsj" class="col-sm-2 control-label text-right">宣讲时间：</label>\n' +
+                '                                <div class="col-sm-3">\n' + data.bean.xjsj.substring(0,10) +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                            </div>\n' +
+                '                        <div class="row">\n' +
+                '                            <div class="form-group">\n' +
+                '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right">申请理由：</label>\n' +
+                '                                <div class="col-sm-8">\n' + data.bean.xjhsqly +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                            </div>\n' +
+                '                        <div class="row">\n' +
+                '                            <div class="form-group">\n' +
+                '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人介绍：</label>\n' +
+                '                                <div class="col-sm-8">\n' + data.bean.jkrjs +
+                '                                </div>\n' +
+                '                            </div>\n' +
+                '                            </div>\n' +
+                '                        <div class="row btn-yd">\n' +
+                '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+                '                                <button class="btn green" onclick="close1()">关闭</button>\n' +
+                '                            </div>\n' +
+                '                        </div></div>'
+            });
+        })
+
     },
     'click .remove': function (e, value, row, index) {
         layer.confirm('确定删除该条记录？', {

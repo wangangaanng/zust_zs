@@ -36,8 +36,8 @@
         <div class="content">
             <div class="menu-nav">
                 <div class="menu-title">
-                    <div class="title-chn">学生服务</div>
-                    <div class="title-en">STUDENT SERVICE
+                    <div class="title-chn">个人中心</div>
+                    <div class="title-en">INFORMATION
                         <div class="menu-nav-icon"></div>
                     </div>
 
@@ -55,6 +55,9 @@
                         </li>
                         <li class="list-group-item">
                             <span class="ic-menu"></span> 我的收藏
+                        </li>
+                        <li class="list-group-item">
+                            <span class="ic-menu"></span> 生源信息
                         </li>
                     </ul>
                 </div>
@@ -158,7 +161,7 @@
         })
     }
 
-    function ask(index) {
+    function ask(index,o) {
         if(!$("#wtnr").val()){
             walert("请填写咨询内容");
             return;

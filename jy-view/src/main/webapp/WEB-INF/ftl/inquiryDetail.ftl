@@ -46,44 +46,38 @@
                 </div>
             </#if>
             <div>
-                <dl>
+                <dl class="wjcontent">
                     <#if (result.questionList??)&&(result.questionList?size>0)>
                         <#list result.questionList?sort_by("tmsx") as obj>
                             <#if obj.tmlx?number==1>
-                                <dt>${obj_index+1}.${obj.tmmc}</dt>
+                                <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
                                 <dd>
                                     <ul>
-                                    <#--<#if (typeList??)&&(typeList?size>0)>-->
-                                    <#--<#list typeList as obj>-->
-                                        <li><input type="text" class="form-control" /></li>
-                                    <#--</#list>-->
-                                    <#--</#if>-->
+                                        <li><input type="text" name="input${obj_index}" class="form-control" /></li>
                                     </ul>
                                 </dd>
                             </#if>
                             <#if obj.tmlx?number==2>
-                            <dt>${obj_index+1}.${obj.tmmc}</dt>
+                            <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
                             <dd>
                                 <ul>
-                                    <#--<#if (typeList??)&&(typeList?size>0)>-->
-                                        <#--<#list typeList as obj>-->
-                                            <li><label class="radio"><input type="radio" name="gzzn-radio" code="a" /><span>名字</span></label></li>
-                                        <li><label class="radio"><input type="radio" name="gzzn-radio" code="a" /><span>名字</span></label></li>
-                                    <#--</#list>-->
-                                    <#--</#if>-->
+                                    <#if (obj.xxList??)&&(obj.xxList?size>0)>
+                                        <#list obj.xxList as xx>
+                                            <li><label class="radio"><input type="radio" name="radio${obj_index}" value="${xx.bh!''}" /><span>${xx.ms!''}</span></label></li>
+                                        </#list>
+                                    </#if>
                                 </ul>
                             </dd>
                         </#if>
                         <#if obj.tmlx?number==3>
-                            <dt>${obj_index+1}.${obj.tmmc}</dt>
+                            <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
                             <dd>
                                 <ul>
-                                <#--<#if (typeList??)&&(typeList?size>0)>-->
-                                <#--<#list typeList as obj>-->
-                                    <li><label class="checkbox"><input type="checkbox" name="gzzn-radio" code="a" /><span>名字</span></label></li>
-                                    <li><label class="checkbox"><input type="checkbox" name="gzzn-radio" code="a" /><span>名字</span></label></li>
-                                <#--</#list>-->
-                                <#--</#if>-->
+                                    <#if (obj.xxList??)&&(obj.xxList?size>0)>
+                                        <#list obj.xxList as xx>
+                                            <li><label class="checkbox"><input type="checkbox" name="checkbox${obj_index}" value="${xx.bh!''}" /><span>${xx.ms!''}</span></label></li>
+                                        </#list>
+                                    </#if>
                                 </ul>
                             </dd>
                         </#if>
@@ -93,32 +87,11 @@
 
                 </dl>
 
-                <#--<div class="div_question">-->
-                    <#--<div class="div_title_question_all">-->
-                        <#--<div class="div_topic_question">2.</div>-->
-                        <#--<div id="divTitle2" class="div_title_question">性别<span class="req">*</span></div>-->
-                        <#--<div style="clear:both;"></div>-->
-                    <#--</div>-->
-                    <#--<div class="div_table_radio_question" id="divquestion2">-->
-                        <#--<div class="div_table_clear_top"></div>-->
-                        <#--<ul class="ulradiocheck">-->
-                            <#--<li style="width: 99%;">-->
-                                <#--<a href="javascript:" class="jqRadio jqChecked" rel="q2_1"></a>-->
-                                <#--<input style="display:none;" type="radio" name="q2" id="q2_1" value="1">-->
-                                <#--<label for="q2_1">A.男</label>-->
-                            <#--</li>-->
-                            <#--<li style="width: 99%;">-->
-                                <#--<a href="javascript:" class="jqRadio" rel="q2_2"></a>-->
-                                <#--<input style="display:none;" type="radio" name="q2" id="q2_2" value="2">-->
-                                <#--<label for="q2_2">B.女</label>-->
-                            <#--</li>-->
-                            <#--<div style="clear:both;"></div>-->
-                        <#--</ul>-->
-                        <#--<div style="clear:both;"></div>-->
-                        <#--<div class="div_table_clear_bottom"></div>-->
-                    <#--</div>-->
-                    <#--<div class="errorMessage"></div>-->
-                <#--</div>-->
+            </div>
+            <div class="form-group">
+                <div class="col-sm-12 text-center">
+                    <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
+                </div>
             </div>
         </div>
 
@@ -127,6 +100,79 @@
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+<script>
+    var answerList=[];
+    $(document).ready(function () {
+//        layer.open({
+//            title:'提示',
+//            content: '您已提交，请勿重复提交',
+//            yes: function(index, layero){
+//                layer.close(index);
+//            }
+//        });
+        $(".wjcontent dt").each(function (k, p) {
+            var obj={};
+            obj.dcwjtmRefOwid=$(this).data("owid");
+            obj.wjda="";
+            obj.tmlx=$(this).data("lx");
+            answerList.push(obj);
+        })
+    })
+    function commitWj() {
+        $.each(answerList,function (k, p) {
+            if(p.tmlx=="1"){//输入
+                answerList[k].wjda=$('input[name="input'+k+'"]').val();
+            }else if(p.tmlx=="2"){//单选
+                if($('input[name="radio'+k+'"]:checked').val()){
+                    answerList[k].wjda=$('input[name="radio'+k+'"]:checked').val();
+                }
+            }else if(p.tmlx=="3"){//多选
+                //获取复选框值
+                var chk_value =[];//定义一个数组
+                $('input[name="checkbox'+k+'"]:checked').each(function(){//遍历每一个名字为interest的复选框，其中选中的执行函数
+                    chk_value.push($(this).val());//将选中的值添加到数组chk_value中
+                });
+                if(chk_value.length>0){
+                    answerList[k].wjda=chk_value.join(",");
+                }
+            }
+            if(answerList[k].wjda==""){
+                $(".wjcontent").find("dt").eq(k).addClass('warn');
+                $(".wjcontent").find("dd").eq(k).addClass('warn');
+            }else {
+                $(".wjcontent").find("dt").eq(k).removeClass('warn');
+                $(".wjcontent").find("dd").eq(k).removeClass('warn');
+            }
+        })
+        if($(".wjcontent").find("dt").hasClass("warn")){
+            layer.msg('请填写完整', {icon: 2});
+            return false;
+        }
+        if(getCookie("stuOwid")){
+            var jsonObj ={
+                "dcwjRefOwid":"${owid!''}",
+                "answerList":answerList,
+                "ksdt":"",
+                "jsdt":"",
+                "dtrId":convertStr(getCookie("stuOwid"),""),
+            }
+        }else {
+            var jsonObj ={
+                "dcwjRefOwid":"${owid!''}",
+                "answerList":answerList,
+                "ksdt":"",
+                "jsdt":"",
+            }
+        }
+        ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {
+            if(data.backCode==0){
+                layer.msg('提交成功', {icon: 1});
+            }else{
+                layer.msg(data.errorMess, {icon: 2});
+            }
+        })
+    }
+</script>
 </body>
 
 </html>

@@ -124,7 +124,7 @@
                 AND a.zwbt like CONCAT('%', #{zwbt},'%')
             </if>
             <if test="zwgjz != null and zwgjz != ''">
-                AND a.zwgjz = #{zwgjz}
+				AND(  a.zwgjz like CONCAT('%', #{zwgjz},'%')  OR  a.zwbt like CONCAT('%', #{zwgjz},'%') )
             </if>
             <if test="zwPro != null and zwPro != ''">
                 AND a.zw_pro like CONCAT('%', #{zwPro},'%')
