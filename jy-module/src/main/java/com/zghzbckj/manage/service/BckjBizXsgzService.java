@@ -272,13 +272,13 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
         HashMap<String, Object> sendMap = Maps.newHashMap();
-        sendMap.put("jobRefOwid",bckjBizXsgz.getJobRefOwid());
-        sendMap.put("yhRefOwid",bckjBizXsgz.getYhRefOwid());
+        sendMap.put("jobRefOwid", bckjBizXsgz.getJobRefOwid());
+        sendMap.put("yhRefOwid", bckjBizXsgz.getYhRefOwid());
         List<BckjBizXsgz> bckjbiz = this.dao.findListByMap(sendMap);
-        if(!TextUtils.isEmpty(bckjbiz)&&bckjbiz.size()>0){
+        if (!TextUtils.isEmpty(bckjbiz) && bckjbiz.size() > 0) {
             return ResponseMessage.sendOK(bckjbiz);
         }
-        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
+        return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)
@@ -369,10 +369,21 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         return this.dao.findListByMap(sendMap);
     }
 
-    public ResponseMessage  studentSubcribeList(Map<String,Object> dataMap) {
-         Page<Map<String,Object>>page=new Page(Integer.parseInt(dataMap.get("pageNo").toString()),Integer.parseInt(dataMap.get("pageSize").toString()));
-         dataMap.put("page",page);
+    public ResponseMessage studentSubcribeList(Map<String, Object> dataMap) {
+        Page<Map<String, Object>> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        dataMap.put("page", page);
         page.setList(this.dao.studentSubcribeList(dataMap));
-        return  ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+
+
+    public ResponseMessage zwSubcribeList(Map<String, Object> dataMap) {
+        Page<Map<String, Object>> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        dataMap.put("page", page);
+        dataMap.put("gzlx", "0");
+        dataMap.put("xxlb", "0");
+        dataMap.put("orderBy", " a.createtime desc ");
+        page.setList(this.dao.zwSubcribeList(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 }

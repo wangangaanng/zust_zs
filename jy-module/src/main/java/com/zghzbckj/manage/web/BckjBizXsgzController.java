@@ -3,7 +3,6 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -65,7 +64,7 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize(),map);
+            return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {
             log.error(e + "获取bckjBizXsgz列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -234,22 +233,37 @@ public class BckjBizXsgzController extends BaseController {
      */
     @PostMapping("studentSubcribeList")
     @ResponseBody
-    public ResponseMessage studentSubcribeList(PublicDataVO dataVO){
+    public ResponseMessage studentSubcribeList(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhOwid","pageNo","pageSize");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhOwid", "pageNo", "pageSize");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return bckjBizXsgzService.studentSubcribeList(dataMap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+
+
+    }
+
+
+    @PostMapping("zwSubcribeList")
+    @ResponseBody
+    public ResponseMessage zwSubcribeList(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "jobRefOwid", "pageNo", "pageSize");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizXsgzService.zwSubcribeList(dataMap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
-
-
-
     }
 
 }
