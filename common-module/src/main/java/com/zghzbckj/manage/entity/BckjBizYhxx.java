@@ -135,7 +135,7 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 		this.mz = mz;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	public Date getCsrq() {
 		return csrq;
 	}

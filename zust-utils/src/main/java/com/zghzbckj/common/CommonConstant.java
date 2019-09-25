@@ -42,6 +42,7 @@ public class CommonConstant {
     public static final String SYSTEM_FILE_PATH = "F:\\img\\";
     public  static String WX_CODE="";
     public  static String RepeatXsxh="重复学生学号";
+    public  static String SjHError="手机号格式错误";
 
 
     public final static String picPath = "C:\\files\\pic\\";

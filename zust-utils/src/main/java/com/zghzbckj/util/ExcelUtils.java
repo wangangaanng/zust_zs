@@ -1,14 +1,12 @@
 package com.zghzbckj.util;
 
+import com.ourway.base.utils.DateUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -16,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import javax.xml.crypto.Data;
 import java.io.*;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -232,7 +231,10 @@ public class ExcelUtils {
     public static String stmodifyExcelData(String data){
         data.replaceAll(" ", "");
         data=data.replaceAll("\\.", "");
-        return data.substring(0,data.indexOf("E")) ;
+        if(data.indexOf("E")!=-1) {
+            return data.substring(0, data.indexOf("E"));
+        }
+        return data;
     }
     public static String modifyExcelData(String data){
         return data.substring(0,data.indexOf(".")) ;
@@ -418,15 +420,14 @@ public class ExcelUtils {
         return "重命名成功！";
     }
 
-    public static Date stringtoDate(String str){
-        String year=str.substring(0,3);
-        String month=str.substring(4,5);
-        String day=str.substring(6,7);
-        String date=new String(year+"-"+month+"-"+day);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            ParsePosition pos = new ParsePosition(0);
-            Date strtodate = formatter.parse(date, pos);
-            return strtodate;
+    public static Date stringtoDate(String str) throws ParseException {
+        String year=str.substring(0,4);
+        String month=str.substring(4,6);
+        String day=str.substring(6,8);
+        String dateStr= (year+"-"+month+"-"+day);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date utilDate=sdf.parse(dateStr);
+        return  utilDate;
     }
 }
 

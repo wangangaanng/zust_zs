@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -13,6 +14,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
 
 import org.slf4j.Logger;
@@ -222,18 +224,21 @@ public class BckjBizYhxxController extends BaseController {
      * <li>@date 2019/9/20</li>
      * </ul>
      */
-    @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
+    @RequestMapping(value = "recordInfo/{state}",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage recordInfo(PublicDataVO dataVO){
+    public ResponseMessage recordInfo(@PathVariable("state") Integer olx,PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-           return bckjBizYhxxService.recordInfo(dataMap.get("path").toString());
+            return bckjBizYhxxService.recordInfo(olx,dataMap.get("path").toString());
         }
-        catch (Exception e){
+    catch (RepeatException e){
+        log.error(CommonConstant.ERROR_MESSAGE,e);
+        return ResponseMessage.sendOK(e.toString());
+    } catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
@@ -248,11 +253,12 @@ public class BckjBizYhxxController extends BaseController {
      * <li>@date 2019/9/20</li>
      * </ul>
      */
-    @PostMapping("showStudentInfoList")
+    @PostMapping("showInfoList/{state}")
     @ResponseBody
-    public ResponseMessage showStudentInfoList(PublicDataVO dataVO){
+    public ResponseMessage showInfoList(@PathVariable("state") Integer state,PublicDataVO dataVO){
         try {
-            return bckjBizYhxxService.showStudentInfoList(dataVO.getPageNo(),dataVO.getPageSize());
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizYhxxService.showInfoList(state,filters,dataVO.getPageNo(),dataVO.getPageSize());
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);

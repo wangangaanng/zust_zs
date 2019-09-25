@@ -1,16 +1,16 @@
 package com.ourway.custemevent;
 
-import com.ourway.base.CommonConstants;
+
 import com.ourway.base.utils.TextUtils;
 
 import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseWindow;
 
-import com.ourway.base.zk.models.ResponseMessage;
+
 import com.ourway.base.zk.service.ComponentFileSer;
 import com.ourway.base.zk.utils.AlterDialog;
-import com.ourway.base.zk.utils.JsonUtil;
 import com.ourway.base.zk.utils.data.JsonPostUtils;
+import org.apache.poi.ss.formula.functions.Index;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,6 +27,14 @@ public class RecordInfo implements ComponentFileSer {
     public  final String FolderPath="F:\\img\\";
     @Override
     public void doAction(BaseWindow window, Map<String, Object> map, String s) {
+        String url="";
+        String pageCA = window.getPageCA();
+        if(pageCA.indexOf("student")!=-1){
+            url=URL+"/0";
+        }
+        if (pageCA.indexOf("teatch")!=-1){
+            url=URL+"/1";
+        }
         String result="";
         String path = map.get("filePath").toString();
         String filePath=FolderPath+path;
@@ -37,7 +45,7 @@ public class RecordInfo implements ComponentFileSer {
             params.put("path", filePath + ".xls");
         }
         try {
-             result=JsonPostUtils.executeAPIAsString(params,URL);
+             result=JsonPostUtils.executeAPIAsString(params,url);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,7 +53,7 @@ public class RecordInfo implements ComponentFileSer {
             AlterDialog.alert("导入失败");
         }
         try{
-            if(result.indexOf("操作成功")!=-1){
+            /*if(result.indexOf("操作成功")!=-1){
                 AlterDialog.alert("导入成功");
                 BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
                 Object models = new ArrayList();
@@ -59,6 +67,25 @@ public class RecordInfo implements ComponentFileSer {
                 grid.filter((List) models);
                 grid.display();
             }
+            if(result.indexOf("身份证号码格式错误")!=-1){
+                AlterDialog.alert("身份证格式错误");
+                BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
+                Object models = new ArrayList();
+                grid.filter((List) models);
+                grid.display();
+            }
+            if(result.indexOf("手机号")!=-1){
+                AlterDialog.alert("手机号格式错误");
+                BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
+                Object models = new ArrayList();
+                grid.filter((List) models);
+                grid.display();
+            }*/
+            AlterDialog.alert(result);
+            BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
+            Object models = new ArrayList();
+            grid.filter((List) models);
+            grid.display();
         }catch (Exception e){
             e.printStackTrace();
             AlterDialog.alert("导入失败");

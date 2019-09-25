@@ -6,6 +6,7 @@ package com.zghzbckj.manage.service;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 
+import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.stereotype.Service;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
@@ -148,4 +149,9 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
     public void deletConditionByMap(Map<String, Object> component) {
             this.dao.deletConditionByMap(component);
     }
+
+    public BckjBizYhkz getByXsxh(String xsxh) {
+        return this.dao.getByXsxh(xsxh);
+    }
+
 }
