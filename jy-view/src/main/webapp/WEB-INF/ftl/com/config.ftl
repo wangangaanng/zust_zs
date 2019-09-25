@@ -9,4 +9,6 @@
 <script>
     var imagePath='${imagePath!""}';
     var base='${base!""}'
+    var localUrl = 'http://localhost:8080/webAjax/executeAPI';
+    var uploadUrl="http://192.168.3.222:8888/zustcommon/common/picUpload"
 </script>

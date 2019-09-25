@@ -116,7 +116,6 @@ function loginout() {
 }
 
 // var localUrl = 'http://www.hwhautomall.com/ajax/executeAPI';
-var localUrl = 'http://localhost:8080/webAjax/executeAPI';
 var userKey = '';
 function ajax(method, data, successMethod, pageNo, pageSize) {
         $.ajax({
