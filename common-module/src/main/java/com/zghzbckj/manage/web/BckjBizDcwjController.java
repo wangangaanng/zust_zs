@@ -97,16 +97,6 @@ public class BckjBizDcwjController extends BaseController {
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
             }
-            if (questionnaire.getSfyx() == 0) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷已失效");
-            }
-            //判断是否已答题
-            if (!TextUtils.isEmpty(dataMap.get("yhOwid")) && questionnaire.getSfdl() == 1) {
-                String tmOwid = bckjBizDcwjService.judgeAnswered(dataMap.get("yhOwid").toString());
-                if (tmOwid.equals(questionnaire.getOwid())) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, "您已填写过该问卷");
-                }
-            }
             List<Map<String, Object>> questionList = bckjBizDcwjService.listQuestions(dataMap);
             Map<String, Object> result = new HashMap<>();
             result.put("wjmc", questionnaire.getWjmc());
@@ -116,6 +106,14 @@ public class BckjBizDcwjController extends BaseController {
             result.put("kssj", questionnaire.getKssj());
             result.put("jssj", questionnaire.getJssj());
             result.put("questionList", questionList);
+            //判断是否已答题
+            if (!TextUtils.isEmpty(dataMap.get("yhOwid")) && questionnaire.getSfdl() == 1) {
+                String tmOwid = bckjBizDcwjService.judgeAnswered(dataMap.get("yhOwid").toString());
+                if (tmOwid.equals(questionnaire.getOwid())) {
+                    result.put("tips", "您已填写过该问卷");
+                    return ResponseMessage.sendOK(result);
+                }
+            }
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();
