@@ -58,9 +58,6 @@ public class BckjBizDcwjDtmxService extends CrudService<BckjBizDcwjDtmxDao, Bckj
 		super.delete(bckjBizDcwjDtmx);
 	}
 
-    public String getTmOwid(String yhOwid) {
-        return this.dao.getTmOwid(yhOwid);
-    }
 
 	/**
      * <p>方法:findPagebckjBizDcwjDtmx TODO后台BckjBizDcwjDtmx分页列表</p>

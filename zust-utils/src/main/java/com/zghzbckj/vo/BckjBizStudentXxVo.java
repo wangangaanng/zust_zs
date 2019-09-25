@@ -38,6 +38,14 @@ public class BckjBizStudentXxVo  {
     private String lxr;		// lxr
     private String memo;
 
+
+
+
+    private String zjzw; //职位
+    private String zjbgs; //办公地点
+    private String szxy;//所在学院
+    private String szzy; //所在专业
+
     public String getYhRefOwid() {
         return yhRefOwid;
     }
@@ -287,5 +295,36 @@ public class BckjBizStudentXxVo  {
 
     public void setDlzhsj(Date dlzhsj) {
         this.dlzhsj = dlzhsj;
+    }
+    public String getZjzw() {
+        return zjzw;
+    }
+
+    public void setZjzw(String zjzw) {
+        this.zjzw = zjzw;
+    }
+
+    public String getZjbgs() {
+        return zjbgs;
+    }
+
+    public void setZjbgs(String zjbgs) {
+        this.zjbgs = zjbgs;
+    }
+
+    public String getSzxy() {
+        return szxy;
+    }
+
+    public void setSzxy(String szxy) {
+        this.szxy = szxy;
+    }
+
+    public String getSzzy() {
+        return szzy;
+    }
+
+    public void setSzzy(String szzy) {
+        this.szzy = szzy;
     }
 }

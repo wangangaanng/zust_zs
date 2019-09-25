@@ -212,6 +212,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             result.setDtrid(dataMap.get("dtrId").toString());
             result.setDtrxm(dataMap.get("dtrXm").toString());
         }
+        //扩展字段保存调查问卷的owid，方便统计和判断
+        result.setExp1(dataMap.get("dcwjRefOwid").toString());
         bckjBizDcwjJgService.save(result);
         for (Map<String, Object> map : answerList) {
             BckjBizDcwjDtmx answer = JsonUtil.map2Bean(map, BckjBizDcwjDtmx.class);
@@ -233,36 +235,19 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      */
     @Transactional(readOnly = false)
     public ResponseMessage saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
-        if (tmList.size() <= 0) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
-        }
         //保存调查问卷表
         save(dcwj);
+        String wjOwid = dcwj.getOwid();
         //保存调查问卷题目表
         for (BckjBizDcwjTm tm : tmList) {
-            if (null == tm.getDcwjRefOwid() && !TextUtils.isEmpty(tm.getOwid())) {
-                bckjBizDcwjTmService.delete(tm);
-            } else {
-                tm.setDcwjRefOwid(dcwj.getOwid());
-                bckjBizDcwjTmService.saveOrUpdate(tm);
+            bckjBizDcwjTmDao.delete(tm);
+            if (TextUtils.isEmpty(tm.getExp1())) {
+                tm.setDcwjRefOwid(wjOwid);
+                tm.setOwid("");
+                bckjBizDcwjTmService.save(tm);
             }
         }
         return ResponseMessage.sendOK("");
-    }
-
-    /**
-     * <p>方法:判断是否已回答 judgeAnswered TODO </p>
-     * <ul>
-     * <li> @param wjOwid TODO</li>
-     * <li> @param yhOwid TODO</li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-     * <li>@author xuyux </li>
-     * <li>@date 2019/9/24 17:46  </li>
-     * </ul>
-     */
-    public String judgeAnswered(String yhOwid) {
-        String tmOwid = bckjBizDcwjDtmxService.getTmOwid(yhOwid);
-        return bckjBizDcwjTmDao.getWjOwid(tmOwid);
     }
 
     /**

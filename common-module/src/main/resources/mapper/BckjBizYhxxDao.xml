@@ -263,8 +263,11 @@
 			<if test="owid != null and owid !=''">
 				AND a.owid = #{owid}
 			</if>
-			<if test="sjh != null and sjh !=''">
-				AND a.sjh = #{sjh}
+			<if test="sfz != null and sfz !=''">
+				AND a.sfz = #{sfz}
+			</if>
+			<if test="sjh!=null and sjh !=''">
+				and  a.sjh = #{sjh}
 			</if>
 		</where>
 	</select>
@@ -292,9 +295,45 @@
 			a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
 			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
 			b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
-			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b WHERE a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1
-			 order by a.lastupdate desc
+			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b
+			 <where>
+				 a.owid = b.`YH_REF_OWID` AND b.`OLX`=#{olx} and a.yhlx=1
+				 <if test="xm!=null and xm!=''">
+					and  a.xm like CONCAT('%',#{xm},'%')
+				 </if>
+				 <if test="xsxh!=null and xsxh!=''">
+					 and  b.xsxh like CONCAT('%',#{xsxh},'%')
+				 </if>
+				 <if test="sfz!=null and sfz!=''">
+					 and  a.sfz like CONCAT('%',#{sfz},'%')
+				 </if>
+			 </where>
+			 order by b.xsxh desc
 	</select>
+
+
+	<select id="showTeatchInfoList" resultMap="BckjBizStudentXxVo">
+		SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
+		a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
+		a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
+		b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo,
+		c.zjzw as zjzw,c.zjbgs as zjbgs,c.szxy as szxy,c.szzy as szzy
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b ,`bckj_biz_zjzx` c
+		<where>
+			a.owid = b.`YH_REF_OWID` and  a.owid = c.yhid AND b.`OLX`=#{olx} and a.yhlx=1
+			<if test="xm!=null and xm!=''">
+				and  a.xm like CONCAT('%',#{xm},'%')
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and  b.xsxh like CONCAT('%',#{xsxh},'%')
+			</if>
+			<if test="sfz!=null and sfz!=''">
+				and  a.sfz like CONCAT('%',#{sfz},'%')
+			</if>
+		</where>
+		order by b.xsxh desc
+	</select>
+
 
 	<resultMap id="BckjBizStudentXxVo" type="com.zghzbckj.vo.BckjBizStudentXxVo">
 		<id column="owid" jdbcType="VARCHAR" property="owid" />
@@ -316,8 +355,8 @@
 		<result column="dlzh" jdbcType="VARCHAR" property="dlzh" />
 		<result column="dlzhsj" jdbcType="VARCHAR" property="dlzhsj" />
 		<result column="dlzhsj" jdbcType="VARCHAR" property="dlzhsj" />
-		<result column="YH_DLZH" jdbcType="VARCHAR" property="yhDlzh" />
-		<result column="YH_DLMM" jdbcType="VARCHAR" property="yhDlmm" />
+		<result column="yhDlzh" jdbcType="VARCHAR" property="yhDlzh" />
+		<result column="yhDlmm" jdbcType="VARCHAR" property="yhDlmm" />
 		<result  column="olx" jdbcType="VARCHAR" property="olx"/>
 		<result  column="xsxh" jdbcType="VARCHAR" property="xsxh"/>
 		<result  column="xsxy" jdbcType="VARCHAR" property="xsxy"/>
@@ -326,6 +365,10 @@
 		<result  column="xsxm" jdbcType="VARCHAR" property="xsxm"/>
 		<result  column="lxr" jdbcType="VARCHAR" property="lxr"/>
 		<result  column="memo" jdbcType="VARCHAR" property="memo"/>
+		<result  column="zjzw" jdbcType="VARCHAR" property="zjzw"/>
+		<result  column="zjbgs" jdbcType="VARCHAR" property="zjbgs"/>
+		<result  column="szxy" jdbcType="VARCHAR" property="szxy"/>
+		<result  column="szzy" jdbcType="VARCHAR" property="szzy"/>
 	</resultMap>
 	
 	<select id="findAllMap" resultType="Map">
@@ -334,6 +377,27 @@
 			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
 			b.xsxh as xsxh, b.xsxy as xsxy, xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
 			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b WHERE a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1
+	</select>
+
+	<select id="getSfzList" resultType="String">
+		SELECT a.sfz AS sfz FROM `bckj_biz_yhxx` a where a.sfz is not null
+	</select>
+
+	<select id="getSjhList" resultType="String">
+		SELECT a.sjh AS sjh FROM `bckj_biz_yhxx` a where a.sjh is not null
+	</select>
+
+
+	<select id="findBySjh" resultType="BckjBizYhxx">
+		select <include refid="bckjBizYhxxColumns"></include>
+		from bckj_biz_yhxx a
+		where a.sjh=#{value }
+	</select>
+
+	<select id="findBySfz" resultType="BckjBizYhxx">
+		select <include refid="bckjBizYhxxColumns"></include>
+		from bckj_biz_yhxx a
+		where a.sfz=#{value}
 	</select>
 
 </mapper>

@@ -46,7 +46,22 @@
 			<include refid="bckjBizYhkzColumns"/>
 		FROM bckj_biz_yhkz a
 		<include refid="bckjBizYhkzJoins"/>
-		WHERE a.owid = #{owid}
+		<where>
+			<if test="owid!=null and owid !=''">
+				a.owid=#{owid}
+			</if>
+			<if test="xsxh!= null and xsxh!=''">
+				a.xsxh=#{xsxh}
+			</if>
+		</where>
+	</select>
+
+	<select id="getByXsxh" resultType="BckjBizYhkz">
+		SELECT
+		<include refid="bckjBizYhkzColumns"/>
+		FROM bckj_biz_yhkz a
+		<include refid="bckjBizYhkzJoins"/>
+				where a.xsxh=#{value}
 	</select>
 	
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizYhkz">
@@ -224,28 +239,31 @@
 		SELECT a.xsxh AS xsxh FROM `bckj_biz_yhkz` a where a.xsxh is not null;
 	</select>
 
+
 	<update id="updateBycondition" parameterType="Map">
 		update bckj_biz_yhkz a set
 		<if test="xsxh!=null and xsxh!=''">
-			a.xsxh=#{xsxh},
+			a.xsxh=#{xsxh}
 		</if>
 		<if test="xsxy!=null and xsxy!=''">
-			a.xsxy=#{xsxy},
+			and a.xsxy=#{xsxy}
 		</if>
 		<if test="xszy!=null and xszy!=''">
-			a.xszy=#{xszy},
+			and a.xszy=#{xszy}
 		</if>
 		<if test="xsbj!=null and xsbj!=''">
-			a.xsbj=#{xsbj},
+			and a.xsbj=#{xsbj}
 		</if>
 		<if test="xsnj!=null and xsnj!=''">
-			a.xsnj=#{xsnj},
+			and a.xsnj=#{xsnj}
 		</if>
 		<if test="xsbj!=null and xsbj!=''">
-			a.xsbj=#{xsbj}
+			and a.xsbj=#{xsbj}
+		</if>
+		<if test="lxr !=null and lxr!=''">
+			and a.lxr=#{lxr}
 		</if>
 		<where>
-
 			<if test="yhOwid!=null and yhOwid!=''">
 				 a.yh_ref_owid = #{yhOwid}
 			</if>
