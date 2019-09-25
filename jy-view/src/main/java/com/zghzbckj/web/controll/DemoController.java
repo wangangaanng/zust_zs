@@ -217,13 +217,14 @@ public class DemoController {
         return view;
     }
     @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
-    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "stuOwid",required = false) String stuOwid) {
         view.setViewName("inquiryDetail");
         view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());
         Map param=Maps.newHashMap();
         param.put("dcwjRefOwid",owid);
         param.put("wzbh","1");
+        param.put("yhOwid",stuOwid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizDcwj/dcwjDetail");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());

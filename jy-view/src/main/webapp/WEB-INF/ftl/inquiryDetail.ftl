@@ -103,6 +103,13 @@
 <script>
     var answerList=[];
     $(document).ready(function () {
+//        layer.open({
+//            title:'提示',
+//            content: '您已提交，请勿重复提交',
+//            yes: function(index, layero){
+//                layer.close(index);
+//            }
+//        });
         $(".wjcontent dt").each(function (k, p) {
             var obj={};
             obj.dcwjtmRefOwid=$(this).data("owid");
