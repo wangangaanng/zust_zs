@@ -42,7 +42,6 @@ public class DemoController {
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());
-
         //新闻公告-菜单
         Map param2=Maps.newHashMap();
         param2.put("wzbh","1");
@@ -151,6 +150,23 @@ public class DemoController {
             }
             view.addObject("third",wzList);
         }
+
+        //图片链接
+        Map param5=Maps.newHashMap();
+        param5.put("wzbh","1");
+        param5.put("fid","-1");
+        param5.put("bxlx","2");
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result5  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("tplink",result5.getBean());
+        //底部链接
+        Map param6=Maps.newHashMap();
+        param6.put("wzbh","1");
+        param6.put("fid","-1");
+        param6.put("bxlx","2");
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
+        view.addObject("ftlink",result6.getBean());
         return view;
     }
     @RequestMapping(value = "announcement", method = RequestMethod.GET)

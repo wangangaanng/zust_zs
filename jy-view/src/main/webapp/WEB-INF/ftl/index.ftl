@@ -197,12 +197,41 @@
                                 <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li>${obj.zwbt}</li>
-                                        <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea}</li>
-                                        <li>
-                                            <#if obj.zphKsrq?exists>
+                                        <#if objl_index==0>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea!''}</li>
+                                            <li>
+                                                <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
-                                        </li>
+                                            </li>
+                                        <#elseif objl_index==1>
+                                            <li>
+                                                <#if obj.createtime?exists>
+                                               ${obj.createtime?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        <#elseif objl_index==2>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zphJbdd!''}</li>
+                                            <li>
+                                                <#if obj.zphKsrq?exists>
+                                               ${obj.zphKsrq?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        <#elseif objl_index==3>
+                                            <li>${obj.qymc!''}</li>
+                                            <li>
+                                                <#if obj.createtime?exists>
+                                               ${obj.createtime?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        <#elseif objl_index==4>
+                                            <li>
+                                                <#if obj.createtime?exists>
+                                               ${obj.createtime?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        </#if>
+
                                     </ul>
                                 </li>
                             </#if>
@@ -329,11 +358,15 @@
     <!-- E c -->
     <div>
         <ul class="link">
-            <li><img src="${base}/img/link1.png" /></li>
-            <li><img src="${base}/img/link2.png" /></li>
-            <li><img src="${base}/img/link3.png" /></li>
-            <li><img src="${base}/img/link4.png" /></li>
-            <li><img src="${base}/img/link5.png" /></li>
+            <#if (tplink??)&&(tplink?size>0)>
+            <#list tplink as ob>
+                <#if (ob_index==0)&&(ob.chirdMenu??)&&(ob.chirdMenu?size>0)>
+                    <#list ob.chirdMenu as obj>
+                        <li><img onclick="linkUrl('${obj.TZLJ!''}')" src="${imagePath}${obj.GGT!''}" /></li>
+                    </#list>
+                </#if>
+            </#list>
+            </#if>
         </ul>
     </div>
 </div>

@@ -103,15 +103,8 @@
     }
     function linkUrl(url) {
         if(url){
-            if(url=='/'){
-                window.open(url)
-            }else{
-                window.open("${base}/"+url)
-            }
-        }else{
-
+            window.open(url)
         }
-
     }
     function isopenUrl(url) {
         if(getCookie('stuOwid')){
