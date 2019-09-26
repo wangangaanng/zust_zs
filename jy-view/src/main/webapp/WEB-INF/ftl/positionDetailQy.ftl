@@ -96,7 +96,7 @@
                                 <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
-                                <#if zw??>
+                                <#if zw?? && (zw!="暂无")>
                                 <li>展位编号：<span>${zw}</span></li>
                                 </#if>
                             </ul>

@@ -8,6 +8,10 @@ $(document).ready(function () {
     myJobList()
 })
 
+function addZw() {
+    window.open(base+"/newJob")
+}
+
 function searchZw() {
     $("#table-job").bootstrapTable('refresh',{pageNumber:1});
 }
@@ -55,7 +59,7 @@ function myJobList() {
         showRefresh: false, //是否显示刷新按钮
         minimumCountColumns: 2, //最少允许的列数
         clickToSelect: true, //是否启用点击选中行
-        height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        // height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "owid", //每一行的唯一标识，一般为主键列
         showToggle: false, //是否显示详细视图和列表视图的切换按钮
         cardView: false, //是否显示详细视图
@@ -127,17 +131,9 @@ function operateFormatterZw(value, row, index) {
     return c + d;
 }
 
-function operateFormatterZph(value, row, index) {
-    var c = '<a class="green-color detail" href="#"  οnclick="info(\''
-        + row.owid
-        + '\')">查看</a> ';
-
-    return c;
-}
-
 window.operateEvents = {
     'click .detail': function (e, value, row, index) {
-        window.location.href='/fixJob/'+row.owid
+        window.open(base+'/fixJob/'+row.owid)
     },
     'click .remove': function (e, value, row, index) {
         layer.confirm('确定删除该条记录？', {
