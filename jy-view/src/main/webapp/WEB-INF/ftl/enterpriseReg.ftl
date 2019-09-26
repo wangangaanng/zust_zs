@@ -278,6 +278,13 @@
                                                 }
                                             }
                                         }
+                                        if(d.bean["地址"]){
+                                            if(d.bean["地址"].words){
+                                                if(d.bean["地址"].words!="无"){
+                                                    $("#qydz").val(d.bean["地址"].words)
+                                                }
+                                            }
+                                        }
                                         if(d.bean.fileName){
                                             $("#qyYyzzzp").val(d.bean.fileName)
                                         }
