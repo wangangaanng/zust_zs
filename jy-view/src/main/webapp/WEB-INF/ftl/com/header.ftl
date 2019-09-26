@@ -44,7 +44,7 @@
                         <div class="subnav-cont" rel="${obj_index}">
                             <div class="subnav-left fl"><img alt="${imagePath}${GGT!'defaultImg.png'}" src="${imagePath}${GGT!'defaultImg.png'}">
                                 <div class="subnav-motto">
-                                    <p>${obj.JSY}</p>
+                                    <p>${obj.JSY!''}</p>
                                     <#--<p class="tr">——张德江</p>-->
                                 </div></div>
                             <ul class="clearfix subnav fr">

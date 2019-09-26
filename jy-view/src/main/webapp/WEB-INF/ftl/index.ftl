@@ -187,11 +187,12 @@
                 <#list second as objl>
                     <#if objl_index==0>
                     <ul class="frame-list">
-                    <#else >
+                    <#else>
                     <ul class="frame-list" style="display: none">
                     </#if>
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
+                        <#if obj.zwlx??>
                             <#if obj_index<8>
                                 <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
@@ -205,14 +206,7 @@
                                     </ul>
                                 </li>
                             </#if>
-                        </#list>
-                    </#if>
-                </ul>
-                </#list>
-                <#list secondwz as objl>
-                    <ul class="frame-list" style="display: none">
-                    <#if (objl??)&&(objl?size>0)>
-                        <#list objl as obj>
+                        <#else >
                             <#if obj_index<8>
                                 <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                     <ul class="job">
@@ -225,9 +219,11 @@
                                     </ul>
                                 </li>
                             </#if>
+                        </#if>
+
                         </#list>
                     </#if>
-                </ul>
+                    </ul>
                 </#list>
             </div>
 
