@@ -45,7 +45,7 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String zwCity;
     private String zwArea;
     private String zphJbdd;
-    private String zphKsrq;
+    private Date zphKsrq;
     private String zphJtsj;
 
 
@@ -97,11 +97,11 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
         this.zphJbdd = zphJbdd;
     }
 
-    public String getZphKsrq() {
+    public Date getZphKsrq() {
         return zphKsrq;
     }
 
-    public void setZphKsrq(String zphKsrq) {
+    public void setZphKsrq(Date zphKsrq) {
         this.zphKsrq = zphKsrq;
     }
 
