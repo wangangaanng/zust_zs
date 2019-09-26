@@ -42,6 +42,7 @@ public class DemoController {
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         //新闻公告-菜单
         Map param2=Maps.newHashMap();
         param2.put("wzbh","1");
@@ -159,14 +160,6 @@ public class DemoController {
         PublicData publicData5= UnionHttpUtils.manageParam(param5,"/zustcommon/bckjDicMenu/getSyMenu");
         ResponseMessage result5  = UnionHttpUtils.doPosts(publicData5);
         view.addObject("tplink",result5.getBean());
-        //底部链接
-        Map param6=Maps.newHashMap();
-        param6.put("wzbh","1");
-        param6.put("fid","-1");
-        param6.put("bxlx","2");
-        PublicData publicData6= UnionHttpUtils.manageParam(param6,"/zustcommon/bckjDicMenu/getSyMenu");
-        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
-        view.addObject("ftlink",result6.getBean());
         return view;
     }
     @RequestMapping(value = "announcement", method = RequestMethod.GET)
@@ -179,6 +172,7 @@ public class DemoController {
     public ModelAndView articleTpl(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("articleTpl");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
@@ -219,6 +213,7 @@ public class DemoController {
     public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "stuOwid",required = false) String stuOwid) {
         view.setViewName("positionDetail");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("owid",owid);
         param.put("yhOwid",stuOwid);
@@ -232,6 +227,7 @@ public class DemoController {
     public ModelAndView positionDetailQy(HttpServletRequest request,ModelAndView view, @PathVariable String qybz, @PathVariable String owid) {
         view.setViewName("positionDetailQy");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("owid",owid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
@@ -244,6 +240,7 @@ public class DemoController {
     public ModelAndView positionDetailQyzw(HttpServletRequest request,ModelAndView view, @PathVariable String qybz, @PathVariable String zw, @PathVariable String owid) {
         view.setViewName("positionDetailQy");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("owid",owid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
@@ -256,6 +253,7 @@ public class DemoController {
     public ModelAndView inquiry(HttpServletRequest request,ModelAndView view) {
         view.setViewName("inquiry");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         return view;
     }
     @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
@@ -263,6 +261,7 @@ public class DemoController {
         view.setViewName("inquiryDetail");
         view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("dcwjRefOwid",owid);
         param.put("wzbh","1");
@@ -275,6 +274,7 @@ public class DemoController {
     @RequestMapping(value = "recruitment/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView recruitment(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
@@ -361,6 +361,7 @@ public class DemoController {
     public ModelAndView enterpriseReg(HttpServletRequest request,ModelAndView view) {
         view.setViewName("enterpriseReg");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20000");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -383,6 +384,7 @@ public class DemoController {
     public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
         view.setViewName("newJob");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20005");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -420,6 +422,7 @@ public class DemoController {
     public ModelAndView fixJob(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue("qyOwid") String qyOwid) {
         view.setViewName("fixJob");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("dicType","20005");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -463,6 +466,7 @@ public class DemoController {
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
         view.setViewName("enterpriseService");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
 //        Map param=Maps.newHashMap();
 //        param.put("dicType","20000");
 //        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
@@ -491,6 +495,7 @@ public class DemoController {
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid) {
         view.setViewName("jobFair");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("step",step);
         if(null!=owid){
             view.addObject("zphOwid",owid);
@@ -507,6 +512,7 @@ public class DemoController {
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
         view.setViewName("jobFair");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("step",step);
         return view;
     }
@@ -515,6 +521,7 @@ public class DemoController {
     public ModelAndView newsDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("newsDetail");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("owid",owid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getOne");
@@ -534,6 +541,7 @@ public class DemoController {
         view.setViewName("newsList");
         view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -572,6 +580,7 @@ public class DemoController {
         }
         view.setViewName("newsList");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -605,7 +614,7 @@ public class DemoController {
     public ModelAndView stuService(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("stuService");
         view.addObject("header",getHeader().getBean());
-        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -619,7 +628,7 @@ public class DemoController {
     public ModelAndView contactUs(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("contactUs");
         view.addObject("header",getHeader().getBean());
-        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -633,6 +642,7 @@ public class DemoController {
     public ModelAndView jydcList(HttpServletRequest request,ModelAndView view) {
         view.setViewName("jydcList");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         return view;
     }
 
@@ -641,12 +651,14 @@ public class DemoController {
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ranking");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         return view;
     }
 
     @RequestMapping(value = "enterpriseService/{secondDir}", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid, @PathVariable String secondDir) {
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         if(secondDir.equals("0")){//基本信息
             view.setViewName("enterpriseService");
@@ -683,6 +695,7 @@ public class DemoController {
     @RequestMapping(value = "stuCenter/{secondDir}", method = RequestMethod.GET)
     public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid, @PathVariable String secondDir) {
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         if(secondDir.equals("0")){//导师咨询
             view.setViewName("stuCenter");
             Map param=Maps.newHashMap();
@@ -723,6 +736,7 @@ public class DemoController {
     @RequestMapping(value = "stuCenter/{secondDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid, @PathVariable String secondDir, @PathVariable String currentPage) {
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         if(secondDir.equals("0")){//导师咨询
             view.setViewName("stuCenter");
             Map param=Maps.newHashMap();
@@ -760,6 +774,7 @@ public class DemoController {
     public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view, @PathVariable String towid) {
         view.setViewName("teacherDetail");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("towid",towid);
         Map param=Maps.newHashMap();
         param.put("owid",towid);
@@ -850,6 +865,16 @@ public class DemoController {
         param.put("wzbh","1");
         param.put("fid","-1");
         param.put("bxlx","1");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        return result;
+    }
+    public ResponseMessage getFooter(){
+        //底部链接
+        Map param=Maps.newHashMap();
+        param.put("wzbh","1");
+        param.put("fid","-1");
+        param.put("bxlx","3");
         PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjDicMenu/getSyMenu");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
