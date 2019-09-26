@@ -271,6 +271,20 @@
                                         }else{
                                             walert("识别失败")
                                         }
+                                        if(d.bean["单位名称"]){
+                                            if(d.bean["单位名称"].words){
+                                                if(d.bean["单位名称"].words!="无"){
+                                                    $("#qymc").val(d.bean["单位名称"].words)
+                                                }
+                                            }
+                                        }
+                                        if(d.bean["地址"]){
+                                            if(d.bean["地址"].words){
+                                                if(d.bean["地址"].words!="无"){
+                                                    $("#qydz").val(d.bean["地址"].words)
+                                                }
+                                            }
+                                        }
                                         if(d.bean.fileName){
                                             $("#qyYyzzzp").val(d.bean.fileName)
                                         }
