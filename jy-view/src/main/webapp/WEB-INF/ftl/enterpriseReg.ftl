@@ -402,7 +402,7 @@
                         closeBtn: 0,
                         content: '注册成功，待后台人员审核通过，便可登录。',
                         yes: function(index, layero){
-                            window.location.href="/";
+                            window.location.href=base;
                             layer.close(index);
                         }
                     });
