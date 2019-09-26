@@ -51,7 +51,7 @@
                 <div class="article-detail" style="border: none;">
                     <div class="article-detail-title">
                         <div class="h3">招聘指南</div>
-                        <div><span class="label1">作者：</span>浙江科技学院 &nbsp;&nbsp;&nbsp;<span class="label1">提交时间：</span>2019/4/28 20:04:08 &nbsp;&nbsp;&nbsp;<span class="label1">浏览：</span>21 次 </div>
+                        <div><span class="label1">发布人：</span>浙江科技学院 &nbsp;&nbsp;&nbsp;<span class="label1">发布时间：</span>2019/4/28 20:04:08 &nbsp;&nbsp;&nbsp;<span class="label1">浏览：</span>21 次 </div>
                     </div>
                     <div class="article-detail-text">
                         <p>
