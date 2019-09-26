@@ -72,11 +72,11 @@
                             <i></i> 我的提问：${obj.wtnr}
                             <div class="pull-right">${obj.twrq}</div>
                         </div>
-                        <#if obj.danr??>
+                        <#--<#if obj.danr??>-->
                         <div class="al-answer">
-                            <i></i> ${obj.hfName}的回复：${obj.danr!"暂无回复"}
+                            <i></i> ${obj.zjxm}的回复：${obj.danr!"暂无回复"}
                         </div>
-                        </#if>
+                        <#--</#if>-->
                         <div class="al-btn">
                             <button onclick="removeHistoryConsult('${obj.owid}',this)" class="btn">删除</button>
                             <#if obj.hfOwid??>
@@ -135,7 +135,7 @@
         setPage(currentPage, "${asklist.totalPage!'1'}", function () {
             openUrl('stuCenter/1/'+currentPage)
         })
-        // historyConsult()
+        historyConsult()
         $(".list-group-item").click(function(e) {
             var index=$(this).index()
             window.location.href="/stuCenter/"+index

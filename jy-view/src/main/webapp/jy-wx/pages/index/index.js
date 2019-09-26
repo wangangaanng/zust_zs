@@ -9,7 +9,7 @@ Page({
   },
   onLoad: function () {
     var data = this.data;
-    
+
   },
   onReachBottom: function () {
     console.log(1);
