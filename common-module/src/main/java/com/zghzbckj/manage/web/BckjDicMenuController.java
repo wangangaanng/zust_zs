@@ -101,14 +101,9 @@ public class BckjDicMenuController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "code", "name");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "name");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
-            }
-            //判断id是否为
-            boolean flag = bckjDicMenuService.isSingle(mapData);
-            if (!flag) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "已存在相同的编码");
             }
             return ResponseMessage.sendOK(bckjDicMenuService.saveTree(mapData));
         } catch (Exception e) {

@@ -243,7 +243,12 @@
                     "yhRefOwid":getCookie('stuOwid'),
                 }
                 ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
-                    layer.msg('申请成功', {icon: 1});
+                    if(data.backCode==0){
+                        layer.msg('申请成功', {icon: 1});
+                    }else{
+                        layer.msg(data.errorMess, {icon: 2});
+                    }
+
                 })
             }else{
                 login();
