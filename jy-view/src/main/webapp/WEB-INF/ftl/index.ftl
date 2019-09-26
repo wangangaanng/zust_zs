@@ -32,7 +32,7 @@
                 <div class="swiper-container news-swiper">
                     <div class="swiper-wrapper">
                     <#list first as objl>
-                        <#if (objl_index==1)&&(objl??)&&(objl?size>0)>
+                        <#if (objl_index==0)&&(objl??)&&(objl?size>0)>
                             <#assign count=0>
                             <#list objl as obj>
                                 <#if (obj.tpjj??)&&(count<5)>
