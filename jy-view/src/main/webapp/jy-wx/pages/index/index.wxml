@@ -12,8 +12,17 @@
 <van-tabs animated>
   <van-tab title="最新职位">
     <view>
-      <import src="../../libs/wxParse/wxParse.wxml"/>
-      <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
+      <a class="weui-media-box weui-media-box_appmsg">
+      <div class="weui-media-box__hd">
+        <image class="weui-media-box__thumb" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1679456154,2493198454&fm=26&gp=0.jpg" alt=""></image>
+          </div>
+        <div class="weui-media-box__bd">
+          <h4 class="index-guess_title">名称名称</h4>
+          <h6>年 · 万公里</h6>
+          <p>成交价<span class="index-guess_prize"> 万</span>
+          </p>
+        </div>
+      </a>
     </view>
   </van-tab>
   <van-tab title="最新企业">内容 2</van-tab>

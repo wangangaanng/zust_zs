@@ -155,12 +155,16 @@
                 title: '举办地点',
             }, {
                 field: 'zphKsrq',
-                title: '具体时间',
+                title: '举办时间',
                 align : 'center',
                 formatter:function(value,row,index){
-                    var value=row.zphKsrq.substring(0,10);
+                    var value=row.zphKsrq.substring(0,16);
                     return value;
                 }
+            },{
+                field: 'zphJtsj',
+                title: '举办时长',
+                align : 'center',
             }], //列设置
 
         });
