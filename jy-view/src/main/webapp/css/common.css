@@ -450,7 +450,8 @@ ul.pagination {
 }
 
  .article-detail-text{padding:20px;}
-.article-detail-text p { color: #5d5d5d;  line-height: 25px;  }
+.article-detail-text p { color: #5d5d5d;  line-height: 25px; font-size: 14px;}
+.article-detail-text p span{font-size: 14px !important;}
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
     z-index: 3;
     color: #fff;
