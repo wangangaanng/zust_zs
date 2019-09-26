@@ -149,14 +149,17 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
     @Transactional(readOnly = false)
     public Map removeMenu(Map<String, Object> mapData) {
         this.deleteByMap(mapData);
+        this.dao.deleteApply(mapData);
         return mapData;
     }
+
 
     @Transactional(readOnly = false)
     public BaseTree saveTree(Map<String, Object> mapData) {
         BckjDicMenu menu = JsonUtil.map2Bean(mapData, BckjDicMenu.class);
         if(TextUtils.isEmpty(menu.getOwid())) {
             this.save(menu);
+            menu.setCode(String.valueOf(menu.getOwid()));
             if(!TextUtils.isEmpty(menu.getPath()) && menu.getPath().endsWith("//")){
                 String path = menu.getPath().substring(0,menu.getPath().length()-1);
                 menu.setPath(path + menu.getOwid()+"/");
@@ -202,8 +205,9 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
     }
 
     public List<Map> getSyMenu(Map<String, Object> mapData) {
-        mapData.put("type",0);
+        mapData.put("type","0");
         List<Map> yjMenu=this.dao.getYjlm(mapData);
+        mapData.remove("bxlx");
         for(Map map:yjMenu){
             mapData.put("fid",map.get("OWID").toString());
             map.put("chirdMenu",this.dao.getYjlm(mapData));

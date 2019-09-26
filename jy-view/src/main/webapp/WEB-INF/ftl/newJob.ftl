@@ -30,20 +30,20 @@
         <div class="content-form">
             <form class="form-horizontal" id="registerForm" method="" action="" target="rfFrame">
                 <div class="form-group">
-                    <label for="qyTysh" class="col-sm-2 control-label">职位名称*：</label>
+                    <label for="qyTysh" class="col-sm-2 control-label">职位名称<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="zwbt" name="zwbt" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="zwPro" class="col-sm-2 control-label">所在省份*：</label>
+                    <label for="zwPro" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                     <div class="col-sm-3">
                         <select class="form-control" onchange="getCity()" name="zwPro" id="zwPro">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
-                    <label for="zwCity" class="col-sm-2 control-label">所在市*：</label>
+                    <label for="zwCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
                     <div class="col-sm-3">
                         <select class="form-control" onchange="getArea()" name="zwCity" id="zwCity">
                             <option value="">请选择</option>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="zwArea" class="col-sm-2 control-label">所在区*：</label>
+                    <label for="zwArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
                     <div class="col-sm-3">
                         <select class="form-control" name="zwArea" id="zwArea">
                             <option value="">请选择</option>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsxz" class="col-sm-2 control-label">职能类别*：</label>
+                    <label for="qyGsxz" class="col-sm-2 control-label">职能类别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGzzn" name="zwGzzn">
                             <option value="">请选择</option>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsxz" class="col-sm-2 control-label">工作性质*：</label>
+                    <label for="qyGsxz" class="col-sm-2 control-label">工作性质<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGzxz" name="zwGzxz">
                             <option value="">请选择</option>
@@ -83,25 +83,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qydz" class="col-sm-2 control-label">薪水*：</label>
+                    <label for="qydz" class="col-sm-2 control-label">薪水<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qydz" class="col-sm-2 control-label">邮箱*：</label>
+                    <label for="qydz" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="zwLxyx" name="zwLxyx" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qydz" class="col-sm-2 control-label">招聘人数*：</label>
+                    <label for="qydz" class="col-sm-2 control-label">招聘人数<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="number" class="form-control" id="zwZprs" name="zwZprs" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsxz" class="col-sm-2 control-label">年龄要求*：</label>
+                    <label for="qyGsxz" class="col-sm-2 control-label">年龄要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwNlyq" name="zwNlyq">
                             <option value="">请选择</option>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyHylb" class="col-sm-2 control-label">学历要求*：</label>
+                    <label for="qyHylb" class="col-sm-2 control-label">学历要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwXlyq" name="zwXlyq">
                             <option value="">请选择</option>
@@ -123,7 +123,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsgm" class="col-sm-2 control-label">工作年限*：</label>
+                    <label for="qyGsgm" class="col-sm-2 control-label">工作年限<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGznx" name="zwGznx">
                             <option value="">请选择</option>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsgm" class="col-sm-2 control-label">语言要求*：</label>
+                    <label for="qyGsgm" class="col-sm-2 control-label">语言要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwYyyq" name="zwYyyq">
                             <option value="">请选择</option>
@@ -145,7 +145,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="qyGsjs" class="col-sm-2 control-label">职位详情*：</label>
+                    <label for="qyGsjs" class="col-sm-2 control-label">职位详情<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10"></textarea>
                     </div>

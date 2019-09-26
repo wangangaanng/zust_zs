@@ -20,6 +20,14 @@
                 <div class="user-info" id="stuInfo" style="display: none;">
                     <a href="/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
                 </div>
+                <div class="search-bar" style="float: right;width: 350px;margin-top: 50px;border-bottom: none;display: none;">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="gjz2" placeholder="请输入">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="">搜索</button>
+                        </span>
+                    </div>
+                </div>
             </div>
             <div class="nav">
                 <ul>
