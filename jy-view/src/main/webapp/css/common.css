@@ -76,7 +76,7 @@ header .nav>ul>li:hover {
 }
 header .nav>ul>li.current{background: #fff;color:#008784;}
 /*二级导航*/
-.subnav-wrap{position: absolute;width: 100%;left: 0;top:53px;z-index: 500;background: rgba(255,255,255,0.9);}
+.subnav-wrap{position: absolute;width: 100%;left: 0;top:53px;z-index: 500;background: #ffffff;}
 .subnav-cont{display: none;}
 .subnav-left{width: 720px;padding: 25px 0;}
 .subnav-left img{display: block;float: left;width: 409px;height: 136px;}
