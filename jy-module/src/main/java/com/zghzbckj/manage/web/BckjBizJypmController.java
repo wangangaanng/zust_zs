@@ -14,14 +14,19 @@ import com.zghzbckj.manage.entity.BckjBizJypm;
 import com.zghzbckj.manage.service.BckjBizJypmService;
 import com.zghzbckj.util.ExcelUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.zghzbckj.util.IpAdrressUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -48,16 +53,21 @@ public class BckjBizJypmController extends BaseController {
      */
     @PostMapping(value = "jypmList")
     @ResponseBody
-    public ResponseMessage jypmList(PublicDataVO dataVO) {
+    public ResponseMessage jypmList(HttpServletRequest request, PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pmnf");
-            if (!msg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+            String ip = IpAdrressUtil.getIpAdrress(request);
+            if (innerIp(ip)) {
+                Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pmnf");
+                if (!msg.getSuccess()) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+                }
+                dataMap.put("orderBy", "szxy");
+                PageInfo<Map<String, Object>> pageInfo = bckjBizJypmService.rankPage(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
+                return ResponseMessage.sendOK(pageInfo);
+            } else {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "仅限内网IP用户查看");
             }
-            dataMap.put("orderBy", "szxy");
-            PageInfo<Map<String, Object>> pageInfo = bckjBizJypmService.rankPage(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
-            return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统错误");
@@ -146,6 +156,21 @@ public class BckjBizJypmController extends BaseController {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
+    }
+
+    /**
+     *<p>方法:判断是否内网IP innerIp TODO </p>
+     *<ul>
+     *<li> @param ip TODO</li>
+     *<li>@return boolean  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/26 16:18  </li>
+     *</ul>
+     */
+    private boolean innerIp(String ip) {
+        Pattern reg = Pattern.compile("^(127\\.0\\.0\\.1)|(localhost)|(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(172\\.((1[6-9])|(2\\d)|(3[01]))\\.\\d{1,3}\\.\\d{1,3})|(192\\.168\\.\\d{1,3}\\.\\d{1,3})$");
+        Matcher match = reg.matcher(ip);
+        return match.find();
     }
 
     @RequestMapping(value = "/getList")

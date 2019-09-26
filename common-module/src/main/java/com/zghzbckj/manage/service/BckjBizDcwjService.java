@@ -236,6 +236,9 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     @Transactional(readOnly = false)
     public ResponseMessage saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
         //保存调查问卷表
+        if (TextUtils.isEmpty(dcwj.getOwid())) {
+            dcwj.setSfyx(1);
+        }
         save(dcwj);
         String wjOwid = dcwj.getOwid();
         //保存调查问卷题目表
