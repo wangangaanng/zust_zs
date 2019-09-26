@@ -111,7 +111,6 @@ function myJobList1() {
             title: '展位',
         },{
             align : 'center',
-            // events:'operateEvents',
             field: 'owid',
             title: '操作',
             events: window.operateEvents,

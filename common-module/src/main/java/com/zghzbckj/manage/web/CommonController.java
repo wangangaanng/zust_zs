@@ -182,7 +182,7 @@ public class CommonController {
                 if (null == vat) {
                     vat = new HashMap(1);
                 }
-                vat.put("fileName", fileName);
+                vat.put("fileName", "pic/" + fileName);
             }
         } else if (2 == type) {
             bodys.put("id_card_side", "front");
@@ -196,7 +196,7 @@ public class CommonController {
                     vat = new HashMap(1);
                 }
                 vat.put("image_status", idcardDTO.get("image_status").toString());
-                vat.put("fileName", fileName);
+                vat.put("fileName", "pic/" + fileName);
             }
         }
         return vat;

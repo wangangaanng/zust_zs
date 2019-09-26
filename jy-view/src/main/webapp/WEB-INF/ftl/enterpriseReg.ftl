@@ -56,6 +56,12 @@
                     <div class="upload-sm">上传法人身份证正面照，自动识别、填充</div>
                 </div>
                 <div class="form-group">
+                    <label for="qyFrdbxm" class="col-sm-2 control-label">法人姓名<span class="red">*</span>：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="qyFrdbxm" name="qyFrdbxm" placeholder="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="qymc" class="col-sm-2 control-label">公司名称<span class="red">*</span>：</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" id="qymc" name="qymc" placeholder="" autocomplete="off">
@@ -153,7 +159,7 @@
                 </div>
 
                 <input type="hidden" id="qyYyzzzp" name="qyYyzzzp" />
-
+                <input type="hidden" id="qyFrsfzzp" name="qyFrsfzzp" />
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-default btn-common green">注册</button>
@@ -209,7 +215,6 @@
             }
         }
 
-        var isSuccess=0;
         $(document).ready(function () {
 
             $(".file1").change(function (e) {
@@ -256,42 +261,58 @@
                                         if(d.bean["社会信用代码"]){
                                             if(d.bean["社会信用代码"].words){
                                                 if(d.bean["社会信用代码"].words!="无"){
-                                                    isSuccess=1;
                                                     $("#qyTysh").val(d.bean["社会信用代码"].words)
                                                 }else{
-                                                    isSuccess=0;
-                                                    walert("识别失败，请重新上传")
+                                                    walert("识别失败")
                                                 }
                                             }else{
-                                                isSuccess=0;
-                                                walert("识别失败，请重新上传")
+                                                walert("识别失败")
                                             }
                                         }else{
-                                            isSuccess=0;
-                                            walert("识别失败，请重新上传")
+                                            walert("识别失败")
                                         }
                                         if(d.bean.fileName){
                                             $("#qyYyzzzp").val(d.bean.fileName)
                                         }
                                     }else if(type==2){
+                                        if(d.bean.image_status){
+                                            var image_status=d.bean.image_status;
+                                            if(image_status=="reversed_side"){
+                                                walert("身份证正反面颠倒，请重新选择")
+                                            }else if(image_status=="non_idcard"){
+                                                walert("上传的图片中不包含身份证，请重新选择")
+                                            }else if(image_status=="blurred"){
+                                                walert("身份证模糊，请重新选择")
+                                            }else if(image_status=="other_type_card"){
+                                                walert("上传照片为其他类型证照，请重新选择")
+                                            }else if(image_status=="over_exposure"){
+                                                walert("身份证关键字段反光或过曝，请重新选择")
+                                            }else if(image_status=="over_dark"){
+                                                walert("身份证欠曝（亮度过低），请重新选择")
+                                            }
+                                        }
+
+                                        if(d.bean["姓名"]){
+                                            if(d.bean["姓名"].words){
+                                                if(d.bean["姓名"].words!="无"){
+                                                    $("#qyFrdbxm").val(d.bean["姓名"].words)
+                                                }
+                                            }
+                                        }
                                         if(d.bean["公民身份号码"]){
                                             if(d.bean["公民身份号码"].words){
                                                 if(d.bean["公民身份号码"].words!="无"){
                                                     $("#qyFrsfz").val(d.bean["公民身份号码"].words)
-                                                }else{
-                                                    walert("识别失败")
                                                 }
-                                            }else{
-                                                walert("识别失败，请重新上传")
                                             }
-                                        }else{
-                                            walert("识别失败，请重新上传")
+                                        }
+                                        if(d.bean.fileName){
+                                            $("#qyFrsfzzp").val(d.bean.fileName)
                                         }
                                     }
 
                                 }else{
-                                    isSuccess=0;
-                                    walert("识别失败，请重新上传")
+                                    walert("识别失败")
                                 }
                             },
                             fail:function () {
@@ -314,6 +335,7 @@
                 rules: {
                     qyTysh:"required",
                     qyFrsfz:"required",
+                    qyFrdbxm:"required",
                     qymc:"required",
                     qyProv:"required",
                     qyCity:"required",
@@ -336,6 +358,7 @@
                 messages: {
                     qyTysh: "请填写",
                     qyFrsfz: "请填写",
+                    qyFrdbxm: "请填写",
                     qymc: "请填写",
                     qyProv: "请选择",
                     qyCity: "请选择",
@@ -388,11 +411,6 @@
                 walert("请上传营业执照");
                 return;
             }
-            if(isSuccess==0){
-                walert("营业执照识别有误，请重新上传");
-                return;
-            }
-
             var jsonObj = $("#registerForm").serializeObject()
             // console.log(jsonObj)
             ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
@@ -402,7 +420,7 @@
                         closeBtn: 0,
                         content: '注册成功，待后台人员审核通过，便可登录。',
                         yes: function(index, layero){
-                            window.location.href=base;
+                            window.location.href="/";
                             layer.close(index);
                         }
                     });

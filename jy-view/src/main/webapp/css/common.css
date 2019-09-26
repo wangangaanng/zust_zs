@@ -1123,6 +1123,7 @@ ul.pagination {
     text-overflow: ellipsis;
     word-wrap: break-word;
     -webkit-line-clamp: 4;
+    height: 80px;
 }
 
 .td-sm {
