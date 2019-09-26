@@ -67,7 +67,8 @@ function applyXjh(){
         '                        </div></div>'
     });
     laydate.render({
-        elem: '#xjsj' //指定元素
+        elem: '#xjsj', //指定元素
+        type: 'datetime'
     });
 }
 
@@ -122,6 +123,7 @@ function confirmQd() {
                 content: '宣讲会申请成功，请等待审核。',
                 yes: function(index, layero){
                     layer.close(index);
+                    searchXjh()
                 }
             });
         }else{
@@ -247,7 +249,6 @@ function operateFormatterZph(value, row, index) {
 function close1() {
     layer.close(layer2);
     layer2=null;
-    searchXjh()
 }
 
 var layer2;
@@ -261,7 +262,7 @@ window.operateEvents = {
                 if(data.bean){
                     var xjsj="";
                     if(data.bean.xjsj){
-                        xjsj=data.bean.xjsj.substring(0,10)
+                        xjsj=data.bean.xjsj
                     }else{
                         xjsj="暂无"
                     }
