@@ -47,7 +47,7 @@ public class DemoController {
         Map param2=Maps.newHashMap();
         param2.put("wzbh","1");
         param2.put("fid","16");
-        PublicData publicData1= UnionHttpUtils.manageParam(param2,"/zustcommon/bckjDicMenu/getSyMenu");
+        PublicData publicData1= UnionHttpUtils.manageParam(param2,"zustcommon/bckjDicMenu/getLmMenu");
         ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
         view.addObject("nav1",result1.getBean());
         List<Map> beanList = (List<Map>) result1.getBean();
@@ -78,7 +78,7 @@ public class DemoController {
         Map param3=Maps.newHashMap();
         param3.put("wzbh","1");
         param3.put("fid","17");
-        PublicData publicData2= UnionHttpUtils.manageParam(param3,"/zustcommon/bckjDicMenu/getSyMenu");
+        PublicData publicData2= UnionHttpUtils.manageParam(param3,"zustcommon/bckjDicMenu/getLmMenu");
         ResponseMessage result2  = UnionHttpUtils.doPosts(publicData2);
         view.addObject("nav2",result2.getBean());
         List<Map> beanList2 = (List<Map>) result2.getBean();
@@ -112,20 +112,20 @@ public class DemoController {
                     PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
                     if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
-                        wzListwz.add(((Map) resultMess2.getBean()).get("records"));
+                        wzList.add(((Map) resultMess2.getBean()).get("records"));
                     }else {
-                        wzListwz.add(Lists.newArrayList());
+                        wzList.add(Lists.newArrayList());
                     }
                 }
             }
             view.addObject("second",wzList);
-            view.addObject("secondwz",wzListwz);
+//            view.addObject("secondwz",wzListwz);
         }
         //职业指导-菜单
         Map param4=Maps.newHashMap();
         param4.put("wzbh","1");
         param4.put("fid","18");
-        PublicData publicData3= UnionHttpUtils.manageParam(param4,"/zustcommon/bckjDicMenu/getSyMenu");
+        PublicData publicData3= UnionHttpUtils.manageParam(param4,"zustcommon/bckjDicMenu/getLmMenu");
         ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
         view.addObject("nav3",result3.getBean());
         List<Map> beanList3 = (List<Map>) result3.getBean();
@@ -834,6 +834,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("wzbh","1");
         param.put("fid","-1");
+        param.put("bxlx","1");
         PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjDicMenu/getSyMenu");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
