@@ -4,5 +4,3 @@ page{background: #f3f3f5;}
 .van-tabs{margin-top: 10px;}
 .index-swiper{height: 300rpx;}
 .index-swiper image{width:750rpx;height: 100%;}
-.media-box{height:65px;border-bottom:1px dashed #CCCCCC;overflow:hidden;padding-top:10px;}
-.media-box_thumb{float:left;margin-right:8px;width:90px;height:60px;}
