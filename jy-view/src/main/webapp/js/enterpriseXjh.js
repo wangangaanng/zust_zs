@@ -98,7 +98,11 @@ function confirmQd() {
         "bmdx":1,
         "qyxxRefOwid":getCookie("qyOwid"),
         "lxr":$("#lxr").val().trim(),
-        "lxdh":$("#lxdh").val().trim()
+        "lxdh":$("#lxdh").val().trim(),
+        "xjsj":$("#xjsj").val(),
+        "jkr":$("#jkr").val(),
+        "jkrjs":$("#jkrjs").val(),
+        "xjhsqly":$("#xjhsqly").val(),
     }
     ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
         if(data.backCode==0){
@@ -184,16 +188,26 @@ function myJobList2() {
             field: 'zwbt',
             title: '标题',
             formatter:function(value,row,index){
-                var value=row.xjsj.substring(0,10);
-                return value+"宣讲会";
+                if(row.xjsj){
+                    var value=row.xjsj.substring(0,10);
+                    return value+"宣讲会";
+                }else{
+                    return "宣讲会";
+                }
+
             }
         }, {
             field: 'xjsj',
             title: '举办日期',
             align : 'center',
             formatter:function(value,row,index){
-                var value=row.xjsj.substring(0,10);
-                return value;
+                if(row.xjsj){
+                    var value=row.xjsj.substring(0,10);
+                    return value;
+                }else{
+                    return "-";
+                }
+
             }
         }, {
             align : 'center',

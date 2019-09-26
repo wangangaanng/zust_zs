@@ -71,11 +71,11 @@
                 <#if tlist??>
                     <#list tlist.records as obj>
                         <div class="teacher-item">
-                            <div class="t-bg" style="background: url("${obj.zjtx}")"></div>
+                            <div class="t-bg" style="background: url("${obj.zjtx!''}")"></div>
                         <div class="teacher-detail">
-                            <div class="t-name">${obj.zjxm}</div>
+                            <div class="t-name">${obj.zjxm!''}</div>
                             <div class="t-xhx"><span></span></div>
-                            <div class="t-sm">${obj.zjxx}</div>
+                            <div class="t-sm">${obj.zjxx!'暂无信息'}</div>
                             <div class="t-btn">
                                 <button class="btn t-zx green" onclick="question('${obj.owid}')">我要咨询</button>
                                 <button class="btn t-xq" onclick="window.location.href='/teacherDetail/${obj.owid}'">查看详情</button>
