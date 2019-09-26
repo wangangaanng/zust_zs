@@ -22,7 +22,7 @@
                 <div class="article-detail">
                     <div class="article-detail-title">
                         <div class="h3">${result.wzbt!''}</div>
-                        <div><span class="label1">作者：</span>${result.fbr!''} &nbsp;&nbsp;&nbsp;<span class="label1">提交时间：</span>${result.fbsj!''} &nbsp;&nbsp;&nbsp;<span class="label1">浏览：</span>${result.ydcs!'0'} 次 </div>
+                        <div><span class="label1">发布人：</span>${result.fbr!''} &nbsp;&nbsp;&nbsp;<span class="label1">发布时间：</span>${result.fbsj!''} &nbsp;&nbsp;&nbsp;<span class="label1">浏览：</span>${result.ydcs!'0'} 次 </div>
                     </div>
                     <div class="article-detail-text">
                         <p>${result.wznr!''}</p>

@@ -1,5 +1,6 @@
 <#assign base=request.contextPath />
-<#assign imagePath='http://192.168.3.222:8080/zjcFiles/'/>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
 <link rel="stylesheet" href="${base}/css/common.css" />
 <link rel="stylesheet" href="${base}/js/layer/skin/layer.css" />
@@ -9,4 +10,6 @@
 <script>
     var imagePath='${imagePath!""}';
     var base='${base!""}'
+    var localUrl = '${localUrl!""}';
+    var uploadUrl='${uploadUrl!""}';
 </script>

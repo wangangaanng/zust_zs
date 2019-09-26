@@ -296,78 +296,84 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         List<List<String>> list = poi.read(filename);
         System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
         if (list != null) {
-            for (int i = 2; i < list.size(); i++) {     //行循环
-                HashMap<Object, Object> dataMap = Maps.newHashMap();
-                List<String> cellList = list.get(i);
-                String xsxh = cellList.get(0);//学生学号/工号/税号
-                xsxh = ExcelUtils.stmodifyExcelData(xsxh);
-                excelXh.add(xsxh);
-                dataMap.put("xsxh", xsxh);
-                String xm = cellList.get(1); //姓名
-                dataMap.put("xm", xm);
-                String sfz = cellList.get(2);//身份证号
-                String regex = "\\d{15}(\\d{2}[0-9xX])?";
-                if (!sfz.matches(regex)) {
-                    return ResponseMessage.sendOK("存在错误的身份证格式录入");
-                }
-                excelSfz.add(sfz);
-                dataMap.put("sfz", sfz);
-                String mz = cellList.get(3);   //民族
-                dataMap.put("mz", mz);
-                String sjh = cellList.get(4);
-                sjh = ExcelUtils.stmodifyExcelData(sjh);//手机号
-                dataMap.put("sjh", sjh);
-                if (dataMap.get("sjh").toString().length() != 11) {
-                    return ResponseMessage.sendOK("存在错误的手机格式录入");
-                }
-                excelSjh.add(sjh);
-                String xb = cellList.get(5);//性别
-                if (xb.indexOf("男") != -1) {
-                    dataMap.put("xb", 1);
-                } else if (xb.indexOf("女") != -1) {
-                    dataMap.put("xb", 0);
-                }
-                String csrq = cellList.get(6);//出生日期
-                csrq = ExcelUtils.stmodifyExcelData(csrq);//进行变换
-                dataMap.put("csrq", ExcelUtils.stringtoDate(csrq));
-                String yx = cellList.get(7);//邮箱
-                dataMap.put("yx", yx);
-                String prov = cellList.get(8);//家庭住址(省)
-                dataMap.put("prov", prov);
-                String city = cellList.get(9);//家庭住址(市)
-                dataMap.put("city", city);
-                String area = cellList.get(10);//家庭住址(区,乡镇)
-                dataMap.put("area", area);
-                String xsxy = cellList.get(11);//所在学院
-                dataMap.put("xsxy", xsxy);
-                String xszy = cellList.get(12);//所在专业
-                dataMap.put("xszy", xszy);
-                String xsnj = cellList.get(13);
-                xsnj = ExcelUtils.modifyExcelData(xsnj);//所在年级
-                dataMap.put("xsnj", xsnj);
-                String xsbj = cellList.get(14);
-                xsbj = ExcelUtils.modifyExcelData(xsbj);//所在班级
-                dataMap.put("xsbj", xsbj);
-                String yhDlzh = cellList.get(15);
-                yhDlzh = ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
-                dataMap.put("yhDlzh", yhDlzh);
-                String yhDlmm = cellList.get(16);
-                yhDlmm = ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
-                dataMap.put("lxr", yhDlmm);
-                yhDlmm = TextUtils.MD5(yhDlmm);//md5加密
-                dataMap.put("yhDlmm", yhDlmm);
-                BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
-                BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
+            for (int i = 2; i < list.size(); i++) {
+                //学生信息录入
+                if(olx==0) {                           //行循环
+                    HashMap<Object, Object> dataMap = Maps.newHashMap();
+                    List<String> cellList = list.get(i);
+                    String xsxh = cellList.get(0);//学生学号/工号/税号
+                    xsxh = ExcelUtils.stmodifyExcelData(xsxh);
+                    excelXh.add(xsxh);
+                    dataMap.put("xsxh", xsxh);
+                    String xm = cellList.get(1); //姓名
+                    dataMap.put("xm", xm);
+                    String sfz = cellList.get(2);//身份证号
+                    String regex = "\\d{15}(\\d{2}[0-9xX])?";
+                    if (!sfz.matches(regex)) {
+                        return ResponseMessage.sendOK("存在错误的身份证格式录入");
+                    }
+                    excelSfz.add(sfz);
+                    dataMap.put("sfz", sfz);
+                    String mz = cellList.get(3);   //民族
+                    dataMap.put("mz", mz);
+                    String sjh = cellList.get(4);
+                    sjh = ExcelUtils.stmodifyExcelData(sjh);//手机号
+                    dataMap.put("sjh", sjh);
+                    if (dataMap.get("sjh").toString().length() != 11) {
+                        return ResponseMessage.sendOK("存在错误的手机格式录入");
+                    }
+                    excelSjh.add(sjh);
+                    String xb = cellList.get(5);//性别
+                    if (xb.indexOf("男") != -1) {
+                        dataMap.put("xb", 1);
+                    } else if (xb.indexOf("女") != -1) {
+                        dataMap.put("xb", 0);
+                    }
+                    String csrq = cellList.get(6);//出生日期
+                    csrq = ExcelUtils.stmodifyExcelData(csrq);//进行变换
+                    dataMap.put("csrq", ExcelUtils.stringtoDate(csrq));
+                    String yx = cellList.get(7);//邮箱
+                    dataMap.put("yx", yx);
+                    String prov = cellList.get(8);//家庭住址(省)
+                    dataMap.put("prov", prov);
+                    String city = cellList.get(9);//家庭住址(市)
+                    dataMap.put("city", city);
+                    String area = cellList.get(10);//家庭住址(区,乡镇)
+                    dataMap.put("area", area);
+                    String xsxy = cellList.get(11);//所在学院
+                    dataMap.put("xsxy", xsxy);
+                    String xszy = cellList.get(12);//所在专业
+                    dataMap.put("xszy", xszy);
+                    String xsnj = cellList.get(13);
+                    xsnj = ExcelUtils.modifyExcelData(xsnj);//所在年级
+                    dataMap.put("xsnj", xsnj);
+                    String xsbj = cellList.get(14);
+                    xsbj = ExcelUtils.modifyExcelData(xsbj);//所在班级
+                    dataMap.put("xsbj", xsbj);
+                    String yhDlzh = cellList.get(15);
+                    yhDlzh = ExcelUtils.stmodifyExcelData(yhDlzh);//登入账号
+                    dataMap.put("yhDlzh", yhDlzh);
+                    String yhDlmm = cellList.get(16);
+                    yhDlmm = ExcelUtils.stmodifyExcelData(yhDlmm);//登入账号
+                    dataMap.put("lxr", yhDlmm);
+                    yhDlmm = TextUtils.MD5(yhDlmm);//md5加密
+                    dataMap.put("yhDlmm", yhDlmm);
+                    BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
+                    BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
 
-                bckjBizYhkz.setOlx(0);  //类型 0 学生 1教师 2 工作人员 3 企业
-                bckjBizYhxx.setYhlx(1); //类型 1学生或老师 2企业
+                    bckjBizYhkz.setOlx(0);  //类型 0 学生 1教师 2 工作人员 3 企业
+                    bckjBizYhxx.setYhlx(1); //类型 1学生或老师 2企业
 
-                MapUtil.easySetByMap(dataMap, bckjBizYhxx);
-                MapUtil.easySetByMap(dataMap, bckjBizYhkz);
-                resultYhxx.add(bckjBizYhxx);
-                String owid = CustomSaveALL.preInsert(bckjBizYhxx);
-                bckjBizYhkz.setYhRefOwid(owid);
-                resultYhkz.add(bckjBizYhkz);
+                    MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+                    MapUtil.easySetByMap(dataMap, bckjBizYhkz);
+                    resultYhxx.add(bckjBizYhxx);
+                    String owid = CustomSaveALL.preInsert(bckjBizYhxx);
+                    bckjBizYhkz.setYhRefOwid(owid);
+                    resultYhkz.add(bckjBizYhkz);
+                    //如果为老师
+                }/*else (olx==1){
+
+                }*/
             }
         }
         //判断是否存在学号一样的数据

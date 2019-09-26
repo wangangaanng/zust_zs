@@ -200,7 +200,7 @@ var pageSize=10;
             area: ['420px', '240px'], //宽高
             content: '<div class="lxr-modal"><div class="row">\n' +
             '                            <div class="form-group">\n' +
-            '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人：</label>\n' +
+            '                                <label for="lxr" class="col-sm-4 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人：</label>\n' +
             '                                <div class="col-sm-6">\n' +
             '                                    <input type="text" class="form-control" id="lxr" name="lxr" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
@@ -208,7 +208,7 @@ var pageSize=10;
             '                        </div>\n' +
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
-            '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系电话：</label>\n' +
+            '                                <label for="lxdh" class="col-sm-4 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人手机号：</label>\n' +
             '                                <div class="col-sm-6">\n' +
             '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
@@ -227,9 +227,15 @@ var pageSize=10;
         if(!$("#lxr").val().trim()){
             walert("请填写联系人")
             return
-        }else if(!$("#lxdh").val().trim()){
-            walert("请填写联系人电话")
+        }
+        if(!$("#lxdh").val().trim()){
+            walert("请填写联系人手机号")
             return
+        }else{
+            if(!testSjh($("#lxdh").val().trim())){
+                walert("请填写正确手机号码")
+                return
+            }
         }
         var jsonObj ={
             "jobRefOwid":$("#zphOwid").val(),
@@ -296,7 +302,7 @@ var pageSize=10;
             showRefresh: false, //是否显示刷新按钮
             minimumCountColumns: 2, //最少允许的列数
             clickToSelect: true, //是否启用点击选中行
-            height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            // height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
             uniqueId: "owid", //每一行的唯一标识，一般为主键列
             showToggle: false, //是否显示详细视图和列表视图的切换按钮
             cardView: false, //是否显示详细视图

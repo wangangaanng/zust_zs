@@ -44,14 +44,26 @@ function onSelect(){
 }
 function initContent(date){
 	var str='';
-	if(json[date].length>0){
-		$.each(json[date],function (k, p) {
-			str+='<li>招聘会：<a title="'+p.zwbt+'" target="_blank" href="'+base+'/positionDetail/'+p.owid+'">'+p.zwbt+'</a></li>'
-        })
-	}
-	html = '<div class="datePickerLayout"> \
+	if(json[date].length>2){
+        if(json[date].length>0){
+            $.each(json[date],function (k, p) {
+                str+='<li class="swiper-slide"><a title="'+p.zwbt+'" target="_blank" href="'+base+'/positionDetail/'+p.owid+'">'+p.zwbt+'</a></li>'
+            })
+        }
+        html = '<div class="datePickerLayout"> \
+		<div class="swiper-container rl-swiper" style="height:50px;"><ul class="swiper-wrapper">'+str+'</ul></div> \
+	</div>';
+    }else{
+        if(json[date].length>0){
+            $.each(json[date],function (k, p) {
+                str+='<li><a title="'+p.zwbt+'" target="_blank" href="'+base+'/positionDetail/'+p.owid+'">'+p.zwbt+'</a></li>'
+            })
+        }
+        html = '<div class="datePickerLayout"> \
 		<ul>'+str+'</ul> \
 	</div>';
+    }
+
 	return  html;
 }
 function initDayHover(){
@@ -63,10 +75,11 @@ function initDayHover(){
         hoverTimer = setTimeout(function(){
             if(json[title]){
                 if(dDialog){
-                    dDialog.follow(t).content(initContent(title)).title(title);
+                    dDialog.follow(t).content(initContent(title));
+                    loadS();
                 }else{
                     dDialog = $.dialog({
-                        title:title,
+                        title:false,
                         id:'date',
                         resize:false,
                         drag :false,
@@ -75,6 +88,7 @@ function initDayHover(){
                             dDialog = null;
                         }
                     }).follow(t);
+                    loadS()
                 }
             }
         },300);
@@ -88,10 +102,11 @@ function initDayHover(){
         hoverTimer = setTimeout(function(){
             if(json[title]){
                 if(dDialog){
-                    dDialog.follow(t).content(initContent(title)).title(title);
+                    dDialog.follow(t).content(initContent(title));
+                    loadS();
                 }else{
                     dDialog = $.dialog({
-                        title:title,
+                        title:false,
                         id:'date',
                         resize:false,
                         drag :false,
@@ -100,6 +115,7 @@ function initDayHover(){
                             dDialog = null;
                         }
                     }).follow(t);
+                    loadS();
                 }
             }
         },300);
@@ -107,7 +123,19 @@ function initDayHover(){
 		clearTimeout(hoverTimer);
 	});
 }
-
+var rlswiper=""
+function loadS() {
+     rlswiper= new Swiper('.rl-swiper', {
+        autoplay:{
+            delay: 2000,
+        },
+        speed:1000,
+        direction : 'vertical',
+        loop:true,
+        slidesPerView: 2,
+        slidesPerGroup: 1,
+    });
+}
 function onChangeMonthYear(year,month,inst){
     var jsonObj = {
         "startTime": year+'-'+month+'-01',
@@ -168,4 +196,13 @@ function beforeShowDay(date) {
 
 $(function(){
 	initDatePicker();
+    $("body").on("mouseenter",".rl-swiper",function(){
+        rlswiper.autoplay.stop();
+    });
+    $("body").on("mouseleave",".rl-swiper", function () {
+        rlswiper.autoplay.start();
+    })
+    $("body").on("mouseleave",".aui_inner",function () {
+        art.dialog({id:'date'}).close();
+    })
 })

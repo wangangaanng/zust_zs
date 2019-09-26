@@ -76,7 +76,7 @@ header .nav>ul>li:hover {
 }
 header .nav>ul>li.current{background: #fff;color:#008784;}
 /*二级导航*/
-.subnav-wrap{position: absolute;width: 100%;left: 0;top:53px;z-index: 500;background: rgba(255,255,255,0.9);}
+.subnav-wrap{position: absolute;width: 100%;left: 0;top:53px;z-index: 500;background: #ffffff;}
 .subnav-cont{display: none;}
 .subnav-left{width: 720px;padding: 25px 0;}
 .subnav-left img{display: block;float: left;width: 409px;height: 136px;}
@@ -180,14 +180,29 @@ header .subnav-list li a{
     margin: 58px 0 56px 0;
 }
 
+.contact-info {
+    height: 115px;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-align-content: space-around;
+        -ms-flex-line-pack: distribute;
+            align-content: space-around;
+}
+
 .contact-info div {
-    height: 45px;
-    line-height: 45px;
+    width: 100%;
+    /*height: 45px;*/
+    /*line-height: 45px;*/
 }
 
 .ewm {
     float: right;
-    margin-top: -126px;
+    margin-top: -118px;
 }
 
 .ewm-border {
@@ -450,7 +465,8 @@ ul.pagination {
 }
 
  .article-detail-text{padding:20px;}
-.article-detail-text p { color: #5d5d5d;  line-height: 25px;  }
+.article-detail-text p { color: #5d5d5d;  line-height: 25px; font-size: 14px;}
+.article-detail-text p span{font-size: 14px !important;}
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
     z-index: 3;
     color: #fff;
@@ -763,7 +779,8 @@ ul.pagination {
   .news-ul li{margin-top: 10px;cursor: pointer;}
   .news-date{background: #9c9c9c;width: 60px;float: left;margin-right: 12px;font-size: 16px;text-align: center;}
   .news-date span{color: #fff;height: 29px;line-height: 29px;}
-  .news-date em{background: #008784;color: #fff;display: inherit;height: 29px;line-height: 29px;}
+  .news-date em{background: #008784;color: #fff;display: inherit;height: 29px;line-height: 29px;
+      font-size:16px;font-style: normal;}
   .news-content{height: 58px;font: bold 15px/24px '微软雅黑';color: #6d6d6d;}
   .news-ul li::after{content: ' '; display: block;width: calc(100% - 75px);height: 1px;border-bottom: 1px dashed #dcdcdc;float: right;}
 .file ul{list-style: none;}
@@ -1069,6 +1086,7 @@ ul.pagination {
 .td-detail {
     margin-top: -60px;
     width: 80%;
+    border: 1px solid #c6c6c6;
     background-color: #fff;
     margin-left: 10%;
     box-shadow: 0px 0px 2px 0px rgba(199, 199, 199, 0.75);
@@ -1098,9 +1116,14 @@ ul.pagination {
 .td-detail .t-sm {
     margin: 12px;
     text-indent: 2em;
-    display:-webkit-box;overflow:hidden;
-    white-space:normal!important;text-overflow:ellipsis;
-    word-wrap:break-word;-webkit-line-clamp:4;-webkit-box-orient:vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal!important;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 4;
+    height: 80px;
 }
 
 .td-sm {
@@ -1283,9 +1306,14 @@ button.green:hover{
 .teacher-detail .t-sm {
     margin: 12px;
     text-indent: 2em;
-    display:-webkit-box;overflow:hidden;
-    white-space:normal!important;text-overflow:ellipsis;
-    word-wrap:break-word;-webkit-line-clamp:4;-webkit-box-orient:vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal!important;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    -webkit-line-clamp: 4;
+    height: 80px;
 }
 
 .teacher-detail .t-btn {

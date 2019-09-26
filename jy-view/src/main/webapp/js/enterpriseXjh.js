@@ -26,7 +26,7 @@ function applyXjh(){
         '                                <div class="col-sm-3">\n' +
         '                                    <input type="text" class="form-control" id="lxr" name="lxr" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
-        '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系电话：</label>\n' +
+        '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机号：</label>\n' +
         '                                <div class="col-sm-3">\n' +
         '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
@@ -67,7 +67,8 @@ function applyXjh(){
         '                        </div></div>'
     });
     laydate.render({
-        elem: '#xjsj' //指定元素
+        elem: '#xjsj', //指定元素
+        type: 'datetime'
     });
 }
 
@@ -75,20 +76,29 @@ function confirmQd() {
     if(!$("#lxr").val().trim()){
         walert("请填写联系人")
         return
-    }else if(!$("#lxdh").val().trim()){
-        walert("请填写联系人电话")
+    }
+    if(!$("#lxdh").val().trim()){
+        walert("请填写联系人手机号")
         return
-    }else if(!$("#jkr").val().trim()){
+    }else {
+        if(!testSjh($("#lxdh").val().trim())){
+            walert("请填写正确手机号码")
+            return
+        }
+    }
+    if(!$("#jkr").val().trim()){
         walert("请填写讲课人")
         return
-    }else if(!$("#xjsj").val().trim()){
+    }
+    if(!$("#xjsj").val().trim()){
         walert("请填写宣讲时间")
         return
-    }else if(!$("#xjhsqly").val().trim()){
+    }
+    if(!$("#xjhsqly").val().trim()){
         walert("请填写申请理由")
         return
     }
-    else if(!$("#jkrjs").val().trim()){
+    if(!$("#jkrjs").val().trim()){
         walert("请填写讲课人介绍")
         return
     }
@@ -98,7 +108,11 @@ function confirmQd() {
         "bmdx":1,
         "qyxxRefOwid":getCookie("qyOwid"),
         "lxr":$("#lxr").val().trim(),
-        "lxdh":$("#lxdh").val().trim()
+        "lxdh":$("#lxdh").val().trim(),
+        "xjsj":$("#xjsj").val(),
+        "jkr":$("#jkr").val(),
+        "jkrjs":$("#jkrjs").val(),
+        "xjhsqly":$("#xjhsqly").val(),
     }
     ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
         if(data.backCode==0){
@@ -109,6 +123,7 @@ function confirmQd() {
                 content: '宣讲会申请成功，请等待审核。',
                 yes: function(index, layero){
                     layer.close(index);
+                    searchXjh()
                 }
             });
         }else{
@@ -137,23 +152,16 @@ function myJobList2() {
                     request.success({
                         row : data.bean.records || [],
                         total: data.bean.totalCount,
-                        // pageNumber:data.bean.currentPage,
-                        // pageSize:data.bean.pageSize
                     });
 
-                    // $('#table-job').bootstrapTable('load', data.bean.records);
                 }
             })
         },
 
         responseHandler:function(res){
-            // return res
             $('#table-xjh').bootstrapTable('load', res.row);
             return {
                 "total":res.total
-                // ,
-                // "pageNumber":res.pageNumber,
-                // "pageSize":res.pageSize
             }
         },
         toolbar: '#toolbar', //工具按钮用哪个容器
@@ -171,7 +179,7 @@ function myJobList2() {
         showRefresh: false, //是否显示刷新按钮
         minimumCountColumns: 2, //最少允许的列数
         clickToSelect: true, //是否启用点击选中行
-        height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        // height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "owid", //每一行的唯一标识，一般为主键列
         showToggle: false, //是否显示详细视图和列表视图的切换按钮
         cardView: false, //是否显示详细视图
@@ -184,16 +192,26 @@ function myJobList2() {
             field: 'zwbt',
             title: '标题',
             formatter:function(value,row,index){
-                var value=row.xjsj.substring(0,10);
-                return value+"宣讲会";
+                if(row.xjsj){
+                    var value=row.xjsj.substring(0,10);
+                    return value+"宣讲会";
+                }else{
+                    return "宣讲会";
+                }
+
             }
         }, {
             field: 'xjsj',
             title: '举办日期',
             align : 'center',
             formatter:function(value,row,index){
-                var value=row.xjsj.substring(0,10);
-                return value;
+                if(row.xjsj){
+                    var value=row.xjsj.substring(0,10);
+                    return value;
+                }else{
+                    return "-";
+                }
+
             }
         }, {
             align : 'center',
@@ -240,51 +258,61 @@ window.operateEvents = {
             "owid":row.owid,
         }
         ajax("zustjy/bckjBizJybm/getOne", jsonObj, function (data) {
-            layer2=layer.open({
-                type: 1,
-                title:'详情',
-                skin: 'layui-layer-rim', //加上边框
-                area: ['750px', '320px'], //宽高
-                content: '<div class="lxr-modal"><div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
-                '                                <div class="col-sm-3">\n' + data.bean.lxr +
-                '                                </div>\n' +
-                '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系电话：</label>\n' +
-                '                                <div class="col-sm-3">\n' + data.bean.lxdh +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                        </div>\n' +
-                '                        <div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人：</label>\n' +
-                '                                <div class="col-sm-3">\n' + data.bean.jkr +
-                '                                </div>\n' +
-                '                                <label for="xjsj" class="col-sm-2 control-label text-right">宣讲时间：</label>\n' +
-                '                                <div class="col-sm-3">\n' + data.bean.xjsj.substring(0,10) +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                            </div>\n' +
-                '                        <div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right">申请理由：</label>\n' +
-                '                                <div class="col-sm-8">\n' + data.bean.xjhsqly +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                            </div>\n' +
-                '                        <div class="row">\n' +
-                '                            <div class="form-group">\n' +
-                '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人介绍：</label>\n' +
-                '                                <div class="col-sm-8">\n' + data.bean.jkrjs +
-                '                                </div>\n' +
-                '                            </div>\n' +
-                '                            </div>\n' +
-                '                        <div class="row btn-yd">\n' +
-                '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                '                                <button class="btn green" onclick="close1()">关闭</button>\n' +
-                '                            </div>\n' +
-                '                        </div></div>'
-            });
+            if(data.backCode==0){
+                if(data.bean){
+                    var xjsj="";
+                    if(data.bean.xjsj){
+                        xjsj=data.bean.xjsj
+                    }else{
+                        xjsj="暂无"
+                    }
+                    layer2=layer.open({
+                        type: 1,
+                        title:'详情',
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['750px', '320px'], //宽高
+                        content: '<div class="lxr-modal"><div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
+                        '                                <div class="col-sm-3">\n' + data.bean.lxr +
+                        '                                </div>\n' +
+                        '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系人手机号：</label>\n' +
+                        '                                <div class="col-sm-3">\n' + data.bean.lxdh +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人：</label>\n' +
+                        '                                <div class="col-sm-3">\n' + data.bean.jkr +
+                        '                                </div>\n' +
+                        '                                <label for="xjsj" class="col-sm-2 control-label text-right">宣讲时间：</label>\n' +
+                        '                                <div class="col-sm-3">\n' + xjsj +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right">申请理由：</label>\n' +
+                        '                                <div class="col-sm-8">\n' + data.bean.xjhsqly +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人介绍：</label>\n' +
+                        '                                <div class="col-sm-8">\n' + data.bean.jkrjs +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row btn-yd">\n' +
+                        '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+                        '                                <button class="btn green" onclick="close1()">关闭</button>\n' +
+                        '                            </div>\n' +
+                        '                        </div></div>'
+                    });
+                }
+            }
         })
 
     },

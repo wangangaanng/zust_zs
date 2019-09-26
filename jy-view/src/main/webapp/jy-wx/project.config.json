@@ -23,7 +23,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.8.2",
-	"appid": "wx594b173847df6fd4",
+	"appid": "wx618803b392a8c474",
 	"projectname": "jy-wx",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -40,13 +40,29 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"gamePlugin": {
 			"current": -1,
 			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/mustache/mustache",
+					"pathName": "pages/mustache/mustache",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }

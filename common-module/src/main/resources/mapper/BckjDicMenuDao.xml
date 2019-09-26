@@ -256,9 +256,18 @@
 		WHERE owid = #{owid}
 	</delete>
 
+	<delete id="deleteApply">
+		DELETE FROM bckj_dic_menu_apply
+		WHERE menu_ref_owid = #{owid}
+	</delete>
+
 	<select id="getYjlm" resultType="Map">
 		SELECT a.OWID,a.CODE,a.BXLX,a.SJHQDX,a.TZLJ,b.NAME,b.GGT,b.JSY,b.PX FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
-		a.OWID=b.MENU_REF_OWID AND b.TYPE=#{type} and b.WZBH=#{wzbh} and a.FID=#{fid} ORDER BY b.PX
+		a.OWID=b.MENU_REF_OWID AND b.TYPE=#{type} and b.WZBH=#{wzbh} and a.FID=#{fid}
+		<if test="bxlx !=null">
+			AND a.BXLX=#{bxlx}
+		</if>
+		ORDER BY b.PX
 	</select>
 
 	<select id="countMenu" resultType="java.lang.Long">

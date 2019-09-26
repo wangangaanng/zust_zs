@@ -31,13 +31,17 @@
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
                     <div class="swiper-wrapper">
-                    <#if (first1??)&&(first1?size>0)>
-                        <#list first1 as obj>
-                        <#if obj.tpjj??>
-                            <div class="swiper-slide"><img alt="${obj.wzbt}" src="${imagePath+obj.tpjj}" /></div>
+                    <#list first as objl>
+                        <#if (objl_index==1)&&(objl??)&&(objl?size>0)>
+                            <#assign count=0>
+                            <#list objl as obj>
+                                <#if (obj.tpjj??)&&(count<5)>
+                                    <div class="swiper-slide"><img alt="${obj.wzbt}" title="${obj.wzbt}" onclick="openUrl('newsDetail/${obj.owid!''}')" src="${imagePath+obj.tpjj}" /></div>
+                                    <#assign count+=1>
+                                </#if>
+                            </#list>
                         </#if>
-                        </#list>
-                    </#if>
+                    </#list>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
@@ -183,32 +187,55 @@
                 <#list second as objl>
                     <#if objl_index==0>
                     <ul class="frame-list">
-                    <#else >
+                    <#else>
                     <ul class="frame-list" style="display: none">
                     </#if>
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
+                        <#if obj.zwlx??>
                             <#if obj_index<8>
                                 <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li>${obj.zwbt}</li>
-                                        <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea}</li>
-                                        <li>
-                                            <#if obj.zphKsrq?exists>
+                                        <#if objl_index==0>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea!''}</li>
+                                            <li>
+                                                <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
-                                        </li>
+                                            </li>
+                                        <#elseif objl_index==1>
+                                            <li>
+                                                <#if obj.createtime?exists>
+                                               ${obj.createtime?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        <#elseif objl_index==2>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zphJbdd!''}</li>
+                                            <li>
+                                                <#if obj.zphKsrq?exists>
+                                               ${obj.zphKsrq?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        <#elseif objl_index==3>
+                                            <li>${obj.qymc!''}</li>
+                                            <li>
+                                                <#if obj.createtime?exists>
+                                               ${obj.createtime?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        <#elseif objl_index==4>
+                                            <li>
+                                                <#if obj.createtime?exists>
+                                               ${obj.createtime?substring(0,10)}
+                                            </#if>
+                                            </li>
+                                        </#if>
+
                                     </ul>
                                 </li>
                             </#if>
-                        </#list>
-                    </#if>
-                </ul>
-                </#list>
-                <#list secondwz as objl>
-                    <ul class="frame-list" style="display: none">
-                    <#if (objl??)&&(objl?size>0)>
-                        <#list objl as obj>
+                        <#else >
                             <#if obj_index<8>
                                 <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                     <ul class="job">
@@ -221,9 +248,11 @@
                                     </ul>
                                 </li>
                             </#if>
+                        </#if>
+
                         </#list>
                     </#if>
-                </ul>
+                    </ul>
                 </#list>
             </div>
 
@@ -329,11 +358,15 @@
     <!-- E c -->
     <div>
         <ul class="link">
-            <li><img src="${base}/img/link1.png" /></li>
-            <li><img src="${base}/img/link2.png" /></li>
-            <li><img src="${base}/img/link3.png" /></li>
-            <li><img src="${base}/img/link4.png" /></li>
-            <li><img src="${base}/img/link5.png" /></li>
+            <#if (tplink??)&&(tplink?size>0)>
+            <#list tplink as ob>
+                <#if (ob_index==0)&&(ob.chirdMenu??)&&(ob.chirdMenu?size>0)>
+                    <#list ob.chirdMenu as obj>
+                        <li><img onclick="linkUrl('${obj.TZLJ!''}')" src="${imagePath}${obj.GGT!''}" /></li>
+                    </#list>
+                </#if>
+            </#list>
+            </#if>
         </ul>
     </div>
 </div>
@@ -352,7 +385,11 @@
             el: '.swiper-pagination',
             clickable :true,
         },
-        autoplay:true,
+        autoplay:{
+            delay: 5000,
+        },
+        loop:true,
+
     });
     $(".login-tabbar a").click(function(){
         if($(this).index()==0){

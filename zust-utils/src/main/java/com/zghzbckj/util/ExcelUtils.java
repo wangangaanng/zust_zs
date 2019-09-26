@@ -230,9 +230,24 @@ public class ExcelUtils {
     }
     public static String stmodifyExcelData(String data){
         data.replaceAll(" ", "");
-        data=data.replaceAll("\\.", "");
-        if(data.indexOf("E")!=-1) {
-            return data.substring(0, data.indexOf("E"));
+        int dianCount=0;
+        int eCount =0;
+        int finalNum=0;
+        if(data.indexOf(".")!=-1){
+            dianCount=data.indexOf(".");
+            data=data.replaceAll("\\.", "");
+        }
+        if(data.indexOf("E")!=-1){
+            eCount=data.indexOf("E");
+            finalNum=Integer.parseInt(data.substring(data.indexOf("E")+1));
+            if((eCount-dianCount)<finalNum){
+                data = data.substring(0, data.indexOf("E"));
+                for(int count=0;count<(finalNum-(eCount-dianCount));count++){
+                    data=data+"0";
+                }
+            }else {
+                data=data.substring(0,data.indexOf("E"));
+            }
         }
         return data;
     }

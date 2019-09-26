@@ -158,6 +158,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             bckjBizJob.setZwlx(zwlx);
             bckjBizJob.setState(JyContant.JOB_ZT_TG);
         }
+        if (!TextUtils.isEmpty(mapData.get("zphKsrq"))) {
+            bckjBizJob.setZphKsrq(DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd HH:mm:ss"));
+        }
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
     }
