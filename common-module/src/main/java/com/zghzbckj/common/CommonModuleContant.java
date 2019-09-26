@@ -26,7 +26,8 @@ public static final String BACK_TYPE_URL_HOST = "http://172.16.13.109:8080/webAp
     public final static String SPILT_POINT = ".";
     public final static String ID_URL = "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard?access_token=";
     public final static String LICENSE_URL = "https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token=";
-    public static final String BACK_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getByType.do";
+//    public static final String BACK_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getByType.do";
+    public static final String BACK_URL_HOST = "http://172.16.13.109:8080/webApi/dicValue/getByType.do";
     public static String APP_ID = "17232634";
     public static String API_KEY = "dMST2glOiL4Z1RCx6I42AG0N";
     public static String SECRET_KEY = "QQ2PADGVib0vzlz0GZN9EpSRFtKtZla4";
