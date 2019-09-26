@@ -46,7 +46,16 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String zwArea;
     private String zphJbdd;
     private String zphKsrq;
+    private String zphJtsj;
 
+
+    public String getZphJtsj() {
+        return zphJtsj;
+    }
+
+    public void setZphJtsj(String zphJtsj) {
+        this.zphJtsj = zphJtsj;
+    }
 
     public String getZwbt() {
         return zwbt;

@@ -83,6 +83,7 @@
         b.zw_area AS "zwArea",
         b.zph_jbdd AS "zphJbdd",
         b.zph_ksrq AS "zphKsrq",
+        b.zph_jtsj AS "zphJtsj",
         <include refid="bckjBizJybmColumns"/>
         FROM bckj_biz_jybm a
         LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
