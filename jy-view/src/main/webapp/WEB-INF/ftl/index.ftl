@@ -356,8 +356,11 @@
             el: '.swiper-pagination',
             clickable :true,
         },
-        autoplay:true,
+        autoplay:{
+            delay: 5000,
+        },
         loop:true,
+
     });
     $(".login-tabbar a").click(function(){
         if($(this).index()==0){
