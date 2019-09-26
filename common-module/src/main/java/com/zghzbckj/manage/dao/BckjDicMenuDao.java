@@ -24,4 +24,5 @@ public interface BckjDicMenuDao extends CrudDao<BckjDicMenu> {
 
     Long countMenu();
 
+    long deleteApply(Map<String, Object> mapData);
 }
