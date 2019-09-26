@@ -208,6 +208,8 @@
 
             }
         }
+
+        var isSuccess=0;
         $(document).ready(function () {
 
             $(".file1").change(function (e) {
@@ -239,7 +241,6 @@
                             }));
                         }
 
-                        // fd.append("method", "zustcommon/common/picUpload");
                         beginLoad()
                         $.ajax({
                             url: uploadUrl,
@@ -255,14 +256,18 @@
                                         if(d.bean["社会信用代码"]){
                                             if(d.bean["社会信用代码"].words){
                                                 if(d.bean["社会信用代码"].words!="无"){
+                                                    isSuccess=1;
                                                     $("#qyTysh").val(d.bean["社会信用代码"].words)
                                                 }else{
-                                                    walert("识别失败")
+                                                    isSuccess=0;
+                                                    walert("识别失败，请重新上传")
                                                 }
                                             }else{
+                                                isSuccess=0;
                                                 walert("识别失败，请重新上传")
                                             }
                                         }else{
+                                            isSuccess=0;
                                             walert("识别失败，请重新上传")
                                         }
                                         if(d.bean.fileName){
@@ -284,6 +289,9 @@
                                         }
                                     }
 
+                                }else{
+                                    isSuccess=0;
+                                    walert("识别失败，请重新上传")
                                 }
                             },
                             fail:function () {
@@ -380,9 +388,13 @@
                 walert("请上传营业执照");
                 return;
             }
+            if(isSuccess==0){
+                walert("营业执照识别有误，请重新上传");
+                return;
+            }
 
             var jsonObj = $("#registerForm").serializeObject()
-            console.log(jsonObj)
+            // console.log(jsonObj)
             ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
                 if(data.backCode==0){
                     layer.open({
