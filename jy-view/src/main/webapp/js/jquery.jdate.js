@@ -46,7 +46,7 @@ function initContent(date){
 	var str='';
 	if(json[date].length>0){
 		$.each(json[date],function (k, p) {
-			str+='<li>招聘会：<a title="'+p.zwbt+'" target="_blank" href="'+base+'/positionDetail/'+p.owid+'">'+p.zwbt+'</a></li>'
+			str+='<li><a title="'+p.zwbt+'" target="_blank" href="'+base+'/positionDetail/'+p.owid+'">'+p.zwbt+'</a></li>'
         })
 	}
 	html = '<div class="datePickerLayout"> \

@@ -22,7 +22,6 @@
                         ${thirdDirName!''}
                     </div>
                     <div class="article-detail-text">
-                        <!--学校简介、中心介绍-->
                         <#if (bxlx??)&&(bxlx=="0")&&(result??)>
                             <p>${result.wznr!''}</p>
                         <#if (result.fileList??)&&(result.fileList?size>0)>
@@ -38,7 +37,6 @@
 
                         </#if>
 
-                        <!--学院专业-->
                         <#if (bxlx??)&&(bxlx=="1")>
                         <style>
                             .xyzy{color: #008784;padding-right: 20px;padding-top: 15px;}
@@ -54,14 +52,6 @@
                             </#if>
                         </ul>
                         </#if>
-                        <!--学院详情-->
-                        <!--newsDetail.html类-->
-
-
-                        <!--新闻公告、新闻快递、校内公示-->
-                        <!--newsList.html类-->
-                        <!--详情-->
-                        <!--newsDetail.html类-->
 
 
                     </div>

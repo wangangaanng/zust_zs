@@ -31,13 +31,17 @@
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
                     <div class="swiper-wrapper">
-                    <#if (first1??)&&(first1?size>0)>
-                        <#list first1 as obj>
-                        <#if obj.tpjj??>
-                            <div class="swiper-slide"><img alt="${obj.wzbt}" src="${imagePath+obj.tpjj}" /></div>
+                    <#list first as objl>
+                        <#if (objl_index==1)&&(objl??)&&(objl?size>0)>
+                            <#assign count=0>
+                            <#list objl as obj>
+                                <#if (obj.tpjj??)&&(count<5)>
+                                    <div class="swiper-slide"><img alt="${obj.wzbt}" title="${obj.wzbt}" onclick="openUrl('newsDetail/${obj.owid!''}')" src="${imagePath+obj.tpjj}" /></div>
+                                    <#assign count+=1>
+                                </#if>
+                            </#list>
                         </#if>
-                        </#list>
-                    </#if>
+                    </#list>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
@@ -352,7 +356,11 @@
             el: '.swiper-pagination',
             clickable :true,
         },
-        autoplay:true,
+        autoplay:{
+            delay: 5000,
+        },
+        loop:true,
+
     });
     $(".login-tabbar a").click(function(){
         if($(this).index()==0){

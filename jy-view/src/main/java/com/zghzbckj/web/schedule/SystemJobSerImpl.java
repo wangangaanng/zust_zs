@@ -2,6 +2,7 @@ package com.zghzbckj.web.schedule;
 
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.web.constant.Constant;
+import com.zghzbckj.web.controll.ApiConstants;
 import com.zghzbckj.web.utils.PropertiesUtil;
 import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,6 +29,10 @@ public class SystemJobSerImpl {
                 Constant.APP_KEY = PropertiesUtil.readProperty(p, Constant.CLIENT_KEY);
                 Constant.URL_HOST = PropertiesUtil.readProperty(p, Constant.HOST_KEY);
                 Constant.APP_SECTRECT = PropertiesUtil.readProperty(p, Constant.SECRECT_KEY);
+                ApiConstants.imagePath= PropertiesUtil.readProperty(p, Constant.IMAGEPATH);
+                ApiConstants.localUrl=PropertiesUtil.readProperty(p, Constant.LOCALURL);
+                ApiConstants.uploadUrl=PropertiesUtil.readProperty(p, Constant.UPLOADURL);
+
             }
         } catch (Exception e) {
             logger.error("初始化失败{}",e);

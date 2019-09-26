@@ -8,7 +8,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 }
 /* 框架 */
 .frame-wrap {width: 1200px;margin-left: auto;margin-right: auto;}
-.box{background: #FFF;border: 1px solid #ddd;}
+.box{background: #FFF;border: 1px solid #f7f7f7;}
 .overh{overflow: hidden;}
 .bold{font-weight: bold;}
 .frame-a,.frame-b,.frame-c{margin-top: 20px;overflow: hidden;}
@@ -47,14 +47,14 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 /* 登录 */
 .login-inform input,.login-inform-qy input{width: 100%;height: 55px;border: 1px solid #eaeef1;font-size: 14px;padding-left: 55px;background: #f7f7f7;border-radius: 4px;}
 .login-inform input:focus,.login-inform-qy input:focus{border-color: #78c9fd}
-.login-inform input[type='button'],.login-inform-qy input[type='button']{background-color: #f5b900;border: none;color: #FFF;line-height: 38px;color: #FFF;font-size: 18px;border-radius: 4px;padding-left: 0px;}
+.login-inform input[type='button'],.login-inform-qy input[type='button']{background-color: #f5b900;border: none;color: #FFF;line-height: 45px;height:45px;color: #FFF;font-size: 18px;border-radius: 4px;padding-left: 0px;}
 .login-inform input[type='button']:hover,.login-inform-qy input[type='button']:hover{background-color:rgba(255, 168, 1,0.9)}
 .login-inform,.login-btn_group,.login-inform-qy{width: 100%;}
 .login-inform,.login-inform-qy{position: relative;padding: 20px;}
 .login-inform li,.login-inform-qy li{position: relative;margin-bottom: 20px;}
 .login-inform li label,.login-inform-qy li label{ position: absolute;width: 55px;height: 55px;text-align: center;line-height: 55px;border-radius: 4px 0px 0px 4px}
 .login-tabbar{border-bottom: 2px solid #008784;}
-.login-tabbar a{height: 60px;line-height: 60px;width: 50%;text-align: center;display: inline-block;color: #008784;}
+.login-tabbar a{height: 48px;line-height: 48px;width: 50%;text-align: center;display: inline-block;color: #008784;font-size: 16px;  font-weight: bold;}
 .login-tabbar a.active{background: #008784;color: #fff;}
 .company-form{padding: 20px;}
 .company-form .link2{cursor: pointer;}
@@ -64,12 +64,12 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .company-form li:nth-of-type(2){background-color: #f5b900;color: #000;margin-bottom: 10px;}
 .company-form li:nth-of-type(3){background-color: #035994;color: #FFF;margin-bottom: 10px;}
 .company-form li:nth-of-type(4){background-color: #1f1a17;color: #FFF;}
-
+.company-form1 li p{margin-top: 25px;margin-bottom: 45px;}
 .company-form1 li:nth-of-type(2){background-color: #035994;color: #FFF;margin-bottom: 10px;}
 .company-form1 li:nth-of-type(3){background-color: #f5b900;color: #000;margin-bottom: 10px;}
 .company-form1 li:nth-of-type(4){background-color: #1f1a17;color: #FFF;}
 .login-inform li:nth-of-type(2){margin-bottom: 30px;}
-.login-inform-qy li:nth-of-type(2),.login-inform-qy li:nth-of-type(3){margin-bottom: 5px;text-align: right;}
+.login-inform-qy li:nth-of-type(2),.login-inform-qy li:nth-of-type(3){margin-bottom: 12px;text-align: right;}
 .stu_info{width:100%;height:100%;display: flex;flex-direction: column;justify-content:center;align-items:center;}
 .stu_info img{margin-bottom: 20px;}
 
@@ -83,7 +83,8 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .job li:last-of-type{color:#8a8a8a;float: right;padding-right: 20px;}
 
 /* 日历 */
-.calendar-bar{background: #008784;color: #fff;font-size: 15px;height: 58px;line-height: 58px;}
+.calendar-bar{background: #008784;color: #fff;font-size: 15px;height: 48px;line-height: 48px;font-size: 16px;
+    font-weight: bold;}
 .datePickerLayout {
     width: 200px;
 }

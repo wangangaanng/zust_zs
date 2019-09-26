@@ -9,6 +9,9 @@ public class Constant {
     public static final String HOST_KEY = "client.host";
     public static final String CLIENT_KEY = "client.key";
     public static final String SECRECT_KEY = "client.secrect";
+    public static final String IMAGEPATH="client.imagepath";
+    public static final String LOCALURL="client.localurl";
+    public static final String UPLOADURL="client.uploadurl";
     public static final int OK = 0;
     public static final int FAIL =-1;
     public static final String ERROR_OK = "success";
