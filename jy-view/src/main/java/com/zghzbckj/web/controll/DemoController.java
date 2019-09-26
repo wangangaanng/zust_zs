@@ -550,11 +550,13 @@ public class DemoController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = request.getParameter("key");
         if(null!=key){
-            view.addObject("key", key);
+            String str = new String(request.getParameter("key").getBytes("iso-8859-1"), "utf-8");
+            view.addObject("key",str);
         }else {
             view.addObject("key","");
         }
         view.setViewName("newsList");
+//        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -571,7 +573,8 @@ public class DemoController {
             param.put("lmbh",lmbh);
             param.put("wzzt","1");
             param.put("isDetail",bxlx);
-            param.put("gjz",key);
+            String str = new String(request.getParameter("key").getBytes("iso-8859-1"), "utf-8");
+            param.put("gjz",str);
             param.put("pageNo", currentPage);
             param.put("pageSize", "20");
             ResponseMessage resultMess  = new ResponseMessage();
