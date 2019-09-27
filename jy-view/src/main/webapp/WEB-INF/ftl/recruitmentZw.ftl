@@ -269,7 +269,7 @@
                 formatter: operateFormatterZph
             }, {
                 align : 'center',
-                field: 'zwQymc',
+                field: 'qymc',
                 title: '公司名称'
             }, {
                 align : 'center',
