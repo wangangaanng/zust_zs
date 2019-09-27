@@ -115,7 +115,7 @@ function keySearch(){
 function searchAll() {
     if($("#gjz22").val().trim()){
         var key=$("#gjz22").val().trim()
-        window.open(base+'search?key='+key)
+        window.location.href=base+'/search?key='+key
     }else{
         walert("请输入关键字")
         return

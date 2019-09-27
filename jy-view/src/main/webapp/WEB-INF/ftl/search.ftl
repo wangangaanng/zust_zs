@@ -14,9 +14,10 @@
 
 <body>
     <#include "com/header.ftl">
-<div class="main">
+<div class="main" style="margin-top: 20px;">
     <div class="container">
         <div class="content">
+            <div class="content-list">
             <div class="news-list">
                 <ul>
                             <#if (result??)&&(result.records??)&&(result.records?size>0)>
@@ -58,6 +59,7 @@
                     </nav>
                 </div>
             </div>
+            </div>
         </div>
 
     </div>
@@ -73,21 +75,11 @@
             $(".content-list").append(nulltip)
         }else {
             setPage(currentPage, "${result.totalPage!'1'}", function () {
-                openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+                openUrl('search/'+currentPage)
             })
         }
 
     })
-    document.onkeydown = function(e){
-        if(e.keyCode==13)
-        {
-            search();
-        }
-    }
-    function search() {
-        var key=$("#key").val();
-        openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
-    }
     function setPage(pageCurrent, pageSum, callback) {
         $(".pagination").bootstrapPaginator({
             //设置版本号
