@@ -87,20 +87,7 @@ public class DemoController {
             List wzList= Lists.newArrayList();
             List wzListwz= Lists.newArrayList();
             for(Map map:beanList2){
-                if(null!=map.get("SJHQDX")) {
-                    String SJHQDX = map.get("SJHQDX").toString();
-                    Map paramn = Maps.newHashMap();
-                    paramn.put("zwlx", SJHQDX);
-                    paramn.put("pageNo", '1');
-                    paramn.put("pageSize", "10");
-                    PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
-                    resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
-                        wzList.add(((Map) resultMess2.getBean()).get("records"));
-                    }else {
-                        wzList.add(Lists.newArrayList());
-                    }
-                }else{
+                if((null==map.get("SJHQDX"))||(map.get("SJHQDX").toString().equals("5"))) {
                     String owid = map.get("CODE").toString();
                     String isDetail = map.get("BXLX").toString();
                     Map paramn=Maps.newHashMap();
@@ -110,6 +97,19 @@ public class DemoController {
                     paramn.put("pageNo",'1');
                     paramn.put("pageSize","10");
                     PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
+                    resultMess2 = UnionHttpUtils.doPosts(_data);
+                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
+                        wzList.add(((Map) resultMess2.getBean()).get("records"));
+                    }else {
+                        wzList.add(Lists.newArrayList());
+                    }
+                }else{
+                    String SJHQDX = map.get("SJHQDX").toString();
+                    Map paramn = Maps.newHashMap();
+                    paramn.put("zwlx", SJHQDX);
+                    paramn.put("pageNo", '1');
+                    paramn.put("pageSize", "10");
+                    PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
                     if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
                         wzList.add(((Map) resultMess2.getBean()).get("records"));
