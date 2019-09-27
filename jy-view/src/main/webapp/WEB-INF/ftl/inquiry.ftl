@@ -25,7 +25,7 @@
             </ol>
         </div>
         <div class="content">
-            <div class="jf-content">
+            <div>
                 <div>
                     <div class="search-bar">
                         <div class="search-label">搜素关键字：</div>

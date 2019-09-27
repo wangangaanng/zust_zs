@@ -242,6 +242,13 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     resultMap.put("msg", "无需报名");
                     return resultMap;
                 }
+                if (!TextUtils.isEmpty(job.getZphBmjzsj())) {
+                    if (System.currentTimeMillis() > job.getZphBmjzsj().getTime()) {
+                        resultMap.put("result", "false");
+                        resultMap.put("msg", "报名截止时间已过");
+                        return resultMap;
+                    }
+                }
                 if (!TextUtils.isEmpty(job.getZphKsrq())) {
                     jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
                 }

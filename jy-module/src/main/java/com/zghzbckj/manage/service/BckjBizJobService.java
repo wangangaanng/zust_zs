@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -159,7 +160,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             bckjBizJob.setState(JyContant.JOB_ZT_TG);
         }
         if (!TextUtils.isEmpty(mapData.get("zphKsrq"))) {
-            bckjBizJob.setZphKsrq(DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd HH:mm:ss"));
+            Date date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd HH:mm:ss");
+            if (TextUtils.isEmpty(date)) {
+                date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd");
+            }
+            bckjBizJob.setZphKsrq(date);
         }
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
@@ -185,10 +190,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             params.put("owid", owid);
             objs.add(params);
 
-
-            params.clear();
-            params.put("jobRefOwid", owid);
-            List<BckjBizJybm> bmList = bmService.findListByParams(params, "");
+            Map temp = new HashMap<>();
+            temp.put("jobRefOwid", owid);
+            List<BckjBizJybm> bmList = bmService.findListByParams(temp, "");
             if (bmList != null && bmList.size() > 0) {
                 for (BckjBizJybm bm : bmList) {
                     bmService.delete(bm);
@@ -506,4 +510,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         resultMap.put("bean", oldJob);
         return resultMap;
     }
+
+
 }

@@ -7,7 +7,9 @@
     "pages/qyService/qyService",
     "pages/stuService/stuService",
     "pages/logs/logs",
-    "pages/mustache/mustache"
+    "pages/mustache/mustache",
+    "pages/newsList/newsList",
+    "pages/newsDetail/newsDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

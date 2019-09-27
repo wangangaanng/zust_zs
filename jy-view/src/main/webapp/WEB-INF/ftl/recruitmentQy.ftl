@@ -8,6 +8,9 @@
     <title>就业网</title>
 <#include "com/config.ftl">
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
+    <style>
+        .container{min-width: 1024px;}
+    </style>
 </head>
 
 <body>
