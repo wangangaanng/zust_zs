@@ -164,7 +164,7 @@ public class BckjBizJybmController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizJybmService.get(mapData.get("owid").toString()));
+            return ResponseMessage.sendOK(bckjBizJybmService.getWithJob(mapData.get("owid").toString()));
         } catch (Exception e) {
 
             log.error(e + "初始BckjBizJybm\r\n" + e.getStackTrace()[0], e);

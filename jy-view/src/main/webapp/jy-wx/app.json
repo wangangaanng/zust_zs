@@ -4,6 +4,8 @@
   },
   "pages": [
     "pages/index/index",
+    "pages/qyService/qyService",
+    "pages/stuService/stuService",
     "pages/logs/logs",
     "pages/mustache/mustache"
   ],
