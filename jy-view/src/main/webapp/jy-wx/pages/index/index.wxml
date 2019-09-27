@@ -7,22 +7,51 @@
   </block>
 </swiper>
 <van-grid square>
-  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" wx:for="{{ menuList }}"></van-grid-item>
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="../mustache/mustache" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>
 <van-tabs animated>
   <van-tab title="最新职位">
-    <view>
-      <a class="weui-media-box weui-media-box_appmsg">
-      <div class="weui-media-box__hd">
-        <image class="weui-media-box__thumb" src="https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1679456154,2493198454&fm=26&gp=0.jpg" alt=""></image>
-          </div>
-        <div class="weui-media-box__bd">
-          <h4 class="index-guess_title">名称名称</h4>
-          <h6>年 · 万公里</h6>
-          <p>成交价<span class="index-guess_prize"> 万</span>
-          </p>
-        </div>
-      </a>
+    <view class="uni-list">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>04.24</span>
+              <em>2019</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">销售顾问</view>
+							<view class="uni-media-list-text-content">
+							公司名称：上海有限公司
+							</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-left">工作城市：杭州</view>
+								<view class="uni-media-list-text-bottom-right ">
+									发布日期：2019-08-28
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
+        <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>04.24</span>
+              <em>2019</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">销售顾问</view>
+							<view class="uni-media-list-text-content">
+							公司名称：上海有限公司上海有限公司
+							</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-left">工作城市：杭州</view>
+								<view class="uni-media-list-text-bottom-right ">
+									发布日期：2019-08-28
+								</view>
+							</view>
+						</view>
+					</view>
+				</view>
     </view>
   </van-tab>
   <van-tab title="最新企业">内容 2</van-tab>

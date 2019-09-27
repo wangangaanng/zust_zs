@@ -173,7 +173,7 @@
                     <div class="form-group">
                         <label for="qyGsjs" class="col-sm-2 control-label">营业执照照片：</label>
                         <div class="col-sm-8">
-                            <img src="${imagePath}pic/${cInfo.qyYyzzzp}" style="width: 150px;height: 180px;" />
+                            <img src="${imagePath}${cInfo.qyYyzzzp}" style="width: 150px;height: 180px;" />
                             <#--<textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>-->
                         </div>
                     </div>

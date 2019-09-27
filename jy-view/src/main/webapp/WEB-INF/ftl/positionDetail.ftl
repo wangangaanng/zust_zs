@@ -28,7 +28,9 @@
                                 </dl>
                             </div>
                             <ul class="xInfo">
-                                <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                <#if result.zphKsrq?exists>
+                                    <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                </#if>
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
@@ -62,7 +64,9 @@
                             </div>
                             <ul class="xInfo xInfo-2 cl">
                                 <li>工作城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
-                                <li>发布日期：<span>${result.createtime?substring(0,16)}</span></li>
+                                <#if result.createtime?exists>
+                                    <li>发布时间：<span>${result.createtime?substring(0,16)}</span></li>
+                                </#if>
                             </ul>
                             <div class="tools cl">
                                 <#if (result.exp2??)&&(result.exp2!="0")>
@@ -93,7 +97,9 @@
                                 </dl>
                             </div>
                             <ul class="xInfo">
-                                <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                <#if result.zphKsrq?exists>
+                                    <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                </#if>
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
@@ -126,7 +132,9 @@
                                 </dl>
                             </div>
                             <ul class="xInfo">
-                                <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                <#if result.zphKsrq?exists>
+                                    <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                </#if>
                                 <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
@@ -166,7 +174,9 @@
                             </ul>
                             <ul class="xInfo xInfo-2 cl">
                                 <li>工作性质：<span>${result.zwGzxzStr!''}</span></li>
+                            <#if result.createtime?exists>
                                 <li>发布日期：<span>${result.createtime?substring(0,10)}</span></li>
+                            </#if>
                                 <li>工作年限：<span>${result.zwGznxStr!''}</span></li>
                                 <li>学历要求：<span>${result.zwXlyqStr!''}</span></li>
                                 <li>年龄要求：<span>${result.zwNlyqStr!''}</span></li>
