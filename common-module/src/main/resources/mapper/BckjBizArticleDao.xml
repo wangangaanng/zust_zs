@@ -293,5 +293,20 @@
 		DELETE FROM bckj_biz_article
 		WHERE owid = #{owid}
 	</delete>
+
+	<select id="findMapByKey" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
+		SELECT
+		a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj"
+		FROM bckj_biz_article a
+		<where>
+			( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
+				AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b,bckj_dic_menu_apply c WHERE b.owid=c.MENU_REF_OWID AND c.wzbh=1 AND b.SJHQDX=5)
+				AND a.wzzt = 1
+			<if test="gjz != null and gjz != ''">
+				AND (a.gjz LIKE concat('%',#{gjz},'%')  OR a.wzbt  LIKE concat('%',#{gjz},'%'))
+			</if>
+		</where>
+		ORDER BY ${orderBy}
+	</select>
 	
 </mapper>
