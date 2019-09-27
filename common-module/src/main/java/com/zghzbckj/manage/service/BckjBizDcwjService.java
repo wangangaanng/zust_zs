@@ -101,6 +101,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             objectMap.put("kssj", questionnaire.getKssj());
             objectMap.put("jssj", questionnaire.getJssj());
             objectMap.put("sfdl", questionnaire.getSfdl());
+            objectMap.put("mxdx", questionnaire.getMxdx());
             Date endTime = questionnaire.getJssj();
             //系统时间大于问卷结束时间，无效
             if (System.currentTimeMillis() > endTime.getTime()) {
@@ -247,6 +248,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             if (TextUtils.isEmpty(tm.getExp1())) {
                 tm.setDcwjRefOwid(wjOwid);
                 tm.setOwid("");
+                tm.setTmxxz("");
                 bckjBizDcwjTmService.save(tm);
             }
         }

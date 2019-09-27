@@ -25,34 +25,26 @@ public class SaveModalGridAction implements ComponentListinerSer {
 
     @Override
     public void doAction(BaseWindow baseWindow, Event event, PageControlVO pageControlVO) {
-//        ComponentWindowSer root = PageUtils.getBaseMainWindow(baseWindow);
-//        Object windowParams = pageControlVO.getLayoutComponent().getEventDataContent();
-//        Map<String, Object> ppt = baseWindow.bindAll2Ppt(true);
-//        List<Map> paramsList = JsonUtil.jsonToList(windowParams.toString(), Map.class);
-//        Map<String, Object> _params = (Map)paramsList.get(0);
-//        if (TextUtils.isEmpty(_params.get("url"))) {
-//            AlterDialog.alert("请定义需要提交保存的API接口");
-//        } else {
-//            ResponseMessage message = JsonPostUtils.executeAPI(ppt, _params.get("url").toString());
-//            if (null == message) {
-//                AlterDialog.alert("操作失败");
-//            } else if (message.getBackCode() == 0) {
-//                baseWindow.setClosePage(true);
-//                baseWindow.detach();
-//            } else {
-//                AlterDialog.alert(message.getErrorMess());
-//            }
-//        }
         Object windowParams = pageControlVO.getLayoutComponent().getEventDataContent();
         BaseWindow parentWindow = baseWindow.getTopWindow();
-        //当前页面
+        //当前页面，模态框
         Map<String, Object> ppt = baseWindow.bindAll2Ppt(true);
-        //父级页面
-        Map<String, Object> parentPpt = parentWindow.getParentPpt();
+        //父级页面，多tab
+        Map<String, Object> parentPpt = baseWindow.getParentPpt();
         BaseGrid parentGrid = (BaseGrid) parentWindow.getFellowIfAny("dataList1");
         List<Map<String, Object>> list = parentGrid.getAllDatas();
         if (TextUtils.isEmpty(list)) {
             list = new ArrayList<>();
+        }
+        for (Map<String, Object> objectMap : list) {
+            if (!TextUtils.isEmpty(objectMap.get("tmsx")) && objectMap.get("tmsx").equals(ppt.get("tmsx"))) {
+                AlterDialog.alert("该题目序号已存在，请直接修改");
+                return;
+            }
+            if (!TextUtils.isEmpty(objectMap.get("tmmc")) && objectMap.get("tmmc").equals(ppt.get("tmmc"))) {
+                AlterDialog.alert("该题目名称已存在，请直接修改");
+                return;
+            }
         }
         list.add(ppt);
         //去掉删除的记录
@@ -64,16 +56,9 @@ public class SaveModalGridAction implements ComponentListinerSer {
             usefulList.add(map);
         }
         if (TextUtils.isEmpty(ppt.get("owid"))) {
-            ppt.put("owid", "tmp"+TextUtils.getUUID());
+            ppt.put("owid", TextUtils.getUUID());
         }
         parentGrid.clearRows();
-        //处理父子关系，如果是父节点，则在前面空格
-//        List<Map<String, Object>> result = dealWithFatherAndSonMap(usefulList);
-//        for (int i = usefulList.size()-1; i >= 0; i--) {
-//            Map<String, Object> map = result.get(i);
-//            parentWindow.getGridUtils().addNewRow(map, parentGrid, parentWindow);
-//        }
-//        parentGrid.setAllDatas(result);
         for (int i = usefulList.size()-1; i >= 0; i--) {
             Map<String, Object> map = usefulList.get(i);
             parentWindow.getGridUtils().addNewRow(map, parentGrid, parentWindow);
@@ -81,18 +66,6 @@ public class SaveModalGridAction implements ComponentListinerSer {
         parentGrid.setAllDatas(usefulList);
         //关闭页面
         baseWindow.detach();
-    }
-
-    private List<Map<String, Object>> dealWithFatherAndSonMap(List<Map<String, Object>> list) {
-        List<Map<String, Object>> result = new ArrayList<>(list.size());
-        for (Map<String, Object> map : list) {
-            //exp10为空表示是父进度
-            if (TextUtils.isEmpty(map.get("exp8"))) {
-                map.put("state", -1);
-                result.add(map);
-            }
-        }
-        return result;
     }
 
 }

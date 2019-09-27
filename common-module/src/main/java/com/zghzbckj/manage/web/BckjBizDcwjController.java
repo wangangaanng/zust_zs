@@ -65,7 +65,10 @@ public class BckjBizDcwjController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "网站编号为空");
             }
-            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjService.listAllQuestionnaire(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
+            //设置分页属性
+            Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
+            Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjService.listAllQuestionnaire(dataMap, pageNo, pageSize);
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();

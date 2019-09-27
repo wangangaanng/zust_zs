@@ -51,6 +51,7 @@ function confirmDl(url) {
         walert("请填写密码")
         return
     }
+    loginout()
     var jsonObj={
         "yhDlzh":$("#username").val().trim(),
         "yhDlmm":$("#psd").val().trim().MD5(),
@@ -80,7 +81,7 @@ function loginout() {
     document.cookie  = "qyOwid=;path=/";
     document.cookie  = "stuSjh=;path=/";
     document.cookie  = "stuOwid=;path=/";
-
+    document.cookie  = "userType=;path=/";
     window.location.href='/'
     // location.reload();
 }

@@ -73,7 +73,12 @@
             $(".content-list").append(nulltip)
         }else {
             setPage(currentPage, "${result.totalPage!'1'}", function () {
-                openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+                if($("#key").val()){
+                    openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage+'/?key='+$("#key").val())
+                }else{
+                    openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+                }
+
             })
         }
 
