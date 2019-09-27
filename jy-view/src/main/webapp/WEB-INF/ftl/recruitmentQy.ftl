@@ -157,8 +157,11 @@
                 title: '发布时间',
                 align : 'center',
                 formatter:function(value,row,index){
-                    var value=row.createtime.substring(0,10);
-                    return value;
+                    if(row.createtime){
+                        var value=row.createtime.substring(0,10);
+                        return value;
+                    }
+
                 }
             }], //列设置
 

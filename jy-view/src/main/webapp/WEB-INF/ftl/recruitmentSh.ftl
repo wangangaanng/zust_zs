@@ -158,8 +158,10 @@
                 title: '举办时间',
                 align : 'center',
                 formatter:function(value,row,index){
-                    var value=row.zphKsrq.substring(0,16);
-                    return value;
+                    if(row.zphKsrq){
+                        var value=row.zphKsrq.substring(0,16);
+                        return value;
+                    }
                 }
             },{
                 field: 'zphJtsj',
