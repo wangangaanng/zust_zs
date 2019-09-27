@@ -51,6 +51,7 @@ function confirmDl(url) {
         walert("请填写密码")
         return
     }
+    loginout()
     var jsonObj={
         "yhDlzh":$("#username").val().trim(),
         "yhDlmm":$("#psd").val().trim().MD5(),
