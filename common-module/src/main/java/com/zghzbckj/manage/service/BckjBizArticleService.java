@@ -93,7 +93,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
      */
     public ResponseMessage findPageBckjBizArticle(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizArticle> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizArticle> page = findPage(dataMap, pageNo, pageSize, " a.fbsj DESC");
         return ResponseMessage.sendOK(page);
     }
 
@@ -147,7 +147,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         String pageSize=mapData.get("pageSize").toString();
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
         mapData.put("page", page);
-        mapData.put("orderBy", " a.istop DESC,a.sxh ");
+        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");
         page.setList(this.dao.findMapByShort(mapData));
         PageInfo<BckjBizArticle> pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());
