@@ -125,7 +125,7 @@
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="text" id="qyFrsfz" onkeydown="keyLogin()" placeholder="请输入法人身份证后六位" class="login-pswd">
+                        <input type="password" id="qyFrsfz" onkeydown="keyLogin()" placeholder="请输入法人身份证后六位" class="login-pswd">
                     </li>
                     <li>
                         还没有账号？<a href="/enterpriseReg">注册</a>
