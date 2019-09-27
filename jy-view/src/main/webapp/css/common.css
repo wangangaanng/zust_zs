@@ -1345,3 +1345,8 @@ button.green:hover{
     resize:none;
     border-radius: 5px;
 }
+.layui-layer-btn .layui-layer-btn0 {
+    border-color: #008784 !important;
+    background-color: #008784 !important;
+    color: #fff;
+}

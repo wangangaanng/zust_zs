@@ -50,7 +50,7 @@
                 <#list header as obj>
                     <#if obj.chirdMenu??>
                         <div class="subnav-cont" rel="${obj_index}">
-                            <div class="subnav-left fl"><img alt="${imagePath}${GGT!'defaultImg.png'}" src="${imagePath}${GGT!'defaultImg.png'}">
+                            <div class="subnav-left fl"><img alt="${imagePath}${obj.GGT!'defaultImg.png'}" src="${imagePath}${obj.GGT!'defaultImg.png'}">
                                 <div class="subnav-motto">
                                     <p>${obj.JSY!''}</p>
                                     <#--<p class="tr">——张德江</p>-->
