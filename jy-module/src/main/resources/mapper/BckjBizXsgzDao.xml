@@ -328,6 +328,9 @@
             <if test="xxlb!=null and xxlb!=''">
                 and a.xxlb =#{xxlb}
             </if>
+			<if test="jobRefOwid!=null and jobRefOwid!=''">
+				and a.job_ref_owid =#{jobRefOwid}
+			</if>
             <if test="gzlx!=null and gzlx!=''">
                 and a.gzlx =#{gzlx}
             </if>
