@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -220,6 +217,12 @@ public class BckjBizDcwjController extends BaseController {
         ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "wzbh", "wjmc");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "请填写网站编号和问卷名称");
+        }
+        //判断开始时间和结束时间
+        long Kssj = DateUtil.getDate(dataMap.get("kssj").toString()).getTime();
+        long jssj = DateUtil.getDate(dataMap.get("jssj").toString()).getTime();
+        if (Kssj < jssj) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "结束时间不能大于开始时间");
         }
         BckjBizDcwj bckjBizDcwj = JsonUtil.map2Bean(dataMap, BckjBizDcwj.class);
         List<BckjBizDcwjTm> tmList = new ArrayList<>();
