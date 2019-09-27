@@ -14,9 +14,10 @@
 
 <body>
     <#include "com/header.ftl">
-<div class="main">
+<div class="main" style="margin-top: 20px;">
     <div class="container">
         <div class="content">
+            <div class="content-list">
             <div class="news-list">
                 <ul>
                             <#if (result??)&&(result.records??)&&(result.records?size>0)>
@@ -58,36 +59,28 @@
                     </nav>
                 </div>
             </div>
+            </div>
         </div>
 
     </div>
 </div>
-
+<input type="hidden" id="key1" value="${key!''}">
         <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/bootstrap-paginator.min.js" type="text/javascript"></script>
 <script>
     var currentPage="${result.currentPage!'1'}"
     $(document).ready(function () {
+        $("#gjz22").val($("#key1").val())
         if("${flag}"==0){
             $(".content-list").append(nulltip)
         }else {
             setPage(currentPage, "${result.totalPage!'1'}", function () {
-                openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+                openUrl('search/'+currentPage+'/?key='+$("#gjz22").val().trim())
             })
         }
 
     })
-    document.onkeydown = function(e){
-        if(e.keyCode==13)
-        {
-            search();
-        }
-    }
-    function search() {
-        var key=$("#key").val();
-        openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
-    }
     function setPage(pageCurrent, pageSum, callback) {
         $(".pagination").bootstrapPaginator({
             //设置版本号
