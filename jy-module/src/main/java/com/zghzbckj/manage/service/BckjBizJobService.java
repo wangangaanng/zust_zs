@@ -190,10 +190,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             params.put("owid", owid);
             objs.add(params);
 
-
-            params.clear();
-            params.put("jobRefOwid", owid);
-            List<BckjBizJybm> bmList = bmService.findListByParams(params, "");
+            Map temp = new HashMap<>();
+            temp.put("jobRefOwid", owid);
+            List<BckjBizJybm> bmList = bmService.findListByParams(temp, "");
             if (bmList != null && bmList.size() > 0) {
                 for (BckjBizJybm bm : bmList) {
                     bmService.delete(bm);
