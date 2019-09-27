@@ -297,7 +297,7 @@
                     <#if (objl??)&&(objl?size>0)>
                         <#list objl as obj>
                             <#if obj_index<6>
-                                <li data-owid="${obj.owid}">
+                                <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li>${obj.wzbt!''}</li>
                                         <li>
