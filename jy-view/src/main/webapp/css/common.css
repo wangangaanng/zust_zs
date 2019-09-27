@@ -1116,14 +1116,12 @@ ul.pagination {
 .td-detail .t-sm {
     margin: 12px;
     text-indent: 2em;
-    display: -webkit-box;
+    text-overflow: -o-ellipsis-lastline;
     overflow: hidden;
-    white-space: normal!important;
-    -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
-    word-wrap: break-word;
+    display: -webkit-box;
     -webkit-line-clamp: 4;
-    height: 80px;
+    -webkit-box-orient: vertical;
 }
 
 .td-sm {
