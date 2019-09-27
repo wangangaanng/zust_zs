@@ -1,14 +1,13 @@
 package com.ourway.custemevent;
 
 import com.ourway.base.zk.component.BaseDatebox;
+import com.ourway.base.zk.component.BaseIntbox;
+import com.ourway.base.zk.component.BaseTextbox;
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.models.ResponseMessage;
 import com.ourway.base.zk.service.PageInitSer;
-import com.ourway.base.zk.utils.AlterDialog;
-import com.ourway.base.zk.utils.JsonUtil;
-import com.ourway.base.zk.utils.PageUtils;
-import com.ourway.base.zk.utils.TextUtils;
+import com.ourway.base.zk.utils.*;
 import com.ourway.base.zk.utils.data.JsonPostUtils;
 
 import java.util.*;
@@ -56,8 +55,12 @@ public class InitArticleSer implements PageInitSer {
             }
             if (null == responseMessage || responseMessage.getBackCode() != 0) {
 //                AlterDialog.alert("不存在详细信息列表");
-                    BaseDatebox baseDatebox= (BaseDatebox) window.getFellowIfAny("mainTableGrid_fbsj");
-                    baseDatebox.setValue(new Date());
+                BaseDatebox baseDatebox = (BaseDatebox) window.getFellowIfAny("mainTableGrid_fbsj");
+                baseDatebox.setValue(new Date());
+                BaseIntbox intbox = (BaseIntbox) window.getFellowIfAny("mainTableGrid_sxh");
+                intbox.setValue(1);
+                BaseTextbox textbox=(BaseTextbox)window.getFellowIfAny("mainTableGrid_fbr");
+                textbox.setValue(ZKSessionUtils.getZkUser().getEmpName());
                 return;
             } else {
                 if (!TextUtils.isEmpty(responseMessage.getBean())) {
