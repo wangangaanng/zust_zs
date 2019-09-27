@@ -81,7 +81,7 @@ function loginout() {
     document.cookie  = "qyOwid=;path=/";
     document.cookie  = "stuSjh=;path=/";
     document.cookie  = "stuOwid=;path=/";
-
+    document.cookie  = "userType=;path=/";
     window.location.href='/'
     // location.reload();
 }
