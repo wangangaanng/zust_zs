@@ -437,7 +437,8 @@
             if(data.backCode==0){
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
-                addCookie("userType","1") //1学生 2企业
+                addCookie("userType","1") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
                 walert(data.errorMess)
@@ -464,7 +465,8 @@
             if(data.backCode==0){
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
-                addCookie("userType","2") //1学生 2企业
+                addCookie("userType","0") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
                 walert(data.errorMess)

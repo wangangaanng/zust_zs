@@ -147,7 +147,7 @@ var pageSize=10;
                     var value=row.jssj.substring(0,10);
                     return value;
                 }
-            }, {
+            },{
                 align : 'center',
                 field: 'sfyx',
                 title: '状态',
@@ -157,21 +157,38 @@ var pageSize=10;
         });
 
     }
-
     function operateFormatterZph(value, row, index) {
-        if(row.sfdl==0){
-            if(row.sfyx==1){
-                var c = '<a class="green-color" style="cursor: pointer;" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
-            }else{
-                var c = '<a class="green-color" style="color:#000;">'+row.wjmc+'</a> ';
+        if(row.mxdx==0){////1学生 0企业
+            if(row.sfdl==0){
+                if(row.sfyx==1){
+                    var c = '<a class="green-color" style="cursor: pointer;" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
+                }else{
+                    var c = '<a class="green-color" style="color:#000;">'+row.wjmc+'</a> ';
+                }
+            }else if(row.sfdl==1){
+                if(row.sfyx==1) {
+                    var c = '<a class="green-color" style="cursor: pointer;" onclick="isopenUrl(\'inquiryDetail/' + row.owid + '\',0)">' + row.wjmc + '</a> ';
+                }else{
+                    var c = '<a class="green-color" style="color:#000;">' + row.wjmc + '</a> ';
+                }
             }
-        }else if(row.sfdl==1){
-            if(row.sfyx==1) {
-                var c = '<a class="green-color" style="cursor: pointer;" onclick="isopenUrl(\'inquiryDetail/' + row.owid + '\')">' + row.wjmc + '</a> ';
-            }else{
-                var c = '<a class="green-color" style="color:#000;">' + row.wjmc + '</a> ';
+
+        }else if(row.mxdx==1){
+            if(row.sfdl==0){
+                if(row.sfyx==1){
+                    var c = '<a class="green-color" style="cursor: pointer;" href="${base}/inquiryDetail/'+row.owid+'">'+row.wjmc+'</a> ';
+                }else{
+                    var c = '<a class="green-color" style="color:#000;">'+row.wjmc+'</a> ';
+                }
+            }else if(row.sfdl==1){
+                if(row.sfyx==1) {
+                    var c = '<a class="green-color" style="cursor: pointer;" onclick="isopenUrl(\'inquiryDetail/' + row.owid + '\',1)">' + row.wjmc + '</a> ';
+                }else{
+                    var c = '<a class="green-color" style="color:#000;">' + row.wjmc + '</a> ';
+                }
             }
         }
+
         return c;
     }
 

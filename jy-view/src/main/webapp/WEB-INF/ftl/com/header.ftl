@@ -106,11 +106,25 @@
             window.open(url)
         }
     }
-    function isopenUrl(url) {
-        if(getCookie('stuOwid')){
-            window.location.href="${base}/"+url
-        }else {
-           login(url)
+    function isopenUrl(url,userType) {
+        if(userType==0){
+
+        }else{
+            userType=1;//默认学生
+        }
+        if(userType==0){//企业
+            console.log(getCookie('qyOwid'))
+            if(getCookie('qyOwid')){
+                window.location.href="${base}/"+url
+            }else {
+                login(url,0)
+            }
+        }else if(userType==1){//学生
+            if(getCookie('stuOwid')){
+                window.location.href="${base}/"+url
+            }else {
+                login(url,1)
+            }
         }
     }
 </script>

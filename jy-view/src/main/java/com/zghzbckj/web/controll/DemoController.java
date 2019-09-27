@@ -257,7 +257,7 @@ public class DemoController {
         return view;
     }
     @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
-    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "stuOwid",required = false) String stuOwid) {
+    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "yhOwid",required = false) String stuOwid) {
         view.setViewName("inquiryDetail");
         view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());

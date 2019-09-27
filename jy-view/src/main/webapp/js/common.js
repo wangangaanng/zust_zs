@@ -13,12 +13,19 @@ $(document).ready(function () {
     }
 })
 //登录
-function login(url) {
+function login(url,user) {//1学生 0企业
     url=convertStr(url,'');
+    var title='';
+    if(user==0){
+        title='企业登录'
+    }else{
+        user=1;//默认学生
+        title='学生登录'
+    }
     var layer1;
     layer1=layer.open({
         type: 1,
-        title:'登录信息',
+        title:title,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '240px'], //宽高
         content: '<div class="lxr-modal"><div class="row">\n' +
@@ -38,38 +45,71 @@ function login(url) {
         '                            </div>\n' +
         '                        </div><div class="row btn-yd">\n' +
         '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-        '                                <button class="btn green" onclick="confirmDl(\''+url+'\')">确定</button>\n' +
+        '                                <button class="btn green" onclick="confirmDl(\''+url+'\','+user+')">确定</button>\n' +
         '                            </div>\n' +
         '                        </div></div>'
     });
 }
-function confirmDl(url) {
+function confirmDl(url,user) {
     if(!$("#username").val().trim()){
+        console.log(111)
         walert("请填写账号")
-        return
+        return false
     }else if(!$("#psd").val().trim()){
+        console.log(222)
         walert("请填写密码")
-        return
+        return false
     }
-    loginout()
-    var jsonObj={
-        "yhDlzh":$("#username").val().trim(),
-        "yhDlmm":$("#psd").val().trim().MD5(),
-    }
-    ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
-        if(data.backCode==0){
-            addCookie("stuOwid",data.bean.owid)
-            addCookie("stuSjh",data.bean.sjh)
-            if(url){
-                window.location.href=base+url
-            }else {
-                location.reload();
-            }
 
-        }else{
-            walert(data.errorMess);
+    if(user==0){
+    }else{
+        user=1;//默认学生
+    }
+    if(user==1){//1学生 0企业
+        var jsonObj={
+            "yhDlzh":$("#username").val().trim(),
+            "yhDlmm":$("#psd").val().trim().MD5(),
         }
-    })
+        ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
+            if(data.backCode==0){
+                loginout()
+                addCookie("stuOwid",data.bean.owid)
+                addCookie("stuSjh",data.bean.sjh)
+                addCookie("userType","1") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
+                if(url){
+                    window.location.href=base+url
+                }else {
+                    location.reload();
+                }
+
+            }else{
+                walert(data.errorMess);
+            }
+        })
+    }else{
+        var jsonObj={
+            "qyFrsfz":$("#psd").val().trim(),
+            "qyTysh":$("#username").val().trim()
+        }
+        ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
+            finishLoad()
+            if(data.backCode==0){
+                loginout()
+                addCookie("qyOwid",data.bean.owid)
+                addCookie("qyInfo",JSON.stringify(data.bean))
+                addCookie("userType","0") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
+                if(url){
+                    window.location.href=base+url
+                }else {
+                    location.reload();
+                }
+            }else{
+                walert(data.errorMess)
+            }
+        })
+    }
 
 }
 function loginout() {
@@ -82,6 +122,7 @@ function loginout() {
     document.cookie  = "stuSjh=;path=/";
     document.cookie  = "stuOwid=;path=/";
     document.cookie  = "userType=;path=/";
+    document.cookie  = "yhOwid=;path=/";
     window.location.href='/'
     // location.reload();
 }
