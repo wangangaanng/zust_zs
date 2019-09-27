@@ -142,11 +142,11 @@
                 <li class="link2" onclick="window.location.href='/enterpriseService/1'">
                     <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/enterpriseService/3'">
-                    <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
-                </li>
                 <li class="link2" onclick="window.location.href='/enterpriseService/2'">
                     <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
+                </li>
+                <li class="link2" onclick="window.location.href='/enterpriseService/3'">
+                    <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
                 </li>
             </ul>
         </div>
@@ -437,6 +437,7 @@
             if(data.backCode==0){
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
+                addCookie("userType","1") //1学生 2企业
                 location.reload();
             }else{
                 walert(data.errorMess)
@@ -463,6 +464,7 @@
             if(data.backCode==0){
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
+                addCookie("userType","2") //1学生 2企业
                 location.reload();
             }else{
                 walert(data.errorMess)

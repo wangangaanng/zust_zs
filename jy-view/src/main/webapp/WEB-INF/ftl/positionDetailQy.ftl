@@ -41,7 +41,7 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -111,7 +111,7 @@
                             <#--</#if>-->
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -144,7 +144,7 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -191,7 +191,7 @@
 
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>

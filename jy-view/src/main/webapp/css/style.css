@@ -65,6 +65,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .company-form li:nth-of-type(3){background-color: #035994;color: #FFF;margin-bottom: 10px;}
 .company-form li:nth-of-type(4){background-color: #1f1a17;color: #FFF;}
 .company-form1 li p{margin-top: 25px;margin-bottom: 45px;}
+.company-form li p{margin-top: 25px;margin-bottom: 45px;}
 .company-form1 li:nth-of-type(2){background-color: #035994;color: #FFF;margin-bottom: 10px;}
 .company-form1 li:nth-of-type(3){background-color: #f5b900;color: #000;margin-bottom: 10px;}
 .company-form1 li:nth-of-type(4){background-color: #1f1a17;color: #FFF;}

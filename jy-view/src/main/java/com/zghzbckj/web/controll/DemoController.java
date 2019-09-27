@@ -570,6 +570,33 @@ public class DemoController {
         }
         return view;
     }
+
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
+        String key = request.getParameter("key");
+        if(null!=key){
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("search");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        Map param = Maps.newHashMap();
+        param.put("wzbh",'1');
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/searchAll");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
+
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = request.getParameter("key");
