@@ -1,0 +1,16 @@
+<view class='stu-h'>
+  <view class='ellipse'>
+  </view>
+  <view class='stu-h-m'>
+    <view class='stu-sinfo'>
+      <view class='stu-tx'>
+        <image src='../../static/headImg.png'></image>
+      </view>
+      <view class='stu-name'>张东西</view>
+    </view>
+    <image class='bg-wave' src='../../static/bg-wave.png'></image>
+  </view>
+</view>
+<van-grid square column-num="3">
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" wx:for="{{ menuList }}"></van-grid-item>
+</van-grid>
