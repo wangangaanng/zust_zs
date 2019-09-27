@@ -191,6 +191,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
             BeanUtil.copyPropertiesIgnoreNull(company, oldCompany);
+            oldCompany.setState(JyContant.QY_ZT_TG);
             saveOrUpdate(oldCompany);
         } catch (Exception e) {
             e.printStackTrace();
