@@ -94,10 +94,10 @@
     </select>
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJob">
         SELECT
-		b.qymc AS "qymc",
+        b.qymc AS "qymc",
         <include refid="bckjBizJobColumns"/>
         FROM bckj_biz_job a
-		LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
+        LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
         <where>
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx = #{zwlx}
@@ -124,7 +124,7 @@
                 AND a.zwbt like CONCAT('%', #{zwbt},'%')
             </if>
             <if test="zwgjz != null and zwgjz != ''">
-				AND(  a.zwgjz like CONCAT('%', #{zwgjz},'%')  OR  a.zwbt like CONCAT('%', #{zwgjz},'%') )
+                AND( a.zwgjz like CONCAT('%', #{zwgjz},'%') OR a.zwbt like CONCAT('%', #{zwgjz},'%') )
             </if>
             <if test="zwPro != null and zwPro != ''">
                 AND a.zw_pro like CONCAT('%', #{zwPro},'%')
@@ -162,9 +162,9 @@
             <if test="createtime2 != null and createtime2 !=''  ">
                 AND a.createtime &lt;= #{createtime2}
             </if>
-			<if test="zwQymc != null and zwQymc != ''">
-				AND b.qymc = #{zwQymc}
-			</if>
+            <if test="zwQymc != null and zwQymc != ''">
+                AND b.qymc = #{zwQymc}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -183,6 +183,9 @@
         FROM bckj_biz_job a
         LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
         <where>
+            <if test="zwbt != null and zwbt != ''">
+                AND a.zwbt like CONCAT('%', #{zwbt},'%')
+            </if>
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx = #{zwlx}
             </if>

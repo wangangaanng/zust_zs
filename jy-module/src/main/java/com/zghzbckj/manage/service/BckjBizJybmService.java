@@ -332,9 +332,13 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 job.setZwbt(bm.getQymc() + "宣讲会");
                 job.setZphJtsj(mapData.get("zphJtsj").toString());
                 job.setZphCbf(JyContant.ZW_DD);
+                bm.setXjsj(mapData.get("xjsj").toString());
                 job.setZphKsrq(DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd HH:mm:ss"));
                 job.setState(JyContant.JOB_ZT_TG);
                 jobService.saveOrUpdate(job);
+                if (!TextUtils.isEmpty(mapData.get("memo"))) {
+                    bm.setMemo(mapData.get("memo").toString());
+                }
                 bm.setJobRefOwid(job.getOwid());
             }
             // TODO: 2019/9/18 通过短信
@@ -350,5 +354,15 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         _list.add(bm);
         resultMap.put("bean", _list);
         return resultMap;
+    }
+
+    public BckjBizJybm getWithJob(String owid) {
+        BckjBizJybm jybm = get(owid);
+        if (!TextUtils.isEmpty(jybm.getJobRefOwid())) {
+            BckjBizJob job = jobService.get(jybm.getJobRefOwid());
+            jybm.setZphJbdd(job.getZphJbdd());
+            jybm.setZphJtsj(job.getZphJtsj());
+        }
+        return jybm;
     }
 }
