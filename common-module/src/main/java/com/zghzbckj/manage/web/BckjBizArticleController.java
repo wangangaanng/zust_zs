@@ -126,16 +126,16 @@ public class BckjBizArticleController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh","isDetail","wzzt");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh", "isDetail", "wzzt");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            Object result=null;
+            Object result = null;
 
-            String isDetail=mapData.get("isDetail").toString();
-            if(Integer.valueOf(isDetail)==1) {
+            String isDetail = mapData.get("isDetail").toString();
+            if (Integer.valueOf(isDetail) == 1) {
                 result = bckjBizArticleService.getWzList(mapData);
-            }else{
+            } else {
                 result = bckjBizArticleService.getWzDetail(mapData);
             }
 
@@ -145,6 +145,7 @@ public class BckjBizArticleController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
     @RequestMapping(value = "getByEjLmbh", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getByEjLmbh(PublicDataVO dataVO) {
@@ -161,17 +162,18 @@ public class BckjBizArticleController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
     @RequestMapping(value = "getArticleByKeys", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getArticleByKeys(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "pageSize","pageNo","gjz","wzzt","lmbh");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "pageSize", "pageNo", "gjz", "wzzt", "lmbh");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            Object  result = bckjBizArticleService.getWzList(mapData);
+            Object result = bckjBizArticleService.getWzList(mapData);
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             log.info("关键字获取文章列表：" + e);
@@ -196,4 +198,21 @@ public class BckjBizArticleController extends BaseController {
         }
     }
 
+
+    @RequestMapping(value = "searchAll", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage searchAll(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "gjz","wzbh","pageSize","pageNo");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizArticleService.searchAll(mapData));
+        } catch (Exception e) {
+            log.info("获取营业日志失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

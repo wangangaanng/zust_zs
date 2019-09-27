@@ -20,4 +20,6 @@ public interface BckjBizArticleDao extends CrudDao<BckjBizArticle> {
 
 
     List<BckjBizArticle> findMapByShort(Map<String, Object> mapData);
+
+    List<BckjBizArticle> findMapByKey(Map<String, Object> mapData);
 }

@@ -506,4 +506,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         resultMap.put("bean", oldJob);
         return resultMap;
     }
+
+
 }
