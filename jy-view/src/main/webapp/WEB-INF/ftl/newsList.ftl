@@ -91,7 +91,12 @@
     }
     function search() {
         var key=$("#key").val();
-        openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
+        if(key){
+            openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
+        }else{
+            openUrl('newsList/${secondDir!""}/${thirdDir!""}/1')
+        }
+
     }
     function setPage(pageCurrent, pageSum, callback) {
         $(".pagination").bootstrapPaginator({
