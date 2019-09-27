@@ -267,7 +267,7 @@ var pageSize=10;
             ajax:function(request) {
                 ajax("zustjy/bckjBizJob/myJobList", {
                     "zwlx":3,
-                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || pageSize,
+                    "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){
@@ -318,7 +318,11 @@ var pageSize=10;
             }, {
                 align : 'center',
                 field: 'zwArea',
-                title: '城市'
+                title: '城市',
+                formatter:function(value,row,index){
+                    var value=convertStr(row.zwCity,"-")
+                    return value;
+                }
             }, {
                 align : 'center',
                 field: 'zphJbdd',
@@ -347,7 +351,7 @@ var pageSize=10;
     function operateFormatterZph(value, row, index) {
         if(row.state==2){
             if(row.zphSfbm==0){
-                return '';
+                return '-';
             }else if(row.zphSfbm==1){
                 var c = '<a class="green-color order" href="#">预定展位</a> ';
                 return c;

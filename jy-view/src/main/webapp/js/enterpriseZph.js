@@ -12,6 +12,12 @@ function applyZpj() {
     window.open(base+"/jobFair/0")
 }
 
+function keyLogin(){
+    if (event.keyCode==13){
+        searchZph()
+    }
+}
+
 function searchZph() {
     $("#table-zph").bootstrapTable('refresh',{pageNumber:1});
 }

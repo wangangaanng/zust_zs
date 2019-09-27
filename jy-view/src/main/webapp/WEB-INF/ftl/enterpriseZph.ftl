@@ -58,7 +58,7 @@
             <div class="content-list">
                 <div class="search-bar">
                     <div class="input-group search-input">
-                        <input type="text" id="zwbt-zph" class="form-control" placeholder="输入招聘会进行查询">
+                        <input type="text" id="zwbt-zph" onkeydown="keyLogin()" class="form-control" placeholder="输入招聘会进行查询">
                         <div class="input-group-btn">
                             <button type="button" onclick="searchZph()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>

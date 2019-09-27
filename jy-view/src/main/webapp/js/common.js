@@ -107,12 +107,40 @@ function ajax(method, data, successMethod, pageNo, pageSize) {
 
 }
 
+function keySearch(){
+    if (event.keyCode==13){
+        searchAll()
+    }
+}
+
+function searchAll() {
+    if($("#gjz22").val().trim()){
+        var key=$("#gjz22").val().trim()
+        window.open(base+'search?key='+key)
+    }else{
+        walert("请输入关键字")
+        return
+    }
+}
+
 function testSjh(sjh) {
     var length = sjh.length;
     var mobile = /^1[345789]\d{9}$/;/*/^1(3|4|5|7|8)\d{9}$/*/
     return (length == 11 && mobile.test(sjh));
 }
 
+function testFloat(f) {
+    return f%1>0;
+}
+
+//清除数字千分位
+function clearComma(s) {
+    if ($.trim(s) == "") {
+        return s;
+    } else {
+        return (s + "").replace(/[,]/g, "");
+    }
+}
 
 var loading; // 加载中
 

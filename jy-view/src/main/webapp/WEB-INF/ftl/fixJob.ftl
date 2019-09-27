@@ -105,7 +105,7 @@
                 <div class="form-group">
                     <label for="zwXs" class="col-sm-2 control-label">薪水*：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="zwXs" name="zwXs" value="${jobDetail.zwXs!''}" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" id="zwXs" name="zwXs" data-val="${jobDetail.zwXs!''}" value="${jobDetail.zwXs!''}" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">

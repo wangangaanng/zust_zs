@@ -12,6 +12,12 @@ function addZw() {
     window.open(base+"/newJob")
 }
 
+function keyLogin(){
+    if (event.keyCode==13){
+        searchZw()
+    }
+}
+
 function searchZw() {
     $("#table-job").bootstrapTable('refresh',{pageNumber:1});
 }
