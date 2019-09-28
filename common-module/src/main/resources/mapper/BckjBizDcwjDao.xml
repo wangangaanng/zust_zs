@@ -83,7 +83,7 @@
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
+				ORDER BY ${orderBy} desc
 			</when>
 			<otherwise>
 			</otherwise>

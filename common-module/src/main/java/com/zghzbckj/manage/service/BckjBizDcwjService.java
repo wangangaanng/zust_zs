@@ -268,7 +268,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      */
     public ResponseMessage findPageBckjBizDcwj(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizDcwj> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizDcwj> page = findPage(dataMap, pageNo, pageSize, "kssj");
         return ResponseMessage.sendOK(page);
     }
 
