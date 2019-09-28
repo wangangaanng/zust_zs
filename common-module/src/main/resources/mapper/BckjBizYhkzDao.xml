@@ -243,25 +243,25 @@
 	<update id="updateBycondition" parameterType="Map">
 		update bckj_biz_yhkz a set
 		<if test="xsxh!=null and xsxh!=''">
-			a.xsxh=#{xsxh}
+			a.xsxh=#{xsxh},
 		</if>
 		<if test="xsxy!=null and xsxy!=''">
-			and a.xsxy=#{xsxy}
+			 a.xsxy=#{xsxy},
 		</if>
 		<if test="xszy!=null and xszy!=''">
-			and a.xszy=#{xszy}
+			 a.xszy=#{xszy},
 		</if>
 		<if test="xsbj!=null and xsbj!=''">
-			and a.xsbj=#{xsbj}
+			 a.xsbj=#{xsbj},
 		</if>
 		<if test="xsnj!=null and xsnj!=''">
-			and a.xsnj=#{xsnj}
+			 a.xsnj=#{xsnj},
 		</if>
 		<if test="xsbj!=null and xsbj!=''">
-			and a.xsbj=#{xsbj}
+			 a.xsbj=#{xsbj},
 		</if>
 		<if test="lxr !=null and lxr!=''">
-			and a.lxr=#{lxr}
+			 a.lxr=#{lxr}
 		</if>
 		<where>
 			<if test="yhOwid!=null and yhOwid!=''">

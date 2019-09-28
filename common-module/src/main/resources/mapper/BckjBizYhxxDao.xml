@@ -308,17 +308,16 @@
 					 and  a.sfz like CONCAT('%',#{sfz},'%')
 				 </if>
 			 </where>
-			 order by b.xsxh desc
+			 order by a.owid desc
 	</select>
 
 
-	<select id="showTeatchInfoList" resultMap="BckjBizStudentXxVo">
+	<select id="showCousultList" resultMap="BckjBizStudentXxVo">
 		SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
 		a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
-		a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
-		b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo,
-		c.zjzw as zjzw,c.zjbgs as zjbgs,c.szxy as szxy,c.szzy as szzy
-		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b ,`bckj_biz_zjzx` c
+		a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,c.zjzw as zjzw,
+		c.zjbgs as zjbgs,c.szxy as szxy,c.szzy as szzy
+		FROM `bckj_biz_yhxx` a  ,`bckj_biz_zjzx` c
 		<where>
 			a.owid = b.`YH_REF_OWID` and  a.owid = c.yhid AND b.`OLX`=#{olx} and a.yhlx=1
 			<if test="xm!=null and xm!=''">
@@ -398,6 +397,19 @@
 		select <include refid="bckjBizYhxxColumns"></include>
 		from bckj_biz_yhxx a
 		where a.sfz=#{value}
+	</select>
+
+
+	<select id="showStudentInfo" resultMap="BckjBizStudentXxVo">
+		SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
+		a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
+		a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
+		b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b
+		<where>
+			a.owid = b.`YH_REF_OWID` AND b.`OLX`=#{olx} and a.yhlx=1 and a.owid=#{owid}
+		</where>
+
 	</select>
 
 </mapper>

@@ -225,6 +225,13 @@
 		WHERE owid = #{owid}
 	</delete>
 
+	<select id="getSfzList" resultType="String">
+		SELECT a.sfzh AS sfzh FROM `bckj_biz_dacx` a where a.sfzh is not null
+	</select>
+
+	<select id="getXsxhList" resultType="String">
+		SELECT a.xsxh AS xsxh FROM `bckj_biz_dacx` a where a.xsxh is not null
+	</select>
 
 	<select id="inquiryArchives" resultType="BckjBizDacx" parameterType="Map">
 		SELECT
@@ -232,5 +239,36 @@
 		FROM `bckj_biz_dacx` a
 		WHERE a.XSXM=#{xsxm} AND a.SFZH=#{sfzh};
 	</select>
-	
+
+	<select id="showDanInfoList" parameterType="Map" resultType="Map">
+		select a.owid as owid ,a.xsxh as xsxh ,a.xsxm as xsxm ,a.sfzh as sfzh , a.xb as xb , a.bysj as bysj ,
+		a.szxy as szxy ,a.szbj as szbj, a.dwmc as dwmc , a.bdz_Dwmc as bdzDwmc ,a.dazj_Dwdz as dazjDwdz
+		, a.dazj_Dwmc as dazjDwmc , a.bdz_bh as bdzBh ,a.memo as memo
+		from  bckj_biz_dacx a
+		<where>
+			<if test="xsxh!=null and xsxh!=''">
+				and  a.xsxh like CONCAT('%',#{xsxh},'%')
+			</if>
+			<if test="sfzh != null and sfzh !=''">
+				and a.sfzh like CONCAT('%',#{sfzh},'%')
+			</if>
+		</where>
+		order by a.xsxh desc
+	</select>
+
+	<select id="getXsxh" parameterType="String" resultType="BckjBizDacx">
+		select <include refid="bckjBizDacxColumns"></include>
+		from  bckj_biz_dacx a
+		<where>
+			a.xsxh=#{value}
+		</where>
+	</select>
+
+	<select id="getSfzh" parameterType="String" resultType="BckjBizDacx">
+		select <include refid="bckjBizDacxColumns"></include>
+		from  bckj_biz_dacx a
+		<where>
+			a.sfzh=#{value}
+		</where>
+	</select>
 </mapper>

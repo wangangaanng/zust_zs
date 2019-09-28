@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import javax.crypto.interfaces.PBEKey;
 import javax.xml.crypto.Data;
 import java.io.*;
 import java.text.ParseException;
@@ -233,21 +234,21 @@ public class ExcelUtils {
         int dianCount=0;
         int eCount =0;
         int finalNum=0;
-        if(data.indexOf(".")!=-1){
+        if(data.indexOf(".")!=-1&&data.indexOf("E")==-1){
+            data=data.substring(0, data.indexOf("."));
+        }else if(data.indexOf(".")!=-1&&data.indexOf("E")!=-1){
             dianCount=data.indexOf(".");
             data=data.replaceAll("\\.", "");
-        }
-        if(data.indexOf("E")!=-1){
-            eCount=data.indexOf("E");
-            finalNum=Integer.parseInt(data.substring(data.indexOf("E")+1));
-            if((eCount-dianCount)<finalNum){
-                data = data.substring(0, data.indexOf("E"));
-                for(int count=0;count<(finalNum-(eCount-dianCount));count++){
-                    data=data+"0";
+                eCount=data.indexOf("E");
+                finalNum=Integer.parseInt(data.substring(data.indexOf("E")+1));
+                if((eCount-dianCount)<finalNum){
+                    data = data.substring(0, data.indexOf("E"));
+                    for(int count=0;count<(finalNum-(eCount-dianCount));count++){
+                        data=data+"0";
+                    }
+                }else {
+                    data=data.substring(0,data.indexOf("E"));
                 }
-            }else {
-                data=data.substring(0,data.indexOf("E"));
-            }
         }
         return data;
     }
@@ -444,6 +445,13 @@ public class ExcelUtils {
         Date utilDate=sdf.parse(dateStr);
         return  utilDate;
     }
+    public static Date stringtoDatec(String str) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date utilDate=sdf.parse(str);
+        return  utilDate;
+    }
+
+
 }
 
 
