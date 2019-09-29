@@ -153,10 +153,6 @@
                 formatter: operateFormatterZph
             }, {
                 align : 'center',
-                field: 'zphCbf',
-                title: '承办方'
-            }, {
-                align : 'center',
                 field: 'zwCity',
                 title: '城市',
             }, {
