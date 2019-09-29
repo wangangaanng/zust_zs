@@ -1,0 +1,25 @@
+INSERT INTO todb.`comp`(owid,QYMC,QY_GSGM,QY_HYLB,QY_GSXZ,QY_YX,QY_CITY,QYDZ,QY_ZCSJ,QY_LXR,QY_LXRDH,QYLXFS,QY_GSWZ,
+QY_GSJS,QY_YYZZZP, QY_TYSH) SELECT a.`companyid`,a.`company_name`,a.d_scale,a.`d_industry`,a.`d_nature`,a.`email`,a.city,b.address,
+FROM_UNIXTIME(a.`dateline`,'%Y-%m-%d %T') ,b.linkman,b.contact,b.contact,b.website,b.description,b.license,b.organization_code_text
+ FROM 51clf_web.clf_company_all a,51clf_web.`clf_company_all_more` b
+WHERE a.companyid=b.companyid
+
+公司
+-------------------------------
+
+INSERT INTO todb.`job`(OWID,QYXX_REF_OWID,ZWBT,CREATETIME,ZW_CITY,ZW_LXYX,ZW_ZPRS,ZW_NLYQ,ZW_XLYQ,ZW_GZNX,ZW_YYYQ,ZW_GWZZ,zw_GZXZ,zw_GZZN) SELECT a. jobid,a.`companyid`,a.job_name ,FROM_UNIXTIME(a.`dateline`,'%Y-%m-%d %T') AS datatata,a.city ,b.`email`,b.num,b.d_age ,b.`d_education`,b.`d_work_years`,b.`d_lang`,
+b.`description`,a.d_category,a.d_skill FROM `51clf_web`.`clf_job_all` a,
+ 51clf_web.`clf_job_all_more` b WHERE a.jobid=b.`jobid` ORDER BY datatata DESC LIMIT 500;
+
+
+职位
+
+---------------------------------
+
+
+INSERT INTO shehuzph(owid,ZWBT,ZWLX,ZW_CITY,ZPH_KSRQ,ZPH_JTSJ,ZPH_JBDD,MEMO)
+SELECT a.jid,a.`title` ,2 ,a.`city` ,FROM_UNIXTIME(a.`starttime`,'%Y-%m-%d %T') AS stsatrt,a.`endtime` ,b.address,c.`content` FROM
+51clf_web.`clf_jobfair_all` a ,51clf_web.`clf_jobfair_address` b ,51clf_web.`clf_jobfair_all_more` c
+WHERE a.address=b.id AND a.jid=c.jid ORDER BY stsatrt  DESC LIMIT 10000;
+
+社会招聘
