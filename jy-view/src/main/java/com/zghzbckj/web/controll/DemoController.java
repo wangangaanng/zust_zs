@@ -15,10 +15,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * <p>方法 DemoController : <p>
@@ -708,41 +713,94 @@ public class DemoController {
         return view;
     }
 
+    /**
+     *根据Cookie名获取对应的Cookie
+     *
+     *@authorzifangsky
+     *@paramrequest
+     *HttpServletRequest
+     *@paramcookieName
+     *cookie名称
+     *
+     *@return对应cookie，如果不存在则返回null
+     */
+    public static Cookie getCookie(HttpServletRequest request,String cookieName){
+        Cookie[]cookies=request.getCookies();
+
+        if(cookies==null||cookieName==null||cookieName.equals(""))
+            return null;
+
+        for(Cookie c:cookies){
+            if(c.getName().equals(cookieName))
+                return(Cookie)c;
+        }
+        return null;
+    }
+
+    /**
+     *根据Cookie名获取对应的Cookie值
+     *
+     *@authorzifangsky
+     *@paramrequest
+     *HttpServletRequest
+     *@paramcookieName
+     *cookie名称
+     *
+     *@return对应cookie值，如果不存在则返回null
+     */
+    public static String getCookieValue(HttpServletRequest request,String cookieName){
+        Cookie cookie=getCookie(request,cookieName);
+        if(cookie==null)
+            return null;
+        else
+            return cookie.getValue();
+    }
+
+
     @RequestMapping(value = "enterpriseService/{secondDir}", method = RequestMethod.GET)
-    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid, @PathVariable String secondDir) {
+    public ModelAndView enterpriseServices(HttpServletRequest request, ModelAndView view, HttpServletResponse response, @PathVariable String secondDir) throws IOException {
+        String qyOwid=getCookieValue(request,"yhOwid");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
-        if(secondDir.equals("0")){//基本信息
-            view.setViewName("enterpriseService");
-            Map param=Maps.newHashMap();
-            param.put("dicType","20000");
-            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-            ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
-            view.addObject("qyGsxz",qyGsxz.getBean());
-            Map param1=Maps.newHashMap();
-            param1.put("dicType","20001");
-            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
-            ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
-            view.addObject("qyHylb",qyHylb.getBean());
-            Map param2=Maps.newHashMap();
-            param2.put("dicType","20002");
-            PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-            ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
-            view.addObject("qyGsgm",qyGsgm.getBean());
-            Map param3=Maps.newHashMap();
-            param3.put("owid",qyOwid);
-            PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
-            ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
-            view.addObject("cInfo",cInfo.getBean());
-        }else if(secondDir.equals("1")){//职位信息
-            view.setViewName("enterpriseZw");
-        }else if(secondDir.equals("2")){//宣讲会
-            view.setViewName("enterpriseXjh");
-        }else if(secondDir.equals("3")){//招聘会
-            view.setViewName("enterpriseZph");
+        if(null!=qyOwid){
+            if(secondDir.equals("0")){//基本信息
+                view.setViewName("enterpriseService");
+                Map param=Maps.newHashMap();
+                param.put("dicType","20000");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                ResponseMessage qyGsxz  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("qyGsxz",qyGsxz.getBean());
+                Map param1=Maps.newHashMap();
+                param1.put("dicType","20001");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+                ResponseMessage qyHylb  = UnionHttpUtils.doPosts(publicData1);
+                view.addObject("qyHylb",qyHylb.getBean());
+                Map param2=Maps.newHashMap();
+                param2.put("dicType","20002");
+                PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+                ResponseMessage qyGsgm  = UnionHttpUtils.doPosts(publicData2);
+                view.addObject("qyGsgm",qyGsgm.getBean());
+                Map param3=Maps.newHashMap();
+                param3.put("owid",qyOwid);
+                PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
+                ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
+                view.addObject("cInfo",cInfo.getBean());
+            }else if(secondDir.equals("1")){//职位信息
+                view.setViewName("enterpriseZw");
+            }else if(secondDir.equals("2")){//宣讲会
+                view.setViewName("enterpriseXjh");
+            }else if(secondDir.equals("3")){//招聘会
+                view.setViewName("enterpriseZph");
+            }
+            return view;
+        }else{
+//            view=new ModelAndView("redirect:/index");
+            view.setViewName("redirect:/");
+//            response.sendRedirect("redirect:/index");
+            return view;
         }
-        return view;
+
     }
 
     @RequestMapping(value = "stuCenter/{secondDir}", method = RequestMethod.GET)
@@ -839,20 +897,10 @@ public class DemoController {
 
 
 
-//    @RequestMapping(value = "table1", method = RequestMethod.GET)
-//    public String table1(HttpServletRequest request) {
-//        return "table1";
-//    }
-
     @RequestMapping(value = "table", method = RequestMethod.GET)
     public String table(HttpServletRequest request) {
         return "table";
     }
-
-//    @RequestMapping(value = "table2", method = RequestMethod.GET)
-//    public String table2(HttpServletRequest request) {
-//        return "table2";
-//    }
 
     @RequestMapping(value = "print1", method = RequestMethod.GET)
     public ModelAndView print1(HttpServletRequest request) {
