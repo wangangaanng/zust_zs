@@ -486,6 +486,35 @@ function doEncode() {
     var src = document.getElementById('src').value;
     document.getElementById('dest').value = base64encode(utf16to8(src));
 }
+function AntiSqlValid(oField ) {
+    re = /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
+    if (re.test(oField.value)) {
+        layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", oField, {tips: 1})
+        oField.value = "";
+        $(oField).addClass("errInfo");
+        oField.focus();
+        return false;
+    }
+}
+function AntiSqlValidAll(val,successMethod ) {
+    re = /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
+    var allright=true;
+    for(var i=0;i<val.length;i++){
+        if (re.test($(val[i]).val())) {
+            layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", $(val[i]),{tips: 1})
+            // alert("请您不要在参数中输入特殊字符和SQL关键字！"); //注意中文乱码
+            $(val[i]).value = "";
+            $(val[i]).addClass("errInfo");
+            $(val[i]).focus();
+            allright=false;
+            break
+        }
+    }
+    if(allright){
+        return typeof successMethod == "function" && successMethod()
+    }
+
+}
 
 
 //添加Cookie 时间以小时计
