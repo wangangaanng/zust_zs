@@ -145,9 +145,13 @@ public class BckjBizZxzxController extends BaseController {
     public ResponseMessage historyConsult(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize","zxlx","twOwid");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize","zxlx");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            ValidateMsg twOwid = ValidateUtils.isEmpty(dataMap, "twOwid");
+            if(!twOwid.getSuccess()){
+                return ResponseMessage.sendError(2,"登入过期");
             }
             return  bckjBizZxzxService.historyConsult(dataMap);
         }

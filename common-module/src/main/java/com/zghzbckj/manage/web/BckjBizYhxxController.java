@@ -159,9 +159,13 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage modfiyPassword(PublicDataVO dataVO) {
         try {
             Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "newPassword", "oldPassword","newPasswordAgain","owid");
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "newPassword", "oldPassword","newPasswordAgain");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            ValidateMsg yhidmsg = ValidateUtils.isEmpty(datamap, "owid");
+            if(!yhidmsg.getSuccess()){
+                return ResponseMessage.sendError(2,"登录过期");
             }
             return bckjBizYhxxService.modfiyPassword(datamap);
         } catch (Exception e) {

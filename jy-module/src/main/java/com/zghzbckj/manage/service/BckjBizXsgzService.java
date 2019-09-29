@@ -249,6 +249,9 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         }
         //如果为新的关注
         if (Integer.parseInt(datamap.get("xxlb").toString()) == 0) {
+            if(bckjBizJob.getZwGzs()==null){
+                bckjBizJob.setZwGzs(1);
+            }
             int count = bckjBizJob.getZwGzs() + 1;
             bckjBizJob.setZwGzs(count);
             bckjBizJobService.saveOrUpdate(bckjBizJob);

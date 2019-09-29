@@ -289,14 +289,14 @@
 	</select>
 
 	<update id="deleteByMap" parameterType="Map">
-		delete FROM bckj_biz_zxzx a
+		delete  FROM bckj_biz_zxzx
 		<where>
 		1=1
 			<if test="owid!=null and owid!=''">
-				and a.owid = #{owid}
+				and owid = #{owid}
 			</if>
 			<if test="zxzyid!=null and zxzyid!=''">
-				and a.zxzyid =#{zxzyid}
+				and zxzyid =#{zxzyid}
 			</if>
 		</where>
 	</update>
