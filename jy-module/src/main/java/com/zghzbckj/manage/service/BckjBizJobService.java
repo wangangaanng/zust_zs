@@ -169,7 +169,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (JyContant.ZWLB_ZW == zwlx) {
             if (!TextUtils.isEmpty(mapData.get("exp1"))) {
                 Map temp = new HashMap<>(1);
-                temp.put("qyxx", mapData.get("exp1").toString());
+                temp.put("qymc", mapData.get("exp1").toString());
                 BckjBizQyxx qyxx = qyxxDao.getOne(temp);
                 if (TextUtils.isEmpty(qyxx)) {
                     qyxx = new BckjBizQyxx();

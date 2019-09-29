@@ -195,9 +195,15 @@
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>
-            <if test="qymc != null and qymc != ''">
-                AND b.qymc = #{qymc}
+            <if test="qyHylb != null and qyHylb != ''">
+                AND b.qyHylb = #{qy_hylb}
             </if>
+			<if test=" qyGsxz != null and qyGsxz != '' ">
+				AND b.qy_gsxz = #{qyGsxz}
+			</if>
+			<if test=" qyGsgm != null and qyGsgm != '' ">
+				AND b.qy_gsgm = #{qyGsgm}
+			</if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
