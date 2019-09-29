@@ -8,10 +8,12 @@ import com.zghzbckj.vo.BckjBizYhxxVo;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 
 
 /**
@@ -36,4 +38,19 @@ public interface BckjBizYhxxSer {
      */
     @RequestMapping(value = "/bckjBizYhxx/getOneByOwid",method = RequestMethod.POST)
     ResponseMessage getOneByOwid(@RequestParam("owid") String owid);
+
+    @RequestMapping(value = "/bckjBizYhxx/saveOrALL",method = RequestMethod.POST)
+    ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists);
+
+    @RequestMapping(value = "/bckjBizYhxx/deleteInfo",method = RequestMethod.POST)
+    ResponseMessage deleteInfo(@RequestBody  BckjBizYhxxVo bckjBizYhxxVo);
+
+    @RequestMapping(value = "/bckjBizYhxx/saveconInfo",method = RequestMethod.POST)
+    ResponseMessage saveconInfo(@RequestBody  BckjBizYhxxVo bckjBizYhxxVo);
+
+    @RequestMapping(value = "/bckjBizYhxx/insertInfo",method = RequestMethod.POST)
+    ResponseMessage insertInfo(@RequestBody  BckjBizYhxxVo bckjBizYhxxVo);
+
+
+
 }

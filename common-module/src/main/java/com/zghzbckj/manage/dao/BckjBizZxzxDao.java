@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizZxzx;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,4 +24,6 @@ public interface BckjBizZxzxDao extends CrudDao<BckjBizZxzx> {
     List<Map<String,Object>>  findlyList(Map<String, Object> dataMap);
 
     BckjBizZxzx getOneByCondition(Map<String, Object> dataMap);
+
+    void verify(HashMap<Object, Object> sendMap);
 }

@@ -5,6 +5,7 @@ package com.zghzbckj.manage.web;
 
 import com.alibaba.fastjson.JSON;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.RepeatException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
@@ -16,13 +17,10 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.CommonConstants;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import com.zghzbckj.manage.entity.BckjBizZjzx;
 import com.zghzbckj.manage.service.BckjBizZjzxService;
 import org.apache.log4j.Logger;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -212,4 +210,138 @@ public class BckjBizZjzxController extends BaseController {
         }
     }
 
+
+    /**
+     * <p>功能描述:后台录入专家信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/25</li>
+     * </ul>
+     */
+    @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordInfo( PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizZjzxService.  recordInfo(dataMap.get("path").toString());
+        } catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+        /**
+         * <p>功能描述:后台显示专家信息</p >
+         * <ul>
+         * <li>@param </li>
+         * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+         * <li>@throws </li>
+         * <li>@author wangangaanng</li>
+         * <li>@date 2019/9/25</li>
+         * </ul>
+         */
+        @PostMapping("showInfoList")
+        @ResponseBody
+        public  ResponseMessage showInfoList(PublicDataVO dataVO){
+            try {
+                List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+                return bckjBizZjzxService.showInfoList(filters,dataVO.getPageNo(),dataVO.getPageSize());
+            }
+            catch (Exception e){
+                log.error(CommonConstant.ERROR_MESSAGE,e);
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            }
+        }
+    /**
+     * <p>功能描述:后台保存专家信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/25</li>
+     * </ul>
+     */
+    @PostMapping("saveConsultInfo")
+    @ResponseBody
+    public ResponseMessage saveConsultInfo(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
+            if(((ArrayList)dataMap.get("dataList")).size()==0){
+                return ResponseMessage.sendOK("无更新数据");
+            }
+            List<Map<String, Object>> components = (List)dataMap.get("dataList");
+            if(components.size()==0){
+                return ResponseMessage.sendOK("无更新数据");
+            }
+            return bckjBizZjzxService.saveConsultInfo(components);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
+
+
+    /**
+     * <p>功能描述:新建专家信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/23</li>
+     * </ul>
+     */
+    @PostMapping("insertssInfo")
+    @ResponseBody
+    public ResponseMessage insertssInfo(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return bckjBizZjzxService.insertssInfo(dataMap);
+        }
+        catch (Exception e)
+        {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * <p>功能描述:新建专家信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/23</li>
+     * </ul>
+     */
+    @PostMapping("getConsultsOne")
+    @ResponseBody
+    public ResponseMessage getConsultsOne(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizZjzxService.getConsultsOne(dataMap);
+        }
+        catch (Exception e)
+        {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 }

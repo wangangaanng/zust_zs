@@ -272,7 +272,7 @@
 		a.hf_Owid as hfOwid, a.hf_Name as hfName,
 		a.zxzyid as zxzyid,a.wtnr as wtnr ,a.danr as danr ,
 		a.twrq as twrq ,a.hdrq as hdrq,
-		a.owid as owid
+		a.owid as owid,a.state as state
 		from bckj_biz_zxzx a
 		<where>
 			<if test="zxlx!=null and zxlx!=''">
@@ -320,5 +320,11 @@
 			</if>
 		</where>
 	</select>
+
+	<update id="verify" parameterType="Map">
+		update bckj_biz_zxzx a
+		set  a.state= #{state},a.hdrq=#{jdrq}
+		where a.owid = #{owid}
+	</update>
 	
 </mapper>

@@ -15,8 +15,11 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
 
+import com.zghzbckj.util.MapUtil;
+import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.soap.Text;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -282,11 +287,11 @@ public class BckjBizYhxxController extends BaseController {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
             if(((ArrayList)dataMap.get("dataList")).size()==0){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"无更新数据");
+                return ResponseMessage.sendOK("无更新数据");
             }
             List<Map<String, Object>> components = (List)dataMap.get("dataList");
             if(components.size()==0){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"无更新数据");
+                return ResponseMessage.sendOK("无更新数据");
             }
             return bckjBizYhxxService.saveStudentInfo(components);
         }
@@ -295,5 +300,122 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
 
+    }
+
+    /**
+     * <p>功能描述:新建学生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/23</li>
+     * </ul>
+     */
+    @PostMapping("insertssInfo")
+    @ResponseBody
+    public ResponseMessage insertssInfo(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return bckjBizYhxxService.insertssInfo(dataMap);
+        }
+        catch (StringIndexOutOfBoundsException e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"输入时间格式错误");
+        }
+        catch (Exception e)
+        {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
+    @PostMapping("saveOrALL")
+    @ResponseBody
+    public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists){
+        try{
+            List<BckjBizYhxx> listYhxx=new ArrayList<>();
+            for(BckjBizYhxxVo bckjBizYhxxVo:lists){
+                BckjBizYhxx bckjBizYhxx=new BckjBizYhxx();
+                bckjBizYhxx.setOwid(bckjBizYhxxVo.getOwid());
+                bckjBizYhxx.setXm(bckjBizYhxxVo.getXm());
+                bckjBizYhxx.setYhDlzh(bckjBizYhxxVo.getYhDlzh());
+                bckjBizYhxx.setYhDlmm(bckjBizYhxxVo.getYhDlmm());
+                bckjBizYhxx.setXm(bckjBizYhxxVo.getXm());
+                bckjBizYhxx.setYx(bckjBizYhxxVo.getYx());
+                bckjBizYhxx.setXb(bckjBizYhxxVo.getXb());
+                bckjBizYhxx.setYhlx(bckjBizYhxxVo.getYhlx());
+                listYhxx.add(bckjBizYhxx);
+
+            }
+            bckjBizYhxxService.saveAll(listYhxx);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping("deleteInfo")
+    @ResponseBody
+    public  ResponseMessage deleteInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+        try {
+            bckjBizYhxxService.delete(bckjBizYhxx);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping("saveconInfo")
+    @ResponseBody
+    public  ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+        try {
+            bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping("insertInfo")
+    @ResponseBody
+    public  ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+        try {
+            bckjBizYhxxService.insertInfo(bckjBizYhxx);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 后台进入修改页面读取出信息
+     * @param
+     * @return
+     */
+    @PostMapping("getStudentOne")
+    @ResponseBody
+    public  ResponseMessage getStudentOne(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizYhxxService.getStudentOne(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
     }
 }

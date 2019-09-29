@@ -221,12 +221,23 @@
 			dept_path = #{deptPath},
 			delflg = #{delflg},
 			state = #{state}
-		WHERE owid = #{owid}
+			<where>
+				<if test="owid !=null and owid !=''">
+					owid = #{owid}
+				</if>
+			</where>
 	</update>
 	
 	<delete id="delete">
 		DELETE FROM bckj_biz_zjzx
-		WHERE owid = #{owid}
+		<where>
+			<if test="owid != null and owid !=''">
+				owid = #{owid}
+			</if>
+			<if test="yhid != null and yhid !=''">
+				yhid = #{yhid}
+			</if>
+		</where>
 	</delete>
 
 
@@ -245,5 +256,56 @@
 			</if>
 		</where>
 	</select>
-	
+	<select id="showInfoList" resultType="Map">
+		select
+		a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
+		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1
+		from bckj_biz_yhxx a ,bckj_biz_zjzx b
+		<where>
+			a.owid = b.yhid AND  a.yhlx=1
+			<if test="zjxm!=null and zjxm!=''">
+				and  b.zjxm like CONCAT('%',#{zjxm},'%')
+			</if>
+		</where>
+		order by b.zjxm desc
+	</select>
+
+	<update id="updateBycondition"  parameterType="BckjBizZjzx">
+		update bckj_biz_Zjzx a set
+		<if test="zjxm!=null and zjxm!=''">
+			 a.zjxm=#{zjxm},
+		</if>
+		<if test="zjlxfs!=null and zjlxfs!=''">
+			 a.zjlxfs=#{zjlxfs},
+		</if>
+		<if test="zjzw!=null and zjzw!=''">
+			 a.zjzw=#{zjzw},
+		</if>
+		<if test="zjbgs!=null and zjbgs!=''">
+			 a.zjbgs=#{zjbgs},
+		</if>
+		<if test="szxy!=null and szxy!=''">
+			 a.szxy=#{szxy},
+		</if>
+		<if test="szzy !=null and szzy!=''">
+			 a.szzy=#{szzy},
+		</if>
+		<if  test="exp1 != null and exp1!=''">
+			 a.exp1=#{exp1}
+		</if>
+		<where>
+			<if test="yhid!=null and yhid!=''">
+				a.yhid = #{yhid}
+			</if>
+		</where>
+	</update>
+	<select id="getConsultsOne" parameterType="Map"  resultType="Map" >
+			select
+			a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
+			b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1
+			from bckj_biz_yhxx a ,bckj_biz_zjzx b
+			<where>
+				a.owid = b.yhid AND  a.yhlx=1 and a.owid =#{owid}
+			</where>
+	</select>
 </mapper>

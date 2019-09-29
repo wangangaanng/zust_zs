@@ -46,4 +46,5 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     BckjBizYhxx findBySfz(String sfz);
 
 
+    BckjBizStudentXxVo showStudentInfo(Map<String, Object> dataMap);
 }
