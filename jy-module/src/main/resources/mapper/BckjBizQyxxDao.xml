@@ -72,6 +72,9 @@
             <if test="qyTysh != null and qyTysh != ''">
                 AND a.qy_tysh = #{qyTysh}
             </if>
+			<if test="qymc != null and qymc != ''">
+				AND a.qymc = #{qymc}
+			</if>
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>

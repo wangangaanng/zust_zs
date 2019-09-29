@@ -166,6 +166,20 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
             bckjBizJob.setZphKsrq(date);
         }
+        if (JyContant.ZWLB_ZW == zwlx) {
+            if (!TextUtils.isEmpty(mapData.get("exp1"))) {
+                Map temp = new HashMap<>(1);
+                temp.put("qyxx", mapData.get("exp1").toString());
+                BckjBizQyxx qyxx = qyxxDao.getOne(temp);
+                if (TextUtils.isEmpty(qyxx)) {
+                    qyxx = new BckjBizQyxx();
+                    qyxx.setQymc(mapData.get("exp1").toString());
+                    qyxx.setState(JyContant.QY_ZT_TG);
+                    qyxxService.saveOrUpdate(qyxx);
+                }
+                bckjBizJob.setQyxxRefOwid(qyxx.getOwid());
+            }
+        }
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
     }
