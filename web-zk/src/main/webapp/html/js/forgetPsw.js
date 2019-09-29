@@ -6,7 +6,7 @@ var mobile = "";
 var cityId = "";
 $(document).ready(function(){
     cityId = GetRequest();
-    var name = "政府投资项目管理平台";
+    var name = "浙江科技学院网站后台管理系统";
     var area = "";
     if(cityId == 484){
         area = "满洲里";
@@ -54,7 +54,7 @@ $(document).ready(function(){
         area = "阿拉善盟";
     }
     if(!emptyCheck(cityId)){
-        area = "政府投资项目管理平台";
+        area = "浙江科技学院网站后台管理系统";
     }
     $(".login-header_content p").html(area+name);
 
