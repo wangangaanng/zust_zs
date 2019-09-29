@@ -1,0 +1,47 @@
+<!--pages/newsList/newsList.wxml-->
+<van-tabs animated>
+  <van-tab title="新闻快递">
+    <view class="uni-list">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>04.24</span>
+              <em>2019</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">2019届校园招聘会</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-right">
+                  <image class="icon" src="../../static/icon-time.png"></image>
+									<span>2019-08-28</span>
+									<image class="icon" src="../../static/icon-eye.png" style="margin-left:20rpx;"></image>
+									<span>11</span>
+                </view>
+							</view>
+						</view>
+					</view>
+				</view>
+        <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>04.24</span>
+              <em>2019</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">2019届校园招聘会</view>
+							<view class="uni-media-list-text-bottom">
+							  <view class="uni-media-list-text-bottom-right">
+                  <image class="icon" src="../../static/icon-time.png"></image>
+									<span>2019-08-28</span>
+									<image class="icon" src="../../static/icon-eye.png" style="margin-left:20rpx;"></image>
+									<span>11</span>
+                </view>
+							</view>
+						</view>
+					</view>
+				</view>
+    </view>
+  </van-tab>
+  <van-tab title="通知公告">内容 2</van-tab>
+  <van-tab title="校内公示">内容 3</van-tab>
+</van-tabs>

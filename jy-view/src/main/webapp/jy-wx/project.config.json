@@ -75,6 +75,13 @@
 					"pathName": "pages/newsList/newsList",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/diaocha/diaocha",
+					"pathName": "pages/diaocha/diaocha",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

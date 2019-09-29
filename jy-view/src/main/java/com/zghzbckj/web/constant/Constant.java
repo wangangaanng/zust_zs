@@ -12,7 +12,6 @@ public class Constant {
     public static final String IMAGEPATH="client.imagepath";
     public static final String LOCALURL="client.localurl";
     public static final String UPLOADURL="client.uploadurl";
-    public static final String WEBNAME="client.webName";
     public static final int OK = 0;
     public static final int FAIL =-1;
     public static final String ERROR_OK = "success";
