@@ -46,6 +46,9 @@ public class PropertiesUtil {
     }
 
     public static String filterChar(    String str) {
+        if(null==str){
+            return str;
+        }
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(str);
         return m.replaceAll("").trim();

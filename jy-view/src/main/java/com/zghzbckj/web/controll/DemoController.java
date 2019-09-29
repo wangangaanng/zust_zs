@@ -537,7 +537,7 @@ public class DemoController {
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
-        String key = request.getParameter("key");
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
             key = new String(key.getBytes("ISO-8859-1"),"utf-8");
         }else {
@@ -578,7 +578,7 @@ public class DemoController {
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
-        String key = request.getParameter("key");
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
             view.addObject("key",key);
         }else {
@@ -604,7 +604,7 @@ public class DemoController {
 
     @RequestMapping(value = "search/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view,@PathVariable String currentPage) throws UnsupportedEncodingException {
-        String key = request.getParameter("key");
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
             view.addObject("key",key);
         }else {
@@ -630,7 +630,7 @@ public class DemoController {
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
-        String key = request.getParameter("key");
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
             view.addObject("key", key);
         }else {
