@@ -192,7 +192,11 @@
                                 <li>招聘人数：<span>${result.zwZprs!'0'}人</span></li>
                                 <li>语言能力：<span>${result.zwYyyqStr!''}</span></li>
                                 <li>工作地点：<span> ${result.zwCity}</span></li>
-                                <li>薪资待遇：<span>${result.zwXs!''}</span></li>
+                                <#if result.zwXs?exists>
+                                    <li>薪资待遇：<span>${result.zwXs!''}元</span></li>
+                                <#else >
+                                    <li>薪资待遇：</li>
+                                </#if>
                                 <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a>
