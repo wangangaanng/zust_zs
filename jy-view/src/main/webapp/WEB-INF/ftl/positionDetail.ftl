@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>就业网</title>
     <#include "com/config.ftl">
+    <title>${title!''}</title>
+    <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
 </head>
 
 <body>
@@ -109,7 +110,7 @@
                                 <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
@@ -147,7 +148,7 @@
                                 <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >

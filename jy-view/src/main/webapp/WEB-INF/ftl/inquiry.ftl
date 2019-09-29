@@ -5,8 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>就业网</title>
     <#include "com/config.ftl">
+    <title>${title!''}</title>
+    <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
 </head>
 
@@ -147,7 +148,12 @@ var pageSize=10;
                     var value=row.jssj.substring(0,10);
                     return value;
                 }
-            },{
+            }, {
+                align : 'center',
+                field: 'mxdx',
+                title: '面向对象',
+                formatter:operateFormatterdx
+            }, {
                 align : 'center',
                 field: 'sfyx',
                 title: '状态',
@@ -156,6 +162,13 @@ var pageSize=10;
 
         });
 
+    }
+    function operateFormatterdx(value, row, index) {
+        if(row.mxdx==0){
+            return '企业'
+        }else if(row.mxdx==1){
+            return '学生'
+        }
     }
     function operateFormatterZph(value, row, index) {
         if(row.mxdx==0){////1学生 0企业

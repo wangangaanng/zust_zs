@@ -20,6 +20,11 @@
     <mvc:annotation-driven/>
     <!-- 访问静态资源 -->
     <mvc:default-servlet-handler/>
+    <!-- 配置拦截器：-->
+    <mvc:interceptors>
+        <!-- 会拦截所有Controller类里的所有处理方法 -->
+        <bean class="com.zghzbckj.web.filter.HandlerInterceptor"></bean>
+    </mvc:interceptors>
 
     <mvc:annotation-driven>
         <mvc:message-converters>
