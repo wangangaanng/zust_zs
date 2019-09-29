@@ -32,7 +32,7 @@ public class SystemJobSerImpl {
                 ApiConstants.imagePath= PropertiesUtil.readProperty(p, Constant.IMAGEPATH);
                 ApiConstants.localUrl=PropertiesUtil.readProperty(p, Constant.LOCALURL);
                 ApiConstants.uploadUrl=PropertiesUtil.readProperty(p, Constant.UPLOADURL);
-
+                ApiConstants.webname=PropertiesUtil.readProperty(p, Constant.WEBNAME);
             }
         } catch (Exception e) {
             logger.error("初始化失败{}",e);

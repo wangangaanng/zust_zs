@@ -1,4 +1,5 @@
 <#assign base=request.contextPath />
+<#assign title="浙江科技学院就业信息网" />
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />
@@ -12,4 +13,5 @@
     var base='${base!""}'
     var localUrl = '${localUrl!""}';
     var uploadUrl='${uploadUrl!""}';
+    var title="浙江科技学院就业信息网";
 </script>
