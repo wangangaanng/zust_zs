@@ -110,7 +110,7 @@
                                 <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
@@ -148,7 +148,7 @@
                                 <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
