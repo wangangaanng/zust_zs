@@ -221,8 +221,8 @@ public class BckjBizDcwjController extends BaseController {
         //判断开始时间和结束时间
         long Kssj = DateUtil.getDate(dataMap.get("kssj").toString()).getTime();
         long jssj = DateUtil.getDate(dataMap.get("jssj").toString()).getTime();
-        if (Kssj < jssj) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "结束时间不能大于开始时间");
+        if (Kssj > jssj) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "开始时间不能大于结束时间");
         }
         BckjBizDcwj bckjBizDcwj = JsonUtil.map2Bean(dataMap, BckjBizDcwj.class);
         List<BckjBizDcwjTm> tmList = new ArrayList<>();

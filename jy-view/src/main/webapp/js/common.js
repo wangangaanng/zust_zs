@@ -473,7 +473,7 @@ function addCookie(name, value, expires, path, domain) {
         str += ";expires=" + date.toGMTString();
     } else {
         var date = new Date();
-        date.setTime(date.getTime() + 365 * 24 * 3600 * 1000);//若不输入时间，默认保存1年
+        date.setTime(date.getTime() + 1 * 1 * 3600 * 1000);//若不输入时间，默认保存1小时
         str += ";expires=" + date.toGMTString();
     }
     if (path !== "" && path !== null && path !== undefined) {
