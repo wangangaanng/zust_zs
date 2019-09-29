@@ -575,12 +575,12 @@ public class DemoController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
         String key = request.getParameter("key");
         if(null!=key){
-            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            view.addObject("key",key);
         }else {
-            key="";
+            view.addObject("key","");
         }
         view.setViewName("search");
-        view.addObject("key",key);
+
         view.addObject("header",getHeader().getBean());
         Map param = Maps.newHashMap();
         param.put("wzbh",'1');
@@ -601,12 +601,12 @@ public class DemoController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = request.getParameter("key");
         if(null!=key){
-            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            view.addObject("key",key);
         }else {
-            key="";
+            view.addObject("key","");
         }
         view.setViewName("search");
-        view.addObject("key",key);
+
         view.addObject("header",getHeader().getBean());
         Map param = Maps.newHashMap();
         param.put("wzbh",'1');

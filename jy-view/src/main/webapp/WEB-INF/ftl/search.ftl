@@ -71,6 +71,7 @@
 <script>
     var currentPage="${result.currentPage!'1'}"
     $(document).ready(function () {
+
         $("#gjz22").val($("#key1").val())
         if("${flag}"==0){
             $(".content-list").append(nulltip)
