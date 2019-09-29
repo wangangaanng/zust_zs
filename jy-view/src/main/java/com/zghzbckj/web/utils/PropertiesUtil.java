@@ -7,12 +7,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by 10033 on 2017/3/23.
  */
 @Component
 public class PropertiesUtil {
+        private static  final String regEx="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
 
     public Properties loadProperties(String fileName){
         Properties pro = new Properties();
@@ -42,4 +45,12 @@ public class PropertiesUtil {
             return p.getProperty(key);
     }
 
+    public static String filterChar(    String str) {
+        if(null==str){
+            return str;
+        }
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.replaceAll("").trim();
+    }
 }

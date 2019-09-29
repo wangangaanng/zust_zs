@@ -19,7 +19,12 @@ function keyLogin(){
 }
 
 function searchZph() {
-    $("#table-zph").bootstrapTable('refresh',{pageNumber:1});
+    if(AntiSqlValid($("#zwbt-zph").val().trim())){
+        $("#table-zph").bootstrapTable('refresh',{pageNumber:1});
+    }else {
+        walert("请勿输入非法字符")
+        return
+    }
 }
 
 function myJobList1() {

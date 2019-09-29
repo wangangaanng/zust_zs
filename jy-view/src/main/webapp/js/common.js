@@ -3,14 +3,21 @@
  */
 var nulltip="<p style='text-align: center;'>暂无数据</p>"
 $(document).ready(function () {
-    if(getCookie("qyOwid")){
-        $("#qyInfo").show();
-        $("#qyName").html(JSON.parse(getCookie("qyInfo")).qymc);
+    getCookie("userType","1") //1学生 0企业
+    if(getCookie("userType")){
+        if(getCookie("userType")==0){
+            if(getCookie("qyOwid")){
+                $("#qyInfo").show();
+                $("#qyName").html(JSON.parse(getCookie("qyInfo")).qymc);
+            }
+        }else if(getCookie("userType")==1){
+            if(getCookie("stuOwid")){
+                $("#stuInfo").show();
+                $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
+            }
+        }
     }
-    if(getCookie("stuOwid")){
-        $("#stuInfo").show();
-        $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
-    }
+
 })
 //登录
 function login(url,user) {//1学生 0企业
@@ -157,12 +164,29 @@ function keySearch(){
 function searchAll() {
     if($("#gjz22").val().trim()){
         var key=$("#gjz22").val().trim()
-        window.location.href=base+'/search?key='+key
+        if(AntiSqlValid(key)){
+            window.location.href=base+'/search?key='+key
+        }else{
+            walert("请勿输入非法字符")
+            return
+        }
+
     }else{
         walert("请输入关键字")
         return
     }
 }
+
+
+function AntiSqlValid(value) {
+    var re= /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
+    if (re.test(value)){
+        return false;
+    }else{
+        return true;
+    }
+}
+
 
 function testSjh(sjh) {
     var length = sjh.length;

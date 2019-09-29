@@ -135,6 +135,7 @@ public class BckjBizJypmController extends BaseController {
                 String pmqyrs = cellList.get(7);  //排名签约人数
                 String pmqyl = cellList.get(8);   //排名签约率
                 String pmjyl = cellList.get(9);   //排名就业率
+                String memo = cellList.get(10);   //备注
 
                 BckjBizJypm jypm = new BckjBizJypm();
                 //根据专业名称查询
@@ -142,7 +143,7 @@ public class BckjBizJypmController extends BaseController {
                 if (!TextUtils.isEmpty(major)) {
                     jypm.setOwid(major.getOwid());
                 }
-                jypm.easySet("szxy", szxy, "pmzy", pmzy, "pmbj", pmbj, "pmnf", pmnf, "pmyf", pmyf);
+                jypm.easySet("szxy", szxy, "pmzy", pmzy, "pmbj", pmbj, "pmnf", pmnf, "pmyf", pmyf, "memo", memo);
                 jypm.setPmbyrs(Integer.parseInt(pmbyrs));
                 jypm.setPmyprs(Integer.parseInt(pmyprs));
                 jypm.setPmqyrs(Integer.parseInt(pmqyrs));

@@ -63,32 +63,32 @@
             <div class="content-list" style="height: auto;">
                 <form class="form-horizontal" style="padding-top: 20px;" id="registerForm" method="" action="" target="rfFrame">
                     <div class="form-group">
-                        <label for="qymc" class="col-sm-2 control-label">公司名称*：</label>
+                        <label for="qymc" class="col-sm-2 control-label">公司名称<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qymc" disabled="disabled" value="${cInfo.qymc}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyTysh" class="col-sm-2 control-label">统一信用代码*：</label>
+                        <label for="qyTysh" class="col-sm-2 control-label">统一信用代码<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qyTysh" disabled="disabled" value="${cInfo.qyTysh}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号*：</label>
+                        <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qyFrsfz" disabled="disabled" value="${cInfo.qyFrsfz}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyProv" class="col-sm-2 control-label">所在省份*：</label>
+                        <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv" data-val="${cInfo.qyProv}">
                                 <option value="">请选择</option>
 
                             </select>
                         </div>
-                        <label for="qyCity" class="col-sm-2 control-label">所在市*：</label>
+                        <label for="qyCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity" data-val="${cInfo.qyCity}">
                                 <option value="">请选择</option>
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyArea" class="col-sm-2 control-label">所在区*：</label>
+                        <label for="qyArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <select class="form-control" name="qyArea" id="qyArea" data-val="${cInfo.qyArea}">
                                 <option value="">请选择</option>
@@ -106,32 +106,32 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qydz" class="col-sm-2 control-label">公司地址*：</label>
+                        <label for="qydz" class="col-sm-2 control-label">公司地址<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qydz" name="qydz" placeholder="" autocomplete="off" value="${cInfo.qydz}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyLxr" class="col-sm-2 control-label">联系人*：</label>
+                        <label for="qyLxr" class="col-sm-2 control-label">联系人<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off" value="${cInfo.qyLxr}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyLxrdh" class="col-sm-2 control-label">手机*：</label>
+                        <label for="qyLxrdh" class="col-sm-2 control-label">手机<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off" value="${cInfo.qyLxrdh}">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="qyYx" class="col-sm-2 control-label">邮箱*：</label>
+                        <label for="qyYx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="${cInfo.qyYx}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyGsxz" class="col-sm-2 control-label">公司性质*：</label>
+                        <label for="qyGsxz" class="col-sm-2 control-label">公司性质<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="qyGsxz" name="qyGsxz" data-val="${cInfo.qyGsxz}">
                                 <option value="">请选择</option>
@@ -142,7 +142,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyHylb" class="col-sm-2 control-label">行业类别*：</label>
+                        <label for="qyHylb" class="col-sm-2 control-label">行业类别<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="qyHylb" name="qyHylb" data-val="${cInfo.qyHylb}">
                                 <option value="">请选择</option>
@@ -153,7 +153,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="qyGsgm" class="col-sm-2 control-label">公司规模*：</label>
+                        <label for="qyGsgm" class="col-sm-2 control-label">公司规模<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <select class="form-control" id="qyGsgm" name="qyGsgm" data-val="${cInfo.qyGsgm}">
                                 <option value="">请选择</option>
@@ -165,9 +165,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="qyGsjs" class="col-sm-2 control-label">公司介绍*：</label>
+                        <label for="qyGsjs" class="col-sm-2 control-label">公司介绍<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>
+                            <textarea class="form-control" style="resize: none;" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>
                         </div>
                     </div>
                     <div class="form-group">

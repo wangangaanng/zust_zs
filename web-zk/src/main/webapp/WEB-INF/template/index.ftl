@@ -13,7 +13,7 @@
 <body>
 <div style="width: 100%;">
     <div style="text-align: left;padding: 40px 0 15px 0;">
-        <img src="charisma/img/logo/loga.png" style="width: 53px;height: 53px;margin-left: 88px;" />
+        <img src="charisma/img/zust_logo.jpg" style="margin-left: 88px;" />
         <h2 style="display: inline-block;margin-left: 20px;letter-spacing: 5px;">浙江科技学院网站后台管理系统</h2>
     </div>
 
@@ -40,7 +40,7 @@
                    <button type="submit" class="btn btn-primary w80 mr10">登 录</button>
                    <#--<a href="">密码找回</a>-->
                </div>
-
+               <div id="error" style=" display:none;margin: 10px auto;padding: 3px;font-size: 12px;background-color: #C77016;color: #fff;border-radius: 4px;position: absolute;right: 25%;left: 25%;text-align: center;">账号密码错误请重试!</div>
            </form>
         </section>
     </article>
@@ -48,19 +48,20 @@
 </div>
 <div style="width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #555555;">浙江科技学院版权所有<span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved</div>
 <!--content-wrap end-->
-<script src="html/js/jquery.min.js"></script>
+<#--<script src="html/js/jquery.min.js"></script>-->
+<script src="html/js/jquery-3.2.1.min.js"></script>
 <script src="html/js/layer/layer.js"></script>
 <script>
+    console.log(window.location.search);
+    console.log(window.location.search.indexOf('error'));
     (function () {
-        if(getRequest().errorMess==1){
-            layer.confirm('账号或者密码有误', {
-                btn: ['确定'] //按钮
-            }, function(){
-                window.location.href='http://localhost:8080/webZk/manage/index.htm';
-            })
+        if(window.location.search.indexOf('error')>0){
+            $('#error').show();
+            setTimeout(function () {
+                $('#error').fadeOut();
+            },2000)
         }
-
-    })()
+    })();
     function getRequest() {
         var url = window.location.search; //获取url中"?"符后的字串
         var theRequest = new Object();
