@@ -57,8 +57,22 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/mustache/mustache",
-					"pathName": "pages/mustache/mustache",
+					"name": "pages/newsDetail/newsDetail",
+					"pathName": "pages/newsDetail/newsDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qyService/qyService",
+					"pathName": "pages/qyService/qyService",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/newsList/newsList",
+					"pathName": "pages/newsList/newsList",
 					"query": "",
 					"scene": null
 				}

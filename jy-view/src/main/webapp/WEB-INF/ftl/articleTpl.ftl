@@ -47,7 +47,7 @@
                         <ul class="xyzy">
                             <#if (result??)&&(result?size>0)>
                                 <#list result as obj>
-                                    <li><a href="${base}/newsDetail/${obj.owid!''}">${obj.wzbt!''}</a></li>
+                                    <li><a href="${base}/newsDetail/${obj.owid!''}" target="_blank">${obj.wzbt!''}</a></li>
                                 </#list>
                             </#if>
                         </ul>

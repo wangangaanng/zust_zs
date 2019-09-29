@@ -9,6 +9,12 @@ $(document).ready(function () {
     myJobList2()
 })
 
+function keyLogin(){
+    if (event.keyCode==13){
+        searchXjh()
+    }
+}
+
 function searchXjh() {
     $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
 }
@@ -22,11 +28,11 @@ function applyXjh(){
         area: ['750px', '480px'], //宽高
         content: '<div class="lxr-modal"><div class="row">\n' +
         '                            <div class="form-group">\n' +
-        '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人：</label>\n' +
+        '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
         '                                <div class="col-sm-3">\n' +
         '                                    <input type="text" class="form-control" id="lxr" name="lxr" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
-        '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机号：</label>\n' +
+        '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机<span class="red">*</span>：</label>\n' +
         '                                <div class="col-sm-3">\n' +
         '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
@@ -34,11 +40,11 @@ function applyXjh(){
         '                        </div>\n' +
         '                        <div class="row">\n' +
         '                            <div class="form-group">\n' +
-        '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">讲课人：</label>\n' +
+        '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">讲课人<span class="red">*</span>：</label>\n' +
         '                                <div class="col-sm-3">\n' +
         '                                    <input type="text" class="form-control" id="jkr" name="jkr" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
-        '                                <label for="xjsj" class="col-sm-2 control-label text-right" style="line-height: 34px;">宣讲时间：</label>\n' +
+        '                                <label for="xjsj" class="col-sm-2 control-label text-right" style="line-height: 34px;">宣讲时间<span class="red">*</span>：</label>\n' +
         '                                <div class="col-sm-3">\n' +
         '                                    <input type="text" class="form-control" id="xjsj" name="xjsj" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
@@ -46,17 +52,17 @@ function applyXjh(){
         '                            </div>\n' +
         '                        <div class="row">\n' +
         '                            <div class="form-group">\n' +
-        '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">申请理由：</label>\n' +
+        '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">申请理由<span class="red">*</span>：</label>\n' +
         '                                <div class="col-sm-8">\n' +
-        '                                    <textarea  class="form-control" id="xjhsqly" rows="2" name="xjhsqly" placeholder="" autocomplete="off"></textarea>\n' +
+        '                                    <textarea  class="form-control" id="xjhsqly" style="resize: none;" rows="4" name="xjhsqly" placeholder="" autocomplete="off"></textarea>\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                            </div>\n' +
         '                        <div class="row">\n' +
         '                            <div class="form-group">\n' +
-        '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">讲课人介绍：</label>\n' +
+        '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">讲课人介绍<span class="red">*</span>：</label>\n' +
         '                                <div class="col-sm-8">\n' +
-        '                                    <textarea  class="form-control" id="jkrjs" rows="4" name="jkrjs" placeholder="" autocomplete="off"></textarea>\n' +
+        '                                    <textarea  class="form-control" id="jkrjs" style="resize: none;" rows="4" name="jkrjs" placeholder="" autocomplete="off"></textarea>\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                            </div>\n' +
@@ -78,7 +84,7 @@ function confirmQd() {
         return
     }
     if(!$("#lxdh").val().trim()){
-        walert("请填写联系人手机号")
+        walert("请填写联系人手机")
         return
     }else {
         if(!testSjh($("#lxdh").val().trim())){
@@ -97,10 +103,20 @@ function confirmQd() {
     if(!$("#xjhsqly").val().trim()){
         walert("请填写申请理由")
         return
+    }else{
+        if($("#xjhsqly").val().trim().length>200){
+            walert("申请理由不得超过200字")
+            return
+        }
     }
     if(!$("#jkrjs").val().trim()){
         walert("请填写讲课人介绍")
         return
+    }else{
+        if($("#jkrjs").val().trim().length>200){
+            walert("讲课人介绍不得超过200字")
+            return
+        }
     }
     var jsonObj ={
         "jobRefOwid":$("#zphOwid").val(),
@@ -132,7 +148,6 @@ function confirmQd() {
     })
 
 }
-
 
 function myJobList2() {
     $('#table-xjh').bootstrapTable('destroy');
@@ -206,13 +221,17 @@ function myJobList2() {
             align : 'center',
             formatter:function(value,row,index){
                 if(row.xjsj){
-                    var value=row.xjsj.substring(0,10);
+                    var value=row.xjsj.substring(0,16);
                     return value;
                 }else{
                     return "-";
                 }
 
             }
+        }, {
+            field: 'zphJtsj',
+            title: '举办时长',
+            align : 'center',
         }, {
             align : 'center',
             field: 'state',
@@ -270,13 +289,13 @@ window.operateEvents = {
                         type: 1,
                         title:'详情',
                         skin: 'layui-layer-rim', //加上边框
-                        area: ['750px', '320px'], //宽高
+                        area: ['750px', '350px'], //宽高
                         content: '<div class="lxr-modal"><div class="row">\n' +
                         '                            <div class="form-group">\n' +
                         '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
                         '                                <div class="col-sm-3">\n' + data.bean.lxr +
                         '                                </div>\n' +
-                        '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系人手机号：</label>\n' +
+                        '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系人手机：</label>\n' +
                         '                                <div class="col-sm-3">\n' + data.bean.lxdh +
                         '                                </div>\n' +
                         '                            </div>\n' +

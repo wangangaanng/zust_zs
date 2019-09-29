@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizDacx;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,4 +19,14 @@ import java.util.Map;
 public interface BckjBizDacxDao extends CrudDao<BckjBizDacx> {
 
     BckjBizDacx inquiryArchives(Map<String, Object> datamap);
+
+    List<String> getSfzList();
+
+    List<String> getXsxhList();
+
+    List<Map<String , Object>> showDanInfoList(Map<String,Object> dataMap);
+
+    BckjBizDacx getXsxh(String xsxh);
+
+    BckjBizDacx getSfzh(String sfzh);
 }

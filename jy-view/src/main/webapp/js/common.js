@@ -13,12 +13,19 @@ $(document).ready(function () {
     }
 })
 //登录
-function login(url) {
+function login(url,user) {//1学生 0企业
     url=convertStr(url,'');
+    var title='';
+    if(user==0){
+        title='企业登录'
+    }else{
+        user=1;//默认学生
+        title='学生登录'
+    }
     var layer1;
     layer1=layer.open({
         type: 1,
-        title:'登录信息',
+        title:title,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '240px'], //宽高
         content: '<div class="lxr-modal"><div class="row">\n' +
@@ -38,37 +45,71 @@ function login(url) {
         '                            </div>\n' +
         '                        </div><div class="row btn-yd">\n' +
         '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-        '                                <button class="btn green" onclick="confirmDl(\''+url+'\')">确定</button>\n' +
+        '                                <button class="btn green" onclick="confirmDl(\''+url+'\','+user+')">确定</button>\n' +
         '                            </div>\n' +
         '                        </div></div>'
     });
 }
-function confirmDl(url) {
+function confirmDl(url,user) {
     if(!$("#username").val().trim()){
+        console.log(111)
         walert("请填写账号")
-        return
+        return false
     }else if(!$("#psd").val().trim()){
+        console.log(222)
         walert("请填写密码")
-        return
+        return false
     }
-    var jsonObj={
-        "yhDlzh":$("#username").val().trim(),
-        "yhDlmm":$("#psd").val().trim().MD5(),
-    }
-    ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
-        if(data.backCode==0){
-            addCookie("stuOwid",data.bean.owid)
-            addCookie("stuSjh",data.bean.sjh)
-            if(url){
-                window.location.href=base+url
-            }else {
-                location.reload();
-            }
 
-        }else{
-            walert(data.errorMess);
+    if(user==0){
+    }else{
+        user=1;//默认学生
+    }
+    if(user==1){//1学生 0企业
+        var jsonObj={
+            "yhDlzh":$("#username").val().trim(),
+            "yhDlmm":$("#psd").val().trim().MD5(),
         }
-    })
+        ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
+            if(data.backCode==0){
+                loginout()
+                addCookie("stuOwid",data.bean.owid)
+                addCookie("stuSjh",data.bean.sjh)
+                addCookie("userType","1") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
+                if(url){
+                    window.location.href=base+url
+                }else {
+                    location.reload();
+                }
+
+            }else{
+                walert(data.errorMess);
+            }
+        })
+    }else{
+        var jsonObj={
+            "qyFrsfz":$("#psd").val().trim(),
+            "qyTysh":$("#username").val().trim()
+        }
+        ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
+            finishLoad()
+            if(data.backCode==0){
+                loginout()
+                addCookie("qyOwid",data.bean.owid)
+                addCookie("qyInfo",JSON.stringify(data.bean))
+                addCookie("userType","0") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
+                if(url){
+                    window.location.href=base+url
+                }else {
+                    location.reload();
+                }
+            }else{
+                walert(data.errorMess)
+            }
+        })
+    }
 
 }
 function loginout() {
@@ -80,7 +121,8 @@ function loginout() {
     document.cookie  = "qyOwid=;path=/";
     document.cookie  = "stuSjh=;path=/";
     document.cookie  = "stuOwid=;path=/";
-
+    document.cookie  = "userType=;path=/";
+    document.cookie  = "yhOwid=;path=/";
     window.location.href='/'
     // location.reload();
 }
@@ -106,12 +148,40 @@ function ajax(method, data, successMethod, pageNo, pageSize) {
 
 }
 
+function keySearch(){
+    if (event.keyCode==13){
+        searchAll()
+    }
+}
+
+function searchAll() {
+    if($("#gjz22").val().trim()){
+        var key=$("#gjz22").val().trim()
+        window.location.href=base+'/search?key='+key
+    }else{
+        walert("请输入关键字")
+        return
+    }
+}
+
 function testSjh(sjh) {
     var length = sjh.length;
     var mobile = /^1[345789]\d{9}$/;/*/^1(3|4|5|7|8)\d{9}$/*/
     return (length == 11 && mobile.test(sjh));
 }
 
+function testFloat(f) {
+    return f%1>0;
+}
+
+//清除数字千分位
+function clearComma(s) {
+    if ($.trim(s) == "") {
+        return s;
+    } else {
+        return (s + "").replace(/[,]/g, "");
+    }
+}
 
 var loading; // 加载中
 
@@ -403,7 +473,7 @@ function addCookie(name, value, expires, path, domain) {
         str += ";expires=" + date.toGMTString();
     } else {
         var date = new Date();
-        date.setTime(date.getTime() + 365 * 24 * 3600 * 1000);//若不输入时间，默认保存1年
+        date.setTime(date.getTime() + 1 * 1 * 3600 * 1000);//若不输入时间，默认保存1小时
         str += ";expires=" + date.toGMTString();
     }
     if (path !== "" && path !== null && path !== undefined) {

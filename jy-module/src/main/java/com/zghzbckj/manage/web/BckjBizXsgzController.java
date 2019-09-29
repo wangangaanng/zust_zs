@@ -139,9 +139,13 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage signInOrScribe(PublicDataVO dataVO) {
         try {
             Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "yhRefOwid", "jobRefOwid", "xxlb");
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap,  "jobRefOwid", "xxlb");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            ValidateMsg msgyhOwid = ValidateUtils.isEmpty(datamap, "yhRefOwid");
+            if(!msgyhOwid.getSuccess()){
+                return ResponseMessage.sendError(2,"登录过期");
             }
             return bckjBizXsgzService.signInOrScribe(datamap);
         } catch (Exception e) {
@@ -236,9 +240,13 @@ public class BckjBizXsgzController extends BaseController {
     public ResponseMessage studentSubcribeList(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhOwid", "pageNo", "pageSize");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap,  "pageNo", "pageSize");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            ValidateMsg yhOwid = ValidateUtils.isEmpty(dataMap, "yhOwid");
+            if(!yhOwid.getSuccess()){
+                return  ResponseMessage.sendError(2,"登入过期");
             }
             return bckjBizXsgzService.studentSubcribeList(dataMap);
         } catch (Exception e) {

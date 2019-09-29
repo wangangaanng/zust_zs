@@ -58,7 +58,7 @@
             <div class="content-list">
                 <div class="search-bar">
                     <div class="input-group search-input">
-                        <input type="text" id="zwbt-zw" class="form-control" placeholder="输入职位进行查询">
+                        <input type="text" id="zwbt-zw" onkeydown="keyLogin()" class="form-control" placeholder="输入职位进行查询">
                         <div class="input-group-btn">
                             <button type="button" onclick="searchZw()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>

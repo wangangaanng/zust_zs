@@ -70,6 +70,8 @@
                                         </li>
                                     </#if>
                                 </#list>
+                            <#else >
+                                <p style="text-align: center;margin: 125px auto;">暂无数据</p>
                             </#if>
                         </ul>
                     </#list>
@@ -142,11 +144,11 @@
                 <li class="link2" onclick="window.location.href='/enterpriseService/1'">
                     <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/enterpriseService/3'">
-                    <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
-                </li>
                 <li class="link2" onclick="window.location.href='/enterpriseService/2'">
                     <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
+                </li>
+                <li class="link2" onclick="window.location.href='/enterpriseService/3'">
+                    <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
                 </li>
             </ul>
         </div>
@@ -198,7 +200,7 @@
                                     <ul class="job">
                                         <li>${obj.zwbt}</li>
                                         <#if objl_index==0>
-                                            <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea!''}</li>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
@@ -251,6 +253,8 @@
                         </#if>
 
                         </#list>
+                    <#else >
+                    <p style="text-align: center;margin: 140px auto;">暂无数据</p>
                     </#if>
                     </ul>
                 </#list>
@@ -309,6 +313,8 @@
                                 </li>
                             </#if>
                         </#list>
+                    <#else >
+                        <p style="text-align: center;margin: 100px auto;">暂无数据</p>
                     </#if>
                 </ul>
                 </#list>
@@ -437,6 +443,8 @@
             if(data.backCode==0){
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
+                addCookie("userType","1") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
                 walert(data.errorMess)
@@ -463,6 +471,8 @@
             if(data.backCode==0){
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
+                addCookie("userType","0") //1学生 0企业
+                addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
                 walert(data.errorMess)

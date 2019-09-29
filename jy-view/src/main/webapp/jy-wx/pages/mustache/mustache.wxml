@@ -1,2 +1,3 @@
 <!--pages/mustache/mustache.wxml-->
-<text>pages/mustache/mustache.wxml</text>
+<import src="../../libs/wxParse/wxParse.wxml"/>
+<template is="wxParse" data="{{wxParseData:template.nodes}}"/>

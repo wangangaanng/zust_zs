@@ -10,6 +10,7 @@ import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 
 
+import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.feign.BckjBizYhkzSer;
@@ -17,10 +18,7 @@ import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
-import com.zghzbckj.util.CustomSaveALL;
-import com.zghzbckj.util.ExcelUtils;
-import com.zghzbckj.util.MapUtil;
-import com.zghzbckj.util.PageUtils;
+import com.zghzbckj.util.*;
 
 import com.zghzbckj.wechat.utils.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -290,7 +288,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         List<BckjBizYhkz> resultYhkz = new ArrayList<>();
         List<String> excelXh = new ArrayList<>();
         List<String> excelSfz = new ArrayList<>();
-        List<String> excelSjh = new ArrayList<>();
+        /*List<String> excelSjh = new ArrayList<>();*/
         ExcelUtils poi = new ExcelUtils();
         System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
         List<List<String>> list = poi.read(filename);
@@ -306,15 +304,18 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     excelXh.add(xsxh);
                     dataMap.put("xsxh", xsxh);
                     String xm = cellList.get(1); //姓名
+                    xm = ExcelUtils.stmodifyExcelData(xm);
                     dataMap.put("xm", xm);
                     String sfz = cellList.get(2);//身份证号
+                    sfz = ExcelUtils.stmodifyExcelData(sfz);
                     String regex = "\\d{15}(\\d{2}[0-9xX])?";
                     if (!sfz.matches(regex)) {
                         return ResponseMessage.sendOK("存在错误的身份证格式录入");
                     }
                     excelSfz.add(sfz);
                     dataMap.put("sfz", sfz);
-                    String mz = cellList.get(3);   //民族
+                    String mz = cellList.get(3);
+                    mz = ExcelUtils.stmodifyExcelData(mz);//民族
                     dataMap.put("mz", mz);
                     String sjh = cellList.get(4);
                     sjh = ExcelUtils.stmodifyExcelData(sjh);//手机号
@@ -322,8 +323,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     if (dataMap.get("sjh").toString().length() != 11) {
                         return ResponseMessage.sendOK("存在错误的手机格式录入");
                     }
-                    excelSjh.add(sjh);
                     String xb = cellList.get(5);//性别
+                    xb = ExcelUtils.stmodifyExcelData(xb);
                     if (xb.indexOf("男") != -1) {
                         dataMap.put("xb", 1);
                     } else if (xb.indexOf("女") != -1) {
@@ -333,16 +334,22 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     csrq = ExcelUtils.stmodifyExcelData(csrq);//进行变换
                     dataMap.put("csrq", ExcelUtils.stringtoDate(csrq));
                     String yx = cellList.get(7);//邮箱
+                    yx = ExcelUtils.stmodifyExcelData(yx);
                     dataMap.put("yx", yx);
-                    String prov = cellList.get(8);//家庭住址(省)
+                    String prov = cellList.get(8);
+                    prov = ExcelUtils.stmodifyExcelData(prov);//家庭住址(省)
                     dataMap.put("prov", prov);
                     String city = cellList.get(9);//家庭住址(市)
+                    city = ExcelUtils.stmodifyExcelData(city);
                     dataMap.put("city", city);
                     String area = cellList.get(10);//家庭住址(区,乡镇)
+                    area = ExcelUtils.stmodifyExcelData(area);
                     dataMap.put("area", area);
                     String xsxy = cellList.get(11);//所在学院
+                    xsxy = ExcelUtils.stmodifyExcelData(xsxy);
                     dataMap.put("xsxy", xsxy);
                     String xszy = cellList.get(12);//所在专业
+                    xszy = ExcelUtils.stmodifyExcelData(xszy);
                     dataMap.put("xszy", xszy);
                     String xsnj = cellList.get(13);
                     xsnj = ExcelUtils.modifyExcelData(xsnj);//所在年级
@@ -358,6 +365,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     dataMap.put("lxr", yhDlmm);
                     yhDlmm = TextUtils.MD5(yhDlmm);//md5加密
                     dataMap.put("yhDlmm", yhDlmm);
+                    dataMap.put("state",0);
                     BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
                     BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
 
@@ -379,7 +387,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         //判断是否存在学号一样的数据
         List<String> xsxhs = bckjBizYhkzService.getXsxhList();
         List<String> sfzs = this.dao.getSfzList();
-        List<String> sjhs = this.dao.getSjhList();
+       /* List<String> sjhs = this.dao.getSjhList();*/
         ArrayList<String> operates = new ArrayList();
         operates.addAll(xsxhs);
         operates.addAll(excelXh);
@@ -399,14 +407,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (sfzSet.size() != operates.size()) {
             throw new RepeatException("存在身份证号重复录入");
         }
-        operates.clear();
+       /* operates.clear();
         operates.addAll(sjhs);
         operates.addAll(excelSjh);
         for (String i : operates)
             sjhSet.add(i);
         if (sjhSet.size() != operates.size()) {
             throw new RepeatException("存在手机号重复录入");
-        }
+        }*/
         //全部的学生的bcjkbizYhxx信息放入数据库
         saveAll(resultYhxx);
         //全部的学生的bcjkbizYhkz信息放入数据库
@@ -430,12 +438,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     public ResponseMessage showInfoList(Integer state ,List<FilterModel> filters,Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        if(!TextUtils.isEmpty(dataMap.get("sfz"))){
-            String regex = "\\d{15}(\\d{2}[0-9xX])?";
-            if (!dataMap.get("sfz").toString().matches(regex)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
-            }
-        }
         Page<Object> page = new Page(pageNo, pageSize);
         dataMap.put("page", page);
         //state :0是学生 1 是老师
@@ -445,14 +447,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             lists = this.dao.showStudentInfoList(dataMap);
         }
         if(state==1){
-            lists = this.dao.showTeatchInfoList(dataMap);
+         /*   lists = this.dao.showTeatchInfoList(dataMap);*/
         }
         page.setList(lists);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public ResponseMessage saveStudentInfo(List<Map<String, Object>> components) {
+    public ResponseMessage     saveStudentInfo(List<Map<String, Object>> components) {
         try {
             for (Map<String, Object> component : components) {
                 //判断手机号和身份证号
@@ -477,28 +479,21 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 }
                 if (Integer.parseInt(component.get("updateFlag").toString()) == 1) {
                     BckjBizYhkz bckjBizYhkz=null;
-                    BckjBizYhxx yhxxSjh=null;
                     BckjBizYhxx yhxSfz=null;
                     //判断是否存在一样的学号或工号
                     if(!TextUtils.isEmpty(component.get("xsxh").toString())){
                         bckjBizYhkz=bckjBizYhkzService.getByXsxh(component.get("xsxh").toString());
                     }
-                    if(!TextUtils.isEmpty(component.get("sjh").toString())){
-                        yhxxSjh=this.dao.findBySjh(component.get("sjh").toString());
-                    }
                     if(!TextUtils.isEmpty(component.get("sfz").toString())){
                         yhxSfz=this.dao.findBySfz(component.get("sfz").toString());
                     }
                 //如果為更新
-                if (component.get("owid") != null) {
+               /* if (component.get("owid") != null) {
+                    BckjBizYhxx bckjBizYhxx=new BckjBizYhxx();
+                    component.put("csrq",ExcelUtils.stringtoDatec(component.get("csrq").toString()));
                     if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizYhkz)) {
                         if(!component.get("owid").equals(bckjBizYhkz.getYhRefOwid())){
                             return ResponseMessage.sendError(ResponseMessage.FAIL, "存在学号重复录入");
-                        }
-                    }
-                    if(!TextUtils.isEmpty(yhxxSjh)){
-                        if(!component.get("owid").equals(yhxxSjh.getOwid())){
-                            return ResponseMessage.sendError(ResponseMessage.FAIL, "存在手机号重复录入");
                         }
                     }
                     if(!TextUtils.isEmpty(yhxSfz)){
@@ -506,17 +501,15 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                             return ResponseMessage.sendError(ResponseMessage.FAIL, "存在身份证重复录入");
                         }
                     }
-                    component.put("yhDlmm", com.zghzbckj.util.TextUtils.MD5(component.get("lxr").toString()));
-                    saveOrUpdate(JsonUtil.map2Bean(component, BckjBizYhxx.class));
+                        component.put("yhDlmm", com.zghzbckj.util.TextUtils.MD5(component.get("lxr").toString()));
+                    MapUtil.easySetByMap(component,bckjBizYhxx);
+                    saveOrUpdate(bckjBizYhxx);
                     component.put("yhOwid", component.get("owid"));
                     bckjBizYhkzService.updateBycondition(component);
                     //否则为新建
-                } else if (component.get("owid") == null) {
+                }*/ /*else if (component.get("owid") == null) {
                     if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizYhkz)) {
                         return ResponseMessage.sendError(ResponseMessage.FAIL, "存在学号重复录入");
-                    }
-                    if(!TextUtils.isEmpty(yhxxSjh)){
-                        return ResponseMessage.sendError(ResponseMessage.FAIL, "存在手机号重复录入");
                     }
                     if(!TextUtils.isEmpty(yhxSfz)){
                         return ResponseMessage.sendError(ResponseMessage.FAIL, "存在身份证重复录入");
@@ -529,7 +522,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     component.put("yhRefOwid", owid);
                     this.dao.insert(bckjBizYhxx1);
                     bckjBizYhkzService.saveOrUpdate(JsonUtil.map2Bean(component, BckjBizYhkz.class));
-                }
+                }*/
                 }
             }
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
@@ -539,4 +532,94 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+@Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void insertInfo(BckjBizYhxx bckjBizYhxx) {
+        this.dao.insert(bckjBizYhxx);
+    }
+
+    /**
+     * 新建学生信息
+     * @param dataMap
+     * @return
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage insertssInfo(Map<String, Object> dataMap) throws Exception {
+        BckjBizYhxx bckjBizYhxx=new BckjBizYhxx();
+        BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
+    /*    if(!com.zghzbckj.util.TextUtils.isEmpty(dataMap.get("csrq"))){
+         *//*   String rescsrq="\\d{8}";
+            if (!dataMap.get("csrq").toString().matches(rescsrq)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"输入时间格式错误");
+            }*/
+            dataMap.put("csrq", ExcelUtils.stringtoDatec(dataMap.get("csrq").toString()));
+       /* }*/
+        MapUtil.easySetByMap(dataMap,bckjBizYhxx);
+        MapUtil.easySetByMap(dataMap,bckjBizYhkz);
+        if(ClassUtils.isAllFieldNull(bckjBizYhxx)&&ClassUtils.isAllFieldNull(bckjBizYhkz)){
+            return  ResponseMessage.sendOK("无保存内容");
+        }
+        if (!TextUtils.isEmpty(bckjBizYhxx.getSfz())) {
+            String regex = "\\d{15}(\\d{2}[0-9xX])?";
+            if (!bckjBizYhxx.getSfz().matches(regex)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
+            }
+        }
+        if (!TextUtils.isEmpty(bckjBizYhxx.getSjh())) {
+            if (bckjBizYhxx.getSjh().length() != 11) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);
+            }
+        }
+            BckjBizYhkz Yhkz=null;
+            BckjBizYhxx yhxSfz=null;
+            //判断是否存在一样的学号或工号
+            if(!TextUtils.isEmpty(bckjBizYhkz.getXsxh())){
+                Yhkz=bckjBizYhkzService.getByXsxh(bckjBizYhkz.getXsxh());
+            }
+            if(!TextUtils.isEmpty(bckjBizYhxx.getSfz())){
+                yhxSfz=this.dao.findBySfz(bckjBizYhxx.getSfz());
+            }
+            //如果為更新
+            if (bckjBizYhxx.getOwid()!= null) {
+                if (!com.zghzbckj.util.TextUtils.isEmpty(Yhkz)) {
+                    if(!bckjBizYhxx.getOwid().equals(Yhkz.getYhRefOwid())){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, "存在学号重复录入");
+                    }
+                }
+                if(!TextUtils.isEmpty(yhxSfz)){
+                    if(!bckjBizYhxx.getOwid().equals(yhxSfz.getOwid())){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, "存在身份证重复录入");
+                    }
+                }
+
+                bckjBizYhxx.setYhDlmm( com.zghzbckj.util.TextUtils.MD5(bckjBizYhkz.getLxr()));
+
+                saveOrUpdate(bckjBizYhxx);
+
+                bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+                //否则为新建
+            } else if (bckjBizYhxx.getOwid() == null) {
+                if (!com.zghzbckj.util.TextUtils.isEmpty(Yhkz)) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "存在学号重复录入");
+                }
+                if(!TextUtils.isEmpty(yhxSfz)){
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "存在身份证重复录入");
+                }
+                bckjBizYhxx.setYhlx(1);
+                bckjBizYhkz.setOlx(0);
+                bckjBizYhxx.setYhDlmm(com.zghzbckj.util.TextUtils.MD5(bckjBizYhkz.getLxr()));
+                String owid = CustomSaveALL.preInsert(bckjBizYhxx);
+                bckjBizYhkz.setYhRefOwid(owid);
+                this.dao.insert(bckjBizYhxx);
+                bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+            }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+    public ResponseMessage getStudentOne(Map<String, Object> dataMap) {
+        //学生的olx为0
+        dataMap.put("olx",0);
+        return ResponseMessage.sendOK( this.dao.showStudentInfo(dataMap));
+    }
+
 }

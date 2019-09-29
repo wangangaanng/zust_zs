@@ -35,7 +35,7 @@
                                 <#if (result??)&&(result.records??)&&(result.records?size>0)>
                                     <#assign flag=1>
                                     <#list result.records as obj>
-                                        <li><a href="${base}/newsDetail/${obj.owid!''}">
+                                        <li><a href="${base}/newsDetail/${obj.owid!''}" target="_blank">
                                             <div class="article">${obj.wzbt!''}</div>
                                             <div class="article-time">
                                                 <#if obj.fbsj?exists>
@@ -52,21 +52,7 @@
                             <div class="text-center">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination">
-                                        <#--<li>-->
-                                            <#--<a href="#" aria-label="Previous">-->
-                                                <#--<span aria-hidden="true">&laquo;</span>-->
-                                            <#--</a>-->
-                                        <#--</li>-->
-                                        <#--<li><a href="#">1</a></li>-->
-                                        <#--<li><a href="#">2</a></li>-->
-                                        <#--<li><a href="#">3</a></li>-->
-                                        <#--<li><a href="#">4</a></li>-->
-                                        <#--<li><a href="#">5</a></li>-->
-                                        <#--<li>-->
-                                            <#--<a href="#" aria-label="Next">-->
-                                                <#--<span aria-hidden="true">&raquo;</span>-->
-                                            <#--</a>-->
-                                        <#--</li>-->
+
                                     </ul>
                                 </nav>
                             </div>
@@ -87,7 +73,12 @@
             $(".content-list").append(nulltip)
         }else {
             setPage(currentPage, "${result.totalPage!'1'}", function () {
-                openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+                if($("#key").val()){
+                    openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage+'/?key='+$("#key").val())
+                }else{
+                    openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
+                }
+
             })
         }
 
@@ -100,7 +91,12 @@
     }
     function search() {
         var key=$("#key").val();
-        openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
+        if(key){
+            openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
+        }else{
+            openUrl('newsList/${secondDir!""}/${thirdDir!""}/1')
+        }
+
     }
     function setPage(pageCurrent, pageSum, callback) {
         $(".pagination").bootstrapPaginator({

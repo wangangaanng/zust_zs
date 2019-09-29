@@ -41,6 +41,7 @@ $(document).ready(function () {
 
     }
 
+    $("#zwXs").val(parseInt(clearComma($("#zwXs").attr("data-val"))))
     $("#zwGzzn").val($("#zwGzzn").attr("data-val"))
     $("#zwGzxz").val($("#zwGzxz").attr("data-val"))
     $("#zwNlyq").val($("#zwNlyq").attr("data-val"))
@@ -50,8 +51,8 @@ $(document).ready(function () {
     $("#zwGwzz").val($("#zwGwzz").attr("data-val"))
 
     jQuery.validator.addMethod("isNum", function(value, element) {
-        return this.optional(element) || !isNaN(value);
-    }, "请填写数字");
+        return this.optional(element) || !isNaN(value) && !testFloat(value);
+    }, "请填写整数");
 
     $("#registerForm").validate({
         rules: {
@@ -90,7 +91,7 @@ $(document).ready(function () {
             zwZprs: "请填写",
             zwXs: {
                 required: "请填写",
-                isNum: "请填写数字"
+                isNum: "请填写整数"
             },
             zwNlyq: "请选择",
             zwXlyq: "请选择",

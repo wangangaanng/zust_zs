@@ -13,7 +13,7 @@
 <body>
 <div style="width: 100%;">
     <div style="text-align: left;padding: 40px 0 15px 0;">
-        <img src="charisma/img/logo/loga.png" style="width: 53px;height: 53px;margin-left: 88px;" />
+        <img src="charisma/img/zust_logo.jpg" style="margin-left: 88px;" />
         <h2 style="display: inline-block;margin-left: 20px;letter-spacing: 5px;">浙江科技学院网站后台管理系统</h2>
     </div>
 
@@ -51,16 +51,26 @@
 <script src="html/js/jquery.min.js"></script>
 <script src="html/js/layer/layer.js"></script>
 <script>
-    (function () {
-        if(getRequest().errorMess==1){
-            layer.confirm('账号或者密码有误', {
-                btn: ['确定'] //按钮
-            }, function(){
-                window.location.href='http://localhost:8080/webZk/manage/index.htm';
-            })
-        }
-
-    })()
+    // (function () {
+    //     if(getRequest().errorMess==1){
+    //         layer.confirm('账号或者密码有误', {
+    //             btn: ['确定'] //按钮
+    //         }, function(){
+    //             // window.location.href='http://localhost:8080/webZk/manage/index.htm';
+    //             console.log(111);
+    //             window.alert("账号或密码错误")
+    //         })
+    //     }
+    //
+    // })()
+    console.log(window.location.search);
+    console.log(window.location.search.indexOf('error'));
+    if(window.location.search.indexOf('error')>0){
+        $('#error').show();
+        setTimeout(function () {
+            $('#error').fadeOut();
+        },2000)
+    }
     function getRequest() {
         var url = window.location.search; //获取url中"?"符后的字串
         var theRequest = new Object();

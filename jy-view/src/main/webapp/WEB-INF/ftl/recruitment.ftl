@@ -8,6 +8,9 @@
     <title>就业网</title>
 <#include "com/config.ftl">
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
+    <style>
+        .container{min-width: 1024px;}
+    </style>
 </head>
 
 <body>
@@ -20,7 +23,7 @@
                 <div class="content-list">
                     <div class="search-group">
                         <table>
-                            <tr><th>关键词</th><th>所在城市</th><th>开始时间</th><th></th></tr>
+                            <tr><th>关键词</th><th>所在城市</th><th>举办时间</th><th></th></tr>
                             <tr>
                                 <td>
                                     <div class="input-group search-input">
@@ -38,7 +41,7 @@
                                     <input class="form-control" type="date" id="zphKsrq1" >
                                 </td>
                                 <td>
-                                    <input class="form-control" type="date" id="zphKsrq2" >
+                                    <span style="float: left;">-</span><input style="float: right;width: 90%;" class="form-control" type="date" id="zphKsrq2" >
                                 </td>
                                 <td>
                                     <button class="search-button" onclick="initTable()">搜索</button>
@@ -148,10 +151,6 @@
                 field: 'zwbt',
                 title: '标题',
                 formatter: operateFormatterZph
-            }, {
-                align : 'center',
-                field: 'zphCbf',
-                title: '承办方'
             }, {
                 align : 'center',
                 field: 'zwCity',

@@ -29,9 +29,12 @@
                             </div>
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
-                                    <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                    <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <#if result.zphJtsj?exists>
+                                    <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
+                                </#if>
+                                <li>具体城市：<span> ${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl">
@@ -63,7 +66,7 @@
                                 </dl>
                             </div>
                             <ul class="xInfo xInfo-2 cl">
-                                <li>工作城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>工作城市：<span>${result.zwCity}</span></li>
                                 <#if result.createtime?exists>
                                     <li>发布时间：<span>${result.createtime?substring(0,16)}</span></li>
                                 </#if>
@@ -98,9 +101,12 @@
                             </div>
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
-                                    <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                    <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <#if result.zphJtsj?exists>
+                                    <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
+                                </#if>
+                                <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
@@ -133,9 +139,12 @@
                             </div>
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
-                                    <li>具体时间：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                                    <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <#if result.zphJtsj?exists>
+                                    <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
+                                </#if>
+                                <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
@@ -175,15 +184,19 @@
                             <ul class="xInfo xInfo-2 cl">
                                 <li>工作性质：<span>${result.zwGzxzStr!''}</span></li>
                             <#if result.createtime?exists>
-                                <li>发布日期：<span>${result.createtime?substring(0,10)}</span></li>
+                                <li>发布日期：<span>${result.createtime?substring(0,16)}</span></li>
                             </#if>
                                 <li>工作年限：<span>${result.zwGznxStr!''}</span></li>
                                 <li>学历要求：<span>${result.zwXlyqStr!''}</span></li>
                                 <li>年龄要求：<span>${result.zwNlyqStr!''}</span></li>
                                 <li>招聘人数：<span>${result.zwZprs!'0'}人</span></li>
                                 <li>语言能力：<span>${result.zwYyyqStr!''}</span></li>
-                                <li>工作地点：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
-                                <li>薪资待遇：<span>${result.zwXs!''}</span></li>
+                                <li>工作地点：<span> ${result.zwCity}</span></li>
+                                <#if result.zwXs?exists>
+                                    <li>薪资待遇：<span>${result.zwXs!''}元</span></li>
+                                <#else >
+                                    <li>薪资待遇：</li>
+                                </#if>
                                 <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">申请职位</a>
@@ -255,6 +268,9 @@
                 ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
                     if(data.backCode==0){
                         layer.msg('申请成功', {icon: 1});
+                    }else if(data.backCode==2){
+                        layer.msg("请先登录", {icon: 2});
+                        setTimeout('window.location.href="/"',1500);
                     }else{
                         layer.msg(data.errorMess, {icon: 2});
                     }
@@ -278,6 +294,9 @@
                         layer.msg('收藏成功', {icon: 1});
                         $(".shoucang").hide();
                         $(".quxiao").show();
+                    }else if(data.backCode==2){
+                        layer.msg("请先登录", {icon: 2});
+                        setTimeout('window.location.href="/"',1500);
                     }else {
                         layer.msg('收藏失败', {icon: 2});
                     }

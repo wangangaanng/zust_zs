@@ -23,7 +23,7 @@ public class ImportRankExcel implements FileUploadHanderSer {
         System.out.println(map);
         String path = map.get("filePath").toString();
 //        String system_file_path = "F:\\img\\";
-        String system_file_path = "/home/tomcat8/webapps/zjcFiles";
+        String system_file_path = "/mnt/files/zjcFiles/";
         Map<String, Object> params = new HashMap<>();
         if (!TextUtils.isEmpty(path)) {
             params.put("excelUrl", system_file_path + path);

@@ -87,20 +87,7 @@ public class DemoController {
             List wzList= Lists.newArrayList();
             List wzListwz= Lists.newArrayList();
             for(Map map:beanList2){
-                if(null!=map.get("SJHQDX")) {
-                    String SJHQDX = map.get("SJHQDX").toString();
-                    Map paramn = Maps.newHashMap();
-                    paramn.put("zwlx", SJHQDX);
-                    paramn.put("pageNo", '1');
-                    paramn.put("pageSize", "10");
-                    PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
-                    resultMess2 = UnionHttpUtils.doPosts(_data);
-                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
-                        wzList.add(((Map) resultMess2.getBean()).get("records"));
-                    }else {
-                        wzList.add(Lists.newArrayList());
-                    }
-                }else{
+                if((null==map.get("SJHQDX"))||(map.get("SJHQDX").toString().equals("5"))) {
                     String owid = map.get("CODE").toString();
                     String isDetail = map.get("BXLX").toString();
                     Map paramn=Maps.newHashMap();
@@ -110,6 +97,19 @@ public class DemoController {
                     paramn.put("pageNo",'1');
                     paramn.put("pageSize","10");
                     PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
+                    resultMess2 = UnionHttpUtils.doPosts(_data);
+                    if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
+                        wzList.add(((Map) resultMess2.getBean()).get("records"));
+                    }else {
+                        wzList.add(Lists.newArrayList());
+                    }
+                }else{
+                    String SJHQDX = map.get("SJHQDX").toString();
+                    Map paramn = Maps.newHashMap();
+                    paramn.put("zwlx", SJHQDX);
+                    paramn.put("pageNo", '1');
+                    paramn.put("pageSize", "10");
+                    PublicData _data = UnionHttpUtils.manageParam(paramn, "zustjy/bckjBizJob/firstJobList");
                     resultMess2 = UnionHttpUtils.doPosts(_data);
                     if((null!=((Map) resultMess2.getBean()))&&(null!=((Map) resultMess2.getBean()).get("records"))) {
                         wzList.add(((Map) resultMess2.getBean()).get("records"));
@@ -257,7 +257,7 @@ public class DemoController {
         return view;
     }
     @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
-    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "stuOwid",required = false) String stuOwid) {
+    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "yhOwid",required = false) String stuOwid) {
         view.setViewName("inquiryDetail");
         view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());
@@ -570,6 +570,59 @@ public class DemoController {
         }
         return view;
     }
+
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
+        String key = request.getParameter("key");
+        if(null!=key){
+            view.addObject("key",key);
+        }else {
+            view.addObject("key","");
+        }
+        view.setViewName("search");
+
+        view.addObject("header",getHeader().getBean());
+        Map param = Maps.newHashMap();
+        param.put("wzbh",'1');
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/searchAll");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
+
+    @RequestMapping(value = "search/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view,@PathVariable String currentPage) throws UnsupportedEncodingException {
+        String key = request.getParameter("key");
+        if(null!=key){
+            view.addObject("key",key);
+        }else {
+            view.addObject("key","");
+        }
+        view.setViewName("search");
+
+        view.addObject("header",getHeader().getBean());
+        Map param = Maps.newHashMap();
+        param.put("wzbh",'1');
+        param.put("gjz",key);
+        param.put("pageNo", currentPage);
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/searchAll");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
+
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = request.getParameter("key");

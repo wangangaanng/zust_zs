@@ -5,6 +5,7 @@ package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
+import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.manage.entity.BckjBizZjzx;
 
 import java.util.List;
@@ -21,4 +22,10 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
     List<BckjBizZjzx> zjList(Map<String, Object> dataMap);
 
     BckjBizZjzx  getOneByCondition(Object owid);
+
+    List<Map<String, Object>> showInfoList(Map<String, Object> dataMap);
+
+    void updateBycondition(BckjBizZjzx bckjBizZjzx);
+
+    Map<String,Object> getConsultsOne(Map<String, Object> dataMap);
 }

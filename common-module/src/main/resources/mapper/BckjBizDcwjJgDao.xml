@@ -38,7 +38,7 @@
 	</sql>
 
 	<select id="countPeople" resultType="java.lang.Integer">
-		select count(owid)
+		select count(*)
 		from bckj_biz_dcwj_jg
 		where exp1=#{dcwjRefOwid}
 	</select>

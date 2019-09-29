@@ -101,6 +101,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             objectMap.put("kssj", questionnaire.getKssj());
             objectMap.put("jssj", questionnaire.getJssj());
             objectMap.put("sfdl", questionnaire.getSfdl());
+            objectMap.put("mxdx", questionnaire.getMxdx());
             Date endTime = questionnaire.getJssj();
             //系统时间大于问卷结束时间，无效
             if (System.currentTimeMillis() > endTime.getTime()) {
@@ -170,6 +171,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             objectMap.put("tmlx", question.getTmlx());
             objectMap.put("tmmc", question.getTmmc());
             objectMap.put("tmckda", question.getTmckda());
+            objectMap.put("tmsm", question.getTmsm());
             List<Map<String, Object>> optionList = new ArrayList<>();
             //查出选项，放入选项列表
             Map<String, Object> tmMap = bckjBizDcwjTmDao.getOption(question.getOwid());
@@ -247,6 +249,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             if (TextUtils.isEmpty(tm.getExp1())) {
                 tm.setDcwjRefOwid(wjOwid);
                 tm.setOwid("");
+                tm.setTmxxz("");
                 bckjBizDcwjTmService.save(tm);
             }
         }
@@ -266,7 +269,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      */
     public ResponseMessage findPageBckjBizDcwj(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizDcwj> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizDcwj> page = findPage(dataMap, pageNo, pageSize, "kssj");
         return ResponseMessage.sendOK(page);
     }
 

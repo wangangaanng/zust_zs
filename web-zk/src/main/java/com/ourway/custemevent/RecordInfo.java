@@ -23,17 +23,29 @@ import java.util.List;
 import java.util.Map;
 
 public class RecordInfo implements ComponentFileSer {
-    public  final String URL="web/zustcommon/bckjBizYhxx/recordInfo";
-    public  final String FolderPath="F:\\img\\";
+    //师生录入url
+    public  final String xsURL="web/zustcommon/bckjBizYhxx/recordInfo";
+    //专家录入url
+    public  final String zxURL="web/zustjy/bckjBizZjzx/recordInfo";
+    //档案录入url
+    public  final String daURL="web/zustjy/bckjBizDacx/recDanInfo";
+    //上传excela保存的本地地址
+    public  final String FolderPath="/mnt/files/zjcFiles/excel/";
     @Override
     public void doAction(BaseWindow window, Map<String, Object> map, String s) {
         String url="";
         String pageCA = window.getPageCA();
         if(pageCA.indexOf("student")!=-1){
-            url=URL+"/0";
+            url=xsURL+"/0";
         }
         if (pageCA.indexOf("teatch")!=-1){
-            url=URL+"/1";
+            url=xsURL+"/1";
+        }
+        if(pageCA.indexOf("consult")!=-1){
+            url=zxURL;
+        }
+        if(pageCA.indexOf("archives")!=-1){
+            url=daURL;
         }
         String result="";
         String path = map.get("filePath").toString();

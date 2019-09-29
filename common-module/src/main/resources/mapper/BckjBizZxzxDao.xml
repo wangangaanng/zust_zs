@@ -272,7 +272,7 @@
 		a.hf_Owid as hfOwid, a.hf_Name as hfName,
 		a.zxzyid as zxzyid,a.wtnr as wtnr ,a.danr as danr ,
 		a.twrq as twrq ,a.hdrq as hdrq,
-		a.owid as owid
+		a.owid as owid,a.state as state
 		from bckj_biz_zxzx a
 		<where>
 			<if test="zxlx!=null and zxlx!=''">
@@ -289,14 +289,14 @@
 	</select>
 
 	<update id="deleteByMap" parameterType="Map">
-		delete FROM bckj_biz_zxzx a
+		delete  FROM bckj_biz_zxzx
 		<where>
 		1=1
 			<if test="owid!=null and owid!=''">
-				and a.owid = #{owid}
+				and owid = #{owid}
 			</if>
 			<if test="zxzyid!=null and zxzyid!=''">
-				and a.zxzyid =#{zxzyid}
+				and zxzyid =#{zxzyid}
 			</if>
 		</where>
 	</update>
@@ -320,5 +320,11 @@
 			</if>
 		</where>
 	</select>
+
+	<update id="verify" parameterType="Map">
+		update bckj_biz_zxzx a
+		set  a.state= #{state},a.hdrq=#{jdrq}
+		where a.owid = #{owid}
+	</update>
 	
 </mapper>
