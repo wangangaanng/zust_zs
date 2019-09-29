@@ -41,7 +41,6 @@ public class DemoController {
         model.addAttribute("imagePath", ApiConstants.imagePath);
         model.addAttribute("localUrl", ApiConstants.localUrl);
         model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
-        model.addAttribute("webname", ApiConstants.webname);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
