@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-    <title>就业网</title>
     <#include "com/config.ftl">
+    <title>${title!''}</title>
+    <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css" />
     <link rel="stylesheet" href="${base}/css/jui.css" />
     <link rel="stylesheet" href="${base}/css/style.css" />
