@@ -70,6 +70,8 @@
                                         </li>
                                     </#if>
                                 </#list>
+                            <#else >
+                                <p style="text-align: center;margin: 125px auto;">暂无数据</p>
                             </#if>
                         </ul>
                     </#list>
@@ -251,6 +253,8 @@
                         </#if>
 
                         </#list>
+                    <#else >
+                    <p style="text-align: center;margin: 140px auto;">暂无数据</p>
                     </#if>
                     </ul>
                 </#list>
@@ -309,6 +313,8 @@
                                 </li>
                             </#if>
                         </#list>
+                    <#else >
+                        <p style="text-align: center;margin: 100px auto;">暂无数据</p>
                     </#if>
                 </ul>
                 </#list>
