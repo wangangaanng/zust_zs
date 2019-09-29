@@ -62,7 +62,7 @@
                     <prop key="hibernate.query.substitutions">
                          true 1, false 0
                     </prop>
-                   <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/projectmanage</prop>
+                   <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/zust_website</prop>
                    <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
                    <!--
                    <prop key="hibernate.cache.use_query_cache">

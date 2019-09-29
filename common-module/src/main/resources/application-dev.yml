@@ -18,6 +18,9 @@ spring:
         url: jdbc:mysql://127.0.0.1:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
         username: root                                                              #  数据库用户名
         password: root88
+        #url: jdbc:mysql://192.168.3.222:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
+        # username: root                                                              #  数据库用户名
+        # password: zhoubaogang
         #  数据库密码
         druid:
             filters: stat

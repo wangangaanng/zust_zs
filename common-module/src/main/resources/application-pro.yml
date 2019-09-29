@@ -16,9 +16,9 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource                                #  配置当前要使用的数据源的操作类型
         driver-class-name: com.mysql.jdbc.Driver                                    #  配置mysql的驱动程序类
-        url: jdbc:mysql://192.168.3.222:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
+        url: jdbc:mysql://172.16.13.107:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
         username: root                                                              #  数据库用户名
-        password: zhoubaogang                                                           #  数据库密码
+        password: root11                                                           #  数据库密码
         druid:
             filters: stat
             initialSize: 5
@@ -32,13 +32,13 @@ spring:
             testOnBorrow:  false
             testOnReturn:  false
 eureka:
+    instance:
+        instance-id: 172.16.13.108:8084
+        prefer-ip-address: true
+        ip-address: 172.16.13.108
     client:
         serviceUrl:
-            defaultZone: http://172.18.222.149:8761/eureka/
+            defaultZone: http://172.16.13.106:8761/eureka/
         register-with-eureka: true
         fetch-registry: true
 
-#整合logBack
-logging:
-  config: classpath:config/logback-spring-pro.xml
-  path: /usr/project/log
