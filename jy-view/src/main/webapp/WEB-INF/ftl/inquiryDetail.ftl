@@ -178,6 +178,9 @@
         ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {
             if(data.backCode==0){
                 layer.msg('提交成功', {icon: 1});
+            }else if(data.backCode==2){
+                layer.msg("请先登录", {icon: 2});
+                setTimeout('window.location.href="/"',1500);
             }else{
                 layer.msg(data.errorMess, {icon: 2});
             }
