@@ -216,7 +216,6 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 BckjBizYhxxVo yhxxVo = JsonUtil.map2Bean((Map) responseYhxx.getBean(), BckjBizYhxxVo.class);
                 jybm.setLxdh(yhxxVo.getXm());
                 jybm.setLxr(yhxxVo.getSjh());
-                jybm.setBmdx(JyContant.BMDX_ZW);
                 jybm.setYhRefOwid(yhxxVo.getOwid());
             }
             BckjBizJob job = new BckjBizJob();
@@ -253,6 +252,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
                 }
             }
+
+
             //待审核
             jybm.setState(JyContant.JOB_ZT_DSH);
             saveOrUpdate(jybm);
@@ -345,6 +346,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 jobService.saveOrUpdate(job);
                 if (!TextUtils.isEmpty(mapData.get("memo"))) {
                     bm.setMemo(mapData.get("memo").toString());
+                    job.setMemo(mapData.get("memo").toString());
                 }
                 bm.setJobRefOwid(job.getOwid());
             }
