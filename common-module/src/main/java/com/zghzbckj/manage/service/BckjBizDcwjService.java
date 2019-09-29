@@ -85,7 +85,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
      */
     @Transactional(readOnly = false)
     public PageInfo<Map<String, Object>> listAllQuestionnaire(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) throws Exception {
-        PageInfo<BckjBizDcwj> result = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizDcwj> result = findPage(dataMap, pageNo, pageSize, " kssj ");
         if (null == result) {
             return null;
         }
