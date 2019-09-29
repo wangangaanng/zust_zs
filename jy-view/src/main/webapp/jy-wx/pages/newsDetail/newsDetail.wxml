@@ -1,0 +1,17 @@
+<!--pages/newsDetail/newsDetail.wxml-->
+<view class="content">
+		<view class="article-title">关于上海高校青年教师教学竞赛校级选拔赛的通知</view>
+		<view class="article-nav">
+			<view class="article-nav-left">
+				<image class="icon" src="../../static/icon-time.png"></image>
+				2019年10月12日 13:15
+			</view>
+			<view class="article-nav-right">
+				<image class="icon" src="../../static/icon-eye.png"></image>
+				15
+			</view>
+		</view>
+		<view class="article">
+			<rich-text nodes="<p>你好</p>"></rich-text>
+		</view>
+	</view>

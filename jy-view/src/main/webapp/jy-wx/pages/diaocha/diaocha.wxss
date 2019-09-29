@@ -1,0 +1,11 @@
+/* pages/diaocha/diaocha.wxss */
+.wenda-item{padding: 30rpx 30rpx 10rpx;}
+.wenda-title{font-size: 34rpx;color: #484848;}
+.red{color: red;}
+.wenda-answer{font-size: 34rpx;color: #707070;}
+.answer-one{border: solid 1px #dde5ed;border-radius: 10rpx;margin-top: 20rpx;}
+.answer-one label{width: 100%;display: inline-block;padding: 20rpx;}
+.wenda-button{width:690rpx;height: 100rpx;line-height: 100rpx; border: none; margin: 50rpx auto;box-sizing: border-box;
+  background: #008783; color: #fff;font-size: 30rpx;}
+.answer-one input{padding: 20rpx;}
+.wrong{border-color: #ffaeae;}
