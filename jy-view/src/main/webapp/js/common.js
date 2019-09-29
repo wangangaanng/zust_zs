@@ -164,21 +164,21 @@ function keySearch(){
 
 function searchAll() {
     if($("#gjz22").val().trim()){
-        if(AntiSqlValid1($("#gjz22"))){
-            var key=$("#gjz22").val().trim()
+        var key=$("#gjz22").val().trim()
+        if(testSql(key)){
             window.location.href=base+'/search?key='+key
         }
     }else{
-        walert("请输入关键字")
+        layer.tips("请输入关键字！", $("#gjz22"), {tips: 1})
         return
     }
 }
 
-function AntiSqlValid1(oField) {
+function testSql(val) {
     re = /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
-    if (re.test(oField.value)) {
-        layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", oField, {tips: 1})
-        return false;
+    if (re.test(val)) {
+        layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", $("#gjz22"), {tips: 1})
+        return false
     }
 }
 
