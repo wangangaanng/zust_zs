@@ -2,7 +2,6 @@ package com.ourway.apply;
 
 import com.ourway.base.zk.ERCode;
 import com.ourway.base.zk.ZKConstants;
-import com.ourway.base.zk.component.BaseLabel;
 import com.ourway.base.zk.component.BaseTab;
 import com.ourway.base.zk.models.EmployVO;
 import com.ourway.base.zk.models.TreeVO;
@@ -55,12 +54,12 @@ public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
         initMenus();
         initFirstPage();
     }
-    @Override
-    public void initSystemTitle() {
-        BaseLabel systemTitle = (BaseLabel) this.getFellowIfAny("systemTitle");
-        systemTitle.setValue("浙江科技学院招就处网站后台管理系统");
-
-    }
+//    @Override
+//    public void initSystemTitle() {
+//        BaseLabel systemTitle = (BaseLabel) this.getFellowIfAny("systemTitle");
+//        systemTitle.setValue("浙江科技学院招就处网站后台管理系统");
+//
+//    }
 
     private void hideOrShowSwitchButton() {
         A a = (A) getFellowIfAny("switchBtn");
