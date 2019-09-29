@@ -31,6 +31,9 @@
                                 <#if result.zphKsrq?exists>
                                     <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
+                                <#if result.zphJtsj?exists>
+                                    <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
+                                </#if>
                                 <li>具体城市：<span> ${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
@@ -100,6 +103,9 @@
                                 <#if result.zphKsrq?exists>
                                     <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
+                                <#if result.zphJtsj?exists>
+                                    <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
+                                </#if>
                                 <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
@@ -134,6 +140,9 @@
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
                                     <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
+                                </#if>
+                                <#if result.zphJtsj?exists>
+                                    <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
                                 </#if>
                                 <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
