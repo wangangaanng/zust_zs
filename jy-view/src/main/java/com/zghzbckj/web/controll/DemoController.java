@@ -11,10 +11,8 @@ import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.Cookie;
@@ -38,7 +36,12 @@ import java.util.Properties;
 @Controller
 public class DemoController {
     private static final Logger log = Logger.getLogger(DemoController.class);
-
+    @ModelAttribute
+    public void setConfig(Model model) {
+        model.addAttribute("imagePath", ApiConstants.imagePath);
+        model.addAttribute("localUrl", ApiConstants.localUrl);
+        model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
+    }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
@@ -793,11 +796,16 @@ public class DemoController {
             return view;
         }else{
 //            view=new ModelAndView("redirect:/index");
-            view.setViewName("redirect:/");
+            view.setViewName("redirect:/redirectIndex");
 //            response.sendRedirect("redirect:/index");
             return view;
         }
 
+    }
+    @RequestMapping(value = "/redirectIndex", method = RequestMethod.GET)
+    public ModelAndView delelle(ModelAndView model){
+        model.setViewName("redirectIndex");
+        return model;
     }
 
     @RequestMapping(value = "stuCenter/{secondDir}", method = RequestMethod.GET)

@@ -9,12 +9,13 @@
     "pages/logs/logs",
     "pages/mustache/mustache",
     "pages/newsList/newsList",
-    "pages/newsDetail/newsDetail"
+    "pages/newsDetail/newsDetail",
+    "pages/diaocha/diaocha"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#008783",
-    "navigationBarTitleText": "浙江科技学院-就业",
+    "navigationBarTitleText": "浙江科技学院就业信息网",
     "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json"
