@@ -29,6 +29,11 @@
     .checkbox input[type="checkbox"]+span:before{
         width: 18px;height: 18px;
     }
+    dl dt a{
+        font-weight: normal;
+        text-decoration: underline;
+        margin-left: 10px;
+    }
 </style>
 
 <body>
@@ -51,7 +56,7 @@
                         <#if (result.questionList??)&&(result.questionList?size>0)>
                             <#list result.questionList?sort_by("tmsx") as obj>
                                 <#if obj.tmlx?number==1>
-                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
+                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}<#if obj.tmsm??><a href="${obj.tmsm!''}" target="_blank">题目说明</a></#if></dt>
                                     <dd>
                                         <ul>
                                             <li><input type="text" name="input${obj_index}" class="form-control" /></li>
@@ -59,7 +64,7 @@
                                     </dd>
                                 </#if>
                                 <#if obj.tmlx?number==2>
-                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
+                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}<#if obj.tmsm??><a href="${obj.tmsm!''}" target="_blank">题目说明</a></#if></dt>
                                     <dd>
                                         <ul>
                                             <#if (obj.xxList??)&&(obj.xxList?size>0)>
@@ -71,7 +76,7 @@
                                     </dd>
                                 </#if>
                                 <#if obj.tmlx?number==3>
-                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}</dt>
+                                    <dt data-owid="${obj.owid!''}" data-lx="${obj.tmlx}">${obj_index+1}.${obj.tmmc}<#if obj.tmsm??><a href="${obj.tmsm!''}" target="_blank">题目说明</a></#if></dt>
                                     <dd>
                                         <ul>
                                             <#if (obj.xxList??)&&(obj.xxList?size>0)>

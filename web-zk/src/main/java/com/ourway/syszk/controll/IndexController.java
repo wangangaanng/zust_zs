@@ -75,13 +75,13 @@ public class IndexController extends SpringZkBaseControl {
             params.put("language", "chn");
             EmployVO employVO = LoginUtil.loginWithRandCode(params);
             if (null == employVO) {
-                return "redirect:/index.htm?errorMess=1";
+                return "redirect:/index.htm?error";
             } else {
                 //调用成功
                 return "redirect:/login.do?jsessionId=" + employVO.getEmpMobileCode();
             }
         }
-        return "redirect:/index.htm?errorMess=1";
+        return "redirect:/index.htm?error";
 
     }
     Map<String, Object> getWxLogin(String sessionId) {

@@ -171,6 +171,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             objectMap.put("tmlx", question.getTmlx());
             objectMap.put("tmmc", question.getTmmc());
             objectMap.put("tmckda", question.getTmckda());
+            objectMap.put("tmsm", question.getTmsm());
             List<Map<String, Object>> optionList = new ArrayList<>();
             //查出选项，放入选项列表
             Map<String, Object> tmMap = bckjBizDcwjTmDao.getOption(question.getOwid());

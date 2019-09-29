@@ -222,6 +222,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
             job.setZwYds(0);
+            job.setZwGzs(0);
             if (!TextUtils.isEmpty(qyxx)) {
                 job.setExp1(qyxx.getQymc());
             }

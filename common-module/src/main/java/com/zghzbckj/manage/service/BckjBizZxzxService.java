@@ -143,11 +143,15 @@ public ResponseMessage consult(Map<String, Object> dataMap) {
         return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         } //就业专家咨询
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 2) {
-        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid", "studentOwid");
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
         if (!msg.getSuccess()) {
         return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
-        ResponseMessage studentMessage = bckjBizYhxxService.getOneByOwid(dataMap.get("studentOwid").toString());
+                ValidateMsg studentOwid = ValidateUtils.isEmpty(dataMap, "studentOwid");
+        if(!studentOwid.getSuccess()){
+                return ResponseMessage.sendError(2,"登入过期");
+        }
+                ResponseMessage studentMessage = bckjBizYhxxService.getOneByOwid(dataMap.get("studentOwid").toString());
         if (studentMessage == null && studentMessage.getBackCode() == 0 && studentMessage.getBean() == null) {
         return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }

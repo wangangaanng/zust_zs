@@ -70,6 +70,8 @@
                                         </li>
                                     </#if>
                                 </#list>
+                            <#else >
+                                <p style="text-align: center;margin: 125px auto;">暂无数据</p>
                             </#if>
                         </ul>
                     </#list>
@@ -198,7 +200,7 @@
                                     <ul class="job">
                                         <li>${obj.zwbt}</li>
                                         <#if objl_index==0>
-                                            <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea!''}</li>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
@@ -251,6 +253,8 @@
                         </#if>
 
                         </#list>
+                    <#else >
+                    <p style="text-align: center;margin: 140px auto;">暂无数据</p>
                     </#if>
                     </ul>
                 </#list>
@@ -309,6 +313,8 @@
                                 </li>
                             </#if>
                         </#list>
+                    <#else >
+                        <p style="text-align: center;margin: 100px auto;">暂无数据</p>
                     </#if>
                 </ul>
                 </#list>
