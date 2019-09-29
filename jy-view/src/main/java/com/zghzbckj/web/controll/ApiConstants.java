@@ -10,4 +10,6 @@ public class ApiConstants {
     public static  String imagePath="";
     public static  String localUrl="";
     public static  String uploadUrl="";
+    public static  String webname="";
+
 }
