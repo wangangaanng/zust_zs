@@ -29,7 +29,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="#">个人中心</a></li>
                 <li class="active">导师咨询</li>
             </ol>
@@ -121,6 +121,15 @@
 <script>
     var currentPage="${tlist.currentPage!'1'}"
     $(document).ready(function () {
+
+        // layer.open({
+        //     title: '提示'
+        //     ,content: '登录过期',
+        //     yes:function (index) {
+        //         layer.close(index)
+        //     }
+        // });
+
         setPage(currentPage, "${tlist.totalPage!'1'}", function () {
             openUrl('sutCenter/0/'+currentPage)
         })
@@ -183,21 +192,6 @@
                         layer.close(index);
                     }
                 });
-            }
-        })
-    }
-
-    function supervisorList(){
-        var jsonObj ={
-            "pageSize":10,
-            "pageNo":1
-        }
-        ajax("zustjy/bckjBizZjzx/supervisorList", jsonObj, function (data) {
-            if(data.backCode==0){
-            <#--window.location.href="${base}/"+url-->
-            <#--window.location.href="${base}/jobFair/2"-->
-            }else{
-                walert(data.errorMess)
             }
         })
     }

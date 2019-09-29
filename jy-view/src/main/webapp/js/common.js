@@ -165,7 +165,7 @@ function keySearch(){
 function searchAll() {
     if($("#gjz22").val().trim()){
         var key=$("#gjz22").val().trim()
-        if(testSql(key)){
+        if(testSql(key,$("#gjz22"))){
             window.location.href=base+'/search?key='+key
         }
     }else{
@@ -174,11 +174,13 @@ function searchAll() {
     }
 }
 
-function testSql(val) {
+function testSql(val,obj) {
     re = /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
     if (re.test(val)) {
-        layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", $("#gjz22"), {tips: 1})
+        layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", obj, {tips: 1})
         return false
+    }else{
+        return true
     }
 }
 

@@ -24,7 +24,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="#">个人中心</a></li>
                 <li class="active">报名预约</li>
             </ol>
@@ -62,7 +62,7 @@
             <div class="content-list">
                 <div class="search-bar">
                     <div class="input-group search-input">
-                        <input type="text" id="zwbt-xjh" onblur="AntiSqlValid(this)" onkeydown="keyLogin()" class="form-control" placeholder="输入名称进行查询">
+                        <input type="text" id="zwbt-xjh" onkeydown="keyLogin()" class="form-control" placeholder="输入名称进行查询">
                         <div class="input-group-btn">
                             <button type="button" onclick="searchXjh()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>
