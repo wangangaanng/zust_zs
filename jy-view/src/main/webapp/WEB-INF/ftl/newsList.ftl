@@ -23,7 +23,7 @@
                         <div class="search-bar">
                             <div class="search-label">搜素关键字：</div>
                             <div class="input-group search-input">
-                                <input type="text" id="key" class="form-control" placeholder="输入内容" value="${key!''}">
+                                <input type="text" id="key" onblur="AntiSqlValid(this)" class="form-control" placeholder="输入内容" value="${key!''}">
                                 <div class="input-group-btn">
                                     <button onclick="search()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
@@ -73,11 +73,13 @@
             $(".content-list").append(nulltip)
         }else {
             setPage(currentPage, "${result.totalPage!'1'}", function () {
-                if($("#key").val()){
-                    openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage+'/?key='+$("#key").val())
-                }else{
-                    openUrl('newsList/${secondDir!""}/${thirdDir!""}/'+currentPage)
-                }
+                AntiSqlValidAll(["#key"],function () {
+                    if ($("#key").val()) {
+                        openUrl('newsList/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
+                    } else {
+                        openUrl('newsList/${secondDir!""}/${thirdDir!""}/' + currentPage)
+                    }
+                })
 
             })
         }
@@ -90,12 +92,14 @@
         }
     }
     function search() {
-        var key=$("#key").val();
-        if(key){
-            openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key='+key)
-        }else{
-            openUrl('newsList/${secondDir!""}/${thirdDir!""}/1')
-        }
+        AntiSqlValidAll(["#key"],function () {
+            var key = $("#key").val();
+            if (key) {
+                openUrl('newsList/${secondDir!""}/${thirdDir!""}/1?key=' + key)
+            } else {
+                openUrl('newsList/${secondDir!""}/${thirdDir!""}/1')
+            }
+        })
 
     }
     function setPage(pageCurrent, pageSum, callback) {
