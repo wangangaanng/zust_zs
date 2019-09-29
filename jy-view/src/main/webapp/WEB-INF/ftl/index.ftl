@@ -198,7 +198,7 @@
                                     <ul class="job">
                                         <li>${obj.zwbt}</li>
                                         <#if objl_index==0>
-                                            <li><i class="icon bg-icon_dz"></i>${obj.zwPro!''} · ${obj.zwCity!''} · ${obj.zwArea!''}</li>
+                                            <li><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}

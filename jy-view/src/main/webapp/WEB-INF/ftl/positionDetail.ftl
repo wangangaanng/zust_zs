@@ -31,7 +31,7 @@
                                 <#if result.zphKsrq?exists>
                                     <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>具体城市：<span> ${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl">
@@ -63,7 +63,7 @@
                                 </dl>
                             </div>
                             <ul class="xInfo xInfo-2 cl">
-                                <li>工作城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>工作城市：<span>${result.zwCity}</span></li>
                                 <#if result.createtime?exists>
                                     <li>发布时间：<span>${result.createtime?substring(0,16)}</span></li>
                                 </#if>
@@ -100,7 +100,7 @@
                                 <#if result.zphKsrq?exists>
                                     <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
@@ -135,7 +135,7 @@
                                 <#if result.zphKsrq?exists>
                                     <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>具体城市：<span>${result.zwCity}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">学生报名参加</a>
@@ -182,7 +182,7 @@
                                 <li>年龄要求：<span>${result.zwNlyqStr!''}</span></li>
                                 <li>招聘人数：<span>${result.zwZprs!'0'}人</span></li>
                                 <li>语言能力：<span>${result.zwYyyqStr!''}</span></li>
-                                <li>工作地点：<span>${result.zwPro!''} - ${result.zwCity} - ${result.zwArea!''}</span></li>
+                                <li>工作地点：<span> ${result.zwCity}</span></li>
                                 <li>薪资待遇：<span>${result.zwXs!''}</span></li>
                                 <li>职位类别：<span>${result.zwGzznStr!''}</span></li>
                             </ul>
