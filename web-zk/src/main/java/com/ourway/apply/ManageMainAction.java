@@ -47,7 +47,7 @@ public class ManageMainAction extends com.ourway.base.zk.main.MainAction {
         resourceTabpanels = (Tabpanels) this
                 .getFellowIfAny("resourceTabpanels");
         resources = (Tabbox) this.getFellowIfAny("resources");
-        initSystemTitle();
+//        initSystemTitle();
         listAllWaitTask();
         initJsCookie();
 //        initWebSocket();

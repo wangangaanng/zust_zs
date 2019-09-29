@@ -349,6 +349,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     job.setMemo(mapData.get("memo").toString());
                 }
                 bm.setJobRefOwid(job.getOwid());
+                jobService.saveOrUpdate(job);
             }
             // TODO: 2019/9/18 通过短信
 
