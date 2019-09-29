@@ -1,6 +1,5 @@
 package com.zghzbckj.web.filter;
 
-import com.zghzbckj.web.controll.ApiConstants;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import org.springframework.web.servlet.view.RedirectView;
@@ -19,10 +18,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
         final Map<String, Object> model = modelAndView.getModel();
 
         if (!(modelAndView.getView() instanceof RedirectView)) {
-            model.put("imagePath", ApiConstants.imagePath);
-            model.put("localUrl", ApiConstants.localUrl);
-            model.put("uploadUrl", ApiConstants.uploadUrl);
-            model.put("webname", ApiConstants.webname);
+
         }
     }
 
