@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -38,9 +39,9 @@ public class DemoController {
     private static final Logger log = Logger.getLogger(DemoController.class);
     @ModelAttribute
     public void setConfig(Model model) {
-        model.addAttribute("imagePath", ApiConstants.imagePath);
-        model.addAttribute("localUrl", ApiConstants.localUrl);
-        model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
+            model.addAttribute("imagePath", ApiConstants.imagePath);
+            model.addAttribute("localUrl", ApiConstants.localUrl);
+            model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
@@ -796,7 +797,9 @@ public class DemoController {
             return view;
         }else{
 //            view=new ModelAndView("redirect:/index");
-            view.setViewName("redirect:/");
+            System.out.println(request.getSession().getAttribute("imagePath"));
+            request.getSession().getAttribute("imagePath");
+                view.setViewName("redirect:/");
 //            response.sendRedirect("redirect:/index");
             return view;
         }

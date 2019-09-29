@@ -14,12 +14,7 @@ function keyLogin(){
 }
 
 function searchXjh() {
-    if(AntiSqlValid($("#zwbt-xjh").val().trim())){
-        $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
-    }else {
-        walert("请勿输入非法字符")
-        return
-    }
+    $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
 }
 
 function myBmList() {

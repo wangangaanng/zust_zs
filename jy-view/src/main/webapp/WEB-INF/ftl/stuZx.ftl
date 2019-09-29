@@ -77,12 +77,12 @@
                             <i></i> ${obj.zjxm}的回复：${obj.danr!"暂无回复"}
                         </div>
                         <#--</#if>-->
-                        <div class="al-btn">
+                       <#-- <div class="al-btn">
                             <button onclick="removeHistoryConsult('${obj.owid}',this)" class="btn">删除</button>
                             <#if obj.hfOwid??>
                             <button class="btn" onclick="question('${obj.hfOwid}')">继续咨询</button>
                             </#if>
-                        </div>
+                        </div>-->
                     <#--<span class="glyphicon glyphicon-menu-up "></span>-->
                     </div>
                         </#list>
