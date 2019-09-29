@@ -118,7 +118,7 @@ function myBmList() {
 }
 
 function operateFormatter(value, row, index) {
-    var c = '<a class="green-color xq" href="#">'+row.zwbt+'</a> ';
+    var c = '<a class="green-color xq" href="#">'+convertStr(row.zwbt,"-")+'</a> ';
     return c;
 }
 

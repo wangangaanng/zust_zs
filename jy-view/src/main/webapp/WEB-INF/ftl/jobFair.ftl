@@ -131,15 +131,15 @@
                     <div class="zph-d">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-1">举办时间：${oneJob.zphKsrq?substring(0,10)}</div>
-                            <div class="col-md-4">举办城市：${oneJob.zwPro}-${oneJob.zwCity}-${oneJob.zwArea}</div>
+                            <div class="col-md-4">举办城市：${oneJob.zwPro!""}-${oneJob.zwCity!""}-${oneJob.zwArea!""}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-md-offset-1">预定结束时间：${oneJob.zphBmjzsj?substring(0,10)}</div>
-                            <div class="col-md-4">举办地址：${oneJob.zphJbdd}</div>
+                            <div class="col-md-4">举办地址：${oneJob.zphJbdd!""}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">主办方：${oneJob.zphJbf}</div>
-                            <div class="col-md-4">承办方：${oneJob.zphCbf}</div>
+                            <div class="col-md-4 col-md-offset-1">主办方：${oneJob.zphJbf!""}</div>
+                            <div class="col-md-4">承办方：${oneJob.zphCbf!""}</div>
                         </div>
                         <div class="row btn-yd">
                             <div class="col-md-8 col-md-offset-1 text-center">
