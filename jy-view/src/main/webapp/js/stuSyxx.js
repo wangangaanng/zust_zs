@@ -137,7 +137,7 @@ $(document).ready(function () {
     $("#xb").val($("#sel1").val())
     $("#sfrx").val($("#sel2").val())
     $("#hkrx").val($("#sel3").val())
-    getSyInfo()
+    // getSyInfo()
 })
 
 function getSyInfo() {
@@ -148,10 +148,8 @@ function getSyInfo() {
     ajax("zustjy/bckjBizSyb/getSyInfo", jsonObj, function (data) {
         if(data.backCode==0){
             if(data.bean){
-                // if(data.bean.xh){
-                //     $("#xh").val(data.bean.xh)
-                //     $("#xh").attr("disabled","disabled")
-                // }
+
+
             }
         }else{
             walert(data.errorMess)
@@ -166,13 +164,15 @@ $.validator.setDefaults({
 });
 
 function saveSyxx() {
-    var jsonObj = $("#registerForm").serializeObject()
-    jsonObj.xh=$("#xh").val();
-    ajax("zustjy/bckjBizSyb/saveSyxx", jsonObj, function (data) {
-        if(data.backCode==0){
-            walert("保存成功")
-        }else{
-            walert(data.errorMess)
-        }
-    })
+    if(!isTimeOut()) {
+        var jsonObj = $("#registerForm").serializeObject()
+        jsonObj.xh = $("#xh").val();
+        ajax("zustjy/bckjBizSyb/saveSyxx", jsonObj, function (data) {
+            if (data.backCode == 0) {
+                walert("保存成功")
+            } else {
+                walert(data.errorMess)
+            }
+        })
+    }
 }

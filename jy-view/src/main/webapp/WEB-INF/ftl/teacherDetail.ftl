@@ -71,42 +71,46 @@
     })
 
     function question() {
-        layer.open({
-            type: 1,
-            title:'填写咨询内容',
-            btn:["提交","取消"],
-            skin: 'layui-layer-rim', //加上边框
-            area: ['450px', '320px'], //宽高
-            content: '<div class="zx-textarea"><textarea id="wtnr"></textarea></div>',
-            yes:function(index){
-                ask(index);
-            }
-        })
+        if(!isTimeOut()) {
+            layer.open({
+                type: 1,
+                title: '填写咨询内容',
+                btn: ["提交", "取消"],
+                skin: 'layui-layer-rim', //加上边框
+                area: ['450px', '320px'], //宽高
+                content: '<div class="zx-textarea"><textarea id="wtnr"></textarea></div>',
+                yes: function (index) {
+                    ask(index);
+                }
+            })
+        }
     }
 
     function ask(index) {
-        if(!$("#wtnr").val()){
-            walert("请填写咨询内容");
-            return;
-        }
-        var jsonObj={
-            "wtnr":$("#wtnr").val(),
-            "owid": $("#teacherOwid").val(),
-            "zxlx": 2,
-            "studentOwid": getCookie("stuOwid")
-        }
-        ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
-            if(data.backCode==0){
-                layer.close(index)
-                layer.open({
-                    title:'提示',
-                    content: '咨询已提交，请等待回复。',
-                    yes: function(index, layero){
-                        layer.close(index);
-                    }
-                });
+        if(!isTimeOut()) {
+            if (!$("#wtnr").val()) {
+                walert("请填写咨询内容");
+                return;
             }
-        })
+            var jsonObj = {
+                "wtnr": $("#wtnr").val(),
+                "owid": $("#teacherOwid").val(),
+                "zxlx": 2,
+                "studentOwid": getCookie("stuOwid")
+            }
+            ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
+                if (data.backCode == 0) {
+                    layer.close(index)
+                    layer.open({
+                        title: '提示',
+                        content: '咨询已提交，请等待回复。',
+                        yes: function (index, layero) {
+                            layer.close(index);
+                        }
+                    });
+                }
+            })
+        }
     }
 
 </script>

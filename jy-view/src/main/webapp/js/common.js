@@ -4,7 +4,6 @@
 var nulltip="<p style='text-align: center;'>暂无数据</p>"
 $(document).ready(function () {
 
-    getCookie("userType","1") //1学生 0企业
     if(getCookie("userType")){
         if(getCookie("userType")==0){
             if(getCookie("qyOwid")){
@@ -20,6 +19,16 @@ $(document).ready(function () {
     }
 
 })
+
+//判断登录过期
+function isTimeOut() {
+    if(!getCookie("yhOwid")){
+        window.location.href="/redirectIndex";
+    }else{
+        return false;
+    }
+}
+
 //登录
 function login(url,user) {//1学生 0企业
     url=convertStr(url,'');

@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+
     var provice=[];
     var city=[];
     var pindex=0;
@@ -127,17 +128,18 @@ $.validator.setDefaults({
 });
 
 function fixCompany() {
-
-    var jsonObj = $("#registerForm").serializeObject()
-    jsonObj.owid=getCookie("qyOwid")
-    console.log(jsonObj)
-    ajax("zustjy/bckjBizQyxx/fixCompany", jsonObj, function (data) {
-        if(data.backCode==0){
-            walert("修改成功")
-        }else{
-            walert(data.errorMess)
-        }
-    })
+    if(!isTimeOut()){
+        var jsonObj = $("#registerForm").serializeObject()
+        jsonObj.owid=getCookie("qyOwid")
+        console.log(jsonObj)
+        ajax("zustjy/bckjBizQyxx/fixCompany", jsonObj, function (data) {
+            if(data.backCode==0){
+                walert("修改成功")
+            }else{
+                walert(data.errorMess)
+            }
+        })
+    }
 }
 
 
