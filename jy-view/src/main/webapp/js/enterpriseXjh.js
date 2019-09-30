@@ -16,11 +16,9 @@ function keyLogin(){
 }
 
 function searchXjh() {
-    if(AntiSqlValid($("#zwbt-xjh").val().trim())){
+    var key=$("#zwbt-xjh").val().trim()
+    if(testSql(key,$("#zwbt-xjh"))){
         $("#table-xjh").bootstrapTable('refresh',{pageNumber:1});
-    }else {
-        walert("请勿输入非法字符")
-        return
     }
 }
 
@@ -155,112 +153,114 @@ function confirmQd() {
 }
 
 function myJobList2() {
-    $('#table-xjh').bootstrapTable('destroy');
-    $('#table-xjh').bootstrapTable({
-        pageNumber: 1, //初始化加载第一页，默认第一页
-        pageSize: 10, //每页的记录行数（*）
-        ajax:function(request) {
-            ajax("zustjy/bckjBizJybm/myBmList", {
-                "zwbt":$("#zwbt-xjh").val().trim(),
-                "qyxxRefOwid":getCookie("qyOwid"),
-                "bmlx": 0,
-                "bmdx": 1,
-                "pageSize":$('#table-xjh').bootstrapTable('getOptions').pageSize || 10,
-                "pageNo":$('#table-xjh').bootstrapTable('getOptions').pageNumber || 1
-            }, function (data) {
-                if(data.backCode==0){
-                    request.success({
-                        row : data.bean.records || [],
-                        total: data.bean.totalCount,
-                    });
+    AntiSqlValidAll(["#zwbt-xjh"],function () {
+        $('#table-xjh').bootstrapTable('destroy');
+        $('#table-xjh').bootstrapTable({
+            pageNumber: 1, //初始化加载第一页，默认第一页
+            pageSize: 10, //每页的记录行数（*）
+            ajax:function(request) {
+                ajax("zustjy/bckjBizJybm/myBmList", {
+                    "zwbt":$("#zwbt-xjh").val().trim(),
+                    "qyxxRefOwid":getCookie("qyOwid"),
+                    "bmlx": 0,
+                    "bmdx": 1,
+                    "pageSize":$('#table-xjh').bootstrapTable('getOptions').pageSize || 10,
+                    "pageNo":$('#table-xjh').bootstrapTable('getOptions').pageNumber || 1
+                }, function (data) {
+                    if(data.backCode==0){
+                        request.success({
+                            row : data.bean.records || [],
+                            total: data.bean.totalCount,
+                        });
+
+                    }
+                })
+            },
+
+            responseHandler:function(res){
+                $('#table-xjh').bootstrapTable('load', res.row);
+                return {
+                    "total":res.total
+                }
+            },
+            toolbar: '#toolbar', //工具按钮用哪个容器
+            striped: true, //是否显示行间隔色
+            cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+            pagination: true, //是否显示分页（*）
+            sortable: true, //是否启用排序
+            sortOrder: "asc", //排序方式
+            sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+            pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+            smartDisplay: false,
+            search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+            strictSearch: true,
+            showColumns: false, //是否显示所有的列
+            showRefresh: false, //是否显示刷新按钮
+            minimumCountColumns: 2, //最少允许的列数
+            clickToSelect: true, //是否启用点击选中行
+            // height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+            uniqueId: "owid", //每一行的唯一标识，一般为主键列
+            showToggle: false, //是否显示详细视图和列表视图的切换按钮
+            cardView: false, //是否显示详细视图
+            detailView: false, //是否显示父子表
+            theadClasses: "thead1",
+            queryParamsType:"limit",
+            // queryParams: jsonObj,
+            columns: [{
+                align : 'center',
+                field: 'zwbt',
+                title: '标题',
+                formatter:function(value,row,index){
+                    if(row.xjsj){
+                        var value=row.xjsj.substring(0,10);
+                        return value+"宣讲会";
+                    }else{
+                        return "宣讲会";
+                    }
 
                 }
-            })
-        },
+            }, {
+                field: 'xjsj',
+                title: '举办时间',
+                align : 'center',
+                formatter:function(value,row,index){
+                    if(row.xjsj){
+                        var value=row.xjsj.substring(0,16);
+                        return value;
+                    }else{
+                        return "-";
+                    }
 
-        responseHandler:function(res){
-            $('#table-xjh').bootstrapTable('load', res.row);
-            return {
-                "total":res.total
-            }
-        },
-        toolbar: '#toolbar', //工具按钮用哪个容器
-        striped: true, //是否显示行间隔色
-        cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
-        pagination: true, //是否显示分页（*）
-        sortable: true, //是否启用排序
-        sortOrder: "asc", //排序方式
-        sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
-        pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
-        smartDisplay: false,
-        search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
-        strictSearch: true,
-        showColumns: false, //是否显示所有的列
-        showRefresh: false, //是否显示刷新按钮
-        minimumCountColumns: 2, //最少允许的列数
-        clickToSelect: true, //是否启用点击选中行
-        // height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "owid", //每一行的唯一标识，一般为主键列
-        showToggle: false, //是否显示详细视图和列表视图的切换按钮
-        cardView: false, //是否显示详细视图
-        detailView: false, //是否显示父子表
-        theadClasses: "thead1",
-        queryParamsType:"limit",
-        // queryParams: jsonObj,
-        columns: [{
-            align : 'center',
-            field: 'zwbt',
-            title: '标题',
-            formatter:function(value,row,index){
-                if(row.xjsj){
-                    var value=row.xjsj.substring(0,10);
-                    return value+"宣讲会";
-                }else{
-                    return "宣讲会";
                 }
-
-            }
-        }, {
-            field: 'xjsj',
-            title: '举办日期',
-            align : 'center',
-            formatter:function(value,row,index){
-                if(row.xjsj){
-                    var value=row.xjsj.substring(0,16);
+            }, {
+                field: 'zphJtsj',
+                title: '举办时长',
+                align : 'center',
+            }, {
+                align : 'center',
+                field: 'state',
+                title: '审核状态',
+                formatter:function(value,row,index){
+                    var value=""
+                    if(row.state==0){
+                        value="<span>待审核</span>"
+                    }else if(row.state==1){
+                        value="<span style='color: #008784;'>审核通过</span>"
+                    }else if(row.state==2){
+                        value="<span style='color: red;'>审核拒绝</span>"
+                    }
                     return value;
-                }else{
-                    return "-";
                 }
+            },   {
+                align : 'center',
+                events:'operateEvents',
+                field: 'owid',
+                title: '操作',
+                events: window.operateEvents,
+                formatter: operateFormatterZph
+            }], //列设置
 
-            }
-        }, {
-            field: 'zphJtsj',
-            title: '举办时长',
-            align : 'center',
-        }, {
-            align : 'center',
-            field: 'state',
-            title: '审核状态',
-            formatter:function(value,row,index){
-                var value=""
-                if(row.state==0){
-                    value="待审核"
-                }else if(row.state==1){
-                    value="审核通过"
-                }else if(row.state==2){
-                    value="审核拒绝"
-                }
-                return value;
-            }
-        },   {
-            align : 'center',
-            events:'operateEvents',
-            field: 'owid',
-            title: '操作',
-            events: window.operateEvents,
-            formatter: operateFormatterZph
-        }], //列设置
-
+        });
     });
 }
 

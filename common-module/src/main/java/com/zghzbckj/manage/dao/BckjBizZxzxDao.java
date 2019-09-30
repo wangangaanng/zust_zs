@@ -26,4 +26,8 @@ public interface BckjBizZxzxDao extends CrudDao<BckjBizZxzx> {
     BckjBizZxzx getOneByCondition(Map<String, Object> dataMap);
 
     void verify(HashMap<Object, Object> sendMap);
+
+    void saveZxzxDetail(Map<String, Object> dataMap);
+
+    List<Object> historyMessage(Map<String, Object> dataMap);
 }

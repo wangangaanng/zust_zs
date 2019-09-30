@@ -259,7 +259,8 @@
 	<select id="showInfoList" resultType="Map">
 		select
 		a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
-		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1
+		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1,b.zjjj as zjjj,
+		b.zjxx as zjxx, b.zjtx as zjtx
 		from bckj_biz_yhxx a ,bckj_biz_zjzx b
 		<where>
 			a.owid = b.yhid AND  a.yhlx=1
@@ -274,6 +275,9 @@
 		update bckj_biz_Zjzx a set
 		<if test="zjxm!=null and zjxm!=''">
 			 a.zjxm=#{zjxm},
+		</if>
+		<if test="zjtx!= null and zjtx!=''">
+			a.zjtx=#{zjtx},
 		</if>
 		<if test="zjlxfs!=null and zjlxfs!=''">
 			 a.zjlxfs=#{zjlxfs},
@@ -291,7 +295,13 @@
 			 a.szzy=#{szzy},
 		</if>
 		<if  test="exp1 != null and exp1!=''">
-			 a.exp1=#{exp1}
+			 a.exp1=#{exp1},
+		</if>
+		<if test="zjxx != null and zjxx!=''">
+			a.zjxx=#{zjxx},
+		</if>
+		<if test="zjjj !=null and zjjj!=''">
+			a.zjjj=#{zjjj}
 		</if>
 		<where>
 			<if test="yhid!=null and yhid!=''">
@@ -302,7 +312,8 @@
 	<select id="getConsultsOne" parameterType="Map"  resultType="Map" >
 			select
 			a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
-			b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1
+			b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1 ,b.zjjj as zjjj,
+			b.zjxx as zjxx ,b.zjtx as zjtx
 			from bckj_biz_yhxx a ,bckj_biz_zjzx b
 			<where>
 				a.owid = b.yhid AND  a.yhlx=1 and a.owid =#{owid}

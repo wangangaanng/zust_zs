@@ -328,6 +328,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
     public ResponseMessage insertssInfo(Map<String, Object> dataMap) throws Exception {
         BckjBizYhxxVo bckjBizYhxx = new BckjBizYhxxVo();
         BckjBizZjzx bckjBizZjzx = new BckjBizZjzx();
+
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizZjzx);
         if (ClassUtils.isAllFieldNull(bckjBizYhxx) && ClassUtils.isAllFieldNull(bckjBizZjzx)) {

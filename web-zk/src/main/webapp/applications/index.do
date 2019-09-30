@@ -1,4 +1,4 @@
-<?page title="浙江科技学院网站后台管理系统"?>
+<?page title="浙江科技学院招就处一体化"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/bootstrap/themes/bootstrap-default.min.css" if="${empty param.theme}"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/docs.css" ?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/pygments-manni.css" ?>
@@ -12,7 +12,7 @@
 <?script src="/assets/common/func.js" ?>
 <?script src="/assets/common/SocketClient.js" ?>
 <!-- Load fonts from local -->
-<?link rel="icon" href="/charisma/img/qzsj.ico" type="image/x-icon"/?>
+<?link rel="icon" href="/charisma/img/zust.ico" type="image/x-icon"/?>
 <?link href="css/fonts.css" rel="stylesheet" type="text/css" ?>
 <?link href="css/index.css" rel="stylesheet" type="text/css" if="${empty param.theme || param.theme == 'default'||param.theme == 'blue'|| param.theme == 'black'}"?>
 <?link href="css/styleBlue.css" rel="stylesheet" type="text/css" if="${empty param.theme || param.theme == 'blue'|| param.theme == 'default'}"?>

@@ -272,7 +272,7 @@
 		a.hf_Owid as hfOwid, a.hf_Name as hfName,
 		a.zxzyid as zxzyid,a.wtnr as wtnr ,a.danr as danr ,
 		a.twrq as twrq ,a.hdrq as hdrq,
-		a.owid as owid,a.state as state
+		a.owid as owid,a.state as state,a.dh as dh
 		from bckj_biz_zxzx a
 		<where>
 			<if test="zxlx!=null and zxlx!=''">
@@ -281,11 +281,8 @@
 			<if test="twOwid!=null and twOwid!=''">
 				and a.tw_owid=#{twOwid}
 			</if>
-			<if test="zxlx!=null and zxlx!=''">
-				and a.zxlx=#{zxlx}
-			</if>
 		</where>
-		order by a.state asc , a.createtime desc
+		order by  a.createtime desc
 	</select>
 
 	<update id="deleteByMap" parameterType="Map">
@@ -321,10 +318,17 @@
 		</where>
 	</select>
 
-	<update id="verify" parameterType="Map">
-		update bckj_biz_zxzx a
-		set  a.state= #{state},a.hdrq=#{jdrq}
-		where a.owid = #{owid}
+
+
+	<update id="saveZxzxDetail" parameterType="Map">
+		update bckj_biz_zxzx set DANR=#{danr} , hdrq=now() ,state= #{state} where  owid =#{owid}
 	</update>
+
+	<select id="historyMessage" parameterType="Map" resultType="Map">
+		select * from bckj_biz_zxzx
+		where state=2 and zxlx=5
+		order by  createtime desc
+	</select>
+
 	
 </mapper>

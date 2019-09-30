@@ -3,6 +3,7 @@
  */
 var nulltip="<p style='text-align: center;'>暂无数据</p>"
 $(document).ready(function () {
+
     getCookie("userType","1") //1学生 0企业
     if(getCookie("userType")){
         if(getCookie("userType")==0){
@@ -164,29 +165,24 @@ function keySearch(){
 function searchAll() {
     if($("#gjz22").val().trim()){
         var key=$("#gjz22").val().trim()
-        if(AntiSqlValid(key)){
+        if(testSql(key,$("#gjz22"))){
             window.location.href=base+'/search?key='+key
-        }else{
-            walert("请勿输入非法字符")
-            return
         }
-
     }else{
-        walert("请输入关键字")
+        layer.tips("请输入关键字！", $("#gjz22"), {tips: 1})
         return
     }
 }
 
-
-function AntiSqlValid(value) {
-    var re= /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
-    if (re.test(value)){
-        return false;
+function testSql(val,obj) {
+    re = /select|update|delete|exec|count|'|"|=|;|>|<|%/i;
+    if (re.test(val)) {
+        layer.tips("请您不要在参数中输入特殊字符和SQL关键字！", obj, {tips: 1})
+        return false
     }else{
-        return true;
+        return true
     }
 }
-
 
 function testSjh(sjh) {
     var length = sjh.length;
@@ -515,7 +511,6 @@ function AntiSqlValidAll(val,successMethod ) {
     }
 
 }
-
 
 //添加Cookie 时间以小时计
 function addCookie(name, value, expires, path, domain) {

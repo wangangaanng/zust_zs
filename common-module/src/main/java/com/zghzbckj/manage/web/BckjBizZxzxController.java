@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -260,32 +261,6 @@ public class BckjBizZxzxController extends BaseController {
         }
     }
 
-    /**
-     * <p>功能描述:后台处理就业留言列表</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/20</li>
-     * </ul>
-     */
-    @PostMapping("verify")
-    @ResponseBody
-    public ResponseMessage verify(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return bckjBizZxzxService.verify(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
 
     /**
      * <p>功能描述:后台获得就业留言详情</p >
@@ -314,5 +289,91 @@ public class BckjBizZxzxController extends BaseController {
         }
 
     }
+    /**
+     * <p>功能描述:后台保存就业留言详情</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/29</li>
+     * </ul>
+     */
+    @ResponseBody
+    @PostMapping("saveZxzxDetail")
+    public ResponseMessage saveZxzxDetail(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return  bckjBizZxzxService.saveZxzxDetail(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * <p>功能描述:就业留言列表显示</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/29</li>
+     * </ul>
+     */
+    @PostMapping("historyMessage")
+    @ResponseBody
+   public ResponseMessage historyMessage(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return  bckjBizZxzxService.historyMessage(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+   }
+    /**
+     * <p>功能描述:后台留言删除保存</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/29</li>
+     * </ul>
+     */
+    @PostMapping("saveAfterDelete")
+    @ResponseBody
+    public ResponseMessage saveAfterDelete(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
+            if(((ArrayList)dataMap.get("dataList")).size()==0){
+                return ResponseMessage.sendOK("无更新数据");
+            }
+            List<Map<String, Object>> components = (List)dataMap.get("dataList");
+            if(components.size()==0){
+                return ResponseMessage.sendOK("无更新数据");
+            }
+            return bckjBizZxzxService.saveAfterDelete(components);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_MESSAGE);
+
+        }
+
+    }
+
 
 }

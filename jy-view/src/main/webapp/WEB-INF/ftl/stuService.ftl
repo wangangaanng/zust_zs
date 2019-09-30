@@ -14,6 +14,7 @@
         color: #999 !important;
     }
     .form-group div{line-height: 34px !important;}
+    .layui-layer-content{overflow-y:auto !important;}
 </style>
 
 <body>
@@ -85,7 +86,6 @@
         }
         ajax("zustjy/bckjBizDacx/inquiryArchives", jsonObj, function (data) {
             if(data.backCode==0){
-                var index;
                 index=layer.open({
                     type: 1,
                     title:'查询结果',

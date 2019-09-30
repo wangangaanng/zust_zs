@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <title>消息提示</title>
-    <link rel="icon" href="charisma/img/qzsj.ico" type="image/x-icon"/>
+    <link rel="icon" href="charisma/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="html/css/weui.min.css"/>
     <link rel="stylesheet" href="html/css/expertEva.css"/>
     <script type="text/javascript" src="html/js/jquery-3.2.1.min.js" ></script>

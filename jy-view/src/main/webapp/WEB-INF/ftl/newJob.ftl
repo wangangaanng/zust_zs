@@ -23,7 +23,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="#">企业服务</a></li>
                 <li class="active">新增职位</li>
             </ol>
@@ -87,6 +87,7 @@
                     <label for="zwXs" class="col-sm-2 control-label">薪水<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="" autocomplete="off">
+                        <span style="position: absolute;right: 25px;top: 7px;">元</span>
                     </div>
                 </div>
                 <div class="form-group">

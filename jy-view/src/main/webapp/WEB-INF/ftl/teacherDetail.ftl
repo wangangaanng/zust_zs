@@ -23,7 +23,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="#">个人中心</a></li>
                 <li class="active">导师简介</li>
             </ol>
@@ -31,11 +31,11 @@
         <div class="content">
             <div class="menu-nav" style="border: none;">
                 <div class="td-item">
-                    <div class="t-bg" style="background: url("${detail.zjtx}")"></div>
+                    <div class="t-bg" style="background: url("${detail.zjtx!''}")"></div>
                     <div class="td-detail">
-                        <div class="t-name">${detail.zjxm}</div>
+                        <div class="t-name">${detail.zjxm!''}</div>
                         <div class="t-xhx"><span></span></div>
-                        <div class="t-sm">${detail.zjxx}</div>
+                        <div class="t-sm">${detail.zjxx!'暂无简介'}</div>
 
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                     </div>
                     <div class="teacher-list">
                         <p class="td-sm">
-                            ${detail.zjxx}
+                            ${detail.zjxx!'暂无简介'}
                         </p>
                         <div class="td-ask">
                             <button class="btn" onclick="question()">我要咨询</button>

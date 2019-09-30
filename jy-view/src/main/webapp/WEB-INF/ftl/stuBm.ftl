@@ -24,7 +24,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
+                <li><a href="/">首页</a></li>
                 <li><a href="#">个人中心</a></li>
                 <li class="active">报名预约</li>
             </ol>

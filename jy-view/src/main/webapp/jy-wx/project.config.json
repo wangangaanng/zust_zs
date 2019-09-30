@@ -57,8 +57,8 @@
 			"list": [
 				{
 					"id": 0,
-					"name": "pages/newsDetail/newsDetail",
-					"pathName": "pages/newsDetail/newsDetail",
+					"name": "pages/qyInfo/qyInfo",
+					"pathName": "pages/qyInfo/qyInfo",
 					"query": "",
 					"scene": null
 				},
