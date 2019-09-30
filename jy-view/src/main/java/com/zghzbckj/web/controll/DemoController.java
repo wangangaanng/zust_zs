@@ -388,124 +388,154 @@ public class DemoController {
 
     @RequestMapping(value = "newJob", method = RequestMethod.GET)
     public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("newJob");
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        Map param=Maps.newHashMap();
-        param.put("dicType","20005");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-        ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("zwNlyq",zwNlyq.getBean());
-        Map param1=Maps.newHashMap();
-        param1.put("dicType","20006");
-        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
-        ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
-        view.addObject("zwXlyq",zwXlyq.getBean());
-        Map param2=Maps.newHashMap();
-        param2.put("dicType","20007");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-        ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
-        view.addObject("zwYyyq",zwYyyq.getBean());
-        Map param3=Maps.newHashMap();
-        param3.put("dicType","20008");
-        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
-        ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
-        view.addObject("zwGznx",zwGznx.getBean());
-        Map param4=Maps.newHashMap();
-        param4.put("dicType","20003");
-        PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
-        ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
-        view.addObject("zwGzzn",zwGzzn.getBean());
-        Map param5=Maps.newHashMap();
-        param5.put("dicType","20004");
-        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
-        ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
-        view.addObject("zwGzxz",zwGzxz.getBean());
-        return view;
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("newJob");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            Map param=Maps.newHashMap();
+            param.put("dicType","20005");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+            ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("zwNlyq",zwNlyq.getBean());
+            Map param1=Maps.newHashMap();
+            param1.put("dicType","20006");
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+            ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
+            view.addObject("zwXlyq",zwXlyq.getBean());
+            Map param2=Maps.newHashMap();
+            param2.put("dicType","20007");
+            PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+            ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
+            view.addObject("zwYyyq",zwYyyq.getBean());
+            Map param3=Maps.newHashMap();
+            param3.put("dicType","20008");
+            PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+            ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
+            view.addObject("zwGznx",zwGznx.getBean());
+            Map param4=Maps.newHashMap();
+            param4.put("dicType","20003");
+            PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+            ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
+            view.addObject("zwGzzn",zwGzzn.getBean());
+            Map param5=Maps.newHashMap();
+            param5.put("dicType","20004");
+            PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+            ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
+            view.addObject("zwGzxz",zwGzxz.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
     }
 
     @RequestMapping(value = "fixJob/{owid}", method = RequestMethod.GET)
-    public ModelAndView fixJob(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue("qyOwid") String qyOwid) {
-        view.setViewName("fixJob");
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        Map param=Maps.newHashMap();
-        param.put("dicType","20005");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-        ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("zwNlyq",zwNlyq.getBean());
-        Map param1=Maps.newHashMap();
-        param1.put("dicType","20006");
-        PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
-        ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
-        view.addObject("zwXlyq",zwXlyq.getBean());
-        Map param2=Maps.newHashMap();
-        param2.put("dicType","20007");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-        ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
-        view.addObject("zwYyyq",zwYyyq.getBean());
-        Map param3=Maps.newHashMap();
-        param3.put("dicType","20008");
-        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
-        ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
-        view.addObject("zwGznx",zwGznx.getBean());
-        Map param4=Maps.newHashMap();
-        param4.put("dicType","20003");
-        PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
-        ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
-        view.addObject("zwGzzn",zwGzzn.getBean());
-        Map param5=Maps.newHashMap();
-        param5.put("dicType","20004");
-        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
-        ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
-        view.addObject("zwGzxz",zwGzxz.getBean());
-        Map param6=Maps.newHashMap();
-        param6.put("owid",owid);
-        param6.put("yhOwid",qyOwid);
-        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizJob/getOneJob");
-        ResponseMessage jobDetail  = UnionHttpUtils.doPosts(publicData6);
-        view.addObject("jobDetail",jobDetail.getBean());
-        return view;
+    public ModelAndView fixJob(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("fixJob");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            Map param=Maps.newHashMap();
+            param.put("dicType","20005");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+            ResponseMessage zwNlyq  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("zwNlyq",zwNlyq.getBean());
+            Map param1=Maps.newHashMap();
+            param1.put("dicType","20006");
+            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/common/getByType");
+            ResponseMessage zwXlyq  = UnionHttpUtils.doPosts(publicData1);
+            view.addObject("zwXlyq",zwXlyq.getBean());
+            Map param2=Maps.newHashMap();
+            param2.put("dicType","20007");
+            PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+            ResponseMessage zwYyyq  = UnionHttpUtils.doPosts(publicData2);
+            view.addObject("zwYyyq",zwYyyq.getBean());
+            Map param3=Maps.newHashMap();
+            param3.put("dicType","20008");
+            PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+            ResponseMessage zwGznx  = UnionHttpUtils.doPosts(publicData3);
+            view.addObject("zwGznx",zwGznx.getBean());
+            Map param4=Maps.newHashMap();
+            param4.put("dicType","20003");
+            PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+            ResponseMessage zwGzzn  = UnionHttpUtils.doPosts(publicData4);
+            view.addObject("zwGzzn",zwGzzn.getBean());
+            Map param5=Maps.newHashMap();
+            param5.put("dicType","20004");
+            PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+            ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
+            view.addObject("zwGzxz",zwGzxz.getBean());
+            Map param6=Maps.newHashMap();
+            param6.put("owid",owid);
+            param6.put("yhOwid",qyOwid);
+            PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizJob/getOneJob");
+            ResponseMessage jobDetail  = UnionHttpUtils.doPosts(publicData6);
+            view.addObject("jobDetail",jobDetail.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
     }
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
-    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue("qyOwid") String qyOwid) {
-        view.setViewName("enterpriseService");
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        Map param3=Maps.newHashMap();
-        param3.put("owid",qyOwid);
+    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view) {
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("enterpriseService");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            Map param3=Maps.newHashMap();
+            param3.put("owid",qyOwid);
 
-        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
-        ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
-        view.addObject("cInfo",cInfo.getBean());
-        return view;
+            PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
+            ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
+            view.addObject("cInfo",cInfo.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
     }
 
     @RequestMapping(value = "jobFair/{step}/{owid}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid) {
-        view.setViewName("jobFair");
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        view.addObject("step",step);
-        if(null!=owid){
-            view.addObject("zphOwid",owid);
-            Map param=Maps.newHashMap();
-            param.put("owid",owid);
-            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
-            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-            view.addObject("oneJob",result.getBean());
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("jobFair");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            view.addObject("step",step);
+            if(null!=owid){
+                view.addObject("zphOwid",owid);
+                Map param=Maps.newHashMap();
+                param.put("owid",owid);
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
+                ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("oneJob",result.getBean());
+            }
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
         }
-        return view;
     }
 
     @RequestMapping(value = "jobFair/{step}", method = RequestMethod.GET)
     public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
-        view.setViewName("jobFair");
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        view.addObject("step",step);
-        return view;
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("jobFair");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            view.addObject("step",step);
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
     }
 
     @RequestMapping(value = "newsDetail/{owid}", method = RequestMethod.GET)
@@ -781,9 +811,7 @@ public class DemoController {
             }
             return view;
         }else{
-//            view=new ModelAndView("redirect:/index");
             view.setViewName("redirect:/redirectIndex");
-//            response.sendRedirect("redirect:/index");
             return view;
         }
 
@@ -793,97 +821,120 @@ public class DemoController {
         model.setViewName("redirectIndex");
         return model;
     }
+    @RequestMapping(value = "/timeout", method = RequestMethod.GET)
+    public ModelAndView timeout(ModelAndView model){
+        model.setViewName("timeout");
+        return model;
+    }
 
     @RequestMapping(value = "stuCenter/{secondDir}", method = RequestMethod.GET)
-    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid, @PathVariable String secondDir) {
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        if(secondDir.equals("0")){//导师咨询
-            view.setViewName("stuCenter");
-            Map param=Maps.newHashMap();
-            param.put("pageNo",'1');
-            param.put("pageSize","9");
-            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
-            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-            view.addObject("tlist",result.getBean());
-        }else if(secondDir.equals("1")){//咨询列表
-            view.setViewName("stuZx");
-            Map param1=Maps.newHashMap();
-            param1.put("pageNo",'1');
-            param1.put("pageSize","9");
-            param1.put("zxlx",'2');
-            param1.put("twOwid",stuOwid);
-            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
-            ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
-            view.addObject("asklist",result1.getBean());
-        }else if(secondDir.equals("2")){//报名预约
-            view.setViewName("stuBm");
-        }else if(secondDir.equals("3")){//我的收藏
-            view.setViewName("stuSc");
-        }else if(secondDir.equals("4")){//生源信息
-            view.setViewName("stuSyxx");
-            Map param1=Maps.newHashMap();
-            param1.put("owid",stuOwid);
-            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
-            ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
-            if(null!=result1.getBean()) {
-                view.addObject("stuInfo",result1.getBean());
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@PathVariable String secondDir) {
+        String stuOwid=getCookieValue(request,"yhOwid");
+        if(null!=stuOwid){
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            if(secondDir.equals("0")){//导师咨询
+                view.setViewName("stuCenter");
+                Map param=Maps.newHashMap();
+                param.put("pageNo",'1');
+                param.put("pageSize","9");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+                ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("tlist",result.getBean());
+            }else if(secondDir.equals("1")){//咨询列表
+                view.setViewName("stuZx");
+                Map param1=Maps.newHashMap();
+                param1.put("pageNo",'1');
+                param1.put("pageSize","9");
+                param1.put("zxlx",'2');
+                param1.put("twOwid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                view.addObject("asklist",result1.getBean());
+            }else if(secondDir.equals("2")){//报名预约
+                view.setViewName("stuBm");
+            }else if(secondDir.equals("3")){//我的收藏
+                view.setViewName("stuSc");
+            }else if(secondDir.equals("4")){//生源信息
+                view.setViewName("stuSyxx");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("stuInfo",result1.getBean());
+                }
             }
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
         }
 
-        return view;
     }
 
 
     @RequestMapping(value = "stuCenter/{secondDir}/{currentPage}", method = RequestMethod.GET)
-    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@CookieValue("stuOwid") String stuOwid, @PathVariable String secondDir, @PathVariable String currentPage) {
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        if(secondDir.equals("0")){//导师咨询
-            view.setViewName("stuCenter");
-            Map param=Maps.newHashMap();
-            param.put("pageNo",currentPage);
-            param.put("pageSize","12");
-            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
-            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-            if(null!=result.getBean()) {
-                view.addObject("tlist",result.getBean());
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String currentPage) {
+        String stuOwid=getCookieValue(request,"yhOwid");
+        if(null!=stuOwid){
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            if(secondDir.equals("0")){//导师咨询
+                view.setViewName("stuCenter");
+                Map param=Maps.newHashMap();
+                param.put("pageNo",currentPage);
+                param.put("pageSize","12");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+                ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+                if(null!=result.getBean()) {
+                    view.addObject("tlist",result.getBean());
+                }
+                //            view.addObject("tlist",result.getBean());
+            }else if(secondDir.equals("1")){//咨询列表
+                view.setViewName("stuZx");
+                Map param1=Maps.newHashMap();
+                param1.put("pageNo",currentPage);
+                param1.put("pageSize","10");
+                param1.put("zxlx",'2');
+                param1.put("twOwid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("asklist",result1.getBean());
+                }
+                //            view.addObject("asklist",result1.getBean());
+            }else if(secondDir.equals("2")){//报名预约
+                view.setViewName("stuBm");
+            }else if(secondDir.equals("3")){//我的收藏
+                view.setViewName("stuSc");
             }
-//            view.addObject("tlist",result.getBean());
-        }else if(secondDir.equals("1")){//咨询列表
-            view.setViewName("stuZx");
-            Map param1=Maps.newHashMap();
-            param1.put("pageNo",currentPage);
-            param1.put("pageSize","10");
-            param1.put("zxlx",'2');
-            param1.put("twOwid",stuOwid);
-            PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
-            ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
-            if(null!=result1.getBean()) {
-                view.addObject("asklist",result1.getBean());
-            }
-//            view.addObject("asklist",result1.getBean());
-        }else if(secondDir.equals("2")){//报名预约
-            view.setViewName("stuBm");
-        }else if(secondDir.equals("3")){//我的收藏
-            view.setViewName("stuSc");
-        }
 
-        return view;
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
     }
 
     @RequestMapping(value = "teacherDetail/{towid}", method = RequestMethod.GET)
     public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view, @PathVariable String towid) {
-        view.setViewName("teacherDetail");
-        view.addObject("header",getHeader().getBean());
-        view.addObject("footer",getFooter().getBean());
-        view.addObject("towid",towid);
-        Map param=Maps.newHashMap();
-        param.put("owid",towid);
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/details");
-        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("detail",result.getBean());
-        return view;
+        String stuOwid=getCookieValue(request,"yhOwid");
+        if(null!=stuOwid){
+            view.setViewName("teacherDetail");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            view.addObject("towid",towid);
+            Map param=Maps.newHashMap();
+            param.put("owid",towid);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/details");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("detail",result.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
     }
 
 
@@ -931,7 +982,7 @@ public class DemoController {
 
     private void initProperty() {
         if (TextUtils.isEmpty(Constant.APP_KEY) || TextUtils.isEmpty(Constant.URL_HOST)) {
-        PropertiesUtil propertiesUtil = new PropertiesUtil();
+            PropertiesUtil propertiesUtil = new PropertiesUtil();
             Properties p = propertiesUtil.loadProperties("config.properties");
             Constant.APP_KEY = PropertiesUtil.readProperty(p, Constant.CLIENT_KEY);
             Constant.URL_HOST = PropertiesUtil.readProperty(p, Constant.HOST_KEY);
