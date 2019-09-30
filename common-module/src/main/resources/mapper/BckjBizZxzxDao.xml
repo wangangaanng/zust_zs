@@ -318,19 +318,17 @@
 		</where>
 	</select>
 
-	<update id="verify" parameterType="Map">
-		update bckj_biz_zxzx a
-		set  a.state= #{state},a.hdrq=#{jdrq}
-		where a.owid = #{owid}
-	</update>
+
 
 	<update id="saveZxzxDetail" parameterType="Map">
-		update bckj_biz_zxzx set DANR=#{danr} , hdrq=now() where  owid =#{owid}
+		update bckj_biz_zxzx set DANR=#{danr} , hdrq=now() ,state= #{state} where  owid =#{owid}
 	</update>
 
 	<select id="historyMessage" parameterType="Map" resultType="Map">
 		select * from bckj_biz_zxzx
 		where state=2 and zxlx=5
+		order by  createtime desc
 	</select>
+
 	
 </mapper>

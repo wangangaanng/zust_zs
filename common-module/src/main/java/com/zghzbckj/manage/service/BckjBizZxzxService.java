@@ -251,15 +251,6 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
                 return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
         }
 
-        @Transactional(readOnly = false, rollbackFor = Exception.class)
-        public ResponseMessage verify(Map<String, Object> dataMap) {
-                HashMap<Object, Object> sendMap = Maps.newHashMap();
-                sendMap.put("state", 2);
-                sendMap.put("owid", dataMap.get("owid"));
-                sendMap.put("hdrq", new Date());
-                this.dao.verify(sendMap);
-                return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
 
         public ResponseMessage getZxzxDetail(Map<String, Object> dataMap) {
                 return ResponseMessage.sendOK(get(dataMap.get("owid").toString()));
@@ -267,6 +258,8 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
 
         @Transactional(readOnly = false, rollbackFor = Exception.class)
         public ResponseMessage saveZxzxDetail(Map<String, Object> dataMap) {
+                dataMap.put("state", 2);
+                dataMap.put("owid", dataMap.get("owid"));
                 this.dao.saveZxzxDetail(dataMap);
                 return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
 
