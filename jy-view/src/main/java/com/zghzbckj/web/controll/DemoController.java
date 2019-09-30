@@ -216,7 +216,7 @@ public class DemoController {
         return view;
     }
     @RequestMapping(value = "positionDetail/{owid}", method = RequestMethod.GET)
-    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "stuOwid",required = false) String stuOwid) {
+    public ModelAndView positionDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "yhOwid",required = false) String stuOwid) {
         view.setViewName("positionDetail");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
@@ -387,8 +387,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "newJob", method = RequestMethod.GET)
-    public ModelAndView newJob(HttpServletRequest request,ModelAndView view) {
-        String qyOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView newJob(HttpServletRequest request,ModelAndView view,@CookieValue(value = "yhOwid",required = false) String qyOwid) {
         if(null!=qyOwid){
             view.setViewName("newJob");
             view.addObject("header",getHeader().getBean());
@@ -431,8 +430,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "fixJob/{owid}", method = RequestMethod.GET)
-    public ModelAndView fixJob(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
-        String qyOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView fixJob(HttpServletRequest request,ModelAndView view, @PathVariable String owid,@CookieValue(value = "yhOwid",required = false) String qyOwid) {
         if(null!=qyOwid){
             view.setViewName("fixJob");
             view.addObject("header",getHeader().getBean());
@@ -481,8 +479,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
-    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view) {
-        String qyOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view,@CookieValue(value = "yhOwid",required = false) String qyOwid) {
         if(null!=qyOwid){
             view.setViewName("enterpriseService");
             view.addObject("header",getHeader().getBean());
@@ -501,8 +498,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "jobFair/{step}/{owid}", method = RequestMethod.GET)
-    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid) {
-        String qyOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step, @PathVariable String owid,@CookieValue(value = "yhOwid",required = false) String qyOwid) {
         if(null!=qyOwid){
             view.setViewName("jobFair");
             view.addObject("header",getHeader().getBean());
@@ -524,8 +520,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "jobFair/{step}", method = RequestMethod.GET)
-    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step) {
-        String qyOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView jobFair(HttpServletRequest request,ModelAndView view, @PathVariable String step,@CookieValue(value = "yhOwid",required = false) String qyOwid) {
         if(null!=qyOwid){
             view.setViewName("jobFair");
             view.addObject("header",getHeader().getBean());
@@ -774,8 +769,7 @@ public class DemoController {
 
 
     @RequestMapping(value = "enterpriseService/{secondDir}", method = RequestMethod.GET)
-    public ModelAndView enterpriseServices(HttpServletRequest request, ModelAndView view, HttpServletResponse response, @PathVariable String secondDir) throws IOException {
-        String qyOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView enterpriseServices(HttpServletRequest request, ModelAndView view, HttpServletResponse response, @PathVariable String secondDir,@CookieValue(value = "yhOwid",required = false) String qyOwid) throws IOException {
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
@@ -828,8 +822,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "stuCenter/{secondDir}", method = RequestMethod.GET)
-    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@PathVariable String secondDir) {
-        String stuOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view,@PathVariable String secondDir,@CookieValue(value = "yhOwid",required = false) String stuOwid) {
         if(null!=stuOwid){
             view.addObject("header",getHeader().getBean());
             view.addObject("footer",getFooter().getBean());
@@ -875,8 +868,7 @@ public class DemoController {
 
 
     @RequestMapping(value = "stuCenter/{secondDir}/{currentPage}", method = RequestMethod.GET)
-    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String currentPage) {
-        String stuOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView stuCenter(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String currentPage,@CookieValue(value = "yhOwid",required = false) String stuOwid) {
         if(null!=stuOwid){
             view.addObject("header",getHeader().getBean());
             view.addObject("footer",getFooter().getBean());
@@ -918,8 +910,7 @@ public class DemoController {
     }
 
     @RequestMapping(value = "teacherDetail/{towid}", method = RequestMethod.GET)
-    public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view, @PathVariable String towid) {
-        String stuOwid=getCookieValue(request,"yhOwid");
+    public ModelAndView teacherDetail(HttpServletRequest request,ModelAndView view, @PathVariable String towid,@CookieValue(value = "yhOwid",required = false) String stuOwid) {
         if(null!=stuOwid){
             view.setViewName("teacherDetail");
             view.addObject("header",getHeader().getBean());
