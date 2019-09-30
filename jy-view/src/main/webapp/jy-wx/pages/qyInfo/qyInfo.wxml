@@ -69,3 +69,5 @@
   <view class="content">
   </view>
 </view>
+
+<view class="float-btn">我要报名</view>
