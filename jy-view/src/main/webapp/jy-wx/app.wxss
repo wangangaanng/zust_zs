@@ -1,13 +1,5 @@
 /**app.wxss**/
-.container {
-height: 100%;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: space-between;
-padding: 200rpx 0;
-box-sizing: border-box;
-} 
+page{background: #f3f3f5;}
 .van-tabs__line{background-color: #008783 !important;}
 
 
@@ -130,8 +122,8 @@ text-overflow: ellipsis;
 }
 .uni-media-list-text-content{
 width:100%;
-font-size:28rpx;
-line-height: 45rpx;
+font-size:26rpx;
+line-height: 50rpx;
 color:#999999;
 text-overflow: -o-ellipsis-lastline;
 overflow: hidden;

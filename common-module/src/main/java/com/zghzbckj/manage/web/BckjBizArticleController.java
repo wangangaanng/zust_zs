@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.service.BckjBizArticleService;
+import com.zghzbckj.manage.utils.CharUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -209,6 +210,7 @@ public class BckjBizArticleController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
+            mapData.put("gjz",CharUtil.filterChar(mapData.get("gjz").toString()));
             return ResponseMessage.sendOK(bckjBizArticleService.searchAll(mapData));
         } catch (Exception e) {
             log.info("获取营业日志失败：" + e);

@@ -10,6 +10,7 @@
             </view>
 						<view class="uni-media-list-body">
 							<view class="uni-media-list-text-top">2019届校园招聘会</view>
+              <!-- <view class="uni-media-list-text-content">地址：浙江科技学院</view> -->
 							<view class="uni-media-list-text-bottom">
 								<view class="uni-media-list-text-bottom-right">
                   <image class="icon" src="../../static/icon-time.png"></image>
