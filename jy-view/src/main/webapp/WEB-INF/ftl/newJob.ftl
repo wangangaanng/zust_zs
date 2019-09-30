@@ -287,22 +287,23 @@
         });
 
         function addOneJob() {
-            var jsonObj = $("#registerForm").serializeObject()
-            jsonObj.qyxxRefOwid=getCookie("qyOwid")
-            jsonObj.zwlx=0
-            jsonObj.zwXs=parseInt(jsonObj.zwXs)
-            console.log(jsonObj)
-            ajax("zustjy/bckjBizJob/addOneJob", jsonObj, function (data) {
-                if(data.backCode==0){
-                    layer.open({
-                        title:'提示',
-                        content: '职位发布成功',
-                        yes: function(index, layero){
-                            layer.close(index);
-                        }
-                    });
-                }
-            })
+            if(!isTimeOut()) {
+                var jsonObj = $("#registerForm").serializeObject()
+                jsonObj.qyxxRefOwid = getCookie("qyOwid")
+                jsonObj.zwlx = 0
+                jsonObj.zwXs = parseInt(jsonObj.zwXs)
+                ajax("zustjy/bckjBizJob/addOneJob", jsonObj, function (data) {
+                    if (data.backCode == 0) {
+                        layer.open({
+                            title: '提示',
+                            content: '职位发布成功',
+                            yes: function (index, layero) {
+                                layer.close(index);
+                            }
+                        });
+                    }
+                })
+            }
         }
 
     </script>
