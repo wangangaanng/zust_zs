@@ -99,7 +99,7 @@
             </if>
 
             <if test="wzly != null and wzly != ''">
-                AND a.wzly = LIKE concat('%',#{wzly},'%')
+                AND a.wzly LIKE concat('%',#{wzly},'%')
             </if>
             <if test="fbr != null and fbr != ''">
                 AND a.fbr = #{fbr}
