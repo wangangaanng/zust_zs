@@ -9,3 +9,20 @@
   background: #008783; color: #fff;font-size: 30rpx;}
 .answer-one input{padding: 20rpx;}
 .wrong{border-color: #ffaeae;}
+
+/* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked{
+   border: 1px solid #008783;
+   background: #008783;
+   box-shadow: inset 0 0 0 3px #f4f4f4;
+    transition: all 250ms ease;
+
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+radio .wx-radio-input.wx-radio-input-checked::before{
+  content: '';
+}
+/* 选中后的 对勾样式 （白色对勾 可根据UI需求自己修改） */
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before{
+   color:#008783; /* 对勾颜色 白色 */ 
+}
