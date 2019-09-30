@@ -1234,6 +1234,7 @@ button.green:hover{
     color: #6c9d9c;
     background-color: #f1f8f8;
     text-align: center;
+    vertical-align: middle !important;
 }
 
 .page-list{

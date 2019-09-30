@@ -482,14 +482,16 @@
     }
 
     $(document).ready(function () {
-        if(getCookie("qyOwid")){
-            $(".frame-a_right").hide();
-            $("#qy_pipe").show();
-        }
-        if(getCookie("stuOwid")){
-            $(".frame-a_right").hide();
-            $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
-            $("#stu_pipe").show();
+
+        if(getCookie("userType")){
+            if(getCookie("userType")==0){
+                $(".frame-a_right").hide();
+                $("#qy_pipe").show();
+            }else if(getCookie("userType")==1){
+                $(".frame-a_right").hide();
+                $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
+                $("#stu_pipe").show();
+            }
         }
     })
 </script>

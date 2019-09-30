@@ -72,7 +72,7 @@
                 <#if tlist??>
                     <#list tlist.records as obj>
                         <div class="teacher-item">
-                            <div class="t-bg" style="background: url("${obj.zjtx!''}")"></div>
+                            <div class="t-bg" style="background: url(${imagePath!""}${obj.zjtx!''})"></div>
                         <div class="teacher-detail">
                             <div class="t-name">${obj.zjxm!''}</div>
                             <div class="t-xhx"><span></span></div>
@@ -122,14 +122,6 @@
     var currentPage="${tlist.currentPage!'1'}"
     $(document).ready(function () {
 
-        // layer.open({
-        //     title: '提示'
-        //     ,content: '登录过期',
-        //     yes:function (index) {
-        //         layer.close(index)
-        //     }
-        // });
-
         setPage(currentPage, "${tlist.totalPage!'1'}", function () {
             openUrl('sutCenter/0/'+currentPage)
         })
@@ -158,42 +150,46 @@
     }
 
     function question(o) {
-        layer.open({
-            type: 1,
-            title:'填写咨询内容',
-            btn:["提交","取消"],
-            skin: 'layui-layer-rim', //加上边框
-            area: ['450px', '320px'], //宽高
-            content: '<div class="zx-textarea"><textarea id="wtnr"></textarea></div>',
-            yes:function(index){
-                ask(index,o);
-            }
-        })
+        if(!isTimeOut()) {
+            layer.open({
+                type: 1,
+                title: '填写咨询内容',
+                btn: ["提交", "取消"],
+                skin: 'layui-layer-rim', //加上边框
+                area: ['450px', '320px'], //宽高
+                content: '<div class="zx-textarea"><textarea id="wtnr"></textarea></div>',
+                yes: function (index) {
+                    ask(index, o);
+                }
+            })
+        }
     }
 
     function ask(index,o) {
-        if(!$("#wtnr").val()){
-            walert("请填写咨询内容");
-            return;
-        }
-        var jsonObj={
-            "wtnr":$("#wtnr").val(),
-            "owid": o,
-            "zxlx": 2,
-            "studentOwid": getCookie("stuOwid")
-        }
-        ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
-            if(data.backCode==0){
-                layer.close(index)
-                layer.open({
-                    title:'提示',
-                    content: '咨询已提交，请等待回复。',
-                    yes: function(index, layero){
-                        layer.close(index);
-                    }
-                });
+        if(!isTimeOut()) {
+            if (!$("#wtnr").val()) {
+                walert("请填写咨询内容");
+                return;
             }
-        })
+            var jsonObj = {
+                "wtnr": $("#wtnr").val(),
+                "owid": o,
+                "zxlx": 2,
+                "studentOwid": getCookie("stuOwid")
+            }
+            ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
+                if (data.backCode == 0) {
+                    layer.close(index)
+                    layer.open({
+                        title: '提示',
+                        content: '咨询已提交，请等待回复。',
+                        yes: function (index, layero) {
+                            layer.close(index);
+                        }
+                    });
+                }
+            })
+        }
     }
 
 </script>

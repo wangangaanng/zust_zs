@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>登录</title>
+    <link rel="icon" href="charisma/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="html/logincss/common.css"/>
     <link rel="stylesheet" href="html/logincss/index.css"/>
     <link rel="stylesheet" href="html/js/layer/theme/default/layer.css"/>

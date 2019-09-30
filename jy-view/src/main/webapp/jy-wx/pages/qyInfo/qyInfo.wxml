@@ -1,0 +1,73 @@
+<!--pages/qyInfo/qyInfo.wxml-->
+<view class="cell">
+  <view class="title">上海红点影视发展有限公司</view>
+  <view class="content">
+    <view class="table">
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">公司性质：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)">内资企业--股份有限公司</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">公司行业：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)">信息传输、软件和信息技术服务业</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">公司规模：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)">100-500人</view>
+        </view>
+      </view>
+  </view>
+  <view class="content">
+    <view class="table">
+        <view class="tr">
+          <view class="td td-name">工作性质：</view>
+          <view class="td td-value">全职</view>
+           <view class="td td-name">发布日期：</view>
+          <view class="td td-value">2019-09-27</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name">工作年限：</view>
+          <view class="td td-value"></view>
+           <view class="td td-name">学历要求：</view>
+          <view class="td td-value"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name">年龄要求：</view>
+          <view class="td td-value"></view>
+           <view class="td td-name">招聘人数：</view>
+          <view class="td td-value"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name">语言能力：</view>
+          <view class="td td-value"></view>
+           <view class="td td-name">工作地点：</view>
+          <view class="td td-value"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name">薪资待遇：</view>
+          <view class="td td-value"></view>
+           <view class="td td-name">职位类别：</view>
+          <view class="td td-value"></view>
+        </view>
+    </view>
+
+  </view>
+</view>
+
+<view class="cell">
+  <view class="title">岗位说明</view>
+  <view class="content">
+  </view>
+</view>
+<view class="cell">
+  <view class="title">公司介绍</view>
+  <view class="content">
+  </view>
+</view>
+<view class="cell">
+  <view class="title">联系方式</view>
+  <view class="content">
+  </view>
+</view>
+
+<view class="float-btn">我要报名</view>

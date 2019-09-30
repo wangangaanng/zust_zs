@@ -163,7 +163,7 @@ public class DicValueController {
     }
 
     /**
-     * 处理二级菜单
+     * 处理控制开关
      *
      * @param type
      * @param dataVO

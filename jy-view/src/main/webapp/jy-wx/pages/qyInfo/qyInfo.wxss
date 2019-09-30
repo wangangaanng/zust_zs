@@ -1,0 +1,36 @@
+/* pages/qyInfo/qyInfo.wxss */
+page{background: #f3f3f5;}
+.cell{background: #fff;margin-bottom: 30rpx;}
+.title{font-size: 35rpx;text-align: left;padding: 35rpx 20rpx;border-bottom: 1px solid #e4e4e4;}
+.content{padding: 20rpx 20rpx;border-bottom: 1px solid #e4e4e4;}
+.table {
+  border: 0px solid darkgray;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 60rpx;
+  align-items: center;
+}
+.td {
+    width:40%;
+    justify-content: center;
+    text-align: left;
+    font-size: 30rpx;
+}
+.td-name{color: #595959;}
+.float-btn{
+  background: #00aba6;
+  border: 1px solid #008783;
+  color: #fff;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  position: fixed;
+  top: 750rpx;
+  right: 35rpx;
+  font-size: 28rpx;
+  padding: 15rpx;
+  text-align: center;
+}

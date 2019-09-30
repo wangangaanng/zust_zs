@@ -225,38 +225,39 @@ var pageSize=10;
     }
 
     function confirmQd() {
-        if(!$("#lxr").val().trim()){
-            walert("请填写联系人")
-            return
-        }
-        if(!$("#lxdh").val().trim()){
-            walert("请填写联系人手机号")
-            return
-        }else{
-            if(!testSjh($("#lxdh").val().trim())){
-                walert("请填写正确手机号码")
+        if(!isTimeOut()) {
+            if (!$("#lxr").val().trim()) {
+                walert("请填写联系人")
                 return
             }
-        }
-        var jsonObj ={
-            "jobRefOwid":$("#zphOwid").val(),
-            "bmlx":0,
-            "bmdx":0,
-            "qyxxRefOwid":getCookie("qyOwid"),
-            "lxr":$("#lxr").val().trim(),
-            "lxdh":$("#lxdh").val().trim()
-        }
-        ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
-            if(data.backCode==0){
-                layer.close(layer1)
-                layer1=null;
-                <#--window.location.href="${base}/"+url-->
-                window.location.href="${base}/jobFair/2"
-            }else{
-                walert(data.errorMess)
+            if (!$("#lxdh").val().trim()) {
+                walert("请填写联系人手机号")
+                return
+            } else {
+                if (!testSjh($("#lxdh").val().trim())) {
+                    walert("请填写正确手机号码")
+                    return
+                }
             }
-        })
-
+            var jsonObj = {
+                "jobRefOwid": $("#zphOwid").val(),
+                "bmlx": 0,
+                "bmdx": 0,
+                "qyxxRefOwid": getCookie("qyOwid"),
+                "lxr": $("#lxr").val().trim(),
+                "lxdh": $("#lxdh").val().trim()
+            }
+            ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
+                if (data.backCode == 0) {
+                    layer.close(layer1)
+                    layer1 = null;
+                <#--window.location.href="${base}/"+url-->
+                    window.location.href = "${base}/jobFair/2"
+                } else {
+                    walert(data.errorMess)
+                }
+            })
+        }
     }
     function myJobList1() {
 
@@ -377,7 +378,9 @@ function operateFormatterZph2(value, row, index) {
             window.location.href="${base}/jobFair/1/"+row.owid
         },
         'click .zphxq': function (e, value, row, index) {
-            window.open("${base}/positionDetail/qy/"+row.owid)
+            if(!isTimeOut()) {
+                window.open("${base}/positionDetail/qy/" + row.owid)
+            }
         },
         'click .remove': function (e, value, row, index) {
             layer.confirm('确定删除该条记录？', {
