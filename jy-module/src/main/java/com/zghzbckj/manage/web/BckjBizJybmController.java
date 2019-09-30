@@ -96,7 +96,11 @@ public class BckjBizJybmController extends BaseController {
     public ResponseMessage getXjhList(PublicDataVO dataVO) {
         try {
             map.clear();
+            //宣讲会
             map.put("bmdx", 1);
+            //企业对象
+            map.put("bmlx", 0);
+            map.put("state", 0);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {
@@ -104,7 +108,6 @@ public class BckjBizJybmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
-
 
 
     @RequestMapping(value = "/getXsbmList")
