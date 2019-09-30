@@ -167,6 +167,9 @@ function saveSyxx() {
     if(!isTimeOut()) {
         var jsonObj = $("#registerForm").serializeObject()
         jsonObj.xh = $("#xh").val();
+        if($("#owid").val()){
+            jsonObj.owid = $("#owid").val();
+        }
         ajax("zustjy/bckjBizSyb/saveSyxx", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")

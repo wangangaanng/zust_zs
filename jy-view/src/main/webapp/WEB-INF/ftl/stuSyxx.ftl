@@ -271,6 +271,7 @@
                 <input type="hidden" value="${stuInfo.xb!''}" id="sel1" />
                 <input type="hidden" value="${stuInfo.sfrx!''}" id="sel2" />
                 <input type="hidden" value="${stuInfo.hkrx!''}" id="sel3" />
+                <input type="hidden" value="${stuInfo.owid!''}" id="owid" />
                 <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
 
             </div>
