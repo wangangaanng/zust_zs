@@ -38,6 +38,26 @@ public class BckjBizJobController extends BaseController {
     @Autowired
     private BckjBizJobService bckjBizJobService;
 
+    /**
+     * <p>接口 getXjhList.java : <p>
+     * <p>说明：宣讲会列表 1待举办  2已举办</p>
+     * <pre>
+     * @author cc
+     * @date 2019/9/30 9:54
+     * </pre>
+     */
+    @RequestMapping(value = "/getXjhList/{state}")
+    @ResponseBody
+    public ResponseMessage getXjhList(@PathVariable("state") Integer state, PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJobService.findPageBckjBizJobXjh(filters, state, dataVO.getPageNo(), dataVO.getPageSize());
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     @RequestMapping(value = "/getList/{zwlx}")
     @ResponseBody

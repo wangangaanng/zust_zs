@@ -71,10 +71,19 @@
     </select>
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
         SELECT
+        b.exp1 AS "gsqymc",
+        b.zwbt AS "zwbt",
         <include refid="bckjBizXsgzColumns"/>
         FROM bckj_biz_xsgz a
+        LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
         <include refid="bckjBizXsgzJoins"/>
         <where>
+            <if test="zwbt != null and zwbt  != ''">
+                AND b.zwbt like CONCAT('%', #{zwbt},'%')
+            </if>
+            <if test="gsqymc != null and gsqymc  != ''">
+                AND b.exp1 like CONCAT('%', #{gsqymc},'%')
+            </if>
             <if test="jobRefOwid != null and jobRefOwid != ''">
                 AND a.job_ref_owid = #{jobRefOwid}
             </if>
@@ -306,7 +315,7 @@
                 and b.zwbt like concat('%', #{zwbt}, '%')
             </if>
         </where>
-		order by a.gzsj desc
+        order by a.gzsj desc
     </select>
 
 
@@ -328,20 +337,20 @@
             <if test="xxlb!=null and xxlb!=''">
                 and a.xxlb =#{xxlb}
             </if>
-			<if test="jobRefOwid!=null and jobRefOwid!=''">
-				and a.job_ref_owid =#{jobRefOwid}
-			</if>
+            <if test="jobRefOwid!=null and jobRefOwid!=''">
+                and a.job_ref_owid =#{jobRefOwid}
+            </if>
             <if test="gzlx!=null and gzlx!=''">
                 and a.gzlx =#{gzlx}
             </if>
         </where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
     </select>
 
 

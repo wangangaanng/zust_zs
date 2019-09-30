@@ -96,8 +96,9 @@
         SELECT
         b.qymc AS "qymc",
         <include refid="bckjBizJobColumns"/>
-        FROM bckj_biz_job a
-        LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
+        FROM bckj_biz_qyxx b
+--         LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
+        RIGHT JOIN bckj_biz_job a  ON a.qyxx_ref_owid = b.owid
         <where>
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx = #{zwlx}
@@ -165,6 +166,12 @@
             <if test="zwQymc != null and zwQymc != ''">
                 AND b.qymc = #{zwQymc}
             </if>
+            <if test="wait != null and wait != ''">
+                AND a.zph_ksrq &gt;= CURRENT_DATE
+            </if>
+            <if test="over != null and over != ''">
+                AND a.zph_ksrq &lt; CURRENT_DATE
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -198,12 +205,12 @@
             <if test="qyHylb != null and qyHylb != ''">
                 AND b.qyHylb = #{qy_hylb}
             </if>
-			<if test=" qyGsxz != null and qyGsxz != '' ">
-				AND b.qy_gsxz = #{qyGsxz}
-			</if>
-			<if test=" qyGsgm != null and qyGsgm != '' ">
-				AND b.qy_gsgm = #{qyGsgm}
-			</if>
+            <if test=" qyGsxz != null and qyGsxz != '' ">
+                AND b.qy_gsxz = #{qyGsxz}
+            </if>
+            <if test=" qyGsgm != null and qyGsgm != '' ">
+                AND b.qy_gsgm = #{qyGsgm}
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

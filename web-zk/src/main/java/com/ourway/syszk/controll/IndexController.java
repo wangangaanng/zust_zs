@@ -1,6 +1,7 @@
 package com.ourway.syszk.controll;
 
 import com.beust.jcommander.internal.Maps;
+import com.ourway.WebZKConstant;
 import com.ourway.base.utils.DateUtil;
 import com.ourway.base.zk.BaseConstants;
 import com.ourway.base.zk.ZKConstants;
@@ -29,9 +30,16 @@ public class IndexController extends SpringZkBaseControl {
     public String index(HttpServletRequest request) {
         CookieUtils.setRequest(request);
         //把常用的参数设置到界面上，并传递给界面使用
-
         System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
         return "index";
+    }
+
+    @RequestMapping("/projectReport")
+    public String projectReport(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        //把常用的参数设置到界面上，并传递给界面使用
+        System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
+        return "projectReport";
     }
 
     @RequestMapping("/loginNewDetail")
@@ -43,6 +51,7 @@ public class IndexController extends SpringZkBaseControl {
         request.setAttribute("conOwid", conOwid);
         return "loginNewDetail";
     }
+
     /**
      * 包头市政府采购网底部统计图
      */
@@ -84,6 +93,35 @@ public class IndexController extends SpringZkBaseControl {
         return "redirect:/index.htm?error";
 
     }
+
+
+    @RequestMapping(value = "/report")
+    public String report(HttpServletRequest request) {
+        //传递request，主要用于当html跳转到zk的时候，session处理问题
+        CookieUtils.setRequest(request);
+        try {
+            String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
+            name = new String(name.getBytes("ISO8859-1"), "utf-8");
+            String tpPath = ZKConstants.SYSTEM_FILE_URL;
+//            String qrCode = "a.jpg";
+            String url = WebZKConstant.WX_VIEW_URL;
+            String picName = TextUtils.getUUID() + ".jpg";
+            //生成二维码
+            QRCodeUtil.encode(url, tpPath + "/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
+                    picName, true);
+//            request.setAttribute("name", name);
+//            request.setAttribute("qrCode", tpPath+ picName);
+//            return "redirect:/projectReport.htm";
+            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + "qrcode/" + picName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/error.htm";
+//        return "redirect:/index.htm";
+
+    }
+
+
     Map<String, Object> getWxLogin(String sessionId) {
         try {
             Map<String, Object> params = new HashMap<String, Object>(2);

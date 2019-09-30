@@ -111,6 +111,22 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return ResponseMessage.sendOK(page);
     }
 
+
+    public ResponseMessage findPageBckjBizJobXjh(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
+        PageInfo<BckjBizJob> page = new PageInfo<>();
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
+        dataMap.put("zwlx", JyContant.ZWLB_XJH);
+        if (1 == state) {
+            dataMap.put("wait", 1);
+        } else if (2 == state) {
+            dataMap.put("over", 1);
+        }
+        page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+        return ResponseMessage.sendOK(page);
+    }
+
+
     private PageInfo<BckjBizJob> findPageWithCompany(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
         Page page = new Page(pageNo, pageSize);
         paramsMap.put("page", page);
@@ -155,7 +171,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             BckjBizJob bckjBizJobIndata = get(mapData.get("owid").toString());
             BeanUtil.copyPropertiesIgnoreNull(bckjBizJob, bckjBizJobIndata);
             bckjBizJob = bckjBizJobIndata;
-        } else {
+        }
+        else {
             bckjBizJob.setZwlx(zwlx);
             bckjBizJob.setState(JyContant.JOB_ZT_TG);
         }
