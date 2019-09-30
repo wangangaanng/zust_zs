@@ -35,7 +35,7 @@
 <!--content start-->
 	<h:div class="wait-tip_wrap" >
 		<h:p class="wait-tip_title">
-			<image src="charisma/img/img_logo2.png"  />
+			<image src="charisma/img/logo-zust.png"  />
 			<label class="project-title" style="font-size:16px !important;font-weight: bold" id="systemTitle"></label>
 		</h:p>
 		<h:div class="wait-content_wrap">
