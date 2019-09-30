@@ -2,7 +2,7 @@
 <?page title="浙江科技学院招就处一体化"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /?>
 <?meta name="renderer" content="webkit" /?>
-<?link rel="icon" href="/charisma/img/qzsj.ico" type="image/x-icon"/?>
+<?link rel="icon" href="/charisma/img/zust.ico" type="image/x-icon"/?>
 <?link href="/charisma/css/common.css" rel="stylesheet" type="text/css"?>
 <?link href="/charisma/css/login.css" rel="stylesheet" type="text/css"?>
 <?script src="/charisma/js/jquery-3.2.1.min.js" ?>

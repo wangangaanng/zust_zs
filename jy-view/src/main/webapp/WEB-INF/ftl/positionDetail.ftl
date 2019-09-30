@@ -35,7 +35,7 @@
                                 <#if result.zphJtsj?exists>
                                     <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
                                 </#if>
-                                <li>具体城市：<span> ${result.zwCity}</span></li>
+                                <li>具体城市：<span> ${result.zwCity!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl">
@@ -67,7 +67,7 @@
                                 </dl>
                             </div>
                             <ul class="xInfo xInfo-2 cl">
-                                <li>工作城市：<span>${result.zwCity}</span></li>
+                                <li>工作城市：<span>${result.zwCity!''}</span></li>
                                 <#if result.createtime?exists>
                                     <li>发布时间：<span>${result.createtime?substring(0,16)}</span></li>
                                 </#if>
@@ -107,7 +107,7 @@
                                 <#if result.zphJtsj?exists>
                                     <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwCity}</span></li>
+                                <li>具体城市：<span>${result.zwCity!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
@@ -145,7 +145,7 @@
                                 <#if result.zphJtsj?exists>
                                     <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
                                 </#if>
-                                <li>具体城市：<span>${result.zwCity}</span></li>
+                                <li>具体城市：<span>${result.zwCity!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                             </ul>
                             <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
@@ -192,7 +192,7 @@
                                 <li>年龄要求：<span>${result.zwNlyqStr!''}</span></li>
                                 <li>招聘人数：<span>${result.zwZprs!'0'}人</span></li>
                                 <li>语言能力：<span>${result.zwYyyqStr!''}</span></li>
-                                <li>工作地点：<span> ${result.zwCity}</span></li>
+                                <li>工作地点：<span> ${result.zwCity!''}</span></li>
                                 <#if result.zwXs?exists>
                                     <li>薪资待遇：<span>${result.zwXs!''}元</span></li>
                                 <#else >

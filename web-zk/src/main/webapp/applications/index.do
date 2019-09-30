@@ -12,7 +12,7 @@
 <?script src="/assets/common/func.js" ?>
 <?script src="/assets/common/SocketClient.js" ?>
 <!-- Load fonts from local -->
-<?link rel="icon" href="/charisma/img/qzsj.ico" type="image/x-icon"/?>
+<?link rel="icon" href="/charisma/img/zust.ico" type="image/x-icon"/?>
 <?link href="css/fonts.css" rel="stylesheet" type="text/css" ?>
 <?link href="css/index.css" rel="stylesheet" type="text/css" if="${empty param.theme || param.theme == 'default'||param.theme == 'blue'|| param.theme == 'black'}"?>
 <?link href="css/styleBlue.css" rel="stylesheet" type="text/css" if="${empty param.theme || param.theme == 'blue'|| param.theme == 'default'}"?>

@@ -10,7 +10,8 @@
     "pages/mustache/mustache",
     "pages/newsList/newsList",
     "pages/newsDetail/newsDetail",
-    "pages/diaocha/diaocha"
+    "pages/diaocha/diaocha",
+    "pages/qyInfo/qyInfo"
   ],
   "window": {
     "backgroundTextStyle": "light",
