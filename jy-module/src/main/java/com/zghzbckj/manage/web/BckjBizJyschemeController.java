@@ -3,22 +3,26 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.alibaba.fastjson.JSON;
+import com.sun.org.apache.regexp.internal.RE;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.service.BckjBizJyschemeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
-import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.manage.service.BckjBizYhkzService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import com.zghzbckj.CommonConstants;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,15 +30,15 @@ import java.util.Map;
 
 
 /**
- * ccController
- * @author cc
- * @version 2019-09-09
+ * 就业方案Controller
+ * @author wangangaanng
+ * @version 2019-09-30
  */
 @Controller
-@RequestMapping(value = "bckjBizYhkz")
-public class BckjBizYhkzController extends BaseController {
+@RequestMapping(value = "bckjBizJyscheme")
+public class BckjBizJyschemeController extends BaseController {
 	@Autowired
-	private BckjBizYhkzService bckjBizYhkzService;
+	private BckjBizJyschemeService bckjBizJyschemeService;
 
 
 	@RequestMapping(value = "/getList")
@@ -42,9 +46,9 @@ public class BckjBizYhkzController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return bckjBizYhkzService.findPageBckjBizYhkz(filters, dataVO.getPageNo(), dataVO.getPageSize());
+    return bckjBizJyschemeService.findPageBckjBizJyscheme(filters, dataVO.getPageNo(), dataVO.getPageSize());
     } catch (Exception e) {
-    log.error(e+"获取bckjBizYhkz列表失败\r\n"+e.getStackTrace()[0] , e);
+    log.error(e+"获取bckjBizJyscheme列表失败\r\n"+e.getStackTrace()[0] , e);
     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
     }
     }
@@ -62,10 +66,10 @@ public class BckjBizYhkzController extends BaseController {
             for (Object obj : list) {
             codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            ResponseMessage data = bckjBizYhkzService.removeOrder(codes);
+            ResponseMessage data = bckjBizJyschemeService.removeOrder(codes);
             return data;
             } catch (Exception e) {
-            log.error(e+"删除BckjBizYhkz列表失败\r\n" +e.getStackTrace()[0] , e);
+            log.error(e+"删除BckjBizJyscheme列表失败\r\n" +e.getStackTrace()[0] , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
             }
             }
@@ -76,9 +80,9 @@ public class BckjBizYhkzController extends BaseController {
             try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizYhkzService.saveBckjBizYhkz(mapData);
+            return bckjBizJyschemeService.saveBckjBizJyscheme(mapData);
             } catch (Exception e) {
-            log.error(e+"保存BckjBizYhkz信息失败\r\n"+e.getStackTrace()[0]  , e);
+            log.error(e+"保存BckjBizJyscheme信息失败\r\n"+e.getStackTrace()[0]  , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
             }
             }
@@ -93,41 +97,59 @@ public class BckjBizYhkzController extends BaseController {
             if(!msg.getSuccess()){
             return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhkzService.get(mapData.get("owid").toString()));
+            return ResponseMessage.sendOK(bckjBizJyschemeService.get(mapData.get("owid").toString()));
             } catch (Exception e) {
 
-            log.error(e+"初始BckjBizYhkz\r\n" +e.getStackTrace()[0] ,e);
+            log.error(e+"初始BckjBizJyscheme\r\n" +e.getStackTrace()[0] ,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
             }
             }
-
-
-
     /**
-     * <p>功能描述:根据yhRefOwid查询用户信息</p >
+     * <p>功能描述:保存学生填写的就业方案</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
      * <li>@throws </li>
      * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/11 </li>
+     * <li>@date 2019/9/30</li>
      * </ul>
      */
-
-    @PostMapping(value = "getOneByYhRefOwid")
+    @PostMapping("saveJyFaInfo")
     @ResponseBody
-    public ResponseMessage getOneByYhRefOwid(@RequestParam("yhRefOwid") String yhRefOwid) {
-        try {
-            if (ValidateUtils.isEmpty(yhRefOwid)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_NOPARAMS);
-            }
-            return  bckjBizYhkzService.getOneByYhRefOwid(yhRefOwid);
-        } catch (Exception e) {
-            log.error(CommonConstant.ERROR_MESSAGE, e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+    public ResponseMessage saveJyFaInfo(PublicDataVO dataVO){
+	    try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return bckjBizJyschemeService.saveJyFaInfo(dataMap);
+        }
+	    catch (Exception e){
+	        log.error(CommonConstant.ERROR_MESSAGE,e);
+	        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
-
-
+    /**
+     * <p>功能描述:获取学生填写的就业方案的信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/30</li>
+     * </ul>
+     */
+    @PostMapping("getJyBaseInfo")
+    @ResponseBody
+    public ResponseMessage getJyBaseInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(2,"登入过期");
+            }
+            return bckjBizJyschemeService.getJyBaseInfo(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 }
