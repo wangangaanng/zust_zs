@@ -87,10 +87,30 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         if (!TextUtils.isEmpty(map.get("bmlx"))) {
             dataMap.put("bmlx", map.get("bmlx").toString());
         }
+        if (!TextUtils.isEmpty(map.get("bmdx"))) {
+            dataMap.put("bmdx", map.get("bmdx").toString());
+        }
         PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 
+    public ResponseMessage findPageBckjBizJybmZw(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmdx"))) {
+            dataMap.put("bmdx", map.get("bmdx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmlx"))) {
+            dataMap.put("bmlx", map.get("bmlx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("state"))) {
+            dataMap.put("state", map.get("state").toString());
+        }
+        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+        return ResponseMessage.sendOK(page);
+    }
 
     public ResponseMessage findPageBckjBizJybmXjh(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
@@ -102,6 +122,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         }
         if (!TextUtils.isEmpty(map.get("bmlx"))) {
             dataMap.put("bmlx", map.get("bmlx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("state"))) {
+            dataMap.put("state", map.get("state").toString());
         }
         PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
@@ -221,12 +244,26 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             BckjBizJob job = new BckjBizJob();
             //宣讲会
             if (JyContant.BMDX_XJH == bmdx) {
+                if (JyContant.BMLX_QY == bmlx) {
+                    Map params = new HashMap<String, Object>();
+                    params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
+                    params.put("zwlx", JyContant.ZWLB_XJH);
+                    params.put("wait", 1);
+                    List<BckjBizJob> existJob = jobService.findListByParams(params, "");
+                    if (!TextUtils.isEmpty(existJob) && existJob.size() > 0) {
+                        resultMap.put("result", "false");
+                        resultMap.put("msg", "已存在正在进行中的宣讲会");
+                        return resultMap;
+                    }
+                }
+
                 if (!TextUtils.isEmpty(mapData.get("xjsj"))) {
                     jybm.setXjsj(mapData.get("xjsj").toString());
                 } else {
                     job = jobService.get(mapData.get("jobRefOwid").toString());
                     jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
                 }
+
             }
             //招聘会
             else if (JyContant.BMDX_ZPH == bmdx) {
@@ -326,6 +363,16 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     resultMap.put("msg", "审核通过时请填写举办时长");
                     return resultMap;
                 }
+                if (TextUtils.isEmpty(mapData.get("exp3"))) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "审核通过时请填写学校联系人");
+                    return resultMap;
+                }
+                if (TextUtils.isEmpty(mapData.get("exp4"))) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "审核通过时请填写学校联系人电话");
+                    return resultMap;
+                }
                 //如果是宣讲会，在职位表生成数据
                 BckjBizJob job = new BckjBizJob();
                 job.setQyxxRefOwid(bm.getQyxxRefOwid());
@@ -333,8 +380,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 job.setZwPro(JyContant.ZW_PRO);
                 job.setZwCity(JyContant.ZW_CITY);
                 job.setZwArea(JyContant.ZW_AREA);
-
-//                job.setZphJbdd(JyContant.ZW_DD);
+                job.setExp3(mapData.get("exp3").toString());
+                job.setExp4(mapData.get("exp4").toString());
                 job.setZphJbdd(mapData.get("zphJbdd").toString());
                 job.setZphJbf(bm.getQymc());
                 job.setZwbt(bm.getQymc() + "宣讲会");
