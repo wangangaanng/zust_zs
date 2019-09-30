@@ -88,12 +88,12 @@ public class CustomDicService {
             dicValues = JsonUtil.map2List(components, OurwaySysDicValue.class);
         }
         for (OurwaySysDicValue oneDic : dicValues) {
-            if (oneDic.getUpdateFlag()==1&&isExistDicVal(100010,oneDic)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,oneDic.getDicVal1()+"此栏目编号已入库，请更换");
+            if (oneDic.getUpdateFlag()==1&&isExistDicVal(type,oneDic)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,oneDic.getDicVal1()+"此编号已入库，请更换");
             }
+            CacheUtil.setVal(type+oneDic.getDicVal1(),oneDic.getDicVal3());
         }
         this.dicService.saveOrUpdateAll(dicValues, type);
-        dealEjMenu(dicValues);
         return ResponseMessage.sendOK(this.dicService.listDicByType(type, ""));
     }
 
