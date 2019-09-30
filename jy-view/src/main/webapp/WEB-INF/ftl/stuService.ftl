@@ -72,91 +72,95 @@
     })
 
     function inquiryArchives(){
-        if(!$("#xsxm").val().trim()){
-            walert("请输入姓名")
-            return;
-        }
-        if(!$("#sfzh").val().trim()){
-            walert("请输入身份证号码")
-            return;
-        }
-        var jsonObj ={
-            "xsxm":$("#xsxm").val().trim(),
-            "sfzh":$("#sfzh").val().trim()
-        }
-        ajax("zustjy/bckjBizDacx/inquiryArchives", jsonObj, function (data) {
-            if(data.backCode==0){
-                index=layer.open({
-                    type: 1,
-                    title:'查询结果',
-                    skin: 'layui-layer-rim', //加上边框
-                    area: ['750px', '450px'], //宽高
-                    content: '<div class="lxr-modal"><div class="row">\n' +
-                    '                            <div class="form-group">\n' +
-                    '                                <label for="lxr" class="col-sm-3 control-label text-right" style="line-height: 34px;">姓名：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.xsxm +
-                    '                                </div>\n' +
-                    '                                <label for="lxdh" class="col-sm-3 control-label text-right" style="line-height: 34px;">学号：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.xsxh +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                        </div>\n' +
-                    '                        <div class="row">\n' +
-                    '                            <div class="form-group">\n' +
-                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">身份证号：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.sfzh +
-                    '                                </div>\n' +
-                    '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">毕业时间：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.bysj.substring(0,10) +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                            </div>\n' +
-                    '                        <div class="row">\n' +
-                    '                            <div class="form-group">\n' +
-                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在院系：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.szxy +
-                    '                                </div>\n' +
-                    '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在班级：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.szbj.substring(0,10) +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                            </div>\n' +
-                    '                        <div class="row">\n' +
-                    '                            <div class="form-group">\n' +
-                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">报到证签往单位名称：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.bdzDwmc +
-                    '                                </div>\n' +
-                    '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位名称：</label>\n' +
-                    '                                <div class="col-sm-3">\n' +
-                    '                                    \n' + data.bean.dazjDwmc +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                            </div>\n' +
-                    '                        <div class="row">\n' +
-                    '                            <div class="form-group">\n' +
-                    '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位地址：</label>\n' +
-                    '                                <div class="col-sm-8">\n' +
-                    '                                    \n' + data.bean.dazjDwdz +
-                    '                                </div>\n' +
-                    '                            </div>\n' +
-                    '                            </div>\n' +
-                    '                        <div class="row btn-yd">\n' +
-                    '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                    '                                <button class="btn green" onclick="closeLayer()">确定</button>\n' +
-                    '                            </div>\n' +
-                    '                        </div></div>'
-                });
-            }else{
-                walert(data.errorMess)
+        if(getCookie('stuOwid')) {
+            if (!$("#xsxm").val().trim()) {
+                walert("请输入姓名")
+                return;
             }
-        })
+            if (!$("#sfzh").val().trim()) {
+                walert("请输入身份证号码")
+                return;
+            }
+            var jsonObj = {
+                "xsxm": $("#xsxm").val().trim(),
+                "sfzh": $("#sfzh").val().trim()
+            }
+            ajax("zustjy/bckjBizDacx/inquiryArchives", jsonObj, function (data) {
+                if (data.backCode == 0) {
+                    index = layer.open({
+                        type: 1,
+                        title: '查询结果',
+                        skin: 'layui-layer-rim', //加上边框
+                        area: ['750px', '450px'], //宽高
+                        content: '<div class="lxr-modal"><div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="lxr" class="col-sm-3 control-label text-right" style="line-height: 34px;">姓名：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.xsxm +
+                        '                                </div>\n' +
+                        '                                <label for="lxdh" class="col-sm-3 control-label text-right" style="line-height: 34px;">学号：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.xsxh +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                        </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">身份证号：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.sfzh +
+                        '                                </div>\n' +
+                        '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">毕业时间：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.bysj.substring(0, 10) +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在院系：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.szxy +
+                        '                                </div>\n' +
+                        '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在班级：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.szbj.substring(0, 10) +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">报到证签往单位名称：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.bdzDwmc +
+                        '                                </div>\n' +
+                        '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位名称：</label>\n' +
+                        '                                <div class="col-sm-3">\n' +
+                        '                                    \n' + data.bean.dazjDwmc +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row">\n' +
+                        '                            <div class="form-group">\n' +
+                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位地址：</label>\n' +
+                        '                                <div class="col-sm-8">\n' +
+                        '                                    \n' + data.bean.dazjDwdz +
+                        '                                </div>\n' +
+                        '                            </div>\n' +
+                        '                            </div>\n' +
+                        '                        <div class="row btn-yd">\n' +
+                        '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+                        '                                <button class="btn green" onclick="closeLayer()">确定</button>\n' +
+                        '                            </div>\n' +
+                        '                        </div></div>'
+                    });
+                } else {
+                    walert(data.errorMess)
+                }
+            })
+        }else{
+            login();
+        }
     }
 
     function closeLayer(){

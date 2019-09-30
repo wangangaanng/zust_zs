@@ -148,13 +148,13 @@
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="cxsy" name="cxsy" value="${stuInfo.cxsy!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="xqda" class="col-sm-2 control-label">入学前档案所在单位<span class="red">*</span>：</label>
+                        <label for="xqda" class="col-sm-2 control-label">入学前档案所在单位：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="xqda" name="xqda" value="${stuInfo.xqda!''}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="sfrx" class="col-sm-2 control-label">档案是否转入学校<span class="red">*</span>：</label>
+                        <label for="sfrx" class="col-sm-2 control-label">档案是否转入学校：</label>
                         <div class="col-sm-3">
                             <select class="form-control" id="sfrx" name="sfrx" data-val="${stuInfo.sfrx!''}">
                                 <option value="">请选择</option>
@@ -162,7 +162,7 @@
                                 <option value="1">是</option>
                             </select>
                         </div>
-                        <label for="hkpcs" class="col-sm-2 control-label">入学前户口所在地派出所<span class="red">*</span>：</label>
+                        <label for="hkpcs" class="col-sm-2 control-label">入学前户口所在地派出所：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="hkpcs" name="hkpcs" value="${stuInfo.hkpcs!''}" placeholder="" autocomplete="off">
                         </div>
@@ -172,7 +172,7 @@
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="ksh" name="ksh" value="${stuInfo.ksh!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="hkrx" class="col-sm-2 control-label">户口是否转入学校<span class="red">*</span>：</label>
+                        <label for="hkrx" class="col-sm-2 control-label">户口是否转入学校：</label>
                         <div class="col-sm-3">
                             <select class="form-control" id="hkrx" name="hkrx" data-val="${stuInfo.hkrx!''}">
                                 <option value="">请选择</option>

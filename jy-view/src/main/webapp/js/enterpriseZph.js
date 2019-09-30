@@ -91,7 +91,7 @@ function myJobList1() {
                     title: '招聘会名称',
                 }, {
                     align: 'center',
-                    field: 'zwArea',
+                    field: 'zwCity',
                     title: '城市'
                 }, {
                     align: 'center',

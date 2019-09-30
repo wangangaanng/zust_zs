@@ -22,15 +22,9 @@
   </van-popup>
   <van-cell required title="语言要求" value="{{znlb}}" is-link arrow-direction="down" bind:click="showBottom" />
   <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 220px" bind:close="hideBottom">
-    <van-picker show-toolbar title="语言要求" columns="{{column1}}" bind:change="onChange1" bind:confirm="onConfirm" bind:cancel="onCancel" />
+    <van-picker show-toolbar title="语言要求" columns="{{column1}}" bind:change="" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-field
-    value="{{message}}"
-    label="职位详情"
-    input-align="right"
-    type="textarea"
-    placeholder="请输入留言"
-    rows="1"
-    autosize
-  />
+  <van-field value="{{message}}" required label="职位详情" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
 </van-cell-group>
+
+<button class="common-button" hover-class='common-btn-hover' bindtap="submit">提交</button>

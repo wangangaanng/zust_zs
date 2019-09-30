@@ -3,8 +3,9 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-    "pages/index/index",
     "pages/newJob/newJob",
+    "pages/index/index",
+    
     "pages/qyService/qyService",
     "pages/stuService/stuService",
     "pages/logs/logs",

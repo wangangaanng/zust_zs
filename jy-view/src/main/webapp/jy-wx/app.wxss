@@ -2,7 +2,12 @@
 page{background: #f3f3f5;}
 .van-tabs__line{background-color: #008783 !important;}
 
+.common-button{width:690rpx;height: 100rpx;line-height: 100rpx; border: none; margin: 50rpx auto;box-sizing: border-box;
+  background: #008783; color: #fff;font-size: 30rpx;}
 
+.common-btn-hover{
+  opacity: 0.7;
+}
 
 
 .uni-list {
