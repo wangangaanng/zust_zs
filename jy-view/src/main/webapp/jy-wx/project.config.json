@@ -63,9 +63,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/qyService/qyService",
-					"pathName": "pages/qyService/qyService",
+					"id": 1,
+					"name": "pages/recruitment/recruitment",
+					"pathName": "pages/recruitment/recruitment",
 					"query": "",
 					"scene": null
 				},
@@ -80,6 +80,13 @@
 					"id": -1,
 					"name": "pages/diaocha/diaocha",
 					"pathName": "pages/diaocha/diaocha",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xueyuan/xueyuan",
+					"pathName": "pages/xueyuan/xueyuan",
 					"query": "",
 					"scene": null
 				}

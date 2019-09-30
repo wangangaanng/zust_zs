@@ -19,6 +19,7 @@ import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.BckjBizArticleDao;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizArticle;
+import com.zghzbckj.manage.utils.CharUtil;
 import com.zghzbckj.manage.utils.FtlFileUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,6 +144,9 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     }
 
     public PageInfo getWzList(Map<String, Object> mapData) {
+        if(null!=mapData.get("gjz")){
+            mapData.put("gjz", CharUtil.filterChar(mapData.get("gjz").toString()));
+        }
         String pageNo=mapData.get("pageNo").toString();
         String pageSize=mapData.get("pageSize").toString();
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
