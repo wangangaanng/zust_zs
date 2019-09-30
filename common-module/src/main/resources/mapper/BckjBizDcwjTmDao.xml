@@ -67,7 +67,8 @@
 	<select id="getOption" resultType="java.util.Map">
 		select a.tmxxa AS A, a.tmxxb AS B, a.tmxxc AS C, a.tmxxd AS D, a.tmxxe AS E, a.tmxxf AS F, a.tmxxg AS G, a.tmxxh AS H,
 		a.tmxxi AS I, a.tmxxj AS J, a.tmxxk AS K, a.tmxxl AS L, a.tmxxm AS M, a.tmxxn AS N, a.tmxxo AS O, a.tmxxp AS P, a.tmxxq AS Q,
-		a.tmxxr AS R, a.tmxxs AS S, a.tmxxt AS T, a.tmxxu AS U, a.tmxxv AS V, a.tmxxw AS W, a.tmxxx AS X, a.tmxxy AS Y, a.tmxxz AS Z
+		a.tmxxr AS R, a.tmxxs AS S, a.tmxxt AS T, a.tmxxu AS U, a.tmxxv AS V, a.tmxxw AS W, a.tmxxx AS X, a.tmxxy AS Y, a.tmxxz AS Z,
+		a.exp1 AS exp1
 		from bckj_biz_dcwj_tm a
 		where a.owid=#{owid}
 	</select>

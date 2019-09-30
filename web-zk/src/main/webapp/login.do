@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="浙江科技学院网站后台管理系统"?>
+<?page title="浙江科技学院招就处一体化"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /?>
 <?meta name="renderer" content="webkit" /?>
 <?link rel="icon" href="/charisma/img/qzsj.ico" type="image/x-icon"/?>
@@ -43,7 +43,7 @@
 				<image src="charisma/img/wait.gif" />
 			</h:div>
 			<h:div class="wait-tip">
-				<h:h6>欢迎进入浙江科技学院网站后台管理系统......</h:h6>
+				<h:h6>欢迎进入浙江科技学院招就处一体化......</h:h6>
 			</h:div>
 		</h:div>
 	</h:div>

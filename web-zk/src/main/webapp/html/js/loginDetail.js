@@ -7,7 +7,7 @@ var preUrl = "";//首页freemarker 当前页html导致路径不一致
 $(function(){
 	cityId = localStorage.getItem("cityId");
     preUrl = window.location.href.split("loginNewDetail")[0]+"login.htm?cityId="+cityId;
-    var name = "浙江科技学院网站后台管理系统";
+    var name = "浙江科技学院招就处一体化";
     var area = "";
     if(cityId == 484){
         area = "满洲里";

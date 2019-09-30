@@ -37,7 +37,7 @@ public class SaveModalGridAction implements ComponentListinerSer {
             list = new ArrayList<>();
         }
         for (Map<String, Object> objectMap : list) {
-            if (!TextUtils.isEmpty(objectMap.get("tmsx")) && objectMap.get("tmsx").equals(ppt.get("tmsx"))) {
+            if (!TextUtils.isEmpty(objectMap.get("tmsx")) && objectMap.get("tmsx").toString().equals(ppt.get("tmsx").toString())) {
                 AlterDialog.alert("该题目序号已存在，请直接修改");
                 return;
             }

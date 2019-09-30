@@ -249,7 +249,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             if (TextUtils.isEmpty(tm.getExp1())) {
                 tm.setDcwjRefOwid(wjOwid);
                 tm.setOwid("");
-                tm.setTmxxz("");
+                tm.setExp1("");
                 bckjBizDcwjTmService.save(tm);
             }
         }

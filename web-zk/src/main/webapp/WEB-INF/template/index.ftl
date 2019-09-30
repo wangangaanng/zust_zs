@@ -14,7 +14,7 @@
 <div style="width: 100%;">
     <div style="text-align: left;padding: 40px 0 15px 0;">
         <img src="charisma/img/zust_logo.jpg" style="margin-left: 88px;" />
-        <h2 style="display: inline-block;margin-left: 20px;letter-spacing: 5px;">浙江科技学院网站后台管理系统</h2>
+        <h2 style="display: inline-block;margin-left: 20px;letter-spacing: 5px;">浙江科技学院招就处一体化</h2>
     </div>
 
 </div>
