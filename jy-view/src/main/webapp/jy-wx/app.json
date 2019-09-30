@@ -11,7 +11,9 @@
     "pages/newsList/newsList",
     "pages/newsDetail/newsDetail",
     "pages/diaocha/diaocha",
-    "pages/qyInfo/qyInfo"
+    "pages/qyInfo/qyInfo",
+    "pages/xueyuan/xueyuan",
+    "pages/recruitment/recruitment"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,0 +1,3 @@
+<!--pages/xueyuan/xueyuan.wxml-->
+<van-cell is-link title="学院1" link-type="navigateTo" url=""/>
+<van-cell is-link title="学院2" link-type="navigateTo" url=""/>
