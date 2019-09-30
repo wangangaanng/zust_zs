@@ -105,14 +105,14 @@ public class IndexController extends SpringZkBaseControl {
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
 //            String qrCode = "a.jpg";
             String url = WebZKConstant.WX_VIEW_URL;
-            String picName = "qr.jpg";
+            String picName = TextUtils.getUUID() + ".jpg";
             //生成二维码
             QRCodeUtil.encode(url, tpPath + "/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
                     picName, true);
 //            request.setAttribute("name", name);
 //            request.setAttribute("qrCode", tpPath+ picName);
 //            return "redirect:/projectReport.htm";
-            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + picName;
+            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + "qrcode/" + picName;
         } catch (Exception e) {
             e.printStackTrace();
         }

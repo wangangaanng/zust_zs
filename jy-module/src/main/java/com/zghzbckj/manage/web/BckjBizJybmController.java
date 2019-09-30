@@ -70,6 +70,36 @@ public class BckjBizJybmController extends BaseController {
             log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
         }
     }
+    @RequestMapping(value = "/getListAllZw")
+    @ResponseBody
+    public ResponseMessage getListAllZw(PublicDataVO dataVO) {
+        try {
+            map.clear();
+            map.put("bmlx", JyContant.BMLX_XS);
+            map.put("bmdx", JyContant.BMDX_ZW);
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.findPageBckjBizJybm(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @RequestMapping(value = "/getListZph")
+    @ResponseBody
+    public ResponseMessage getListZph(PublicDataVO dataVO) {
+        try {
+            map.clear();
+            map.put("bmlx", JyContant.BMDX_ZPH);
+            map.put("bmdx", JyContant.BMLX_QY);
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.findPageBckjBizJybm(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     @RequestMapping(value = "/getList")
     @ResponseBody
@@ -103,6 +133,19 @@ public class BckjBizJybmController extends BaseController {
             map.put("state", 0);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    @RequestMapping(value = "/getXsbmZwList")
+    @ResponseBody
+    public ResponseMessage getXsbmZwList(PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.findPageBckjBizJybmZw(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {
             log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

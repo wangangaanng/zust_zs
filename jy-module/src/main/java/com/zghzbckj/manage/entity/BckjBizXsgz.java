@@ -35,7 +35,34 @@ public class BckjBizXsgz extends DataWithExpEntity<BckjBizXsgz> {
     private Integer gpsJl;        // gps_jl
     private String memo;        // memo
     private BckjBizJob job;
+    private String qymc;
+    private String zwbt;
+    private String gsqymc;
 
+
+    public String getGsqymc() {
+        return gsqymc;
+    }
+
+    public void setGsqymc(String gsqymc) {
+        this.gsqymc = gsqymc;
+    }
+
+    public String getQymc() {
+        return qymc;
+    }
+
+    public void setQymc(String qymc) {
+        this.qymc = qymc;
+    }
+
+    public String getZwbt() {
+        return zwbt;
+    }
+
+    public void setZwbt(String zwbt) {
+        this.zwbt = zwbt;
+    }
 
     public BckjBizJob getJob() {
         return job;

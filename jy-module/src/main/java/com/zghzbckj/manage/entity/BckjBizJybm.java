@@ -47,8 +47,15 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String zphJbdd;
     private Date zphKsrq;
     private String zphJtsj;
+    private String gsqymc;
 
+    public String getGsqymc() {
+        return gsqymc;
+    }
 
+    public void setGsqymc(String gsqymc) {
+        this.gsqymc = gsqymc;
+    }
 
     public String getZphJtsj() {
         return zphJtsj;
