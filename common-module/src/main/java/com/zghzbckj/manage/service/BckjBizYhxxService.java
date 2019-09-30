@@ -172,6 +172,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         resMap.put("yhtx",map.get("yhtx"));
         resMap.put("sjh",map.get("sjh"));
         resMap.put("xsxh",map.get("xsxh"));
+        resMap.put("xm",map.get("xm"));
         return ResponseMessage.sendOK(resMap);
     }
 
@@ -306,6 +307,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     String xm = cellList.get(1); //姓名
                     xm = ExcelUtils.stmodifyExcelData(xm);
                     dataMap.put("xm", xm);
+                    dataMap.put("xsxm",xm);
                     String sfz = cellList.get(2);//身份证号
                     sfz = ExcelUtils.stmodifyExcelData(sfz);
                     String regex = "\\d{15}(\\d{2}[0-9xX])?";
@@ -553,6 +555,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             }*/
             dataMap.put("csrq", ExcelUtils.stringtoDatec(dataMap.get("csrq").toString()));
        /* }*/
+        dataMap.put("xsxm",dataMap.get("xm"));
         MapUtil.easySetByMap(dataMap,bckjBizYhxx);
         MapUtil.easySetByMap(dataMap,bckjBizYhkz);
         if(ClassUtils.isAllFieldNull(bckjBizYhxx)&&ClassUtils.isAllFieldNull(bckjBizYhkz)){
