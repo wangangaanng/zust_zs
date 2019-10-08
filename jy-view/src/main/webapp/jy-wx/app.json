@@ -13,7 +13,8 @@
     "pages/diaocha/diaocha",
     "pages/qyInfo/qyInfo",
     "pages/xueyuan/xueyuan",
-    "pages/recruitment/recruitment"
+    "pages/recruitment/recruitment",
+    "pages/dangan/dangan"
   ],
   "window": {
     "backgroundTextStyle": "light",
