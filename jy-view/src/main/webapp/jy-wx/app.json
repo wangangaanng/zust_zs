@@ -16,7 +16,9 @@
     "pages/xueyuan/xueyuan",
     "pages/recruitment/recruitment",
     "pages/dangan/dangan",
-    "pages/lianxiwm/lianxiwm"
+    "pages/lianxiwm/lianxiwm",
+    "pages/qiandaolb/qiandaolb",
+    "pages/zhiwei/zhiwei"
   ],
   "window": {
     "backgroundTextStyle": "light",
