@@ -22,6 +22,11 @@ Page({
   onReachBottom: function () {
     console.log(1);
   },
+  url1:function(){
+    wx.navigateTo({
+      url: '../lianxiwm/lianxiwm',
+    })
+  },
   linkurl:function(e){
     var url = e.currentTarget.dataset.url;
     if(url){
