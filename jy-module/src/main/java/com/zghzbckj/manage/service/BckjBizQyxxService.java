@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -146,6 +143,11 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
             company.setState(JyContant.QY_ZT_DSH);
+            //审核开关 0表示关 1表示开
+            String flag = CacheUtil.getVal(JyContant.KG + JyContant.QYSH);
+            if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
+                company.setState(JyContant.QY_ZT_TG);
+            }
             saveOrUpdate(company);
         } catch (Exception e) {
             e.printStackTrace();

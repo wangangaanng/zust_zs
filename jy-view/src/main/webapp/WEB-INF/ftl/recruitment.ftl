@@ -182,8 +182,23 @@
 
     }
     function operateFormatterZph(value, row, index) {
+        if(row.zwSxsj){
+            var thetime =row.zwSxsj ;
+            var d=new Date(Date.parse(thetime .replace(/-/g,"/")));
+
+            var curDate=new Date();
+            if(d <=curDate){
                 var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
                 return c;
+            }else{
+                var c = '<span class="tag-grey">过期</span><a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+                return c;
+            }
+        }else{
+            var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+            return c;
+        }
+
     }
 </script>
 </body>
