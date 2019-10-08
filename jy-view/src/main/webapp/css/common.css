@@ -93,7 +93,7 @@ header .nav>ul>li.current{background: #fff;color:#008784;}
 .subnav-motto p{font-size: 16px;color: #008784;line-height: 34px;}
 .subnav-motto p{max-height: 68px;overflow: hidden;}
 .subnav-wrap .subnav{width: 450px;padding-top: 12px;padding: 25px 0;}
-.subnav-wrap .subnav li{float: left;width: 150px;font-size: 14px;line-height: 34px;}
+.subnav-wrap .subnav li{float: left;width: 150px;font-size: 15px;line-height: 34px;}
 .subnav-wrap .subnav li a{color: #666;cursor: pointer;}
 .subnav-wrap .subnav li a:hover{color: #008784;}
 .fl{
