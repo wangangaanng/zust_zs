@@ -8,6 +8,7 @@
     <#include "com/config.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
 </head>
 <style>
 
@@ -152,7 +153,12 @@
                         <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10"></textarea>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label for="zwSxsj" class="col-sm-2 control-label">失效时间：</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" placeholder="" autocomplete="off">
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
@@ -168,6 +174,7 @@
 <#include "com/footer.ftl">
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
     <script src="${base}/js/city1.js" type="text/javascript"></script>
 
     <script>
@@ -209,6 +216,11 @@
             }
         }
         $(document).ready(function () {
+
+            laydate.render({
+                elem: "#zwSxsj" //指定元素
+                ,min: 1
+            });
 
             jQuery.validator.addMethod("isNum", function(value, element) {
                 return this.optional(element) || !isNaN(value) && !testFloat(value);

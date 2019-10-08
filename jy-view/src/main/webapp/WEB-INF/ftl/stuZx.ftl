@@ -60,6 +60,9 @@
                         <li class="list-group-item">
                             <span class="ic-menu"></span> 生源信息
                         </li>
+                        <li class="list-group-item">
+                            <span class="ic-menu"></span> 就业方案
+                        </li>
                     </ul>
                 </div>
             </div>
