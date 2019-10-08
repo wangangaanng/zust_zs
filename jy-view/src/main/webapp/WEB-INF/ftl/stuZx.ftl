@@ -75,7 +75,7 @@
                     <div class="al-item "><#--active2-->
                         <div class="al-question">
                             <i></i> 我的提问：${obj.wtnr}
-                            <div class="pull-right">${obj.twrq}</div>
+                            <div class="pull-right twrq">${obj.twrq}</div>
                         </div>
                         <#--<#if obj.danr??>-->
                         <div class="al-answer">
