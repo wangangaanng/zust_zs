@@ -1,0 +1,77 @@
+<!--pages/dangan/dangan.wxml-->
+
+<view class="search-form">
+  <view class="search-title">按姓名和身份证查询</view>
+  <view class="search-content">
+    <view class="search-body">
+      <view>
+        <van-field
+          placeholder="请输入姓名"
+          left-icon="contact"
+          border="{{ false }}"
+        />
+        <van-field
+          placeholder="请输入身份证号码"
+          left-icon="idcard"
+          border="{{ false }}"
+        />
+      </view>
+    </view>
+    <view class="search-btn">
+      <van-button type="primary" size="large">查询</van-button>
+    </view>
+  </view>
+</view>
+<view class="result">
+  <view class="result-title">普通高校毕业生就业状况调查</view>
+  <view class="student-main">
+    <view class="student-head">
+      <image src=""></image>
+      <view class="name">姓名</view>
+      <view class="sex">男<span>1990年06月19日</span></view>
+    </view>
+    <view class="dx">南京理工大学</view>
+    <view class="zy">建筑装饰工程技术  |   本科</view>
+  </view>
+  <view class="student-info">
+    <view class="table">
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">民族：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)">汉族</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">证件号码：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">学制：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">学历类别：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">分院：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">系：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">班级：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:180rpx;">学号：</view>
+          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+        </view>
+    </view>
+    <van-button type="primary" size="large">打印学籍信息</van-button>
+  </view>
+</view>
+
+
+
+

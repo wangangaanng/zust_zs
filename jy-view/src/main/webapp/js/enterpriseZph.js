@@ -131,12 +131,10 @@ function myJobList1() {
                     formatter: function (value, row, index) {
                         if (row.state==0) {
                             return '<span>待审核</span>';
+                        } else if (row.state==1) {
+                            return '<span style="color:#008784;">通过</span>';
                         } else if (row.state==2) {
-                            return '<span style="color:#008784;">待审核</span>';
-                        } else if (row.state==3) {
                             return '<span style="color:red;">拒绝</span>';
-                        } else if (row.state==6) {
-                            return '<span style="color:#ccc;">下架</span>';
                         }
 
                     }
