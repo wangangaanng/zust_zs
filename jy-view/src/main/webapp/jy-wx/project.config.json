@@ -84,9 +84,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/xueyuan/xueyuan",
-					"pathName": "pages/xueyuan/xueyuan",
+					"id": 4,
+					"name": "pages/lianxiwm/lianxiwm",
+					"pathName": "pages/lianxiwm/lianxiwm",
 					"query": "",
 					"scene": null
 				},
