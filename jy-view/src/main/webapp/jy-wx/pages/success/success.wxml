@@ -1,0 +1,7 @@
+<!--pages/success/success.wxml-->
+<view class="icon-success"><van-icon name="success" /></view>
+<view class="message">
+  您的申请已经提交，后期将会已邮件或者电话
+方式通知你，如有问题可咨询浙江科技学院招生就
+业处大学生就业指导服务中心0571-85121710
+</view>
