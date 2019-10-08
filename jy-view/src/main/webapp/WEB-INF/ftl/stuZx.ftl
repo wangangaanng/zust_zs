@@ -66,7 +66,8 @@
 
         <div class="content-list">
             <div class="ask-list">
-                    <#if asklist??>
+                    <#if (asklist??)&&(asklist.records??)&&(asklist.records?size>0)>
+                            <#assign flag=1>
                         <#list asklist.records as obj>
                     <div class="al-item "><#--active2-->
                         <div class="al-question">
@@ -87,6 +88,8 @@
                     <#--<span class="glyphicon glyphicon-menu-up "></span>-->
                     </div>
                         </#list>
+                    <#else >
+                        <#assign flag=0>
                     </#if>
 
             <#--<div class="al-item">-->
@@ -101,21 +104,7 @@
                 <div class="text-center">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                        <#--<li>-->
-                        <#--<a href="#" aria-label="Previous">-->
-                        <#--<span aria-hidden="true">&laquo;</span>-->
-                        <#--</a>-->
-                        <#--</li>-->
-                        <#--<li><a href="#">1</a></li>-->
-                        <#--<li><a href="#">2</a></li>-->
-                        <#--<li><a href="#">3</a></li>-->
-                        <#--<li><a href="#">4</a></li>-->
-                        <#--<li><a href="#">5</a></li>-->
-                        <#--<li>-->
-                        <#--<a href="#" aria-label="Next">-->
-                        <#--<span aria-hidden="true">&raquo;</span>-->
-                        <#--</a>-->
-                        <#--</li>-->
+
                         </ul>
                     </nav>
                 </div>
@@ -133,9 +122,13 @@
 <script>
     var currentPage="${asklist.currentPage!'1'}"
     $(document).ready(function () {
-        setPage(currentPage, "${asklist.totalPage!'1'}", function () {
-            openUrl('stuCenter/1/'+currentPage)
-        })
+        if("${flag}"==0){
+            $(".content-list").append(nulltip)
+        }else {
+            setPage(currentPage, "${asklist.totalPage!'1'}", function () {
+                openUrl('stuCenter/1/' + currentPage)
+            })
+        }
         historyConsult()
         $(".list-group-item").click(function(e) {
             var index=$(this).index()

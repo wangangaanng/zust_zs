@@ -1,0 +1,5 @@
+/* pages/newJob/newJob.wxss */
+
+.van-field__body--textarea.van-field__body--ios {
+  margin-top: 0 !important;
+}

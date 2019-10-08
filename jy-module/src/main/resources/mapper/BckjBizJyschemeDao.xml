@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.dao.BckjBizJyschemeDao">
+    
+	<sql id="bckjBizJyschemeColumns">
+		a.owid AS "owid",
+		a.xsxh AS "xsxh",
+		a.sfz as sfz ,        /*身份证*/
+	    a.xsxy as xsxy ,       /*学生学院*/
+		a.xszy as xszy ,        /*学生专业*/
+		a.xb as xb,           /* 学生性别*/
+		a.syd as syd ,         /*生源地*/
+		a.pyfs as pyfs,        /*培养方式*/
+		a.zyfx as zyfx,        /*专业方向*/
+		a.sjh as sjh,         /*  手机号*/
+		a.xm AS "xm",
+		a.xxmc AS "xxmc",
+		a.byxl as "byxl",
+		a.byqx AS "byqx",
+		a.sfzydk AS "sfzydk",
+		a.yrdwmc AS "yrdwmc",
+		a.yrdwdm AS "yrdwdm",
+		a.yrdwxz AS "yrdwxz",
+		a.dwlbmc AS "dwlbmc",
+		a.dwszdmc AS "dwszdmc",
+		a.dwlxr AS "dwlxr",
+		a.dwdh AS "dwdh",
+		a.gzzwlbmc AS "gzzwlbmc",
+		a.getBdzqflbmc as "getBdzqflbmc",
+		a.bdzdwmc AS "bdzdwmc",
+		a.bdzszdmc AS "bdzszdmc",
+		a.bdkssj AS "bdkssj",
+		a.bdjssj AS "bdjssj",
+		a.sfdydwbdz AS "sfdydwbdz",
+		a.datddw AS "datddw",
+		a.bdzbz AS "bdzbz",
+		a.datdxxdz AS "datdxxdz",
+		a.bdzbh as "bdzbh",
+		a.bdzlsh as "bdzlsh",
+		a.datddh AS "datddh",
+		a.hkqydz AS "hkqydz",
+		a.bzone AS "bzone",
+		a.bztwo AS "bztwo",
+		a.bzthree AS "bzthree",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+	
+	<sql id="bckjBizJyschemeJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+		SELECT 
+			<include refid="bckjBizJyschemeColumns"/>
+		FROM bckj_biz_jyscheme a
+		<include refid="bckjBizJyschemeJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+		SELECT 
+			<include refid="bckjBizJyschemeColumns"/>
+		FROM bckj_biz_jyscheme a
+		<include refid="bckjBizJyschemeJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+		<select id="findListByMap" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+	        SELECT
+			<include refid="bckjBizJyschemeColumns"/>
+		FROM bckj_biz_jyscheme a
+		<include refid="bckjBizJyschemeJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findAllList" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+		SELECT 
+			<include refid="bckjBizJyschemeColumns"/>
+		FROM bckj_biz_jyscheme a
+		<include refid="bckjBizJyschemeJoins"/>
+		<where>
+			
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_jyscheme(
+			owid,
+			xsxh,
+			xm,
+			xsxh,       /*学号*/
+			sfz ,        /*身份证*/
+			xsxy ,       /*学生学院*/
+			xszy ,        /*学生专业*/
+			xb,           /* 学生性别*/
+			syd ,         /*生源地*/
+			pyfs,        /*培养方式*/
+			zyfx,        /*专业方向*/
+			sjh,         /*  手机号*/v
+			xxmc,
+			byxl,
+			byqx,
+			sfzydk,
+			yrdwmc,
+			yrdwdm,
+			yrdwxz,
+			dwlbmc,
+			dwszdmc,
+			dwlxr,
+			dwdh,
+			gzzwlbmc,
+			getBdzqflbmc,
+			bdzdwmc,
+			bdzszdmc,
+			bdkssj,
+			bdjssj,
+			sfdydwbdz,
+			bdzbh,
+			bdzlsh,
+			datddw,
+			bdzbz,
+			datdxxdz,
+			datddh,
+			hkqydz,
+			bzone,
+			bztwo,
+			bzthree,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+		) VALUES (
+			#{owid},
+			#{xsxh},
+			#{xm},
+			#{xsxh},
+			#{sfz},
+			#{xsxy},
+			#{xszy},
+			#{xb},
+			#{syd},
+			#{pyfs},
+			#{zyfx},
+			#{sjh},
+			#{xxmc},
+			#{byxl}
+			#{byqx},
+			#{sfzydk},
+			#{yrdwmc},
+			#{yrdwdm},
+			#{yrdwxz},
+			#{dwlbmc},
+			#{dwszdmc},
+			#{dwlxr},
+			#{dwdh},
+			#{gzzwlbmc},
+			#{getBdzqflbmc},
+			#{bdzdwmc},
+			#{bdzszdmc},
+			#{bdkssj},
+			#{bdjssj},
+			#{sfdydwbdz},
+			#{bdzbh},
+			#{bdzlsh},
+			#{datddw},
+			#{bdzbz},
+			#{datdxxdz},
+			#{datddh},
+			#{hkqydz},
+			#{bzone},
+			#{bztwo},
+			#{bzthree},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updator},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_jyscheme SET 	
+			owid = #{owid},
+			xsxh = #{xsxh},
+			xm = #{xm},
+			xsxh=#{xsxh},
+			sfz=#{sfz},
+			xsxy=#{xsxy},
+			xszy=#{xszy},
+			xb=#{xb},
+			syd=#{syd},
+			pyfs=#{pyfs},
+			zyfx=#{zyfx},
+			sjh=#{sjh},
+			xxmc = #{xxmc},
+			byxl=#{byxl},
+			byqx = #{byqx},
+			sfzydk = #{sfzydk},
+			yrdwmc = #{yrdwmc},
+			yrdwdm = #{yrdwdm},
+			yrdwxz = #{yrdwxz},
+			dwlbmc = #{dwlbmc},
+			dwszdmc = #{dwszdmc},
+			dwlxr = #{dwlxr},
+			dwdh = #{dwdh},
+			gzzwlbmc = #{gzzwlbmc},
+			getBdzqflbmc=#{getBdzqflbmc},
+			bdzdwmc = #{bdzdwmc},
+			bdzszdmc = #{bdzszdmc},
+			bdkssj = #{bdkssj},
+			bdjssj = #{bdjssj},
+			sfdydwbdz = #{sfdydwbdz},
+			bdzbh=#{bdzbh},
+			bdzlsh=#{bdzlsh},
+			datddw = #{datddw},
+			bdzbz = #{bdzbz},
+			datdxxdz = #{datdxxdz},
+			datddh = #{datddh},
+			hkqydz = #{hkqydz},
+			bzone = #{bzone},
+			bztwo = #{bztwo},
+			bzthree = #{bzthree},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator = #{updator},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10}
+		WHERE owid = #{owid}
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM bckj_biz_jyscheme
+		WHERE owid = #{owid}
+	</delete>
+
+	<select id="getJyFzInfo" resultType="Map" parameterType="">
+		select
+		 	 b.xsxh as xsxh,       /*学号*/
+			 a.sfz as sfz ,        /*身份证*/
+			 a.xm as xm ,           /*姓名*/
+			 b.xsxy as xsxy ,       /*学生学院*/
+			 b.xszy as xszy ,        /*学生专业*/
+			 a.xb as xb,            /*学生性别*/
+			 c.syd as syd ,         /*生源地*/
+			 c.pyfs as pyfs,        /*培养方式*/
+			 c.zyfx as zyfx,        /*专业方向*/
+			 a.sjh as sjh,          /*手机号*/
+			 e.byxl as byxl,        /*毕业学历*/
+			 e.dwlbmc as dwlbmc,        /*单位行业类别名称  --单位行业*/
+			 e.YRDWMC as yrdwmc,        /*用人单位名称   --用人单位名称*/
+			 e.YRDWXZ  as  yrdwxz,      /*用人单位性质名称 --用人单位性质*/
+			 e.BYQX as byqx ,           /*毕业去向名称 -- 就业类别*/
+			e.YRDWDM as yrdwdm, 		/*用人单位代码   --用人单位代码*/
+			e.DWSZDMC as dwszdmc ,     /*单位所在地名称   --用人单位所在地*/
+			e.GZZWLBMC as gzzwlbmc ,   /*工作职位类别名称  --工作职位类别*/
+			e.DWLXR  as  dwlxr    ,  /*单位联系人  --单位联系人*/
+			e.DWDH as dwdh    ,   /*单位联系电话   --单位联系电话*/
+			e. SFZYDK  as   sfzydk   ,   /*专业是否对口 -- 业是否对口*/
+			e. getBdzqflbmc as getBdzqflbmc, /*报到证签发类别  --报到证签发类别*/
+			e.BDZDWMC as bdzdwmc ,       /*报到证签往单位名称   --报到证签往单位*/
+			e.BDZSZDMC as bdzszzdmc,     /*报到证签往单位所在地   --签往单位所在地*/
+			e.BDKSSJ as bdkssj,          /*报到开始时间 --报到开始时间*/
+			e.BDJSSJ as bdjssj ,         /*报到结束时间  --报到结束时间*/
+			e.SFDYDWBDZ as sfdydwbdz ,    /*是否打印备注    --是否打印备注*/
+			e.BDZBZ as bdzbz  ,           /*报到证备注   --报到证备注*/
+			e.bdzbh as bzdbh  ,           /*报到证编号  --报到证编号*/
+			e.bdzlsh as bdzlsh  ,         /*报到证流水号    --报到证流水号*/
+			e.DATDDW  as datddw  ,        /*档案转寄单位地址    --档案转寄单位*/
+			e.DATDXXDZ as datdxxdz , 	 /*档案投递详细地址    --档案投递详细地址*/
+			e.DATDDH as datddh  ,          /*档案投递电话    --档案投递电话*/
+			e.HKQYDZ as hkqydz  ,         /*户口迁移地址    --户口迁移地址*/
+			e.BZONE as bzone,
+			e.BZTWO as bztwo,
+			e.BZTHREE as bzthree
+		from
+		 bckj_biz_yhxx a ,
+		 bckj_biz_yhkz b ,
+		 bckj_biz_syb c ,
+		  bckj_biz_jyscheme e
+		  where a.owid = b.yh_ref_id and a.owid=b.yh_Ref_Owid and b.xsxh = e.xsxh and b.xsxh=c.xh and b.xsxh=#{xsxh}
+	</select>
+
+	<select id="getJyBaseInfo" resultType="Map" parameterType="Map">
+			select
+		 	 b.xsxh as xsxh,       /*学号*/
+			 a.sfz as sfz ,        /*身份证*/
+			 a.xm as xm ,           /*姓名*/
+			 b.xsxy as xsxy ,       /*学生学院*/
+			 b.xszy as xszy ,        /*学生专业*/
+			 a.xb as xb,           /* 学生性别*/
+			 c.syd as syd ,         /*生源地*/
+			 c.pyfs as pyfs,        /*培养方式*/
+			 c.zyfx as zyfx,        /*专业方向*/
+			 a.sjh as sjh         /*  手机号*/
+		from
+		  bckj_biz_yhxx a ,
+		  bckj_biz_yhkz b ,
+		  bckj_biz_syb c
+		  where a.owid = b.yh_ref_id and a.owid=#{owid} and b.xsxh=c.xh
+	</select>
+
+	<select id="getXsxhByOwid" parameterType="String" resultType="String">
+		select b.xsxh from bckj_biz_yhxx a ,bckj_biz_yhkz b where a.owid=#{owid} and b.yh_Ref_Owid=a.owid
+		and
+	</select>
+
+	<select id="getJyschemeByMap" resultType="BckjBizJyscheme">
+		select
+			<include refid="bckjBizJyschemeColumns"></include>
+		from bckj_biz_jyscheme a
+		<where>
+			<if test="owid!=null and owid!=''">
+				and a.owid = #{owid}
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and a.xsxh =#{xsxh}
+			</if>
+		</where>
+	</select>
+</mapper>

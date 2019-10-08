@@ -84,6 +84,7 @@
         b.zph_jbdd AS "zphJbdd",
         b.zph_ksrq AS "zphKsrq",
         b.zph_jtsj AS "zphJtsj",
+		b.exp1 AS "gsqymc",
         <include refid="bckjBizJybmColumns"/>
         FROM bckj_biz_jybm a
         LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
@@ -91,6 +92,9 @@
             <if test="zwbt != null and zwbt  != ''">
                 AND b.zwbt like CONCAT('%', #{zwbt},'%')
             </if>
+			<if test="gsqymc != null and gsqymc  != ''">
+				AND b.exp1 like CONCAT('%', #{gsqymc},'%')
+			</if>
             <if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
                 AND a.qyxx_ref_owid = #{qyxxRefOwid}
             </if>
@@ -109,6 +113,12 @@
             <if test="bmdx != null and bmdx != ''">
                 AND a.bmdx = #{bmdx}
             </if>
+			<if test="qymc != null and qymc != ''">
+				AND a.qymc = #{qymc}
+			</if>
+			<if test="qysh != null and qysh != ''">
+				AND a.qysh = #{qysh}
+			</if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

@@ -58,6 +58,20 @@ public class BckjBizXsgzController extends BaseController {
 
     }
 
+    @RequestMapping(value = "/getListAll")
+    @ResponseBody
+    public ResponseMessage getListAll(PublicDataVO dataVO) {
+        try {
+            map.clear();
+            map.put("gzlx", JyContant.ZWLB_ZW);
+            map.put("xxlb", JyContant.ZWLB_ZW);
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizXsgzService.findPageBckjBizXsgz(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizXsgz列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
 
     @RequestMapping(value = "/getList")
     @ResponseBody
