@@ -716,7 +716,7 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
-    @RequestMapping(value = "stuCenter/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    @RequestMapping(value = "contactUs/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView contactUs(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir, @PathVariable String currentPage) {
         view.setViewName("contactUs");
         view.addObject("header",getHeader().getBean());

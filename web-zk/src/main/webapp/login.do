@@ -43,7 +43,7 @@
 				<image src="charisma/img/wait.gif" />
 			</h:div>
 			<h:div class="wait-tip">
-				<h:h6>欢迎进入浙江科技学院招就处一体化管理平台......</h:h6>
+				<h:h6>欢迎进入浙江科技学院招就处一体化管理平台</h:h6>
 			</h:div>
 		</h:div>
 	</h:div>
