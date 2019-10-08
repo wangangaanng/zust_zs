@@ -72,7 +72,7 @@
 <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
 <script>
     var pageNo=1;
-    var pageSize=10;
+    var pageSize=15;
     var zwlx="${zwlx?number!0}";
     $(document).ready(function () {
         myJobList()
@@ -175,8 +175,22 @@
 
     }
     function operateFormatterZph(value, row, index) {
-        var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
-        return c;
+        if(row.zwSxsj){
+            var thetime =row.zwSxsj ;
+            var d=new Date(Date.parse(thetime .replace(/-/g,"/")));
+
+            var curDate=new Date();
+            if(d <=curDate){
+                var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+                return c;
+            }else{
+                var c = '<span class="tag-grey">过期</span><a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+                return c;
+            }
+        }else{
+            var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+            return c;
+        }
     }
 </script>
 </body>
