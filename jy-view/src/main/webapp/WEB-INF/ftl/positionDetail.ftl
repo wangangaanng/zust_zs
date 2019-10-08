@@ -63,7 +63,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p>${result.memo!''}</p></div>
+                                <div><p id="memo"></p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==2)>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p>${result.memo!''}</p></div>
+                                <div><p id="memo"></p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==3)>
@@ -143,7 +143,8 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p>${result.memo!''}</p></div>
+
+                                <div><p id="memo"></p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==4)>
@@ -185,7 +186,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p>${result.memo!''}</p></div>
+                                <div><p id="memo"></p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==0)>
@@ -271,6 +272,9 @@
     </div>
     <#include "com/footer.ftl">
     <script>
+        var string='${result.memo!''}'
+        var memo=closeHTML(string);
+        $("#memo").html(memo);
         var jlowid="${result.exp2!'0'}"
         $(".position-tabbar ul li").hover(function () {
             $(this).addClass('active').siblings().removeClass('active');
