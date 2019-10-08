@@ -34,12 +34,13 @@
                         <#list result.records as obj>
                     <div class="al-item "><#--active2-->
                         <div class="al-question">
-                            <i></i> ${obj.TW_NAME!''}的提问：${obj.WTNR!''}
-                            <div class="pull-right">${obj.TWRQ!''}</div>
+                            <i></i> 来自${obj.LYIP!''}的提问：${obj.WTNR!''}
+                            <div class="pull-right twrq">${obj.TWRQ!''}</div>
                         </div>
                     <#--<#if obj.danr??>-->
                         <div class="al-answer">
-                            <i></i> 回复：${obj.DANR!"暂无回复"}
+                            <i></i> 管理员的回复：${obj.DANR!"暂无回复"}
+                            <div class="pull-right twrq">${obj.HDRQ!''}</div>
                         </div>
                     </div>
                         </#list>
