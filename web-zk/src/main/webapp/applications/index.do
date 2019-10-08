@@ -1,4 +1,4 @@
-<?page title="浙江科技学院招就处一体化"?>
+<?page title="浙江科技学院招就处一体化管理平台"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/bootstrap/themes/bootstrap-default.min.css" if="${empty param.theme}"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/docs.css" ?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/pygments-manni.css" ?>
