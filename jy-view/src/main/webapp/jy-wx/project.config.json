@@ -96,6 +96,20 @@
 					"pathName": "pages/dangan/dangan",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qiandaolb/qiandaolb",
+					"pathName": "pages/qiandaolb/qiandaolb",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/zhiwei/zhiwei",
+					"pathName": "pages/zhiwei/zhiwei",
+					"query": "",
+					"scene": null
 				}
 			]
 		}
