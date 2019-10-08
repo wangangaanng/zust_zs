@@ -24,8 +24,8 @@
 <div class="root" style="height: 700px;">
 
     <article>
-        <section class="LoginForm" style="color: #fff;top: 40%;left: 77%">
-           <div class="header" style="text-align: center;">
+        <section class="LoginForm" style="color: #fff;top: 40%;left: 77%;border: 2px solid #e6e6e6">
+           <div class="header" style="text-align: center;border-bottom: 2px solid #d1d5da;">
                <span class="title">登录 / LOGIN</span>
            </div>
            <form action="login.htm" method="post" >
@@ -39,7 +39,7 @@
                       <input type="password" name="empPsw" class="form-control" placeholder="请输入密码" required value >
                   </div>
                </div>
-               <div class="footer" style="text-align: center">
+               <div class="footer" style="text-align: center;border-top: 2px solid #d1d5da;">
                    <button type="submit" class="btn btn-primary w80 mr10" style="background-color: #f4b901;width: 100%; height: 38px;border: 1px solid #f4b901">登 录</button>
                    <#--<a href="">密码找回</a>-->
                </div>
