@@ -9,6 +9,21 @@ page{background: #f3f3f5;}
 .common-btn-hover{
   opacity: 0.7;
 }
+.float-btn{
+  background: #00aba6;
+  border: 1px solid #008783;
+  color: #fff;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  position: fixed;
+  top: 600rpx;
+  right: 35rpx;
+  font-size: 28rpx;
+  padding: 15rpx;
+  text-align: center;
+  z-index: 100;
+}
 
 
 .uni-list {

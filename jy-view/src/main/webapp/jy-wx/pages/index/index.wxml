@@ -7,8 +7,9 @@
   </block>
 </swiper>
 <van-grid square>
-  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="../mustache/mustache" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>
+<view class="float-btn">关于我们</view>
 <van-tabs animated>
   <van-tab title="最新职位">
     <view class="uni-list">
