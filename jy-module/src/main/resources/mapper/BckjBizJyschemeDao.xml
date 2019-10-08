@@ -68,8 +68,8 @@
 	
 	<sql id="bckjBizJyschemeJoins">
 	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 		SELECT 
 			<include refid="bckjBizJyschemeColumns"/>
 		FROM bckj_biz_jyscheme a
@@ -77,7 +77,7 @@
 		WHERE a.owid = #{owid}
 	</select>
 	
-	<select id="findList" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 		SELECT 
 			<include refid="bckjBizJyschemeColumns"/>
 		FROM bckj_biz_jyscheme a
@@ -93,7 +93,7 @@
 			</otherwise>
 		</choose>
 	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 	        SELECT
 			<include refid="bckjBizJyschemeColumns"/>
 		FROM bckj_biz_jyscheme a
@@ -109,7 +109,7 @@
 			</otherwise>
 		</choose>
 	</select>
-	<select id="findAllList" resultType="com.zghzbckj.entity.BckjBizJyscheme">
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 		SELECT 
 			<include refid="bckjBizJyschemeColumns"/>
 		FROM bckj_biz_jyscheme a
@@ -328,7 +328,7 @@
 		WHERE owid = #{owid}
 	</delete>
 
-	<select id="getJyFzInfo" resultType="Map" parameterType="">
+	<select id="getJyFzInfo" resultType="Map" parameterType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 		select
 		 	 b.xsxh as xsxh,       /*学号*/
 			 a.sfz as sfz ,        /*身份证*/
