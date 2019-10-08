@@ -13,7 +13,7 @@ $(document).ready(function () {
         }else if(getCookie("userType")==1){
             if(getCookie("stuOwid")){
                 $("#stuInfo").show();
-                $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
+                $("#stuName").html(getCookie("stuXm"));
             }
         }
     }
@@ -92,6 +92,7 @@ function confirmDl(url,user) {
                 loginout()
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
+                addCookie("stuXm",data.bean.xm)
                 addCookie("userType","1") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
@@ -134,6 +135,7 @@ function loginout() {
     // delCookie("qyOwid");
     // delCookie("stuSjh");
     // delCookie("stuOwid");
+    document.cookie  = "stuXm=;path=/";
     document.cookie  = "qyInfo=;path=/";
     document.cookie  = "qyOwid=;path=/";
     document.cookie  = "stuSjh=;path=/";

@@ -445,6 +445,7 @@
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
                 addCookie("userType","1") //1学生 0企业
+                addCookie("stuXm",data.bean.xm)
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
@@ -489,7 +490,7 @@
                 $("#qy_pipe").show();
             }else if(getCookie("userType")==1){
                 $(".frame-a_right").hide();
-                $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
+                $("#stu_tel").html(getCookie("stuXm"))
                 $("#stu_pipe").show();
             }
         }

@@ -65,7 +65,7 @@ $(document).ready(function () {
     $("#sfzydk").val($("#sel1").val())
     $("#sfdydwbdz").val($("#sel2").val())
     $("#xb").val($("#sel3").val())
-    // getJyBaseInfo()
+    getJyBaseInfo()
 })
 
 function getJyBaseInfo() {
