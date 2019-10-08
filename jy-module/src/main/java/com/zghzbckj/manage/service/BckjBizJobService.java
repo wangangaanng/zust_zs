@@ -171,8 +171,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             BckjBizJob bckjBizJobIndata = get(mapData.get("owid").toString());
             BeanUtil.copyPropertiesIgnoreNull(bckjBizJob, bckjBizJobIndata);
             bckjBizJob = bckjBizJobIndata;
-        }
-        else {
+        } else {
             bckjBizJob.setZwlx(zwlx);
             bckjBizJob.setState(JyContant.JOB_ZT_TG);
         }
@@ -252,13 +251,25 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);
+            //状态通过
+            job.setState(JyContant.JOB_ZT_TG);
+            //职位类型，需要判断自动审核 0表示关 1表示开
+            if (JyContant.ZWLB_ZW == job.getZwlx()) {
+                String flag = CacheUtil.getVal(JyContant.KG + JyContant.ZWSH);
+                if (!TextUtils.isEmpty(flag) && "0".equals(flag)) {
+                    job.setState(JyContant.JOB_ZT_DSH);
+                }
+            }
             job.setZwYds(0);
             job.setZwGzs(0);
+            //公司名称
             if (!TextUtils.isEmpty(qyxx)) {
                 job.setExp1(qyxx.getQymc());
             }
-            //状态通过
-            job.setState(JyContant.JOB_ZT_TG);
+            //职位失效时间
+            if (!TextUtils.isEmpty(mapData.get("zwSxsj"))) {
+                job.setZwSxsj(DateUtil.getDate(mapData.get("zwSxsj").toString()));
+            }
             saveOrUpdate(job);
         } catch (Exception e) {
             e.printStackTrace();
@@ -531,6 +542,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             newJob = MapUtils.map2Bean(mapData, BckjBizJob.class);
             BeanUtil.copyPropertiesIgnoreNull(newJob, oldJob);
             oldJob.setState(JyContant.JOB_ZT_TG);
+            //职位失效时间
+            if (!TextUtils.isEmpty(mapData.get("zwSxsj"))) {
+                oldJob.setZwSxsj(DateUtil.getDate(mapData.get("zwSxsj").toString()));
+            }
             saveOrUpdate(oldJob);
         } catch (Exception e) {
             e.printStackTrace();
@@ -544,4 +559,23 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     }
 
 
+    @Transactional(readOnly = false)
+    public Map submitPurchaseBack(List<String> codes, Integer state) {
+        Map resultMap = new HashMap<>(2);
+        BckjBizJob job = get(codes.get(0));
+        if (JyContant.JOB_ZT_TG.equals(state)) {
+            // TODO: 2019/9/18 通过短信
+
+        } else if (JyContant.JOB_ZT_JJ.equals(state)) {
+            // TODO: 2019/9/18 拒绝短信
+        }
+        job.setState(state);
+        saveOrUpdate(job);
+        resultMap = new HashMap<>(2);
+        resultMap.put("result", "true");
+        List<Object> _list = new ArrayList();
+        _list.add(job);
+        resultMap.put("bean", _list);
+        return resultMap;
+    }
 }

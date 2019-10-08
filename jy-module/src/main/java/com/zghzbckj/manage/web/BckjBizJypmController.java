@@ -114,11 +114,11 @@ public class BckjBizJypmController extends BaseController {
     public ResponseMessage importRankFromExcel(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "excelUrl");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            ArrayList<ArrayList<String>> list = ExcelUtils.xlsx_reader(dataMap.get("excelUrl").toString());
+            ArrayList<ArrayList<String>> list = ExcelUtils.xlsx_reader(dataMap.get("path").toString());
             if (null == list) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "Excel表为空");
             }

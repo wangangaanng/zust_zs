@@ -8,6 +8,12 @@
     <#include "com/config.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
+    <style>
+        .tag-grey{
+            position: relative;
+            top: -2px;
+        }
+    </style>
 </head>
 
 <body>
@@ -20,7 +26,11 @@
                     <div class="position-detail">
                         <#if (result??)&&(result.zwlx==1)>
                             <div class="position-head">
-                                <h1>${result.zwbt!''}</h1>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                    <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                                <#else >
+                                    <h1>${result.zwbt!''}</h1>
+                                </#if>
                                 <dl class="info">
                                     <dt><a href="">${result.zphCbf!''}</a></dt>
                                     <dd>
@@ -58,7 +68,11 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==2)>
                             <div class="position-head">
-                                <h1>${result.zwbt!''}</h1>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                    <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                                <#else >
+                                    <h1>${result.zwbt!''}</h1>
+                                </#if>
                                 <dl class="info">
                                     <dt><a href="">企业招聘公告</a></dt>
                                     <dd>
@@ -92,7 +106,11 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==3)>
                             <div class="position-head">
-                                <h1>${result.zwbt!''}</h1>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                    <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                                <#else >
+                                    <h1>${result.zwbt!''}</h1>
+                                </#if>
                                 <dl class="info">
                                     <dt><a href="">社会招聘会</a></dt>
                                     <dd>
@@ -130,7 +148,11 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==4)>
                             <div class="position-head">
-                                <h1>${result.zwbt!''}</h1>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                    <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                                <#else >
+                                    <h1>${result.zwbt!''}</h1>
+                                </#if>
                                 <dl class="info">
                                     <dt><a href="">宣讲会</a></dt>
                                     <dd>
@@ -168,7 +190,11 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==0)>
                             <div class="position-head">
-                                <h1>${result.zwbt!''}</h1>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                    <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                                <#else >
+                                    <h1>${result.zwbt!''}</h1>
+                                </#if>
                                 <#assign qy=result.qyxx>
                                 <dl class="info">
                                     <dt><a href="">${qy.qymc!''}</a></dt>

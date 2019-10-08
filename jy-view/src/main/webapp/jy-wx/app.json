@@ -3,9 +3,8 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-    "pages/newJob/newJob",
     "pages/index/index",
-    
+    "pages/newJob/newJob",
     "pages/qyService/qyService",
     "pages/stuService/stuService",
     "pages/logs/logs",
@@ -15,7 +14,9 @@
     "pages/diaocha/diaocha",
     "pages/qyInfo/qyInfo",
     "pages/xueyuan/xueyuan",
-    "pages/recruitment/recruitment"
+    "pages/recruitment/recruitment",
+    "pages/dangan/dangan",
+    "pages/lianxiwm/lianxiwm"
   ],
   "window": {
     "backgroundTextStyle": "light",
