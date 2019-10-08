@@ -114,16 +114,16 @@ public class BckjBizJypmController extends BaseController {
     public ResponseMessage importRankFromExcel(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "excelUrl");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            ArrayList<ArrayList<String>> list = ExcelUtils.xlsx_reader(dataMap.get("excelUrl").toString());
+            ArrayList<ArrayList<String>> list = ExcelUtils.xlsx_reader(dataMap.get("path").toString());
             if (null == list) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "Excel表为空");
             }
             List<BckjBizJypm> jypmList = new ArrayList<>();
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 2; i < list.size(); i++) {
                 ArrayList<String> cellList = list.get(i);
                 String szxy = cellList.get(0);    //所在学院
                 String pmzy = cellList.get(1);    //排名专业

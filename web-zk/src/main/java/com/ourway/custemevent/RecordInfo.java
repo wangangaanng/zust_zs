@@ -24,47 +24,53 @@ import java.util.Map;
 
 public class RecordInfo implements ComponentFileSer {
     //师生录入url
-    public  final String xsURL="web/zustcommon/bckjBizYhxx/recordInfo";
+    public final String xsURL = "web/zustcommon/bckjBizYhxx/recordInfo";
     //专家录入url
-    public  final String zxURL="web/zustjy/bckjBizZjzx/recordInfo";
+    public final String zxURL = "web/zustjy/bckjBizZjzx/recordInfo";
     //档案录入url
-    public  final String daURL="web/zustjy/bckjBizDacx/recDanInfo";
+    public final String daURL = "web/zustjy/bckjBizDacx/recDanInfo";
+    //就业排行榜url
+    public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
     //上传excela保存的本地地址
-    public  final String FolderPath="/mnt/files/zjcFiles/excel/";
+    public final String FolderPath = "/mnt/files/zjcFiles/excel/";
+//    public final String FolderPath = "F:\\img\\";
     @Override
     public void doAction(BaseWindow window, Map<String, Object> map, String s) {
-        String url="";
+        String url = "";
         String pageCA = window.getPageCA();
-        if(pageCA.indexOf("student")!=-1){
-            url=xsURL+"/0";
+        if (pageCA.indexOf("student") != -1) {
+            url = xsURL + "/0";
         }
-        if (pageCA.indexOf("teatch")!=-1){
-            url=xsURL+"/1";
+        if (pageCA.indexOf("teatch") != -1) {
+            url = xsURL + "/1";
         }
-        if(pageCA.indexOf("consult")!=-1){
-            url=zxURL;
+        if (pageCA.indexOf("consult") != -1) {
+            url = zxURL;
         }
-        if(pageCA.indexOf("archives")!=-1){
-            url=daURL;
+        if (pageCA.indexOf("archives") != -1) {
+            url = daURL;
         }
-        String result="";
+        if (pageCA.indexOf("rankList") != -1) {
+            url = rankURL;
+        }
+        String result = "";
         String path = map.get("filePath").toString();
-        String filePath=FolderPath+path;
+        String filePath = FolderPath + path;
         //添加后缀
         copyFile(filePath);
-        Map<String, Object> params = new HashMap<String,Object>();
+        Map<String, Object> params = new HashMap<String, Object>();
         if (!TextUtils.isEmpty(filePath)) {
             params.put("path", filePath + ".xls");
         }
         try {
-             result=JsonPostUtils.executeAPIAsString(params,url);
+            result = JsonPostUtils.executeAPIAsString(params, url);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(TextUtils.isEmpty(result)){
+        if (TextUtils.isEmpty(result)) {
             AlterDialog.alert("导入失败");
         }
-        try{
+        try {
             /*if(result.indexOf("操作成功")!=-1){
                 AlterDialog.alert("导入成功");
                 BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
@@ -98,7 +104,7 @@ public class RecordInfo implements ComponentFileSer {
             Object models = new ArrayList();
             grid.filter((List) models);
             grid.display();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             AlterDialog.alert("导入失败");
         }
