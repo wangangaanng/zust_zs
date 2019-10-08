@@ -9,6 +9,7 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
+    <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
 </head>
 <style>
     /*.nav-tabs li a{color: #008784;}*/
@@ -172,13 +173,19 @@
                         <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10" data-val="${jobDetail.zwGwzz!''}"></textarea>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label for="zwSxsj" class="col-sm-2 control-label">失效时间：</label>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" placeholder="" autocomplete="off">
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-default btn-common green">提交</button>
                     </div>
                 </div>
+                <input type="hidden" id="sel1" value="${jobDetail.zwSxsj!''}">
             </form>
             <input type="hidden" id="zwOwid" value="${jobDetail.owid!''}">
             <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
@@ -191,6 +198,7 @@
     <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
     <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="${base}/js/messages_zh.min.js" type="text/javascript"></script>
+    <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
     <script src="${base}/js/city1.js" type="text/javascript"></script>
     <script src="${base}/js/fixJob.js" type="text/javascript"></script>
 </body>

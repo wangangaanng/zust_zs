@@ -887,6 +887,17 @@ public class DemoController {
                 if(null!=result1.getBean()) {
                     view.addObject("stuInfo",result1.getBean());
                 }
+            }else if(secondDir.equals("5")){//就业方案
+                view.setViewName("stuJyfa");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getJyBaseInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("result",result1.getBean());
+                }else{
+                    view.addObject("result",new Object());
+                }
             }
             return view;
         }else{
@@ -931,6 +942,24 @@ public class DemoController {
                 view.setViewName("stuBm");
             }else if(secondDir.equals("3")){//我的收藏
                 view.setViewName("stuSc");
+            }else if(secondDir.equals("4")){//生源信息
+                view.setViewName("stuSyxx");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("stuInfo",result1.getBean());
+                }
+            }else if(secondDir.equals("5")){//就业方案
+                view.setViewName("stuJyfa");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getJyBaseInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("result",result1.getBean());
+                }
             }
 
             return view;
