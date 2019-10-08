@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.service.BckjBizJobService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -334,6 +336,49 @@ public class BckjBizJobController extends BaseController {
         job.setState(stop);
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
+    }
+
+
+
+    @RequestMapping(value = "backPassOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage backPassOne(PublicDataVO dataVo) throws Exception {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
+        List<String> codes = new ArrayList<String>();
+        codes.add(mapData.get("owid").toString());
+        //通过 状态为2
+        Integer state = JyContant.JOB_ZT_TG;
+        Map resultMap = bckjBizJobService.submitPurchaseBack(codes, state);
+        if ("true".equals(resultMap.get("result").toString())) {
+            //数据回写
+            return ResponseMessage.sendOK(resultMap.get("bean"));
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
+    }
+
+    /**
+     * 退款审核拒绝
+     *
+     * @param dataVo
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "backRejectOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage backRejectOne(PublicDataVO dataVo) throws Exception {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
+        List<String> codes = new ArrayList<String>();
+        codes.add(mapData.get("owid").toString());
+        //拒绝 状态为4
+        Integer state = JyContant.JOB_ZT_JJ;
+        Map resultMap = bckjBizJobService.submitPurchaseBack(codes, state);
+        if ("true".equals(resultMap.get("result").toString())) {
+            //数据回写
+            return ResponseMessage.sendOK(resultMap.get("bean"));
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
     }
 
 
