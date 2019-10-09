@@ -76,7 +76,7 @@
                         <#assign flag=1>
                         <#list tlist.records as obj>
                         <div class="teacher-item">
-                            <div class="t-bg" style="background: url(${imagePath!""}${obj.zjtx!''})"></div>
+                            <div class="t-bg" style="background: url(${imagePath!""}${obj.zjtx!''});background-size: 100% 100%;"></div>
                         <div class="teacher-detail">
                             <div class="t-name">${obj.zjxm!''}</div>
                             <div class="t-xhx"><span></span></div>
