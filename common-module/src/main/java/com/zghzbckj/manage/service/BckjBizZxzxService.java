@@ -195,6 +195,7 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
                 //是否显示 1显示 0不显示
                 bckjBizZxzx.setSfxs(1);
                 bckjBizZxzx.setState(1);
+                bckjBizZxzx.setExp1("1");
                 bckjBizZxzx.setLyip(dataMap.get("ipAdrress").toString());
                 saveOrUpdate(bckjBizZxzx);
                 return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
@@ -242,11 +243,12 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
                 return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
 
-        public ResponseMessage showJyMessageList(Integer pageNo, Integer pageSize) {
+        public ResponseMessage showJyMessageList(Integer pageNo, Integer pageSize,String state) {
                 Page<Map<String, Object>> page = new Page<>(pageNo, pageSize);
                 HashMap<String, Object> dataMap = Maps.newHashMap();
                 dataMap.put("zxlx", 5);
                 dataMap.put("page", page);
+                dataMap.put("state",state);
                 page.setList(this.dao.findlyList(dataMap));
                 return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
         }
@@ -268,18 +270,20 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         public ResponseMessage historyMessage(Map<String, Object> dataMap) {
                 Page<Object> page = new Page<>(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
                 dataMap.put("page", page);
-                dataMap.put("state", 2);
+                dataMap.put("exp1", 2);
                 page.setList(this.dao.historyMessage(dataMap));
                 return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
         }
 @Transactional(readOnly = false,rollbackFor = Exception.class)
-        public ResponseMessage saveAfterDelete(List<Map<String, Object>> components) {
-                for (Map<String, Object> component : components) {
-                        //如果為刪除的記錄
-                        if (Integer.parseInt(component.get("updateFlag").toString()) == 2) {
-                                delete(JsonUtil.map2Bean(component, BckjBizZxzx.class));
-
+        public ResponseMessage faBu(List<Object> list ,String exp1) {
+                for ( Object component : list) {
+                        if(TextUtils.isEmpty(((LinkedHashMap)component).get("owid"))){
+                                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
                         }
+                        Map<String, Object> dataMap = new HashMap<>();
+                        dataMap.put("owid",((LinkedHashMap)component).get("owid"));
+                        dataMap.put("exp1",exp1);
+                        this.dao.faBu(dataMap);
                 }
                 return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }

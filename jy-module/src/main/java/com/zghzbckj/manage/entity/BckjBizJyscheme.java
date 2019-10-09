@@ -3,11 +3,11 @@
  */
 package com.zghzbckj.manage.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
-
 import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import com.zghzbckj.base.entity.DataWithExpEntity;
 
 /**
  * 就业方案Entity
@@ -23,7 +23,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	private String sfz;
 	private String xsxy;
 	private String xszy;
-	private String xb;
+	private Integer xb;
 	private String syd;
 	private String pyfs;
 	private String zyfx;
@@ -62,7 +62,13 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 
 
 
+	public Integer getXb() {
+		return xb;
+	}
 
+	public void setXb(Integer xb) {
+		this.xb = xb;
+	}
 
 	public String getSfz() {
 		return sfz;
@@ -88,13 +94,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.xszy = xszy;
 	}
 
-	public String getXb() {
-		return xb;
-	}
 
-	public void setXb(String xb) {
-		this.xb = xb;
-	}
 
 	public String getSyd() {
 		return syd;
@@ -389,7 +389,8 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	public void setBzthree(String bzthree) {
 		this.bzthree = bzthree;
 	}
-	
 
-	
+
+
+
 }

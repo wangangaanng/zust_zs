@@ -16,6 +16,7 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizZxzxService;
 import com.zghzbckj.util.IpAdrressUtil;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -249,11 +250,11 @@ public class BckjBizZxzxController extends BaseController {
      * <li>@date 2019/9/20</li>
      * </ul>
      */
-    @PostMapping("showJyMessageList")
+    @PostMapping("showJyMessageList/{state}")
     @ResponseBody
-    public  ResponseMessage showJyMessageList(PublicDataVO dataVO){
+    public  ResponseMessage showJyMessageList(PublicDataVO dataVO, @PathVariable("state") String state){
         try {
-            return bckjBizZxzxService.showJyMessageList(dataVO.getPageNo(),dataVO.getPageSize());
+            return bckjBizZxzxService.showJyMessageList(dataVO.getPageNo(),dataVO.getPageSize(),state);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
@@ -352,20 +353,12 @@ public class BckjBizZxzxController extends BaseController {
      * <li>@date 2019/9/29</li>
      * </ul>
      */
-    @PostMapping("saveAfterDelete")
+    @PostMapping("faBu/{exp1}")
     @ResponseBody
-    public ResponseMessage saveAfterDelete(PublicDataVO dataVO){
+    public ResponseMessage faBu(PublicDataVO dataVO,@PathVariable("exp1") String exp1 ){
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
-            if(((ArrayList)dataMap.get("dataList")).size()==0){
-                return ResponseMessage.sendOK("无更新数据");
-            }
-            List<Map<String, Object>> components = (List)dataMap.get("dataList");
-            if(components.size()==0){
-                return ResponseMessage.sendOK("无更新数据");
-            }
-            return bckjBizZxzxService.saveAfterDelete(components);
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+            return bckjBizZxzxService.faBu(list,exp1);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
@@ -374,6 +367,9 @@ public class BckjBizZxzxController extends BaseController {
         }
 
     }
-
+    @PostMapping("test")
+    public void test(PublicDataVO dataVO){
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+    }
 
 }
