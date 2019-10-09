@@ -18,6 +18,10 @@
     "pages/dangan/dangan",
     "pages/lianxiwm/lianxiwm",
     "pages/qiandaolb/qiandaolb",
+    "pages/lszx/lszx",
+    "pages/zjxq/zjxq",
+    "pages/jyzx/jyzx",
+    "pages/qyzc/qyzc",
     "pages/zhiwei/zhiwei"
   ],
   "window": {

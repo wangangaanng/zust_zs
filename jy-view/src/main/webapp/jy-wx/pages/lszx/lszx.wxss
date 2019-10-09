@@ -1,0 +1,8 @@
+/* pages/lszx/lszx.wxss */
+
+.l-ask{overflow: hidden;background-color: #fff;padding: 30rpx 25rpx;font-size: 32rpx;}
+.l-ask image{float: left;width: 45rpx;height: 45rpx;margin-right: 15rpx;}
+.l-ask .ask-time{float: right;color: #999;font-size: 30rpx;}
+.ask-nr{font-size: 28rpx;color: #888;margin-top: 20rpx;padding-left: 60rpx;}
+.l-item {margin-bottom: 20rpx;}
+.l-item .l-ask:first-child{border-bottom: 1rpx dashed #d5d5d5;}

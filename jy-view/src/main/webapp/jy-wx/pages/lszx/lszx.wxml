@@ -1,0 +1,36 @@
+<view class="l-item">
+  <view class="l-ask">
+  <view>
+    <image src="../../static/icon-ask.png"></image>
+    我的提问：
+    <view class="ask-time">2019-10-09 15:33</view>
+  </view>
+  <view class="ask-nr">什么时候开学？</view>
+  </view>
+  <view class="l-ask">
+  <view>
+    <image src="../../static/icon-ans.png"></image>
+    老师的回答：
+    <view class="ask-time">2019-10-09 15:33</view>
+  </view>
+  <view class="ask-nr">9.1</view>
+  </view>
+</view>
+<view class="l-item">
+  <view class="l-ask">
+  <view>
+    <image src="../../static/icon-ask.png"></image>
+    我的提问：
+    <view class="ask-time">2019-10-09 15:33</view>
+  </view>
+  <view class="ask-nr">什么时候开学？</view>
+  </view>
+  <view class="l-ask">
+  <view>
+    <image src="../../static/icon-ans.png"></image>
+    老师的回答：
+    <view class="ask-time">2019-10-09 15:33</view>
+  </view>
+  <view class="ask-nr">9.1</view>
+  </view>
+</view>
