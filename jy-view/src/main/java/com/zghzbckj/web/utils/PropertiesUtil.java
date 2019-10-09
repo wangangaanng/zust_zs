@@ -16,7 +16,23 @@ import java.util.regex.Pattern;
 @Component
 public class PropertiesUtil {
         private static  final String regEx="[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]";
+        private static  final String regExIp="^(127\\.0\\.0\\.1)|(localhost)|(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(172\\.((1[6-9])|(2\\d)|(3[01]))\\.\\d{1,3}\\.\\d{1,3})|(192\\.168\\.\\d{1,3}\\.\\d{1,3})$";
 
+
+    /**
+     *<p>方法:判断是否内网IP innerIp TODO </p>
+     *<ul>
+     *<li> @param ip TODO</li>
+     *<li>@return boolean  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/9/26 16:18  </li>
+     *</ul>
+     */
+    public static boolean  innerIp(String ip) {
+        Pattern reg = Pattern.compile(regExIp);
+        Matcher match = reg.matcher(ip);
+        return match.find();
+    }
     public Properties loadProperties(String fileName){
         Properties pro = new Properties();
         InputStream is = null;

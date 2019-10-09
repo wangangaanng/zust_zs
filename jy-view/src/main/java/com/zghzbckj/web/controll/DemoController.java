@@ -25,6 +25,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>方法 DemoController : <p>
@@ -746,11 +748,18 @@ public class DemoController {
 
     @RequestMapping(value = "ranking", method = RequestMethod.GET)
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
+        String host=request.getRemoteHost();
+        if(!PropertiesUtil.innerIp(host)){
+            view.setViewName("errerIp");
+            return view;
+        }
         view.setViewName("ranking");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
         return view;
     }
+
+
 
     /**
      *根据Cookie名获取对应的Cookie
