@@ -74,7 +74,7 @@ public class BckjBizDcwjDtmxService extends CrudService<BckjBizDcwjDtmxDao, Bckj
     }
 
     public PageInfo<Map<String, Object>> findResultPage(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
-        PageInfo<BckjBizDcwjDtmx> mxPage = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizDcwjDtmx> mxPage = findPage(dataMap, pageNo, pageSize, "createtime");
         if (TextUtils.isEmpty(mxPage.getRecords())) {
             return null;
         }

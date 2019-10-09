@@ -123,6 +123,7 @@ public class BckjBizJypmController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "Excel表为空");
             }
             List<BckjBizJypm> jypmList = new ArrayList<>();
+
             for (int i = 2; i < list.size(); i++) {
                 ArrayList<String> cellList = list.get(i);
                 String szxy = cellList.get(0);    //所在学院
@@ -131,23 +132,23 @@ public class BckjBizJypmController extends BaseController {
                 String pmnf = cellList.get(3);    //排名年份
                 String pmyf = cellList.get(4);    //排名月份
                 String pmbyrs = cellList.get(5);  //排名毕业人数
-                String pmyprs = cellList.get(6);  //排名应聘人数
-                String pmqyrs = cellList.get(7);  //排名签约人数
-                String pmqyl = cellList.get(8);   //排名签约率
-                String pmjyl = cellList.get(9);   //排名就业率
-                String memo = cellList.get(10);   //备注
+//                String pmyprs = cellList.get(6);  //排名应聘人数
+                String pmqyrs = cellList.get(6);  //就业人数
+//                String pmqyl = cellList.get(8);   //排名签约率
+                String pmjyl = cellList.get(7);   //排名就业率
+                String memo = cellList.get(8);   //备注
 
                 BckjBizJypm jypm = new BckjBizJypm();
-                //根据专业名称查询
-                BckjBizJypm major = bckjBizJypmService.getByMajor(pmzy);
+                //根据学院专业名称查询
+                BckjBizJypm major = bckjBizJypmService.getByCollegeMajor(szxy, pmzy);
                 if (!TextUtils.isEmpty(major)) {
                     jypm.setOwid(major.getOwid());
                 }
                 jypm.easySet("szxy", szxy, "pmzy", pmzy, "pmbj", pmbj, "pmnf", pmnf, "pmyf", pmyf, "memo", memo);
                 jypm.setPmbyrs(Integer.parseInt(pmbyrs));
-                jypm.setPmyprs(Integer.parseInt(pmyprs));
+//                jypm.setPmyprs(Integer.parseInt(pmyprs));
                 jypm.setPmqyrs(Integer.parseInt(pmqyrs));
-                jypm.setPmqyl(new BigDecimal(pmqyl));
+//                jypm.setPmqyl(new BigDecimal(pmqyl));
                 jypm.setPmjyl(new BigDecimal(pmjyl));
                 jypmList.add(jypm);
             }
