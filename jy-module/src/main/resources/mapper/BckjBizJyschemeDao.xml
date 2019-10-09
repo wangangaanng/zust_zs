@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zghzbckj.dao.BckjBizJyschemeDao">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizJyschemeDao">
     
 	<sql id="bckjBizJyschemeColumns">
 		a.owid AS "owid",
@@ -26,7 +26,7 @@
 		a.dwlxr AS "dwlxr",
 		a.dwdh AS "dwdh",
 		a.gzzwlbmc AS "gzzwlbmc",
-		a.getBdzqflbmc as "getBdzqflbmc",
+		a.Bdzqflbmc as "bdzqflbmc",
 		a.bdzdwmc AS "bdzdwmc",
 		a.bdzszdmc AS "bdzszdmc",
 		a.bdkssj AS "bdkssj",
@@ -93,13 +93,22 @@
 			</otherwise>
 		</choose>
 	</select>
+
 		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 	        SELECT
 			<include refid="bckjBizJyschemeColumns"/>
 		FROM bckj_biz_jyscheme a
 		<include refid="bckjBizJyschemeJoins"/>
 		<where>
-			
+			<if test="xsxh != null and xsxh != ''">
+				AND a.xsxh = #{xsxh}
+			</if>
+			<if test="xm != null and xm != ''">
+				AND a.xm LIKE concat('%',#{xm},'%')
+			</if>
+			<if test="sfz != null and sfz != ''">
+				AND a.sfz = #{sfz}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -109,6 +118,7 @@
 			</otherwise>
 		</choose>
 	</select>
+
 	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
 		SELECT 
 			<include refid="bckjBizJyschemeColumns"/>
@@ -129,17 +139,16 @@
 	<insert id="insert">
 		INSERT INTO bckj_biz_jyscheme(
 			owid,
-			xsxh,
 			xm,
-			xsxh,       /*学号*/
-			sfz ,        /*身份证*/
-			xsxy ,       /*学生学院*/
-			xszy ,        /*学生专业*/
-			xb,           /* 学生性别*/
-			syd ,         /*生源地*/
-			pyfs,        /*培养方式*/
-			zyfx,        /*专业方向*/
-			sjh,         /*  手机号*/v
+			xsxh,
+			sfz ,
+			xsxy ,
+			xszy ,
+			xb,
+			syd ,
+			pyfs,
+			zyfx,
+			sjh,
 			xxmc,
 			byxl,
 			byqx,
@@ -150,9 +159,10 @@
 			dwlbmc,
 			dwszdmc,
 			dwlxr,
+
 			dwdh,
 			gzzwlbmc,
-			getBdzqflbmc,
+			Bdzqflbmc,
 			bdzdwmc,
 			bdzszdmc,
 			bdkssj,
@@ -165,9 +175,11 @@
 			datdxxdz,
 			datddh,
 			hkqydz,
+
 			bzone,
 			bztwo,
 			bzthree,
+
 			createtime,
 			creator,
 			creator_name,
@@ -192,7 +204,6 @@
 			exp10
 		) VALUES (
 			#{owid},
-			#{xsxh},
 			#{xm},
 			#{xsxh},
 			#{sfz},
@@ -204,7 +215,7 @@
 			#{zyfx},
 			#{sjh},
 			#{xxmc},
-			#{byxl}
+			#{byxl},
 			#{byqx},
 			#{sfzydk},
 			#{yrdwmc},
@@ -213,9 +224,10 @@
 			#{dwlbmc},
 			#{dwszdmc},
 			#{dwlxr},
+
 			#{dwdh},
 			#{gzzwlbmc},
-			#{getBdzqflbmc},
+			#{bdzqflbmc},
 			#{bdzdwmc},
 			#{bdzszdmc},
 			#{bdkssj},
@@ -228,9 +240,11 @@
 			#{datdxxdz},
 			#{datddh},
 			#{hkqydz},
+
 			#{bzone},
 			#{bztwo},
 			#{bzthree},
+
 			#{createtime},
 			#{creator},
 			#{creatorName},
@@ -261,7 +275,6 @@
 			owid = #{owid},
 			xsxh = #{xsxh},
 			xm = #{xm},
-			xsxh=#{xsxh},
 			sfz=#{sfz},
 			xsxy=#{xsxy},
 			xszy=#{xszy},
@@ -282,7 +295,7 @@
 			dwlxr = #{dwlxr},
 			dwdh = #{dwdh},
 			gzzwlbmc = #{gzzwlbmc},
-			getBdzqflbmc=#{getBdzqflbmc},
+			Bdzqflbmc=#{bdzqflbmc},
 			bdzdwmc = #{bdzdwmc},
 			bdzszdmc = #{bdzszdmc},
 			bdkssj = #{bdkssj},
@@ -351,7 +364,7 @@
 			e.DWLXR  as  dwlxr    ,  /*单位联系人  --单位联系人*/
 			e.DWDH as dwdh    ,   /*单位联系电话   --单位联系电话*/
 			e. SFZYDK  as   sfzydk   ,   /*专业是否对口 -- 业是否对口*/
-			e. getBdzqflbmc as getBdzqflbmc, /*报到证签发类别  --报到证签发类别*/
+			e.Bdzqflbmc as bdzqflbmc, /*报到证签发类别  --报到证签发类别*/
 			e.BDZDWMC as bdzdwmc ,       /*报到证签往单位名称   --报到证签往单位*/
 			e.BDZSZDMC as bdzszzdmc,     /*报到证签往单位所在地   --签往单位所在地*/
 			e.BDKSSJ as bdkssj,          /*报到开始时间 --报到开始时间*/
@@ -391,15 +404,14 @@
 		  bckj_biz_yhxx a ,
 		  bckj_biz_yhkz b ,
 		  bckj_biz_syb c
-		  where a.owid = b.yh_ref_id and a.owid=#{owid} and b.xsxh=c.xh
+		  where a.owid = b.yh_Ref_Owid and a.owid=#{owid} and b.xsxh=c.xh
 	</select>
 
 	<select id="getXsxhByOwid" parameterType="String" resultType="String">
 		select b.xsxh from bckj_biz_yhxx a ,bckj_biz_yhkz b where a.owid=#{owid} and b.yh_Ref_Owid=a.owid
-		and
 	</select>
 
-	<select id="getJyschemeByMap" resultType="BckjBizJyscheme">
+	<select id="getJyschemeByMap" resultType="BckjBizJyscheme" parameterType="Map">
 		select
 			<include refid="bckjBizJyschemeColumns"></include>
 		from bckj_biz_jyscheme a

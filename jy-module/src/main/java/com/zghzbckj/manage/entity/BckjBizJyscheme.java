@@ -23,7 +23,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	private String sfz;
 	private String xsxy;
 	private String xszy;
-	private String xb;
+	private Integer xb;
 	private String syd;
 	private String pyfs;
 	private String zyfx;
@@ -59,21 +59,16 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	private String bzone;		// bzone
 	private String bztwo;		// bztwo
 	private String bzthree;		// bzthree
-	private Date createtime;		// createtime
-	private String creator;		// creator
-	private String creatorName;		// creator_name
-	private Date lastupdate;		// lastupdate
-	private String updator;		// updator
-	private String updatorName;		// updator_name
-	private Integer ver;		// ver
-	private Date vertime;		// vertime
-	private Integer deptId;		// dept_id
-	private String deptPath;		// dept_path
-	private Integer delflg;		// delflg
-	private Integer state;		// state
 
 
 
+	public Integer getXb() {
+		return xb;
+	}
+
+	public void setXb(Integer xb) {
+		this.xb = xb;
+	}
 
 	public String getSfz() {
 		return sfz;
@@ -99,13 +94,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.xszy = xszy;
 	}
 
-	public String getXb() {
-		return xb;
-	}
 
-	public void setXb(String xb) {
-		this.xb = xb;
-	}
 
 	public String getSyd() {
 		return syd;
@@ -400,110 +389,5 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	public void setBzthree(String bzthree) {
 		this.bzthree = bzthree;
 	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getCreatetime() {
-		return createtime;
-	}
 
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
-	
-	@Length(min=0, max=64, message="creator长度必须介于 0 和 64 之间")
-	public String getCreator() {
-		return creator;
-	}
-
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
-	
-	@Length(min=0, max=64, message="creator_name长度必须介于 0 和 64 之间")
-	public String getCreatorName() {
-		return creatorName;
-	}
-
-	public void setCreatorName(String creatorName) {
-		this.creatorName = creatorName;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getLastupdate() {
-		return lastupdate;
-	}
-
-	public void setLastupdate(Date lastupdate) {
-		this.lastupdate = lastupdate;
-	}
-	
-	@Length(min=0, max=64, message="updator长度必须介于 0 和 64 之间")
-	public String getUpdator() {
-		return updator;
-	}
-
-	public void setUpdator(String updator) {
-		this.updator = updator;
-	}
-	
-	@Length(min=0, max=64, message="updator_name长度必须介于 0 和 64 之间")
-	public String getUpdatorName() {
-		return updatorName;
-	}
-
-	public void setUpdatorName(String updatorName) {
-		this.updatorName = updatorName;
-	}
-	
-	public Integer getVer() {
-		return ver;
-	}
-
-	public void setVer(Integer ver) {
-		this.ver = ver;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getVertime() {
-		return vertime;
-	}
-
-	public void setVertime(Date vertime) {
-		this.vertime = vertime;
-	}
-	
-	public Integer getDeptId() {
-		return deptId;
-	}
-
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
-	}
-	
-	@Length(min=0, max=240, message="dept_path长度必须介于 0 和 240 之间")
-	public String getDeptPath() {
-		return deptPath;
-	}
-
-	public void setDeptPath(String deptPath) {
-		this.deptPath = deptPath;
-	}
-	
-	public Integer getDelflg() {
-		return delflg;
-	}
-
-	public void setDelflg(Integer delflg) {
-		this.delflg = delflg;
-	}
-	
-	public Integer getState() {
-		return state;
-	}
-
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
-	
 }

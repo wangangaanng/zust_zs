@@ -24,7 +24,8 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     String getXsxhByOwid(String owid);
 
-    BckjBizJyscheme getJyFzInfo(HashMap<String, Object> sendMap);
+    BckjBizJyscheme getJyFzInfo(Map<String, Object> sendMap);
 
-    BckjBizJyscheme getJyschemeByMap(HashMap<String, Object> sendMap);
+    BckjBizJyscheme getJyschemeByMap(Map<String, Object> sendMap);
+
 }
