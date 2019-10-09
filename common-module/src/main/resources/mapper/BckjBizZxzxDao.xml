@@ -329,7 +329,7 @@
 
 	<select id="historyMessage" parameterType="Map" resultType="Map">
 		select * from bckj_biz_zxzx
-		where state=2 and zxlx=5
+		where exp1=2 and zxlx=5
 		order by  createtime desc
 	</select>
 
