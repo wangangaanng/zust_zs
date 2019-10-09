@@ -21,6 +21,12 @@
     "pages/enterpriseZw/enterpriseZw",
     "pages/success/success",
     "pages/enterpriseXjh/enterpriseXjh"
+    "pages/qiandaolb/qiandaolb",
+    "pages/lszx/lszx",
+    "pages/zjxq/zjxq",
+    "pages/jyzx/jyzx",
+    "pages/qyzc/qyzc",
+    "pages/zhiwei/zhiwei"
   ],
   "window": {
     "backgroundTextStyle": "light",
