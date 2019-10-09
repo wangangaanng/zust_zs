@@ -325,7 +325,7 @@
             <div class="menue-container" >
                 <div class="menue-parent">
                     <div class="menue-item">
-                        <div>
+                        <div onclick="linkUrl('http://www.ncss.org.cn/')">
                             <img src="${base}/img/menu1.png" />
                             <div>
                                 <strong>全国大学生</strong><br><span>一站式服务系统</span>
@@ -333,7 +333,7 @@
                         </div>
                     </div>
                     <div class="menue-item">
-                        <div>
+                        <div onclick="linkUrl('http://zust.careersky.cn/jixun/')">
                             <img src="${base}/img/menu2.png" />
                             <div>
                                 <br><strong>职业规划测评</strong>
