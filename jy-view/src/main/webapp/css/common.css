@@ -801,7 +801,7 @@ ul.pagination {
 }
 
   /* news */
-  .index-news_list{width: 480px;height:260px;float: right;position: relative;}
+  .index-news_list{width: 490px;height:260px;float: right;position: relative;}
   .news-ul{    list-style: none;}
   .news-ul li{margin-top: 10px;cursor: pointer;}
   .news-date{background: #9c9c9c;width: 60px;float: left;margin-right: 12px;font-size: 16px;text-align: center;}
