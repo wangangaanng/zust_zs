@@ -123,9 +123,11 @@
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsxz" name="qyGsxz">
                             <option value="">请选择</option>
+                            <#if qyGsxz??>
                             <#list qyGsxz as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
@@ -134,9 +136,11 @@
                     <div class="col-sm-10">
                         <select class="form-control" id="qyHylb" name="qyHylb">
                             <option value="">请选择</option>
+                            <#if qyHylb??>
                             <#list qyHylb as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
@@ -145,9 +149,11 @@
                     <div class="col-sm-10">
                         <select class="form-control" id="qyGsgm" name="qyGsgm">
                             <option value="">请选择</option>
+                            <#if qyGsgm??>
                             <#list qyGsgm as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
