@@ -27,6 +27,15 @@ $(document).ready(function () {
                 required: true,
                 isMobile: true
             },
+            byqx:"required",
+            yrdwmc:"required",
+            yrdwdm:"required",
+            yrdwxz:"required",
+            dwlbmc:"required",
+            dwszdmc:"required",
+            gzzwlbmc:"required",
+            sfzydk:"required",
+            datddw:"required",
         },
         messages: {
             xm:"请填写",
@@ -42,6 +51,15 @@ $(document).ready(function () {
                 required: "请填写",
                 email: "手机号有误"
             },
+            byqx:"请填写",
+            yrdwmc:"请填写",
+            yrdwdm:"请填写",
+            yrdwxz:"请填写",
+            dwlbmc:"请填写",
+            dwszdmc:"请填写",
+            gzzwlbmc:"请填写",
+            sfzydk:"请选择",
+            datddw:"请填写",
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {
@@ -65,7 +83,7 @@ $(document).ready(function () {
     $("#sfzydk").val($("#sel1").val())
     $("#sfdydwbdz").val($("#sel2").val())
     $("#xb").val($("#sel3").val())
-    // getJyBaseInfo()
+    getJyBaseInfo()
 })
 
 function getJyBaseInfo() {

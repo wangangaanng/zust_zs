@@ -98,8 +98,8 @@
                         <div class="col-sm-3">
                             <select class="form-control" id="xb" name="xb" data-val="${result.xb!''}">
                                 <option value="">请选择</option>
-                                <option value="男">男</option>
-                                <option value="女">女</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
                             </select>
                         </div>
                     </div>
@@ -147,31 +147,31 @@
                         <label class="col-sm-5 col-sm-offset-1 text-left f-title">毕业去向信息</label>
                     </div>
                     <div class="form-group">
-                        <label for="byqx" class="col-sm-2 control-label">毕业去向：</label>
+                        <label for="byqx" class="col-sm-2 control-label">毕业去向<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="byqx" name="byqx" value="${result.byqx!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="yrdwmc" class="col-sm-2 control-label">用人单位名称：</label>
+                        <label for="yrdwmc" class="col-sm-2 control-label">用人单位名称<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="yrdwmc" name="yrdwmc" value="${result.yrdwmc!''}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="yrdwdm" class="col-sm-2 control-label">用人单位代码：</label>
+                        <label for="yrdwdm" class="col-sm-2 control-label">用人单位代码<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="yrdwdm" name="yrdwdm" value="${result.yrdwdm!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="yrdwxz" class="col-sm-2 control-label">用人单位性质：</label>
+                        <label for="yrdwxz" class="col-sm-2 control-label">用人单位性质<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="yrdwxz" name="yrdwxz" value="${result.yrdwxz!''}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="dwlbmc" class="col-sm-2 control-label">单位行业：</label>
+                        <label for="dwlbmc" class="col-sm-2 control-label">单位行业<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="dwlbmc" name="dwlbmc" value="${result.dwlbmc!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="dwszdmc" class="col-sm-2 control-label">用人单位所在地：</label>
+                        <label for="dwszdmc" class="col-sm-2 control-label">用人单位所在地<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="dwszdmc" name="dwszdmc" value="${result.dwszdmc!''}" placeholder="" autocomplete="off">
                         </div>
@@ -187,11 +187,11 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="gzzwlbmc" class="col-sm-2 control-label">工作职位类别：</label>
+                        <label for="gzzwlbmc" class="col-sm-2 control-label">工作职位类别<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="gzzwlbmc" name="gzzwlbmc" value="${result.gzzwlbmc!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="sfzydk" class="col-sm-2 control-label">专业是否对口：</label>
+                        <label for="sfzydk" class="col-sm-2 control-label">专业是否对口<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <select class="form-control" id="sfzydk" name="sfzydk" data-val="${result.sfzydk!''}">
                                 <option value="">请选择</option>
@@ -242,22 +242,12 @@
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="bdzbz" name="bdzbz" value="${result.bdzbz!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="bdzbh" class="col-sm-2 control-label">报到证编号：</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bdzbh" name="bdzbh" value="${result.bdzbh!''}" placeholder="" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="bdzlsh" class="col-sm-2 control-label">报到证流水号：</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bdzlsh" name="bdzlsh" value="${result.bdzlsh!''}" placeholder="" autocomplete="off">
-                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-5 col-sm-offset-1 text-left f-title">档案信息</label>
                     </div>
                     <div class="form-group">
-                        <label for="datddw" class="col-sm-2 control-label">档案投递单位：</label>
+                        <label for="datddw" class="col-sm-2 control-label">档案投递单位<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="datddw" name="datddw" value="${result.datddw!''}" placeholder="" autocomplete="off">
                         </div>
