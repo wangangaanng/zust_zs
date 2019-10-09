@@ -131,6 +131,19 @@
 					"pathName": "pages/enterpriseXjh/enterpriseXjh",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/stuService/stuService",
+					"pathName": "pages/stuService/stuService",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/newJob/newJob",
+					"pathName": "pages/newJob/newJob",
+					"scene": null
 				}
 			]
 		}
