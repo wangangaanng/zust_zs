@@ -1,5 +1,15 @@
 
 $(document).ready(function () {
+
+    if($("#sel1").val()){
+        $("#zwSxsj").val($("#sel1").val().substring(0,10))
+    }
+    laydate.render({
+        elem: "#zwSxsj" //指定元素
+        ,min: 1
+    });
+
+
     var provice=[];
     var city=[];
     var pindex=0;

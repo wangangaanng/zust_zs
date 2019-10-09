@@ -60,6 +60,9 @@
                         <li class="list-group-item">
                             <span class="ic-menu"></span> 生源信息
                         </li>
+                        <li class="list-group-item">
+                            <span class="ic-menu"></span> 就业方案
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -72,7 +75,7 @@
                     <div class="al-item "><#--active2-->
                         <div class="al-question">
                             <i></i> 我的提问：${obj.wtnr}
-                            <div class="pull-right">${obj.twrq}</div>
+                            <div class="pull-right twrq">${obj.twrq}</div>
                         </div>
                         <#--<#if obj.danr??>-->
                         <div class="al-answer">

@@ -1,5 +1,5 @@
 /* pages/diaocha/diaocha.wxss */
-.wenda-body{background: #fff;}
+page{background: #ffffff;}
 .wenda-item{padding: 30rpx 30rpx 10rpx;}
 .wenda-title{font-size: 34rpx;color: #484848;}
 .red{color: red;}

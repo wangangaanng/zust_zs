@@ -44,7 +44,12 @@ public class JyContant {
     public static final Integer YYYQ = 20007;
     //工作年限
     public static final Integer GZNX = 20008;
-    //报名类型 0企业 1学生
+    //开关
+    public static final Integer KG = 10017;
+    //职位审核
+    public static final String ZWSH = "zwsh";
+    //企业审核
+    public static final String QYSH = "qykg";
     public static final int BMLX_QY = 0;
     public static final int BMLX_XS = 1;
     //报名对象 0招聘会 1宣讲会2职位

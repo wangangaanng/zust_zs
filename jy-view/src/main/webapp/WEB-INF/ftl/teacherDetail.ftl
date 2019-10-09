@@ -31,7 +31,7 @@
         <div class="content">
             <div class="menu-nav" style="border: none;">
                 <div class="td-item">
-                    <div class="t-bg" style="background: url("${detail.zjtx!''}")"></div>
+                    <div class="t-bg" style="background: url(${imagePath!""}${detail.zjtx!''});background-size: contain;"></div>
                     <div class="td-detail">
                         <div class="t-name">${detail.zjxm!''}</div>
                         <div class="t-xhx"><span></span></div>

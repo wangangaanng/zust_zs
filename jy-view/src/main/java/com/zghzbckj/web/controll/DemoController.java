@@ -25,6 +25,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>方法 DemoController : <p>
@@ -716,7 +718,7 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
-    @RequestMapping(value = "stuCenter/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    @RequestMapping(value = "contactUs/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView contactUs(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir, @PathVariable String currentPage) {
         view.setViewName("contactUs");
         view.addObject("header",getHeader().getBean());
@@ -746,11 +748,18 @@ public class DemoController {
 
     @RequestMapping(value = "ranking", method = RequestMethod.GET)
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
+        String host=request.getRemoteHost();
+        if(!PropertiesUtil.innerIp(host)){
+            view.setViewName("errerIp");
+            return view;
+        }
         view.setViewName("ranking");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
         return view;
     }
+
+
 
     /**
      *根据Cookie名获取对应的Cookie
@@ -887,6 +896,17 @@ public class DemoController {
                 if(null!=result1.getBean()) {
                     view.addObject("stuInfo",result1.getBean());
                 }
+            }else if(secondDir.equals("5")){//就业方案
+                view.setViewName("stuJyfa");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getJyBaseInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("result",result1.getBean());
+                }else{
+                    view.addObject("result",new Object());
+                }
             }
             return view;
         }else{
@@ -931,6 +951,24 @@ public class DemoController {
                 view.setViewName("stuBm");
             }else if(secondDir.equals("3")){//我的收藏
                 view.setViewName("stuSc");
+            }else if(secondDir.equals("4")){//生源信息
+                view.setViewName("stuSyxx");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("stuInfo",result1.getBean());
+                }
+            }else if(secondDir.equals("5")){//就业方案
+                view.setViewName("stuJyfa");
+                Map param1=Maps.newHashMap();
+                param1.put("owid",stuOwid);
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getJyBaseInfo");
+                ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+                if(null!=result1.getBean()) {
+                    view.addObject("result",result1.getBean());
+                }
             }
 
             return view;

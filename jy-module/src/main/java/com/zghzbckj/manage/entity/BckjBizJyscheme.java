@@ -390,4 +390,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.bzthree = bzthree;
 	}
 
+
+
+
 }

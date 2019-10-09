@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?page title="浙江科技学院招就处一体化"?>
+<?page title="浙江科技学院招就处一体化管理平台"?>
 <?meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /?>
 <?meta name="renderer" content="webkit" /?>
 <?link rel="icon" href="/charisma/img/zust.ico" type="image/x-icon"/?>

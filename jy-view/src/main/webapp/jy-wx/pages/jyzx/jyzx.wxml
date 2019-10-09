@@ -1,0 +1,43 @@
+<view class="t-item">
+  <view class="t-js">
+    <view class="t-tx">
+      <view><image src="../../static/headImg.png"></image></view>
+    </view>
+    <view class="t-jj">
+      <view class="t-xm">张立庆</view>
+      <view class="t-xq">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程</view>
+    </view>
+  </view>
+  <view class="t-cz">
+    <view class="t-f6">
+      <image src="../../static/icon-xq.png"></image>
+      <view class="green">详情</view>
+    </view>
+    <view class="t-f6">
+      <image src="../../static/icon-zx.png"></image>
+      <view>咨询</view>
+    </view>
+  </view>
+</view>
+
+<view class="t-item">
+  <view class="t-js">
+    <view class="t-tx">
+      <view><image src="../../static/headImg.png"></image></view>
+    </view>
+    <view class="t-jj">
+      <view class="t-xm">张立庆</view>
+      <view class="t-xq">男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程</view>
+    </view>
+  </view>
+  <view class="t-cz">
+    <view class="t-f6">
+      <image src="../../static/icon-xq.png"></image>
+      <view class="green">详情</view>
+    </view>
+    <view class="t-f6">
+      <image src="../../static/icon-zx.png"></image>
+      <view>咨询</view>
+    </view>
+  </view>
+</view>

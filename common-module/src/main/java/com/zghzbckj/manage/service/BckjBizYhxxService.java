@@ -4,36 +4,27 @@
 package com.zghzbckj.manage.service;
 
 
-import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.*;
-
-
+import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.RepeatException;
-import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
+import com.zghzbckj.manage.entity.BckjBizUserlog;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.util.*;
-
-import com.zghzbckj.wechat.utils.MD5Util;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ourway.base.utils.BeanUtil;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.model.FilterModel;
-
-import com.zghzbckj.base.model.ResponseMessage;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.dao.BckjBizYhxxDao;
-import com.zghzbckj.manage.entity.BckjBizYhxx;
-import org.apache.log4j.Logger;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
@@ -51,6 +42,13 @@ import java.util.*;
 public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx> {
 
 	private static final Logger log = Logger.getLogger(BckjBizYhxxService.class);
+	@Autowired
+    BckjBizYhglService bckjBizYhglService;
+    @Autowired
+    BckjBizYhkzService bckjBizYhkzService;
+
+    @Autowired
+    private BckjBizUserlogService bckjBizUserlogService;
 
     @Override
 	public BckjBizYhxx get(String owid) {
@@ -64,7 +62,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 	public PageInfo<BckjBizYhxx> findPage(Page<BckjBizYhxx> page, BckjBizYhxx bckjBizYhxx) {
 		return super.findPage(page, bckjBizYhxx);
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void save(BckjBizYhxx bckjBizYhxx) {
 		super.saveOrUpdate(bckjBizYhxx);
@@ -74,11 +72,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 	public void delete(BckjBizYhxx bckjBizYhxx) {
 		super.delete(bckjBizYhxx);
 	}
-	@Autowired
-    BckjBizYhglService bckjBizYhglService;
-    @Autowired
-    BckjBizYhkzService bckjBizYhkzService;
-
 
 	/**
      * <p>方法:findPagebckjBizYhxx TODO后台BckjBizYhxx分页列表</p>
@@ -173,9 +166,24 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         resMap.put("sjh",map.get("sjh"));
         resMap.put("xsxh",map.get("xsxh"));
         resMap.put("xm",map.get("xm"));
+        addLog(map);
         return ResponseMessage.sendOK(resMap);
     }
 
+    private void addLog(Map<String, Object> map) {
+        BckjBizUserlog loginLog=new BckjBizUserlog();
+        loginLog.setDoContent(CommonModuleContant.USER_LOGIN_LOG);
+        loginLog.setDoTime(new Date());
+        loginLog.setYhRefOwid(map.get("owid").toString());
+        loginLog.setYhlx(Integer.valueOf(map.get("olx").toString()));
+        if(null!=map.get("xsxh")) {
+            loginLog.setXsxh(map.get("xsxh").toString());
+        }
+        if(null!=map.get("xm")) {
+            loginLog.setName(map.get("xm").toString());
+        }
+        bckjBizUserlogService.saveOrUpdate(loginLog);
+    }
 
 
     /**

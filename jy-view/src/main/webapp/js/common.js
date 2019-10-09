@@ -13,7 +13,7 @@ $(document).ready(function () {
         }else if(getCookie("userType")==1){
             if(getCookie("stuOwid")){
                 $("#stuInfo").show();
-                $("#stuName").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11));
+                $("#stuName").html(getCookie("stuXm"));
             }
         }
     }
@@ -92,6 +92,7 @@ function confirmDl(url,user) {
                 loginout()
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
+                addCookie("stuXm",data.bean.xm)
                 addCookie("userType","1") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
@@ -134,6 +135,7 @@ function loginout() {
     // delCookie("qyOwid");
     // delCookie("stuSjh");
     // delCookie("stuOwid");
+    document.cookie  = "stuXm=;path=/";
     document.cookie  = "qyInfo=;path=/";
     document.cookie  = "qyOwid=;path=/";
     document.cookie  = "stuSjh=;path=/";
@@ -169,6 +171,27 @@ function keySearch(){
     if (event.keyCode==13){
         searchAll()
     }
+}
+// Close HTML Tags --------------------------------------------
+function closeHTML(str){
+    var arrTags=["span","font","b","u","i","h1","h2","h3","h4","h5","h6","p","li","ul","table","div"];
+    for(var i=0;i<arrTags.length;i++){
+        var intOpen=0;
+        var intClose=0;
+        var re=new RegExp("\\<"+arrTags[i]+"( [^\\<\\>]+|)\\>","ig");
+        var arrMatch=str.match(re);
+        if(arrMatch!=null) intOpen=arrMatch.length;
+        re=new RegExp("\\<\\/"+arrTags[i]+"\\>","ig");
+        arrMatch=str.match(re);
+        if(arrMatch!=null) intClose=arrMatch.length;
+        for(var j=0;j<intOpen-intClose;j++){
+            str+="</"+arrTags[i]+">";
+        }
+        /*for(var j=(intOpen-intClose-1);j>=0;j--){
+         str+="</"+arrTags[i]+">";
+         }*/
+    }
+    return str;
 }
 
 function searchAll() {

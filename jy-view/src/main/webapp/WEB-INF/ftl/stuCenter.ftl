@@ -60,6 +60,9 @@
                         <li class="list-group-item">
                             <span class="ic-menu"></span> 生源信息
                         </li>
+                        <li class="list-group-item">
+                            <span class="ic-menu"></span> 就业方案
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -69,10 +72,11 @@
                         <div class="h3">指导老师</div>
                     </div>
                 <div class="teacher-list">
-                <#if tlist??>
-                    <#list tlist.records as obj>
+                    <#if (tlist??)&&(tlist.records??)&&(tlist.records?size>0)>
+                        <#assign flag=1>
+                        <#list tlist.records as obj>
                         <div class="teacher-item">
-                            <div class="t-bg" style="background: url(${imagePath!""}${obj.zjtx!''})"></div>
+                            <div class="t-bg" style="background: url(${imagePath!""}${obj.zjtx!''});background-size: 100% 100%;"></div>
                         <div class="teacher-detail">
                             <div class="t-name">${obj.zjxm!''}</div>
                             <div class="t-xhx"><span></span></div>
@@ -83,27 +87,15 @@
                             </div>
                         </div>
                     </div>
-                    </#list>
-                </#if>
+                        </#list>
+                    <#else >
+                        <#assign flag=0>
+                    </#if>
                 </div>
                 <div class="text-center">
                     <nav aria-label="Page navigation">
                         <ul class="pagination">
-                        <#--<li>-->
-                            <#--<a href="#" aria-label="Previous">-->
-                            <#--<span aria-hidden="true">&laquo;</span>-->
-                            <#--</a>-->
-                            <#--</li>-->
-                            <#--<li><a href="#">1</a></li>-->
-                            <#--<li><a href="#">2</a></li>-->
-                            <#--<li><a href="#">3</a></li>-->
-                            <#--<li><a href="#">4</a></li>-->
-                            <#--<li><a href="#">5</a></li>-->
-                            <#--<li>-->
-                            <#--<a href="#" aria-label="Next">-->
-                            <#--<span aria-hidden="true">&raquo;</span>-->
-                            <#--</a>-->
-                            <#--</li>-->
+
                         </ul>
                     </nav>
                 </div>
@@ -121,11 +113,13 @@
 <script>
     var currentPage="${tlist.currentPage!'1'}"
     $(document).ready(function () {
-
-        setPage(currentPage, "${tlist.totalPage!'1'}", function () {
-            openUrl('sutCenter/0/'+currentPage)
-        })
-
+        if("${flag}"==0){
+            $(".teacher-list").append(nulltip)
+        }else {
+            setPage(currentPage, "${tlist.totalPage!'1'}", function () {
+                openUrl('sutCenter/0/'+currentPage)
+            })
+        }
         $(".list-group-item").click(function(e) {
             var index=$(this).index()
             window.location.href="/stuCenter/"+index
