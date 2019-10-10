@@ -153,6 +153,76 @@
                         <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10"></textarea>
                     </div>
                 </div>
+                <#--<div class="form-group">
+                    <label for="zdytj1" class="col-sm-2 control-label">自定义条件1：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control"  name="zdytj1" id="zdytj1" />
+                    </div>
+                    <label for="tjsd1" class="col-sm-2 control-label">是否：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="tjsd1" id="tjsd1" />
+                            <option value="">请选择</option>
+                            <option value="1">是</option>
+                            <option value="2">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zdytj2" class="col-sm-2 control-label">自定义条件1：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control"  name="zdytj2" id="zdytj2" />
+                    </div>
+                    <label for="tjsd2" class="col-sm-2 control-label">是否：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="tjsd2" id="tjsd2" />
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zdytj3" class="col-sm-2 control-label">自定义条件1：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control"  name="zdytj3" id="zdytj3" />
+                    </div>
+                    <label for="tjsd3" class="col-sm-2 control-label">是否：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="tjsd3" id="tjsd3" />
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zdytj4" class="col-sm-2 control-label">自定义条件1：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control"  name="zdytj4" id="zdytj4" />
+                    </div>
+                    <label for="tjsd4" class="col-sm-2 control-label">是否：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="tjsd4" id="tjsd4" />
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="zdytj5" class="col-sm-2 control-label">自定义条件1：</label>
+                    <div class="col-sm-4">
+                        <input class="form-control"  name="zdytj5" id="zdytj5" />
+                    </div>
+                    <label for="tjsd5" class="col-sm-2 control-label">是否：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="tjsd5" id="tjsd5" />
+                        <option value="">请选择</option>
+                        <option value="1">是</option>
+                        <option value="2">否</option>
+                        </select>
+                    </div>
+                </div>-->
                 <div class="form-group">
                     <label for="zwSxsj" class="col-sm-2 control-label">失效时间：</label>
                     <div class="col-sm-3">
