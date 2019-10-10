@@ -123,8 +123,8 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      *<li>@date 2019/9/22 18:14  </li>
      *</ul>
      */
-    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName) {
-        return this.dao.getByMajor(collegeName, majorName);
+    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName, String pmnf) {
+        return this.dao.getByMajor(collegeName, majorName, pmnf);
     }
 
 	/**

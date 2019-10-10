@@ -73,7 +73,7 @@
 		select <include refid="bckjBizJypmColumns"></include>
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"></include>
-		where a.pmzy=#{majorName} and a.szxy=#{collegeName}
+		where a.pmzy=#{majorName} and a.szxy=#{collegeName} and a.pmnf=#{pmnf}
 	</select>
 
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
