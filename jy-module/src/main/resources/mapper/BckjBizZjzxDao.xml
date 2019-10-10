@@ -319,4 +319,8 @@
 				a.owid = b.yhid AND  a.yhlx=1 and a.owid =#{owid}
 			</where>
 	</select>
+
+	<delete id="deleteByHyid">
+      DELETE FROM bckj_biz_zjzx WHERE yhid = #{owid}
+  </delete>
 </mapper>

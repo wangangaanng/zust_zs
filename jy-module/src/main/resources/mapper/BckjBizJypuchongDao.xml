@@ -5,6 +5,7 @@
 	<sql id="bckjBizJypuchongColumns">
 		a.owid AS "owid",
 		a.xsxh AS "xsxh",
+		a.sfsf as "sfsf",
 		a.sfzz AS "sfzz",
 		a.sfdlxy AS "sfdlxy",
 		a.jyqdbz AS "jyqdbz",
@@ -13,6 +14,7 @@
 		a.yrdwlsmc AS "yrdwlsmc",
 		a.bddddm AS "bddddm",
 		a.xjcqk AS "xjcqk",
+		a.dwszddm as "dwszddm",
 		a.createtime AS "createtime",
 		a.creator AS "creator",
 		a.creator_name AS "creatorName",
@@ -85,6 +87,7 @@
 		INSERT INTO bckj_biz_jypuchong(
 			owid,
 			xsxh,
+			sfsf,
 			sfzz,
 			sfdlxy,
 			jyqdbz,
@@ -93,6 +96,7 @@
 			yrdwlsmc,
 			bddddm,
 			xjcqk,
+			dwszddm,
 			createtime,
 			creator,
 			creator_name,
@@ -118,6 +122,7 @@
 		) VALUES (
 			#{owid},
 			#{xsxh},
+			#{sfsf},
 			#{sfzz},
 			#{sfdlxy},
 			#{jyqdbz},
@@ -126,6 +131,7 @@
 			#{yrdwlsmc},
 			#{bddddm},
 			#{xjcqk},
+			#{dwszddm},
 			#{createtime},
 			#{creator},
 			#{creatorName},
@@ -155,6 +161,7 @@
 		UPDATE bckj_biz_jypuchong SET 	
 			owid = #{owid},
 			xsxh = #{xsxh},
+			sfsf=#{sfsf},
 			sfzz = #{sfzz},
 			sfdlxy = #{sfdlxy},
 			jyqdbz = #{jyqdbz},
@@ -163,6 +170,7 @@
 			yrdwlsmc = #{yrdwlsmc},
 			bddddm = #{bddddm},
 			xjcqk = #{xjcqk},
+			dwszddm=#{dwszddm},
 			createtime = #{createtime},
 			creator = #{creator},
 			creator_name = #{creatorName},
