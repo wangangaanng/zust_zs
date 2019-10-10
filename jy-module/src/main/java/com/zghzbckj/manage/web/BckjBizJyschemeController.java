@@ -158,5 +158,26 @@ public class BckjBizJyschemeController extends BaseController {
         }
     }
 
+    /**
+     * 导入单位所在地字典表 导入
+     * @param dataVO
+     * @return
+     */
+    @RequestMapping("dqRecordInfo")
+    @ResponseBody
+    public ResponseMessage dqRecordInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJyschemeService.recordInfo(dataMap.get("path").toString()));
+
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 }

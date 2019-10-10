@@ -32,8 +32,13 @@ public class RecordInfo implements ComponentFileSer {
     //就业排行榜url
     public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
     //上传excela保存的本地地址
-    public final String FolderPath = "/mnt/files/zjcFiles/excel/";
-//    public final String FolderPath = "F:\\img\\";
+   // public final String FolderPath = "/mnt/files/zjcFiles/excel/";
+    public final String FolderPath = "F:\\img\\";
+    //地区典表 导入
+    public  final String dwszURL="web/zustjy/bckjBizJyscheme/dqRecordInfo";
+
+
+
     @Override
     public void doAction(BaseWindow window, Map<String, Object> map, String s) {
         String url = "";
@@ -52,6 +57,9 @@ public class RecordInfo implements ComponentFileSer {
         }
         if (pageCA.indexOf("rankList") != -1) {
             url = rankURL;
+        }
+        if (pageCA.indexOf("location") != -1) {
+            url = dwszURL;
         }
         String result = "";
         String path = map.get("filePath").toString();
