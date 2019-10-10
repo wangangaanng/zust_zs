@@ -745,6 +745,13 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "errerIp", method = RequestMethod.GET)
+    public ModelAndView errerIp(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("errerIp");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        return view;
+    }
 
     @RequestMapping(value = "ranking", method = RequestMethod.GET)
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {

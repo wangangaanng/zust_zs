@@ -169,6 +169,9 @@
                 <li class="link2" onclick="window.location.href='/stuCenter/2'">
                     <i class="icon bg-qy_xc"></i><em>报名预约</em>
                 </li>
+                <li class="link2" onclick="window.location.href='/stuCenter/5'">
+                    <i class="icon bg-icon_fa"></i><em>就业方案</em>
+                </li>
             </ul>
         </div>
         <!-- E a_right-->

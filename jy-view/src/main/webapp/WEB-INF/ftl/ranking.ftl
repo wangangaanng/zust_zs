@@ -15,6 +15,7 @@
     .total td{color:red !important;}
     .xymc{font-size: 20px;}
     .xypm{font-size: 32px;color: #6c9d9c !important;}
+    .table-title{width: 100%;text-align: center;overflow: hidden;font-size: 26px;}
 </style>
 
 <body>
@@ -41,15 +42,16 @@
                     </select>
                 </div>
             </div>
-            <table class="table table-bordered" style="margin-top: 50px;">
+            <div class="table-title"><span id="year1"></span>年就业排行榜</div>
+            <table class="table table-bordered" style="margin-top: 20px;">
                 <thead class="thead1">
                 <tr>
                     <th>学院名称</th>
                     <th>专业名称</th>
                     <th>毕业生人数</th>
-                    <th>签约数</th>
+                    <#--<th>签约数</th>
                     <th>应聘数</th>
-                    <th>签约率</th>
+                    <th>签约率</th>-->
                     <th>就业率</th>
                     <th>排名</th>
                 </tr>
@@ -128,6 +130,7 @@
                 walert("请选择年份")
                 return
             }
+            $("#year1").html($("#year").val())
             $(".table tbody").html("")
             var jsonObj={
                 "pmnf":$("#year").val()
@@ -145,9 +148,9 @@
                                             '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
                                             '<td>'+n.pmzy+'</td>\n' +
                                             '<td>'+n.pmbyrs+'</td>\n' +
-                                            '<td>'+n.pmqyrs+'</td>\n' +
+                                            /*'<td>'+n.pmqyrs+'</td>\n' +
                                             '<td>'+n.pmyprs+'</td>\n' +
-                                            '<td>'+n.pmqyl+'%</td>\n' +
+                                            '<td>'+n.pmqyl+'%</td>\n' +*/
                                             '<td>'+n.pmjyl+'%</td>\n' +
                                             '<td rowspan="'+p.pmzyList.length+'" class="xypm">'+parseInt(k+1)+'</td>\n' +
                                             '</tr>'
@@ -161,17 +164,20 @@
                                     str+='<tr class="'+totalClass+'">\n' +
                                             '<td>'+n.pmzy+'</td>\n' +
                                             '<td>'+n.pmbyrs+'</td>\n' +
-                                            '<td>'+n.pmqyrs+'</td>\n' +
+                                            /*'<td>'+n.pmqyrs+'</td>\n' +
                                             '<td>'+n.pmyprs+'</td>\n' +
-                                            '<td>'+n.pmqyl+'%</td>\n' +
+                                            '<td>'+n.pmqyl+'%</td>\n' +*/
                                             '<td>'+n.pmjyl+'%</td>\n' +
                                             '</tr>'
                                 }
 
                             })
-                            str+='<tr>\n' +
-                                    '<td colspan="8"></td>\n' +
-                                    '</tr>'
+                            if(k<data.bean.records.length-1){
+                                str+='<tr>\n' +
+                                        '<td colspan="8"></td>\n' +
+                                        '</tr>'
+                            }
+
                             $(".table tbody").append(str);
                         })
                     }else{

@@ -154,7 +154,7 @@ public class BckjBizDcwjController extends BaseController {
             }
             //判断调查人数是否已满
             int maxNumber = bckjBizDcwjJgService.countPeople(dataMap.get("dcwjRefOwid").toString());
-            if (maxNumber > questionnaire.getDcrs()) {
+            if (maxNumber > questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查人数已满，无需再填写");
             }
             //若有答题人id，查找答题人姓名
