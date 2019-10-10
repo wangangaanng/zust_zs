@@ -424,4 +424,13 @@
 			</if>
 		</where>
 	</select>
+
+	<update id="insertDicVal1"  parameterType="Map" >
+		insert  into  ourway_sys_dic (owid,type) values (#{owid},#{type1})
+	</update>
+
+	<update id="insertDicVal2"  parameterType="Map" >
+		insert  into  ourway_sys_dic_value (owid,dic_Ref_Owid,dic_val1,dic_val2) values (#{owid},#{dicRefOwid},#{val1},#{val2})
+	</update>
+
 </mapper>

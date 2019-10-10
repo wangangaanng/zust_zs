@@ -28,4 +28,7 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     BckjBizJyscheme getJyschemeByMap(Map<String, Object> sendMap);
 
+    void insertDicVal1(HashMap<Object, Object> sendMap1);
+
+    void insertDicVal2(HashMap<Object, Object> sendMap2);
 }

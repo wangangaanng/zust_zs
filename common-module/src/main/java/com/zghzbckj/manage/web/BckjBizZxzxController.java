@@ -16,6 +16,7 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizZxzxService;
 import com.zghzbckj.util.IpAdrressUtil;
+import com.zghzbckj.util.MapUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -308,6 +309,9 @@ public class BckjBizZxzxController extends BaseController {
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            if(TextUtils.isEmpty(dataMap.get("danr"))){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"请输入回复内容");
             }
             return  bckjBizZxzxService.saveZxzxDetail(dataMap);
         }
