@@ -3,7 +3,9 @@ package com.zghzbckj.web.controll;
 import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.web.constant.CommonConstant;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
@@ -227,7 +229,9 @@ public class DemoController {
         param.put("yhOwid",stuOwid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("result",result.getBean());
+        Map content=(Map)result.getBean();
+        content.put("memo", MapUtils.getString(content,"memo").replace("\n",CommonConstant.EMPTY_STR));
+        view.addObject("result",content);
         return view;
     }
 
