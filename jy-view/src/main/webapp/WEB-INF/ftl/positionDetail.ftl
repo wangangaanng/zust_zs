@@ -196,18 +196,29 @@
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
                                 </#if>
-                                <#assign qy=result.qyxx>
                                 <dl class="info">
-                                    <dt><a href="">${qy.qymc!''}</a></dt>
+                                    <#if result.qyxx??>
+                                        <#assign qy=result.qyxx>
+                                        <dt><a href="">${qy.qymc!''}</a></dt>
+                                    <#else >
+                                        <dt><a href="">未知企业</a></dt>
+                                    </#if>
                                     <dd>
                                         <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
                                     </dd>
                                 </dl>
                             </div>
                             <ul class="xInfo">
+                            <#if result.qyxx??>
+                                <#assign qy=result.qyxx>
                                 <li>公司性质：<span>${qy.qyGsxzStr!''}</span></li>
                                 <li>公司行业：<span>${qy.qyHylbStr!''}</span></li>
                                 <li>公司规模：<span>${qy.qyGsgmStr!'未知'}</span></li>
+                            <#else >
+                                <li>公司性质：<span>未知</span></li>
+                                <li>公司行业：<span>未知</span></li>
+                                <li>公司规模：<span>未知</span></li>
+                            </#if>
                             </ul>
                             <ul class="xInfo xInfo-2 cl">
                                 <li>工作性质：<span>${result.zwGzxzStr!''}</span></li>
@@ -246,6 +257,8 @@
                             <div class="frame-body tabbar-frame_content">
                                 <div><p>${result.zwGwzz!''}</p></div>
                             </div>
+                            <#if result.qyxx??>
+                                <#assign qy=result.qyxx>
                             <div class="position-tabcontent">
                                 <div class="position-tabbar"><ul><li class="active"><a>公司简介</a></li><li><a>联系方式</a></li></ul></div>
                                 <div class="frame-body tabbar-frame_content">
@@ -262,6 +275,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </#if>
                         </#if>
 
                     </div>
