@@ -188,10 +188,10 @@
 
             var curDate=new Date();
             if(d <=curDate){
-                var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+                var c = '<span class="tag-grey">过期</span><a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
                 return c;
             }else{
-                var c = '<span class="tag-grey">过期</span><a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
+                var c = '<a class="green-color order" href="${base}/positionDetail/'+row.owid+'">'+row.zwbt+'</a> ';
                 return c;
             }
         }else{

@@ -26,7 +26,7 @@
                     <div class="position-detail">
                         <#if (result??)&&(result.zwlx==1)>
                             <div class="position-head">
-                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
                                     <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
@@ -68,7 +68,7 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==2)>
                             <div class="position-head">
-                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
                                     <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
@@ -106,7 +106,7 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==3)>
                             <div class="position-head">
-                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
                                     <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
@@ -149,7 +149,7 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==4)>
                             <div class="position-head">
-                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
                                     <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
@@ -191,7 +191,7 @@
                         </#if>
                         <#if (result??)&&(result.zwlx==0)>
                             <div class="position-head">
-                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date)>
+                                <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
                                     <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
