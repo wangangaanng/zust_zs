@@ -124,4 +124,6 @@ public final class CommonConstant {
     public static String PDF_HEADER_KEY = "pdfHeader";
     public static String PDF_FOOTER1_KEY = "pdfFooter1";
     public static String PDF_FOOTER2_KEY = "pdfFooter2";
+
+    public final static String EMPTY_STR ="";
 }
