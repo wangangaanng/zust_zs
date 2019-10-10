@@ -21,12 +21,13 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 	private String zydhTwo;		// zydh_two
 	private String zydhThree;		// zydh_three
 	private String zydhFour;		// zydh_four
-	private String zydhFive;		// zydh_five
+		private String zydhFive;		// zydh_five
 	private String zydhSix;		// zydh_six
 	private Integer kslb;		// kslb
 	private Integer bylb;		// bylb
 	private Integer zxdm;		// zxdm
 	private String zxmc;		// zxmc
+	private String syddm;
 	private String kstc;		// kstc
 	private String hjqk;		// hjqk
 	private String sjr;		// sjr
@@ -55,8 +56,14 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 	private Integer jf;		// jf
 	private String memo;		// memo
 
-	
 
+	public String getSyddm() {
+		return syddm;
+	}
+
+	public void setSyddm(String syddm) {
+		this.syddm = syddm;
+	}
 	
 	@Length(min=0, max=40, message="xsxh长度必须介于 0 和 40 之间")
 	public String getXsxh() {
