@@ -3,23 +3,23 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.fastjson.JSON;
-import com.sun.org.apache.regexp.internal.RE;
-import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.common.RepeatException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.CommonConstants;
-import org.springframework.web.bind.annotation.*;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizDacxService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +28,7 @@ import java.util.Map;
 
 /**
  * ccController
+ *
  * @author cc
  * @version 2019-09-09
  */
@@ -197,25 +198,23 @@ public class BckjBizDacxController extends BaseController {
      */
     @PostMapping("saveDacx")
     @ResponseBody
-    public ResponseMessage saveDacx(PublicDataVO dataVO){
-        try{
+    public ResponseMessage saveDacx(PublicDataVO dataVO) {
+        try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
-            if(((ArrayList)dataMap.get("dataList")).size()==0){
+            if (((ArrayList) dataMap.get("dataList")).size() == 0) {
                 return ResponseMessage.sendOK("无更新数据");
             }
-            List<Map<String, Object>> components = (List)dataMap.get("dataList");
-            if(components.size()==0){
+            List<Map<String, Object>> components = (List) dataMap.get("dataList");
+            if (components.size() == 0) {
                 return ResponseMessage.sendOK("无更新数据");
             }
             return bckjBizDacxService.saveStudentInfo(components);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
 
 
     /**
@@ -230,22 +229,20 @@ public class BckjBizDacxController extends BaseController {
      */
     @PostMapping("insertssInfo")
     @ResponseBody
-    public ResponseMessage insertssInfo(PublicDataVO dataVO){
-        try{
+    public ResponseMessage insertssInfo(PublicDataVO dataVO) {
+        try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             return bckjBizDacxService.insertssInfo(dataMap);
-        }
-        catch (StringIndexOutOfBoundsException e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"输入时间格式错误");
-        }
-        catch (Exception e)
-        {
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (StringIndexOutOfBoundsException e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "输入时间格式错误");
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
 
     }
+
     /**
      * <p>功能描述:档案详情信息</p >
      * <ul>
@@ -258,18 +255,17 @@ public class BckjBizDacxController extends BaseController {
      */
     @PostMapping("getDacxOne")
     @ResponseBody
-    public ResponseMessage getDacxOne(PublicDataVO dataVO){
+    public ResponseMessage getDacxOne(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap= JsonUtil.jsonToMap(dataVO.getData());
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return bckjBizDacxService.getDacxOne(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
 
         }
 

@@ -66,6 +66,96 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private String zwXlyqStr;
     private String zwYyyqStr;
     private String zwGznxStr;
+    private String zdytj1;
+    private String zdytj2;
+    private String zdytj3;
+    private String zdytj4;
+    private String zdytj5;
+    private Integer tjsd1;
+    private Integer tjsd2;
+    private Integer tjsd3;
+    private Integer tjsd4;
+    private Integer tjsd5;
+
+    public String getZdytj1() {
+        return zdytj1;
+    }
+
+    public void setZdytj1(String zdytj1) {
+        this.zdytj1 = zdytj1;
+    }
+
+    public String getZdytj2() {
+        return zdytj2;
+    }
+
+    public void setZdytj2(String zdytj2) {
+        this.zdytj2 = zdytj2;
+    }
+
+    public String getZdytj3() {
+        return zdytj3;
+    }
+
+    public void setZdytj3(String zdytj3) {
+        this.zdytj3 = zdytj3;
+    }
+
+    public String getZdytj4() {
+        return zdytj4;
+    }
+
+    public void setZdytj4(String zdytj4) {
+        this.zdytj4 = zdytj4;
+    }
+
+    public String getZdytj5() {
+        return zdytj5;
+    }
+
+    public void setZdytj5(String zdytj5) {
+        this.zdytj5 = zdytj5;
+    }
+
+    public Integer getTjsd1() {
+        return tjsd1;
+    }
+
+    public void setTjsd1(Integer tjsd1) {
+        this.tjsd1 = tjsd1;
+    }
+
+    public Integer getTjsd2() {
+        return tjsd2;
+    }
+
+    public void setTjsd2(Integer tjsd2) {
+        this.tjsd2 = tjsd2;
+    }
+
+    public Integer getTjsd3() {
+        return tjsd3;
+    }
+
+    public void setTjsd3(Integer tjsd3) {
+        this.tjsd3 = tjsd3;
+    }
+
+    public Integer getTjsd4() {
+        return tjsd4;
+    }
+
+    public void setTjsd4(Integer tjsd4) {
+        this.tjsd4 = tjsd4;
+    }
+
+    public Integer getTjsd5() {
+        return tjsd5;
+    }
+
+    public void setTjsd5(Integer tjsd5) {
+        this.tjsd5 = tjsd5;
+    }
 
     private String qymc;
     private BckjBizQyxx qyxx;
