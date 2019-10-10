@@ -168,7 +168,7 @@
                             <ul class="xInfo">
                                 <li>公司性质：<span>${qy.qyGsxzStr!''}</span></li>
                                 <li>公司行业：<span>${qy.qyHylbStr!''}</span></li>
-                                <li>公司规模：<span>${qy.qyGsgmStr}</span></li>
+                                <li>公司规模：<span>${qy.qyGsgmStr!''}</span></li>
                             </ul>
                             <ul class="xInfo xInfo-2 cl">
                                 <li>工作性质：<span>${result.zwGzxzStr!''}</span></li>
