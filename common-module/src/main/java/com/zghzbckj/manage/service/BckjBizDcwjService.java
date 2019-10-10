@@ -91,17 +91,10 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         }
         List<Map<String, Object>> dataList = new ArrayList<>();
         List<BckjBizDcwj> questionnaireList = result.getRecords();
+        Map<String, Object> objectMap = null;
         for (BckjBizDcwj questionnaire : questionnaireList) {
-            Map<String, Object> objectMap = new HashMap<>();
-            objectMap.put("owid", questionnaire.getOwid());
-            objectMap.put("wjmc", questionnaire.getWjmc());
-            objectMap.put("wjjj", questionnaire.getWjjj());
-            objectMap.put("wjjjtp", questionnaire.getWjjjtp());
-            objectMap.put("wjsm", questionnaire.getWjsm());
-            objectMap.put("kssj", questionnaire.getKssj());
-            objectMap.put("jssj", questionnaire.getJssj());
-            objectMap.put("sfdl", questionnaire.getSfdl());
-            objectMap.put("mxdx", questionnaire.getMxdx());
+            objectMap = new HashMap<>();
+            BeanUtil.obj2Map(questionnaire, objectMap);
             Date endTime = questionnaire.getJssj();
             //系统时间大于问卷结束时间，无效
             if (System.currentTimeMillis() > endTime.getTime()) {
@@ -162,16 +155,18 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             return null;
         }
         List<Map<String, Object>> dataList = new ArrayList<>();
+        Map<String, Object> objectMap = null;
         for (BckjBizDcwjTm question : questionList) {
-            Map<String, Object> objectMap = new HashMap<>();
-            objectMap.put("owid", question.getOwid());
-            objectMap.put("tmsx", question.getTmsx());
-            objectMap.put("tmfz", question.getTmfz());
-            objectMap.put("dcwjRefOwid", question.getDcwjRefOwid());
-            objectMap.put("tmlx", question.getTmlx());
-            objectMap.put("tmmc", question.getTmmc());
-            objectMap.put("tmckda", question.getTmckda());
-            objectMap.put("tmsm", question.getTmsm());
+            objectMap = new HashMap<>();
+//            objectMap.put("owid", question.getOwid());
+//            objectMap.put("tmsx", question.getTmsx());
+//            objectMap.put("tmfz", question.getTmfz());
+//            objectMap.put("dcwjRefOwid", question.getDcwjRefOwid());
+//            objectMap.put("tmlx", question.getTmlx());
+//            objectMap.put("tmmc", question.getTmmc());
+//            objectMap.put("tmckda", question.getTmckda());
+//            objectMap.put("tmsm", question.getTmsm());
+            BeanUtil.obj2Map(question, objectMap);
             List<Map<String, Object>> optionList = new ArrayList<>();
             //查出选项，放入选项列表
             Map<String, Object> tmMap = bckjBizDcwjTmDao.getOption(question.getOwid());

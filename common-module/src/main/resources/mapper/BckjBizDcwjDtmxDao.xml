@@ -35,7 +35,14 @@
 	
 	<sql id="bckjBizDcwjDtmxJoins">
 	</sql>
-	
+
+	<select id="listDtmx" resultType="com.zghzbckj.manage.entity.BckjBizDcwjDtmx">
+		select <include refid="bckjBizDcwjDtmxColumns"/>
+		from bckj_biz_dcwj_dtmx a
+		<include refid="bckjBizDcwjDtmxJoins"/>
+		where a.dcwjjg_ref_owid=#{dcwjjgRefOwid}
+	</select>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjDtmx">
 		SELECT 
 			<include refid="bckjBizDcwjDtmxColumns"/>

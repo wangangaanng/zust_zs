@@ -8,6 +8,9 @@ import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -15,5 +18,7 @@ import org.apache.ibatis.annotations.Param;
  */
 @MyBatisDao
 public interface BckjBizDcwjDtmxDao extends CrudDao<BckjBizDcwjDtmx> {
-	
+
+    List<BckjBizDcwjDtmx> listDtmx(@Param("dcwjjgRefOwid") String dcwjjgRefOwid);
+
 }
