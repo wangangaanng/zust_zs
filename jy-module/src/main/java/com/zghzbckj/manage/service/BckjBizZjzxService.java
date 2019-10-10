@@ -128,7 +128,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             Map<String, Object> params = new HashMap<String, Object>(1);
             BckjBizZjzx bckjBizZjzx = new BckjBizZjzx();
             bckjBizZjzx.setOwid(owid);
-            this.dao.delete(bckjBizZjzx);
+            this.dao.deleteByHyid(bckjBizZjzx);
             params.put("owid", owid);
             objs.add(params);
         }
@@ -285,38 +285,6 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
                     component.remove("owid");
                     delete(JsonUtil.map2Bean(component, BckjBizZjzx.class));
                 }
-               /* if (Integer.parseInt(component.get("updateFlag").toString()) == 1) {
-                    //如果為更新
-                    if (component.get("owid") != null) {
-                        component.put("yhDlmm", com.zghzbckj.util.TextUtils.MD5(component.get("exp1").toString()));
-                        ResponseMessage responseMessage = bckjbizyhxxSer.saveconInfo(JsonUtil.map2Bean(component, BckjBizYhxxVo.class));
-                        if (responseMessage == null || responseMessage.getBackCode() != 0 || responseMessage.getBean() == null) {
-                            throw new Exception(CommonConstant.ERROR_MESSAGE);
-                        }
-                        if (responseMessage.getBean().toString().indexOf("错误") != -1) {
-                            throw new Exception(CommonConstant.ERROR_MESSAGE);
-                        }
-                        component.put("yhlx", 1);
-                        component.put("yhid", component.get("owid"));
-                        component.remove("owid");
-                        this.dao.updateBycondition(component);
-                        //否则为新建
-                    } *//*else if (component.get("owid") == null) {
-                        component.put("yhlx", 1);
-                        component.put("xm", component.get("zjxm"));
-                        BckjBizYhxxVo bckjBizYhxx1 = JsonUtil.map2Bean(component, BckjBizYhxxVo.class);
-                        String owid = CustomSaveALL.preInsert(bckjBizYhxx1);
-                        ResponseMessage responseMessage = bckjbizyhxxSer.insertInfo(bckjBizYhxx1);
-                        if (responseMessage == null || responseMessage.getBackCode() != 0 || responseMessage.getBean() == null) {
-                            throw new Exception(CommonConstant.ERROR_MESSAGE);
-                        }
-                        if (responseMessage.getBean().toString().indexOf("错误") != -1) {
-                            throw new Exception(CommonConstant.ERROR_MESSAGE);
-                        }
-                        component.put("yhid", owid);
-                        saveOrUpdate(JsonUtil.map2Bean(component, BckjBizZjzx.class));
-                    }*//*
-                }*/
             }
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         } catch (Exception e) {
