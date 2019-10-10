@@ -27,15 +27,9 @@ $(document).ready(function () {
                 required: true,
                 isMobile: true
             },
+            byxl:"required",
             byqx:"required",
-            yrdwmc:"required",
-            yrdwdm:"required",
-            yrdwxz:"required",
-            dwlbmc:"required",
-            dwszdmc:"required",
-            gzzwlbmc:"required",
-            sfzydk:"required",
-            datddw:"required",
+            bdzqflbmc:"required",
         },
         messages: {
             xm:"请填写",
@@ -51,15 +45,9 @@ $(document).ready(function () {
                 required: "请填写",
                 email: "手机号有误"
             },
-            byqx:"请填写",
-            yrdwmc:"请填写",
-            yrdwdm:"请填写",
-            yrdwxz:"请填写",
-            dwlbmc:"请填写",
-            dwszdmc:"请填写",
-            gzzwlbmc:"请填写",
-            sfzydk:"请选择",
-            datddw:"请填写",
+            byxl:"请填写",
+            byqx:"请选择",
+            bdzqflbmc:"请选择",
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {
@@ -80,9 +68,16 @@ $(document).ready(function () {
         }
     });
 
-    $("#sfzydk").val($("#sel1").val())
-    $("#sfdydwbdz").val($("#sel2").val())
-    $("#xb").val($("#sel3").val())
+    $("#sfzydk").val($("#sfzydk").attr("data-val"))
+    $("#sfdydwbdz").val($("#sfdydwbdz").attr("data-val"))
+    $("#xb").val($("#xb").attr("data-val"))
+    $("#byqx").val($("#byqx").attr("data-val"))
+    $("#yrdwxz").val($("#yrdwxz").attr("data-val"))
+    $("#dwlbmc").val($("#dwlbmc").attr("data-val"))
+    $("#dwszdmc").val($("#dwszdmc").attr("data-val"))
+    $("#gzzwlbmc").val($("#gzzwlbmc").attr("data-val"))
+    $("#bdzqflbmc").val($("#bdzqflbmc").attr("data-val"))
+    $("#bdzszdmc").val($("#bdzszdmc").attr("data-val"))
     getJyBaseInfo()
 })
 
