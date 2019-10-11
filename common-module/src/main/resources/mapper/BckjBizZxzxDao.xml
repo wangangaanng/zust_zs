@@ -272,7 +272,7 @@
 		a.hf_Owid as hfOwid, a.hf_Name as hfName,
 		a.zxzyid as zxzyid,a.wtnr as wtnr ,a.danr as danr ,
 		a.twrq as twrq ,a.hdrq as hdrq,
-		a.owid as owid,a.state as state,a.dh as dh
+		a.owid as owid,a.state as state,a.dh as dh , a.exp1 as exp1
 		from bckj_biz_zxzx a
 		<where>
 			<if test="zxlx!=null and zxlx!=''">
@@ -280,6 +280,9 @@
 			</if>
 			<if test="twOwid!=null and twOwid!=''">
 				and a.tw_owid=#{twOwid}
+			</if>
+			<if test="state!=null and state!=''">
+				and a.state=#{state}
 			</if>
 		</where>
 		order by  a.createtime desc
@@ -326,9 +329,14 @@
 
 	<select id="historyMessage" parameterType="Map" resultType="Map">
 		select * from bckj_biz_zxzx
-		where state=2 and zxlx=5
+		where exp1=2 and zxlx=5
 		order by  createtime desc
 	</select>
+
+	<update id="faBu" parameterType="Map">
+		update bckj_biz_zxzx set exp1=#{exp1} where owid =#{owid}
+	</update>
+
 
 	
 </mapper>

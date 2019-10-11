@@ -64,11 +64,12 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .company-form li:nth-of-type(2){background-color: #f5b900;color: #000;margin-bottom: 10px;}
 .company-form li:nth-of-type(3){background-color: #035994;color: #FFF;margin-bottom: 10px;}
 .company-form li:nth-of-type(4){background-color: #1f1a17;color: #FFF;}
-.company-form1 li p{margin-top: 25px;margin-bottom: 45px;}
 .company-form li p{margin-top: 25px;margin-bottom: 45px;}
+.company-form1 li p{margin-top: 25px;margin-bottom: 30px;}
 .company-form1 li:nth-of-type(2){background-color: #035994;color: #FFF;margin-bottom: 10px;}
 .company-form1 li:nth-of-type(3){background-color: #f5b900;color: #000;margin-bottom: 10px;}
-.company-form1 li:nth-of-type(4){background-color: #1f1a17;color: #FFF;}
+.company-form1 li:nth-of-type(4){background-color: #1f1a17;color: #FFF;margin-bottom: 10px;}
+.company-form1 li:nth-of-type(5){background-color: #008784;color: #FFF;}
 .login-inform li:nth-of-type(2){margin-bottom: 30px;}
 .login-inform-qy li:nth-of-type(2),.login-inform-qy li:nth-of-type(3){margin-bottom: 12px;text-align: right;}
 .stu_info{width:100%;height:100%;display: flex;flex-direction: column;justify-content:center;align-items:center;}
@@ -131,7 +132,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 
 .adv{display: flex;justify-content: space-between;margin: 20px 0px;}
 .link{display: flex;justify-content: space-around;margin: 20px 0px;background: #f7f7f7;padding: 15px 8px;}
-
+.adv li,.link li{  cursor: pointer;}
 /* 四宫格 */
 .frame-c_right{border: none;}
 .frame-c_right .menue-container{
@@ -160,6 +161,7 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
     width: 155px;
     height: 130px;
     margin: 5px;
+    cursor: pointer;
 }
 .frame-c_right .menue-item>div img{margin-top: 12px;}
 .frame-c_right .menue-item>div>div{line-height: 18px;}
@@ -220,4 +222,11 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
 .bg-rl2 {
     width: 30px; height: 30px;
     background: url('../img/css_sprites.png') -110px -110px;
+}
+
+
+.bg-icon_fa {
+    width: 30px; height: 30px;
+    background: url('../img/css_sprites.png') -160px -15px;
+    vertical-align: middle;
 }

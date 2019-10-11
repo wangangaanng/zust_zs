@@ -4,23 +4,31 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.dao.BckjBizDcwjDao;
+import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
+import com.zghzbckj.manage.entity.BckjBizDcwj;
+import com.zghzbckj.manage.entity.BckjBizDcwjTm;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.PublicDataVO;
+import com.zghzbckj.base.model.ResponseMessage;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
-import com.zghzbckj.base.entity.Page;
-import com.zghzbckj.base.entity.PageInfo;
-import com.zghzbckj.base.model.FilterModel;
-import com.zghzbckj.base.model.ResponseMessage;
-import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.manage.dao.BckjBizDcwjDtmxDao;
-import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
-import org.apache.log4j.Logger;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.log4j.Logger;
+import com.zghzbckj.base.entity.Page;
+import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
+import com.zghzbckj.manage.dao.BckjBizDcwjDtmxDao;
 
 /**
  * ccService
@@ -31,6 +39,11 @@ import java.util.Map;
 @Service
 @Transactional(readOnly = true)
 public class BckjBizDcwjDtmxService extends CrudService<BckjBizDcwjDtmxDao, BckjBizDcwjDtmx> {
+
+    @Autowired
+    BckjBizDcwjTmDao bckjBizDcwjTmDao;
+    @Autowired
+    BckjBizDcwjDao bckjBizDcwjDao;
 
     private static final Logger log = Logger.getLogger(BckjBizDcwjDtmxService.class);
 
@@ -60,6 +73,33 @@ public class BckjBizDcwjDtmxService extends CrudService<BckjBizDcwjDtmxDao, Bckj
         super.delete(bckjBizDcwjDtmx);
     }
 
+    public PageInfo<Map<String, Object>> findResultPage(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
+        PageInfo<BckjBizDcwjDtmx> mxPage = findPage(dataMap, pageNo, pageSize, "createtime");
+        if (TextUtils.isEmpty(mxPage.getRecords())) {
+            return null;
+        }
+        List<BckjBizDcwjDtmx> mxList = mxPage.getRecords();
+        List<Map<String, Object>> dataList = new ArrayList<>();
+        for (BckjBizDcwjDtmx mx : mxList) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("wjda", mx.getWjda());
+            BckjBizDcwjTm tm = bckjBizDcwjTmDao.get(mx.getDcwjtmRefOwid());
+            if (TextUtils.isEmpty(tm)) continue;
+            map.put("wjtm", tm.getTmmc());
+            BckjBizDcwj dcwj = bckjBizDcwjDao.get(tm.getDcwjRefOwid());
+            if (TextUtils.isEmpty(dcwj)) continue;
+            map.put("wjmc", dcwj.getWjmc());
+            dataList.add(map);
+        }
+        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
+        pageInfo.setRecords(dataList);
+        pageInfo.setPageSize(mxPage.getPageSize());
+        pageInfo.setCurrentPage(mxPage.getCurrentPage());
+        pageInfo.setTotalPage(mxPage.getTotalPage());
+        pageInfo.setTotalCount(mxPage.getTotalCount());
+        pageInfo.setCurrentIndex(mxPage.getCurrentIndex());
+        return pageInfo;
+    }
 
     /**
      * <p>方法:findPagebckjBizDcwjDtmx TODO后台BckjBizDcwjDtmx分页列表</p>

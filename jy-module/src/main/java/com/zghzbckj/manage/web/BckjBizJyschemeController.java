@@ -6,6 +6,7 @@ package com.zghzbckj.manage.web;
 import com.alibaba.fastjson.JSON;
 import com.sun.org.apache.regexp.internal.RE;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.service.BckjBizJyschemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -87,23 +88,6 @@ public class BckjBizJyschemeController extends BaseController {
             }
             }
 
-            @RequestMapping(value = "getOne", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage getOne(PublicDataVO dataVO) {
-            try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-
-            ValidateMsg msg = ValidateUtils.isEmpty(mapData,"owid");
-            if(!msg.getSuccess()){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return ResponseMessage.sendOK(bckjBizJyschemeService.get(mapData.get("owid").toString()));
-            } catch (Exception e) {
-
-            log.error(e+"初始BckjBizJyscheme\r\n" +e.getStackTrace()[0] ,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
     /**
      * <p>功能描述:保存学生填写的就业方案</p >
      * <ul>
@@ -152,4 +136,48 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+    /**
+     * 后台详情页面getone 根据 owid
+     */
+    @RequestMapping(value = "getOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOne(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJyschemeService.get(mapData.get("owid").toString()));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizSyb\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 导入单位所在地字典表 导入
+     * @param dataVO
+     * @return
+     */
+    @RequestMapping("dqRecordInfo")
+    @ResponseBody
+    public ResponseMessage dqRecordInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJyschemeService.recordInfo(dataMap.get("path").toString()));
+
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 }

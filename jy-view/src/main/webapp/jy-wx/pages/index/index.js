@@ -12,8 +12,8 @@ Page({
       { text: '招聘信息', icon: '../../../static/index-icon04.png', url: '../recruitment/recruitment' }, 
       { text: '职业指导', icon: '../../../static/index-icon05.png', url: '../newsList/newsList' }, 
       { text: '就业排行榜', icon: '../../../static/index-icon06.png' }, 
-      { text: '学生服务', icon: '../../../static/index-icon07.png' }, 
-      { text: '企业服务', icon: '../../../static/index-icon08.png' }],
+      { text: '学生服务', icon: '../../../static/index-icon07.png', url: '../stuService/stuService' }, 
+      { text: '企业服务', icon: '../../../static/index-icon08.png', url: '../qyService/qyService' }],
   },
   onLoad: function () {
     var data = this.data;

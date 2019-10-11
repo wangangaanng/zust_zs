@@ -30,4 +30,6 @@ public interface BckjBizZxzxDao extends CrudDao<BckjBizZxzx> {
     void saveZxzxDetail(Map<String, Object> dataMap);
 
     List<Object> historyMessage(Map<String, Object> dataMap);
+
+    void faBu(Map<String, Object> dataMap);
 }

@@ -169,6 +169,9 @@
                 <li class="link2" onclick="window.location.href='/stuCenter/2'">
                     <i class="icon bg-qy_xc"></i><em>报名预约</em>
                 </li>
+                <li class="link2" onclick="window.location.href='/stuCenter/5'">
+                    <i class="icon bg-icon_fa"></i><em>就业方案</em>
+                </li>
             </ul>
         </div>
         <!-- E a_right-->
@@ -275,8 +278,8 @@
     <!-- E b -->
     <div>
         <ul class="adv">
-            <li><img src="${base}/img/pic1.png" /></li>
-            <li><img src="${base}/img/pic2.png" /></li>
+            <li onclick="linkUrl('http://gzdc.zjedu.gov.cn/')"><img src="${base}/img/pic1.png" /></li>
+            <li onclick="linkUrl('http://www.ejobmart.cn/jyxt-v5/xtgl/index/initMenu.zf')"><img src="${base}/img/pic2.png" /></li>
             <li onclick="openUrl('ranking')"><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
@@ -325,7 +328,7 @@
             <div class="menue-container" >
                 <div class="menue-parent">
                     <div class="menue-item">
-                        <div>
+                        <div onclick="linkUrl('http://www.ncss.org.cn/')">
                             <img src="${base}/img/menu1.png" />
                             <div>
                                 <strong>全国大学生</strong><br><span>一站式服务系统</span>
@@ -333,7 +336,7 @@
                         </div>
                     </div>
                     <div class="menue-item">
-                        <div>
+                        <div onclick="linkUrl('http://zust.careersky.cn/jixun/')">
                             <img src="${base}/img/menu2.png" />
                             <div>
                                 <br><strong>职业规划测评</strong>
@@ -445,6 +448,7 @@
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
                 addCookie("userType","1") //1学生 0企业
+                addCookie("stuXm",data.bean.xm)
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
@@ -489,7 +493,7 @@
                 $("#qy_pipe").show();
             }else if(getCookie("userType")==1){
                 $(".frame-a_right").hide();
-                $("#stu_tel").html(getCookie("stuSjh").substring(0,3)+"****"+getCookie("stuSjh").substring(7,11))
+                $("#stu_tel").html(getCookie("stuXm"))
                 $("#stu_pipe").show();
             }
         }

@@ -8,6 +8,7 @@ import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizDcwjTm;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,5 +20,7 @@ import java.util.Map;
 public interface BckjBizDcwjTmDao extends CrudDao<BckjBizDcwjTm> {
 
     Map<String, Object> getOption(@Param("owid") String owid);
+
+    List<Map<String, Object>> listQuestion(@Param("dcwjRefOwid") String dcwjRefOwid);
 
 }

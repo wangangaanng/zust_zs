@@ -3,7 +3,9 @@ package com.zghzbckj.web.controll;
 import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.web.constant.CommonConstant;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
@@ -25,6 +27,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * <p>方法 DemoController : <p>
@@ -225,7 +229,9 @@ public class DemoController {
         param.put("yhOwid",stuOwid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("result",result.getBean());
+        Map content=(Map)result.getBean();
+//        content.put("memo", MapUtils.getString(content,"memo").replace("\n",CommonConstant.EMPTY_STR));
+        view.addObject("result",content);
         return view;
     }
 
@@ -716,7 +722,7 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
-    @RequestMapping(value = "stuCenter/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    @RequestMapping(value = "contactUs/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView contactUs(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir, @PathVariable String currentPage) {
         view.setViewName("contactUs");
         view.addObject("header",getHeader().getBean());
@@ -743,14 +749,28 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "errerIp", method = RequestMethod.GET)
+    public ModelAndView errerIp(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("errerIp");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        return view;
+    }
 
     @RequestMapping(value = "ranking", method = RequestMethod.GET)
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
+        String host=request.getRemoteHost();
+        if(!PropertiesUtil.innerIp(host)){
+            view.setViewName("errerIp");
+            return view;
+        }
         view.setViewName("ranking");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
         return view;
     }
+
+
 
     /**
      *根据Cookie名获取对应的Cookie

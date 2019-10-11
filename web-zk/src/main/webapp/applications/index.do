@@ -1,4 +1,4 @@
-<?page title="浙江科技学院招就处一体化"?>
+<?page title="浙江科技学院招就处一体化管理平台"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/bootstrap/themes/bootstrap-default.min.css" if="${empty param.theme}"?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/docs.css" ?>
 <?link rel="stylesheet" type="text/css"    href="/bootstrap/v3/assets/css/pygments-manni.css" ?>
@@ -30,7 +30,7 @@
         <custom-attributes caname="/application/index.do"/>
         <div sclass="navbar">
             <!--  <a image="../charisma/img/img_logo2.png" label="" sclass="pull-left navbar-brand"/>-->
-            <label id="systemTitle" sclass="pull-left navbar-title-label" value="欢迎使用浙江科技学院招就处网站后台管理系统 V1.0"/>
+            <label id="systemTitle" sclass="pull-left navbar-title-label" value="欢迎使用浙江科技学院招就处一体化管理平台 V1.0"/>
             <textbox id="hiddenMessage" visible="false">
                 <custom-attributes org.zkoss.zk.ui.updateByClient="true"/>
             </textbox>

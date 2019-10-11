@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizStudentinfoDao">
+    
+	<sql id="bckjBizStudentinfoColumns">
+		a.owid AS "owid",
+		a.xsxh AS "xsxh",
+		a.zydh_one AS "zydhOne",
+		a.zydh_two AS "zydhTwo",
+		a.zydh_three AS "zydhThree",
+		a.zydh_four AS "zydhFour",
+		a.zydh_five AS "zydhFive",
+		a.zydh_six AS "zydhSix",
+		a.kslb AS "kslb",
+		a.bylb AS "bylb",
+		a.zxdm AS "zxdm",
+		a.zxmc AS "zxmc",
+		a.syddm as "syddm",
+		a.kstc AS "kstc",
+		a.hjqk AS "hjqk",
+		a.sjr AS "sjr",
+		a.tdcj AS "tdcj",
+		a.tdzy AS "tdzy",
+		a.xkkm AS "xkkm",
+		a.yw AS "yw",
+		a.sx AS "sx",
+		a.wy AS "wy",
+		a.wl AS "wl",
+		a.hx AS "hx",
+		a.sw AS "sw",
+		a.zz AS "zz",
+		a.ls AS "ls",
+		a.dl AS "dl",
+		a.js AS "js",
+		a.zhcj AS "zhcj",
+		a.tkmscj AS "tkmscj",
+		a.tkbycj AS "tkbycj",
+		a.tkszcj AS "tkszcj",
+		a.km AS "km",
+		a.pc AS "pc",
+		a.updator AS "updator",
+		a.sg AS "sg",
+		a.tz AS "tz",
+		a.jf AS "jf",
+		a.memo AS "memo",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+	
+	<sql id="bckjBizStudentinfoJoins">
+	</sql>
+    
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizStudentinfo">
+		SELECT 
+			<include refid="bckjBizStudentinfoColumns"/>
+		FROM bckj_biz_studentinfo a
+		<include refid="bckjBizStudentinfoJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizStudentinfo">
+		SELECT 
+			<include refid="bckjBizStudentinfoColumns"/>
+		FROM bckj_biz_studentinfo a
+		<include refid="bckjBizStudentinfoJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizStudentinfo">
+	    SELECT
+			<include refid="bckjBizStudentinfoColumns"/>
+		FROM bckj_biz_studentinfo a
+		<include refid="bckjBizStudentinfoJoins"/>
+		<where>
+			
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO bckj_biz_studentinfo(
+			owid,
+			xsxh,
+			zydh_one,
+			zydh_two,
+			zydh_three,
+			zydh_four,
+			zydh_five,
+			zydh_six,
+			kslb,
+			bylb,
+			zxdm,
+			zxmc,
+			syddm,
+			kstc,
+			hjqk,
+			sjr,
+			tdcj,
+			tdzy,
+			xkkm,
+			yw,
+			sx,
+			wy,
+			wl,
+			hx,
+			sw,
+			zz,
+			ls,
+			dl,
+			js,
+			zhcj,
+			tkmscj,
+			tkbycj,
+			tkszcj,
+			km,
+			pc,
+			updator,
+			sg,
+			tz,
+			jf,
+			memo,
+			createtime,
+			creator,
+			creator_name,
+			lastupdate,
+			updator_name,
+			ver,
+			vertime,
+			dept_id,
+			dept_path,
+			delflg,
+			state,
+			exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10
+		) VALUES (
+			#{owid},
+			#{xsxh},
+			#{zydhOne},
+			#{zydhTwo},
+			#{zydhThree},
+			#{zydhFour},
+			#{zydhFive},
+			#{zydhSix},
+			#{kslb},
+			#{bylb},
+			#{zxdm},
+			#{zxmc},
+			#{syddm},
+			#{kstc},
+			#{hjqk},
+			#{sjr},
+			#{tdcj},
+			#{tdzy},
+			#{xkkm},
+			#{yw},
+			#{sx},
+			#{wy},
+			#{wl},
+			#{hx},
+			#{sw},
+			#{zz},
+			#{ls},
+			#{dl},
+			#{js},
+			#{zhcj},
+			#{tkmscj},
+			#{tkbycj},
+			#{tkszcj},
+			#{km},
+			#{pc},
+			#{updator},
+			#{sg},
+			#{tz},
+			#{jf},
+			#{memo},
+			#{createtime},
+			#{creator},
+			#{creatorName},
+			#{lastupdate},
+			#{updatorName},
+			#{ver},
+			#{vertime},
+			#{deptId},
+			#{deptPath},
+			#{delflg},
+			#{state},
+			#{exp1},
+			#{exp2},
+			#{exp3},
+			#{exp4},
+			#{exp5},
+			#{exp6},
+			#{exp7},
+			#{exp8},
+			#{exp9},
+			#{exp10}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE bckj_biz_studentinfo SET 	
+			owid = #{owid},
+			xsxh = #{xsxh},
+			zydh_one = #{zydhOne},
+			zydh_two = #{zydhTwo},
+			zydh_three = #{zydhThree},
+			zydh_four = #{zydhFour},
+			zydh_five = #{zydhFive},
+			zydh_six = #{zydhSix},
+			kslb = #{kslb},
+			bylb = #{bylb},
+			zxdm = #{zxdm},
+			zxmc = #{zxmc},
+			syddm=#{syddm},
+			kstc = #{kstc},
+			hjqk = #{hjqk},
+			sjr = #{sjr},
+			tdcj = #{tdcj},
+			tdzy = #{tdzy},
+			xkkm = #{xkkm},
+			yw = #{yw},
+			sx = #{sx},
+			wy = #{wy},
+			wl = #{wl},
+			hx = #{hx},
+			sw = #{sw},
+			zz = #{zz},
+			ls = #{ls},
+			dl = #{dl},
+			js = #{js},
+			zhcj = #{zhcj},
+			tkmscj = #{tkmscj},
+			tkbycj = #{tkbycj},
+			tkszcj = #{tkszcj},
+			km = #{km},
+			pc = #{pc},
+			updator = #{updator},
+			sg = #{sg},
+			tz = #{tz},
+			jf = #{jf},
+			memo = #{memo},
+			createtime = #{createtime},
+			creator = #{creator},
+			creator_name = #{creatorName},
+			lastupdate = #{lastupdate},
+			updator_name = #{updatorName},
+			ver = #{ver},
+			vertime = #{vertime},
+			dept_id = #{deptId},
+			dept_path = #{deptPath},
+			delflg = #{delflg},
+			state = #{state},
+			exp1 = #{exp1},
+			exp2 = #{exp2},
+			exp3 = #{exp3},
+			exp4 = #{exp4},
+			exp5 = #{exp5},
+			exp6 = #{exp6},
+			exp7 = #{exp7},
+			exp8 = #{exp8},
+			exp9 = #{exp9},
+			exp10 = #{exp10}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		DELETE FROM bckj_biz_studentinfo
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

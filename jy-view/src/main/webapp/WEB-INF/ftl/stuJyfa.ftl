@@ -98,8 +98,8 @@
                         <div class="col-sm-3">
                             <select class="form-control" id="xb" name="xb" data-val="${result.xb!''}">
                                 <option value="">请选择</option>
-                                <option value="男">男</option>
-                                <option value="女">女</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
                             </select>
                         </div>
                     </div>
@@ -138,7 +138,7 @@
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="sjh" name="sjh" value="${result.sjh!''}" placeholder="" autocomplete="off">
                         </div>
-                        <label for="byxl" class="col-sm-2 control-label">学历：</label>
+                        <label for="byxl" class="col-sm-2 control-label">学历<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="byxl" name="byxl" value="${result.byxl!''}" placeholder="" autocomplete="off">
                         </div>
@@ -147,9 +147,11 @@
                         <label class="col-sm-5 col-sm-offset-1 text-left f-title">毕业去向信息</label>
                     </div>
                     <div class="form-group">
-                        <label for="byqx" class="col-sm-2 control-label">毕业去向：</label>
+                        <label for="byqx" class="col-sm-2 control-label">毕业去向<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="byqx" name="byqx" value="${result.byqx!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="byqx" name="byqx" data-val="${result.byqx!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                         <label for="yrdwmc" class="col-sm-2 control-label">用人单位名称：</label>
                         <div class="col-sm-3">
@@ -163,17 +165,23 @@
                         </div>
                         <label for="yrdwxz" class="col-sm-2 control-label">用人单位性质：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="yrdwxz" name="yrdwxz" value="${result.yrdwxz!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="yrdwxz" name="yrdwxz" data-val="${result.yrdwxz!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="dwlbmc" class="col-sm-2 control-label">单位行业：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="dwlbmc" name="dwlbmc" value="${result.dwlbmc!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="dwlbmc" name="dwlbmc" data-val="${result.dwlbmc!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                         <label for="dwszdmc" class="col-sm-2 control-label">用人单位所在地：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="dwszdmc" name="dwszdmc" value="${result.dwszdmc!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="dwszdmc" name="dwszdmc" data-val="${result.dwszdmc!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -189,7 +197,9 @@
                     <div class="form-group">
                         <label for="gzzwlbmc" class="col-sm-2 control-label">工作职位类别：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="gzzwlbmc" name="gzzwlbmc" value="${result.gzzwlbmc!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="gzzwlbmc" name="gzzwlbmc" data-val="${result.gzzwlbmc!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                         <label for="sfzydk" class="col-sm-2 control-label">专业是否对口：</label>
                         <div class="col-sm-3">
@@ -204,9 +214,11 @@
                         <label class="col-sm-5 col-sm-offset-1 text-left f-title">报到证信息</label>
                     </div>
                     <div class="form-group">
-                        <label for="bdzqflbmc" class="col-sm-2 control-label">报到证签发类别：</label>
+                        <label for="bdzqflbmc" class="col-sm-2 control-label">报到证签发类别<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bdzqflbmc" name="bdzqflbmc" value="${result.bdzqflbmc!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="bdzqflbmc" name="bdzqflbmc" data-val="${result.bdzqflbmc!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                         <label for="bdzdwmc" class="col-sm-2 control-label">报到证签往单位：</label>
                         <div class="col-sm-3">
@@ -216,7 +228,9 @@
                     <div class="form-group">
                         <label for="bdzszdmc" class="col-sm-2 control-label">签往单位所在地：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bdzszdmc" name="bdzszdmc" value="${result.bdzszdmc!''}" placeholder="" autocomplete="off">
+                            <select class="form-control" id="bdzszdmc" name="bdzszdmc" data-val="${result.bdzszdmc!''}">
+                                <option value="">请选择</option>
+                            </select>
                         </div>
                         <label for="bdkssj" class="col-sm-2 control-label">报到开始时间：</label>
                         <div class="col-sm-3">
@@ -241,16 +255,6 @@
                         <label for="bdzbz" class="col-sm-2 control-label">报到证备注：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="bdzbz" name="bdzbz" value="${result.bdzbz!''}" placeholder="" autocomplete="off">
-                        </div>
-                        <label for="bdzbh" class="col-sm-2 control-label">报到证编号：</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bdzbh" name="bdzbh" value="${result.bdzbh!''}" placeholder="" autocomplete="off">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="bdzlsh" class="col-sm-2 control-label">报到证流水号：</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="bdzlsh" name="bdzlsh" value="${result.bdzlsh!''}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
@@ -303,9 +307,6 @@
                         </div>
                     </div>
                 </form>
-                <input type="hidden" value="${result.sfzydk!''}" id="sel1" />
-                <input type="hidden" value="${result.sfdydwbdz!''}" id="sel2" />
-                <input type="hidden" value="${result.xb!''}" id="sel3" />
                 <#--<input type="hidden" value="${result.owid!''}" id="owid" />-->
 
                 <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>

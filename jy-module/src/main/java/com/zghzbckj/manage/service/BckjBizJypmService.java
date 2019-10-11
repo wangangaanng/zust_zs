@@ -5,6 +5,7 @@ package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -71,21 +72,21 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public PageInfo<Map<String, Object>> rankPage(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJypm> result = findPage(dataMap, pageNo, pageSize, "szxy");
-        if (null == result) {
+        if (TextUtils.isEmpty(result.getRecords()) || result.getRecords().size() <= 0) {
             return null;
         }
         //统计学院就业情况
-        List<Map<String, Object>> collegeList = this.dao.collegeStats(dataMap.get("pmnf").toString());
+        List<Map<String, Object>> collegeList = this.dao.collegeStats(MapUtils.getString(dataMap, "pmnf"));
         for (Map<String, Object> college : collegeList) {
-            List<Map<String, Object>> majorList = this.dao.majorList(college.get("szxy").toString(), college.get("pmnf").toString());
+            List<Map<String, Object>> majorList = this.dao.majorList(MapUtils.getString(college, "szxy"), MapUtils.getString(college, "pmnf"));
             Map<String, Object> statsMap = new HashMap<>();
-            BigDecimal qyl = (BigDecimal) college.get("pmqyl");
+//            BigDecimal qyl = (BigDecimal) college.get("pmqyl");
             BigDecimal jyl = (BigDecimal) college.get("pmjyl");
             statsMap.put("pmzy", "合计");
             statsMap.put("pmbyrs", college.get("pmbyrs"));
-            statsMap.put("pmyprs", college.get("pmyprs"));
+//            statsMap.put("pmyprs", college.get("pmyprs"));
             statsMap.put("pmqyrs", college.get("pmqyrs"));
-            statsMap.put("pmqyl", qyl.divide(BigDecimal.valueOf(majorList.size()),2));
+//            statsMap.put("pmqyl", qyl.divide(BigDecimal.valueOf(majorList.size()),2));
             statsMap.put("pmjyl", jyl.divide(BigDecimal.valueOf(majorList.size()),2));
             college.put("avgjyl", jyl.divide(BigDecimal.valueOf(majorList.size()),2));
             majorList.add(statsMap);
@@ -114,7 +115,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
     }
 
     /**
-     *<p>方法:根据专业名称查询 getByMajor TODO </p>
+     *<p>方法:根据学院专业名称查询 getByCollegeMajor TODO </p>
      *<ul>
      *<li> @param majorName TODO</li>
      *<li>@return com.zghzbckj.manage.entity.BckjBizJypm  </li>
@@ -122,8 +123,8 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      *<li>@date 2019/9/22 18:14  </li>
      *</ul>
      */
-    public BckjBizJypm getByMajor(String majorName) {
-        return this.dao.getByMajor(majorName);
+    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName, String pmnf) {
+        return this.dao.getByMajor(collegeName, majorName, pmnf);
     }
 
 	/**

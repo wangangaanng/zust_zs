@@ -96,6 +96,41 @@
 					"pathName": "pages/dangan/dangan",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/stuQiandao/stuQiandao",
+					"pathName": "pages/stuQiandao/stuQiandao",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "pages/enterpriseZw/enterpriseZw",
+					"pathName": "pages/enterpriseZw/enterpriseZw",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/success/success",
+					"pathName": "pages/success/success",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qyService/qyService",
+					"pathName": "pages/qyService/qyService",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/enterpriseXjh/enterpriseXjh",
+					"pathName": "pages/enterpriseXjh/enterpriseXjh",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -16,7 +16,15 @@
     "pages/xueyuan/xueyuan",
     "pages/recruitment/recruitment",
     "pages/dangan/dangan",
-    "pages/lianxiwm/lianxiwm"
+    "pages/lianxiwm/lianxiwm",
+    "pages/stuQiandao/stuQiandao",
+    "pages/enterpriseZw/enterpriseZw",
+    "pages/success/success",
+    "pages/enterpriseXjh/enterpriseXjh",
+    "pages/lszx/lszx",
+    "pages/zjxq/zjxq",
+    "pages/jyzx/jyzx",
+    "pages/qyzc/qyzc"
   ],
   "window": {
     "backgroundTextStyle": "light",
