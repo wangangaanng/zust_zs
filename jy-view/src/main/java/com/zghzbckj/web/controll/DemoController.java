@@ -230,7 +230,7 @@ public class DemoController {
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         Map content=(Map)result.getBean();
-        content.put("memo", MapUtils.getString(content,"memo").replace("\n",CommonConstant.EMPTY_STR));
+//        content.put("memo", MapUtils.getString(content,"memo").replace("\n",CommonConstant.EMPTY_STR));
         view.addObject("result",content);
         return view;
     }
