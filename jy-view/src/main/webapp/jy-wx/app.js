@@ -34,6 +34,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    apiUrl:'http://172.16.13.106:8888/'
   }
 })

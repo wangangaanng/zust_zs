@@ -235,15 +235,15 @@ function myJobList2() {
                     align: 'center',
                     field: 'zwbt',
                     title: '标题',
-                    formatter: function (value, row, index) {
-                        if (row.xjsj) {
-                            var value = row.xjsj.substring(0, 10);
-                            return value + "宣讲会";
-                        } else {
-                            return "宣讲会";
-                        }
-
-                    }
+                    // formatter: function (value, row, index) {
+                    //     if (row.xjsj) {
+                    //         var value = row.xjsj.substring(0, 10);
+                    //         return value + "宣讲会";
+                    //     } else {
+                    //         return "宣讲会";
+                    //     }
+                    //
+                    // }
                 }, {
                     field: 'xjsj',
                     title: '举办时间',

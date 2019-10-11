@@ -1,4 +1,6 @@
 // pages/newJob/newJob.js
+const request = require('../../utils/request.js')
+
 Page({
 
   /**
@@ -106,6 +108,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // wx.showToast({
+    //   icon:'none',
+    //   title: '123',
+    // })
     wx.request({
       url: 'https://cashier.youzan.com/wsctrade/uic/address/getAllRegion.json',
       success: response => {
@@ -115,6 +121,13 @@ Page({
         });
       }
     });
+
+    request.api('zustcommon/common/getByType', { "dicType": "20004" }).then(res => {
+      console.log(res.backCode)
+
+    }).catch(res => {
+      console.log(res)
+    })    
   },
 
   /**
