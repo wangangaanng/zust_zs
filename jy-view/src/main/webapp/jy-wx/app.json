@@ -24,7 +24,8 @@
     "pages/lszx/lszx",
     "pages/zjxq/zjxq",
     "pages/jyzx/jyzx",
-    "pages/qyzc/qyzc"
+    "pages/qyzc/qyzc",
+    "pages/auth/auth"
   ],
   "window": {
     "backgroundTextStyle": "light",
