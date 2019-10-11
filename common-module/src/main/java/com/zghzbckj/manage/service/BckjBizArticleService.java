@@ -8,19 +8,17 @@ import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
-import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.BckjBizArticleDao;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizArticle;
 import com.zghzbckj.manage.utils.CharUtil;
-import com.zghzbckj.manage.utils.FtlFileUtil;
+import org.apache.commons.collections.MapUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -143,12 +141,21 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         return ResponseMessage.sendOK(objs);
     }
 
+    /**
+    *<p>方法:getWzList TODO获取文章列表 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return com.zghzbckj.base.entity.PageInfo  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/9 17:14  </li>
+    *</ul>
+    */
     public PageInfo getWzList(Map<String, Object> mapData) {
         if(null!=mapData.get("gjz")){
             mapData.put("gjz", CharUtil.filterChar(mapData.get("gjz").toString()));
         }
-        String pageNo=mapData.get("pageNo").toString();
-        String pageSize=mapData.get("pageSize").toString();
+        String pageNo=MapUtils.getString(mapData,"pageNo");
+        String pageSize=MapUtils.getString(mapData,"pageSize");
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
         mapData.put("page", page);
         mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");
@@ -163,6 +170,15 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         return pageInfo;
     }
 
+    /**
+    *<p>方法:getWzDetail TODO获取二级文章详情 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return com.zghzbckj.manage.entity.BckjBizArticle  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/9 17:14  </li>
+    *</ul>
+    */
     @Transactional( readOnly = false)
     public BckjBizArticle getWzDetail(Map<String, Object> mapData) {
         List<BckjBizArticle> articleList=this.dao.findListByMap(mapData);
@@ -180,6 +196,15 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         }
     }
 
+    /**
+    *<p>方法:saveArticle TODO保存文章 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/9 17:13  </li>
+    *</ul>
+    */
     @Transactional( readOnly = false)
     public ResponseMessage saveArticle(Map<String, Object> mapData) throws Exception{
         BckjBizArticle article = JsonUtil.map2Bean(mapData, BckjBizArticle.class);
@@ -217,32 +242,17 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         return ResponseMessage.sendOK(article);
     }
 
-    //生成所有文章代码
-    public ResponseMessage genralAll(Map<String, Object> mapData) {
-        BckjBizArticle param=new BckjBizArticle();
-        List<BckjBizArticle> list=this.findList(param);
-        Map attParam=Maps.newHashMap();
-        for(BckjBizArticle article:list){
-            attParam.put("wzRefOwid",article.getOwid());
-            List<Map> attList=commonDao.getSysFiles(attParam);
-            article.setFileList(attList);
-            genrateHtmlFile(article);
-        }
-        return ResponseMessage.sendOK(list.size());
-    }
-    private void genrateHtmlFile(BckjBizArticle article) {
-        Map rootDate=Maps.newHashMap();
-        rootDate.put("WZBT",article.getWzbt());
-        rootDate.put("FBRQ", DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART));
-        rootDate.put("WZLY",article.getWzly());
-        rootDate.put("FBR",article.getFbr());
-        rootDate.put("FJLB",article.getFileList());
-        rootDate.put("WZNR",article.getWznr());
-        rootDate.put("EJLM",article.getLmbh());
-        String path= Global.getConfig(CommonModuleContant.HPATH);
-        FtlFileUtil.freeMarkerContent(rootDate,article.getOwid(),path);
-    }
 
+
+    /**
+    *<p>方法:getByEjLmbh TODO获取二级栏目文章，后台 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/9 17:15  </li>
+    *</ul>
+    */
     public ResponseMessage getByEjLmbh(Map<String, Object> mapData) {
         List<BckjBizArticle> indataList=this.dao.findListByMap(mapData);
         if(null!=indataList&&indataList.size()>0){
@@ -251,6 +261,15 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         return ResponseMessage.sendOK(null);
     }
 
+    /**
+    *<p>方法:getArticlDeatil TODO带上一条下一条的文章详情 </p>
+    *<ul>
+     *<li> @param owid TODO</li>
+    *<li>@return java.util.Map  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/9 17:16  </li>
+    *</ul>
+    */
     @Transactional(readOnly = false)
     public Map getArticlDeatil(String owid) {
         BckjBizArticle article= get(owid);
@@ -261,7 +280,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         mapArticle.put("fbsj",DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART));
         Map param=Maps.newHashMap();
         param.put("lmbh",article.getLmbh());
-        param.put("orderBy"," a.istop DESC,a.sxh ");
+        param.put("orderBy"," a.istop DESC,a.sxh desc");
         param.put("sxh"," AND a.sxh < "+ article.getSxh());
         List<BckjBizArticle> mapList=this.dao.findMapByShort(param);
         mapArticle.put("upArticle",0);
@@ -277,9 +296,18 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         return mapArticle;
     }
 
+    /**
+    *<p>方法:searchAll TODO查询站点内所有文章数据 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return com.zghzbckj.base.entity.PageInfo  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/9 16:43  </li>
+    *</ul>
+    */
     public PageInfo searchAll(Map<String, Object> mapData) {
-            String pageNo=mapData.get("pageNo").toString();
-            String pageSize=mapData.get("pageSize").toString();
+            String pageNo=MapUtils.getString(mapData,"pageNo");
+            String pageSize=MapUtils.getString(mapData,"pageSize");
             Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
             mapData.put("page", page);
             mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");

@@ -64,7 +64,44 @@ Page({
   onReady: function () {
 
   },
-
+  upload(){
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        console.log(res)
+        var jsonObj={
+          "file": tempFilePaths[0],
+          "type":1
+        }
+        wx.uploadFile({
+          url: 'http://172.16.13.106:8888/zustcommon/common/picUpload',
+          filePath: tempFilePaths[0],
+          name: 'file',
+          method: 'POST',
+          formData: {
+            "data": JSON.stringify(jsonObj)
+          },
+          success: function (res) {
+            var data=JSON.parse(res.data)
+            console.log(res)
+            wx.showModal({
+              title: '提示',
+              showCancel:false,
+              content: data.errorMess,
+            })
+            
+          },
+          fail: function () {
+            
+          }
+        })
+        
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
