@@ -398,65 +398,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
-
-
-        if (JyContant.ZWLB_ZPH == job.getZwlx()) {
-            List<Map<String, String[]>> resultList = new ArrayList<>();
-            String zdytj = "";
-            String zdyjg = "";
-            String[] jgArray = new String[10];
-            Map resultMap = new HashMap<>();
-            if (!TextUtils.isEmpty(job.getZdytj1()) && !TextUtils.isEmpty(job.getTjsd1())) {
-                zdytj = job.getZdytj1();
-                zdyjg = job.getTjsd1();
-                zdyjg.replace(",", "，");
-                jgArray = zdyjg.split("，");
-                resultMap = new HashMap<>();
-                resultMap.put(zdytj, jgArray);
-                resultList.add(resultMap);
-            }
-
-            if (!TextUtils.isEmpty(job.getZdytj2()) && !TextUtils.isEmpty(job.getTjsd2())) {
-                zdytj = job.getZdytj2();
-                zdyjg = job.getTjsd2();
-                zdyjg.replace(",", "，");
-                jgArray = zdyjg.split("，");
-                resultMap = new HashMap<>();
-                resultMap.put(zdytj, jgArray);
-                resultList.add(resultMap);
-            }
-            if (!TextUtils.isEmpty(job.getZdytj3()) && !TextUtils.isEmpty(job.getTjsd3())) {
-                zdytj = job.getZdytj3();
-                zdyjg = job.getTjsd3();
-                zdyjg.replace(",", "，");
-                jgArray = zdyjg.split("，");
-                resultMap = new HashMap<>();
-                resultMap.put(zdytj, jgArray);
-                resultList.add(resultMap);
-            }
-            if (!TextUtils.isEmpty(job.getZdytj4()) && !TextUtils.isEmpty(job.getTjsd4())) {
-                zdytj = job.getZdytj4();
-                zdyjg = job.getTjsd4();
-                zdyjg.replace(",", "，");
-                jgArray = zdyjg.split("，");
-                resultMap = new HashMap<>();
-                resultMap.put(zdytj, jgArray);
-                resultList.add(resultMap);
-            }
-            if (!TextUtils.isEmpty(job.getZdytj5()) && !TextUtils.isEmpty(job.getTjsd5())) {
-                zdytj = job.getZdytj5();
-                zdyjg = job.getTjsd5();
-                zdyjg.replace(",", "，");
-                jgArray = zdyjg.split("，");
-                resultMap = new HashMap<>();
-                resultMap.put(zdytj, jgArray);
-                resultList.add(resultMap);
-            }
-            if (!TextUtils.isEmpty(resultList) && resultList.size() > 0) {
-                job.setResultList(resultList);
-            }
-
-        }
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
             params.put("type", JyContant.GZZN);
             params.put("dicVal1", job.getZwGzzn());
@@ -647,6 +588,65 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 zdyjg.replace(",", "，");
                 String[] jgArray = zdyjg.split("，");
                 Map resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+        }
+        return resultList;
+    }
+
+    public List<Map<String, String[]>> zphtjList(Map<String, Object> mapData) {
+        List<Map<String, String[]>> resultList = new ArrayList<>();
+        String owid = mapData.get("owid").toString();
+        BckjBizJob job = get(owid);
+        if (JyContant.ZWLB_ZPH == job.getZwlx()) {
+            String zdytj = "";
+            String zdyjg = "";
+            String[] jgArray = new String[10];
+            Map resultMap = new HashMap<>();
+            if (!TextUtils.isEmpty(job.getZdytj1()) && !TextUtils.isEmpty(job.getTjsd1())) {
+                zdytj = job.getZdytj1();
+                zdyjg = job.getTjsd1();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+
+            if (!TextUtils.isEmpty(job.getZdytj2()) && !TextUtils.isEmpty(job.getTjsd2())) {
+                zdytj = job.getZdytj2();
+                zdyjg = job.getTjsd2();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj3()) && !TextUtils.isEmpty(job.getTjsd3())) {
+                zdytj = job.getZdytj3();
+                zdyjg = job.getTjsd3();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj4()) && !TextUtils.isEmpty(job.getTjsd4())) {
+                zdytj = job.getZdytj4();
+                zdyjg = job.getTjsd4();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj5()) && !TextUtils.isEmpty(job.getTjsd5())) {
+                zdytj = job.getZdytj5();
+                zdyjg = job.getTjsd5();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
                 resultMap.put(zdytj, jgArray);
                 resultList.add(resultMap);
             }

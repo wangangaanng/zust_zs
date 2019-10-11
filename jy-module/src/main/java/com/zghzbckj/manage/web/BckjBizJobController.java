@@ -224,6 +224,24 @@ public class BckjBizJobController extends BaseController {
     }
 
 
+
+    @RequestMapping(value = "zphtjList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage zphtjList(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            List<Map<String, String[]>> resultMap = bckjBizJobService.zphtjList(mapData);
+            return ResponseMessage.sendOK(resultMap);
+        } catch (Exception e) {
+            log.error(e + "初始BckjBizQyxx\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     /**
      * <p>接口 addOneJob.java : <p>
      * <p>说明：新增职位</p>
