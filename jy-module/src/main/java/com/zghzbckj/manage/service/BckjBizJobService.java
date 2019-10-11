@@ -551,6 +551,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
+        dataMap.put("state", JyContant.JOB_ZT_TG);
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         List<BckjBizJob> jobList = new ArrayList<>();
         dataMap.put("page", page);
