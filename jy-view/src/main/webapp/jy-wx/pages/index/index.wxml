@@ -10,52 +10,98 @@
   <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>
 <view class="float-btn" bindtap="url1">联系我们</view>
-<van-tabs animated>
+<image src='../../static/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
+<van-tabs animated bind:click="clicktab">
   <van-tab title="最新职位">
     <view class="uni-list">
+      <block wx:for="{{newsList1}}" wx:key="{{index}}">
 				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
 					<view class="uni-media-list">
             <view class="news-date">
-              <span>04.24</span>
-              <em>2019</em>
+              <span>{{item.date}}</span>
+              <em>{{item.year}}</em>
             </view>
 						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top">销售顾问</view>
+							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
 							<view class="uni-media-list-text-content">
-							公司名称：上海有限公司
+							公司名称：{{item.qymc}}
 							</view>
 							<view class="uni-media-list-text-bottom">
-								<view class="uni-media-list-text-bottom-left">工作城市：杭州</view>
+								<view class="uni-media-list-text-bottom-left">工作城市：{{item.city}}</view>
 								<view class="uni-media-list-text-bottom-right ">
-									发布日期：2019-08-28
+									工作性质：{{item.gzxz}}
 								</view>
 							</view>
 						</view>
 					</view>
 				</view>
-        <view class="uni-list-cell" hover-class="uni-list-cell-hover">
-					<view class="uni-media-list">
-            <view class="news-date">
-              <span>04.24</span>
-              <em>2019</em>
-            </view>
-						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top">销售顾问</view>
-							<view class="uni-media-list-text-content">
-							公司名称：上海有限公司上海有限公司
-							</view>
-							<view class="uni-media-list-text-bottom">
-								<view class="uni-media-list-text-bottom-left">工作城市：杭州</view>
-								<view class="uni-media-list-text-bottom-right ">
-									发布日期：2019-08-28
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
+      </block>
     </view>
   </van-tab>
-  <van-tab title="最新企业">内容 2</van-tab>
-  <van-tab title="招聘会信息">内容 3</van-tab>
-  <van-tab title="宣讲会信息">内容 4</van-tab>
+  <van-tab title="企业招聘">
+    <view class="uni-list">
+      <block wx:for="{{newsList2}}" wx:key="{{index}}">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>{{item.date}}</span>
+              <em>{{item.year}}</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-left">工作城市：{{item.city}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+      </block>
+    </view>
+  </van-tab>
+  <van-tab title="招聘会信息">
+    <view class="uni-list">
+      <block wx:for="{{newsList3}}" wx:key="{{index}}">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>{{item.date}}</span>
+              <em>{{item.year}}</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+							<view class="uni-media-list-text-content">
+							举办地点：{{item.zphJbdd}}
+							</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-left">举办时间：{{item.zphKsrq}} {{item.zphJtsj}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+      </block>
+    </view>
+  </van-tab>
+  <van-tab title="宣讲会信息">
+    <view class="uni-list">
+      <block wx:for="{{newsList4}}" wx:key="{{index}}">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>{{item.date}}</span>
+              <em>{{item.year}}</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+							<view class="uni-media-list-text-content">
+							举办地点：{{item.zphJbdd}}
+							</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-left">举办时间：{{item.zphKsrq}} {{item.zphJtsj}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+      </block>
+    </view>
+  </van-tab>
 </van-tabs>

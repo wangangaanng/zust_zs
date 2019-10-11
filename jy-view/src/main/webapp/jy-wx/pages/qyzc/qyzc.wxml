@@ -3,7 +3,7 @@
     <image src="../../static/uploadImg1.png" bindtap="upload"></image>
   </view>
   <view class="q-zy">
-    <view>注意:</view>
+    <view>注意:（必传）</view>
     <view>营业执照为三证合一，上传的图片大小不得超过2M</view>
   </view>
 </view>

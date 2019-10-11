@@ -1,5 +1,6 @@
 /**app.wxss**/
 page{background: #f3f3f5;}
+.van-tabs__wrap{z-index: 10 !important;}
 .van-tabs__line{background-color: #008783 !important;}
 
 .common-button{width:690rpx;height: 100rpx;line-height: 100rpx; border: none; margin: 50rpx auto;box-sizing: border-box;
@@ -169,8 +170,8 @@ margin-right: 10rpx;
 
 .news-date {
     background: #9c9c9c;
-    width: 60px;
-    height: 60px;
+    width: 66px;
+    height: 66px;
     float: left;
     margin-right: 12px;
     font-size: 16px;
@@ -178,15 +179,15 @@ margin-right: 10rpx;
 }
 .news-date span {
     color: #fff;
-    height: 30px;
-    line-height: 30px;
+    height: 33px;
+    line-height: 33px;
 }
 .news-date em {
     background: #008784;
     color: #fff;
     display: inherit;
-    height: 30px;
-    line-height: 30px;
+    height: 33px;
+    line-height: 33px;
     font-size: 16px;
     font-style: normal;
 }

@@ -1,4 +1,7 @@
 // pages/newJob/newJob.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+
 Page({
 
   /**
@@ -48,7 +51,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getByType(this)
   },
   showBottom() {
     this.toggle('bottom', true);
@@ -106,6 +109,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // wx.showToast({
+    //   icon:'none',
+    //   title: '123',
+    // })
     wx.request({
       url: 'https://cashier.youzan.com/wsctrade/uic/address/getAllRegion.json',
       success: response => {
@@ -115,6 +122,7 @@ Page({
         });
       }
     });
+ 
   },
 
   /**
@@ -152,3 +160,18 @@ Page({
 
   }
 })
+
+var getByType = function (that) {
+  var data = { "dicType": "20004"};
+  common.ajax('zustcommon/common/getByType', data, function (res) {
+    if (res.data.backCode == 0) {
+      
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
