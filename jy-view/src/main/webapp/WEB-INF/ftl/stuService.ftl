@@ -14,7 +14,7 @@
         color: #999 !important;
     }
     .form-group div{line-height: 34px !important;}
-    .layui-layer-content{overflow-y:auto !important;}
+    /*.layui-layer-content{overflow-y:auto !important;}*/
 </style>
 
 <body>
