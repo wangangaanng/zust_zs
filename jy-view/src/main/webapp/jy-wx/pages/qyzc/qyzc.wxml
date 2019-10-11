@@ -1,6 +1,6 @@
 <view class="q-top">
   <view class="img-scyyzz">
-    <image src="../../static/uploadImg1.png"></image>
+    <image src="../../static/uploadImg1.png" bindtap="upload"></image>
   </view>
   <view class="q-zy">
     <view>注意:</view>
