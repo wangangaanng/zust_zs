@@ -1,5 +1,6 @@
 // pages/newJob/newJob.js
-const request = require('../../utils/request.js')
+var common = require('../../libs/common/common.js')
+const app = getApp()
 
 Page({
 
@@ -121,13 +122,7 @@ Page({
         });
       }
     });
-
-    request.api('zustcommon/common/getByType', { "dicType": "20004" }).then(res => {
-      console.log(res.backCode)
-
-    }).catch(res => {
-      console.log(res)
-    })    
+ 
   },
 
   /**
@@ -165,3 +160,18 @@ Page({
 
   }
 })
+
+var getList = function (that) {
+  var data = { "dicType": "20004"};
+  common.ajax('zustcommon/common/getByType', data, function (res) {
+    if (res.data.backCode == 0) {
+      
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
