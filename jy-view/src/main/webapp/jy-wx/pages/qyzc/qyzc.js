@@ -51,7 +51,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getByType(this)
   },
   showBottom() {
     this.toggle('bottom', true);
@@ -161,7 +161,7 @@ Page({
   }
 })
 
-var getList = function (that) {
+var getByType = function (that) {
   var data = { "dicType": "20004"};
   common.ajax('zustcommon/common/getByType', data, function (res) {
     if (res.data.backCode == 0) {

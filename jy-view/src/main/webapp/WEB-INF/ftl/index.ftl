@@ -122,7 +122,7 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" id="qyTysh" onkeydown="keyLogin()" placeholder="请社会统一信用码" class="login-act">
+                        <input type="text" id="qyTysh" onkeydown="keyLogin()" placeholder="请输入社会统一信用码" class="login-act">
                     </li>
                     <li>
                         <label>

@@ -1,0 +1,27 @@
+<view class="logo">
+  <image src="../../static/logo-zust.png"></image>
+</view>
+<view class="search-form">
+  <!-- <view class="search-title">企业登录</view> -->
+  <view class="search-content">
+    <view class="search-body">
+      <view>
+        <van-field
+          placeholder="请输入社会统一信用码"
+          left-icon="contact"
+          border="{{ false }}"
+        />
+        <van-field
+          placeholder="请输入法人身份证后六位"
+          type="password"
+          left-icon="lock"
+          border="{{ false }}"
+        />
+      </view>
+    </view>
+    <view class="search-btn">
+      <van-button type="primary" size="large">登录</van-button>
+    </view>
+    <view class="reg-btn">注册</view>
+  </view>
+</view>
