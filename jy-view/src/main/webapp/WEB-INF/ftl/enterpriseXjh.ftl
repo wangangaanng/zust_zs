@@ -69,6 +69,7 @@
                     <button class="btn pull-right green" onclick='applyXjh()'>申请</button>
                 </div>
                 <div class="news-list">
+                    <div class="question"></div>
                     <div class="e-table" style="padding: 0 20px;">
                         <table class="table table-hover" data-locale="zh-CN" id="table-xjh" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
