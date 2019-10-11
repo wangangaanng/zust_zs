@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,4 +23,6 @@ public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
     BckjBizQyxx getExistOne(Map params);
 
     String queryDic(Map params);
+
+    List queryDicList(Map params);
 }

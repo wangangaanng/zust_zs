@@ -1,5 +1,6 @@
 //index.js
 //获取应用实例
+var common = require('../../libs/common/common.js')
 const app = getApp()
 
 Page({
@@ -14,13 +15,14 @@ Page({
       { text: '就业排行榜', icon: '../../../static/index-icon06.png' }, 
       { text: '学生服务', icon: '../../../static/index-icon07.png', url: '../stuService/stuService' }, 
       { text: '企业服务', icon: '../../../static/index-icon08.png', url: '../qyService/qyService' }],
+    historyList:[],
   },
   onLoad: function () {
-    var data = this.data;
+    getList(this);
 
   },
   onReachBottom: function () {
-    console.log(1);
+
   },
   url1:function(){
     wx.navigateTo({
@@ -36,3 +38,22 @@ Page({
     }
   }
   })
+var getList = function (that){
+  var data = { "zwgjz": "", "zwQymc": "", "zwPro": "", "zwCity": "", "zwlx": "0", "pageSize": 20, "pageNo": 1 };
+  common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
+    if (res.data.backCode == 0) {
+      var historyList = that.data.historyList.concat(res.data.bean.records)
+      var totalPage = res.data.bean.totalPage;
+      that.setData({
+        historyList: historyList,
+        totalPage: totalPage,
+      })
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

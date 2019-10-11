@@ -390,6 +390,17 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 bm.setXjsj(mapData.get("xjsj").toString());
                 job.setZphKsrq(DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd HH:mm:ss"));
                 job.setState(JyContant.JOB_ZT_TG);
+                //自定义条件和结果
+                job.setZdytj1(bm.getZdytj1());
+                job.setZdytj2(bm.getZdytj2());
+                job.setZdytj3(bm.getZdytj3());
+                job.setZdytj4(bm.getZdytj4());
+                job.setZdytj5(bm.getZdytj5());
+                job.setTjsd1(bm.getTjsd1());
+                job.setTjsd2(bm.getTjsd2());
+                job.setTjsd3(bm.getTjsd3());
+                job.setTjsd4(bm.getTjsd4());
+                job.setTjsd5(bm.getTjsd5());
                 jobService.saveOrUpdate(job);
                 if (!TextUtils.isEmpty(mapData.get("memo"))) {
                     bm.setMemo(mapData.get("memo").toString());
