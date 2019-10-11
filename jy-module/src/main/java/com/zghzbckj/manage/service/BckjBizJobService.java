@@ -155,8 +155,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
      * <li>@date 2018/9/6 17:05  </li>
      * </ul>
      */
+
     @Transactional(readOnly = false)
     public ResponseMessage saveBckjBizJob(Map<String, Object> mapData, Integer zwlx) {
+        for (int i = 1; i <= 5; i++) {
+            if (!TextUtils.isEmpty(mapData.get("sdtj" + i))) {
+                mapData.put("sdtj" + i, mapData.get("sdtj" + i).toString().replace(",", "，"));
+            }
+        }
         BckjBizJob bckjBizJob = JsonUtil.map2Bean(mapData, BckjBizJob.class);
 
         String zwbt = bckjBizJob.getZwbt();
@@ -196,6 +202,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 bckjBizJob.setQyxxRefOwid(qyxx.getOwid());
             }
         }
+
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
     }
@@ -391,6 +398,25 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
+        //宣讲会自定义条件
+        if (JyContant.ZWLB_XJH == job.getZwlx()) {
+            params.put("type", JyContant.ZDYTJ);
+            List<Map> dicList = new ArrayList<>();
+            dicList = qyxxDao.queryDicList(params);
+            if (!TextUtils.isEmpty(dicList) && dicList.size() > 0) {
+                List<Map<String, String[]>> resultList = new ArrayList<>();
+                for (Map map : dicList) {
+                    String zdytj = map.get("dic_val2").toString();
+                    String zdyjg = map.get("dic_val3").toString();
+                    zdyjg.replace(",", "，");
+                    String[] jgArray = zdyjg.split("，");
+                    Map resultMap = new HashMap<>();
+                    resultMap.put(zdytj, jgArray);
+                    resultList.add(resultMap);
+                }
+                job.setResultList(resultList);
+            }
+        }
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
             params.put("type", JyContant.GZZN);
             params.put("dicVal1", job.getZwGzzn());

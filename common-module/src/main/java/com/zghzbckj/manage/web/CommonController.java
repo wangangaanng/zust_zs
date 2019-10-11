@@ -138,6 +138,7 @@ public class CommonController {
                     file.transferTo(new File(path));
                     Map resultMap = new HashMap();
                     resultMap = ocrPic(path, trueFileName, Integer.parseInt(dataMap.get("type").toString()));
+//                    System.out.println(JackSonJsonUtils.toJson(resultMap));
                     return ResponseMessage.sendOK(resultMap);
                 } catch (IOException e) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "upload failed");
@@ -199,6 +200,7 @@ public class CommonController {
                 vat.put("fileName", "pic/" + fileName);
             }
         }
+
         return vat;
     }
 

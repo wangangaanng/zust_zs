@@ -72,9 +72,9 @@
             <if test="qyTysh != null and qyTysh != ''">
                 AND a.qy_tysh = #{qyTysh}
             </if>
-			<if test="qymc != null and qymc != ''">
-				AND a.qymc = #{qymc}
-			</if>
+            <if test="qymc != null and qymc != ''">
+                AND a.qymc = #{qymc}
+            </if>
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>
@@ -125,9 +125,9 @@
             <if test=" qyLxrdh != null and qyLxrdh != '' ">
                 AND a.qy_lxrdh = #{qyLxrdh}
             </if>
-			<if test=" state != null and state != '' ">
-				AND a.state = #{state}
-			</if>
+            <if test=" state != null and state != '' ">
+                AND a.state = #{state}
+            </if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},'%')
             </if>
@@ -320,5 +320,12 @@
         </where>
     </select>
 
+    <select id="queryDicList" resultType="java.util.Map">
+        SELECT a.dic_val2,a.dic_val3
+        FROM ourway_sys_dic b,ourway_sys_dic_value a
+        <where>
+            b.owid=a.dic_ref_owid and b.type=#{type}
+        </where>
+    </select>
 
 </mapper>
