@@ -146,6 +146,7 @@
                 theadClasses: "thead1",
                 queryParamsType: "limit",
                 columns: [{
+                    width:'250%',
                     align: 'center',
                     field: 'zwbt',
                     title: '招聘会名称',
@@ -155,6 +156,7 @@
                     field: 'zwCity',
                     title: '城市',
                 }, {
+                    width:'200%',
                     align: 'center',
                     field: 'zphJbdd',
                     title: '举办地点',
@@ -164,7 +166,7 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row.zphKsrq) {
-                            var value = row.zphKsrq.substring(0, 16);
+                            var value = row.zphKsrq.substring(0, 10);
                             return value;
                         }
                     }

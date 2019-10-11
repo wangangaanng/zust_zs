@@ -148,6 +148,7 @@
                 theadClasses: "thead1",
                 queryParamsType:"limit",
                 columns: [{
+                    width:'250%',
                     align : 'center',
                     field: 'zwbt',
                     title: '标题',
@@ -166,7 +167,7 @@
                     align : 'center',
                     formatter:function(value,row,index){
                         if(row.zphKsrq){
-                            var value=row.zphKsrq.substring(0,16);
+                            var value=row.zphKsrq.substring(0,10);
                             return value;
                         }
 
