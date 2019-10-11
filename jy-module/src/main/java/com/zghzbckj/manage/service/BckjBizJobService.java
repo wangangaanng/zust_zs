@@ -398,24 +398,64 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         String owid = mapData.get("owid").toString();
         BckjBizJob job = get(owid);
         Map params = new HashMap<>(2);
-        //宣讲会自定义条件
-        if (JyContant.ZWLB_XJH == job.getZwlx()) {
-            params.put("type", JyContant.ZDYTJ);
-            List<Map> dicList = new ArrayList<>();
-            dicList = qyxxDao.queryDicList(params);
-            if (!TextUtils.isEmpty(dicList) && dicList.size() > 0) {
-                List<Map<String, String[]>> resultList = new ArrayList<>();
-                for (Map map : dicList) {
-                    String zdytj = map.get("dic_val2").toString();
-                    String zdyjg = map.get("dic_val3").toString();
-                    zdyjg.replace(",", "，");
-                    String[] jgArray = zdyjg.split("，");
-                    Map resultMap = new HashMap<>();
-                    resultMap.put(zdytj, jgArray);
-                    resultList.add(resultMap);
-                }
+
+
+        if (JyContant.ZWLB_ZPH == job.getZwlx()) {
+            List<Map<String, String[]>> resultList = new ArrayList<>();
+            String zdytj = "";
+            String zdyjg = "";
+            String[] jgArray = new String[10];
+            Map resultMap = new HashMap<>();
+            if (!TextUtils.isEmpty(job.getZdytj1()) && !TextUtils.isEmpty(job.getTjsd1())) {
+                zdytj = job.getZdytj1();
+                zdyjg = job.getTjsd1();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+
+            if (!TextUtils.isEmpty(job.getZdytj2()) && !TextUtils.isEmpty(job.getTjsd2())) {
+                zdytj = job.getZdytj2();
+                zdyjg = job.getTjsd2();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj3()) && !TextUtils.isEmpty(job.getTjsd3())) {
+                zdytj = job.getZdytj3();
+                zdyjg = job.getTjsd3();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj4()) && !TextUtils.isEmpty(job.getTjsd4())) {
+                zdytj = job.getZdytj4();
+                zdyjg = job.getTjsd4();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj5()) && !TextUtils.isEmpty(job.getTjsd5())) {
+                zdytj = job.getZdytj5();
+                zdyjg = job.getTjsd5();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(resultList) && resultList.size() > 0) {
                 job.setResultList(resultList);
             }
+
         }
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
             params.put("type", JyContant.GZZN);
@@ -504,19 +544,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setExp2("0");
             }
         }
-
-//        if (JyContant.ZWLB_ZW == job.getZwlx()) {
-//            params.clear();
-//            params.put("jobRefOwid", job.getOwid());
-//            //0 职位 1 企业
-//            params.put("gzlx", "0");
-//            params.put("xxlb", "0");
-//            List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
-//            job.setXsgzList(xsgzList);
-//            job.setNumber(xsgzList.size());
-//        }
-
-
         return job;
     }
 
@@ -603,5 +630,26 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         _list.add(job);
         resultMap.put("bean", _list);
         return resultMap;
+    }
+
+    public List<Map<String, String[]>> xjhtjList() {
+        List<Map<String, String[]>> resultList = new ArrayList<>();
+        //宣讲会自定义条件
+        Map params = Maps.newHashMap();
+        params.put("type", JyContant.ZDYTJ);
+        List<Map> dicList = new ArrayList<>();
+        dicList = qyxxDao.queryDicList(params);
+        if (!TextUtils.isEmpty(dicList) && dicList.size() > 0) {
+            for (Map map : dicList) {
+                String zdytj = map.get("dic_val2").toString();
+                String zdyjg = map.get("dic_val3").toString();
+                zdyjg.replace(",", "，");
+                String[] jgArray = zdyjg.split("，");
+                Map resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+        }
+        return resultList;
     }
 }

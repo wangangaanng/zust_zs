@@ -203,6 +203,26 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
+    /**
+     * <p>接口 xjhtjList.java : <p>
+     * <p>说明：宣講會自定义条件</p>
+     * <pre>
+     * @author cc
+     * @date 2019/10/11 14:19
+     * </pre>
+     */
+    @RequestMapping(value = "xjhtjList", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage xjhtjList(PublicDataVO dataVO) {
+        try {
+            List<Map<String, String[]>> resultMap = bckjBizJobService.xjhtjList();
+            return ResponseMessage.sendOK(resultMap);
+        } catch (Exception e) {
+            log.error(e + "初始BckjBizQyxx\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     /**
      * <p>接口 addOneJob.java : <p>
@@ -337,7 +357,6 @@ public class BckjBizJobController extends BaseController {
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
-
 
 
     @RequestMapping(value = "backPassOne", method = RequestMethod.POST)
