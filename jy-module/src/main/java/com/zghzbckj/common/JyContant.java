@@ -44,6 +44,8 @@ public class JyContant {
     public static final Integer YYYQ = 20007;
     //工作年限
     public static final Integer GZNX = 20008;
+    //宣讲会自定义条件
+    public static final Integer ZDYTJ = 20009;
     //开关
     public static final Integer KG = 10017;
     //职位审核
