@@ -158,25 +158,18 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         Map<String, Object> objectMap = null;
         for (BckjBizDcwjTm question : questionList) {
             objectMap = new HashMap<>();
-//            objectMap.put("owid", question.getOwid());
-//            objectMap.put("tmsx", question.getTmsx());
-//            objectMap.put("tmfz", question.getTmfz());
-//            objectMap.put("dcwjRefOwid", question.getDcwjRefOwid());
-//            objectMap.put("tmlx", question.getTmlx());
-//            objectMap.put("tmmc", question.getTmmc());
-//            objectMap.put("tmckda", question.getTmckda());
-//            objectMap.put("tmsm", question.getTmsm());
             BeanUtil.obj2Map(question, objectMap);
             List<Map<String, Object>> optionList = new ArrayList<>();
             //查出选项，放入选项列表
             Map<String, Object> tmMap = bckjBizDcwjTmDao.getOption(question.getOwid());
-            Set<String> keys = tmMap.keySet();
-            for (String key : keys) {
-                Map<String, Object> map = new HashMap<>();
-                if (null == tmMap.get(key) || "".equals(tmMap.get(key))) continue;
-                map.put("bh", key);
-                map.put("ms", tmMap.get(key));
-                optionList.add(map);
+            for (Map.Entry<String, Object> entry : tmMap.entrySet()) {
+                String key = entry.getKey();
+                Object value = entry.getValue();
+                Map<String, Object> map1 = new HashMap<>();
+                if (null == value || "".equals(value)) continue;
+                map1.put("bh", key);
+                map1.put("ms", value);
+                optionList.add(map1);
             }
             objectMap.put("xxList", optionList);
             dataList.add(objectMap);
@@ -221,17 +214,17 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     }
 
     /**
-     * <p>方法:后台保存调查问卷和问卷题目saveAll TODO </p>
+     * <p>方法:保存问卷和问卷题目 saveAll TODO </p>
      * <ul>
      * <li> @param dcwj TODO</li>
      * <li> @param tmList TODO</li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@return void  </li>
      * <li>@author xuyux </li>
-     * <li>@date 2019/9/20 9:29  </li>
+     * <li>@date 2019/10/11 14:41  </li>
      * </ul>
      */
     @Transactional(readOnly = false)
-    public ResponseMessage saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
+    public void saveAll(BckjBizDcwj dcwj, List<BckjBizDcwjTm> tmList) {
         //保存调查问卷表
         if (TextUtils.isEmpty(dcwj.getOwid())) {
             dcwj.setSfyx(1);
@@ -240,15 +233,10 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         String wjOwid = dcwj.getOwid();
         //保存调查问卷题目表
         for (BckjBizDcwjTm tm : tmList) {
-            bckjBizDcwjTmDao.delete(tm);
-            if (TextUtils.isEmpty(tm.getExp1())) {
-                tm.setDcwjRefOwid(wjOwid);
-                tm.setOwid("");
-                tm.setExp1("");
-                bckjBizDcwjTmService.save(tm);
-            }
+            tm.setDcwjRefOwid(wjOwid);
+            tm.setExp1("");
+            bckjBizDcwjTmService.saveOrUpdate(tm);
         }
-        return ResponseMessage.sendOK("");
     }
 
     /**

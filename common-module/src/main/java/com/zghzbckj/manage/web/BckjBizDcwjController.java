@@ -16,6 +16,7 @@ import com.zghzbckj.manage.entity.BckjBizDcwjTm;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizDcwjJgService;
 import com.zghzbckj.manage.service.BckjBizDcwjService;
+import com.zghzbckj.manage.service.BckjBizDcwjTmService;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,8 @@ public class BckjBizDcwjController extends BaseController {
     BckjBizDcwjJgService bckjBizDcwjJgService;
     @Autowired
     BckjBizYhxxService bckjBizYhxxService;
+    @Autowired
+    BckjBizDcwjTmService bckjBizDcwjTmService;
 
     /**
      *<p>功能描述:调查问卷列表 dcwjList</p >
@@ -230,14 +233,16 @@ public class BckjBizDcwjController extends BaseController {
             List<Map<String, Object>> dataList1 = (List)dataMap.get("dataList1");
             for (Map<String, Object> data1 : dataList1) {
                 BckjBizDcwjTm bckjBizDcwjTm = JsonUtil.map2Bean(data1, BckjBizDcwjTm.class);
-                //判断是否删除，给删除的记录添加一个扩展字段
-                if (!TextUtils.isEmpty(data1.get("updateFlag")) && data1.get("updateFlag").toString().equals("2")) {
-                    bckjBizDcwjTm.setExp1("delete");
+                //判断是否为删除记录
+                if (!TextUtils.isEmpty(data1.get("updateFlag")) && "2".equals(data1.get("updateFlag").toString())) {
+                    bckjBizDcwjTmService.delete(bckjBizDcwjTm);
+                    continue;
                 }
                 tmList.add(bckjBizDcwjTm);
             }
         }
-        return bckjBizDcwjService.saveAll(bckjBizDcwj, tmList);
+        bckjBizDcwjService.saveAll(bckjBizDcwj, tmList);
+        return ResponseMessage.sendOK("");
     }
 
     @RequestMapping(value = "/getList")
