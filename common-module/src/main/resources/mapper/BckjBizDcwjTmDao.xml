@@ -73,6 +73,12 @@
 		where a.owid=#{owid}
 	</select>
 
+	<select id="listQuestion" resultType="java.util.Map">
+		select a.owid as dcwjtmRefOwid, a.tmmc as tmmc, a.tmsx as tmsx
+		from bckj_biz_dcwj_tm a
+		where a.dcwj_ref_owid=#{dcwjRefOwid}
+		order by tmsx
+	</select>
     
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjTm">
 		SELECT 

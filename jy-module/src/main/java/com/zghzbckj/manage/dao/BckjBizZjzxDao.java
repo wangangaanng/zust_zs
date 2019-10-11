@@ -28,4 +28,6 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
     void updateBycondition(BckjBizZjzx bckjBizZjzx);
 
     Map<String,Object> getConsultsOne(Map<String, Object> dataMap);
+
+    void deleteByHyid(BckjBizZjzx bckjBizZjzx);
 }

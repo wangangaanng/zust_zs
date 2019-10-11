@@ -17,6 +17,7 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 	private static final long serialVersionUID = 1L;
 
 	private String xsxh;		// xsxh
+	private String sfsf;        //sfsf
 	private Integer sfzz;		// sfzz
 	private Integer sfdlxy;		// sfdlxy
 	private Integer jyqdbz;		// jyqdbz
@@ -26,10 +27,26 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 	private String bddddm;		// bddddm
 	private String xjcqk;		// xjcqk
 
-	
+	public String getDwszddm() {
+		return dwszddm;
+	}
+
+	public void setDwszddm(String dwszddm) {
+		this.dwszddm = dwszddm;
+	}
+
+	private String dwszddm;
 
 
-	
+
+
+	public String getSfsf() {
+		return sfsf;
+	}
+
+	public void setSfsf(String sfsf) {
+		this.sfsf = sfsf;
+	}
 	@Length(min=0, max=100, message="xsxh长度必须介于 0 和 100 之间")
 	public String getXsxh() {
 		return xsxh;

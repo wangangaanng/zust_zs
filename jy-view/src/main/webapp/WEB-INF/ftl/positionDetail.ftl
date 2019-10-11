@@ -63,7 +63,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p id="memo"></p></div>
+                                <div><p>${result.memo!''}</p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==2)>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p id="memo"></p></div>
+                                <div><p>${result.memo!''}</p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==3)>
@@ -127,8 +127,23 @@
                                 </#if>
                                 <li>具体城市：<span>${result.zwCity!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                                <#if result.zphBmjzsj?exists>
+                                    <li>报名截止时间：<span>${result.zphBmjzsj?substring(0,10)}</span></li>
+                                </#if>
+                                <#if (result.zphSfqd??)&&(result.zphSfqd==0)>
+                                    <li>是否要签到：<span>不需要</span></li>
+                                </#if>
+                                <#if (result.zphSfqd??)&&(result.zphSfqd==1)>
+                                    <li>是否要签到：<span>需要</span></li>
+                                </#if>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
+                            <div class="tools cl">
+                                <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
+                                    <a class="btn_1">无需报名</a>
+                                <#else >
+                                    <a class="btn_1" onclick="applyJob()">我要报名</a>
+                                </#if>
+
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
@@ -143,8 +158,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-
-                                <div><p id="memo"></p></div>
+                                <div><p>${result.memo!''}</p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==4)>
@@ -170,8 +184,22 @@
                                 </#if>
                                 <li>具体城市：<span>${result.zwCity!''}</span></li>
                                 <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                                <#if result.zphBmjzsj?exists>
+                                    <li>报名截止时间：<span>${result.zphBmjzsj?substring(0,10)}</span></li>
+                                </#if>
+                                <#if (result.zphSfqd??)&&(result.zphSfqd==0)>
+                                    <li>是否要签到：不需要</li>
+                                </#if>
+                                <#if (result.zphSfqd??)&&(result.zphSfqd==1)>
+                                    <li>是否要签到：需要</li>
+                                </#if>
                             </ul>
-                            <div class="tools cl"> <a class="btn_1" onclick="applyJob()">我要报名</a>
+                            <div class="tools cl">
+                                <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
+                                    <a class="btn_1">无需报名</a>
+                                <#else >
+                                    <a class="btn_1" onclick="applyJob()">我要报名</a>
+                                </#if>
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
@@ -186,7 +214,7 @@
                             </div>
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
-                                <div><p id="memo"></p></div>
+                                <div><p>${result.memo!''}</p></div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==0)>
@@ -196,18 +224,29 @@
                                 <#else >
                                     <h1>${result.zwbt!''}</h1>
                                 </#if>
-                                <#assign qy=result.qyxx>
                                 <dl class="info">
-                                    <dt><a href="">${qy.qymc!''}</a></dt>
+                                    <#if result.qyxx??>
+                                        <#assign qy=result.qyxx>
+                                        <dt><a href="">${qy.qymc!''}</a></dt>
+                                    <#else >
+                                        <dt><a href="">未知企业</a></dt>
+                                    </#if>
                                     <dd>
                                         <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
                                     </dd>
                                 </dl>
                             </div>
                             <ul class="xInfo">
+                            <#if result.qyxx??>
+                                <#assign qy=result.qyxx>
                                 <li>公司性质：<span>${qy.qyGsxzStr!''}</span></li>
                                 <li>公司行业：<span>${qy.qyHylbStr!''}</span></li>
-                                <li>公司规模：<span>${qy.qyGsgmStr}</span></li>
+                                <li>公司规模：<span>${qy.qyGsgmStr!'未知'}</span></li>
+                            <#else >
+                                <li>公司性质：<span>未知</span></li>
+                                <li>公司行业：<span>未知</span></li>
+                                <li>公司规模：<span>未知</span></li>
+                            </#if>
                             </ul>
                             <ul class="xInfo xInfo-2 cl">
                                 <li>工作性质：<span>${result.zwGzxzStr!''}</span></li>
@@ -246,6 +285,8 @@
                             <div class="frame-body tabbar-frame_content">
                                 <div><p>${result.zwGwzz!''}</p></div>
                             </div>
+                            <#if result.qyxx??>
+                                <#assign qy=result.qyxx>
                             <div class="position-tabcontent">
                                 <div class="position-tabbar"><ul><li class="active"><a>公司简介</a></li><li><a>联系方式</a></li></ul></div>
                                 <div class="frame-body tabbar-frame_content">
@@ -262,6 +303,7 @@
                                     </div>
                                 </div>
                             </div>
+                            </#if>
                         </#if>
 
                     </div>
@@ -272,9 +314,6 @@
     </div>
     <#include "com/footer.ftl">
     <script>
-        var string='${result.memo!''}'
-        var memo=closeHTML(string);
-        $("#memo").html(memo);
         var jlowid="${result.exp2!'0'}"
         $(".position-tabbar ul li").hover(function () {
             $(this).addClass('active').siblings().removeClass('active');
