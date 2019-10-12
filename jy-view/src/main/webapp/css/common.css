@@ -492,8 +492,8 @@ ul.pagination {
 }
 
  .article-detail-text{padding:20px;}
-.article-detail-text p { color: #5d5d5d;  line-height: 25px; font-size: 14px;}
-.article-detail-text p span{font-size: 14px !important;}
+/*.article-detail-text p { color: #5d5d5d;  line-height: 25px; font-size: 14px;}*/
+/*.article-detail-text p span{font-size: 14px !important;}*/
 .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
     z-index: 3;
     color: #fff;
@@ -832,7 +832,7 @@ ul.pagination {
 .share { float: left; }
 /**/
 .xInfo { padding-top: 15px; padding-bottom: 15px;padding-left: 0px;list-style: none;margin: 0;}
-.xInfo li { height: 30px; line-height: 22px; color: #aaaaaa; }
+.xInfo li { height: 30px; line-height: 22px; color: #aaaaaa; font-size: 16px;}
 .xInfo li span { color: #666666; }
 .xInfo-2 { border-bottom: 0; border-top: 1px solid #ececec; }
 .xInfo-2 li { width: 33%; float: left; }
