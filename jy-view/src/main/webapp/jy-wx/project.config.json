@@ -71,10 +71,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "pages/newsList/newsList",
 					"pathName": "pages/newsList/newsList",
-					"query": "",
+					"query": "fid=16",
 					"scene": null
 				},
 				{

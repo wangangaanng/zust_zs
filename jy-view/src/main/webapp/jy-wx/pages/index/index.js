@@ -10,9 +10,9 @@ Page({
     menuList: [
       { text: '学校概况', icon: '../../../static/index-icon01.png', url: '../school/school' }, 
       { text: '学院介绍', icon: '../../../static/index-icon02.png', url: '../xueyuan/xueyuan' }, 
-      { text: '新闻公告', icon: '../../../static/index-icon03.png', url: '../newsList/newsList' }, 
+      { text: '新闻公告', icon: '../../../static/index-icon03.png', url: '../newsList/newsList?fid=16' }, 
       { text: '招聘信息', icon: '../../../static/index-icon04.png', url: '../recruitment/recruitment' }, 
-      { text: '职业指导', icon: '../../../static/index-icon05.png', url: '../newsList/newsList' }, 
+      { text: '职业指导', icon: '../../../static/index-icon05.png', url: '../newsList/newsList?fid=18' }, 
       { text: '就业排行榜', icon: '../../../static/index-icon06.png',url: '' }, 
       { text: '学生服务', icon: '../../../static/index-icon07.png', url: '../stuService/stuService' }, 
       { text: '企业服务', icon: '../../../static/index-icon08.png', url: '../qyService/qyService' }],
