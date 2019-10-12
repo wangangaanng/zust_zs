@@ -146,6 +146,20 @@
 					"pathName": "pages/qyLogin/qyLogin",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xueyuan/xueyuan",
+					"pathName": "pages/xueyuan/xueyuan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/newsDetail/newsDetail",
+					"pathName": "pages/newsDetail/newsDetail",
+					"query": "owid=612d780df9124e04bf853aac4576850a",
+					"scene": null
 				}
 			]
 		}
