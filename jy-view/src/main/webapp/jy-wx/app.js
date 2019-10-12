@@ -15,7 +15,7 @@ App({
     lj: '',
     ApiUrl: 'http://172.16.13.106:8888/',
     localimgUrl: '',
-    imgUrl: 'http://172.16.13.109:8080/zjcFiles/',
+    imgPath: 'http://172.16.13.109:8080/zjcFiles/',
     openId: '',
     unionid: ''
   }
