@@ -40,7 +40,7 @@
                             </div>
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
-                                    <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
+                                    <li>举办日期：<span>${result.zphKsrq?substring(0,10)}</span></li>
                                 </#if>
                                 <#if result.zphJtsj?exists>
                                     <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
@@ -120,7 +120,7 @@
                             </div>
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
-                                    <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
+                                    <li>举办日期：<span>${result.zphKsrq?substring(0,10)}</span></li>
                                 </#if>
                                 <#if result.zphJtsj?exists>
                                     <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
@@ -177,7 +177,7 @@
                             </div>
                             <ul class="xInfo">
                                 <#if result.zphKsrq?exists>
-                                    <li>具体时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
+                                    <li>举办时间：<span>${result.zphKsrq?substring(0,16)}</span></li>
                                 </#if>
                                 <#if result.zphJtsj?exists>
                                     <li>举办时长：<span> ${result.zphJtsj!''}</span></li>
