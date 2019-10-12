@@ -19,7 +19,7 @@
 		margin-right: 8rpx;
 	}
 	.article{
-		width: 100%;
+		width: calc(100% - 70rpx);
 		overflow: hidden;
 		line-height: 50rpx;
 		font-size: 32rpx;
@@ -30,7 +30,7 @@
 		width: 100%;
 	}
 	h1{font-size: 20rpx !important;}
-	.memoimg{width:100% !important;height: auto !important;}
+	.memoimg{}
 	.memop{
 		line-height: 50rpx;
 		font-size: 30rpx !important;
@@ -41,3 +41,17 @@
 		font-size: 30rpx !important;
 		color: #474747;
 	}
+
+  .memoimg{width:100% !important;height: auto !important;}
+	.memop{
+		line-height: 50upx;
+		font-size: 30upx !important;
+		color: #333;
+	}
+	.memop span{
+		line-height: 50upx;
+		font-size: 30upx !important;
+		color: #333;
+	}
+
+  .wxParse-img{width:100% !important;}
