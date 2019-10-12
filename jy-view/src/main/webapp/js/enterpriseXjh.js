@@ -326,12 +326,11 @@ function myJobList2() {
                     title: '举办时长',
                     align: 'center',
                 },  {
-                    field: 'exp3',
+                    field: 'xxlxr',
                     title: '学校联系人',
-
                     align: 'center',
                 },  {
-                    field: 'exp4',
+                    field: 'xxlxrdh',
                     title: '学校联系人</br>电话',
                     align: 'center',
                 },  {
