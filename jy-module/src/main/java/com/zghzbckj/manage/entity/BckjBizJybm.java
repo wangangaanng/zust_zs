@@ -60,6 +60,24 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String tjsd3;
     private String tjsd4;
     private String tjsd5;
+    private String xxlxr;
+    private String xxlxrdh;
+
+    public String getXxlxr() {
+        return xxlxr;
+    }
+
+    public void setXxlxr(String xxlxr) {
+        this.xxlxr = xxlxr;
+    }
+
+    public String getXxlxrdh() {
+        return xxlxrdh;
+    }
+
+    public void setXxlxrdh(String xxlxrdh) {
+        this.xxlxrdh = xxlxrdh;
+    }
 
     public String getZdytj1() {
         return zdytj1;
