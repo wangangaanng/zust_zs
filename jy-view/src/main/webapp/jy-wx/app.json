@@ -24,10 +24,10 @@
     "pages/lszx/lszx",
     "pages/zjxq/zjxq",
     "pages/jyzx/jyzx",
-    "pages/qyzc/qyzc",
     "pages/auth/auth",
     "pages/qyLogin/qyLogin",
-    "pages/stuLogin/stuLogin"
+    "pages/stuLogin/stuLogin",
+    "pages/qyzc/qyzc"
   ],
   "window": {
     "backgroundTextStyle": "light",
