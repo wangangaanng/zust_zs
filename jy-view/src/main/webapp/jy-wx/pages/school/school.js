@@ -18,11 +18,6 @@ Page({
     getContent(this,'22');
     getContent(this,'24');
   },
-  clicktab: function (e) {
-    // wx.pageScrollTo({
-    //   scrollTop: 0
-    // })
-  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
