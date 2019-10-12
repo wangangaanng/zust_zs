@@ -1,0 +1,15 @@
+<!--pages/school/school.wxml-->
+<van-tabs sticky bind:click="clicktab">
+  <van-tab title="学校简介">
+     <scroll-view>
+      <view style="padding:30rpx 30rpx;">
+        <rich-text nodes="{{content1}}" style="color: #5d5d5d;line-height: 25px;font-size: 14px;"></rich-text>
+      </view>
+     </scroll-view>
+  </van-tab>
+  <van-tab title="中心介绍">
+    <view style="padding:30rpx 30rpx;">
+      <rich-text nodes="{{content2}}" style="color: #5d5d5d;line-height: 25px;font-size: 14px;"></rich-text>
+    </view>
+  </van-tab>
+</van-tabs>
