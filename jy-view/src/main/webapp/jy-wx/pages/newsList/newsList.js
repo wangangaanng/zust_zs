@@ -119,22 +119,18 @@ var getList = function (that, owid, isDetail,index,pageNo){
   common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      for (var i = 0; i < res.data.bean.records.length; i++) {
-        var obj = {};
-        var object = res.data.bean.records[i];
-        // obj.owid = object.owid;
-        // obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
-        // obj.year = object.createtime.substring(0, 4);
-        // obj.zwbt = object.zwbt;
-        // obj.qymc = object.exp1;
-        // obj.city = object.zwCity;
-        // obj.gzxz = object.zwGzxzStr;
-        if (object.fbsj){
-          object.date = object.fbsj.substring(5, 7) + "." + object.fbsj.substring(8, 10);
-          object.year = object.fbsj.substring(0, 4);
+      if (res.data.bean.records){
+        for (var i = 0; i < res.data.bean.records.length; i++) {
+          var obj = {};
+          var object = res.data.bean.records[i];
+          if (object.fbsj) {
+            object.date = object.fbsj.substring(5, 7) + "." + object.fbsj.substring(8, 10);
+            object.year = object.fbsj.substring(0, 4);
+          }
+          arr.push(object);
         }
-        arr.push(object);
       }
+      
       var page = "wzList[" + index + "].pageNo";
       var totalPage = "wzList[" + index + "].totalPage";
       var list = "wzList[" + index + "].list";
@@ -143,10 +139,6 @@ var getList = function (that, owid, isDetail,index,pageNo){
         [totalPage]: res.data.bean.totalPage,
         [list]: that.data.wzList[index].list.concat(arr),
       })
-      // that.setData({
-      //   newsList1: newsList1,
-      //   totalPage1: totalPage1,
-      // })
     } else {
       wx.showToast({
         title: res.data.errorMess,
