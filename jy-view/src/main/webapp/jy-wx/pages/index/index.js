@@ -2,9 +2,10 @@
 //获取应用实例
 var common = require('../../libs/common/common.js')
 const app = getApp()
-
+var imgPath = app.globalData.imgPath;
 Page({
   data: {
+    imgPath:imgPath,
     imgUrls: ['https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1679456154,2493198454&fm=26&gp=0.jpg','https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1679456154,2493198454&fm=26&gp=0.jpg'],
     menuList: [
       { text: '学校概况', icon: '../../../static/index-icon01.png', url: '../newsDetail/newsDetail' }, 
@@ -56,6 +57,7 @@ Page({
     }
   },
   onLoad: function () {
+    getAdv(this);
     getList1(this,'0');//职位
     getList2(this, '2');//企业招聘公告
     getList3(this, '3');//招聘会
@@ -117,6 +119,34 @@ Page({
     }
   }
   })
+var getAdv = function(that){//新闻快递轮播图
+  var data = { "lmbh": "26", "pageNo": "1", "pageSize": "20", "wzzt": "1", "isDetail": "1" };
+  common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
+    if (res.data.backCode == 0) {
+      var arr = [];
+      var count=0;
+      for (var i = 0; i < res.data.bean.records.length; i++) {
+        var obj = {};
+        var object = res.data.bean.records[i];
+        if ((object.tpjj) && (count < 5)){
+          obj.owid = object.owid;
+          obj.tpjj = object.tpjj;
+          arr.push(obj);
+          count += 1;
+        }
+      }
+      that.setData({
+        imgUrls: arr,
+      })
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
 var getList1 = function (that,lx){
   var data = {
     "zwgjz": "", "zwQymc": "", "zwPro": "", "zwCity": "", "zwlx": lx, "pageNo": that.data.pageNo1,"pageSize": that.data.pageSize, };

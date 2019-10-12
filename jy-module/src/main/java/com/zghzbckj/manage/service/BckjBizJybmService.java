@@ -360,7 +360,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 }
                 if (TextUtils.isEmpty(mapData.get("zphJtsj"))) {
                     resultMap.put("result", "false");
-                    resultMap.put("msg", "审核通过时请填写举办时长");
+                    resultMap.put("msg", "审核通过时请填写具体时间");
                     return resultMap;
                 }
                 if (TextUtils.isEmpty(mapData.get("exp3"))) {

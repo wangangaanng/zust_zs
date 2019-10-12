@@ -1,7 +1,7 @@
 /**index.wxss**/
 .van-grid{background: #fff;}
 .van-tabs{margin-top: 10px;}
-.index-swiper{height: 300rpx;}
+.index-swiper{height: 400rpx;}
 .index-swiper image{width:750rpx;height: 100%;}
 .uni-media-list-text-content{color: #333;white-space: nowrap;-webkit-line-clamp:1;}
 .float-btn{
