@@ -186,4 +186,62 @@
         WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
     </select>
 
+    <select id="getCompanyNum" resultType="java.lang.Integer">
+        select count(*)
+        from bckj_biz_qyxx
+        <where>
+            <if test="state != null and state !=''">
+                and state=#{state}
+            </if>
+            <if test="year != null and year !=''">
+                and year(createtime)=#{year}
+            </if>
+            <if test="qyHylb != null and qyHylb !=''">
+                and qy_hylb=#{qyHylb}
+            </if>
+            <if test="qyGsgm != null and qyGsgm !=''">
+                and qy_gsgm=#{qyGsgm}
+            </if>
+        </where>
+    </select>
+
+    <select id="getZwlxNumber" resultType="java.lang.Integer">
+        select count(*)
+        from bckj_biz_job
+        <where>
+            <if test="state != null and state !=''">
+                and state=#{state}
+            </if>
+            <if test="year != null and year !=''">
+                and year(createtime)=#{year}
+            </if>
+            <if test="zwlx != null and zwlx !=''">
+                and zwlx=#{zwlx}
+            </if>
+        </where>
+    </select>
+
+    <select id="getOneDic" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT a.* FROM ourway_sys_dic_value a,ourway_sys_dic b WHERE a.dic_ref_owid=b.owid
+        <if test="type != null and type !=''">
+            AND b.TYPE=#{dicType}
+        </if>
+        <if test="dicVal1 != null and dicVal1 !=''">
+            AND a.dic_val1=#{dicVal1}
+        </if>
+        <if test="dicVal3 != null and dicVal3 !=''">
+            AND a.dic_val3=#{dicVal3}
+        </if>
+    </select>
+
+    <select id="listDicVal" parameterType="java.util.Map" resultType="java.util.Map">
+        select * from ourway_sys_dic a,ourway_sys_dic_value b
+        <where>a.owid=b.dic_ref_owid
+            and a.type = #{dicType}
+            <if test="dicVal1 != null and dicVal1 !=''">
+                AND b.dicVal1 = #{dicVal1}
+            </if>
+        </where>
+    </select>
+
 </mapper>
