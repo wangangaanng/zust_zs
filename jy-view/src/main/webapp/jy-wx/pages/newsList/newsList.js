@@ -11,24 +11,7 @@ Page({
     currentTab:0,
     navList:[],
     wzList:[
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list:[]
-      // },
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list: []
-      // },
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list: []
-      // }
+
     ],
   },
 

@@ -67,7 +67,7 @@
 					"id": 1,
 					"name": "pages/recruitment/recruitment",
 					"pathName": "pages/recruitment/recruitment",
-					"query": "",
+					"query": "fid=17",
 					"scene": null
 				},
 				{
