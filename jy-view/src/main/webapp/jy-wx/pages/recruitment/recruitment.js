@@ -47,9 +47,16 @@ Page({
     })
   },
   positionDetail(e){
-    wx.navigateTo({
-      url: '../qyInfo/qyInfo?owid=' + e.currentTarget.dataset.owid,
-    })
+    if (e.currentTarget.dataset.lx==5){
+      wx.navigateTo({
+        url: '../newsDetail/newsDetail?owid=' + e.currentTarget.dataset.owid,
+      })
+    }else{
+      wx.navigateTo({
+        url: '../qyInfo/qyInfo?owid=' + e.currentTarget.dataset.owid,
+      })
+    }
+    
   },
   onChange(e) {
     this.setData({

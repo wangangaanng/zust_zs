@@ -18,7 +18,7 @@
           <view wx:if="{{index2==index}}">
            <view class="uni-list">
             <block wx:for="{{item2.list}}" wx:key="" wx:for-item="itm" wx:for-index="idx">
-               <view class="uni-list-cell" hover-class="uni-list-cell-hover"  data-owid="{{itm.owid}}" bindtap="positionDetail">
+               <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{itm.zwlx}}"  data-owid="{{itm.owid}}" bindtap="positionDetail">
                   <view class="uni-media-list">
                     <view class="news-date">
                       <span>{{itm.date}}</span>
