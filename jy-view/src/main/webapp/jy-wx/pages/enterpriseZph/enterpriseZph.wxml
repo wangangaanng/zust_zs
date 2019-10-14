@@ -1,0 +1,29 @@
+<!--pages/newsList/newsList.wxml-->
+<van-tabs animated sticky bind:click="clickTab">
+  <block wx:for="{{navList}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+     <van-tab title="{{item.name}}">
+      <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore">
+      <view class="uni-list">
+        <block wx:for="{{wzList}}" wx:for-item="item2" wx:for-index="index2">
+          <view wx:if="{{index2==index}}">
+            <block wx:for="{{item2.list}}" wx:for-item="itm" wx:for-index="idx">
+               <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+                  <view class="uni-media-list">
+                    <view class="news-date">
+                      <span>{{itm.date}}</span>
+                      <em>{{itm.year}}</em>
+                    </view>
+                    <view class="uni-media-list-body">
+                      <view class="uni-media-list-text-top">{{itm.wzbt}}</view>
+                      
+                    </view>
+                  </view>
+                </view>
+            </block>
+          </view>
+        </block>
+      </view>
+      </scroll-view>
+    </van-tab>
+  </block>
+</van-tabs>

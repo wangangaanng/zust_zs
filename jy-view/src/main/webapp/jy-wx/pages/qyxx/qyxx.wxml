@@ -1,31 +1,15 @@
 
 <form bindsubmit="submitForm">
-<view class="q-top">
-  <view class="img-scyyzz">
-    <image src="{{yyzz}}" bindtap="upload" data-type="1"></image>
-  </view>
-  <view class="q-zy">
-    <view>注意:（必传）</view>
-    <view>营业执照为三证合一，上传的图片大小不得超过2M</view>
-  </view>
-</view>
+  <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="企业名称" placeholder="输入内容" disabled required />
 <van-cell-group>
-  <van-field value="{{form.qyTysh}}" name="qyTysh" input-align="right" required label="填写代码" placeholder="组织机构代码或者统一信用码" />
+  <van-field value="{{form.qyTysh}}" name="qyTysh" input-align="right" disabled required label="企业代码" placeholder="组织机构代码或者统一信用码" />
  </van-cell-group>
 
- <view class="q-top">
-  <view class="img-scyyzz1">
-    <image src="{{sfz}}" bindtap="upload" data-type="2"></image>
-  </view>
-</view>
-
-
  <van-cell-group>
-  <van-field input-align="right" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.qyFrdbxm}}" name="qyFrdbxm" label="法人姓名" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="企业名称" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" disabled required />
+  <van-field input-align="right" value="{{form.qyFrdbxm}}" name="qyFrdbxm" label="法人姓名" placeholder="输入内容" disabled required />
 <van-cell required title="所在省市区" value="{{area}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" required />
-  <van-field input-align="right" value="{{form.qydz}}" name="qydz" label="公司地址" placeholder="输入内容" required type="textarea" placeholder="输入内容" rows="1" autosize />
+  <van-field input-align="right" value="{{form.qydz}}" name="qydz" label="公司地址" type="textarea" rows="1" autosize placeholder="输入内容" required />
    <van-field input-align="right" value="{{form.qyLxr}}" name="qyLxr" label="联系人" placeholder="输入内容" required />
     <van-field input-align="right" value="{{form.qyLxrdh}}" name="qyLxrdh" label="手机" placeholder="输入内容" required />
      <van-field input-align="right" value="{{form.qyYx}}" name="qyYx" label="邮箱" placeholder="输入内容" required />
@@ -42,6 +26,9 @@
     <van-picker show-toolbar title="公司规模" value-key="dicVal2" columns="{{gsgmColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field required value="{{form.qyGsjs}}" name="qyGsjs" required label="公司介绍" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  <van-cell title="营业执照" >
+    <image class="qyYyzzzp" bindtap="preview" src="{{imgPath}}{{form.qyYyzzzp}}"></image>
+  </van-cell>
 </van-cell-group>
 <input type="text" class="hiddenInput" name="qyProv" value="{{form.qyProv}}"></input>
 <input type="text" class="hiddenInput" name="qyCity" value="{{form.qyCity}}"></input>
@@ -52,7 +39,7 @@
 <input type="text" class="hiddenInput" name="qyYyzzzp" value="{{form.qyYyzzzp}}"></input>
 <input type="text" class="hiddenInput" name="qyFrsfzzp" value="{{form.qyFrsfzzp}}"></input>
 
-<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">修改</button>
 </form>
 <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="4" bind:close="hideBottom">
   <van-area

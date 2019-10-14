@@ -5,7 +5,6 @@
     "van-picker": "vant-weapp/picker",
     "van-field": "vant-weapp/field",
     "van-area": "vant-weapp/area",
-    "van-datetime-picker": "vant-weapp/datetime-picker",
     "van-popup": "vant-weapp/popup"
   }
 }
