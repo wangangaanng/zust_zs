@@ -52,22 +52,6 @@ Page({
     });
   },
 
-  // onSearch(event) {
-  //   if (this.data.value) {
-  //     wx.showToast({
-  //       title: '搜索：' + this.data.value,
-  //       icon: 'none'
-  //     });
-  //   }
-  // },
-
-  // onCancel() {
-  //   wx.showToast({
-  //     title: '取消',
-  //     icon: 'none'
-  //   });
-  // },
-
   onClear() {
     var that = this;
     refresh(this);
