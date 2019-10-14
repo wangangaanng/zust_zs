@@ -10,26 +10,7 @@ Page({
   data: {
     currentTab: 0,
     navList: [{name:"未申请"},{name:"已申请"}],
-    wzList: [
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list:[]
-      // },
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list: []
-      // },
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list: []
-      // }
-    ],
+    wzList: [],
   },
 
   /**

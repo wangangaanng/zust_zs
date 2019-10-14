@@ -10,7 +10,7 @@ Page({
       { text: '企业信息', icon: '../../../static/qy-icon01.png', url: '../qyxx/qyxx' }, 
       { text: '新增职位', icon: '../../../static/qy-icon02.png', url: '../newJob/newJob' }, 
       { text: '宣讲会申请', icon: '../../../static/qy-icon03.png', url: '../enterpriseXjh/enterpriseXjh' }, 
-      { text: '招聘会申请', icon: '../../../static/qy-icon04.png' }, 
+      { text: '招聘会申请', icon: '../../../static/qy-icon04.png', url: '../enterpriseZph/enterpriseZph' }, 
       { text: '职位列表', icon: '../../../static/qy-icon05.png', url: '../enterpriseZw/enterpriseZw' }, 
       { text: '企业指南', icon: '../../../static/qy-icon06.png' }],
   },
