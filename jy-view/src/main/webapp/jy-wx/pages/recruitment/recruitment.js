@@ -46,6 +46,11 @@ Page({
       currentTab: e.detail.index
     })
   },
+  positionDetail(e){
+    wx.navigateTo({
+      url: '../qyInfo/qyInfo?owid=' + e.currentTarget.dataset.owid,
+    })
+  },
   onChange(e) {
     this.setData({
       key: e.detail
@@ -170,6 +175,7 @@ var getList = function (that, owid, isDetail, SJHQDX, index, pageNo) {
                 obj.zphKsrq = object.zphKsrq.substring(0, 10)
               }
             }
+            obj.owid = object.owid;
             obj.zwbt = object.zwbt;
             obj.zphJbdd = object.zphJbdd;
             obj.zphJtsj = object.zphJtsj;

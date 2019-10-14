@@ -46,6 +46,11 @@ Page({
       currentTab: e.detail.index
     })
   },
+  newsDetail(e){
+    wx.navigateTo({
+      url: '../newsDetail/newsDetail?owid='+e.currentTarget.dataset.owid,
+    })
+  },
   onChange(e) {
     this.setData({
       key: e.detail
