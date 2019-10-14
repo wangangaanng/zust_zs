@@ -1,17 +1,70 @@
 <!--pages/recruitment/recruitment.wxml-->
-<view class="uni-list">
-  <view class="uni-list-cell" hover-class="uni-list-cell-hover">
-    <view class="uni-media-list">
-      <view class="news-date">
-        <span>04.24</span>
-        <em>2019</em>
-      </view>
-      <view class="uni-media-list-body">
-        <view class="uni-media-list-text-top">2019届校园招聘会</view>
-        <view class="uni-media-list-text-content">举办地点：浙江科技学院</view>
-        <view class="uni-media-list-text-content">举办时长：3小时</view>
-      </view>
-      <van-icon name="arrow" color="#008783" class="arrow-right" />
-    </view>
-  </view>
-</view>
+<van-search
+    value="{{ key }}"
+    placeholder="请输入搜索关键词"
+    use-action-slot
+    bind:clear="onClear"
+    bind:change="onChange"
+    bind:search="onSearch"
+    shape="round"
+  >
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+<van-tabs animated sticky bind:click="clickTab">
+  <block wx:for="{{navList}}" wx:key="index" wx:for-item="item" wx:for-index="index">
+     <van-tab title="{{item.name}}">
+      <scroll-view  style='position:fixed;top:195rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+        <block wx:for="{{wzList}}" wx:key="" wx:for-item="item2" wx:for-index="index2">
+          <view wx:if="{{index2==index}}">
+           <view class="uni-list">
+            <block wx:for="{{item2.list}}" wx:key="" wx:for-item="itm" wx:for-index="idx">
+               <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{itm.zwlx}}"  data-owid="{{itm.owid}}" bindtap="positionDetail">
+                  <view class="uni-media-list">
+                    <view class="news-date">
+                      <span>{{itm.date}}</span>
+                      <em>{{itm.year}}</em>
+                    </view>
+                    <view class="uni-media-list-body" wx:if="{{itm.zwlx==0}}">
+                      <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-content">
+                      公司名称：{{itm.qymc}}
+                      </view>
+                      <view class="uni-media-list-text-bottom">
+                        <view class="uni-media-list-text-bottom-left">工作城市：{{itm.zwCity}}</view>
+                        <view class="uni-media-list-text-bottom-right ">
+                          工作性质：{{itm.zwGzxzStr}}
+                        </view>
+                      </view>
+                    </view>
+                    <view class="uni-media-list-body" wx:if="{{itm.zwlx==2}}">
+                      <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-bottom">
+                        <view class="uni-media-list-text-bottom-left">工作城市：{{itm.zwCity}}</view>
+                      </view>
+                    </view>
+                    <view class="uni-media-list-body" wx:if="{{itm.zwlx==1||itm.zwlx==3||itm.zwlx==4}}">
+                      <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-content">
+                      举办地点：{{itm.zphJbdd}}
+                      </view>
+                      <view class="uni-media-list-text-bottom">
+                        <view class="uni-media-list-text-bottom-left">举办时间：{{itm.zphKsrq}} {{itm.zphJtsj}}</view>
+                      </view>
+                    </view>
+                    <view class="uni-media-list-body" wx:if="{{itm.zwlx==5}}">
+                      <view class="uni-media-list-text-top2">{{itm.wzbt}}</view>
+                    </view>
+                    <!-- <van-icon name="arrow" color="#008783" class="arrow-right" /> -->
+                  </view>
+                </view>
+            </block>
+             </view>
+            <van-divider contentPosition="center" textColor="#008783" style="{{item2.pageNo==item2.totalPage?'display:block;':'display:none;'}}">没有更多了</van-divider>
+          </view>
+        </block>
+      </scroll-view>
+    </van-tab>
+  </block>
+</van-tabs>
+
+

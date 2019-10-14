@@ -18,12 +18,15 @@
     line-height: 1.8;
 }
 view{
-    word-break:break-all; overflow:auto;
+    word-break:break-all;
+    max-width: 100%;
+     overflow:auto;
 }
 .wxParse-inline{
     display: inline;
     margin: 0;
     padding: 0;
+    line-height: initial;
 }
 /*//标题 */
 .wxParse-div{margin: 0;padding: 0;}
@@ -131,6 +134,7 @@ view{
     height: 5px;
     background-color: #333;
     margin-right: 5px;
+    display: none;
 }
 
 .wxParse-li-square{

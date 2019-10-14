@@ -16,12 +16,12 @@
     <div style="text-align: left;padding: 30px 0 0 0;">
         <img src="charisma/img/index_logo.png"/>
         <h2 style="font-size: 36px;letter-spacing: 0;color: #fffefe;">浙江科技学院招就处一体化管理平台</h2>
-        <h2 style="font-size: 12px;letter-spacing: 0;color: #fffefe;">Zhejiang academy of science and technology website background management system</h2>
+        <h2 style="font-size: 12px;letter-spacing: 0;color: #fffefe;">Zhejiang University Of Science And Technology website background management system</h2>
     </div>
 
 </div>
 <!--content-wrap begin-->
-<div class="root" style="height: 700px;">
+<div class="root">
 
     <article>
         <section class="LoginForm" style="color: #fff;top: 40%;left: 77%;border: 2px solid #e6e6e6">
@@ -49,7 +49,7 @@
     </article>
 
 </div>
-<div style="width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #fffefe;">浙江科技学院版权所有<span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved</div>
+<div style="position: absolute; bottom: 1%; width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #fffefe;">浙江科技学院版权所有<span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved</div>
 <!--content-wrap end-->
 <#--<script src="html/js/jquery.min.js"></script>-->
 <script src="html/js/jquery-3.2.1.min.js"></script>

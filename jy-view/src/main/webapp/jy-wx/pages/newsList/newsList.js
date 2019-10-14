@@ -9,26 +9,10 @@ Page({
    */
   data: {
     currentTab:0,
+    key:'',
     navList:[],
     wzList:[
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list:[]
-      // },
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list: []
-      // },
-      // {
-      //   pageSize: 20,
-      //   pageNo: 1,
-      //   totalPage: '',
-      //   list: []
-      // }
+
     ],
   },
 
@@ -63,6 +47,25 @@ Page({
     this.setData({
       currentTab: e.detail.index
     })
+  },
+  newsDetail(e){
+    wx.navigateTo({
+      url: '../newsDetail/newsDetail?owid='+e.currentTarget.dataset.owid,
+    })
+  },
+  onChange(e) {
+    this.setData({
+      key: e.detail
+    });
+  },
+
+  onClear() {
+    var that = this;
+    refresh(this);
+  },
+  onSearch: function () {
+    var that = this;
+    refresh(this);
   },
   loadMore:function(){
     var index = this.data.currentTab
@@ -117,7 +120,7 @@ var getLm = function(that,bh){
   });
 }
 var getList = function (that, owid, isDetail,index,pageNo){
-  var data = { "lmbh": owid, "pageNo": pageNo, "pageSize": "20", "wzzt": "1", "isDetail": isDetail };//isDetail:1列表
+  var data = { "lmbh": owid, "pageNo": pageNo, "pageSize": "20", "wzzt": "1", "isDetail": isDetail, "gjz": that.data.key };//isDetail:1列表
   common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
@@ -149,4 +152,20 @@ var getList = function (that, owid, isDetail,index,pageNo){
       })
     }
   });
+}
+function refresh(that) {
+  wzList = [];
+  var navList = that.data.navList;
+  for (var i = 0; i < navList.length; i++) {
+    var wzListObj = {};
+    wzListObj.pageSize = 20;
+    wzListObj.pageNo = 1;
+    wzListObj.totalPage = "";
+    wzListObj.list = [];
+    wzList.push(wzListObj);
+    that.setData({
+      wzList: wzList
+    })
+    getList(that, navList[i].owid, navList[i].isDetail, i, 1);//index, pageNo
+  }
 }
