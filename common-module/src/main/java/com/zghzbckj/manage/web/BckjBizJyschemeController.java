@@ -4,7 +4,6 @@
 package com.zghzbckj.manage.web;
 
 import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
@@ -13,19 +12,20 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.service.BckjBizJyschemeService;
-import jdk.internal.org.objectweb.asm.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 
-/**
+/**BckjBizYhxxService
  * 就业方案Controller
  * @author wangangaanng
  * @version 2019-09-30

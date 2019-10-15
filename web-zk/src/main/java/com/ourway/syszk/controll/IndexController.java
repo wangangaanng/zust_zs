@@ -100,10 +100,10 @@ public class IndexController extends SpringZkBaseControl {
         //传递request，主要用于当html跳转到zk的时候，session处理问题
         CookieUtils.setRequest(request);
         try {
-            String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-            String zphJbdd = new String(request.getParameter("zphJbdd").getBytes("iso-8859-1"), "utf-8");
-            String zphKsrq = new String(request.getParameter("zphKsrq").getBytes("iso-8859-1"), "utf-8");
-            String zphJtsj = new String(request.getParameter("zphJtsj").getBytes("iso-8859-1"), "utf-8");
+            String name = request.getParameter("name");
+            String zphJbdd = request.getParameter("zphJbdd");
+            String zphKsrq = request.getParameter("zphKsrq");
+            String zphJtsj = request.getParameter("zphJtsj");
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
             String url = WebZKConstant.WX_VIEW_URL;
             String picName = TextUtils.getUUID() + ".jpg";
@@ -111,11 +111,16 @@ public class IndexController extends SpringZkBaseControl {
             QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
                     picName, true);
             Map map = Maps.newHashMap();
+
+            map.put("qrPic", tpPath + "qrcode/" + picName);
             map.put("name", name);
-            map.put("qrCode", tpPath + "qrcode/" + picName);
             map.put("zphJbdd", zphJbdd);
             map.put("zphKsrq", zphKsrq);
             map.put("zphJtsj", zphJtsj);
+//            map.put("name", new String(name.getBytes("utf-8"),"ISO-8859-1"));
+//            map.put("zphJbdd", new String(zphJbdd.getBytes("utf-8"),"ISO-8859-1"));
+//            map.put("zphKsrq", new String(zphKsrq.getBytes("utf-8"),"ISO-8859-1"));
+//            map.put("zphJtsj",new String(zphJtsj.getBytes("utf-8"),"ISO-8859-1"));
             request.setAttribute("map", map);
 //            request.setAttribute("qrCode", tpPath+ picName);
             return "projectReport";

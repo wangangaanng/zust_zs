@@ -81,7 +81,6 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
 
 
 
-
     public List<Map<String, String[]>> getResultList() {
         return resultList;
     }

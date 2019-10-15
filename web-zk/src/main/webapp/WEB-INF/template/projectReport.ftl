@@ -202,7 +202,7 @@
     <table width="80%" align="center" style="margin-top: 100px;border-collapse:collapse">
         <tr>
             <td align="center" colspan="2" valign="middle" style="text-align: center;">
-                <img src="${map.qrCode}" id="qrCode" style="width: 200px;height: 200px;"/>
+                <img src="${map.qrPic}" id="qrCode" style="width: 400px;height: 400px;"/>
             </td>
         </tr>
     </table>
@@ -215,7 +215,6 @@
     </table>
 </div>
 <script type="text/javascript">
-    document.getElementById('qrCode').src = getRequest().qrCode
 </script>
 
 <!--endprint-->
