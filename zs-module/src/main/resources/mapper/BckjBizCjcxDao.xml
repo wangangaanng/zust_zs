@@ -97,7 +97,12 @@
 		FROM bckj_biz_cjcx a
 		<include refid="bckjBizCjcxJoins"/>
 		<where>
-			
+			<if test="ksh !=null and ksh!='' ">
+				a.ksh=#{ksh}
+			</if>
+			<if test="sfzh !=null and sfzh!='' ">
+				AND a.sfzh=#{sfzh}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

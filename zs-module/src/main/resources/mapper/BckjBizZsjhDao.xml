@@ -65,7 +65,21 @@
 		FROM bckj_biz_zsjh a
 		<include refid="bckjBizZsjhJoins"/>
 		<where>
-			
+			<if test="nf !=null and nf !='' ">
+				a.nf like concat('',#{nf},'%')
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

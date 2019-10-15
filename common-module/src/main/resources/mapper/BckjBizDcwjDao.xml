@@ -80,6 +80,18 @@
 			<if test="wzbh != null and wzbh != ''">
 				AND a.wzbh=#{wzbh}
 			</if>
+			<if test="wjnd != null and wjnd != ''">
+				AND a.wjnd=#{wjnd}
+			</if>
+			<if test="sfdl != null and sfdl != ''">
+				AND a.sfdl=#{sfdl}
+			</if>
+			<if test="mxdx != null and mxdx != ''">
+				AND a.mxdx=#{mxdx}
+			</if>
+			<if test="sfyx != null and sfyx != ''">
+				AND a.sfyx=#{sfyx}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
