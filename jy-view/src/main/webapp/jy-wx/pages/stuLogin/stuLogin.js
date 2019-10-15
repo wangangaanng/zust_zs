@@ -43,7 +43,6 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/logIn', data, function (res) {
       if (res.data.backCode == 0) {
-        wx.clearStorageSync()
         wx.removeStorageSync('userType')
         wx.removeStorageSync('yhOwid')
         wx.removeStorageSync('qyInfo')
