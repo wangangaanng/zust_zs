@@ -233,6 +233,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
      * @param dataMap
      * @return ResponseMessage
      */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage insertssInfo(Map<String, Object> dataMap) {
 
         BckjBizJyscheme bckjBizJyscheme = new BckjBizJyscheme();
@@ -249,10 +250,11 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
 
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizStudentinfo);
-        MapUtil.easySetByMap(dataMap, bckjBizSyb);
         MapUtil.easySetByMap(dataMap, bckjBizYhkz);
         MapUtil.easySetByMap(dataMap,bckjBizJyscheme);
         MapUtil.easySetByMap(dataMap,bckjBizJypuchong);
+        dataMap.remove("owid");
+        MapUtil.easySetByMap(dataMap, bckjBizSyb);
 
         if (!TextUtils.isEmpty(bckjBizYhxx.getSfz())) {
             String regex = "\\d{15}(\\d{2}[0-9xX])?";
@@ -287,9 +289,12 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             //更新yhxx
             String uuid = IdGen.uuid();
             bckjBizYhxx.setOwid(uuid);
+            bckjBizYhxx.setYhlx(1);
+            bckjBizYhxx.setOwid(null);
             bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
             //更新yhkz
             bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());
+            bckjBizYhkz.setOlx(0);
             bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
             //更新syb
             bckjBizSyb.setYhRefOwid(bckjBizYhxx.getOwid());
