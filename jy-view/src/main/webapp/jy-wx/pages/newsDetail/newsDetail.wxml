@@ -11,8 +11,16 @@
 				{{content.ydcs}}
 			</view>
 		</view>
-		<view class="article">
+		<view class="article" wx:if="{{content.wznr}}">
 			<import src="../../libs/wxParse/wxParse.wxml"/>
       <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
+		</view>
+    <view class="article" wx:if="{{content.fileList.length>0}}">
+			附件
+        <block wx:for="{{content.fileList}}" wx:key="">
+          <view>
+            {{item.FILE_LABEL}}<span style="color:#337ab7" bindtap="wxParseTagATap" data-src="{{imgPath+item.FILE_PATH}}">{{item.FILE_PATH}}</span>
+          </view>
+        </block>
 		</view>
 	</view>

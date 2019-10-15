@@ -3,6 +3,7 @@ var Mustache = require('../../libs/mustache/mustache');
 var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
 const app = getApp()
+var imgPath = app.globalData.imgPath;
 Page({
 
   /**
@@ -10,6 +11,7 @@ Page({
    */
   data: {
     content:'',
+    imgPath: imgPath,
   },
 
   /**
