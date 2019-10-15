@@ -19,15 +19,17 @@ var countHours = function (h, d) {
   return parseInt(parseInt(h) + parseInt(d) * 24)
 }
 
-// var getKey = function (o) {
-//   for (var i in o) {
-    
-//     return i
-//   }
-// }
+var getSize = function (a) {
+  if(a){
+    return a.length
+  }else{
+    return 0
+  }
+  
+}
 
 module.exports.substr = substr;
 module.exports.tofix = tofix;
 module.exports.checkNull = checkNull;
 module.exports.countHours = countHours;
-// module.exports.getKey = getKey;
+module.exports.getSize = getSize;

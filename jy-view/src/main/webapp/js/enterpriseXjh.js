@@ -40,8 +40,6 @@ function xjhtjList() {
                 for(var a in data.bean[i-1]){
                     zdytjObj['zdytj'+i]=a
                     zdytjObj['tjsd'+i]=data.bean[i-1][a]
-                    console.log(a)
-                    console.log(data.bean[i-1][a])//zdytj1 tjsd1
                     zdytjObj['str'+i]='<option value="">请选择</option>'
                     for(var x=0;x<data.bean[i-1][a].length;x++){
                         zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
@@ -89,11 +87,11 @@ function applyXjh(){
             '                            <div class="form-group">\n' +
             '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
-            '                                    <input type="text" class="form-control" id="lxr" name="lxr" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+JSON.parse(getCookie("qyInfo")).qyLxr+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
-            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+JSON.parse(getCookie("qyInfo")).qyLxrdh+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                        </div>\n' +
@@ -142,7 +140,8 @@ function applyXjh(){
         laydate.render({
             elem: '#xjsj', //指定元素
             type: 'datetime',
-            min: 0
+            min: 0,
+            format:'yyyy-MM-dd HH:mm'
         });
     }
 }
@@ -381,85 +380,86 @@ var layer2;
 window.operateEvents = {
     'click .detail': function (e, value, row, index) {
         if(!isTimeOut()) {
-            var jsonObj = {
-                "owid": row.owid,
-            }
-            ajax("zustjy/bckjBizJybm/getOne", jsonObj, function (data) {
-                if (data.backCode == 0) {
-                    if (data.bean) {
-                        var xjsj = "";
-                        if (data.bean.xjsj) {
-                            xjsj = data.bean.xjsj
-                        } else {
-                            xjsj = "暂无"
-                        }
-                        var xqStr='';
-                        for(var i=1;i<6;i++){
-                            if(data.bean['zdytj'+i]){
-                                xqStr+='<div class="row">\n' +
-                                    '   <div class="form-group">\n' +
-                                    '   <label for="jkrjs" class="col-sm-3 control-label text-right">'+data.bean['zdytj'+i]+'：</label>\n' +
-                                    '   <div class="col-sm-8">\n' + convertStr(data.bean['tjsd'+i],'') +
-                                    '   </div>\n' +
-                                    '   </div>\n' +
-                                    '   </div>\n'
-                            }
-                        }
-                        layer2 = layer.open({
-                            type: 1,
-                            title: '详情',
-                            skin: 'layui-layer-rim', //加上边框
-                            area: ['800px', '540px'], //宽高
-                            content: '<div class="lxr-modal"><div class="row">\n' +
-                            '                            <div class="form-group">\n' +
-                            '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
-                            '                                <div class="col-sm-3">\n' + data.bean.lxr +
-                            '                                </div>\n' +
-                            '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系人手机：</label>\n' +
-                            '                                <div class="col-sm-3">\n' + data.bean.lxdh +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                        </div>\n' +
-                            '                        <div class="row">\n' +
-                            '                            <div class="form-group">\n' +
-                            '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人：</label>\n' +
-                            '                                <div class="col-sm-3">\n' + data.bean.jkr +
-                            '                                </div>\n' +
-                            '                                <label for="xjsj" class="col-sm-2 control-label text-right">宣讲时间：</label>\n' +
-                            '                                <div class="col-sm-3">\n' + xjsj +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                            </div>\n' +
-                            '                        <div class="row">\n' +
-                            '                            <div class="form-group">\n' +
-                            '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right">申请理由：</label>\n' +
-                            '                                <div class="col-sm-8">\n' + data.bean.xjhsqly +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                            </div>\n' +
-                            '                        <div class="row">\n' +
-                            '                            <div class="form-group">\n' +
-                            '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人介绍：</label>\n' +
-                            '                                <div class="col-sm-8">\n' + data.bean.jkrjs +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                            </div>\n' +
-                            '                        <div class="row">\n' +
-                            '                            <div class="form-group">\n' +
-                            '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">备注：</label>\n' +
-                            '                                <div class="col-sm-8">\n' + convertStr(data.bean.memo,'') +
-                            '                                </div>\n' +
-                            '                            </div>\n' +
-                            '                            </div>\n' +xqStr+
-                            '                        <div class="row btn-yd">\n' +
-                            '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                            '                                <button class="btn green" onclick="close1()">关闭</button>\n' +
-                            '                            </div>\n' +
-                            '                        </div></div>'
-                        });
-                    }
-                }
-            })
+            window.open(base + '/xjhXq/' + row.owid + '/' + row.jobRefOwid)
+            // var jsonObj = {
+            //     "owid": row.owid,
+            // }
+            // ajax("zustjy/bckjBizJybm/getOne", jsonObj, function (data) {
+            //     if (data.backCode == 0) {
+            //         if (data.bean) {
+            //             var xjsj = "";
+            //             if (data.bean.xjsj) {
+            //                 xjsj = data.bean.xjsj
+            //             } else {
+            //                 xjsj = "暂无"
+            //             }
+            //             var xqStr='';
+            //             for(var i=1;i<6;i++){
+            //                 if(data.bean['zdytj'+i]){
+            //                     xqStr+='<div class="row">\n' +
+            //                         '   <div class="form-group">\n' +
+            //                         '   <label for="jkrjs" class="col-sm-3 control-label text-right">'+data.bean['zdytj'+i]+'：</label>\n' +
+            //                         '   <div class="col-sm-8">\n' + convertStr(data.bean['tjsd'+i],'') +
+            //                         '   </div>\n' +
+            //                         '   </div>\n' +
+            //                         '   </div>\n'
+            //                 }
+            //             }
+            //             layer2 = layer.open({
+            //                 type: 1,
+            //                 title: '详情',
+            //                 skin: 'layui-layer-rim', //加上边框
+            //                 area: ['800px', '540px'], //宽高
+            //                 content: '<div class="lxr-modal"><div class="row">\n' +
+            //                 '                            <div class="form-group">\n' +
+            //                 '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
+            //                 '                                <div class="col-sm-3">\n' + data.bean.lxr +
+            //                 '                                </div>\n' +
+            //                 '                                <label for="lxdh" class="col-sm-2 control-label text-right">联系人手机：</label>\n' +
+            //                 '                                <div class="col-sm-3">\n' + data.bean.lxdh +
+            //                 '                                </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                        </div>\n' +
+            //                 '                        <div class="row">\n' +
+            //                 '                            <div class="form-group">\n' +
+            //                 '                                <label for="jkr" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人：</label>\n' +
+            //                 '                                <div class="col-sm-3">\n' + data.bean.jkr +
+            //                 '                                </div>\n' +
+            //                 '                                <label for="xjsj" class="col-sm-2 control-label text-right">宣讲时间：</label>\n' +
+            //                 '                                <div class="col-sm-3">\n' + xjsj +
+            //                 '                                </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                        <div class="row">\n' +
+            //                 '                            <div class="form-group">\n' +
+            //                 '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right">申请理由：</label>\n' +
+            //                 '                                <div class="col-sm-8">\n' + data.bean.xjhsqly +
+            //                 '                                </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                        <div class="row">\n' +
+            //                 '                            <div class="form-group">\n' +
+            //                 '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">讲课人介绍：</label>\n' +
+            //                 '                                <div class="col-sm-8">\n' + data.bean.jkrjs +
+            //                 '                                </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                        <div class="row">\n' +
+            //                 '                            <div class="form-group">\n' +
+            //                 '                                <label for="jkrjs" class="col-sm-2 col-sm-offset-1 control-label text-right">备注：</label>\n' +
+            //                 '                                <div class="col-sm-8">\n' + convertStr(data.bean.memo,'') +
+            //                 '                                </div>\n' +
+            //                 '                            </div>\n' +
+            //                 '                            </div>\n' +xqStr+
+            //                 '                        <div class="row btn-yd">\n' +
+            //                 '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+            //                 '                                <button class="btn green" onclick="close1()">关闭</button>\n' +
+            //                 '                            </div>\n' +
+            //                 '                        </div></div>'
+            //             });
+            //         }
+            //     }
+            // })
         }
     },
     'click .remove': function (e, value, row, index) {

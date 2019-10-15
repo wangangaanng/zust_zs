@@ -486,6 +486,45 @@ public class DemoController {
         }
     }
 
+    @RequestMapping(value = "xjhXq/{owid}/{jobRefOwid}", method = RequestMethod.GET)
+    public ModelAndView xjhXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid, @PathVariable String jobRefOwid) {
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("xjhXq");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            view.addObject("jobRefOwid",jobRefOwid);
+            Map param=Maps.newHashMap();
+            param.put("owid",owid);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJybm/getOne");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("result",result.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
+    }
+
+    @RequestMapping(value = "zphXq/{owid}", method = RequestMethod.GET)
+    public ModelAndView zphXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("zphXq");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            Map param=Maps.newHashMap();
+            param.put("owid",owid);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJybm/getOne");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("result",result.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
+    }
+
     @RequestMapping(value = "enterpriseService", method = RequestMethod.GET)
     public ModelAndView enterpriseService(HttpServletRequest request,ModelAndView view) {
         String qyOwid=getCookieValue(request,"yhOwid");
@@ -717,6 +756,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("pageNo",'1');
         param.put("pageSize","12");
+        param.put("zwlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());
@@ -735,6 +775,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("pageNo",currentPage);
         param.put("pageSize","12");
+        param.put("zwlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());

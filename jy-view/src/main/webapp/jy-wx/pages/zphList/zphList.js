@@ -1,5 +1,4 @@
 // pages/enterpriseXjh/enterpriseXjh.js
-import Dialog from 'vant-weapp/dialog/dialog';
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var imgPath = app.globalData.imgPath;
@@ -15,28 +14,18 @@ Page({
     totalPage: '',
     xjhList: []
   },
+  shenqin() {
+    wx.navigateTo({
+      url: '../applyXjh/applyXjh',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     myJobList(this);
   },
-  onClose(event) {
-    const { position, instance } = event.detail;
-    switch (position) {
-      case 'left':
-      case 'cell':
-        instance.close();
-        break;
-      case 'right':
-        Dialog.confirm({
-          message: '确定删除' + event.currentTarget.id + '吗？'
-        }).then(() => {
-          instance.close();
-        });
-        break;
-    }
-  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -84,34 +73,32 @@ Page({
       myJobList(that);
     }
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  order(e) {
+    wx.navigateTo({
+      url: '../ydzw/ydzw?owid='+e.currentTarget.dataset.owid,
+    })
   }
 })
 
 var myJobList = function (that, lx) {
   var data = {
-    "qyxxRefOwid": wx.getStorageSync("yhOwid"), "zwlx":0, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
+    "zwlx": 3, "zphSfbm": 1, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
   };
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      // for (var i = 0; i < res.data.bean.records.length; i++) {
-      //   var obj = {};
-      //   var object = res.data.bean.records[i];
-      //   obj.owid = object.owid;
-      //   obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
-      //   obj.year = object.createtime.substring(0, 4);
-      //   obj.zwbt = object.zwbt;
-      //   obj.qymc = object.exp1;
-      //   obj.city = object.zwCity;
-      //   obj.gzxz = object.zwGzxzStr;
-      //   arr.push(obj);
-      // }
+      for (var i = 0; i < res.data.bean.records.length; i++) {
+        var obj = {};
+        var object = res.data.bean.records[i];
+        obj.owid = object.owid;
+        obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
+        obj.year = object.createtime.substring(0, 4);
+        obj.zwbt = object.zwbt;
+        obj.qymc = object.exp1;
+        obj.city = object.zwCity;
+        obj.gzxz = object.zwGzxzStr;
+        arr.push(obj);
+      }
       var xjhList = that.data.xjhList.concat(res.data.bean.records)
       var totalPage = res.data.bean.totalPage;
       that.setData({
