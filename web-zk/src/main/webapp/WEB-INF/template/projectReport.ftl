@@ -179,7 +179,7 @@
         <tr>
             <td align="left">
                 <#--<img src="img/logo.png" width="80px"/>-->
-                <img src="charisma/img/zust_logo.jpg" style="margin-left: 88px;" />
+                <img src="charisma/img/qrLogo.png" style="width:500px;margin-left: 88px;" />
             </td>
         </tr>
 

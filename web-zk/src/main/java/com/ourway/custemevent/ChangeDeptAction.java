@@ -31,10 +31,10 @@ public class ChangeDeptAction implements ComponentListinerSer {
 
         try {
             Map e = window.bindAll2Ppt(true);
-            if (TextUtils.isEmpty(e.get("zphJbdd"))) {
-                AlterDialog.alert("请选择举办地点");
-                return;
-            }
+//            if (TextUtils.isEmpty(e.get("zphJbdd"))) {
+//                AlterDialog.alert("请选择举办地点");
+//                return;
+//            }
             if (TextUtils.isEmpty(e.get("zphGpsjd"))) {
                 AlterDialog.alert("请填写GPS经度");
                 return;

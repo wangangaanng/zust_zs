@@ -131,6 +131,21 @@
             <if test="qysh != null and qysh != ''">
                 AND a.qysh = #{qysh}
             </if>
+			<if test=" zdytj1 != null and zdytj1 != '' ">
+				AND a.zdytj1 like CONCAT('%',#{zdytj1},'%')
+			</if>
+			<if test=" zdytj2 != null and zdytj2 != '' ">
+				AND a.zdytj2 like CONCAT('%',#{zdytj2},'%')
+			</if>
+			<if test=" zdytj3 != null and zdytj3 != '' ">
+				AND a.zdytj3 like CONCAT('%',#{zdytj3},'%')
+			</if>
+			<if test=" zdytj4 != null and zdytj4 != '' ">
+				AND a.zdytj4 like CONCAT('%',#{zdytj4},'%')
+			</if>
+			<if test=" zdytj5 != null and zdytj5 != '' ">
+				AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
+			</if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
