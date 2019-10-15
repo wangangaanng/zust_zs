@@ -58,7 +58,6 @@ Page({
     const params = e.detail.value
 
     console.log(params)
-    console.log(this.data.form)
 
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
@@ -67,9 +66,31 @@ Page({
       return false
     }
 
-    this.showModal({
-      msg: '提交成功',
-    })
+    common.ajax('zustjy/bckjBizQyxx/companyRegister', params, function (res) {
+      if (res.data.backCode == 0) {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: "注册成功，待后台人员审核通过，便可登录。",
+          success(res) {
+            if (res.confirm) {
+              wx.reLaunch({
+                url: '../index/index',
+              })
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      } else {
+        wx.showToast({
+          title: res.data.errorMess,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
   },
   initValidate() {
     // 验证字段的规则
@@ -79,7 +100,6 @@ Page({
       },
       qyFrsfz: {
         required: true,
-        idcard: true,
       },
       qyFrdbxm: {
         required: true
@@ -123,6 +143,9 @@ Page({
         required: true,
         maxlength: 200,
       },
+      qyYyzzzp: {
+        required: true
+      },
     }
 
     // 验证字段的提示信息，若不传则调用默认的信息
@@ -132,7 +155,6 @@ Page({
       },
       qyFrsfz: {
         required: '请填写法人身份证号',
-        idcard: '请填写正确法人身份证号',
       },
       qyFrdbxm: {
         required: '请填写法人姓名',
@@ -176,6 +198,9 @@ Page({
         required: '请填写公司介绍',
         maxlength: 200,
       },
+      qyYyzzzp:{
+        required: '请上传企业营业执照',
+      }
       
     }
     this.WxValidate = new WxValidate(rules, messages)
@@ -184,24 +209,30 @@ Page({
     if (e.target.dataset.type == 1) {
       const { dicVal1, dicVal2 } = e.detail.value;
       this.setData({
-        gsxzStr: dicVal2
+        gsxzStr: dicVal2,
+        'form.qyGsxz': dicVal1
       })
       this.toggle('gsxz', false);
     } else if (e.target.dataset.type == 2) {
       const { dicVal1, dicVal2 } = e.detail.value;
       this.setData({
-        hylbStr: dicVal2
+        hylbStr: dicVal2,
+        'form.qyHylb': dicVal1
       })
       this.toggle('hylb', false);
     } else if (e.target.dataset.type == 3) {
       const { dicVal1, dicVal2 } = e.detail.value;
       this.setData({
-        gsgmStr: dicVal2
+        gsgmStr: dicVal2,
+        'form.qyGsgm': dicVal1
       })
       this.toggle('gsgm', false);
     } else if (e.target.dataset.type == 4)  {
       this.setData({
-        area: `${e.detail.values[0].name}-${e.detail.values[1].name}-${e.detail.values[2].name}`
+        area: `${e.detail.values[0].name}-${e.detail.values[1].name}-${e.detail.values[2].name}`,
+        'form.qyProv': e.detail.values[0].name,
+        'form.qyCity': e.detail.values[1].name,
+        'form.qyArea': e.detail.values[2].name
       })
       this.toggle('bottom', false);
     }
@@ -286,6 +317,9 @@ Page({
             sfz: tempFilePaths[0]
           })
         }
+        wx.showLoading({
+          title: '识别中',
+        })
         wx.uploadFile({
           url: url+'zustcommon/common/picUpload',
           filePath: tempFilePaths[0],
@@ -295,17 +329,121 @@ Page({
             "data": JSON.stringify(jsonObj)
           },
           success: function (res) {
-            var data=JSON.parse(res.data)
-            console.log(data)
-            wx.showModal({
-              title: '提示',
-              showCancel:false,
-              content: data.errorMess,
-            })
+            wx.hideLoading();
+            var d=JSON.parse(res.data)
+            if (d.bean) {
+              if (type == 1) {
+                if (d.bean["社会信用代码"]) {
+                  if (d.bean["社会信用代码"].words) {
+                    if (d.bean["社会信用代码"].words != "无") {
+                      that.setData({
+                        'form.qyTysh': d.bean["社会信用代码"].words
+                      })
+                    } else {
+                      wx.showModal({
+                        title: '提示',
+                        showCancel: false,
+                        content: "识别失败",
+                      })
+                    }
+                  } else {
+                    wx.showModal({
+                      title: '提示',
+                      showCancel: false,
+                      content: "识别失败",
+                    })
+                  }
+                } else {
+                  wx.showModal({
+                    title: '提示',
+                    showCancel: false,
+                    content: "识别失败",
+                  })
+                }
+                if (d.bean["单位名称"]) {
+                  if (d.bean["单位名称"].words) {
+                    if (d.bean["单位名称"].words != "无") {
+                      that.setData({
+                        'form.qymc': d.bean["单位名称"].words
+                      })
+                    }
+                  }
+                }
+                if (d.bean["地址"]) {
+                  if (d.bean["地址"].words) {
+                    if (d.bean["地址"].words != "无") {
+                      that.setData({
+                        'form.qydz': d.bean["地址"].words
+                      })
+                    }
+                  }
+                }
+                if (d.bean.fileName) {
+                  that.setData({
+                    'form.qyYyzzzp': d.bean.fileName
+                  })
+                }
+              } else if (type == 2) {
+                if (d.bean.image_status) {
+                  var image_status = d.bean.image_status;
+                  var statusStr='';
+                  if (image_status == "reversed_side") {
+                    statusStr="身份证正反面颠倒，请重新选择"
+                  } else if (image_status == "non_idcard") {
+                    statusStr ="上传的图片中不包含身份证，请重新选择"
+                  } else if (image_status == "blurred") {
+                    statusStr ="身份证模糊，请重新选择"
+                  } else if (image_status == "other_type_card") {
+                    statusStr ="上传照片为其他类型证照，请重新选择"
+                  } else if (image_status == "over_exposure") {
+                    statusStr ="身份证关键字段反光或过曝，请重新选择"
+                  } else if (image_status == "over_dark") {
+                    statusStr ="身份证欠曝（亮度过低），请重新选择"
+                  }
+                  wx.showModal({
+                    title: '提示',
+                    showCancel: false,
+                    content: statusStr,
+                  })
+                }
+
+                if (d.bean["姓名"]) {
+                  if (d.bean["姓名"].words) {
+                    if (d.bean["姓名"].words != "无") {
+                      that.setData({
+                        'form.qyFrdbxm': d.bean["姓名"].words
+                      })
+                    }
+                  }
+                }
+                if (d.bean["公民身份号码"]) {
+                  if (d.bean["公民身份号码"].words) {
+                    if (d.bean["公民身份号码"].words != "无") {
+                      that.setData({
+                        'form.qyFrsfz': d.bean["公民身份号码"].words
+                      })
+                    }
+                  }
+                }
+                if (d.bean.fileName) {
+                  that.setData({
+                    'form.qyFrsfzzp': d.bean.fileName
+                  })
+                }
+              }
+
+            } else {
+              wx.showModal({
+                title: '提示',
+                showCancel: false,
+                content: "识别失败",
+              })
+            }
+            
             
           },
           fail: function () {
-            
+            wx.hideLoading();
           }
         })
         
@@ -316,10 +454,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // wx.showToast({
-    //   icon:'none',
-    //   title: '123',
-    // })
     wx.request({
       url: 'https://cashier.youzan.com/wsctrade/uic/address/getAllRegion.json',
       success: response => {

@@ -11,6 +11,6 @@
 <script>
     var imagePath='${imagePath!""}';
     var base='${base!""}'
-    var localUrl = '${localUrl!""}'+'webAjax/executeAPI';
+    var localUrl = '${localUrl!""}'+'/webAjax/executeAPI';
     var uploadUrl='${uploadUrl!""}';
 </script>

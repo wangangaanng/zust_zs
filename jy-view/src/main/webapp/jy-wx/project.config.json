@@ -60,21 +60,21 @@
 					"id": 0,
 					"name": "pages/qyInfo/qyInfo",
 					"pathName": "pages/qyInfo/qyInfo",
-					"query": "",
+					"query": "owid=14a52875a0aa40668e1ff58e124d71a5",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "pages/recruitment/recruitment",
 					"pathName": "pages/recruitment/recruitment",
-					"query": "",
+					"query": "fid=17",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "pages/newsList/newsList",
 					"pathName": "pages/newsList/newsList",
-					"query": "",
+					"query": "fid=16",
 					"scene": null
 				},
 				{
@@ -159,6 +159,13 @@
 					"name": "pages/newsDetail/newsDetail",
 					"pathName": "pages/newsDetail/newsDetail",
 					"query": "owid=612d780df9124e04bf853aac4576850a",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qyInfo/qyInfo",
+					"pathName": "pages/qyInfo/qyInfo",
+					"query": "owid=zpgg304462",
 					"scene": null
 				}
 			]

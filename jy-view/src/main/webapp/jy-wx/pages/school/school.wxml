@@ -1,5 +1,5 @@
 <!--pages/school/school.wxml-->
-<van-tabs sticky>
+<van-tabs sticky animated>
   <van-tab title="学校简介">
      <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
       <view style="padding:20rpx 40rpx;">

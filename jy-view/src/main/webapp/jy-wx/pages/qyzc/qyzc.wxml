@@ -23,9 +23,9 @@
  <van-cell-group>
   <van-field input-align="right" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.qyFrdbxm}}" name="qyFrdbxm" label="法人姓名" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="公司名称" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="企业名称" placeholder="输入内容" required />
 <van-cell required title="所在省市区" value="{{area}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" required />
-  <van-field input-align="right" value="{{form.qydz}}" name="qydz" label="公司地址" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.qydz}}" name="qydz" label="公司地址" placeholder="输入内容" required type="textarea" placeholder="输入内容" rows="1" autosize />
    <van-field input-align="right" value="{{form.qyLxr}}" name="qyLxr" label="联系人" placeholder="输入内容" required />
     <van-field input-align="right" value="{{form.qyLxrdh}}" name="qyLxrdh" label="手机" placeholder="输入内容" required />
      <van-field input-align="right" value="{{form.qyYx}}" name="qyYx" label="邮箱" placeholder="输入内容" required />
@@ -49,6 +49,9 @@
 <input type="text" class="hiddenInput" name="qyGsxz" value="{{form.qyGsxz}}"></input>
 <input type="text" class="hiddenInput" name="qyHylb" value="{{form.qyHylb}}"></input>
 <input type="text" class="hiddenInput" name="qyGsgm" value="{{form.qyGsgm}}"></input>
+<input type="text" class="hiddenInput" name="qyYyzzzp" value="{{form.qyYyzzzp}}"></input>
+<input type="text" class="hiddenInput" name="qyFrsfzzp" value="{{form.qyFrsfzzp}}"></input>
+
 <button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
 </form>
 <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="4" bind:close="hideBottom">

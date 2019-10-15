@@ -4,12 +4,16 @@
 package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.*;
+import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.DateUtil;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
@@ -20,16 +24,13 @@ import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
+import com.zghzbckj.util.TextUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -583,13 +584,15 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         dicList = qyxxDao.queryDicList(params);
         if (!TextUtils.isEmpty(dicList) && dicList.size() > 0) {
             for (Map map : dicList) {
-                String zdytj = map.get("dic_val2").toString();
-                String zdyjg = map.get("dic_val3").toString();
-                zdyjg.replace(",", "，");
-                String[] jgArray = zdyjg.split("，");
-                Map resultMap = new HashMap<>();
-                resultMap.put(zdytj, jgArray);
-                resultList.add(resultMap);
+                if (!TextUtils.isEmpty(map.get("dic_val2")) && !TextUtils.isEmpty(map.get("dic_val3"))) {
+                    String zdytj = map.get("dic_val2").toString();
+                    String zdyjg = map.get("dic_val3").toString();
+                    zdyjg.replace(",", "，");
+                    String[] jgArray = zdyjg.split("，");
+                    Map resultMap = new HashMap<>();
+                    resultMap.put(zdytj, jgArray);
+                    resultList.add(resultMap);
+                }
             }
         }
         return resultList;

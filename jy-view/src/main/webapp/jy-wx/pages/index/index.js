@@ -10,9 +10,9 @@ Page({
     menuList: [
       { text: '学校概况', icon: '../../../static/index-icon01.png', url: '../school/school' }, 
       { text: '学院介绍', icon: '../../../static/index-icon02.png', url: '../xueyuan/xueyuan' }, 
-      { text: '新闻公告', icon: '../../../static/index-icon03.png', url: '../newsList/newsList' }, 
-      { text: '招聘信息', icon: '../../../static/index-icon04.png', url: '../recruitment/recruitment' }, 
-      { text: '职业指导', icon: '../../../static/index-icon05.png', url: '../newsList/newsList' }, 
+      { text: '新闻公告', icon: '../../../static/index-icon03.png', url: '../newsList/newsList?fid=16' }, 
+      { text: '招聘信息', icon: '../../../static/index-icon04.png', url: '../recruitment/recruitment?fid=17' }, 
+      { text: '职业指导', icon: '../../../static/index-icon05.png', url: '../newsList/newsList?fid=18' }, 
       { text: '就业排行榜', icon: '../../../static/index-icon06.png',url: '' }, 
       { text: '学生服务', icon: '../../../static/index-icon07.png', url: '../stuService/stuService' }, 
       { text: '企业服务', icon: '../../../static/index-icon08.png', url: '../qyService/qyService' }],
@@ -112,10 +112,66 @@ Page({
   },
   linkurl:function(e){
     var url = e.currentTarget.dataset.url;
+    var index = e.currentTarget.dataset.index;
     if(url){
-      wx.navigateTo({
-        url: url,
-      })
+      if (index == 6) {
+        if (wx.getStorageSync('yhOwid')){
+          if (wx.getStorageSync('userType') == 1){
+            wx.navigateTo({
+              url: url,
+            })
+          } else if (wx.getStorageSync('userType') == 0) {
+            wx.showModal({
+              title: '提示',
+              content: "当前登录的是企业账户，是否要登录学生账户？",
+              success(res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../stuLogin/stuLogin',
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          }
+        }else{
+          wx.navigateTo({
+            url: '../stuLogin/stuLogin',
+          })
+        }
+      } else if (index == 7) {
+        if (wx.getStorageSync('yhOwid')) {
+          if (wx.getStorageSync('userType') == 1) {
+            wx.showModal({
+              title: '提示',
+              content: "当前登录的是学生账户，是否要登录企业账户？",
+              success(res) {
+                if (res.confirm) {
+                  wx.navigateTo({
+                    url: '../qyLogin/qyLogin',
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
+            })
+          } else if (wx.getStorageSync('userType') == 0) {
+            wx.navigateTo({
+              url: url,
+            })
+          }
+        } else {
+          wx.navigateTo({
+            url: '../qyLogin/qyLogin',
+          })
+        }
+      } else {
+        wx.navigateTo({
+          url: url,
+        })
+      }
+      
     }
   }
   })

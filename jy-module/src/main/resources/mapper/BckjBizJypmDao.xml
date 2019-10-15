@@ -44,7 +44,7 @@
 	</sql>
 
 	<select id="collegeStats" resultType="java.util.Map">
-		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmqyrs) as pmqyrs, SUM(pmjyl) as pmjyl
+		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmqyrs) as pmqyrs
 		from bckj_biz_jypm
 		<where>
 			<if test="pmnf != null and pmnf != ''">
