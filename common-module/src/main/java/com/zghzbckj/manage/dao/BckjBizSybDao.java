@@ -20,6 +20,15 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
     BckjBizSyb findByXh(String xh);
 
     Map getUserXh(Map yhOwid);
+    void updataInfo(BckjBizSyb bckjBizSyb);
+
+    void updateByXsxh(BckjBizSyb bckjBizSyb);
+
+    void deleteByXsxh(String xh);
+
+    void updateJyscheme(BckjBizSyb bckjBizSyb);
 
     List<Object> getSybList(Map<String, Object> dataMap);
+
+    Object getOne(String owid);
 }

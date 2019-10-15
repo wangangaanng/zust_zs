@@ -366,4 +366,5 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 		this.jtdz = jtdz;
 	}
 
+
 }

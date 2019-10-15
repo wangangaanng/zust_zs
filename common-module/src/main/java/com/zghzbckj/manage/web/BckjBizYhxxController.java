@@ -60,27 +60,6 @@ public class BckjBizYhxxController extends BaseController {
     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
     }
     }
-    
-    @PostMapping(value = "deleteList")
-	@ResponseBody
-    public ResponseMessage deleteList(PublicDataVO dataVO) {
-    try {
-    if (TextUtils.isEmpty(dataVO.getData())) {
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
-    }
-
-     List<Object> list = JsonUtil.jsonToList(dataVO.getData());
-          List<String> codes = new ArrayList<String>(list.size());
-            for (Object obj : list) {
-            codes.add(((Map<String, Object>) obj).get("owid").toString());
-            }
-            ResponseMessage data = bckjBizYhxxService.removeOrder(codes);
-            return data;
-            } catch (Exception e) {
-            log.error(e+"删除BckjBizYhxx列表失败\r\n" +e.getStackTrace()[0] , e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
 
             @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
             @ResponseBody
@@ -235,21 +214,28 @@ public class BckjBizYhxxController extends BaseController {
      */
     @RequestMapping(value = "recordInfo/{state}",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage recordInfo(@PathVariable("state") Integer olx,PublicDataVO dataVO){
+    public ResponseMessage recordInfo(@PathVariable("state") Integer olx,PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return bckjBizYhxxService.recordInfo(olx,dataMap.get("path").toString());
-        }
-    catch (RepeatException e){
-        log.error(CommonConstant.ERROR_MESSAGE,e);
-        return ResponseMessage.sendOK(e.toString());
-    } catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            //如果为学生录入
+            if (olx == 0) {
+                return bckjBizYhxxService.recordStudentInfo(dataMap.get("path").toString());
+            }
+            //如果为老师录入
+            if (olx == 1) {
+                return ResponseMessage.sendOK("");
+            }
+                return ResponseMessage.sendOK("");
+        } catch (RepeatException e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendOK("excel表中存在学号\" + i + \"重复录入,导入失败");
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
     /**
@@ -267,7 +253,11 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage showInfoList(@PathVariable("state") Integer state,PublicDataVO dataVO){
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizYhxxService.showInfoList(state,filters,dataVO.getPageNo(),dataVO.getPageSize());
+            //显示学生信息列表
+            if(state==0){
+                return ResponseMessage.sendOK(bckjBizYhxxService.showInfoList(filters,dataVO.getPageNo(),dataVO.getPageSize()));
+            }
+            return  ResponseMessage.sendOK("");
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
@@ -275,39 +265,7 @@ public class BckjBizYhxxController extends BaseController {
         }
     }
     /**
-     * <p>功能描述:后台保存师生信息</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/23</li>
-     * </ul>
-     */
-    @PostMapping("saveStudentInfo")
-    @ResponseBody
-    public ResponseMessage saveStudentInfo(PublicDataVO dataVO){
-        try{
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dataList");
-            if(((ArrayList)dataMap.get("dataList")).size()==0){
-                return ResponseMessage.sendOK("无更新数据");
-            }
-            List<Map<String, Object>> components = (List)dataMap.get("dataList");
-            if(components.size()==0){
-                return ResponseMessage.sendOK("无更新数据");
-            }
-            return bckjBizYhxxService.saveStudentInfo(components);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-
-    }
-
-    /**
-     * <p>功能描述:新建学生信息</p >
+     * <p>功能描述:新建或修改学生信息</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
@@ -322,10 +280,6 @@ public class BckjBizYhxxController extends BaseController {
         try{
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             return bckjBizYhxxService.insertssInfo(dataMap);
-        }
-        catch (StringIndexOutOfBoundsException e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"输入时间格式错误");
         }
         catch (Exception e)
         {
@@ -388,6 +342,8 @@ public class BckjBizYhxxController extends BaseController {
         }
     }
 
+
+
     @PostMapping("insertInfo")
     @ResponseBody
     public  ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
@@ -422,4 +378,54 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+   /* *//**
+     * 后台删除list
+     * @param
+     * @return
+     *//*
+    @PostMapping("deleteAllList")
+    @ResponseBody
+    public ResponseMessage deleteAllList(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+             bckjBizYhxxService.deleteAllList(dataMap);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+    */
+
+    /**
+     * 后台删除gridlist
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("deleteInfoList")
+    @ResponseBody
+    public ResponseMessage deleteInfoList(PublicDataVO dataVO){
+        try {
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+            List<String> owidcodes = new ArrayList<String>(list.size());
+            List<String> xsxhcodes = new ArrayList<String>(list.size());
+            for (Object obj : list) {
+                owidcodes.add(((Map<String, Object>) obj).get("owid").toString());
+                xsxhcodes.add(((Map<String, Object>) obj).get("xsxh").toString());
+            }
+            return   ResponseMessage.sendOK(bckjBizYhxxService.deleteInfoList(owidcodes,xsxhcodes));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

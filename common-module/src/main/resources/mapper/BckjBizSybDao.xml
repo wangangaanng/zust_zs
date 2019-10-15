@@ -330,7 +330,14 @@
 			dept_path = #{deptPath},
 			delflg = #{delflg},
 			state = #{state}
-		WHERE owid = #{owid}
+			<where>
+				<if test="owid!=null and owid !=''">
+					and owid = #{owid}
+				</if>
+				<if test="yhRefOwid != null and yhRefOwid!=''">
+					and yh_ref_owid = #{yhRefOwid}
+				</if>
+			</where>
 	</update>
 	
 	<delete id="delete">
@@ -347,8 +354,8 @@
 		 UPDATE bckj_biz_syb SET
 			xz = #{xz},
 			syd=#{syd},
-			jtdh = #{jtdh},
 			bynf=#{bynf},
+			jtdh = #{jtdh},
 			qqhm=#{qqhm}
 		WHERE xh = #{xh}
 	</update>
@@ -360,11 +367,59 @@
 			zzmm=#{zzmm},
 			syd = #{syd},
 			jtdz=#{jtdz},
+			bynf=#{bynf},
 			jtyb=#{jtyb},
 			jtdh=#{jtdh},
 			xz=#{xz}
 		WHERE yh_ref_owid = #{yhRefOwid}
 	</update>
+	<delete id="deleteByXsxh" parameterType="String">
+		DELETE FROM bckj_biz_syb
+		<where>
+				 xh = #{xsxh}
+		</where>
+	</delete>
+
+	<update id="updateJyscheme" parameterType="BckjBizSyb">
+		UPDATE bckj_biz_syb SET
+			bynf=#{bynf},
+			xz=#{xz},
+			syd=#{syd},
+			jtdh = #{jtdh},
+			qqhm=#{qqhm}
+		WHERE yh_ref_owid = #{yhRefOwid}
+	</update>
+
+	<select id="getSybList" resultType="Map" parameterType="Map">
+		select
+			a.owid as  owid , b.xsxh as xsxh ,c.ksh as ksh ,a.xb as xb ,
+			a.xm as xm , a.sfz as sfz , a.csrq as csrq ,
+			c.syd as syd , a.mz as mz ,c.zzmm as zzmm ,c.rxnf  as rxnf ,
+			c.bynf as bynf ,c.byrq as byrq , c.cxsy as cxsy , c.xqda as xqda,
+			c.SFRX as sfrx , c.HKPCS as hkpcs , c.HKRX as hkrx , c.XLCC as xlcc ,
+			c.XZ as xz ,d.xxmc as xxmc, b.xsxy as xsxy ,b.xszy as xszy, c.zyfx as zyfx , c.szbj as szbj,
+			c.pyfs as pyfs , c.wpdw as wpdw , c.KNSLB  as knslb , c.SFSLB as sfslb,
+			a.sjh as sjh , a.yx as yx ,c.QQHM as qqhm , c.JTDH as jtdh ,c.JTYB as jtyb,
+			c.JTDZ as jtdz
+		from bckj_biz_yhxx a ,bckj_biz_yhkz b ,bckj_biz_syb c,bckj_biz_jyscheme d
+		where a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh
+	</select>
+
+
+	<select id="getOne" parameterType="Map" resultType="Map">
+		select
+			a.owid as  owid , b.xsxh as xsxh ,c.ksh as ksh ,a.xb as xb ,
+			a.xm as xm , a.sfz as sfz , a.csrq as csrq ,
+			c.syd as syd , a.mz as mz ,c.zzmm as zzmm ,c.rxnf  as rxnf ,
+			c.bynf as bynf ,c.byrq as byrq , c.cxsy as cxsy , c.xqda as xqda,
+			c.SFRX as sfrx , c.HKPCS as hkpcs , c.HKRX as hkrx , c.XLCC as xlcc ,
+			c.XZ as xz ,d.xxmc as xxmc, b.xsxy as xsxy ,b.xszy as xszy, c.zyfx as zyfx , c.szbj as szbj,
+			c.pyfs as pyfs , c.wpdw as wpdw , c.KNSLB  as knslb , c.SFSLB as sfslb,
+			a.sjh as sjh , a.yx as yx ,c.QQHM as qqhm , c.JTDH as jtdh ,c.JTYB as jtyb,
+			c.JTDZ as jtdz
+		from bckj_biz_yhxx a ,bckj_biz_yhkz b ,bckj_biz_syb c,bckj_biz_jyscheme d
+		where a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh and a.owid=#{owid}
+	</select>
 
 
 </mapper>

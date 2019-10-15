@@ -8,6 +8,7 @@ import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.vo.BckjBizStudentXxVo;
 
 import java.util.List;
@@ -46,5 +47,15 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     BckjBizYhxx findBySfz(String sfz);
 
 
-    BckjBizStudentXxVo showStudentInfo(Map<String, Object> dataMap);
+    Map<String,Object> showStudentInfo(Map<String, Object> dataMap);
+
+    void deleteAllList(Map<String, Object> dataMap);
+
+    void updateInfo(BckjBizYhxx bckjBizYhxx);
+
+    void updateByXsxh(BckjBizYhxx bckjBizYhxx);
+
+    void updateJyscheme(BckjBizYhxx bckjBizYhxx);
+
+    void updateSyscheme(BckjBizYhxx bckjBizYhxx);
 }

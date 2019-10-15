@@ -57,5 +57,7 @@ public class CommonConstant {
     public static String API_KEY = "dMST2glOiL4Z1RCx6I42AG0N";
     public static String SECRET_KEY = "QQ2PADGVib0vzlz0GZN9EpSRFtKtZla4";
 
+    public  static  String XXMC="浙江科技学院";
+
 
 }

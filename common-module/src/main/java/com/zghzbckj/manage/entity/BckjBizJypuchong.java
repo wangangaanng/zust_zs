@@ -16,15 +16,23 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 
 	private String yhRefOwid;		// yh_ref_owid
 	private String xsxh;		// xsxh
-	private String sfsf;        //sfsf
+	private int sfsf;        //sfsf
 	private Integer sfzz;		// sfzz
 	private Integer sfdlxy;		// sfdlxy
-	private Integer jyqdbz;		// jyqdbz
+	private String jyqdbz;		// jyqdbz
 	private String zgdwdm;		// zgdwdm
 	private String zgdwmc;		// zgdwmc
 	private String yrdwlsmc;		// yrdwlsmc
 	private String bddddm;		// bddddm
 	private String xjcqk;		// xjcqk
+
+	public int getSfsf() {
+		return sfsf;
+	}
+
+	public void setSfsf(int sfsf) {
+		this.sfsf = sfsf;
+	}
 
 	public String getDwszddm() {
 		return dwszddm;
@@ -45,14 +53,14 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 		this.yhRefOwid = yhRefOwid;
 	}
 
-
-	public String getSfsf() {
-		return sfsf;
+	public String getJyqdbz() {
+		return jyqdbz;
 	}
 
-	public void setSfsf(String sfsf) {
-		this.sfsf = sfsf;
+	public void setJyqdbz(String jyqdbz) {
+		this.jyqdbz = jyqdbz;
 	}
+
 	@Length(min=0, max=100, message="xsxh长度必须介于 0 和 100 之间")
 	public String getXsxh() {
 		return xsxh;
@@ -78,13 +86,7 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 		this.sfdlxy = sfdlxy;
 	}
 	
-	public Integer getJyqdbz() {
-		return jyqdbz;
-	}
 
-	public void setJyqdbz(Integer jyqdbz) {
-		this.jyqdbz = jyqdbz;
-	}
 	
 	@Length(min=0, max=100, message="zgdwdm长度必须介于 0 和 100 之间")
 	public String getZgdwdm() {
@@ -131,5 +133,6 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 		this.xjcqk = xjcqk;
 	}
 
-	
+
+
 }

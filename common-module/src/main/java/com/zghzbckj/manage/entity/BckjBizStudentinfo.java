@@ -394,5 +394,6 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 		this.memo = memo;
 	}
 
-	
+
+
 }

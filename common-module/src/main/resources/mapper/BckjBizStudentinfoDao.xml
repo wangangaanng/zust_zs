@@ -356,12 +356,27 @@
 		WHERE yh_ref_owid = #{yhRefOwid}
 	</update>
 
+	<delete id="deleteByXsxh" parameterType="String">
+		DELETE FROM bckj_biz_studentinfo
+		<where>
+				 xsxh = #{xsxh}
+		</where>
+	</delete>
+
 	<update id="updataInfo" parameterType="BckjBizStudentinfo">
 		update bckj_biz_studentinfo set
-		syddm=#{syddm},
+		syddm=#{syddm}
+		where
+		yh_ref_owid=#{yhRefOwid}
+	</update>
+
+
+	<update id="updateSyscheme" parameterType="BckjBizStudentinfo">
+		update bckj_biz_studentinfo set
 		xsxh=#{xsxh}
 		where
 		yh_ref_owid=#{yhRefOwid}
 	</update>
-	
+
+
 </mapper>

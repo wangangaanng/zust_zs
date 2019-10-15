@@ -25,4 +25,8 @@ public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
     String queryDic(Map params);
 
     List queryDicList(Map params);
+
+    List<Object> getBaoMingList(Map<String, Object> dataMap);
+
+    List<Object> getGuanZhuList(Map<String, Object> dataMap);
 }

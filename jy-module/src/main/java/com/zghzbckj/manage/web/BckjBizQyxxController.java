@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -12,6 +13,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.service.BckjBizQyxxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -249,6 +251,33 @@ public class BckjBizQyxxController extends BaseController {
             return ResponseMessage.sendOK(resultMap.get("bean"));
         } else {
             return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
+    }
+
+    /**
+     * 企业查看关注的或报名的学生信息
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("showStudentInfo")
+    @ResponseBody
+    public  ResponseMessage showStudentInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap,  "type","pageSize","pageNo","jobOwid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+             msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.USER_RELOGIN);
+            }
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return ResponseMessage.sendOK(bckjBizQyxxService.showStudentInfo(filters,dataVO.getPageNo(),dataVO.getPageSize()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 

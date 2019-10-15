@@ -29,4 +29,14 @@ public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
     void deletConditionByMap(Map<String, Object> component);
 
     BckjBizYhkz getByXsxh(String xsxh);
+
+    void updateInfo(BckjBizYhkz bckjBizYhkz);
+
+    void updateByXsxh(BckjBizYhkz bckjBizYhkz);
+
+    void deleteByXsxh(String Xsxh);
+
+    void updateJyscheme(BckjBizYhkz bckjBizYhkz);
+
+    void updateSyscheme(BckjBizYhkz bckjBizYhkz);
 }
