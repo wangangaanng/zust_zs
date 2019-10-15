@@ -20,7 +20,7 @@ Page({
     zwXlyqColumns: [],
     zwGznxColumns: [],
     zwYyyqColumns: [],
-    
+
     show: {
       bottom: false,
       gzzn: false,
@@ -264,7 +264,7 @@ Page({
         'form.zwSxsj': date
       })
       this.toggle('zwSxsj', false);
-    } 
+    }
 
   },
   onCancel(e) {
@@ -296,12 +296,7 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
-    getByType1(this)
-    getByType2(this)
-    getByType3(this)
-    getByType4(this)
-    getByType5(this)
-    getByType6(this)
+    xjhtjList(this)
   },
   showBottom(e) {
     if (e.target.dataset.type == 1) {
@@ -346,16 +341,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.request({
-      url: 'https://cashier.youzan.com/wsctrade/uic/address/getAllRegion.json',
-      success: response => {
-        this.setData({
-          loading: false,
-          areaList: response.data.data
-        });
-      }
-    });
-
+    
   },
   preview() {
     var previewImageList = [];
@@ -380,152 +366,36 @@ Page({
   }
 })
 
-var getByType1 = function (that) {
-  var data = { "dicType": "20005" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
+var xjhtjList = function (that) {
+  var data = {};
+  common.ajax('zustjy/bckjBizJob/xjhtjList', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
+      var arr=[];
       if (data.bean && data.bean.length > 0) {
-        for (var i in data.bean) {
-          var obj = {}
-          obj.dicVal1 = data.bean[i].dicVal1
-          obj.dicVal2 = data.bean[i].dicVal2
-          that.data.zwNlyqColumns.push(obj)
+        for (var i = 0; i < data.bean.length;i++){
+          var obj={};
+          console.log(data.bean[i])
+          for (var a in data.bean[i]){
+            obj.zdytj = a;
+            obj.tjsd = data.bean[i][a];
+          }
+          arr.push(obj)
         }
         that.setData({
-          zwNlyqColumns: that.data.zwNlyqColumns
+          list: data.bean
         })
+        // for (var i in data.bean) {
+        //   var obj = {}
+        //   obj.dicVal1 = data.bean[i].dicVal1
+        //   obj.dicVal2 = data.bean[i].dicVal2
+        //   that.data.zwNlyqColumns.push(obj)
+        // }
+        // that.setData({
+        //   zwNlyqColumns: that.data.zwNlyqColumns
+        // })
       }
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-
-var getByType2 = function (that) {
-  var data = { "dicType": "20006" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
-    if (res.data.backCode == 0) {
-      var data = res.data;
-      if (data.bean && data.bean.length > 0) {
-        for (var i in data.bean) {
-          var obj = {}
-          obj.dicVal1 = data.bean[i].dicVal1
-          obj.dicVal2 = data.bean[i].dicVal2
-          that.data.zwXlyqColumns.push(obj)
-        }
-        that.setData({
-          zwXlyqColumns: that.data.zwXlyqColumns
-        })
-      }
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-
-var getByType3 = function (that) {
-  var data = { "dicType": "20007" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
-    if (res.data.backCode == 0) {
-      var data = res.data;
-      if (data.bean && data.bean.length > 0) {
-        for (var i in data.bean) {
-          var obj = {}
-          obj.dicVal1 = data.bean[i].dicVal1
-          obj.dicVal2 = data.bean[i].dicVal2
-          that.data.zwYyyqColumns.push(obj)
-        }
-        that.setData({
-          zwYyyqColumns: that.data.zwYyyqColumns
-        })
-      }
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-
-var getByType4 = function (that) {
-  var data = { "dicType": "20008" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
-    if (res.data.backCode == 0) {
-      var data = res.data;
-      if (data.bean && data.bean.length > 0) {
-        for (var i in data.bean) {
-          var obj = {}
-          obj.dicVal1 = data.bean[i].dicVal1
-          obj.dicVal2 = data.bean[i].dicVal2
-          that.data.zwGznxColumns.push(obj)
-        }
-        that.setData({
-          zwGznxColumns: that.data.zwGznxColumns
-        })
-      }
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-
-var getByType5 = function (that) {
-  var data = { "dicType": "20003" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
-    if (res.data.backCode == 0) {
-      var data = res.data;
-      if (data.bean && data.bean.length > 0) {
-        for (var i in data.bean) {
-          var obj = {}
-          obj.dicVal1 = data.bean[i].dicVal1
-          obj.dicVal2 = data.bean[i].dicVal2
-          that.data.zwGzznColumns.push(obj)
-        }
-        that.setData({
-          zwGzznColumns: that.data.zwGzznColumns
-        })
-      }
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-
-var getByType6 = function (that) {
-  var data = { "dicType": "20004" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
-    if (res.data.backCode == 0) {
-      var data = res.data;
-      if (data.bean && data.bean.length > 0) {
-        for (var i in data.bean) {
-          var obj = {}
-          obj.dicVal1 = data.bean[i].dicVal1
-          obj.dicVal2 = data.bean[i].dicVal2
-          that.data.zwGzxzColumns.push(obj)
-        }
-        that.setData({
-          zwGzxzColumns: that.data.zwGzxzColumns
-        })
-      }
+      console.log(arr)
     } else {
       wx.showToast({
         title: res.data.errorMess,

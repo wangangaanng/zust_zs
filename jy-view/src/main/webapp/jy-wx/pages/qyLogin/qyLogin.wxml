@@ -9,19 +9,23 @@
         <van-field
           placeholder="请输入社会统一信用码"
           left-icon="contact"
+          bindinput="getqyTysh"
+          value="{{qyTysh}}"
           border="{{ false }}"
         />
         <van-field
           placeholder="请输入法人身份证后六位"
           type="password"
+          bindinput="getqyFrsfz"
+          value="{{qyFrsfz}}"
           left-icon="lock"
           border="{{ false }}"
         />
       </view>
     </view>
     <view class="search-btn">
-      <van-button type="primary" size="large">登录</van-button>
+      <van-button type="primary" size="large" bindtap="login">登录</van-button>
     </view>
-    <view class="reg-btn">注册</view>
+    <view class="reg-btn" bindtap="register">注册</view>
   </view>
 </view>

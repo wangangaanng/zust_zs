@@ -194,6 +194,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
+        BckjBizJob job = new BckjBizJob();
         //0报名 1宣讲 2职位
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         Map resultMap = new HashMap<>(2);
@@ -202,6 +203,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         Integer bmlx = Integer.parseInt(mapData.get("bmlx").toString());
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
+
             jybm.setBmsj(new Date());
             //报名类型企业
             if (bmlx == JyContant.BMLX_QY) {
@@ -221,6 +223,24 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             }
             //学生职位
             else if (JyContant.BMLX_XS == bmlx) {
+                if (!TextUtils.isEmpty(mapData.get("jobRefOwid"))) {
+                    job = jobService.get(mapData.get("jobRefOwid").toString());
+                    if (!TextUtils.isEmpty(job.getZphBmjzsj())) {
+                        if (System.currentTimeMillis() > job.getZphBmjzsj().getTime()) {
+                            resultMap.put("result", "false");
+                            resultMap.put("msg", "报名截止时间已过");
+                            return resultMap;
+                        }
+                    }
+                    if (!TextUtils.isEmpty(job.getZwSxsj())) {
+                        if (System.currentTimeMillis() > job.getZwSxsj().getTime()) {
+                            resultMap.put("result", "false");
+                            resultMap.put("msg", "已失效");
+                            return resultMap;
+                        }
+                    }
+                }
+
                 Map params = new HashMap<>();
                 params.put("yhRefOwid", mapData.get("yhRefOwid").toString());
                 params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
@@ -241,7 +261,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 jybm.setLxr(yhxxVo.getSjh());
                 jybm.setYhRefOwid(yhxxVo.getOwid());
             }
-            BckjBizJob job = new BckjBizJob();
+
             //宣讲会
             if (JyContant.BMDX_XJH == bmdx) {
                 if (JyContant.BMLX_QY == bmlx) {
@@ -256,7 +276,25 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                         return resultMap;
                     }
                 }
-
+//                else if (JyContant.BMLX_XS == bmlx)
+//                {
+//                    job = jobService.get(mapData.get("jobRefOwid").toString());
+//                    if (!TextUtils.isEmpty(job.getZphBmjzsj())) {
+//                        if (System.currentTimeMillis() > job.getZphBmjzsj().getTime()) {
+//                            resultMap.put("result", "false");
+//                            resultMap.put("msg", "报名截止时间已过");
+//                            return resultMap;
+//                        }
+//                    }
+//                    if (!TextUtils.isEmpty(job.getZwSxsj())) {
+//                        if (System.currentTimeMillis() > job.getZwSxsj().getTime()) {
+//                            resultMap.put("result", "false");
+//                            resultMap.put("msg", "宣讲会已失效");
+//                            return resultMap;
+//                        }
+//                    }
+//
+//                }
                 if (!TextUtils.isEmpty(mapData.get("xjsj"))) {
                     jybm.setXjsj(mapData.get("xjsj").toString());
                 } else {
@@ -282,6 +320,13 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     if (System.currentTimeMillis() > job.getZphBmjzsj().getTime()) {
                         resultMap.put("result", "false");
                         resultMap.put("msg", "报名截止时间已过");
+                        return resultMap;
+                    }
+                }
+                if (!TextUtils.isEmpty(job.getZwSxsj())) {
+                    if (System.currentTimeMillis() > job.getZwSxsj().getTime()) {
+                        resultMap.put("result", "false");
+                        resultMap.put("msg", "招聘会已失效");
                         return resultMap;
                     }
                 }

@@ -1,29 +1,26 @@
 // pages/newsList/newsList.js
 var common = require('../../libs/common/common.js')
 const app = getApp()
-var wzList=[];
+var wzList = [];
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    currentTab:0,
-    key:'',
-    navList:[],
-    wzList:[
-
-    ],
+    currentTab: 0,
+    navList: [{name:"未申请"},{name:"已申请"}],
+    wzList: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.fid){
+    if (options.fid) {
       getLm(this, options.fid)
     }
-   
+
   },
 
   /**
@@ -37,35 +34,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
- 
-  clickTab:function(e){
+
+  clickTab: function (e) {
     this.setData({
       currentTab: e.detail.index
     })
   },
-  newsDetail(e){
-    wx.navigateTo({
-      url: '../newsDetail/newsDetail?owid='+e.currentTarget.dataset.owid,
-    })
-  },
-  onChange(e) {
-    this.setData({
-      key: e.detail
-    });
-  },
-
-  onClear() {
-    var that = this;
-    refresh(this);
-  },
-  onSearch: function () {
-    var that = this;
-    refresh(this);
-  },
-  loadMore:function(){
+  loadMore: function () {
     var index = this.data.currentTab
     // console.log(this.data.wzList[index].pageNo);
     // console.log(this.data.wzList[index].totalPage)
@@ -78,8 +56,8 @@ Page({
     }
   }
 })
-var getLm = function(that,bh){
-  wzList=[];
+var getLm = function (that, bh) {
+  wzList = [];
   var data = { "fid": bh, "wzbh": "1" };
   common.ajax('zustcommon/bckjDicMenu/getLmMenu', data, function (res) {
     if (res.data.backCode == 0) {
@@ -91,7 +69,7 @@ var getLm = function(that,bh){
         obj.name = object.NAME;
         obj.isDetail = object.BXLX;
         arr.push(obj);
-        
+
         var wzListObj = {};
         wzListObj.pageSize = 20;
         wzListObj.pageNo = 1;
@@ -103,7 +81,7 @@ var getLm = function(that,bh){
         })
 
 
-        getList(that, obj.owid, obj.isDetail,i,1);//index, pageNo
+        getList(that, obj.owid, obj.isDetail, i, 1);//index, pageNo
       }
       that.setData({
         navList: arr,
@@ -117,12 +95,12 @@ var getLm = function(that,bh){
     }
   });
 }
-var getList = function (that, owid, isDetail,index,pageNo){
-  var data = { "lmbh": owid, "pageNo": pageNo, "pageSize": "20", "wzzt": "1", "isDetail": isDetail, "gjz": that.data.key };//isDetail:1列表
+var getList = function (that, owid, isDetail, index, pageNo) {
+  var data = { "lmbh": owid, "pageNo": pageNo, "pageSize": "20", "wzzt": "1", "isDetail": isDetail };//isDetail:1列表
   common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      if (res.data.bean.records){
+      if (res.data.bean.records) {
         for (var i = 0; i < res.data.bean.records.length; i++) {
           var obj = {};
           var object = res.data.bean.records[i];
@@ -133,7 +111,7 @@ var getList = function (that, owid, isDetail,index,pageNo){
           arr.push(object);
         }
       }
-      
+
       var page = "wzList[" + index + "].pageNo";
       var totalPage = "wzList[" + index + "].totalPage";
       var list = "wzList[" + index + "].list";
@@ -150,20 +128,4 @@ var getList = function (that, owid, isDetail,index,pageNo){
       })
     }
   });
-}
-function refresh(that) {
-  wzList = [];
-  var navList = that.data.navList;
-  for (var i = 0; i < navList.length; i++) {
-    var wzListObj = {};
-    wzListObj.pageSize = 20;
-    wzListObj.pageNo = 1;
-    wzListObj.totalPage = "";
-    wzListObj.list = [];
-    wzList.push(wzListObj);
-    that.setData({
-      wzList: wzList
-    })
-    getList(that, navList[i].owid, navList[i].isDetail, i, 1);//index, pageNo
-  }
 }

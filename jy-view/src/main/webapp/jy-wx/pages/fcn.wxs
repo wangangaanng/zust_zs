@@ -1,0 +1,33 @@
+var substr = function (val, start, end) {
+  if (val.length == 0 || val == undefined) {
+    return;
+  }
+  return val.substring(start, end);
+
+}
+var tofix = function (val, num) {
+  return parseFloat(val).toFixed(num);
+}
+var checkNull = function (val) {
+  if (val !== null && val !== undefined && val !== '') {
+    return val;
+  } else
+    return '';
+}
+
+var countHours = function (h, d) {
+  return parseInt(parseInt(h) + parseInt(d) * 24)
+}
+
+// var getKey = function (o) {
+//   for (var i in o) {
+    
+//     return i
+//   }
+// }
+
+module.exports.substr = substr;
+module.exports.tofix = tofix;
+module.exports.checkNull = checkNull;
+module.exports.countHours = countHours;
+// module.exports.getKey = getKey;
