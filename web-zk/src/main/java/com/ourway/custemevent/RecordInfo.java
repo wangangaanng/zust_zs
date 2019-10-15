@@ -25,6 +25,8 @@ import java.util.Map;
 public class RecordInfo implements ComponentFileSer {
     //师生录入url
     public final String xsURL = "web/zustcommon/bckjBizYhxx/recordInfo";
+    //就业方案录入url
+    public final String jsURL = "web/zustcommon/bckjBizJyscheme/recordInfo";
     //专家录入url
     public final String zxURL = "web/zustjy/bckjBizZjzx/recordInfo";
     //档案录入url
@@ -32,8 +34,11 @@ public class RecordInfo implements ComponentFileSer {
     //就业排行榜url
     public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
     //上传excela保存的本地地址
-   // public final String FolderPath = "/mnt/files/zjcFiles/excel/";
-    public final String FolderPath = "F:\\img\\";
+   // public final String savePath = "/mnt/files/zjcFiles/excel/";
+    // public final String foundPath = "/mnt/files/zjcFiles/";
+
+    public final String FolderPath = "/mnt/files/zjcFiles/excel/";
+//    public final String FolderPath = "F:\\img\\";
     //地区典表 导入
     public  final String dwszURL="web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -61,9 +66,16 @@ public class RecordInfo implements ComponentFileSer {
         if (pageCA.indexOf("location") != -1) {
             url = dwszURL;
         }
+        if(pageCA.indexOf("jyscheme")!=-1){
+            url=jsURL;
+        }
         String result = "";
         String path = map.get("filePath").toString();
-        String filePath = FolderPath + path;
+       /* String foundfilePath = foundPath + path;*/  //线上路径
+       /* String savefilePath=savePath+path;*/
+       /* copyXsFile(foundfilePath,savefilePath);*/
+
+        String filePath = FolderPath + path;  //本地上传路径
         //添加后缀
         copyFile(filePath);
         Map<String, Object> params = new HashMap<String, Object>();
@@ -79,34 +91,6 @@ public class RecordInfo implements ComponentFileSer {
             AlterDialog.alert("导入失败");
         }
         try {
-            /*if(result.indexOf("操作成功")!=-1){
-                AlterDialog.alert("导入成功");
-                BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
-                Object models = new ArrayList();
-                grid.filter((List) models);
-                grid.display();
-            }
-            if(result.indexOf("重复学生学号")!=-1){
-                AlterDialog.alert("导入失败,学号或工号存在重复");
-                BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
-                Object models = new ArrayList();
-                grid.filter((List) models);
-                grid.display();
-            }
-            if(result.indexOf("身份证号码格式错误")!=-1){
-                AlterDialog.alert("身份证格式错误");
-                BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
-                Object models = new ArrayList();
-                grid.filter((List) models);
-                grid.display();
-            }
-            if(result.indexOf("手机号")!=-1){
-                AlterDialog.alert("手机号格式错误");
-                BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
-                Object models = new ArrayList();
-                grid.filter((List) models);
-                grid.display();
-            }*/
             AlterDialog.alert(result);
             BaseGrid grid = (BaseGrid) window.getFellowIfAny("dataList");
             Object models = new ArrayList();
@@ -115,6 +99,31 @@ public class RecordInfo implements ComponentFileSer {
         } catch (Exception e) {
             e.printStackTrace();
             AlterDialog.alert("导入失败");
+        }
+    }
+
+    public void copyXsFile(String foundfilePath,String savefilePath ){
+        int len = 0;
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+        try {
+            fis = new FileInputStream(foundfilePath);
+            String newFileName = savefilePath + ".xls";
+            fos = new FileOutputStream(new File(newFileName));
+
+            byte[] bt = new byte[1024];
+            while ((len = fis.read(bt)) != -1) {
+                fos.write(bt, 0, len);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fis.close();
+                fos.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

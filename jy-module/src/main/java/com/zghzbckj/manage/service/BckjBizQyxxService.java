@@ -82,7 +82,12 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
      */
     public ResponseMessage findPageBckjBizQyxx(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        dataMap.put("state", state);
+        if (state.equals(JyContant.QY_ZT_TG)) {
+            dataMap.put("pass", 1);
+        }else{
+            dataMap.put("state", state);
+        }
+
         PageInfo<BckjBizQyxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
@@ -265,19 +270,21 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
      * @param pageSize
      * @return
      */
-    public PageInfo<Object> showStudentInfo(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
-        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+    public PageInfo<Object> showStudentInfo(List<FilterModel> filters, Integer pageNo, Integer pageSize,Map<String ,Object> dataMap) {
+        Map<String, Object> sendMap = FilterModel.doHandleMap(filters);
         Page<Object> page = new Page(pageNo, pageSize);
-        String type = dataMap.get("type").toString();
-        dataMap.put("page", page);
+        sendMap.put("page", page);
         List<Object> lists = null;
+        String type = dataMap.get("type").toString();
+        sendMap.put("owid",dataMap.get("owid"));
+        sendMap.put("jobOwid",dataMap.get("jobOwid"));
         //如果为报名
         if(type.equals("1")){
-            lists= this.dao.getBaoMingList(dataMap);
+            lists= this.dao.getBaoMingList(sendMap);
         }
         //如果为关注
         else if(type.equals("2")){
-            lists= this.dao.getGuanZhuList(dataMap);
+            lists= this.dao.getGuanZhuList(sendMap);
         }
         page.setList(lists);
         return PageUtils.assimblePageInfo(page);
