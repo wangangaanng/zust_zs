@@ -20,8 +20,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options.fid){
+    if(options.fid){//tab列表
       getLm(this, options.fid)
+    }else if (options.lmbh){//单列表
+      var that=this;
+      that.setData({
+        navList: [{ owid: options.lmbh, name: '', isDetail: '1' }],
+      })
+
+      var wzListObj = {};
+      wzListObj.pageSize = 20;
+      wzListObj.pageNo = 1;
+      wzListObj.totalPage = "";
+      wzListObj.list = [];
+      wzList.push(wzListObj);
+      that.setData({
+        wzList: wzList
+      })
+      getList(that, options.lmbh, 1, 0, 1);//index, pageNo
     }
    
   },
