@@ -1,26 +1,29 @@
-// pages/newsList/newsList.js
+// pages/enterpriseXjh/enterpriseXjh.js
 var common = require('../../libs/common/common.js')
 const app = getApp()
-var wzList = [];
+var imgPath = app.globalData.imgPath;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    currentTab: 0,
-    navList: [{name:"未申请"},{name:"已申请"}],
-    wzList: [],
+    pageSize: 20,
+    pageNo: 1,
+    totalPage: '',
+    xjhList: []
   },
-
+  shenqin() {
+    wx.navigateTo({
+      url: '../applyXjh/applyXjh',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.fid) {
-      getLm(this, options.fid)
-    }
-
+    myBmList(this);
   },
 
   /**
@@ -37,88 +40,72 @@ Page({
 
   },
 
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
 
-  clickTab: function (e) {
-    this.setData({
-      currentTab: e.detail.index
-    })
   },
-  loadMore: function () {
-    var index = this.data.currentTab
-    // console.log(this.data.wzList[index].pageNo);
-    // console.log(this.data.wzList[index].totalPage)
-    var page = "wzList[" + index + "].pageNo";
-    if ((this.data.wzList[index].pageNo + 1) <= this.data.wzList[index].totalPage) {
-      this.setData({
-        [page]: this.data.wzList[index].pageNo + 1,
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    var that = this;
+    if ((that.data.pageNo + 1) <= that.data.totalPage) {
+      that.setData({
+        pageNo: that.data.pageNo + 1,
       })
-      getList(this, this.data.navList[index].owid, this.data.navList[index].isDetail, index, this.data.wzList[index].pageNo);//index, pageNo
+      myBmList(that);
     }
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
   }
 })
-var getLm = function (that, bh) {
-  wzList = [];
-  var data = { "fid": bh, "wzbh": "1" };
-  common.ajax('zustcommon/bckjDicMenu/getLmMenu', data, function (res) {
+
+var myBmList = function (that, lx) {
+  var data = {
+    "qyxxRefOwid": wx.getStorageSync("yhOwid"), "bmdx": 0, "bmlx": 0, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
+  };
+  common.ajax('zustjy/bckjBizJybm/myBmList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      for (var i = 0; i < res.data.bean.length; i++) {
+      for (var i = 0; i < res.data.bean.records.length; i++) {
         var obj = {};
-        var object = res.data.bean[i];
-        obj.owid = object.CODE;
-        obj.name = object.NAME;
-        obj.isDetail = object.BXLX;
+        var object = res.data.bean.records[i];
+        obj.owid = object.owid;
+        obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
+        obj.year = object.createtime.substring(0, 4);
+        obj.zwbt = object.zwbt;
+        obj.qymc = object.exp1;
+        obj.city = object.zwCity;
+        obj.gzxz = object.zwGzxzStr;
         arr.push(obj);
-
-        var wzListObj = {};
-        wzListObj.pageSize = 20;
-        wzListObj.pageNo = 1;
-        wzListObj.totalPage = "";
-        wzListObj.list = [];
-        wzList.push(wzListObj);
-        that.setData({
-          wzList: wzList
-        })
-
-
-        getList(that, obj.owid, obj.isDetail, i, 1);//index, pageNo
       }
+      var xjhList = that.data.xjhList.concat(res.data.bean.records)
+      var totalPage = res.data.bean.totalPage;
       that.setData({
-        navList: arr,
-      })
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-var getList = function (that, owid, isDetail, index, pageNo) {
-  var data = { "lmbh": owid, "pageNo": pageNo, "pageSize": "20", "wzzt": "1", "isDetail": isDetail };//isDetail:1列表
-  common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
-    if (res.data.backCode == 0) {
-      var arr = [];
-      if (res.data.bean.records) {
-        for (var i = 0; i < res.data.bean.records.length; i++) {
-          var obj = {};
-          var object = res.data.bean.records[i];
-          if (object.fbsj) {
-            object.date = object.fbsj.substring(5, 7) + "." + object.fbsj.substring(8, 10);
-            object.year = object.fbsj.substring(0, 4);
-          }
-          arr.push(object);
-        }
-      }
-
-      var page = "wzList[" + index + "].pageNo";
-      var totalPage = "wzList[" + index + "].totalPage";
-      var list = "wzList[" + index + "].list";
-      that.setData({
-        [page]: pageNo,
-        [totalPage]: res.data.bean.totalPage,
-        [list]: that.data.wzList[index].list.concat(arr),
+        xjhList: xjhList,
+        totalPage: totalPage,
       })
     } else {
       wx.showToast({

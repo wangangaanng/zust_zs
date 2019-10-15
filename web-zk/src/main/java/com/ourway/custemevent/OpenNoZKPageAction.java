@@ -1,5 +1,6 @@
 package com.ourway.custemevent;
 
+import com.ourway.base.utils.DateUtil;
 import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageControlVO;
@@ -14,6 +15,7 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Row;
 
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -88,7 +90,12 @@ public class OpenNoZKPageAction implements ComponentListinerSer {
 //            } else {
 //                url = url + "?owid=" + rowData.get("owid") + "&taskTime=" + taskTime + "&taskState=" + taskState + "&taskRefOwid=" + taskRefOwid + "";
 //            }
-            url += "?name=" + rowData.get("zwbt");
+            String zphKsrq = null;
+            if (!TextUtils.isEmpty(rowData.get("zphKsrq"))) {
+                zphKsrq = DateUtil.getDateString(rowData.get("zphKsrq").toString(), "yyyy-MM-dd");
+            }
+
+            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj");
             ComponentWindowSer root = PageUtils.getBaseMainWindow(window);
             if (null == root) {
                 AlterDialog.alert("无tab页面，不能打开");

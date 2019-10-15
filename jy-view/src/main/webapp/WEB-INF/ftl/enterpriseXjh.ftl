@@ -66,7 +66,7 @@
                             <button type="button" onclick="searchXjh()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>
-                    <button class="btn pull-right green" onclick='applyXjh()'>申请</button>
+                    <button class="btn pull-right green" onclick='applyXjh()'>点击申请宣讲会</button>
                 </div>
                 <div class="news-list">
                     <div class="question"></div>

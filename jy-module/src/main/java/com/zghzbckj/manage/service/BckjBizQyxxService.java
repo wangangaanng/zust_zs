@@ -16,7 +16,9 @@ import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.util.TextUtils;
+import com.zghzbckj.util.PageUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -80,7 +82,12 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
      */
     public ResponseMessage findPageBckjBizQyxx(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        dataMap.put("state", state);
+        if (state.equals(JyContant.QY_ZT_TG)) {
+            dataMap.put("pass", 1);
+        }else{
+            dataMap.put("state", state);
+        }
+
         PageInfo<BckjBizQyxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
@@ -254,5 +261,30 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         _list.add(qyxx);
         resultMap.put("bean", _list);
         return resultMap;
+    }
+
+    /**
+     * 企业查看关注的或报名的学生信息
+     * @param filters
+     * @param pageNo
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<Object> showStudentInfo(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        Page<Object> page = new Page(pageNo, pageSize);
+        String type = dataMap.get("type").toString();
+        dataMap.put("page", page);
+        List<Object> lists = null;
+        //如果为报名
+        if(type.equals("1")){
+            lists= this.dao.getBaoMingList(dataMap);
+        }
+        //如果为关注
+        else if(type.equals("2")){
+            lists= this.dao.getGuanZhuList(dataMap);
+        }
+        page.setList(lists);
+        return PageUtils.assimblePageInfo(page);
     }
 }

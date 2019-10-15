@@ -64,7 +64,7 @@
                             <button type="button" onclick="searchZw()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>
-                    <button class="btn pull-right green" onclick='addZw()'>新增</button>
+                    <button class="btn pull-right green" onclick='addZw()'>点击新增职位</button>
                 </div>
                 <div class="news-list">
                     <div class="e-table" style="padding: 0 20px;">

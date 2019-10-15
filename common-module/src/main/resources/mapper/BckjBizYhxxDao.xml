@@ -290,14 +290,21 @@
 	</update>
 
 
-	<select id="showStudentInfoList" resultMap="BckjBizStudentXxVo">
-			SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
-			a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
-			a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
-			b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
-			 FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b
+	<select id="showStudentInfoList" resultType="Map" >
+			SELECT a.owid as owid ,b.xsxh as xsxh , c.ksh as ksh, a.xm as xm ,a.xb as xb ,
+			b.xszy as xszy ,b.xsxy as xsxy ,d.zydh_One as zydhOne ,d.zydh_Two as zydhTwo ,
+			d.zydh_Three as zydhThree ,d.zydh_Four as zydhFour ,d.zydh_Five  as zydhFive,
+			d.zydh_Six  as zydhSix, a.csrq as csrq , c.zzmm as zzmm ,a.mz as mz , d.kslb as kslb,
+				d.bylb as bylb, d.zxdm as zxdm , d.zxmc as zxmc , d.syddm as syddm ,c.syd as syd ,
+				a.sfz as sfz , c.jtdz as jtdz , c. jtyb as jtyb , a.sjh as sjh ,c.jtdh as jtdh,
+				d.kstc as kstc ,d.hjqk as hjqk, d.sjr as sjr , d.tdcj as tdcj ,d.tdzy as tdzy,
+				d.xkkm as xkkm ,d.yw as yw ,d.sx as sx , d.wy as wy , d.wl as wl , d.hx as hx ,
+				d.sw as sw , d.zz as zz, d.ls as ls , d.zhcj as zhcj ,d.tkmscj as tkmscj ,
+				d.tkbycj as tkbycj ,d.tkszcj as tkszcj , c.xz as xz ,d.km as km ,d.pc as pc ,
+				a.prov as prov ,d.memo as memo , d.sg as sg ,d.tz as tz, d.jf as jf
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_studentinfo d
 			 <where>
-				 a.owid = b.`YH_REF_OWID` AND b.`OLX`=#{olx} and a.yhlx=1
+				 a.owid = b.`YH_REF_OWID` AND b.`OLX`=#{olx} and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh
 				 <if test="xm!=null and xm!=''">
 					and  a.xm like CONCAT('%',#{xm},'%')
 				 </if>
@@ -307,8 +314,17 @@
 				 <if test="sfz!=null and sfz!=''">
 					 and  a.sfz like CONCAT('%',#{sfz},'%')
 				 </if>
+				 <if test="pc!=null and pc!=''">
+					 and  d.pc like CONCAT('%',#{pc},'%')
+				 </if>
+				 <if test="ksh!=null and ksh!=''">
+					 and  c.ksh like CONCAT('%',#{ksh},'%')
+				 </if>
+				 <if test="sjh!=null and sjh!=''">
+					 and  a.sjh like CONCAT('%',#{sjh},'%')
+				 </if>
 			 </where>
-			 order by a.owid desc
+			 order by b.xsxh asc
 	</select>
 
 
@@ -400,16 +416,81 @@
 	</select>
 
 
-	<select id="showStudentInfo" resultMap="BckjBizStudentXxVo">
-		SELECT a.owid as owid ,a.sjh as sjh ,a.yhlx as yhlx, a.sfz as sfz , a.xm as xm, a.xb as xb , a.mz as mz,
-		a.csrq as csrq ,a.yx as yx , a.zcsj as zcsj,a.fssj as fssj,a.yzm as yzm,a.prov as prov,a.city as city,
-		a.area as area,a.dlzh as dlzh,a.dlzhsj as dlzhsj,a.YH_DLZH as yhDlzh,a.YH_DLMM as yhDlmm,b.olx as olx,
-		b.xsxh as xsxh, b.xsxy as xsxy, b.xszy as xszy ,xsbj as xsbj,b.xsnj as xsnj,b.xsxm as xsxm,b.lxr as lxr, b.memo as memo
-		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b
+	<select id="showStudentInfo" resultType="Map" parameterType="Map">
+		SELECT a.owid as owid ,b.xsxh as xsxh , c.ksh as ksh, a.xm as xm ,a.xb as xb ,
+		b.xszy as xszy ,b.xsxy as xsxy ,d.zydh_One as zydhOne ,d.zydh_Two as zydhTwo ,
+		d.zydh_Three as zydhThree ,d.zydh_Four as zydhFour ,d.zydh_Five  as zydhFive,
+		d.zydh_Six  as zydhSix, a.csrq as csrq , c.zzmm as zzmm ,a.mz as mz , d.kslb as kslb,
+		d.bylb as bylb, d.zxdm as zxdm , d.zxmc as zxmc , d.syddm as syddm ,c.syd as syd ,
+		a.sfz as sfz , c.jtdz as jtdz , c. jtyb as jtyb , a.sjh as sjh ,c.jtdh as jtdh,
+		d.kstc as kstc ,d.hjqk as hjqk, d.sjr as sjr , d.tdcj as tdcj ,d.tdzy as tdzy,
+		d.xkkm as xkkm ,d.yw as yw ,d.sx as sx , d.wy as wy , d.wl as wl , d.hx as hx ,
+		d.sw as sw , d.zz as zz,d.dl as dl,d.js as js, d.ls as ls , d.zhcj as zhcj ,d.tkmscj as tkmscj ,
+		d.tkbycj as tkbycj ,d.tkszcj as tkszcj , c.xz as xz ,d.km as km ,d.pc as pc ,
+		a.prov as prov ,d.memo as memo , d.sg as sg ,d.tz as tz, d.jf as jf
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_studentinfo d
 		<where>
-			a.owid = b.`YH_REF_OWID` AND b.`OLX`=#{olx} and a.yhlx=1 and a.owid=#{owid}
+			a.owid = b.`YH_REF_OWID` AND b.`OLX`=#{olx} and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh and a.owid=#{owid}
 		</where>
-
 	</select>
+
+	<delete id="deleteAllList" parameterType="Map">
+		delete from `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_studentinfo d
+		<where>
+			a.owid = b.`YH_REF_OWID`  and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh
+			<if test="owid!=null and owid!=''">
+				and a.owid=#{owid}
+			</if>
+		</where>
+	</delete>
+
+	<update id="updateInfo" parameterType="BckjBizYhxx">
+		UPDATE bckj_biz_yhxx SET
+			xm = #{xm},
+			sfz = #{sfz},
+			xb = #{xb},
+			mz = #{mz},
+			sfz = #{sfz},
+			sjh = #{sjh},
+			yx = #{yx}
+		WHERE owid = #{owid}
+	</update>
+
+	<update id="updateByXsxh" parameterType="BckjBizYhxx">
+			UPDATE bckj_biz_yhxx SET
+			xm = #{xm},
+			xb = #{xb},
+			csrq = #{csrq},
+			mz = #{mz},
+			sfz = #{sfz},
+			sjh = #{sjh},
+			prov = #{prov}
+		WHERE owid = #{owid}
+	</update>
+
+	<update id="updateJyscheme" parameterType="BckjBizYhxx">
+		UPDATE bckj_biz_yhxx SET
+			xm = #{xm},
+			xb = #{xb},
+			mz = #{mz},
+			sfz = #{sfz},
+			sjh = #{sjh},
+			yx = #{yx}
+		WHERE owid = #{owid}
+	</update>
+
+	<update id="updateSyscheme" parameterType="BckjBizYhxx">
+		UPDATE bckj_biz_yhxx SET
+			xsxh = #{xsxh},
+			xb = #{xb},
+			xm = #{xm},
+			sfz = #{sfz},
+			csrq = #{csrq},
+			mz = #{mz},
+			sjh = #{sjh},
+			yx = #{yx}
+		WHERE owid = #{owid}
+	</update>
+
 
 </mapper>

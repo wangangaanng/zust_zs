@@ -16,6 +16,7 @@ import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.feign.BckjBizYhxxSer;
 import com.zghzbckj.manage.dao.BckjBizJyschemeDao;
 import com.zghzbckj.manage.entity.BckjBizJyscheme;
+import com.zghzbckj.manage.entity.BckjBizStudentinfo;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.util.CustomSaveALL;
 import com.zghzbckj.util.ExcelUtils;
@@ -216,4 +217,5 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         }
         return ResponseMessage.sendOK("");
     }
+
 }

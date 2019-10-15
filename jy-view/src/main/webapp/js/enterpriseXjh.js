@@ -135,7 +135,7 @@ function applyXjh(){
             '                            </div>\n' +zdytjStr+
             '                        <div class="row btn-yd">\n' +
             '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-            '                                <button class="btn green" onclick="confirmQd()">提交</button>\n' +
+            '                                <button class="btn green" style="width: 120px;" onclick="confirmQd()">提交</button>\n' +
             '                            </div>\n' +
             '                        </div></div>'
         });
@@ -298,20 +298,19 @@ function myJobList2() {
                 queryParamsType: "limit",
                 columns: [{
                     align: 'center',
-                    field: 'zwbt',
+                    field: 'bt',
                     title: '标题',
-                    // formatter: function (value, row, index) {
-                    //     if (row.xjsj) {
-                    //         var value = row.xjsj.substring(0, 10);
-                    //         return value + "宣讲会";
-                    //     } else {
-                    //         return "宣讲会";
-                    //     }
-                    //
-                    // }
+                    formatter: function (value, row, index) {
+                        if (!row.zwbt) {
+                            return "暂无";
+                        }else {
+                            return row.zwbt;
+                        }
+
+                    }
                 }, {
                     field: 'xjsj',
-                    title: '举办时间',
+                    title: '举办日期',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row.xjsj) {
@@ -324,7 +323,7 @@ function myJobList2() {
                     }
                 }, {
                     field: 'zphJtsj',
-                    title: '举办时长',
+                    title: '具体时间',
                     align: 'center',
                 },  {
                     field: 'xxlxr',

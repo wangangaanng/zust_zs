@@ -12,6 +12,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizSybDao;
 import com.zghzbckj.manage.entity.BckjBizSyb;
+import com.zghzbckj.util.PageUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -166,5 +167,21 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             }
         }
         return syb;
+    }
+    /**
+     * 后台生源管理获得gridlist
+     * @param filters
+     * @param pageNo
+     * @param pageSize
+     * @return PageInfo<Object>
+     */
+    public PageInfo<Object> getSybList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        Page<Object> page = new Page(pageNo, pageSize);
+        dataMap.put("page", page);
+        List<Object> lists = null;
+        lists = this.dao.getSybList(dataMap);
+        page.setList(lists);
+        return PageUtils.assimblePageInfo(page);
     }
 }

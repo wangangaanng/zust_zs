@@ -12,6 +12,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.service.BckjBizSybService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -343,5 +344,22 @@ public class BckjBizSybController extends BaseController {
         return null;
     }
 
+    /**
+     * 后台生源管理获得gridlist
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getSybList")
+    @ResponseBody
+    public ResponseMessage getSybList(PublicDataVO dataVO){
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return ResponseMessage.sendOK(bckjBizSybService.getSybList(filters, dataVO.getPageNo(), dataVO.getPageSize()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 }

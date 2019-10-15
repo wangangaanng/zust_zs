@@ -2,10 +2,6 @@ package com.zghzbckj.manage.entity;
 
 import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.zghzbckj.base.entity.DataEntity;
 
 /**
  * 学生信息录入类Entity
@@ -17,14 +13,15 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 	private static final long serialVersionUID = 1L;
 
 	private String xsxh;		// xsxh
+	private String yhRefOwid;		// yh_ref_owid
 	private String zydhOne;		// zydh_one
 	private String zydhTwo;		// zydh_two
 	private String zydhThree;		// zydh_three
 	private String zydhFour;		// zydh_four
-		private String zydhFive;		// zydh_five
+	private String zydhFive;		// zydh_five
 	private String zydhSix;		// zydh_six
-	private Integer kslb;		// kslb
-	private Integer bylb;		// bylb
+	private String kslb;		// kslb
+	private String bylb;		// bylb
 	private Integer zxdm;		// zxdm
 	private String zxmc;		// zxmc
 	private String syddm;
@@ -48,14 +45,53 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 	private Integer tkmscj;		// tkmscj
 	private Integer tkbycj;		// tkbycj
 	private Integer tkszcj;		// tkszcj
-	private Integer km;		// km
-	private Integer pc;		// pc
+	private String km;		// km
+	private String pc;		// pc
 	private String updator;		// updator
 	private String sg;		// sg
 	private String tz;		// tz
 	private Integer jf;		// jf
 	private String memo;		// memo
 
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
+
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
+	public String getKm() {
+		return km;
+	}
+
+	public void setKm(String km) {
+		this.km = km;
+	}
+
+	public String getPc() {
+		return pc;
+	}
+
+	public void setPc(String pc) {
+		this.pc = pc;
+	}
+
+
+	public String getKslb() {
+		return kslb;
+	}
+
+	public void setKslb(String kslb) {
+		this.kslb = kslb;
+	}
+
+	public String getBylb() {
+		return bylb;
+	}
+
+	public void setBylb(String bylb) {
+		this.bylb = bylb;
+	}
 
 	public String getSyddm() {
 		return syddm;
@@ -128,21 +164,7 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 		this.zydhSix = zydhSix;
 	}
 	
-	public Integer getKslb() {
-		return kslb;
-	}
 
-	public void setKslb(Integer kslb) {
-		this.kslb = kslb;
-	}
-	
-	public Integer getBylb() {
-		return bylb;
-	}
-
-	public void setBylb(Integer bylb) {
-		this.bylb = bylb;
-	}
 	
 	public Integer getZxdm() {
 		return zxdm;
@@ -326,21 +348,7 @@ public class BckjBizStudentinfo extends DataWithExpEntity<BckjBizStudentinfo> {
 		this.tkszcj = tkszcj;
 	}
 	
-	public Integer getKm() {
-		return km;
-	}
 
-	public void setKm(Integer km) {
-		this.km = km;
-	}
-	
-	public Integer getPc() {
-		return pc;
-	}
-
-	public void setPc(Integer pc) {
-		this.pc = pc;
-	}
 	
 	@Length(min=0, max=64, message="updator长度必须介于 0 和 64 之间")
 	public String getUpdator() {

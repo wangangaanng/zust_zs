@@ -128,8 +128,29 @@
             <if test=" state != null and state != '' ">
                 AND a.state = #{state}
             </if>
+            <if test=" pass != null and pass != '' ">
+                AND a.state !=1
+            </if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},'%')
+            </if>
+            <if test=" qyHylb != null and qyHylb != '' ">
+                AND a.qy_hylb = #{qyHylb}
+            </if>
+            <if test=" qyGsgm != null and qyGsgm != '' ">
+                AND a.qy_gsgm = #{qyGsgm}
+            </if>
+            <if test=" qyGsxz != null and qyGsxz != '' ">
+                AND a.qy_gsxz = #{qyGsxz}
+            </if>
+            <if test=" qyProv != null and qyProv != '' ">
+                AND a.qy_prov like CONCAT('%',#{qyProv},'%')
+            </if>
+            <if test=" qyCity != null and qyCity != '' ">
+                AND a.qy_city like CONCAT('%',#{qyCity},'%')
+            </if>
+            <if test=" qyArea != null and qyArea != '' ">
+                AND a.qy_area like CONCAT('%',#{qyArea},'%')
             </if>
         </where>
         <choose>
@@ -327,5 +348,21 @@
             b.owid=a.dic_ref_owid and b.type=#{type}
         </where>
     </select>
+
+	<select id="getBaoMingList" parameterType="Map" resultType="Map">
+				select
+					c.yh_ref_owid as yhRefOwid , c.bmsj as bmsj , c.lxdh as lxdh , c.lxr as lxr
+				from bckj_biz_qyxx a ,bckj_biz_job b , bckj_biz_jybm c
+				where a.owid =#{owid} and b.owid =#{jobOwid} and c.qyxx_ref_owid=#{a.owid} and c.job_ref_owid = #{b.owid}
+                   and c.bmlx=1
+	</select>
+
+
+	<select id="getGuanZhuList" parameterType="Map" resultType="Map">
+			select c.yh_ref_owid as yhRefOwid ,c.gzsj as gzsj, c.lxdh as lxdh ,c.lxr as lxr
+				from bckj_biz_qyxx a ,bckj_biz_job b , bckj_biz_xsgz c
+				where a.owid =#{owid} and b.owid =#{jobOwid} and c.job_ref_owid = #{b.owid}
+	</select>
+
 
 </mapper>

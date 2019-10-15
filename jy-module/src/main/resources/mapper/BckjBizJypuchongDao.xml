@@ -4,6 +4,7 @@
     
 	<sql id="bckjBizJypuchongColumns">
 		a.owid AS "owid",
+		a.yh_ref_owid AS "yhRefOwid",
 		a.xsxh AS "xsxh",
 		a.sfsf as "sfsf",
 		a.sfzz AS "sfzz",
@@ -86,6 +87,7 @@
 	<insert id="insert">
 		INSERT INTO bckj_biz_jypuchong(
 			owid,
+			yh_Ref_Owid,
 			xsxh,
 			sfsf,
 			sfzz,
@@ -121,6 +123,7 @@
 			exp10
 		) VALUES (
 			#{owid},
+			#{yhRefOwid},
 			#{xsxh},
 			#{sfsf},
 			#{sfzz},
@@ -160,6 +163,7 @@
 	<update id="update">
 		UPDATE bckj_biz_jypuchong SET 	
 			owid = #{owid},
+			yh_Ref_Owid=#{yhRefOwid},
 			xsxh = #{xsxh},
 			sfsf=#{sfsf},
 			sfzz = #{sfzz},

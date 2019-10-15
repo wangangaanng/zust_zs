@@ -60,7 +60,7 @@
 					"id": 0,
 					"name": "pages/qyInfo/qyInfo",
 					"pathName": "pages/qyInfo/qyInfo",
-					"query": "owid=14a52875a0aa40668e1ff58e124d71a5",
+					"query": "owid=16922",
 					"scene": null
 				},
 				{
@@ -141,9 +141,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/qyLogin/qyLogin",
-					"pathName": "pages/qyLogin/qyLogin",
+					"id": 12,
+					"name": "pages/stuLogin/stuLogin",
+					"pathName": "pages/stuLogin/stuLogin",
 					"query": "",
 					"scene": null
 				},
