@@ -16,7 +16,7 @@ Page({
   },
   shenqin() {
     wx.navigateTo({
-      url: '../applyXjh/applyXjh',
+      url: '../zphList/zphList',
     })
   },
   /**
