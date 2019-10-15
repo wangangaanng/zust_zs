@@ -36,7 +36,9 @@ public class RecordInfo implements ComponentFileSer {
     //上传excela保存的本地地址
    // public final String savePath = "/mnt/files/zjcFiles/excel/";
     // public final String foundPath = "/mnt/files/zjcFiles/";
-    public final String FolderPath = "F:\\img\\";
+
+    public final String FolderPath = "/mnt/files/zjcFiles/excel/";
+//    public final String FolderPath = "F:\\img\\";
     //地区典表 导入
     public  final String dwszURL="web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -129,6 +131,7 @@ public class RecordInfo implements ComponentFileSer {
         int len = 0;
         FileInputStream fis = null;
         FileOutputStream fos = null;
+        File file = new File(filePath);
         try {
             fis = new FileInputStream(filePath);
             String newFileName = filePath + ".xls";

@@ -118,10 +118,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
         dataMap.put("zwlx", JyContant.ZWLB_XJH);
+        //1待举办 2已举办  3报名中
         if (1 == state) {
             dataMap.put("wait", 1);
         } else if (2 == state) {
             dataMap.put("over", 1);
+        } else if (3 == state) {
+            dataMap.put("bm", 1);
         }
         page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);

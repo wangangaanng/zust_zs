@@ -128,8 +128,29 @@
             <if test=" state != null and state != '' ">
                 AND a.state = #{state}
             </if>
+            <if test=" pass != null and pass != '' ">
+                AND a.state !=1
+            </if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},'%')
+            </if>
+            <if test=" qyHylb != null and qyHylb != '' ">
+                AND a.qy_hylb = #{qyHylb}
+            </if>
+            <if test=" qyGsgm != null and qyGsgm != '' ">
+                AND a.qy_gsgm = #{qyGsgm}
+            </if>
+            <if test=" qyGsxz != null and qyGsxz != '' ">
+                AND a.qy_gsxz = #{qyGsxz}
+            </if>
+            <if test=" qyProv != null and qyProv != '' ">
+                AND a.qy_prov like CONCAT('%',#{qyProv},'%')
+            </if>
+            <if test=" qyCity != null and qyCity != '' ">
+                AND a.qy_city like CONCAT('%',#{qyCity},'%')
+            </if>
+            <if test=" qyArea != null and qyArea != '' ">
+                AND a.qy_area like CONCAT('%',#{qyArea},'%')
             </if>
         </where>
         <choose>
