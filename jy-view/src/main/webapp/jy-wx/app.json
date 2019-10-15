@@ -3,7 +3,6 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-  
     "pages/index/index",
     "pages/ydzw/ydzw",
     "pages/zphList/zphList",
