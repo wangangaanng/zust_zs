@@ -1,3 +1,6 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-field": "vant-weapp/field",
+    "van-icon": "vant-weapp/icon"
+  }
 }

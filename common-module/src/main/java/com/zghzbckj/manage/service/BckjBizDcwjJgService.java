@@ -11,9 +11,15 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.manage.dao.BckjBizDcwjDao;
+import com.zghzbckj.manage.dao.BckjBizDcwjDtmxDao;
 import com.zghzbckj.manage.dao.BckjBizDcwjJgDao;
+import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
+import com.zghzbckj.manage.entity.BckjBizDcwj;
+import com.zghzbckj.manage.entity.BckjBizDcwjDtmx;
 import com.zghzbckj.manage.entity.BckjBizDcwjJg;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +39,11 @@ import java.util.Map;
 public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizDcwjJg> {
 
     private static final Logger log = Logger.getLogger(BckjBizDcwjJgService.class);
+
+    @Autowired
+    BckjBizDcwjDao bckjBizDcwjDao;
+    @Autowired
+    BckjBizDcwjDtmxDao bckjBizDcwjDtmxDao;
 
     @Override
     public BckjBizDcwjJg get(String owid) {
@@ -71,6 +82,38 @@ public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizD
      */
     public int countPeople(String dcwjRefOwid) {
         return this.dao.countPeople(dcwjRefOwid);
+    }
+
+    public PageInfo<Map<String, Object>> listResult(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
+        PageInfo<BckjBizDcwjJg> jgListPage = findPage(dataMap, pageNo, pageSize, "createtime");
+        if (TextUtils.isEmpty(jgListPage.getRecords()) || jgListPage.getRecords().size() <= 0) {
+            return null;
+        }
+        List<BckjBizDcwjJg> jgList = jgListPage.getRecords();
+        List<Map<String, Object>> dataList = new ArrayList<>();
+        Map<String, Object> objectMap = null;
+        List<BckjBizDcwjDtmx> dtmxList = null;
+        for (BckjBizDcwjJg jg : jgList) {
+            objectMap = new HashMap<>();
+            if (TextUtils.isEmpty(jg.getDtrxm())) {
+                objectMap.put("dtrxm", "匿名用户");
+            } else {
+                objectMap.put("dtrxm", jg.getDtrxm());
+            }
+            dtmxList = bckjBizDcwjDtmxDao.listDtmx(jg.getOwid());
+            for (BckjBizDcwjDtmx dtmx : dtmxList) {
+                objectMap.put(dtmx.getDcwjtmRefOwid(), dtmx.getWjda());
+            }
+            dataList.add(objectMap);
+        }
+        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
+        pageInfo.setRecords(dataList);
+        pageInfo.setCurrentIndex(jgListPage.getCurrentIndex());
+        pageInfo.setCurrentIndex(jgListPage.getCurrentIndex());
+        pageInfo.setTotalCount(jgListPage.getTotalCount());
+        pageInfo.setTotalPage(jgListPage.getTotalPage());
+        pageInfo.setPageSize(jgListPage.getPageSize());
+        return pageInfo;
     }
 
     /**

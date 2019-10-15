@@ -44,20 +44,24 @@ public class JyContant {
     public static final Integer YYYQ = 20007;
     //工作年限
     public static final Integer GZNX = 20008;
+    //宣讲会自定义条件
+    public static final Integer ZDYTJ = 20009;
     //开关
     public static final Integer KG = 10017;
     //职位审核
     public static final String ZWSH = "zwsh";
     //企业审核
     public static final String QYSH = "qykg";
+    //报名类型 企业 学生01
     public static final int BMLX_QY = 0;
     public static final int BMLX_XS = 1;
     //报名对象 0招聘会 1宣讲会2职位
     public static final int BMDX_ZPH = 0;
     public static final int BMDX_XJH = 1;
     public static final int BMDX_ZW = 2;
-    //职位类别 0职位
+    //职位类别 0职位 3招聘会 4宣讲会
     public static final int ZWLB_ZW = 0;
+    public static final int ZWLB_ZPH = 3;
     public static final int ZWLB_XJH = 4;
     public static final String ZW_PRO = "浙江省";
     public static final String ZW_CITY = "杭州市";

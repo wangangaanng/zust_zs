@@ -110,7 +110,7 @@ function myJobList1() {
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row.zphKsrq) {
-                            var value = row.zphKsrq.substring(0, 10)+"<br>"+row.zphKsrq.substring(11, 16);
+                            var value = row.zphKsrq.substring(0, 10);
                             return value;
                         } else {
                             return "-"

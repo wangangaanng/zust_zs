@@ -5,11 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
+    qymc:'',
     menuList: [
-      { text: '企业信息', icon: '../../../static/qy-icon01.png' }, 
-      { text: '新增职位', icon: '../../../static/qy-icon02.png' }, 
+      { text: '企业信息', icon: '../../../static/qy-icon01.png', url: '../qyxx/qyxx' }, 
+      { text: '新增职位', icon: '../../../static/qy-icon02.png', url: '../newJob/newJob' }, 
       { text: '宣讲会申请', icon: '../../../static/qy-icon03.png', url: '../enterpriseXjh/enterpriseXjh' }, 
-      { text: '招聘会申请', icon: '../../../static/qy-icon04.png' }, 
+      { text: '招聘会申请', icon: '../../../static/qy-icon04.png', url: '../enterpriseZph/enterpriseZph' }, 
       { text: '职位列表', icon: '../../../static/qy-icon05.png', url: '../enterpriseZw/enterpriseZw' }, 
       { text: '企业指南', icon: '../../../static/qy-icon06.png' }],
   },
@@ -18,7 +19,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (wx.getStorageSync('qyInfo').qymc){
+      this.setData({
+        qymc: wx.getStorageSync('qyInfo').qymc
+      })
+    }
+    
   },
   linkurl: function (e) {
     var url = e.currentTarget.dataset.url;

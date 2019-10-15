@@ -1,18 +1,20 @@
 // pages/xueyuan/xueyuan.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    list:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getList(this);
   },
 
   /**
@@ -64,3 +66,27 @@ Page({
 
   }
 })
+var getList = function (that) {
+  var data = { "lmbh": "23", "pageNo": "1", "pageSize": "20", "wzzt": "1", "isDetail": "1" };
+  common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
+    if (res.data.backCode == 0) {
+      var arr = [];
+      for (var i = 0; i < res.data.bean.records.length; i++) {
+        var obj = {};
+        var object = res.data.bean.records[i];
+        obj.owid = object.owid;
+        obj.wzbt = object.wzbt;
+        arr.push(obj);
+      }
+      that.setData({
+        list: arr,
+      })
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

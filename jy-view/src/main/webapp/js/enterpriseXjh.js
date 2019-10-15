@@ -8,6 +8,8 @@ $(document).ready(function () {
     if(!isTimeOut()) {
         myJobList2()
     }
+
+    xjhtjList()
 })
 
 function keyLogin(){
@@ -25,6 +27,56 @@ function searchXjh() {
     }
 }
 
+var zdytjObj={};
+var zdytjStr='';
+var zdytjLength=0;
+function xjhtjList() {
+    var jsonObj ={
+    }
+    ajax("zustjy/bckjBizJob/xjhtjList", jsonObj, function (data) {
+        if(data.backCode==0){
+            zdytjLength=data.bean.length;
+            for(var i=1;i<data.bean.length+1;i++){
+                for(var a in data.bean[i-1]){
+                    zdytjObj['zdytj'+i]=a
+                    zdytjObj['tjsd'+i]=data.bean[i-1][a]
+                    console.log(a)
+                    console.log(data.bean[i-1][a])//zdytj1 tjsd1
+                    zdytjObj['str'+i]='<option value="">请选择</option>'
+                    for(var x=0;x<data.bean[i-1][a].length;x++){
+                        zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                    }
+                }
+            }
+            for(var i=1;i<data.bean.length+1;i++){
+                zdytjStr+='<div class="row">\n' +
+                '     <div class="form-group">\n' +
+                '     <label for="zdytj'+i+'" class="col-sm-3 control-label text-right" style="line-height: 34px;">'+zdytjObj['zdytj'+i]+'<span class="red">*</span>：</label>\n' +
+                '     <div class="col-sm-4">\n' +
+                '          <select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" >'+zdytjObj['str'+i]+'</select>\n' +
+                '     </div>\n' +
+                '     </div>\n' +
+                '     </div>\n'
+            }
+        }else{
+            walert(data.errorMess)
+        }
+    })
+}
+
+// str+='<div class="row">\n' +
+//     '     <div class="form-group">\n' +
+//     '     <label for="zdytj'+i+'" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">'+a+'<span class="red">*</span>：</label>\n' +
+//     '     <div class="col-sm-3">\n' +
+//     '          <input type="text" class="form-control" id="zdytj'+i+'" name="zdytj'+i+'" placeholder="" autocomplete="off">\n' +
+//     '     </div>\n' +
+//     '     <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机<span class="red">*</span>：</label>\n' +
+//     '     <div class="col-sm-3">\n' +
+//     '     <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="" autocomplete="off">\n' +
+//     '     </div>\n' +
+//     '     </div>\n' +
+//     '     </div>\n'
+
 var layer1;
 function applyXjh(){
     if(!isTimeOut()){
@@ -32,7 +84,7 @@ function applyXjh(){
             type: 1,
             title:'申请信息',
             skin: 'layui-layer-rim', //加上边框
-            area: ['750px', '580px'], //宽高
+            area: ['800px', '600px'], //宽高
             content: '<div class="lxr-modal"><div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
@@ -80,16 +132,17 @@ function applyXjh(){
             '                                    <textarea  class="form-control" id="memo" style="resize: none;" rows="4" name="memo" placeholder="填写相关要求" autocomplete="off"></textarea>\n' +
             '                                </div>\n' +
             '                            </div>\n' +
-            '                            </div>\n' +
+            '                            </div>\n' +zdytjStr+
             '                        <div class="row btn-yd">\n' +
             '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-            '                                <button class="btn green" onclick="confirmQd()">提交</button>\n' +
+            '                                <button class="btn green" style="width: 120px;" onclick="confirmQd()">提交</button>\n' +
             '                            </div>\n' +
             '                        </div></div>'
         });
         laydate.render({
             elem: '#xjsj', //指定元素
-            type: 'datetime'
+            type: 'datetime',
+            min: 0
         });
     }
 }
@@ -144,6 +197,12 @@ function confirmQd() {
                 return
             }
         }
+        for(var i=1;i<zdytjLength+1;i++){
+            if(!$("#tjsd"+i).val()){
+                walert("请选择"+zdytjObj['zdytj'+i])
+                return;
+            }
+        }
         var jsonObj ={
             "jobRefOwid":$("#zphOwid").val(),
             "bmlx":0,
@@ -156,7 +215,14 @@ function confirmQd() {
             "jkrjs":$("#jkrjs").val(),
             "xjhsqly":$("#xjhsqly").val(),
             "memo":$("#memo").val(),
+
         }
+        for(var i=1;i<zdytjLength+1;i++){
+            jsonObj['zdytj'+i]=zdytjObj['zdytj'+i]
+            jsonObj['tjsd'+i]=$("#tjsd"+i).val()
+        }
+
+        console.log(jsonObj)
         ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
             if(data.backCode==0){
                 layer.close(layer1)
@@ -230,23 +296,21 @@ function myJobList2() {
                 detailView: false, //是否显示父子表
                 theadClasses: "thead1",
                 queryParamsType: "limit",
-                // queryParams: jsonObj,
                 columns: [{
                     align: 'center',
-                    field: 'zwbt',
+                    field: 'bt',
                     title: '标题',
                     formatter: function (value, row, index) {
-                        if (row.xjsj) {
-                            var value = row.xjsj.substring(0, 10);
-                            return value + "宣讲会";
-                        } else {
-                            return "宣讲会";
+                        if (!row.zwbt) {
+                            return "暂无";
+                        }else {
+                            return row.zwbt;
                         }
 
                     }
                 }, {
                     field: 'xjsj',
-                    title: '举办时间',
+                    title: '举办日期',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row.xjsj) {
@@ -259,15 +323,14 @@ function myJobList2() {
                     }
                 }, {
                     field: 'zphJtsj',
-                    title: '举办时长',
+                    title: '具体时间',
                     align: 'center',
                 },  {
-                    field: 'exp3',
+                    field: 'xxlxr',
                     title: '学校联系人',
-
                     align: 'center',
                 },  {
-                    field: 'exp4',
+                    field: 'xxlxrdh',
                     title: '学校联系人</br>电话',
                     align: 'center',
                 },  {
@@ -330,11 +393,23 @@ window.operateEvents = {
                         } else {
                             xjsj = "暂无"
                         }
+                        var xqStr='';
+                        for(var i=1;i<6;i++){
+                            if(data.bean['zdytj'+i]){
+                                xqStr+='<div class="row">\n' +
+                                    '   <div class="form-group">\n' +
+                                    '   <label for="jkrjs" class="col-sm-3 control-label text-right">'+data.bean['zdytj'+i]+'：</label>\n' +
+                                    '   <div class="col-sm-8">\n' + convertStr(data.bean['tjsd'+i],'') +
+                                    '   </div>\n' +
+                                    '   </div>\n' +
+                                    '   </div>\n'
+                            }
+                        }
                         layer2 = layer.open({
                             type: 1,
                             title: '详情',
                             skin: 'layui-layer-rim', //加上边框
-                            area: ['750px', '480px'], //宽高
+                            area: ['800px', '540px'], //宽高
                             content: '<div class="lxr-modal"><div class="row">\n' +
                             '                            <div class="form-group">\n' +
                             '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right">联系人：</label>\n' +
@@ -375,7 +450,7 @@ window.operateEvents = {
                             '                                <div class="col-sm-8">\n' + convertStr(data.bean.memo,'') +
                             '                                </div>\n' +
                             '                            </div>\n' +
-                            '                            </div>\n' +
+                            '                            </div>\n' +xqStr+
                             '                        <div class="row btn-yd">\n' +
                             '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
                             '                                <button class="btn green" onclick="close1()">关闭</button>\n' +

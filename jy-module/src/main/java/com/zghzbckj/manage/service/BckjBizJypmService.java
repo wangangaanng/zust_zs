@@ -20,10 +20,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 
 /**
  * ccService
+ *
  * @author cc
  * @version 2019-09-09
  */
@@ -31,64 +33,59 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm> {
 
-	private static final Logger log = Logger.getLogger(BckjBizJypmService.class);
+    private static final Logger log = Logger.getLogger(BckjBizJypmService.class);
 
-	@Autowired
+    @Autowired
     BckjBizJypmDao bckjBizJypmDao;
 
     @Override
-	public BckjBizJypm get(String owid) {
-		return super.get(owid);
-	}
-	@Override
-	public List<BckjBizJypm> findList(BckjBizJypm bckjBizJypm) {
-		return super.findList(bckjBizJypm);
-	}
-	@Override
-	public PageInfo<BckjBizJypm> findPage(Page<BckjBizJypm> page, BckjBizJypm bckjBizJypm) {
-		return super.findPage(page, bckjBizJypm);
-	}
-	
-	@Transactional(readOnly = false)
-	public void save(BckjBizJypm bckjBizJypm) {
-		super.saveOrUpdate(bckjBizJypm);
-	}
-	@Override
-	@Transactional(readOnly = false)
-	public void delete(BckjBizJypm bckjBizJypm) {
-		super.delete(bckjBizJypm);
-	}
+    public BckjBizJypm get(String owid) {
+        return super.get(owid);
+    }
+
+    @Override
+    public List<BckjBizJypm> findList(BckjBizJypm bckjBizJypm) {
+        return super.findList(bckjBizJypm);
+    }
+
+    @Override
+    public PageInfo<BckjBizJypm> findPage(Page<BckjBizJypm> page, BckjBizJypm bckjBizJypm) {
+        return super.findPage(page, bckjBizJypm);
+    }
+
+    @Transactional(readOnly = false)
+    public void save(BckjBizJypm bckjBizJypm) {
+        super.saveOrUpdate(bckjBizJypm);
+    }
+
+    @Override
+    @Transactional(readOnly = false)
+    public void delete(BckjBizJypm bckjBizJypm) {
+        super.delete(bckjBizJypm);
+    }
 
     /**
-     *<p>方法:根据学院统计分页 rankPage TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li> @param pageNo TODO</li>
-     *<li> @param pageSize TODO</li>
-     *<li>@return com.zghzbckj.base.entity.PageInfo</li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/9/16 14:39  </li>
-     *</ul>
+     * <p>方法:就业排行榜列表 listRank TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.List </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/10/12 11:30  </li>
+     * </ul>
      */
-    public PageInfo<Map<String, Object>> rankPage(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
-        PageInfo<BckjBizJypm> result = findPage(dataMap, pageNo, pageSize, "szxy");
-        if (TextUtils.isEmpty(result.getRecords()) || result.getRecords().size() <= 0) {
-            return null;
-        }
+    public List<Map<String, Object>> listRank(Map<String, Object> dataMap) {
         //统计学院就业情况
         List<Map<String, Object>> collegeList = this.dao.collegeStats(MapUtils.getString(dataMap, "pmnf"));
         for (Map<String, Object> college : collegeList) {
             List<Map<String, Object>> majorList = this.dao.majorList(MapUtils.getString(college, "szxy"), MapUtils.getString(college, "pmnf"));
             Map<String, Object> statsMap = new HashMap<>();
-//            BigDecimal qyl = (BigDecimal) college.get("pmqyl");
-            BigDecimal jyl = (BigDecimal) college.get("pmjyl");
+            BigDecimal pmbyzrs = new BigDecimal(MapUtils.getInt(college, "pmbyrs"));
+            BigDecimal pmqyzrs = new BigDecimal(MapUtils.getInt(college, "pmqyrs") * 100);
             statsMap.put("pmzy", "合计");
             statsMap.put("pmbyrs", college.get("pmbyrs"));
-//            statsMap.put("pmyprs", college.get("pmyprs"));
             statsMap.put("pmqyrs", college.get("pmqyrs"));
-//            statsMap.put("pmqyl", qyl.divide(BigDecimal.valueOf(majorList.size()),2));
-            statsMap.put("pmjyl", jyl.divide(BigDecimal.valueOf(majorList.size()),2));
-            college.put("avgjyl", jyl.divide(BigDecimal.valueOf(majorList.size()),2));
+            statsMap.put("pmjyl", pmqyzrs.divide(pmbyzrs, 2, RoundingMode.HALF_UP));
+            college.put("avgjyl", pmqyzrs.divide(pmbyzrs, 2, RoundingMode.HALF_UP));
             majorList.add(statsMap);
             college.put("pmzyList", majorList);
         }
@@ -104,39 +101,32 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 return 1;
             }
         });
-        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
-        pageInfo.setRecords(collegeList);
-        pageInfo.setCurrentIndex(result.getCurrentIndex());
-        pageInfo.setPageSize(result.getPageSize());
-        pageInfo.setTotalCount(collegeList.size());
-        pageInfo.setCurrentPage(result.getCurrentPage());
-        pageInfo.setTotalPage(result.getTotalPage());
-        return pageInfo;
+        return collegeList;
     }
 
     /**
-     *<p>方法:根据学院专业名称查询 getByCollegeMajor TODO </p>
-     *<ul>
-     *<li> @param majorName TODO</li>
-     *<li>@return com.zghzbckj.manage.entity.BckjBizJypm  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/9/22 18:14  </li>
-     *</ul>
+     * <p>方法:根据学院专业名称查询 getByCollegeMajor TODO </p>
+     * <ul>
+     * <li> @param majorName TODO</li>
+     * <li>@return com.zghzbckj.manage.entity.BckjBizJypm  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/22 18:14  </li>
+     * </ul>
      */
-    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName) {
-        return this.dao.getByMajor(collegeName, majorName);
+    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName, String pmnf) {
+        return this.dao.getByMajor(collegeName, majorName, pmnf);
     }
 
-	/**
+    /**
      * <p>方法:findPagebckjBizJypm TODO后台BckjBizJypm分页列表</p>
      * <ul>
-    * <li> @param filters TODO</li>
-    * <li> @param pageNo TODO</li>
-    * <li> @param pageSize TODO</li>
-    * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    * <li>@author D.cehn.g </li>
-    * <li>@date 2018/9/5 9:47  </li>
-    * </ul>
+     * <li> @param filters TODO</li>
+     * <li> @param pageNo TODO</li>
+     * <li> @param pageSize TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.cehn.g </li>
+     * <li>@date 2018/9/5 9:47  </li>
+     * </ul>
      */
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);

@@ -148,6 +148,7 @@
                 theadClasses: "thead1",
                 queryParamsType:"limit",
                 columns: [{
+                    width:'250%',
                     align : 'center',
                     field: 'zwbt',
                     title: '标题',
@@ -165,10 +166,18 @@
                     title: '举办时间',
                     align : 'center',
                     formatter:function(value,row,index){
-                        if(row.zphKsrq){
-                            var value=row.zphKsrq.substring(0,16);
-                            return value;
+                        if(row.zwlx==4){//宣讲会
+                            if(row.zphKsrq){
+                                var value=row.zphKsrq.substring(0,16);
+                                return value;
+                            }
+                        }else{
+                            if(row.zphKsrq){
+                                var value=row.zphKsrq.substring(0,10);
+                                return value;
+                            }
                         }
+
 
                     }
                 },{

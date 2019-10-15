@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * ccEntity
@@ -71,11 +72,21 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private String zdytj3;
     private String zdytj4;
     private String zdytj5;
-    private Integer tjsd1;
-    private Integer tjsd2;
-    private Integer tjsd3;
-    private Integer tjsd4;
-    private Integer tjsd5;
+    private String tjsd1;
+    private String tjsd2;
+    private String tjsd3;
+    private String tjsd4;
+    private String tjsd5;
+    private   List<Map<String, String[]>> resultList ;
+
+
+    public List<Map<String, String[]>> getResultList() {
+        return resultList;
+    }
+
+    public void setResultList(List<Map<String, String[]>> resultList) {
+        this.resultList = resultList;
+    }
 
     public String getZdytj1() {
         return zdytj1;
@@ -117,43 +128,43 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
         this.zdytj5 = zdytj5;
     }
 
-    public Integer getTjsd1() {
+    public String getTjsd1() {
         return tjsd1;
     }
 
-    public void setTjsd1(Integer tjsd1) {
+    public void setTjsd1(String tjsd1) {
         this.tjsd1 = tjsd1;
     }
 
-    public Integer getTjsd2() {
+    public String getTjsd2() {
         return tjsd2;
     }
 
-    public void setTjsd2(Integer tjsd2) {
+    public void setTjsd2(String tjsd2) {
         this.tjsd2 = tjsd2;
     }
 
-    public Integer getTjsd3() {
+    public String getTjsd3() {
         return tjsd3;
     }
 
-    public void setTjsd3(Integer tjsd3) {
+    public void setTjsd3(String tjsd3) {
         this.tjsd3 = tjsd3;
     }
 
-    public Integer getTjsd4() {
+    public String getTjsd4() {
         return tjsd4;
     }
 
-    public void setTjsd4(Integer tjsd4) {
+    public void setTjsd4(String tjsd4) {
         this.tjsd4 = tjsd4;
     }
 
-    public Integer getTjsd5() {
+    public String getTjsd5() {
         return tjsd5;
     }
 
-    public void setTjsd5(Integer tjsd5) {
+    public void setTjsd5(String tjsd5) {
         this.tjsd5 = tjsd5;
     }
 

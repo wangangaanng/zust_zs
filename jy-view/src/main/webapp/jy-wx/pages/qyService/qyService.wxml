@@ -1,4 +1,4 @@
-<view class='qy-name'>上海红点影视发展有限公司</view>
+<view class='qy-name'>{{qymc}}</view>
 <van-grid square column-num="3">
   <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>

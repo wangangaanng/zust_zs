@@ -1,0 +1,55 @@
+<wxs src="../fcn.wxs" module="tools" />
+<!--pages/enterpriseXjh/enterpriseXjh.wxml-->
+<view class="uni-list">
+  <!-- <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+    <view class="uni-media-list">
+      <view class="uni-media-list-body">
+        <view class="uni-media-list-text-top">2019届校园秋季宣讲会</view>
+        <view class="uni-media-list-text-bottom">
+          <view class="uni-media-list-text-bottom-left">申请日期：2019-08-28</view>
+          <view class="uni-media-list-text-bottom-right ">
+          <span style="color:green;">成功</span>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+   <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+    <view class="uni-media-list">
+      <view class="uni-media-list-body">
+        <view class="uni-media-list-text-top">2019届校园秋季宣讲会</view>
+        <view class="uni-media-list-text-bottom">
+          <view class="uni-media-list-text-bottom-left">申请日期：2019-08-28</view>
+          <view class="uni-media-list-text-bottom-right ">
+          <span style="color:orange;">审核中</span>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view> -->
+  <block wx:for="{{xjhList}}" wx:key="{{index}}">
+  <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+    <view class="uni-media-list">
+      <view class="uni-media-list-body">
+        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-bottom">
+          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd}}</view>
+          <van-icon
+        name="arrow"
+        custom-class="icon"
+      />
+        </view>
+        <view class="uni-media-list-text-content">
+          举办时间：<span>{{tools.substr(item.zphKsrq,0,10)}} {{item.zphJtsj}}</span>
+            <span wx:if="{{item.state==0}}" class="pull-right" style="color:orange;">待审核</span>
+          <span wx:elif="{{item.state==1}}" class="pull-right" style="color:green;">审核通过</span>
+          <span wx:elif="{{item.state==2}}" class="pull-right" style="color:red;">审核拒绝</span>
+        </view>
+      </view>
+    </view>
+  </view>
+  </block>
+</view>
+
+<view class="float-btn" bindtap="shenqin">我要申请</view>
+

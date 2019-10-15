@@ -4,11 +4,12 @@
 		"ignore": []
 	},
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
+		"coverView": true,
 		"nodeModules": true,
 		"autoAudits": false,
 		"uglifyFileName": true,
@@ -59,21 +60,21 @@
 					"id": 0,
 					"name": "pages/qyInfo/qyInfo",
 					"pathName": "pages/qyInfo/qyInfo",
-					"query": "",
+					"query": "owid=16922",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "pages/recruitment/recruitment",
 					"pathName": "pages/recruitment/recruitment",
-					"query": "",
+					"query": "fid=17",
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "pages/newsList/newsList",
 					"pathName": "pages/newsList/newsList",
-					"query": "",
+					"query": "fid=16",
 					"scene": null
 				},
 				{
@@ -112,9 +113,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/success/success",
-					"pathName": "pages/success/success",
+					"id": 8,
+					"name": "pages/school/school",
+					"pathName": "pages/school/school",
 					"query": "",
 					"scene": null
 				},
@@ -130,6 +131,41 @@
 					"name": "pages/enterpriseXjh/enterpriseXjh",
 					"pathName": "pages/enterpriseXjh/enterpriseXjh",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "pages/stuService/stuService",
+					"pathName": "pages/stuService/stuService",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 12,
+					"name": "pages/stuLogin/stuLogin",
+					"pathName": "pages/stuLogin/stuLogin",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xueyuan/xueyuan",
+					"pathName": "pages/xueyuan/xueyuan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/newsDetail/newsDetail",
+					"pathName": "pages/newsDetail/newsDetail",
+					"query": "owid=612d780df9124e04bf853aac4576850a",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qyInfo/qyInfo",
+					"pathName": "pages/qyInfo/qyInfo",
+					"query": "owid=zpgg304462",
 					"scene": null
 				}
 			]

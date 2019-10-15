@@ -40,10 +40,19 @@
         <ul class="nav nav-tabs" id="nav-tabs-job">
             <li role="presentation" class="active"><a href="#" onclick="tabs(0)">职位信息</a></li>
             <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
+            <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
         </ul>
         <div class="content-form" style="border-top:none;display: none;padding: 0;" id="stuList">
             <div class="e-table" style="padding: 0 20px;">
                 <table class="table table-hover" data-locale="zh-CN" id="table-job" style="table-layout: fixed;
+                          word-break:break-all; word-wrap:break-all;">
+                </table>
+
+            </div>
+        </div>
+        <div class="content-form" style="border-top:none;display: none;padding: 0;" id="stuList1">
+            <div class="e-table" style="padding: 0 20px;">
+                <table class="table table-hover" data-locale="zh-CN" id="table-job1" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
                 </table>
 
@@ -196,6 +205,8 @@
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${base}/js/bootstrap-table.min.js" type="text/javascript"></script>
     <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
+    <#--<script src="${base}/js/bootstrap-table-export.min.js" type="text/javascript"></script>-->
+    <#--<script src="${base}/js/tableExport.js" type="text/javascript"></script>-->
     <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
     <script src="${base}/js/messages_zh.min.js" type="text/javascript"></script>
     <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>

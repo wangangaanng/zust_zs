@@ -4,12 +4,16 @@
 package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.*;
+import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.DateUtil;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
@@ -20,16 +24,13 @@ import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
+import com.zghzbckj.util.TextUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -155,8 +156,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
      * <li>@date 2018/9/6 17:05  </li>
      * </ul>
      */
+
     @Transactional(readOnly = false)
     public ResponseMessage saveBckjBizJob(Map<String, Object> mapData, Integer zwlx) {
+        for (int i = 1; i <= 5; i++) {
+            if (!TextUtils.isEmpty(mapData.get("sdtj" + i))) {
+                mapData.put("sdtj" + i, mapData.get("sdtj" + i).toString().replace(",", "，"));
+            }
+        }
         BckjBizJob bckjBizJob = JsonUtil.map2Bean(mapData, BckjBizJob.class);
 
         String zwbt = bckjBizJob.getZwbt();
@@ -196,6 +203,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 bckjBizJob.setQyxxRefOwid(qyxx.getOwid());
             }
         }
+
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
     }
@@ -478,19 +486,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setExp2("0");
             }
         }
-
-//        if (JyContant.ZWLB_ZW == job.getZwlx()) {
-//            params.clear();
-//            params.put("jobRefOwid", job.getOwid());
-//            //0 职位 1 企业
-//            params.put("gzlx", "0");
-//            params.put("xxlb", "0");
-//            List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
-//            job.setXsgzList(xsgzList);
-//            job.setNumber(xsgzList.size());
-//        }
-
-
         return job;
     }
 
@@ -498,6 +493,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         dataMap.put("orderBy", " a.createtime desc ");
+        dataMap.put("state", JyContant.JOB_ZT_TG);
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
         List<BckjBizJob> jobList = new ArrayList<>();
         dataMap.put("page", page);
@@ -577,5 +573,87 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         _list.add(job);
         resultMap.put("bean", _list);
         return resultMap;
+    }
+
+    public List<Map<String, String[]>> xjhtjList() {
+        List<Map<String, String[]>> resultList = new ArrayList<>();
+        //宣讲会自定义条件
+        Map params = Maps.newHashMap();
+        params.put("type", JyContant.ZDYTJ);
+        List<Map> dicList = new ArrayList<>();
+        dicList = qyxxDao.queryDicList(params);
+        if (!TextUtils.isEmpty(dicList) && dicList.size() > 0) {
+            for (Map map : dicList) {
+                if (!TextUtils.isEmpty(map.get("dic_val2")) && !TextUtils.isEmpty(map.get("dic_val3"))) {
+                    String zdytj = map.get("dic_val2").toString();
+                    String zdyjg = map.get("dic_val3").toString();
+                    zdyjg.replace(",", "，");
+                    String[] jgArray = zdyjg.split("，");
+                    Map resultMap = new HashMap<>();
+                    resultMap.put(zdytj, jgArray);
+                    resultList.add(resultMap);
+                }
+            }
+        }
+        return resultList;
+    }
+
+    public List<Map<String, String[]>> zphtjList(Map<String, Object> mapData) {
+        List<Map<String, String[]>> resultList = new ArrayList<>();
+        String owid = mapData.get("owid").toString();
+        BckjBizJob job = get(owid);
+        if (JyContant.ZWLB_ZPH == job.getZwlx()) {
+            String zdytj = "";
+            String zdyjg = "";
+            String[] jgArray = new String[10];
+            Map resultMap = new HashMap<>();
+            if (!TextUtils.isEmpty(job.getZdytj1()) && !TextUtils.isEmpty(job.getTjsd1())) {
+                zdytj = job.getZdytj1();
+                zdyjg = job.getTjsd1();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+
+            if (!TextUtils.isEmpty(job.getZdytj2()) && !TextUtils.isEmpty(job.getTjsd2())) {
+                zdytj = job.getZdytj2();
+                zdyjg = job.getTjsd2();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj3()) && !TextUtils.isEmpty(job.getTjsd3())) {
+                zdytj = job.getZdytj3();
+                zdyjg = job.getTjsd3();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj4()) && !TextUtils.isEmpty(job.getTjsd4())) {
+                zdytj = job.getZdytj4();
+                zdyjg = job.getTjsd4();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+            if (!TextUtils.isEmpty(job.getZdytj5()) && !TextUtils.isEmpty(job.getTjsd5())) {
+                zdytj = job.getZdytj5();
+                zdyjg = job.getTjsd5();
+                zdyjg.replace(",", "，");
+                jgArray = zdyjg.split("，");
+                resultMap = new HashMap<>();
+                resultMap.put(zdytj, jgArray);
+                resultList.add(resultMap);
+            }
+        }
+        return resultList;
     }
 }

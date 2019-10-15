@@ -11,6 +11,7 @@ import com.ourway.base.zk.utils.JsonUtil;
 import com.ourway.base.zk.utils.PageUtils;
 import com.ourway.base.zk.utils.TextUtils;
 import com.ourway.base.zk.utils.data.JsonPostUtils;
+import com.ourway.utils.DigitalUtil;
 import com.sun.org.apache.xerces.internal.xs.datatypes.ObjectList;
 import org.zkoss.zk.ui.event.Event;
 
@@ -54,9 +55,6 @@ public class SaveModalGridAction implements ComponentListinerSer {
                 continue;
             }
             usefulList.add(map);
-        }
-        if (TextUtils.isEmpty(ppt.get("owid"))) {
-            ppt.put("owid", TextUtils.getUUID());
         }
         parentGrid.clearRows();
         for (int i = usefulList.size()-1; i >= 0; i--) {

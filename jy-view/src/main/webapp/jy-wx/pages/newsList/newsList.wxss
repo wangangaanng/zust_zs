@@ -4,4 +4,27 @@ page{background: #f3f3f5;}
 /* .uni-media-list-body{justify-content: center;} */
 .uni-media-list-text-top{display: -webkit-box;
     -webkit-line-clamp: 2;-webkit-box-orient: vertical;white-space: inherit;}
-/* .uni-media-list-text-bottom{margin-top: -10px;} */
+.uni-media-list-text-content{color: #333;white-space: nowrap;-webkit-line-clamp:1;}
+.news-date {
+    background: #9c9c9c;
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-right: 12px;
+    font-size: 16px;
+    text-align: center;
+}
+.news-date span {
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+}
+.news-date em {
+    background: #008784;
+    color: #fff;
+    display: inherit;
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    font-style: normal;
+}
