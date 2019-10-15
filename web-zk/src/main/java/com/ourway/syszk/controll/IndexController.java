@@ -34,13 +34,13 @@ public class IndexController extends SpringZkBaseControl {
         return "index";
     }
 
-    @RequestMapping("/projectReport")
-    public String projectReport(HttpServletRequest request) {
-        CookieUtils.setRequest(request);
-        //把常用的参数设置到界面上，并传递给界面使用
-        System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
-        return "projectReport";
-    }
+//    @RequestMapping("/projectReport")
+//    public String projectReport(HttpServletRequest request) {
+//        CookieUtils.setRequest(request);
+//        //把常用的参数设置到界面上，并传递给界面使用
+//        System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
+//        return "projectReport";
+//    }
 
     @RequestMapping("/loginNewDetail")
     public String newsDetail(HttpServletRequest request) {
@@ -100,19 +100,31 @@ public class IndexController extends SpringZkBaseControl {
         //传递request，主要用于当html跳转到zk的时候，session处理问题
         CookieUtils.setRequest(request);
         try {
-            String name = new String(request.getParameter("name").getBytes("iso-8859-1"), "utf-8");
-            name = new String(name.getBytes("ISO8859-1"), "utf-8");
+            String name = request.getParameter("name");
+            String zphJbdd = request.getParameter("zphJbdd");
+            String zphKsrq = request.getParameter("zphKsrq");
+            String zphJtsj = request.getParameter("zphJtsj");
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
-//            String qrCode = "a.jpg";
             String url = WebZKConstant.WX_VIEW_URL;
             String picName = TextUtils.getUUID() + ".jpg";
             //生成二维码
-            QRCodeUtil.encode(url, tpPath + "/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
+            QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
                     picName, true);
-//            request.setAttribute("name", name);
+            Map map = Maps.newHashMap();
+
+            map.put("qrPic", tpPath + "qrcode/" + picName);
+            map.put("name", name);
+            map.put("zphJbdd", zphJbdd);
+            map.put("zphKsrq", zphKsrq);
+            map.put("zphJtsj", zphJtsj);
+//            map.put("name", new String(name.getBytes("utf-8"),"ISO-8859-1"));
+//            map.put("zphJbdd", new String(zphJbdd.getBytes("utf-8"),"ISO-8859-1"));
+//            map.put("zphKsrq", new String(zphKsrq.getBytes("utf-8"),"ISO-8859-1"));
+//            map.put("zphJtsj",new String(zphJtsj.getBytes("utf-8"),"ISO-8859-1"));
+            request.setAttribute("map", map);
 //            request.setAttribute("qrCode", tpPath+ picName);
-//            return "redirect:/projectReport.htm";
-            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + "qrcode/" + picName;
+            return "projectReport";
+//            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + "qrcode/" + picName;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -121,6 +133,14 @@ public class IndexController extends SpringZkBaseControl {
 
     }
 
+//    public static void main(String[] args) {
+//        try {
+//            QRCodeUtil.encode("www.baidu.com",  "C:\\files\\kk.png", "C:\\files\\qrcode\\",
+//                    "a.jpg", true);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     Map<String, Object> getWxLogin(String sessionId) {
         try {

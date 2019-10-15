@@ -12,7 +12,7 @@ page{background: #f3f3f5;}
 }
 .wxParse-img{width:100% !important;}
 .float-btn{
-  background: #00aba6;
+  background: #00aba5e3;
   border: 1px solid #008783;
   color: #fff;
   width: 80rpx;

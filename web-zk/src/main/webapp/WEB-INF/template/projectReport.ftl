@@ -93,7 +93,7 @@
             display: block;
             margin-top: 13px;
         }
-
+        .flex div{text-indent: 6rem;font-family: "Microsoft Yahei", "微软雅黑";font-size: 22px;font-style:normal;line-height: 85px;}
         @page {
             size: A4;
             margin: 0;
@@ -179,7 +179,7 @@
         <tr>
             <td align="left">
                 <#--<img src="img/logo.png" width="80px"/>-->
-                <img src="charisma/img/zust_logo.jpg" style="margin-left: 88px;" />
+                <img src="charisma/img/qrLogo.png" style="width:500px;margin-left: 88px;" />
             </td>
         </tr>
 
@@ -193,24 +193,28 @@
             <#--</td>-->
         <#--</tr>-->
     </table>
+    <div class="flex">
+        <div>举办公司：${map.name}</div>
+        <div>举办地点：${map.zphJbdd}</div>
+        <div>举办日期：${map.zphKsrq}</div>
+        <div>具体时间：${map.zphJtsj}</div>
+    </div>
     <table width="80%" align="center" style="margin-top: 100px;border-collapse:collapse">
         <tr>
             <td align="center" colspan="2" valign="middle" style="text-align: center;">
-                <img src="${qrCode}" id="qrCode" style="width: 200px;height: 200px;"/>
+                <img src="${map.qrPic}" id="qrCode" style="width: 400px;height: 400px;"/>
             </td>
         </tr>
     </table>
     <table width="80%" align="center" style="margin-top:120px;bottom:15px;border-collapse:collapse">
         <tr>
             <td style="font-size:24px;color:#000000;font-style: normal;text-align: center;align-content: center;">
-            <#--${name}-->
-                浙江科技学院宣讲会签到二维码
+            <#--${map.name}-->
             </td>
         </tr>
     </table>
 </div>
 <script type="text/javascript">
-    document.getElementById('qrCode').src = getRequest().qrCode
 </script>
 
 <!--endprint-->

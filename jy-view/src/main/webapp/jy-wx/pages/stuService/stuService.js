@@ -6,8 +6,8 @@ Page({
    */
   data: {
     menuList: [
-      { text: '办事流程', icon: '../../../static/stu-icon01.png' }, 
-      { text: '常用下载', icon: '../../../static/stu-icon02.png' }, 
+      { text: '办事流程', icon: '../../../static/stu-icon01.png', url: '../newsList/newsList?lmbh=40'}, 
+      { text: '常用下载', icon: '../../../static/stu-icon02.png', url: '../newsList/newsList?lmbh=41'}, 
       { text: '档案查询', icon: '../../../static/stu-icon03.png', url: '../dangan/dangan'  }, 
       { text: '我的预约', icon: '../../../static/stu-icon04.png' }, 
       { text: '我的关注', icon: '../../../static/stu-icon05.png' }, 

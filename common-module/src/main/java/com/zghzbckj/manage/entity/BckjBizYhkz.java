@@ -121,5 +121,5 @@ public class BckjBizYhkz extends DataWithExpEntity<BckjBizYhkz> {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
-	
+
 }

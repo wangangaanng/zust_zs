@@ -106,8 +106,7 @@
         b.qymc AS "qymc",
         <include refid="bckjBizJobColumns"/>
         FROM bckj_biz_qyxx b
---         LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
-        RIGHT JOIN bckj_biz_job a  ON a.qyxx_ref_owid = b.owid
+        RIGHT JOIN bckj_biz_job a ON a.qyxx_ref_owid = b.owid
         <where>
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx = #{zwlx}
@@ -120,6 +119,9 @@
             </if>
             <if test="zphJbf != null and zphJbf != ''">
                 AND a.zph_jbf = #{zphJbf}
+            </if>
+            <if test="zphSfbm!= null and zphSfbm != ''">
+                AND a.zph_sfbm = #{zphSfbm}
             </if>
             <if test="zphCbf != null and zphCbf != ''">
                 AND a.zph_cbf = #{zphCbf}
@@ -176,10 +178,34 @@
                 AND b.qymc = #{zwQymc}
             </if>
             <if test="wait != null and wait != ''">
-                AND a.zph_ksrq &gt;= CURRENT_DATE
+                AND a.zph_ksrq &gt;= CURRENT_DATE AND (a.zph_bmjzsj &lt;= CURRENT_DATE or a.zph_sfbm =0)
+            </if>
+            <if test="bm != null and bm != ''">
+                AND a.zph_bmjzsj &gt;= CURRENT_DATE
             </if>
             <if test="over != null and over != ''">
                 AND a.zph_ksrq &lt; CURRENT_DATE
+            </if>
+            <if test=" zdytj1 != null and zdytj1 != '' ">
+                AND a.zdytj1 like CONCAT('%',#{zdytj1},'%')
+            </if>
+            <if test=" zdytj2 != null and zdytj2 != '' ">
+                AND a.zdytj2 like CONCAT('%',#{zdytj2},'%')
+            </if>
+            <if test=" zdytj3 != null and zdytj3 != '' ">
+                AND a.zdytj3 like CONCAT('%',#{zdytj3},'%')
+            </if>
+            <if test=" zdytj4 != null and zdytj4 != '' ">
+                AND a.zdytj4 like CONCAT('%',#{zdytj4},'%')
+            </if>
+            <if test=" zdytj5 != null and zdytj5 != '' ">
+                AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
+            </if>
+            <if test="createtime1 != null and createtime1 !='' and createtime2 != null and createtime2 !='' ">
+                AND a.createtime &gt;= #{createtime1} AND a.createtime &lt;= #{createtime2}
+            </if>
+            <if test="zphKsrq1 != null and zphKsrq1 !='' and zphKsrq2 != null and zphKsrq2 !='' ">
+                AND a.zph_ksrq &gt;= #{zphKsrq1} AND a.zph_ksrq &lt;= #{zphKsrq2}
             </if>
         </where>
         <choose>

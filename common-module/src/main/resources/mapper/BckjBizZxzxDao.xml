@@ -324,12 +324,12 @@
 
 
 	<update id="saveZxzxDetail" parameterType="Map">
-		update bckj_biz_zxzx set DANR=#{danr} , hdrq=now() ,state= #{state} where  owid =#{owid}
+		UPDATE bckj_biz_zxzx SET DANR=#{danr} , hdrq=now() ,state= #{state} WHERE  owid =#{owid}
 	</update>
 
 	<select id="historyMessage" parameterType="Map" resultType="Map">
 		select * from bckj_biz_zxzx
-		where exp1=2 and zxlx=5
+		where exp1=2 and zxlx=#{zxlx}
 		order by  createtime desc
 	</select>
 

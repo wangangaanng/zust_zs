@@ -437,9 +437,10 @@ public class ExcelUtils {
     }
 
     public static Date stringtoDate(String str) throws ParseException {
-        String year=str.substring(0,4);
-        String month=str.substring(4,6);
-        String day=str.substring(6,8);
+        String[] split = str.split("\\/");
+        String year=split[0];
+        String month=split[1];
+        String day=split[2];
         String dateStr= (year+"-"+month+"-"+day);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date utilDate=sdf.parse(dateStr);
@@ -450,6 +451,7 @@ public class ExcelUtils {
         Date utilDate=sdf.parse(str);
         return  utilDate;
     }
+
 
 
 }

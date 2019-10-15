@@ -3,6 +3,7 @@ var Mustache = require('../../libs/mustache/mustache');
 var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
 const app = getApp()
+var imgPath = app.globalData.imgPath;
 Page({
 
   /**
@@ -10,6 +11,7 @@ Page({
    */
   data: {
     content:'',
+    imgPath: imgPath,
   },
 
   /**
@@ -34,39 +36,26 @@ Page({
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  wxParseTagATap:function(e){
+    console.log(e.currentTarget.dataset.src);
+    if (e.currentTarget.dataset.src){
+      wx.downloadFile({
+        // 示例 url，并非真实存在
+        url: e.currentTarget.dataset.src,
+        success: function (res) {
+          const filePath = res.tempFilePath
+          wx.openDocument({
+            filePath: filePath,
+            success: function (res) {
+              console.log('打开文档成功')
+            }
+          })
+        },
+        fail:function(){
+          console.log('打开失败')
+        }
+      })
+    }
   }
 })
 var getContent = function (that, owid) {//学校简介

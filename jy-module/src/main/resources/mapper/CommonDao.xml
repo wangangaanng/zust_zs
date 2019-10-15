@@ -196,6 +196,9 @@
             <if test="year != null and year !=''">
                 and year(createtime)=#{year}
             </if>
+            <if test="month != null and month !=''">
+                and month(createtime)=#{month}
+            </if>
             <if test="qyHylb != null and qyHylb !=''">
                 and qy_hylb=#{qyHylb}
             </if>
@@ -215,10 +218,37 @@
             <if test="year != null and year !=''">
                 and year(createtime)=#{year}
             </if>
+            <if test="month != null and month !=''">
+                and month(createtime)=#{month}
+            </if>
             <if test="zwlx != null and zwlx !=''">
                 and zwlx=#{zwlx}
             </if>
         </where>
+    </select>
+
+    <select id="getStudentFollow" resultType="java.util.Map">
+        select count(*) as jobNumber, a.job_ref_owid, b.zwbt, b.exp1
+        from bckj_biz_xsgz a, bckj_biz_job b
+        <where> 1=1 and a.job_ref_owid=b.owid
+            <if test="type != null and type !=''">
+                and a.gzlx=#{type}
+            </if>
+            <if test="year != null and year !=''">
+                and year(a.createtime)=#{year}
+            </if>
+        </where>
+        group by a.job_ref_owid
+        <if test="limit != null and limit !=''">
+            limit #{limit}
+        </if>
+    </select>
+
+    <select id="getCompanyArea" resultType="java.util.Map">
+        select count(*) as companyNumber, qy_prov as province
+        from bckj_biz_qyxx
+        where year(createtime)=#{year}
+        group by qy_prov
     </select>
 
     <select id="getOneDic" parameterType="java.util.Map" resultType="java.util.Map">

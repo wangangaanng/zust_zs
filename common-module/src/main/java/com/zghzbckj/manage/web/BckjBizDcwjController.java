@@ -46,6 +46,9 @@ public class BckjBizDcwjController extends BaseController {
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
+    //调查问卷开始答题、结束答题
+    Map<String, Object> dcwjTime = new HashMap<>(2);
+
     /**
      *<p>功能描述:调查问卷列表 dcwjList</p >
      *<ul>
@@ -124,6 +127,8 @@ public class BckjBizDcwjController extends BaseController {
                     return ResponseMessage.sendOK(result);
                 }
             }
+            //点击进入详情接口，保存开始答题时间
+            dcwjTime.put("ksdt", DateUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss"));
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -172,6 +177,9 @@ public class BckjBizDcwjController extends BaseController {
                 }
                 dataMap.put("dtrXm", yhxx.getXm());
             }
+            //存入开始答题时间、结束答题时间
+            dataMap.put("ksdt", dcwjTime.get("ksdt"));
+            dataMap.put("jsdt", DateUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss"));
             return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
             e.printStackTrace();

@@ -60,7 +60,7 @@
 					"id": 0,
 					"name": "pages/qyInfo/qyInfo",
 					"pathName": "pages/qyInfo/qyInfo",
-					"query": "owid=14a52875a0aa40668e1ff58e124d71a5",
+					"query": "owid=16922",
 					"scene": null
 				},
 				{
@@ -74,7 +74,7 @@
 					"id": 2,
 					"name": "pages/newsList/newsList",
 					"pathName": "pages/newsList/newsList",
-					"query": "fid=16",
+					"query": "lmbh=40",
 					"scene": null
 				},
 				{
@@ -141,9 +141,9 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/qyLogin/qyLogin",
-					"pathName": "pages/qyLogin/qyLogin",
+					"id": 12,
+					"name": "pages/stuLogin/stuLogin",
+					"pathName": "pages/stuLogin/stuLogin",
 					"query": "",
 					"scene": null
 				},
@@ -155,10 +155,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 14,
 					"name": "pages/newsDetail/newsDetail",
 					"pathName": "pages/newsDetail/newsDetail",
-					"query": "owid=612d780df9124e04bf853aac4576850a",
+					"query": "owid=c384e98ec69e4f42aa1873abcfe58f5d",
 					"scene": null
 				},
 				{

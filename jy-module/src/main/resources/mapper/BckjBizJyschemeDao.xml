@@ -4,6 +4,7 @@
     
 	<sql id="bckjBizJyschemeColumns">
 		a.owid AS "owid",
+		a.yh_ref_owid AS "yhRefOwid",
 		a.xsxh AS "xsxh",
 		a.sfz as sfz ,        /*身份证*/
 	    a.xsxy as xsxy ,       /*学生学院*/
@@ -74,7 +75,14 @@
 			<include refid="bckjBizJyschemeColumns"/>
 		FROM bckj_biz_jyscheme a
 		<include refid="bckjBizJyschemeJoins"/>
-		WHERE a.owid = #{owid}
+		<where>
+		 <if test="owid!=null and owid!=''">
+			 and a.owid =#{owid}
+		 </if>
+		 <if test="xsxh!=null and xsxh !=''">
+			 and a.xsxh = #{xsxh}
+		 </if>
+		</where>
 	</select>
 	
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJyscheme">
@@ -139,6 +147,7 @@
 	<insert id="insert">
 		INSERT INTO bckj_biz_jyscheme(
 			owid,
+			yh_Ref_Owid,
 			xm,
 			xsxh,
 			sfz ,
@@ -204,6 +213,7 @@
 			exp10
 		) VALUES (
 			#{owid},
+			#{yhRefOwid},
 			#{xm},
 			#{xsxh},
 			#{sfz},
@@ -273,6 +283,7 @@
 	<update id="update">
 		UPDATE bckj_biz_jyscheme SET 	
 			owid = #{owid},
+			yh_Ref_Owid=#{yhRefOwid},
 			xsxh = #{xsxh},
 			xm = #{xm},
 			sfz=#{sfz},
@@ -432,5 +443,78 @@
 	<update id="insertDicVal2"  parameterType="Map" >
 		insert  into  ourway_sys_dic_value (owid,dic_Ref_Owid,dic_val1,dic_val2) values (#{owid},#{dicRefOwid},#{val1},#{val2})
 	</update>
+
+	<select id="showJyInfoList" parameterType="Map" resultType="Map">
+		select
+		a.owid AS owid ,b.xsxh AS xsxh , a.xm AS xm , a.sfz AS sfz,
+		a.xb AS xb ,a.mz AS mz , d.xxmc AS xxmc ,b.xsxy AS xsxy ,
+		b.xszy AS xszy , b.xsbj AS xsbj, c.bynf AS bynf , d.byxl AS byxl ,
+		c.xz AS xz , e.sfsf AS sfsf ,e.sfzz AS sfzz , e.sfdlxy AS sfdlxy ,
+		f.syddm AS syddm , c.syd AS syd , a.sjh AS sjh , c.jtdh AS jtdh ,
+		c.qqhm AS qqhm ,a.yx AS yx , d.byqx AS byqx, e.jyqdbz AS jyqdbz ,
+		d.yrdwxz AS yrdwxz, d.gzzwlbmc AS gzzwlbmc , d.yrdwdm AS yrdwdm,
+		d.yrdwmc AS yrdwmc , e.zgdwdm AS zgdwdm, e.zgdwmc AS zgdwmc,
+		e.yrdwlsmc AS yrdwlsmc, d.dwszdmc AS dwszdmc , e.dwszddm AS dwszddm,
+		d.bdzszdmc AS bdzszdmc, d.BDZQFLBMC AS BDZQFLBMC , d.bdkssj AS bdkssj,
+		d.bdjssj AS bdjssj, d.bdzbh AS bdzbh , e.xjcqk AS xjcqk, d.datdxxdz AS datdxxdz,
+		d.datddw AS datddw, d.hkqydz AS hkqydz, d.dwlxr AS dwlxr, d.dwdh AS dwdh, d.sfzydk AS sfzydk,
+		d.dwlbmc AS dwlbmc, d.bdzlsh AS bdzlsh, d.bzone AS bzone, d.bztwo AS bztwo, d.bzthree AS bzthree
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_jyscheme d , bckj_biz_jypuchong e ,bckj_biz_studentinfo f
+		<where>
+			 a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh and b.xsxh=e.xsxh and b.xsxh=f.xsxh
+			<if test="xm!=null and xm!=''">
+				and  a.xm like CONCAT('%',#{xm},'%')
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and  b.xsxh like CONCAT('%',#{xsxh},'%')
+			</if>
+			<if test="sfz!=null and sfz!=''">
+				and  a.sfz like CONCAT('%',#{sfz},'%')
+			</if>
+			<if test="xxmc!=null and xxmc!=''">
+				and  d.xxmc like CONCAT('%',#{xxmc},'%')
+			</if>
+			<if test="xszy!=null and xszy!=''">
+				and  b.xszy like CONCAT('%',#{xszy},'%')
+			</if>
+			<if test="xsbj!=null and xsbj!=''">
+				and  b.xsbj like CONCAT('%',#{xsbj},'%')
+			</if>
+			<if test="sjh!=null and sjh!=''">
+				and  a.sjh like CONCAT('%',#{sjh},'%')
+			</if>
+			<if test="bdzbh!=null and bdzbh!=''">
+				and  d.bdzbh like CONCAT('%',#{bdzbh},'%')
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and  b.xsxy like CONCAT('%',#{xsxy},'%')
+			</if>
+			<if test="bdzlsh!=null and bdzlsh!=''">
+				and  d.bdzlsh like CONCAT('%',#{bdzlsh},'%')
+			</if>
+		</where>
+		order  by b.xsxh asc
+	</select>
+
+	<select id="showJyInfo" parameterType="Map" resultType="Map">
+		select
+		a.owid as owid ,b.xsxh as xsxh , a.xm as xm , a.sfz as sfz,
+		a.xb as xb ,a.mz as mz , d.xxmc as xxmc ,b.xsxy as xsxy ,
+		b.xszy as xszy , b.xsbj as xsbj, c.bynf as bynf , d.byxl as byxl ,
+		c.xz as xz , e.sfsf as sfsf ,e.sfzz as sfzz , e.sfdlxy as sfdlxy ,
+		e.syddm as syddm , c.syd as syd , a.sjh as sjh , c.jtdh as jtdh ,
+		c.qqhm as qqhm ,a.yx as yx , d.byqx as byqx, j.jyqbz as jyqbz ,
+		d.yrdwxz as yrdwxz, d.gzzwlb as gzzwlb , d.yrdwdm as yrdwdm,
+		d.yrdwmc as yrdwmc , e.zgdwdm as zgdwdm, e.zgdwmc as zgdwmc,
+		e.yrdwlsmc as yrdwlsmc, d.dwszdmc as dwszdmc , e.dwszddm as dwszddm,
+		d.bdzszdmc as bdzszdmc, d.bdzqflbmc as bdzqflbmc , d.bdkssj as bdkssj,
+		d.bdjssj as bdjssj, d.bdzbh as bdzbh , e.xjcqk as xjcqk, d.datdxxdz as datdxxdz,
+		d.datddw as datddw, d.hkqydz as hkqydz, d.dwlxr as dwlxr, d.dwdh as dwdh, d.sfzydk as sfzydk,
+		d.dwlxmc as dwlxmc, d.bdzlsh as bdzlsh, d.bzone as bzone, b.bztwo as bztwo, b.bzthree as bzthree
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_jyscheme d , bckj_biz_jypuchong e,bckj_biz_studentinfo f
+		<where>
+			and a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh and b.xsxh=e.xsxh AND b.xsxh=f.xsxh and a.owid=#{owid}
+		</where>
+	</select>
 
 </mapper>

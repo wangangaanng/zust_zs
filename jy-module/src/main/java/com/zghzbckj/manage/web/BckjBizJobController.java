@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -146,7 +147,7 @@ public class BckjBizJobController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizJobService.get(mapData.get("owid").toString()));
+            return ResponseMessage.sendOK(bckjBizJobService.getJob(mapData.get("owid").toString()));
         } catch (Exception e) {
 
             log.error(e + "初始BckjBizJob\r\n" + e.getStackTrace()[0], e);
@@ -222,7 +223,6 @@ public class BckjBizJobController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
-
 
 
     @RequestMapping(value = "zphtjList", method = RequestMethod.POST)
@@ -376,6 +376,28 @@ public class BckjBizJobController extends BaseController {
         return ResponseMessage.sendOK(job);
     }
 
+
+    @RequestMapping(value = "setJbdd", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage setJbdd(PublicDataVO publicDataVO) {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "zphGpsjd", "zphGpswd", "zphGpsbj");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        BckjBizJob job = bckjBizJobService.get(mapData.get("owid").toString());
+        if (job == null) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
+        }
+        job.setZphGpsjd(new BigDecimal(mapData.get("zphGpsjd").toString()));
+        job.setZphGpswd(new BigDecimal(mapData.get("zphGpswd").toString()));
+        if (!TextUtils.isEmpty(mapData.get("zphJbdd"))) {
+            job.setZphJbdd(mapData.get("zphJbdd").toString());
+        }
+        job.setZphGpsbj(Integer.parseInt(mapData.get("zphGpsbj").toString()));
+        bckjBizJobService.saveOrUpdate(job);
+        return ResponseMessage.sendOK(job);
+    }
 
     @RequestMapping(value = "backPassOne", method = RequestMethod.POST)
     @ResponseBody
