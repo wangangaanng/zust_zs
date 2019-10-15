@@ -48,7 +48,14 @@
 			<include refid="bckjBizJypuchongColumns"/>
 		FROM bckj_biz_jypuchong a
 		<include refid="bckjBizJypuchongJoins"/>
-		WHERE a.id = #{id}
+		<where>
+			<if test="owid!=null and owid !=''">
+				and owid =#{owid}
+			</if>
+			<if test="xsxh != null and xsxh !=''">
+				and xsxh = #{xsxh}
+			</if>
+		</where>
 	</select>
 	
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJypuchong">
@@ -197,12 +204,38 @@
 			exp8 = #{exp8},
 			exp9 = #{exp9},
 			exp10 = #{exp10}
-		WHERE id = #{id}
+		WHERE owid = #{owid}
 	</update>
 	
 	<update id="delete">
 		DELETE FROM bckj_biz_jypuchong
-		WHERE id = #{id}
+		WHERE owid = #{owid}
+	</update>
+
+	<delete id="deleteByXsxh" parameterType="String">
+		DELETE FROM bckj_biz_jypuchong
+		WHERE xsxh = #{xsxh}
+	</delete>
+
+	<update id="updateJyscheme" parameterType="BckjBizJypuchong">
+		UPDATE bckj_biz_jypuchong SET
+			sfsf=#{sfsf},
+			sfzz = #{sfzz},
+			xsxh=#{xsxh},
+			sfdlxy=#{sfdlxy},
+			jyqdbz=#{jyqdbz},
+			zgdwdm=#{zgdwdm},
+			zgdwmc=#{zgdwmc},
+			yrdwlsmc=#{yrdwlsmc},
+			dwszddm=#{dwszddm},
+			xjcqk=#{xjcqk}
+		WHERE yh_ref_owid = #{yhRefOwid}
+	</update>
+
+	<update id="updateXsxhByHyOwid" parameterType="BckjBizJypuchong">
+		UPDATE bckj_biz_jypuchong SET
+			xsxh=#{xsxh}
+		WHERE yh_ref_owid = #{yhRefOwid}
 	</update>
 	
 </mapper>

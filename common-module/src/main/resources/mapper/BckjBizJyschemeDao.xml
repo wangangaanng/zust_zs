@@ -455,10 +455,11 @@
 		d.yrdwxz AS yrdwxz, d.gzzwlbmc AS gzzwlbmc , d.yrdwdm AS yrdwdm,
 		d.yrdwmc AS yrdwmc , e.zgdwdm AS zgdwdm, e.zgdwmc AS zgdwmc,
 		e.yrdwlsmc AS yrdwlsmc, d.dwszdmc AS dwszdmc , e.dwszddm AS dwszddm,
-		d.bdzszdmc AS bdzszdmc, d.BDZQFLBMC AS BDZQFLBMC , d.bdkssj AS bdkssj,
+		d.bdzszdmc AS bdzszdmc, d.BDZQFLBMC AS bdzqflbmc , d.bdkssj AS bdkssj,
 		d.bdjssj AS bdjssj, d.bdzbh AS bdzbh , e.xjcqk AS xjcqk, d.datdxxdz AS datdxxdz,
 		d.datddw AS datddw, d.hkqydz AS hkqydz, d.dwlxr AS dwlxr, d.dwdh AS dwdh, d.sfzydk AS sfzydk,
-		d.dwlbmc AS dwlbmc, d.bdzlsh AS bdzlsh, d.bzone AS bzone, d.bztwo AS bztwo, d.bzthree AS bzthree
+		d.dwlbmc AS dwlbmc, d.bdzlsh AS bdzlsh, d.bzone AS bzone, d.bztwo AS bztwo, d.bzthree AS bzthree,
+		d.bdzbz as bdzbz, d.sfdydwbdz as sfdydwbdz
 		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_jyscheme d , bckj_biz_jypuchong e ,bckj_biz_studentinfo f
 		<where>
 			 a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh and b.xsxh=e.xsxh and b.xsxh=f.xsxh
@@ -498,23 +499,94 @@
 
 	<select id="showJyInfo" parameterType="Map" resultType="Map">
 		select
-		a.owid as owid ,b.xsxh as xsxh , a.xm as xm , a.sfz as sfz,
-		a.xb as xb ,a.mz as mz , d.xxmc as xxmc ,b.xsxy as xsxy ,
-		b.xszy as xszy , b.xsbj as xsbj, c.bynf as bynf , d.byxl as byxl ,
-		c.xz as xz , e.sfsf as sfsf ,e.sfzz as sfzz , e.sfdlxy as sfdlxy ,
-		e.syddm as syddm , c.syd as syd , a.sjh as sjh , c.jtdh as jtdh ,
-		c.qqhm as qqhm ,a.yx as yx , d.byqx as byqx, j.jyqbz as jyqbz ,
-		d.yrdwxz as yrdwxz, d.gzzwlb as gzzwlb , d.yrdwdm as yrdwdm,
-		d.yrdwmc as yrdwmc , e.zgdwdm as zgdwdm, e.zgdwmc as zgdwmc,
-		e.yrdwlsmc as yrdwlsmc, d.dwszdmc as dwszdmc , e.dwszddm as dwszddm,
-		d.bdzszdmc as bdzszdmc, d.bdzqflbmc as bdzqflbmc , d.bdkssj as bdkssj,
-		d.bdjssj as bdjssj, d.bdzbh as bdzbh , e.xjcqk as xjcqk, d.datdxxdz as datdxxdz,
-		d.datddw as datddw, d.hkqydz as hkqydz, d.dwlxr as dwlxr, d.dwdh as dwdh, d.sfzydk as sfzydk,
-		d.dwlxmc as dwlxmc, d.bdzlsh as bdzlsh, d.bzone as bzone, b.bztwo as bztwo, b.bzthree as bzthree
-		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_jyscheme d , bckj_biz_jypuchong e,bckj_biz_studentinfo f
+		a.owid AS owid ,b.xsxh AS xsxh , a.xm AS xm , a.sfz AS sfz,
+		a.xb AS xb ,a.mz AS mz , d.xxmc AS xxmc ,b.xsxy AS xsxy ,
+		b.xszy AS xszy , b.xsbj AS xsbj, c.bynf AS bynf , d.byxl AS byxl ,
+		c.xz AS xz , e.sfsf AS sfsf ,e.sfzz AS sfzz , e.sfdlxy AS sfdlxy ,
+		f.syddm AS syddm , c.syd AS syd , a.sjh AS sjh , c.jtdh AS jtdh ,
+		c.qqhm AS qqhm ,a.yx AS yx , d.byqx AS byqx, e.jyqdbz AS jyqdbz ,
+		d.yrdwxz AS yrdwxz, d.gzzwlbmc AS gzzwlbmc , d.yrdwdm AS yrdwdm,
+		d.yrdwmc AS yrdwmc , e.zgdwdm AS zgdwdm, e.zgdwmc AS zgdwmc,
+		e.yrdwlsmc AS yrdwlsmc, d.dwszdmc AS dwszdmc , e.dwszddm AS dwszddm,
+		d.bdzszdmc AS bdzszdmc, d.BDZQFLBMC AS bdzqflbmc , d.bdkssj AS bdkssj,
+		d.bdjssj AS bdjssj, d.bdzbh AS bdzbh , e.xjcqk AS xjcqk, d.datdxxdz AS datdxxdz,
+		d.datddw AS datddw, d.hkqydz AS hkqydz, d.dwlxr AS dwlxr, d.dwdh AS dwdh, d.sfzydk AS sfzydk,
+		d.dwlbmc AS dwlbmc, d.bdzlsh AS bdzlsh, d.bzone AS bzone, d.bztwo AS bztwo, d.bzthree AS bzthree,
+		d.bdzbz as bdzbz, d.sfdydwbdz as sfdydwbdz
+		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_jyscheme d , bckj_biz_jypuchong e ,bckj_biz_studentinfo f
 		<where>
 			and a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh and b.xsxh=e.xsxh AND b.xsxh=f.xsxh and a.owid=#{owid}
 		</where>
+	</select>
+
+
+	<delete id="deleteByXsxh" parameterType="String">
+		DELETE FROM bckj_biz_jyscheme
+		WHERE xsxh = #{xsxh}
+	</delete>
+
+
+	<select id="getDicVal" resultType="java.lang.String">
+		SELECT a.dic_val1
+		FROM ourway_sys_dic b,ourway_sys_dic_value a
+		<where>
+			b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val2 = #{val}
+		</where>
+	</select>
+
+	<update id="updateJyscheme"  parameterType="BckjBizJyscheme">
+		UPDATE bckj_biz_jyscheme SET
+			xxmc=#{xxmc},
+			xsxh=#{xsxh},
+			byxl=#{byxl},
+			byqx=#{byqx},
+			yrdwxz = #{yrdwxz},
+			gzzwlbmc=#{gzzwlbmc},
+			yrdwdm=#{yrdwdm},
+			yrdwmc=#{yrdwmc},
+			dwszdmc=#{dwszdmc},
+			bdzszdmc=#{bdzszdmc},
+			bdzqflbmc=#{bdzqflbmc},
+			bdkssj=#{bdkssj},
+			bdjssj=#{bdjssj},
+			bdzbh=#{bdzbh},
+			datdxxdz=#{datdxxdz},
+			datddw=#{datddw},
+			hkqydz=#{hkqydz},
+			dwlxr=#{dwlxr},
+			dwdh=#{dwdh},
+			sfzydk=#{sfzydk},
+			dwlbmc=#{dwlbmc},
+			bdzlsh=#{bdzlsh},
+			bzone=#{bzone},
+			bztwo=#{bztwo},
+			bzthree=#{bzthree},
+			sfdydwbdz=#{sfdydwbdz},
+			bdzbz=#{bdzbz}
+		WHERE yh_ref_owid = #{yhRefOwid}
+	</update>
+
+	<select id="getByXsxh" parameterType="String" resultType="BckjBizJyscheme">
+		select <include refid="bckjBizJyschemeColumns"></include>
+		from bckj_biz_jyscheme a
+		where
+		xsxh=#{xsxh}
+	</select>
+
+
+	<update id="updateXsxhByHyOwid" parameterType="BckjBizJyscheme">
+		UPDATE bckj_biz_jyscheme SET
+		<if test="xxmc!=null and xxmc!=''">
+			xxmc=#{xxmc},
+		</if>
+			xsxh=#{xsxh}
+		WHERE yh_ref_owid = #{yhRefOwid}
+	</update>
+
+	<select id="getByYhRefOwid" parameterType="String" resultType="BckjBizJyscheme">
+		select <include refid="bckjBizJyschemeColumns"></include>
+		from bckj_biz_jyscheme a
+		where yh_ref_owid =#{yhRefOwid}
 	</select>
 
 </mapper>
