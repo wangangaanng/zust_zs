@@ -2,21 +2,15 @@ package com.ourway.custemevent;
 
 
 import com.ourway.base.utils.TextUtils;
-
 import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseWindow;
-
-
 import com.ourway.base.zk.service.ComponentFileSer;
 import com.ourway.base.zk.utils.AlterDialog;
 import com.ourway.base.zk.utils.data.JsonPostUtils;
-import org.apache.poi.ss.formula.functions.Index;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,8 +26,8 @@ public class RecordInfo implements ComponentFileSer {
     //就业排行榜url
     public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
     //上传excela保存的本地地址
-   // public final String FolderPath = "/mnt/files/zjcFiles/excel/";
-    public final String FolderPath = "F:\\img\\";
+    public final String FolderPath = "/mnt/files/zjcFiles/excel/";
+//    public final String FolderPath = "F:\\img\\";
     //地区典表 导入
     public  final String dwszURL="web/zustjy/bckjBizJyscheme/dqRecordInfo";
 

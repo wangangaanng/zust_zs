@@ -80,7 +80,12 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
      */
     public ResponseMessage findPageBckjBizQyxx(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        dataMap.put("state", state);
+        if (state.equals(JyContant.QY_ZT_TG)) {
+            dataMap.put("pass", 1);
+        }else{
+            dataMap.put("state", state);
+        }
+
         PageInfo<BckjBizQyxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
