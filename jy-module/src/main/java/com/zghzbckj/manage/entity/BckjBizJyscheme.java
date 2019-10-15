@@ -3,11 +3,11 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * 就业方案Entity
@@ -18,6 +18,9 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	
 	private static final long serialVersionUID = 1L;
 
+
+
+	private String yhRefOwid;		// yh_ref_owid
 	private String xsxh;		// xsxh_ref_owid
 	private String xm;		// xm
 	private String sfz;
@@ -61,7 +64,13 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	private String bzthree;		// bzthree
 
 
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
 
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
 	public Integer getXb() {
 		return xb;
 	}

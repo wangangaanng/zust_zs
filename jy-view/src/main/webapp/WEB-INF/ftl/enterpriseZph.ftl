@@ -64,7 +64,7 @@
                             <button type="button" onclick="searchZph()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
                         </div>
                     </div>
-                    <button class="btn pull-right green" onclick='applyZpj()'>申请</button>
+                    <button class="btn pull-right green" onclick='applyZpj()'>点击申请招聘会</button>
                 </div>
                 <div class="news-list">
                     <div class="e-table" style="padding: 0 20px;">

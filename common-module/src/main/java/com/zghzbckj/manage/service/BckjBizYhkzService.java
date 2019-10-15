@@ -154,4 +154,41 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
         return this.dao.getByXsxh(xsxh);
     }
 
+    /**
+     * 后台录入就业方案
+     * @param bckjBizYhkz
+     */
+    public  void  updateInfo(BckjBizYhkz bckjBizYhkz){
+            this.dao.updateInfo(bckjBizYhkz);
+
+    }
+
+    /**
+     * 根据学号更新
+     * @param bckjBizYhkz
+     */
+    public void updateByXsxh(BckjBizYhkz bckjBizYhkz) {
+        this.dao.updateByXsxh(bckjBizYhkz);
+    }
+    /**
+     * 根据学号删除
+     * @param xsxh
+     */
+    public void deleteByXsxh(String xsxh) {
+        this.dao.deleteByXsxh(xsxh);
+    }
+    /**
+     * 根据学号更新
+     * @param bckjBizYhkz
+     */
+    public void updateJyscheme(BckjBizYhkz bckjBizYhkz) {
+        this.dao.updateJyscheme(bckjBizYhkz);
+    }
+    /**
+     * 根据学号更新
+     * @param bckjBizYhkz
+     */
+    public void updateSyscheme(BckjBizYhkz bckjBizYhkz){
+        this.dao.updateSyscheme(bckjBizYhkz);
+    }
 }

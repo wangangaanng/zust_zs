@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,4 +20,6 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
     BckjBizSyb findByXh(String xh);
 
     Map getUserXh(Map yhOwid);
+
+    List<Object> getSybList(Map<String, Object> dataMap);
 }

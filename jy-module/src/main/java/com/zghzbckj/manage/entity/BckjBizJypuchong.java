@@ -2,9 +2,6 @@ package com.zghzbckj.manage.entity;
 
 import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 
 
 /**
@@ -16,6 +13,8 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 	
 	private static final long serialVersionUID = 1L;
 
+
+	private String yhRefOwid;		// yh_ref_owid
 	private String xsxh;		// xsxh
 	private String sfsf;        //sfsf
 	private Integer sfzz;		// sfzz
@@ -38,6 +37,13 @@ public class BckjBizJypuchong extends DataWithExpEntity<BckjBizJypuchong> {
 	private String dwszddm;
 
 
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
+
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
 
 
 	public String getSfsf() {

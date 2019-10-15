@@ -4,6 +4,7 @@
     
 	<sql id="bckjBizStudentinfoColumns">
 		a.owid AS "owid",
+		a.yh_ref_owid AS "yhRefOwid",
 		a.xsxh AS "xsxh",
 		a.zydh_one AS "zydhOne",
 		a.zydh_two AS "zydhTwo",
@@ -113,6 +114,7 @@
 	<insert id="insert">
 		INSERT INTO bckj_biz_studentinfo(
 			owid,
+			yh_Ref_Owid,
 			xsxh,
 			zydh_one,
 			zydh_two,
@@ -175,6 +177,7 @@
 			exp10
 		) VALUES (
 			#{owid},
+			#{yhRefOwid},
 			#{xsxh},
 			#{zydhOne},
 			#{zydhTwo},
@@ -241,6 +244,7 @@
 	<update id="update">
 		UPDATE bckj_biz_studentinfo SET 	
 			owid = #{owid},
+			yh_Ref_Owid=#{yhRefOwid},
 			xsxh = #{xsxh},
 			zydh_one = #{zydhOne},
 			zydh_two = #{zydhTwo},
@@ -301,12 +305,63 @@
 			exp8 = #{exp8},
 			exp9 = #{exp9},
 			exp10 = #{exp10}
-		WHERE id = #{id}
+		WHERE owid = #{owid}
 	</update>
 	
 	<update id="delete">
 		DELETE FROM bckj_biz_studentinfo
 		WHERE id = #{id}
+	</update>
+
+	<update id="updateByXsxh" parameterType="BckjBizStudentinfo">
+		UPDATE bckj_biz_studentinfo SET
+			xsxh = #{xsxh},
+			zydh_One = #{zydhOne},
+			zydh_Two = #{zydhTwo},
+			zydh_Three = #{zydhThree},
+			zydh_Four = #{zydhFour},
+			zydh_Five = #{zydhFive},
+			zydh_Six = #{zydhSix},
+			kslb = #{kslb},
+			bylb = #{bylb},
+			zxdm = #{zxdm},
+			zxmc = #{zxmc},
+			syddm = #{syddm},
+			kstc = #{kstc},
+			hjqk = #{hjqk},
+			sjr = #{sjr},
+			tdcj = #{tdcj},
+			tdZY  = #{tdzy},
+			xkkm = #{xkkm},
+			yw = #{yw},
+			sx = #{sx},
+			wy = #{wy},
+			wl = #{wl},
+			hx = #{hx},
+			sw  = #{sw},
+			zz = #{zz},
+			ls = #{ls},
+			dl = #{dl},
+			js = #{js},
+			zhcj = #{zhcj},
+			tkmscj = #{tkmscj},
+			tkbycj  = #{tkbycj},
+			tkszcj = #{tkszcj},
+			km = #{km},
+			pc = #{pc},
+			memo = #{memo},
+			sg = #{sg},
+			tz = #{tz},
+			jf = #{jf}
+		WHERE yh_ref_owid = #{yhRefOwid}
+	</update>
+
+	<update id="updataInfo" parameterType="BckjBizStudentinfo">
+		update bckj_biz_studentinfo set
+		syddm=#{syddm},
+		xsxh=#{xsxh}
+		where
+		yh_ref_owid=#{yhRefOwid}
 	</update>
 	
 </mapper>

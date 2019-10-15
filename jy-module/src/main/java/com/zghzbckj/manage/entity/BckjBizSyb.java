@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	
 	private static final long serialVersionUID = 1L;
+	private String yhRefOwid;		// yh_ref_owid
 	private String xh;		// xh
 	private String ksh;		// ksh
 	private String xm;		// xm
@@ -49,7 +50,13 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	private String jtyb;		// jtyb
 	private String jtdz;		// jtdz
 
-	
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
+
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
 	public BckjBizSyb() {
 		super();
 	}

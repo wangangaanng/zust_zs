@@ -349,4 +349,20 @@
         </where>
     </select>
 
+	<select id="getBaoMingList" parameterType="Map" resultType="Map">
+				select
+					c.yh_ref_owid as yhRefOwid , c.bmsj as bmsj , c.lxdh as lxdh , c.lxr as lxr
+				from bckj_biz_qyxx a ,bckj_biz_job b , bckj_biz_jybm c
+				where a.owid =#{owid} and b.owid =#{jobOwid} and c.qyxx_ref_owid=#{a.owid} and c.job_ref_owid = #{b.owid}
+                   and c.bmlx=1
+	</select>
+
+
+	<select id="getGuanZhuList" parameterType="Map" resultType="Map">
+			select c.yh_ref_owid as yhRefOwid ,c.gzsj as gzsj, c.lxdh as lxdh ,c.lxr as lxr
+				from bckj_biz_qyxx a ,bckj_biz_job b , bckj_biz_xsgz c
+				where a.owid =#{owid} and b.owid =#{jobOwid} and c.job_ref_owid = #{b.owid}
+	</select>
+
+
 </mapper>

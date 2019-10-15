@@ -151,7 +151,7 @@ Page({
       },
       zwGwzz: {
         required: true,
-        maxlength: 200,
+        maxlength: "职位详情不得超过200字",
       },
     }
 

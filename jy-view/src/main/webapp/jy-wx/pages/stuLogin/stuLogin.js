@@ -43,15 +43,18 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/logIn', data, function (res) {
       if (res.data.backCode == 0) {
-        wx.clearStorageSync()
+        wx.removeStorageSync('userType')
+        wx.removeStorageSync('yhOwid')
+        wx.removeStorageSync('qyInfo')
         if (res.data.bean){
           wx.setStorageSync('userType', '1')
           wx.setStorageSync('yhOwid', res.data.bean.owid)
           wx.setStorageSync('stuInfo', res.data.bean)
-        } 
-        wx.reLaunch({
-          url: '../index/index',
-        })
+        }
+        // wx.reLaunch({
+        //   url: '../index/index',
+        // })
+        wx.navigateBack()
         
       } else {
         wx.showToast({

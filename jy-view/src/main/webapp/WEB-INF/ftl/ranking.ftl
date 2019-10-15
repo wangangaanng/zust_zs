@@ -49,9 +49,9 @@
                     <th>学院名称</th>
                     <th>专业名称</th>
                     <th>毕业生人数</th>
-                    <#--<th>签约数</th>
-                    <th>应聘数</th>
-                    <th>签约率</th>-->
+                    <th>就业人数</th>
+                <#--<th>应聘数</th>
+                <th>签约率</th>-->
                     <th>就业率</th>
                     <th>排名</th>
                 </tr>
@@ -139,8 +139,8 @@
             ajax("zustjy/bckjBizJypm/jypmList", jsonObj, function (data) {
                 if(data.backCode==0){
                     finishLoad()
-                    if(data.bean.records && data.bean.records.length>0){
-                        $.each(data.bean.records,function (k,p) {
+                    if(data.bean && data.bean.length>0){
+                        $.each(data.bean,function (k,p) {
                             var str='';
                             $.each(p.pmzyList,function (m,n) {
                                 if(m==0){
@@ -148,8 +148,8 @@
                                             '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
                                             '<td>'+n.pmzy+'</td>\n' +
                                             '<td>'+n.pmbyrs+'</td>\n' +
-                                            /*'<td>'+n.pmqyrs+'</td>\n' +
-                                            '<td>'+n.pmyprs+'</td>\n' +
+                                            '<td>'+n.pmqyrs+'</td>\n' +
+                                            /*'<td>'+n.pmyprs+'</td>\n' +
                                             '<td>'+n.pmqyl+'%</td>\n' +*/
                                             '<td>'+n.pmjyl+'%</td>\n' +
                                             '<td rowspan="'+p.pmzyList.length+'" class="xypm">'+parseInt(k+1)+'</td>\n' +
@@ -164,15 +164,15 @@
                                     str+='<tr class="'+totalClass+'">\n' +
                                             '<td>'+n.pmzy+'</td>\n' +
                                             '<td>'+n.pmbyrs+'</td>\n' +
-                                            /*'<td>'+n.pmqyrs+'</td>\n' +
-                                            '<td>'+n.pmyprs+'</td>\n' +
+                                            '<td>'+n.pmqyrs+'</td>\n' +
+                                            /*'<td>'+n.pmyprs+'</td>\n' +
                                             '<td>'+n.pmqyl+'%</td>\n' +*/
                                             '<td>'+n.pmjyl+'%</td>\n' +
                                             '</tr>'
                                 }
 
                             })
-                            if(k<data.bean.records.length-1){
+                            if(k<data.bean.length-1){
                                 str+='<tr>\n' +
                                         '<td colspan="8"></td>\n' +
                                         '</tr>'
