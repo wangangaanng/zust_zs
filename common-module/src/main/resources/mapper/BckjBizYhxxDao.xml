@@ -481,7 +481,6 @@
 
 	<update id="updateSyscheme" parameterType="BckjBizYhxx">
 		UPDATE bckj_biz_yhxx SET
-			xsxh = #{xsxh},
 			xb = #{xb},
 			xm = #{xm},
 			sfz = #{sfz},
