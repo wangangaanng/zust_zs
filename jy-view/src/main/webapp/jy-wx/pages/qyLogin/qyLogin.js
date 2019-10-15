@@ -52,9 +52,10 @@ Page({
           wx.setStorageSync('yhOwid', res.data.bean.owid)
           wx.setStorageSync('qyInfo', res.data.bean)
         }
-        wx.reLaunch({
-          url: '../index/index',
-        })
+        // wx.reLaunch({
+        //   url: '../index/index',
+        // })
+        wx.navigateBack()
 
       } else {
         wx.showToast({
