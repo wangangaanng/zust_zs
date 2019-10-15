@@ -14,50 +14,18 @@ Page({
   data: {
     minDate: new Date().getTime(),
     imgPath: imgPath,
-    zwGzznColumns: [],
-    zwGzxzColumns: [],
-    zwNlyqColumns: [],
-    zwXlyqColumns: [],
-    zwGznxColumns: [],
-    zwYyyqColumns: [],
-
+    xjsjStr: '请选择',
     show: {
-      bottom: false,
-      gzzn: false,
-      gzxz: false,
-      nlyq: false,
-      xlyq: false,
-      gznx: false,
-      yyyq: false,
-      zwSxsj: false,
+      xjsj: false
     },
-    area: '请选择',
-    areaList: {},
-    loading: true,
-    value: 330106,
-    gzznStr: '请选择',
-    gzxzStr: '请选择',
-    nlyqStr: '请选择',
-    xlyqStr: '请选择',
-    gznxStr: '请选择',
-    yyyqStr: '请选择',
-    zwSxsjStr: '请选择',
     form: {
-      zwbt: '',
-      zwPro: '',
-      zwCity: '',
-      zwArea: '',
-      zwGzzn: '',
-      zwGzxz: '',
-      zwLxyx: '',
-      zwXs: '',
-      zwZprs: '',
-      zwNlyq: '',
-      zwXlyq: '',
-      zwGznx: '',
-      zwYyyq: '',
-      zwGwzz: '',
-      zwSxsj: '',
+      lxr: '',
+      lxdh: '',
+      xjsj: '',
+      jkr: '',
+      jkrjs: '',
+      xjhsqly: '',
+      memo: '',
     },
   },
   showModal(error) {
@@ -66,31 +34,61 @@ Page({
       showCancel: false,
     })
   },
+  gettjsd(e){
+    var xh = parseInt(e.currentTarget.dataset.xh)-1
+    var list = this.data.list;
+    list[xh].val = e.detail
+    this.setData({
+      list:list
+    })
+  },
   submitForm(e) {
     const params = e.detail.value
 
     console.log(params)
 
     // 传入表单数据，调用验证方法
-    if (!this.WxValidate.checkForm(params)) {
-      const error = this.WxValidate.errorList[0]
-      this.showModal(error)
-      return false
+    // if (!this.WxValidate.checkForm(params)) {
+    //   const error = this.WxValidate.errorList[0]
+    //   this.showModal(error)
+    //   return false
+    // }
+    var list=this.data.list;
+    for (var i = 0; i < list.length;i++){
+      var a=i+1;
+      params['zdytj' + a] = list[i].zdytj;
+      if (!list[i].val){
+        if(list[i].isInput){
+          wx.showModal({
+            content: `请填写${list[i].zdytj}`,
+            showCancel: false,
+          })
+          return false
+        }else{
+          wx.showModal({
+            content: `请选择${list[i].zdytj}`,
+            showCancel: false,
+          })
+          return false
+        }
+        
+      }
+      params['tjsd' + a] = list[i].val;
     }
-    params.zwlx = 0
-    params.zwXs = parseInt(params.zwXs)
+    params.bmlx = 0
+    params.bmdx = 1
     params.qyxxRefOwid = wx.getStorageSync('yhOwid')
-    common.ajax('zustjy/bckjBizJob/addOneJob', params, function (res) {
+    common.ajax('zustjy/bckjBizJybm/applyJob', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: "职位发布成功",
+          content: "宣讲会申请成功，请等待审核",
           success(res) {
             if (res.confirm) {
-              // wx.navigateBack({
-              //   delta:1
-              // })
+              wx.navigateBack({
+                delta:1
+              })
               console.log('用户点击确定')
             } else if (res.cancel) {
               console.log('用户点击取消')
@@ -109,181 +107,93 @@ Page({
   initValidate() {
     // 验证字段的规则
     const rules = {
-      zwbt: {
+      lxr: {
         required: true,
       },
-      zwPro: {
+      lxdh: {
         required: true,
+        tel: true,
       },
-      zwCity: {
+      xjsj: {
         required: true
       },
-      zwArea: {
+      jkr: {
         required: true
       },
-      zwGzzn: {
-        required: true
-      },
-      zwGzxz: {
-        required: true
-      },
-      zwXs: {
-        required: true
-      },
-      zwZprs: {
-        required: true
-      },
-      zwLxyx: {
-        required: true,
-        email: true,
-      },
-      zwNlyq: {
-        required: true
-      },
-      zwXlyq: {
-        required: true
-      },
-      zwGznx: {
-        required: true
-      },
-      zwYyyq: {
-        required: true
-      },
-      zwGwzz: {
+      jkrjs: {
         required: true,
         maxlength: 200,
       },
+      xjhsqly: {
+        required: true,
+        maxlength: 200,
+      },
+      memo: {
+        required: true,
+        maxlength: 200,
+      }
     }
 
     // 验证字段的提示信息，若不传则调用默认的信息
     const messages = {
-      zwbt: {
-        required: '请填写职位名称'
+      lxr: {
+        required: '请填写联系人'
       },
-      zwPro: {
-        required: '请选择所在省市区',
+      lxdh: {
+        required: '请填写联系人手机',
+        tel: '请填写正确手机号',
       },
-      zwCity: {
-        required: '请选择所在省市区',
+      xjsj: {
+        required: '请选择宣讲时间',
       },
-      zwArea: {
-        required: '请选择所在省市区',
+      jkr: {
+        required: '请填写讲课人',
       },
-      zwGzzn: {
-        required: '请填写职能类别',
+      jkrjs: {
+        required: '请填写讲课人介绍',
+        maxlength: '讲课人介绍不得超过200字',
       },
-      zwGzxz: {
-        required: '请填写工作性质',
+      xjhsqly: {
+        required: '请填写申请理由',
+        maxlength: '申请理由不得超过200字',
       },
-      zwLxyx: {
-        required: '请填写邮箱',
-        email: '请填写正确邮箱',
-      },
-      zwXs: {
-        required: '请填写薪水',
-      },
-      zwZprs: {
-        required: '请填写招聘人数',
-      },
-      zwNlyq: {
-        required: '请填写年龄要求',
-      },
-      zwXlyq: {
-        required: '请选择学历要求',
-      },
-      zwGznx: {
-        required: '请选择工作年限',
-      },
-      zwYyyq: {
-        required: '请选择语言要求',
-      },
-      zwGwzz: {
-        required: '请填写职位详情',
-        maxlength: 200,
+      memo: {
+        required: '请填写备注',
+        maxlength: '备注不得超过200字',
       }
 
     }
     this.WxValidate = new WxValidate(rules, messages)
   },
   onConfirm(e) {
-    if (e.target.dataset.type == 1) {
-      const { dicVal1, dicVal2 } = e.detail.value;
-      this.setData({
-        gzznStr: dicVal2,
-        'form.zwGzzn': dicVal1
-      })
-      this.toggle('gzzn', false);
-    } else if (e.target.dataset.type == 2) {
-      const { dicVal1, dicVal2 } = e.detail.value;
-      this.setData({
-        gzxzStr: dicVal2,
-        'form.zwGzxz': dicVal1
-      })
-      this.toggle('gzxz', false);
-    } else if (e.target.dataset.type == 3) {
-      const { dicVal1, dicVal2 } = e.detail.value;
-      this.setData({
-        nlyqStr: dicVal2,
-        'form.zwNlyq': dicVal1
-      })
-      this.toggle('nlyq', false);
-    } else if (e.target.dataset.type == 4) {
-      const { dicVal1, dicVal2 } = e.detail.value;
-      this.setData({
-        xlyqStr: dicVal2,
-        'form.zwXlyq': dicVal1
-      })
-      this.toggle('xlyq', false);
-    } else if (e.target.dataset.type == 5) {
-      const { dicVal1, dicVal2 } = e.detail.value;
-      this.setData({
-        gznxStr: dicVal2,
-        'form.zwGznx': dicVal1
-      })
-      this.toggle('gznx', false);
-    } else if (e.target.dataset.type == 6) {
-      const { dicVal1, dicVal2 } = e.detail.value;
-      this.setData({
-        yyyqStr: dicVal2,
-        'form.zwYyyq': dicVal1
-      })
-      this.toggle('yyyq', false);
-    } else if (e.target.dataset.type == 7) {
-      this.setData({
-        area: `${e.detail.values[0].name}-${e.detail.values[1].name}-${e.detail.values[2].name}`,
-        'form.zwPro': e.detail.values[0].name,
-        'form.zwCity': e.detail.values[1].name,
-        'form.zwArea': e.detail.values[2].name
-      })
-      this.toggle('bottom', false);
-    } else if (e.target.dataset.type == 8) {
+    if (e.target.dataset.type == 8) {
       console.log(e)
-      var date = util.formatTime1(new Date(e.detail))
+      var date = util.formatTime2(new Date(e.detail))
       this.setData({
-        zwSxsjStr: date,
-        'form.zwSxsj': date
+        xjsjStr: date,
+        'form.xjsj': date
       })
-      this.toggle('zwSxsj', false);
+      this.toggle('xjsj', false);
+    }else{
+      var list = this.data.list;
+      list[parseInt(e.target.dataset.type) - 1].str = e.detail.value
+      list[parseInt(e.target.dataset.type) - 1].show = false
+      list[parseInt(e.target.dataset.type) - 1].val = e.detail.value
+      this.setData({
+        list: list
+      })
     }
 
   },
   onCancel(e) {
-    if (e.target.dataset.type == 1) {
-      this.toggle('gzzn', false);
-    } else if (e.target.dataset.type == 2) {
-      this.toggle('gzxz', false);
-    } else if (e.target.dataset.type == 3) {
-      this.toggle('nlyq', false);
-    } else if (e.target.dataset.type == 4) {
-      this.toggle('xlyq', false);
-    } else if (e.target.dataset.type == 5) {
-      this.toggle('gznx', false);
-    } else if (e.target.dataset.type == 6) {
-      this.toggle('yyyq', false);
-    } else if (e.target.dataset.type == 7) {
-      this.toggle('bottom', false);
-    } else if (e.target.dataset.type == 8) {
+    if (e.target.dataset.type == 8) {
       this.toggle('zwSxsj', false);
+    } else {
+      var list = this.data.list;
+      list[parseInt(e.target.dataset.type) - 1].show = false
+      this.setData({
+        list: list
+      })
     }
   },
   toggle(type, show) {
@@ -299,42 +209,27 @@ Page({
     xjhtjList(this)
   },
   showBottom(e) {
-    if (e.target.dataset.type == 1) {
-      this.toggle('gzzn', true);
-    } else if (e.target.dataset.type == 2) {
-      this.toggle('gzxz', true);
-    } else if (e.target.dataset.type == 3) {
-      this.toggle('nlyq', true);
-    } else if (e.target.dataset.type == 4) {
-      this.toggle('xlyq', true);
-    } else if (e.target.dataset.type == 5) {
-      this.toggle('gznx', true);
-    } else if (e.target.dataset.type == 6) {
-      this.toggle('yyyq', true);
-    } else if (e.target.dataset.type == 7) {
-      this.toggle('bottom', true);
-    } else if (e.target.dataset.type == 8) {
-      this.toggle('zwSxsj', true);
+    if (e.target.dataset.type == 8) {
+      this.toggle('xjsj', true);
+    } else {
+      var list = this.data.list;
+      list[parseInt(e.target.dataset.type) - 1].show = true
+      this.setData({
+        list: list
+      })
     }
+    
   },
 
   hideBottom(e) {
-    if (e.target.dataset.type == 1) {
-      this.toggle('gzzn', false);
-    } else if (e.target.dataset.type == 2) {
-      this.toggle('gzxz', false);
-    } else if (e.target.dataset.type == 3) {
-      this.toggle('nlyq', false);
-    } else if (e.target.dataset.type == 4) {
-      this.toggle('xlyq', false);
-    } else if (e.target.dataset.type == 5) {
-      this.toggle('gznx', false);
-    } else if (e.target.dataset.type == 6) {
-      this.toggle('yyyq', false);
-    } else if (e.target.dataset.type == 7) {
-      this.toggle('bottom', false);
-    } else if (e.target.dataset.type == 8) {
+    if (e.target.dataset.type == 8) {
       this.toggle('zwSxsj', false);
+    } else {
+      var list = this.data.list;
+      list[parseInt(e.target.dataset.type) - 1].show = false
+      this.setData({
+        list: list
+      })
     }
   },
   /**
@@ -342,14 +237,6 @@ Page({
    */
   onShow: function () {
     
-  },
-  preview() {
-    var previewImageList = [];
-    var image = this.data.imgPath + this.data.form.qyYyzzzp;
-    previewImageList.push(image)
-    wx.previewImage({
-      urls: previewImageList // 需要预览的图片http链接列表
-    })
   },
   /**
    * 生命周期函数--监听页面隐藏
@@ -375,25 +262,28 @@ var xjhtjList = function (that) {
       if (data.bean && data.bean.length > 0) {
         for (var i = 0; i < data.bean.length;i++){
           var obj={};
-          console.log(data.bean[i])
+          // console.log(data.bean[i])
           for (var a in data.bean[i]){
+            obj.xh=i+1
             obj.zdytj = a;
+            obj.val = '';
+            obj.show = false;
+            obj.str = "请选择";
             obj.tjsd = data.bean[i][a];
+            if (!data.bean[i][a]){
+              obj.isInput=true;
+            }else{
+              obj.isInput = false;
+              if (data.bean[i][a].length==0){
+                obj.isInput = true;
+              }
+            }
           }
           arr.push(obj)
         }
         that.setData({
-          list: data.bean
+          list: arr
         })
-        // for (var i in data.bean) {
-        //   var obj = {}
-        //   obj.dicVal1 = data.bean[i].dicVal1
-        //   obj.dicVal2 = data.bean[i].dicVal2
-        //   that.data.zwNlyqColumns.push(obj)
-        // }
-        // that.setData({
-        //   zwNlyqColumns: that.data.zwNlyqColumns
-        // })
       }
       console.log(arr)
     } else {
