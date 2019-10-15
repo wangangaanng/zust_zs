@@ -196,7 +196,7 @@ Page({
       },
       qyGsjs: {
         required: '请填写公司介绍',
-        maxlength: 200,
+        maxlength: "公司介绍不得超过200字",
       },
       qyYyzzzp:{
         required: '请上传企业营业执照',

@@ -196,3 +196,5 @@ margin-right: 10rpx;
 .van-field__body--textarea.van-field__body--ios {
   margin-top: 0 !important;
 }
+
+.pull-right{float: right;}
