@@ -13,7 +13,7 @@
 <scroll-view  style='position:fixed;top:105rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
    
         <view class="uni-list">
-        <block wx:for="{{list}}" wx:for-item="itm" wx:for-index="idx">
+        <block wx:for="{{list}}" wx:for-item="itm" wx:for-index="idx" wx:key="">
             <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="{{itm.sfyx==1?'diaocha':''}}" >
               <view class="uni-media-list">
                 <view class="uni-media-list-body">
