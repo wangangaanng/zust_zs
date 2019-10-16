@@ -3,6 +3,8 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.MapUtils;
@@ -15,10 +17,9 @@ import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
-import com.zghzbckj.util.TextUtils;
 import com.zghzbckj.util.PageUtils;
+import com.zghzbckj.util.TextUtils;
 import org.apache.log4j.Logger;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -173,12 +174,11 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     }
 
     public Map login(Map<String, Object> mapData) {
-        Map resultMap = new HashMap<>(2);
-        Map params = new HashMap<>();
+        Map resultMap = Maps.newHashMap();
+        Map params = Maps.newHashMap();
         params.put("state", JyContant.QY_ZT_TG);
         params.put("qyTysh", mapData.get("qyTysh"));
-        BckjBizQyxx company = new BckjBizQyxx();
-        company = qyxxDao.getOne(params);
+        BckjBizQyxx company = qyxxDao.getOne(params);
         if (TextUtils.isEmpty(company)) {
             resultMap.put("result", "false");
             resultMap.put("msg", JyContant.SH_ERROR_MESSAGE);
@@ -288,5 +288,33 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         }
         page.setList(lists);
         return PageUtils.assimblePageInfo(page);
+    }
+
+    /**
+    *<p>方法:addIntoHmd TODO加入黑名单 </p>
+    *<ul>
+     *<li> @param codes TODO</li>
+     *<li> @param state TODO 2表示移除黑名单，3表示加入黑名单</li>
+    *<li>@return java.util.List<java.util.Map>  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/16 15:11  </li>
+    *</ul>
+    */
+    @Transactional(readOnly = false)
+    public List<Map> addIntoHmd(List<Object> codes,Integer state) {
+        BckjBizQyxx qyxx;
+        Map result= Maps.newHashMap();
+        List<Map> resluts= Lists.newArrayList();
+        for(Object one:codes){
+            qyxx=this.get(MapUtils.getString((Map)one,"owid"));
+            if(null!=qyxx) {
+                qyxx.setState(state);
+                saveOrUpdate(qyxx);
+                result.put("owid", qyxx.getOwid());
+                resluts.add(result);
+                result = Maps.newHashMap();
+            }
+        }
+        return resluts;
     }
 }

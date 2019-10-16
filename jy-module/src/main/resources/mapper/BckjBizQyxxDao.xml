@@ -129,7 +129,7 @@
                 AND a.state = #{state}
             </if>
             <if test=" pass != null and pass != '' ">
-                AND a.state !=1
+                AND a.state !=1 AND a.state !=3
             </if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},'%')

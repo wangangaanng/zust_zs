@@ -3,7 +3,6 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -68,6 +67,33 @@ public class BckjBizQyxxController extends BaseController {
             return data;
         } catch (Exception e) {
             log.error(e + "删除BckjBizQyxx列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+    *<p>方法:addIntoHmd TODO </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+     *<li> @param state TODO 2表示移除黑名单，3表示加入黑名单</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/16 16:27  </li>
+    *</ul>
+    */
+    @PostMapping(value = "addIntoHmd/{state}")
+    @ResponseBody
+    public ResponseMessage addIntoHmd(PublicDataVO dataVO,@PathVariable("state")Integer state) {
+        try {
+            if (TextUtils.isEmpty(dataVO.getData())) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+            }
+
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+
+            return ResponseMessage.sendOK(bckjBizQyxxService.addIntoHmd(list,state));
+        } catch (Exception e) {
+            log.error(e + "加入黑名单列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
