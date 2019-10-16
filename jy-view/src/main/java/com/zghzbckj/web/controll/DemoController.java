@@ -293,11 +293,11 @@ public class DemoController {
 //        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
         String zwlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("SJHQDX").toString();
         view.addObject("zwlx",zwlx);
-        if(zwlx.equals("1")){//职来职往
+        if(zwlx.equals("1")){//社会招聘会
             view.setViewName("recruitment");
         }else if(zwlx.equals("2")){//企业招聘公告
             view.setViewName("recruitmentQy");
-        }else if(zwlx.equals("3")){//社会招聘会
+        }else if(zwlx.equals("3")){//职来职往
             view.setViewName("recruitmentSh");
         }else if(zwlx.equals("4")){//宣讲会
             view.setViewName("recruitment");
