@@ -112,7 +112,7 @@
                                     <h1>${result.zwbt!''}</h1>
                                 </#if>
                                 <dl class="info">
-                                    <dt><a href="">社会招聘会</a></dt>
+                                    <dt><a href="">职来职往</a></dt>
                                     <dd>
                                         <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
                                     </dd>

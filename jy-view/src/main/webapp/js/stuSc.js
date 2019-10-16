@@ -115,11 +115,11 @@ function myBmList() {
                         if (row.zwlx == 0) {
                             value = "职位"
                         } else if (row.zwlx == 1) {
-                            value = "职来职往"
-                        } else if (row.zwlx == 2) {
                             value = "社会招聘会"
-                        } else if (row.zwlx == 3) {
+                        } else if (row.zwlx == 2) {
                             value = "企业招聘会"
+                        } else if (row.zwlx == 3) {
+                            value = "职来职往"
                         } else if (row.zwlx == 4) {
                             value = "宣讲会"
                         }
