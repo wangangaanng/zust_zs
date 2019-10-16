@@ -1,0 +1,73 @@
+<wxs src="../fcn.wxs" module="tools" />
+<van-tabs sticky animated bind:click="clickTab">
+  <van-tab title="专家列表">
+     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+  <block wx:for="{{list}}" wx:key="{{index}}">
+  <view class="t-item">
+    <view class="t-js">
+      <view class="t-tx">
+        <view><image src="{{imgPath}}{{item.zjtx}}"></image></view>
+      </view>
+      <view class="t-jj">
+        <view class="t-xm">{{item.zjxm}}</view>
+        <view class="t-xq">{{item.zjxx}}</view>
+      </view>
+    </view>
+    <view class="t-cz">
+      <view class="t-f6" data-owid="{{item.owid}}" bindtap="detail">
+        <image src="../../static/icon-xq.png"></image>
+        <view class="green">详情</view>
+      </view>
+      <view class="t-f6" data-owid="{{item.owid}}" bindtap="ask">
+        <image src="../../static/icon-zx.png"></image>
+        <view>咨询</view>
+      </view>
+    </view>
+  </view>
+  </block>
+
+  <van-dialog
+      use-slot
+      title="请填写咨询内容"
+      show="{{ show }}"
+      show-cancel-button
+      bind:cancel="cancel1"
+      bind:confirm="confirm1"
+      before-close
+      confirm-button-color="#008783"
+      confirm-button-text="提交"
+    >
+      <textarea class="wtnr" placeholder="请输入" auto-focus></textarea>
+    </van-dialog>
+
+    
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
+  </scroll-view>
+  </van-tab>
+  <van-tab title="历史咨询">
+      <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+        <block wx:for="{{list1}}" wx:key="{{index}}">
+        <view class="l-item">
+          <view class="l-ask">
+          <view>
+            <image src="../../static/icon-ask.png"></image>
+            我的提问：
+            <view class="ask-time">{{item.twrq}}</view>
+          </view>
+          <view class="ask-nr">{{item.wtnr}}</view>
+          </view>
+          <view class="l-ask">
+          <view>
+            <image src="../../static/icon-ans.png"></image>
+            {{item.danr}}老师的回答：
+            <!-- <view class="ask-time">{{tools.convertStr(item.danr,"")}}</view> -->
+          </view>
+          <view class="ask-nr">{{tools.convertStr(item.danr,"暂无回复")}}</view>
+          </view>
+        </view>
+        </block>
+        
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+      </scroll-view>
+  </van-tab>
+</van-tabs>

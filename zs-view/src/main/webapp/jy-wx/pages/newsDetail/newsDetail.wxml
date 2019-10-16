@@ -1,0 +1,26 @@
+<!--pages/newsDetail/newsDetail.wxml-->
+<view class="content">
+		<view class="article-title">{{content.wzbt}}</view>
+		<view class="article-nav">
+			<view class="article-nav-left">
+				<image class="icon" src="../../static/icon-time.png"></image>
+				{{content.createtime}}
+			</view>
+			<view class="article-nav-right">
+				<image class="icon" src="../../static/icon-eye.png"></image>
+				{{content.ydcs}}
+			</view>
+		</view>
+		<view class="article" wx:if="{{content.wznr}}">
+			<import src="../../libs/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
+		</view>
+    <view class="article" wx:if="{{content.fileList.length>0}}">
+			附件
+        <block wx:for="{{content.fileList}}" wx:key="">
+          <view>
+            {{item.FILE_LABEL}}<span style="color:#337ab7" bindtap="wxParseTagATap" data-src="{{imgPath+item.FILE_PATH}}">{{item.FILE_PATH}}</span>
+          </view>
+        </block>
+		</view>
+	</view>
