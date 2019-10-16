@@ -553,6 +553,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             BeanUtil.copyPropertiesIgnoreNull(newJob, oldJob);
             oldJob.setState(JyContant.JOB_ZT_TG);
             //职位失效时间
+
             if (!TextUtils.isEmpty(mapData.get("zwSxsj"))) {
                 oldJob.setZwSxsj(DateUtil.getDate(mapData.get("zwSxsj").toString()));
             }

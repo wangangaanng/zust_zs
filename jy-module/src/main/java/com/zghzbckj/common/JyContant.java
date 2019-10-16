@@ -52,6 +52,9 @@ public class JyContant {
     public static final String ZWSH = "zwsh";
     //企业审核
     public static final String QYSH = "qykg";
+
+    public static final String ZPHSH = "zphsh";
+    public static final String XJHSH = "xjhsh";
     //报名类型 企业 学生01
     public static final int BMLX_QY = 0;
     public static final int BMLX_XS = 1;

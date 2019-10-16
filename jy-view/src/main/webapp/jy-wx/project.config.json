@@ -78,10 +78,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 3,
 					"name": "pages/diaocha/diaocha",
 					"pathName": "pages/diaocha/diaocha",
-					"query": "",
+					"query": "owid=4e796e7a5d8b4524aa7c731b26e28ef1",
 					"scene": null
 				},
 				{
@@ -158,7 +158,7 @@
 					"id": 14,
 					"name": "pages/newsDetail/newsDetail",
 					"pathName": "pages/newsDetail/newsDetail",
-					"query": "owid=c384e98ec69e4f42aa1873abcfe58f5d",
+					"query": "owid=4160",
 					"scene": null
 				},
 				{
@@ -166,6 +166,20 @@
 					"name": "pages/qyInfo/qyInfo",
 					"pathName": "pages/qyInfo/qyInfo",
 					"query": "owid=zpgg304462",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/dangan/dangan",
+					"pathName": "pages/dangan/dangan",
+					"query": "owid=4160",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/inquiry/inquiry",
+					"pathName": "pages/inquiry/inquiry",
+					"query": "mxdx=1",
 					"scene": null
 				}
 			]

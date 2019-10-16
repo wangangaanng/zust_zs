@@ -8,7 +8,7 @@
     "pages/zphList/zphList",
     "pages/newJob/newJob",
     "pages/qyService/qyService",
-    "pages/stuService/stuService",  
+    "pages/stuService/stuService",
     "pages/logs/logs",
     "pages/mustache/mustache",
     "pages/newsList/newsList",
@@ -34,6 +34,9 @@
     "pages/jobXq/jobXq",
     "pages/applyXjh/applyXjh",
     "pages/qyzn/qyzn",
+    "pages/jobXq/jobXq",
+    "pages/school/school",
+    "pages/inquiry/inquiry"
     "pages/school/school"
   ],
   "window": {
