@@ -64,26 +64,26 @@
             </div>
         </div>
         <div class="content-form" style="border-top:none;padding: 0;" id="jobInfo">
-            <div class="position-detail" style="overflow: hidden;">
+        <div class="position-detail" style="overflow: hidden;">
                 <#if result??>
-                <div class="position-head">
-                    <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
-                        <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
-                    <#else >
-                        <h1>${result.zwbt!''}</h1>
-                    </#if>
-                    <dl class="info">
-                        <dt><a href="">宣讲会</a></dt>
-                    </dl>
-                </div>
-                <ul class="xInfo" style="width: 50%;float: left;">
+                    <div class="position-head">
+                        <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
+                            <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                        <#else >
+                            <h1>${result.zwbt!''}</h1>
+                        </#if>
+                        <dl class="info">
+                            <dt><a href="">社会招聘会</a></dt>
+                        </dl>
+                    </div>
+                    <ul class="xInfo" style="width: 50%;float: left;">
                     <#if result.zphKsrq?exists>
                         <li>举办日期：<span>${result.zphKsrq?substring(0,16)}</span></li>
                     </#if>
                     <#if result.zphJtsj?exists>
                         <li>具体时间：<span> ${result.zphJtsj!''}</span></li>
                     </#if>
-                    <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                        <li>举办地点：<span>${result.zphJbdd!''}</span></li>
                     <#if result.zphBmjzsj?exists>
                         <li>报名截止时间：<span>${result.zphBmjzsj?substring(0,10)}</span></li>
                     </#if>
@@ -97,13 +97,16 @@
                         <li>审核状态：
                         <#if result.state==0>
                             <span>待审核</span>
-                            <#elseif result.state==1>
+                        <#elseif result.state==1>
                             <span style='color: #008784;'>审核通过</span>
-                            <#elseif result.state==2>
+                        <#elseif result.state==2>
                             <span style='color: red;'>审核拒绝</span>
-                            <#else >
+                        <#else >
                         </#if>
                         </li>
+                    </#if>
+                    <#if result.zwbh?exists>
+                        <li>展位：<span> ${result.zwbh!''}</span></li>
                     </#if>
                     <#if result.jkr?exists>
                         <li>讲课人：<span> ${result.jkr!''}</span></li>
@@ -120,8 +123,8 @@
                     <#if result.memo?exists>
                         <li>备注：<span> ${result.memo!''}</span></li>
                     </#if>
-                </ul>
-                <ul class="xInfo" style="width: 50%;float: left;">
+                    </ul>
+                    <ul class="xInfo" style="width: 50%;float: left;">
                     <#if result.zdytj1?exists>
                         <li><span> ${result.zdytj1!''}</span></li>
                     </#if>
@@ -137,7 +140,7 @@
                     <#if result.zdytj5?exists>
                         <li><span> ${result.zdytj5!''}</span></li>
                     </#if>
-                </ul>
+                    </ul>
             </div>
                 </#if>
         </div>
@@ -155,7 +158,7 @@
     <script src="${base}/js/messages_zh.min.js" type="text/javascript"></script>
     <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
     <script src="${base}/js/city1.js" type="text/javascript"></script>
-    <script src="${base}/js/xjhXq.js" type="text/javascript"></script>
+    <script src="${base}/js/zphXq.js" type="text/javascript"></script>
 </body>
 
 </html>

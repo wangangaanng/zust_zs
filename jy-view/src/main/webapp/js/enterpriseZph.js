@@ -167,7 +167,8 @@ window.operateEvents = {
             } else {
                 zwbh = "暂无"
             }
-            window.open(base + "/positionDetail/qy/" + zwbh + "/" + row.jobRefOwid)
+            // window.open(base + "/positionDetail/qy/" + zwbh + "/" + row.jobRefOwid)
+            window.open(base + "/zphXq/" + row.owid + "/" + row.jobRefOwid)
         }
     },
     'click .remove': function (e, value, row, index) {

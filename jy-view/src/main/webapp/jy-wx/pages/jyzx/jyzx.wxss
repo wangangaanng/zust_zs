@@ -28,7 +28,7 @@ page{background-color: #F3F3F5;}
 }
 .t-f6{flex:6;text-align: center;}
 .t-cz view{font-size: 26rpx;display: flex;justify-content:center;}
-.t-cz image{width: 34rpx;height: 34rpx;margin-right: 15rpx;margin-top: 18rpx;}
+.t-cz image{width: 34rpx;height: 34rpx;margin-right: 15rpx;margin-top: 20rpx;}
 .t-cz .t-f6:first-child{
   color: #008783;
   /* border-right: 1rpx solid #d5d5d5; */
