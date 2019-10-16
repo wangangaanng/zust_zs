@@ -32,7 +32,7 @@
                                     <h1>${result.zwbt!''}</h1>
                                 </#if>
                                 <dl class="info">
-                                    <dt><a href="">${result.zphCbf!''}</a></dt>
+                                    <dt><a href="">社会招聘会</a></dt>
                                     <dd>
                                         <div class="vieCount">浏览：${result.zwYds!'0'}次 </div>
                                     </dd>
