@@ -130,7 +130,8 @@ public class BckjBizJybmController extends BaseController {
             map.put("bmdx", 1);
             //企业对象
             map.put("bmlx", 0);
-            map.put("state", 0);
+//            map.put("state", 0);
+            map.put("wait",1);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {
