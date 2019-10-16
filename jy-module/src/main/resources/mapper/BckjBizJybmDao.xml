@@ -131,6 +131,21 @@
             <if test="qysh != null and qysh != ''">
                 AND a.qysh = #{qysh}
             </if>
+            <if test=" zdytj1 != null and zdytj1 != '' ">
+                AND a.zdytj1 like CONCAT('%',#{zdytj1},'%')
+            </if>
+            <if test=" zdytj2 != null and zdytj2 != '' ">
+                AND a.zdytj2 like CONCAT('%',#{zdytj2},'%')
+            </if>
+            <if test=" zdytj3 != null and zdytj3 != '' ">
+                AND a.zdytj3 like CONCAT('%',#{zdytj3},'%')
+            </if>
+            <if test=" zdytj4 != null and zdytj4 != '' ">
+                AND a.zdytj4 like CONCAT('%',#{zdytj4},'%')
+            </if>
+            <if test=" zdytj5 != null and zdytj5 != '' ">
+                AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -159,39 +174,42 @@
             <if test="state != null and state != ''">
                 AND a.state = #{state}
             </if>
+            <if test="wait != null and wait != ''">
+                AND (a.state = 0 or a.state = 2 )
+            </if>
             <if test="bmlx != null and bmlx != ''">
                 AND a.bmlx = #{bmlx}
             </if>
             <if test="bmdx != null and bmdx != ''">
                 AND a.bmdx = #{bmdx}
             </if>
-			<if test=" qymc != null and qymc != '' ">
-				AND a.qymc like CONCAT('%',#{qymc},'%')
-			</if>
-			<if test=" qysh != null and qysh != '' ">
-				AND a.qysh like CONCAT('%',#{qysh},'%')
-			</if>
-			<if test="xjsj1 != null and xjsj1 !='' and xjsj2 != null and xjsj2 !='' ">
-				AND a.xjsj &gt;= #{xjsj1} AND a.xjsj &lt;= #{xjsj2}
-			</if>
-			<if test=" zdytj1 != null and zdytj1 != '' ">
-				AND a.zdytj1 like CONCAT('%',#{zdytj1},'%')
-			</if>
-			<if test=" zdytj2 != null and zdytj2 != '' ">
-				AND a.zdytj2 like CONCAT('%',#{zdytj2},'%')
-			</if>
-			<if test=" zdytj3 != null and zdytj3 != '' ">
-				AND a.zdytj3 like CONCAT('%',#{zdytj3},'%')
-			</if>
-			<if test=" zdytj4 != null and zdytj4 != '' ">
-				AND a.zdytj4 like CONCAT('%',#{zdytj4},'%')
-			</if>
-			<if test=" zdytj5 != null and zdytj5 != '' ">
-				AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
-			</if>
-			<if test=" jkr != null and jkr != '' ">
-				AND a.jkr like CONCAT('%',#{jkr},'%')
-			</if>
+            <if test=" qymc != null and qymc != '' ">
+                AND a.qymc like CONCAT('%',#{qymc},'%')
+            </if>
+            <if test=" qysh != null and qysh != '' ">
+                AND a.qysh like CONCAT('%',#{qysh},'%')
+            </if>
+            <if test="xjsj1 != null and xjsj1 !='' and xjsj2 != null and xjsj2 !='' ">
+                AND a.xjsj &gt;= #{xjsj1} AND a.xjsj &lt;= #{xjsj2}
+            </if>
+            <if test=" zdytj1 != null and zdytj1 != '' ">
+                AND a.zdytj1 like CONCAT('%',#{zdytj1},'%')
+            </if>
+            <if test=" zdytj2 != null and zdytj2 != '' ">
+                AND a.zdytj2 like CONCAT('%',#{zdytj2},'%')
+            </if>
+            <if test=" zdytj3 != null and zdytj3 != '' ">
+                AND a.zdytj3 like CONCAT('%',#{zdytj3},'%')
+            </if>
+            <if test=" zdytj4 != null and zdytj4 != '' ">
+                AND a.zdytj4 like CONCAT('%',#{zdytj4},'%')
+            </if>
+            <if test=" zdytj5 != null and zdytj5 != '' ">
+                AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
+            </if>
+            <if test=" jkr != null and jkr != '' ">
+                AND a.jkr like CONCAT('%',#{jkr},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

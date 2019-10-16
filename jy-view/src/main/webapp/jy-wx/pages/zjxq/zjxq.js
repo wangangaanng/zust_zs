@@ -1,18 +1,24 @@
 // pages/zjxq/zjxq.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var imgPath = app.globalData.imgPath;
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    imgPath: imgPath,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if(options.owid){
+      details(this, options.owid)
+    }
   },
 
   /**
@@ -64,3 +70,22 @@ Page({
 
   }
 })
+
+var details = function (that,owid) {//新闻快递轮播图
+  var data = { "owid": owid };
+  common.ajax('zustjy/bckjBizZjzx/details', data, function (res) {
+    if (res.data.backCode == 0) {
+      if(res.data.bean){
+        that.setData({
+          result: res.data.bean
+        })
+      }      
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

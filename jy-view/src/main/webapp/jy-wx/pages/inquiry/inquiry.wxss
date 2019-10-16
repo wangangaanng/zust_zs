@@ -1,0 +1,6 @@
+/* pages/inquiry/inquiry.wxss */
+.btn-right{
+  display: flex;
+-webkit-align-items: flex-end;
+align-items: flex-end;
+}

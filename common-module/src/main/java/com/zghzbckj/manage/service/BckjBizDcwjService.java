@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.DateUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -194,8 +191,8 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         }
         BckjBizDcwjJg result = new BckjBizDcwjJg();
         if (!TextUtils.isEmpty(dataMap.get("ksdt")) && !TextUtils.isEmpty(dataMap.get("jsdt"))) {
-            result.setKsdt(DateUtil.getDate(dataMap.get("ksdt").toString()));
-            result.setJsdt(DateUtil.getDate(dataMap.get("jsdt").toString()));
+            result.setKsdt(DateUtil.getDate(MapUtils.getString(dataMap, "ksdt")));
+            result.setJsdt(DateUtil.getDate(MapUtils.getString(dataMap, "jsdt")));
             result.setDtsc(DateUtil.getBetweenMinutes(result.getJsdt(), result.getKsdt()));
         }
         if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {

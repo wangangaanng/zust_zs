@@ -1,5 +1,16 @@
 <wxs src="../fcn.wxs" module="tools" />
-<!--pages/enterpriseXjh/enterpriseXjh.wxml-->
+<van-search
+    value="{{ key }}"
+    placeholder="请输入搜索关键词"
+    use-action-slot
+    bind:clear="onClear"
+    bind:change="onChange"
+    bind:search="onSearch"
+    shape="round"
+  >
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+  <scroll-view  style='position:fixed;top:108rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
 <view class="uni-list">
   <block wx:for="{{xjhList}}" wx:key="{{index}}">
   <view class="uni-list-cell" hover-class="uni-list-cell-hover">
@@ -21,5 +32,8 @@
   </block>
 </view>
 
+ <van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
+
+</scroll-view>
 <view class="float-btn" bindtap="shenqin">我要申请</view>
 

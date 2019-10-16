@@ -1,6 +1,7 @@
 package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.MyBatisDao;
+import com.zghzbckj.manage.entity.BckjBizSyb;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,12 @@ public interface CommonDao {
     Integer getCompanyNum(Map<String, Object> dataMap);
 
     Integer getZwlxNumber(Map<String, Object> dataMap);
+
+    List<Map<String, Object>> getStudentFollow(Map<String, Object> dataMap);
+
+    List<Map<String, Object>> getCompanyArea(String year);
+
+    List<BckjBizSyb> getMapList(Map<String, Object> dataMap);
 
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 

@@ -1,12 +1,12 @@
 <view class="t-item">
   <view class="t-js">
     <view class="t-tx">
-      <view><image src="../../static/headImg.png"></image></view>
+      <view><image src="{{imgPath}}{{result.zjtx}}"></image></view>
     </view>
     <view class="t-jj">
-      <view class="t-xm">职位：教授</view>
-      <view class="t-xm">办公室：习得园104</view>
-      <view class="t-xm">电话：0571-88884567</view>
+      <view class="t-xm">职位：{{result.zjzw}}</view>
+      <view class="t-xm">办公室：{{result.zjbgs}}</view>
+      <view class="t-xm">所属专业：{{result.szzy}}</view>
 
       <button class="t-zxbtn" hover-class="common-btn-hover">
         <image src="../../static/icon-zx2.png"></image>
@@ -16,6 +16,5 @@
   </view>
 </view>
 <view class="t-content">
-  张立庆，男，1962年11月出生，教授，浙江科技学院教学督导组组长，教育部全国大学化学课程教学指导委员会委员，浙江省高等学校化学类与化工制药类教学指导委员会委员。长期从事化学教学与科研工作。在教学工作中，主持全国教育科学“十一五” 规划重点项目等省部级项目12项，作为主持人“物理化学和无机及分析化学系列课程教学团队”被评为浙江省高等学校省级教学团队，“物理化学”和“无机及分析化学'被评为浙江省精品课程，主编出版教材2部。获浙江省教学成果二等奖2项，浙江省教育科学优秀研究成果三等奖1项，浙江省“十二五”优秀教材奖1项。在科研工作中，主要从事多相催化与化工智能优化研究，主持浙江省自然科学基金等省部级项目5项，在国内外学术刊物发表论文70多篇，其中被SCI或EI收录22篇。获浙江省科技进步三等奖，浙江省高等学校科研成果二等奖，浙江省高等学校科研成果三等奖2项。获“国务院政府特殊津贴”，“ 全国教育系统职业道德建设标兵”，“浙江省劳动模范”，“浙江省首届高等学校教学名师”，“浙江省优秀教师”，“浙江省师德标兵”,“浙江
-省中青年学科带头人”，浙江科技学院首届“卓越教学奖”-等奖等荣誉称号。
+  {{result.zjxx}}
 </view>

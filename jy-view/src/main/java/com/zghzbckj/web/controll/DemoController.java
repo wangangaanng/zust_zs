@@ -293,11 +293,11 @@ public class DemoController {
 //        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
         String zwlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("SJHQDX").toString();
         view.addObject("zwlx",zwlx);
-        if(zwlx.equals("1")){//职来职往
+        if(zwlx.equals("1")){//社会招聘会
             view.setViewName("recruitment");
         }else if(zwlx.equals("2")){//企业招聘公告
             view.setViewName("recruitmentQy");
-        }else if(zwlx.equals("3")){//社会招聘会
+        }else if(zwlx.equals("3")){//职来职往
             view.setViewName("recruitmentSh");
         }else if(zwlx.equals("4")){//宣讲会
             view.setViewName("recruitment");
@@ -479,6 +479,45 @@ public class DemoController {
             PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizJob/getOneJob");
             ResponseMessage jobDetail  = UnionHttpUtils.doPosts(publicData6);
             view.addObject("jobDetail",jobDetail.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
+    }
+
+    @RequestMapping(value = "xjhXq/{owid}/{jobRefOwid}", method = RequestMethod.GET)
+    public ModelAndView xjhXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid, @PathVariable String jobRefOwid) {
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("xjhXq");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            view.addObject("jobRefOwid",jobRefOwid);
+            Map param=Maps.newHashMap();
+            param.put("owid",owid);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJybm/getOne");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("result",result.getBean());
+            return view;
+        }else{
+            view.setViewName("redirect:/redirectIndex");
+            return view;
+        }
+    }
+
+    @RequestMapping(value = "zphXq/{owid}", method = RequestMethod.GET)
+    public ModelAndView zphXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+        String qyOwid=getCookieValue(request,"yhOwid");
+        if(null!=qyOwid){
+            view.setViewName("zphXq");
+            view.addObject("header",getHeader().getBean());
+            view.addObject("footer",getFooter().getBean());
+            Map param=Maps.newHashMap();
+            param.put("owid",owid);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJybm/getOne");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("result",result.getBean());
             return view;
         }else{
             view.setViewName("redirect:/redirectIndex");
@@ -717,6 +756,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("pageNo",'1');
         param.put("pageSize","12");
+        param.put("zwlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());
@@ -735,6 +775,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("pageNo",currentPage);
         param.put("pageSize","12");
+        param.put("zwlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());

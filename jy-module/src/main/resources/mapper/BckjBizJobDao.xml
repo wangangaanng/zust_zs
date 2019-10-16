@@ -120,6 +120,9 @@
             <if test="zphJbf != null and zphJbf != ''">
                 AND a.zph_jbf = #{zphJbf}
             </if>
+            <if test="zphSfbm!= null and zphSfbm != ''">
+                AND a.zph_sfbm = #{zphSfbm}
+            </if>
             <if test="zphCbf != null and zphCbf != ''">
                 AND a.zph_cbf = #{zphCbf}
             </if>
@@ -197,6 +200,12 @@
             </if>
             <if test=" zdytj5 != null and zdytj5 != '' ">
                 AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
+            </if>
+            <if test="createtime1 != null and createtime1 !='' and createtime2 != null and createtime2 !='' ">
+                AND a.createtime &gt;= #{createtime1} AND a.createtime &lt;= #{createtime2}
+            </if>
+            <if test="zphKsrq1 != null and zphKsrq1 !='' and zphKsrq2 != null and zphKsrq2 !='' ">
+                AND a.zph_ksrq &gt;= #{zphKsrq1} AND a.zph_ksrq &lt;= #{zphKsrq2}
             </if>
         </where>
         <choose>

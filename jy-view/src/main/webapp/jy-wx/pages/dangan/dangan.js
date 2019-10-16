@@ -1,11 +1,16 @@
 // pages/dangan/dangan.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var imgPath = app.globalData.imgPath;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    xsxm:'',
+    sfzh:'',
+    isSearch:false,
   },
 
   /**
@@ -28,39 +33,48 @@ Page({
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  nameInput:function(e){
+    this.setData({
+      xsxm: e.detail,
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  numberInput:function(e){
+    this.setData({
+      sfzh: e.detail,
+    })
   },
+  search:function(){
+    if (!this.data.xsxm) {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入学生姓名',
+      })
+      return false
+    } else if (!this.data.sfzh) {
+      wx.showToast({
+        icon: 'none',
+        title: '请输入身份证号码',
+      })
+      return false
+    }
+    var data = {
+      "xsxm": this.data.xsxm,
+      "sfzh": this.data.sfzh
+    }
+    var that=this;
+    common.ajax('zustjy/bckjBizDacx/inquiryArchives', data, function (res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          isSearch:true,
+        })
 
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+      } else {
+        wx.showToast({
+          title: res.data.errorMess,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
   }
 })

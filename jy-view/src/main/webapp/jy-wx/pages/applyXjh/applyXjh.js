@@ -44,15 +44,12 @@ Page({
   },
   submitForm(e) {
     const params = e.detail.value
-
-    console.log(params)
-
     // 传入表单数据，调用验证方法
-    // if (!this.WxValidate.checkForm(params)) {
-    //   const error = this.WxValidate.errorList[0]
-    //   this.showModal(error)
-    //   return false
-    // }
+    if (!this.WxValidate.checkForm(params)) {
+      const error = this.WxValidate.errorList[0]
+      this.showModal(error)
+      return false
+    }
     var list=this.data.list;
     for (var i = 0; i < list.length;i++){
       var a=i+1;
@@ -220,7 +217,6 @@ Page({
     }
     
   },
-
   hideBottom(e) {
     if (e.target.dataset.type == 8) {
       this.toggle('zwSxsj', false);

@@ -6,7 +6,7 @@ page{background: #f3f3f5;}
 .common-button{width:690rpx;height: 100rpx;line-height: 100rpx; border: none; margin: 50rpx auto;box-sizing: border-box;
   background: #008783; color: #fff;font-size: 30rpx;}
 .van-button--primary{background: #008783 !important;border: none !important;}
-
+.van-button--plain{background: none !important;border: none !important;}
 .common-btn-hover{
   opacity: 0.7;
 }
@@ -198,3 +198,4 @@ margin-right: 10rpx;
 }
 
 .pull-right{float: right;}
+.hiddenInput{display: none;}

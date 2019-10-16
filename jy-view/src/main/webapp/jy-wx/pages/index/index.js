@@ -310,25 +310,28 @@ var getList4 = function (that, lx) {
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      for (var i = 0; i < res.data.bean.records.length; i++) {
-        var obj = {};
-        var object = res.data.bean.records[i];
-        obj.owid = object.owid;
-        obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
-        obj.year = object.createtime.substring(0, 4);
-        obj.zwbt = object.zwbt;
-        obj.zphJbdd = object.zphJbdd;
-        obj.zphKsrq = object.zphKsrq.substring(0, 10);
-        obj.zphJtsj = object.zphJtsj;
-        obj.city = object.zwCity;
-        arr.push(obj);
+      if (res.data.bean.records){
+        for (var i = 0; i < res.data.bean.records.length; i++) {
+          var obj = {};
+          var object = res.data.bean.records[i];
+          obj.owid = object.owid;
+          obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
+          obj.year = object.createtime.substring(0, 4);
+          obj.zwbt = object.zwbt;
+          obj.zphJbdd = object.zphJbdd;
+          obj.zphKsrq = object.zphKsrq.substring(0, 10);
+          obj.zphJtsj = object.zphJtsj;
+          obj.city = object.zwCity;
+          arr.push(obj);
+        }
+        var newsList4 = that.data.newsList4.concat(arr)
+        var totalPage4 = res.data.bean.totalPage;
+        that.setData({
+          newsList4: newsList4,
+          totalPage4: totalPage4,
+        })
       }
-      var newsList4 = that.data.newsList4.concat(arr)
-      var totalPage4 = res.data.bean.totalPage;
-      that.setData({
-        newsList4: newsList4,
-        totalPage4: totalPage4,
-      })
+      
     } else {
       wx.showToast({
         title: res.data.errorMess,

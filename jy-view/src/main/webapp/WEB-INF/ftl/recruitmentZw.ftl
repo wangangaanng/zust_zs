@@ -191,7 +191,7 @@
     }
 
     function myJobList() {
-        initTable()//职来职往
+        initTable()
     }
     document.onkeydown = function(e){
         if(e.keyCode==13)

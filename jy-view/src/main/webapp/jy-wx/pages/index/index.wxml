@@ -37,6 +37,7 @@
 				</view>
       </block>
     </view>
+     <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
   <van-tab title="企业招聘">
     <view class="uni-list">
@@ -57,6 +58,7 @@
 				</view>
       </block>
     </view>
+     <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
   <van-tab title="招聘会信息">
     <view class="uni-list">
@@ -80,6 +82,7 @@
 				</view>
       </block>
     </view>
+     <van-divider contentPosition="center" textColor="#008783" style="{{pageNo3<totalPage3?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
   <van-tab title="宣讲会信息">
     <view class="uni-list">
@@ -103,5 +106,6 @@
 				</view>
       </block>
     </view>
+     <van-divider contentPosition="center" textColor="#008783" style="{{pageNo4<totalPage4?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
 </van-tabs>

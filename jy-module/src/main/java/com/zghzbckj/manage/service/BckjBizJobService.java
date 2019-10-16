@@ -101,6 +101,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     public ResponseMessage findPageBckjBizJob(List<FilterModel> filters, Integer zwlx, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJob> page = new PageInfo<>();
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
+            dataMap.put("createtime2", date);
+        } if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("zphKsrq2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("zphKsrq2").toString(), 1);
+            dataMap.put("zphKsrq2", date);
+        }
+
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
         dataMap.put("zwlx", zwlx.toString());
         if (JyContant.ZWLB_ZW == zwlx) {
@@ -298,6 +306,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
         if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
             dataMap.put("zwlx", dataMap.get("zwlx").toString());
+        }
+        if (!TextUtils.isEmpty(dataMap.get("zphSfbm"))) {
+            dataMap.put("zphSfbm", dataMap.get("zphSfbm").toString());
         }
         dataMap.put("orderBy", " a.createtime desc ");
         Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
@@ -542,6 +553,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             BeanUtil.copyPropertiesIgnoreNull(newJob, oldJob);
             oldJob.setState(JyContant.JOB_ZT_TG);
             //职位失效时间
+
             if (!TextUtils.isEmpty(mapData.get("zwSxsj"))) {
                 oldJob.setZwSxsj(DateUtil.getDate(mapData.get("zwSxsj").toString()));
             }
@@ -658,5 +670,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
         }
         return resultList;
+    }
+
+    public BckjBizJob getJob(String owid) {
+        BckjBizJob job = get(owid);
+        if (job.getZwlx() == JyContant.ZWLB_ZW && !TextUtils.isEmpty(job.getQyxxRefOwid())) {
+            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            job.setQyxx(qyxx);
+        }
+        return job;
     }
 }

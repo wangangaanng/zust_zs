@@ -1,6 +1,6 @@
 <!--pages/dangan/dangan.wxml-->
 
-<view class="search-form">
+<view class="search-form" hidden="{{isSearch}}">
   <view class="search-title">按姓名和身份证查询</view>
   <view class="search-content">
     <view class="search-body">
@@ -9,20 +9,22 @@
           placeholder="请输入姓名"
           left-icon="contact"
           border="{{ false }}"
+          bind:input="nameInput"
         />
         <van-field
           placeholder="请输入身份证号码"
           left-icon="idcard"
           border="{{ false }}"
+          bind:input="numberInput"
         />
       </view>
     </view>
     <view class="search-btn">
-      <van-button type="primary" size="large">查询</van-button>
+      <van-button type="primary" size="large" bind:click="search">查询</van-button>
     </view>
   </view>
 </view>
-<view class="result">
+<view class="result" hidden="{{!isSearch}}">
   <view class="result-title">普通高校毕业生就业状况调查</view>
   <view class="student-main">
     <view class="student-head">
@@ -68,7 +70,7 @@
           <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
         </view>
     </view>
-    <van-button type="primary" size="large">打印学籍信息</van-button>
+    <!-- <van-button type="primary" size="large">打印学籍信息</van-button> -->
   </view>
 </view>
 
