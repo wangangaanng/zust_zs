@@ -338,11 +338,6 @@ public class BckjBizSybController extends BaseController {
     public ResponseMessage saveSybInfo(PublicDataVO dataVO){
             try{
                 Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-                BckjBizSyb syb = JsonUtil.map2Bean(dataMap, BckjBizSyb.class);
-                String validMess = doValid(syb);
-                if (!TextUtils.isEmpty(validMess)) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, validMess);
-                }
                 return bckjBizSybService.insertssInfo(dataMap);
             }
             catch (Exception e){

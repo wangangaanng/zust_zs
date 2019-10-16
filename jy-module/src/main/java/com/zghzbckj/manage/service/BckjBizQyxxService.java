@@ -276,7 +276,6 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         sendMap.put("page", page);
         List<Object> lists = null;
         String type = dataMap.get("type").toString();
-        sendMap.put("owid",dataMap.get("owid"));
         sendMap.put("jobOwid",dataMap.get("jobOwid"));
         //如果为报名
         if(type.equals("1")){

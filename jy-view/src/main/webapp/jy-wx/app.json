@@ -2,8 +2,10 @@
   "usingComponents": {
     "van-button": "vant-weapp/button"
   },
-  "pages": [ 
+  "pages": [
     "pages/index/index",
+    "pages/ydzw/ydzw",
+    "pages/zphList/zphList",
     "pages/newJob/newJob",
     "pages/qyService/qyService",
     "pages/stuService/stuService",
@@ -31,6 +33,8 @@
     "pages/stuLogin/stuLogin",
     "pages/qyxx/qyxx",
     "pages/applyXjh/applyXjh",
+    "pages/qyzn/qyzn",
+    "pages/jobXq/jobXq",
     "pages/school/school"
   ],
   "window": {
