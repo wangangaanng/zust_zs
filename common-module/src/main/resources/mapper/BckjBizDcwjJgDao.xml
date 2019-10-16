@@ -79,6 +79,18 @@
 			<if test="dcwjRefOwid != null and dcwjRefOwid !=''">
 				and a.exp1=#{dcwjRefOwid}
 			</if>
+			<if test="dtrxm != null and dtrxm !=''">
+				and a.dtrxm=#{dtrxm}
+			</if>
+			<if test="exp2 != null and exp2 !=''">
+				and a.exp2 LIKE concat('%',#{exp2},'%')
+			</if>
+			<if test="ksdt != null and ksdt !=''">
+				and a.ksdt <![CDATA[>=]]> #{ksdt}
+			</if>
+			<if test="jsdt != null and jsdt !=''">
+				and a.jsdt <![CDATA[<=]]> #{jsdt}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

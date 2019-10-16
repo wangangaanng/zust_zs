@@ -96,7 +96,7 @@ function confirmDl(url,user) {
                 addCookie("userType","1") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
-                    window.location.href=base+url
+                    window.location.href=base+'/'+url
                 }else {
                     location.reload();
                 }
@@ -119,7 +119,7 @@ function confirmDl(url,user) {
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
-                    window.location.href=base+url
+                    window.location.href=base+'/'+url
                 }else {
                     location.reload();
                 }
@@ -760,3 +760,17 @@ $.fn.serializeObject = function() {
     });
     return o;
 };
+function formatTime(date) {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+}

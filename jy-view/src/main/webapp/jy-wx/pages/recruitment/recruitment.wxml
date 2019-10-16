@@ -25,7 +25,8 @@
                       <em>{{itm.year}}</em>
                     </view>
                     <view class="uni-media-list-body" wx:if="{{itm.zwlx==0}}">
-                      <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-top" wx:if="{{itm.old==1}}"><span class="tag-grey">过期</span>{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-top" wx:else>{{itm.zwbt}}</view>
                       <view class="uni-media-list-text-content">
                       公司名称：{{itm.qymc}}
                       </view>
@@ -37,13 +38,15 @@
                       </view>
                     </view>
                     <view class="uni-media-list-body" wx:if="{{itm.zwlx==2}}">
-                      <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-top" wx:if="{{itm.old==1}}"><span class="tag-grey">过期</span>{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-top" wx:else>{{itm.zwbt}}</view>
                       <view class="uni-media-list-text-bottom">
                         <view class="uni-media-list-text-bottom-left">工作城市：{{itm.zwCity}}</view>
                       </view>
                     </view>
                     <view class="uni-media-list-body" wx:if="{{itm.zwlx==1||itm.zwlx==3||itm.zwlx==4}}">
-                      <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-top" wx:if="{{itm.old==1}}"><span class="tag-grey">过期</span>{{itm.zwbt}}</view>
+                      <view class="uni-media-list-text-top" wx:else>{{itm.zwbt}}</view>
                       <view class="uni-media-list-text-content">
                       举办地点：{{itm.zphJbdd}}
                       </view>

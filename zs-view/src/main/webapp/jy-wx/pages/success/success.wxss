@@ -1,0 +1,12 @@
+/* pages/success/success.wxss */
+.icon-success{
+  background: #008783;
+  border-radius: 50%;
+  color: #fff;
+  width: 100rpx;
+  height: 100rpx;
+  margin: 150rpx auto 20rpx;
+  font-size: 100rpx;
+  padding: 20rpx;
+}
+.message{text-align: center;margin: 50rpx 30rpx;color: #565656;font-size: 30rpx;line-height: 50rpx;}
