@@ -2,7 +2,7 @@
   "usingComponents": {
     "van-button": "vant-weapp/button"
   },
-  "pages": [ 
+  "pages": [
     "pages/index/index",
     "pages/newJob/newJob",
     "pages/qyService/qyService",
@@ -31,7 +31,8 @@
     "pages/stuLogin/stuLogin",
     "pages/qyxx/qyxx",
     "pages/applyXjh/applyXjh",
-    "pages/school/school"
+    "pages/school/school",
+    "pages/inquiry/inquiry"
   ],
   "window": {
     "backgroundTextStyle": "light",

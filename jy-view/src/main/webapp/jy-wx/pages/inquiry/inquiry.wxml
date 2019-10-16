@@ -1,0 +1,31 @@
+<!--pages/inquiry/inquiry.wxml-->
+<van-search
+    value="{{ key }}"
+    placeholder="请输入搜索关键词"
+    use-action-slot
+    bind:clear="onClear"
+    bind:change="onChange"
+    bind:search="onSearch"
+    shape="round"
+  >
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+<scroll-view  style='position:fixed;top:105rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+   
+        <view class="uni-list">
+        <block wx:for="{{list}}" wx:for-item="itm" wx:for-index="idx">
+            <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="{{itm.sfyx==1?'diaocha':''}}" >
+              <view class="uni-media-list">
+                <view class="uni-media-list-body">
+                  <view class="uni-media-list-text-top">{{itm.wjmc}}</view>
+                  <view class="uni-media-list-text-content">开始时间：<span>{{itm.kssj}}</span></view>
+                  <view class="uni-media-list-text-content">结束时间：<span>{{itm.jssj}}</span></view>
+                </view>
+                <view class="btn-right" wx:if="{{itm.sfyx==1}}" data-owid="{{itm.owid}}" bindtap="diaocha"><van-button type="primary" size="small">进入</van-button></view>
+                <view class="btn-right" wx:else><van-button plain type="primary" color="red" size="small">已过期</van-button></view>
+              </view>
+            </view>
+        </block>
+          </view>
+        <van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
+  </scroll-view>

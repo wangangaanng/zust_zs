@@ -11,7 +11,7 @@ Page({
       { text: '档案查询', icon: '../../../static/stu-icon03.png', url: '../dangan/dangan'  }, 
       { text: '我的预约', icon: '../../../static/stu-icon04.png' }, 
       { text: '我的关注', icon: '../../../static/stu-icon05.png' }, 
-      { text: '就业调查', icon: '../../../static/stu-icon06.png', url: '../diaocha/diaocha' }, 
+      { text: '就业调查', icon: '../../../static/stu-icon06.png', url: '../inquiry/inquiry?mxdx=1' }, 
       { text: '专家咨询', icon: '../../../static/stu-icon07.png' }, 
       { text: '签到', icon: '../../../static/stu-icon08.png', url: '../stuQiandao/stuQiandao' }],
   },
