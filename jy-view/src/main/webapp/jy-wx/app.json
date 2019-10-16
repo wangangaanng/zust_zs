@@ -34,9 +34,7 @@
     "pages/jobXq/jobXq",
     "pages/applyXjh/applyXjh",
     "pages/qyzn/qyzn",
-    "pages/jobXq/jobXq",
-    "pages/school/school",
-    "pages/inquiry/inquiry"
+    "pages/inquiry/inquiry",
     "pages/school/school"
   ],
   "window": {
