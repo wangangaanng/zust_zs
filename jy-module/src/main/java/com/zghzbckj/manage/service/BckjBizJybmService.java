@@ -208,11 +208,25 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         try {
             jybm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
             //自定义条件
-            jybm.setZdytj1(jybm.getZdytj1() + "：" + jybm.getTjsd1());
-            jybm.setZdytj2(jybm.getZdytj2() + "：" + jybm.getTjsd2());
-            jybm.setZdytj3(jybm.getZdytj3() + "：" + jybm.getTjsd3());
-            jybm.setZdytj4(jybm.getZdytj4() + "：" + jybm.getTjsd4());
-            jybm.setZdytj5(jybm.getZdytj5() + "：" + jybm.getTjsd5());
+            if (!TextUtils.isEmpty(jybm.getZdytj1()) && !TextUtils.isEmpty(jybm.getTjsd1())) {
+                jybm.setZdytj1(jybm.getZdytj1() + "：" + jybm.getTjsd1());
+            }
+            if (!TextUtils.isEmpty(jybm.getZdytj2()) && !TextUtils.isEmpty(jybm.getTjsd2())) {
+                jybm.setZdytj2(jybm.getZdytj2() + "：" + jybm.getTjsd2());
+            }
+            if (!TextUtils.isEmpty(jybm.getZdytj3()) && !TextUtils.isEmpty(jybm.getTjsd3())) {
+                jybm.setZdytj3(jybm.getZdytj3() + "：" + jybm.getTjsd3());
+            }
+            if (!TextUtils.isEmpty(jybm.getZdytj4()) && !TextUtils.isEmpty(jybm.getTjsd4())) {
+                jybm.setZdytj4(jybm.getZdytj4() + "：" + jybm.getTjsd4());
+            }
+            if (!TextUtils.isEmpty(jybm.getZdytj5()) && !TextUtils.isEmpty(jybm.getTjsd5())) {
+                jybm.setZdytj5(jybm.getZdytj5() + "：" + jybm.getTjsd5());
+            }
+
+
+
+
             jybm.setBmsj(new Date());
             //报名类型企业
             if (bmlx == JyContant.BMLX_QY) {
