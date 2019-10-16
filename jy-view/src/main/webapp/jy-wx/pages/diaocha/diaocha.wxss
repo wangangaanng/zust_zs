@@ -10,6 +10,12 @@ page{background: #ffffff;}
   background: #008783; color: #fff;font-size: 30rpx;}
 .answer-one input{padding: 20rpx;}
 .wrong{border-color: #ffaeae;}
+.article-detail-title {
+    padding: 20px 20px;
+    border-bottom: 1px solid #c6c6c6;
+    text-align: center;
+}
+.article-detail-text{padding:20px;color: #666;border-bottom: 1px dashed #ededed;}
 
 /* 选中后的 背景样式 （红色背景 无边框 可根据UI需求自己修改） */
 radio .wx-radio-input.wx-radio-input-checked{
