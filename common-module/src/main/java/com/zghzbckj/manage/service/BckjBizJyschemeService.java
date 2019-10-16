@@ -254,6 +254,10 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String xm = cellList.get(1); //姓名
                 yhxxMap.put("xm", xm);
                 yhkzMap.put("xsxm", xm);
+                //如果学生学号为空则跳出
+                if(TextUtils.isEmpty(xsxh)){
+                    break;
+                }
                 String sfz = cellList.get(2); //身份证号
                 sfz = ExcelUtils.stmodifyExcelData(sfz);
                 String regex = "\\d{15}(\\d{2}[0-9xX])?";
@@ -587,6 +591,9 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             //更新yhxx
             String uuid = IdGen.uuid();
             bckjBizYhxx.setOwid(uuid);
+            bckjBizYhxx.setOwid(null);
+            bckjBizYhxx.setYhlx(1);
+            bckjBizYhkz.setOlx(0);
             bckjBizYhxxService.updateInfo(bckjBizYhxx);
             //更新yhkz
             bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());

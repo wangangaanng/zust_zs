@@ -12,9 +12,9 @@ Page({
       { text: '宣讲会申请', icon: '../../../static/qy-icon03.png', url: '../enterpriseXjh/enterpriseXjh' }, 
       { text: '招聘会申请', icon: '../../../static/qy-icon04.png', url: '../enterpriseZph/enterpriseZph' }, 
       { text: '职位列表', icon: '../../../static/qy-icon05.png', url: '../enterpriseZw/enterpriseZw' }, 
-      { text: '企业指南', icon: '../../../static/qy-icon06.png' }],
+      { text: '企业指南', icon: '../../../static/qy-icon06.png', url: '../qyzn/qyzn' }
+    ],
   },
-
   /**
    * 生命周期函数--监听页面加载
    */

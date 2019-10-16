@@ -443,6 +443,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0);//学生学号/工号/税号
                 xsxh = ExcelUtils.stmodifyExcelData(xsxh);
+                //如果学生学号为空则跳出
+                if(TextUtils.isEmpty(xsxh)){
+                    break;
+                }
                 excelXh.add(xsxh);
                 yhkzMap.put("xsxh", xsxh);
                 sybMap.put("xh", xsxh);

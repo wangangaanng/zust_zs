@@ -268,10 +268,6 @@ public class BckjBizQyxxController extends BaseController {
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-             msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.USER_RELOGIN);
-            }
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return ResponseMessage.sendOK(bckjBizQyxxService.showStudentInfo(filters,dataVO.getPageNo(),dataVO.getPageSize(),dataMap));
         }

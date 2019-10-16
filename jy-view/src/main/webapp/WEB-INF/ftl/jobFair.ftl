@@ -132,7 +132,7 @@
                     <div class="zph-d">
                         <div class="row">
                             <div class="col-md-4 col-md-offset-1">举办时间：${oneJob.zphKsrq?substring(0,10)}</div>
-                            <div class="col-md-4">举办城市：${oneJob.zwPro!""}-${oneJob.zwCity!""}-${oneJob.zwArea!""}</div>
+                            <div class="col-md-4">举办城市：${oneJob.zwPro!""}${oneJob.zwCity!""}${oneJob.zwArea!""}</div>
                         </div>
                         <div class="row">
                             <div class="col-md-4 col-md-offset-1">预定结束时间：${oneJob.zphBmjzsj?substring(0,10)}</div>
@@ -144,7 +144,7 @@
                         </div>
                         <div class="row btn-yd">
                             <div class="col-md-8 col-md-offset-1 text-center">
-                                <button class="btn green" onclick="order()">预定展位</button>
+                                <button class="btn green" style="width: 120px;" onclick="order()">预定展位</button>
                             </div>
                         </div>
 
@@ -246,16 +246,16 @@ var pageSize=10;
             '                        <div class="row"><div class="form-group">\n' +
             '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
-            '                                    <input type="text" class="form-control" id="lxr" name="lxr" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+JSON.parse(getCookie("qyInfo")).qyLxr+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机号<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
-            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+JSON.parse(getCookie("qyInfo")).qyLxrdh+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                        </div>\n' +zdytjStr+
             '                        <div class="row btn-yd"><div class="col-md-9 col-sm-offset-1 text-center">\n' +
-            '                                <button class="btn green" onclick="confirmQd()">确定</button>\n' +
+            '                                <button class="btn green" style="width: 120px;" onclick="confirmQd()">确定</button>\n' +
             '                            </div>\n' +
             '                        </div></div>'
         });
@@ -320,6 +320,7 @@ var pageSize=10;
             ajax:function(request) {
                 ajax("zustjy/bckjBizJob/myJobList", {
                     "zwlx":3,
+                    "zphSfbm":1,
                     "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {

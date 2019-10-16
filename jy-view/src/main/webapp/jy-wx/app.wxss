@@ -198,3 +198,4 @@ margin-right: 10rpx;
 }
 
 .pull-right{float: right;}
+.hiddenInput{display: none;}

@@ -1,10 +1,8 @@
-// pages/newJob/newJob.js
+// pages/qyInfo/qyInfo.js
+var Mustache = require('../../libs/mustache/mustache');
+var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
-var util = require('../../utils/util.js')
 import WxValidate from '../../libs/wx-validate/WxValidate'
-const app = getApp()
-var url = app.globalData.ApiUrl;
-var imgPath = app.globalData.imgPath;
 
 Page({
 
@@ -12,21 +10,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    minDate: new Date().getTime(),
-    imgPath: imgPath,
-    xjsjStr: '请选择',
-    show: {
-      xjsj: false
-    },
+    result: '',
+    old: '',
     form: {
       lxr: '',
-      lxdh: '',
-      xjsj: '',
-      jkr: '',
-      jkrjs: '',
-      xjhsqly: '',
-      memo: '',
+      lxdh: ''
     },
+    list:[]
   },
   showModal(error) {
     wx.showModal({
@@ -34,12 +24,12 @@ Page({
       showCancel: false,
     })
   },
-  gettjsd(e){
-    var xh = parseInt(e.currentTarget.dataset.xh)-1
+  gettjsd(e) {
+    var xh = parseInt(e.currentTarget.dataset.xh) - 1
     var list = this.data.list;
     list[xh].val = e.detail
     this.setData({
-      list:list
+      list: list
     })
   },
   submitForm(e) {
@@ -50,41 +40,41 @@ Page({
       this.showModal(error)
       return false
     }
-    var list=this.data.list;
-    for (var i = 0; i < list.length;i++){
-      var a=i+1;
+    var list = this.data.list;
+    for (var i = 0; i < list.length; i++) {
+      var a = i + 1;
       params['zdytj' + a] = list[i].zdytj;
-      if (!list[i].val){
-        if(list[i].isInput){
+      if (!list[i].val) {
+        if (list[i].isInput) {
           wx.showModal({
             content: `请填写${list[i].zdytj}`,
             showCancel: false,
           })
           return false
-        }else{
+        } else {
           wx.showModal({
             content: `请选择${list[i].zdytj}`,
             showCancel: false,
           })
           return false
         }
-        
+
       }
       params['tjsd' + a] = list[i].val;
     }
     params.bmlx = 0
-    params.bmdx = 1
+    params.bmdx = 0
     params.qyxxRefOwid = wx.getStorageSync('yhOwid')
     common.ajax('zustjy/bckjBizJybm/applyJob', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: "宣讲会申请成功，请等待审核",
+          content: "招聘会申请成功，请等待审核",
           success(res) {
             if (res.confirm) {
               wx.navigateBack({
-                delta:1
+                delta: 1
               })
               console.log('用户点击确定')
             } else if (res.cancel) {
@@ -110,24 +100,6 @@ Page({
       lxdh: {
         required: true,
         tel: true,
-      },
-      xjsj: {
-        required: true
-      },
-      jkr: {
-        required: true
-      },
-      jkrjs: {
-        required: true,
-        maxlength: 200,
-      },
-      xjhsqly: {
-        required: true,
-        maxlength: 200,
-      },
-      memo: {
-        required: true,
-        maxlength: 200,
       }
     }
 
@@ -139,39 +111,11 @@ Page({
       lxdh: {
         required: '请填写联系人手机',
         tel: '请填写正确手机号',
-      },
-      xjsj: {
-        required: '请选择宣讲时间',
-      },
-      jkr: {
-        required: '请填写讲课人',
-      },
-      jkrjs: {
-        required: '请填写讲课人介绍',
-        maxlength: '讲课人介绍不得超过200字',
-      },
-      xjhsqly: {
-        required: '请填写申请理由',
-        maxlength: '申请理由不得超过200字',
-      },
-      memo: {
-        required: '请填写备注',
-        maxlength: '备注不得超过200字',
       }
-
     }
     this.WxValidate = new WxValidate(rules, messages)
   },
   onConfirm(e) {
-    if (e.target.dataset.type == 8) {
-      console.log(e)
-      var date = util.formatTime2(new Date(e.detail))
-      this.setData({
-        xjsjStr: date,
-        'form.xjsj': date
-      })
-      this.toggle('xjsj', false);
-    }else{
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].str = e.detail.value
       list[parseInt(e.target.dataset.type) - 1].show = false
@@ -179,98 +123,84 @@ Page({
       this.setData({
         list: list
       })
-    }
-
   },
   onCancel(e) {
-    if (e.target.dataset.type == 8) {
-      this.toggle('zwSxsj', false);
-    } else {
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = false
       this.setData({
         list: list
       })
-    }
   },
   toggle(type, show) {
     this.setData({
       [`show.${type}`]: show
     });
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    this.initValidate()
-    xjhtjList(this)
-  },
   showBottom(e) {
-    if (e.target.dataset.type == 8) {
-      this.toggle('xjsj', true);
-    } else {
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = true
       this.setData({
         list: list
       })
-    }
-    
   },
   hideBottom(e) {
-    if (e.target.dataset.type == 8) {
-      this.toggle('zwSxsj', false);
-    } else {
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = false
       this.setData({
         list: list
       })
-    }
   },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.initValidate()
+    options.owid ='16922'
+    if (options.owid) {
+      getContent(this, options.owid);
+    }
+    xjhtjList(this)
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
-  },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  }
 })
 
 var xjhtjList = function (that) {
-  var data = {};
+  var data = {
+    "owid": wx.getStorageSync('yhOwid')
+  };
   common.ajax('zustjy/bckjBizJob/xjhtjList', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
-      var arr=[];
+      var arr = [];
       if (data.bean && data.bean.length > 0) {
-        for (var i = 0; i < data.bean.length;i++){
-          var obj={};
+        for (var i = 0; i < data.bean.length; i++) {
+          var obj = {};
           // console.log(data.bean[i])
-          for (var a in data.bean[i]){
-            obj.xh=i+1
+          for (var a in data.bean[i]) {
+            obj.xh = i + 1
             obj.zdytj = a;
             obj.val = '';
             obj.show = false;
             obj.str = "请选择";
             obj.tjsd = data.bean[i][a];
-            if (!data.bean[i][a]){
-              obj.isInput=true;
-            }else{
+            if (!data.bean[i][a]) {
+              obj.isInput = true;
+            } else {
               obj.isInput = false;
-              if (data.bean[i][a].length==0){
+              if (data.bean[i][a].length == 0) {
                 obj.isInput = true;
               }
             }
@@ -282,6 +212,46 @@ var xjhtjList = function (that) {
         })
       }
       console.log(arr)
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+var getContent = function (that, owid) {//招聘详情
+  var data = { "owid": owid, "yhOwid": wx.getStorageSync("stuOwid") };
+  common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
+    if (res.data.backCode == 0) {
+      res.data.bean.createtime = res.data.bean.createtime.substring(0, 10)
+      if (res.data.bean.zphKsrq) {
+        if (res.data.bean.zwlx == 4) {
+          res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 16)
+        } else {
+          res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
+        }
+      }
+      if (res.data.bean.zphBmjzsj) {
+        res.data.bean.zphBmjzsj = res.data.bean.zphBmjzsj.substring(0, 10)
+      }
+      that.setData({
+        result: res.data.bean,
+      })
+      if (res.data.bean.zwSxsj) {
+        var thetime = res.data.bean.zwSxsj;
+        var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+
+        var curDate = new Date();
+        if (d <= curDate) {
+          that.setData({
+            old: '1',
+          })
+        }
+      }
+
     } else {
       wx.showToast({
         title: res.data.errorMess,

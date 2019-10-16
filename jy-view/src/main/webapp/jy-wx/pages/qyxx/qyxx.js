@@ -328,9 +328,9 @@ var getOneCompany = function (that) {
       var data = res.data;
       that.setData({
         form:data.bean,
-        gsxzStr: data.bean.qyGsxz,
-        hylbStr: data.bean.qyHylb,
-        gsgmStr: data.bean.qyGsgm,
+        gsxzStr: data.bean.qyGsxzStr,
+        hylbStr: data.bean.qyHylbStr,
+        gsgmStr: data.bean.qyGsgmStr,
         area: `${data.bean.qyProv}-${data.bean.qyCity}-${data.bean.qyArea}`
       })
     } else {

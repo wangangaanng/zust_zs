@@ -12,7 +12,9 @@ Page({
     pageSize: 20,
     pageNo: 1,
     totalPage: '',
-    xjhList: []
+    totalCount:2,
+    xjhList: [],
+    key:''
   },
   shenqin(){
     wx.navigateTo({
@@ -60,11 +62,20 @@ Page({
   onPullDownRefresh: function () {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+  onChange(e) {
+    this.setData({
+      key: e.detail
+    });
+  },
+  onClear() {
+    var that = this;
+    refresh(this);
+  },
+  onSearch: function () {
+    var that = this;
+    refresh(this);
+  },
+  loadMore: function () {
     var that = this;
     if ((that.data.pageNo + 1) <= that.data.totalPage) {
       that.setData({
@@ -82,30 +93,46 @@ Page({
   }
 })
 
+function refresh(that) {
+  that.setData({
+    xjhList: [],
+    pageNo: 1,
+    totalPage: ""
+  })
+  myBmList(that);
+
+}
+
 var myBmList = function (that, lx) {
   var data = {
-    "qyxxRefOwid": wx.getStorageSync("yhOwid"), "bmdx": 1, "bmlx": 0, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
+    "zwbt": that.data.key, "qyxxRefOwid": wx.getStorageSync("yhOwid"), "bmdx": 1, "bmlx": 0, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
   };
   common.ajax('zustjy/bckjBizJybm/myBmList', data, function (res) {
     if (res.data.backCode == 0) {
-      var arr = [];
-      for (var i = 0; i < res.data.bean.records.length; i++) {
-        var obj = {};
-        var object = res.data.bean.records[i];
-        obj.owid = object.owid;
-        obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
-        obj.year = object.createtime.substring(0, 4);
-        obj.zwbt = object.zwbt;
-        obj.qymc = object.exp1;
-        obj.city = object.zwCity;
-        obj.gzxz = object.zwGzxzStr;
-        arr.push(obj);
+      // var arr = [];
+      // for (var i = 0; i < res.data.bean.records.length; i++) {
+      //   var obj = {};
+      //   var object = res.data.bean.records[i];
+      //   obj.owid = object.owid;
+      //   obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
+      //   obj.year = object.createtime.substring(0, 4);
+      //   obj.zwbt = object.zwbt;
+      //   obj.qymc = object.exp1;
+      //   obj.city = object.zwCity;
+      //   obj.gzxz = object.zwGzxzStr;
+      //   arr.push(obj);
+      // }
+      var xjhList
+      if (res.data.bean.records && res.data.bean.records.length>0){
+        xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
-      var xjhList = that.data.xjhList.concat(res.data.bean.records)
+     
       var totalPage = res.data.bean.totalPage;
+      var totalCount = res.data.bean.totalCount;
       that.setData({
         xjhList: xjhList,
         totalPage: totalPage,
+        totalCount: totalCount
       })
     } else {
       wx.showToast({
