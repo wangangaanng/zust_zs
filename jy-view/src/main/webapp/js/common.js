@@ -96,7 +96,7 @@ function confirmDl(url,user) {
                 addCookie("userType","1") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
-                    window.location.href=base+url
+                    window.location.href=base+'/'+url
                 }else {
                     location.reload();
                 }
@@ -119,7 +119,7 @@ function confirmDl(url,user) {
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
-                    window.location.href=base+url
+                    window.location.href=base+'/'+url
                 }else {
                     location.reload();
                 }
