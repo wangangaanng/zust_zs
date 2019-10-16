@@ -1,0 +1,32 @@
+<!--pages/diaocha/diaocha.wxml-->
+  <view class="article-detail-title">{{wjmc}}</view>
+  <view class="article-detail-text">{{wjjj}}</view>
+	<view class="wenda-body">
+		<block wx:for="{{list}}" wx:for-item="item" wx:key="{{index}}">
+			<view class="wenda-item">
+				<view class="wenda-title">{{index+1}}.{{item.tmmc}}<label class="red">*</label></view>
+				<view class="wenda-answer">
+          <view wx:if="{{item.tmlx==1}}">
+						<view class="{{item.ischeck?'answer-one wrong':'answer-one'}}"><input type="text" class="form-control" id="{{item.owid}}" bindinput='inputchange' /></view>
+					</view>
+					<view wx:if="{{item.tmlx==2}}">
+						<radio-group id="{{item.owid}}" bindchange="radiochange">
+							<block wx:for="{{item.xxList}}"  wx:for-item="it" wx:key="{{idx}}">
+								<view class="{{item.ischeck?'answer-one wrong':'answer-one'}}"><label><radio value="{{it.bh}}" />{{it.bh}}.{{it.ms}}</label></view>
+							</block>
+						</radio-group>
+					</view>
+					<view wx:if="{{item.tmlx==3}}">
+						<checkbox-group id="{{item.owid}}" bindchange="checkboxchange">
+							<block wx:for="{{item.xxList}}"  wx:for-item="it" wx:key="{{idx}}">
+								<view class="{{item.ischeck?'answer-one wrong':'answer-one'}}"><label><checkbox value="{{it.bh}}" />{{it.bh}}.{{it.ms}}</label></view>
+							</block>
+						</checkbox-group>
+					</view>
+					
+				</view>
+			</view>
+		</block>
+		<button wx:if="{{tips}}" class="wenda-button" disabled="true">不可作答</button>
+    <button wx:else class="wenda-button" bindtap="submit">提交</button>
+	</view>

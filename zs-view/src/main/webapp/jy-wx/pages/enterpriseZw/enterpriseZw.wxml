@@ -1,0 +1,77 @@
+<wxs src="../fcn.wxs" module="tools" />
+<van-search
+    value="{{ key }}"
+    placeholder="请输入搜索关键词"
+    use-action-slot
+    bind:clear="onClear"
+    bind:change="onChange"
+    bind:search="onSearch"
+    shape="round"
+  >
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+   <scroll-view  style='position:fixed;top:108rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+<view class="uni-list">
+  <block wx:for="{{xjhList}}" wx:key="{{index}}">
+  <van-swipe-cell id="{{item.owid}}" data-index="{{index}}" data-owid="{{item.owid}}" right-width="{{ 65 }}" async-close bind:close="onClose">
+    <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="detail">
+      <view class="uni-media-list">
+        <view class="uni-media-list-body">
+          <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+          <view class="uni-media-list-text-bottom">
+            <view class="uni-media-list-text-bottom-left">发布时间：{{tools.substr(item.createtime,0,10)}}</view>
+            <view class="uni-media-list-text-bottom-right ">
+              <span wx:if="{{item.state==0}}" style="color:#888;">待审核</span>
+              <span wx:if="{{item.state==2}}" style="color:green;">已发布</span>
+              <span wx:if="{{item.state==3}}" style="color:red;">拒绝</span>
+              <span wx:if="{{item.state==6}}" style="color:orange;">下架</span>
+            </view>
+          </view>
+          <view class="uni-media-list-text-content">
+          职能类别：{{item.zwGzznStr}}
+          <van-icon
+            name="arrow"
+            class="pull-right"
+            custom-class="icon"
+          />
+          </view>
+          <view class="uni-media-list-text-content">
+          关注人数：{{tools.getSize(item.xsgzList) || 0}}
+          </view>
+        </view>
+      </view>
+    </view>
+    <view slot="right">
+      <van-button type="danger">删除</van-button>
+    </view>
+  </van-swipe-cell>
+  </block>
+  <!-- <van-swipe-cell id="owid2" right-width="{{ 65 }}" async-close bind:close="onClose">
+    <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+      <view class="uni-media-list">
+        <view class="uni-media-list-body">
+          <view class="uni-media-list-text-top">销售顾问</view>
+          <view class="uni-media-list-text-bottom">
+            <view class="uni-media-list-text-bottom-left">发布日期：2019-08-28</view>
+            <view class="uni-media-list-text-bottom-right ">
+            审核状态：<span style="color:green;">已发布</span>
+            </view>
+          </view>
+          <view class="uni-media-list-text-content">
+          职能类别：计算机/互联网/通信类
+          </view>
+          <view class="uni-media-list-text-content">
+          关注人数：4
+          </view>
+        </view>
+      </view>
+    </view>
+    <view slot="right">
+      <van-button type="danger">删除</van-button>
+    </view>
+  </van-swipe-cell> -->
+</view>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
+</scroll-view>
+
+<van-dialog id="van-dialog" />
