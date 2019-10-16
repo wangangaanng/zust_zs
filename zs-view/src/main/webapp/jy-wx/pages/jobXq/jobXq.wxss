@@ -1,0 +1,8 @@
+/* pages/jobXq/jobXq.wxss */
+
+.table{display: flex;justify-content: space-around;background-color: #F1F8F8;height: 70rpx;line-height: 70rpx;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+.table view{flex:4;text-align: center;color: #6c9d9c;font-size: 30rpx;}
+.table view:nth-last-of-type(2){border-left: 1px solid #ddd;border-right:1px solid #ddd;}
+.tbody{display: flex;justify-content: space-around;border-bottom:1px solid #ddd;height: 70rpx;line-height: 70rpx;background-color: #fff;}
+.tbody view{flex:4;text-align: center;font-size: 28rpx;}
+.tbody view:nth-last-of-type(2){border-left: 1px solid #ddd;border-right:1px solid #ddd;}

@@ -168,6 +168,7 @@ var getList = function (that, owid, isDetail, SJHQDX, index, pageNo) {
       if (res.data.backCode == 0) {
         var arr = [];
         if (res.data.bean.records) {
+          var curDate = new Date();
           for (var i = 0; i < res.data.bean.records.length; i++) {
             var obj = {};
             var object = res.data.bean.records[i];
@@ -180,6 +181,14 @@ var getList = function (that, owid, isDetail, SJHQDX, index, pageNo) {
                 obj.zphKsrq = object.zphKsrq.substring(0, 16)
               } else {
                 obj.zphKsrq = object.zphKsrq.substring(0, 10)
+              }
+            }
+            if (object.zwSxsj) {
+              console.log(object.zwSxsj);
+              var thetime = object.zwSxsj;
+              var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+              if (d <= curDate) {
+                  obj.old= '1'
               }
             }
             obj.owid = object.owid;

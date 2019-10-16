@@ -116,7 +116,10 @@
 <script>
     var answerList=[];
     var tips="${result.tips!''}"
+    var ksdt="";
+    var jsdt="";
     $(document).ready(function () {
+        ksdt=new Date();
         if(tips){
             layer.open({
                 title:'提示',
@@ -165,20 +168,21 @@
             layer.msg('请填写完整', {icon: 2});
             return false;
         }
+        jsdt=new Date();
         if(getCookie("stuOwid")){
             var jsonObj ={
                 "dcwjRefOwid":"${owid!''}",
                 "answerList":answerList,
-                "ksdt":"",
-                "jsdt":"",
+                "ksdt":formatTime(ksdt),
+                "jsdt":formatTime(jsdt),
                 "dtrId":convertStr(getCookie("stuOwid"),""),
             }
         }else {
             var jsonObj ={
                 "dcwjRefOwid":"${owid!''}",
                 "answerList":answerList,
-                "ksdt":"",
-                "jsdt":"",
+                "ksdt":formatTime(ksdt),
+                "jsdt":formatTime(jsdt),
             }
         }
         ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {

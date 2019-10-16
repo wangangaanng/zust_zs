@@ -383,6 +383,7 @@
 	<update id="updateJyscheme" parameterType="BckjBizSyb">
 		UPDATE bckj_biz_syb SET
 			bynf=#{bynf},
+			xh=#{xh},
 			xz=#{xz},
 			syd=#{syd},
 			jtdh = #{jtdh},
@@ -400,9 +401,64 @@
 			c.XZ as xz ,d.xxmc as xxmc, b.xsxy as xsxy ,b.xszy as xszy, c.zyfx as zyfx , c.szbj as szbj,
 			c.pyfs as pyfs , c.wpdw as wpdw , c.KNSLB  as knslb , c.SFSLB as sfslb,
 			a.sjh as sjh , a.yx as yx ,c.QQHM as qqhm , c.JTDH as jtdh ,c.JTYB as jtyb,
-			c.JTDZ as jtdz
+			c.JTDZ as jtdz,c.exp1 as exp1
 		from bckj_biz_yhxx a ,bckj_biz_yhkz b ,bckj_biz_syb c,bckj_biz_jyscheme d
-		where a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh
+		<where>
+			a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh
+			<if test="xm!=null and xm!=''">
+				and  a.xm like CONCAT('%',#{xm},'%')
+			</if>
+			<if test="zyfx!=null and zyfx!=''">
+				and  c.zyfx like CONCAT('%',#{zyfx},'%')
+			</if>
+			<if test="knslb!=null and knslb!=''">
+				and  c.knslb like CONCAT('%',#{knslb},'%')
+			</if>
+			<if test="pyfs!=null and pyfs!=''">
+				and  c.pyfs like CONCAT('%',#{pyfs},'%')
+			</if>
+			<if test="cxsy!=null and cxsy!=''">
+				and  c.cxsy like CONCAT('%',#{cxsy},'%')
+			</if>
+			<if test="xz!=null and xz!=''">
+				and  c.xz like CONCAT('%',#{xz},'%')
+			</if>
+			<if test="xlcc!=null and xlcc!=''">
+				and  c.xlcc like CONCAT('%',#{xlcc},'%')
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and  b.xsxh like CONCAT('%',#{xsxh},'%')
+			</if>
+			<if test="szbj!=null and szbj!=''">
+				and  c.szbj like CONCAT('%',#{szbj},'%')
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and  b.xsxy like CONCAT('%',#{xsxy},'%')
+			</if>
+
+			<if test="sjh!=null and sjh!=''">
+				and  a.sjh like CONCAT('%',#{sjh},'%')
+			</if>
+			<if test="zzmm!=null and zzmm!=''">
+				and  c.zzmm like CONCAT('%',#{zzmm},'%')
+			</if>
+			<if test="sfrx!=null and sfrx!=''">
+				and  c.sfrx like CONCAT('%',#{sfrx},'%')
+			</if>
+			<if test="ksh!=null and ksh!=''">
+				and  c.ksh like CONCAT('%',#{ksh},'%')
+			</if>
+			<if test="sfz!=null and sfz!=''">
+				and  a.sfz like CONCAT('%',#{sfz},'%')
+			</if>
+			<if test="mz!=null and mz!=''">
+				and  a.mz like CONCAT('%',#{mz},'%')
+			</if>
+			<if test="syd!=null and syd!=''">
+				and  c.syd like CONCAT('%',#{syd},'%')
+			</if>
+		</where>
+			order  by xsxh asc
 	</select>
 
 
@@ -420,6 +476,13 @@
 		from bckj_biz_yhxx a ,bckj_biz_yhkz b ,bckj_biz_syb c,bckj_biz_jyscheme d
 		where a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh and a.owid=#{owid}
 	</select>
+
+
+	<select id="getBynfByXsxh" parameterType="Map" resultType="Map">
+		select bynf from  bckj_biz_syb
+		where xh=#{xsxh}
+	</select>
+
 
 
 </mapper>

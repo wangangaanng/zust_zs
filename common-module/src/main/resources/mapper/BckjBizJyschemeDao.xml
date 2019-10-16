@@ -459,7 +459,7 @@
 		d.bdjssj AS bdjssj, d.bdzbh AS bdzbh , e.xjcqk AS xjcqk, d.datdxxdz AS datdxxdz,
 		d.datddw AS datddw, d.hkqydz AS hkqydz, d.dwlxr AS dwlxr, d.dwdh AS dwdh, d.sfzydk AS sfzydk,
 		d.dwlbmc AS dwlbmc, d.bdzlsh AS bdzlsh, d.bzone AS bzone, d.bztwo AS bztwo, d.bzthree AS bzthree,
-		d.bdzbz as bdzbz, d.sfdydwbdz as sfdydwbdz
+		d.bdzbz as bdzbz, d.sfdydwbdz as sfdydwbdz ,d.exp1 as exp1
 		FROM `bckj_biz_yhxx` a ,`bckj_biz_yhkz` b,bckj_biz_syb c , bckj_biz_jyscheme d , bckj_biz_jypuchong e ,bckj_biz_studentinfo f
 		<where>
 			 a.owid = b.`YH_REF_OWID` AND b.`OLX`=0 and a.yhlx=1 and b.xsxh=c.xh and b.xsxh=d.xsxh and b.xsxh=e.xsxh and b.xsxh=f.xsxh
@@ -469,14 +469,14 @@
 			<if test="xsxh!=null and xsxh!=''">
 				and  b.xsxh like CONCAT('%',#{xsxh},'%')
 			</if>
-			<if test="sfz!=null and sfz!=''">
-				and  a.sfz like CONCAT('%',#{sfz},'%')
-			</if>
 			<if test="xxmc!=null and xxmc!=''">
 				and  d.xxmc like CONCAT('%',#{xxmc},'%')
 			</if>
 			<if test="xszy!=null and xszy!=''">
 				and  b.xszy like CONCAT('%',#{xszy},'%')
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and  b.xsxy like CONCAT('%',#{xsxy},'%')
 			</if>
 			<if test="xsbj!=null and xsbj!=''">
 				and  b.xsbj like CONCAT('%',#{xsbj},'%')
@@ -487,8 +487,8 @@
 			<if test="bdzbh!=null and bdzbh!=''">
 				and  d.bdzbh like CONCAT('%',#{bdzbh},'%')
 			</if>
-			<if test="xsxy!=null and xsxy!=''">
-				and  b.xsxy like CONCAT('%',#{xsxy},'%')
+			<if test="sfz!=null and sfz!=''">
+				and  a.sfz like CONCAT('%',#{sfz},'%')
 			</if>
 			<if test="bdzlsh!=null and bdzlsh!=''">
 				and  d.bdzlsh like CONCAT('%',#{bdzlsh},'%')
@@ -534,6 +534,19 @@
 		</where>
 	</select>
 
+
+	<select id="getDicVall" resultType="java.lang.String">
+		SELECT a.dic_val2
+		FROM ourway_sys_dic b,ourway_sys_dic_value a
+		<where>
+			b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val1 = #{val}
+		</where>
+	</select>
+
+
+
+
+
 	<update id="updateJyscheme"  parameterType="BckjBizJyscheme">
 		UPDATE bckj_biz_jyscheme SET
 			xxmc=#{xxmc},
@@ -562,7 +575,8 @@
 			bztwo=#{bztwo},
 			bzthree=#{bzthree},
 			sfdydwbdz=#{sfdydwbdz},
-			bdzbz=#{bdzbz}
+			bdzbz=#{bdzbz},
+			exp1=#{exp1}
 		WHERE yh_ref_owid = #{yhRefOwid}
 	</update>
 

@@ -310,7 +310,7 @@ var getList4 = function (that, lx) {
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      if (res.data.bean.records.length>0){
+      if (res.data.bean.records){
         for (var i = 0; i < res.data.bean.records.length; i++) {
           var obj = {};
           var object = res.data.bean.records[i];

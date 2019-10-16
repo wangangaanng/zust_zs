@@ -1,0 +1,15 @@
+<!--pages/auth/auth.wxml-->
+<view class='stu-h'>
+  <view class='ellipse'>
+  </view>
+  <view class='stu-h-m'>
+    <view class='stu-sinfo'>
+      <view class='stu-tx'>
+        <image src='../../static/headImg.png'></image>
+      </view>
+      <!-- <view class='stu-name'>张东西</view> -->
+    </view>
+    <image class='bg-wave' src='../../static/bg-wave.png'></image>
+  </view>
+</view>
+  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="getInfo">微信登录</button>

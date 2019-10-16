@@ -17,6 +17,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      ksdt: new Date()
+    })
     if(options.owid){
       this.setData({
         owid: options.owid,
@@ -100,8 +103,8 @@ Page({
     var data = {
       dcwjRefOwid: this.data.owid,
       answerList: arr,
-      "ksdt": "",
-      "jsdt": "",
+      "ksdt": common.formatTime(this.data.ksdt),
+      "jsdt": common.formatTime(new Date()),
       "dtrId": wx.getStorageSync("yhOwid"),
     };
     ajax('zustcommon/bckjBizDcwj/submit', data, function (res) {

@@ -3,6 +3,7 @@ package com.zghzbckj.manage.service;
 import com.ourway.base.utils.MapUtils;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.CommonDao;
+import com.zghzbckj.manage.entity.BckjBizJyscheme;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,13 +134,13 @@ public class CommonService {
     }
 
     /**
-     *<p>方法:职来职往等折线图列表 getLineChart TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/10/13 16:47  </li>
-     *</ul>
+     * <p>方法:职来职往等折线图列表 getLineChart TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/10/13 16:47  </li>
+     * </ul>
      */
     public Map<String, Object> getLineChart(Map<String, Object> dataMap) {
         Map<String, Object> result = new HashMap<>();
@@ -154,13 +155,13 @@ public class CommonService {
     }
 
     /**
-     *<p>方法:受关注职位、企业柱状图统计 getBarChart TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/10/14 11:37  </li>
-     *</ul>
+     * <p>方法:受关注职位、企业柱状图统计 getBarChart TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/10/14 11:37  </li>
+     * </ul>
      */
     public Map<String, Object> getBarChart(Map<String, Object> dataMap) {
         Map<String, Object> result = new HashMap<>();
@@ -181,13 +182,13 @@ public class CommonService {
     }
 
     /**
-     *<p>方法:生源地列表 getMapList TODO </p>
-     *<ul>
-     *<li> @param dataMap TODO</li>
-     *<li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/10/15 19:37  </li>
-     *</ul>
+     * <p>方法:生源地列表 getMapList TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/10/15 19:37  </li>
+     * </ul>
      */
     public List<Map<String, Object>> getMapList(Map<String, Object> dataMap) {
         List<BckjBizSyb> list = commonDao.getMapList(dataMap);
@@ -218,6 +219,29 @@ public class CommonService {
             }
         }
         return mapList;
+    }
+
+    /**
+     * <p>方法:毕业生流向图 getGraduationMapList TODO </p>
+     * <ul>
+     * <li> @param dataMap TODO</li>
+     * <li>@return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/10/16 15:12  </li>
+     * </ul>
+     */
+    public List<List<Map<String, Object>>> getGraduationMapList(Map<String, Object> dataMap) {
+        List<Map<String, Object>> jyschemeList = commonDao.getGraduationMapList(dataMap);
+        List<List<Map<String, Object>>> resultList = new ArrayList<>();
+        Map<String, Object> fromMap = new HashMap<>(1);
+        fromMap.put("name", "杭州");
+        for (Map<String, Object> jyscheme : jyschemeList) {
+            List<Map<String, Object>>  dataList = new ArrayList<>(2);
+            dataList.add(fromMap);
+            dataList.add(jyscheme);
+            resultList.add(dataList);
+        }
+        return resultList;
     }
 
 }
