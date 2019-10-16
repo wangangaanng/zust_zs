@@ -17,7 +17,7 @@ function getOne() {
         })
 }
 
-function showStudentInfo1() {
+function showStudentInfo2() {
     if(!isTimeOut()) {
         $('#table-job').bootstrapTable('destroy');
         $('#table-job').bootstrapTable({
@@ -74,12 +74,12 @@ function showStudentInfo1() {
                 title: '联系人',
             }, {
                 align: 'center',
-                field: 'gzsj',
-                title: '关注时间',
+                field: 'bmsj',
+                title: '报名时间',
                 formatter: function (value, row, index) {
                     var value = ""
-                    if (row.gzsj) {
-                        value = row.gzsj.substring(0, 10);
+                    if (row.bmsj) {
+                        value = row.bmsj.substring(0, 10);
                     } else {
                         value = "-"
                     }
@@ -98,7 +98,7 @@ function showStudentInfo1() {
     }
 }
 
-function showStudentInfo2() {
+function showStudentInfo1() {
     if(!isTimeOut()) {
         $('#table-job1').bootstrapTable('destroy');
         $('#table-job1').bootstrapTable({
@@ -188,15 +188,15 @@ function tabs(a) {
         $("#nav-tabs-job li").removeClass("active")
         $("#nav-tabs-job li").eq(1).addClass("active")
         $("#jobInfo").hide();
-        $("#stuList1").hide();
-        $("#stuList").show();
+        $("#stuList").hide();
+        $("#stuList1").show();
 
     }else if(a==2){
         showStudentInfo2()
         $("#nav-tabs-job li").removeClass("active")
         $("#nav-tabs-job li").eq(2).addClass("active")
         $("#jobInfo").hide();
-        $("#stuList").hide();
-        $("#stuList1").show();
+        $("#stuList1").hide();
+        $("#stuList").show();
     }
 }

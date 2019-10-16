@@ -35,6 +35,7 @@
   </view>
   </block>
 </view>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
 </scroll-view>
 <view class="float-btn" bindtap="shenqin">我要申请</view>
 

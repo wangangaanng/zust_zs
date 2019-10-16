@@ -4,6 +4,8 @@
     "van-swipe-cell": "vant-weapp/swipe-cell",
     "van-button": "vant-weapp/button",
     "van-dialog": "vant-weapp/dialog",
-    "van-icon": "vant-weapp/icon"
+    "van-icon": "vant-weapp/icon",
+    "van-search": "vant-weapp/search",
+    "van-divider": "vant-weapp/divider"
   }
 }

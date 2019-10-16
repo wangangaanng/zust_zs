@@ -155,7 +155,6 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
-    options.owid ='16922'
     if (options.owid) {
       getContent(this, options.owid);
     }

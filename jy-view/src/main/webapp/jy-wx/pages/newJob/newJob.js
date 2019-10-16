@@ -8,9 +8,6 @@ var imgPath = app.globalData.imgPath;
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     minDate: new Date().getTime(),
     imgPath: imgPath,
@@ -20,7 +17,6 @@ Page({
     zwXlyqColumns: [],
     zwGznxColumns: [],
     zwYyyqColumns: [],
-    
     show: {
       bottom: false,
       gzzn: false,
@@ -151,7 +147,7 @@ Page({
       },
       zwGwzz: {
         required: true,
-        maxlength: "职位详情不得超过200字",
+        maxlength: 200,
       },
     }
 
@@ -199,7 +195,7 @@ Page({
       },
       zwGwzz: {
         required: '请填写职位详情',
-        maxlength: 200,
+        maxlength: "职位详情不得超过200字",
       }
 
     }
@@ -356,14 +352,6 @@ Page({
       }
     });
 
-  },
-  preview() {
-    var previewImageList = [];
-    var image = this.data.imgPath + this.data.form.qyYyzzzp;
-    previewImageList.push(image)
-    wx.previewImage({
-      urls: previewImageList // 需要预览的图片http链接列表
-    })
   },
   /**
    * 生命周期函数--监听页面隐藏

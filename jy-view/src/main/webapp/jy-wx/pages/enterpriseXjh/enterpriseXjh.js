@@ -12,7 +12,6 @@ Page({
     pageSize: 20,
     pageNo: 1,
     totalPage: '',
-    totalCount:2,
     xjhList: [],
     key:''
   },
@@ -122,17 +121,15 @@ var myBmList = function (that, lx) {
       //   obj.gzxz = object.zwGzxzStr;
       //   arr.push(obj);
       // }
-      var xjhList
+      var xjhList;
       if (res.data.bean.records && res.data.bean.records.length>0){
         xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
      
       var totalPage = res.data.bean.totalPage;
-      var totalCount = res.data.bean.totalCount;
       that.setData({
         xjhList: xjhList,
-        totalPage: totalPage,
-        totalCount: totalCount
+        totalPage: totalPage
       })
     } else {
       wx.showToast({
