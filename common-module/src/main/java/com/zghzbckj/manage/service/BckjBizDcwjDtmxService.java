@@ -73,34 +73,6 @@ public class BckjBizDcwjDtmxService extends CrudService<BckjBizDcwjDtmxDao, Bckj
         super.delete(bckjBizDcwjDtmx);
     }
 
-    public PageInfo<Map<String, Object>> findResultPage(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
-        PageInfo<BckjBizDcwjDtmx> mxPage = findPage(dataMap, pageNo, pageSize, "createtime");
-        if (TextUtils.isEmpty(mxPage.getRecords())) {
-            return null;
-        }
-        List<BckjBizDcwjDtmx> mxList = mxPage.getRecords();
-        List<Map<String, Object>> dataList = new ArrayList<>();
-        for (BckjBizDcwjDtmx mx : mxList) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("wjda", mx.getWjda());
-            BckjBizDcwjTm tm = bckjBizDcwjTmDao.get(mx.getDcwjtmRefOwid());
-            if (TextUtils.isEmpty(tm)) continue;
-            map.put("wjtm", tm.getTmmc());
-            BckjBizDcwj dcwj = bckjBizDcwjDao.get(tm.getDcwjRefOwid());
-            if (TextUtils.isEmpty(dcwj)) continue;
-            map.put("wjmc", dcwj.getWjmc());
-            dataList.add(map);
-        }
-        PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
-        pageInfo.setRecords(dataList);
-        pageInfo.setPageSize(mxPage.getPageSize());
-        pageInfo.setCurrentPage(mxPage.getCurrentPage());
-        pageInfo.setTotalPage(mxPage.getTotalPage());
-        pageInfo.setTotalCount(mxPage.getTotalCount());
-        pageInfo.setCurrentIndex(mxPage.getCurrentIndex());
-        return pageInfo;
-    }
-
     /**
      * <p>方法:findPagebckjBizDcwjDtmx TODO后台BckjBizDcwjDtmx分页列表</p>
      * <ul>

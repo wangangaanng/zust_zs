@@ -42,6 +42,30 @@
 		<include refid="bckjBizDcwjDtmxJoins"/>
 		where a.dcwjjg_ref_owid=#{dcwjjgRefOwid}
 	</select>
+	
+	<select id="countDtmx" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM bckj_biz_dcwj_dtmx a
+		<where>
+			<if test="dcwjtmRefOwid != null and dcwjtmRefOwid != ''">
+				AND a.dcwjtm_ref_owid=#{dcwjtmRefOwid}
+			</if>
+			<if test="wjda != null and wjda != ''">
+				AND a.wjda LIKE CONCAT('%',#{wjda},'%')
+			</if>
+		</where>
+	</select>
+
+	<select id="listDtmxByDcwj" resultType="com.zghzbckj.manage.entity.BckjBizDcwjDtmx">
+		SELECT a.*
+		FROM bckj_biz_dcwj_dtmx a, bckj_biz_dcwj_tm b
+		<where> a.dcwjtm_ref_owid=b.owid
+			<if test="dcwjRefOwid != null and dcwjRefOwid != ''">
+				AND b.dcwj_ref_owid=#{dcwjRefOwid}
+			</if>
+		</where>
+		GROUP BY a.dcwjjg_ref_owid
+	</select>
 
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjDtmx">
 		SELECT 

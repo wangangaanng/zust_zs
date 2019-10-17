@@ -45,4 +45,8 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     void updateSyscheme(BckjBizYhxx bckjBizYhxx);
 
     Map<String, Object> queryDocument(Map<String, Object> dataMap);
+
+    List<Map> getYhxxGzInfo(Map<String, Object> dataMap);
+
+    List<Map> getYhxxBmInfo(Map<String, Object> dataMap);
 }
