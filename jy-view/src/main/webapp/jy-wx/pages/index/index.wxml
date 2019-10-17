@@ -2,12 +2,12 @@
 <swiper class='index-swiper' indicator-dots="true" autoplay="true" indicator-color="#ffffff" indicator-active-color="#008783">
   <block wx:for="{{imgUrls}}" wx:key="{{index}}">
     <swiper-item>
-      <image src='{{imgPath+item.tpjj}}'></image>
+      <image src='{{imgPath+item.tpjj}}' data-owid="{{item.owid}}" bindtap="newsDetail"></image>
     </swiper-item>
   </block>
 </swiper>
 <van-grid square>
-  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-index="{{index}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-index="{{index}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}" wx:key=""></van-grid-item>
 </van-grid>
 <view class="float-btn" bindtap="url1">联系我们</view>
 <image src='../../static/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
@@ -15,14 +15,15 @@
   <van-tab title="最新职位">
     <view class="uni-list">
       <block wx:for="{{newsList1}}" wx:key="{{index}}">
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
 					<view class="uni-media-list">
             <view class="news-date">
               <span>{{item.date}}</span>
               <em>{{item.year}}</em>
             </view>
 						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+              <view class="uni-media-list-text-top" wx:if="{{item.old==1}}"><span class="tag-grey">过期</span>{{item.zwbt}}</view>
+              <view class="uni-media-list-text-top" wx:else>{{item.zwbt}}</view>
 							<view class="uni-media-list-text-content">
 							公司名称：{{item.qymc}}
 							</view>
@@ -42,14 +43,15 @@
   <van-tab title="企业招聘">
     <view class="uni-list">
       <block wx:for="{{newsList2}}" wx:key="{{index}}">
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
 					<view class="uni-media-list">
             <view class="news-date">
               <span>{{item.date}}</span>
               <em>{{item.year}}</em>
             </view>
 						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+							<view class="uni-media-list-text-top" wx:if="{{item.old==1}}"><span class="tag-grey">过期</span>{{item.zwbt}}</view>
+              <view class="uni-media-list-text-top" wx:else>{{item.zwbt}}</view>
 							<view class="uni-media-list-text-bottom">
 								<view class="uni-media-list-text-bottom-left">工作城市：{{item.city}}</view>
 							</view>
@@ -63,14 +65,15 @@
   <van-tab title="招聘会信息">
     <view class="uni-list">
       <block wx:for="{{newsList3}}" wx:key="{{index}}">
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
 					<view class="uni-media-list">
             <view class="news-date">
               <span>{{item.date}}</span>
               <em>{{item.year}}</em>
             </view>
 						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+							<view class="uni-media-list-text-top" wx:if="{{item.old==1}}"><span class="tag-grey">过期</span>{{item.zwbt}}</view>
+              <view class="uni-media-list-text-top" wx:else>{{item.zwbt}}</view>
 							<view class="uni-media-list-text-content">
 							举办地点：{{item.zphJbdd}}
 							</view>
@@ -87,14 +90,15 @@
   <van-tab title="宣讲会信息">
     <view class="uni-list">
       <block wx:for="{{newsList4}}" wx:key="{{index}}">
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
 					<view class="uni-media-list">
             <view class="news-date">
               <span>{{item.date}}</span>
               <em>{{item.year}}</em>
             </view>
 						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top">{{item.zwbt}}</view>
+							<view class="uni-media-list-text-top" wx:if="{{item.old==1}}"><span class="tag-grey">过期</span>{{item.zwbt}}</view>
+              <view class="uni-media-list-text-top" wx:else>{{item.zwbt}}</view>
 							<view class="uni-media-list-text-content">
 							举办地点：{{item.zphJbdd}}
 							</view>
