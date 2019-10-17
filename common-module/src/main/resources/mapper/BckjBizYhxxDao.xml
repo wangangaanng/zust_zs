@@ -505,7 +505,18 @@
 <select id="queryDocument" parameterType="Map" resultType="Map">
 	SELECT a.owid as owid  from
 	bckj_biz_yhxx a, bckj_biz_yhkz b
-	where a.sfz=#{sfz} and b.xsxh=#{xsxh} and a.owid=b.yh_ref_owid
+	<where>
+		a.owid=b.yh_ref_owid
+		<if test="sfz!=null and sfz!=''">
+			and a.sfz=#{sfz}
+		</if>
+		<if test="xsxh!=null and xsxh!=''">
+			and b.xsxh=#{xsxh}
+		</if>
+		<if test ="xsxm!=null and xsxm!=''">
+			and a.xm=#{xsxm}
+		</if>
+	</where>
 </select>
 
 </mapper>

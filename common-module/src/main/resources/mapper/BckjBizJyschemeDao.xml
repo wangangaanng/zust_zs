@@ -539,7 +539,7 @@
 		SELECT a.dic_val2
 		FROM ourway_sys_dic b,ourway_sys_dic_value a
 		<where>
-			b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val1 = #{val}
+			b.owid=a.dic_ref_owid and b.type=#{type} and a.dic_val1 = #{val1}
 		</where>
 	</select>
 

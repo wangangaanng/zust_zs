@@ -426,6 +426,13 @@ public class BckjBizYhxxController extends BaseController {
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+    @PostMapping("getYhxxInfo")
+    @ResponseBody
+    public ResponseMessage getYhxxInfo(PublicDataVO dataVO){
 
+
+return null;
+
+    }
 
 }

@@ -364,5 +364,15 @@
 				where  b.owid =#{jobOwid} and c.job_ref_owid = b.owid
 	</select>
 
+	<select id="getZlzwInfo" resultType="Map">
+
+	</select>
+
+	<select id="getXjhInfo" resultType="Map">
+
+	</select>
+
+
+
 
 </mapper>
