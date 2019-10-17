@@ -502,11 +502,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 job.setZdytj3(bm.getZdytj3());
                 job.setZdytj4(bm.getZdytj4());
                 job.setZdytj5(bm.getZdytj5());
-                job.setTjsd1(bm.getTjsd1());
-                job.setTjsd2(bm.getTjsd2());
-                job.setTjsd3(bm.getTjsd3());
-                job.setTjsd4(bm.getTjsd4());
-                job.setTjsd5(bm.getTjsd5());
+//                job.setTjsd1(bm.getTjsd1());
+//                job.setTjsd2(bm.getTjsd2());
+//                job.setTjsd3(bm.getTjsd3());
+//                job.setTjsd4(bm.getTjsd4());
+//                job.setTjsd5(bm.getTjsd5());
                 jobService.saveOrUpdate(job);
                 if (!TextUtils.isEmpty(mapData.get("memo"))) {
                     bm.setMemo(mapData.get("memo").toString());
