@@ -13,6 +13,7 @@ import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.manage.dao.BckjBizDcwjTmDao;
 import com.zghzbckj.manage.service.BckjBizDcwjDtmxService;
 import com.zghzbckj.manage.service.BckjBizDcwjJgService;
+import com.zghzbckj.manage.service.BckjBizDcwjTmService;
 import com.zghzbckj.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,6 +43,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     BckjBizDcwjJgService bckjBizDcwjJgService;
     @Autowired
     BckjBizDcwjTmDao bckjBizDcwjTmDao;
+    @Autowired
+    BckjBizDcwjTmService bckjBizDcwjTmService;
 
     private Map<String, Object> map = new HashMap<>();
 
@@ -80,8 +83,6 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getResultList(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            dataMap.put("dcwjRefOwid", dataMap.get("owid"));
             PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(map, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
@@ -103,9 +104,6 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @PostMapping(value = "listQuestionName")
     @ResponseBody
     public ResponseMessage listQuestionName(PublicDataVO dataVO) {
-        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-//        dataMap.put("dcwjRefOwid", dataMap.get("owid"));
-        dataMap.put("dcwjRefOwid", "a2d7439e145b4ca8ad0c7519c37c46a4");
         List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(map, "dcwjRefOwid"));
         if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
@@ -121,6 +119,18 @@ public class BckjBizDcwjDtmxController extends BaseController {
             result.add(objectMap);
         }
         return ResponseMessage.sendOK(result);
+    }
+
+    @PostMapping(value = "listWjda")
+    @ResponseBody
+    public ResponseMessage getListWjda(PublicDataVO dataVO) {
+        try {
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjTmService.findQuestionResultList(map, dataVO.getPageNo(), dataVO.getPageSize());
+            return ResponseMessage.sendOK(pageInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
     }
 
     @RequestMapping(value = "/getList")
