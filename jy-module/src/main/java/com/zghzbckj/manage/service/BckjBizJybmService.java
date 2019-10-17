@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -12,6 +13,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.feign.BckjBizYhxxSer;
 import com.zghzbckj.manage.dao.BckjBizJybmDao;
+import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
@@ -40,6 +42,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
     BckjBizJobService jobService;
     @Autowired
     BckjBizYhxxSer bckjbizyhxxSer;
+    @Autowired
+    BckjBizQyxxDao qyxxDao;
 
     @Override
     public BckjBizJybm get(String owid) {
@@ -130,6 +134,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             String date = DateUtil.getAfterDate(dataMap.get("xjsj2").toString(), 1);
             dataMap.put("xjsj2", date);
         }
+        if (!TextUtils.isEmpty(map.get("wait"))) {
+            dataMap.put("wait", map.get("wait").toString());
+        }
         PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
@@ -199,7 +206,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
     @Transactional(readOnly = false)
     public Map applyJob(Map<String, Object> mapData) {
         BckjBizJob job = new BckjBizJob();
-        //0报名 1宣讲 2职位
+        //0 招聘会  1 宣讲会2职位
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         Map resultMap = new HashMap<>(2);
         BckjBizJybm jybm = new BckjBizJybm();
@@ -223,8 +230,6 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             if (!TextUtils.isEmpty(jybm.getZdytj5()) && !TextUtils.isEmpty(jybm.getTjsd5())) {
                 jybm.setZdytj5(jybm.getZdytj5() + "：" + jybm.getTjsd5());
             }
-
-
 
 
             jybm.setBmsj(new Date());
@@ -336,6 +341,41 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             if (JyContant.BMDX_ZW == bmdx) {
                 jybm.setState(JyContant.JOB_ZT_TG);
             }
+            //宣讲会会自动审核开关//审核开关 0表示关 1表示开
+            if (JyContant.BMDX_XJH == bmdx) {
+                String flag = com.zghzbckj.base.util.CacheUtil.getVal(JyContant.KG + JyContant.XJHSH);
+                if (!com.zghzbckj.util.TextUtils.isEmpty(flag) && "1".equals(flag)) {
+                    // 查询字典表 筛选拒绝
+                    Map params = Maps.newHashMap();
+                    params.put("type", JyContant.ZDYTJ);
+                    List<Map> dicList = new ArrayList<>();
+                    dicList = qyxxDao.queryDicList(params);
+                    boolean isFlag = true;
+                    if (!TextUtils.isEmpty(dicList) && dicList.size() > 0) {
+                        for (Map map : dicList) {
+                            if (!TextUtils.isEmpty(map.get("dic_val2")) && !TextUtils.isEmpty(map.get("dic_val3")) && !TextUtils.isEmpty(map.get("dic_val4"))) {
+                                String zdytj = map.get("dic_val2").toString();
+                                String zdyjg = map.get("dic_val3").toString();
+                                String bzda = map.get("dic_val4").toString();
+                                for (int k = 1; k <= 5; k++) {
+                                    Object tj = mapData.get("zdytj" + k);
+                                    Object jg = mapData.get("tjsd" + k);
+                                    if (!TextUtils.isEmpty(tj) && !TextUtils.isEmpty(jg)) {
+                                        if (tj.toString().equals(zdytj) && !bzda.equals(jg.toString())) {
+                                            isFlag = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        //拒绝
+                        if (!isFlag) {
+                            jybm.setState(2);
+                        }
+                    }
+
+                }
+            }
             saveOrUpdate(jybm);
         } catch (Exception e) {
             e.printStackTrace();
@@ -416,6 +456,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     resultMap.put("msg", "审核通过时请填写学校联系人电话");
                     return resultMap;
                 }
+                if ("1" == mapData.get("zphSfbm").toString() && TextUtils.isEmpty(mapData.get("zphBmjzsj"))) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", "请分配报名截止时间");
+                    return resultMap;
+                }
                 //如果是宣讲会，在职位表生成数据
                 BckjBizJob job = new BckjBizJob();
                 job.setQyxxRefOwid(bm.getQyxxRefOwid());
@@ -441,11 +486,15 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     job.setZphJbdd(mapData.get("zphJbdd").toString());
                 }
                 job.setZphJbf(bm.getQymc());
-                job.setZwbt(bm.getQymc() + "宣讲会");
+
                 job.setZphJtsj(mapData.get("zphJtsj").toString());
                 job.setZphCbf(JyContant.ZW_DD);
                 bm.setXjsj(mapData.get("xjsj").toString());
-                job.setZphKsrq(DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd"));
+                bm.setExp3(mapData.get("exp3").toString());
+                bm.setExp4(mapData.get("exp4").toString());
+                Date zphKsrq = DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd");
+                job.setZphKsrq(zphKsrq);
+                job.setZwbt(zphKsrq + "宣讲会" + bm.getQymc());
                 job.setState(JyContant.JOB_ZT_TG);
                 //自定义条件和结果
                 job.setZdytj1(bm.getZdytj1());
@@ -453,11 +502,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 job.setZdytj3(bm.getZdytj3());
                 job.setZdytj4(bm.getZdytj4());
                 job.setZdytj5(bm.getZdytj5());
-                job.setTjsd1(bm.getTjsd1());
-                job.setTjsd2(bm.getTjsd2());
-                job.setTjsd3(bm.getTjsd3());
-                job.setTjsd4(bm.getTjsd4());
-                job.setTjsd5(bm.getTjsd5());
+//                job.setTjsd1(bm.getTjsd1());
+//                job.setTjsd2(bm.getTjsd2());
+//                job.setTjsd3(bm.getTjsd3());
+//                job.setTjsd4(bm.getTjsd4());
+//                job.setTjsd5(bm.getTjsd5());
                 jobService.saveOrUpdate(job);
                 if (!TextUtils.isEmpty(mapData.get("memo"))) {
                     bm.setMemo(mapData.get("memo").toString());
@@ -488,6 +537,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             jybm.setZphJbdd(job.getZphJbdd());
             jybm.setZphJtsj(job.getZphJtsj());
             jybm.setZwbt(job.getZwbt());
+            jybm.setXxlxr(job.getExp3());
+            jybm.setXxlxrdh(job.getExp4());
         }
         return jybm;
     }

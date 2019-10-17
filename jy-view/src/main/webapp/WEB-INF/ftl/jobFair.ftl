@@ -211,11 +211,19 @@ var pageSize=10;
                     for(var a in data.bean[i-1]){
                         zdytjObj['zdytj'+i]=a
                         zdytjObj['tjsd'+i]=data.bean[i-1][a]
-                        console.log(a)
-                        console.log(data.bean[i-1][a])//zdytj1 tjsd1
-                        zdytjObj['str'+i]='<option value="">请选择</option>'
-                        for(var x=0;x<data.bean[i-1][a].length;x++){
-                            zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                        // zdytjObj['str'+i]='<option value="">请选择</option>'
+                        // for(var x=0;x<data.bean[i-1][a].length;x++){
+                        //     zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                        // }
+                        zdytjObj['str'+i]=''//'<option value="">请选择</option>'
+                        if(!data.bean[i-1][a] || data.bean[i-1][a].length==0){
+                            zdytjObj['str'+i]= '<input type="text" class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" placeholder="" autocomplete="off">';
+                        }else{
+                            zdytjObj['str'+i]='<select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" ><option value="">请选择</option>'
+                            for(var x=0;x<data.bean[i-1][a].length;x++){
+                                zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                            }
+                            zdytjObj['str'+i]+='</select>';
                         }
                     }
                 }
@@ -223,8 +231,8 @@ var pageSize=10;
                     zdytjStr+='<div class="row">\n' +
                             '     <div class="form-group">\n' +
                             '     <label for="zdytj'+i+'" class="col-sm-3 control-label text-right" style="line-height: 34px;">'+zdytjObj['zdytj'+i]+'<span class="red">*</span>：</label>\n' +
-                            '     <div class="col-sm-4">\n' +
-                            '          <select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" >'+zdytjObj['str'+i]+'</select>\n' +
+                            '     <div class="col-sm-4">\n' +zdytjObj['str'+i]+
+                            // '          <select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" >'+zdytjObj['str'+i]+'</select>\n' +
                             '     </div>\n' +
                             '     </div>\n' +
                             '     </div>\n'
@@ -281,7 +289,7 @@ var pageSize=10;
 
             for(var i=1;i<zdytjLength+1;i++){
                 if(!$("#tjsd"+i).val()){
-                    walert("请选择"+zdytjObj['zdytj'+i])
+                    walert("请填选"+zdytjObj['zdytj'+i])
                     return;
                 }
             }

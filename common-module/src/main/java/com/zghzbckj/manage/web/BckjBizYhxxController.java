@@ -371,7 +371,7 @@ public class BckjBizYhxxController extends BaseController {
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return bckjBizYhxxService.getStudentOne(dataMap);
+            return ResponseMessage.sendOK(bckjBizYhxxService.getStudentOne(dataMap));
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);

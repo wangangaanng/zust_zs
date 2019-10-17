@@ -293,11 +293,11 @@ public class DemoController {
 //        String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
         String zwlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("SJHQDX").toString();
         view.addObject("zwlx",zwlx);
-        if(zwlx.equals("1")){//职来职往
+        if(zwlx.equals("1")){//社会招聘会
             view.setViewName("recruitment");
         }else if(zwlx.equals("2")){//企业招聘公告
             view.setViewName("recruitmentQy");
-        }else if(zwlx.equals("3")){//社会招聘会
+        }else if(zwlx.equals("3")){//职来职往
             view.setViewName("recruitmentSh");
         }else if(zwlx.equals("4")){//宣讲会
             view.setViewName("recruitment");
@@ -506,14 +506,15 @@ public class DemoController {
         }
     }
 
-    @RequestMapping(value = "zphXq/{owid}", method = RequestMethod.GET)
-    public ModelAndView zphXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+    @RequestMapping(value = "zphXq/{owid}/{jobRefOwid}", method = RequestMethod.GET)
+    public ModelAndView zphXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid, @PathVariable String jobRefOwid) {
         String qyOwid=getCookieValue(request,"yhOwid");
         if(null!=qyOwid){
             view.setViewName("zphXq");
             view.addObject("header",getHeader().getBean());
             view.addObject("footer",getFooter().getBean());
             Map param=Maps.newHashMap();
+            view.addObject("jobRefOwid",jobRefOwid);
             param.put("owid",owid);
             PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJybm/getOne");
             ResponseMessage result  = UnionHttpUtils.doPosts(publicData);

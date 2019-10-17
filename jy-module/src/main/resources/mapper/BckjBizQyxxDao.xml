@@ -129,7 +129,7 @@
                 AND a.state = #{state}
             </if>
             <if test=" pass != null and pass != '' ">
-                AND a.state !=1
+                AND a.state !=1 AND a.state !=3
             </if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},'%')
@@ -342,7 +342,7 @@
     </select>
 
     <select id="queryDicList" resultType="java.util.Map">
-        SELECT a.dic_val2,a.dic_val3
+        SELECT a.dic_val2,a.dic_val3,a.dic_val4
         FROM ourway_sys_dic b,ourway_sys_dic_value a
         <where>
             b.owid=a.dic_ref_owid and b.type=#{type}

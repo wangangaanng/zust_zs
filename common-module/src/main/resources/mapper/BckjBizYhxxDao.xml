@@ -314,6 +314,12 @@
 				 <if test="sfz!=null and sfz!=''">
 					 and  a.sfz like CONCAT('%',#{sfz},'%')
 				 </if>
+				 <if test="zxmc!=null and zxmc!=''">
+					 and  d.zxmc like CONCAT('%',#{zxmc},'%')
+				 </if>
+				 <if test="xszy!=null and xszy!=''">
+					 and  b.xszy like CONCAT('%',#{xszy},'%')
+				 </if>
 				 <if test="pc!=null and pc!=''">
 					 and  d.pc like CONCAT('%',#{pc},'%')
 				 </if>
@@ -322,6 +328,12 @@
 				 </if>
 				 <if test="sjh!=null and sjh!=''">
 					 and  a.sjh like CONCAT('%',#{sjh},'%')
+				 </if>
+				 <if test="zzmm!=null and zzmm!=''">
+					 and  c.zzmm like CONCAT('%',#{zzmm},'%')
+				 </if>
+				 <if test="syd!=null and syd!=''">
+					 and  c.syd like CONCAT('%',#{syd},'%')
 				 </if>
 			 </where>
 			 order by b.xsxh asc
@@ -490,6 +502,10 @@
 			yx = #{yx}
 		WHERE owid = #{owid}
 	</update>
-
+<select id="queryDocument" parameterType="Map" resultType="Map">
+	SELECT a.owid as owid  from
+	bckj_biz_yhxx a, bckj_biz_yhkz b
+	where a.sfz=#{sfz} and b.xsxh=#{xsxh} and a.owid=b.yh_ref_owid
+</select>
 
 </mapper>

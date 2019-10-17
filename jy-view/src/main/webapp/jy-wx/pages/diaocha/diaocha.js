@@ -1,89 +1,31 @@
 // pages/diaocha/diaocha.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list: [
-      {
-        "dcwjRefOwid": "4e796e7a5d8b4524aa7c731b26e28ef1",
-        "tmlx": 2,
-        "tmsm": "http://pic68.nipic.com/file/20150601/8164280_104301508000_2.jpg",
-        "owid": "e6c143e55ba24444b0aa414d12e301ff",
-        "tmsx": 1,
-        "tmmc": "性别",
-        "ischeck":false,
-        "xxList": [
-          {
-            "bh": "A",
-            "ms": "男"
-          },
-          {
-            "bh": "B",
-            "ms": "女"
-          }
-        ],
-        "tmfz": 1
-      },
-      {
-        "dcwjRefOwid": "4e796e7a5d8b4524aa7c731b26e28ef1",
-        "tmlx": 3,
-        "tmsm": "http://www.zust.edu.cn/",
-        "owid": "e6d207a2e52440ed9a5da535aff24ba4",
-        "tmsx": 2,
-        "tmmc": "你是通过哪些途径了解到学校的",
-        "ischeck": false,
-        "xxList": [
-          {
-            "bh": "A",
-            "ms": "学院网站"
-          },
-          {
-            "bh": "B",
-            "ms": "所在省招生考试信息网"
-          },
-          {
-            "bh": "C",
-            "ms": "周围人推荐"
-          },
-          {
-            "bh": "D",
-            "ms": "微信公众号"
-          },
-          {
-            "bh": "E",
-            "ms": "贴吧"
-          },
-          {
-            "bh": "F",
-            "ms": "微博"
-          }
-        ],
-        "tmfz": 1
-      },
-      {
-        "dcwjRefOwid": "4e796e7a5d8b4524aa7c731b26e28ef1",
-        "tmlx": 1,
-        "owid": "d692e99c28304ea0aa2ceadd9b448c5a",
-        "tmsx": 3,
-        "tmmc": "关于本校你了解多少",
-        "ischeck": false,
-        "xxList": [
-          {
-            "bh": "A",
-            "ms": "输入框"
-          }
-        ]
-      }
-    ]
+    tips:'',
+    wjmx:'',
+    wjjj:'',
+    list:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      ksdt: new Date()
+    })
+    if(options.owid){
+      this.setData({
+        owid: options.owid,
+      })
+      getContent(this, options.owid);
+    }
   },
 
   /**
@@ -99,39 +41,129 @@ Page({
   onShow: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
+  checkboxchange(e){
+    for(var i=0;i<this.data.list.length;i++){
+      if (this.data.list[i].owid==e.currentTarget.id){
+        var da ="list["+i+"].da"
+        this.setData({
+          [da]: e.detail.value.join()
+        })
+      }
+    }
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
+  inputchange(e){
+    for (var i = 0; i < this.data.list.length; i++) {
+      if (this.data.list[i].owid == e.currentTarget.id) {
+        var da = "list[" + i + "].da"
+        this.setData({
+          [da]: e.detail.value
+        })
+      }
+    }
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
+  radiochange(e){
+    for (var i = 0; i < this.data.list.length;i++){
+      if (this.data.list[i].owid==e.currentTarget.id){
+        var da = "list[" + i + "].da"
+        this.setData({
+          [da]: e.detail.value
+        })
+      }
+    }
   },
+  submit() {
+    var that = this;
+    var arr = []
+    for (var i = 0; i < this.data.list.length; i++) {
+      this.data.list[i].ischeck = false
+      var obj = {}
+      obj.dcwjtmRefOwid = this.data.list[i].owid
+      obj.wjda = this.data.list[i].da
+      var ischeck = "list[" + i + "].ischeck"
+      if (this.data.list[i].da == "") {
+        this.setData({
+          [ischeck]: true
+        })
+      } else {
+        this.setData({
+          [ischeck]: false
+        })
+      }
+      arr.push(obj)
+    }
+    for (var i = 0; i < this.data.list.length; i++) {
+      if (this.data.list[i].ischeck == true){
+        wx.showToast({
+          title: '请填写完整',
+        })
+        return false;
+      }
+      
+    }
+    var data = {
+      dcwjRefOwid: this.data.owid,
+      answerList: arr,
+      "ksdt": common.formatTime(this.data.ksdt),
+      "jsdt": common.formatTime(new Date()),
+      "dtrId": wx.getStorageSync("yhOwid"),
+    };
+    ajax('zustcommon/bckjBizDcwj/submit', data, function (res) {
+      if (res.data.backCode == 0) {
+        wx.showToast({
+          title: '提交成功',
+        })
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
+      } else {
+        wx.showToast({
+          title: res.data.errorMess,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    })
 
   }
 })
+var getContent = function (that, owid) {
+  var data = { "dcwjRefOwid": owid, "yhOwid": wx.getStorageSync("yhOwid"), "wzbh": "1" };
+  common.ajax('zustcommon/bckjBizDcwj/dcwjDetail', data, function (res) {
+    if (res.data.backCode == 0) {
+      var list = res.data.bean.questionList
+      
+      var arr = [];
+      for (var i = 0; i < list.length; i++) {
+        var obj = {}
+        obj.owid = list[i].owid
+        obj.xxList = list[i].xxList
+        obj.tmlx = list[i].tmlx
+        obj.tmmc = list[i].tmmc
+        obj.tmsm = list[i].tmsm
+        obj.da = ""
+        obj.ischeck = false
+        arr.push(obj)
+      }
+      if (res.data.bean.tips){
+        wx.showModal({
+          title: '提示',
+          content: res.data.bean.tips,
+          showCancel:false,
+          success(res) {
+            
+          }
+        })
+      }
+      that.setData({
+        tips: res.data.bean.tips,
+        wjmc: res.data.bean.wjmc,
+        wjjj: res.data.bean.wjjj,
+        list: arr
+      })
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

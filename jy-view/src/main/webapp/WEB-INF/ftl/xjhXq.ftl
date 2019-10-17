@@ -40,8 +40,12 @@
         </div>
         <ul class="nav nav-tabs" id="nav-tabs-job">
             <li role="presentation" class="active"><a href="#" onclick="tabs(0)">宣讲会信息</a></li>
-            <li role="presentation"><a href="#" onclick="tabs(1)">报名学生</a></li>
-            <li role="presentation"><a href="#" onclick="tabs(2)">关注学生</a></li>
+            <#if result?? && result.state?? && result.state==1>
+            <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
+                <#if result.zphSfbm?? && result.zphSfbm==1>
+                <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+                </#if>
+            </#if>
         </ul>
         <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList">
             <div class="e-table" style="padding: 0 20px;">
@@ -51,7 +55,7 @@
 
             </div>
         </div>
-        <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 450px;" id="stuList1">
+        <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList1">
             <div class="e-table" style="padding: 0 20px;">
                 <table class="table table-hover" data-locale="zh-CN" id="table-job1" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
@@ -61,12 +65,13 @@
         </div>
         <div class="content-form" style="border-top:none;padding: 0;" id="jobInfo">
             <div class="position-detail" style="overflow: hidden;">
+                <#if result??>
                 <div class="position-head">
-                                    <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
-                                        <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
-                                    <#else >
-                                        <h1>${result.zwbt!''}</h1>
-                                    </#if>
+                    <#if (result.zwSxsj?exists)&&((result.zwSxsj)?date("yyyy-MM-dd HH:mm:ss") lt (.now)?date)>
+                        <h1><span class="tag-grey">过期</span>${result.zwbt!''}</h1>
+                    <#else >
+                        <h1>${result.zwbt!''}</h1>
+                    </#if>
                     <dl class="info">
                         <dt><a href="">宣讲会</a></dt>
                     </dl>
@@ -134,10 +139,13 @@
                     </#if>
                 </ul>
             </div>
+                </#if>
         </div>
     </div>
+    <#if result??>
     <input type="hidden" id="jobRefOwid" value="${result.jobRefOwid!''}">
     <input type="hidden" id="owid" value="${result.owid!''}">
+    </#if>
 
 <#include "com/footer.ftl">
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>

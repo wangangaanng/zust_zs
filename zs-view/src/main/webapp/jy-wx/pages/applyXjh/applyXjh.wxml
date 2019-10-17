@@ -1,0 +1,38 @@
+
+<form bindsubmit="submitForm">
+  <van-field input-align="right" value="{{form.lxr}}" name="lxr" label="联系人" placeholder="输入内容" required />
+<van-cell-group>
+  <van-field input-align="right" value="{{form.lxdh}}" name="lxdh" label="联系人手机" type="number" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.jkr}}" name="jkr" label="讲课人" placeholder="输入内容" required />
+  <van-cell required title="宣讲时间" value="{{xjsjStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
+  <van-popup show="{{ show.xjsj }}" position="bottom" custom-style="height: 540rpx" data-type="8" bind:close="hideBottom">
+  <van-datetime-picker
+    data-type="8"
+    value="{{xjsj}}"
+    type="datetime"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"
+    min-date="{{minDate}}"
+  />
+  </van-popup>
+  <van-field required value="{{form.xjhsqly}}" name="xjhsqly" required label="申请理由" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  <van-field required value="{{form.jkrjs}}" name="jkrjs" required label="讲课人介绍" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  <van-field required value="{{form.memo}}" name="memo" required label="备注" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  <block wx:for="{{list}}" wx:key="{{index}}">
+  <block wx:if="{{!item.isInput}}">
+  <van-cell required title="{{item.zdytj}}" value="{{item.str}}" is-link arrow-direction="down" data-type="{{item.xh}}" bind:click="showBottom" />
+  <van-popup show="{{ item.show }}" position="bottom" custom-style="height: 540rpx" data-type="{{item.xh}}" bind:close="hideBottom">
+    <van-picker show-toolbar title="{{item.zdytj}}" value-key="" columns="{{item.tjsd}}" data-type="{{item.xh}}" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+   </block>
+    <block wx:else>
+      <van-field input-align="right" value="{{item.val}}" data-xh="{{item.xh}}" bindinput="gettjsd" label="{{item.zdytj}}" placeholder="输入内容" required />
+   </block>
+  </block>
+  
+</van-cell-group>
+
+<input type="text" class="hiddenInput" name="xjsj" value="{{form.xjsj}}"></input>
+
+<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+</form>

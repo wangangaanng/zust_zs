@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "成功",
+  "usingComponents": {
+    "van-icon": "vant-weapp/icon"
+  }
+}

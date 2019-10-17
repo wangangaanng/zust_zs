@@ -35,17 +35,6 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     List<Object> showStudentInfoList(Map<String,Object> dataMap);
 
-    List<Object> showTeatchInfoList(Map<String,Object> dataMap);
-
-
-    List<String> getSfzList();
-
-    List<String> getSjhList();
-
-    BckjBizYhxx findBySjh(String sjh);
-
-    BckjBizYhxx findBySfz(String sfz);
-
 
     Map<String,Object> showStudentInfo(Map<String, Object> dataMap);
 
@@ -58,4 +47,6 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     void updateJyscheme(BckjBizYhxx bckjBizYhxx);
 
     void updateSyscheme(BckjBizYhxx bckjBizYhxx);
+
+    Map<String, Object> queryDocument(Map<String, Object> dataMap);
 }
