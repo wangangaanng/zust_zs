@@ -24,7 +24,7 @@
                 <div class="content-list">
                     <div class="search-group">
                         <table>
-                            <tr><th>关键词</th><th>所在城市</th><th>举办时间</th><th></th></tr>
+                            <tr><th>关键词</th><th>所在城市</th><th>举办日期</th><th></th></tr>
                             <tr>
                                 <td>
                                     <div class="input-group search-input">
@@ -163,26 +163,17 @@
                     title: '举办地点',
                 }, {
                     field: 'zphKsrq',
-                    title: '举办时间',
+                    title: '举办日期',
                     align : 'center',
                     formatter:function(value,row,index){
-                        if(row.zwlx==4){//宣讲会
-                            if(row.zphKsrq){
-                                var value=row.zphKsrq.substring(0,16);
-                                return value;
-                            }
-                        }else{
-                            if(row.zphKsrq){
-                                var value=row.zphKsrq.substring(0,10);
-                                return value;
-                            }
+                        if(row.zphKsrq){
+                            var value=row.zphKsrq.substring(0,10);
+                            return value;
                         }
-
-
                     }
                 },{
                     field: 'zphJtsj',
-                    title: '举办时长',
+                    title: '具体时间',
                     align : 'center',
                 }], //列设置
 

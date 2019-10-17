@@ -104,7 +104,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
             dataMap.put("createtime2", date);
-        } if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("zphKsrq2"))) {
+        }
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("zphKsrq2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("zphKsrq2").toString(), 1);
             dataMap.put("zphKsrq2", date);
         }
@@ -133,6 +134,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("over", 1);
         } else if (3 == state) {
             dataMap.put("bm", 1);
+        }
+        if (4 == state) {
+            dataMap.put("ddw", 1);
         }
         page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return ResponseMessage.sendOK(page);
@@ -214,7 +218,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 bckjBizJob.setQyxxRefOwid(qyxx.getOwid());
             }
         }
-
+        //待定位
+        if (!TextUtils.isEmpty(mapData.get("zphSfqd"))) {
+            if ("1".equals(mapData.get("zphSfqd")) && TextUtils.isEmpty(bckjBizJob.getZphGpsjd())) {
+                bckjBizJob.setExp5("1");
+            }
+        }
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
     }

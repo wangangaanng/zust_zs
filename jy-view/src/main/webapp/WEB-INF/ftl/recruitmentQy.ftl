@@ -163,7 +163,7 @@
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row.createtime) {
-                            var value = row.createtime.substring(0, 10);
+                            var value = row.createtime.substring(0, 16);
                             return value;
                         }
 

@@ -184,7 +184,6 @@ var getList = function (that, owid, isDetail, SJHQDX, index, pageNo) {
               }
             }
             if (object.zwSxsj) {
-              console.log(object.zwSxsj);
               var thetime = object.zwSxsj;
               var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
               if (d <= curDate) {
