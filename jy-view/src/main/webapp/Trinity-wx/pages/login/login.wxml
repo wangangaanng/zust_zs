@@ -21,5 +21,10 @@
   </view>
   <view class="button">
     <button>登录</button>
-  </view>  
+  </view>
+  <view class="foots">
+    <text>忘记密码?</text>
+    <text>|</text>
+    <text>快速注册></text>
+  </view>
 </view>
