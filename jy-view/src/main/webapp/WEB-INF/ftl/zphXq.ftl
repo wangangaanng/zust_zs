@@ -108,21 +108,6 @@
                     <#if result.zwbh?exists>
                         <li>展位：<span> ${result.zwbh!''}</span></li>
                     </#if>
-                    <#if result.jkr?exists>
-                        <li>讲课人：<span> ${result.jkr!''}</span></li>
-                    </#if>
-                    <#if result.xjsj?exists>
-                        <li>宣讲时间：<span> ${result.xjsj!''}</span></li>
-                    </#if>
-                    <#if result.jkrjs?exists>
-                        <li>讲课人介绍：<span> ${result.jkrjs!''}</span></li>
-                    </#if>
-                    <#if result.xjhsqly?exists>
-                        <li>申请理由：<span> ${result.xjhsqly!''}</span></li>
-                    </#if>
-                    <#if result.memo?exists>
-                        <li>备注：<span> ${result.memo!''}</span></li>
-                    </#if>
                     </ul>
                     <ul class="xInfo" style="width: 50%;float: left;">
                     <#if result.zdytj1?exists>

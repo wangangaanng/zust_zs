@@ -145,9 +145,7 @@ function applyXjh(){
         });
         laydate.render({
             elem: '#xjsj', //指定元素
-            type: 'datetime',
             min: 0,
-            format:'yyyy-MM-dd HH:mm'
         });
     }
 }

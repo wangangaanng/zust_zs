@@ -77,13 +77,15 @@
                     </dl>
                 </div>
                 <ul class="xInfo" style="width: 50%;float: left;">
-                    <#if result.zphKsrq?exists>
-                        <li>举办日期：<span>${result.zphKsrq?substring(0,16)}</span></li>
+                    <#if result.xjsj?exists>
+                        <li>宣讲日期：<span> ${result.xjsj!''}</span></li>
                     </#if>
                     <#if result.zphJtsj?exists>
                         <li>具体时间：<span> ${result.zphJtsj!''}</span></li>
                     </#if>
+                    <#if result.zphJbdd?exists>
                     <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                    </#if>
                     <#if result.zphBmjzsj?exists>
                         <li>报名截止时间：<span>${result.zphBmjzsj?substring(0,10)}</span></li>
                     </#if>
@@ -107,9 +109,6 @@
                     </#if>
                     <#if result.jkr?exists>
                         <li>讲课人：<span> ${result.jkr!''}</span></li>
-                    </#if>
-                    <#if result.xjsj?exists>
-                        <li>宣讲时间：<span> ${result.xjsj!''}</span></li>
                     </#if>
                     <#if result.jkrjs?exists>
                         <li>讲课人介绍：<span> ${result.jkrjs!''}</span></li>
