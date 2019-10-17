@@ -494,7 +494,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 bm.setExp4(mapData.get("exp4").toString());
                 Date zphKsrq = DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd");
                 job.setZphKsrq(zphKsrq);
-                job.setZwbt(zphKsrq + "宣讲会" + bm.getQymc());
+                job.setZwbt(DateUtil.getDateString(zphKsrq, "yyyy-MM-dd") + "宣讲会" + bm.getQymc());
                 job.setState(JyContant.JOB_ZT_TG);
                 //自定义条件和结果
                 job.setZdytj1(bm.getZdytj1());
