@@ -486,7 +486,12 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     job.setZphJbdd(mapData.get("zphJbdd").toString());
                 }
                 job.setZphJbf(bm.getQymc());
-
+                //待定位
+                if (!TextUtils.isEmpty(mapData.get("zphSfqd"))) {
+                    if ("1".equals(mapData.get("zphSfqd"))) {
+                        job.setExp5("1");
+                    }
+                }
                 job.setZphJtsj(mapData.get("zphJtsj").toString());
                 job.setZphCbf(JyContant.ZW_DD);
                 bm.setXjsj(mapData.get("xjsj").toString());
