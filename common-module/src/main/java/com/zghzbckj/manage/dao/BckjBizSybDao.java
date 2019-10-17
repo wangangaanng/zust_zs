@@ -32,4 +32,6 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
 
     Object getOne(String owid);
     Map<String,Object> getBynfByXsxh(Map<String,Object> dataMap);
+
+    String getOneByCondition(BckjBizSyb bckjBizSyb);
 }

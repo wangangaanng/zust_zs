@@ -252,6 +252,9 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             bckjBizYhxxService.updateSyscheme(bckjBizYhxx);
             bckjBizYhkzService.updateSyscheme(bckjBizYhkz);
             bckjBizStudentinfoService.updateSyscheme(bckjBizStudentinfo);
+            String sybOwid = this.dao.getOneByCondition(bckjBizSyb);
+            bckjBizSyb.setExp2("2");
+            bckjBizSyb.setOwid(sybOwid);
             this.dao.update(bckjBizSyb);
         }
         //否则为新建

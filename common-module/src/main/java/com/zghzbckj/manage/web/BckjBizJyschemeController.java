@@ -239,7 +239,7 @@ public class BckjBizJyschemeController extends BaseController {
     public  ResponseMessage queryDocument(PublicDataVO dataVO){
         try{
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xsxh", "sfz");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xsxm", "sfz");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
@@ -250,6 +250,7 @@ public class BckjBizJyschemeController extends BaseController {
                 if(TextUtils.isEmpty(resMap)){
                     return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.GetMessageFail);
                 }
+                dataMap.put("owid",dataMap.get("owid"));
                 return ResponseMessage.sendOK(bckjBizJyschemeService.queryDocument(dataMap));
             } else {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
