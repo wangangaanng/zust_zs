@@ -34,11 +34,11 @@ public class RecordInfo implements ComponentFileSer {
     //就业排行榜url
     public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
     //上传excela保存的本地地址
-   // public final String savePath = "/mnt/files/zjcFiles/excel/";
-    // public final String foundPath = "/mnt/files/zjcFiles/";
+    public final String savePath = "/mnt/files/zjcFiles/excel/";
+     public final String foundPath = "/mnt/files/zjcFiles/";
 
-    public final String FolderPath = "/mnt/files/zjcFiles/excel/";
-//    public final String FolderPath = "F:\\img\\";
+  /*  public final String FolderPath = "/mnt/files/zjcFiles/excel/";*/
+   /* public final String FolderPath = "F:\\img\\";*/
     //地区典表 导入
     public  final String dwszURL="web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -71,17 +71,20 @@ public class RecordInfo implements ComponentFileSer {
         }
         String result = "";
         String path = map.get("filePath").toString();
-       /* String foundfilePath = foundPath + path;*/  //线上路径
-       /* String savefilePath=savePath+path;*/
-       /* copyXsFile(foundfilePath,savefilePath);*/
+        String foundfilePath = foundPath + path;  //线上路径
+        String savefilePath=savePath+path;
+        copyXsFile(foundfilePath,savefilePath);
 
-        String filePath = FolderPath + path;  //本地上传路径
+        //String filePath = FolderPath + path;  //本地上传路径
         //添加后缀
-        copyFile(filePath);
+       /* copyFile(filePath);*/
         Map<String, Object> params = new HashMap<String, Object>();
-        if (!TextUtils.isEmpty(filePath)) {
-            params.put("path", filePath + ".xls");
+        if (!TextUtils.isEmpty(savefilePath)) {
+            params.put("path", savefilePath + ".xls");
         }
+       /* if (!TextUtils.isEmpty(filePath)) {
+            params.put("path", filePath + ".xls");
+        }*/
         try {
             result = JsonPostUtils.executeAPIAsString(params, url);
         } catch (Exception e) {

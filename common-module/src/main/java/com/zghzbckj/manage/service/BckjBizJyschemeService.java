@@ -244,7 +244,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         HashMap<Object, Object> jyPcMap = Maps.newHashMap();
         HashMap<Object, Object> studentInfoMap = Maps.newHashMap();
         if (list != null) {
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 //就业方案录入
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0);//学生学号/工号/税号
