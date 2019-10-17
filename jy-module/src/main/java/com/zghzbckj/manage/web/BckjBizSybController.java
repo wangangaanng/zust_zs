@@ -73,19 +73,7 @@ public class BckjBizSybController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage saveInfo(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断id是否为
-            BckjBizSyb syb = JsonUtil.map2Bean(mapData, BckjBizSyb.class);
-            return bckjBizSybService.saveBckjBizSyb(syb);
-        } catch (Exception e) {
-            log.error(e + "保存BckjBizSyb信息失败\r\n" + e.getStackTrace()[0], e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-        }
-    }
+
 
     @RequestMapping(value = "getOne", method = RequestMethod.POST)
     @ResponseBody
@@ -105,40 +93,8 @@ public class BckjBizSybController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "saveSyxx", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage saveSyxx(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            BckjBizSyb syb = JsonUtil.map2Bean(mapData, BckjBizSyb.class);
-            String validMess = doValid(syb);
-            if (!TextUtils.isEmpty(validMess)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, validMess);
-            }
-            //判断id是否为
-            return bckjBizSybService.saveBckjBizSyb(syb);
-        } catch (Exception e) {
-            log.error(e + "保存BckjBizSyb信息失败\r\n" + e.getStackTrace()[0], e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-        }
-    }
 
-    @RequestMapping(value = "getSyInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage getSyInfo(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "owid");
-            if (!validateMsg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
-            }
-            return ResponseMessage.sendOK(bckjBizSybService.getSyInfo(mapData));
-        } catch (Exception e) {
-            log.info("获取生源信息：" + e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
-        }
-    }
+
 
     private String doValid(BckjBizSyb syb) {
         if (TextUtils.isEmpty(syb.getXh())) {

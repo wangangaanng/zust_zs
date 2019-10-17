@@ -198,9 +198,12 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
             result.setDtrid(dataMap.get("dtrId").toString());
             result.setDtrxm(dataMap.get("dtrXm").toString());
+        } else {
+            result.setDtrxm("匿名用户");
         }
         //扩展字段保存调查问卷的owid，方便统计和判断
-        result.setExp1(dataMap.get("dcwjRefOwid").toString());
+        result.setExp1(MapUtils.getString(dataMap, "dcwjRefOwid"));
+        result.setExp2(MapUtils.getString(dataMap, "wjmc"));
         bckjBizDcwjJgService.save(result);
         for (Map<String, Object> map : answerList) {
             BckjBizDcwjDtmx answer = JsonUtil.map2Bean(map, BckjBizDcwjDtmx.class);

@@ -267,6 +267,18 @@
 			<if test="zjxm!=null and zjxm!=''">
 				and  b.zjxm like CONCAT('%',#{zjxm},'%')
 			</if>
+			<if test="szzy!=null and szzy!=''">
+				and  b.szzy like CONCAT('%',#{szzy},'%')
+			</if>
+			<if test="szxy!=null and szxy!=''">
+				and  b.szxy like CONCAT('%',#{szxy},'%')
+			</if>
+			<if test="zjzw!=null and zjzw!=''">
+				and  b.zjzw like CONCAT('%',#{zjzw},'%')
+			</if>
+			<if test="zjlxfs!=null and zjlxfs!=''">
+				and  b.zjlxfs like CONCAT('%',#{zjlxfs},'%')
+			</if>
 		</where>
 		order by b.zjxm desc
 	</select>
@@ -277,7 +289,7 @@
 			 a.zjxm=#{zjxm},
 		</if>
 		<if test="zjtx!= null and zjtx!=''">
-			a.zjtx=#{zjtx},
+			a.zjtx=#{zjtxbckjBizZxzx/saveZxzxDetail},
 		</if>
 		<if test="zjlxfs!=null and zjlxfs!=''">
 			 a.zjlxfs=#{zjlxfs},

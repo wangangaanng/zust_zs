@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
@@ -12,12 +13,10 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizSybDao;
 import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
-import org.apache.ibatis.annotations.Update;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -142,45 +141,19 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return ResponseMessage.sendOK(objs);
     }
 
-    public BckjBizSyb getSyInfo(Map<String, Object> mapData) {
-        Map userInfo=this.dao.getUserXh(mapData);
-        BckjBizSyb syb=null;
-        if(null!=userInfo.get("XSXH")){
-             syb=this.dao.findByXh(userInfo.get("XSXH").toString());
-            if(null==syb){
-                syb =new BckjBizSyb();
-                syb.setXh(userInfo.get("XSXH").toString());
-                if(null!=userInfo.get("XM")){
-                    syb.setXm(userInfo.get("XM").toString());
-                }
-                if(null!=userInfo.get("SJH")){
-                    syb.setSjhm(userInfo.get("SJH").toString());
-                }
-                if(null!=userInfo.get("SFZ")){
-                    syb.setSfzh(userInfo.get("SFZ").toString());
-                }
-                if(null!=userInfo.get("XB")){
-                    syb.setXb(Integer.valueOf(userInfo.get("XB").toString()));
-                }
-                if(null!=userInfo.get("MZ")){
-                    syb.setMz(userInfo.get("MZ").toString());
-                }
-                if(null!=userInfo.get("CSRQ")){
-                    syb.setCsrq(userInfo.get("CSRQ").toString());
-                }
-                if(null!=userInfo.get("XSBJ")){
-                    syb.setSzbj(userInfo.get("XSBJ").toString());
-                }
-                if(null!=userInfo.get("XSZY")){
-                    syb.setXxzy(userInfo.get("XSZY").toString());
-                }
-                if(null!=userInfo.get("XSXY")){
-                    syb.setSsxy(userInfo.get("XSXY").toString());
-                }
-            }
-        }
-        return syb;
+    /**
+     * 前端获得学生生源地信息
+     * @param mapData
+     * @return Map
+     */
+    public Map<String, Object> getSyInfo(Map<String, Object> mapData) {
+        Map<String, Object> resMap = Maps.newHashMap();
+        return resMap = bckjBizYhxxService.getStudentOne(mapData);
     }
+
+
+
+
 
     /**
      * <p>方法:后台录入就业方案   syd 部分</p>
@@ -290,8 +263,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             String uuid = IdGen.uuid();
             bckjBizYhxx.setOwid(uuid);
             bckjBizYhxx.setYhlx(1);
-            bckjBizYhxx.setOwid(null);
-            bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
+            bckjBizYhxxService.insert(bckjBizYhxx);
             //更新yhkz
             bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());
             bckjBizYhkz.setOlx(0);
@@ -311,4 +283,9 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+    public Map<String,Object> getBynfByXsxh(Map<String,Object> dataMap){
+        return this.dao.getBynfByXsxh(dataMap);
+    }
+
+
 }

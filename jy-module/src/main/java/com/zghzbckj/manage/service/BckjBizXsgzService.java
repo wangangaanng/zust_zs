@@ -267,7 +267,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
         bckjBizXsgz.setYhRefOwid(yhxxVo.getOwid());
         bckjBizXsgz.setLxdh(yhxxVo.getSjh());
-        bckjBizXsgz.setLxr(yhxxVo.getMz());
+        bckjBizXsgz.setLxr(yhxxVo.getXm());
         bckjBizXsgz.setGpsJd(bckjBizJob.getZphGpsjd());
         bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
         bckjBizXsgz.setCreatetime(new Date());

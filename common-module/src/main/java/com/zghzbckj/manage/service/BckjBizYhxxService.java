@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -156,7 +157,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * </ul>
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public ResponseMessage logIn(Map<String, Object> datamap) {
+    public ResponseMessage logIn(Map<String, Object> datamap) throws ParseException {
         Map<String, Object> resMap = Maps.newHashMap();
         Map<String, Object> map = this.dao.logIn(datamap);
         if (TextUtils.isEmpty(map)) {
@@ -169,6 +170,23 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (Integer.parseInt(map.get("olx").toString()) != 0 && Integer.parseInt(map.get("olx").toString()) != 1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
         }
+        //根据学号去查询毕业年份
+        Map<String, Object> xsxhMap = bckjBizSybService.getBynfByXsxh(map);
+        if(!TextUtils.isEmpty(xsxhMap)){
+            if(!TextUtils.isEmpty(xsxhMap.get("bynf"))){
+                String year=xsxhMap.get("bynf").toString();
+                String month="07";
+                String day="01";
+                String dateStr= (year+"-"+month+"-"+day);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                Date byDate=sdf.parse(dateStr);
+                Date currentDate=new Date();
+                if(byDate.before(currentDate)){
+                    return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+                }
+            }
+        }
+
         //设置最近登录时间
         this.dao.updateDlsj(map.get("owid").toString());
         resMap.put("olx", map.get("olx"));
@@ -368,7 +386,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "此学号已在库内");
                 }
             }
-
             bckjBizJyschemeService.updateXsxhByHyOwid(bckjBizJyscheme);
             bckjBizJypuchongService.updateXsxhByHyOwid(bckjBizJypuchong);
             this.dao.updateByXsxh(bckjBizYhxx);
@@ -400,18 +417,20 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhkz.setOlx(0);
             bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
             bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
+            bckjBizSyb.setExp1("1");
             bckjBizSybService.saveOrUpdate(bckjBizSyb);
             bckjBizJypuchongService.saveOrUpdate(bckjBizJypuchong);
+            bckjBizJyscheme.setExp1("1");
             bckjBizJyschemeService.saveOrUpdate(bckjBizJyscheme);
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
 
-    public ResponseMessage getStudentOne(Map<String, Object> dataMap) {
+    public Map<String, Object> getStudentOne(Map<String, Object> dataMap) {
         //学生的olx为0
         dataMap.put("olx", 0);
-        return ResponseMessage.sendOK(this.dao.showStudentInfo(dataMap));
+        return this.dao.showStudentInfo(dataMap);
     }
 
     /**
@@ -438,7 +457,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         HashMap<Object, Object> yhkzMap = Maps.newHashMap();
         HashMap<Object, Object> studentInfoMap = Maps.newHashMap();
         if (list != null) {
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0);//学生学号/工号/税号
@@ -458,6 +477,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     bckjBizYhkzService.deleteByXsxh(xsxh);
                     bckjBizSybService.deleteByXsxh(xsxh);
                     bckjBizStudentinfoService.deleteByXsxh(xsxh);
+                    bckjBizJyschemeService.deleteByXsxh(xsxh);
+                    bckjBizJypuchongService.deleteByXsxh(xsxh);
                 }
                 String ksh = cellList.get(1); //考生号
                 ksh = ExcelUtils.stmodifyExcelData(ksh);
@@ -610,9 +631,11 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 bckjBizYhkz.setOlx(0);
                 bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
                 bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
+                //学生为未编辑状态
+                bckjBizSyb.setExp1("1");
                 bckjBizSybService.saveOrUpdate(bckjBizSyb);
-
-
+                //学生为未编辑状态
+                bckjBizJyscheme.setExp1("1");
                 bckjBizJyscheme.setXxmc(CommonConstant.XXMC);
                 bckjBizJyscheme.setYhRefOwid(bckjBizYhxx.getOwid());
                 bckjBizJyschemeService.saveOrUpdate(bckjBizJyscheme);
@@ -684,5 +707,12 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
     public  void updateSyscheme(BckjBizYhxx bckjBizYhxx){
         this.dao.updateSyscheme(bckjBizYhxx);
+    }
+    public void insert(BckjBizYhxx bckjBizYhxx){
+        this.dao.insert(bckjBizYhxx);
+    }
+
+    public Map<String,Object> queryDocument(Map<String, Object> dataMap) {
+        return this.dao.queryDocument(dataMap);
     }
 }

@@ -40,8 +40,12 @@
         </div>
         <ul class="nav nav-tabs" id="nav-tabs-job">
             <li role="presentation" class="active"><a href="#" onclick="tabs(0)">宣讲会信息</a></li>
+            <#if result?? && result.state?? && result.state==1>
             <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
-            <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+                <#if result.zphSfbm?? && result.zphSfbm==1>
+                <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+                </#if>
+            </#if>
         </ul>
         <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList">
             <div class="e-table" style="padding: 0 20px;">

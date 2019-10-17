@@ -9,6 +9,7 @@
     "pages/newJob/newJob",
     "pages/qyService/qyService",
     "pages/stuService/stuService",
+    "pages/ranking/ranking",
     "pages/logs/logs",
     "pages/mustache/mustache",
     "pages/newsList/newsList",
@@ -35,6 +36,8 @@
     "pages/applyXjh/applyXjh",
     "pages/qyzn/qyzn",
     "pages/inquiry/inquiry",
+    "pages/wdgz/wdgz",
+    "pages/wdyy/wdyy",
     "pages/school/school"
   ],
   "window": {
