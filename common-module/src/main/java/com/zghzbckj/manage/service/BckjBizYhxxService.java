@@ -457,7 +457,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         HashMap<Object, Object> yhkzMap = Maps.newHashMap();
         HashMap<Object, Object> studentInfoMap = Maps.newHashMap();
         if (list != null) {
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0);//学生学号/工号/税号
@@ -710,5 +710,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
     public void insert(BckjBizYhxx bckjBizYhxx){
         this.dao.insert(bckjBizYhxx);
+    }
+
+    public Map<String,Object> queryDocument(Map<String, Object> dataMap) {
+        return this.dao.queryDocument(dataMap);
     }
 }

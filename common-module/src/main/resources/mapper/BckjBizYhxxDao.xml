@@ -502,6 +502,10 @@
 			yx = #{yx}
 		WHERE owid = #{owid}
 	</update>
-
+<select id="queryDocument" parameterType="Map" resultType="Map">
+	SELECT a.owid as owid  from
+	bckj_biz_yhxx a, bckj_biz_yhkz b
+	where a.sfz=#{sfz} and b.xsxh=#{xsxh} and a.owid=b.yh_ref_owid
+</select>
 
 </mapper>

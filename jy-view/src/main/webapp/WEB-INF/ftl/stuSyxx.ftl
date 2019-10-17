@@ -75,6 +75,7 @@
             </div>
 
             <div class="content-list" style="height: auto;">
+                <#if stuInfo??>
                 <form class="form-horizontal" style="padding-top: 20px;" id="registerForm" method="" action="" target="rfFrame">
                     <div class="form-group">
                         <label for="xm" class="col-sm-2 control-label">姓名<span class="red">*</span>：</label>
@@ -350,15 +351,15 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-sm-12 text-center">
-                            <button type="submit" class="btn btn-default btn-common green">保存</button>
+                        <div class="form-group">
+                            <div class="col-sm-12 text-center">
+                                <button type="submit" class="btn btn-default btn-common green">保存</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-                <input type="hidden" value="${stuInfo.owid!''}" id="owid" />
-                <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
-
+                    </form>
+                    <input type="hidden" value="${stuInfo.owid!''}" id="owid" />
+                    <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
+                </#if>
             </div>
         </div>
     </div>

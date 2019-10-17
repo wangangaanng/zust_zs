@@ -345,7 +345,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             if (JyContant.BMDX_XJH == bmdx) {
                 String flag = com.zghzbckj.base.util.CacheUtil.getVal(JyContant.KG + JyContant.XJHSH);
                 if (!com.zghzbckj.util.TextUtils.isEmpty(flag) && "1".equals(flag)) {
-                    //todo 查询字典表 筛选拒绝
+                    // 查询字典表 筛选拒绝
                     Map params = Maps.newHashMap();
                     params.put("type", JyContant.ZDYTJ);
                     List<Map> dicList = new ArrayList<>();
@@ -359,7 +359,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                                 String bzda = map.get("dic_val4").toString();
                                 for (int k = 1; k <= 5; k++) {
                                     Object tj = mapData.get("zdytj" + k);
-                                    Object jg = mapData.get("zdyjg" + k);
+                                    Object jg = mapData.get("tjsd" + k);
                                     if (!TextUtils.isEmpty(tj) && !TextUtils.isEmpty(jg)) {
                                         if (tj.toString().equals(zdytj) && !bzda.equals(jg.toString())) {
                                             isFlag = false;
@@ -430,8 +430,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     return resultMap;
                 }
                 bm.setZwbh(mapData.get("zwbh").toString());
-            }
-            else if (bmdx == JyContant.BMDX_XJH) {
+            } else if (bmdx == JyContant.BMDX_XJH) {
 //                if (TextUtils.isEmpty(mapData.get("zphJbdd"))) {
 //                    resultMap.put("result", "false");
 //                    resultMap.put("msg", "审核通过时请填写举办地点");
@@ -487,13 +486,15 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     job.setZphJbdd(mapData.get("zphJbdd").toString());
                 }
                 job.setZphJbf(bm.getQymc());
-                job.setZwbt(bm.getQymc() + "宣讲会");
+
                 job.setZphJtsj(mapData.get("zphJtsj").toString());
                 job.setZphCbf(JyContant.ZW_DD);
                 bm.setXjsj(mapData.get("xjsj").toString());
                 bm.setExp3(mapData.get("exp3").toString());
                 bm.setExp4(mapData.get("exp4").toString());
-                job.setZphKsrq(DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd"));
+                Date zphKsrq = DateUtil.getDate(bm.getXjsj(), "yyyy-MM-dd");
+                job.setZphKsrq(zphKsrq);
+                job.setZwbt(DateUtil.getDateString(zphKsrq, "yyyy-MM-dd") + "宣讲会" + bm.getQymc());
                 job.setState(JyContant.JOB_ZT_TG);
                 //自定义条件和结果
                 job.setZdytj1(bm.getZdytj1());
@@ -501,11 +502,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 job.setZdytj3(bm.getZdytj3());
                 job.setZdytj4(bm.getZdytj4());
                 job.setZdytj5(bm.getZdytj5());
-                job.setTjsd1(bm.getTjsd1());
-                job.setTjsd2(bm.getTjsd2());
-                job.setTjsd3(bm.getTjsd3());
-                job.setTjsd4(bm.getTjsd4());
-                job.setTjsd5(bm.getTjsd5());
+//                job.setTjsd1(bm.getTjsd1());
+//                job.setTjsd2(bm.getTjsd2());
+//                job.setTjsd3(bm.getTjsd3());
+//                job.setTjsd4(bm.getTjsd4());
+//                job.setTjsd5(bm.getTjsd5());
                 jobService.saveOrUpdate(job);
                 if (!TextUtils.isEmpty(mapData.get("memo"))) {
                     bm.setMemo(mapData.get("memo").toString());

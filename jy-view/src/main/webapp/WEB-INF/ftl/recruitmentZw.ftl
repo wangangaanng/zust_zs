@@ -279,11 +279,11 @@
                     title: '工作地点',
                 }, {
                     field: 'createtime',
-                    title: '发布日期',
+                    title: '发布时间',
                     align: 'center',
                     formatter: function (value, row, index) {
                         if (row.createtime) {
-                            var value = row.createtime.substring(0, 10);
+                            var value = row.createtime.substring(0, 16);
                             return value;
                         }
                     }
