@@ -20,7 +20,7 @@
 
 .table {
   border: 0px solid darkgray;
-  width: 500rpx;
+  /* width: 500rpx; */
   margin: 20px auto;
 }
 .tr {
