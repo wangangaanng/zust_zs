@@ -250,7 +250,7 @@ public class BckjBizJyschemeController extends BaseController {
                 if(TextUtils.isEmpty(resMap)){
                     return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.GetMessageFail);
                 }
-                dataMap.put("owid",dataMap.get("owid"));
+                dataMap.put("owid",resMap.get("owid"));
                 return ResponseMessage.sendOK(bckjBizJyschemeService.queryDocument(dataMap));
             } else {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);

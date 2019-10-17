@@ -86,7 +86,17 @@ function getJyBaseInfo() {
     var jsonObj ={
         "owid":getCookie("stuOwid")
     }
-    ajax("zustjy/bckjBizJyscheme/getJyBaseInfo", jsonObj, function (data) {
+    ajax("zustjy/bckjBizJyscheme/getStudentOne", jsonObj, function (data) {
+        if(data.backCode==0){
+            if(data.bean){
+
+
+            }
+        }else{
+            walert(data.errorMess)
+        }
+    })
+    ajax("zustcommon/bckjBizSyb/getSyInfo", jsonObj, function (data) {
         if(data.backCode==0){
             if(data.bean){
 

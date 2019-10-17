@@ -36,16 +36,16 @@ Page({
       url: '../zjxq/zjxq?owid=' + e.currentTarget.dataset.owid,
     })
   },
-  // beforeclose(action, done) {
-  //   // done(false)
-  //   console.log(action)
-  //   if (action === 'confirm') {
-  //     setTimeout(done, 1000)
-  //     console.log(1111)
-  //   } else if (action === 'cancel') {
-  //     done() //关闭
-  //   }
-  // },
+  beforeclose(action, done) {
+    console.log('123')
+    console.log(action)
+    console.log(done)
+    if (action === 'confirm') {
+      setTimeout(done, 1000)
+    } else if (action === 'cancel') {
+      done() //关闭
+    }
+  },
   confirm1(e){
     var that = this
     console.log(e)
@@ -144,20 +144,16 @@ Page({
   }
 })
 
-function beforeclose(action, done) {
-  // if (!this.userName || !this.userPass) {
-  //   this.$toast("请输入用户名和密码")
-  //   done(false) //不关闭弹框
-  // }
-  // done(false)
-  console.log(action)
-  if (action === 'confirm') {
-    setTimeout(done, 1000)
-    console.log(1111)
-  } else if (action === 'cancel') {
-    done() //关闭
-  }
-}
+// function beforeclose(action, done) {
+//   // done(false)
+//   console.log(action)
+//   if (action === 'confirm') {
+//     setTimeout(done, 1000)
+//     console.log(1111)
+//   } else if (action === 'cancel') {
+//     done() //关闭
+//   }
+// }
 
 var supervisorList = function (that) {//新闻快递轮播图
   var data = { "pageNo": that.data.pageNo, "pageSize": that.data.pageSize };

@@ -33,12 +33,12 @@ $(document).ready(function () {
     $("#registerForm").validate({
         rules: {
             xm:"required",
-            xh:"required",
+            xsxh:"required",
             csrq:"required",
             xb:"required",
             mz:"required",
             zzmm:"required",
-            sfzh:"required",
+            sfz:"required",
             jtdz:"required",
             syd:"required",
             rxnf:"required",
@@ -46,10 +46,10 @@ $(document).ready(function () {
             byrq:"required",
             cxsy:"required",
             ksh:"required",
-            ssxx:"required",
+            xxmc:"required",
             xz:"required",
             ssxy:"required",
-            xxzy:"required",
+            xszy:"required",
             szbj:"required",
             pyfs:"required",
             wpdw:"required",
@@ -60,50 +60,48 @@ $(document).ready(function () {
             jtyb:"required",
             jtyb:"required",
             xlcc:"required",
-            sjhm:{
+            sjh:{
                 required: true,
                 isMobile: true
             },
-            dzyx:{
-                required: true,
+            yx:{
                 email: true
             },
         },
         messages: {
             xm:"请填写",
-            xh:"请填写",
+            xsxh:"请填写",
             csrq:"请填写",
             xb:"请选择",
-            mz:"请填写",
-            zzmm:"请填写",
-            sfzh:"请填写",
+            mz:"请选择",
+            zzmm:"请选择",
+            sfz:"请填写",
             jtdz:"请填写",
-            syd:"请填写",
+            syd:"请选择",
             rxnf:"请填写",
             bynf:"请填写",
             byrq:"请填写",
-            cxsy:"请填写",
+            cxsy:"请选择",
             ksh:"请填写",
-            ssxx:"请填写",
-            xz:"请填写",
+            xxmc:"请填写",
+            xz:"请选择",
             ssxy:"请填写",
-            xxzy:"请填写",
+            xszy:"请填写",
             szbj:"请填写",
-            pyfs:"请填写",
+            pyfs:"请选择",
             wpdw:"请填写",
-            knslb:"请填写",
-            sfslb:"请填写",
+            knslb:"请选择",
+            sfslb:"请选择",
             qqhm:"请填写",
             jtdh:"请填写",
             jtyb:"请填写",
             jtyb:"请填写",
-            xlcc:"请填写",
-            sjhm:  {
+            xlcc:"请选择",
+            sjh:  {
                 required: "请填写",
                 email: "手机号有误"
             },
-            dzyx: {
-                required: "请填写",
+            yx: {
                 email: "邮箱有误"
             },
         },
@@ -126,18 +124,29 @@ $(document).ready(function () {
         }
     });
 
-    $("#xb").val($("#sel1").val())
-    $("#sfrx").val($("#sel2").val())
-    $("#hkrx").val($("#sel3").val())
-    // getSyInfo()
+    $("#xb").val($("#xb").attr("data-val"))
+    $("#mz").val($("#mz").attr("data-val"))
+    $("#zzmm").val($("#zzmm").attr("data-val"))
+    $("#syd").val($("#syd").attr("data-val"))
+    $("#cxsy").val($("#cxsy").attr("data-val"))
+    $("#xz").val($("#xz").attr("data-val"))
+    $("#pyfs").val($("#pyfs").attr("data-val"))
+    $("#knslb").val($("#knslb").attr("data-val"))
+    $("#sfslb").val($("#sfslb").attr("data-val"))
+    $("#xlcc").val($("#xlcc").attr("data-val"))
+    $("#sfrx").val($("#sfrx").attr("data-val"))
+    $("#hkrx").val($("#hkrx").attr("data-val"))
+
+    getJyBaseInfo()
 })
 
-function getSyInfo() {
+
+function getJyBaseInfo() {
 
     var jsonObj ={
         "owid":getCookie("stuOwid")
     }
-    ajax("zustjy/bckjBizSyb/getSyInfo", jsonObj, function (data) {
+    ajax("zustcommon/bckjBizSyb/getSyInfo", jsonObj, function (data) {
         if(data.backCode==0){
             if(data.bean){
 
@@ -158,11 +167,11 @@ $.validator.setDefaults({
 function saveSyxx() {
     if(!isTimeOut()) {
         var jsonObj = $("#registerForm").serializeObject()
-        jsonObj.xh = $("#xh").val();
+        jsonObj.xsxh = $("#xsxh").val();
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustjy/bckjBizSyb/saveSyxx", jsonObj, function (data) {
+        ajax("zustcommon/bckjBizSyb/saveSybInfo", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {

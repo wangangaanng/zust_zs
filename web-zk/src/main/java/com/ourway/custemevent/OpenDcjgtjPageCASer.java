@@ -17,8 +17,8 @@ import org.zkoss.zk.ui.event.Event;
 import java.util.List;
 import java.util.Map;
 
-public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implements ComponentListinerSer{
-    public OpenDcjgPageCASer(){
+public class OpenDcjgtjPageCASer extends com.ourway.base.zk.main.MainAction implements ComponentListinerSer{
+    public OpenDcjgtjPageCASer(){
 
     }
 

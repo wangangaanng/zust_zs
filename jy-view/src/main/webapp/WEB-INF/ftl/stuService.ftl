@@ -83,9 +83,9 @@
             }
             var jsonObj = {
                 "xsxm": $("#xsxm").val().trim(),
-                "sfzh": $("#sfzh").val().trim()
+                "sfz": $("#sfzh").val().trim()
             }
-            ajax("zustjy/bckjBizDacx/inquiryArchives", jsonObj, function (data) {
+            ajax("zustcommon/bckjBizJyscheme/queryDocument", jsonObj, function (data) {
                 if (data.backCode == 0) {
                     index = layer.open({
                         type: 1,

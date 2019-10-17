@@ -242,6 +242,8 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             Double distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()));
+            //设置距离
+            bckjBizJob.setExp10(distance.toString());
             Integer bj = bckjBizJob.getZphGpsbj();
             if (distance > bj) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);

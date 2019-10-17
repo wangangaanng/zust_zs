@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
 import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -426,13 +427,55 @@ public class BckjBizYhxxController extends BaseController {
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-    @PostMapping("getYhxxInfo")
+
+    /**
+     *后台根据job 的 owid 获得关注学生信息
+     * @param dataVO
+     * @param type 0:关注 1：签到 2：报名
+     * @return
+     */
+    @PostMapping("getYhxxInfoList/{type}")
     @ResponseBody
-    public ResponseMessage getYhxxInfo(PublicDataVO dataVO){
-
-
-return null;
-
+    public ResponseMessage getYhxxInfoList(@PathVariable("type") Integer type, PublicDataVO dataVO){
+                try {
+                    List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+                    Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                    ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+                    if(!msg.getSuccess()){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+                    }
+                        return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(type,filterModels,dataVO.getPageSize(),dataVO.getPageNo())) ;
+                }
+                catch (Exception e){
+                    log.error(CommonConstant.ERROR_MESSAGE,e);
+                    return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+                }
     }
+
+
+    /**
+     *后台获得单个学生关注的信息
+     * @param dataVO
+     * @param type 0:关注 1：签到 2：报名
+     * @return
+     */
+    @PostMapping("getOneYhxxInfo/{type}")
+    @ResponseBody
+    public ResponseMessage getOneYhxxInfo(@PathVariable("type") Integer type, PublicDataVO dataVO){
+        try {
+            Map<String,Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.getOneYhxxInfo(dataMap,type)) ;
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 
 }

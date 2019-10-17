@@ -1,5 +1,8 @@
 {
   "pages": [
+    "pages/xw/xw",
+    "pages/grzx/grzx",
+    "pages/shouye/shouye",
     "pages/login/login",
     "pages/index/index",
     "pages/logs/logs"
@@ -8,7 +11,29 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/shouye/shouye",
+        "iconPath": "static/sy.png",
+        "selectedIconPath":"static/sy-s.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/xw/xw",
+        "iconPath": "static/xw.png",
+        "selectedIconPath": "static/xw-s.png",
+        "text": "新闻"
+      },
+      {
+        "pagePath": "pages/grzx/grzx",
+        "iconPath": "static/grzx.png",
+        "selectedIconPath": "static/grzx-s.png",
+        "text": "个人中心"
+      }
+    ]
+  }
 }
