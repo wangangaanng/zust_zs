@@ -22,6 +22,7 @@ import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.util.*;
 
+import com.zghzbckj.wechat.utils.MD5Util;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -410,6 +411,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhxx.setYhlx(1);
             bckjBizYhxx.setYhDlzh(bckjBizYhkz.getXsxh());
             String dlmm = bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6);
+            dlmm= MD5Util.MD5Encode(dlmm,"UTF-8");
             bckjBizYhxx.setYhDlmm(dlmm);
             bckjBizYhxx.setCreatetime(new Date());
             this.dao.insert(bckjBizYhxx);
@@ -632,10 +634,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
                 bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
                 //学生为未编辑状态
-                bckjBizSyb.setExp1("1");
+                bckjBizSyb.setExp2("1");
                 bckjBizSybService.saveOrUpdate(bckjBizSyb);
                 //学生为未编辑状态
-                bckjBizJyscheme.setExp1("1");
+                bckjBizJyscheme.setExp2("1");
                 bckjBizJyscheme.setXxmc(CommonConstant.XXMC);
                 bckjBizJyscheme.setYhRefOwid(bckjBizYhxx.getOwid());
                 bckjBizJyschemeService.saveOrUpdate(bckjBizJyscheme);

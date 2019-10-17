@@ -583,6 +583,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             bckjBizYhkzService.updateJyscheme(bckjBizYhkz);
             bckjBizJypuchongService.updateJyscheme(bckjBizJypuchong);
             bckjBizStudentinfoService.updataInfo(bckjBizStudentinfo);
+            bckjBizJyscheme.setExp2("2");
             bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getBdzszdmc())));
             this.dao.updateJyscheme(bckjBizJyscheme);
         }

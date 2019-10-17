@@ -483,6 +483,16 @@
 		where xh=#{xsxh}
 	</select>
 
-
+	<select id="getOneByCondition" resultType="String" parameterType="BckjBizSyb">
+		select  owid from bckj_biz_syb
+		<where>
+			<if test="xh != null and xh!=null">
+				and xh=#{xh}
+			</if>
+			<if test="yhRefOwid!=null and yhRefOwid!=''">
+				and yh_Ref_Owid=#{yhRefOwid}
+			</if>
+		</where>
+	</select>
 
 </mapper>

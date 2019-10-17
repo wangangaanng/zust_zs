@@ -73,7 +73,7 @@ public class RecordInfo implements ComponentFileSer {
         String path = map.get("filePath").toString();
         String foundfilePath = foundPath + path;  //线上路径
         String savefilePath=savePath+path;
-        copyXsFile(foundfilePath,savefilePath);
+            copyXsFile(foundfilePath,savefilePath);
 
         //String filePath = FolderPath + path;  //本地上传路径
         //添加后缀
