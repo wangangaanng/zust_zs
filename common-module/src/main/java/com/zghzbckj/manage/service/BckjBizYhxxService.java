@@ -711,4 +711,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public void insert(BckjBizYhxx bckjBizYhxx){
         this.dao.insert(bckjBizYhxx);
     }
+
+    public Map<String,Object> queryDocument(Map<String, Object> dataMap) {
+        return this.dao.queryDocument(dataMap);
+    }
 }

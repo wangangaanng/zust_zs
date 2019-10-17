@@ -655,4 +655,13 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     public String getDicVall(int type,String val1){
         return this.dao.getDicVall(type,val1);
     }
+
+    /**
+     * 查询档案信息
+     * @param  dataMap
+     * @return  Map<String ,Object>
+     */
+    public  Map<String ,Object> queryDocument(Map<String, Object> dataMap) {
+        return this.dao.showJyInfo(dataMap);
+    }
 }
