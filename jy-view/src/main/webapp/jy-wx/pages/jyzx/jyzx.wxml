@@ -31,16 +31,15 @@
       title="请填写咨询内容"
       show="{{ show }}"
       show-cancel-button
-      bind:confirm="confirm1"
       confirm-button-color="#008783"
-      confirm-button-text="提交"
-      before-close
+      
+      before-close="{{beforeclose}}"
     >
       <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" auto-focus></textarea>
     </van-dialog>
 
       <!-- before-close="{{beforeClose}}"
-      bind:cancel="cancel1"
+      bind:cancel="cancel1" confirm-button-text="提交"
       bind:confirm="confirm1" -->
     
 <van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>

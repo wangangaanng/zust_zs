@@ -12,7 +12,7 @@
     </view>
     <view class="li">
       <image src="../../static/password.png" style="width:15px;" class="left-icon"></image>
-      <input placeholder="请输入密码" type="{{pass?'password':'text'}}"></input>
+      <input placeholder="请输入密码" password="{{pass}}"></input>
       <view bindtap="clickPass" style="padding:5px 0 0 10px;position: relative;top:-5px;">
         <image src="../../static/pass2.png" class="right-icon" wx:if="{{pass}}" style="height:14px;top:6px;"></image>
         <image src="../../static/pass.png" class="right-icon"  wx:if="{{!pass}}"></image>

@@ -757,7 +757,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("pageNo",'1');
         param.put("pageSize","12");
-        param.put("zwlx","5");
+        param.put("zxlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());
@@ -942,24 +942,71 @@ public class DemoController {
                 view.setViewName("stuSc");
             }else if(secondDir.equals("4")){//生源信息
                 view.setViewName("stuSyxx");
+                Map param=Maps.newHashMap();//生源地
+                param.put("dicType","50005");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("sydList",type.getBean());
+                Map param2=Maps.newHashMap();//政治面貌
+                param2.put("dicType","50008");
+                PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+                ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
+                view.addObject("zzmmList",type2.getBean());
+                Map param3=Maps.newHashMap();//民族
+                param3.put("dicType","50009");
+                PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+                ResponseMessage type3  = UnionHttpUtils.doPosts(publicData3);
+                view.addObject("mzList",type3.getBean());
                 Map param1=Maps.newHashMap();
                 param1.put("owid",stuOwid);
-                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getSyInfo");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
                     view.addObject("stuInfo",result1.getBean());
+                }else{
+                    view.addObject("stuInfo",new Object());
                 }
             }else if(secondDir.equals("5")){//就业方案
                 view.setViewName("stuJyfa");
                 Map param1=Maps.newHashMap();
                 param1.put("owid",stuOwid);
-                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getJyBaseInfo");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getStudentOne");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
                     view.addObject("result",result1.getBean());
                 }else{
                     view.addObject("result",new Object());
                 }
+                Map param=Maps.newHashMap();//生源地
+                param.put("dicType","50005");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("sydList",type.getBean());
+                Map param2=Maps.newHashMap();//毕业去向名称（字典表）
+                param2.put("dicType","50001");
+                PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+                ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
+                view.addObject("byqxList",type2.getBean());
+                Map param3=Maps.newHashMap();//用人单位性质名称（字典表）
+                param3.put("dicType","50002");
+                PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+                ResponseMessage type3  = UnionHttpUtils.doPosts(publicData3);
+                view.addObject("yrdwxzList",type3.getBean());
+                Map param4=Maps.newHashMap();//工作职位类别名称（字典表）
+                param4.put("dicType","50004");
+                PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+                ResponseMessage type4  = UnionHttpUtils.doPosts(publicData4);
+                view.addObject("yrdwxzList",type4.getBean());
+                Map param5=Maps.newHashMap();//报到证签发类别名称（字典表）
+                param5.put("dicType","50007");
+                PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+                ResponseMessage type5  = UnionHttpUtils.doPosts(publicData5);
+                view.addObject("yrdwxzList",type5.getBean());
+                Map param6=Maps.newHashMap();//单位行业类别名称（字典表）
+                param6.put("dicType","50003");
+                PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/common/getByType");
+                ResponseMessage type6  = UnionHttpUtils.doPosts(publicData6);
+                view.addObject("yrdwxzList",type6.getBean());
             }
             return view;
         }else{
@@ -1006,22 +1053,71 @@ public class DemoController {
                 view.setViewName("stuSc");
             }else if(secondDir.equals("4")){//生源信息
                 view.setViewName("stuSyxx");
+                Map param=Maps.newHashMap();//生源地
+                param.put("dicType","50005");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("sydList",type.getBean());
+                Map param2=Maps.newHashMap();//政治面貌
+                param2.put("dicType","50008");
+                PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+                ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
+                view.addObject("zzmmList",type2.getBean());
+                Map param3=Maps.newHashMap();//民族
+                param3.put("dicType","50009");
+                PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+                ResponseMessage type3  = UnionHttpUtils.doPosts(publicData3);
+                view.addObject("mzList",type3.getBean());
                 Map param1=Maps.newHashMap();
                 param1.put("owid",stuOwid);
-                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizSyb/getSyInfo");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getSyInfo");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
                     view.addObject("stuInfo",result1.getBean());
+                }else{
+                    view.addObject("stuInfo",new Object());
                 }
             }else if(secondDir.equals("5")){//就业方案
                 view.setViewName("stuJyfa");
                 Map param1=Maps.newHashMap();
                 param1.put("owid",stuOwid);
-                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getJyBaseInfo");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustjy/bckjBizJyscheme/getStudentOne");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
                     view.addObject("result",result1.getBean());
+                }else{
+                    view.addObject("result",new Object());
                 }
+                Map param=Maps.newHashMap();//生源地
+                param.put("dicType","50005");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
+                view.addObject("sydList",type.getBean());
+                Map param2=Maps.newHashMap();//毕业去向名称（字典表）
+                param2.put("dicType","50001");
+                PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+                ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
+                view.addObject("byqxList",type2.getBean());
+                Map param3=Maps.newHashMap();//用人单位性质名称（字典表）
+                param3.put("dicType","50002");
+                PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+                ResponseMessage type3  = UnionHttpUtils.doPosts(publicData3);
+                view.addObject("yrdwxzList",type3.getBean());
+                Map param4=Maps.newHashMap();//工作职位类别名称（字典表）
+                param4.put("dicType","50004");
+                PublicData publicData4= UnionHttpUtils.manageParam(param4,"zustcommon/common/getByType");
+                ResponseMessage type4  = UnionHttpUtils.doPosts(publicData4);
+                view.addObject("yrdwxzList",type4.getBean());
+                Map param5=Maps.newHashMap();//报到证签发类别名称（字典表）
+                param5.put("dicType","50007");
+                PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+                ResponseMessage type5  = UnionHttpUtils.doPosts(publicData5);
+                view.addObject("yrdwxzList",type5.getBean());
+                Map param6=Maps.newHashMap();//单位行业类别名称（字典表）
+                param6.put("dicType","50003");
+                PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/common/getByType");
+                ResponseMessage type6  = UnionHttpUtils.doPosts(publicData6);
+                view.addObject("yrdwxzList",type6.getBean());
             }
 
             return view;
