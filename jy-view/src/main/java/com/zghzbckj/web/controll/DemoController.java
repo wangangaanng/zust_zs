@@ -506,14 +506,15 @@ public class DemoController {
         }
     }
 
-    @RequestMapping(value = "zphXq/{owid}", method = RequestMethod.GET)
-    public ModelAndView zphXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+    @RequestMapping(value = "zphXq/{owid}/{jobRefOwid}", method = RequestMethod.GET)
+    public ModelAndView zphXq(HttpServletRequest request,ModelAndView view, @PathVariable String owid, @PathVariable String jobRefOwid) {
         String qyOwid=getCookieValue(request,"yhOwid");
         if(null!=qyOwid){
             view.setViewName("zphXq");
             view.addObject("header",getHeader().getBean());
             view.addObject("footer",getFooter().getBean());
             Map param=Maps.newHashMap();
+            view.addObject("jobRefOwid",jobRefOwid);
             param.put("owid",owid);
             PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJybm/getOne");
             ResponseMessage result  = UnionHttpUtils.doPosts(publicData);

@@ -1,0 +1,35 @@
+<van-cell-group>
+  <van-cell title="年度" value="{{yearStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
+  <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="3" bind:close="hideBottom">
+    <van-picker show-toolbar title="年份" value-key="dicVal2" columns="{{years}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+</van-cell-group>
+<view class="pm-title">{{year}}就业排行榜</view>
+<view class="pm-list">
+  <block wx:for="{{list}}" wx:key="{{index}}">
+  <view class="pm-item">
+    <view class="pm-left">{{index+1}}</view>
+    <view class="pm-right">
+      <view class="pm-xy">{{item.szxy}}</view>
+      <block wx:for="{{item.pmzyList}}" wx:for-item="itm" wx:for-index="idx">
+      <view wx:if="{{itm.pmzy!='合计'}}" class="pm-zy">
+        <view class="pm-xq" style="padding-top:10rpx;">专业：{{itm.pmzy}}</view>
+        <view class="pm-xq">
+          毕业生人数：{{itm.pmbyrs}}
+          <span class="pull-right">就业人数：{{itm.pmqyrs}}</span>
+        </view>
+        <view class="pm-xq">就业率：{{itm.pmjyl}}%</view>
+      </view>
+      <view wx:elif="{{itm.pmzy=='合计'}}" class="pm-hj">
+        <view>合计</view>
+        <view class="pm-xq">
+          毕业生人数：{{itm.pmbyrs}}
+          <span class="pull-right">就业人数：{{itm.pmqyrs}}</span>
+        </view>
+        <view class="pm-xq">就业率：{{itm.pmjyl}}%</view>
+      </view>
+      </block>
+    </view>
+  </view>
+  </block>
+</view>

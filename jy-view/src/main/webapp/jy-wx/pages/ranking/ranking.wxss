@@ -1,0 +1,11 @@
+/* pages/ranking/ranking.wxss */
+
+.pm-title{text-align: center;padding: 20rpx 0;font-size: 38rpx;}
+.pm-item{margin-bottom: 20rpx;padding-top: 10rpx;background-color: #fff;overflow: hidden;}
+.pm-left{float: left;font-size: 60rpx;color: #6c9d9c;width: 100rpx;text-align: center;padding-top: 20rpx;}
+.pm-right{width: calc(100% - 100rpx);padding-left: 100rpx;font-size: 30rpx;}
+.pm-xy{padding-top: 10rpx;font-size: 36rpx;}
+.pm-xq{padding-bottom: 10rpx;}
+.pull-right{margin-right: 20rpx;}
+.pm-zy{border-bottom: 1rpx dashed #ccc;}
+.pm-hj{padding: 10rpx 10rpx 10rpx 0;font-size: 30rpx;color: red;}
