@@ -395,6 +395,8 @@ public class BckjBizJobController extends BaseController {
             job.setZphJbdd(mapData.get("zphJbdd").toString());
         }
         job.setZphGpsbj(Integer.parseInt(mapData.get("zphGpsbj").toString()));
+        //已定位
+        job.setExp5("2");
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
