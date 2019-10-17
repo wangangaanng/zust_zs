@@ -339,7 +339,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             //待审核
             jybm.setState(JyContant.JOB_ZT_DSH);
             if (JyContant.BMDX_ZW == bmdx) {
-                jybm.setState(JyContant.JOB_ZT_TG);
+                jybm.setState(1);
             }
             //宣讲会会自动审核开关//审核开关 0表示关 1表示开
             if (JyContant.BMDX_XJH == bmdx) {
