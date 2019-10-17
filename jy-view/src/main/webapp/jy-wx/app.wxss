@@ -10,6 +10,18 @@ page{background: #f3f3f5;}
 .common-btn-hover{
   opacity: 0.7;
 }
+.tag-grey{
+    position: relative;
+    top: -1px;
+    display: inline-block;
+    padding: 0.1em 0.3em;
+    color: #969799;
+    font-size: 12px;
+    line-height: normal;
+    border-radius: 0.2em;
+    border: 1px solid #969799;
+    margin-right: 5px;
+}
 .wxParse-img{width:100% !important;}
 .float-btn{
   background: #00aba5e3;

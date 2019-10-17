@@ -76,6 +76,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     @Autowired
     BckjBizStudentinfoService bckjBizStudentinfoService;
 
+
     /**
      * <p>方法:findPagebckjBizJyscheme TODO后台BckjBizJyscheme分页列表</p>
      * <ul>
@@ -243,7 +244,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         HashMap<Object, Object> jyPcMap = Maps.newHashMap();
         HashMap<Object, Object> studentInfoMap = Maps.newHashMap();
         if (list != null) {
-            for (int i = 1; i < list.size(); i++) {
+            for (int i = 0; i < list.size(); i++) {
                 //就业方案录入
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0);//学生学号/工号/税号
@@ -251,6 +252,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 sybMap.put("xh", xsxh);
                 jyPcMap.put("xsxh", xsxh);
                 jySchemeMap.put("xsxh", xsxh);
+                studentInfoMap.put("xsxh",xsxh);
                 String xm = cellList.get(1); //姓名
                 yhxxMap.put("xm", xm);
                 yhkzMap.put("xsxm", xm);
@@ -272,7 +274,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                     yhxxMap.put("xb", 2);
                 }
                 String mz = cellList.get(4); //民族
-                yhxxMap.put("mz", mz);
+                yhxxMap.put("mz", getDicVal(50009,mz));
                 String xxmc = cellList.get(5); //学校名称
                 jySchemeMap.put("xxmc", xxmc);
                 String xsxy = cellList.get(6); //院系
@@ -308,7 +310,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String syddm = cellList.get(15); //生源地代码
                 studentInfoMap.put("syddm",syddm);
                 String syd = cellList.get(16); //生源地
-                sybMap.put("syd", syd);
+                sybMap.put("syd", getDicVal(50005,syd));
                 String sjh = cellList.get(17); //联系手机
                 yhxxMap.put("sjh", sjh);
                 String jtdh = cellList.get(18); //联系方式(固定电话)
@@ -340,6 +342,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String dwszddm = cellList.get(31); //报到地区代码
                 jyPcMap.put("dwszddm", dwszddm);
                 String bdzszdmc = cellList.get(32); //报到地区
+                String bdzszdmc1=bdzszdmc;
                 jySchemeMap.put("bdzszdmc", dao.getDicVal(50005,bdzszdmc));
                 String bdzqflbmc = cellList.get(33); //报到证签发类别
                 jySchemeMap.put("bdzqflbmc",dao.getDicVal(50007,bdzqflbmc) );
@@ -403,22 +406,25 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                     error = error + "," + xsxh;
                     continue;
                 }
+
                 bckjBizYhxx.setOwid(byXsxh.getYhRefOwid());
                 //更新yhxx
-                bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
+                bckjBizYhxxService.updateJyscheme(bckjBizYhxx);
                 //更新yhkz
-                bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+                bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());
+                bckjBizYhkzService.updateJyscheme(bckjBizYhkz);
                 //更新syb
                 bckjBizSyb.setYhRefOwid(bckjBizYhxx.getOwid());
-                bckjBizSybService.saveOrUpdate(bckjBizSyb);
+                bckjBizSybService.updateJyscheme(bckjBizSyb);
                 //更新studentinfo
                 bckjBizStudentinfo.setYhRefOwid(bckjBizYhxx.getOwid());
-                bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
+                bckjBizStudentinfoService.updataInfo(bckjBizStudentinfo);
+
                 bckjBizJypuchong.setYhRefOwid(bckjBizYhxx.getOwid());
-                bckjBizJypuchongService.saveOrUpdate(bckjBizJypuchong);
-                bckjBizJyscheme.setExp1(recordLx(bdzszdmc));
+                bckjBizJypuchongService.updateJyscheme(bckjBizJypuchong);
+                bckjBizJyscheme.setExp1(recordLx(bdzszdmc1));
                 bckjBizJyscheme.setYhRefOwid(bckjBizYhxx.getOwid());
-                saveOrUpdate(bckjBizJyscheme);
+                this.dao.updateJyscheme(bckjBizJyscheme);
             }
             if (!TextUtils.isEmpty(error)) {
                 error = "生源信息中不存在以下的学号,请重新录入:" + error;
@@ -577,7 +583,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             bckjBizYhkzService.updateJyscheme(bckjBizYhkz);
             bckjBizJypuchongService.updateJyscheme(bckjBizJypuchong);
             bckjBizStudentinfoService.updataInfo(bckjBizStudentinfo);
-            bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getBdzszdmc()));
+            bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getBdzszdmc())));
             this.dao.updateJyscheme(bckjBizJyscheme);
         }
 
@@ -591,24 +597,23 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             //更新yhxx
             String uuid = IdGen.uuid();
             bckjBizYhxx.setOwid(uuid);
-            bckjBizYhxx.setOwid(null);
             bckjBizYhxx.setYhlx(1);
             bckjBizYhkz.setOlx(0);
-            bckjBizYhxxService.updateInfo(bckjBizYhxx);
+            bckjBizYhxxService.insert(bckjBizYhxx);
             //更新yhkz
             bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizYhkzService.updateInfo(bckjBizYhkz);
+            bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
             //更新syb
             bckjBizSyb.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizSybService.updataInfo(bckjBizSyb);
+            bckjBizSybService.saveOrUpdate(bckjBizSyb);
             //更新studentInfo
             bckjBizStudentinfo.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizStudentinfoService.updataInfo(bckjBizStudentinfo);
+            bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
             //新保存jypuchong
             bckjBizJypuchong.setYhRefOwid(bckjBizYhxx.getOwid());
             bckjBizJypuchongService.saveOrUpdate(bckjBizJypuchong);
             //新保存jyscheme
-            bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getBdzszdmc()));
+            bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getBdzszdmc())));
             bckjBizJyscheme.setYhRefOwid(bckjBizYhxx.getOwid());
             saveOrUpdate(bckjBizJyscheme);
             }
@@ -639,5 +644,15 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      */
     public String getDicVal(int type,String val2){
          return this.dao.getDicVal(type,val2);
+    }
+
+    /**
+     * 根据字典表type 和 val1 获得val2
+     * @param type
+     * @param val1
+     * @return
+     */
+    public String getDicVall(int type,String val1){
+        return this.dao.getDicVall(type,val1);
     }
 }

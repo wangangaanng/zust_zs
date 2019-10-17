@@ -165,7 +165,7 @@ public class BckjBizDcwjController extends BaseController {
             if (maxNumber > questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查人数已满，无需再填写");
             }
-            //若有答题人id，查找答题人姓名
+            //若有答题人id，查找答题人姓名，若无答题人id，表示为
             if (!TextUtils.isEmpty(dataMap.get("dtrId"))) {
                 BckjBizYhxx yhxx = bckjBizYhxxService.get(dataMap.get("dtrId").toString());
                 if (TextUtils.isEmpty(yhxx)) {
@@ -177,9 +177,8 @@ public class BckjBizDcwjController extends BaseController {
                 }
                 dataMap.put("dtrXm", yhxx.getXm());
             }
-            //存入开始答题时间、结束答题时间
-            dataMap.put("ksdt", dcwjTime.get("ksdt"));
-            dataMap.put("jsdt", DateUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss"));
+            //存入问卷名称
+            dataMap.put("wjmc", questionnaire.getWjmc());
             return bckjBizDcwjService.saveAnswer(dataMap);
         } catch (Exception e) {
             e.printStackTrace();

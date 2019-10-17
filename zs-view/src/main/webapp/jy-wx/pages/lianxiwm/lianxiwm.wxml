@@ -1,0 +1,31 @@
+<!--pages/lianxiwm/lianxiwm.wxml-->
+<view class="route">
+  <view class="route-chn">联系我们</view>
+  <view class="route-eng">CONTACT US</view>
+</view>
+<view class="table">
+  <view class="tr">
+    <view class="td td-name">电话：</view>
+    <view class="td td-value">0571-85124573</view>
+  </view>
+   <view class="tr">
+    <view class="td td-name"></view>
+    <view class="td td-value">0571-85121710</view>
+  </view>
+  <view class="tr">
+    <view class="td td-name">传 真：</view>
+    <view class="td td-value" >0571-85124573</view>
+  </view>
+  <view class="tr">
+    <view class="td td-name">联系人：</view>
+    <view class="td td-value">俞老师 陈老师 王老师 刘老师</view>
+  </view>
+  <view class="tr">
+    <view class="td td-name">地 址：</view>
+    <view class="td td-value">大学生创业广场</view>
+  </view>
+  <view class="tr">
+    <view class="td td-name">E-mail：</view>
+    <view class="td td-value">zustjob@zust.edu.cn</view>
+  </view>
+</view>

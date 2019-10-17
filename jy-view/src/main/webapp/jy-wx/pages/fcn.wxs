@@ -15,6 +15,18 @@ var checkNull = function (val) {
     return '';
 }
 
+var convertStr = function (val,val1){
+  if (val !== null && val !== undefined && val !== '') {
+    return val;
+  } else{
+    return val1;
+  }
+}
+
+var getType = function (index,arr){
+    return arr[index] || ''
+}
+
 var countHours = function (h, d) {
   return parseInt(parseInt(h) + parseInt(d) * 24)
 }
@@ -33,3 +45,5 @@ module.exports.tofix = tofix;
 module.exports.checkNull = checkNull;
 module.exports.countHours = countHours;
 module.exports.getSize = getSize;
+module.exports.convertStr = convertStr; 
+module.exports.getType = getType;

@@ -2,13 +2,14 @@
   "usingComponents": {
     "van-button": "vant-weapp/button"
   },
-  "pages": [ 
+  "pages": [
     "pages/index/index",
     "pages/ydzw/ydzw",
     "pages/zphList/zphList",
     "pages/newJob/newJob",
     "pages/qyService/qyService",
     "pages/stuService/stuService",
+    "pages/ranking/ranking",
     "pages/logs/logs",
     "pages/mustache/mustache",
     "pages/newsList/newsList",
@@ -20,11 +21,10 @@
     "pages/dangan/dangan",
     "pages/lianxiwm/lianxiwm",
     "pages/stuQiandao/stuQiandao",
-    "pages/enterpriseZw/enterpriseZw",
     "pages/success/success",
+    "pages/enterpriseZw/enterpriseZw",
     "pages/enterpriseXjh/enterpriseXjh",
     "pages/enterpriseZph/enterpriseZph",
-    "pages/lszx/lszx",
     "pages/zjxq/zjxq",
     "pages/jyzx/jyzx",
     "pages/qyzc/qyzc",
@@ -32,11 +32,13 @@
     "pages/qyLogin/qyLogin",
     "pages/stuLogin/stuLogin",
     "pages/qyxx/qyxx",
+    "pages/jobXq/jobXq",
     "pages/applyXjh/applyXjh",
     "pages/qyzn/qyzn",
-    "pages/jobXq/jobXq",
-    "pages/school/school",
-    "pages/inquiry/inquiry"
+    "pages/inquiry/inquiry",
+    "pages/wdgz/wdgz",
+    "pages/wdyy/wdyy",
+    "pages/school/school"
   ],
   "window": {
     "backgroundTextStyle": "light",

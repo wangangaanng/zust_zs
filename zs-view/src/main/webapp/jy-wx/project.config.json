@@ -1,0 +1,188 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"uglifyFileName": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.8.2",
+	"appid": "wx618803b392a8c474",
+	"projectname": "jy-wx",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "pages/qyInfo/qyInfo",
+					"pathName": "pages/qyInfo/qyInfo",
+					"query": "owid=16922",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "pages/recruitment/recruitment",
+					"pathName": "pages/recruitment/recruitment",
+					"query": "fid=17",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/newsList/newsList",
+					"pathName": "pages/newsList/newsList",
+					"query": "lmbh=40",
+					"scene": null
+				},
+				{
+					"id": 3,
+					"name": "pages/diaocha/diaocha",
+					"pathName": "pages/diaocha/diaocha",
+					"query": "owid=4e796e7a5d8b4524aa7c731b26e28ef1",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/lianxiwm/lianxiwm",
+					"pathName": "pages/lianxiwm/lianxiwm",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/dangan/dangan",
+					"pathName": "pages/dangan/dangan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 6,
+					"name": "pages/stuQiandao/stuQiandao",
+					"pathName": "pages/stuQiandao/stuQiandao",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 7,
+					"name": "pages/enterpriseZw/enterpriseZw",
+					"pathName": "pages/enterpriseZw/enterpriseZw",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "pages/school/school",
+					"pathName": "pages/school/school",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qyService/qyService",
+					"pathName": "pages/qyService/qyService",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/enterpriseXjh/enterpriseXjh",
+					"pathName": "pages/enterpriseXjh/enterpriseXjh",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 11,
+					"name": "pages/stuService/stuService",
+					"pathName": "pages/stuService/stuService",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 12,
+					"name": "pages/stuLogin/stuLogin",
+					"pathName": "pages/stuLogin/stuLogin",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xueyuan/xueyuan",
+					"pathName": "pages/xueyuan/xueyuan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "pages/newsDetail/newsDetail",
+					"pathName": "pages/newsDetail/newsDetail",
+					"query": "owid=4160",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qyInfo/qyInfo",
+					"pathName": "pages/qyInfo/qyInfo",
+					"query": "owid=zpgg304462",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/dangan/dangan",
+					"pathName": "pages/dangan/dangan",
+					"query": "owid=4160",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/inquiry/inquiry",
+					"pathName": "pages/inquiry/inquiry",
+					"query": "mxdx=1",
+					"scene": null
+				}
+			]
+		}
+	}
+}
