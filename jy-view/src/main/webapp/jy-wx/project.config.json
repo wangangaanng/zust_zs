@@ -188,6 +188,13 @@
 					"pathName": "pages/qiandao/qiandao",
 					"query": "owid=16947",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/lianxiwm/lianxiwm",
+					"pathName": "pages/lianxiwm/lianxiwm",
+					"query": "owid=16947",
+					"scene": null
 				}
 			]
 		}

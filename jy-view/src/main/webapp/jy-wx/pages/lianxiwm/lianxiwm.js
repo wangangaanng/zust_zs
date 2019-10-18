@@ -1,18 +1,20 @@
 // pages/lianxiwm/lianxiwm.js
+var common = require('../../libs/common/common.js')
+var WxParse = require('../../libs/wxParse/wxParse.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    result:'',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getContent(this);
   },
 
   /**
@@ -64,3 +66,21 @@ Page({
 
   }
 })
+var getContent = function (that, owid) {//招聘详情
+  var data = { "lmbh": "43", "wzzt": "1", "isDetail": "0" };
+  common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
+    if (res.data.backCode == 0) {
+      WxParse.wxParse('template', 'html', res.data.bean.wznr, that, 5);
+      that.setData({
+        result: res.data.bean,
+      })
+
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

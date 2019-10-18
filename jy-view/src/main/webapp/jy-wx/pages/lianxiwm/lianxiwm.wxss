@@ -1,23 +1,7 @@
 /* pages/lianxiwm/lianxiwm.wxss */
 .table {
-  border: 0px solid darkgray;
+  margin-left: 50rpx;
 }
-.tr {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  height: 60rpx;
-  align-items: center;
-}
-.td {
-    width:40%;
-    justify-content: center;
-    text-align: left;
-    font-size: 32rpx;
-    color: #515151;
-}
-.td-name{text-align: right;width:180rpx;}
-.td-value{width:calc(100% - 180rpx);}
 .route-chn{color: #008783;font-size: 45rpx;letter-spacing: 2px;}
 .route-eng{color: #6a6a6a;font-size: 26rpx;}
 .route{margin: 100rpx 50rpx 0;}
