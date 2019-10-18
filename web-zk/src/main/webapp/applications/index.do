@@ -42,7 +42,7 @@
                 <a id="switchBtn" iconSclass="z-icon z-icon-qiehuan1" onClick="mainWin.switchAccount()"
                    style="border-left:none" label="账号切换" visible="false"/>
                 <a id="xmzlBtn" iconSclass="z-icon z-icon-home" onClick="mainWin.initFirstPage()"
-                   style="border-left:none" label="项目总览">
+                   style="border-left:none" label="信息总览">
                 </a>
                 <a id="anoti" iconSclass="z-icon z-icon-notice" popup="notipp, position=after_end, type=toggle"
                    style="border-left:none">
