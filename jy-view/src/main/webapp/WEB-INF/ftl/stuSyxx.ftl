@@ -9,6 +9,7 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
+    <link rel="stylesheet" href="${base}/css/chosen.css" />
 </head>
 <style>
     .col-sm-2{padding-left: 0 !important;padding-right: 0 !important;}
@@ -94,7 +95,11 @@
                     <div class="form-group">
                         <label for="csrq" class="col-sm-2 control-label">出生日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="csrq" name="csrq" value="${stuInfo.csrq!''}" placeholder="" autocomplete="off">
+                            <#if stuInfo.csrq??>
+                                <input type="text" class="form-control" id="csrq" name="csrq" value="${stuInfo.csrq?substring(0,10)}" placeholder="" autocomplete="off">
+                            <#else>
+                                <input type="text" class="form-control" id="csrq" name="csrq" value="${stuInfo.csrq!''}" placeholder="" autocomplete="off">
+                            </#if>
                         </div>
                         <label for="xb" class="col-sm-2 control-label">性别<span class="red">*</span>：</label>
                         <div class="col-sm-3">
@@ -146,8 +151,15 @@
                     <div class="form-group">
                         <label for="syd" class="col-sm-2 control-label">生源地<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <select class="form-control" id="syd" name="syd" data-val="${stuInfo.syd}">
-                                <option value="">请选择</option>
+                            <select class="form-control" id="syd" name="syd" data-placeholder="请选择" data-val="${stuInfo.syd!''}">
+                                <option value="-1"></option>
+                                <#if sydList??>
+                                    <#list sydList as obj>
+                                    <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                    </#list>
+                                </#if>
+                            </select>
+                            <select class="form-control" id="syd1" style="display: none;" data-val="${stuInfo.syd!''}">
                                 <#if sydList??>
                                     <#list sydList as obj>
                                     <option value="${obj.dicVal1}">${obj.dicVal2}</option>
@@ -158,7 +170,11 @@
                         </div>
                         <label for="rxnf" class="col-sm-2 control-label">入学日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="rxnf" name="rxnf" value="${stuInfo.rxnf!''}" placeholder="" autocomplete="off">
+                            <#if stuInfo.rxnf??>
+                                <input type="text" class="form-control" id="rxnf" name="rxnf" value="${stuInfo.rxnf?substring(0,10)}" placeholder="" autocomplete="off">
+                                <#else>
+                                <input type="text" class="form-control" id="rxnf" name="rxnf" value="${stuInfo.rxnf!''}" placeholder="" autocomplete="off">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
@@ -168,7 +184,11 @@
                         </div>
                         <label for="byrq" class="col-sm-2 control-label">毕业日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="byrq" name="byrq" value="${stuInfo.byrq!''}" placeholder="" autocomplete="off">
+                            <#if stuInfo.byrq??>
+                                <input type="text" class="form-control" id="byrq" name="byrq" value="${stuInfo.byrq?substring(0,10)}" placeholder="" autocomplete="off">
+                            <#else>
+                                <input type="text" class="form-control" id="byrq" name="byrq" value="${stuInfo.byrq!''}" placeholder="" autocomplete="off">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
@@ -369,6 +389,7 @@
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${base}/js/chosen.jquery.js" type="text/javascript"></script>
 <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
 <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
 <script src="${base}/js/stuSyxx.js" type="text/javascript"></script>

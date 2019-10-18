@@ -1,5 +1,6 @@
 
 $(document).ready(function () {
+    $('#syd').chosen();
 
     $(".list-group-item").click(function(e) {
         var index=$(this).index()
@@ -16,6 +17,7 @@ $(document).ready(function () {
 
     laydate.render({
         elem: "#byrq" //指定元素
+
     });
 
     //年选择器
@@ -127,7 +129,8 @@ $(document).ready(function () {
     $("#xb").val($("#xb").attr("data-val"))
     $("#mz").val($("#mz").attr("data-val"))
     $("#zzmm").val($("#zzmm").attr("data-val"))
-    $("#syd").val($("#syd").attr("data-val"))
+    $("#syd1").val($("#syd1").attr("data-val"))
+    $("#syd").parent().find('.chosen-container  a.chosen-single span').html($("#syd1 option:selected").html())
     $("#cxsy").val($("#cxsy").attr("data-val"))
     $("#xz").val($("#xz").attr("data-val"))
     $("#pyfs").val($("#pyfs").attr("data-val"))
@@ -137,7 +140,7 @@ $(document).ready(function () {
     $("#sfrx").val($("#sfrx").attr("data-val"))
     $("#hkrx").val($("#hkrx").attr("data-val"))
 
-    getJyBaseInfo()
+    // getJyBaseInfo()
 })
 
 
