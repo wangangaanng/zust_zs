@@ -1,6 +1,6 @@
 <!--报考提示-->
 <view class="cont-wrap">
-  <image class="tip-icon" src="../../static/img1.png"></image>
+  <image class="tip-icon" src="../../static/img2.png"></image>
   <view class="tip-txt">
     请先完善个人资料，包括个人信息、家庭成员、会考科目及选考、专项信息
   </view>
