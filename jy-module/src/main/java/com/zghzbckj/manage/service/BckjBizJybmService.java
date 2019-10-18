@@ -544,6 +544,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             jybm.setZwbt(job.getZwbt());
             jybm.setXxlxr(job.getExp3());
             jybm.setXxlxrdh(job.getExp4());
+            jybm.setZphSfbm(job.getZphSfbm());
+            jybm.setZphSfqd(job.getZphSfqd());
+            jybm.setZphBmjzsj(job.getZphBmjzsj());
         }
         return jybm;
     }
