@@ -13,7 +13,7 @@
   <scroll-view  style='position:fixed;top:108rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
 <view class="uni-list">
   <block wx:for="{{xjhList}}" wx:key="{{index}}">
-  <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+  <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid1="{{item.owid}}" data-owid2="{{item.jobRefOwid}}" bindtap="detail">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
         <view class="uni-media-list-text-top">{{item.zwbt}}</view>

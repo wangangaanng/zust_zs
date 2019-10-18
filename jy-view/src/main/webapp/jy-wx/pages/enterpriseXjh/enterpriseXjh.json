@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "宣讲会",
   "usingComponents": {
+    "van-icon": "vant-weapp/icon",
     "van-search": "vant-weapp/search",
     "van-divider": "vant-weapp/divider"
   }

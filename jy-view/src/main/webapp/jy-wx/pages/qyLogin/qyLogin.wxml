@@ -2,7 +2,7 @@
   <image src="../../static/logo-zust.png"></image>
 </view>
 <view class="search-form">
-  <!-- <view class="search-title">企业登录</view> -->
+  <view class="search-title">企业登录</view>
   <view class="search-content">
     <view class="search-body">
       <view>

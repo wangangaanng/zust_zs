@@ -29,10 +29,11 @@ Page({
           var jsonObj = {
             code: res.code,
             encryptedData: encryptedData,
-            iv: iv
+            iv: iv,
+            wxid:'wx01'
           };
           wx.request({
-            url: app.globalData.ApiUrl + '',
+            url: app.globalData.ApiUrl + 'zustcommon/bckjBizYhgl/getYhInfoByOpenid',
             data: {
               "data": JSON.stringify(jsonObj),
               timestamp: new Date().getTime()

@@ -14,7 +14,7 @@ Page({
     totalPage: '',
     xjhList: [],
     key: '',
-    type: ["职位", "社会招聘会", '企业招聘会', '职来职往', '宣讲会']
+    type: ["职位", "社会招聘会", '企业招聘公告', '职来职往', '宣讲会']
   },
   positionDetail(e) {
     wx.navigateTo({
