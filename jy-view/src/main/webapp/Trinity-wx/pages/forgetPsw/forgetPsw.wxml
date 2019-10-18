@@ -1,0 +1,16 @@
+ <!--pages/register/register.wxml-->
+<!-- 表单 -->
+<form bindsubmit="submitForm" class="form-wrap">
+  <van-cell-group>
+    <van-field v-model="username" placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message=""  clearable/>
+    <van-field v-model="username" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message=""   clearable>
+      <van-button slot="button" size="small" plain hairline  type="primary" bind:click="sendCode">发送验证码</van-button>
+    </van-field>
+    <van-field v-model="username" placeholder="登录密码（6-16位数字字母组合密码）" type="{{loginPswType}}" left-icon=" iconfont icon-denglu-mima" error-message="" right-icon=" iconfont icon-comiisyincangmima"  bind:click-icon="showPswType"  clearable/>
+    <van-field v-model="username" placeholder="确认密码（6-16位数字字母组合密码）" type="{{surePswType}}" left-icon=" iconfont icon-denglu-mima" right-icon=" iconfont icon-yanjing" error-message="" bind:click-icon="surePswType"  clearable/>
+  </van-cell-group>
+  <!-- 按钮 -->
+  <view class="main-btn_wrap">
+   <van-button round type="primary" loading-text="重置密码..." class="main-button" size="large">重置密码</van-button>
+  </view>
+</form>
