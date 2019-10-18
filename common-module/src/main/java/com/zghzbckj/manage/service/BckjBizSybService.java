@@ -249,6 +249,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             }
             bckjBizJypuchongService.updateXsxhByHyOwid(bckjBizJypuchong);
             bckjBizJyschemeService.updateXsxhByHyOwid(bckjBizJyscheme);
+            bckjBizYhxx.setYhDlzh(bckjBizYhkz.getXsxh());
             bckjBizYhxxService.updateSyscheme(bckjBizYhxx);
             bckjBizYhkzService.updateSyscheme(bckjBizYhkz);
             bckjBizStudentinfoService.updateSyscheme(bckjBizStudentinfo);

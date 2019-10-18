@@ -24,6 +24,7 @@ import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
+import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.util.TextUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -689,4 +690,22 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         return job;
     }
+
+    /**
+     *
+     * 前台获得当日需要签到的信息列表
+     * @param filterModels
+     * @param  pageNo
+     * @param   pageSize
+     * @return ResponseMessage
+     */
+    public PageInfo<BckjBizJob> getQdList(List<FilterModel> filterModels, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+        Page<BckjBizJob> page = new Page<>(pageNo,pageSize);
+        dataMap.put("page",page);
+        List<BckjBizJob> listByMap = this.dao.findQdList(dataMap);
+        page.setList(listByMap);
+        return PageUtils.assimblePageInfo(page);
+    }
+
 }
