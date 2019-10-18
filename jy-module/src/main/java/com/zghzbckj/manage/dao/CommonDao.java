@@ -29,7 +29,7 @@ public interface CommonDao {
 
     List<Map<String, Object>> getCompanyArea(String year);
 
-    List<BckjBizSyb> getMapList(Map<String, Object> dataMap);
+    List<String> getMapList(Map<String, Object> dataMap);
 
     List<Map<String, Object>> getGraduationMapList(Map<String, Object> dataMap);
 

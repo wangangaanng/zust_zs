@@ -122,7 +122,7 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 	}
 	
 	public BigDecimal getTmsx() {
-		return tmsx.stripTrailingZeros();
+		return tmsx;
 	}
 
 	public void setTmsx(BigDecimal tmsx) {

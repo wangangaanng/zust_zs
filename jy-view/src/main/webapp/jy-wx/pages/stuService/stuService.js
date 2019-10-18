@@ -1,4 +1,5 @@
 // pages/stuService/stuService.js
+var common = require('../../libs/common/common.js')
 Page({
 
   /**
@@ -23,7 +24,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    isStudent(this);
   },
   linkurl: function (e) {
     var url = e.currentTarget.dataset.url;
@@ -82,3 +83,23 @@ Page({
 
   }
 })
+function isStudent(that){
+  var data = {
+    "xsxh": wx.getStorageSync("stuInfo").xsxh
+  }
+  common.ajax('zustcommon/bckjBizYhkz/judgeSetPointQualification', data, function (res) {
+    if (res.data.backCode == 0) {
+      var arr = that.data.menuList;
+      arr.push({ text: '采点', icon: '../../../static/stu-icon08.png', url: '../stuCaidian/stuCaidian' });
+      that.setData({
+        menuList:arr
+      })
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

@@ -244,7 +244,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         HashMap<Object, Object> jyPcMap = Maps.newHashMap();
         HashMap<Object, Object> studentInfoMap = Maps.newHashMap();
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
+            for (int i = 1; i < list.size(); i++) {
                 //就业方案录入
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0);//学生学号/工号/税号
@@ -577,7 +577,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "此学号已存在库内");
                 }
             }
-
+            //更改后的登入账号
+            bckjBizYhxx.setYhDlzh(bckjBizYhkz.getXsxh());
             bckjBizYhxxService.updateJyscheme(bckjBizYhxx);
             bckjBizSybService.updateJyscheme(bckjBizSyb);
             bckjBizYhkzService.updateJyscheme(bckjBizYhkz);
@@ -655,6 +656,14 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      */
     public String getDicVall(int type,String val1){
         return this.dao.getDicVall(type,val1);
+    }
+    /**
+     * 根据字典表type 获得val2list
+     * @param type
+     * @return
+     */
+    public  List getDicListByType(int type){
+        return this.dao.getDicListByType(type);
     }
 
     /**

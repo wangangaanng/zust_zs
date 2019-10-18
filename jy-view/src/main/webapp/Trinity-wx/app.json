@@ -1,5 +1,12 @@
 {
+  "usingComponents": {
+    "van-button": "vant-weapp/button"
+  },
   "pages": [
+    "pages/majorExam/majorExam",
+    "pages/examTip/examTip",
+    "pages/register/register",
+    "pages/forgetPsw/forgetPsw",
     "pages/xw/xw",
     "pages/grzx/grzx",
     "pages/shouye/shouye",

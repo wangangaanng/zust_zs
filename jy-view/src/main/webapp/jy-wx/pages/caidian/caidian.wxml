@@ -1,0 +1,40 @@
+<!--pages/caidian/caidian.wxml-->
+<view>
+			<view class="txxx">
+				<view class="toux">
+					<image src="{{headImgUrl}}"></image>
+				</view>
+				<view class="txinfo">
+					<view class="txname">{{name}}</view>
+					<view>学号：{{xh}}</view>
+				</view>
+			</view>	 
+			<view class="sjdiv">
+				<view class="xqdiv">
+					<image src="../../static/rl.png"></image>
+					<span class="tmt-fz_m">{{xq}}：<span>{{date}}</span></span>
+				</view>
+				<view class="szdiv">
+					<image src="../../static/sj.png"></image>
+					<span class="tmt-fz_m">当前时间：<span>{{time}}</span></span>
+				</view>
+			</view>
+			<view class="wzdiv">
+				<view class="dtdiv">
+					<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14"  show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
+				</view>
+				<view class="dzdiv">
+					<view>{{result.zwbt}}</view>
+					<view class="dz">{{result.zphJbdd}}</view>
+				</view>
+			</view>
+			<view>
+				<view class="qddiv" bindtap="caidian">
+					<view>
+						<image src="../../static/qd.png"></image>
+						<view style="color:#fff;">采点</view>
+					</view>
+				</view>
+			</view>
+		</view>
+

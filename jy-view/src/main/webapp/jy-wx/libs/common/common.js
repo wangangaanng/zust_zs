@@ -99,6 +99,11 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+function convertWKtwo(dt) {
+  var weekDay = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
+  var myDate = new Date(Date.parse(dt.replace(/-/g, "/")));
+  return weekDay[myDate.getDay()];
+}
 
 exports.formatTime= formatTime
 exports.toast = toast
@@ -106,4 +111,5 @@ exports.emptyCheck = emptyCheck
 exports.indexOf = indexOf
 exports.ajax = ajax
 exports.convertStr = convertStr
+exports.convertWKtwo = convertWKtwo
 

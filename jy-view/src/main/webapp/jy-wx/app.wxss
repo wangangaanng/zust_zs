@@ -10,6 +10,7 @@ page{background: #f3f3f5;}
 .common-btn-hover{
   opacity: 0.7;
 }
+.nulltip{text-align: center;padding: 20px 0px;color: #008783;}
 .tag-grey{
     position: relative;
     top: -1px;

@@ -544,6 +544,15 @@
 	</select>
 
 
+    <select id="getDicListByType" resultType="String" parameterType="String">
+        SELECT a.dic_val2
+        FROM ourway_sys_dic b,ourway_sys_dic_value a
+        <where>
+            b.owid=a.dic_ref_owid and b.type=#{type}
+        </where>
+    </select>
+
+
 
 
 

@@ -14,7 +14,7 @@
      <!-- 引入 jdbc 配置文件 -->
      <bean id="propertyConfigurer"
            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-          <property name="location" value="classpath:app/config-dev.properties" />
+          <property name="location" value="classpath:app/config-pro.properties" />
      </bean>
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
           <property name="driverClassName" value="${jdbc.driverClassName}"/>

@@ -1,6 +1,7 @@
 package com.zghzbckj.manage.service;
 
 import com.beust.jcommander.internal.Maps;
+import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.utils.HttpUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -9,9 +10,11 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.util.HttpBackUtil;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +31,9 @@ import java.util.Map;
 @Service("commonService")
 public class CommonService {
     private static final Logger log = Logger.getLogger(CommonService.class);
+
+    @Autowired
+    BckjBizSybService bckjBizSybService;
 
     public ResponseMessage getSecondMenu(Map<String, Object> mapData) {
         Map<String, Object> param = Maps.newHashMap();
@@ -76,4 +82,12 @@ public class CommonService {
         return ResponseMessage.sendOK(null);
     }
 
+    /**
+     * 返回字典表 按val2排序
+     * @param dataMap
+     * @return
+     */
+    public List<Map<String,Object>> getByTypeSort(Map<String, Object> dataMap) {
+        return bckjBizSybService.getByTypeSort(dataMap);
+    }
 }
