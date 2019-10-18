@@ -36,8 +36,17 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+const getVal = (a,arr) => {
+  for (var i = 0; i < arr.length; i++) {  
+    if (arr[i].dicVal1 == a) {
+      return arr[i].dicVal2
+    }
+  }
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTime1: formatTime1,
-  formatTime2: formatTime2
+  formatTime2: formatTime2,
+  getVal: getVal
 }
