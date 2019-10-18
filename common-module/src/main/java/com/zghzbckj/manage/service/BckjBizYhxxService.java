@@ -717,4 +717,47 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public Map<String,Object> queryDocument(Map<String, Object> dataMap) {
         return this.dao.queryDocument(dataMap);
     }
-}
+
+    /**
+     *后台根据job 的 owid 获得关注学生信息
+     * @param filterModels
+     * @param type
+     * @param pageSize
+     * @param pageNo
+     * @return
+     */
+    public PageInfo<Map> getYhxxInfoList(Integer type ,List<FilterModel> filterModels, Integer pageSize, Integer pageNo) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+        Page<Map> page = new Page<>(pageSize,pageNo);
+        dataMap.put("page",page);
+        List<Map> yhxxGzInfo=null;
+        //如果为关注或者签到
+        if(type==0||type==1){
+            dataMap.put("type",type);
+            yhxxGzInfo = this.dao.getYhxxGzInfo(dataMap);
+        }
+        //如果为报名
+        if(type==2){
+             yhxxGzInfo = this.dao.getYhxxBmInfo(dataMap);
+        }
+        page.setList(yhxxGzInfo);
+       return PageUtils.assimblePageInfo(page);
+    }
+
+
+    public Object getOneYhxxInfo(Map<String,Object> dataMap,Integer type) {
+   /*     //如果为关注或者签到
+        if(type==0||type==1){
+            dataMap.put("type",type);
+            yhxxGzInfo = this.dao.getYhxxGzInfo(dataMap);
+        }
+        //如果为报名
+        if(type==2){
+            yhxxGzInfo = this.dao.getYhxxBmInfo(dataMap);
+        }
+        page.setList(yhxxGzInfo);
+        return PageUtils.assimblePageInfo(page);
+    }*/
+        return null;
+    }
+    }

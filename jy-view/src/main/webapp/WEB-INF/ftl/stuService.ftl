@@ -14,7 +14,10 @@
         color: #999 !important;
     }
     .form-group div{line-height: 34px !important;}
-    /*.layui-layer-content{overflow-y:auto !important;}*/
+    .layui-layer-content{overflow-y:auto !important;}
+    .da-item{float:left;width:50%;}
+    .da-item div,.da-item p{width: 50%; float: left;white-space: normal;word-break:break-all;}
+    .da-item div:first-child{text-align: right;}
 </style>
 
 <body>
@@ -61,6 +64,34 @@
     </div>
 </div>
 
+<select style="display: none;" id="mz">
+        <#if mzList??>
+            <#list mzList as obj>
+            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+            </#list>
+        </#if>
+</select>
+<select style="display: none;" id="syd">
+        <#if sydList??>
+            <#list sydList as obj>
+            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+            </#list>
+        </#if>
+</select>
+<select style="display: none;" id="bdzszdmc">
+        <#if sydList??>
+            <#list sydList as obj>
+            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+            </#list>
+        </#if>
+</select>
+<select style="display: none;" id="byqx">
+        <#if byqxList??>
+            <#list byqxList as obj>
+            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+            </#list>
+        </#if>
+</select>
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
@@ -87,73 +118,121 @@
             }
             ajax("zustcommon/bckjBizJyscheme/queryDocument", jsonObj, function (data) {
                 if (data.backCode == 0) {
-                    index = layer.open({
-                        type: 1,
-                        title: '查询结果',
-                        skin: 'layui-layer-rim', //加上边框
-                        area: ['750px', '450px'], //宽高
-                        content: '<div class="lxr-modal"><div class="row">\n' +
-                        '                            <div class="form-group">\n' +
-                        '                                <label for="lxr" class="col-sm-3 control-label text-right" style="line-height: 34px;">姓名：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.xsxm +
-                        '                                </div>\n' +
-                        '                                <label for="lxdh" class="col-sm-3 control-label text-right" style="line-height: 34px;">学号：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.xsxh +
-                        '                                </div>\n' +
-                        '                            </div>\n' +
-                        '                        </div>\n' +
-                        '                        <div class="row">\n' +
-                        '                            <div class="form-group">\n' +
-                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">身份证号：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.sfzh +
-                        '                                </div>\n' +
-                        '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">毕业时间：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.bysj.substring(0, 10) +
-                        '                                </div>\n' +
-                        '                            </div>\n' +
-                        '                            </div>\n' +
-                        '                        <div class="row">\n' +
-                        '                            <div class="form-group">\n' +
-                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在院系：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.szxy +
-                        '                                </div>\n' +
-                        '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">所在班级：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.szbj.substring(0, 10) +
-                        '                                </div>\n' +
-                        '                            </div>\n' +
-                        '                            </div>\n' +
-                        '                        <div class="row">\n' +
-                        '                            <div class="form-group">\n' +
-                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">报到证签往单位名称：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.bdzDwmc +
-                        '                                </div>\n' +
-                        '                                <label for="xjsj" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位名称：</label>\n' +
-                        '                                <div class="col-sm-3">\n' +
-                        '                                    \n' + data.bean.dazjDwmc +
-                        '                                </div>\n' +
-                        '                            </div>\n' +
-                        '                            </div>\n' +
-                        '                        <div class="row">\n' +
-                        '                            <div class="form-group">\n' +
-                        '                                <label for="jkr" class="col-sm-3 control-label text-right" style="line-height: 34px;">档案转寄单位地址：</label>\n' +
-                        '                                <div class="col-sm-8">\n' +
-                        '                                    \n' + data.bean.dazjDwdz +
-                        '                                </div>\n' +
-                        '                            </div>\n' +
-                        '                            </div>\n' +
-                        '                        <div class="row btn-yd">\n' +
-                        '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                        '                                <button class="btn green" onclick="closeLayer()">确定</button>\n' +
-                        '                            </div>\n' +
-                        '                        </div></div>'
-                    });
+                    if(data.bean){
+                        var str='';
+                        var p=data.bean
+                        if(data.bean.xm){
+                            str+='<div class="da-item"><div>学生姓名：</div><p>'+p.xm+'</p></div>'
+                        }
+                        if(data.bean.xsxh){
+                            str+='<div class="da-item"><div>学生学号：</div><p>'+p.xsxh+'</p></div>'
+                        }
+                        if(data.bean.sfz){
+                            str+='<div class="da-item"><div>身份证号码：</div><p>'+p.sfz+'</p></div>'
+                        }
+                        if(data.bean.xb){
+                            if(data.bean.xb==1){
+                                str+='<div class="da-item"><div>性别：</div><p>男</p></div>'
+                            }else if(data.bean.xb==2){
+                                str+='<div class="da-item"><div>性别：</div><p>女</p></div>'
+                            }
+                        }
+                        if(data.bean.mz){
+                            $("#mz").val(data.bean.mz);
+                            str+='<div class="da-item"><div>民族：</div><p>'+$("#mz option:selected").html()+'</p></div>'
+                        }
+                        if(data.bean.xxmc){
+                            str+='<div class="da-item"><div>学校名称：</div><p>'+p.xxmc+'</p></div>'
+                        }
+                        if(data.bean.xsxy){
+                            str+='<div class="da-item"><div>学生学院：</div><p>'+p.xsxy+'</p></div>'
+                        }
+                        if(data.bean.xszy){
+                            str+='<div class="da-item"><div>学生专业：</div><p>'+p.xszy+'</p></div>'
+                        }
+                        if(data.bean.xsbj){
+                            str+='<div class="da-item"><div>学生班级：</div><p>'+p.xsbj+'</p></div>'
+                        }
+                        if(data.bean.bynf){
+                            str+='<div class="da-item"><div>毕业年份：</div><p>'+p.bynf+'</p></div>'
+                        }
+                        if(data.bean.byxl){
+                            str+='<div class="da-item"><div>毕业学历：</div><p>'+p.byxl+'</p></div>'
+                        }
+                        if(data.bean.xz){
+                            str+='<div class="da-item"><div>学制：</div><p>'+p.xz+'</p></div>'
+                        }
+                        if(data.bean.syddm){
+                            str+='<div class="da-item"><div>生源地代码：</div><p>'+p.syddm+'</p></div>'
+                        }
+                        if(data.bean.syd){
+                            $("#mz").val(data.bean.mz);
+                            $("#mz option:selected").html()
+                            str+='<div class="da-item"><div>生源地：</div><p>'+p.syd+'</p></div>'
+                        }
+                        if(data.bean.sjh){
+                            str+='<div class="da-item"><div>手机号：</div><p>'+p.sjh+'</p></div>'
+                        }
+                        if(data.bean.yx){
+                            str+='<div class="da-item"><div>邮箱：</div><p>'+p.yx+'</p></div>'
+                        }
+                        if(data.bean.xz){
+                            str+='<div class="da-item"><div>学制：</div><p>'+p.xz+'</p></div>'
+                        }
+                        if(data.bean.syddm){
+                            str+='<div class="da-item"><div>生源地代码：</div><p>'+p.syddm+'</p></div>'
+                        }
+                        if(data.bean.dwszddm){
+                            str+='<div class="da-item"><div>报到地区代码：</div><p>'+p.dwszddm+'</p></div>'
+                        }
+                        if(data.bean.byqx){
+                            $("#byqx").val(data.bean.byqx);
+                            str+='<div class="da-item"><div>毕业去向：</div><p>'+$("#byqx option:selected").html()+'</p></div>'
+                        }
+                        if(data.bean.bdzszdmc){
+                            $("#bdzszdmc").val(data.bean.bdzszdmc);
+                            str+='<div class="da-item"><div>报到证签往单位所在地名称：</div><p>'+$("#bdzszdmc option:selected").html()+'</p></div>'
+                        }
+                        if(data.bean.bdzqflbmc){
+                            str+='<div class="da-item"><div>报到证签发类别名称：</div><p>'+p.bdzqflbmc+'</p></div>'
+                        }
+                        if(data.bean.bdkssj){
+                            str+='<div class="da-item"><div>报到开始时间：</div><p>'+p.bdkssj+'</p></div>'
+                        }
+                        if(data.bean.bdjssj){
+                            str+='<div class="da-item"><div>报到结束时间：</div><p>'+p.bdjssj+'</p></div>'
+                        }
+                        if(data.bean.bdzbh){
+                            str+='<div class="da-item"><div>报到证编号：</div><p>'+p.bdzbh+'</p></div>'
+                        }
+                        if(data.bean.datdxxdz){
+                            str+='<div class="da-item"><div>档案投递详细地址：</div><p>'+p.datdxxdz+'</p></div>'
+                        }
+                        if(data.bean.datddw){
+                            str+='<div class="da-item"><div>档案投递单位：</div><p>'+p.datddw+'</p></div>'
+                        }
+                        if(data.bean.hkqydz){
+                            str+='<div class="da-item"><div>户口迁移地址：</div><p>'+p.hkqydz+'</p></div>'
+                        }
+                        if(data.bean.bdzlsh){
+                            str+='<div class="da-item"><div>报到证流水号：</div><p>'+p.bdzlsh+'</p></div>'
+                        }
+                        if(data.bean.bdzbz){
+                            str+='<div class="da-item"><div>报到证备注：</div><p>'+p.bdzbz+'</p></div>'
+                        }
+                        index = layer.open({
+                            type: 1,
+                            title: '查询结果',
+                            skin: 'layui-layer-rim', //加上边框
+                            area: ['750px', '450px'], //宽高
+                            content: '<div class="lxr-modal">\n' +str+
+                            '                        <div class="row btn-yd">\n' +
+                            '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
+                            '                                <button class="btn green" style="width: 120px;" onclick="closeLayer()">确定</button>\n' +
+                            '                            </div>\n' +
+                            '                        </div></div>'
+                        });
+                    }
                 } else {
                     walert(data.errorMess)
                 }
