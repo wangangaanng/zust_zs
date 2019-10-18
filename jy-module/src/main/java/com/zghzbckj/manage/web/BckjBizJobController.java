@@ -443,4 +443,26 @@ public class BckjBizJobController extends BaseController {
     }
 
 
+
+    /**
+     *
+     * 前台获得当日需要签到的信息列表
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("getQdList")
+    @ResponseBody
+    public ResponseMessage getQdList(PublicDataVO dataVO){
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+
+            return ResponseMessage.sendOK(bckjBizJobService.getQdList(filterModels,dataVO.getPageNo(),dataVO.getPageSize())) ;
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

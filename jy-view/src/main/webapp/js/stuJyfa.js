@@ -117,12 +117,15 @@ $(document).ready(function () {
     $("#sfdlxy").val($("#sfdlxy").attr("data-val"))
 
     $("#syd1").val($("#syd1").attr("data-val"))
+    $("#syd").val($("#syd").attr("data-val"))
     $("#syd").parent().find('.chosen-container  a.chosen-single span').html($("#syd1 option:selected").html())
 
     $("#dwszdmc1").val($("#dwszdmc1").attr("data-val"))
+    $("#dwszdmc").val($("#dwszdmc").attr("data-val"))
     $("#dwszdmc").parent().find('.chosen-container  a.chosen-single span').html($("#dwszdmc1 option:selected").html())
 
     $("#bdzszdmc1").val($("#bdzszdmc1").attr("data-val"))
+    $("#bdzszdmc").val($("#bdzszdmc").attr("data-val"))
     $("#bdzszdmc").parent().find('.chosen-container  a.chosen-single span').html($("#bdzszdmc1 option:selected").html())
 
     $("#byqx").val($("#byqx").attr("data-val"))

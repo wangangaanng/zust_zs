@@ -130,6 +130,7 @@ $(document).ready(function () {
     $("#mz").val($("#mz").attr("data-val"))
     $("#zzmm").val($("#zzmm").attr("data-val"))
     $("#syd1").val($("#syd1").attr("data-val"))
+    $("#syd").val($("#syd").attr("data-val"))
     $("#syd").parent().find('.chosen-container  a.chosen-single span').html($("#syd1 option:selected").html())
     $("#cxsy").val($("#cxsy").attr("data-val"))
     $("#xz").val($("#xz").attr("data-val"))
@@ -140,7 +141,7 @@ $(document).ready(function () {
     $("#sfrx").val($("#sfrx").attr("data-val"))
     $("#hkrx").val($("#hkrx").attr("data-val"))
 
-    // getJyBaseInfo()
+    getJyBaseInfo()
 })
 
 
@@ -149,7 +150,7 @@ function getJyBaseInfo() {
     var jsonObj ={
         "owid":getCookie("stuOwid")
     }
-    ajax("zustcommon/bckjBizSyb/getSyInfo", jsonObj, function (data) {
+    ajax("zustcommon/bckjBizSyb/getOne", jsonObj, function (data) {
         if(data.backCode==0){
             if(data.bean){
 
