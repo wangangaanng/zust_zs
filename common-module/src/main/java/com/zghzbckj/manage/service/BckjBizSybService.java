@@ -292,4 +292,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
     }
 
 
+    public List<Map<String,Object>> getByTypeSort(Map<String, Object> dataMap) {
+       return this.dao.getByTypeSort(dataMap);
+    }
 }

@@ -495,4 +495,11 @@
 		</where>
 	</select>
 
+	<select id="getByTypeSort" parameterType="Map" resultType="Map">
+		select
+				*
+		from ourway_sys_dic a ,ourway_sys_dic_value b
+		where b.dic_ref_owid = a.owid and a.type=#{dicType}
+		order by b.dic_val2
+	</select>
 </mapper>
