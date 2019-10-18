@@ -78,7 +78,7 @@
                 </div>
                 <ul class="xInfo" style="width: 50%;float: left;">
                     <#if result.xjsj?exists>
-                        <li>宣讲日期：<span> ${result.xjsj!''}</span></li>
+                        <li>宣讲日期：<span> ${result.xjsj?substring(0,10)}</span></li>
                     </#if>
                     <#if result.zphJtsj?exists>
                         <li>具体时间：<span> ${result.zphJtsj!''}</span></li>
