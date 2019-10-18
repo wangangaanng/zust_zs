@@ -1,4 +1,4 @@
-<!--pages/qiandao/qiandao.wxml-->
+<!--pages/caidian/caidian.wxml-->
 <view>
 			<view class="txxx">
 				<view class="toux">
@@ -21,7 +21,7 @@
 			</view>
 			<view class="wzdiv">
 				<view class="dtdiv">
-					<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14"  markers="{{markers}}" show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
+					<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14"  show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
 				</view>
 				<view class="dzdiv">
 					<view>{{result.zwbt}}</view>
@@ -29,13 +29,12 @@
 				</view>
 			</view>
 			<view>
-        <view class="qdbt">距您所在地点：30.0公里</view>
-				<view class="qdbt">本次未签到，请先签到</view>
-				<view class="qddiv">
+				<view class="qddiv" bindtap="caidian">
 					<view>
 						<image src="../../static/qd.png"></image>
-						<view style="color:#fff;">签到</view>
+						<view style="color:#fff;">采点</view>
 					</view>
 				</view>
 			</view>
 		</view>
+

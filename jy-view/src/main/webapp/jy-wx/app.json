@@ -39,7 +39,9 @@
     "pages/wdgz/wdgz",
     "pages/wdyy/wdyy",
     "pages/school/school",
-    "pages/qiandao/qiandao"
+    "pages/qiandao/qiandao",
+    "pages/stuCaidian/stuCaidian",
+    "pages/caidian/caidian"
   ],
   "window": {
     "backgroundTextStyle": "light",

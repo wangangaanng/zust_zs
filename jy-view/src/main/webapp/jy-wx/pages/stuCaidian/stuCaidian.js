@@ -1,4 +1,4 @@
-// pages/qiandaolb/qiandaolb.js
+// pages/stuCaidian/stuCaidian.js
 var common = require('../../libs/common/common.js')
 const app = getApp()
 Page({
@@ -43,20 +43,20 @@ Page({
       getList(that, that.data.mxdx, that.data.pageNo);
     }
   },
-  qiandao: function (e) {
+  caidian: function (e) {
     wx.navigateTo({
-      url: '../qiandao/qiandao?owid=' + e.currentTarget.dataset.owid,
+      url: '../caidian/caidian?owid=' + e.currentTarget.dataset.owid,
     })
   },
 })
 var getList = function (that, pageNo) {
   var data = {
-     "pageNo": pageNo, "pageSize": that.data.pageSize,
+    "pageNo": pageNo, "pageSize": that.data.pageSize,
   };
   common.ajax('zustjy/bckjBizJob/getQdList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      if (res.data.bean.records){
+      if (res.data.bean.records) {
         for (var i = 0; i < res.data.bean.records.length; i++) {
           var obj = {};
           var object = res.data.bean.records[i];
