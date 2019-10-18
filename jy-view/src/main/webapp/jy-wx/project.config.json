@@ -181,6 +181,13 @@
 					"pathName": "pages/inquiry/inquiry",
 					"query": "mxdx=1",
 					"scene": null
+				},
+				{
+					"id": 18,
+					"name": "pages/qiandao/qiandao",
+					"pathName": "pages/qiandao/qiandao",
+					"query": "owid=16947",
+					"scene": null
 				}
 			]
 		}

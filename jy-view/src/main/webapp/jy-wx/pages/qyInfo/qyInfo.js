@@ -128,11 +128,11 @@ var getContent = function (that, owid) {//招聘详情
     if (res.data.backCode == 0) {
       res.data.bean.createtime = res.data.bean.createtime.substring(0, 10)
       if (res.data.bean.zphKsrq) {
-        if (res.data.bean.zwlx == 4) {
-          res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 16)
-        } else {
+        // if (res.data.bean.zwlx == 4) {
+        //   res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 16)
+        // } else {
           res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
-        }
+        // }
       }
       if (res.data.bean.zphBmjzsj){
         res.data.bean.zphBmjzsj = res.data.bean.zphBmjzsj.substring(0, 10)
