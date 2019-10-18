@@ -11,6 +11,7 @@ Page({
     xsxm:'',
     sfzh:'',
     isSearch:false,
+    result:''
   },
 
   /**
@@ -59,14 +60,18 @@ Page({
     }
     var data = {
       "xsxm": this.data.xsxm,
-      "sfzh": this.data.sfzh
+      "sfz": this.data.sfzh
     }
     var that=this;
-    common.ajax('zustjy/bckjBizDacx/inquiryArchives', data, function (res) {
+    common.ajax('zustcommon/bckjBizJyscheme/queryDocument', data, function (res) {
       if (res.data.backCode == 0) {
-        that.setData({
-          isSearch:true,
-        })
+        if (res.data.bean){
+          res.data.bean.csrq = res.data.bean.sfz.substring(6, 10) + '年' + res.data.bean.sfz.substring(10, 12) + '月' + res.data.bean.sfz.substring(12, 14) + '日'
+          that.setData({
+            isSearch: true,
+            result: res.data.bean
+          })
+        }
 
       } else {
         wx.showToast({

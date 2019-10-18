@@ -29,45 +29,57 @@
   <view class="student-main">
     <view class="student-head">
       <image src=""></image>
-      <view class="name">姓名</view>
-      <view class="sex">男<span>1990年06月19日</span></view>
+      <view class="name">{{result.xm}}</view>
+      <view class="sex">{{result.xb==1?'男':'女'}}<span>{{result.csrq}}</span></view>
     </view>
-    <view class="dx">南京理工大学</view>
-    <view class="zy">建筑装饰工程技术  |   本科</view>
+    <view class="dx">{{result.xxmc}}</view>
+    <view class="zy">{{result.xszy}}  |   {{result.byxl}}</view>
   </view>
   <view class="student-info">
     <view class="table">
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">民族：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)">汉族</view>
+          <view class="td td-name"  style="width:300rpx;">学号：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xsxh}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">证件号码：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">身份证号码：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.sfz}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">学制：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">学制：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xz}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">学历类别：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">学历类别：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.byxl}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">分院：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">学院：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xsxy}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">系：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">专业：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xszy}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">班级：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">班级：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xsbj}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:180rpx;">学号：</view>
-          <view class="td td-value" style="width:calc(100% - 180rpx)"></view>
+          <view class="td td-name"  style="width:300rpx;">毕业年份：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bynf}}</view>
+        </view>
+         <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">报到证签往单位名称：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzDwmc}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">档案转寄单位名称：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dazjDwmc}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">档案转寄单位地址：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dazjDwdz}}</view>
         </view>
     </view>
     <!-- <van-button type="primary" size="large">打印学籍信息</van-button> -->
