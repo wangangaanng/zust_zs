@@ -657,6 +657,14 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     public String getDicVall(int type,String val1){
         return this.dao.getDicVall(type,val1);
     }
+    /**
+     * 根据字典表type 获得val2list
+     * @param type
+     * @return
+     */
+    public  List getDicListByType(int type){
+        return this.dao.getDicListByType(type);
+    }
 
     /**
      * 查询档案信息

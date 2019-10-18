@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.service.BckjBizJyschemeService;
 import com.zghzbckj.manage.service.BckjBizYhkzService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +36,8 @@ import java.util.Map;
 public class BckjBizYhkzController extends BaseController {
 	@Autowired
 	private BckjBizYhkzService bckjBizYhkzService;
-
+    @Autowired
+    BckjBizJyschemeService bckjBizJyschemeService;
 
 	@RequestMapping(value = "/getList")
     @ResponseBody
@@ -125,6 +127,31 @@ public class BckjBizYhkzController extends BaseController {
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 判断当前学号的学生是否有资格定点
+     * @return
+     */
+    @PostMapping("judgeSetPointQualification")
+    @ResponseBody
+    public ResponseMessage judgeSetPointQualification(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xsxh");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            List dicListByType = bckjBizJyschemeService.getDicListByType(50006);
+            if(!dicListByType.contains(dataMap.get("xsxh"))){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+            }
+            return  ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
