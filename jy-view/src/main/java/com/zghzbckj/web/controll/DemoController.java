@@ -973,7 +973,7 @@ public class DemoController {
                 view.addObject("mzList",type3.getBean());
                 Map param1=Maps.newHashMap();
                 param1.put("owid",stuOwid);
-                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getSyInfo");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getOne");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
                     view.addObject("stuInfo",result1.getBean());
@@ -1089,7 +1089,7 @@ public class DemoController {
                 view.addObject("mzList",type3.getBean());
                 Map param1=Maps.newHashMap();
                 param1.put("owid",stuOwid);
-                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getSyInfo");
+                PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getOne");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
                     view.addObject("stuInfo",result1.getBean());

@@ -7,6 +7,8 @@ Page({
   data: {
     name:wx.getStorageSync('stuInfo').xm,
     menuList: [
+      // { text: '生源信息', icon: '../../../static/index-icon04.png', url: '../newsList/newsList?lmbh=40' },
+      // { text: '就业方案', icon: '../../../static/qy-icon05.png', url: '../newsList/newsList?lmbh=41' }, 
       { text: '办事流程', icon: '../../../static/stu-icon01.png', url: '../newsList/newsList?lmbh=40'}, 
       { text: '常用下载', icon: '../../../static/stu-icon02.png', url: '../newsList/newsList?lmbh=41'}, 
       { text: '档案查询', icon: '../../../static/stu-icon03.png', url: '../dangan/dangan'  }, 
