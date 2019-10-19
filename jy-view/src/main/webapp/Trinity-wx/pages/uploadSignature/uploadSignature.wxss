@@ -1,0 +1,7 @@
+/* pages/uploadSignature/uploadSignature.wxss */
+page{background:rgba(245,245,245);height: 100%;}
+.van-cell{background-color: #f5f5f5!important;border-radius: 6rpx;margin-bottom: 30rpx;}
+.van-cell__title{color: rgb(153,153,153)}
+.icon-xiangji{color: #999999;font-size: 40rpx;}
+.main-btn_wrap{padding: 54rpx 0px 0px;}
+.promise .van-cell{margin-bottom: 0px;}

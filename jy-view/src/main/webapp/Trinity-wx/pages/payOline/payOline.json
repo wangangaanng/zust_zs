@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "在线缴费",
-  "usingComponents": {}
+  "usingComponents": {
+    "topBck":"/components/topBck/topBck"
+  }
 }

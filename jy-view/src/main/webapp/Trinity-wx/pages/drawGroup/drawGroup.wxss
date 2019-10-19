@@ -1,0 +1,11 @@
+/* pages/drawGroup/drawGroup.wxss */
+page{
+  background:rgba(245,245,245);
+  height: 100%;
+}
+.main-btn_wrap{padding: 62rpx 0 6px 0}
+.van-cell{padding: 10rpx 0rpx!important;}
+.van-cell__title,.van-cell__value{font-size: 26rpx;}
+.van-cell__title{color: #333!important;max-width: 80px!important;min-width: 80px!important;}
+.van-field__input--disabled{color: #666!important;}
+.bottom-txt{color: #7b7b7b;font-size: 26rpx;text-align: center;position: absolute;bottom: 10%;width: 100%;}
