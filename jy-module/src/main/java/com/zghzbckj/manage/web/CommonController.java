@@ -234,6 +234,29 @@ public class CommonController {
     }
 
     /**
+     *<p>功能描述:毕业生流向 graduationArea</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/16 14:09</li>
+     *</ul>
+     */
+    @PostMapping(value = "graduationArea")
+    @ResponseBody
+    public ResponseMessage graduationArea(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        try {
+            List<List<Map<String, Object>>> mapList = commonService.getGraduationMapList(dataMap);
+            return ResponseMessage.sendOK(mapList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
      * <p>方法:12个月份 listMonth TODO </p>
      * <ul>
      * <li> @param  TODO</li>

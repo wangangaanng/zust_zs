@@ -342,7 +342,7 @@
     </select>
 
     <select id="queryDicList" resultType="java.util.Map">
-        SELECT a.dic_val2,a.dic_val3
+        SELECT a.dic_val2,a.dic_val3,a.dic_val4
         FROM ourway_sys_dic b,ourway_sys_dic_value a
         <where>
             b.owid=a.dic_ref_owid and b.type=#{type}
@@ -363,6 +363,16 @@
 				from bckj_biz_job b , bckj_biz_xsgz c
 				where  b.owid =#{jobOwid} and c.job_ref_owid = b.owid
 	</select>
+
+	<select id="getZlzwInfo" resultType="Map">
+
+	</select>
+
+	<select id="getXjhInfo" resultType="Map">
+
+	</select>
+
+
 
 
 </mapper>

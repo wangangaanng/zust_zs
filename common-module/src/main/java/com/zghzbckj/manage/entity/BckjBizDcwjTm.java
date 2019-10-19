@@ -53,6 +53,16 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 	private String tmxxx;		// tmxxx
 	private String tmxxy;		// tmxxy
 	private String tmxxz;		// tmxxz
+
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private boolean readOnly;
 	
 	public BckjBizDcwjTm() {
 		super();
@@ -112,7 +122,7 @@ public class BckjBizDcwjTm extends DataWithExpEntity<BckjBizDcwjTm> {
 	}
 	
 	public BigDecimal getTmsx() {
-		return tmsx.stripTrailingZeros();
+		return tmsx;
 	}
 
 	public void setTmsx(BigDecimal tmsx) {

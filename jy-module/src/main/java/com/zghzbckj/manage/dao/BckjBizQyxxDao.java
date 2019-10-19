@@ -29,4 +29,8 @@ public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
     List<Object> getBaoMingList(Map<String, Object> dataMap);
 
     List<Object> getGuanZhuList(Map<String, Object> dataMap);
+
+    Map<String, Object> getZlzwInfo();
+
+    Map<String, Object> getXjhInfo();
 }

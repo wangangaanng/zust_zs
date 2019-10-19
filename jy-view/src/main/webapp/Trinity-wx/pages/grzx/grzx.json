@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "van-cell": "vant-weapp/cell",
+    "van-cell-group": "vant-weapp/cell-group"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#26b887",
+  "navigationBarTitleText": "",
+  "navigationBarTextStyle": "white"
+}

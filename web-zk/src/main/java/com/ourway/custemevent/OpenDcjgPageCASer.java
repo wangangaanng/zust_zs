@@ -57,7 +57,7 @@ public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implem
 
                     try {
                         JsonPostUtils.executeAPI(grid.getSelectRowsData().get(0), _params.get("apiUrl").toString());
-                        root.openFunByPageCa("结果-" + _params.get("title") + ":" + wjmc, pageCa, 4);
+                        root.openFunByPageCa("问卷-" + _params.get("title") + ":" + wjmc, pageCa, 4);
                     } catch (Exception var15) {
                         AlterDialog.alert(I18nUtil.getLabelContent("public.sys.error.openError"));
                     }

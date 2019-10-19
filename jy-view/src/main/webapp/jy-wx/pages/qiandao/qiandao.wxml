@@ -1,0 +1,41 @@
+<!--pages/qiandao/qiandao.wxml-->
+<view>
+			<view class="txxx">
+				<view class="toux">
+					<image src="{{headImgUrl}}"></image>
+				</view>
+				<view class="txinfo">
+					<view class="txname">{{name}}</view>
+					<view>学号：{{xh}}</view>
+				</view>
+			</view>	 
+			<view class="sjdiv">
+				<view class="xqdiv">
+					<image src="../../static/rl.png"></image>
+					<span class="tmt-fz_m">{{xq}}：<span>{{date}}</span></span>
+				</view>
+				<view class="szdiv">
+					<image src="../../static/sj.png"></image>
+					<span class="tmt-fz_m">当前时间：<span>{{time}}</span></span>
+				</view>
+			</view>
+			<view class="wzdiv">
+				<view class="dtdiv">
+					<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14"  markers="{{markers}}" show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
+				</view>
+				<view class="dzdiv">
+					<view>{{result.zwbt}}</view>
+					<view class="dz">{{result.zphJbdd}}</view>
+				</view>
+			</view>
+			<view>
+        <view class="qdbt">距您所在地点：30.0公里</view>
+				<view class="qdbt">本次未签到，请先签到</view>
+				<view class="qddiv">
+					<view>
+						<image src="../../static/qd.png"></image>
+						<view style="color:#fff;">签到</view>
+					</view>
+				</view>
+			</view>
+		</view>

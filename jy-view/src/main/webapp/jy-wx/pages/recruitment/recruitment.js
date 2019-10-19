@@ -177,14 +177,13 @@ var getList = function (that, owid, isDetail, SJHQDX, index, pageNo) {
               obj.year = object.createtime.substring(0, 4);
             }
             if (object.zphKsrq){
-              if (object.zwlx == 4) {
-                obj.zphKsrq = object.zphKsrq.substring(0, 16)
-              } else {
+              // if (object.zwlx == 4) {
+              //   obj.zphKsrq = object.zphKsrq.substring(0, 16)
+              // } else {
                 obj.zphKsrq = object.zphKsrq.substring(0, 10)
-              }
+              // }
             }
             if (object.zwSxsj) {
-              console.log(object.zwSxsj);
               var thetime = object.zwSxsj;
               var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
               if (d <= curDate) {

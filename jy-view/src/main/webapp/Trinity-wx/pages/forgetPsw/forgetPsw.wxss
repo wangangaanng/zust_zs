@@ -1,0 +1,8 @@
+/* pages/register/register.wxss */
+.van-cell{padding:60rpx 25rpx 20rpx 25rpx!important;}
+.iconfont{font-size: 44rpx!important;color: #999;padding: 0px 8px;}
+.icon-yanzhengma1{font-size: 40rpx!important;}
+/* 显示验证码 */
+.icon-yanjing{font-size: 34rpx!important;}
+/* 隐藏密码 */
+.icon-comiisyincangmima{font-size: 40rpx!important;}

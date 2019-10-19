@@ -187,19 +187,6 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         if (!TextUtils.isEmpty(xsgz) && xsgz.getState() == 1) {
             //如果为关注
             if (xsgz.getXxlb() == 0 && Integer.parseInt(datamap.get("xxlb").toString()) == xsgz.getXxlb()) {
-                /*int x = -(Integer.parseInt(xsgz.getExp1()));
-                xsgz.setExp1("" + x);
-                saveOrUpdate(xsgz);
-                if (x == -1) {
-                    int count =bckjBizJob.getZwGzs()-1;
-                    bckjBizJob.setZwGzs(count);
-                    bckjBizJobService.saveOrUpdate(bckjBizJob);
-                    return ResponseMessage.sendOK(CommonConstant.Unfollow);
-                }
-                int count =bckjBizJob.getZwGzs()+1;
-                bckjBizJob.setZwGzs(count);
-                bckjBizJobService.saveOrUpdate(bckjBizJob);
-                return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);*/
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
             }
             //如果为签到
@@ -242,6 +229,8 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             Double distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()));
+            //设置距离
+            bckjBizJob.setExp10(distance.toString());
             Integer bj = bckjBizJob.getZphGpsbj();
             if (distance > bj) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);
@@ -267,7 +256,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
         bckjBizXsgz.setYhRefOwid(yhxxVo.getOwid());
         bckjBizXsgz.setLxdh(yhxxVo.getSjh());
-        bckjBizXsgz.setLxr(yhxxVo.getMz());
+        bckjBizXsgz.setLxr(yhxxVo.getXm());
         bckjBizXsgz.setGpsJd(bckjBizJob.getZphGpsjd());
         bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
         bckjBizXsgz.setCreatetime(new Date());
@@ -368,7 +357,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         return xsgz;
     }
 
-    public List<BckjBizXsgz> findListByMap(HashMap<String, Object> sendMap) {
+    public List<BckjBizXsgz> findListByMap(Map<String, Object> sendMap) {
         return this.dao.findListByMap(sendMap);
     }
 
@@ -401,4 +390,6 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         page.setList(this.dao.zwSubcribeList(dataMap));
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
+
+
 }

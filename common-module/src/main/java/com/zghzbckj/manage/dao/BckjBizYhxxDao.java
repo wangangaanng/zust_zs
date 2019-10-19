@@ -5,11 +5,7 @@ package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
-import com.zghzbckj.base.model.ResponseMessage;
-import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
-import com.zghzbckj.util.MapUtil;
-import com.zghzbckj.vo.BckjBizStudentXxVo;
 
 import java.util.List;
 import java.util.Map;
@@ -35,17 +31,6 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     List<Object> showStudentInfoList(Map<String,Object> dataMap);
 
-    List<Object> showTeatchInfoList(Map<String,Object> dataMap);
-
-
-    List<String> getSfzList();
-
-    List<String> getSjhList();
-
-    BckjBizYhxx findBySjh(String sjh);
-
-    BckjBizYhxx findBySfz(String sfz);
-
 
     Map<String,Object> showStudentInfo(Map<String, Object> dataMap);
 
@@ -58,4 +43,18 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     void updateJyscheme(BckjBizYhxx bckjBizYhxx);
 
     void updateSyscheme(BckjBizYhxx bckjBizYhxx);
+
+    Map<String, Object> queryDocument(Map<String, Object> dataMap);
+
+    List<Map> getYhxxGzInfo(Map<String, Object> dataMap);
+
+    List<Map> getYhxxBmInfo(Map<String, Object> dataMap);
+
+    String getYhxxQdSum(Map<String, Object> dataMap);
+
+    List<Map> getYhxxQdInfo(Map<String, Object> dataMap);
+
+    Map<String,Object> getOneYhxxGzOrQdInfo(Map<String, Object> dataMap);
+
+    Map<String,Object> getOneYhxxBmInfo(Map<String, Object> dataMap);
 }

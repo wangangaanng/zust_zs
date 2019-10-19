@@ -13,7 +13,7 @@ Page({
       { text: '新闻公告', icon: '../../../static/index-icon03.png', url: '../newsList/newsList?fid=16' }, 
       { text: '招聘信息', icon: '../../../static/index-icon04.png', url: '../recruitment/recruitment?fid=17' }, 
       { text: '职业指导', icon: '../../../static/index-icon05.png', url: '../newsList/newsList?fid=18' }, 
-      { text: '就业排行榜', icon: '../../../static/index-icon06.png',url: '' }, 
+      { text: '就业排行榜', icon: '../../../static/index-icon06.png', url: '../ranking/ranking' }, 
       { text: '学生服务', icon: '../../../static/index-icon07.png', url: '../stuService/stuService' }, 
       { text: '企业服务', icon: '../../../static/index-icon08.png', url: '../qyService/qyService' }],
     pageSize: 20,
@@ -31,6 +31,23 @@ Page({
     newsList4: [],
     currentTab:'0',
     floorstatus:false,
+  },
+  newsDetail(e){
+    wx.navigateTo({
+      url: '../newsDetail/newsDetail?owid=' + e.currentTarget.dataset.owid,
+    })
+  },
+  positionDetail(e) {
+    if (e.currentTarget.dataset.lx == 5) {
+      wx.navigateTo({
+        url: '../newsDetail/newsDetail?owid=' + e.currentTarget.dataset.owid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../qyInfo/qyInfo?owid=' + e.currentTarget.dataset.owid,
+      })
+    }
+
   },
   onPageScroll: function (e) {
     if (e.scrollTop > 700) {
@@ -209,6 +226,7 @@ var getList1 = function (that,lx){
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
+      var curDate = new Date();
       for (var i = 0; i < res.data.bean.records.length; i++) {
         var obj = {};
         var object = res.data.bean.records[i];
@@ -219,6 +237,14 @@ var getList1 = function (that,lx){
         obj.qymc = object.exp1;
         obj.city = object.zwCity;
         obj.gzxz = object.zwGzxzStr;
+        obj.zwlx = object.zwlx;
+        if (object.zwSxsj) {
+          var thetime = object.zwSxsj;
+          var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+          if (d <= curDate) {
+            obj.old = '1'
+          }
+        }
         arr.push(obj);
       }
       var newsList1 = that.data.newsList1.concat(arr)
@@ -243,6 +269,7 @@ var getList2 = function (that, lx) {
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
+      var curDate = new Date();
       for (var i = 0; i < res.data.bean.records.length; i++) {
         var obj = {};
         var object = res.data.bean.records[i];
@@ -251,6 +278,14 @@ var getList2 = function (that, lx) {
         obj.year = object.createtime.substring(0, 4);
         obj.zwbt = object.zwbt;
         obj.city = object.zwCity;
+        obj.zwlx = object.zwlx;
+        if (object.zwSxsj) {
+          var thetime = object.zwSxsj;
+          var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+          if (d <= curDate) {
+            obj.old = '1'
+          }
+        }
         arr.push(obj);
       }
       var newsList2 = that.data.newsList2.concat(arr)
@@ -275,6 +310,7 @@ var getList3 = function (that, lx) {
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
+      var curDate = new Date();
       for (var i = 0; i < res.data.bean.records.length; i++) {
         var obj = {};
         var object = res.data.bean.records[i];
@@ -286,6 +322,14 @@ var getList3 = function (that, lx) {
         obj.zphKsrq = object.zphKsrq.substring(0, 10);
         obj.zphJtsj = object.zphJtsj;
         obj.city = object.zwCity;
+        obj.zwlx = object.zwlx;
+        if (object.zwSxsj) {
+          var thetime = object.zwSxsj;
+          var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+          if (d <= curDate) {
+            obj.old = '1'
+          }
+        }
         arr.push(obj);
       }
       var newsList3 = that.data.newsList3.concat(arr)
@@ -311,6 +355,7 @@ var getList4 = function (that, lx) {
     if (res.data.backCode == 0) {
       var arr = [];
       if (res.data.bean.records){
+        var curDate = new Date();
         for (var i = 0; i < res.data.bean.records.length; i++) {
           var obj = {};
           var object = res.data.bean.records[i];
@@ -322,6 +367,14 @@ var getList4 = function (that, lx) {
           obj.zphKsrq = object.zphKsrq.substring(0, 10);
           obj.zphJtsj = object.zphJtsj;
           obj.city = object.zwCity;
+          obj.zwlx = object.zwlx;
+          if (object.zwSxsj) {
+            var thetime = object.zwSxsj;
+            var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+            if (d <= curDate) {
+              obj.old = '1'
+            }
+          }
           arr.push(obj);
         }
         var newsList4 = that.data.newsList4.concat(arr)

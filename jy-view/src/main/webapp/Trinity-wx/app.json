@@ -1,0 +1,47 @@
+{
+  "usingComponents": {
+    "van-button": "vant-weapp/button"
+  },
+  "pages": [
+    "pages/payOline/payOline",
+    "pages/majorExam/majorExam",
+    "pages/examTip/examTip",
+    "pages/register/register",
+    "pages/forgetPsw/forgetPsw",
+    "pages/xw/xw",
+    "pages/grzx/grzx",
+    "pages/shouye/shouye",
+    "pages/login/login",
+    "pages/index/index",
+    "pages/logs/logs"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#26b887",
+    "navigationBarTitleText": "浙江科技学院三位一体",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json",
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/shouye/shouye",
+        "iconPath": "static/sy.png",
+        "selectedIconPath": "static/sy-s.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/xw/xw",
+        "iconPath": "static/xw.png",
+        "selectedIconPath": "static/xw-s.png",
+        "text": "新闻"
+      },
+      {
+        "pagePath": "pages/grzx/grzx",
+        "iconPath": "static/grzx.png",
+        "selectedIconPath": "static/grzx-s.png",
+        "text": "个人中心"
+      }
+    ]
+  }
+}

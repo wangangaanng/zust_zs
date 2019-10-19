@@ -324,7 +324,7 @@
 
 
 	<update id="saveZxzxDetail" parameterType="Map">
-		UPDATE bckj_biz_zxzx SET DANR=#{danr} , hdrq=now() ,state= #{state} WHERE  owid =#{owid}
+		UPDATE bckj_biz_zxzx SET DANR=#{danr} , hdrq=now() ,state= #{state} ,exp1=#{exp1} WHERE  owid =#{owid}
 	</update>
 
 	<select id="historyMessage" parameterType="Map" resultType="Map">

@@ -316,4 +316,6 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         }
         return resluts;
     }
+
+
 }

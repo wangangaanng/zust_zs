@@ -63,6 +63,34 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String xxlxr;
     private String xxlxrdh;
 
+    private Integer zphSfbm;        // zph_sfbm
+    private Date zphBmjzsj;        // zph_bmjzsj
+    private Integer zphSfqd;        // zph_sfqd
+
+    public Integer getZphSfbm() {
+        return zphSfbm;
+    }
+
+    public void setZphSfbm(Integer zphSfbm) {
+        this.zphSfbm = zphSfbm;
+    }
+
+    public Date getZphBmjzsj() {
+        return zphBmjzsj;
+    }
+
+    public void setZphBmjzsj(Date zphBmjzsj) {
+        this.zphBmjzsj = zphBmjzsj;
+    }
+
+    public Integer getZphSfqd() {
+        return zphSfqd;
+    }
+
+    public void setZphSfqd(Integer zphSfqd) {
+        this.zphSfqd = zphSfqd;
+    }
+
     public String getXxlxr() {
         return xxlxr;
     }

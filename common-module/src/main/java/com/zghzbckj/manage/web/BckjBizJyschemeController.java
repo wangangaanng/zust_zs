@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.web;
 
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
@@ -12,7 +13,9 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizJyschemeService;
+import com.zghzbckj.manage.service.BckjBizYhxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,6 +38,8 @@ import java.util.Map;
 public class BckjBizJyschemeController extends BaseController {
 	@Autowired
 	private BckjBizJyschemeService bckjBizJyschemeService;
+    @Autowired
+    BckjBizYhxxService bckjBizYhxxService;
 
 
 	@RequestMapping(value = "/getList")
@@ -222,6 +227,42 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+    /**
+     * 查询档案信息
+     * @param  dataVO
+     * @return  queryDocument
+     */
+    @PostMapping("queryDocument")
+    @ResponseBody
+    public  ResponseMessage queryDocument(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xsxm", "sfz");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            //正则判断身份证号格式
+            String regex = "\\d{15}(\\d{2}[0-9xX])?";
+            if (dataMap.get("sfz").toString().matches(regex)) {
+                Map<String,Object> resMap=bckjBizYhxxService.queryDocument(dataMap);
+                if(TextUtils.isEmpty(resMap)){
+                    return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.GetMessageFail);
+                }
+                dataMap.put("owid",resMap.get("owid"));
+                return ResponseMessage.sendOK(bckjBizJyschemeService.queryDocument(dataMap));
+            } else {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
+            }
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
 
     /**
      * 后台jyscheme删除gridlist

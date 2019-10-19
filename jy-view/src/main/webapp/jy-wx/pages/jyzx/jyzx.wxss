@@ -28,7 +28,7 @@ page{background-color: #F3F3F5;}
 }
 .t-f6{flex:6;text-align: center;}
 .t-cz view{font-size: 26rpx;display: flex;justify-content:center;}
-.t-cz image{width: 34rpx;height: 34rpx;margin-right: 15rpx;margin-top: 18rpx;}
+.t-cz image{width: 34rpx;height: 34rpx;margin-right: 15rpx;margin-top: 20rpx;}
 .t-cz .t-f6:first-child{
   color: #008783;
   /* border-right: 1rpx solid #d5d5d5; */
@@ -43,8 +43,7 @@ page{background-color: #F3F3F5;}
   right: 0;
   background-color: #d5d5d5;
 }
-.wtnr{border:1rpx solid #d5d5d5;width:90%;margin: 0 auto;margin-top: 15rpx;padding: 10rpx;}
-/* .van-dialog__confirm {color: #008783 !important;} */
+.wtnr{border:1rpx solid #d5d5d5;width:96%;margin: 0 auto;margin-top: 15rpx;padding: 10rpx;}
 
 .l-ask{overflow: hidden;background-color: #fff;padding: 30rpx 25rpx;font-size: 32rpx;}
 .l-ask image{float: left;width: 45rpx;height: 45rpx;margin-right: 15rpx;}

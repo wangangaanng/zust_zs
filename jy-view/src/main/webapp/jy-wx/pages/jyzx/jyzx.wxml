@@ -26,20 +26,9 @@
   </view>
   </block>
 
-  <van-dialog
-      use-slot
-      title="请填写咨询内容"
-      show="{{ show }}"
-      show-cancel-button
-      bind:cancel="cancel1"
-      bind:confirm="confirm1"
-      before-close
-      confirm-button-color="#008783"
-      confirm-button-text="提交"
-    >
-      <textarea class="wtnr" placeholder="请输入" auto-focus></textarea>
-    </van-dialog>
-
+  <modal hidden="{{modal1}}" title="请输入咨询内容" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" auto-focus></textarea>
+  </modal>
     
 <van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
   </scroll-view>

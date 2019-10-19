@@ -363,16 +363,16 @@
 		</where>
 	</delete>
 
-	<update id="updataInfo" parameterType="BckjBizStudentinfo">
+	<update id="updateSyscheme" parameterType="BckjBizStudentinfo">
 		update bckj_biz_studentinfo set
-		syddm=#{syddm}
+		xsxh=#{xsxh}
 		where
 		yh_ref_owid=#{yhRefOwid}
 	</update>
 
-
-	<update id="updateSyscheme" parameterType="BckjBizStudentinfo">
+	<update id="updataInfo" parameterType="BckjBizStudentinfo">
 		update bckj_biz_studentinfo set
+		syddm=#{syddm},
 		xsxh=#{xsxh}
 		where
 		yh_ref_owid=#{yhRefOwid}

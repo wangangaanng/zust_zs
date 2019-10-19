@@ -1,0 +1,90 @@
+/* pages/login/login.wxss */
+
+.input-wrap .iconfont {
+  position: absolute;
+  font-size: 40rpx;
+  color: #4e648a;
+}
+
+.input-wrap .icon-eye_close, .input-wrap .icon-eye_open {
+  position: absolute;
+  right: 0rpx;
+  top: -14rpx;
+  padding: 16rpx 16rpx 16rpx 50rpx;
+  z-index: 11;
+  color: #009cff;
+}
+
+.headImg {
+  width: 100%;
+}
+
+.logo image {
+  width: 200rpx;
+  height: 200rpx;
+}
+
+.logo {
+  text-align: center;
+  margin-top: -134rpx;
+}
+
+.title {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 50rpx;
+}
+
+.field {
+  padding: 50rpx;
+}
+
+.li {
+  display: flex;
+  border-bottom: 1rpx solid #e6e6e6;
+  padding: 20rpx 30rpx;
+  margin-bottom: 40rpx;
+}
+
+.li input {
+  flex: 1;
+  font-size: 16px;
+  margin-left: 40rpx;
+}
+
+.left-icon {
+  height: 38rpx;
+  width: 26rpx;
+  position: relative;
+  top: 2rpx;
+}
+
+.right-icon {
+  height: 36rpx;
+  width: 36rpx;
+  float: right;
+  position: relative;
+  top: 8rpx;
+}
+
+.button {
+  padding: 0 70rpx;
+  margin-bottom: 80rpx;
+}
+
+.button button {
+  background-image: linear-gradient(0deg, #51cca3 0%, #26b887 100%);
+  box-shadow: 0px 3px 10px 0px rgba(69, 214, 165, 0.75);
+  border-radius: 40rpx;
+  color: #fff;
+  font-size: 16px;
+}
+
+.foots {
+  text-align: center;
+}
+.foots text{
+  padding: 0 40rpx;
+  color: #999999;
+  font-size: 15px;
+}

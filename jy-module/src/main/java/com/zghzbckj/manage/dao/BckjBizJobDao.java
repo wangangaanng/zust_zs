@@ -21,5 +21,8 @@ public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
 
     List findListByMapWithCompany(Map<String, Object> paramsMap);
 
+
+    List<BckjBizJob> findQdList(Map<String, Object> dataMap);
+
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }

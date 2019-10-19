@@ -21,4 +21,8 @@ public interface BckjBizDcwjDtmxDao extends CrudDao<BckjBizDcwjDtmx> {
 
     List<BckjBizDcwjDtmx> listDtmx(@Param("dcwjjgRefOwid") String dcwjjgRefOwid);
 
+    Integer countDtmx(String dcwjtmRefOwid, char wjda);
+
+    List<BckjBizDcwjDtmx> listDtmxByDcwj(@Param("dcwjRefOwid") String dcwjRefOwid);
+
 }

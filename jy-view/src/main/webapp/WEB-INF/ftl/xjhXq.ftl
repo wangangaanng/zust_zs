@@ -40,8 +40,12 @@
         </div>
         <ul class="nav nav-tabs" id="nav-tabs-job">
             <li role="presentation" class="active"><a href="#" onclick="tabs(0)">宣讲会信息</a></li>
+            <#if result?? && result.state?? && result.state==1>
             <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
-            <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+                <#if result.zphSfbm?? && result.zphSfbm==1>
+                <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+                </#if>
+            </#if>
         </ul>
         <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList">
             <div class="e-table" style="padding: 0 20px;">
@@ -73,13 +77,15 @@
                     </dl>
                 </div>
                 <ul class="xInfo" style="width: 50%;float: left;">
-                    <#if result.zphKsrq?exists>
-                        <li>举办日期：<span>${result.zphKsrq?substring(0,16)}</span></li>
+                    <#if result.xjsj?exists>
+                        <li>宣讲日期：<span> ${result.xjsj?substring(0,10)}</span></li>
                     </#if>
                     <#if result.zphJtsj?exists>
                         <li>具体时间：<span> ${result.zphJtsj!''}</span></li>
                     </#if>
+                    <#if result.zphJbdd?exists>
                     <li>举办地点：<span>${result.zphJbdd!''}</span></li>
+                    </#if>
                     <#if result.zphBmjzsj?exists>
                         <li>报名截止时间：<span>${result.zphBmjzsj?substring(0,10)}</span></li>
                     </#if>
@@ -103,9 +109,6 @@
                     </#if>
                     <#if result.jkr?exists>
                         <li>讲课人：<span> ${result.jkr!''}</span></li>
-                    </#if>
-                    <#if result.xjsj?exists>
-                        <li>宣讲时间：<span> ${result.xjsj!''}</span></li>
                     </#if>
                     <#if result.jkrjs?exists>
                         <li>讲课人介绍：<span> ${result.jkrjs!''}</span></li>

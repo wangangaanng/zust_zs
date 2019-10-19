@@ -10,6 +10,15 @@ App({
       } else { }
     } catch (err) { }
   },
+  onShow: function () {
+    // var token1 = wx.getStorageSync('openId');
+    // var token2 = wx.getStorageSync('unionid');
+    // if (token1 === '' || token1 === undefined || token1 === null || token2 === '' || token2 === undefined || token2 === null){
+    //   wx.reLaunch({
+    //     url: '/pages/auth/auth'
+    //   })
+    // }
+  },
   globalData: {
     userInfo: '',
     lj: '',

@@ -48,4 +48,8 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
     void  updateXsxhByHyOwid(BckjBizJyscheme bckjBizJyscheme);
 
     BckjBizJyscheme getByYhRefOwid(String yhRefOwid);
+
+    String getDicVall(int type, String val1);
+
+    List<String> getDicListByType(int type);
 }

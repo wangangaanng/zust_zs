@@ -395,6 +395,8 @@ public class BckjBizJobController extends BaseController {
             job.setZphJbdd(mapData.get("zphJbdd").toString());
         }
         job.setZphGpsbj(Integer.parseInt(mapData.get("zphGpsbj").toString()));
+        //已定位
+        job.setExp5("2");
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
@@ -437,6 +439,28 @@ public class BckjBizJobController extends BaseController {
             return ResponseMessage.sendOK(resultMap.get("bean"));
         } else {
             return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
+    }
+
+
+
+    /**
+     *
+     * 前台获得当日需要签到的信息列表
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("getQdList")
+    @ResponseBody
+    public ResponseMessage getQdList(PublicDataVO dataVO){
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+
+            return ResponseMessage.sendOK(bckjBizJobService.getQdList(filterModels,dataVO.getPageNo(),dataVO.getPageSize())) ;
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 

@@ -7,6 +7,7 @@ import com.ourway.baiduapi.utils.HttpClientUtils;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.service.CommonService;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -222,4 +223,24 @@ public class CommonController {
         }
     }
 
+    /**
+     * 返回字典表 按val2排序
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getByTypeSort")
+    @ResponseBody
+    public ResponseMessage getByTypeSort(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "dicType");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(commonService.getByTypeSort(dataMap));
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 }
