@@ -6,6 +6,7 @@ import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizJyscheme;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.util.MapUtil;
+import com.zghzbckj.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -191,7 +192,7 @@ public class CommonService {
      * </ul>
      */
     public List<Map<String, Object>> getMapList(Map<String, Object> dataMap) {
-        List<BckjBizSyb> list = commonDao.getMapList(dataMap);
+        List<String> list = commonDao.getMapList(dataMap);
         List<Map<String, Object>> mapList = new ArrayList<>();
         Map<String, Object> objectMap = null;
         for (int i = 0; i < JyContant.provinceList.length; i++) {
@@ -200,10 +201,10 @@ public class CommonService {
             objectMap.put("value", 0);
             mapList.add(objectMap);
         }
-        for (BckjBizSyb data : list) {
+        for (String data : list) {
             for (int i = 0; i < JyContant.provinceList.length; i++) {
                 Map<String, Object> map = new HashMap<>();
-                if (data.getSyd().contains(JyContant.provinceList[i])) {
+                if (!TextUtils.isEmpty(data) && data.contains(JyContant.provinceList[i])) {
                     for (Map<String, Object> map1 : mapList) {
                         if (!(JyContant.provinceList[i].equals(map1.get("name").toString()))) {
                             continue;

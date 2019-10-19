@@ -84,9 +84,9 @@ Page({
           content: "职位发布成功",
           success(res) {
             if (res.confirm) {
-              // wx.navigateBack({
-              //   delta:1
-              // })
+              wx.navigateBack({
+                delta:1
+              })
               console.log('用户点击确定')
             } else if (res.cancel) {
               console.log('用户点击取消')

@@ -1,0 +1,17 @@
+/* pages/examTip/examTip.wxss */
+.tip-icon{
+  width: 142rpx;
+  height: 142rpx;
+  padding-top: 205rpx;
+  padding-bottom: 65rpx;
+}
+.cont-wrap{
+  text-align: center;
+}
+.tip-txt{
+  width: 68%;
+  color: rgb(110, 110, 110);
+  margin: 0 auto;
+  font-size: 30rpx;
+  line-height: 1.5
+}

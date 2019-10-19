@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "面试分组抽签",
+  "usingComponents": {
+    "topBck": "/components/topBck/topBck",
+    "van-field": "vant-weapp/field"
+  }
+}

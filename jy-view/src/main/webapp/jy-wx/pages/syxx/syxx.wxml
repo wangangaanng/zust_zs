@@ -1,0 +1,128 @@
+
+<form bindsubmit="submitForm">
+  <van-field input-align="right" value="{{form.xm}}" name="xm" label="姓名" placeholder="输入内容" required />
+<van-cell-group>
+  <van-field value="{{form.xsxh}}" name="xsxh" input-align="right" disabled required label="学号" placeholder="输入内容" />
+  <van-cell required title="出生日期" value="{{csrqStr}}" is-link arrow-direction="down" data-type="1" bind:click="showBottom" />
+  <van-popup show="{{ show.csrq }}" position="bottom" custom-style="height: 540rpx" data-type="1" bind:close="hideBottom">
+  <van-datetime-picker
+    data-type="1"
+    value="{{csrq}}"
+    min-date="{{minDate}}"
+    type="date"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"
+  />
+  </van-popup>
+  <van-cell required title="性别" value="{{xbStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
+  <van-popup show="{{ show.xb }}" position="bottom" custom-style="height: 540rpx" data-type="2" bind:close="hideBottom">
+    <van-picker show-toolbar title="性别" value-key="dicVal2" columns="{{xbColumns}}" data-type="2" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell required title="民族" value="{{mzStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
+  <van-popup show="{{ show.mz }}" position="bottom" custom-style="height: 540rpx" data-type="3" bind:close="hideBottom">
+    <van-picker show-toolbar title="民族" value-key="dicVal2" columns="{{mzColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell required title="政治面貌" value="{{zzmmStr}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" />
+  <van-popup show="{{ show.zzmm }}" position="bottom" custom-style="height: 540rpx" data-type="4" bind:close="hideBottom">
+    <van-picker show-toolbar title="政治面貌" value-key="dicVal2" columns="{{zzmmColumns}}" data-type="4" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" type="idcard" value="{{form.sfz}}" name="sfz" label="身份证号" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.jtdz}}" name="jtdz" label="家庭地址" type="textarea" rows="1" autosize placeholder="输入内容" required />
+  <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
+  <van-popup show="{{ show.syd }}" position="bottom" custom-style="height: 540rpx" data-type="55" bind:close="hideBottom">
+    <van-picker show-toolbar title="生源地" value-key="dicVal2" columns="{{sydColumns}}" data-type="55" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell required title="入学日期" value="{{rxnfStr}}" is-link arrow-direction="down" data-type="6" bind:click="showBottom" />
+  <van-popup show="{{ show.rxnf }}" position="bottom" custom-style="height: 540rpx" data-type="6" bind:close="hideBottom">
+  <van-datetime-picker
+    data-type="6"
+    value="{{rxnf}}"
+    min-date="{{minDate1}}"
+    type="date"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"
+  />
+  </van-popup>
+  <van-cell required title="毕业年份" value="{{bynfStr}}" is-link arrow-direction="down" data-type="7" bind:click="showBottom" />
+  <van-popup show="{{ show.bynf }}" position="bottom" custom-style="height: 540rpx" data-type="7" bind:close="hideBottom">
+    <van-picker show-toolbar title="毕业年份"  columns="{{bynfColumns}}" data-type="7" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell required title="毕业日期" value="{{byrqStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
+  <van-popup show="{{ show.byrq }}" position="bottom" custom-style="height: 540rpx" data-type="8" bind:close="hideBottom">
+  <van-datetime-picker
+    data-type="8"
+    value="{{byrq}}"
+    type="date"
+    min-date="{{minDate2}}"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"
+  />
+  </van-popup>
+  <van-cell required title="城乡生源" value="{{cxsyStr}}" is-link arrow-direction="down" data-type="9" bind:click="showBottom" />
+  <van-popup show="{{ show.cxsy }}" position="bottom" custom-style="height: 540rpx" data-type="9" bind:close="hideBottom">
+    <van-picker show-toolbar title="城乡生源" value-key="dicVal2" columns="{{cxsyColumns}}" data-type="9" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" value="{{form.ksh}}" name="ksh" label="考生号" placeholder="输入内容" required />
+  <van-cell required title="学制" value="{{xzStr}}" is-link arrow-direction="down" data-type="10" bind:click="showBottom" />
+  <van-popup show="{{ show.xz }}" position="bottom" custom-style="height: 540rpx" data-type="10" bind:close="hideBottom">
+    <van-picker show-toolbar title="学制" value-key="dicVal2" columns="{{xzColumns}}" data-type="10" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" value="{{form.xxmc}}" name="xxmc" label="所属学校" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.ssxy}}" name="ssxy" label="所属学院" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.xszy}}" name="xszy" label="学校专业" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.szbj}}" name="szbj" label="所在班级" placeholder="输入内容" required />
+  <van-cell required title="培养方式" value="{{pyfsStr}}" is-link arrow-direction="down" data-type="11" bind:click="showBottom" />
+  <van-popup show="{{ show.pyfs }}" position="bottom" custom-style="height: 540rpx" data-type="11" bind:close="hideBottom">
+    <van-picker show-toolbar title="培养方式" value-key="dicVal2" columns="{{pyfsColumns}}" data-type="11" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" value="{{form.wpdw}}" name="wpdw" label="委培单位" placeholder="输入内容" required />
+  <van-cell required title="困难生类别" value="{{knslbStr}}" is-link arrow-direction="down" data-type="12" bind:click="showBottom" />
+  <van-popup show="{{ show.knslb }}" position="bottom" custom-style="height: 540rpx" data-type="12" bind:close="hideBottom">
+    <van-picker show-toolbar title="困难生类别" value-key="dicVal2" columns="{{knslbColumns}}" data-type="12" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell required title="师范生类别" value="{{sfslbStr}}" is-link arrow-direction="down" data-type="13" bind:click="showBottom" />
+  <van-popup show="{{ show.sfslb }}" position="bottom" custom-style="height: 540rpx" data-type="13" bind:close="hideBottom">
+    <van-picker show-toolbar title="师范生类别" value-key="dicVal2" columns="{{sfslbColumns}}" data-type="13" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" value="{{form.sjh}}" name="sjh" label="手机号码" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.qqhm}}" name="qqhm" label="qq号码" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.jtdh}}" name="jtdh" label="家庭电话" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.jtyb}}" name="jtyb" label="家庭邮编" placeholder="输入内容" required />
+  <van-cell required title="学历层次" value="{{xlccStr}}" is-link arrow-direction="down" data-type="14" bind:click="showBottom" />
+  <van-popup show="{{ show.xlcc }}" position="bottom" custom-style="height: 540rpx" data-type="14" bind:close="hideBottom">
+    <van-picker show-toolbar title="学历层次" value-key="dicVal2" columns="{{xlccColumns}}" data-type="14" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" value="{{form.yx}}" name="yx" label="电子邮箱" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.zyfx}}" name="zyfx" label="专业方向" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.xqda}}" name="xqda" label="入学前档案所在单位" placeholder="输入内容" />
+  <van-cell title="档案是否转入学校" value="{{sfrxStr}}" is-link arrow-direction="down" data-type="15" bind:click="showBottom" />
+  <van-popup show="{{ show.sfrx }}" position="bottom" custom-style="height: 540rpx" data-type="15" bind:close="hideBottom">
+    <van-picker show-toolbar title="档案是否转入学校" value-key="dicVal2" columns="{{sfrxColumns}}" data-type="15" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="户口是否转入学校" value="{{hkrxStr}}" is-link arrow-direction="down" data-type="16" bind:click="showBottom" />
+  <van-popup show="{{ show.hkrx }}" position="bottom" custom-style="height: 540rpx" data-type="16" bind:close="hideBottom">
+    <van-picker show-toolbar title="户口是否转入学校" value-key="dicVal2" columns="{{hkrxColumns}}" data-type="16" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  
+  <van-field value="{{form.hkpcs}}" name="hkpcs" label="入学前户口所在地派出所" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+
+</van-cell-group>
+<input type="text" class="hiddenInput" name="csrq" value="{{form.csrq}}"></input>
+<input type="text" class="hiddenInput" name="xb" value="{{form.xb}}"></input>
+<input type="text" class="hiddenInput" name="mz" value="{{form.mz}}"></input>
+<input type="text" class="hiddenInput" name="zzmm" value="{{form.zzmm}}"></input>
+<input type="text" class="hiddenInput" name="syd" value="{{form.syd}}"></input>
+<input type="text" class="hiddenInput" name="rxnf" value="{{form.rxnf}}"></input>
+<input type="text" class="hiddenInput" name="bynf" value="{{form.bynf}}"></input>
+<input type="text" class="hiddenInput" name="byrq" value="{{form.byrq}}"></input>
+<input type="text" class="hiddenInput" name="cxsy" value="{{form.cxsy}}"></input>
+<input type="text" class="hiddenInput" name="xz" value="{{form.xz}}"></input>
+<input type="text" class="hiddenInput" name="pyfs" value="{{form.pyfs}}"></input>
+<input type="text" class="hiddenInput" name="knslb" value="{{form.knslb}}"></input>
+<input type="text" class="hiddenInput" name="sfslb" value="{{form.sfslb}}"></input>
+<input type="text" class="hiddenInput" name="xlcc" value="{{form.xlcc}}"></input>
+<input type="text" class="hiddenInput" name="sfrx" value="{{form.sfrx}}"></input>
+<input type="text" class="hiddenInput" name="hkrx" value="{{form.hkrx}}"></input>
+
+<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">保存</button>
+</form>

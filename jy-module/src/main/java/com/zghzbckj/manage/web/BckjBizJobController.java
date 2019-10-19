@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -381,7 +380,7 @@ public class BckjBizJobController extends BaseController {
     @ResponseBody
     public ResponseMessage setJbdd(PublicDataVO publicDataVO) {
         Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "zphGpsjd", "zphGpswd", "zphGpsbj");
+        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "zphJbdd", "zphGpsbj");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
@@ -389,14 +388,15 @@ public class BckjBizJobController extends BaseController {
         if (job == null) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
         }
-        job.setZphGpsjd(new BigDecimal(mapData.get("zphGpsjd").toString()));
-        job.setZphGpswd(new BigDecimal(mapData.get("zphGpswd").toString()));
-        if (!TextUtils.isEmpty(mapData.get("zphJbdd"))) {
-            job.setZphJbdd(mapData.get("zphJbdd").toString());
-        }
+//        job.setZphGpsjd(new BigDecimal(mapData.get("zphGpsjd").toString()));
+//        job.setZphGpswd(new BigDecimal(mapData.get("zphGpswd").toString()));
+//        if (!TextUtils.isEmpty(mapData.get("zphJbdd"))) {
+//            job.setZphJbdd(mapData.get("zphJbdd").toString());
+//        }
         job.setZphGpsbj(Integer.parseInt(mapData.get("zphGpsbj").toString()));
+        job.setZphJbdd(mapData.get("zphJbdd").toString());
         //已定位
-        job.setExp5("2");
+//        job.setExp5("2");
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
@@ -443,24 +443,22 @@ public class BckjBizJobController extends BaseController {
     }
 
 
-
     /**
-     *
      * 前台获得当日需要签到的信息列表
+     *
      * @param dataVO
      * @return ResponseMessage
      */
     @PostMapping("getQdList")
     @ResponseBody
-    public ResponseMessage getQdList(PublicDataVO dataVO){
+    public ResponseMessage getQdList(PublicDataVO dataVO) {
         try {
             List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
 
-            return ResponseMessage.sendOK(bckjBizJobService.getQdList(filterModels,dataVO.getPageNo(),dataVO.getPageSize())) ;
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            return ResponseMessage.sendOK(bckjBizJobService.getQdList(filterModels, dataVO.getPageNo(), dataVO.getPageSize()));
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 

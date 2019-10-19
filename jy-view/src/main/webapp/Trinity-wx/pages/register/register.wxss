@@ -1,0 +1,11 @@
+/* pages/register/register.wxss */
+.van-cell{padding:60rpx 25rpx 20rpx 25rpx!important;}
+.select-group{display: flex;}
+.van-radio{margin-left: 66rpx;}
+.iconfont{font-size: 44rpx!important;color: #999;padding: 0px 8px;}
+.icon-xingming{font-size: 36rpx!important}
+.icon-shuji{font-size: 36rpx!important;}
+.icon-yanzhengma1{font-size: 40rpx!important;}
+.icon-yanjing{font-size: 34rpx!important;}
+.icon-comiisyincangmima{font-size: 40rpx!important;}
+.van-cell__title{color: rgb(153,153,153)}

@@ -86,20 +86,10 @@ var myJobList = function (that, lx) {
   };
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
-      var arr = [];
-      for (var i = 0; i < res.data.bean.records.length; i++) {
-        var obj = {};
-        var object = res.data.bean.records[i];
-        obj.owid = object.owid;
-        obj.date = object.createtime.substring(5, 7) + "." + object.createtime.substring(8, 10);
-        obj.year = object.createtime.substring(0, 4);
-        obj.zwbt = object.zwbt;
-        obj.qymc = object.exp1;
-        obj.city = object.zwCity;
-        obj.gzxz = object.zwGzxzStr;
-        arr.push(obj);
+      var xjhList;
+      if (res.data.bean.records && res.data.bean.records.length > 0) {
+        xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
-      var xjhList = that.data.xjhList.concat(res.data.bean.records)
       var totalPage = res.data.bean.totalPage;
       that.setData({
         xjhList: xjhList,

@@ -3,10 +3,7 @@ package com.ourway.manage.api;
 import com.ourway.base.model.FilterModel;
 import com.ourway.base.model.PublicDataVO;
 import com.ourway.base.model.ResponseMessage;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.ourway.manage.service.CustomDicService;
 import com.ourway.sys.service.DicService;
 import com.ourway.sys.utils.I18nUtils;
@@ -60,7 +57,8 @@ public class DicValueController {
             if (TextUtils.isEmpty(type)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "null");
             }
-            return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(dataMap.get("dicType").toString()), null));
+            String order= MapUtils.getString(dataMap,"orderBy");
+            return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(dataMap.get("dicType").toString()), order));
         } catch (Exception e) {
             log.info("获取一级菜单失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");

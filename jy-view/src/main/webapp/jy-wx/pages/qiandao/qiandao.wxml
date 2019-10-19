@@ -21,7 +21,7 @@
 			</view>
 			<view class="wzdiv">
 				<view class="dtdiv">
-					<map id="map" longitude="113.324520" latitude="23.099994" scale="14"  markers="{{markers}}" show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
+					<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14"  markers="{{markers}}" show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
 				</view>
 				<view class="dzdiv">
 					<view>{{result.zwbt}}</view>
@@ -30,7 +30,7 @@
 			</view>
 			<view>
         <view class="qdbt">距您所在地点：30.0公里</view>
-				<view class="qdbt">今日未签到，请先签到</view>
+				<view class="qdbt">本次未签到，请先签到</view>
 				<view class="qddiv">
 					<view>
 						<image src="../../static/qd.png"></image>

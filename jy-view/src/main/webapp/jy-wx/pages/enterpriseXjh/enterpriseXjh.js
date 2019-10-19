@@ -26,7 +26,11 @@ Page({
   onLoad: function (options) {
     myBmList(this);
   },
-
+  detail(e){
+    wx.navigateTo({
+      url: '../xjhXq/xjhXq?owid=' + e.currentTarget.dataset.owid1 + '&owid1=' + e.currentTarget.dataset.owid2,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

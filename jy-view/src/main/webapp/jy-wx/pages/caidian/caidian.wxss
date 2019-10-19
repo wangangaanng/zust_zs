@@ -1,0 +1,21 @@
+/* pages/caidian/caidian.wxss */
+.txxx{background: white;display:block;float: left;width: 100%;border-bottom: 1px solid #f3f3f5;}
+.toux{float:left;}
+.toux image{width: 70px;height: 70px;margin: 10px 15px 10px 10px;border-radius: 50%;}
+.txname{color: #000;line-height: 40px;}
+.txinfo{float:left;margin-top: 15px;color:#888;}
+.qxbtn{width:100px;float: right;}
+.qxbtn a{border:1px solid #007aff;border-radius: 1px;padding: 2px;font-size: 13px;}
+.sjdiv{clear:both;margin-top: 1px;background: white;height:50px;line-height: 50px;}
+.xqdiv{width:50%;float: left;}
+.sjdiv image{width: 17px;height:17px;margin: 16px 5px 0 5px;float: left;}
+.szdiv{width:50%;float: right;}
+.wzdiv{margin-top: 1px;background: white;height:140px;}
+.dtdiv{width:50%;float:left;}
+.dtdiv image{height:120px;width:90%;margin: 10px 0 0 5%;}
+.dzdiv{width:50%;float:right;margin-top: 10px;font-size: 15px;}
+.qdbt{text-align: center;margin-top: 10px;color: #888;}
+.qddiv{text-align:center;width:120px;height:120px;background: #F7B55E;border-radius: 50%;border:10px solid #FAE4C7;margin:20px auto;}
+.qddiv image{width:55px;height:55px;margin-top: 20px;}
+.dz{color: #666;font-size: 14px;}
+.tmt-fz_m{font-size: 14px;}

@@ -1,0 +1,12 @@
+<!--pages/payOline/payOline.wxml-->
+<view>
+  <topBck>
+    <view class="df">
+      <icon class="iconfont icon-tongzhi" style=""></icon>
+      <view class="f1 notice-detail">恭喜你，你的初审已通过，缴费完成后将分配面试时间，请点击进入在线缴费环节</view>
+    </view>
+    <view class="main-btn_wrap">
+      <van-button round type="primary" class="main-button" size="large">缴费</van-button>
+    </view>
+  </topBck>
+</view>

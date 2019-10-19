@@ -1,0 +1,114 @@
+
+<wxs src="../fcn.wxs" module="tools" />
+<van-tabs sticky animated bind:click="clickTab">
+  <van-tab title="宣讲会信息">
+     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
+      
+      <view class="cell">
+          <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
+          <view class="title" wx:else>{{result.zwbt}}</view>
+        <view class="content">
+          <view class="table">
+              <view class="tr" wx:if="{{result.xjsj}}">
+                <view class="td td-name"  style="width:180rpx;">宣讲日期：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{tools.substr(result.xjsj,0,10)}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zphJtsj}}">
+                <view class="td td-name"  style="width:180rpx;">具体时间：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJtsj}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zphJbdd}}">
+                <view class="td td-name"  style="width:180rpx;">举办地点：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJbdd}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zphBmjzsj}}">
+                <view class="td td-name"  style="width:180rpx;">报名截止：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{tools.substr(result.zphBmjzsj,0,10)}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.xxlxr}}">
+                <view class="td td-name"  style="width:180rpx;">学校联系人：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xxlxr}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.xxlxrdh}}">
+                <view class="td td-name"  style="width:180rpx;">学校联系电话：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xxlxrdh}}</view>
+              </view>
+              <view class="tr">
+                <view class="td td-name"  style="width:180rpx;">审核状态：</view>
+                <view class="td td-value" wx:if="{{result.state==0}}" style="width:calc(100% - 180rpx)">待审核</view>
+                <view class="td td-value" wx:elif="{{result.state==1}}" style="width:calc(100% - 180rpx);color: #008784;">审核通过</view>
+                <view class="td td-value" wx:elif="{{result.state==2}}" style="width:calc(100% - 180rpx);color: red;">审核拒绝</view>
+              </view>
+               <view class="tr" wx:if="{{result.jkr}}">
+                <view class="td td-name"  style="width:180rpx;">讲课人：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.jkr}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.jkrjs}}">
+                <view class="td td-name"  style="width:180rpx;">讲课人介绍：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.jkrjs}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.xjhsqly}}">
+                <view class="td td-name"  style="width:180rpx;">申请理由：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xjhsqly}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.memo}}">
+                <view class="td td-name"  style="width:180rpx;">备注：</view>
+                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.memo}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zdytj1}}">
+                <view class="td" style="flex:12">{{result.zdytj1}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zdytj2}}">
+                <view class="td" style="flex:12">{{result.zdytj2}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zdytj3}}">
+                <view class="td" style="flex:12">{{result.zdytj3}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zdytj4}}">
+                <view class="td" style="flex:12">{{result.zdytj4}}</view>
+              </view>
+              <view class="tr" wx:if="{{result.zdytj5}}">
+                <view class="td" style="flex:12">{{result.zdytj5}}</view>
+              </view>
+          </view>
+        </view>
+      </view>
+
+     </scroll-view>
+  </van-tab>
+  <van-tab title="关注学生">
+    <view class="bm-table">
+        <view>学生姓名</view>
+        <view>关注时间</view>
+        <view>联系方式</view>
+    </view>
+     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+      <block wx:for="{{list1}}" wx:key="{{index}}">
+      <view class="bm-tbody">
+        <view>{{item.lxr}}</view>
+        <view>{{tools.substr(item.gzsj,0,10)}}</view>
+        <view>{{item.lxdh}}</view>
+      </view>
+      </block>
+      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+     </scroll-view>
+     
+  </van-tab>
+  <van-tab title="报名学生" wx:if="{{result.zphSfbm==1}}">
+    <view class="bm-table">
+        <view>学生姓名</view>
+        <view>报名时间</view>
+        <view>联系方式</view>
+    </view>
+     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
+      <block wx:for="{{list2}}" wx:key="{{index}}">
+      <view class="bm-tbody">
+        <view>{{item.lxr}}</view>
+        <view>{{tools.substr(item.bmsj,0,10)}}</view>
+        <view>{{item.lxdh}}</view>
+      </view>
+      </block>
+      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
+     </scroll-view>
+  </van-tab>
+</van-tabs>
