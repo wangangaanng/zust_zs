@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,4 +23,9 @@ public interface BckjBizXsgzDao extends CrudDao<BckjBizXsgz> {
     List<Map<String,Object>> studentSubcribeList(Map<String, Object> dataMap);
 
     List<Map<String,Object>> zwSubcribeList(Map<String, Object> dataMap);
+
+    BckjBizXsgz getOneByUnionId(String unionid);
+
+    Map<String,Object> qdSuccessInfo(HashMap<String, Object> sendMap);
+
 }

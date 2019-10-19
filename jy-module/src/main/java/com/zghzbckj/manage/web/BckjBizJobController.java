@@ -464,5 +464,26 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
+    /**
+     * 获得需要采点的list
+     * @param dataVO
+     * @return
+     */
+  @PostMapping("getCdList")
+  @ResponseBody
+    public ResponseMessage getCdList(PublicDataVO dataVO){
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return ResponseMessage.sendOK(bckjBizJobService.getCdList(filterModels,dataVO.getPageNo(),dataVO.getPageSize())) ;
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
+
+
 
 }

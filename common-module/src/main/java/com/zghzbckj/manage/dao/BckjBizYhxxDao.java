@@ -48,11 +48,17 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     List<Map> getYhxxGzInfo(Map<String, Object> dataMap);
 
-    List<Map> getYhxxBmInfo(Map<String, Object> dataMap);
+    String getYhxxGzSum(Map<String, Object> dataMap);
+
+
 
     String getYhxxQdSum(Map<String, Object> dataMap);
 
     List<Map> getYhxxQdInfo(Map<String, Object> dataMap);
+
+    List<Map> getYhxxBmInfo(Map<String, Object> dataMap);
+
+    String getYhxxBmSum(Map<String, Object> dataMap);
 
     Map<String,Object> getOneYhxxGzOrQdInfo(Map<String, Object> dataMap);
 
