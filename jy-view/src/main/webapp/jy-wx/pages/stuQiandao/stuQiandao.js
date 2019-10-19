@@ -56,18 +56,20 @@ var getList = function (that, pageNo) {
   common.ajax('zustjy/bckjBizJob/getQdList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      for (var i = 0; i < res.data.bean.records.length; i++) {
-        var obj = {};
-        var object = res.data.bean.records[i];
-        obj.owid = object.owid;
-        obj.zwbt = object.zwbt;
-        obj.zphJbdd = object.zphJbdd;
-        if (object.zphKsrq) {
-          obj.zphKsrq = object.zphKsrq.substring(0, 10)
+      if (res.data.bean.records){
+        for (var i = 0; i < res.data.bean.records.length; i++) {
+          var obj = {};
+          var object = res.data.bean.records[i];
+          obj.owid = object.owid;
+          obj.zwbt = object.zwbt;
+          obj.zphJbdd = object.zphJbdd;
+          if (object.zphKsrq) {
+            obj.zphKsrq = object.zphKsrq.substring(0, 10)
+          }
+          obj.zphJtsj = object.zphJtsj;
+          obj.zwlx = object.zwlx;
+          arr.push(obj);
         }
-        obj.zphJtsj = object.zphJtsj;
-        obj.zwlx = object.zwlx;
-        arr.push(obj);
       }
       var list = that.data.list.concat(arr)
       var totalPage = res.data.bean.totalPage;

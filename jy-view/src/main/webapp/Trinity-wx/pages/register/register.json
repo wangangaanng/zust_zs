@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "注册",
+  "usingComponents": {
+      "van-field": "vant-weapp/field",
+      "van-radio": "vant-weapp/radio",
+      "van-radio-group": "vant-weapp/radio-group",
+      "van-area": "vant-weapp/area",
+      "van-popup": "vant-weapp/popup",
+      "van-cell": "vant-weapp/cell",
+      "van-picker": "vant-weapp/picker"
+  }
+}

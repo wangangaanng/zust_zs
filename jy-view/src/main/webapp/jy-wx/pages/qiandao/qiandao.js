@@ -14,8 +14,8 @@ Page({
     markers: [{
       iconPath: "/static/location.png",
       id: 0,
-      latitude: 23.099994,
-      longitude: 113.324520,
+      latitude: '',
+      longitude: '',
       width: 50,
       height: 50
     }]
@@ -28,9 +28,13 @@ Page({
     var that = this;
     if (wx.getStorageSync("yhOwid")){
       wx.getLocation({
-        type: 'wgs84',// 默认wgs84
+        type: 'gcj02',// 默认wgs84
         success: function (res) { 
+          var latitude ="markers[0].latitude"
+          var longitude = "markers[0].longitude"
           that.setData({
+            [latitude]: res.latitude,
+            [longitude]: res.longitude,
             latitude: res.latitude,
             longitude: res.longitude
           })

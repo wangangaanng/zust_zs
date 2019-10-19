@@ -6,6 +6,7 @@ var imgPath = app.globalData.imgPath;
 
 Page({
   data: {
+    modal1: true,
     wtnr:'',
     imgPath: imgPath,
     list: [],
@@ -17,7 +18,60 @@ Page({
     totalPage1: '',
     show:false,
   },
-
+  cancel: function () {
+    this.setData({
+      modal1: true
+    });
+  },
+  ask:function(e){
+    this.setData({
+      tOwid: e.currentTarget.dataset.owid,
+      modal1: false
+    });
+  },
+  //确认
+  confirm: function () {
+    var that=this
+    if (!that.data.wtnr.trim()) {
+      wx.showToast({
+        icon: 'none',
+        title: '请填写内容',
+      })
+      return false
+    }
+    var data = { 
+      "wtnr": that.data.wtnr.trim(),
+      "owid": that.data.tOwid,
+      "zxlx": 2,
+      "studentOwid": wx.getStorageSync("yhOwid")
+     };
+    common.ajax('zustcommon/bckjBizZxzx/consult', data, function (res) {
+      if (res.data.backCode == 0) {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: '咨询已提交，请等待回复。',
+          success(res) {
+            if (res.confirm) {
+              console.log('用户点击确定')
+              that.setData({
+                modal1: true
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      } else {
+        wx.showToast({
+          title: res.data.errorMess,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+    
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -25,55 +79,14 @@ Page({
     supervisorList(this)
     historyConsult(this)
   },
-  cancel1(event) {
-    console.log(event)
-    this.setData({
-      show: false
-    });
-  },
   detail(e){
     wx.navigateTo({
       url: '../zjxq/zjxq?owid=' + e.currentTarget.dataset.owid,
     })
   },
-  beforeclose(action, done) {
-    console.log('123')
-    console.log(action)
-    console.log(done)
-    if (action === 'confirm') {
-      setTimeout(done, 1000)
-    } else if (action === 'cancel') {
-      done() //关闭
-    }
-  },
-  confirm1(e){
-    var that = this
-    console.log(e)
-    console.log(that.data.wtnr)
-    if (!that.data.wtnr.trim()){
-      wx.showToast({
-        icon:'none',
-        title: '请填写内容',
-      })
-      // done(false)
-      // return false
-    }
-
-    that.setData({
-      show: false
-    });
-  },
   getWtnr(e){
-    console.log(e)
     this.setData({
       wtnr: e.detail.value
-    })
-  },
-  ask(e){
-    // e.currentTarget.dataset.
-    var that = this
-    that.setData({
-      show:true
     })
   },
   loadMore: function () {
@@ -190,37 +203,6 @@ var historyConsult = function (that) {//新闻快递轮播图
       that.setData({
         list1: list,
         totalPage1: totalPage,
-      })
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
-    }
-  });
-}
-
-var consult = function (that,o) {//新闻快递轮播图
-  var data = { 
-    "wtnr": that.data.wtnr,
-    "owid": o,
-    "zxlx": 2,
-    "studentOwid": wx.getStorageSync('yhOwid')
-   };
-  common.ajax('zustcommon/bckjBizZxzx/consult', data, function (res) {
-    if (res.data.backCode == 0) {
-      wx.showModal({
-        title: '提示',
-        showCancel: false,
-        content: "咨询成功",
-        success(res) {
-          if (res.confirm) {
-            console.log('用户点击确定')
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
       })
     } else {
       wx.showToast({

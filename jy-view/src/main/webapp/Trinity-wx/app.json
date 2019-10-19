@@ -1,5 +1,13 @@
 {
+  "usingComponents": {
+    "van-button": "vant-weapp/button"
+  },
   "pages": [
+    "pages/payOline/payOline",
+    "pages/majorExam/majorExam",
+    "pages/examTip/examTip",
+    "pages/register/register",
+    "pages/forgetPsw/forgetPsw",
     "pages/xw/xw",
     "pages/grzx/grzx",
     "pages/shouye/shouye",
@@ -9,8 +17,8 @@
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarBackgroundColor": "#26b887",
+    "navigationBarTitleText": "浙江科技学院三位一体",
     "navigationBarTextStyle": "white"
   },
   "sitemapLocation": "sitemap.json",
@@ -19,7 +27,7 @@
       {
         "pagePath": "pages/shouye/shouye",
         "iconPath": "static/sy.png",
-        "selectedIconPath":"static/sy-s.png",
+        "selectedIconPath": "static/sy-s.png",
         "text": "首页"
       },
       {

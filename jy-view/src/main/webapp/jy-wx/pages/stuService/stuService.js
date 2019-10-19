@@ -1,4 +1,5 @@
 // pages/stuService/stuService.js
+var common = require('../../libs/common/common.js')
 Page({
 
   /**
@@ -7,9 +8,9 @@ Page({
   data: {
     name:wx.getStorageSync('stuInfo').xm,
     menuList: [
-      // { text: '生源信息', icon: '../../../static/index-icon04.png', url: '../newsList/newsList?lmbh=40' },
-      // { text: '就业方案', icon: '../../../static/qy-icon05.png', url: '../newsList/newsList?lmbh=41' }, 
-      { text: '办事流程', icon: '../../../static/stu-icon01.png', url: '../newsList/newsList?lmbh=40'}, 
+      { text: '生源信息', icon: '../../../static/index-icon04.png', url: '../syxx/syxx' },
+      { text: '就业方案', icon: '../../../static/qy-icon05.png', url: '../jyfa/jyfa' }, 
+      { text: '办事流程', icon: '../../../static/stu-icon01.jpg', url: '../newsList/newsList?lmbh=40'}, 
       { text: '常用下载', icon: '../../../static/stu-icon02.png', url: '../newsList/newsList?lmbh=41'}, 
       { text: '档案查询', icon: '../../../static/stu-icon03.png', url: '../dangan/dangan'  }, 
       { text: '我的预约', icon: '../../../static/stu-icon04.png', url: '../wdyy/wdyy' }, 
@@ -23,7 +24,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    isStudent(this);
   },
   linkurl: function (e) {
     var url = e.currentTarget.dataset.url;
@@ -82,3 +83,23 @@ Page({
 
   }
 })
+function isStudent(that){
+  var data = {
+    "xsxh": wx.getStorageSync("stuInfo").xsxh
+  }
+  common.ajax('zustcommon/bckjBizYhkz/judgeSetPointQualification', data, function (res) {
+    if (res.data.backCode == 0) {
+      var arr = that.data.menuList;
+      arr.push({ text: '采点', icon: '../../../static/stu-icon08.png', url: '../stuCaidian/stuCaidian' });
+      that.setData({
+        menuList:arr
+      })
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
