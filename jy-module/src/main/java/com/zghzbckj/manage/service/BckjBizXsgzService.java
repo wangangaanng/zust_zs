@@ -162,6 +162,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage signInOrScribe(Map<String, Object> datamap) {
+        Double distance=null;
         BckjBizJob bckjBizJob = bckjBizJobService.get(datamap.get("jobRefOwid").toString());
         ResponseMessage responseYhxx = bckjbizyhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
         if (TextUtils.isEmpty(responseYhxx) || responseYhxx.getBackCode() != 0 || TextUtils.isEmpty(responseYhxx.getBean())) {
@@ -197,7 +198,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         //如果为新的签到
         if (Integer.parseInt(datamap.get("xxlb").toString()) == 1) {
             //如果需要报名的
-            if (bckjBizJob.getZphSfbm() == 1) {
+            if (bckjBizJob.getZphSfbm() !=null && bckjBizJob.getZphSfbm()==1) {
                 //根据用户和job找到报名信息
                 BckjBizJybm bckjbizjybm = bckjBizJybmService.getOneByJobHy(datamap);
                 //报名类型不为学生或。。。。。。
@@ -206,34 +207,44 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 }
             }
             //如果不需要签到的
-            if (bckjBizJob.getZphSfqd() == 0) {
+            if (bckjBizJob.getZphSfqd()!=null&&bckjBizJob.getZphSfqd() == 0) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
             }
+
             //判断job信息是否失效
-            if (!(bckjBizJob.getZwSxsj().compareTo(new Date()) > 0)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.BeyondTime);
+            if(!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZwSxsj())){
+                if (!(bckjBizJob.getZwSxsj().compareTo(new Date()) > 0)) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.BeyondTime);
+                }
             }
             //判断签到日期是否在举办日期内
-            if (!JudgeInTimeIntervalUtils.judgeSameDay(bckjBizJob.getZphKsrq(), new Date())) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
+            if(!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphKsrq())) {
+                if (!JudgeInTimeIntervalUtils.judgeSameDay(bckjBizJob.getZphKsrq(), new Date())) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
+                }
             }
             //判断签到时间是否在举办时间区间内
-            String zphJtsj = bckjBizJob.getZphJtsj();
-            String[] splits = zphJtsj.split("-");
-            if (!JudgeInTimeIntervalUtils.judgeInTimeIntervalUtils(splits[0], splits[1])) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
+            if(!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
+                String zphJtsj = bckjBizJob.getZphJtsj();
+                String[] splits = zphJtsj.split("-");
+                if (!JudgeInTimeIntervalUtils.judgeInTimeIntervalUtils(splits[0], splits[1])) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
+                }
             }
             //根据经纬度判断距离
             ValidateMsg msg = ValidateUtils.isEmpty(datamap, "gpsJd", "gpsWd");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            Double distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()));
+            distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()));
             //设置距离
-            bckjBizJob.setExp10(distance.toString());
             Integer bj = bckjBizJob.getZphGpsbj();
             if (distance > bj) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);
+            }
+            BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
+            if(!TextUtils.isEmpty(oneByUnionId)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"此微信号注册");
             }
         }
         //如果为新的关注
@@ -252,6 +263,11 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             bckjBizXsgz.setGzlx(1);
         }
         bckjBizXsgz.setXxlb(Integer.parseInt(datamap.get("xxlb").toString()));
+        //设置unionid
+        if (bckjBizXsgz.getXxlb()==1){
+            bckjBizXsgz.setExp5(yhxxVo.getUnionid());
+            bckjBizXsgz.setExp10(distance+"");
+        }
         bckjBizXsgz.setGzsj(new Date());
         bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
         bckjBizXsgz.setYhRefOwid(yhxxVo.getOwid());
@@ -265,12 +281,8 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         saveOrUpdate(bckjBizXsgz);
         HashMap<String, Object> sendMap = Maps.newHashMap();
         sendMap.put("jobRefOwid",bckjBizXsgz.getJobRefOwid());
-        sendMap.put("yhRefOwid",bckjBizXsgz.getYhRefOwid());
-        List<BckjBizXsgz> bckjbiz = this.dao.findListByMap(sendMap);
-        if(!TextUtils.isEmpty(bckjbiz)&&bckjbiz.size()>0){
-            return ResponseMessage.sendOK(bckjbiz);
-        }
-        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
+        Map<String, Object> resMap = this.dao.qdSuccessInfo(sendMap);
+        return ResponseMessage.sendOK(resMap);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)

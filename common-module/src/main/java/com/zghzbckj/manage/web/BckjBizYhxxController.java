@@ -5,6 +5,7 @@ package com.zghzbckj.manage.web;
 
 import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -45,7 +46,7 @@ import java.util.Map;
 public class BckjBizYhxxController extends BaseController {
 
 
-
+    private static Map<String,Object> dataCenter= Maps.newHashMap();
 	@Autowired
 	private BckjBizYhxxService bckjBizYhxxService;
 
@@ -289,7 +290,6 @@ public class BckjBizYhxxController extends BaseController {
         }
 
     }
-
     @PostMapping("saveOrALL")
     @ResponseBody
     public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists){
@@ -316,7 +316,6 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
     @PostMapping("deleteInfo")
     @ResponseBody
     public  ResponseMessage deleteInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
@@ -329,7 +328,6 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
     @PostMapping("saveconInfo")
     @ResponseBody
     public  ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
@@ -342,9 +340,6 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
-
-
     @PostMapping("insertInfo")
     @ResponseBody
     public  ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
@@ -357,7 +352,6 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
     /**
      * 后台进入修改页面读取出信息
      * @param
@@ -379,31 +373,6 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
-   /* *//**
-     * 后台删除list
-     * @param
-     * @return
-     *//*
-    @PostMapping("deleteAllList")
-    @ResponseBody
-    public ResponseMessage deleteAllList(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-             bckjBizYhxxService.deleteAllList(dataMap);
-            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-    }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
-    */
-
     /**
      * 后台删除gridlist
      * @param dataVO
@@ -427,7 +396,6 @@ public class BckjBizYhxxController extends BaseController {
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
     /**
      *后台根据job 的 owid 获得关注学生信息
      * @param dataVO
@@ -439,46 +407,25 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage getYhxxInfoList(@PathVariable("type") Integer type, PublicDataVO dataVO){
                 try {
                     List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-                    Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-                    ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-                    if(!msg.getSuccess()){
-                        return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-                    }
-                        return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(type,filterModels,dataVO.getPageSize(),dataVO.getPageNo())) ;
+                        return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(dataCenter,type,filterModels,dataVO.getPageSize(),dataVO.getPageNo())) ;
                 }
                 catch (Exception e){
                     log.error(CommonConstant.ERROR_MESSAGE,e);
                     return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
                 }
     }
-
-
     /**
-     *后台获得单个学生关注的信息
+     * 后台设置跳转owid 和 type
      * @param dataVO
-     * @param type 0:关注 1：签到 2：报名
-     * @return
      */
-    @PostMapping("getOneYhxxInfo/{type}")
+    @PostMapping (value = "setOwid")
     @ResponseBody
-    public ResponseMessage getOneYhxxInfo(@PathVariable("type") Integer type, PublicDataVO dataVO){
+    public void setOwid(PublicDataVO dataVO) {
         try {
-            Map<String,Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return ResponseMessage.sendOK(bckjBizYhxxService.getOneYhxxInfo(dataMap,type)) ;
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+           dataCenter.put("owid", dataMap.get("owid"));
+        } catch (Exception e) {
+            log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
         }
     }
-
-
-
-
-
-
 }

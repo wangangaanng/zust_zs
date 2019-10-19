@@ -708,4 +708,16 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return PageUtils.assimblePageInfo(page);
     }
 
+    /**
+     * 获得需要采点的list
+     * @return
+     */
+    public PageInfo<BckjBizJob> getCdList(List<FilterModel> filterModels, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+        Page<BckjBizJob> page = new Page<>(pageNo,pageSize);
+        dataMap.put("page",page);
+        List<BckjBizJob> cdList = this.dao.getCdList(dataMap);
+        page.setList(cdList);
+        return PageUtils.assimblePageInfo(page);
+    }
 }
