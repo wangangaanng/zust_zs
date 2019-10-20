@@ -96,7 +96,7 @@
                         <label for="csrq" class="col-sm-2 control-label">出生日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <#if stuInfo.csrq??>
-                                <input type="text" class="form-control" id="csrq" name="csrq" value="${stuInfo.csrq?substring(0,10)}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="csrq" name="csrq" value="${stuInfo.csrq!''}" placeholder="" autocomplete="off">
                             <#else>
                                 <input type="text" class="form-control" id="csrq" name="csrq" value="${stuInfo.csrq!''}" placeholder="" autocomplete="off">
                             </#if>
@@ -171,7 +171,7 @@
                         <label for="rxnf" class="col-sm-2 control-label">入学日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <#if stuInfo.rxnf??>
-                                <input type="text" class="form-control" id="rxnf" name="rxnf" value="${stuInfo.rxnf?substring(0,10)}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="rxnf" name="rxnf" value="${stuInfo.rxnf!''}" placeholder="" autocomplete="off">
                                 <#else>
                                 <input type="text" class="form-control" id="rxnf" name="rxnf" value="${stuInfo.rxnf!''}" placeholder="" autocomplete="off">
                             </#if>
@@ -185,7 +185,7 @@
                         <label for="byrq" class="col-sm-2 control-label">毕业日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <#if stuInfo.byrq??>
-                                <input type="text" class="form-control" id="byrq" name="byrq" value="${stuInfo.byrq?substring(0,10)}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="byrq" name="byrq" value="${stuInfo.byrq!''}" placeholder="" autocomplete="off">
                             <#else>
                                 <input type="text" class="form-control" id="byrq" name="byrq" value="${stuInfo.byrq!''}" placeholder="" autocomplete="off">
                             </#if>
