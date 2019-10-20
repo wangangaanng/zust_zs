@@ -528,31 +528,66 @@
     <select id="getYhxxQdInfo" parameterType="Map" resultType="Map">
         SELECT
           a.owid AS owid,
-          c.xm AS xm,
-          c.sjh AS sjh,
-          d.xsxh AS xsxh,
-          d.xsxy AS xsxy,
-          d.xszy AS xszy,
-          d.xsbj AS xsbj,
-          b.gzsj AS gzsj,
-          b.exp10 AS exp10,
-          b.state AS state
-        FROM
-          `bckj_biz_job` a INNER  JOIN
-           `bckj_biz_xsgz` b ON a.owid=b.job_ref_owid  AND a.owid=#{owid} RIGHT JOIN
-           bckj_biz_yhxx c ON b.YH_REF_OWID=c.owid INNER JOIN bckj_biz_yhkz d ON d.YH_REF_OWID=c.OWID
-         AND c.yhlx=1 AND d.`OLX`=0
-        ORDER BY b.exp10 DESC
+          a.xm AS xm,
+          a.sjh AS sjh,
+          c.xsxh AS xsxh,
+          c.xsxy AS xsxy,
+          c.xszy AS xszy,
+          c.xsbj AS xsbj,
+          d.gzsj AS gzsj,
+          d.exp10 AS exp10,
+          d.state AS state
+        from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
+         <where>
+             a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and d.xxlb=1
+             <if test="xsxh!=null and xsxh!=''">
+                and c.xsxh=#{xsxh}
+             </if>
+             <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+             </if>
+             <if test="xsxy!=null and xsxy!=''">
+                and c.xsxy=#{xsxh}
+             </if>
+             <if test="xsbj!=null and xsbj!=''">
+                and c.xsbj=#{xsbj}
+             </if>
+             <if test="xszy!=null and xszy!=''">
+                and d.xszy=#{xszy}
+             </if>
+             <if test="sjh!=null and sjh!=''">
+                 and a.sjh=#{sjh}
+             </if>
+         </where>
+        ORDER BY c.xsxh asc
 	</select>
 
 
     <select id="getYhxxQdSum" resultType="String">
         select count(*) as num
-        from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a inner join bckj_biz_job b on b.yh_ref_owid=a.owid
-        and a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and d.xxlb=1
+        from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
         <where>
+            a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1
             <if test="owid!=null and owid!=''">
-                b.owid=#{owid}
+                and b.owid=#{owid}
+            </if>
+            <if test="xsxh!=null and xsxh!=''">
+                and c.xsxh=#{xsxh}
+            </if>
+            <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+            </if>
+            <if test="xsxy!=null and xsxy!=''">
+                and c.xsxy=#{xsxh}
+            </if>
+            <if test="xsbj!=null and xsbj!=''">
+                and c.xsbj=#{xsbj}
+            </if>
+            <if test="xszy!=null and xszy!=''">
+                and c.xszy=#{xszy}
+            </if>
+            <if test="sjh!=null and sjh!=''">
+                and a.sjh=#{sjh}
             </if>
         </where>
     </select>
@@ -564,11 +599,30 @@
         from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
         <where>
             a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and d.xxlb=0 and a.owid=d.YH_REF_OWID and
-            d.`JOB_REF_OWID`=b.`OWID`
+            d.`JOB_REF_OWID`=b.`OWID` and  d.xxlb=0
             <if test="owid!=null and owid !=''">
                 and b.owid=#{owid}
             </if>
+            <if test="xsxh!=null and xsxh!=''">
+                and d.xsxh=#{xsxh}
+            </if>
+            <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+            </if>
+            <if test="xsxy!=null and xsxy!=''">
+                and d.xsxy=#{xsxh}
+            </if>
+            <if test="xsbj!=null and xsbj!=''">
+                and d.xsbj=#{xsbj}
+            </if>
+            <if test="xszy!=null and xszy!=''">
+                and d.xszy=#{xszy}
+            </if>
+            <if test="sjh!=null and sjh!=''">
+                and a.sjh=#{sjh}
+            </if>
         </where>
+        order by c.xsxh asc
     </select>
 
 
@@ -578,9 +632,27 @@
         FROM bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
         <where>
             a.owid=c.yh_ref_owid AND a.yhlx=1 AND c.olx=0 AND d.xxlb=0 AND a.owid=d.YH_REF_OWID AND
-            d.`JOB_REF_OWID`=b.`OWID`
+            d.`JOB_REF_OWID`=b.`OWID` and  d.xxlb=0
             <if test="owid!=null and owid !=''">
                 and b.owid=#{owid}
+            </if>
+            <if test="xsxh!=null and xsxh!=''">
+                and c.xsxh=#{xsxh}
+            </if>
+            <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+            </if>
+            <if test="xsxy!=null and xsxy!=''">
+                and c.xsxy=#{xsxh}
+            </if>
+            <if test="xsbj!=null and xsbj!=''">
+                and c.xsbj=#{xsbj}
+            </if>
+            <if test="xszy!=null and xszy!=''">
+                and c.xszy=#{xszy}
+            </if>
+            <if test="sjh!=null and sjh!=''">
+                and a.sjh=#{sjh}
             </if>
         </where>
     </select>
@@ -591,9 +663,27 @@
        count(*) as num
         FROM bckj_biz_yhxx  a ,bckj_biz_jybm b , bckj_biz_yhkz c,bckj_biz_job d
         <where>
-            a.owid=b.yh_ref_owid AND c.yh_ref_owid = a.owid AND b.job_ref_owid=d.owid AND b.YH_REF_OWId=a.owid
+            a.owid=b.yh_ref_owid AND c.yh_ref_owid = a.owid AND b.job_ref_owid=d.owid AND b.YH_REF_OWId=a.owid and b.bmlx=1
             <if test="owid!=null and owid !=''">
                 and d.owid = #{owid}
+            </if>
+            <if test="xsxh!=null and xsxh!=''">
+                and c.xsxh=#{xsxh}
+            </if>
+            <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+            </if>
+            <if test="xsxy!=null and xsxy!=''">
+                and c.xsxy=#{xsxh}
+            </if>
+            <if test="xsbj!=null and xsbj!=''">
+                and c.xsbj=#{xsbj}
+            </if>
+            <if test="xszy!=null and xszy!=''">
+                and c.xszy=#{xszy}
+            </if>
+            <if test="sjh!=null and sjh!=''">
+                and a.sjh=#{sjh}
             </if>
         </where>
     </select>
@@ -605,16 +695,29 @@
 		b.bmsj AS bmsj
 		FROM bckj_biz_yhxx  a ,bckj_biz_jybm b , bckj_biz_yhkz c,bckj_biz_job d
 		<where>
-            a.owid=b.yh_ref_owid AND c.yh_ref_owid = a.owid AND b.job_ref_owid=d.owid AND b.YH_REF_OWID=a.owid
+            a.owid=b.yh_ref_owid AND c.yh_ref_owid = a.owid AND b.job_ref_owid=d.owid AND b.YH_REF_OWID=a.owid and b.bmlx=1
             <if test="owid!=null and owid !=''">
                 and d.owid = #{owid}
             </if>
+            <if test="xsxh!=null and xsxh!=''">
+                and c.xsxh=#{xsxh}
+            </if>
+            <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+            </if>
+            <if test="xsxy!=null and xsxy!=''">
+                and c.xsxy=#{xsxh}
+            </if>
+            <if test="xsbj!=null and xsbj!=''">
+                and c.xsbj=#{xsbj}
+            </if>
+            <if test="xszy!=null and xszy!=''">
+                and c.xszy=#{xszy}
+            </if>
+            <if test="sjh!=null and sjh!=''">
+                and a.sjh=#{sjh}
+            </if>
         </where>
-	</select>
-
-
-
-
-
-
+        order  by c.xsxh asc
+    </select>
 </mapper>

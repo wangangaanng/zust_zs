@@ -407,25 +407,12 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage getYhxxInfoList(@PathVariable("type") Integer type, PublicDataVO dataVO){
                 try {
                     List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-                        return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(dataCenter,type,filterModels,dataVO.getPageSize(),dataVO.getPageNo())) ;
+                        return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(type,filterModels,dataVO.getPageSize(),dataVO.getPageNo())) ;
                 }
                 catch (Exception e){
                     log.error(CommonConstant.ERROR_MESSAGE,e);
                     return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
                 }
     }
-    /**
-     * 后台设置跳转owid 和 type
-     * @param dataVO
-     */
-    @PostMapping (value = "setOwid")
-    @ResponseBody
-    public void setOwid(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-           dataCenter.put("owid", dataMap.get("owid"));
-        } catch (Exception e) {
-            log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
-        }
-    }
+
 }

@@ -730,24 +730,22 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * 后台根据job 的 owid 获得关注学生信息
      *
      *
-     * @param dataCenter
      * @param type
      * @param filterModels
      * @param pageSize
      * @param pageNo
      * @return
      */
-    public PageInfo<Map> getYhxxInfoList(Map<String, Object> dataCenter, Integer type, List<FilterModel> filterModels, Integer pageSize, Integer pageNo) {
+    public PageInfo<Map> getYhxxInfoList(Integer type, List<FilterModel> filterModels, Integer pageSize, Integer pageNo) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
-        Page<Map> page = new Page<>(pageSize, pageNo);
-        dataMap.put("owid",dataCenter.get("owid"));
+        Page<Map> page = new Page<>(pageNo,pageSize);
         dataMap.put("page", page);
         List<Map> resLists = null;
         //签到
         if (type == 1) {
             String Sum = this.dao.getYhxxQdSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("sjh", "签到总人数：" + Sum);
+            resMap.put("xsxh", "签到总人数：" + Sum);
             resMap.put("readonly", true);
             resLists= this.dao.getYhxxQdInfo(dataMap);
             resLists.add(0, resMap);
@@ -756,7 +754,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (type == 0) {
             String sum = this.dao.getYhxxGzSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("sjh","关注总人数："+sum);
+            resMap.put("xsxh","关注总人数："+sum);
             resMap.put("readonly",true);
             resLists = this.dao.getYhxxGzInfo(dataMap);
             resLists.add(0,resMap);
@@ -765,7 +763,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if(type==2){
             String sum = this.dao.getYhxxBmSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("sjh","报名总人数："+sum);
+            resMap.put("xsxh","报名总人数："+sum);
             resMap.put("readonly",true);
             resLists = this.dao.getYhxxBmInfo(dataMap);
             resLists.add(0,resMap);
