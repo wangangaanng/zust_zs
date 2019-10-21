@@ -2,11 +2,10 @@
 
 page {
   background: #f5f5f5;
-  padding-bottom: 50rpx;
 }
 
 .head {
-  margin: 34rpx 25rpx;
+  margin: 34rpx;
   display: flex;
   background: #fff;
   box-shadow: 0px 1px 5px 0px rgba(210, 210, 210, 0.75);
@@ -67,7 +66,7 @@ page {
 }
 
 .cont-name {
-  font-size: 36rpx;
+  font-size: 18px;
   color: #252525;
   line-height: 100rpx;
   margin-bottom: 20rpx;
@@ -157,14 +156,14 @@ page {
 }
 
 .FQA {
-  margin-top: 30rpx;
+  margin-top: 15px;
   background-color: #fff;
   box-shadow: 0px 1px 3px 0px rgba(210, 210, 210, 0.75);
 }
 
 .FQA-li {
-	background-color: #ffffff;
-	border-bottom: solid 1px #e0e0e0;
+  background-color: #fff;
+  border-bottom: solid 1px #e0e0e0;
   padding: 13px 23px;
 }
 
@@ -178,21 +177,25 @@ page {
 }
 
 .quetion {
-  font-size: 10px;
+  font-size: 12px;
   color: #26b887;
   line-height: 42rpx;
+  margin-left: 26px;
+  /* margin-right: 100px; */
 }
 
 .FQA-li-date {
-  float: right;
+  /* float: right; */
   font-size: 9px;
   line-height: 42rpx;
   color: #737373;
+  text-align: right;
 }
 
-.da{
+.da {
   margin-top: 28rpx;
 }
-.da .quetion{
+
+.da .quetion {
   color: #424242;
 }

@@ -8,5 +8,5 @@
 <van-cell title="我的报名" icon="../../../static/wdbm.png" is-link />
 <van-cell title="修改密码" icon="../../../static/xgmm.png" is-link />
 <view class="button">
-  <button>登录</button>
+  <button>退出</button>
 </view>
