@@ -3,22 +3,17 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
 
 /**
  * ccEntity
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 public class BckjBizJtcyxx extends DataWithExpEntity<BckjBizJtcyxx> {
 	
 	private static final long serialVersionUID = 1L;
-
-	private String yhRefOwid;		// yh_ref_owid
 	private Integer cylb;		// cylb
 	private String xm;		// xm
 	private Integer xb;		// xb
@@ -34,18 +29,6 @@ public class BckjBizJtcyxx extends DataWithExpEntity<BckjBizJtcyxx> {
 		super();
 	}
 
-
-
-
-	
-	@Length(min=0, max=64, message="yh_ref_owid长度必须介于 0 和 64 之间")
-	public String getYhRefOwid() {
-		return yhRefOwid;
-	}
-
-	public void setYhRefOwid(String yhRefOwid) {
-		this.yhRefOwid = yhRefOwid;
-	}
 	
 	public Integer getCylb() {
 		return cylb;

@@ -1,0 +1,6 @@
+<view>
+  <image src="../../static/img3.png" class='top-bck'></image>
+  <view class="notice-wrap">
+    <slot></slot>
+  </view>
+</view>

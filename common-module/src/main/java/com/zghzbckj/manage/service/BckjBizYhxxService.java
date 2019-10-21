@@ -45,6 +45,8 @@ import java.util.*;
 @Transactional(readOnly = true)
 public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx> {
 
+
+
     private static final Logger log = Logger.getLogger(BckjBizYhxxService.class);
     @Autowired
     BckjBizYhglService bckjBizYhglService;
@@ -629,7 +631,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 //非企业
                 bckjBizYhxx.setYhlx(1);
                 bckjBizYhxx.setYhDlzh(xsxh);
-                String dlmm = sfz.substring(sfz.length() - 6);
+                String dlmm = MD5Util.MD5Encode(sfz.substring(sfz.length() - 6),"UTF-8");
                 bckjBizYhxx.setYhDlmm(dlmm);
                 bckjBizYhxx.setCreatetime(new Date());
                 this.dao.insert(bckjBizYhxx);
@@ -727,66 +729,48 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     /**
      * 后台根据job 的 owid 获得关注学生信息
      *
-     * @param filterModels
+     *
      * @param type
+     * @param filterModels
      * @param pageSize
      * @param pageNo
      * @return
      */
     public PageInfo<Map> getYhxxInfoList(Integer type, List<FilterModel> filterModels, Integer pageSize, Integer pageNo) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
-        Page<Map> page = new Page<>(pageSize, pageNo);
+        Page<Map> page = new Page<>(pageNo,pageSize);
         dataMap.put("page", page);
         List<Map> resLists = null;
         //签到
         if (type == 1) {
             String Sum = this.dao.getYhxxQdSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("sjh", "签到总人数：" + Sum);
+            resMap.put("xsxh", "签到总人数：" + Sum);
             resMap.put("readonly", true);
             resLists= this.dao.getYhxxQdInfo(dataMap);
             resLists.add(0, resMap);
         }
         //关注
         if (type == 0) {
-            resLists = this.dao.getYhxxGzInfo(dataMap);
+            String sum = this.dao.getYhxxGzSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("sjh","关注总人数："+resLists.get(0).get("num"));
+            resMap.put("xsxh","关注总人数："+sum);
             resMap.put("readonly",true);
             resLists = this.dao.getYhxxGzInfo(dataMap);
             resLists.add(0,resMap);
         }
         //如果为报名
         if(type==2){
-            resLists = this.dao.getYhxxBmInfo(dataMap);
+            String sum = this.dao.getYhxxBmSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("sjh","报名总人数："+resLists.get(0).get("num"));
+            resMap.put("xsxh","报名总人数："+sum);
             resMap.put("readonly",true);
-            resLists = this.dao.getYhxxGzInfo(dataMap);
+            resLists = this.dao.getYhxxBmInfo(dataMap);
             resLists.add(0,resMap);
         }
         page.setList(resLists);
         return PageUtils.assimblePageInfo(page);
     }
-
-    /**
-     *后台获得单个学生关注的信息
-     * @param dataMap
-     * @param type 0:关注 1：签到 2：报名
-     * @return
-     */
-     public Map<String,Object> getOneYhxxInfo(Map<String,Object> dataMap,Integer type) {
-         dataMap.put("type",type);
-         Map<String, Object> resMap = Maps.newHashMap();
-         if(type==1||type==2){
-             resMap=this.dao.getOneYhxxGzOrQdInfo(dataMap);
-         }
-         else if(type==3){
-             resMap=this.dao.getOneYhxxBmInfo(dataMap);
-         }
-         return resMap;
-     }
-
 
 
 }

@@ -3,11 +3,11 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * ccEntity
@@ -38,6 +38,9 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 	private Date dlzhsj;
 	private String yhDlzh;
 	private String yhDlmm;// dlzhsj
+	private String swZh;
+	private String swMm;
+	private String qxzy;
 
 	public String getYhDlzh() {
 		return yhDlzh;
@@ -225,4 +228,27 @@ public class BckjBizYhxx extends DataWithExpEntity<BckjBizYhxx> {
 		this.dlzhsj = dlzhsj;
 	}
 
+	public String getSwMm() {
+		return swMm;
+	}
+
+	public void setSwMm(String swMm) {
+		this.swMm = swMm;
+	}
+
+	public String getSwZh() {
+		return swZh;
+	}
+
+	public void setSwZh(String swZh) {
+		this.swZh = swZh;
+	}
+
+	public String getQxzy() {
+		return qxzy;
+	}
+
+	public void setQxzy(String qxzy) {
+		this.qxzy = qxzy;
+	}
 }

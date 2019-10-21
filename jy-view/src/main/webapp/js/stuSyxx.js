@@ -141,7 +141,7 @@ $(document).ready(function () {
     $("#sfrx").val($("#sfrx").attr("data-val"))
     $("#hkrx").val($("#hkrx").attr("data-val"))
 
-    getJyBaseInfo()
+    // getJyBaseInfo()
 })
 
 

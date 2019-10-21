@@ -34,14 +34,12 @@ public class RecordInfo implements ComponentFileSer {
     //就业排行榜url
     public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
     //上传excela保存的本地地址
-  /*  public final String savePath = "/mnt/files/zjcFiles/excel/";
-     public final String foundPath = "/mnt/files/zjcFiles/";*/
-
-  /*  public final String FolderPath = "/mnt/files/zjcFiles/excel/";*/
-    public final String FolderPath = "F:\\img\\";
+    public final String savePath = "/mnt/files/zjcFiles/excel/";
+    public final String foundPath = "/mnt/files/zjcFiles/";
+    /*public final String FolderPath = "/mnt/files/zjcFiles/excel/";*/
+   /* public final String FolderPath = "F:\\img\\";*/
     //地区典表 导入
-    public  final String dwszURL="web/zustjy/bckjBizJyscheme/dqRecordInfo";
-
+    public final String dwszURL = "web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
 
     @Override
@@ -66,24 +64,26 @@ public class RecordInfo implements ComponentFileSer {
         if (pageCA.indexOf("location") != -1) {
             url = dwszURL;
         }
-        if(pageCA.indexOf("jyscheme")!=-1){
-            url=jsURL;
+        if (pageCA.indexOf("jyscheme") != -1) {
+            url = jsURL;
         }
         String result = "";
         String path = map.get("filePath").toString();
-      /*  String foundfilePath = foundPath + path;  //线上路径
+        String foundfilePath = foundPath + path;  //线上路径
         String savefilePath=savePath+path;
-            copyXsFile(foundfilePath,savefilePath);*/
+        copyXsFile(foundfilePath,savefilePath);
 
-      String filePath = FolderPath + path;  //本地上传路径
+        //String filePath = FolderPath + path;  //本地上传路径*/
         //添加后缀
-        copyFile(filePath);
+        /*copyFile(filePath);*/
+
         Map<String, Object> params = new HashMap<String, Object>();
-       /* if (!TextUtils.isEmpty(savefilePath)) {
+        if (!TextUtils.isEmpty(savefilePath)) {
             params.put("path", savefilePath + ".xls");
-        }*/
-        if (!TextUtils.isEmpty(filePath)) {
-            params.put("path", filePath + ".xls");
+        }
+        System.out.println(savefilePath);
+        if (!TextUtils.isEmpty(savefilePath)) {
+            params.put("path", savefilePath + ".xls");
         }
         try {
             result = JsonPostUtils.executeAPIAsString(params, url);
@@ -104,16 +104,18 @@ public class RecordInfo implements ComponentFileSer {
             AlterDialog.alert("导入失败");
         }
     }
-
-    public void copyXsFile(String foundfilePath,String savefilePath ){
+    public void copyXsFile(String foundfilePath, String savefilePath) {
+        System.out.println(foundfilePath);
+        System.out.println(savefilePath);
         int len = 0;
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try {
             fis = new FileInputStream(foundfilePath);
             String newFileName = savefilePath + ".xls";
+            File folder = new File(savefilePath.substring(0,savefilePath.lastIndexOf("/")));
+            folder.mkdirs();
             fos = new FileOutputStream(new File(newFileName));
-
             byte[] bt = new byte[1024];
             while ((len = fis.read(bt)) != -1) {
                 fos.write(bt, 0, len);

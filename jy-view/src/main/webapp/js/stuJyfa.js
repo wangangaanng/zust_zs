@@ -136,7 +136,7 @@ $(document).ready(function () {
     $("#sfzydk").val($("#sfzydk").attr("data-val"))
     $("#bdzqflbmc").val($("#bdzqflbmc").attr("data-val"))
     $("#sfdydwbdz").val($("#sfdydwbdz").attr("data-val"))
-    getJyBaseInfo()
+    // getJyBaseInfo()
 })
 
 function getJyBaseInfo() {

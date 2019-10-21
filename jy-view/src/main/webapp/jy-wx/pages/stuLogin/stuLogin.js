@@ -38,6 +38,14 @@ Page({
       return false
     }
     var data={
+      "openId": wx.getStorageSync('openId'),
+      "nickname":wx.getStorageSync('userInfo').nickName,
+      "gender": wx.getStorageSync('openId').gender,
+      "city": wx.getStorageSync('openId').city,
+      "province": wx.getStorageSync('openId').province,
+      "country": wx.getStorageSync('openId').country,
+      "avatarUrl": wx.getStorageSync('openId').avatarUrl,
+      "unionid": wx.getStorageSync('unionid'),
       "yhDlzh": this.data.yhDlzh,
       "yhDlmm": util.md5(this.data.yhDlmm)
     }
@@ -69,7 +77,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    
   },
 
   /**

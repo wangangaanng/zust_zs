@@ -354,5 +354,21 @@
     </select>
 
 
+    <select id="getOneByUnionId"  parameterType="Map" resultType="BckjBizXsgz">
+        select <include refid="bckjBizXsgzColumns"></include> from bckj_biz_xsgz a where
+        exp5=#{unionid}
+    </select>
+
+    <select id="qdSuccessInfo" parameterType="Map" resultType="Map">
+        select
+            a.zwbt as zwbt ,a.zw_Pro as zwPro ,a.zw_City as zwCity ,a.zw_Area as zwArea ,
+            a.zph_jbdd as zphJbdd ,b.gzsj as gzsj
+        from  bckj_biz_job a ,bckj_biz_xsgz b
+        where b.job_ref_owid = a.owid and a.owid=#{jobRefOwid}
+    </select>
+
+
+
+
 
 </mapper>

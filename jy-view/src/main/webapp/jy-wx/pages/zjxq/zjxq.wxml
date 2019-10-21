@@ -8,7 +8,7 @@
       <view class="t-xm">办公室：{{result.zjbgs}}</view>
       <view class="t-xm">所属专业：{{result.szzy}}</view>
 
-      <button class="t-zxbtn" hover-class="common-btn-hover">
+      <button class="t-zxbtn" hover-class="common-btn-hover" data-owid="{{result.owid}}" bindtap="ask">
         <image src="../../static/icon-zx2.png"></image>
         <view>咨询</view>
       </button>
@@ -18,3 +18,8 @@
 <view class="t-content">
   {{result.zjxx}}
 </view>
+
+
+  <modal hidden="{{modal1}}" title="请输入咨询内容" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" auto-focus></textarea>
+  </modal>

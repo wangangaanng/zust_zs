@@ -20,6 +20,11 @@ Page({
       url: '../zphList/zphList',
     })
   },
+  detail(e) {
+    wx.navigateTo({
+      url: '../zphXq/zphXq?owid=' + e.currentTarget.dataset.owid1 + '&owid1=' + e.currentTarget.dataset.owid2,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

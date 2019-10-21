@@ -1,0 +1,33 @@
+<!--
+    报考专业
+-->
+<view class="page">
+  <form bindsubmit="submitForm" class="form-wrap">
+    <van-cell-group>
+      <van-cell title="学科类别：" is-link value="{{(subject=='')?'-- 请选择 --':subject}}" arrow-direction="down"  bind:click="showSubject"/>
+      <van-popup show="{{subjectShowBool}}" bind:close="onClose" position="bottom">
+        <van-picker show-toolbar columns="{{ subjectCategory }}" bind:change="onChangeSubject" bind:cancel="cancelPop" bind:confirm="confirmSubject" />
+      </van-popup>
+
+      <van-cell title="外语语种：" is-link value="{{(language=='')?'-- 请选择 --':language}}" arrow-direction="down" bind:click="showLanguage" />
+      <van-popup show="{{languageShowBool}}" bind:close="onClose" position="bottom">
+        <van-picker show-toolbar columns="{{ foreignLanguages }}" bind:confirm="confirmLanguages" bind:cancel="cancelPop" bind:change="onChangeLanguages" />
+      </van-popup>
+
+      <van-cell title="报考类别：" is-link value="{{(type=='')?'-- 请选择 --':type}}" arrow-direction="down"  bind:click="showType"/>
+      <van-popup show="{{typeShowBool}}" bind:close="onClose" position="bottom">
+        <van-picker show-toolbar columns="{{ projectType }}" bind:change="onChangType" bind:cancel="cancelPop" bind:confirm="confirmType" />
+      </van-popup>
+
+      <van-cell title="招生专业：" is-link value="{{(major=='')?'-- 请选择 --':major}}" arrow-direction="down"  bind:click="showMajor"/>
+      <van-popup show="{{majorShowBool}}" bind:close="onClose" position="bottom">
+        <van-picker show-toolbar columns="{{ enrollmentMajor }}" bind:change="onChangeMajor" bind:cancel="cancelPop" bind:confirm="confirmMajor" />
+      </van-popup>
+
+    </van-cell-group>
+    <!-- 按钮 -->
+    <view class="main-btn_wrap">
+    <van-button round type="primary" class="main-button" size="large">下一步，确认报名表</van-button>
+    </view>
+  </form>
+</view>

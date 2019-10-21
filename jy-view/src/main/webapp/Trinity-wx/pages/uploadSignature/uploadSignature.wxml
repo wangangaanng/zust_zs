@@ -1,0 +1,17 @@
+<!--pages/uploadSignature/uploadSignature.wxml-->
+<view>
+  <topBck>
+    <van-cell title="请上传报名表签字" border="{{false}}" bind:click="chooseImageSign">
+      <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+    </van-cell>
+
+    <van-cell title="请上传承诺书签字" border="{{false}}" class="promise" bind:click="chooseImagePromise">
+      <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+    </van-cell>
+
+    <!-- 按钮 -->
+    <view class="main-btn_wrap">
+      <van-button round type="primary" class="main-button" size="large">提交</van-button>
+    </view>
+  </topBck>
+</view>

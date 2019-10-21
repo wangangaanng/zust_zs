@@ -31,18 +31,18 @@ public class ChangeDeptAction implements ComponentListinerSer {
 
         try {
             Map e = window.bindAll2Ppt(true);
-//            if (TextUtils.isEmpty(e.get("zphJbdd"))) {
-//                AlterDialog.alert("请选择举办地点");
+            if (TextUtils.isEmpty(e.get("zphJbdd"))) {
+                AlterDialog.alert("请选择举办地点");
+                return;
+            }
+//            if (TextUtils.isEmpty(e.get("zphGpsjd"))) {
+//                AlterDialog.alert("请填写GPS经度");
 //                return;
 //            }
-            if (TextUtils.isEmpty(e.get("zphGpsjd"))) {
-                AlterDialog.alert("请填写GPS经度");
-                return;
-            }
-            if (TextUtils.isEmpty(e.get("zphGpswd"))) {
-                AlterDialog.alert("请填写GPS纬度");
-                return;
-            }
+//            if (TextUtils.isEmpty(e.get("zphGpswd"))) {
+//                AlterDialog.alert("请填写GPS纬度");
+//                return;
+//            }
             if (TextUtils.isEmpty(e.get("zphGpsbj"))) {
                 AlterDialog.alert("请填写GPS半径范围");
                 return;
@@ -79,8 +79,6 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         Map<String, Object> ppt = new HashMap<String, Object>(1);
                         ppt.put("owid", data.get("owid"));
                         ppt.put("zphJbdd", e.get("zphJbdd"));
-                        ppt.put("zphGpsjd", e.get("zphGpsjd"));
-                        ppt.put("zphGpswd", e.get("zphGpswd"));
                         ppt.put("zphGpsbj", e.get("zphGpsbj"));
                         publicData.setData(com.ourway.base.zk.utils.JsonUtil.toJson(ppt));
                         ResponseMessage responseMessage = JsonPostUtils.executeAPI(ppt, apiURL);
