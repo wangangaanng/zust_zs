@@ -46,6 +46,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
+    private Map<String, Object> map = new HashMap<>(1);
+
     /**
      *<p>功能描述:问卷结果getResultList</p >
      *<ul>
@@ -60,7 +62,9 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getResultList(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+            map.put("dcwjRefOwid", MapUtils.getString(dataMap, "dcwjRefOwid"));
             PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
@@ -82,8 +86,7 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @PostMapping(value = "listQuestionName")
     @ResponseBody
     public ResponseMessage listQuestionName(PublicDataVO dataVO) {
-        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(dataMap, "dcwjRefOwid"));
+        List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(map, "dcwjRefOwid"));
         if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
         }
@@ -114,7 +117,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getListWjda(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
             PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjTmService.findQuestionResultList(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
