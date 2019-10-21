@@ -42,8 +42,18 @@ Page({
             latitude: res.latitude,
             longitude: res.longitude
           })
+          if (options.owid) {
+            that.setData({
+              owid: options.owid,
+            })
+            getContent(that, options.owid);
+          }
         },
-        fail: function (res) { }
+        fail: function (res) { 
+          wx.showToast({
+            title: '获取位置失败',
+          })
+        }
       });
       var curDate = common.formatTime(new Date());
       that.setData({
@@ -64,12 +74,6 @@ Page({
         "name": stuInfo.xm,
         "xh": stuInfo.xsxh
       })
-      if (options.owid) {
-        this.setData({
-          owid: options.owid,
-        })
-        getContent(this, options.owid);
-      }
     }else{
       wx.navigateTo({
         url: '../stuLogin/stuLogin',
@@ -78,12 +82,14 @@ Page({
     
   },
   qiandao:function(){
+    var that = this
     wx.showModal({
       title: '提示',
       content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
+      confirmColor:'#008783',
       success(res) {
         if (res.confirm) {
-          qd(this);
+          qd(that);
         } else if (res.cancel) {
           
         }
@@ -151,8 +157,15 @@ var getContent = function (that, owid) {//招聘详情
         res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
         // }
       }
+      var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
+      if(jl<1){
+        jl = jl * 1000+'m'
+      }else{
+        jl = jl + 'km'
+      }
       that.setData({
         result: res.data.bean,
+        jl:jl
       })
 
 

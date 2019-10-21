@@ -60,14 +60,19 @@ Page({
     var that = this;
     wx.getLocation({
       type: 'gcj02',// 默认wgs84
-      success: function (res) {
-        var data = { "owid": that.data.owid, "zphGpsjd": res.longitude, "zphGpswd": res.latitude };
+      success: function (res2) {
+        var data = { "owid": that.data.owid, "zphGpsjd": res2.longitude, "zphGpswd": res2.latitude };
         common.ajax('zustjy/bckjBizJob/setCdPoint', data, function (res) {
           if (res.data.backCode == 0) {
             wx.showModal({
               title: '采集成功',
               showCancel: false,
-              content: '经度：' + res.longitude + '\n纬度：' + res.latitude,
+              content: '经度：' + res2.longitude + '\n纬度：' + res2.latitude,
+              success(res3) {
+                if (res3.confirm) {
+                  wx.navigateBack();
+                }
+              }
             })
           } else {
             wx.showToast({
