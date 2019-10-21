@@ -1,0 +1,47 @@
+<!--
+  xiayuwei  联系人  2019.10.21
+-->
+<view class="com-wrap">
+  <view class="com-title">父亲(或其他监护人)</view>
+  <form bindsubmit="submitForm" class="form-wrap">
+    <van-cell-group>
+      <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入姓名" />
+      <van-field value="{{ idNum }}" clearable label="文化程度" placeholder="请输入文化程度" />
+      <van-field value="{{ nationality }}" clearable label="工作单位" placeholder="请输入工作单位" />
+      <van-field value="{{ address }}" clearable label="职务" placeholder="请输入职务" />
+      <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />
+    </van-cell-group>
+  </form>
+</view>
+
+<view class="com-wrap">
+  <view class="com-title">母亲(或其他监护人)</view>
+  <form bindsubmit="submitForm" class="form-wrap">
+    <van-cell-group>
+      <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入姓名" />
+      <van-field value="{{ idNum }}" clearable label="文化程度" placeholder="请输入文化程度" />
+      <van-field value="{{ nationality }}" clearable label="工作单位" placeholder="请输入工作单位" />
+      <van-field value="{{ address }}" clearable label="职务" placeholder="请输入职务" />
+      <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />
+    </van-cell-group>
+  </form>
+</view>
+
+<view class="com-wrap">
+  <view class="com-title">高中联系人</view>
+  <form bindsubmit="submitForm" class="form-wrap">
+    <van-cell-group>
+      <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入姓名" />
+      <van-field value="{{ idNum }}" clearable label="文化程度" placeholder="请输入文化程度" />
+      <van-field value="{{ nationality }}" clearable label="工作单位" placeholder="请输入工作单位" />
+      <van-field value="{{ address }}" clearable label="职务" placeholder="请输入职务" />
+      <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />
+    </van-cell-group>
+  </form>
+</view>
+
+<!-- 按钮 -->
+<view class="bottom-btn_wrap df">
+  <van-button round type="primary" class="main-button f1" size="large">上一步，基本信息</van-button>
+  <van-button round type="primary" class="main-button f1" size="large">下一步，会考科目</van-button>
+</view>

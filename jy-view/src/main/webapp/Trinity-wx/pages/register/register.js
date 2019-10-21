@@ -9,7 +9,7 @@ Page({
   data: {
     loginPswType:'password',
     surePswType: 'password',
-    sexRadio: '1',//性别
+    sexRadio: '2',//性别
     areaList: utils.areaList,//全国省市区
     areaShowBool:false,//显示pop
     studyArea:"",//学籍地址

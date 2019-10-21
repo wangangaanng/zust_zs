@@ -1,0 +1,37 @@
+<!--
+  xiayuwei  基本信息  2019.10.21
+-->
+<view class="com-wrap">
+  <view class="com-title">基本信息</view>
+  <view class="cell-wrap">
+    <view class="sm-title">拍摄二代身份证或者户籍证明，识别身份证信息
+      <i class=" iconfont icon-tishi"></i>
+    </view>
+    <view class="btn-upload">
+      <i class=" iconfont icon-paizhao"></i>
+      <view class="btn-txt">点击拍摄身份证正面/户籍证明</view>
+    </view>
+    <view class="btn-upload" style="margin-top:28rpx;">
+      <i class=" iconfont icon-paizhao"></i>
+      <view class="btn-txt">点击拍摄身份证国徽面</view>
+    </view>
+  </view>
+</view>
+
+<form bindsubmit="submitForm" class="form-wrap">
+  <van-cell-group>
+    <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入用姓名" />
+    <van-field value="{{ idNum }}" clearable label="身份证号" placeholder="请输入身份证号码" />
+    <van-field value="{{ nationality }}" clearable label="民族" placeholder="请选择民族" />
+    <van-field value="{{ address }}" clearable label="通讯地址" placeholder="请输入通讯地址" />
+    <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />
+    <van-field value="{{ mobile }}" clearable label="手机" placeholder="请输入手机" />
+    <van-field value="{{ mailbox }}" clearable label="电子邮箱" placeholder="请输入电子邮箱" />
+    <van-field value="{{ qq }}" clearable label="QQ号" placeholder="请输入QQ号" />
+  </van-cell-group>
+</form>
+
+<!-- 按钮 -->
+<view class="main-btn_wrap">
+  <van-button round type="primary" loading-text="注册中..." class="main-button" size="large">下一步，完善联系人</van-button>
+</view>
