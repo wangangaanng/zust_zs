@@ -16,8 +16,8 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    getList(this, 1);// pageNo
+  onLoad: function () {
+
   },
 
   /**
@@ -31,7 +31,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+      getList(this, 1);// pageNo
   },
 
   loadMore: function () {
@@ -53,7 +53,7 @@ var getList = function (that, pageNo) {
   var data = {
     "pageNo": pageNo, "pageSize": that.data.pageSize,
   };
-  common.ajax('zustjy/bckjBizJob/getQdList', data, function (res) {
+  common.ajax('zustjy/bckjBizJob/getCdList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
       if (res.data.bean.records) {
@@ -64,6 +64,13 @@ var getList = function (that, pageNo) {
           obj.zwbt = object.zwbt;
           obj.zphJbdd = object.zphJbdd;
           if (object.zphKsrq) {
+            var thetime = object.zphKsrq;
+            var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
+
+            var curDate = new Date();
+            if (d <= curDate) {
+              obj.old=1
+            }
             obj.zphKsrq = object.zphKsrq.substring(0, 10)
           }
           obj.zphJtsj = object.zphJtsj;

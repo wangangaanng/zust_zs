@@ -11,6 +11,10 @@ Page({
     name:'',
     xh:'',
     result:'',
+    owid:'',
+    latitude:'',
+    longitude:'',
+    isqd:false,
     markers: [{
       iconPath: "/static/location.png",
       id: 0,
@@ -61,6 +65,9 @@ Page({
         "xh": stuInfo.xsxh
       })
       if (options.owid) {
+        this.setData({
+          owid: options.owid,
+        })
         getContent(this, options.owid);
       }
     }else{
@@ -70,7 +77,19 @@ Page({
     }
     
   },
-
+  qiandao:function(){
+    wx.showModal({
+      title: '提示',
+      content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
+      success(res) {
+        if (res.confirm) {
+          qd(this);
+        } else if (res.cancel) {
+          
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -137,6 +156,25 @@ var getContent = function (that, owid) {//招聘详情
       })
 
 
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+var qd = function(that){
+  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
+  common.ajax('zustjy/bckjBizXsgz/signInOrScribe', data, function (res) {
+    if (res.data.backCode == 0) {
+      wx.showToast({
+        title: '签到成功',
+      })
+      that.setData({
+        isqd: true,
+      })
     } else {
       wx.showToast({
         title: res.data.errorMess,
