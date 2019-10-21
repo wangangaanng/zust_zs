@@ -11,14 +11,20 @@ Page({
     xsxm:'',
     sfzh:'',
     isSearch:false,
-    result:''
+    result: '',
+    mzList:[],
+    sydList:[],
+    byqxList:[],
+    qflbList:[]
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    getByType(this,'50009');
+    getByType(this, '50005');
+    getByType(this, '50001');
+    getByType(this, '50007');
   },
 
   /**
@@ -67,8 +73,18 @@ Page({
       if (res.data.backCode == 0) {
         if (res.data.bean){
           res.data.bean.csrq = res.data.bean.sfz.substring(6, 10) + '年' + res.data.bean.sfz.substring(10, 12) + '月' + res.data.bean.sfz.substring(12, 14) + '日'
+          var mzName = common.convertName(res.data.bean.mz,that.data.mzList)
+          var sydName = common.convertName(res.data.bean.syd, that.data.sydList)
+          var byqxName = common.convertName(res.data.bean.byqx, that.data.byqxList)
+          var bdzszdName = common.convertName(res.data.bean.bdzszdmc, that.data.sydList)
+          var qflbName = common.convertName(res.data.bean.bdzqflbmc, that.data.qflbList)
           that.setData({
             isSearch: true,
+            mzName:mzName,
+            sydName: sydName,
+            byqxName: byqxName,
+            bdzszdName: bdzszdName,
+            qflbName: qflbName,
             result: res.data.bean
           })
         }
@@ -83,3 +99,43 @@ Page({
     });
   }
 })
+var getByType = function (that,lb) {
+  var data = { "dicType": lb };
+  common.ajax('zustcommon/common/getByType', data, function (res) {
+    if (res.data.backCode == 0) {
+      var data = res.data;
+      if (data.bean && data.bean.length > 0) {
+        for (var i in data.bean) {
+          var obj = {}
+          obj.dicVal1 = data.bean[i].dicVal1
+          obj.dicVal2 = data.bean[i].dicVal2
+          if (lb =='50009'){//民族
+            that.data.mzList.push(obj)
+          }
+          if (lb == '50005') {//生源地
+            that.data.sydList.push(obj)
+          }
+          if (lb == '50001') {//毕业去向
+            that.data.byqxList.push(obj)
+          }
+          if (lb == '50007') {//签发类别
+            that.data.qflbList.push(obj)
+          }
+         
+        }
+        that.setData({
+          mzList: that.data.mzList,
+          sydList: that.data.sydList,
+          byqxList: that.data.byqxList,
+          qflbList: that.data.qflbList
+        })
+      }
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}

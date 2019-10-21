@@ -12,7 +12,7 @@ width: 70rpx;
 height: 70rpx;
 border-radius: 50%;
 position: fixed;
-top: 630rpx;
+top: 750rpx;
 right: 35rpx;
 font-size: 26rpx;
 padding: 12rpx;

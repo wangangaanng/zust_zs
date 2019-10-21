@@ -104,6 +104,27 @@ function convertWKtwo(dt) {
   var myDate = new Date(Date.parse(dt.replace(/-/g, "/")));
   return weekDay[myDate.getDay()];
 }
+const convertName = function (val, list) {
+  if (val.split(",").length > 1) {
+    var valArr = val.split(",");
+    var nameArr = [];
+    for (var j = 0; j < valArr.length; j++) {
+      for (var i = 0; i < list.length; i++) {
+        if (valArr[j] == list[i].dicVal1) {
+          nameArr.push(list[i].dicVal2)
+        }
+      }
+    }
+    return nameArr.join();
+  } else {
+    for (var i = 0; i < list.length; i++) {
+      if (val == list[i].dicVal1) {
+        return list[i].dicVal2
+      }
+    }
+  }
+
+}
 
 exports.formatTime= formatTime
 exports.toast = toast
@@ -112,4 +133,5 @@ exports.indexOf = indexOf
 exports.ajax = ajax
 exports.convertStr = convertStr
 exports.convertWKtwo = convertWKtwo
+exports.convertName = convertName
 
