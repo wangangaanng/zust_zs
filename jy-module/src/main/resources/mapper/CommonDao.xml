@@ -269,6 +269,7 @@
                 AND YEAR(a.createtime)=#{year}
             </if>
         </where>
+        GROUP BY a.exp1
     </select>
 
     <select id="getOneDic" parameterType="java.util.Map" resultType="java.util.Map">
