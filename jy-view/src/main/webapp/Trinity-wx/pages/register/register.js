@@ -7,8 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    loginPswType:'password',
-    surePswType: 'password',
+    loginPswType:true,
+    surePswType: true,
     sexRadio: '2',//性别
     areaList: utils.areaList,//全国省市区
     areaShowBool:false,//显示pop
@@ -75,14 +75,14 @@ Page({
   },
   //显示登陆密码
   showPswType(){
-    (this.data.loginPswType == 'password') ? this.data.loginPswType="text" : this.data.loginPswType ="password";
+    (this.data.loginPswType) ? this.data.loginPswType=false : this.data.loginPswType =true;
     this.setData({
       loginPswType: this.data.loginPswType
     });
   },
   //显示确认密码
   surePswType(){
-    (this.data.surePswType == 'password') ? this.data.surePswType = "text" : this.data.surePswType = "password";
+    (this.data.surePswType) ? this.data.surePswType = false : this.data.surePswType = true;
     this.setData({
       surePswType: this.data.surePswType
     });
