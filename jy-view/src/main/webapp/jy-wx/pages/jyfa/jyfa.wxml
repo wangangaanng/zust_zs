@@ -68,7 +68,6 @@
   <van-field input-align="right" value="{{form.jtdh}}" name="jtdh" label="固定电话" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.qqhm}}" name="qqhm" label="qq号码" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.yx}}" name="yx" label="电子邮箱" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.jtyb}}" name="jtyb" label="家庭邮编" placeholder="输入内容" />
 <view class="form-title">毕业去向信息</view>
   <van-cell required title="毕业去向" value="{{byqxStr}}" is-link arrow-direction="down" data-type="18" bind:click="showBottom" />
   <van-popup show="{{ show.byqx }}" position="bottom" custom-style="height: 540rpx" data-type="18" bind:close="hideBottom">
@@ -154,6 +153,7 @@
 <input type="text" class="hiddenInput" name="xb" value="{{form.xb}}"></input>
 <input type="text" class="hiddenInput" name="bynf" value="{{form.bynf}}"></input>
 <input type="text" class="hiddenInput" name="mz" value="{{form.mz}}"></input>
+<input type="text" class="hiddenInput" name="xz" value="{{form.xz}}"></input>
 <input type="text" class="hiddenInput" name="sfdlxy" value="{{form.sfdlxy}}"></input>
 <input type="text" class="hiddenInput" name="sfzz" value="{{form.sfzz}}"></input>
 <input type="text" class="hiddenInput" name="sfsf" value="{{form.sfsf}}"></input>

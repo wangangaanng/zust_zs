@@ -395,6 +395,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizJypuchongService.updateXsxhByHyOwid(bckjBizJypuchong);
             //更改后的登入账号
             bckjBizYhxx.setYhDlzh(bckjBizYhkz.getXsxh());
+            bckjBizYhxx.setYhDlmm(TextUtils.MD5(bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6)));
             this.dao.updateByXsxh(bckjBizYhxx);
             bckjBizYhkzService.updateByXsxh(bckjBizYhkz);
             bckjBizStudentinfoService.updateByXsxh(bckjBizStudentinfo);
@@ -631,7 +632,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 //非企业
                 bckjBizYhxx.setYhlx(1);
                 bckjBizYhxx.setYhDlzh(xsxh);
-                String dlmm = MD5Util.MD5Encode(sfz.substring(sfz.length() - 6),"UTF-8");
+                String dlmm = TextUtils.MD5(sfz.substring(sfz.length() - 6));
                 bckjBizYhxx.setYhDlmm(dlmm);
                 bckjBizYhxx.setCreatetime(new Date());
                 this.dao.insert(bckjBizYhxx);

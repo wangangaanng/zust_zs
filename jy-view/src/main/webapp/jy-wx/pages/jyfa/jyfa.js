@@ -89,12 +89,12 @@ Page({
     },
   },
   getSyd(e){
-    console.log(e)
-    if(e.detail.trim().length>2){
-      this.setData({
-        showSyd: true
-      })
-    }
+    // console.log(e)
+    // if(e.detail.trim().length>2){
+    //   this.setData({
+    //     showSyd: true
+    //   })
+    // }
   },
   showModal(error) {
     wx.showModal({
@@ -119,7 +119,7 @@ Page({
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: "修改成功",
+          content: "保存成功",
           success(res) {
             if (res.confirm) {
               console.log('用户点击确定')

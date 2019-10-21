@@ -490,7 +490,8 @@
 			sfz = #{sfz},
 			sjh = #{sjh},
 			prov = #{prov},
-			yh_dlzh=#{yhDlzh}
+			yh_dlzh=#{yhDlzh},
+			yh_dlmm=#{yhDlmm}
 		WHERE owid = #{owid}
 	</update>
 
@@ -502,7 +503,8 @@
 			sfz = #{sfz},
 			sjh = #{sjh},
 			yx = #{yx},
-			yh_dlzh=#{yhDlzh}
+			yh_dlzh=#{yhDlzh},
+			yh_dlmm=#{yhDlmm}
 		WHERE owid = #{owid}
 	</update>
 
@@ -515,7 +517,8 @@
 			mz = #{mz},
 			sjh = #{sjh},
 			yx = #{yx},
-			yh_dlzh=#{yhDlzh}
+			yh_dlzh=#{yhDlzh},
+			yh_dlmm=#{yhDlmm}
 		WHERE owid = #{owid}
 	</update>
 

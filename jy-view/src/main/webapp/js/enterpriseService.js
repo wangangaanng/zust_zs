@@ -1,11 +1,89 @@
+var provice=[];
+var city=[];
+var pindex=0;
+var cindex=0;
+var _cityData=[];
+
+function getCity() {
+    $("#qyCity").html("<option value=''>请选择</option>")
+    $("#qyArea").html("<option value=''>请选择</option>")
+    pindex=parseInt($("#qyProv option:selected").index())-1;
+    if(pindex>-1){
+        _cityData=city[pindex]
+        _cityData.forEach(function(e) {
+            $("#qyCity").append("<option value='"+e.text+"'>"+e.text+"</option>")
+        });
+
+    }
+
+}
+
+function getArea() {
+    $("#qyArea").html("<option value=''>请选择</option>")
+    cindex=parseInt($("#qyCity option:selected").index())-1;
+    if(cindex>-1){
+        var _areaData=_cityData[cindex].children
+        _areaData.forEach(function(e) {
+            $("#qyArea").append("<option value='"+e.text+"'>"+e.text+"</option>")
+        });
+
+    }
+}
 
 $(document).ready(function () {
 
-    var provice=[];
-    var city=[];
-    var pindex=0;
-    var cindex=0;
-    var _cityData=[];
+    $(".file1").change(function (e) {
+        var file = e.target.files[0] || e.dataTransfer.files[0];
+        if (file) {
+            console.log("file.size",file.size)
+            if(file.size>2000000){
+                walert("图片过大，请选择2M以下的图片")
+                return
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+                console.log("file",file)
+
+                var fd = new FormData();
+                fd.append("file",file);
+                fd.append('data', JSON.stringify({
+                    "type": 1
+                }));
+                $("#yyzz").attr("src",this.result)
+                beginLoad()
+                $.ajax({
+                    url: uploadUrl,
+                    type: "POST",
+                    processData: false,
+                    contentType: false,
+                    data: fd,
+                    success: function(d) {
+                        // console.log(d);
+                        finishLoad()
+                        if(d.bean){
+                            if(d.bean.fileName){
+                                walert("上传成功")
+                                $("#qyYyzzzp").val(d.bean.fileName)
+                            }
+                        }else{
+                            walert("上传失败")
+                        }
+                    },
+                    fail:function () {
+                        finishLoad()
+                    }
+                });
+            }
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // var provice=[];
+    // var city=[];
+    // var pindex=0;
+    // var cindex=0;
+    // var _cityData=[];
     cityData3.forEach(function(e) {
         provice.push(e.text)
         city.push(e.children)
