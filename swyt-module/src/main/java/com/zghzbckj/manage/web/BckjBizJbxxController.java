@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 /**
  * ccController
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 @Controller
 @RequestMapping(value = "bckjBizJbxx")
@@ -39,7 +39,7 @@ public class BckjBizJbxxController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return bckjBizJbxxService.findPageBckjBizJbxx(filters, dataVO.getPageNo(), dataVO.getPageSize());
+    return ResponseMessage.sendOK(bckjBizJbxxService.findPageBckjBizJbxx(filters, dataVO.getPageNo(), dataVO.getPageSize()));
     } catch (Exception e) {
     log.error(e+"获取bckjBizJbxx列表失败\r\n"+e.getStackTrace()[0] , e);
     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -59,8 +59,8 @@ public class BckjBizJbxxController extends BaseController {
             for (Object obj : list) {
             codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            ResponseMessage data = bckjBizJbxxService.removeOrder(codes);
-            return data;
+            List data = bckjBizJbxxService.removeOrder(codes);
+            return ResponseMessage.sendOK(data);
             } catch (Exception e) {
             log.error(e+"删除BckjBizJbxx列表失败\r\n" +e.getStackTrace()[0] , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -73,7 +73,7 @@ public class BckjBizJbxxController extends BaseController {
             try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizJbxxService.saveBckjBizJbxx(mapData);
+            return ResponseMessage.sendOK(bckjBizJbxxService.saveBckjBizJbxx(mapData));
             } catch (Exception e) {
             log.error(e+"保存BckjBizJbxx信息失败\r\n"+e.getStackTrace()[0]  , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

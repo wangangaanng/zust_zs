@@ -12,25 +12,35 @@ import com.zghzbckj.base.entity.DataWithExpEntity;
 /**
  * ccEntity
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	
 	private static final long serialVersionUID = 1L;
-	private Integer bkzyRefOwid;		// bkzy_ref_owid
+	private Long bkzyRefOwid;		// bkzy_ref_owid
 	private String xxbh;		// xxbh
+	private String userRefOwid;		// user_ref_owid
+	private String xm;		// xm
+	private Integer xb;		// xb
 	private String bmnd;		// bmnd
-	private Integer xzzy;		// xzzy
+	private String mz;		// mz
+	private String sfzh;		// sfzh
+	private String yx;		// yx
+	private String qq;		// qq
+	private String tcah;		// tcah
+	private Integer xklb;		// 0普通类    1艺术类；
+	private String wyyz;		// wyyz
+	private Double wycj;		// wycj
+	private String zxlb;		// zxlb
+	private String jssm;		// jssm
+	private String jsfj;		// jsfj
+	private String qtqk;		// qtqk
 	private String xzzylj;		// xzzylj
 	private String xzzymc;		// xzzymc
-	private String wyyz;		// wyyz
+	private String bklb;		// bklb
 	private Date sqsj;		// sqsj
-	private Date dysj;		// dysj
-	private Integer dycs;		// dycs
-	private Date yjsj;		// yjsj
-	private String ems;		// ems
 	private String bmbZp;		// bmb_zp
-	private Date sdsj;		// sdsj
+	private String cnszp;		// cnszp
 	private Date cssj;		// cssj
 	private String jjly;		// jjly
 	private Date jfsj;		// jfsj
@@ -58,14 +68,12 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		super();
 	}
 
-
-
 	
-	public Integer getBkzyRefOwid() {
+	public Long getBkzyRefOwid() {
 		return bkzyRefOwid;
 	}
 
-	public void setBkzyRefOwid(Integer bkzyRefOwid) {
+	public void setBkzyRefOwid(Long bkzyRefOwid) {
 		this.bkzyRefOwid = bkzyRefOwid;
 	}
 	
@@ -78,6 +86,32 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.xxbh = xxbh;
 	}
 	
+	@Length(min=0, max=64, message="user_ref_owid长度必须介于 0 和 64 之间")
+	public String getUserRefOwid() {
+		return userRefOwid;
+	}
+
+	public void setUserRefOwid(String userRefOwid) {
+		this.userRefOwid = userRefOwid;
+	}
+	
+	@Length(min=0, max=20, message="xm长度必须介于 0 和 20 之间")
+	public String getXm() {
+		return xm;
+	}
+
+	public void setXm(String xm) {
+		this.xm = xm;
+	}
+	
+	public Integer getXb() {
+		return xb;
+	}
+
+	public void setXb(Integer xb) {
+		this.xb = xb;
+	}
+	
 	@Length(min=0, max=4, message="bmnd长度必须介于 0 和 4 之间")
 	public String getBmnd() {
 		return bmnd;
@@ -87,12 +121,110 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.bmnd = bmnd;
 	}
 	
-	public Integer getXzzy() {
-		return xzzy;
+	@Length(min=0, max=20, message="mz长度必须介于 0 和 20 之间")
+	public String getMz() {
+		return mz;
 	}
 
-	public void setXzzy(Integer xzzy) {
-		this.xzzy = xzzy;
+	public void setMz(String mz) {
+		this.mz = mz;
+	}
+	
+	@Length(min=0, max=20, message="sfzh长度必须介于 0 和 20 之间")
+	public String getSfzh() {
+		return sfzh;
+	}
+
+	public void setSfzh(String sfzh) {
+		this.sfzh = sfzh;
+	}
+	
+	@Length(min=0, max=50, message="yx长度必须介于 0 和 50 之间")
+	public String getYx() {
+		return yx;
+	}
+
+	public void setYx(String yx) {
+		this.yx = yx;
+	}
+	
+	@Length(min=0, max=20, message="qq长度必须介于 0 和 20 之间")
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+	
+	@Length(min=0, max=200, message="tcah长度必须介于 0 和 200 之间")
+	public String getTcah() {
+		return tcah;
+	}
+
+	public void setTcah(String tcah) {
+		this.tcah = tcah;
+	}
+	
+	public Integer getXklb() {
+		return xklb;
+	}
+
+	public void setXklb(Integer xklb) {
+		this.xklb = xklb;
+	}
+	
+	@Length(min=0, max=20, message="wyyz长度必须介于 0 和 20 之间")
+	public String getWyyz() {
+		return wyyz;
+	}
+
+	public void setWyyz(String wyyz) {
+		this.wyyz = wyyz;
+	}
+	
+	public Double getWycj() {
+		return wycj;
+	}
+
+	public void setWycj(Double wycj) {
+		this.wycj = wycj;
+	}
+	
+	@Length(min=0, max=200, message="zxlb长度必须介于 0 和 200 之间")
+	public String getZxlb() {
+		return zxlb;
+	}
+
+	public void setZxlb(String zxlb) {
+		this.zxlb = zxlb;
+	}
+	
+	@Length(min=0, max=500, message="jssm长度必须介于 0 和 500 之间")
+	public String getJssm() {
+		return jssm;
+	}
+
+	public void setJssm(String jssm) {
+		this.jssm = jssm;
+	}
+	
+	@Length(min=0, max=500, message="jsfj长度必须介于 0 和 500 之间")
+	public String getJsfj() {
+		return jsfj;
+	}
+
+	public void setJsfj(String jsfj) {
+		this.jsfj = jsfj;
+	}
+	
+	@Length(min=0, max=500, message="qtqk长度必须介于 0 和 500 之间")
+	public String getQtqk() {
+		return qtqk;
+	}
+
+	public void setQtqk(String qtqk) {
+		this.qtqk = qtqk;
 	}
 	
 	@Length(min=0, max=200, message="xzzylj长度必须介于 0 和 200 之间")
@@ -113,13 +245,13 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.xzzymc = xzzymc;
 	}
 	
-	@Length(min=0, max=20, message="wyyz长度必须介于 0 和 20 之间")
-	public String getWyyz() {
-		return wyyz;
+	@Length(min=0, max=36, message="bklb长度必须介于 0 和 36 之间")
+	public String getBklb() {
+		return bklb;
 	}
 
-	public void setWyyz(String wyyz) {
-		this.wyyz = wyyz;
+	public void setBklb(String bklb) {
+		this.bklb = bklb;
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -131,42 +263,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.sqsj = sqsj;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getDysj() {
-		return dysj;
-	}
-
-	public void setDysj(Date dysj) {
-		this.dysj = dysj;
-	}
-	
-	public Integer getDycs() {
-		return dycs;
-	}
-
-	public void setDycs(Integer dycs) {
-		this.dycs = dycs;
-	}
-	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getYjsj() {
-		return yjsj;
-	}
-
-	public void setYjsj(Date yjsj) {
-		this.yjsj = yjsj;
-	}
-	
-	@Length(min=0, max=20, message="ems长度必须介于 0 和 20 之间")
-	public String getEms() {
-		return ems;
-	}
-
-	public void setEms(String ems) {
-		this.ems = ems;
-	}
-	
-	@Length(min=0, max=200, message="bmb_zp长度必须介于 0 和 200 之间")
+	@Length(min=0, max=100, message="bmb_zp长度必须介于 0 和 100 之间")
 	public String getBmbZp() {
 		return bmbZp;
 	}
@@ -175,13 +272,13 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.bmbZp = bmbZp;
 	}
 	
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	public Date getSdsj() {
-		return sdsj;
+	@Length(min=0, max=100, message="cnszp长度必须介于 0 和 100 之间")
+	public String getCnszp() {
+		return cnszp;
 	}
 
-	public void setSdsj(Date sdsj) {
-		this.sdsj = sdsj;
+	public void setCnszp(String cnszp) {
+		this.cnszp = cnszp;
 	}
 	
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -220,7 +317,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.jfpzh = jfpzh;
 	}
 	
-	@Length(min=0, max=200, message="jfpz_zp长度必须介于 0 和 200 之间")
+	@Length(min=0, max=100, message="jfpz_zp长度必须介于 0 和 100 之间")
 	public String getJfpzZp() {
 		return jfpzZp;
 	}

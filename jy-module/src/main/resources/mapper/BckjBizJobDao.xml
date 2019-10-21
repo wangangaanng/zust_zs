@@ -538,4 +538,13 @@
 		where  a.exp5='1'
 	</select>
 
+
+	<update id="setCdPoint"  parameterType="Map" >
+		UPDATE bckj_biz_job SET
+		zph_gpsjd=#{zphGpsjd},
+		zph_gpswd=#{zphGpswd},
+		exp5='2'
+		where owid=#{owid}
+	</update>
+
 </mapper>

@@ -3,22 +3,23 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * ccEntity
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 	
 	private static final long serialVersionUID = 1L;
-	private String yhRefOwid;		// yh_ref_owid
-	private String sfzzp;		// sfzzp
+	private String sfzzm;		// sfzzm
+	private String sfzfm;		// sfzfm
+	private String hjzm;		// hjzm
 	private String xm;		// xm
 	private String sfzh;		// sfzh
 	private Date csrq;		// csrq
@@ -36,33 +37,49 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 	private String grsg;		// grsg
 	private String grtz;		// grtz
 	private String grsl;		// grsl
+	private String yx;		// yx
+	private String qq;		// qq
 	private String tcah;		// tcah
 	private String grzp;		// grzp
 	private String kslb;		// kslb
+	private String wyyz;		// wyyz
+	private Double wycj;		// wycj
+	private String zxlb;		// zxlb
+	private String jssm;		// jssm
+	private String jsfj;		// jsfj
+	private String qtqk;		// qtqk
 
 	
 	public BckjBizJbxx() {
 		super();
 	}
 
-
 	
-	@Length(min=0, max=64, message="yh_ref_owid长度必须介于 0 和 64 之间")
-	public String getYhRefOwid() {
-		return yhRefOwid;
+	@Length(min=0, max=100, message="sfzzm长度必须介于 0 和 100 之间")
+	public String getSfzzm() {
+		return sfzzm;
 	}
 
-	public void setYhRefOwid(String yhRefOwid) {
-		this.yhRefOwid = yhRefOwid;
+	public void setSfzzm(String sfzzm) {
+		this.sfzzm = sfzzm;
 	}
 	
-	@Length(min=0, max=200, message="sfzzp长度必须介于 0 和 200 之间")
-	public String getSfzzp() {
-		return sfzzp;
+	@Length(min=0, max=100, message="sfzfm长度必须介于 0 和 100 之间")
+	public String getSfzfm() {
+		return sfzfm;
 	}
 
-	public void setSfzzp(String sfzzp) {
-		this.sfzzp = sfzzp;
+	public void setSfzfm(String sfzfm) {
+		this.sfzfm = sfzfm;
+	}
+	
+	@Length(min=0, max=100, message="hjzm长度必须介于 0 和 100 之间")
+	public String getHjzm() {
+		return hjzm;
+	}
+
+	public void setHjzm(String hjzm) {
+		this.hjzm = hjzm;
 	}
 	
 	@Length(min=0, max=20, message="xm长度必须介于 0 和 20 之间")
@@ -217,6 +234,24 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 		this.grsl = grsl;
 	}
 	
+	@Length(min=0, max=50, message="yx长度必须介于 0 和 50 之间")
+	public String getYx() {
+		return yx;
+	}
+
+	public void setYx(String yx) {
+		this.yx = yx;
+	}
+	
+	@Length(min=0, max=20, message="qq长度必须介于 0 和 20 之间")
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+	
 	@Length(min=0, max=200, message="tcah长度必须介于 0 和 200 之间")
 	public String getTcah() {
 		return tcah;
@@ -243,6 +278,58 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 	public void setKslb(String kslb) {
 		this.kslb = kslb;
 	}
+	
+	@Length(min=0, max=20, message="wyyz长度必须介于 0 和 20 之间")
+	public String getWyyz() {
+		return wyyz;
+	}
 
+	public void setWyyz(String wyyz) {
+		this.wyyz = wyyz;
+	}
+	
+	public Double getWycj() {
+		return wycj;
+	}
+
+	public void setWycj(Double wycj) {
+		this.wycj = wycj;
+	}
+	
+	@Length(min=0, max=200, message="zxlb长度必须介于 0 和 200 之间")
+	public String getZxlb() {
+		return zxlb;
+	}
+
+	public void setZxlb(String zxlb) {
+		this.zxlb = zxlb;
+	}
+	
+	@Length(min=0, max=500, message="jssm长度必须介于 0 和 500 之间")
+	public String getJssm() {
+		return jssm;
+	}
+
+	public void setJssm(String jssm) {
+		this.jssm = jssm;
+	}
+	
+	@Length(min=0, max=500, message="jsfj长度必须介于 0 和 500 之间")
+	public String getJsfj() {
+		return jsfj;
+	}
+
+	public void setJsfj(String jsfj) {
+		this.jsfj = jsfj;
+	}
+	
+	@Length(min=0, max=500, message="qtqk长度必须介于 0 和 500 之间")
+	public String getQtqk() {
+		return qtqk;
+	}
+
+	public void setQtqk(String qtqk) {
+		this.qtqk = qtqk;
+	}
 	
 }

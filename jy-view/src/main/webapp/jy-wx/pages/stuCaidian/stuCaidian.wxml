@@ -2,14 +2,15 @@
 <scroll-view  style='position:fixed;top:0rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
 <view class="uni-list" wx:if="{{list.length>0}}">
   <block wx:for="{{list}}" wx:for-item="itm" wx:for-index="idx" wx:key="">
-    <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="caidian">
+    <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="{{itm.old==1?'':'caidian'}}">
       <view class="uni-media-list">
         <view class="uni-media-list-body">
           <view class="uni-media-list-text-top">{{itm.zwbt}}</view>
           <view class="uni-media-list-text-content">地点：<span>{{itm.zphJbdd}}</span></view>
           <view class="uni-media-list-text-content">时间：<span>{{itm.zphKsrq}} {{itm.zphJtsj}}</span></view>
         </view>
-        <view class="btn-right"><a>采点</a></view>
+        <view class="btn-right" wx:if="{{itm.old==1}}"><a style="background:#999;">过期</a></view>
+        <view class="btn-right" wx:else><a>采点</a></view>
       </view>
     </view>
   </block>

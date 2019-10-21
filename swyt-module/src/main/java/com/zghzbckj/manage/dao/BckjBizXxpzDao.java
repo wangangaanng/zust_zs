@@ -10,7 +10,7 @@ import com.zghzbckj.manage.entity.BckjBizXxpz;
 /**
  * ccDAO接口
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 @MyBatisDao
 public interface BckjBizXxpzDao extends CrudDao<BckjBizXxpz> {

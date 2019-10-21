@@ -5,8 +5,10 @@
 	<sql id="bckjBizXxpzColumns">
 		a.owid AS "owid",
 		a.xxbh AS "xxbh",
+		a.logo AS "logo",
 		a.xxmc AS "xxmc",
 		a.xcjs AS "xcjs",
+		a.xxbq AS "xxbq",
 		a.lxr AS "lxr",
 		a.lxdz AS "lxdz",
 		a.lxdh AS "lxdh",
@@ -59,6 +61,21 @@
 		<include refid="bckjBizXxpzJoins"/>
 		<where>
 			
+			<if test="xxbh != null and xxbh != ''">
+				AND a.xxbh = #{xxbh}
+			</if>
+			<if test="logo != null and logo != ''">
+				AND a.logo = #{logo}
+			</if>
+			<if test="xxmc != null and xxmc != ''">
+				AND a.xxmc = #{xxmc}
+			</if>
+			<if test="xcjs != null and xcjs != ''">
+				AND a.xcjs LIKE 
+					<if test="dbName == 'oracle'">'%'||#{xcjs}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xcjs}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xcjs},'%')</if>
+			</if>
 		</where>
 		<choose>
 			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
@@ -75,6 +92,21 @@
 		<include refid="bckjBizXxpzJoins"/>
 		<where>
 			
+			<if test="xxbh != null and xxbh != ''">
+				AND a.xxbh = #{xxbh}
+			</if>
+			<if test="logo != null and logo != ''">
+				AND a.logo = #{logo}
+			</if>
+			<if test="xxmc != null and xxmc != ''">
+				AND a.xxmc = #{xxmc}
+			</if>
+			<if test="xcjs != null and xcjs != ''">
+				AND a.xcjs LIKE
+					<if test="dbName == 'oracle'">'%'||#{xcjs}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{xcjs}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{xcjs},'%')</if>
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -105,8 +137,10 @@
 		INSERT INTO bckj_biz_xxpz(
 			owid,
 			xxbh,
+			logo,
 			xxmc,
 			xcjs,
+			xxbq,
 			lxr,
 			lxdz,
 			lxdh,
@@ -142,8 +176,10 @@
 		) VALUES (
 			#{owid},
 			#{xxbh},
+			#{logo},
 			#{xxmc},
 			#{xcjs},
+			#{xxbq},
 			#{lxr},
 			#{lxdz},
 			#{lxdh},
@@ -183,8 +219,10 @@
 		UPDATE bckj_biz_xxpz SET 	
 			owid = #{owid},
 			xxbh = #{xxbh},
+			logo = #{logo},
 			xxmc = #{xxmc},
 			xcjs = #{xcjs},
+			xxbq = #{xxbq},
 			lxr = #{lxr},
 			lxdz = #{lxdz},
 			lxdh = #{lxdh},

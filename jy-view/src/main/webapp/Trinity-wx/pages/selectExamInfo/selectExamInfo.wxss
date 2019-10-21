@@ -1,16 +1,11 @@
 /* pages/selectExamInfo/selectExamInfo.wxss */
 page{background: rgb(245,245,245)}
 .van-cell__title{min-width: 120px!important;max-width: 120px!important;}
-.com-title{position: relative;padding-left: 20rpx;font-size: 30rpx;}
-.com-title:before{position: absolute;left: 0px;content: "";width: 6rpx;height: 40rpx;background: rgb(38,184,135);
-border-radius: 3px;}
 .cell-lable_csm{font-size: 30rpx;line-height: 1;}
 .select-group{display: flex;  flex-wrap: wrap;}
 .chose-type{min-width: 50%;flex: 1;padding-top: 36rpx}
 .van-checkbox__icon--checked{background-color: rgb(38,184,135)!important;border-color: rgb(38,184,135)!important;}
-.sm-title{font-size: 30rpx;}
 .van-checkbox__label{color: rgb(153,153,153)!important;font-size: 30rpx;line-height: 70rpx;}
 .van-checkbox__icon{width: 0.9em!important;height: 0.9em!important;}
-.btn-upload{border: 1px dotted rgb(38,184,135);border-radius: 10rpx;text-align: center;margin-top: 40rpx;padding: 30rpx;}
-.btn-upload .icon-hao{font-size: 60rpx;color: rgb(38,184,135);}
-.btn-txt{font-size: 30rpx;color:rgb(38,184,135); }
+.border-area{margin-top: 30rpx;border: 1px solid rgb(38,184,135);border-radius: 10rpx;}
+.border-area textarea{height:182rpx;padding: 20rpx;width: 100%;box-sizing: border-box;font-size: 30rpx;}

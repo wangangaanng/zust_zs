@@ -55,7 +55,21 @@
 		},
 		"miniprogram": {
 			"current": -1,
-			"list": []
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/stuCaidian/stuCaidian",
+					"pathName": "pages/stuCaidian/stuCaidian",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/stuQiandao/stuQiandao",
+					"pathName": "pages/stuQiandao/stuQiandao",
+					"scene": null
+				}
+			]
 		}
 	}
 }
