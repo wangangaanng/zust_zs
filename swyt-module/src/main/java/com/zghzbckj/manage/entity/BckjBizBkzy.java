@@ -3,28 +3,21 @@
  */
 package com.zghzbckj.manage.entity;
 
-import javax.validation.constraints.NotNull;
+import com.zghzbckj.base.entity.DataWithLongExpEntity;
 import org.hibernate.validator.constraints.Length;
-
-import java.math.BigDecimal;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.zghzbckj.base.entity.DataWithExpEntity;
 
 /**
  * ccEntity
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
-public class BckjBizBkzy extends DataWithExpEntity<BckjBizBkzy> {
+public class BckjBizBkzy extends DataWithLongExpEntity<BckjBizBkzy> {
 	
 	private static final long serialVersionUID = 1L;
-
-	private Integer fid;		// fid
+	private Long fid;		// fid
 	private String path;		// path
 	private Integer cc;		// cc
-	private BigDecimal px;		// px
+	private String px;		// px
 	private String xxbh;		// xxbh
 	private String bknd;		// bknd
 	private Integer type;		// type
@@ -34,18 +27,16 @@ public class BckjBizBkzy extends DataWithExpEntity<BckjBizBkzy> {
 	private String attachFile;		// attach_file
 	private String xgyy;		// xgyy
 	private String memo;		// memo
-
 	
 	public BckjBizBkzy() {
 		super();
 	}
-
 	
-	public Integer getFid() {
+	public Long getFid() {
 		return fid;
 	}
 
-	public void setFid(Integer fid) {
+	public void setFid(Long fid) {
 		this.fid = fid;
 	}
 	
@@ -66,11 +57,11 @@ public class BckjBizBkzy extends DataWithExpEntity<BckjBizBkzy> {
 		this.cc = cc;
 	}
 	
-	public BigDecimal getPx() {
+	public String getPx() {
 		return px;
 	}
 
-	public void setPx(BigDecimal px) {
+	public void setPx(String px) {
 		this.px = px;
 	}
 	

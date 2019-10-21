@@ -3,23 +3,25 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * ccEntity
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 public class BckjBizXxpz extends DataWithExpEntity<BckjBizXxpz> {
 	
 	private static final long serialVersionUID = 1L;
 	private String xxbh;		// xxbh
+	private String logo;		// logo
 	private String xxmc;		// xxmc
-	private String xcjs;		// xcjs
+	private String xcjs;		// 逗号分隔
+	private String xxbq;		// xxbq
 	private String lxr;		// lxr
 	private String lxdz;		// lxdz
 	private String lxdh;		// lxdh
@@ -46,6 +48,15 @@ public class BckjBizXxpz extends DataWithExpEntity<BckjBizXxpz> {
 		this.xxbh = xxbh;
 	}
 	
+	@Length(min=0, max=100, message="logo长度必须介于 0 和 100 之间")
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+	
 	@Length(min=0, max=200, message="xxmc长度必须介于 0 和 200 之间")
 	public String getXxmc() {
 		return xxmc;
@@ -55,13 +66,22 @@ public class BckjBizXxpz extends DataWithExpEntity<BckjBizXxpz> {
 		this.xxmc = xxmc;
 	}
 	
-	@Length(min=0, max=1000, message="xcjs长度必须介于 0 和 1000 之间")
+	@Length(min=0, max=1000, message="逗号分隔长度必须介于 0 和 1000 之间")
 	public String getXcjs() {
 		return xcjs;
 	}
 
 	public void setXcjs(String xcjs) {
 		this.xcjs = xcjs;
+	}
+	
+	@Length(min=0, max=100, message="xxbq长度必须介于 0 和 100 之间")
+	public String getXxbq() {
+		return xxbq;
+	}
+
+	public void setXxbq(String xxbq) {
+		this.xxbq = xxbq;
 	}
 	
 	@Length(min=0, max=20, message="lxr长度必须介于 0 和 20 之间")
