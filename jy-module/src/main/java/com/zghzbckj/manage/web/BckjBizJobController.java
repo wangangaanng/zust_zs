@@ -16,6 +16,7 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.service.BckjBizJobService;
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -478,6 +479,29 @@ public class BckjBizJobController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
+
+    }
+
+    /**
+     * 设置踩点信息
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("setCdPoint")
+    @ResponseBody
+    public ResponseMessage setCdPoint(PublicDataVO dataVO){
+      try {
+          Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+          ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid","zphGpsjd","zphGpswd");
+          if(!msg.getSuccess()){
+              return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+          }
+         return  bckjBizJobService.setCdPoint(dataMap);
+      }
+      catch (Exception e){
+          log.error(CommonConstant.ERROR_MESSAGE,e);
+          return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+      }
 
     }
 

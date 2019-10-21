@@ -313,7 +313,8 @@
 	<update id="updateSyscheme" parameterType="BckjBizYhkz">
 		UPDATE bckj_biz_yhkz SET
 			xsxh = #{xsxh},
-			xsxy = #{xsxy}
+			xsxy = #{xsxy},
+			xszy = #{xszy}
 		WHERE yh_ref_owid = #{yhRefOwid}
 	</update>
 	

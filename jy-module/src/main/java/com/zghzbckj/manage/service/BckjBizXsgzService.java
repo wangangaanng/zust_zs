@@ -242,6 +242,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             if (distance > bj) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);
             }
+            //查看此微信号是否已经注册过   unionid存exp5
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
             if(!TextUtils.isEmpty(oneByUnionId)){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"此微信号注册");
@@ -256,6 +257,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             bckjBizJob.setZwGzs(count);
             bckjBizJobService.saveOrUpdate(bckjBizJob);
         }
+
         BckjBizXsgz bckjBizXsgz = new BckjBizXsgz();
         if (bckjBizJob.getZwlx() == 0) {
             bckjBizXsgz.setGzlx(0);
