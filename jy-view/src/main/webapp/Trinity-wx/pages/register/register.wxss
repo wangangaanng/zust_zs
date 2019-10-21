@@ -9,3 +9,8 @@
 .icon-yanjing{font-size: 34rpx!important;}
 .icon-comiisyincangmima{font-size: 40rpx!important;}
 .van-cell__title{color: rgb(153,153,153)}
+
+.van-button--small {height: 52rpx!important;line-height: 52rpx!important;font-size: 26rpx!important;}
+.van-field__input{font-size: 32rpx;}
+.van-cell__value{color: rgb(104,104,104)!important;font-size: 32rpx;}
+.study-area .van-cell__value{flex: 2;-webkit-flex:2; }

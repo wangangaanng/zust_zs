@@ -31,6 +31,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      pageSize: 20,
+      pageNo: 1,
+      totalPage: '',
+      list: []
+    })
     getList(this, 1);// pageNo
   },
 

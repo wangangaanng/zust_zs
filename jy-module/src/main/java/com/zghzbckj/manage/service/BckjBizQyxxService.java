@@ -306,7 +306,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         List<Map> resluts= Lists.newArrayList();
         for(Object one:codes){
             qyxx=this.get(MapUtils.getString((Map)one,"owid"));
-            if(null!=qyxx) {
+            if(null!=qyxx&&qyxx.getState()==2) {
                 qyxx.setState(state);
                 saveOrUpdate(qyxx);
                 result.put("owid", qyxx.getOwid());

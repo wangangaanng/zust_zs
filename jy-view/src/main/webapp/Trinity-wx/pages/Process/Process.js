@@ -1,14 +1,11 @@
-// pages/register/register.js
-var utils = require('../../utils/util.js');
-import WxValidate from '../../utils/WxValidate'
+// pages/Process/Process.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    loginPswType:true,
-    surePswType: true,
+
   },
 
   /**
@@ -65,23 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  //显示登陆密码
-  showPswType(){
-    (this.data.loginPswType) ? this.data.loginPswType=false : this.data.loginPswType =true;
-    this.setData({
-      loginPswType: this.data.loginPswType
-    });
-  },
-  //显示确认密码
-  surePswType(){
-    (this.data.surePswType) ? this.data.surePswType = false : this.data.surePswType = true;
-    this.setData({
-      surePswType: this.data.surePswType
-    });
-  },
-  //获取验证码
-  sendCode(){
-    console.log('获取验证码');
   }
 })

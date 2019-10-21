@@ -114,6 +114,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
         dataMap.put("zwlx", zwlx.toString());
+        if ("5".equals(zwlx.toString())) {
+            dataMap.put("zwlx", "3");
+            dataMap.put("ddw", "1");
+        }
+        if ("6".equals(zwlx.toString())) {
+            dataMap.put("zwlx", "3");
+            dataMap.put("wait", "1");
+        }
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
         } else {
@@ -693,17 +701,17 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     }
 
     /**
-     *
      * 前台获得当日需要签到的信息列表
+     *
      * @param filterModels
-     * @param  pageNo
-     * @param   pageSize
+     * @param pageNo
+     * @param pageSize
      * @return ResponseMessage
      */
     public PageInfo<BckjBizJob> getQdList(List<FilterModel> filterModels, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
-        Page<BckjBizJob> page = new Page<>(pageNo,pageSize);
-        dataMap.put("page",page);
+        Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
+        dataMap.put("page", page);
         List<BckjBizJob> listByMap = this.dao.findQdList(dataMap);
         page.setList(listByMap);
         return PageUtils.assimblePageInfo(page);
@@ -711,19 +719,21 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
     /**
      * 获得需要采点的list
-     * @return  PageInfo<BckjBizJob>
+     *
+     * @return PageInfo<BckjBizJob>
      */
     public PageInfo<BckjBizJob> getCdList(List<FilterModel> filterModels, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
-        Page<BckjBizJob> page = new Page<>(pageNo,pageSize);
-        dataMap.put("page",page);
+        Page<BckjBizJob> page = new Page<>(pageNo, pageSize);
+        dataMap.put("page", page);
         List<BckjBizJob> cdList = this.dao.getCdList(dataMap);
         page.setList(cdList);
         return PageUtils.assimblePageInfo(page);
     }
-@Transactional(readOnly = false,rollbackFor = Exception.class)
+
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage setCdPoint(Map<String, Object> dataMap) {
-         this.dao.setCdPoint(dataMap);
-         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        this.dao.setCdPoint(dataMap);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 }
