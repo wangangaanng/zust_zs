@@ -89,12 +89,12 @@ Page({
     },
   },
   getSyd(e){
-    console.log(e)
-    if(e.detail.trim().length>2){
-      this.setData({
-        showSyd: true
-      })
-    }
+    // console.log(e)
+    // if(e.detail.trim().length>2){
+    //   this.setData({
+    //     showSyd: true
+    //   })
+    // }
   },
   showModal(error) {
     wx.showModal({
