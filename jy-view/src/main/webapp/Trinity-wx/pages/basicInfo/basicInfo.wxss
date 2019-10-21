@@ -1,0 +1,19 @@
+/* pages/basicInfo/basicInfo.wxss */
+page{background: rgb(245,245,245)}
+.select-group{display: flex;}
+.van-radio{margin-left: 66rpx;}
+.icon-tishi{color: rgb(239,54,59);font-size: 30rpx;}
+.icon-paizhao{
+  font-size: 48rpx;
+  color: #26b887;
+  }
+  .btn-txt{
+    margin-top: 26rpx;
+  }
+.van-field__input{
+  text-align: right!important;
+  color: #595959!important
+}
+.van-cell__title,.van-field__input{
+  font-size: 30rpx;
+}

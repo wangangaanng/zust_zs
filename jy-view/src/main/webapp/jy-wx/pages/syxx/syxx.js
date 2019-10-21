@@ -81,7 +81,7 @@ Page({
       ksh: '',
       xz: '',
       xxmc: '',
-      ssxy: '',
+      xsxy: '',
       xszy: '',
       szbj: '',
       pyfs: '',
@@ -190,7 +190,7 @@ Page({
       xxmc: {
         required: true
       },
-      ssxy: {
+      xsxy: {
         required: true
       },
       xszy: {
@@ -280,7 +280,7 @@ Page({
       xxmc: {
         required: '请填写所属学校'
       },
-      ssxy: {
+      xsxy: {
         required: '请填写所属学院'
       },
       xszy: {
@@ -668,9 +668,13 @@ var getByType1 = function (that,mz) {
         }
         
         that.setData({
-          mzColumns: that.data.mzColumns,
-          mzStr: util.getVal(mz, that.data.mzColumns)
+          mzColumns: that.data.mzColumns
         })
+        if(mz){
+          that.setData({
+            mzStr: util.getVal(mz, that.data.mzColumns)
+          })
+        }
       }
     } else {
       wx.showToast({
@@ -695,9 +699,13 @@ var getByType2 = function (that, zzmm) {
           that.data.zzmmColumns.push(obj)
         }
         that.setData({
-          zzmmColumns: that.data.zzmmColumns,
-          zzmmStr: util.getVal(zzmm, that.data.zzmmColumns)
+          zzmmColumns: that.data.zzmmColumns
         })
+        if (zzmm) {
+          that.setData({
+            zzmmStr: util.getVal(zzmm, that.data.zzmmColumns)
+          })
+        }
       }
     } else {
       wx.showToast({

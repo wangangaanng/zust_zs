@@ -1,3 +1,15 @@
 /* pages/jyfa/jyfa.wxss */
 
 .form-title{height: 88rpx;line-height: 88rpx;padding-left: 20rpx;background-color: #F1F8F8;color: #6c9d9c;}
+.down-scroll-view{
+  position: relative;
+}
+.down-scroll-view scroll-view{
+  position: absolute;right: 0;top:88rpx;z-index: 9999;background: #fff;width: 300rpx;border: 1rpx solid #ccc;border-radius: 5rpx;height: 400rpx;
+}
+.down-scroll-view scroll-view view{
+  text-align: right;
+  padding: 8rpx 0;
+  font-size: 28rpx;
+  padding-right: 30rpx;
+}

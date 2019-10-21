@@ -68,7 +68,7 @@
     <van-picker show-toolbar title="学制" value-key="dicVal2" columns="{{xzColumns}}" data-type="10" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field input-align="right" value="{{form.xxmc}}" name="xxmc" label="所属学校" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.ssxy}}" name="ssxy" label="所属学院" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.xsxy}}" name="xsxy" label="所属学院" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.xszy}}" name="xszy" label="学校专业" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.szbj}}" name="szbj" label="所在班级" placeholder="输入内容" required />
   <van-cell required title="培养方式" value="{{pyfsStr}}" is-link arrow-direction="down" data-type="11" bind:click="showBottom" />

@@ -18,6 +18,7 @@
     .da-item{float:left;width:50%;}
     .da-item div,.da-item p{width: 50%; float: left;white-space: normal;word-break:break-all;}
     .da-item div:first-child{text-align: right;}
+    .oyhidden{overflow-y:hidden !important;}
 </style>
 
 <body>
@@ -40,13 +41,13 @@
                                     <label>
                                         <i class="icon ic-name"></i>
                                     </label>
-                                    <input class="" id="xsxm" type="text" placeholder="请输入姓名" />
+                                    <input class="" id="xsxm" type="text" placeholder="请输入姓名" autocomplete="off" />
                                 </div>
                                 <div class="archives-input">
                                     <label>
                                         <i class="icon ic-sfz"></i>
                                     </label>
-                                    <input class="" id="sfzh" type="text" placeholder="请输入身份证号码" />
+                                    <input class="" id="sfzh" type="text" placeholder="请输入身份证号码" autocomplete="off" />
                                 </div>
                                 <div class="archives-input">
                                     <button class="btn green" onclick="inquiryArchives()">查询</button>
@@ -92,6 +93,13 @@
             </#list>
         </#if>
 </select>
+<select style="display: none;" id="bdzqflbmc">
+        <#if bdzqflbList??>
+            <#list bdzqflbList as obj>
+            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+            </#list>
+        </#if>
+</select>
 
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
@@ -99,7 +107,7 @@
 <script>
     var index;
     $(document).ready(function () {
-
+        $(".ohidden").parents().find('.layui-layer-content').addClass("oyhidden")
     })
 
     function inquiryArchives(){
@@ -166,21 +174,14 @@
                             str+='<div class="da-item"><div>生源地代码：</div><p>'+p.syddm+'</p></div>'
                         }
                         if(data.bean.syd){
-                            $("#mz").val(data.bean.mz);
-                            $("#mz option:selected").html()
-                            str+='<div class="da-item"><div>生源地：</div><p>'+p.syd+'</p></div>'
+                            $("#syd").val(data.bean.syd);
+                            str+='<div class="da-item"><div>生源地：</div><p>'+$("#syd option:selected").html()+'</p></div>'
                         }
                         if(data.bean.sjh){
                             str+='<div class="da-item"><div>手机号：</div><p>'+p.sjh+'</p></div>'
                         }
                         if(data.bean.yx){
                             str+='<div class="da-item"><div>邮箱：</div><p>'+p.yx+'</p></div>'
-                        }
-                        if(data.bean.xz){
-                            str+='<div class="da-item"><div>学制：</div><p>'+p.xz+'</p></div>'
-                        }
-                        if(data.bean.syddm){
-                            str+='<div class="da-item"><div>生源地代码：</div><p>'+p.syddm+'</p></div>'
                         }
                         if(data.bean.dwszddm){
                             str+='<div class="da-item"><div>报到地区代码：</div><p>'+p.dwszddm+'</p></div>'
@@ -191,10 +192,11 @@
                         }
                         if(data.bean.bdzszdmc){
                             $("#bdzszdmc").val(data.bean.bdzszdmc);
-                            str+='<div class="da-item"><div>报到证签往单位所在地名称：</div><p>'+$("#bdzszdmc option:selected").html()+'</p></div>'
+                            str+='<div class="da-item"><div>报到证签往单位所在地：</div><p>'+$("#bdzszdmc option:selected").html()+'</p></div>'
                         }
                         if(data.bean.bdzqflbmc){
-                            str+='<div class="da-item"><div>报到证签发类别名称：</div><p>'+p.bdzqflbmc+'</p></div>'
+                            $("#bdzqflbmc").val(data.bean.bdzqflbmc);
+                            str+='<div class="da-item"><div>报到证签发类别名称：</div><p>'+$("#bdzqflbmc option:selected").html()+'</p></div>'
                         }
                         if(data.bean.bdkssj){
                             str+='<div class="da-item"><div>报到开始时间：</div><p>'+p.bdkssj+'</p></div>'
@@ -220,18 +222,20 @@
                         if(data.bean.bdzbz){
                             str+='<div class="da-item"><div>报到证备注：</div><p>'+p.bdzbz+'</p></div>'
                         }
+
                         index = layer.open({
                             type: 1,
                             title: '查询结果',
                             skin: 'layui-layer-rim', //加上边框
                             area: ['750px', '450px'], //宽高
-                            content: '<div class="lxr-modal">\n' +str+
+                            content: '<div class="lxr-modal1">\n' +str+
                             '                        <div class="row btn-yd">\n' +
                             '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
-                            '                                <button class="btn green" style="width: 120px;" onclick="closeLayer()">确定</button>\n' +
+                            '                                <button class="btn green" style="width: 120px;margin-bottom:20px;" onclick="closeLayer()">确定</button>\n' +
                             '                            </div>\n' +
                             '                        </div></div>'
                         });
+
                     }
                 } else {
                     walert(data.errorMess)
