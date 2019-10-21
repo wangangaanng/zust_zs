@@ -131,7 +131,7 @@
 
 </van-cell-group>
 <input type="text" class="hiddenInput" name="xb" value="{{form.xb}}"></input>
-<input type="text" class="hiddenInput" name="bynf: " value="{{form.bynf: }}"></input>
+<input type="text" class="hiddenInput" name="bynf" value="{{form.bynf}}"></input>
 <input type="text" class="hiddenInput" name="mz" value="{{form.mz}}"></input>
 <input type="text" class="hiddenInput" name="sfdlxy" value="{{form.sfdlxy}}"></input>
 <input type="text" class="hiddenInput" name="sfzz" value="{{form.sfzz}}"></input>
