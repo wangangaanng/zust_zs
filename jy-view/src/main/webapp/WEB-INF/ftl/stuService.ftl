@@ -10,9 +10,6 @@
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
 </head>
 <style>
-    .control-label{
-        color: #999 !important;
-    }
     .form-group div{line-height: 34px !important;}
     .layui-layer-content{overflow-y:auto !important;}
     .da-item{float:left;width:50%;}
