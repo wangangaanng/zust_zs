@@ -195,13 +195,3 @@ page {
 .da .quetion{
   color: #424242;
 }
-
-.head_li-2{
-  background-color: #FE4B44;
-}
-.head_li-3{
-  background-color: #1FB2F5;
-}
-.head_li-4{
-  background-color: #FF9801;
-}

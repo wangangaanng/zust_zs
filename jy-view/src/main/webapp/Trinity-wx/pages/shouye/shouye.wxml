@@ -3,29 +3,28 @@
   <view class="li">
     <view class="head_li">
       <image src="../../static/sy6.png" class="head_in"></image>
-      <!-- <image src="../../static/sy1.png" class="head_out"></image> -->
+      <image src="../../static/sy1.png" class="head_out"></image>
     </view>
     <view class="head_name">基本信息</view>
   </view>
   <view class="li">
-    <view class="head_li head_li-2">
+    <view class="head_li">
       <image src="../../static/sy5.png" class="head_in"></image>
-      <!-- <image src="../../static/sy1.png" class="head_out"></image> -->
+      <image src="../../static/sy1.png" class="head_out"></image>
     </view>
     <view class="head_name">家庭成员</view>
   </view>
   <view class="li">
-    <!-- <view class="head_li head_li-3 yet"> -->
-    <view class="head_li head_li-3">
+    <view class="head_li yet">
       <image src="../../static/sy4.png" class="head_in"></image>
-      <!-- <image src="../../static/sy2.png" class="head_out"></image> -->
+      <image src="../../static/sy2.png" class="head_out"></image>
     </view>
     <view class="head_name">会考科目</view>
   </view>
   <view class="li">
-    <view class="head_li head_li-4">
+    <view class="head_li yet">
       <image src="../../static/sy3.png" class="head_in"></image>
-      <!-- <image src="../../static/sy2.png" class="head_out"></image> -->
+      <image src="../../static/sy2.png" class="head_out"></image>
     </view>
     <view class="head_name">选考信息</view>
   </view>
