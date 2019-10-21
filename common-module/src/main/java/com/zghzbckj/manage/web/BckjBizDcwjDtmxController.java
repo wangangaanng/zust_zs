@@ -46,29 +46,6 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
-    private Map<String, Object> map = new HashMap<>();
-
-    /**
-     *<p>功能描述:setOwidDcwj 添加调查问卷外键</p >
-     *<ul>
-     *<li>@param [dataVO]</li>
-     *<li>@return void</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/10/10 17:12</li>
-     *</ul>
-     */
-    @PostMapping(value = "setOwidDcwj")
-    @ResponseBody
-    public void setOwidDcwj(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            map.put("dcwjRefOwid", dataMap.get("owid"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      *<p>功能描述:问卷结果getResultList</p >
      *<ul>
@@ -83,7 +60,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getResultList(PublicDataVO dataVO) {
         try {
-            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(map, dataVO.getPageNo(), dataVO.getPageSize());
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +82,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @PostMapping(value = "listQuestionName")
     @ResponseBody
     public ResponseMessage listQuestionName(PublicDataVO dataVO) {
-        List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(map, "dcwjRefOwid"));
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(dataMap, "dcwjRefOwid"));
         if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
         }
@@ -121,11 +100,22 @@ public class BckjBizDcwjDtmxController extends BaseController {
         return ResponseMessage.sendOK(result);
     }
 
+    /**
+     *<p>功能描述:查看问卷结果统计 listWjda</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/21 9:16</li>
+     *</ul>
+     */
     @PostMapping(value = "listWjda")
     @ResponseBody
     public ResponseMessage getListWjda(PublicDataVO dataVO) {
         try {
-            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjTmService.findQuestionResultList(map, dataVO.getPageNo(), dataVO.getPageSize());
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjTmService.findQuestionResultList(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();

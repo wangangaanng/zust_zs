@@ -1,0 +1,68 @@
+<!--
+  xiayuwei  选考信息  2019.10.19
+-->
+<!-- 选考信息 -->
+<view class="com-wrap">
+  <view class="com-title">选考信息</view>
+
+  <view class="df cell-wrap line-btm">
+    <view bindtap="selectSubject">请选择考试科目</view>
+    <view class="df f1">
+      <input type="text" class="f1"></input>
+      <view class="unit">分</view>
+    </view>
+  </view>
+
+  <view class="df cell-wrap line-btm">
+    <view>请选择考试科目</view>
+    <view class="df f1">
+      <input type="text" class="f1"></input>
+      <view class="unit">分</view>
+    </view>
+  </view>
+
+  <view class="df cell-wrap">
+    <view>请选择考试科目</view>
+    <view class="df f1">
+      <input type="text" class="f1"></input>
+      <view class="unit">分</view>
+    </view>
+  </view>
+</view>
+
+<view class="com-wrap">
+  <view class="com-title">外语成绩</view>
+  <view class="df cell-wrap line-btm">
+    <view>外语成绩</view>
+    <view class="df f1">
+      <input type="text" class="f1"></input>
+      <view class="unit">分</view>
+    </view>
+  </view>
+</view>
+
+<view class="com-wrap">
+  <view class="com-title">专项信息</view>
+  <view class="cell-wrap line-btm">
+    <view class="sm-title">专项类别（可多选)：</view>
+    <van-checkbox-group value="{{ result }}" bind:change="onChange" class="select-group df">
+      <van-checkbox class="chose-type" name="a">复选框 a</van-checkbox>
+      <van-checkbox class="chose-type" name="b">复选框 b</van-checkbox>
+      <van-checkbox class="chose-type" name="c">复选框 c</van-checkbox>
+    </van-checkbox-group>
+  </view>
+
+  <view class="cell-wrap line-btm">
+    <view class="sm-title">专项类别（可多选)：</view>
+    <view class="btn-upload">
+       <i class=" iconfont icon-hao"></i>
+       <view class="btn-txt">点击上传</view>
+    </view>
+  </view>
+</view>
+
+
+
+<van-popup show="{{showPop}}" bind:close="onClose" position="bottom">
+  <van-picker show-toolbar columns="{{ subjectList }}" bind:change="onChangeSubject" bind:cancel="cancelPop" bind:confirm="confirmSubject" />
+</van-popup>

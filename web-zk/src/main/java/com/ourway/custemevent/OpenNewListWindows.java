@@ -1,31 +1,48 @@
 package com.ourway.custemevent;
 
 import com.ourway.apply.ManageMainAction;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
+import com.ourway.base.utils.*;
 import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageControlVO;
 import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.service.ComponentListinerSer;
 import com.ourway.base.zk.utils.AlterDialog;
-import com.ourway.base.zk.utils.TextUtils;
+import com.ourway.base.zk.utils.GridUtils;
 import com.ourway.base.zk.utils.data.I18nUtil;
-import com.ourway.base.zk.utils.data.JsonPostUtils;
+import com.ourway.base.zk.utils.data.PageDataUtil;
+import org.zkoss.zk.ui.*;
+import org.zkoss.zk.ui.event.Event;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
+import com.ourway.base.zk.component.BaseGrid;
+import com.ourway.base.zk.component.BaseWindow;
+import com.ourway.base.zk.models.PageControlVO;
+import com.ourway.base.zk.models.PageVO;
+import com.ourway.base.zk.service.ComponentListinerSer;
+import com.ourway.base.zk.utils.AlterDialog;
+import com.ourway.base.zk.utils.GridUtils;
 import com.ourway.base.zk.utils.data.PageDataUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
-import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
-public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implements ComponentListinerSer{
-    public OpenDcjgPageCASer(){
-
-    }
-
+/**
+ * Created by D.chen.g on 2018/6/7.
+ */
+public class OpenNewListWindows implements ComponentListinerSer {
     @Override
     public void doAction(BaseWindow window, Event event, PageControlVO pgvo) {
         Object windowParams = pgvo.getLayoutComponent().getEventDataContent();
@@ -34,12 +51,12 @@ public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implem
         try {
             List e = JsonUtil.jsonToList(windowParams.toString());
             Map _params = (Map) e.get(0);
-            if (com.ourway.base.utils.TextUtils.isEmpty(_params.get("pageCa"))) {
+            if (TextUtils.isEmpty(_params.get("pageCa"))) {
                 AlterDialog.alert("请定义pageCa");
                 return;
             }
 
-            if (com.ourway.base.utils.TextUtils.isEmpty(_params.get("pageType"))) {
+            if (TextUtils.isEmpty(_params.get("pageType"))) {
                 AlterDialog.alert("请定义页面类型");
                 return;
             }
@@ -60,7 +77,7 @@ public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implem
                 url = vo.getPageCa();
             }
             Map mapParam=datas.get(0);
-            _params.put("#dcwjRefOwid", MapUtils.getString(mapParam,"owid"));
+            _params.put("#owid", MapUtils.getString(mapParam,"owid"));
             Component comp = Path.getComponent("/mainWin");
             com.ourway.base.zk.main.MainAction root = null;
             if (comp instanceof ManageMainAction) {
@@ -72,7 +89,7 @@ public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implem
                 if (!com.ourway.base.zk.utils.TextUtils.isEmpty(_params.get("windowCss"))) {
                     _win.setStyle(_params.get("windowCss").toString());
                 }
-                String tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"wjmc"));
+                String tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt"));
                 _win.setTabId(tabId + "_window");
                 _win.setTopWindow(window);
                 if (_win.isClosePage()) {

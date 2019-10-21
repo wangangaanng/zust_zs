@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "选考信息",
+  "usingComponents": {
+    "van-field": "vant-weapp/field",
+    "van-radio-group": "vant-weapp/radio-group",
+    "van-popup": "vant-weapp/popup",
+    "van-picker": "vant-weapp/picker",
+    "van-cell": "vant-weapp/cell",
+    "van-checkbox": "vant-weapp/checkbox",
+    "van-checkbox-group": "vant-weapp/checkbox-group"
+  }
+}

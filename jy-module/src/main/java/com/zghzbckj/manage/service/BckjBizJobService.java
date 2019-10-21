@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.CacheUtil;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
@@ -708,4 +709,21 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return PageUtils.assimblePageInfo(page);
     }
 
+    /**
+     * 获得需要采点的list
+     * @return  PageInfo<BckjBizJob>
+     */
+    public PageInfo<BckjBizJob> getCdList(List<FilterModel> filterModels, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+        Page<BckjBizJob> page = new Page<>(pageNo,pageSize);
+        dataMap.put("page",page);
+        List<BckjBizJob> cdList = this.dao.getCdList(dataMap);
+        page.setList(cdList);
+        return PageUtils.assimblePageInfo(page);
+    }
+@Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage setCdPoint(Map<String, Object> dataMap) {
+         this.dao.setCdPoint(dataMap);
+         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
 }
