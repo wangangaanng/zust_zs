@@ -18,7 +18,7 @@
     <van-field v-model="username" placeholder="确认密码（6-16位数字字母组合密码）" placeholder-style="{{'font-size:30rpx'}}"  password="{{surePswType}}" left-icon=" iconfont icon-denglu-mima" right-icon=" iconfont {{(surePswType)?'icon-comiisyincangmima':'icon-yanjing'}}" error-message="" bind:click-icon="surePswType"
       clearable/>
 
-    <van-cell title="学籍地区" icon=" iconfont icon-xuejiguanli" is-link value="{{studyArea?studyArea:' -- 请选择地区 -- '}}" arrow-direction="down" bind:click="showArea" />
+    <van-cell title="学籍地区" class="study-area" icon=" iconfont icon-xuejiguanli" is-link value="{{studyArea?studyArea:' -- 请选择地区 -- '}}" arrow-direction="down" bind:click="showArea" />
     <van-popup show="{{areaShowBool}}" bind:close="onClose" position="bottom">
       <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="cancelArea" bind:change="onChangeArea" />
     </van-popup>
