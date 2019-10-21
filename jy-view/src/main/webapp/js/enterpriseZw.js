@@ -145,7 +145,7 @@ function operateFormatterZw(value, row, index) {
         + row.owid
         + '\')">删除</a> ';
 
-    return c + d;
+    return c;
 }
 
 window.operateEvents = {

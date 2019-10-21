@@ -221,11 +221,11 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <#--<div class="form-group">
                     <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-default btn-common green">提交</button>
                     </div>
-                </div>
+                </div>-->
                 <input type="hidden" id="sel1" value="${(jobDetail.zwSxsj)!''}">
             </form>
             <input type="hidden" id="zwOwid" value="${(jobDetail.owid)!''}">
