@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import com.ourway.base.utils.BeanUtil;
 import java.util.Map;
-import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
