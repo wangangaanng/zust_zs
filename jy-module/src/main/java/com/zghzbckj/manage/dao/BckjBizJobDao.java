@@ -26,7 +26,7 @@ public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
 
     List<BckjBizJob> getCdList(Map<String, Object> dataMap);
 
-    BckjBizJob setCdPoint(Map<String, Object> dataMap);
+    void setCdPoint(Map<String, Object> dataMap);
 
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }
