@@ -1,4 +1,34 @@
+var provice=[];
+var city=[];
+var pindex=0;
+var cindex=0;
+var _cityData=[];
 
+function getCity() {
+    $("#zwCity").html("<option value=''>请选择</option>")
+    $("#zwArea").html("<option value=''>请选择</option>")
+    pindex=parseInt($("#zwPro option:selected").index())-1;
+    if(pindex>-1){
+        _cityData=city[pindex]
+        _cityData.forEach(function(e) {
+            $("#zwCity").append("<option value='"+e.text+"'>"+e.text+"</option>")
+        });
+
+    }
+
+}
+
+function getArea() {
+    $("#zwArea").html("<option value=''>请选择</option>")
+    cindex=parseInt($("#zwCity option:selected").index())-1;
+    if(cindex>-1){
+        var _areaData=_cityData[cindex].children
+        _areaData.forEach(function(e) {
+            $("#zwArea").append("<option value='"+e.text+"'>"+e.text+"</option>")
+        });
+
+    }
+}
 $(document).ready(function () {
 
     if($("#sel1").val()){
@@ -9,12 +39,6 @@ $(document).ready(function () {
         ,min: 1
     });
 
-
-    var provice=[];
-    var city=[];
-    var pindex=0;
-    var cindex=0;
-    var _cityData=[];
     cityData3.forEach(function(e) {
         provice.push(e.text)
         city.push(e.children)
