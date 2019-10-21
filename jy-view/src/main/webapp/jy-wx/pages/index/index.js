@@ -5,6 +5,7 @@ const app = getApp()
 var imgPath = app.globalData.imgPath;
 Page({
   data: {
+    isauthorize: false,
     imgPath:imgPath,
     imgUrls: [],
     menuList: [
@@ -74,11 +75,26 @@ Page({
     }
   },
   onLoad: function () {
+    // 登录
+    var that=this;
     getAdv(this);
     getList1(this,'0');//职位
     getList2(this, '2');//企业招聘公告
     getList3(this, '3');//招聘会
     getList4(this, '4');//宣讲会
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          that.setData({
+            isauthorize: true,
+          })
+        }else{
+          that.setData({
+            isauthorize: false,
+          })
+        }
+      }
+    })
 
   },
   onReachBottom: function () {

@@ -57,9 +57,9 @@
 			"current": -1,
 			"list": [
 				{
-					"id": -1,
-					"name": "pages/stuCaidian/stuCaidian",
-					"pathName": "pages/stuCaidian/stuCaidian",
+					"id": 0,
+					"name": "pages/stuService/stuService",
+					"pathName": "pages/stuService/stuService",
 					"query": "",
 					"scene": null
 				},
@@ -67,6 +67,28 @@
 					"id": -1,
 					"name": "pages/stuQiandao/stuQiandao",
 					"pathName": "pages/stuQiandao/stuQiandao",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/dangan/dangan",
+					"pathName": "pages/dangan/dangan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/qiandao/qiandao",
+					"pathName": "pages/qiandao/qiandao",
+					"query": "owid=44811a6d533b42e990fb840d2c5f999b",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "pages/auth/auth",
+					"pathName": "pages/auth/auth",
+					"query": "",
 					"scene": null
 				}
 			]
