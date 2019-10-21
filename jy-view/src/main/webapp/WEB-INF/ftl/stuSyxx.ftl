@@ -76,7 +76,7 @@
             </div>
 
             <div class="content-list" style="height: auto;">
-                <#if stuInfo??>
+                <#if (stuInfo.owid)??>
                 <form class="form-horizontal" style="padding-top: 20px;" id="registerForm" method="" action="" target="rfFrame">
                     <div class="form-group">
                         <label for="xm" class="col-sm-2 control-label">姓名<span class="red">*</span>：</label>
