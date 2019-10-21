@@ -21,6 +21,7 @@ Page({
    * 
    */
   data: {
+    showSyd:false,
     minDate: new Date("1990-01-01").getTime(),
     minDate1: new Date("2010-01-01").getTime(),
     minDate2: new Date(new Date().getFullYear() + '-01-01').getTime(),
@@ -45,6 +46,7 @@ Page({
     show: {
       syd: false,
       xb: false,
+      xz: false,
       bynf: false,
       mz: false,
       sfdlxy: false,
@@ -65,6 +67,7 @@ Page({
     },
     sydStr: '请选择',
     xbStr: '请选择',
+    xzStr: '请选择',
     bynfStr: '请选择',
     mzStr: '请选择',
     sfdlxyStr: '请选择',
@@ -84,6 +87,14 @@ Page({
     form: {
 
     },
+  },
+  getSyd(e){
+    console.log(e)
+    if(e.detail.trim().length>2){
+      this.setData({
+        showSyd: true
+      })
+    }
   },
   showModal(error) {
     wx.showModal({
@@ -498,7 +509,7 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
-    // getOne(this)
+    getOne(this)
 
     var curYear = new Date().getFullYear()
     var bynfColumns = []
@@ -711,7 +722,7 @@ var getOne = function (that) {
       } else {
         getByType1(that)//民族
       }
-      if (data.bean.zzmm) {
+      if (data.bean.byqx) {
         getByType2(that, data.bean.byqx)//毕业去向
       } else {
         getByType2(that)//毕业去向
@@ -760,9 +771,13 @@ var getByType1 = function (that, mz) {
         }
 
         that.setData({
-          mzColumns: that.data.mzColumns,
-          mzStr: util.getVal(mz, that.data.mzColumns)
+          mzColumns: that.data.mzColumns          
         })
+        if (mz) {
+          that.setData({
+            mzStr: util.getVal(mz, that.data.mzColumns)
+          })
+        }
       }
     } else {
       wx.showToast({
@@ -788,8 +803,13 @@ var getByType2 = function (that, byqx) {
         }
         that.setData({
           byqxColumns: that.data.byqxColumns,
-          byqxStr: util.getVal(byqx, that.data.byqxColumns)
+          // byqxStr: util.getVal(byqx, that.data.byqxColumns)
         })
+        if (byqx){
+          that.setData({
+            byqxStr: util.getVal(byqx, that.data.byqxColumns)
+          })
+        }
       }
     } else {
       wx.showToast({
@@ -814,9 +834,13 @@ var getByType3 = function (that, yrdwxz) {
           that.data.yrdwxzColumns.push(obj)
         }
         that.setData({
-          yrdwxzColumns: that.data.yrdwxzColumns,
-          yrdwxzStr: util.getVal(yrdwxz, that.data.yrdwxzColumns)
+          yrdwxzColumns: that.data.yrdwxzColumns
         })
+        if (yrdwxz) {
+          that.setData({
+            yrdwxzStr: util.getVal(yrdwxz, that.data.yrdwxzColumns)
+          })
+        }
       }
     } else {
       wx.showToast({
@@ -841,9 +865,13 @@ var getByType4 = function (that, gzzwlbmc) {
           that.data.gzzwlbmcColumns.push(obj)
         }
         that.setData({
-          gzzwlbmcColumns: that.data.gzzwlbmcColumns,
-          gzzwlbmcStr: util.getVal(gzzwlbmc, that.data.gzzwlbmcColumns)
+          gzzwlbmcColumns: that.data.gzzwlbmcColumns
         })
+        if (gzzwlbmc) {
+          that.setData({
+            gzzwlbmcStr: util.getVal(gzzwlbmc, that.data.gzzwlbmcColumns)
+          })
+        }
       }
     } else {
       wx.showToast({
@@ -868,9 +896,13 @@ var getByType5 = function (that, dwlbmc) {
           that.data.dwlbmcColumns.push(obj)
         }
         that.setData({
-          dwlbmcColumns: that.data.dwlbmcColumns,
-          dwlbmcStr: util.getVal(dwlbmc, that.data.dwlbmcColumns)
+          dwlbmcColumns: that.data.dwlbmcColumns
         })
+        if (dwlbmc) {
+          that.setData({
+            dwlbmcStr: util.getVal(dwlbmc, that.data.dwlbmcColumns)
+          })
+        }
       }
     } else {
       wx.showToast({
@@ -895,9 +927,13 @@ var getByType6 = function (that, bdzqflbmc) {
           that.data.bdzqflbmcColumns.push(obj)
         }
         that.setData({
-          bdzqflbmcColumns: that.data.bdzqflbmcColumns,
-          bdzqflbmcStr: util.getVal(bdzqflbmc, that.data.bdzqflbmcColumns)
+          bdzqflbmcColumns: that.data.bdzqflbmcColumns         
         })
+        if (bdzqflbmc) {
+          that.setData({
+            bdzqflbmcStr: util.getVal(bdzqflbmc, that.data.bdzqflbmcColumns)
+          })
+        }
       }
     } else {
       wx.showToast({

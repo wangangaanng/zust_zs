@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "其他联系人",
+  "usingComponents": {
+    "van-field": "vant-weapp/field",
+    "van-popup": "vant-weapp/popup",
+    "van-cell": "vant-weapp/cell",
+    "van-picker": "vant-weapp/picker",
+    "van-datetime-picker": "vant-weapp/datetime-picker",
+    "van-radio": "vant-weapp/radio",
+    "van-radio-group": "vant-weapp/radio-group"
+  }
+}

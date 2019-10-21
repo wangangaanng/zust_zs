@@ -45,7 +45,7 @@ function login(url,user) {//1学生 0企业
         title:title,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '240px'], //宽高
-        content: '<div class="lxr-modal"><div class="row">\n' +
+        content: '<div class="lxr-modal ohidden"><div class="row">\n' +
         '                            <div class="form-group">\n' +
         '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
         '                                <div class="col-sm-6">\n' +

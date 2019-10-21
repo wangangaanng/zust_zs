@@ -237,9 +237,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="ssxy" class="col-sm-2 control-label">所属学院<span class="red">*</span>：</label>
+                        <label for="xsxy" class="col-sm-2 control-label">所属学院<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="ssxy" name="ssxy" value="${stuInfo.ssxy!''}" placeholder="" autocomplete="off">
+                            <input type="text" class="form-control" id="xsxy" name="xsxy" value="${stuInfo.xsxy!''}" placeholder="" autocomplete="off">
                         </div>
                         <label for="xszy" class="col-sm-2 control-label">学校专业<span class="red">*</span>：</label>
                         <div class="col-sm-3">
