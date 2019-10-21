@@ -1,4 +1,6 @@
 <!--pages/auth/auth.wxml-->
+<modal hidden="{{!show}}"  cancel-text='' confirm-text=''>
+<!-- <view class='mask' wx:if='{{show}}'> -->
 <view class='stu-h'>
   <view class='ellipse'>
   </view>
@@ -13,3 +15,4 @@
   </view>
 </view>
   <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="getInfo">微信登录</button>
+  </modal>

@@ -1,5 +1,6 @@
 <!--
   xiayuwei  分组抽签  2019.10.19
+  抽签结果由后台产生，手机端不需要抽签，显示结果即可
 -->
 <view>
   <topBck>
@@ -13,9 +14,9 @@
       <van-field value="{{result}}"  error placeholder="等待结果" disabled label="抽签结果:" border="{{false}}"/>
     </van-cell-group>
     <!-- 按钮 -->
-    <view class="main-btn_wrap">
+    <!-- <view class="main-btn_wrap">
       <van-button round type="primary" class="main-button" size="large">开始抽签</van-button>
-    </view>
+    </view> -->
   </topBck>
 
   <view class="bottom-txt">浙江科技学院 三位一体</view>

@@ -18,18 +18,20 @@
   </view>
 </view>
 
-<form bindsubmit="submitForm" class="form-wrap">
-  <van-cell-group>
-    <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入用姓名" />
-    <van-field value="{{ idNum }}" clearable label="身份证号" placeholder="请输入身份证号码" />
-    <van-field value="{{ nationality }}" clearable label="民族" placeholder="请选择民族" />
-    <van-field value="{{ address }}" clearable label="通讯地址" placeholder="请输入通讯地址" />
-    <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />
-    <van-field value="{{ mobile }}" clearable label="手机" placeholder="请输入手机" />
-    <van-field value="{{ mailbox }}" clearable label="电子邮箱" placeholder="请输入电子邮箱" />
-    <van-field value="{{ qq }}" clearable label="QQ号" placeholder="请输入QQ号" />
-  </van-cell-group>
-</form>
+<view class="shadow-wrap">
+  <form bindsubmit="submitForm" class="form-wrap">
+    <van-cell-group>
+      <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入用姓名" />
+      <van-field value="{{ idNum }}" clearable label="身份证号" placeholder="请输入身份证号码" />
+      <van-field value="{{ nationality }}" clearable label="民族" placeholder="请选择民族" />
+      <van-field value="{{ address }}" clearable label="通讯地址" placeholder="请输入通讯地址" />
+      <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field value="{{ mobile }}" clearable label="手机" placeholder="请输入手机" />
+      <van-field value="{{ mailbox }}" clearable label="电子邮箱" placeholder="请输入电子邮箱" />
+      <van-field value="{{ qq }}" clearable label="QQ号" placeholder="请输入QQ号" />
+    </van-cell-group>
+  </form>
+</view>
 
 <!-- 按钮 -->
 <view class="main-btn_wrap">

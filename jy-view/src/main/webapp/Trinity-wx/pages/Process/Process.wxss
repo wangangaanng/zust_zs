@@ -1,0 +1,108 @@
+/* pages/Process/Process.wxss */
+
+page {
+  background: #f5f5f5;
+}
+
+.top {
+  height: 318rpx;
+  padding: 28rpx 30rpx;
+  background-color: #26b887;
+}
+
+.bell {
+  width: 40rpx;
+  height: 46rpx;
+  float: right;
+}
+
+.mark {
+  width: 180rpx;
+  height: 180rpx;
+  float: left;
+}
+
+.left {
+  margin-left: 220rpx;
+}
+
+.name {
+  font-size: 21px;
+  color: #fff;
+  margin: 40rpx 0 20rpx;
+}
+
+.welcome {
+  font-size: 13px;
+  color: #fff;
+}
+
+.conter {
+  width: 300px;
+  padding: 0 16rpx 50rpx;
+  background-color: #fff;
+  box-shadow: 0px 1px 5px 0px rgba(226, 226, 226, 0.75);
+  margin: -120rpx auto 60rpx;
+  position: relative;
+}
+
+.pic {
+  width: 10px;
+  height: 10px;
+  background-color: #26b887;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 34px;
+}
+
+.lc-rows {
+  text-align: center;
+}
+
+.lc-row {
+  font-size: 18px;
+  color: #fff;
+  background-color: #26b887;
+  border-radius: 3px;
+  height: 35px;
+  line-height: 35px;
+  width: 157px;
+  margin: 0 auto;
+  text-align: center;
+
+}
+
+.arrow {
+  height: 25px;
+  width: 10px;
+  margin: 8px 0;
+}
+
+.arrow2 {
+  height: 35px;
+  width: 170px;
+  margin-bottom: 8px;
+}
+.arrow2-text{
+  position: relative;
+  top: -13px;
+  color: #717171;
+  font-size: 15px;
+  margin: 10px;
+}
+.lc-rows2{
+  display: flex;
+}
+.yet{
+  background-color: #e2f4ee;
+  color: #26b887;
+}
+.lc-rows2 .lc-row{
+  width: 127px;
+}
+.lc-rows2 .arrow{
+  margin-left: 63px;
+}
+.hide{
+  opacity: 0;
+}

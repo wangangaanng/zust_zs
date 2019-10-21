@@ -15,6 +15,8 @@ Page({
     latitude:'',
     longitude:'',
     isqd:false,
+    show:false,
+    isauthorize: false,
     markers: [{
       iconPath: "/static/location.png",
       id: 0,
@@ -30,60 +32,85 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    if (wx.getStorageSync("yhOwid")){
-      wx.getLocation({
-        type: 'gcj02',// 默认wgs84
-        success: function (res) { 
-          var latitude ="markers[0].latitude"
-          var longitude = "markers[0].longitude"
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
           that.setData({
-            [latitude]: res.latitude,
-            [longitude]: res.longitude,
-            latitude: res.latitude,
-            longitude: res.longitude
+            isauthorize: true,
           })
-        },
-        fail: function (res) { }
-      });
-      var curDate = common.formatTime(new Date());
-      that.setData({
-        xq: common.convertWKtwo(curDate),
-        date: curDate.substring(0, 10),
-        time: curDate.substring(11, 19)
-      })
-      var Interval = setInterval(function () {
-        var curDate1 = common.formatTime(new Date());
-        that.setData({
-          time: curDate1.substring(11, 19)
-        })
-      }, 1000)
-      var userInfo = wx.getStorageSync('userInfo');
-      var stuInfo = wx.getStorageSync('stuInfo');
-      this.setData({
-        "headImgUrl": userInfo.avatarUrl,
-        "name": stuInfo.xm,
-        "xh": stuInfo.xsxh
-      })
-      if (options.owid) {
-        this.setData({
-          owid: options.owid,
-        })
-        getContent(this, options.owid);
+        } else {
+          that.setData({
+            isauthorize: false,
+          })
+          if (wx.getStorageSync("yhOwid")) {
+            that.setData({
+              show: true
+            })
+            wx.getLocation({
+              type: 'gcj02',// 默认wgs84
+              success: function (res) {
+                var latitude = "markers[0].latitude"
+                var longitude = "markers[0].longitude"
+                that.setData({
+                  [latitude]: res.latitude,
+                  [longitude]: res.longitude,
+                  latitude: res.latitude,
+                  longitude: res.longitude
+                })
+                if (options.owid) {
+                  that.setData({
+                    owid: options.owid,
+                  })
+                  getContent(that, options.owid);
+                }
+              },
+              fail: function (res) {
+                wx.showToast({
+                  title: '获取位置失败',
+                })
+              }
+            });
+            var curDate = common.formatTime(new Date());
+            that.setData({
+              xq: common.convertWKtwo(curDate),
+              date: curDate.substring(0, 10),
+              time: curDate.substring(11, 19)
+            })
+            var Interval = setInterval(function () {
+              var curDate1 = common.formatTime(new Date());
+              that.setData({
+                time: curDate1.substring(11, 19)
+              })
+            }, 1000)
+            var userInfo = wx.getStorageSync('userInfo');
+            var stuInfo = wx.getStorageSync('stuInfo');
+            that.setData({
+              "headImgUrl": userInfo.avatarUrl,
+              "name": stuInfo.xm,
+              "xh": stuInfo.xsxh
+            })
+          } else {
+            that.setData({
+              show: false
+            })
+            wx.navigateTo({
+              url: '../stuLogin/stuLogin',
+            })
+          }
+        }
       }
-    }else{
-      wx.navigateTo({
-        url: '../stuLogin/stuLogin',
-      })
-    }
+    })
     
   },
   qiandao:function(){
+    var that = this
     wx.showModal({
       title: '提示',
       content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
+      confirmColor:'#008783',
       success(res) {
         if (res.confirm) {
-          qd(this);
+          qd(that);
         } else if (res.cancel) {
           
         }
@@ -151,8 +178,15 @@ var getContent = function (that, owid) {//招聘详情
         res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
         // }
       }
+      var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
+      if(jl<1){
+        jl = jl * 1000+'m'
+      }else{
+        jl = jl + 'km'
+      }
       that.setData({
         result: res.data.bean,
+        jl:jl
       })
 
 

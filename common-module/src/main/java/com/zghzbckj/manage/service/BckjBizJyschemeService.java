@@ -409,6 +409,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
                 bckjBizYhxx.setOwid(byXsxh.getYhRefOwid());
                 //更新yhxx
+                bckjBizYhxx.setYhDlmm(TextUtils.MD5(bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6)));
                 bckjBizYhxxService.updateJyscheme(bckjBizYhxx);
                 //更新yhkz
                 bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());
@@ -579,6 +580,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             }
             //更改后的登入账号
             bckjBizYhxx.setYhDlzh(bckjBizYhkz.getXsxh());
+            bckjBizYhxx.setYhDlmm(TextUtils.MD5(bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6)));
             bckjBizYhxxService.updateJyscheme(bckjBizYhxx);
             bckjBizSybService.updateJyscheme(bckjBizSyb);
             bckjBizYhkzService.updateJyscheme(bckjBizYhkz);

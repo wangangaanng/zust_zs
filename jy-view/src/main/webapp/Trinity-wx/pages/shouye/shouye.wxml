@@ -1,2 +1,78 @@
 <!--pages/shouye/shouye.wxml-->
-<text>pages/shouye/shouye.wxml</text>
+<view class="head">
+  <navigator class="li" url='../basicInfo/basicInfo'>
+    <view class="head_li">
+      <image src="../../static/sy6.png" class="head_in"></image>
+      <image src="../../static/sy1.png" class="head_out"></image>
+    </view>
+    <view class="head_name">基本信息</view>
+  </navigator >
+  <navigator class="li" url='../contactors/contactors' >
+    <view class="head_li">
+      <image src="../../static/sy5.png" class="head_in"></image>
+      <image src="../../static/sy1.png" class="head_out"></image>
+    </view>
+    <view class="head_name">联系人</view>
+  </navigator>
+  <navigator class="li">
+    <view class="head_li yet">
+      <image src="../../static/sy4.png" class="head_in"></image>
+      <image src="../../static/sy2.png" class="head_out"></image>
+    </view>
+    <view class="head_name">会考科目</view>
+  </navigator>
+  <navigator class="li" url='../selectExamInfo/selectExamInfo'>
+    <view class="head_li yet">
+      <image src="../../static/sy3.png" class="head_in"></image>
+      <image src="../../static/sy2.png" class="head_out"></image>
+    </view>
+    <view class="head_name">选考信息</view>
+  </navigator>
+</view>
+<view class="conter">
+  <view class="conter-right">
+    <view class="conter-right-name">报名时间</view>
+    <view class="conter-right-date">7.09-7.20</view>
+  </view>
+  <view class="conter-left">
+    <image src="../../static/sy7.png" class="cont-img"></image>
+    <view class="cont-name">浙江科技学院</view>
+    <view class="conter-left-ul">
+      <text class="conter-left-li">浙江</text>
+      <text class="conter-left-li">杭州</text>
+      <text class="conter-left-li">本科</text>
+    </view>
+  </view>
+  <view class="jieshao">
+  学校小和山校区位于杭州市西湖区西溪湿地畔，校园土地面积1000余亩，建筑面积47万平方米;安吉校区土地面积800亩，建筑面积16.5万平方米。
+  </view>
+  <view class="signUp">
+    <navigator class="button" url='../majorExam/majorExam'>我要报名</navigator>
+    <view class="text">报名专业:计算机科学与技术</view>
+  </view>
+  <view class="step">
+  下一步：报名表、承诺书签字拍照上传
+  </view>
+</view>
+<view class="FQA">
+  <view class="FQA-li">
+    <image src="../../static/wen.png" class="FQA-li-img"></image>
+    <view class="quetion">来自172.16.13.108的提问：需要毕业证吗？</view>
+    <view class="FQA-li-date">2019-10-08 19:44:19</view>
+    <view class="da">
+      <image src="../../static/da.png" class="FQA-li-img"></image>
+      <view class="quetion">管理员的回复：需要</view>
+      <view class="FQA-li-date">2019-10-08 19:44:19</view>
+    </view>
+  </view>
+  <view class="FQA-li">
+    <image src="../../static/wen.png" class="FQA-li-img"></image>
+    <view class="quetion">来自172.16.13.108的提问：需要毕业证吗？</view>
+    <view class="FQA-li-date">2019-10-08 19:44:19</view>
+    <view class="da">
+      <image src="../../static/da.png" class="FQA-li-img"></image>
+      <view class="quetion">管理员的回复：需要</view>
+      <view class="FQA-li-date">2019-10-08 19:44:19</view>
+    </view>
+  </view>
+</view>

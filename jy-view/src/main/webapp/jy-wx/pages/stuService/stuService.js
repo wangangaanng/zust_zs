@@ -94,12 +94,6 @@ function isStudent(that){
       that.setData({
         menuList:arr
       })
-    } else {
-      wx.showToast({
-        title: res.data.errorMess,
-        icon: 'none',
-        duration: 2000
-      })
     }
   });
 }

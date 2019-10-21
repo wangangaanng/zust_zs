@@ -6,3 +6,5 @@
 .icon-yanjing{font-size: 34rpx!important;}
 /* 隐藏密码 */
 .icon-comiisyincangmima{font-size: 40rpx!important;}
+.van-button--small {height: 52rpx!important;line-height: 52rpx!important;font-size: 26rpx!important;}
+.van-field__input{font-size: 32rpx;}

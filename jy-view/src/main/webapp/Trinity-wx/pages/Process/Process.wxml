@@ -1,0 +1,67 @@
+<!--pages/Process/Process.wxml-->
+<view class="top">
+  <image src="../../static/mark.png" class="mark"></image>
+  <image src="../../static/bell.png" class="bell"></image>
+  <view class="left">
+    <view class="name">浙江科技学院</view>
+    <view class="welcome">欢迎，张小凡！</view>
+  </view>
+</view>
+<view class="conter">
+  <van-divider contentPosition="center" customStyle="padding: 50rpx 0 40rpx;color: #26b887;border-color: #26b887;font-size: 18px;">招生流程</van-divider>
+  <view class="pic" style="left: 95px;"></view>
+  <view class="pic" style="right: 95px;"></view>
+  <view class="lc">
+    <view class="lc-rows">
+      <view class="lc-row">提交报名申请</view>
+    </view>
+    <view class="lc-rows">
+      <image src="../../static/arrow.png" class="arrow"></image>
+    </view>
+    <view class="lc-rows">
+      <view class="lc-row">预览，发送到邮箱</view>
+    </view>
+    <view class="lc-rows">
+      <image src="../../static/arrow.png" class="arrow"></image>
+    </view>
+    <view class="lc-rows">
+      <view class="lc-row">拍照上传</view>
+    </view>
+    <view class="lc-rows">
+      <image src="../../static/arrow.png" class="arrow"></image>
+    </view>
+    <view class="lc-rows">
+      <view class="lc-row">等待初审</view>
+    </view>
+    <view class="lc-rows">
+      <text class="arrow2-text">通过</text>
+      <image src="../../static/arrow2.png" class="arrow2"></image>
+      <text class="arrow2-text">拒绝</text>
+    </view>
+    <view class="lc-rows2">
+      <view class="lc-row yet" style="">缴费</view>
+      <view class="lc-row yet">结束</view>
+    </view>
+    <view class="lc-rows2">      
+      <image src="../../static/arrow.png" class="arrow"></image>      
+    </view>
+    <view class="lc-rows2">
+      <view class="lc-row yet" style="">分配面试时间</view>
+      <view class="lc-row hide"></view>
+    </view>
+    <view class="lc-rows2">      
+      <image src="../../static/arrow.png" class="arrow"></image>      
+    </view>
+    <view class="lc-rows2">
+      <view class="lc-row yet" style="">面试通知单</view>
+      <view class="lc-row hide"></view>
+    </view>
+    <view class="lc-rows2">      
+      <image src="../../static/arrow.png" class="arrow"></image>      
+    </view>
+    <view class="lc-rows2">
+      <view class="lc-row yet" style="">成绩查询</view>
+      <view class="lc-row hide"></view>
+    </view>
+  </view>
+</view>

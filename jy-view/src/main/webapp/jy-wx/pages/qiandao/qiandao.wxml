@@ -1,5 +1,5 @@
 <!--pages/qiandao/qiandao.wxml-->
-<view>
+<view wx:if="{{show}}">
 			<view class="txxx">
 				<view class="toux">
 					<image src="{{headImgUrl}}"></image>
@@ -29,8 +29,8 @@
 				</view>
 			</view>
 			<view>
-        <!-- <view class="qdbt">距您所在地点：30.0公里</view>
-				<view class="qdbt">本次未签到，请先签到</view> -->
+        <view class="qdbt">距您当前位置：{{jl}}</view>
+				<!-- <view class="qdbt">本次未签到，请先签到</view> -->
 				<view class="qddiv" wx:if="{{!isqd}}" bindtap="qiandao">
 					<view>
 						<image src="../../static/qd.png"></image>
@@ -45,3 +45,4 @@
 				</view>
 			</view>
 		</view>
+    <authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>
