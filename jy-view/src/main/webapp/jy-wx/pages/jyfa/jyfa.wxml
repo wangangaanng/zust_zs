@@ -39,10 +39,31 @@
     <van-picker show-toolbar title="是否师范" value-key="dicVal2" columns="{{sfsfColumns}}" data-type="17" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field input-align="right" value="{{form.syddm}}" name="syddm" label="生源地代码" placeholder="输入内容" required />
-  <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
+  <view class="down-scroll-view">
+    <van-field input-align="right" value="{{form.syd}}" bindinput="getSyd" name="syd" label="生源地" placeholder="输入内容" required />
+    <scroll-view wx:if="{{showSyd}}" scroll-y>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+      <view>123</view>
+    </scroll-view>
+  </view>
+  <!-- <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
   <van-popup show="{{ show.syd }}" position="bottom" custom-style="height: 540rpx" data-type="55" bind:close="hideBottom">
     <van-picker show-toolbar title="生源地" value-key="dicVal2" columns="{{sydColumns}}" data-type="55" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
+  </van-popup> -->
   <van-field input-align="right" value="{{form.sjh}}" name="sjh" label="手机号码" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.jtdh}}" name="jtdh" label="固定电话" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.qqhm}}" name="qqhm" label="qq号码" placeholder="输入内容" />
