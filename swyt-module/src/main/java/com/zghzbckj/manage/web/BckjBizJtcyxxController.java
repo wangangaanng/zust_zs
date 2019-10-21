@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 /**
  * ccController
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 @Controller
 @RequestMapping(value = "bckjBizJtcyxx")
@@ -39,7 +39,7 @@ public class BckjBizJtcyxxController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return bckjBizJtcyxxService.findPageBckjBizJtcyxx(filters, dataVO.getPageNo(), dataVO.getPageSize());
+    return ResponseMessage.sendOK(bckjBizJtcyxxService.findPageBckjBizJtcyxx(filters, dataVO.getPageNo(), dataVO.getPageSize()));
     } catch (Exception e) {
     log.error(e+"获取bckjBizJtcyxx列表失败\r\n"+e.getStackTrace()[0] , e);
     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -59,8 +59,8 @@ public class BckjBizJtcyxxController extends BaseController {
             for (Object obj : list) {
             codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            ResponseMessage data = bckjBizJtcyxxService.removeOrder(codes);
-            return data;
+            List data = bckjBizJtcyxxService.removeOrder(codes);
+            return ResponseMessage.sendOK(data);
             } catch (Exception e) {
             log.error(e+"删除BckjBizJtcyxx列表失败\r\n" +e.getStackTrace()[0] , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -73,7 +73,7 @@ public class BckjBizJtcyxxController extends BaseController {
             try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizJtcyxxService.saveBckjBizJtcyxx(mapData);
+            return ResponseMessage.sendOK(bckjBizJtcyxxService.saveBckjBizJtcyxx(mapData));
             } catch (Exception e) {
             log.error(e+"保存BckjBizJtcyxx信息失败\r\n"+e.getStackTrace()[0]  , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

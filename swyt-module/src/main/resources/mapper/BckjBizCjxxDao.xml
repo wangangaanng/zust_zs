@@ -4,7 +4,7 @@
     
 	<sql id="bckjBizCjxxColumns">
 		a.owid AS "owid",
-		a.yh_ref_owid AS "yhRefOwid",
+		a.lx AS "lx",
 		a.kmbh AS "kmbh",
 		a.kmsj AS "kmsj",
 		a.kmdj AS "kmdj",
@@ -97,7 +97,7 @@
 	<insert id="insert">
 		INSERT INTO bckj_biz_cjxx(
 			owid,
-			yh_ref_owid,
+			lx,
 			kmbh,
 			kmsj,
 			kmdj,
@@ -127,7 +127,7 @@
 			state
 		) VALUES (
 			#{owid},
-			#{yhRefOwid},
+			#{lx},
 			#{kmbh},
 			#{kmsj},
 			#{kmdj},
@@ -161,7 +161,7 @@
 	<update id="update">
 		UPDATE bckj_biz_cjxx SET 	
 			owid = #{owid},
-			yh_ref_owid = #{yhRefOwid},
+			lx = #{lx},
 			kmbh = #{kmbh},
 			kmsj = #{kmsj},
 			kmdj = #{kmdj},
