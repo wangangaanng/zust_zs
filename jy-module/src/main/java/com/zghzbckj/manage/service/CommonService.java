@@ -235,12 +235,15 @@ public class CommonService {
         List<Map<String, Object>> jyschemeList = commonDao.getGraduationMapList(dataMap);
         List<List<Map<String, Object>>> resultList = new ArrayList<>();
         Map<String, Object> fromMap = new HashMap<>(1);
-        fromMap.put("name", "杭州");
+        String fromPoint = "杭州";
+        fromMap.put("name", fromPoint);
         for (Map<String, Object> jyscheme : jyschemeList) {
             List<Map<String, Object>>  dataList = new ArrayList<>(2);
-            dataList.add(fromMap);
-            dataList.add(jyscheme);
-            resultList.add(dataList);
+            if(!fromPoint.equals(MapUtils.getString(jyscheme, "exp1"))) {
+                dataList.add(fromMap);
+                dataList.add(jyscheme);
+                resultList.add(dataList);
+            }
         }
         return resultList;
     }

@@ -1,0 +1,61 @@
+<!--pages/messageCenter/messageCenter.wxml-->
+<view class="li">
+  <view class="left">
+    <view class="point"></view>
+    <view class="border"> </view>
+  </view>
+  <view class="Piece">
+    <view class="name"> 报名表已提交 </view>
+    <view class="date">
+      <van-icon name="clock-o" color="#999999" />07-21 17:20
+    </view>
+  </view>
+</view>
+<view class="li">
+  <view class="left">
+    <view class="point"></view>
+    <view class="border"> </view>
+  </view>
+  <view class="Piece">
+    <view class="name"> 初审通过，待缴费 </view>
+    <view class="date">
+      <van-icon name="clock-o" color="#999999" />07-21 17:20
+    </view>
+  </view>
+</view>
+<view class="li">
+  <view class="left">
+    <view class="point"></view>
+    <view class="border"> </view>
+  </view>
+  <view class="Piece">
+    <view class="name"> 缴费成功，等待面试时间确认 </view>
+    <view class="date">
+      <van-icon name="clock-o" color="#999999" />07-21 17:20
+    </view>
+  </view>
+</view>
+<view class="li">
+  <view class="left">
+    <view class="point"></view>
+    <view class="border"> </view>
+  </view>
+  <view class="Piece">
+    <view class="name"> 您的面试时间已确认：2019-08-12 </view>
+    <view class="date">
+      <van-icon name="clock-o" color="#999999" />07-21 17:20
+    </view>
+  </view>
+</view>
+<view class="li">
+  <view class="left">
+    <view class="point"></view>
+    <view class="border"> </view>
+  </view>
+  <view class="Piece">
+    <view class="name"> 请进入面试抽签环节 </view>
+    <view class="date">
+      <van-icon name="clock-o" color="#999999" />07-21 17:20
+    </view>
+  </view>
+</view>

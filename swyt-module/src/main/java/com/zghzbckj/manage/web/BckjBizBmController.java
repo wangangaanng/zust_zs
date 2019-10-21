@@ -14,90 +14,93 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.CommonConstants;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.zghzbckj.manage.entity.BckjBizBm;
 import com.zghzbckj.manage.service.BckjBizBmService;
-import org.apache.log4j.Logger;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 /**
  * ccController
+ *
  * @author cc
- * @version 2019-10-21
+ * @version 2019-09-09
  */
 @Controller
 @RequestMapping(value = "bckjBizBm")
 public class BckjBizBmController extends BaseController {
-	@Autowired
-	private BckjBizBmService bckjBizBmService;
+    @Autowired
+    private BckjBizBmService bckjBizBmService;
 
 
-	@RequestMapping(value = "/getList")
+    @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return ResponseMessage.sendOK(bckjBizBmService.findPageBckjBizBm(filters, dataVO.getPageNo(), dataVO.getPageSize()));
-    } catch (Exception e) {
-    log.error(e+"获取bckjBizBm列表失败\r\n"+e.getStackTrace()[0] , e);
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-    }
-    }
-    
-    @PostMapping(value = "deleteList")
-	@ResponseBody
-    public ResponseMessage deleteList(PublicDataVO dataVO) {
-    try {
-    if (TextUtils.isEmpty(dataVO.getData())) {
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
-    }
-
-     List<Object> list = JsonUtil.jsonToList(dataVO.getData());
-          List<String> codes = new ArrayList<String>(list.size());
-            for (Object obj : list) {
-            codes.add(((Map<String, Object>) obj).get("owid").toString());
-            }
-            List data = bckjBizBmService.removeOrder(codes);
-            return ResponseMessage.sendOK(data);
-            } catch (Exception e) {
-            log.error(e+"删除BckjBizBm列表失败\r\n" +e.getStackTrace()[0] , e);
+            return bckjBizBmService.findPageBckjBizBm(filters, dataVO.getPageNo(), dataVO.getPageSize());
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizBm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
+        }
+    }
+
+    @PostMapping(value = "deleteList")
+    @ResponseBody
+    public ResponseMessage deleteList(PublicDataVO dataVO) {
+        try {
+            if (TextUtils.isEmpty(dataVO.getData())) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
             }
 
-            @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage saveInfo(PublicDataVO dataVO) {
-            try {
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+            List<String> codes = new ArrayList<String>(list.size());
+            for (Object obj : list) {
+                codes.add(((Map<String, Object>) obj).get("owid").toString());
+            }
+            ResponseMessage data = bckjBizBmService.removeOrder(codes);
+            return data;
+        } catch (Exception e) {
+            log.error(e + "删除BckjBizBm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveInfo(PublicDataVO dataVO) {
+        try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return ResponseMessage.sendOK(bckjBizBmService.saveBckjBizBm(mapData));
-            } catch (Exception e) {
-            log.error(e+"保存BckjBizBm信息失败\r\n"+e.getStackTrace()[0]  , e);
+            return bckjBizBmService.saveBckjBizBm(mapData);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizBm信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
+        }
+    }
 
-            @RequestMapping(value = "getOne", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage getOne(PublicDataVO dataVO) {
-            try {
+    @RequestMapping(value = "getOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOne(PublicDataVO dataVO) {
+        try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
 
-            ValidateMsg msg = ValidateUtils.isEmpty(mapData,"owid");
-            if(!msg.getSuccess()){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return ResponseMessage.sendOK(bckjBizBmService.get(mapData.get("owid").toString()));
-            } catch (Exception e) {
+        } catch (Exception e) {
 
-            log.error(e+"初始BckjBizBm\r\n" +e.getStackTrace()[0] ,e);
+            log.error(e + "初始BckjBizBm\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
-
+        }
+    }
 
 
 }
