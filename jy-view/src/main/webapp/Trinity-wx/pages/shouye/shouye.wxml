@@ -1,33 +1,33 @@
 <!--pages/shouye/shouye.wxml-->
 <view class="head">
-  <view class="li">
+  <navigator class="li" url='../basicInfo/basicInfo'>
     <view class="head_li">
       <image src="../../static/sy6.png" class="head_in"></image>
       <image src="../../static/sy1.png" class="head_out"></image>
     </view>
     <view class="head_name">基本信息</view>
-  </view>
-  <view class="li">
+  </navigator >
+  <navigator class="li" url='../contactors/contactors' >
     <view class="head_li">
       <image src="../../static/sy5.png" class="head_in"></image>
       <image src="../../static/sy1.png" class="head_out"></image>
     </view>
-    <view class="head_name">家庭成员</view>
-  </view>
-  <view class="li">
+    <view class="head_name">联系人</view>
+  </navigator>
+  <navigator class="li">
     <view class="head_li yet">
       <image src="../../static/sy4.png" class="head_in"></image>
       <image src="../../static/sy2.png" class="head_out"></image>
     </view>
     <view class="head_name">会考科目</view>
-  </view>
-  <view class="li">
+  </navigator>
+  <navigator class="li" url='../selectExamInfo/selectExamInfo'>
     <view class="head_li yet">
       <image src="../../static/sy3.png" class="head_in"></image>
       <image src="../../static/sy2.png" class="head_out"></image>
     </view>
     <view class="head_name">选考信息</view>
-  </view>
+  </navigator>
 </view>
 <view class="conter">
   <view class="conter-right">
@@ -47,11 +47,11 @@
   学校小和山校区位于杭州市西湖区西溪湿地畔，校园土地面积1000余亩，建筑面积47万平方米;安吉校区土地面积800亩，建筑面积16.5万平方米。
   </view>
   <view class="signUp">
-    <view class="button">我要报名</view>
+    <navigator class="button" url='../majorExam/majorExam'>我要报名</navigator>
     <view class="text">报名专业:计算机科学与技术</view>
   </view>
   <view class="step">
-  下一步：EMS邮寄
+  下一步：报名表、承诺书签字拍照上传
   </view>
 </view>
 <view class="FQA">

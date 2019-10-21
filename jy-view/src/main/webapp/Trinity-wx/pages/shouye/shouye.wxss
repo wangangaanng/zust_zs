@@ -2,10 +2,11 @@
 
 page {
   background: #f5f5f5;
+  padding-bottom: 50rpx;
 }
 
 .head {
-  margin: 34rpx;
+  margin: 34rpx 25rpx;
   display: flex;
   background: #fff;
   box-shadow: 0px 1px 5px 0px rgba(210, 210, 210, 0.75);
@@ -66,7 +67,7 @@ page {
 }
 
 .cont-name {
-  font-size: 18px;
+  font-size: 36rpx;
   color: #252525;
   line-height: 100rpx;
   margin-bottom: 20rpx;
@@ -156,7 +157,7 @@ page {
 }
 
 .FQA {
-  margin-top: 15px;
+  margin-top: 30rpx;
   background-color: #fff;
   box-shadow: 0px 1px 3px 0px rgba(210, 210, 210, 0.75);
 }
