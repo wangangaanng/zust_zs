@@ -162,8 +162,8 @@ page {
 }
 
 .FQA-li {
-	background-color: #ffffff;
-	border-bottom: solid 1px #e0e0e0;
+  background-color: #fff;
+  border-bottom: solid 1px #e0e0e0;
   padding: 13px 23px;
 }
 
@@ -177,21 +177,25 @@ page {
 }
 
 .quetion {
-  font-size: 10px;
+  font-size: 12px;
   color: #26b887;
   line-height: 42rpx;
+  margin-left: 26px;
+  /* margin-right: 100px; */
 }
 
 .FQA-li-date {
-  float: right;
+  /* float: right; */
   font-size: 9px;
   line-height: 42rpx;
   color: #737373;
+  text-align: right;
 }
 
-.da{
+.da {
   margin-top: 28rpx;
 }
-.da .quetion{
+
+.da .quetion {
   color: #424242;
 }

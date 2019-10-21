@@ -62,6 +62,11 @@ Page({
         // wx.reLaunch({
         //   url: '../index/index',
         // })
+        var pages = getCurrentPages();
+        var beforePage = pages[pages.length - 2];
+        if (JSON.stringify(beforePage.options) != "{}"){
+          beforePage.onLoad(beforePage.options);
+        }
         wx.navigateBack()
         
       } else {

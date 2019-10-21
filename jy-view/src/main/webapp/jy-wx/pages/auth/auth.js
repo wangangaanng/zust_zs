@@ -2,113 +2,99 @@
 const app = getApp()
 var openId;
 var unionid;
-Page({
+Component({
 
   /**
-   * 页面的初始数据
+   * 组件的属性列表
+   */
+  properties: {
+    //是否显示modal
+    show: {
+      type: Boolean,
+      value: false
+    },
+    //modal的高度
+    height: {
+      type: String,
+      value: '300rpx'
+    }
+  },
+
+  /**
+   * 组件的初始数据
    */
   data: {
 
   },
 
   /**
-   * 生命周期函数--监听页面加载
+   * 组件的方法列表
    */
-  onLoad: function (options) {
+  methods: {
+    // clickMask() {
+    //   this.setData({show: false})
+    // },
 
-  },
-  getInfo(e) {
-    var that = this;
-    app.globalData.userInfo = e.detail.userInfo;
-    wx.setStorageSync('userInfo', e.detail.userInfo);
-    var encryptedData = e.detail.encryptedData
-    var iv = e.detail.iv
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          var jsonObj = {
-            code: res.code,
-            encryptedData: encryptedData,
-            iv: iv,
-            wxid:'wx01'
-          };
-          wx.request({
-            url: app.globalData.ApiUrl + 'zustcommon/bckjBizYhgl/getYhInfoByOpenid',
-            data: {
-              "data": JSON.stringify(jsonObj),
-              timestamp: new Date().getTime()
-            },
-            header: {
-              "Content-Type": "application/x-www-form-urlencoded"
-            },
-            method: 'POST',
-            success: function (res) {
-              if (res.data.bean) {
-                openId = res.data.bean.openId;
-                unionid = res.data.bean.unionid;
-                app.globalData.openId = res.data.bean.openId;
-                app.globalData.unionid = res.data.bean.unionid;
-                wx.setStorageSync('openId', openId);
-                wx.setStorageSync('unionid', unionid);
-                // wx.setStorageSync('openId', 'oislo5CDg1Ot6nn6agupD9xpAYek');
-                // wx.setStorageSync('unionid', 'oP6Dw029bsnywzPxvaxXNhYmbBj8');
+    // cancel() {
+    //   this.setData({ show: false })
+    //   this.triggerEvent('cancel')
+    // },
+
+    // confirm() {
+    //   this.setData({ show: false })
+    //   this.triggerEvent('confirm')
+    // }
+    getInfo: function (e) {
+      var that = this;
+      app.globalData.userInfo = e.detail.userInfo;
+      wx.setStorageSync('userInfo', e.detail.userInfo);
+      var encryptedData = e.detail.encryptedData
+      var iv = e.detail.iv
+      wx.login({
+        success: function (res) {
+          if (res.code) {
+            var jsonObj = {
+              code: res.code,
+              encryptedData: encryptedData,
+              iv: iv,
+              wxid:'wx01'
+            };
+            wx.request({
+              url: app.globalData.ApiUrl + 'zustcommon/bckjBizYhgl/getYhInfoByOpenid',
+              data: {
+                "data": JSON.stringify(jsonObj),
+                timestamp: new Date().getTime()
+              },
+              header: {
+                "Content-Type": "application/x-www-form-urlencoded"
+              },
+              method: 'POST',
+              success: function (res) {
+                if (res.data.bean) {
+                  openId = res.data.bean.openId;
+                  unionid = res.data.bean.unionid;
+                  app.globalData.openId = res.data.bean.openId;
+                  app.globalData.unionid = res.data.bean.unionid;
+                  wx.setStorageSync('openId', openId);
+                  wx.setStorageSync('unionid', unionid);
+                }
+                that.setData({ show: false });
+                that.triggerEvent('myevent');
+                // if (wx.getStorageSync("fxid")) {
+                //   wx.reLaunch({
+                //     url: '../index/index?scene=' + wx.getStorageSync("fxid")
+                //   })
+                // } else {
+                //   wx.reLaunch({
+                //     url: '../index/index'
+                //   })
+                // }
               }
-              wx.reLaunch({
-                url: '/pages/index/index'
-              })
-            }
 
-          })
+            })
+          }
         }
-      }
-    })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+      })
+    }
   }
 })
