@@ -122,7 +122,6 @@ Page({
     })
   },
   clicktab:function(e){
-    console.log(e);
     this.setData({
       currentTab: e.detail.index
     })

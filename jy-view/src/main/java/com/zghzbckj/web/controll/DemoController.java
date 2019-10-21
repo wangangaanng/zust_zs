@@ -755,6 +755,11 @@ public class DemoController {
         PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
         ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
         view.addObject("byqxList",type2.getBean());
+        Map param5=Maps.newHashMap();//报到证签发类别名称（字典表）
+        param5.put("dicType","50007");
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
+        ResponseMessage type5  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("bdzqflbList",type5.getBean());
         return view;
     }
 

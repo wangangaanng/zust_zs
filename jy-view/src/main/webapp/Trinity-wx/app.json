@@ -3,8 +3,10 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-    "pages/selectExamInfo/selectExamInfo",
+    "pages/contactors/contactors",
+    "pages/basicInfo/basicInfo",
     "pages/register/register",
+    "pages/selectExamInfo/selectExamInfo",
     "pages/uploadSignature/uploadSignature",
     "pages/drawGroup/drawGroup",
     "pages/payOline/payOline",

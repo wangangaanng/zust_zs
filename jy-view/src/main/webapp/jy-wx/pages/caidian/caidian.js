@@ -11,6 +11,7 @@ Page({
     name: '',
     xh: '',
     result: '',
+    owid:'',
   },
 
   /**
@@ -48,6 +49,9 @@ Page({
       "xh": stuInfo.xsxh
     })
     if (options.owid) {
+      this.setData({
+        owid: options.owid
+      })
       getContent(this, options.owid);
     }
 
@@ -57,13 +61,28 @@ Page({
     wx.getLocation({
       type: 'gcj02',// 默认wgs84
       success: function (res) {
-        wx.showModal({
-          title: '采集成功',
-          showCancel:false,
-          content: '经度：' + res.longitude + '\n纬度：' + res.latitude,
-        })
+        var data = { "owid": that.data.owid, "zphGpsjd": res.longitude, "zphGpswd": res.latitude };
+        common.ajax('zustjy/bckjBizJob/setCdPoint', data, function (res) {
+          if (res.data.backCode == 0) {
+            wx.showModal({
+              title: '采集成功',
+              showCancel: false,
+              content: '经度：' + res.longitude + '\n纬度：' + res.latitude,
+            })
+          } else {
+            wx.showToast({
+              title: res.data.errorMess,
+              icon: 'none',
+              duration: 2000
+            })
+          }
+        });
       },
-      fail: function (res) { }
+      fail: function (res) {
+        wx.showToast({
+          title: '获取位置失败',
+        })
+       }
     });
   },
   /**
