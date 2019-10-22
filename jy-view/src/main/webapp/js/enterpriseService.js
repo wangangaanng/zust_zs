@@ -127,7 +127,7 @@ $(document).ready(function () {
 
     $(".list-group-item").click(function(e) {
         var index=$(this).index()
-        window.location.href="/enterpriseService/"+index
+        window.location.href=base+"/enterpriseService/"+index
     })
 
     jQuery.validator.addMethod("isMobile", function(value, element) {

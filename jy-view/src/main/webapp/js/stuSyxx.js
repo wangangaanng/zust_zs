@@ -4,7 +4,7 @@ $(document).ready(function () {
 
     $(".list-group-item").click(function(e) {
         var index=$(this).index()
-        window.location.href="/stuCenter/"+index
+        window.location.href=base+"/stuCenter/"+index
     })
 
     laydate.render({

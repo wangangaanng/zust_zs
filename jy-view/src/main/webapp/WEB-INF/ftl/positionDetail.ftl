@@ -340,7 +340,7 @@
                         layer.msg('申请成功', {icon: 1});
                     }else if(data.backCode==2){
                         layer.msg("请先登录", {icon: 2});
-                        setTimeout('window.location.href="/"',1500);
+                        setTimeout('window.location.href=base+"/"',1500);
                     }else{
                         layer.msg(data.errorMess, {icon: 2});
                     }
@@ -366,7 +366,7 @@
                         $(".quxiao").show();
                     }else if(data.backCode==2){
                         layer.msg("请先登录", {icon: 2});
-                        setTimeout('window.location.href="/"',1500);
+                        setTimeout('window.location.href=base+"/"',1500);
                     }else {
                         layer.msg('收藏失败', {icon: 2});
                     }

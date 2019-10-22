@@ -8,7 +8,7 @@
 </head>
 <body>
 <script type="text/javascript">
-    window.location.href="/timeout";
+    window.location.href=base+"/timeout";
 </script>
 </body>
 </html>

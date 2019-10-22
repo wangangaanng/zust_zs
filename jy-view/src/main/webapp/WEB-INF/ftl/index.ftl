@@ -142,13 +142,13 @@
         <div class="frame-a_right box" id="qy_pipe" style="display: none;">
             <ul class="company-form">
                 <li><p>专门为企业开通的绿色通道！</p></li>
-                <li class="link2" onclick="window.location.href='/enterpriseService/1'">
+                <li class="link2" onclick="window.location.href='${base}/enterpriseService/1'">
                     <i class="icon bg-qy_fb"></i><em>发布职位信息</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/enterpriseService/2'">
+                <li class="link2" onclick="window.location.href='${base}/enterpriseService/2'">
                     <i class="icon bg-qy_xc"></i><em>申请宣讲会</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/enterpriseService/3'">
+                <li class="link2" onclick="window.location.href='${base}/enterpriseService/3'">
                     <i class="icon bg-qy_sq"></i><em>申请招聘会</em>
                 </li>
             </ul>
@@ -160,16 +160,16 @@
             </div>-->
             <ul class="company-form company-form1">
                 <li><p>欢迎您，<span id="stu_tel"></span></p></li>
-                <li class="link2" onclick="window.location.href='/stuCenter/4'">
+                <li class="link2" onclick="window.location.href='${base}/stuCenter/4'">
                     <i class="icon bg-qy_sq"></i><em>个人信息</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/stuCenter/0'">
+                <li class="link2" onclick="window.location.href='${base}/stuCenter/0'">
                     <i class="icon bg-qy_fb"></i><em>导师咨询</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/stuCenter/2'">
+                <li class="link2" onclick="window.location.href='${base}/stuCenter/2'">
                     <i class="icon bg-qy_xc"></i><em>报名预约</em>
                 </li>
-                <li class="link2" onclick="window.location.href='/stuCenter/5'">
+                <li class="link2" onclick="window.location.href='${base}/stuCenter/5'">
                     <i class="icon bg-icon_fa"></i><em>就业方案</em>
                 </li>
             </ul>

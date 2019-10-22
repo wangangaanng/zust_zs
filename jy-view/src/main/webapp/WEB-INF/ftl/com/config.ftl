@@ -1,4 +1,4 @@
-<#assign base='${localUrl!""}' />
+<#assign base=request.contextPath />
 <#assign title="浙江科技学院就业信息网" />
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,6 +11,6 @@
 <script>
     var imagePath='${imagePath!""}';
     var base='${base!""}'
-    var localUrl = '${localUrl!""}'+'/webAjax/executeAPI';
+    var localUrl = '${base!""}'+'/webAjax/executeAPI';
     var uploadUrl='${uploadUrl!""}';
 </script>

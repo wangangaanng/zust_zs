@@ -364,7 +364,7 @@
                             title: '提示',
                             content: '职位发布成功',
                             yes: function (index, layero) {
-                                window.location.href='/enterpriseService/1'
+                                window.location.href='${base}/enterpriseService/1'
                                 layer.close(index);
                             }
                         });
