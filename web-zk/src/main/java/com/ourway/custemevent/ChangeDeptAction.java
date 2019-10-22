@@ -80,6 +80,12 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         ppt.put("owid", data.get("owid"));
                         ppt.put("zphJbdd", e.get("zphJbdd"));
                         ppt.put("zphGpsbj", e.get("zphGpsbj"));
+                        if (!TextUtils.isEmpty(e.get("zphGpsjd"))) {
+                            ppt.put("zphGpsjd", e.get("zphGpsjd"));
+                        }
+                        if (!TextUtils.isEmpty(e.get("zphGpswd"))) {
+                            ppt.put("zphGpswd", e.get("zphGpswd"));
+                        }
                         publicData.setData(com.ourway.base.zk.utils.JsonUtil.toJson(ppt));
                         ResponseMessage responseMessage = JsonPostUtils.executeAPI(ppt, apiURL);
                         if (responseMessage.getBackCode() != 0) {

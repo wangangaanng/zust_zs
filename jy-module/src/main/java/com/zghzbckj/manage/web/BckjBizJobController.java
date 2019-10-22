@@ -16,7 +16,6 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.service.BckjBizJobService;
-import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -389,6 +389,12 @@ public class BckjBizJobController extends BaseController {
         if (job == null) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
         }
+        if (!TextUtils.isEmpty(mapData.get("zphGpsjd")) && !TextUtils.isEmpty(mapData.get("zphGpswd"))) {
+            job.setZphGpsjd(new BigDecimal(mapData.get("zphGpsjd").toString()));
+            job.setZphGpswd(new BigDecimal(mapData.get("zphGpswd").toString()));
+            //已定位
+            job.setExp5("2");
+        }
 //        job.setZphGpsjd(new BigDecimal(mapData.get("zphGpsjd").toString()));
 //        job.setZphGpswd(new BigDecimal(mapData.get("zphGpswd").toString()));
 //        if (!TextUtils.isEmpty(mapData.get("zphJbdd"))) {
@@ -396,8 +402,7 @@ public class BckjBizJobController extends BaseController {
 //        }
         job.setZphGpsbj(Integer.parseInt(mapData.get("zphGpsbj").toString()));
         job.setZphJbdd(mapData.get("zphJbdd").toString());
-        //已定位
-//        job.setExp5("2");
+
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
@@ -465,47 +470,45 @@ public class BckjBizJobController extends BaseController {
 
     /**
      * 获得需要采点的list
+     *
      * @param dataVO
      * @return
      */
-  @PostMapping("getCdList")
-  @ResponseBody
-    public ResponseMessage getCdList(PublicDataVO dataVO){
+    @PostMapping("getCdList")
+    @ResponseBody
+    public ResponseMessage getCdList(PublicDataVO dataVO) {
         try {
             List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return ResponseMessage.sendOK(bckjBizJobService.getCdList(filterModels,dataVO.getPageNo(),dataVO.getPageSize())) ;
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            return ResponseMessage.sendOK(bckjBizJobService.getCdList(filterModels, dataVO.getPageNo(), dataVO.getPageSize()));
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
 
     }
 
     /**
      * 设置踩点信息
+     *
      * @param dataVO
      * @return
      */
     @PostMapping("setCdPoint")
     @ResponseBody
-    public ResponseMessage setCdPoint(PublicDataVO dataVO){
-      try {
-          Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-          ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid","zphGpsjd","zphGpswd");
-          if(!msg.getSuccess()){
-              return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-          }
-         return  bckjBizJobService.setCdPoint(dataMap);
-      }
-      catch (Exception e){
-          log.error(CommonConstant.ERROR_MESSAGE,e);
-          return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-      }
+    public ResponseMessage setCdPoint(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid", "zphGpsjd", "zphGpswd");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizJobService.setCdPoint(dataMap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
 
     }
-
-
 
 
 }

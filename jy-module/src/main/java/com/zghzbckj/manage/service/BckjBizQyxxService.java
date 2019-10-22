@@ -140,10 +140,12 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
 
     @Transactional(readOnly = false)
     public Map companyRegister(Map<String, Object> mapData) {
+
         Map resultMap = new HashMap<>(2);
         //统一税号
         Map params = new HashMap<>(1);
         params.put("qyTysh", mapData.get("qyTysh").toString());
+        params.put("qyFrsfz", mapData.get("qyFrsfz").toString());
         BckjBizQyxx existCompany = qyxxDao.getExistOne(params);
         if (!TextUtils.isEmpty(existCompany)) {
             resultMap.put("result", "false");
@@ -174,10 +176,11 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     }
 
     public Map login(Map<String, Object> mapData) {
+        String getSfzStr = mapData.get("qyFrsfz").toString();
         Map resultMap = Maps.newHashMap();
         Map params = Maps.newHashMap();
-        params.put("state", JyContant.QY_ZT_TG);
-
+        params.put("qyFrsfz", getSfzStr);
+        params.put("qyTysh", mapData.get("qyTysh"));
         BckjBizQyxx company = qyxxDao.getOne(params);
         if (TextUtils.isEmpty(company)) {
             resultMap.put("result", "false");
@@ -190,10 +193,10 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             return resultMap;
         }
         company = new BckjBizQyxx();
-        params.put("qyTysh", mapData.get("qyTysh"));
+        params.put("state", JyContant.QY_ZT_TG);
         company = qyxxDao.getOne(params);
         String sfzStr = company.getQyFrsfz();
-        String getSfzStr = mapData.get("qyFrsfz").toString();
+
         if (!sfzStr.substring(sfzStr.length() - 6, sfzStr.length()).equals(getSfzStr)) {
             resultMap.put("result", "false");
             resultMap.put("msg", JyContant.SFZ_ERROR_MESSAGE);

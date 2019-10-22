@@ -72,6 +72,9 @@
             <if test="qyTysh != null and qyTysh != ''">
                 AND a.qy_tysh = #{qyTysh}
             </if>
+			<if test="qyFrsfz != null and qyFrsfz != ''">
+				AND a.qy_frsfz like CONCAT('%',#{qyFrsfz},'')
+			</if>
             <if test="qymc != null and qymc != ''">
                 AND a.qymc = #{qymc}
             </if>
