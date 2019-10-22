@@ -253,6 +253,12 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     public ResponseMessage findPageBckjBizDcwj(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         PageInfo<BckjBizDcwj> page = findPage(dataMap, pageNo, pageSize, "kssj");
+        List<BckjBizDcwj> records = page.getRecords();
+        //统计行
+        BckjBizDcwj dcwj = new BckjBizDcwj();
+        dcwj.setWjmc("共有："+ page.getTotalCount() +"张调查问卷");
+        dcwj.setReadOnly(true);
+        records.add(0, dcwj);
         return ResponseMessage.sendOK(page);
     }
 

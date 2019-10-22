@@ -32,8 +32,16 @@ public class BckjBizJypm extends DataWithExpEntity<BckjBizJypm> {
 	private BigDecimal pmjyl;		// pmjyl
 	private Integer pmmc;		// pmmc
 	private String memo;		// memo
+	private Boolean readOnly;
 
-	
+	public Boolean getReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(Boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
 	public BckjBizJypm() {
 		super();
 	}

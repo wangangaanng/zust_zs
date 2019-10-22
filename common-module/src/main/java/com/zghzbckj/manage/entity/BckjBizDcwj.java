@@ -31,6 +31,16 @@ public class BckjBizDcwj extends DataWithExpEntity<BckjBizDcwj> {
 	private String wjnd;		// wjnd
 	private Integer sfyx;		// sfyx
 
+	public Boolean getReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(Boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private Boolean readOnly;
+
 
 	
 	public BckjBizDcwj() {

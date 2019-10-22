@@ -100,12 +100,19 @@ public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizD
             } else {
                 objectMap.put("dtrxm", jg.getDtrxm());
             }
+            objectMap.put("ksdt", jg.getKsdt());
+            objectMap.put("jsdt", jg.getKsdt());
+            objectMap.put("dtsc", jg.getDtsc());
             dtmxList = bckjBizDcwjDtmxDao.listDtmx(jg.getOwid());
             for (BckjBizDcwjDtmx dtmx : dtmxList) {
                 objectMap.put(dtmx.getDcwjtmRefOwid(), dtmx.getWjda());
             }
             dataList.add(objectMap);
         }
+        //统计行
+        Map<String, Object> statsMap = new HashMap<>();
+        statsMap.put("dtrxm", "总计：共有" + jgList.size() + "个用户参加问卷调查");
+        dataList.add(0, statsMap);
         PageInfo<Map<String, Object>> pageInfo = new PageInfo<>();
         pageInfo.setRecords(dataList);
         pageInfo.setCurrentIndex(jgListPage.getCurrentIndex());
@@ -130,6 +137,12 @@ public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizD
     public ResponseMessage findPageBckjBizDcwjJg(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         PageInfo<BckjBizDcwjJg> page = findPage(dataMap, pageNo, pageSize, null);
+        List<BckjBizDcwjJg> records = page.getRecords();
+        //统计行
+        BckjBizDcwjJg jg = new BckjBizDcwjJg();
+        jg.setDtrxm("共有：" + page.getTotalCount() + "个人参加问卷调查");
+        jg.setReadOnly(true);
+        records.add(0, jg);
         return ResponseMessage.sendOK(page);
     }
 
