@@ -73,7 +73,7 @@
                             <h1>${result.zwbt!''}</h1>
                         </#if>
                         <dl class="info">
-                            <dt><a href="">社会招聘会</a></dt>
+                            <dt><a href="">招聘会</a></dt>
                         </dl>
                     </div>
                     <ul class="xInfo" style="width: 50%;float: left;">
