@@ -85,7 +85,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         if (state.equals(JyContant.QY_ZT_TG)) {
             dataMap.put("pass", 1);
-        }else{
+        } else {
             dataMap.put("state", state);
         }
 
@@ -176,7 +176,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     public Map login(Map<String, Object> mapData) {
         Map resultMap = Maps.newHashMap();
         Map params = Maps.newHashMap();
-        params.put("state", JyContant.QY_ZT_TG);
+
         params.put("qyTysh", mapData.get("qyTysh"));
         BckjBizQyxx company = qyxxDao.getOne(params);
         if (TextUtils.isEmpty(company)) {
@@ -184,6 +184,13 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             resultMap.put("msg", JyContant.SH_ERROR_MESSAGE);
             return resultMap;
         }
+        if (company.getState().equals(JyContant.QY_ZT_JY)) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", JyContant.HMD_ERROR_MESSAGE);
+            return resultMap;
+        }
+        params.put("state", JyContant.QY_ZT_TG);
+        company = qyxxDao.getOne(params);
         String sfzStr = company.getQyFrsfz();
         String getSfzStr = mapData.get("qyFrsfz").toString();
         if (!sfzStr.substring(sfzStr.length() - 6, sfzStr.length()).equals(getSfzStr)) {
@@ -265,48 +272,49 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
 
     /**
      * 企业查看关注的或报名的学生信息
+     *
      * @param filters
      * @param pageNo
      * @param pageSize
      * @return
      */
-    public PageInfo<Object> showStudentInfo(List<FilterModel> filters, Integer pageNo, Integer pageSize,Map<String ,Object> dataMap) {
+    public PageInfo<Object> showStudentInfo(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map<String, Object> dataMap) {
         Map<String, Object> sendMap = FilterModel.doHandleMap(filters);
         Page<Object> page = new Page(pageNo, pageSize);
         sendMap.put("page", page);
         List<Object> lists = null;
         String type = dataMap.get("type").toString();
-        sendMap.put("jobOwid",dataMap.get("jobOwid"));
+        sendMap.put("jobOwid", dataMap.get("jobOwid"));
         //如果为报名
-        if(type.equals("1")){
-            lists= this.dao.getBaoMingList(sendMap);
+        if (type.equals("1")) {
+            lists = this.dao.getBaoMingList(sendMap);
         }
         //如果为关注
-        else if(type.equals("2")){
-            lists= this.dao.getGuanZhuList(sendMap);
+        else if (type.equals("2")) {
+            lists = this.dao.getGuanZhuList(sendMap);
         }
         page.setList(lists);
         return PageUtils.assimblePageInfo(page);
     }
 
     /**
-    *<p>方法:addIntoHmd TODO加入黑名单 </p>
-    *<ul>
-     *<li> @param codes TODO</li>
-     *<li> @param state TODO 2表示移除黑名单，3表示加入黑名单</li>
-    *<li>@return java.util.List<java.util.Map>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/16 15:11  </li>
-    *</ul>
-    */
+     * <p>方法:addIntoHmd TODO加入黑名单 </p>
+     * <ul>
+     * <li> @param codes TODO</li>
+     * <li> @param state TODO 2表示移除黑名单，3表示加入黑名单</li>
+     * <li>@return java.util.List<java.util.Map>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/16 15:11  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
-    public List<Map> addIntoHmd(List<Object> codes,Integer state) {
+    public List<Map> addIntoHmd(List<Object> codes, Integer state) {
         BckjBizQyxx qyxx;
-        Map result= Maps.newHashMap();
-        List<Map> resluts= Lists.newArrayList();
-        for(Object one:codes){
-            qyxx=this.get(MapUtils.getString((Map)one,"owid"));
-            if(null!=qyxx&&qyxx.getState()==2) {
+        Map result = Maps.newHashMap();
+        List<Map> resluts = Lists.newArrayList();
+        for (Object one : codes) {
+            qyxx = this.get(MapUtils.getString((Map) one, "owid"));
+            if (null != qyxx && qyxx.getState() == 2) {
                 qyxx.setState(state);
                 saveOrUpdate(qyxx);
                 result.put("owid", qyxx.getOwid());

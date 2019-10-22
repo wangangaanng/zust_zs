@@ -202,7 +202,7 @@
     <table width="80%" align="center" style="margin-top: 100px;border-collapse:collapse">
         <tr>
             <td align="center" colspan="2" valign="middle" style="text-align: center;">
-                <img src="${map.qrPic}" id="qrCode" style="width: 400px;height: 400px;"/>
+                <img src="${map.qrPic}" id="qrCode" style="width: 300px;height: 300px;"/>
             </td>
         </tr>
     </table>

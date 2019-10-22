@@ -187,7 +187,7 @@
                 AND a.zph_ksrq &gt;= CURRENT_DATE AND (a.zph_gpsjd is NULL or a.zph_gpsjd = '') and a.zph_sfqd =1
             </if>
             <if test="bm != null and bm != ''">
-                AND a.zph_bmjzsj &gt;= CURRENT_DATE
+                AND a.zph_bmjzsj &gt;= CURRENT_TIME
             </if>
             <if test="over != null and over != ''">
                 AND a.zph_ksrq &lt; CURRENT_DATE
