@@ -75,7 +75,7 @@ page {
 }
 
 .scroll-view_H .ff {
-  position: fixed;
+  position: absolute;
   right: 0;
   background: #fff;
   height: 34px;
