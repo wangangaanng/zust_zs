@@ -30,7 +30,7 @@ public class SystemJobSerImpl {
                 Constant.URL_HOST = PropertiesUtil.readProperty(p, Constant.HOST_KEY);
                 Constant.APP_SECTRECT = PropertiesUtil.readProperty(p, Constant.SECRECT_KEY);
                 ApiConstants.imagePath= PropertiesUtil.readProperty(p, Constant.IMAGEPATH);
-                ApiConstants.localUrl=PropertiesUtil.readProperty(p, Constant.LOCALURL);
+//                ApiConstants.localUrl=PropertiesUtil.readProperty(p, Constant.LOCALURL);
                 ApiConstants.uploadUrl=PropertiesUtil.readProperty(p, Constant.UPLOADURL);
             }
         } catch (Exception e) {

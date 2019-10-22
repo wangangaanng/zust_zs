@@ -3,9 +3,7 @@ package com.zghzbckj.web.controll;
 import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
-import com.zghzbckj.web.constant.CommonConstant;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +24,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * <p>方法 DemoController : <p>
@@ -44,7 +39,6 @@ public class DemoController {
     @ModelAttribute
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
-        model.addAttribute("localUrl", ApiConstants.localUrl);
         model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
     }
 

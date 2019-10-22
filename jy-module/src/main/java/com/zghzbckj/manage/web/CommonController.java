@@ -178,9 +178,10 @@ public class CommonController {
     public ResponseMessage jobBarChart(PublicDataVO dataVO) {
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
         try {
-            Map<String, Object> result = commonService.getJobBar(dataMap);
+            Map<String, Object> result = new HashMap<>();
             String[] jobList = {"month", "jobNumber", "jobFairNumber", "meetingNumber"};
             result.put("dimensions", jobList);
+            result.put("source", commonService.getJobBar(dataMap));
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();

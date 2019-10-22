@@ -34,6 +34,8 @@ public interface CommonDao {
 
     List<Map<String, Object>> getListJobNumber(Map<String, Object> dataMap);
 
+    Integer getJobNumber(@Param("zwlx") String zwlx, @Param("month") Integer month);
+
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
     List<Map<String, Object>> listDicVal(Map<String, Object> dataMap);

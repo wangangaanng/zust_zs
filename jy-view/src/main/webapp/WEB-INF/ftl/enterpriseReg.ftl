@@ -239,6 +239,7 @@
 
                         var fd = new FormData();
                         fd.append("file",file);
+                        fd.append("method","zustcommon/common/picUpload")
                         if(type==1){
                             $("#yyzz").attr("src",this.result)
                             fd.append('data', JSON.stringify({
@@ -253,7 +254,7 @@
 
                         beginLoad()
                         $.ajax({
-                            url: uploadUrl,
+                            url: base+'/webAjax/picUpload',//uploadUrl,
                             type: "POST",
                             processData: false,
                             contentType: false,

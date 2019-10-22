@@ -152,17 +152,27 @@ public class CommonService {
      *</ul>
      */
     public List<Map<String, Object>> getJobBar(Map<String, Object> dataMap) {
-        List<Map<String, Object>> resultList = listMonth();
+        List<Integer> monthList = listMonth();
+        List<Map<String, Object>> resultList = new ArrayList<>(monthList.size());
+        Map<String, Object> resultMap = null;
+        for (Integer month : monthList) {
+            resultMap = new HashMap<>();
+            resultMap.put("month", month + "月");
+            //职位数
+            resultMap.put("jobNumber", commonDao.getJobNumber("0", month));
+            //招聘会数
+            resultMap.put("jobFairNumber", commonDao.getJobNumber("3", month));
+            //宣讲会数
+            resultMap.put("meetingNumber", commonDao.getJobNumber("4", month));
+            resultList.add(resultMap);
+        }
         return resultList;
     }
 
-    private List<Map<String, Object>> listMonth() {
-        List<Map<String, Object>> result = new ArrayList<>(12);
-        Map<String, Object> monthMap = null;
+    private List<Integer> listMonth() {
+        List<Integer> result = new ArrayList<>(12);
         for (int i = 1; i <= 12; i++) {
-            monthMap = new HashMap<>();
-            monthMap.put("month", i + "月");
-            result.add(monthMap);
+            result.add(i);
         }
         return result;
     }

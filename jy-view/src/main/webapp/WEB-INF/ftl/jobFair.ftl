@@ -131,16 +131,16 @@
                 <#elseif step=='1'>
                     <div class="zph-d">
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">举办时间：${((oneJob.zphKsrq)?substring(0,10))!''}</div>
+                            <div class="col-md-4 col-md-offset-1">举办日期：${((oneJob.zphKsrq)?substring(0,10))!'暂无'}</div>
                             <div class="col-md-4 col-md-offset-1">举办城市：${(oneJob.zwPro)!""}${(oneJob.zwCity)!""}${(oneJob.zwArea)!""}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">预定结束时间：${((oneJob.zphBmjzsj)?substring(0,10))!''}</div>
-                            <div class="col-md-4 col-md-offset-1">举办地址：${(oneJob.zphJbdd)!""}</div>
+                            <div class="col-md-4 col-md-offset-1">预定截止日期：${((oneJob.zphBmjzsj)?substring(0,10))!'暂无'}</div>
+                            <div class="col-md-4 col-md-offset-1">举办地址：${(oneJob.zphJbdd)!"暂无"}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">主办方：${(oneJob.zphJbf)!""}</div>
-                            <div class="col-md-4 col-md-offset-1">承办方：${(oneJob.zphCbf)!""}</div>
+                            <div class="col-md-4 col-md-offset-1">主办方：${(oneJob.zphJbf)!"暂无"}</div>
+                            <div class="col-md-4 col-md-offset-1">承办方：${(oneJob.zphCbf)!"暂无"}</div>
                         </div>
                         <div class="row btn-yd">
                             <div class="col-md-8 col-md-offset-1 text-center">
@@ -415,25 +415,28 @@ var pageSize=10;
 
 
     function operateFormatterZph(value, row, index) {
-        if(!compareToday(row.zphKsrq)){
-            if(row.state==2){
-                if(row.zphSfbm==0){
-                    return '-';
-                }else if(row.zphSfbm==1){
-                    var c = '<a class="green-color order" href="#">预定展位</a> ';
-                    return c;
-                }
+        var str='';
 
-            }else if(row.state==6){
-                var d = '<span style="color: red;" href="#">已结束</span> ';
-                return d;
-            }else{
-                return '';
+        if(row.state==2){
+            if(row.zphSfbm==0){
+                str= '-';
+            }else if(row.zphSfbm==1){
+                str= '<a class="green-color order" href="#">预定展位</a> ';
             }
+
+        }else if(row.state==6){
+            str= '<span style="color: red;">已结束</span> ';
         }else{
-            var d = '<span style="color: red;" href="#">已结束</span> ';
-            return d;
+            str= '';
         }
+        if(row.zphBmjzsj && compareToday(row.zphBmjzsj)){
+            str= '<span style="color: #ccc;">已截止报名</span> ';
+        }
+        if(compareToday(row.zphKsrq)){
+            str= '<span style="color:red;">已结束</span> ';
+        }
+
+        return str;
     }
 
 function operateFormatterZph2(value, row, index) {
