@@ -58,21 +58,17 @@
   <view class="FQA-li">
     <image src="../../static/wen.png" class="FQA-li-img"></image>
     <view class="quetion">来自172.16.13.108的提问：需要毕业证吗？</view>
-    <view class="FQA-li-date">2019-10-08 19:44:19</view>
     <view class="da">
       <image src="../../static/da.png" class="FQA-li-img"></image>
       <view class="quetion">管理员的回复：需要</view>
-      <view class="FQA-li-date">2019-10-08 19:44:19</view>
     </view>
   </view>
   <view class="FQA-li">
     <image src="../../static/wen.png" class="FQA-li-img"></image>
     <view class="quetion">来自172.16.13.108的提问：需要毕业证吗？</view>
-    <view class="FQA-li-date">2019-10-08 19:44:19</view>
     <view class="da">
       <image src="../../static/da.png" class="FQA-li-img"></image>
       <view class="quetion">管理员的回复：需要</view>
-      <view class="FQA-li-date">2019-10-08 19:44:19</view>
     </view>
   </view>
 </view>
