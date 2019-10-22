@@ -123,3 +123,8 @@ page {
   font-size: 12px;
   margin-top: 12rpx;
 }
+
+.conter{
+  width: 100%;
+  overflow: hidden;
+}

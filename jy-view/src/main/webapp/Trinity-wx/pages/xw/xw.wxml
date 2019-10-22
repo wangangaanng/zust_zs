@@ -16,7 +16,7 @@ bindfocus="focus" bindblur="blur" bind:search="onSearch" />
     <van-cell title="浙江科技学院" icon="../../../static/histroy.png" is-link />
   </view>
 </view>
-<view wx:if="{{!focus}}">
+<view class="conter" wx:if="{{!focus}}">
   <scroll-view class="scroll-view_H" scroll-x="true" bindscrolltolower="scroll">
     <view bindtap="click" wx:for="{{array}}" wx:key="index" class="scroll-view_H_li {{index1==index?'active':''}}" data-index1="{{index}}">{{item}}</view>
     <view class="ff" wx:if='{{ff}}'>
