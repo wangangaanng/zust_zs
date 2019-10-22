@@ -162,7 +162,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage signInOrScribe(Map<String, Object> datamap) {
-        Double distance=null;
+        Double distance = null;
         BckjBizJob bckjBizJob = bckjBizJobService.get(datamap.get("jobRefOwid").toString());
         ResponseMessage responseYhxx = bckjbizyhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
         if (TextUtils.isEmpty(responseYhxx) || responseYhxx.getBackCode() != 0 || TextUtils.isEmpty(responseYhxx.getBean())) {
@@ -198,7 +198,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         //如果为新的签到
         if (Integer.parseInt(datamap.get("xxlb").toString()) == 1) {
             //如果需要报名的
-            if (bckjBizJob.getZphSfbm() !=null && bckjBizJob.getZphSfbm()==1) {
+            if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
                 //根据用户和job找到报名信息
                 BckjBizJybm bckjbizjybm = bckjBizJybmService.getOneByJobHy(datamap);
                 //报名类型不为学生或。。。。。。
@@ -207,24 +207,24 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 }
             }
             //如果不需要签到的
-            if (bckjBizJob.getZphSfqd()!=null&&bckjBizJob.getZphSfqd() == 0) {
+            if (bckjBizJob.getZphSfqd() != null && bckjBizJob.getZphSfqd() == 0) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
             }
 
             //判断job信息是否失效
-            if(!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZwSxsj())){
+            if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZwSxsj())) {
                 if (!(bckjBizJob.getZwSxsj().compareTo(new Date()) > 0)) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.BeyondTime);
                 }
             }
             //判断签到日期是否在举办日期内
-            if(!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphKsrq())) {
+            if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphKsrq())) {
                 if (!JudgeInTimeIntervalUtils.judgeSameDay(bckjBizJob.getZphKsrq(), new Date())) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
                 }
             }
             //判断签到时间是否在举办时间区间内
-            if(!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
+            if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
                 String zphJtsj = bckjBizJob.getZphJtsj();
                 String[] splits = zphJtsj.split("-");
                 if (!JudgeInTimeIntervalUtils.judgeInTimeIntervalUtils(splits[0], splits[1])) {
@@ -244,13 +244,13 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             }
             //查看此微信号是否已经注册过   unionid存exp5
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
-            if(!TextUtils.isEmpty(oneByUnionId)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"此微信号注册");
+            if (!TextUtils.isEmpty(oneByUnionId)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "此微信号注册");
             }
         }
         //如果为新的关注
         if (Integer.parseInt(datamap.get("xxlb").toString()) == 0) {
-            if(bckjBizJob.getZwGzs()==null){
+            if (bckjBizJob.getZwGzs() == null) {
                 bckjBizJob.setZwGzs(1);
             }
             int count = bckjBizJob.getZwGzs() + 1;
@@ -266,9 +266,9 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         }
         bckjBizXsgz.setXxlb(Integer.parseInt(datamap.get("xxlb").toString()));
         //设置unionid
-        if (bckjBizXsgz.getXxlb()==1){
+        if (bckjBizXsgz.getXxlb() == 1) {
             bckjBizXsgz.setExp5(yhxxVo.getUnionid());
-            bckjBizXsgz.setExp10(distance+"");
+            bckjBizXsgz.setExp10(distance + "");
         }
         bckjBizXsgz.setGzsj(new Date());
         bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
@@ -282,7 +282,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
         HashMap<String, Object> sendMap = Maps.newHashMap();
-        sendMap.put("jobRefOwid",bckjBizXsgz.getJobRefOwid());
+        sendMap.put("jobRefOwid", bckjBizXsgz.getJobRefOwid());
         Map<String, Object> resMap = this.dao.qdSuccessInfo(sendMap);
         return ResponseMessage.sendOK(resMap);
     }
@@ -375,23 +375,23 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         return this.dao.findListByMap(sendMap);
     }
 
-    public ResponseMessage  studentSubcribeList(Map<String,Object> dataMap) {
-        Page<Map<String,Object>>page=new Page(Integer.parseInt(dataMap.get("pageNo").toString()),Integer.parseInt(dataMap.get("pageSize").toString()));
-        dataMap.put("page",page);
-        if(!TextUtils.isEmpty(dataMap.get("zwlx"))){
-            if(Integer.parseInt(dataMap.get("zwlx").toString())==2){
+    public ResponseMessage studentSubcribeList(Map<String, Object> dataMap) {
+        Page<Map<String, Object>> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
+        dataMap.put("page", page);
+        if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
+            if (Integer.parseInt(dataMap.get("zwlx").toString()) == 2) {
                 dataMap.remove("zwlx");
-                dataMap.put("zwlx",3);
+                dataMap.put("zwlx", 3);
             }
         }
-       if(!TextUtils.isEmpty(dataMap.get("zwlx"))){
-            if(Integer.parseInt(dataMap.get("zwlx").toString())==3){
+        if (!TextUtils.isEmpty(dataMap.get("zwlx"))) {
+            if (Integer.parseInt(dataMap.get("zwlx").toString()) == 3) {
                 dataMap.remove("zwlx");
-                dataMap.put("zwlx",2);
+                dataMap.put("zwlx", 2);
             }
         }
         page.setList(this.dao.studentSubcribeList(dataMap));
-        return  ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 
 
