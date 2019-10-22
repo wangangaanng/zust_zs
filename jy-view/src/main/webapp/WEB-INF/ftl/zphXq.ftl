@@ -77,8 +77,8 @@
                         </dl>
                     </div>
                     <ul class="xInfo" style="width: 50%;float: left;">
-                    <#if result.zphKsrq?exists>
-                        <li>举办日期：<span>${result.zphKsrq?substring(0,10)}</span></li>
+                    <#if result.xjsj?exists>
+                        <li>举办日期：<span>${result.xjsj?substring(0,10)}</span></li>
                     </#if>
                     <#if result.zphJtsj?exists>
                         <li>具体时间：<span> ${result.zphJtsj!''}</span></li>
