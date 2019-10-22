@@ -53,7 +53,7 @@ page {
   background-color: #26b887;
   transform: rotate(45deg);
   position: absolute;
-  top: 34px;
+  top: 32px;
 }
 
 .lc-rows {
