@@ -774,3 +774,14 @@ function formatNumber(n) {
     n = n.toString()
     return n[1] ? n : '0' + n
 }
+
+function compareToday(d) {
+    var d1=new Date(d).getTime()
+    var td=new Date(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' 00:00:00').getTime()
+
+    if(d1<td) {
+        return true
+    }else{
+        return false
+    }
+}

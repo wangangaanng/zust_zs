@@ -25,7 +25,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li><a href="#">企业服务</a></li>
+                <li><a href="/enterpriseService/1">企业服务</a></li>
                 <li class="active">新增职位</li>
             </ol>
         </div>
@@ -39,29 +39,36 @@
                 </div>
                 <div class="form-group">
                     <label for="zwPro" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" onchange="getCity()" name="zwPro" id="zwPro">
+                    <div class="col-sm-2">
+                        <select class="form-control" onchange="getCity()" name="zwPro" id="zwPro" data-val="${(result.qyProv)!''}">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
-                    <label for="zwCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" onchange="getArea()" name="zwCity" id="zwCity">
+                    <label for="zwCity" class="col-sm-1 control-label">所在市<span class="red">*</span>：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" onchange="getArea()" name="zwCity" id="zwCity" data-val="${(result.qyCity)!''}">
+                            <option value="">请选择</option>
+
+                        </select>
+                    </div>
+                    <label for="zwArea" class="col-sm-1 control-label">所在区<span class="red">*</span>：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="zwArea" id="zwArea" data-val="${(result.qyArea)!''}">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="zwArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" name="zwArea" id="zwArea">
-                            <option value="">请选择</option>
+                <#--<div class="form-group">-->
+                    <#--<label for="zwArea" class="col-sm-1 control-label">所在区<span class="red">*</span>：</label>-->
+                    <#--<div class="col-sm-3">-->
+                        <#--<select class="form-control" name="zwArea" id="zwArea">-->
+                            <#--<option value="">请选择</option>-->
 
-                        </select>
-                    </div>
-                </div>
+                        <#--</select>-->
+                    <#--</div>-->
+                <#--</div>-->
                 <div class="form-group">
                     <label for="zwGzzn" class="col-sm-2 control-label">职能类别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
@@ -77,39 +84,45 @@
                     <label for="zwGzxz" class="col-sm-2 control-label">工作性质<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGzxz" name="zwGzxz">
-                            <option value="">请选择</option>
                         <#list zwGzxz as obj>
-                        <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            <#if (obj.dicVal2)?? && (obj.dicVal2)=='不限'>
+                                <option selected value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                <#else>
+                                <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            </#if>
                         </#list>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="zwXs" class="col-sm-2 control-label">薪水<span class="red">*</span>：</label>
+                    <label for="zwXs" class="col-sm-2 control-label">薪水：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="面议" autocomplete="off">
                         <span style="position: absolute;right: 25px;top: 7px;">元</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwLxyx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="zwLxyx" name="zwLxyx" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="zwLxyx" value="${(result.qyYx)!''}" name="zwLxyx" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwZprs" class="col-sm-2 control-label">招聘人数<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="zwZprs" name="zwZprs" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" id="zwZprs" name="zwZprs" value="1" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwNlyq" class="col-sm-2 control-label">年龄要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwNlyq" name="zwNlyq">
-                            <option value="">请选择</option>
                             <#list zwNlyq as obj>
+                                <#if (obj.dicVal2)?? && (obj.dicVal2)=='不限'>
+                                <option selected value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                <#else>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                </#if>
                             </#list>
                         </select>
                     </div>
@@ -118,9 +131,12 @@
                     <label for="zwXlyq" class="col-sm-2 control-label">学历要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwXlyq" name="zwXlyq">
-                            <option value="">请选择</option>
                             <#list zwXlyq as obj>
+                                <#if (obj.dicVal2)?? && (obj.dicVal2)=='不限'>
+                                <option selected value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                <#else>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                </#if>
                             </#list>
                         </select>
                     </div>
@@ -129,18 +145,21 @@
                     <label for="zwGznx" class="col-sm-2 control-label">工作年限<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGznx" name="zwGznx">
-                            <option value="">请选择</option>
                             <#list zwGznx as obj>
+                                <#if (obj.dicVal2)?? && (obj.dicVal2)=='不限'>
+                                <option selected value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                <#else>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                </#if>
                             </#list>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="zwYyyq" class="col-sm-2 control-label">语言要求<span class="red">*</span>：</label>
+                    <label for="zwYyyq" class="col-sm-2 control-label">语言要求：</label>
                     <div class="col-sm-8">
                         <select class="form-control" id="zwYyyq" name="zwYyyq">
-                            <option value="">请选择</option>
+                            <option value="">不限</option>
                             <#list zwYyyq as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
@@ -153,76 +172,6 @@
                         <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10"></textarea>
                     </div>
                 </div>
-                <#--<div class="form-group">
-                    <label for="zdytj1" class="col-sm-2 control-label">自定义条件1：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control"  name="zdytj1" id="zdytj1" />
-                    </div>
-                    <label for="tjsd1" class="col-sm-2 control-label">是否：</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="tjsd1" id="tjsd1" />
-                            <option value="">请选择</option>
-                            <option value="1">是</option>
-                            <option value="2">否</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="zdytj2" class="col-sm-2 control-label">自定义条件1：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control"  name="zdytj2" id="zdytj2" />
-                    </div>
-                    <label for="tjsd2" class="col-sm-2 control-label">是否：</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="tjsd2" id="tjsd2" />
-                        <option value="">请选择</option>
-                        <option value="1">是</option>
-                        <option value="2">否</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="zdytj3" class="col-sm-2 control-label">自定义条件1：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control"  name="zdytj3" id="zdytj3" />
-                    </div>
-                    <label for="tjsd3" class="col-sm-2 control-label">是否：</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="tjsd3" id="tjsd3" />
-                        <option value="">请选择</option>
-                        <option value="1">是</option>
-                        <option value="2">否</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="zdytj4" class="col-sm-2 control-label">自定义条件1：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control"  name="zdytj4" id="zdytj4" />
-                    </div>
-                    <label for="tjsd4" class="col-sm-2 control-label">是否：</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="tjsd4" id="tjsd4" />
-                        <option value="">请选择</option>
-                        <option value="1">是</option>
-                        <option value="2">否</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="zdytj5" class="col-sm-2 control-label">自定义条件1：</label>
-                    <div class="col-sm-4">
-                        <input class="form-control"  name="zdytj5" id="zdytj5" />
-                    </div>
-                    <label for="tjsd5" class="col-sm-2 control-label">是否：</label>
-                    <div class="col-sm-2">
-                        <select class="form-control" name="tjsd5" id="tjsd5" />
-                        <option value="">请选择</option>
-                        <option value="1">是</option>
-                        <option value="2">否</option>
-                        </select>
-                    </div>
-                </div>-->
                 <div class="form-group">
                     <label for="zwSxsj" class="col-sm-2 control-label">失效时间：</label>
                     <div class="col-sm-3">
@@ -253,12 +202,12 @@
         var pindex=0;
         var cindex=0;
         var _cityData=[];
-        cityData3.forEach(function(e) {
-            provice.push(e.text)
-            city.push(e.children)
-
-            $("#zwPro").append("<option value='"+e.text+"'>"+e.text+"</option>")
-        });
+        // cityData3.forEach(function(e) {
+        //     provice.push(e.text)
+        //     city.push(e.children)
+        //
+        //     $("#zwPro").append("<option value='"+e.text+"'>"+e.text+"</option>")
+        // });
 
         function getCity() {
             $("#zwCity").html("<option value=''>请选择</option>")
@@ -287,6 +236,42 @@
         }
         $(document).ready(function () {
 
+            cityData3.forEach(function(e) {
+                provice.push(e.text)
+                city.push(e.children)
+                if($("#zwPro").attr("data-val")==e.text) {
+                    $("#zwPro").append("<option value='" + e.text + "' selected>" + e.text + "</option>")
+                }else{
+                    $("#zwPro").append("<option value='" + e.text + "' >" + e.text + "</option>")
+                }
+            });
+
+            pindex=parseInt($("#zwPro option:selected").index())-1;
+            if(pindex>-1){
+                _cityData=city[pindex]
+                _cityData.forEach(function(e) {
+                    if($("#zwCity").attr("data-val")==e.text){
+                        $("#zwCity").append("<option value='"+e.text+"' selected>"+e.text+"</option>")
+                    }else{
+                        $("#zwCity").append("<option value='"+e.text+"'>"+e.text+"</option>")
+                    }
+
+                });
+
+            }
+            cindex=parseInt($("#zwCity option:selected").index())-1;
+            if(cindex>-1){
+                var _areaData=_cityData[cindex].children
+                _areaData.forEach(function(e) {
+                    if($("#zwArea").attr("data-val")==e.text){
+                        $("#zwArea").append("<option value='"+e.text+"' selected>"+e.text+"</option>")
+                    }else{
+                        $("#zwArea").append("<option value='"+e.text+"'>"+e.text+"</option>")
+                    }
+                });
+
+            }
+
             laydate.render({
                 elem: "#zwSxsj" //指定元素
                 ,min: 1
@@ -308,14 +293,12 @@
                         email: true
                     },
                     zwXs:{
-                        required: true,
                         isNum: true
                     },
                     zwZprs:"required",
                     zwNlyq:"required",
                     zwXlyq:"required",
                     zwGznx:"required",
-                    zwYyyq:"required",
                     zwGwzz:"required",
                 },
                 messages: {
@@ -331,13 +314,11 @@
                     },
                     zwZprs: "请填写",
                     zwXs: {
-                        required: "请填写",
                         isNum: "请填写整数"
                     },
                     zwNlyq: "请选择",
                     zwXlyq: "请选择",
                     zwGznx: "请选择",
-                    zwYyyq: "请选择",
                     zwGwzz: "请填写",
                 },
                 errorElement: "em",
@@ -370,20 +351,25 @@
 
         function addOneJob() {
             if(!isTimeOut()) {
+                $(".green").attr("disabled","disabled");
                 var jsonObj = $("#registerForm").serializeObject()
                 jsonObj.qyxxRefOwid = getCookie("qyOwid")
                 jsonObj.zwlx = 0
-                jsonObj.zwXs = parseInt(jsonObj.zwXs)
+                if(jsonObj.zwXs){
+                    jsonObj.zwXs = parseInt(jsonObj.zwXs)
+                }
                 ajax("zustjy/bckjBizJob/addOneJob", jsonObj, function (data) {
                     if (data.backCode == 0) {
                         layer.open({
                             title: '提示',
                             content: '职位发布成功',
                             yes: function (index, layero) {
+                                window.location.href='/enterpriseService/1'
                                 layer.close(index);
                             }
                         });
                     }else{
+                        $(".green").removeAttr("disabled");
                         walert(data.errorMess)
                     }
                 })

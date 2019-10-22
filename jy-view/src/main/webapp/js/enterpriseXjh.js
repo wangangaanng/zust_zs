@@ -107,7 +107,7 @@ function applyXjh(){
             '                                <div class="col-sm-3">\n' +
             '                                    <input type="text" class="form-control" id="jkr" name="jkr" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
-            '                                <label for="xjsj" class="col-sm-2 control-label text-right" style="line-height: 34px;">宣讲时间<span class="red">*</span>：</label>\n' +
+            '                                <label for="xjsj" class="col-sm-2 control-label text-right" style="line-height: 34px;">宣讲日期<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
             '                                    <input type="text" class="form-control" id="xjsj" name="xjsj" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
@@ -347,7 +347,11 @@ function myJobList2() {
                     formatter: function (value, row, index) {
                         var value = ""
                         if (row.state == 0) {
-                            value = "<span>待审核</span>"
+                            if(compareToday(row.xjsj)){
+                                value = "<span>已失效</span>"
+                            }else{
+                                value = "<span>待审核</span>"
+                            }
                         } else if (row.state == 1) {
                             value = "<span style='color: #008784;'>审核通过</span>"
                         } else if (row.state == 2) {

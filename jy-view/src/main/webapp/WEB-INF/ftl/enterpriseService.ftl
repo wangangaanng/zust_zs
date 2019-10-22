@@ -99,23 +99,21 @@
                     </div>
                     <div class="form-group">
                         <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
-                        <div class="col-sm-3">
+                        <div class="col-sm-2">
                             <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv" data-val="${(cInfo.qyProv)!''}">
                                 <option value="">请选择</option>
 
                             </select>
                         </div>
-                        <label for="qyCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
-                        <div class="col-sm-3">
+                        <label for="qyCity" class="col-sm-1 control-label" style="padding-left: 0;padding-right: 0;">所在市<span class="red">*</span>：</label>
+                        <div class="col-sm-2">
                             <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity" data-val="${(cInfo.qyCity)!''}">
                                 <option value="">请选择</option>
 
                             </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="qyArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
-                        <div class="col-sm-3">
+                        <label for="qyArea" class="col-sm-1 control-label" style="padding-left: 0;padding-right: 0;">所在区<span class="red">*</span>：</label>
+                        <div class="col-sm-2">
                             <select class="form-control" name="qyArea" id="qyArea" data-val="${(cInfo.qyArea)!''}">
                                 <option value="">请选择</option>
 

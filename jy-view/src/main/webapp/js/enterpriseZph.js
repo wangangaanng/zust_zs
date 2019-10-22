@@ -130,7 +130,11 @@ function myJobList1() {
                     title: '状态',
                     formatter: function (value, row, index) {
                         if (row.state==0) {
-                            return '<span>待审核</span>';
+                            if(compareToday(row.zphKsrq)){
+                                return '<span>已失效</span>';
+                            }else{
+                                return '<span>待审核</span>';
+                            }
                         } else if (row.state==1) {
                             return '<span style="color:#008784;">通过</span>';
                         } else if (row.state==2) {
