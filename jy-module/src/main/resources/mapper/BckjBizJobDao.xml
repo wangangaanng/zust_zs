@@ -181,7 +181,7 @@
                 AND b.qymc = #{zwQymc}
             </if>
             <if test="wait != null and wait != ''">
-                AND a.zph_ksrq &gt;= CURRENT_DATE AND (( a.zph_sfqd =0) or ( a.zph_sfqd =1 and a.zph_gpsjd is not NULL ))
+                AND a.zph_ksrq &gt;= CURRENT_DATE
             </if>
             <if test="ddw != null and ddw != ''">
                 AND a.zph_ksrq &gt;= CURRENT_DATE AND (a.zph_gpsjd is NULL or a.zph_gpsjd = '') and a.zph_sfqd =1
