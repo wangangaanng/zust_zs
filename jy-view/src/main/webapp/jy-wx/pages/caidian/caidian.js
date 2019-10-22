@@ -61,33 +61,28 @@ Page({
     wx.getLocation({
       type: 'gcj02',// 默认wgs84
       success: function (res2) {
-        var data = { "owid": that.data.owid, "zphGpsjd": res2.longitude, "zphGpswd": res2.latitude };
-        common.ajax('zustjy/bckjBizJob/setCdPoint', data, function (res) {
-          if (res.data.backCode == 0) {
-            wx.showModal({
-              title: '采集成功',
-              showCancel: false,
-              content: '经度：' + res2.longitude + '\n纬度：' + res2.latitude,
-              success(res3) {
-                if (res3.confirm) {
-                  wx.navigateBack();
-                }
-              }
-            })
-          } else {
-            wx.showToast({
-              title: res.data.errorMess,
-              icon: 'none',
-              duration: 2000
-            })
+        that.setData({
+          latitude: res2.latitude,
+          longitude: res2.longitude
+        })
+        wx.showModal({
+          title: '提示',
+          content: '是否确认在当前位置采点',
+          confirmColor: '#008783',
+          success(res) {
+            if (res.confirm) {
+              cd(that);
+            } else if (res.cancel) {
+
+            }
           }
-        });
+        })
       },
       fail: function (res) {
         wx.showToast({
           title: '获取位置失败',
         })
-       }
+      }
     });
   },
   /**
@@ -152,6 +147,31 @@ var getContent = function (that, owid) {//招聘详情
       })
 
 
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+var cd = function (that) {
+  var data = { "owid": that.data.owid, "zphGpsjd": that.data.longitude, "zphGpswd": that.data.latitude };
+  common.ajax('zustjy/bckjBizJob/setCdPoint', data, function (res) {
+    if (res.data.backCode == 0) {
+      wx.showModal({
+        title: '采集成功',
+        showCancel: false,
+        content: '经度：' + that.data.longitude + '\n纬度：' + that.data.latitude,
+        confirmColor: '#008783',
+        success(res3) {
+          if (res3.confirm) {
+            wx.navigateBack();
+          }
+        }
+      })
     } else {
       wx.showToast({
         title: res.data.errorMess,

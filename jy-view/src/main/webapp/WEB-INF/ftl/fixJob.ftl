@@ -69,14 +69,14 @@
                 <div class="form-group">
                     <label for="zwPro" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                     <div class="col-sm-3">
-                        <select class="form-control" onchange="getCity()" data-val="${jobDetail.zwPro!''}" name="zwPro" id="zwPro">
+                        <select class="form-control" onchange="getCity()" data-val="${(jobDetail.zwPro)!''}" name="zwPro" id="zwPro">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
                     <label for="zwCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
                     <div class="col-sm-3">
-                        <select class="form-control" onchange="getArea()" data-val="${jobDetail.zwCity!''}" name="zwCity" id="zwCity">
+                        <select class="form-control" onchange="getArea()" data-val="${(jobDetail.zwCity)!''}" name="zwCity" id="zwCity">
                             <option value="">请选择</option>
 
                         </select>
@@ -85,7 +85,7 @@
                 <div class="form-group">
                     <label for="zwArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
                     <div class="col-sm-3">
-                        <select class="form-control" name="zwArea" id="zwArea" data-val="${jobDetail.zwArea!''}">
+                        <select class="form-control" name="zwArea" id="zwArea" data-val="${(jobDetail.zwArea)!''}">
                             <option value="">请选择</option>
 
                         </select>
@@ -94,11 +94,13 @@
                 <div class="form-group">
                     <label for="zwGzzn" class="col-sm-2 control-label">职能类别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwGzzn" name="zwGzzn" data-val="${jobDetail.zwGzzn!''}">
+                        <select class="form-control" id="zwGzzn" name="zwGzzn" data-val="${(jobDetail.zwGzzn)!''}">
                             <option value="">请选择</option>
-                        <#list zwGzzn as obj>
-                        <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-                        </#list>
+                            <#if zwGzzn??>
+                            <#list zwGzzn as obj>
+                            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
@@ -107,29 +109,43 @@
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGzxz" name="zwGzxz" data-val="${jobDetail.zwGzxz!''}">
                             <option value="">请选择</option>
-                        <#list zwGzxz as obj>
-                        <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-                        </#list>
+                            <#if zwGzxz??>
+                            <#list zwGzxz as obj>
+                            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                            </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwXs" class="col-sm-2 control-label">薪水<span class="red">*</span>：</label>
                     <div class="col-sm-8">
+                        <#if (jobDetail.zwXs)??>
                         <input type="number" class="form-control" id="zwXs" name="zwXs" data-val="${jobDetail.zwXs!''}" value="${jobDetail.zwXs!''}" placeholder="" autocomplete="off">
+                        <#else>
+                        <input type="number" class="form-control" id="zwXs" name="zwXs" data-val="" value="" placeholder="" autocomplete="off">
+                        </#if>
                         <span style="position: absolute;right: 25px;top: 7px;">元</span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwLxyx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                     <div class="col-sm-8">
+                        <#if (jobDetail.zwLxyx)??>
                         <input type="text" class="form-control" id="zwLxyx" name="zwLxyx" value="${jobDetail.zwLxyx!''}" placeholder="" autocomplete="off">
+                        <#else>
+                        <input type="text" class="form-control" id="zwLxyx" name="zwLxyx" value="${jobDetail.zwLxyx!''}" placeholder="" autocomplete="off">
+                        </#if>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwZprs" class="col-sm-2 control-label">招聘人数<span class="red">*</span>：</label>
                     <div class="col-sm-8">
+                        <#if (jobDetail.zwZprs)??>
                         <input type="number" class="form-control" id="zwZprs" name="zwZprs" value="${jobDetail.zwZprs!''}" placeholder="" autocomplete="off">
+                        <#else>
+                        <input type="number" class="form-control" id="zwZprs" name="zwZprs" value="" placeholder="" autocomplete="off">
+                        </#if>
                     </div>
                 </div>
                 <div class="form-group">
@@ -137,9 +153,11 @@
                     <div class="col-sm-8">
                         <select class="form-control" id="zwNlyq" name="zwNlyq" data-val="${jobDetail.zwNlyq!''}">
                             <option value="">请选择</option>
+                            <#if zwNlyq??>
                             <#list zwNlyq as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
@@ -148,9 +166,11 @@
                     <div class="col-sm-8">
                         <select class="form-control" id="zwXlyq" name="zwXlyq" data-val="${jobDetail.zwXlyq!''}">
                             <option value="">请选择</option>
+                            <#if zwXlyq??>
                             <#list zwXlyq as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
@@ -159,9 +179,11 @@
                     <div class="col-sm-8">
                         <select class="form-control" id="zwGznx" name="zwGznx" data-val="${jobDetail.zwGznx!''}">
                             <option value="">请选择</option>
+                            <#if zwGznx??>
                             <#list zwGznx as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
@@ -170,33 +192,43 @@
                     <div class="col-sm-8">
                         <select class="form-control" id="zwYyyq" name="zwYyyq" data-val="${jobDetail.zwYyyq!''}">
                             <option value="">请选择</option>
+                            <#if zwYyyq??>
                             <#list zwYyyq as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwGwzz" class="col-sm-2 control-label">职位详情<span class="red">*</span>：</label>
                     <div class="col-sm-8">
+                        <#if (jobDetail.zwZprs)??>
                         <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10" data-val="${jobDetail.zwGwzz!''}"></textarea>
+                        <#else>
+                        <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10" data-val=""></textarea>
+                        </#if>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwSxsj" class="col-sm-2 control-label">失效时间：</label>
                     <div class="col-sm-3">
-                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" placeholder="" autocomplete="off">
+                        <#if (jobDetail.zwSxsj)??>
+                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" value="${jobDetail.zwSxsj!''}" placeholder="" autocomplete="off">
+                        <#else>
+                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" value="" placeholder="" autocomplete="off">
+                        </#if>
                     </div>
                 </div>
 
-                <div class="form-group">
+                <#--<div class="form-group">
                     <div class="col-sm-12 text-center">
                         <button type="submit" class="btn btn-default btn-common green">提交</button>
                     </div>
-                </div>
-                <input type="hidden" id="sel1" value="${jobDetail.zwSxsj!''}">
+                </div>-->
+                <input type="hidden" id="sel1" value="${(jobDetail.zwSxsj)!''}">
             </form>
-            <input type="hidden" id="zwOwid" value="${jobDetail.owid!''}">
+            <input type="hidden" id="zwOwid" value="${(jobDetail.owid)!''}">
             <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
         </div>
     </div>

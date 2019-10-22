@@ -15,7 +15,11 @@
     .e-table {
         padding: 20px;
     }
-
+    .uploadlabel{background-color: #008784;color: #fff;padding: 6px 12px;border-radius: 4px;font-size: 14px;margin-top: 10px;
+        font-weight: 400;cursor: pointer;}
+    .uploadlabel:active,
+    .uploadlabel:hover,
+    .uploadlabel:visited{opacity: 0.7;}
 </style>
 
 <body>
@@ -66,32 +70,44 @@
                     <div class="form-group">
                         <label for="qymc" class="col-sm-2 control-label">公司名称<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qymc" disabled="disabled" value="${cInfo.qymc}" placeholder="" autocomplete="off">
+                            <#if (cInfo.qymc)??>
+                                <input type="text" class="form-control" id="qymc" disabled="disabled" value="${cInfo.qymc}" placeholder="" autocomplete="off">
+                                <#else>
+                                <input type="text" class="form-control" id="qymc" disabled="disabled" value="" placeholder="" autocomplete="off">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyTysh" class="col-sm-2 control-label">统一信用代码<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qyTysh" disabled="disabled" value="${cInfo.qyTysh}" placeholder="" autocomplete="off">
+                            <#if (cInfo.qyTysh)??>
+                                <input type="text" class="form-control" id="qyTysh" disabled="disabled" value="${cInfo.qyTysh}" placeholder="" autocomplete="off">
+                            <#else>
+                                <input type="text" class="form-control" id="qyTysh" disabled="disabled" value="" placeholder="" autocomplete="off">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qyFrsfz" disabled="disabled" value="${cInfo.qyFrsfz}" placeholder="" autocomplete="off">
+                            <#if (cInfo.qyFrsfz)??>
+                                <input type="text" class="form-control" id="qyFrsfz" disabled="disabled" value="${(cInfo.qyFrsfz)!''}" placeholder="" autocomplete="off">
+                            <#else>
+                                <input type="text" class="form-control" id="qyFrsfz" disabled="disabled" value="" placeholder="" autocomplete="off">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv" data-val="${cInfo.qyProv}">
+                            <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv" data-val="${(cInfo.qyProv)!''}">
                                 <option value="">请选择</option>
 
                             </select>
                         </div>
                         <label for="qyCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity" data-val="${cInfo.qyCity}">
+                            <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity" data-val="${(cInfo.qyCity)!''}">
                                 <option value="">请选择</option>
 
                             </select>
@@ -100,7 +116,7 @@
                     <div class="form-group">
                         <label for="qyArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <select class="form-control" name="qyArea" id="qyArea" data-val="${cInfo.qyArea}">
+                            <select class="form-control" name="qyArea" id="qyArea" data-val="${(cInfo.qyArea)!''}">
                                 <option value="">请选择</option>
 
                             </select>
@@ -109,58 +125,80 @@
                     <div class="form-group">
                         <label for="qydz" class="col-sm-2 control-label">公司地址<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qydz" name="qydz" placeholder="" autocomplete="off" value="${cInfo.qydz}">
+                            <#if (cInfo.qydz)??>
+                                <input type="text" class="form-control" id="qydz" name="qydz" placeholder="" autocomplete="off" value="${cInfo.qydz}">
+                            <#else>
+                                <input type="text" class="form-control" id="qydz" name="qydz" placeholder="" autocomplete="off" value="">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyLxr" class="col-sm-2 control-label">联系人<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off" value="${cInfo.qyLxr}">
+                            <#if (cInfo.qyLxr)??>
+                                <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off" value="${cInfo.qyLxr}">
+                            <#else>
+                                <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off" value="">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyLxrdh" class="col-sm-2 control-label">手机<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off" value="${cInfo.qyLxrdh}">
+                            <#if (cInfo.qyLxrdh)??>
+                                <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off" value="${cInfo.qyLxrdh}">
+                            <#else>
+                                <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off" value="">
+                            </#if>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="qyYx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="${cInfo.qyYx}">
+                            <#if (cInfo.qyYx)??>
+                                <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="${cInfo.qyYx}">
+                            <#else>
+                                <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyGsxz" class="col-sm-2 control-label">公司性质<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="qyGsxz" name="qyGsxz" data-val="${cInfo.qyGsxz}">
+                            <select class="form-control" id="qyGsxz" name="qyGsxz" data-val="${(cInfo.qyGsxz)!''}">
                                 <option value="">请选择</option>
+                            <#if qyGsxz??>
                             <#list qyGsxz as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                            </#if>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyHylb" class="col-sm-2 control-label">行业类别<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="qyHylb" name="qyHylb" data-val="${cInfo.qyHylb}">
+                            <select class="form-control" id="qyHylb" name="qyHylb" data-val="${(cInfo.qyHylb)!''}">
                                 <option value="">请选择</option>
+                                <#if qyHylb??>
                             <#list qyHylb as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                                </#if>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyGsgm" class="col-sm-2 control-label">公司规模<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <select class="form-control" id="qyGsgm" name="qyGsgm" data-val="${cInfo.qyGsgm}">
+                            <select class="form-control" id="qyGsgm" name="qyGsgm" data-val="${(cInfo.qyGsgm)!''}">
                                 <option value="">请选择</option>
+                                <#if qyGsgm??>
                             <#list qyGsgm as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
                             </#list>
+                                </#if>
                             </select>
                         </div>
                     </div>
@@ -168,14 +206,26 @@
                     <div class="form-group">
                         <label for="qyGsjs" class="col-sm-2 control-label">公司介绍<span class="red">*</span>：</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" style="resize: none;" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>
+                            <#if (cInfo.qyGsjs)??>
+                                <textarea class="form-control" style="resize: none;" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>
+                            <#else>
+                                <textarea class="form-control" style="resize: none;" id="qyGsjs" name="qyGsjs" rows="10" data-val=""></textarea>
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="qyGsjs" class="col-sm-2 control-label">营业执照照片：</label>
                         <div class="col-sm-8">
+                            <#if (cInfo.qyYyzzzp)??>
                             <img src="${imagePath}${cInfo.qyYyzzzp}" style="width: 150px;height: 180px;" />
                             <#--<textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>-->
+                            <#else>
+                                <div style="width: 150px;text-align: center;">
+                                    <img src="${base}/img/upload.png" id="yyzz"  style="width: 150px;max-height: 180px;" />
+                                    <label class="uploadlabel" for="file">上传图片</label>
+                                    <input type="file" style="display: none;" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                                </div>
+                            </#if>
                         </div>
                     </div>
                     <input type="hidden" id="qyYyzzzp" name="qyYyzzzp" />

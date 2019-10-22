@@ -73,7 +73,7 @@
                         </div>
                         <div class="jf-item ">3、完成</div>
                     </div>
-                        <div class="step2-title">${oneJob.zwbt}招聘会火热报名中。。。</div>
+                        <div class="step2-title">${(oneJob.zwbt)!''}招聘会火热报名中。。。</div>
                      <#elseif step=='2'>
                     <div class="jf-items">
                         <div class="jf-item jf-active">1、招聘会列表
@@ -131,16 +131,16 @@
                 <#elseif step=='1'>
                     <div class="zph-d">
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">举办时间：${oneJob.zphKsrq?substring(0,10)}</div>
-                            <div class="col-md-4">举办城市：${oneJob.zwPro!""}${oneJob.zwCity!""}${oneJob.zwArea!""}</div>
+                            <div class="col-md-4 col-md-offset-1">举办时间：${((oneJob.zphKsrq)?substring(0,10))!''}</div>
+                            <div class="col-md-4 col-md-offset-1">举办城市：${(oneJob.zwPro)!""}${(oneJob.zwCity)!""}${(oneJob.zwArea)!""}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">预定结束时间：${oneJob.zphBmjzsj?substring(0,10)}</div>
-                            <div class="col-md-4">举办地址：${oneJob.zphJbdd!""}</div>
+                            <div class="col-md-4 col-md-offset-1">预定结束时间：${((oneJob.zphBmjzsj)?substring(0,10))!''}</div>
+                            <div class="col-md-4 col-md-offset-1">举办地址：${(oneJob.zphJbdd)!""}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-4 col-md-offset-1">主办方：${oneJob.zphJbf!""}</div>
-                            <div class="col-md-4">承办方：${oneJob.zphCbf!""}</div>
+                            <div class="col-md-4 col-md-offset-1">主办方：${(oneJob.zphJbf)!""}</div>
+                            <div class="col-md-4 col-md-offset-1">承办方：${(oneJob.zphCbf)!""}</div>
                         </div>
                         <div class="row btn-yd">
                             <div class="col-md-8 col-md-offset-1 text-center">
@@ -175,9 +175,9 @@
     </div>
 </div>
 <#if zphOwid??>
-<input type="hidden" value="${zphOwid}" id="zphOwid" />
+<input type="hidden" value="${zphOwid!''}" id="zphOwid" />
 </#if>
-<input type="hidden" value="${step}" id="current-step" />
+<input type="hidden" value="${step!''}" id="current-step" />
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/bootstrap-table.min.js" type="text/javascript"></script>
@@ -206,36 +206,40 @@ var pageSize=10;
         }
         ajax("zustjy/bckjBizJob/zphtjList", jsonObj, function (data) {
             if(data.backCode==0){
-                zdytjLength=data.bean.length;
-                for(var i=1;i<data.bean.length+1;i++){
-                    for(var a in data.bean[i-1]){
-                        zdytjObj['zdytj'+i]=a
-                        zdytjObj['tjsd'+i]=data.bean[i-1][a]
-                        // zdytjObj['str'+i]='<option value="">请选择</option>'
-                        // for(var x=0;x<data.bean[i-1][a].length;x++){
-                        //     zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
-                        // }
-                        zdytjObj['str'+i]=''//'<option value="">请选择</option>'
-                        if(!data.bean[i-1][a] || data.bean[i-1][a].length==0){
-                            zdytjObj['str'+i]= '<input type="text" class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" placeholder="" autocomplete="off">';
-                        }else{
-                            zdytjObj['str'+i]='<select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" ><option value="">请选择</option>'
-                            for(var x=0;x<data.bean[i-1][a].length;x++){
-                                zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                if(data.bean){
+                    if(data.bean.length){
+                        zdytjLength=data.bean.length;
+                    }
+                    for(var i=1;i<data.bean.length+1;i++){
+                        for(var a in data.bean[i-1]){
+                            zdytjObj['zdytj'+i]=a
+                            zdytjObj['tjsd'+i]=data.bean[i-1][a]
+                            // zdytjObj['str'+i]='<option value="">请选择</option>'
+                            // for(var x=0;x<data.bean[i-1][a].length;x++){
+                            //     zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                            // }
+                            zdytjObj['str'+i]=''//'<option value="">请选择</option>'
+                            if(!data.bean[i-1][a] || data.bean[i-1][a].length==0){
+                                zdytjObj['str'+i]= '<input type="text" class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" placeholder="" autocomplete="off">';
+                            }else{
+                                zdytjObj['str'+i]='<select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" ><option value="">请选择</option>'
+                                for(var x=0;x<data.bean[i-1][a].length;x++){
+                                    zdytjObj['str'+i]+='<option value="'+data.bean[i-1][a][x]+'">'+data.bean[i-1][a][x]+'</option>'
+                                }
+                                zdytjObj['str'+i]+='</select>';
                             }
-                            zdytjObj['str'+i]+='</select>';
                         }
                     }
-                }
-                for(var i=1;i<data.bean.length+1;i++){
-                    zdytjStr+='<div class="row">\n' +
-                            '     <div class="form-group">\n' +
-                            '     <label for="zdytj'+i+'" class="col-sm-3 control-label text-right" style="line-height: 34px;">'+zdytjObj['zdytj'+i]+'<span class="red">*</span>：</label>\n' +
-                            '     <div class="col-sm-4">\n' +zdytjObj['str'+i]+
-                            // '          <select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" >'+zdytjObj['str'+i]+'</select>\n' +
-                            '     </div>\n' +
-                            '     </div>\n' +
-                            '     </div>\n'
+                    for(var i=1;i<data.bean.length+1;i++){
+                        zdytjStr+='<div class="row">\n' +
+                                '     <div class="form-group">\n' +
+                                '     <label for="zdytj'+i+'" class="col-sm-3 control-label text-right" style="line-height: 34px;">'+zdytjObj['zdytj'+i]+'<span class="red">*</span>：</label>\n' +
+                                '     <div class="col-sm-4">\n' +zdytjObj['str'+i]+
+                                // '          <select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" >'+zdytjObj['str'+i]+'</select>\n' +
+                                '     </div>\n' +
+                                '     </div>\n' +
+                                '     </div>\n'
+                    }
                 }
             }else{
                 walert(data.errorMess)

@@ -3,8 +3,12 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-    "pages/Process/Process",
+    "pages/shouye/shouye",
+    "pages/login/login",
+    "pages/majorExam/majorExam",
+    "pages/examTip/examTip",
     "pages/messageCenter/messageCenter",
+    "pages/Process/Process",
     "pages/forgetPsw/forgetPsw",
     "pages/register/register",
     "pages/drawGroup/drawGroup",
@@ -13,12 +17,8 @@
     "pages/selectExamInfo/selectExamInfo",
     "pages/uploadSignature/uploadSignature",
     "pages/payOline/payOline",
-    "pages/majorExam/majorExam",
-    "pages/examTip/examTip",
     "pages/xw/xw",
     "pages/grzx/grzx",
-    "pages/shouye/shouye",
-    "pages/login/login",
     "pages/index/index",
     "pages/logs/logs"
   ],
@@ -26,7 +26,8 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#26b887",
     "navigationBarTitleText": "浙江科技学院三位一体",
-    "navigationBarTextStyle": "white"
+    "navigationBarTextStyle": "white",
+    "backgroundColor":"#26b887"
   },
   "sitemapLocation": "sitemap.json",
   "tabBar": {

@@ -383,6 +383,8 @@
                                 layer.close(index);
                             }
                         });
+                    }else{
+                        walert(data.errorMess)
                     }
                 })
             }

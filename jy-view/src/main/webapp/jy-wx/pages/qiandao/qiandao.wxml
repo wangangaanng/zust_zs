@@ -1,5 +1,5 @@
 <!--pages/qiandao/qiandao.wxml-->
-<view>
+<view wx:if="{{show}}">
 			<view class="txxx">
 				<view class="toux">
 					<image src="{{headImgUrl}}"></image>
@@ -45,3 +45,4 @@
 				</view>
 			</view>
 		</view>
+    <authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>

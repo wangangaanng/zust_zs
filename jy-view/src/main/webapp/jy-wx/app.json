@@ -45,7 +45,8 @@
     "pages/school/school",
     "pages/qiandao/qiandao",
     "pages/stuCaidian/stuCaidian",
-    "pages/caidian/caidian"
+    "pages/caidian/caidian",
+    "pages/guanzhu/guanzhu"
   ],
   "window": {
     "backgroundTextStyle": "light",
