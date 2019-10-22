@@ -231,7 +231,6 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 jybm.setZdytj5(jybm.getZdytj5() + "：" + jybm.getTjsd5());
             }
 
-
             jybm.setBmsj(new Date());
             //报名类型企业
             if (bmlx == JyContant.BMLX_QY) {
@@ -330,6 +329,22 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                         return resultMap;
                     }
                 }
+                if (JyContant.BMLX_QY == bmlx)
+                {
+                    Map params = new HashMap<String, Object>();
+                    params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+                    if (!TextUtils.isEmpty(mapData.get("qyxxRefOwid"))) {
+                        params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
+                    }
+
+                    List<BckjBizJybm> existBm = findListByParams(params, "");
+                    if (!TextUtils.isEmpty(existBm) && existBm.size() > 0) {
+                        resultMap.put("result", "false");
+                        resultMap.put("msg", "已存在报名信息");
+                        return resultMap;
+                    }
+                }
+
                 if (!TextUtils.isEmpty(job.getZphKsrq())) {
                     jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd HH:mm:ss"));
                 }
@@ -398,7 +413,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
         if (!TextUtils.isEmpty(dataMap.get("bmdx"))) {
             dataMap.put("bmdx", dataMap.get("bmdx").toString());
+            if ("0".equals(dataMap.get("bmdx").toString())) {
+                dataMap.put("orderBy", " b.zph_ksrq desc ");
+            }
         }
+
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();
