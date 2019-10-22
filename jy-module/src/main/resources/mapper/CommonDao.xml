@@ -234,6 +234,14 @@
         </if>
     </select>
 
+    <!--根据招聘信息表职位类型、招聘会开始日期统计职位数量、宣讲会数量、招聘会数量    -->
+    <select id="getJobNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bckj_biz_job
+        WHERE state=2 AND zwlx=#{zwlx} AND MONTH (zph_ksrq)=#{month}
+    </select>
+
+    <!--查询字典表值    -->
     <select id="getOneDic" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT a.* FROM ourway_sys_dic_value a,ourway_sys_dic b WHERE a.dic_ref_owid=b.owid
         <if test="dicType != null and dicType !=''">
@@ -247,6 +255,7 @@
         </if>
     </select>
 
+    <!--查询字典表列表值    -->
     <select id="listDicVal" parameterType="java.util.Map" resultType="java.util.Map">
         select * from ourway_sys_dic a,ourway_sys_dic_value b
         <where>a.owid=b.dic_ref_owid
