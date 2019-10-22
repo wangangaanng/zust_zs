@@ -23,6 +23,7 @@
     <van-cell-group>
       <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入用姓名" />
       <van-field value="{{ idNum }}" clearable label="身份证号" placeholder="请输入身份证号码" />
+      <van-field value="{{ '女' }}" clearable label="性别" placeholder="请选择性别" />
       <van-field value="{{ nationality }}" clearable label="民族" placeholder="请选择民族" />
       <van-field value="{{ address }}" clearable label="通讯地址" placeholder="请输入通讯地址" />
       <van-field value="{{ contactPhone }}" clearable label="联系电话" placeholder="请输入联系电话" />

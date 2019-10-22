@@ -19,7 +19,7 @@
       <image src="../../static/sy4.png" class="head_in"></image>
       <image src="../../static/sy2.png" class="head_out"></image>
     </view>
-    <view class="head_name">会考科目</view>
+    <view class="head_name">学考等第</view>
   </navigator>
   <navigator class="li" url='../selectExamInfo/selectExamInfo'>
     <view class="head_li yet">

@@ -2,10 +2,11 @@
 
 page {
   background: #f5f5f5;
+  padding-bottom: 40rpx;
 }
 
 .head {
-  margin: 34rpx;
+  margin: 34rpx 25rpx;
   display: flex;
   background: #fff;
   box-shadow: 0px 1px 5px 0px rgba(210, 210, 210, 0.75);
@@ -150,9 +151,24 @@ page {
 .step {
   padding-top: 15px;
   margin-top: 15px;
-  border-top: 1rpx solid #dcdcdc;
   color: #535353;
   font-size: 13px;
+  position: relative;
+}
+
+.step::after {
+  position: absolute;
+  box-sizing: border-box;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  content: " ";
+  pointer-events: none;
+  right: 0;
+  top: 0;
+  left: 0;
+  border-top: 1px solid #eee;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
 }
 
 .FQA {
@@ -163,8 +179,23 @@ page {
 
 .FQA-li {
   background-color: #fff;
-  border-bottom: solid 1px #e0e0e0;
   padding: 13px 23px;
+  position: relative;
+}
+
+.FQA-li::after {
+  position: absolute;
+  box-sizing: border-box;
+  -webkit-transform-origin: center;
+  transform-origin: center;
+  content: " ";
+  pointer-events: none;
+  right: 25rpx;
+  top: 0;
+  left: 25rpx;
+  border-top: 1px solid #eee;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
 }
 
 .FQA-li .FQA-li-img {
