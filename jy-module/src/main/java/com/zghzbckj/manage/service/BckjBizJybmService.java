@@ -94,7 +94,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         if (!TextUtils.isEmpty(map.get("bmdx"))) {
             dataMap.put("bmdx", map.get("bmdx").toString());
         }
-        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, "a.state, a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 

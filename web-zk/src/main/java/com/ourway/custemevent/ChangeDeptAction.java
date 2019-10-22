@@ -95,7 +95,12 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         window.getBaseGrid().refreshGrid();
                         window.getBaseGrid().display();
                         if (isFlag == 0) {
-                            AlterDialog.alert("定位成功，请在小程序登录管理员账号进行采点");
+                            if (!TextUtils.isEmpty(e.get("zphGpswd")) && !TextUtils.isEmpty(e.get("zphGpsjd"))) {
+                                AlterDialog.alert("定点成功，请在小程序登录管理员账号进行采点");
+                            } else {
+                                AlterDialog.alert("定位成功！");
+                            }
+
                         } else if (isFlag == 2) {
                             AlterDialog.alert(responseMessage.getErrorMess());
                         }

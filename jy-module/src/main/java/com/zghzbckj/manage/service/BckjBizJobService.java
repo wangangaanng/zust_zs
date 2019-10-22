@@ -121,6 +121,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if ("6".equals(zwlx.toString())) {
             dataMap.put("zwlx", "3");
             dataMap.put("wait", "1");
+        } else if ("3".equals(zwlx.toString())) {
+            dataMap.put("over", 1);
+            dataMap.put("zwlx", "3");
         }
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
@@ -214,8 +217,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
             bckjBizJob.setZphKsrq(date);
         }
-        if (JyContant.ZWLB_ZW == zwlx)
-        {
+        if (JyContant.ZWLB_ZW == zwlx) {
             if (!TextUtils.isEmpty(mapData.get("exp1"))) {
                 Map temp = new HashMap<>(1);
                 temp.put("qymc", mapData.get("exp1").toString());
