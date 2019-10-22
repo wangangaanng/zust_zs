@@ -1,7 +1,9 @@
 <!--pages/Process/Process.wxml-->
 <view class="top">
   <image src="../../static/mark.png" class="mark"></image>
-  <image src="../../static/bell.png" class="bell"></image>
+  <navigator class="li" url='../messageCenter/messageCenter'>
+    <image src="../../static/bell.png" class="bell"></image>
+   </navigator >
   <view class="left">
     <view class="name">浙江科技学院</view>
     <view class="welcome">欢迎，张小凡！</view>

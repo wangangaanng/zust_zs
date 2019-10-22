@@ -2,6 +2,7 @@
 
 page {
   background: #f5f5f5;
+  padding-bottom: 60rpx;
 }
 
 .top {
@@ -42,7 +43,7 @@ page {
   padding: 0 16rpx 50rpx;
   background-color: #fff;
   box-shadow: 0px 1px 5px 0px rgba(226, 226, 226, 0.75);
-  margin: -120rpx auto 60rpx;
+  margin: -120rpx auto 0;
   position: relative;
 }
 
