@@ -32,15 +32,15 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li><a href="/enterpriseService/1">企业服务</a></li>
+                <li><a href="${base}/">首页</a></li>
+                <li><a href="${base}/enterpriseService/1">企业服务</a></li>
                 <li class="active">职位信息</li>
             </ol>
         </div>
         <ul class="nav nav-tabs" id="nav-tabs-job">
-            <li role="presentation" class="active"><a href="#" onclick="tabs(0)">职位信息</a></li>
-            <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
-            <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+            <li role="presentation" class="active"><a onclick="tabs(0)">职位信息</a></li>
+            <li role="presentation"><a onclick="tabs(1)">关注学生</a></li>
+            <li role="presentation"><a onclick="tabs(2)">报名学生</a></li>
         </ul>
         <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList">
             <div class="e-table" style="padding: 0 20px;">

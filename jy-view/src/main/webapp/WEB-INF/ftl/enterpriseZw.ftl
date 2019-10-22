@@ -23,7 +23,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
+                <li><a href="${base}/">首页</a></li>
                 <li><a href="#">企业服务</a></li>
                 <li class="active">职位信息发布</li>
             </ol>

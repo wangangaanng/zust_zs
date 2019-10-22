@@ -131,7 +131,7 @@
                         <input type="password" id="qyFrsfz" onkeydown="keyLogin()" placeholder="请输入法人身份证后六位" class="login-pswd">
                     </li>
                     <li>
-                        还没有账号？<a href="/enterpriseReg">注册</a>
+                        还没有账号？<a href="${base}/enterpriseReg">注册</a>
                     </li>
                     <li>
                         <input type="button" value="登录" onclick="qyLogin()" class="login-btn">

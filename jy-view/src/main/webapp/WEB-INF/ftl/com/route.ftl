@@ -5,7 +5,7 @@
     </div>
 
     <ol class="breadcrumb">
-        <li><a href="/">首页</a></li>
+        <li><a href="${base}/">首页</a></li>
         <#if secondDirName??>
             <li><a href="#">${secondDirName!''}</a></li>
         <#else >

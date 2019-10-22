@@ -23,9 +23,9 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">学生服务</a></li>
-                <li class="active">咨询列表</li>
+                <li><a>首页</a></li>
+                <li><a >学生服务</a></li>
+                <li>咨询列表</li>
             </ol>
         </div>
         <div class="content">

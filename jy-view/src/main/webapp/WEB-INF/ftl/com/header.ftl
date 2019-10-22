@@ -15,10 +15,10 @@
                 <img class="logo" src="${base}/img/logo-zust.png">
                 <div class="title">就业信息网</div>
                 <div class="user-info" id="qyInfo" style="display: none;">
-                    <a href="/enterpriseService/0">欢迎您<span id="qyName"></span></a>,<a href="#" onclick="loginout()">退出</a>
+                    <a href="${base}/enterpriseService/0">欢迎您<span id="qyName"></span></a>,<a href="#" onclick="loginout()">退出</a>
                 </div>
                 <div class="user-info" id="stuInfo" style="display: none;">
-                    <a href="/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
+                    <a href="${base}/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
                 </div>
                 <div class="search-bar" style="float: right;width: 350px;margin-top: 50px;margin-right:12px;border-bottom: none;">
                     <div class="input-group">

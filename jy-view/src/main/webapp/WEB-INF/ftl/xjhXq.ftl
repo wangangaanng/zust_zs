@@ -33,17 +33,17 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
+                <li><a href="${base}/">首页</a></li>
                 <li><a href="#">企业服务</a></li>
                 <li class="active">宣讲会详情</li>
             </ol>
         </div>
         <ul class="nav nav-tabs" id="nav-tabs-job">
-            <li role="presentation" class="active"><a href="#" onclick="tabs(0)">宣讲会信息</a></li>
+            <li role="presentation" class="active"><a onclick="tabs(0)">宣讲会信息</a></li>
             <#if result?? && (result.state)?? && result.state==1>
-            <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
+            <li role="presentation"><a onclick="tabs(1)">关注学生</a></li>
                 <#if (result.zphSfbm)?? && result.zphSfbm==1>
-                <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
+                <li role="presentation"><a onclick="tabs(2)">报名学生</a></li>
                 </#if>
             </#if>
         </ul>
@@ -73,7 +73,7 @@
                         <h1>${result.zwbt!''}</h1>
                     </#if>
                     <dl class="info">
-                        <dt><a href="">宣讲会</a></dt>
+                        <dt><a>宣讲会</a></dt>
                     </dl>
                 </div>
                 <ul class="xInfo" style="width: 50%;float: left;">

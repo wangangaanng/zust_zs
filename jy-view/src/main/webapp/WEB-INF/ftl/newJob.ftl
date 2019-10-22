@@ -24,8 +24,8 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li><a href="/enterpriseService/1">企业服务</a></li>
+                <li><a href="${base}/">首页</a></li>
+                <li><a href="${base}/enterpriseService/1">企业服务</a></li>
                 <li class="active">新增职位</li>
             </ol>
         </div>

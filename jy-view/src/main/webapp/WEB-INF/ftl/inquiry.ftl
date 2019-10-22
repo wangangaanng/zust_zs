@@ -21,7 +21,7 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
+                <li><a href="${base}/">首页</a></li>
                 <li class="active">就业调查</li>
             </ol>
         </div>
