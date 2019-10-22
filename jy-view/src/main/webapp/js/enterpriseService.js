@@ -46,13 +46,14 @@ $(document).ready(function () {
 
                 var fd = new FormData();
                 fd.append("file",file);
+                fd.append("method","zustcommon/common/picUpload")
                 fd.append('data', JSON.stringify({
                     "type": 1
                 }));
                 $("#yyzz").attr("src",this.result)
                 beginLoad()
                 $.ajax({
-                    url: uploadUrl,
+                    url:  base+'/webAjax/picUpload',
                     type: "POST",
                     processData: false,
                     contentType: false,
