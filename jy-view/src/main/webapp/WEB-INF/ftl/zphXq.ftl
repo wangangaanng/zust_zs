@@ -33,13 +33,13 @@
             </div>
 
             <ol class="breadcrumb">
-                <li><a href="/">首页</a></li>
-                <li><a href="#">企业服务</a></li>
-                <li class="active">宣讲会详情</li>
+                <li><a href="${base}/">首页</a></li>
+                <li><a href="${base}/enterpriseService/3">企业服务</a></li>
+                <li class="active">招聘会详情</li>
             </ol>
         </div>
         <ul class="nav nav-tabs" id="nav-tabs-job">
-            <li role="presentation" class="active"><a href="#" onclick="tabs(0)">宣讲会信息</a></li>
+            <li role="presentation" class="active"><a href="#" onclick="tabs(0)">招聘会信息</a></li>
             <#if result?? && result.state?? && result.state==1>
             <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
                 <#if result.zphSfbm?? && result.zphSfbm==1>

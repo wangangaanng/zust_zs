@@ -34,7 +34,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="${base}/">首页</a></li>
-                <li><a href="#">企业服务</a></li>
+                <li><a href="${base}/enterpriseService/2">企业服务</a></li>
                 <li class="active">宣讲会详情</li>
             </ol>
         </div>
