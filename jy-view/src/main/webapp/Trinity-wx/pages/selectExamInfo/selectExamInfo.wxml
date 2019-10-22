@@ -63,7 +63,7 @@
   <view class="cell-wrap line-btm">
     <view class="sm-title">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次：</view>
     <view class="border-area">
-      <textarea></textarea>
+      <textarea placeholder="输入内容"  placeholder-style="color:#999;"></textarea>
     </view>
     <view class="btn-upload">
       <i class=" iconfont icon-hao"></i>

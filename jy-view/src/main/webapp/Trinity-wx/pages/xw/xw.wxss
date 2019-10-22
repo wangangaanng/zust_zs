@@ -75,7 +75,7 @@ page {
 }
 
 .scroll-view_H .ff {
-  position: fixed;
+  position: absolute;
   right: 0;
   background: #fff;
   height: 34px;
@@ -122,4 +122,9 @@ page {
   color: #888;
   font-size: 12px;
   margin-top: 12rpx;
+}
+
+.conter{
+  width: 100%;
+  overflow: hidden;
 }

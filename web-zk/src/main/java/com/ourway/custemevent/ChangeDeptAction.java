@@ -80,6 +80,12 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         ppt.put("owid", data.get("owid"));
                         ppt.put("zphJbdd", e.get("zphJbdd"));
                         ppt.put("zphGpsbj", e.get("zphGpsbj"));
+                        if (!TextUtils.isEmpty(e.get("zphGpsjd"))) {
+                            ppt.put("zphGpsjd", e.get("zphGpsjd"));
+                        }
+                        if (!TextUtils.isEmpty(e.get("zphGpswd"))) {
+                            ppt.put("zphGpswd", e.get("zphGpswd"));
+                        }
                         publicData.setData(com.ourway.base.zk.utils.JsonUtil.toJson(ppt));
                         ResponseMessage responseMessage = JsonPostUtils.executeAPI(ppt, apiURL);
                         if (responseMessage.getBackCode() != 0) {
@@ -89,7 +95,12 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         window.getBaseGrid().refreshGrid();
                         window.getBaseGrid().display();
                         if (isFlag == 0) {
-                            AlterDialog.alert("成功！");
+                            if (!TextUtils.isEmpty(e.get("zphGpswd")) && !TextUtils.isEmpty(e.get("zphGpsjd"))) {
+                                AlterDialog.alert("定点成功，请在小程序登录管理员账号进行采点");
+                            } else {
+                                AlterDialog.alert("定位成功！");
+                            }
+
                         } else if (isFlag == 2) {
                             AlterDialog.alert(responseMessage.getErrorMess());
                         }

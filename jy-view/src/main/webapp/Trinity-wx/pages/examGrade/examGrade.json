@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "学考等第",
+  "usingComponents": {
+    "van-field": "vant-weapp/field",
+    "van-popup": "vant-weapp/popup",
+    "van-picker": "vant-weapp/picker",
+    "van-cell": "vant-weapp/cell",
+    "van-checkbox-group": "vant-weapp/checkbox-group"
+  }
+}
