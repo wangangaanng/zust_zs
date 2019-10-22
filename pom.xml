@@ -15,6 +15,7 @@
         <module>jy-view</module>
         <module>common-module</module>
         <module>jy-module</module>
+        <module>zs-view</module>
     </modules>
 
 

@@ -45,4 +45,6 @@
   border-radius: 40rpx;
   color: #fff;
   font-size: 16px;
+  height: 88rpx;
+  line-height: 88rpx;
 }

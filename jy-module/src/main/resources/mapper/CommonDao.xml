@@ -186,95 +186,57 @@
         WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
     </select>
 
+    <!--根据招聘信息表的类型来获取待举办的招聘会和宣讲会 3招聘会4宣讲会    -->
+    <select id="getListJob" resultType="java.util.Map">
+        SELECT a.zwbt, a.zph_ksrq AS ksrq
+        FROM bckj_biz_job a
+        <where> a.state = 2
+            AND a.zph_ksrq &gt;= CURRENT_DATE AND (( a.zph_sfqd = 0) OR ( a.zph_sfqd = 1 AND a.zph_gpsjd IS NOT NULL ))
+            <if test="zwlx != null and zwlx != ''">
+                AND a.zwlx=#{zwlx}
+            </if>
+        </where>
+    </select>
+
+    <!--根据企业信息表的状态来获取待审核的企业 1待审核    -->
+    <select id="getListCompany" resultType="java.util.Map">
+        SELECT qymc, createtime
+        FROM bckj_biz_qyxx
+        WHERE state=#{state}
+    </select>
+
+    <!--根据企业信息表的状态来统计企业数量 1待审核2已审核的正常企业-->
+    <select id="getListCompanyNumber" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, a.state
+        FROM bckj_biz_qyxx a
+        WHERE a.state=1 OR a.state=2 GROUP BY a.state
+    </select>
+
+    <!--根据企业信息表的行业类别、类型来统计企业数量 默认为已审核与待审核企业    -->
     <select id="getCompanyNum" resultType="java.lang.Integer">
         select count(*)
         from bckj_biz_qyxx
-        <where>
-            <if test="state != null and state !=''">
-                and state=#{state}
-            </if>
-            <if test="year != null and year !=''">
-                and year(createtime)=#{year}
-            </if>
-            <if test="month != null and month !=''">
-                and month(createtime)=#{month}
-            </if>
-            <if test="qyHylb != null and qyHylb !=''">
-                and qy_hylb=#{qyHylb}
-            </if>
-            <if test="qyGsgm != null and qyGsgm !=''">
-                and qy_gsgm=#{qyGsgm}
-            </if>
-        </where>
+        WHERE state=1 OR state=2
+        GROUP BY ${groupBy}
     </select>
 
-    <select id="getZwlxNumber" resultType="java.lang.Integer">
-        select count(*)
-        from bckj_biz_job
-        <where>
-            <if test="state != null and state !=''">
-                and state=#{state}
-            </if>
-            <if test="year != null and year !=''">
-                and year(createtime)=#{year}
-            </if>
-            <if test="month != null and month !=''">
-                and month(createtime)=#{month}
-            </if>
-            <if test="zwlx != null and zwlx !=''">
-                and zwlx=#{zwlx}
+    <!--根据招聘信息表的职位类型来统计职位数量    -->
+    <select id="getListJobNumber" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, zwbt, zw_gzs AS gzs, zph_ksrq AS ksrq
+        FROM bckj_biz_job
+        <where> a.state = 2
+            <if test="zwlx != null and zwlx != ''">
+                AND zwlx=#{zwlx}
             </if>
         </where>
-    </select>
-
-    <select id="getStudentFollow" resultType="java.util.Map">
-        select count(*) as jobNumber, a.job_ref_owid, b.zwbt, b.exp1
-        from bckj_biz_xsgz a, bckj_biz_job b
-        <where> 1=1 and a.job_ref_owid=b.owid
-            <if test="type != null and type !=''">
-                and a.gzlx=#{type}
-            </if>
-            <if test="year != null and year !=''">
-                and year(a.createtime)=#{year}
-            </if>
-        </where>
-        group by a.job_ref_owid
-        <if test="limit != null and limit !=''">
-            limit #{limit}
+        <if test="groupBy != null and groupBy != ''">
+            GROUP BY zw_gzzn
         </if>
-    </select>
-
-    <select id="getCompanyArea" resultType="java.util.Map">
-        select count(*) as companyNumber, qy_prov as province
-        from bckj_biz_qyxx
-        where year(createtime)=#{year}
-        group by qy_prov
-    </select>
-
-    <select id="getMapList" resultType="java.lang.String">
-        SELECT a.prov AS province
-        FROM bckj_biz_yhxx a
-        <where>
-            <if test="year != null and year != ''">
-                AND YEAR(a.createtime)=#{year}
-            </if>
-        </where>
-    </select>
-
-    <select id="getGraduationMapList" resultType="java.util.Map">
-        SELECT count(*) AS value, a.exp1 AS name
-        FROM bckj_biz_jyscheme a
-        <where>
-            <if test="year != null and year != ''">
-                AND YEAR(a.createtime)=#{year}
-            </if>
-        </where>
-        GROUP BY a.exp1
     </select>
 
     <select id="getOneDic" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT a.* FROM ourway_sys_dic_value a,ourway_sys_dic b WHERE a.dic_ref_owid=b.owid
-        <if test="type != null and type !=''">
+        <if test="dicType != null and dicType !=''">
             AND b.TYPE=#{dicType}
         </if>
         <if test="dicVal1 != null and dicVal1 !=''">

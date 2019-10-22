@@ -429,6 +429,11 @@ public class DemoController {
             PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
             ResponseMessage zwGzxz  = UnionHttpUtils.doPosts(publicData5);
             view.addObject("zwGzxz",zwGzxz.getBean());
+            Map param6=Maps.newHashMap();
+            param6.put("owid",qyOwid);
+            PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizQyxx/getOneCompany");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData6);
+            view.addObject("result",result.getBean());
             return view;
         }else{
             view.setViewName("redirect:/redirectIndex");

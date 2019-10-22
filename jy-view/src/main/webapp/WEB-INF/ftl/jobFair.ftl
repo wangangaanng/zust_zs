@@ -38,7 +38,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li><a href="#">企业服务</a></li>
+                <li><a href="/enterpriseService/3">企业服务</a></li>
                 <li class="active">招聘会申请</li>
             </ol>
         </div>
@@ -415,21 +415,25 @@ var pageSize=10;
 
 
     function operateFormatterZph(value, row, index) {
-        if(row.state==2){
-            if(row.zphSfbm==0){
-                return '-';
-            }else if(row.zphSfbm==1){
-                var c = '<a class="green-color order" href="#">预定展位</a> ';
-                return c;
-            }
+        if(!compareToday(row.zphKsrq)){
+            if(row.state==2){
+                if(row.zphSfbm==0){
+                    return '-';
+                }else if(row.zphSfbm==1){
+                    var c = '<a class="green-color order" href="#">预定展位</a> ';
+                    return c;
+                }
 
-        }else if(row.state==6){
+            }else if(row.state==6){
+                var d = '<span style="color: red;" href="#">已结束</span> ';
+                return d;
+            }else{
+                return '';
+            }
+        }else{
             var d = '<span style="color: red;" href="#">已结束</span> ';
             return d;
-        }else{
-            return '';
         }
-
     }
 
 function operateFormatterZph2(value, row, index) {

@@ -260,32 +260,17 @@
             $("#zwPro").append("<option value='"+e.text+"'>"+e.text+"</option>")
         });
 
-        function getCity() {
-            $("#zwCity").html("<option value=''>请选择</option>")
-            $("#zwArea").html("<option value=''>请选择</option>")
-            pindex=parseInt($("#zwPro option:selected").index())-1;
-            if(pindex>-1){
-                _cityData=city[pindex]
-                _cityData.forEach(function(e) {
-                    $("#zwCity").append("<option value='"+e.text+"'>"+e.text+"</option>")
-                });
-
-            }
-
-        }
-
-        function getArea() {
-            $("#zwArea").html("<option value=''>请选择</option>")
-            cindex=parseInt($("#zwCity option:selected").index())-1;
-            if(cindex>-1){
-                var _areaData=_cityData[cindex].children
-                _areaData.forEach(function(e) {
-                    $("#zwArea").append("<option value='"+e.text+"'>"+e.text+"</option>")
-                });
-
-            }
-        }
         $(document).ready(function () {
+
+            // alert('123')
+            layer.open({
+                title: '提示',
+                content: '职位发布成功',
+                yes: function (index, layero) {
+                    window.location.href='/enterpriseService/1'
+                    layer.close(index);
+                }
+            });
 
             laydate.render({
                 elem: "#zwSxsj" //指定元素
@@ -380,14 +365,42 @@
                             title: '提示',
                             content: '职位发布成功',
                             yes: function (index, layero) {
+                                window.location.href='/enterpriseService/1'
                                 layer.close(index);
                             }
                         });
+                    }else{
+                        walert(data.errorMess)
                     }
                 })
             }
         }
 
+        function getCity() {
+            $("#zwCity").html("<option value=''>请选择</option>")
+            $("#zwArea").html("<option value=''>请选择</option>")
+            pindex=parseInt($("#zwPro option:selected").index())-1;
+            if(pindex>-1){
+                _cityData=city[pindex]
+                _cityData.forEach(function(e) {
+                    $("#zwCity").append("<option value='"+e.text+"'>"+e.text+"</option>")
+                });
+
+            }
+
+        }
+
+        function getArea() {
+            $("#zwArea").html("<option value=''>请选择</option>")
+            cindex=parseInt($("#zwCity option:selected").index())-1;
+            if(cindex>-1){
+                var _areaData=_cityData[cindex].children
+                _areaData.forEach(function(e) {
+                    $("#zwArea").append("<option value='"+e.text+"'>"+e.text+"</option>")
+                });
+
+            }
+        }
     </script>
 </body>
 

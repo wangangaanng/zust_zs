@@ -33,7 +33,7 @@
 
             <ol class="breadcrumb">
                 <li><a href="/">首页</a></li>
-                <li><a href="#">企业服务</a></li>
+                <li><a href="/enterpriseService/1">企业服务</a></li>
                 <li class="active">职位信息</li>
             </ol>
         </div>
@@ -42,7 +42,7 @@
             <li role="presentation"><a href="#" onclick="tabs(1)">关注学生</a></li>
             <li role="presentation"><a href="#" onclick="tabs(2)">报名学生</a></li>
         </ul>
-        <div class="content-form" style="border-top:none;display: none;padding: 0;" id="stuList">
+        <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList">
             <div class="e-table" style="padding: 0 20px;">
                 <table class="table table-hover" data-locale="zh-CN" id="table-job" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
@@ -50,7 +50,7 @@
 
             </div>
         </div>
-        <div class="content-form" style="border-top:none;display: none;padding: 0;" id="stuList1">
+        <div class="content-form" style="border-top:none;display: none;padding: 0;min-height: 400px;" id="stuList1">
             <div class="e-table" style="padding: 0 20px;">
                 <table class="table table-hover" data-locale="zh-CN" id="table-job1" style="table-layout: fixed;
                           word-break:break-all; word-wrap:break-all;">
@@ -63,29 +63,27 @@
                 <div class="form-group">
                     <label for="zwbt" class="col-sm-2 control-label">职位名称<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="zwbt" name="zwbt" value="${jobDetail.zwbt!''}" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" id="zwbt" disabled name="zwbt" value="${(jobDetail.zwbt)!''}" placeholder="" autocomplete="off">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwPro" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" onchange="getCity()" data-val="${(jobDetail.zwPro)!''}" name="zwPro" id="zwPro">
+                    <div class="col-sm-2">
+                        <select class="form-control" onchange="getCity()" disabled data-val="${(jobDetail.zwPro)!''}" name="zwPro" id="zwPro">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
-                    <label for="zwCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" onchange="getArea()" data-val="${(jobDetail.zwCity)!''}" name="zwCity" id="zwCity">
+                    <label for="zwCity" class="col-sm-1 control-label">所在市<span class="red">*</span>：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" onchange="getArea()" disabled data-val="${(jobDetail.zwCity)!''}" name="zwCity" id="zwCity">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label for="zwArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
-                    <div class="col-sm-3">
-                        <select class="form-control" name="zwArea" id="zwArea" data-val="${(jobDetail.zwArea)!''}">
+                    <label for="zwArea" class="col-sm-1 control-label">所在区<span class="red">*</span>：</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" name="zwArea" disabled id="zwArea" data-val="${(jobDetail.zwArea)!''}">
                             <option value="">请选择</option>
 
                         </select>
@@ -94,7 +92,7 @@
                 <div class="form-group">
                     <label for="zwGzzn" class="col-sm-2 control-label">职能类别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwGzzn" name="zwGzzn" data-val="${(jobDetail.zwGzzn)!''}">
+                        <select class="form-control" id="zwGzzn" disabled name="zwGzzn" data-val="${(jobDetail.zwGzzn)!''}">
                             <option value="">请选择</option>
                             <#if zwGzzn??>
                             <#list zwGzzn as obj>
@@ -107,7 +105,7 @@
                 <div class="form-group">
                     <label for="zwGzxz" class="col-sm-2 control-label">工作性质<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwGzxz" name="zwGzxz" data-val="${jobDetail.zwGzxz!''}">
+                        <select class="form-control" id="zwGzxz" disabled name="zwGzxz" data-val="${(jobDetail.zwGzxz)!''}">
                             <option value="">请选择</option>
                             <#if zwGzxz??>
                             <#list zwGzxz as obj>
@@ -118,12 +116,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="zwXs" class="col-sm-2 control-label">薪水<span class="red">*</span>：</label>
+                    <label for="zwXs" class="col-sm-2 control-label">薪水：</label>
                     <div class="col-sm-8">
                         <#if (jobDetail.zwXs)??>
-                        <input type="number" class="form-control" id="zwXs" name="zwXs" data-val="${jobDetail.zwXs!''}" value="${jobDetail.zwXs!''}" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" disabled id="zwXs" name="zwXs" data-val="${(jobDetail.zwXs)!''}"placeholder="面议" value="${(jobDetail.zwXs)!''}" placeholder="" autocomplete="off">
                         <#else>
-                        <input type="number" class="form-control" id="zwXs" name="zwXs" data-val="" value="" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" disabled id="zwXs" name="zwXs" data-val="" placeholder="面议" placeholder="" autocomplete="off">
                         </#if>
                         <span style="position: absolute;right: 25px;top: 7px;">元</span>
                     </div>
@@ -132,9 +130,9 @@
                     <label for="zwLxyx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <#if (jobDetail.zwLxyx)??>
-                        <input type="text" class="form-control" id="zwLxyx" name="zwLxyx" value="${jobDetail.zwLxyx!''}" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" disabled id="zwLxyx" name="zwLxyx" value="${(jobDetail.zwLxyx)!''}" placeholder="" autocomplete="off">
                         <#else>
-                        <input type="text" class="form-control" id="zwLxyx" name="zwLxyx" value="${jobDetail.zwLxyx!''}" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" disabled id="zwLxyx" name="zwLxyx" value="${(jobDetail.zwLxyx)!''}" placeholder="" autocomplete="off">
                         </#if>
                     </div>
                 </div>
@@ -142,16 +140,16 @@
                     <label for="zwZprs" class="col-sm-2 control-label">招聘人数<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <#if (jobDetail.zwZprs)??>
-                        <input type="number" class="form-control" id="zwZprs" name="zwZprs" value="${jobDetail.zwZprs!''}" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" disabled id="zwZprs" name="zwZprs" value="${(jobDetail.zwZprs)!''}" placeholder="" autocomplete="off">
                         <#else>
-                        <input type="number" class="form-control" id="zwZprs" name="zwZprs" value="" placeholder="" autocomplete="off">
+                        <input type="number" class="form-control" disabled id="zwZprs" name="zwZprs" value="" placeholder="" autocomplete="off">
                         </#if>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="zwNlyq" class="col-sm-2 control-label">年龄要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwNlyq" name="zwNlyq" data-val="${jobDetail.zwNlyq!''}">
+                        <select class="form-control" id="zwNlyq" disabled name="zwNlyq" data-val="${(jobDetail.zwNlyq)!''}">
                             <option value="">请选择</option>
                             <#if zwNlyq??>
                             <#list zwNlyq as obj>
@@ -164,7 +162,7 @@
                 <div class="form-group">
                     <label for="zwXlyq" class="col-sm-2 control-label">学历要求<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwXlyq" name="zwXlyq" data-val="${jobDetail.zwXlyq!''}">
+                        <select class="form-control" id="zwXlyq" disabled name="zwXlyq" data-val="${(jobDetail.zwXlyq)!''}">
                             <option value="">请选择</option>
                             <#if zwXlyq??>
                             <#list zwXlyq as obj>
@@ -177,7 +175,7 @@
                 <div class="form-group">
                     <label for="zwGznx" class="col-sm-2 control-label">工作年限<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwGznx" name="zwGznx" data-val="${jobDetail.zwGznx!''}">
+                        <select class="form-control" id="zwGznx" disabled name="zwGznx" data-val="${(jobDetail.zwGznx)!''}">
                             <option value="">请选择</option>
                             <#if zwGznx??>
                             <#list zwGznx as obj>
@@ -188,10 +186,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="zwYyyq" class="col-sm-2 control-label">语言要求<span class="red">*</span>：</label>
+                    <label for="zwYyyq" class="col-sm-2 control-label">语言要求：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="zwYyyq" name="zwYyyq" data-val="${jobDetail.zwYyyq!''}">
-                            <option value="">请选择</option>
+                        <select class="form-control" id="zwYyyq" disabled name="zwYyyq" data-val="${(jobDetail.zwYyyq)!''}">
+                            <option value="">不限</option>
                             <#if zwYyyq??>
                             <#list zwYyyq as obj>
                                 <option value="${obj.dicVal1}">${obj.dicVal2}</option>
@@ -204,9 +202,9 @@
                     <label for="zwGwzz" class="col-sm-2 control-label">职位详情<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <#if (jobDetail.zwZprs)??>
-                        <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10" data-val="${jobDetail.zwGwzz!''}"></textarea>
+                        <textarea class="form-control" disabled id="zwGwzz" name="zwGwzz" rows="10" data-val="${(jobDetail.zwGwzz)!''}"></textarea>
                         <#else>
-                        <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="10" data-val=""></textarea>
+                        <textarea class="form-control" disabled id="zwGwzz" name="zwGwzz" rows="10" data-val=""></textarea>
                         </#if>
                     </div>
                 </div>
@@ -214,9 +212,9 @@
                     <label for="zwSxsj" class="col-sm-2 control-label">失效时间：</label>
                     <div class="col-sm-3">
                         <#if (jobDetail.zwSxsj)??>
-                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" value="${jobDetail.zwSxsj!''}" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" disabled id="zwSxsj" name="zwSxsj" value="${(jobDetail.zwSxsj)!''}" placeholder="" autocomplete="off">
                         <#else>
-                        <input type="text" class="form-control" id="zwSxsj" name="zwSxsj" value="" placeholder="" autocomplete="off">
+                        <input type="text" class="form-control" disabled id="zwSxsj" name="zwSxsj" value="" placeholder="" autocomplete="off">
                         </#if>
                     </div>
                 </div>

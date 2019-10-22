@@ -1,8 +1,11 @@
 package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.MyBatisDao;
+import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJyscheme;
+import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizSyb;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -21,17 +24,15 @@ import java.util.Map;
 @MyBatisDao
 public interface CommonDao {
 
-    Integer getCompanyNum(Map<String, Object> dataMap);
+    List<Map<String, Object>> getListJob(Map<String, Object> dataMap);
 
-    Integer getZwlxNumber(Map<String, Object> dataMap);
+    List<Map<String, Object>> getListCompany(Map<String, Object> dataMap);
 
-    List<Map<String, Object>> getStudentFollow(Map<String, Object> dataMap);
+    List<Map<String, Object>> getListCompanyNumber(Map<String, Object> dataMap);
 
-    List<Map<String, Object>> getCompanyArea(String year);
+    List<Integer> getCompanyNum(@Param("groupBy") String  groupBy);
 
-    List<String> getMapList(Map<String, Object> dataMap);
-
-    List<Map<String, Object>> getGraduationMapList(Map<String, Object> dataMap);
+    List<Map<String, Object>> getListJobNumber(Map<String, Object> dataMap);
 
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
