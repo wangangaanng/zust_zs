@@ -89,7 +89,7 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         window.getBaseGrid().refreshGrid();
                         window.getBaseGrid().display();
                         if (isFlag == 0) {
-                            AlterDialog.alert("成功！");
+                            AlterDialog.alert("定位成功，请在小程序登录管理员账号进行采点");
                         } else if (isFlag == 2) {
                             AlterDialog.alert(responseMessage.getErrorMess());
                         }

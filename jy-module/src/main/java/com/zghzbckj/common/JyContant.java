@@ -18,6 +18,7 @@ public class JyContant {
     public static final Integer QY_ZT_JY = 3;
     public static final Integer QY_ZT_JJ = 4;
     public static final String SH_ERROR_MESSAGE = "企业统一税号输入有误";
+    public static final String HMD_ERROR_MESSAGE = "企业已进入黑名单，无法登录";
     public static final String SFZ_ERROR_MESSAGE = "法人身份证输入有误";
     public static final String SHCF_ERROR_MESSAGE = "已存在该企业统一税号";
     //职位 待审核 通过 拒绝 下架
@@ -72,6 +73,6 @@ public class JyContant {
     public static final String ZW_DD = "浙江科技学院";
     //中国地图省份
     public static final String[] provinceList = {"北京", "天津", "上海", "重庆", "河北", "河南", "云南", "辽宁", "黑龙江", "湖南", "安徽", "山东",
-        "新疆", "江苏", "浙江", "江西", "湖北", "广西", "甘肃", "山西", "内蒙古", "陕西", "吉林", "福建", "贵州", "广东", "青海", "西藏",
-        "四川", "宁夏", "海南", "台湾", "香港", "澳门"};
+            "新疆", "江苏", "浙江", "江西", "湖北", "广西", "甘肃", "山西", "内蒙古", "陕西", "吉林", "福建", "贵州", "广东", "青海", "西藏",
+            "四川", "宁夏", "海南", "台湾", "香港", "澳门"};
 }
