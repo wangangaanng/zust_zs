@@ -14,5 +14,5 @@
     <image class='bg-wave' src='../../static/bg-wave.png'></image>
   </view>
 </view>
-  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="getInfo">微信登录</button>
+  <button class="login-btn" open-type="getUserInfo" bindgetuserinfo="getInfo">微信授权</button>
   </modal>

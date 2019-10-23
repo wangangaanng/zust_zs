@@ -60,7 +60,9 @@ Page({
           });
         } else {
           wx.showToast({
-            title: res.data.errorMess,
+              title: res.data.errorMess,
+              icon: 'none',
+              duration: 2000
           });
         }
 
@@ -87,7 +89,9 @@ Page({
           });
         } else {
           wx.showToast({
-            title: res.data.errorMess,
+              title: res.data.errorMess,
+              icon: 'none',
+              duration: 2000
           });
         }
 
@@ -114,7 +118,9 @@ Page({
           });
         } else {
           wx.showToast({
-            title: res.data.errorMess,
+              title: res.data.errorMess,
+              icon: 'none',
+              duration: 2000
           });
         }
 

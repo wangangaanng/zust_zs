@@ -128,20 +128,22 @@ var getContent = function (that, owid) {
   var data = { "dcwjRefOwid": owid, "yhOwid": wx.getStorageSync("yhOwid"), "wzbh": "1" };
   common.ajax('zustcommon/bckjBizDcwj/dcwjDetail', data, function (res) {
     if (res.data.backCode == 0) {
-      var list = res.data.bean.questionList
-      
+      var list = res.data.bean.questionList;
       var arr = [];
-      for (var i = 0; i < list.length; i++) {
-        var obj = {}
-        obj.owid = list[i].owid
-        obj.xxList = list[i].xxList
-        obj.tmlx = list[i].tmlx
-        obj.tmmc = list[i].tmmc
-        obj.tmsm = list[i].tmsm
-        obj.da = ""
-        obj.ischeck = false
-        arr.push(obj)
+      if(list){
+        for (var i = 0; i < list.length; i++) {
+          var obj = {}
+          obj.owid = list[i].owid
+          obj.xxList = list[i].xxList
+          obj.tmlx = list[i].tmlx
+          obj.tmmc = list[i].tmmc
+          obj.tmsm = list[i].tmsm
+          obj.da = ""
+          obj.ischeck = false
+          arr.push(obj)
+        }
       }
+      
       if (res.data.bean.tips){
         wx.showModal({
           title: '提示',
