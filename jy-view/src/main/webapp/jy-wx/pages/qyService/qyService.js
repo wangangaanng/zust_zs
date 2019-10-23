@@ -12,7 +12,8 @@ Page({
       { text: '宣讲会申请', icon: '../../../static/qy-icon03.png', url: '../enterpriseXjh/enterpriseXjh' }, 
       { text: '招聘会申请', icon: '../../../static/qy-icon04.png', url: '../enterpriseZph/enterpriseZph' }, 
       { text: '职位列表', icon: '../../../static/qy-icon05.png', url: '../enterpriseZw/enterpriseZw' }, 
-      { text: '企业指南', icon: '../../../static/qy-icon06.png', url: '../qyzn/qyzn' }
+      { text: '企业指南', icon: '../../../static/qy-icon06.png', url: '../qyzn/qyzn' },
+      { text: '就业调查', icon: '../../../static/stu-icon04.png', url: '../inquiry/inquiry?mxdx=0' },
     ],
   },
   /**

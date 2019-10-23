@@ -4,16 +4,26 @@
   <view class="cell">
       <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
       <view class="title" wx:else>{{result.zwbt}}</view>
+      <view class="article-nav">
+        <view class="article-nav-left">
+          <image class="icon" src="../../static/icon-time.png"></image>
+          {{result.createtime}}
+        </view>
+        <view class="article-nav-right">
+          <image class="icon" src="../../static/icon-eye.png"></image>
+          {{result.zwYds?result.zwYds:0}}
+        </view>
+      </view>
     <view class="content">
       <view class="table">
           <view class="tr" wx:if="{{result.zphKsrq}}">
-            <view class="td td-name"  style="width:180rpx;">举办日期：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}}</view>
+            <view class="td td-name"  style="width:180rpx;">举办时间：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}} {{result.zphJtsj}}</view>
           </view>
-          <view class="tr" wx:if="{{result.zphJtsj}}">
+          <!-- <view class="tr" wx:if="{{result.zphJtsj}}">
             <view class="td td-name"  style="width:180rpx;">举办时长：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJtsj}}</view>
-          </view>
+          </view> -->
           <view class="tr">
             <view class="td td-name"  style="width:180rpx;">具体城市：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwCity}}</view>
@@ -25,7 +35,7 @@
       </view>
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{result.memo}}">
     <view class="title">详情</view>
     <view class="content">
       <template is="wxParse" data="{{wxParseData:memo.nodes}}"/>
@@ -37,6 +47,16 @@
   <view class="cell">
       <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
       <view class="title" wx:else>{{result.zwbt}}</view>
+      <view class="article-nav">
+        <view class="article-nav-left">
+          <image class="icon" src="../../static/icon-time.png"></image>
+          {{result.createtime}}
+        </view>
+        <view class="article-nav-right">
+          <image class="icon" src="../../static/icon-eye.png"></image>
+          {{result.zwYds?result.zwYds:0}}
+        </view>
+      </view>
     <view class="content">
       <view class="table">
           <view class="tr">
@@ -50,7 +70,7 @@
       </view>
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{result.memo}}">
     <view class="title">详情</view>
     <view class="content">
       <template is="wxParse" data="{{wxParseData:memo.nodes}}"/>
@@ -62,16 +82,26 @@
   <view class="cell">
       <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
       <view class="title" wx:else>{{result.zwbt}}</view>
+      <view class="article-nav">
+        <view class="article-nav-left">
+          <image class="icon" src="../../static/icon-time.png"></image>
+          {{result.createtime}}
+        </view>
+        <view class="article-nav-right">
+          <image class="icon" src="../../static/icon-eye.png"></image>
+          {{result.zwYds?result.zwYds:0}}
+        </view>
+      </view>
     <view class="content">
       <view class="table">
           <view class="tr" wx:if="{{result.zphKsrq}}">
-            <view class="td td-name"  style="width:180rpx;">举办日期：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}}</view>
+            <view class="td td-name"  style="width:180rpx;">举办时间：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}} {{result.zphJtsj}}</view>
           </view>
-          <view class="tr" wx:if="{{result.zphJtsj}}">
+          <!-- <view class="tr" wx:if="{{result.zphJtsj}}">
             <view class="td td-name"  style="width:180rpx;">举办时长：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJtsj}}</view>
-          </view>
+          </view> -->
           <view class="tr">
             <view class="td td-name"  style="width:180rpx;">具体城市：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwCity}}</view>
@@ -95,7 +125,7 @@
       </view>
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{result.memo}}">
     <view class="title">详情</view>
     <view class="content">
       <template is="wxParse" data="{{wxParseData:memo.nodes}}"/>
@@ -107,6 +137,16 @@
   <view class="cell">
       <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
       <view class="title" wx:else>{{result.zwbt}}</view>
+      <view class="article-nav">
+        <view class="article-nav-left">
+          <image class="icon" src="../../static/icon-time.png"></image>
+          {{result.createtime}}
+        </view>
+        <view class="article-nav-right">
+          <image class="icon" src="../../static/icon-eye.png"></image>
+          {{result.zwYds?result.zwYds:0}}
+        </view>
+      </view>
     <view class="content">
       <view class="table" wx:if="{{result.qyxx}}">
           <view class="tr">
@@ -192,12 +232,6 @@
       </view>
     </view>
   </view>
-  <!-- <view class="cell">
-    <view class="title">详情</view>
-    <view class="content">
-      <template is="wxParse" data="{{wxParseData:memo.nodes}}"/>
-		</view>
-  </view> -->
 </view>
 
 <view wx:if="{{(result.zwlx==1)||(result.zwlx==2)}}">
