@@ -24,7 +24,7 @@ page{background: #f3f3f5;}
 }
 .td-name{color: #595959;}
 .float-btn2{
-  background: #00aba5e3;
+  background: #00aba5;
   border: 1px solid #008783;
   color: #fff;
   width: 80rpx;
