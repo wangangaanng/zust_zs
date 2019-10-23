@@ -246,19 +246,21 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (!TextUtils.isEmpty(jobList) && jobList.size() > 0) {
             for (BckjBizJob job : jobList) {
                 try {
-
                     if (3 == job.getState()) {
                         job.setRqState(3);
-                        break;
-                    } else if (TextUtils.isEmpty(job.getZwSxsj())) {
-                        job.setRqState(2);
-                    } else if (!TextUtils.isEmpty(job.getZwSxsj())) {
-                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-                        Date todayDate = DateUtil.getDate(formatter.format(new Date()), "yyyy-MM-dd");
-                        Date zwSxsj = DateUtil.getDate(formatter.format(job.getZwSxsj()), "yyyy-MM-dd");
-                        int rq = dateCompare(todayDate, zwSxsj);
-                        if (rq <= 0) {
+
+                    } else {
+                        if (TextUtils.isEmpty(job.getZwSxsj())) {
                             job.setRqState(2);
+
+                        } else if (!TextUtils.isEmpty(job.getZwSxsj())) {
+                            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                            Date todayDate = DateUtil.getDate(formatter.format(new Date()), "yyyy-MM-dd");
+                            Date zwSxsj = DateUtil.getDate(formatter.format(job.getZwSxsj()), "yyyy-MM-dd");
+                            int rq = dateCompare(todayDate, zwSxsj);
+                            if (rq <= 0) {
+                                job.setRqState(2);
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -301,10 +303,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         String zwbt = bckjBizJob.getZwbt();
         Map params = new HashMap<>();
         params.put("content", zwbt);
-        ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
-        if (!TextUtils.isEmpty(responseYhxx.getBean())) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
-        }
+//        ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
+//        if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+//        }
 
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
             BckjBizJob bckjBizJobIndata = get(mapData.get("owid").toString());
@@ -333,6 +335,18 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                     qyxxService.saveOrUpdate(qyxx);
                 }
                 bckjBizJob.setQyxxRefOwid(qyxx.getOwid());
+            }
+        }
+        if (JyContant.ZWLB_XJH == zwlx) {
+            params = Maps.newHashMap();
+            params.put("jobRefOwid", bckjBizJob.getOwid());
+            params.put("bmlx", 0);
+            List<BckjBizJybm> jybmList = bmDao.findListByMap(params);
+            if (!TextUtils.isEmpty(jybmList) && jybmList.size() > 0) {
+                for (BckjBizJybm jybm : jybmList) {
+                    jybm.setXjsj(DateUtil.getDateString(bckjBizJob.getZphKsrq(), "yyyy-MM-dd"));
+                    bmService.saveOrUpdate(jybm);
+                }
             }
         }
         //待定位
