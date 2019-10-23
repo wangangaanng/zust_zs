@@ -202,9 +202,9 @@
                             <#if obj_index<8>
                                 <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
-                                        <li>${obj.zwbt}</li>
+                                        <li title="${obj.zwbt!''}">${obj.zwbt!''}</li>
                                         <#if objl_index==0>
-                                            <li><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
+                                            <li title="${obj.zwCity!''}"><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
@@ -217,14 +217,14 @@
                                             </#if>
                                             </li>
                                         <#elseif objl_index==2>
-                                            <li><i class="icon bg-icon_dz"></i>${obj.zphJbdd!''}</li>
+                                            <li title="${obj.zphJbdd!''}"><i class="icon bg-icon_dz"></i>${obj.zphJbdd!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
                                             </li>
                                         <#elseif objl_index==3>
-                                            <li>${obj.qymc!''}</li>
+                                            <li title="${obj.qymc!''}">${obj.qymc!''}</li>
                                             <li>
                                                 <#if obj.createtime?exists>
                                                ${obj.createtime?substring(0,10)}
@@ -245,7 +245,7 @@
                             <#if obj_index<8>
                                 <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                     <ul class="job">
-                                        <li>${obj.wzbt!''}</li>
+                                        <li title="${obj.wzbt!''}">${obj.wzbt!''}</li>
                                         <li>
                                             <#if obj.fbsj?exists>
                                                ${obj.fbsj?substring(0,10)}
@@ -307,7 +307,7 @@
                             <#if obj_index<6>
                                 <li data-owid="${obj.owid}" onclick="openUrl('newsDetail/${obj.owid!''}')">
                                     <ul class="job">
-                                        <li>${obj.wzbt!''}</li>
+                                        <li title="${obj.wzbt!''}">${obj.wzbt!''}</li>
                                         <li>
                                             <#if obj.fbsj?exists>
                                                ${obj.fbsj?substring(0,10)}
