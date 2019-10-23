@@ -2,7 +2,6 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="职位信息">
-     <scroll-view  style='position:fixed;top:45px;bottom:0px;' scroll-y>
         <form bindsubmit="submitForm">
   <van-field disabled input-align="right" value="{{form.zwbt}}" name="zwbt" label="职位名称" placeholder="输入内容" required />
 <van-cell-group>
@@ -71,7 +70,6 @@
     bind:cancel="onCancel"
   />
 </van-popup>
-     </scroll-view>
   </van-tab>
   <van-tab title="关注学生">
     <view class="bm-table">
