@@ -12,5 +12,5 @@ package com.ourway;
  * @author xby
  */
 public class WebZKConstant {
-    public static final String WX_VIEW_URL = "www.baidu.com";
+    public static final String WX_VIEW_URL = "待定";
 }

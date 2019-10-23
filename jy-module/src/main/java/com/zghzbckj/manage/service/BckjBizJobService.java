@@ -32,6 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -128,12 +129,62 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
         } else {
-            page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+            page = findPageWithDay(dataMap, pageNo, pageSize, " a.createtime desc ");
         }
 
         return ResponseMessage.sendOK(page);
     }
 
+
+    public PageInfo<BckjBizJob> findPageWithDay(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy) {
+        Page page = new Page(pageNo, pageSize);
+        paramsMap.put("page", page);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(orderBy)) {
+            paramsMap.put("orderBy", orderBy);
+        }
+        List<BckjBizJob> jobList = this.dao.findListByMap(paramsMap);
+        if (!TextUtils.isEmpty(jobList) && jobList.size() > 0) {
+            for (BckjBizJob job : jobList) {
+                try {
+                    if (!TextUtils.isEmpty(job.getZphKsrq())) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        Date todayDate = DateUtil.getDate(formatter.format(new Date()), "yyyy-MM-dd");
+                        Date ksrq = DateUtil.getDate(formatter.format(job.getZphKsrq()), "yyyy-MM-dd");
+                        int rq = dateCompare(todayDate, ksrq);
+                        if (rq <= 0) {
+                            job.setRqState(1);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        page.setList(jobList);
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
+    }
+
+
+    public static int dateCompare(Date date1, Date date2) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        String dateFirst = dateFormat.format(date1);
+        String dateLast = dateFormat.format(date2);
+        int dateFirstIntVal = Integer.parseInt(dateFirst);
+        int dateLastIntVal = Integer.parseInt(dateLast);
+        if (dateFirstIntVal > dateLastIntVal) {
+            return 1;
+        } else if (dateFirstIntVal < dateLastIntVal) {
+            return -1;
+        }
+        return 0;
+    }
 
     public ResponseMessage findPageBckjBizJobXjh(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJob> page = new PageInfo<>();
@@ -281,6 +332,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         mapData.remove("qyxx.qyProv");
         mapData.remove("qyxx.qyCity");
         mapData.remove("qyxx.qyArea");
+        mapData.remove("qyxx.qyGsjs");
         mapData.remove("qyHylb");
         mapData.remove("qyGsxz");
         mapData.remove("qyGsgm");
@@ -336,6 +388,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         BckjBizJob job = new BckjBizJob();
         BckjBizQyxx qyxx = qyxxDao.get(mapData.get("qyxxRefOwid").toString());
+        if (3 == qyxx.getState()) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", JyContant.HMD_ERROR_MESSAGE);
+            return resultMap;
+        }
 
         try {
             job = MapUtils.map2Bean(mapData, BckjBizJob.class);

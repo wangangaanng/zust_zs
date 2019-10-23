@@ -86,7 +86,7 @@ public class CommonService {
             resultList.add(objectMap);
         }
         //饼图数据
-        result.put("barData", resultList);
+        result.put("pieData", resultList);
         //企业数
         result.put("qys", MapUtils.getInt(qyxxList.get(0), "value") + MapUtils.getInt(qyxxList.get(1), "value"));
         //涉及行业
@@ -101,27 +101,28 @@ public class CommonService {
         List<Map<String, Object>> resultList = new ArrayList<>();
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> objectMap = null;
+        Map<String, Object> params = null;
         int zws = 0;
-        int gzs = 0;
-        int bms = 0;
         for (Map<String, Object> job : jobList) {
+            params = new HashMap<>();
             objectMap = new HashMap<>();
-            objectMap.put("name", MapUtils.getString(job, "zwbt"));
+            params.put("dicType", 20003);
+            params.put("dicVal1", MapUtils.getString(job, "gzzn"));
+            objectMap.put("name", commonDao.getOneDic(params).get("DIC_VAL2"));
             objectMap.put("value", MapUtils.getInt(job, "value"));
             zws += MapUtils.getInt(job, "value");
-            gzs += MapUtils.getInt(job, "gzs");
             resultList.add(objectMap);
         }
         //饼图数据
-        result.put("barData", resultList);
-        //涉及行业
-        result.put("sjhy", resultList.size());
+        result.put("pieData", resultList);
         //职位数
         result.put("zws", zws);
-        //关注数
-        result.put("gzs", gzs);
-        //报名数
-        result.put("bms", bms);
+        //涉及行业
+        result.put("sjhy", jobList.size());
+        //报名数，bmlx 1学生 bmdx 2职位
+        result.put("bms", commonDao.getJobApplyNumber("1", "2"));
+        //关注数，gzlx 0职位 xxlb 0关注
+        result.put("gzs", commonDao.getJobFollowNumber("0", "0"));
         return result;
     }
 
@@ -135,10 +136,48 @@ public class CommonService {
      * </ul>
      */
     public Map<String, Object> getMeetingPie(Map<String, Object> dataMap) {
-        List<Map<String, Object>> meetingList = commonDao.getListJobNumber(dataMap);
         List<Map<String, Object>> resultList = new ArrayList<>();
         Map<String, Object> result = new HashMap<>();
-        Map<String, Object> objectMap = null;
+        //3招聘会 4宣讲会
+        if ("3".equals(MapUtils.getString(dataMap, "zwlx"))) {
+            //未举办
+            Map<String, Object> wjbMap = commonDao.getMapWjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            wjbMap.put("name", "未举办招聘会");
+            resultList.add(wjbMap);
+            //已举办
+            Map<String, Object> yjbMap = commonDao.getMapYjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            yjbMap.put("name", "已举办招聘会");
+            resultList.add(yjbMap);
+            //招聘会总数
+            result.put("total", MapUtils.getInt(wjbMap, "value") + MapUtils.getInt(yjbMap, "value"));
+            //未举办
+            result.put("wjb", MapUtils.getInt(wjbMap, "value"));
+            //学生数
+            result.put("xss", commonDao.getJobApplyNumber("1", "0"));
+            //企业数
+            result.put("qys", commonDao.getJobApplyNumber("0", "0"));
+            //招聘会饼图数据
+            result.put("pieData", resultList);
+        } else {
+            //未举办
+            Map<String, Object> wjbMap = commonDao.getMapWjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            wjbMap.put("name", "未举办宣讲会");
+            resultList.add(wjbMap);
+            //已举办
+            Map<String, Object> yjbMap = commonDao.getMapYjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            yjbMap.put("name", "已举办宣讲会");
+            resultList.add(yjbMap);
+            //宣讲会总数
+            result.put("total", MapUtils.getInt(wjbMap, "value") + MapUtils.getInt(yjbMap, "value"));
+            //未举办
+            result.put("wjb", MapUtils.getInt(wjbMap, "value"));
+            //学生数
+            result.put("xss", commonDao.getJobApplyNumber("1", "1"));
+            //企业数
+            result.put("qys", commonDao.getJobApplyNumber("0", "1"));
+            //宣讲会饼图数据
+            result.put("pieData", resultList);
+        }
         return result;
     }
     
@@ -152,27 +191,41 @@ public class CommonService {
      *</ul>
      */
     public List<Map<String, Object>> getJobBar(Map<String, Object> dataMap) {
-        List<Integer> monthList = listMonth();
-        List<Map<String, Object>> resultList = new ArrayList<>(monthList.size());
+        //zwlx  0职位数 3招聘会数 4宣讲会数
+        String[] zwlxList = {"0", "3", "4"};
+        List<Map<String, Object>> resultList = new ArrayList<>(3);
         Map<String, Object> resultMap = null;
-        for (Integer month : monthList) {
+        List<Integer> dataList = null;
+        for (String zwlx : zwlxList) {
             resultMap = new HashMap<>();
-            resultMap.put("month", month + "月");
-            //职位数
-            resultMap.put("jobNumber", commonDao.getJobNumber("0", month));
-            //招聘会数
-            resultMap.put("jobFairNumber", commonDao.getJobNumber("3", month));
-            //宣讲会数
-            resultMap.put("meetingNumber", commonDao.getJobNumber("4", month));
+            dataList = listMonth(zwlx);
+            resultMap.put("type", "bar");
+            resultMap.put("data", dataList);
+            if ("0".equals(zwlx)) {
+                resultMap.put("name", "职位数");
+            } else if ("3".equals(zwlx)) {
+                resultMap.put("name", "招聘会数");
+            } else {
+                resultMap.put("name", "宣讲会数");
+            }
             resultList.add(resultMap);
         }
         return resultList;
     }
 
-    private List<Integer> listMonth() {
+    /**
+     *<p>方法:统计12个月招聘信息的数量 listMonth TODO </p>
+     *<ul>
+     *<li> @param zwlx TODO</li>
+     *<li>@return java.util.List<java.lang.Integer>  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/10/23 13:48  </li>
+     *</ul>
+     */
+    private List<Integer> listMonth(String zwlx) {
         List<Integer> result = new ArrayList<>(12);
         for (int i = 1; i <= 12; i++) {
-            result.add(i);
+            result.add(commonDao.getJobNumber(zwlx, i));
         }
         return result;
     }

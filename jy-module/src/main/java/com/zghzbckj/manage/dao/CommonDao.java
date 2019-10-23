@@ -36,6 +36,14 @@ public interface CommonDao {
 
     Integer getJobNumber(@Param("zwlx") String zwlx, @Param("month") Integer month);
 
+    Integer getJobApplyNumber(@Param("bmlx") String bmlx,@Param("bmdx") String bmdx);
+
+    Integer getJobFollowNumber(@Param("gzlx") String gzlx,@Param("xxlb") String xxlb);
+
+    Map<String, Object> getMapWjbNumber(@Param("zwlx") String zwlx);
+
+    Map<String, Object> getMapYjbNumber(@Param("zwlx") String zwlx);
+
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
     List<Map<String, Object>> listDicVal(Map<String, Object> dataMap);

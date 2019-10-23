@@ -222,9 +222,9 @@
 
     <!--根据招聘信息表的职位类型来统计职位数量    -->
     <select id="getListJobNumber" resultType="java.util.Map">
-        SELECT COUNT(*) AS value, zwbt, zw_gzs AS gzs, zph_ksrq AS ksrq
+        SELECT COUNT(*) AS value, zw_gzzn AS gzzn
         FROM bckj_biz_job
-        <where> a.state = 2
+        <where> state = 2 AND zw_gzzn IS NOT NULL
             <if test="zwlx != null and zwlx != ''">
                 AND zwlx=#{zwlx}
             </if>
@@ -238,7 +238,49 @@
     <select id="getJobNumber" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM bckj_biz_job
-        WHERE state=2 AND zwlx=#{zwlx} AND MONTH (zph_ksrq)=#{month}
+        WHERE state=2 AND zwlx=#{zwlx} AND MONTH (createtime)=#{month}
+    </select>
+
+    <!--根据就业报名表报名类型、报名对象统计学生报名数量 state=1通过 bmlx=1学生 bmdx=2职位    -->
+    <select id="getJobApplyNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bckj_biz_jybm
+        <where>
+            <if test="bmlx != null and bmlx != ''">
+                AND bmlx=#{bmlx}
+            </if>
+            <if test="bmdx != null and bmdx != ''">
+                AND bmdx=#{bmdx}
+            </if>
+        </where>
+    </select>
+
+    <!--根据学生关注表关注类型、类型统计学生关注数量 state=1通过 gzlx=1职位 xxlb=0 关注    -->
+    <select id="getJobFollowNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bckj_biz_xsgz
+        <where>
+            <if test="gzlx != null and gzlx != ''">
+                AND gzlx=#{gzlx}
+            </if>
+            <if test="xxlb != null and xxlb != ''">
+                AND xxlb=#{xxlb}
+            </if>
+        </where>
+    </select>
+
+    <!--根据招聘信息表招聘会或宣讲会的开始日期统计未举办的招聘会或宣讲会    -->
+    <select id="getMapWjbNumber" resultType="java.util.Map">
+        SELECT COUNT(*) AS value
+        FROM bckj_biz_job
+        WHERE state=2 AND zwlx=#{zwlx} AND zph_ksrq &gt;= CURRENT_DATE
+    </select>
+
+    <!--根据招聘信息表招聘会或宣讲会的开始日期统计已举办的招聘会或宣讲会    -->
+    <select id="getMapYjbNumber" resultType="java.util.Map">
+        SELECT COUNT(*) AS value
+        FROM bckj_biz_job
+        WHERE state=2 AND zwlx=#{zwlx} AND zph_ksrq &lt; CURRENT_DATE
     </select>
 
     <!--查询字典表值    -->
