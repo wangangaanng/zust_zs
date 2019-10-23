@@ -1,5 +1,6 @@
 // pages/enterpriseXjh/enterpriseXjh.js
 var common = require('../../libs/common/common.js')
+var util = require('../../utils/util.js')
 const app = getApp()
 var imgPath = app.globalData.imgPath;
 
@@ -88,6 +89,34 @@ var myJobList = function (that, lx) {
     if (res.data.backCode == 0) {
       var xjhList;
       if (res.data.bean.records && res.data.bean.records.length > 0) {
+        for (var i = 0; i < res.data.bean.records.length;i++){
+          res.data.bean.records[i].str = '';
+          res.data.bean.records[i].sfkbm = false;
+          if (res.data.bean.records[i].state == 2) {
+            if (res.data.bean.records[i].zphSfbm == 0) {
+              str = '';
+              res.data.bean.records[i].sfkbm = false;
+            } else if (res.data.bean.records[i].zphSfbm == 1) {
+              res.data.bean.records[i].sfkbm = true;
+            }
+
+          }else if (res.data.bean.records[i].state == 6) {
+            res.data.bean.records[i].str = '已结束';
+            res.data.bean.records[i].sfkbm = false;
+          } else {
+            res.data.bean.records[i].str = '';
+            res.data.bean.records[i].sfkbm = false;
+          }
+          if (res.data.bean.records[i].zphBmjzsj && util.compareToday(res.data.bean.records[i].zphBmjzsj)) {
+            res.data.bean.records[i].str = '已截止报名 ';
+            res.data.bean.records[i].sfkbm = false;
+          }
+          if (util.compareToday(res.data.bean.records[i].zphKsrq)) {
+            res.data.bean.records[i].str = '已结束';
+            res.data.bean.records[i].sfkbm = false;
+          }
+
+        }
         xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
       var totalPage = res.data.bean.totalPage;

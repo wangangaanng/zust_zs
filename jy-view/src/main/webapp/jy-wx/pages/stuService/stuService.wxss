@@ -49,6 +49,7 @@ page{background: #ffffff;}
 .stu-tx image{
   width: 100%;
   height: 100%;
+  border-radius: 50%;
 }
 
 .stu-name{

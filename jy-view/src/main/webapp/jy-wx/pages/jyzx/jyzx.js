@@ -77,7 +77,17 @@ Page({
    */
   onLoad: function (options) {
     supervisorList(this)
-    historyConsult(this)
+  },
+  clickTab(e){
+    if(e.detail.index==1){
+      this.setData({
+        totalPage: '',
+        list1: [],
+        pageNo1: 1,
+        totalPage1: ''
+      })
+      historyConsult(this)
+    }
   },
   detail(e){
     wx.navigateTo({

@@ -47,6 +47,7 @@ Page({
       qyGsgm: '',
       qyGsjs: '',
     },
+    btndisabled: false
   },
   showModal(error) {
     wx.showModal({
@@ -55,6 +56,7 @@ Page({
     })
   },
   submitForm(e) {
+    var that = this
     const params = e.detail.value
 
     console.log(params)
@@ -68,6 +70,9 @@ Page({
 
     common.ajax('zustjy/bckjBizQyxx/companyRegister', params, function (res) {
       if (res.data.backCode == 0) {
+        that.setData({
+          btndisabled: true
+        })
         wx.showModal({
           title: '提示',
           showCancel: false,
