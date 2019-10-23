@@ -37,6 +37,7 @@
 	<sql id="bckjBizDcwjJgJoins">
 	</sql>
 
+	<!--根据问卷的owid统计答题人数	-->
 	<select id="countPeople" resultType="java.lang.Integer">
 		select count(*)
 		from bckj_biz_dcwj_jg

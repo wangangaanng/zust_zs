@@ -36,13 +36,15 @@
 	<sql id="bckjBizDcwjDtmxJoins">
 	</sql>
 
+	<!--根据结果表的owid查询明细表的数据	-->
 	<select id="listDtmx" resultType="com.zghzbckj.manage.entity.BckjBizDcwjDtmx">
 		select <include refid="bckjBizDcwjDtmxColumns"/>
 		from bckj_biz_dcwj_dtmx a
 		<include refid="bckjBizDcwjDtmxJoins"/>
 		where a.dcwjjg_ref_owid=#{dcwjjgRefOwid}
 	</select>
-	
+
+	<!--根据题目表的owid查询明细表的问卷答案	-->
 	<select id="countDtmx" resultType="java.lang.Integer">
 		SELECT COUNT(*)
 		FROM bckj_biz_dcwj_dtmx a
