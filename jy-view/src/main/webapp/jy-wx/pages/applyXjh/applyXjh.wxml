@@ -15,9 +15,11 @@
     min-date="{{minDate}}"
   />
   </van-popup>
+  <view hidden="{{hidden1}}">
   <van-field required value="{{form.xjhsqly}}" name="xjhsqly" required label="申请理由" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   <van-field required value="{{form.jkrjs}}" name="jkrjs" required label="讲课人介绍" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   <van-field required value="{{form.memo}}" name="memo" required label="备注" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  </view>
   <block wx:for="{{list}}" wx:key="{{index}}">
   <block wx:if="{{!item.isInput}}">
   <van-cell required title="{{item.zdytj}}" value="{{item.str}}" is-link arrow-direction="down" data-type="{{item.xh}}" bind:click="showBottom" />
