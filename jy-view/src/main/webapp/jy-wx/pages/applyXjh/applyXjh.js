@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1: false,
     minDate: new Date().getTime(),
     imgPath: imgPath,
     xjsjStr: '请选择',
@@ -200,7 +201,8 @@ Page({
   },
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**

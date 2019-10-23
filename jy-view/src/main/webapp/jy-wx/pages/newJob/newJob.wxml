@@ -31,7 +31,9 @@
   <van-popup show="{{ show.yyyq }}" position="bottom" custom-style="height: 540rpx" data-type="6" bind:close="hideBottom">
     <van-picker show-toolbar title="语言要求" value-key="dicVal2" columns="{{zwYyyqColumns}}" data-type="6" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
+  <view hidden="{{hidden1}}">
   <van-field required value="{{form.zwGwzz}}" name="zwGwzz" required label="职位详情" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+   </view>
   <van-cell title="失效时间" value="{{zwSxsjStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
   <van-popup show="{{ show.zwSxsj }}" position="bottom" custom-style="height: 540rpx" data-type="8" bind:close="hideBottom">
   <van-datetime-picker
