@@ -535,7 +535,7 @@
 	<select id="findQdList" resultType="Map" parameterType="Map">
 		select <include refid="bckjBizJobColumns"></include>
 		from bckj_biz_job a
-		where  zph_ksrq=CURRENT_DATE and zph_sfqd=1 and a.exp5='2'
+		where  zph_ksrq=CURRENT_DATE and zph_sfqd=1
 	</select>
 
 

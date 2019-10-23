@@ -1,15 +1,11 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.MapUtils;
-import com.zghzbckj.common.JyContant;
-import com.zghzbckj.manage.dao.CommonDao;
-import com.zghzbckj.manage.entity.BckjBizJob;
-import com.zghzbckj.manage.entity.BckjBizJyscheme;
-import com.zghzbckj.manage.entity.BckjBizQyxx;
-import com.zghzbckj.manage.entity.BckjBizSyb;
-import com.zghzbckj.util.MapUtil;
 
-import com.zghzbckj.util.TextUtils;
+import com.zghzbckj.manage.dao.CommonDao;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
