@@ -23,4 +23,6 @@ public interface BckjBizJybmDao extends CrudDao<BckjBizJybm> {
     BckjBizJybm getOneByParam(Map params);
 
     List findListByMapXjh(Map<String, Object> paramsMap);
+
+    Integer countNumber(Map params);
 }

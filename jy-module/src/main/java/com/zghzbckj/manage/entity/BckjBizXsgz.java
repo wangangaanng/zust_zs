@@ -38,7 +38,24 @@ public class BckjBizXsgz extends DataWithExpEntity<BckjBizXsgz> {
     private String qymc;
     private String zwbt;
     private String gsqymc;
+    private String qyLxr;
+    private String qyLxrdh;
 
+    public String getQyLxr() {
+        return qyLxr;
+    }
+
+    public void setQyLxr(String qyLxr) {
+        this.qyLxr = qyLxr;
+    }
+
+    public String getQyLxrdh() {
+        return qyLxrdh;
+    }
+
+    public void setQyLxrdh(String qyLxrdh) {
+        this.qyLxrdh = qyLxrdh;
+    }
 
     public String getGsqymc() {
         return gsqymc;
