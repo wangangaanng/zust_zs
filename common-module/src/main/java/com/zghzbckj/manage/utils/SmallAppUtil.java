@@ -1,8 +1,12 @@
 package com.zghzbckj.manage.utils;
 
 
+import com.zghzbckj.base.util.CacheUtil;
+import com.zghzbckj.manage.entity.SysWxconfig;
 import com.zghzbckj.util.TextUtils;
+import com.zghzbckj.wechat.WechatConstants;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
+import com.zghzbckj.wechat.utils.AesCbcUtil;
 import com.zghzbckj.wechat.utils.MyX509TrustManager;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -24,6 +28,40 @@ import java.util.Map;
 public class SmallAppUtil {
     private static final Logger log = LoggerFactory.getLogger(SmallAppUtil.class);
     public static String openid_url="https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code";
+
+
+
+    public static WxXcxUserModel getOpenId (Map<String,Object> dataMap) {
+        String code= dataMap.get("code").toString();
+        String wxid = dataMap.get("wxid").toString();
+        String iv = dataMap.get("iv").toString();
+        String encryptedData = dataMap.get("encryptedData").toString();
+        log.info(code + "================================================");
+        if (TextUtils.isEmpty(code) || TextUtils.isEmpty(wxid)) {
+            return null;
+        }
+        if (TextUtils.isEmpty(iv) || TextUtils.isEmpty(encryptedData)) {
+            return null;
+        }
+        SysWxconfig wxconfig = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_CONFIG_PREX + wxid, SysWxconfig.class);
+        Map result = SmallAppUtil.getOpenId(wxconfig.getWeAppid(), wxconfig.getWeSecrect(), code);
+        if (null != result) {
+            String session_key = result.get("session_key").toString();
+            log.info(" session_key---" + session_key);
+            try {
+                String results = AesCbcUtil.decrypt(encryptedData, session_key, iv, "UTF-8");
+                log.info(" results---" + results);
+                WxXcxUserModel userModel = SmallAppUtil.getWxXcxUser(results);
+
+                return userModel;
+            } catch (Exception e) {
+                log.error("获取unionid解密失败{}", e);
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
     public static Map<String,Object> getOpenId(String appId, String secret, String js_code){
         String url =openid_url.replace("APPID",appId).replace("SECRET",secret).replace("JSCODE",js_code);
         JSONObject jsonObject = httpRequest(url, "GET", null);
@@ -56,7 +94,7 @@ public class SmallAppUtil {
             return userModel;
         }
         userModel.setOpenId(userInfoJSON.getString("openId"));
-        if(TextUtils.isEmpty(userInfoJSON.getString("unionID"))) {
+        if(!TextUtils.isEmpty(userInfoJSON.getString("unionId"))) {
             userModel.setUnionid(userInfoJSON.getString("unionId"));
         }
         userModel.setAvatarUrl(userInfoJSON.getString("avatarUrl"));

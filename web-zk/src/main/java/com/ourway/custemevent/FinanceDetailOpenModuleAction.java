@@ -8,6 +8,7 @@ import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.service.ComponentListinerSer;
 import com.ourway.base.zk.utils.AlterDialog;
 import com.ourway.base.zk.utils.GridUtils;
+import com.ourway.base.zk.utils.data.I18nUtil;
 import com.ourway.base.zk.utils.data.PageDataUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -31,8 +32,24 @@ public class FinanceDetailOpenModuleAction implements ComponentListinerSer {
         String url = "";
 
         try {
+
+
+
             List<Map> e = com.ourway.base.zk.utils.JsonUtil.jsonToList(windowParams.toString(), Map.class);
             Map _params = (Map) e.get(0);
+
+
+            BaseGrid grid = (BaseGrid) window.getFellowIfAny(_params.get("gridId").toString());
+            List<Map<String, Object>> datas = grid.getSelectRowsData();
+            if (TextUtils.isEmpty(datas) || datas.size() == 0) {
+                AlterDialog.alert("请选择需要操作的记录");
+                return;
+            }
+            if (null != datas && datas.size() > 1) {
+                AlterDialog.alert(I18nUtil.getLabelContent("public.sys.onlySelectOne"));
+                return;
+            }
+
             if (TextUtils.isEmpty(_params.get("pageCa"))) {
                 AlterDialog.alert("请定义pageCa");
                 return;
@@ -79,7 +96,16 @@ public class FinanceDetailOpenModuleAction implements ComponentListinerSer {
                     _win1.setStyle(_params.get("windowCss").toString());
                 }
                 if (!TextUtils.isEmpty(_params.get("gridId"))) {
-                    BaseGrid grid = (BaseGrid) window.getFellowIfAny(_params.get("gridId").toString());
+//                    BaseGrid grid = (BaseGrid) window.getFellowIfAny(_params.get("gridId").toString());
+//                    List<Map<String, Object>> datas = grid.getSelectRowsData();
+//                    if (TextUtils.isEmpty(datas) || datas.size() == 0) {
+//                        AlterDialog.alert("请选择需要操作的记录");
+//                        return;
+//                    }
+//                    if (null != datas && datas.size() > 1) {
+//                        AlterDialog.alert(I18nUtil.getLabelContent("public.sys.onlySelectOne"));
+//                        return;
+//                    }
                     if (null != grid) {
                         _win1.setBaseGrid(grid);
                     }
@@ -88,7 +114,7 @@ public class FinanceDetailOpenModuleAction implements ComponentListinerSer {
                 _win1.setParentPpt(_params);
                 _win1.doModal();
                 if (_win1.isClosePage()) {
-                 
+
                 }
             }
         } catch (Exception var14) {

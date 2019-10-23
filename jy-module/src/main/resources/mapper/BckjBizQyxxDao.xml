@@ -72,9 +72,9 @@
             <if test="qyTysh != null and qyTysh != ''">
                 AND a.qy_tysh = #{qyTysh}
             </if>
-			<if test="qyFrsfz != null and qyFrsfz != ''">
-				AND a.qy_frsfz like CONCAT('%',#{qyFrsfz},'')
-			</if>
+            <if test="qyFrsfz != null and qyFrsfz != ''">
+                AND a.qy_frsfz like CONCAT('%',#{qyFrsfz},'')
+            </if>
             <if test="qymc != null and qymc != ''">
                 AND a.qymc = #{qymc}
             </if>
@@ -136,6 +136,9 @@
             </if>
             <if test=" qymc != null and qymc != '' ">
                 AND a.qymc like CONCAT('%',#{qymc},'%')
+            </if>
+            <if test=" qyTysh != null and qyTysh != '' ">
+                AND a.qy_tysh like CONCAT('%',#{qyTysh},'%')
             </if>
             <if test=" qyHylb != null and qyHylb != '' ">
                 AND a.qy_hylb = #{qyHylb}
@@ -352,7 +355,7 @@
         </where>
     </select>
 
-	<select id="getBaoMingList" parameterType="Map" resultType="Map">
+    <select id="getBaoMingList" parameterType="Map" resultType="Map">
 				select
 					c.yh_ref_owid as yhRefOwid , c.bmsj as bmsj , c.lxdh as lxdh , c.lxr as lxr
 				from bckj_biz_job b , bckj_biz_jybm c
@@ -361,21 +364,19 @@
 	</select>
 
 
-	<select id="getGuanZhuList" parameterType="Map" resultType="Map">
+    <select id="getGuanZhuList" parameterType="Map" resultType="Map">
 			select c.yh_ref_owid as yhRefOwid ,c.gzsj as gzsj, c.lxdh as lxdh ,c.lxr as lxr
 				from bckj_biz_job b , bckj_biz_xsgz c
 				where  b.owid =#{jobOwid} and c.job_ref_owid = b.owid
 	</select>
 
-	<select id="getZlzwInfo" resultType="Map">
+    <select id="getZlzwInfo" resultType="Map">
 
-	</select>
+    </select>
 
-	<select id="getXjhInfo" resultType="Map">
+    <select id="getXjhInfo" resultType="Map">
 
-	</select>
-
-
+    </select>
 
 
 </mapper>
