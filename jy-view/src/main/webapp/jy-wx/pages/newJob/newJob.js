@@ -339,7 +339,7 @@ Page({
    */
   onShow: function () {
     wx.request({
-      url: 'https://cashier.youzan.com/wsctrade/uic/address/getAllRegion.json',
+      url: app.globalData.imgPath + 'getAllRegion.json',
       success: response => {
         this.setData({
           loading: false,
