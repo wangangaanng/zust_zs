@@ -65,7 +65,7 @@
             </div>
             <div class="content-list" style="display: none;">
                 <div class="search-bar">
-                    <div class="search-label">搜素关键字：</div>
+                    <div class="search-label">搜索关键字：</div>
                     <div class="input-group search-input">
                         <input type="text" class="form-control" placeholder="输入内容">
                         <div class="input-group-btn">
