@@ -41,9 +41,9 @@ App({
   globalData: {
     userInfo: '',
     lj: '',
-    ApiUrl: 'http://172.16.13.106:8888/',
+    ApiUrl: 'https://job.zust.edu.cn/gate/',//'http://172.16.13.106:8888/',//
     localimgUrl: '',
-    imgPath: 'http://172.16.13.109:8080/zjcFiles/',
+    imgPath: 'https://job.zust.edu.cn/zjcFiles/',
     openId: '',
     unionid: ''
   }

@@ -149,13 +149,13 @@
           </view>
           <view class="tr">
             <view class="td td-name">语言能力：</view>
-            <view class="td td-value">{{result.zwYyyqStr}}</view>
+            <view class="td td-value">{{result.zwYyyqStr?result.zwYyyqStr:'不限'}}</view>
             <view class="td td-name">工作地点：</view>
             <view class="td td-value">{{result.zwCity}}</view>
           </view>
           <view class="tr">
             <view class="td td-name">薪资待遇：</view>
-            <view class="td td-value">{{result.zwXs?result.zwXs+'元':'未知'}}</view>
+            <view class="td td-value">{{result.zwXs?result.zwXs+'元':'面议'}}</view>
             <view class="td td-name">职位类别：</view>
             <view class="td td-value">{{result.zwGzznStr}}</view>
           </view>

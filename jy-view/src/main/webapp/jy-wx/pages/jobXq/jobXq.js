@@ -44,7 +44,7 @@ Page({
     nlyqStr: '请选择',
     xlyqStr: '请选择',
     gznxStr: '请选择',
-    yyyqStr: '请选择',
+    yyyqStr: '不限',
     zwSxsjStr: '请选择',
     form: {
       zwbt: '',
@@ -476,7 +476,7 @@ var getOneJob = function (that, owid) {
           xlyqStr: data.bean.zwXlyqStr,
           gznxStr: data.bean.zwGznxStr,
           yyyqStr: data.bean.zwYyyqStr,
-          zwSxsjStr: data.bean.zwSxsj.substring(0,10),
+          zwSxsjStr: data.bean.zwSxsj?data.bean.zwSxsj.substring(0,10):'暂无',
         })
       }
     } else {
