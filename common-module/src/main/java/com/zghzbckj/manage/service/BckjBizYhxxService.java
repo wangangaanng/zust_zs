@@ -17,6 +17,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
+import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.*;
@@ -773,5 +774,13 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         return PageUtils.assimblePageInfo(page);
     }
 
+
+    @Transactional(readOnly = false)
+    public String swYtzc(Map  yhxx) throws CustomerException {
+        yhxx.put("yhlx",3);
+        BckjBizYhxx indata=this.dao.getOneByMap(yhxx);
+//        this.saveOrUpdate(yhxx);
+        return indata.getOwid();
+    }
 
 }
