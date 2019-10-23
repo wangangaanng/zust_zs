@@ -26,7 +26,7 @@
     <van-picker show-toolbar title="公司规模" value-key="dicVal2" columns="{{gsgmColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field required value="{{form.qyGsjs}}" name="qyGsjs" required label="公司介绍" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
-  <van-cell title="营业执照" >
+  <van-cell title="营业执照" wx:if="{{form.qyYyzzzp}}" >
     <image class="qyYyzzzp" bindtap="preview" src="{{imgPath}}{{form.qyYyzzzp}}"></image>
   </van-cell>
 </van-cell-group>
