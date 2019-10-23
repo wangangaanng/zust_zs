@@ -29,7 +29,7 @@
             <div>
                 <div>
                     <div class="search-bar">
-                        <div class="search-label">搜素关键字：</div>
+                        <div class="search-label">搜索关键字：</div>
                         <div class="input-group search-input">
                             <input type="text" id="key" class="form-control" placeholder="输入内容">
                             <div class="input-group-btn">
