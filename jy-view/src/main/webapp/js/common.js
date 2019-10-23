@@ -135,14 +135,14 @@ function loginout() {
     // delCookie("qyOwid");
     // delCookie("stuSjh");
     // delCookie("stuOwid");
-    document.cookie  = "stuXm=;path=/";
-    document.cookie  = "qyInfo=;path=/";
-    document.cookie  = "qyOwid=;path=/";
-    document.cookie  = "stuSjh=;path=/";
-    document.cookie  = "stuOwid=;path=/";
-    document.cookie  = "userType=;path=/";
-    document.cookie  = "yhOwid=;path=/";
-    window.location.href='/'
+    document.cookie  = "stuXm=;path="+base;
+    document.cookie  = "qyInfo=;path="+base;
+    document.cookie  = "qyOwid=;path="+base;
+    document.cookie  = "stuSjh=;path="+base;
+    document.cookie  = "stuOwid=;path="+base;
+    document.cookie  = "userType=;path="+base;
+    document.cookie  = "yhOwid=;path="+base;
+    window.location.href=base+"/"
     // location.reload();
 }
 
@@ -558,7 +558,7 @@ function addCookie(name, value, expires, path, domain) {
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
     }else {
-        str += ";path=/";// 指定可访问cookie的目录
+        str += ";path="+base;// 指定可访问cookie的目录
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域
