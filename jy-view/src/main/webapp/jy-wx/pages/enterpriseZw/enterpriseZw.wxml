@@ -10,7 +10,7 @@
   >
     <view slot="action" bind:tap="onSearch">搜索</view>
   </van-search>
-   <scroll-view  style='position:fixed;top:108rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+   <scroll-view  style='position:fixed;top:54px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
 <view class="uni-list">
   <block wx:for="{{xjhList}}" wx:key="{{index}}">
   <!-- <van-swipe-cell id="{{item.owid}}" data-index="{{index}}" data-owid="{{item.owid}}" right-width="{{ 65 }}" async-close bind:close="onClose"> -->

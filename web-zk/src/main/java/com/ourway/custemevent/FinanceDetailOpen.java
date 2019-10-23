@@ -8,7 +8,6 @@ import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.service.ComponentListinerSer;
 import com.ourway.base.zk.utils.AlterDialog;
 import com.ourway.base.zk.utils.GridUtils;
-import com.ourway.base.zk.utils.data.I18nUtil;
 import com.ourway.base.zk.utils.data.PageDataUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
@@ -22,8 +21,8 @@ import java.util.Set;
 /**
  * Created by jackson on 2018/1/7.
  */
-public class FinanceDetailOpenModuleAction implements ComponentListinerSer {
-    public FinanceDetailOpenModuleAction() {
+public class FinanceDetailOpen implements ComponentListinerSer {
+    public FinanceDetailOpen() {
     }
 
     @Override
@@ -45,11 +44,6 @@ public class FinanceDetailOpenModuleAction implements ComponentListinerSer {
                 AlterDialog.alert("请选择需要操作的记录");
                 return;
             }
-            if (null != datas && datas.size() > 1) {
-                AlterDialog.alert(I18nUtil.getLabelContent("public.sys.onlySelectOne"));
-                return;
-            }
-
             if (TextUtils.isEmpty(_params.get("pageCa"))) {
                 AlterDialog.alert("请定义pageCa");
                 return;

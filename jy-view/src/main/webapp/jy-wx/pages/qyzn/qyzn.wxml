@@ -1,7 +1,7 @@
 <!--pages/school/school.wxml-->
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="招聘指南">
-     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
+     <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y>
       <view style="padding:20rpx 40rpx;">
         <rich-text nodes="{{content1}}" space="nbsp" style=""></rich-text>
       </view>
@@ -19,7 +19,7 @@
   >
     <view slot="action" bind:tap="onSearch">搜索</view>
   </van-search>
-    <scroll-view  style='position:fixed;top:195rpx;bottom:0px;' scroll-y>
+    <scroll-view  style='position:fixed;top:98px;bottom:0px;' scroll-y>
       <view class="uni-list">
             <block wx:for="{{item2.list}}" wx:for-item="itm" wx:for-index="idx">
                <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="newsDetail">

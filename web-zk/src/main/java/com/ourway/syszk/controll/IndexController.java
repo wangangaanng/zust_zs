@@ -41,7 +41,11 @@ public class IndexController extends SpringZkBaseControl {
 //        System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
 //        return "projectReport";
 //    }
-
+    @RequestMapping("/leaderIndex")
+    public String leaderIndex(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        return "leaderIndex";
+    }
     @RequestMapping("/loginNewDetail")
     public String newsDetail(HttpServletRequest request) {
         CookieUtils.setRequest(request);
@@ -113,23 +117,29 @@ public class IndexController extends SpringZkBaseControl {
             Map map = Maps.newHashMap();
 
             map.put("qrPic", tpPath + "qrcode/" + picName);
-            map.put("name", name);
-            map.put("zphJbdd", zphJbdd);
-            map.put("zphKsrq", zphKsrq);
-            map.put("zphJtsj", zphJtsj);
-//            map.put("name", new String(name.getBytes("utf-8"),"ISO-8859-1"));
-//            map.put("zphJbdd", new String(zphJbdd.getBytes("utf-8"),"ISO-8859-1"));
-//            map.put("zphKsrq", new String(zphKsrq.getBytes("utf-8"),"ISO-8859-1"));
-//            map.put("zphJtsj",new String(zphJtsj.getBytes("utf-8"),"ISO-8859-1"));
+            if (!TextUtils.isEmpty(name)) {
+                map.put("name", name);
+            } else {
+                map.put("name", "待定");
+            }if (!TextUtils.isEmpty(zphJbdd)) {
+                map.put("zphJbdd", zphJbdd);
+            } else {
+                map.put("zphJbdd", "待定");
+            }if (!TextUtils.isEmpty(zphKsrq)) {
+                map.put("zphKsrq", zphKsrq);
+            } else {
+                map.put("zphKsrq", "待定");
+            }if (!TextUtils.isEmpty(zphJtsj)) {
+                map.put("zphJtsj", zphJtsj);
+            } else {
+                map.put("zphJtsj", "待定");
+            }
             request.setAttribute("map", map);
-//            request.setAttribute("qrCode", tpPath+ picName);
             return "projectReport";
-//            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + "qrcode/" + picName;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/error.htm";
-//        return "redirect:/index.htm";
 
     }
 

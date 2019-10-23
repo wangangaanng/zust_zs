@@ -77,9 +77,25 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private String tjsd3;
     private String tjsd4;
     private String tjsd5;
-    private   List<Map<String, String[]>> resultList ;
+    private List<Map<String, String[]>> resultList;
+    private Integer bmNumber;
+    private Integer rqState;
 
+    public Integer getRqState() {
+        return rqState;
+    }
 
+    public void setRqState(Integer rqState) {
+        this.rqState = rqState;
+    }
+
+    public Integer getBmNumber() {
+        return bmNumber;
+    }
+
+    public void setBmNumber(Integer bmNumber) {
+        this.bmNumber = bmNumber;
+    }
 
     public List<Map<String, String[]>> getResultList() {
         return resultList;
