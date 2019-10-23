@@ -13,7 +13,7 @@
    <scroll-view  style='position:fixed;top:108rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
 <view class="uni-list">
   <block wx:for="{{xjhList}}" wx:key="{{index}}">
-  <van-swipe-cell id="{{item.owid}}" data-index="{{index}}" data-owid="{{item.owid}}" right-width="{{ 65 }}" async-close bind:close="onClose">
+  <!-- <van-swipe-cell id="{{item.owid}}" data-index="{{index}}" data-owid="{{item.owid}}" right-width="{{ 65 }}" async-close bind:close="onClose"> -->
     <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="detail">
       <view class="uni-media-list">
         <view class="uni-media-list-body">
@@ -41,10 +41,10 @@
         </view>
       </view>
     </view>
-    <view slot="right">
+    <!-- <view slot="right">
       <van-button type="danger">删除</van-button>
     </view>
-  </van-swipe-cell>
+  </van-swipe-cell> -->
   </block>
   <!-- <van-swipe-cell id="owid2" right-width="{{ 65 }}" async-close bind:close="onClose">
     <view class="uni-list-cell" hover-class="uni-list-cell-hover">
