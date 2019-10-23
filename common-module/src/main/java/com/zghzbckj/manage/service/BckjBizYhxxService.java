@@ -161,9 +161,13 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage logIn(Map<String, Object> datamap) throws ParseException {
         Map<String, Object> resMap = Maps.newHashMap();
+        //根据账号登入
         Map<String, Object> map = this.dao.logIn(datamap);
         if (TextUtils.isEmpty(map)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
+            map=this.dao.logInBySfz(datamap);
+            if(TextUtils.isEmpty(map)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
+            }
         }
         if (!(datamap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString()))) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.PasswordError);
