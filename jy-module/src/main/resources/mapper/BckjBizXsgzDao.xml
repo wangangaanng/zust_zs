@@ -73,6 +73,8 @@
         SELECT
         b.exp1 AS "gsqymc",
         b.zwbt AS "zwbt",
+        b.exp6 AS "qyLxr",
+        b.exp7 AS "qyLxrdh",
         <include refid="bckjBizXsgzColumns"/>
         FROM bckj_biz_xsgz a
         LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
@@ -86,6 +88,9 @@
             </if>
             <if test="jobRefOwid != null and jobRefOwid != ''">
                 AND a.job_ref_owid = #{jobRefOwid}
+            </if>
+            <if test="lxr != null and lxr != ''">
+                AND a.lxr = #{lxr}
             </if>
             <if test="yhRefOwid != null and yhRefOwid != ''">
                 AND a.yh_ref_owid = #{yhRefOwid}
@@ -354,8 +359,10 @@
     </select>
 
 
-    <select id="getOneByUnionId"  parameterType="Map" resultType="BckjBizXsgz">
-        select <include refid="bckjBizXsgzColumns"></include> from bckj_biz_xsgz a where
+    <select id="getOneByUnionId" parameterType="Map" resultType="BckjBizXsgz">
+        select
+        <include refid="bckjBizXsgzColumns"></include>
+        from bckj_biz_xsgz a where
         exp5=#{unionid}
     </select>
 
@@ -366,9 +373,6 @@
         from  bckj_biz_job a ,bckj_biz_xsgz b
         where b.job_ref_owid = a.owid and a.owid=#{jobRefOwid}
     </select>
-
-
-
 
 
 </mapper>

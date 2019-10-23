@@ -290,7 +290,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     List<BckjBizJob> existJob = jobService.findListByParams(params, "");
                     if (!TextUtils.isEmpty(existJob) && existJob.size() > 0) {
                         resultMap.put("result", "false");
-                        resultMap.put("msg", "已存在正在进行中的宣讲会");
+                        resultMap.put("msg", "您已申请过宣讲会，不能重复提交");
                         return resultMap;
                     }
                 }

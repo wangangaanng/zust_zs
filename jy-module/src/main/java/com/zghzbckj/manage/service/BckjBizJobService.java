@@ -192,6 +192,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 mapData.put("sdtj" + i, mapData.get("sdtj" + i).toString().replace(",", "，"));
             }
         }
+       clearCompany(mapData);
         BckjBizJob bckjBizJob = JsonUtil.map2Bean(mapData, BckjBizJob.class);
 
         String zwbt = bckjBizJob.getZwbt();
@@ -239,6 +240,23 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         saveOrUpdate(bckjBizJob);
         return ResponseMessage.sendOK(bckjBizJob);
+    }
+
+    private void clearCompany(Map<String, Object> mapData) {
+        mapData.remove("qyxx.qymc");
+        mapData.remove("qyxx.qydz");
+        mapData.remove("qyxx.qyYyzzzp");
+        mapData.remove("qyxx.qyTysh");
+        mapData.remove("qyxx.qyLxr");
+        mapData.remove("qyxx.qyLxrdh");
+        mapData.remove("qyxx.qyProv");
+        mapData.remove("qyxx.qyCity");
+        mapData.remove("qyxx.qyArea");
+        mapData.remove("qyHylb");
+        mapData.remove("qyGsxz");
+        mapData.remove("qyGsgm");
+        mapData.remove("qyxx");
+
     }
 
     /**
@@ -306,6 +324,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             //公司名称
             if (!TextUtils.isEmpty(qyxx)) {
                 job.setExp1(qyxx.getQymc());
+                job.setExp6(qyxx.getQyLxr());
+                job.setExp7(qyxx.getQyLxrdh());
             }
             //职位失效时间
             if (!TextUtils.isEmpty(mapData.get("zwSxsj"))) {
