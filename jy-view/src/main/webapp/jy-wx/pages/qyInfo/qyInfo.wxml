@@ -202,15 +202,16 @@
       </view>
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{result.zwGwzz}}">
     <view class="title">岗位说明</view>
-    <view class="content">{{result.zwGwzz}}
+    <view class="content">
+      <template is="wxParse" data="{{wxParseData:zwGwzz.nodes}}"/>
     </view>
   </view>
-  <view class="cell">
+  <view class="cell" wx:if="{{(result.qyxx)&&(result.qyxx.qyGsjs)}}">
     <view class="title">公司简介</view>
-    <view class="content" wx:if="{{result.qyxx}}">
-     <view>{{result.qyxx.qyGsjs}}</view>
+    <view class="content">
+     <template is="wxParse" data="{{wxParseData:qyGsjs.nodes}}"/>
     </view>
   </view>
   <view class="cell">
