@@ -27,7 +27,6 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     void updateDlsj(String owid);
 
-    BckjBizYhxx getOneByUnionId(String unionid);
 
     List<Object> showStudentInfoList(Map<String,Object> dataMap);
 
@@ -60,9 +59,5 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     String getYhxxBmSum(Map<String, Object> dataMap);
 
-    Map<String,Object> getOneYhxxGzOrQdInfo(Map<String, Object> dataMap);
 
-    Map<String,Object> getOneYhxxBmInfo(Map<String, Object> dataMap);
-
-    BckjBizYhxx getOneByMap(Map param);
 }

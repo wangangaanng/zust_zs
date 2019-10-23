@@ -9,6 +9,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
+import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.service.CommonService;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.log4j.Logger;
@@ -175,6 +176,7 @@ public class CommonController {
 
     /**
      * 返回字典表 按val2排序
+     *
      * @param dataVO
      * @return
      */
@@ -191,6 +193,30 @@ public class CommonController {
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @RequestMapping(value = "sendCode", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage sendCode(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "mobile","type");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            if(MapUtils.getInt(mapData,"type")==0) {
+                commonService.sendCode(mapData);
+            }else{
+                commonService.sendCodeForget(mapData);
+            }
+            return ResponseMessage.sendOK(Boolean.TRUE);
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("发送验证码失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
 }

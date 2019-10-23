@@ -17,7 +17,9 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
+import com.zghzbckj.manage.utils.SmallAppUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
+import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -411,30 +413,117 @@ public class BckjBizYhxxController extends BaseController {
 
 
     /**
-    *<p>方法:swYtzc TODO三位一体注册接口 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/23 15:54  </li>
-    *</ul>
-    */
+     * <p>方法:swYtzc TODO三位一体注册接口 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/23 15:54  </li>
+     * </ul>
+     */
     @RequestMapping(value = "swYtzc", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage swYtzc(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "unionid","sjh","xm","xb","yzm");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "unionid", "sjh", "xm", "xb", "yzm");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
             return ResponseMessage.sendOK(bckjBizYhxxService.swYtzc(mapData));
-        }catch (CustomerException e){
+        } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
-        }catch (Exception e) {
+        } catch (Exception e) {
             log.info("三位一体注册接口失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+    /**
+     * <p>方法:swYtLogin TODO三位一体登录 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/23 17:34  </li>
+     * </ul>
+     */
+    @RequestMapping(value = "swYtLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage swYtLogin(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "swMm", "swZh");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.loginSwty(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("三位一体登录失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+    /**
+     * <p>方法:getSwWxInfo TODO获取三位一体微信用户信息</p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/23 18:02  </li>
+     * </ul>
+     */
+    @RequestMapping(value = "getSwWxInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getSwWxInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "code", "iv", "encryptedData", "wxid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            WxXcxUserModel wxUser = SmallAppUtil.getOpenId(dataMap);
+            bckjBizYhxxService.swWxinfo(wxUser);
+            return ResponseMessage.sendOK(wxUser);
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取微信用户信息失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+    /**
+    *<p>方法:forgetPwd TODO忘记密码 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/23 19:24  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "forgetPwd", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage forgetPwd(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "swMm", "swZh", "yzm");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.forgetPwd(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("三位一体密码设置失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
 }
