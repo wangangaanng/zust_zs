@@ -64,6 +64,7 @@ Page({
     })
   },
   submitForm(e) {
+    var that = this
     const params = e.detail.value
 
     console.log(params)

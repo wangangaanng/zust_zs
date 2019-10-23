@@ -6,7 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name:wx.getStorageSync('stuInfo').xm,
+    name:wx.getStorageSync('stuInfo').xm || '',
+    headImg:'../../static/headImg.png',
     menuList: [
       { text: '生源信息', icon: '../../../static/index-icon04.png', url: '../syxx/syxx' },
       { text: '就业方案', icon: '../../../static/qy-icon05.png', url: '../jyfa/jyfa' }, 
@@ -24,6 +25,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
     isStudent(this);
   },
   linkurl: function (e) {
@@ -45,7 +47,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      name: wx.getStorageSync('stuInfo').xm || '',
+      headImg: wx.getStorageSync('userInfo').avatarUrl || '',
+    })
   },
 
   /**

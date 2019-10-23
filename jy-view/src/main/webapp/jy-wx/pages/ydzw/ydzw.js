@@ -13,10 +13,11 @@ Page({
     result: '',
     old: '',
     form: {
-      lxr: '',
-      lxdh: ''
+      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
+      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || ''
     },
-    list:[]
+    list:[],
+    btndisabled: false
   },
   showModal(error) {
     wx.showModal({
@@ -33,6 +34,7 @@ Page({
     })
   },
   submitForm(e) {
+    var that = this
     const params = e.detail.value
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
@@ -67,6 +69,9 @@ Page({
     params.qyxxRefOwid = wx.getStorageSync('yhOwid')
     common.ajax('zustjy/bckjBizJybm/applyJob', params, function (res) {
       if (res.data.backCode == 0) {
+        that.setData({
+          btndisabled: true
+        })
         wx.showModal({
           title: '提示',
           showCancel: false,

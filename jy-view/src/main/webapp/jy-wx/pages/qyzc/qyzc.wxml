@@ -52,7 +52,7 @@
 <input type="text" class="hiddenInput" name="qyYyzzzp" value="{{form.qyYyzzzp}}"></input>
 <input type="text" class="hiddenInput" name="qyFrsfzzp" value="{{form.qyFrsfzzp}}"></input>
 
-<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+<button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
 </form>
 <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="4" bind:close="hideBottom">
   <van-area
