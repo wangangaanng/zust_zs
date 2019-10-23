@@ -41,7 +41,11 @@ public class IndexController extends SpringZkBaseControl {
 //        System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
 //        return "projectReport";
 //    }
-
+    @RequestMapping("/leaderIndex")
+    public String leaderIndex(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        return "leaderIndex";
+    }
     @RequestMapping("/loginNewDetail")
     public String newsDetail(HttpServletRequest request) {
         CookieUtils.setRequest(request);
