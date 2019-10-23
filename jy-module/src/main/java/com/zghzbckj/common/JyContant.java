@@ -18,7 +18,7 @@ public class JyContant {
     public static final Integer QY_ZT_JY = 3;
     public static final Integer QY_ZT_JJ = 4;
     public static final String SH_ERROR_MESSAGE = "企业统一税号输入有误";
-    public static final String HMD_ERROR_MESSAGE = "企业已进入黑名单，无法登录";
+    public static final String HMD_ERROR_MESSAGE = "企业已进入黑名单";
     public static final String SFZ_ERROR_MESSAGE = "法人身份证输入有误";
     public static final String SHCF_ERROR_MESSAGE = "已存在该企业统一税号";
     //职位 待审核 通过 拒绝 下架

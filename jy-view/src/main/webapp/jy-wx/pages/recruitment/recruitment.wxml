@@ -13,7 +13,7 @@
 <van-tabs animated sticky bind:click="clickTab">
   <block wx:for="{{navList}}" wx:key="index" wx:for-item="item" wx:for-index="index">
      <van-tab title="{{item.name}}">
-      <scroll-view  style='position:fixed;top:195rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+      <scroll-view  style='position:fixed;top:98px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
         <block wx:for="{{wzList}}" wx:key="" wx:for-item="item2" wx:for-index="index2">
           <view wx:if="{{index2==index}}">
            <view class="uni-list">

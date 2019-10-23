@@ -111,7 +111,7 @@
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJbdd}}</view>
           </view>
           <view class="tr" wx:if="{{result.zphBmjzsj}}">
-            <view class="td td-name"  style="width:180rpx;">报名截止时间：</view>
+            <view class="td td-name"  style="width:180rpx;">报名截止：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphBmjzsj}}</view>
           </view>
           <view class="tr" wx:if="{{(result.zphSfqd)&&(result.zphSfqd==0)}}">

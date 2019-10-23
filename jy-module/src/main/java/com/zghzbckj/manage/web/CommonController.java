@@ -150,6 +150,7 @@ public class CommonController {
     @ResponseBody
     public ResponseMessage meetingPieChart(PublicDataVO dataVO) {
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        //zwlx=3招聘会 zwlx=4宣讲会
         ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "zwlx");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
@@ -179,9 +180,7 @@ public class CommonController {
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
         try {
             Map<String, Object> result = new HashMap<>();
-            String[] jobList = {"month", "jobNumber", "jobFairNumber", "meetingNumber"};
-            result.put("dimensions", jobList);
-            result.put("source", commonService.getJobBar(dataMap));
+            result.put("series", commonService.getJobBar(dataMap));
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="专家列表">
-     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
   <block wx:for="{{list}}" wx:key="{{index}}">
   <view class="t-item">
     <view class="t-js">
@@ -34,7 +34,7 @@
   </scroll-view>
   </van-tab>
   <van-tab title="历史咨询">
-      <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+      <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
         <block wx:for="{{list1}}" wx:key="{{index}}">
         <view class="l-item">
           <view class="l-ask">
