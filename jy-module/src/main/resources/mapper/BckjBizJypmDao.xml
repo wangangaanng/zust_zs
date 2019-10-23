@@ -43,6 +43,7 @@
 	<sql id="bckjBizJypmJoins">
 	</sql>
 
+	<!--根据排名年份统计学院毕业人数、就业人数	-->
 	<select id="collegeStats" resultType="java.util.Map">
 		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmqyrs) as pmqyrs
 		from bckj_biz_jypm
@@ -54,6 +55,7 @@
 		group by szxy
 	</select>
 
+	<!--根据排名年份、所在学院获取专业的毕业人数、就业人数	-->
 	<select id="majorList" resultType="java.util.Map">
 		select <include refid="bckjBizJypmColumns"/>
 		from bckj_biz_jypm a
@@ -69,6 +71,7 @@
 		order by pmjyl desc
 	</select>
 
+	<!--根据排名专业、所在学院和排名年份查询专业	-->
 	<select id="getByMajor" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		select <include refid="bckjBizJypmColumns"></include>
 		from bckj_biz_jypm a

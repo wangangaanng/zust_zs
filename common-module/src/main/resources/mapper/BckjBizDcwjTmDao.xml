@@ -64,6 +64,7 @@
 	<sql id="bckjBizDcwjTmJoins">
 	</sql>
 
+	<!--根据owid查询题目的选项	-->
 	<select id="getOption" resultType="java.util.Map">
 		select a.tmxxa AS A, a.tmxxb AS B, a.tmxxc AS C, a.tmxxd AS D, a.tmxxe AS E, a.tmxxf AS F, a.tmxxg AS G, a.tmxxh AS H,
 		a.tmxxi AS I, a.tmxxj AS J, a.tmxxk AS K, a.tmxxl AS L, a.tmxxm AS M, a.tmxxn AS N, a.tmxxo AS O, a.tmxxp AS P, a.tmxxq AS Q,
@@ -73,6 +74,7 @@
 		where a.owid=#{owid}
 	</select>
 
+	<!--根据问卷的owid查询问卷的题目	-->
 	<select id="listQuestion" resultType="java.util.Map">
 		select a.owid as dcwjtmRefOwid, a.tmmc as tmmc, a.tmsx as tmsx
 		from bckj_biz_dcwj_tm a

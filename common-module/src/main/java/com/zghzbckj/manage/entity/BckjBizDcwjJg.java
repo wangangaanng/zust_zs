@@ -17,7 +17,7 @@ import com.zghzbckj.base.entity.DataWithExpEntity;
  * @version 2019-09-09
  */
 public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
-	
+
 	private static final long serialVersionUID = 1L;
 	private String dtrid;		// dtrid
 	private String dtrxm;		// dtrxm
@@ -25,14 +25,22 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	private Date jsdt;		// jsdt
 	private Integer dtsc;		// dtsc
 	private BigDecimal zdf;		// zdf
+	private Boolean readOnly;
 
-	
+	public Boolean getReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(Boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
 	public BckjBizDcwjJg() {
 		super();
 	}
 
 
-	
+
 	@Length(min=0, max=64, message="dtrid长度必须介于 0 和 64 之间")
 	public String getDtrid() {
 		return dtrid;
@@ -41,7 +49,7 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	public void setDtrid(String dtrid) {
 		this.dtrid = dtrid;
 	}
-	
+
 	@Length(min=0, max=100, message="dtrxm长度必须介于 0 和 100 之间")
 	public String getDtrxm() {
 		return dtrxm;
@@ -50,7 +58,7 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	public void setDtrxm(String dtrxm) {
 		this.dtrxm = dtrxm;
 	}
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getKsdt() {
 		return ksdt;
@@ -59,7 +67,7 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	public void setKsdt(Date ksdt) {
 		this.ksdt = ksdt;
 	}
-	
+
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	public Date getJsdt() {
 		return jsdt;
@@ -68,7 +76,7 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	public void setJsdt(Date jsdt) {
 		this.jsdt = jsdt;
 	}
-	
+
 	public Integer getDtsc() {
 		return dtsc;
 	}
@@ -76,7 +84,7 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 	public void setDtsc(Integer dtsc) {
 		this.dtsc = dtsc;
 	}
-	
+
 	public BigDecimal getZdf() {
 		return zdf;
 	}
@@ -85,5 +93,5 @@ public class BckjBizDcwjJg extends DataWithExpEntity<BckjBizDcwjJg> {
 		this.zdf = zdf;
 	}
 
-	
+
 }

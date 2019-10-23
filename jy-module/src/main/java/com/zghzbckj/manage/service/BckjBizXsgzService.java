@@ -282,9 +282,13 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
         HashMap<String, Object> sendMap = Maps.newHashMap();
-        sendMap.put("jobRefOwid", bckjBizXsgz.getJobRefOwid());
-        Map<String, Object> resMap = this.dao.qdSuccessInfo(sendMap);
-        return ResponseMessage.sendOK(resMap);
+        sendMap.put("jobRefOwid",bckjBizXsgz.getJobRefOwid());
+        sendMap.put("yhRefOwid",bckjBizXsgz.getYhRefOwid());
+        List<BckjBizXsgz> bckjbiz = this.dao.findListByMap(sendMap);
+        if(!TextUtils.isEmpty(bckjbiz)&&bckjbiz.size()>0){
+            return ResponseMessage.sendOK(bckjbiz);
+        }
+        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)

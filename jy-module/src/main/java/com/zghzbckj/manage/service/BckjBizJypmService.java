@@ -131,6 +131,12 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmjyl");
+        List<BckjBizJypm> records = page.getRecords();
+        //统计行
+        BckjBizJypm jypm = new BckjBizJypm();
+        jypm.setSzxy("共有："+ page.getTotalCount() +"个专业");
+        jypm.setReadOnly(true);
+        records.add(0, jypm);
         return ResponseMessage.sendOK(page);
     }
 
