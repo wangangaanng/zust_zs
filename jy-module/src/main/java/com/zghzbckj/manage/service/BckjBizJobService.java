@@ -242,8 +242,31 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (!TextUtils.isEmpty(orderBy)) {
             paramsMap.put("orderBy", orderBy);
         }
+        List<BckjBizJob> jobList = this.dao.findListByMap(paramsMap);
+        if (!TextUtils.isEmpty(jobList) && jobList.size() > 0) {
+            for (BckjBizJob job : jobList) {
+                try {
 
-        page.setList(this.dao.findListByMapWithCompany(paramsMap));
+                    if (3 == job.getState()) {
+                        job.setRqState(3);
+                        break;
+                    } else if (TextUtils.isEmpty(job.getZwSxsj())) {
+                        job.setRqState(2);
+                    } else if (!TextUtils.isEmpty(job.getZwSxsj())) {
+                        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                        Date todayDate = DateUtil.getDate(formatter.format(new Date()), "yyyy-MM-dd");
+                        Date zwSxsj = DateUtil.getDate(formatter.format(job.getZwSxsj()), "yyyy-MM-dd");
+                        int rq = dateCompare(todayDate, zwSxsj);
+                        if (rq <= 0) {
+                            job.setRqState(2);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        page.setList(jobList);
         PageInfo pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());
         pageInfo.setTotalPage((long) page.getTotalPage());

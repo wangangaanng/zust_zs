@@ -31,18 +31,17 @@ public class FinanceDetailOpen implements ComponentListinerSer {
         String url = "";
 
         try {
-
-
-
             List<Map> e = com.ourway.base.zk.utils.JsonUtil.jsonToList(windowParams.toString(), Map.class);
             Map _params = (Map) e.get(0);
 
 
             BaseGrid grid = (BaseGrid) window.getFellowIfAny(_params.get("gridId").toString());
-            List<Map<String, Object>> datas = grid.getSelectRowsData();
-            if (TextUtils.isEmpty(datas) || datas.size() == 0) {
-                AlterDialog.alert("请选择需要操作的记录");
-                return;
+            if (!TextUtils.isEmpty(grid)) {
+                List<Map<String, Object>> datas = grid.getSelectRowsData();
+                if (TextUtils.isEmpty(datas) || datas.size() == 0) {
+                    AlterDialog.alert("请选择需要操作的记录");
+                    return;
+                }
             }
             if (TextUtils.isEmpty(_params.get("pageCa"))) {
                 AlterDialog.alert("请定义pageCa");

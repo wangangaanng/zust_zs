@@ -3,11 +3,8 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
@@ -16,21 +13,15 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
-
-import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.soap.Text;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -38,6 +29,7 @@ import java.util.Map;
 
 /**
  * ccController
+ *
  * @author cc
  * @version 2019-09-09
  */
@@ -46,55 +38,53 @@ import java.util.Map;
 public class BckjBizYhxxController extends BaseController {
 
 
-    private static Map<String,Object> dataCenter= Maps.newHashMap();
-	@Autowired
-	private BckjBizYhxxService bckjBizYhxxService;
+    private static Map<String, Object> dataCenter = Maps.newHashMap();
+    @Autowired
+    private BckjBizYhxxService bckjBizYhxxService;
 
 
-	@RequestMapping(value = "/getList")
+    @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return bckjBizYhxxService.findPageBckjBizYhxx(filters, dataVO.getPageNo(), dataVO.getPageSize());
-    } catch (Exception e) {
-    log.error(e+"获取bckjBizYhxx列表失败\r\n"+e.getStackTrace()[0] , e);
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-    }
+            return bckjBizYhxxService.findPageBckjBizYhxx(filters, dataVO.getPageNo(), dataVO.getPageSize());
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizYhxx列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
     }
 
-            @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage saveInfo(PublicDataVO dataVO) {
-            try {
+    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveInfo(PublicDataVO dataVO) {
+        try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
             return bckjBizYhxxService.saveBckjBizYhxx(mapData);
-            } catch (Exception e) {
-            log.error(e+"保存BckjBizYhxx信息失败\r\n"+e.getStackTrace()[0]  , e);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizYhxx信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
+        }
+    }
 
-            @RequestMapping(value = "getOne", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage getOne(PublicDataVO dataVO) {
-            try {
+    @RequestMapping(value = "getOne", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOne(PublicDataVO dataVO) {
+        try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
 
-            ValidateMsg msg = ValidateUtils.isEmpty(mapData,"owid");
-            if(!msg.getSuccess()){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return ResponseMessage.sendOK(bckjBizYhxxService.get(mapData.get("owid").toString()));
-            } catch (Exception e) {
+        } catch (Exception e) {
 
-            log.error(e+"初始BckjBizYhxx\r\n" +e.getStackTrace()[0] ,e);
+            log.error(e + "初始BckjBizYhxx\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }
-
-
+        }
+    }
 
 
     /**
@@ -140,13 +130,13 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage modfiyPassword(PublicDataVO dataVO) {
         try {
             Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "newPassword", "oldPassword","newPasswordAgain");
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "newPassword", "oldPassword", "newPasswordAgain");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             ValidateMsg yhidmsg = ValidateUtils.isEmpty(datamap, "owid");
-            if(!yhidmsg.getSuccess()){
-                return ResponseMessage.sendError(2,"登录过期");
+            if (!yhidmsg.getSuccess()) {
+                return ResponseMessage.sendError(2, "登录过期");
             }
             return bckjBizYhxxService.modfiyPassword(datamap);
         } catch (Exception e) {
@@ -173,12 +163,13 @@ public class BckjBizYhxxController extends BaseController {
             if (ValidateUtils.isEmpty(owid)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_NOPARAMS);
             }
-            return  bckjBizYhxxService.getOneByOwid(owid);
+            return bckjBizYhxxService.getOneByOwid(owid);
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * <p>功能描述:学生小程序登入</p >
      * <ul>
@@ -194,7 +185,7 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage appletLogin(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhDlzh","yhDlmm","openid","unionid","wxid");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhDlzh", "yhDlmm", "openid", "unionid", "wxid");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
@@ -204,6 +195,7 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * <p>功能描述:后台录入师生信息</p >
      * <ul>
@@ -214,9 +206,9 @@ public class BckjBizYhxxController extends BaseController {
      * <li>@date 2019/9/20</li>
      * </ul>
      */
-    @RequestMapping(value = "recordInfo/{state}",method = RequestMethod.POST)
+    @RequestMapping(value = "recordInfo/{state}", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage recordInfo(@PathVariable("state") Integer olx,PublicDataVO dataVO) {
+    public ResponseMessage recordInfo(@PathVariable("state") Integer olx, PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
@@ -231,7 +223,7 @@ public class BckjBizYhxxController extends BaseController {
             if (olx == 1) {
                 return ResponseMessage.sendOK("");
             }
-                return ResponseMessage.sendOK("");
+            return ResponseMessage.sendOK("");
         } catch (RepeatException e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendOK("excel表中存在学号\" + i + \"重复录入,导入失败");
@@ -240,6 +232,7 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * <p>功能描述:后台显示师生信息</p >
      * <ul>
@@ -252,20 +245,20 @@ public class BckjBizYhxxController extends BaseController {
      */
     @PostMapping("showInfoList/{state}")
     @ResponseBody
-    public ResponseMessage showInfoList(@PathVariable("state") Integer state,PublicDataVO dataVO){
+    public ResponseMessage showInfoList(@PathVariable("state") Integer state, PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             //显示学生信息列表
-            if(state==0){
-                return ResponseMessage.sendOK(bckjBizYhxxService.showInfoList(filters,dataVO.getPageNo(),dataVO.getPageSize()));
+            if (state == 0) {
+                return ResponseMessage.sendOK(bckjBizYhxxService.showInfoList(filters, dataVO.getPageNo(), dataVO.getPageSize()));
             }
-            return  ResponseMessage.sendOK("");
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * <p>功能描述:新建或修改学生信息</p >
      * <ul>
@@ -278,25 +271,24 @@ public class BckjBizYhxxController extends BaseController {
      */
     @PostMapping("insertssInfo")
     @ResponseBody
-    public ResponseMessage insertssInfo(PublicDataVO dataVO){
-        try{
+    public ResponseMessage insertssInfo(PublicDataVO dataVO) {
+        try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             return bckjBizYhxxService.insertssInfo(dataMap);
-        }
-        catch (Exception e)
-        {
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
 
     }
+
     @PostMapping("saveOrALL")
     @ResponseBody
-    public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists){
-        try{
-            List<BckjBizYhxx> listYhxx=new ArrayList<>();
-            for(BckjBizYhxxVo bckjBizYhxxVo:lists){
-                BckjBizYhxx bckjBizYhxx=new BckjBizYhxx();
+    public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists) {
+        try {
+            List<BckjBizYhxx> listYhxx = new ArrayList<>();
+            for (BckjBizYhxxVo bckjBizYhxxVo : lists) {
+                BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
                 bckjBizYhxx.setOwid(bckjBizYhxxVo.getOwid());
                 bckjBizYhxx.setXm(bckjBizYhxxVo.getXm());
                 bckjBizYhxx.setYhDlzh(bckjBizYhxxVo.getYhDlzh());
@@ -310,77 +302,79 @@ public class BckjBizYhxxController extends BaseController {
             }
             bckjBizYhxxService.saveAll(listYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     @PostMapping("deleteInfo")
     @ResponseBody
-    public  ResponseMessage deleteInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+    public ResponseMessage deleteInfo(@RequestBody BckjBizYhxx bckjBizYhxx) {
         try {
             bckjBizYhxxService.delete(bckjBizYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     @PostMapping("saveconInfo")
     @ResponseBody
-    public  ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+    public ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx) {
         try {
             bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     @PostMapping("insertInfo")
     @ResponseBody
-    public  ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+    public ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx) {
         try {
             bckjBizYhxxService.insertInfo(bckjBizYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * 后台进入修改页面读取出信息
+     *
      * @param
      * @return
      */
     @PostMapping("getStudentOne")
     @ResponseBody
-    public  ResponseMessage getStudentOne(PublicDataVO dataVO){
+    public ResponseMessage getStudentOne(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return ResponseMessage.sendOK(bckjBizYhxxService.getStudentOne(dataMap));
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
      * 后台删除gridlist
+     *
      * @param dataVO
      * @return ResponseMessage
      */
     @PostMapping("deleteInfoList")
     @ResponseBody
-    public ResponseMessage deleteInfoList(PublicDataVO dataVO){
+    public ResponseMessage deleteInfoList(PublicDataVO dataVO) {
         try {
             List<Object> list = JsonUtil.jsonToList(dataVO.getData());
             List<String> owidcodes = new ArrayList<String>(list.size());
@@ -389,30 +383,58 @@ public class BckjBizYhxxController extends BaseController {
                 owidcodes.add(((Map<String, Object>) obj).get("owid").toString());
                 xsxhcodes.add(((Map<String, Object>) obj).get("xsxh").toString());
             }
-            return   ResponseMessage.sendOK(bckjBizYhxxService.deleteInfoList(owidcodes,xsxhcodes));
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+            return ResponseMessage.sendOK(bckjBizYhxxService.deleteInfoList(owidcodes, xsxhcodes));
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
-     *后台根据job 的 owid 获得关注学生信息
+     * 后台根据job 的 owid 获得关注学生信息
+     *
      * @param dataVO
-     * @param type 0:关注 1：签到 2：报名
+     * @param type   0:关注 1：签到 2：报名
      * @return
      */
     @PostMapping("getYhxxInfoList/{type}")
     @ResponseBody
-    public ResponseMessage getYhxxInfoList(@PathVariable("type") Integer type, PublicDataVO dataVO){
-                try {
-                    List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-                        return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(type,filterModels,dataVO.getPageSize(),dataVO.getPageNo())) ;
-                }
-                catch (Exception e){
-                    log.error(CommonConstant.ERROR_MESSAGE,e);
-                    return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-                }
+    public ResponseMessage getYhxxInfoList(@PathVariable("type") Integer type, PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return ResponseMessage.sendOK(bckjBizYhxxService.getYhxxInfoList(type, filterModels, dataVO.getPageSize(), dataVO.getPageNo()));
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
     }
 
+
+    /**
+    *<p>方法:swYtzc TODO三位一体注册接口 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/23 15:54  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "swYtzc", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage swYtzc(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "unionid","sjh","xm","xb","yzm");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.swYtzc(mapData));
+        }catch (CustomerException e){
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        }catch (Exception e) {
+            log.info("三位一体注册接口失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

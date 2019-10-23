@@ -250,6 +250,15 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                             return resultMap;
                         }
                     }
+                    if (!TextUtils.isEmpty(job.getZphKsrq())) {
+                        String dateStr = DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd");
+                        dateStr += " 23:59:59";
+                        if (System.currentTimeMillis() > DateUtil.getDate(dateStr, "yyyy-MM-dd HH:mm:ss").getTime()) {
+                            resultMap.put("result", "false");
+                            resultMap.put("msg", "报名截止时间已过");
+                            return resultMap;
+                        }
+                    }
                     if (!TextUtils.isEmpty(job.getZwSxsj())) {
                         if (System.currentTimeMillis() > job.getZwSxsj().getTime()) {
                             resultMap.put("result", "false");
@@ -329,8 +338,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                         return resultMap;
                     }
                 }
-                if (JyContant.BMLX_QY == bmlx)
-                {
+                if (JyContant.BMLX_QY == bmlx) {
                     Map params = new HashMap<String, Object>();
                     params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
                     if (!TextUtils.isEmpty(mapData.get("qyxxRefOwid"))) {
