@@ -17,51 +17,205 @@ import java.util.Date;
 public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	
 	private static final long serialVersionUID = 1L;
-
-
-
 	private String yhRefOwid;		// yh_ref_owid
 	private String xsxh;		// xsxh_ref_owid
 	private String xm;		// xm
 	private String sfz;
+	private Integer xb;
+	private String mz;
+	private String xxmc;
 	private String xsxy;
 	private String xszy;
-	private Integer xb;
+	private String xsbj;
 	private String syd;
-	private String pyfs;
-	private String zyfx;
+	private String bynf;
+	private String xlcc;
+	private String xz;
+	private int sfsf;        //sfsf
+	private Integer sfzz;			// sfzz
+	private Integer sfdlxy;		// sfdlxy
+	private String syddm;
 	private String sjh;
-	private String xxmc;		// xxmc
-	private String byxl;
-	private String byqx;		// byqx
-	private Integer sfzydk;		// sfzydk
-	private String yrdwmc;		// yrdwmc
-	private String yrdwdm;		// yrdwdm
+	private String jtdh;
+	private String qqhm;
+	private String yx;
+	private String byqx;
+	private String jyqdbz;		// jyqdbz
 	private String yrdwxz;		// yrdwxz
-	private String dwlbmc;		// dwlbmc
-	private String dwszdmc;		// dwszdmc
-	private String dwlxr;		// dwlxr
-	private String dwdh;		// dwdh
 	private String gzzwlbmc;		// gzzwlbmc
-
-
-
-	private String bdzqflbmc;       //bdzqflbmc
-	private String bdzdwmc;		// bdzdwmc
+	private String yrdwdm;		// yrdwdm
+	private String yrdwmc;		// yrdwmc
+	private String zgdwdm;		// zgdwdm
+	private String zgdwmc;		// zgdwmc
+	private String yrdwlsmc;		// yrdwlsmc
+	private String dwszdmc;		// dwszdmc
+	private String dwszddm;
 	private String bdzszdmc;		// bdzszdmc
+	private String bdzqflbmc;       //bdzqflbmc
 	private Date bdkssj;		// bdkssj
 	private Date bdjssj;		// bdjssj
-	private Integer sfdydwbdz;		// sfdydwbdz
-	private String datddw;		// datddw
-	private String bdzbz;		// bdzbz
-	private String datdxxdz;		// datdxxdz
 	private  String bdzbh;
-	private String bdzlsh;
-	private String datddh;		// datddh
+	private String xjcqk;		// xjcqk
+	private String datdxxdz;		// datdxxdz
+	private String datddw;		// datddw
 	private String hkqydz;		// hkqydz
+	private String dwlxr;		// dwlxr
+	private String dwdh;		// dwdh
+	private Integer sfzydk;		// sfzydk
+	private String dwlbmc;		// dwlbmc
+	private String bdzlsh;
 	private String bzone;		// bzone
 	private String bztwo;		// bztwo
 	private String bzthree;		// bzthree
+
+	public String getMz() {
+		return mz;
+	}
+
+	public void setMz(String mz) {
+		this.mz = mz;
+	}
+
+	public String getXsbj() {
+		return xsbj;
+	}
+
+	public void setXsbj(String xsbj) {
+		this.xsbj = xsbj;
+	}
+
+	public String getBynf() {
+		return bynf;
+	}
+
+	public void setBynf(String bynf) {
+		this.bynf = bynf;
+	}
+
+	public String getXlcc() {
+		return xlcc;
+	}
+
+	public void setXlcc(String xlcc) {
+		this.xlcc = xlcc;
+	}
+
+	public String getXz() {
+		return xz;
+	}
+
+	public void setXz(String xz) {
+		this.xz = xz;
+	}
+
+	public int getSfsf() {
+		return sfsf;
+	}
+
+	public void setSfsf(int sfsf) {
+		this.sfsf = sfsf;
+	}
+
+	public Integer getSfzz() {
+		return sfzz;
+	}
+
+	public void setSfzz(Integer sfzz) {
+		this.sfzz = sfzz;
+	}
+
+	public Integer getSfdlxy() {
+		return sfdlxy;
+	}
+
+	public void setSfdlxy(Integer sfdlxy) {
+		this.sfdlxy = sfdlxy;
+	}
+
+	public String getSyddm() {
+		return syddm;
+	}
+
+	public void setSyddm(String syddm) {
+		this.syddm = syddm;
+	}
+
+	public String getJtdh() {
+		return jtdh;
+	}
+
+	public void setJtdh(String jtdh) {
+		this.jtdh = jtdh;
+	}
+
+	public String getQqhm() {
+		return qqhm;
+	}
+
+	public void setQqhm(String qqhm) {
+		this.qqhm = qqhm;
+	}
+
+	public String getYx() {
+		return yx;
+	}
+
+	public void setYx(String yx) {
+		this.yx = yx;
+	}
+
+	public String getJyqdbz() {
+		return jyqdbz;
+	}
+
+	public void setJyqdbz(String jyqdbz) {
+		this.jyqdbz = jyqdbz;
+	}
+
+	public String getZgdwdm() {
+		return zgdwdm;
+	}
+
+	public void setZgdwdm(String zgdwdm) {
+		this.zgdwdm = zgdwdm;
+	}
+
+	public String getZgdwmc() {
+		return zgdwmc;
+	}
+
+	public void setZgdwmc(String zgdwmc) {
+		this.zgdwmc = zgdwmc;
+	}
+
+	public String getYrdwlsmc() {
+		return yrdwlsmc;
+	}
+
+	public void setYrdwlsmc(String yrdwlsmc) {
+		this.yrdwlsmc = yrdwlsmc;
+	}
+
+	public String getDwszddm() {
+		return dwszddm;
+	}
+
+	public void setDwszddm(String dwszddm) {
+		this.dwszddm = dwszddm;
+	}
+
+	public String getXjcqk() {
+		return xjcqk;
+	}
+
+	public void setXjcqk(String xjcqk) {
+		this.xjcqk = xjcqk;
+	}
+
+
+
+	public BckjBizJyscheme() {
+	}
 
 
 	public String getYhRefOwid() {
@@ -113,21 +267,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.syd = syd;
 	}
 
-	public String getPyfs() {
-		return pyfs;
-	}
 
-	public void setPyfs(String pyfs) {
-		this.pyfs = pyfs;
-	}
-
-	public String getZyfx() {
-		return zyfx;
-	}
-
-	public void setZyfx(String zyfx) {
-		this.zyfx = zyfx;
-	}
 
 	public String getSjh() {
 		return sjh;
@@ -168,13 +308,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.bdzqflbmc = bdzqflbmc;
 	}
 
-	public String getByxl() {
-		return byxl;
-	}
 
-	public void setByxl(String byxl) {
-		this.byxl = byxl;
-	}
 	
 	@Length(min=0, max=100, message="xm长度必须介于 0 和 100 之间")
 	public String getXm() {
@@ -282,15 +416,8 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	public void setGzzwlbmc(String gzzwlbmc) {
 		this.gzzwlbmc = gzzwlbmc;
 	}
-	
-	@Length(min=0, max=100, message="bdzdwmc长度必须介于 0 和 100 之间")
-	public String getBdzdwmc() {
-		return bdzdwmc;
-	}
 
-	public void setBdzdwmc(String bdzdwmc) {
-		this.bdzdwmc = bdzdwmc;
-	}
+
 	
 	@Length(min=0, max=100, message="bdzszdmc长度必须介于 0 和 100 之间")
 	public String getBdzszdmc() {
@@ -319,13 +446,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.bdjssj = bdjssj;
 	}
 	
-	public Integer getSfdydwbdz() {
-		return sfdydwbdz;
-	}
 
-	public void setSfdydwbdz(Integer sfdydwbdz) {
-		this.sfdydwbdz = sfdydwbdz;
-	}
 	
 	@Length(min=0, max=100, message="datddw长度必须介于 0 和 100 之间")
 	public String getDatddw() {
@@ -336,14 +457,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.datddw = datddw;
 	}
 	
-	@Length(min=0, max=100, message="bdzbz长度必须介于 0 和 100 之间")
-	public String getBdzbz() {
-		return bdzbz;
-	}
 
-	public void setBdzbz(String bdzbz) {
-		this.bdzbz = bdzbz;
-	}
 	
 	@Length(min=0, max=100, message="datdxxdz长度必须介于 0 和 100 之间")
 	public String getDatdxxdz() {
@@ -354,14 +468,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.datdxxdz = datdxxdz;
 	}
 	
-	@Length(min=0, max=100, message="datddh长度必须介于 0 和 100 之间")
-	public String getDatddh() {
-		return datddh;
-	}
 
-	public void setDatddh(String datddh) {
-		this.datddh = datddh;
-	}
 	
 	@Length(min=0, max=100, message="hkqydz长度必须介于 0 和 100 之间")
 	public String getHkqydz() {

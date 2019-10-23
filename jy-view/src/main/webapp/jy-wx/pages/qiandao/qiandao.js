@@ -17,6 +17,7 @@ Page({
     isqd:false,
     show:false,
     isauthorize: false,
+    jl: false,
     markers: [{
       iconPath: "/static/location.png",
       id: 0,
@@ -178,15 +179,24 @@ var getContent = function (that, owid) {//招聘详情
         res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
         // }
       }
-      var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
-      if(jl<1){
-        jl = jl * 1000+'m'
+      if (res.data.bean.zphGpsjd){
+        var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
+        if (jl < 1) {
+          jl = jl * 1000 + 'm'
+        } else {
+          jl = jl + 'km'
+        }
+        that.setData({
+          jl: jl
+        })
       }else{
-        jl = jl + 'km'
+        that.setData({
+          jl: false,
+        })
       }
+      
       that.setData({
         result: res.data.bean,
-        jl:jl
       })
 
 

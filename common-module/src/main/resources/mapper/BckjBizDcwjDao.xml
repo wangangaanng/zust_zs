@@ -87,10 +87,13 @@
 				AND a.sfdl=#{sfdl}
 			</if>
 			<if test="mxdx != null and mxdx != ''">
-				AND a.mxdx=#{mxdx}
+				AND a.mxdx=#{mxdx} OR a.mxdx IS NULL
 			</if>
 			<if test="sfyx != null and sfyx != ''">
 				AND a.sfyx=#{sfyx}
+			</if>
+			<if test="state != null and state != ''">
+				AND a.state=#{state}
 			</if>
 		</where>
 		<choose>

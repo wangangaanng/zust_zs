@@ -737,4 +737,14 @@
     </select>
 
 
+	<select id="getOneBySfz" parameterType="String" resultType="BckjBizYhxx">
+		select <include refid="bckjBizYhxxColumns"></include>
+		from bckj_biz_yhxx a
+		where a.sfz=#{value}
+	</select>
+
+	<update id="deleteBySfz" parameterType="String" >
+		DELETE FROM BCKJ_BIZ_YHXX
+		WHERE sfz=#{value}
+	</update>
 </mapper>

@@ -532,12 +532,11 @@
 	</delete>
 
 
-    <select id="findQdList" resultType="Map" parameterType="Map">
-        select
-        <include refid="bckjBizJobColumns"></include>
-        from bckj_biz_job a
-        where zph_ksrq=CURRENT_DATE and zph_sfqd=1
-    </select>
+	<select id="findQdList" resultType="Map" parameterType="Map">
+		select <include refid="bckjBizJobColumns"></include>
+		from bckj_biz_job a
+		where  zph_ksrq=CURRENT_DATE and zph_sfqd=1
+	</select>
 
 
     <select id="getCdList" resultType="BckjBizJob" parameterType="Map">

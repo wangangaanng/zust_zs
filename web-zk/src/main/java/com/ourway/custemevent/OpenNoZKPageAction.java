@@ -15,7 +15,6 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zul.Row;
 
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -95,7 +94,7 @@ public class OpenNoZKPageAction implements ComponentListinerSer {
                 zphKsrq = DateUtil.getDateString(rowData.get("zphKsrq").toString(), "yyyy-MM-dd");
             }
 
-            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj");
+            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid");
             ComponentWindowSer root = PageUtils.getBaseMainWindow(window);
             if (null == root) {
                 AlterDialog.alert("无tab页面，不能打开");

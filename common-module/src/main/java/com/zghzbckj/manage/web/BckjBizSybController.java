@@ -3,24 +3,19 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.service.BckjBizSybService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,8 +34,12 @@ public class BckjBizSybController extends BaseController {
     @Autowired
     private BckjBizSybService bckjBizSybService;
 
-
-    @RequestMapping(value = "/getList")
+    /**
+     * 后台展示生源list
+     * @param dataVO
+     * @return List<bckjbizsyb>
+     */
+    @PostMapping(value = "getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
@@ -52,41 +51,39 @@ public class BckjBizSybController extends BaseController {
         }
     }
 
-    @PostMapping(value = "deleteList")
-    @ResponseBody
-    public ResponseMessage deleteList(PublicDataVO dataVO) {
-        try {
-            if (TextUtils.isEmpty(dataVO.getData())) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
-            }
 
+
+    /**
+     * 后台删除gridlist
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("deleteInfoList")
+    @ResponseBody
+    public ResponseMessage deleteInfoList(PublicDataVO dataVO){
+        try {
             List<Object> list = JsonUtil.jsonToList(dataVO.getData());
-            List<String> codes = new ArrayList<String>(list.size());
+            List<String> owidcodes = new ArrayList<String>(list.size());
+            List<String> sfzcodes = new ArrayList<String>(list.size());
             for (Object obj : list) {
-                codes.add(((Map<String, Object>) obj).get("owid").toString());
+                owidcodes.add(((Map<String, Object>) obj).get("owid").toString());
+                sfzcodes.add(((Map<String, Object>) obj).get("sfz").toString());
             }
-            ResponseMessage data = bckjBizSybService.removeOrder(codes);
-            return data;
-        } catch (Exception e) {
-            log.error(e + "删除BckjBizSyb列表失败\r\n" + e.getStackTrace()[0], e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+            return   ResponseMessage.sendOK(bckjBizSybService.deleteInfoList(owidcodes));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
-    @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage saveInfo(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断id是否为
-            BckjBizSyb syb = JsonUtil.map2Bean(mapData, BckjBizSyb.class);
-            return bckjBizSybService.saveBckjBizSyb(syb);
-        } catch (Exception e) {
-            log.error(e + "保存BckjBizSyb信息失败\r\n" + e.getStackTrace()[0], e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-        }
-    }
 
+
+    /**
+     * 后台展示一条学生生源信息
+     * @param dataVO
+     * @return ResponseMessage
+     */
     @RequestMapping(value = "getOne", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getOne(PublicDataVO dataVO) {
@@ -104,13 +101,42 @@ public class BckjBizSybController extends BaseController {
         }
     }
 
+    /**
+     * <p>功能描述:新建或修改学生信息</p >
+     * <ul>z
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/10/23</li>
+     * </ul>
+     */
+    @PostMapping("insertssInfo")
+    @ResponseBody
+    public ResponseMessage insertssInfo(PublicDataVO dataVO){
+        try{
+            BckjBizSyb bckjBizSyb = JackSonJsonUtils.fromJson(dataVO.getData(), BckjBizSyb.class);
+            String valid = doValid(bckjBizSyb);
+            if(!TextUtils.isEmpty(valid)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,valid);
+            }
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizSybService.insertssInfo(dataMap));
+        }
+        catch (Exception e)
+        {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 
     private String doValid(BckjBizSyb syb) {
-        if (TextUtils.isEmpty(syb.getXh())) {
+        if (TextUtils.isEmpty(syb.getXsxh())) {
             return "学号不能为空";
         } else {
-            if (syb.getXh().length() > 30) {
+            if (syb.getXsxh().length() > 30) {
                 return "学号不能超过30个字符";
             }
         }
@@ -121,26 +147,19 @@ public class BckjBizSybController extends BaseController {
                 return "考生号数据不能超过30个字符";
             }
         }
-        if (TextUtils.isEmpty(syb.getSfzh())) {
+        if (TextUtils.isEmpty(syb.getSfz())) {
             return "身份证为空";
         } else {
-            if (syb.getSfzh().length() > 30) {
+            String regex = "\\d{15}(\\d{2}[0-9xX])?";
+            if (!syb.getSfz().matches(regex)) {
                 return "身份证格式错误";
             }
         }
         if (TextUtils.isEmpty(syb.getRxnf())) {
-            return "入学年份不能为空";
-        } else {
-            if (syb.getRxnf().length() > 30) {
-                return "入学年份不能为大于30个字符";
-            }
+            return "入学日期不能为空";
         }
         if (TextUtils.isEmpty(syb.getCsrq())) {
             return "出生日期不能为空";
-        } else {
-            if (syb.getCsrq().length() > 30) {
-                return "出生日期不能超过30个字符";
-            }
         }
         if (TextUtils.isEmpty(syb.getSyd())) {
             return "生源地不能为空";
@@ -172,10 +191,6 @@ public class BckjBizSybController extends BaseController {
         }
         if (TextUtils.isEmpty(syb.getByrq())) {
             return "毕业日期不能为空";
-        } else {
-            if (syb.getByrq().length() > 30) {
-                return "毕业日期不能超过30个字符";
-            }
         }
         if (TextUtils.isEmpty(syb.getCxsy())) {
             return "城乡生源不能为空";
@@ -204,36 +219,34 @@ public class BckjBizSybController extends BaseController {
                 return "学制不能超过100个字符";
             }
         }
-
-        if (TextUtils.isEmpty(syb.getSsxx())) {
+        if (TextUtils.isEmpty(syb.getXxmc())) {
             return "所属学校不能为空";
         } else {
-            if (syb.getSsxx().length() > 100) {
+            if (syb.getXxmc().length() > 100) {
                 return "所属学校不能超过100个字符";
             }
         }
-
-        if (TextUtils.isEmpty(syb.getSsxy())) {
+        if (TextUtils.isEmpty(syb.getXsxy())) {
             return "所属学院不能为空";
         } else {
-            if (syb.getSsxy().length() > 100) {
+            if (syb.getXsxy().length() > 100) {
                 return "所属学院不能超过100个字符";
             }
         }
-        if (TextUtils.isEmpty(syb.getXxzy())) {
+        if (TextUtils.isEmpty(syb.getXszy())) {
             return "学校专业不能为空";
         } else {
-            if (syb.getXxzy().length() > 100) {
+            if (syb.getXszy().length() > 100) {
                 return "学校专业不能超过100个字符";
             }
         }
         if (!TextUtils.isEmpty(syb.getZyfx()) && syb.getZyfx().length() > 100) {
             return "专业方向不能超过100个字符";
         }
-        if (TextUtils.isEmpty(syb.getSzbj())) {
+        if (TextUtils.isEmpty(syb.getXsbj())) {
             return "所在班级不能为空";
         } else {
-            if (syb.getSzbj().length() > 100) {
+            if (syb.getXsbj().length() > 100) {
                 return "所在班级不能超过100个字符";
             }
         }
@@ -265,17 +278,17 @@ public class BckjBizSybController extends BaseController {
                 return "师范生类别不能超过100个字符";
             }
         }
-        if (TextUtils.isEmpty(syb.getSjhm())) {
+        if (TextUtils.isEmpty(syb.getSjh())) {
             return "手机号码不能为空";
         } else {
-            if (syb.getSjhm().length() > 30) {
+            if (syb.getSjh().length() > 30) {
                 return "手机号码不能超过30个字符";
             }
         }
-        if (TextUtils.isEmpty(syb.getDzyx())) {
+        if (TextUtils.isEmpty(syb.getYx())) {
             return "电子邮箱不能为空";
         } else {
-            if (syb.getDzyx().length() > 30) {
+            if (syb.getYx().length() > 30) {
                 return "电子邮箱不能超过30个字符";
             }
         }
@@ -310,62 +323,49 @@ public class BckjBizSybController extends BaseController {
         return null;
     }
 
+
+
+
     /**
-     * 后台生源管理获得gridlist
-     * @param dataVO
-     * @return
+     * <p>功能描述:后台录入学生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/10/23</li>
+     * </ul>
      */
-    @PostMapping("getSybList")
+    @RequestMapping(value = "recordInfo/{state}",method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage getSybList(PublicDataVO dataVO){
+    public ResponseMessage recordInfo(@PathVariable("state") Integer olx, PublicDataVO dataVO) {
         try {
-            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return ResponseMessage.sendOK(bckjBizSybService.getSybList(filters, dataVO.getPageNo(), dataVO.getPageSize()));
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
-
-    /**
-     * 后台保存或更新生源管理信息
-     * @param dataVO
-     * @return ResponseMessage
-     */
-    @PostMapping("saveSybInfo")
-    @ResponseBody
-    public ResponseMessage saveSybInfo(PublicDataVO dataVO){
-            try{
-                Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-                return bckjBizSybService.insertssInfo(dataMap);
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-
-    }
-
-    /**
-     * 前端获得学生生源地信息
-     * @param dataVO
-     * @return Map
-     */
-    @RequestMapping(value = "getSyInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage getSyInfo(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "owid");
-            if (!validateMsg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            //如果为学生录入
+            if (olx == 0) {
+                return bckjBizSybService.recordStudentInfo(dataMap.get("path").toString());
             }
-            return ResponseMessage.sendOK(bckjBizSybService.getSyInfo(mapData));
+            //如果为老师录入
+            if (olx == 1) {
+                return ResponseMessage.sendOK("");
+            }
+            return ResponseMessage.sendOK("");
+        } catch (RepeatException e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendOK("excel表中存在学号\" + i + \"重复录入,导入失败");
         } catch (Exception e) {
-            log.info("获取生源信息：" + e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+
+
+
+
 }

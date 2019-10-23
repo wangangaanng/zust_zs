@@ -6,6 +6,8 @@ package com.zghzbckj.manage.entity;
 import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.Date;
+
 /**
  * ccEntity
  * @author cc
@@ -15,18 +17,18 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	
 	private static final long serialVersionUID = 1L;
 	private String yhRefOwid;		// yh_ref_owid
-	private String xh;		// xh
+	private String xsxh;		// xh
 	private String ksh;		// ksh
 	private String xm;		// xm
-	private Integer xb;		// 0女生；11男生
-	private String sfzh;		// sfzh
-	private String csrq;		// csrq
+	private Integer xb;		// 2女生；1男生
+	private String sfz;		// sfzh
+	private Date csrq;		// csrq
 	private String syd;		// syd
 	private String mz;		// mz
 	private String zzmm;		// zzmm
-	private String rxnf;		// rxnf
+	private Date rxnf;		// rxnf
 	private String bynf;		// bynf
-	private String byrq;		// byrq
+	private Date byrq;		// byrq
 	private String cxsy;		// cxsy
 	private String xqda;		// xqda
 	private Integer sfrx;		// sfrx
@@ -34,22 +36,68 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	private Integer hkrx;		// hkrx
 	private String xlcc;		// xlcc
 	private String xz;		// xz
-	private String ssxx;		// ssxx
-	private String ssxy;		// ssxy
-	private String xxzy;		// xxzy
+	private String xxmc;		// ssxx
+	private String xsxy;		// ssxy
+	private String xszy;		// xxzy
 	private String zyfx;		// zyfx
-	private String szbj;		// szbj
+	private String xsbj;		// szbj
 	private String pyfs;		// pyfs
 	private String wpdw;		// wpdw
 	private String knslb;		// knslb
 	private String sfslb;		// sfslb
-	private String sjhm;		// sjhm
-	private String dzyx;		// dzyx
+	private String sjh;		// sjhm
+	private String yx;		// dzyx
 	private String qqhm;		// qqhm
 	private String jtdh;		// jtdh
 	private String jtyb;		// jtyb
 	private String jtdz;		// jtdz
 
+	public String getXsxh() {
+		return xsxh;
+	}
+
+	public void setXsxh(String xsxh) {
+		this.xsxh = xsxh;
+	}
+	public String getSfz() {
+		return sfz;
+	}
+
+	public void setSfz(String sfz) {
+		this.sfz = sfz;
+	}
+	public String getSjh() {
+		return sjh;
+	}
+
+	public void setSjh(String sjh) {
+		this.sjh = sjh;
+	}
+
+	public String getYx() {
+		return yx;
+	}
+
+	public void setYx(String yx) {
+		this.yx = yx;
+	}
+
+
+	public String getXxmc() {
+		return xxmc;
+	}
+
+	public String getXsxy() {
+		return xsxy;
+	}
+
+	public String getXszy() {
+		return xszy;
+	}
+
+	public String getXsbj() {
+		return xsbj;
+	}
 	public String getYhRefOwid() {
 		return yhRefOwid;
 	}
@@ -60,17 +108,24 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	public BckjBizSyb() {
 		super();
 	}
+	public void setXxmc(String xxmc) {
+		this.xxmc = xxmc;
+	}
 
+	public void setXsxy(String xsxy) {
+		this.xsxy = xsxy;
+	}
+
+	public void setXszy(String xszy) {
+		this.xszy = xszy;
+	}
+
+	public void setXsbj(String xsbj) {
+		this.xsbj = xsbj;
+	}
 
 	
-	@Length(min=0, max=30, message="xh长度必须介于 0 和 30 之间")
-	public String getXh() {
-		return xh;
-	}
 
-	public void setXh(String xh) {
-		this.xh = xh;
-	}
 	
 	@Length(min=0, max=30, message="ksh长度必须介于 0 和 30 之间")
 	public String getKsh() {
@@ -98,21 +153,14 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 		this.xb = xb;
 	}
 	
-	@Length(min=0, max=30, message="sfzh长度必须介于 0 和 30 之间")
-	public String getSfzh() {
-		return sfzh;
-	}
 
-	public void setSfzh(String sfzh) {
-		this.sfzh = sfzh;
-	}
 	
 	@Length(min=0, max=30, message="csrq长度必须介于 0 和 30 之间")
-	public String getCsrq() {
+	public Date getCsrq() {
 		return csrq;
 	}
 
-	public void setCsrq(String csrq) {
+	public void setCsrq(Date csrq) {
 		this.csrq = csrq;
 	}
 	
@@ -144,11 +192,11 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	}
 	
 	@Length(min=0, max=30, message="rxnf长度必须介于 0 和 30 之间")
-	public String getRxnf() {
+	public Date getRxnf() {
 		return rxnf;
 	}
 
-	public void setRxnf(String rxnf) {
+	public void setRxnf(Date rxnf) {
 		this.rxnf = rxnf;
 	}
 	
@@ -162,11 +210,11 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 	}
 	
 	@Length(min=0, max=30, message="byrq长度必须介于 0 和 30 之间")
-	public String getByrq() {
+	public Date getByrq() {
 		return byrq;
 	}
 
-	public void setByrq(String byrq) {
+	public void setByrq(Date byrq) {
 		this.byrq = byrq;
 	}
 	
@@ -231,32 +279,8 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 		this.xz = xz;
 	}
 	
-	@Length(min=0, max=100, message="ssxx长度必须介于 0 和 100 之间")
-	public String getSsxx() {
-		return ssxx;
-	}
 
-	public void setSsxx(String ssxx) {
-		this.ssxx = ssxx;
-	}
-	
-	@Length(min=0, max=100, message="ssxy长度必须介于 0 和 100 之间")
-	public String getSsxy() {
-		return ssxy;
-	}
 
-	public void setSsxy(String ssxy) {
-		this.ssxy = ssxy;
-	}
-	
-	@Length(min=0, max=100, message="xxzy长度必须介于 0 和 100 之间")
-	public String getXxzy() {
-		return xxzy;
-	}
-
-	public void setXxzy(String xxzy) {
-		this.xxzy = xxzy;
-	}
 	
 	@Length(min=0, max=100, message="zyfx长度必须介于 0 和 100 之间")
 	public String getZyfx() {
@@ -267,14 +291,7 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 		this.zyfx = zyfx;
 	}
 	
-	@Length(min=0, max=100, message="szbj长度必须介于 0 和 100 之间")
-	public String getSzbj() {
-		return szbj;
-	}
 
-	public void setSzbj(String szbj) {
-		this.szbj = szbj;
-	}
 	
 	@Length(min=0, max=100, message="pyfs长度必须介于 0 和 100 之间")
 	public String getPyfs() {
@@ -312,23 +329,7 @@ public class BckjBizSyb extends DataWithExpEntity<BckjBizSyb> {
 		this.sfslb = sfslb;
 	}
 	
-	@Length(min=0, max=30, message="sjhm长度必须介于 0 和 30 之间")
-	public String getSjhm() {
-		return sjhm;
-	}
 
-	public void setSjhm(String sjhm) {
-		this.sjhm = sjhm;
-	}
-	
-	@Length(min=0, max=30, message="dzyx长度必须介于 0 和 30 之间")
-	public String getDzyx() {
-		return dzyx;
-	}
-
-	public void setDzyx(String dzyx) {
-		this.dzyx = dzyx;
-	}
 	
 	@Length(min=0, max=30, message="qqhm长度必须介于 0 和 30 之间")
 	public String getQqhm() {

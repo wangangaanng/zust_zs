@@ -5,11 +5,11 @@
 	<sql id="bckjBizSybColumns">
 		a.owid AS "owid",
 		a.yh_ref_owid AS "yhRefOwid",
-		a.xh AS "xh",
+		a.xsxh AS "xsxh",
 		a.ksh AS "ksh",
 		a.xm AS "xm",
 		a.xb AS "xb",
-		a.sfzh AS "sfzh",
+		a.sfz AS "sfz",
 		a.csrq AS "csrq",
 		a.syd AS "syd",
 		a.mz AS "mz",
@@ -24,17 +24,17 @@
 		a.hkrx AS "hkrx",
 		a.xlcc AS "xlcc",
 		a.xz AS "xz",
-		a.ssxx AS "ssxx",
-		a.ssxy AS "ssxy",
-		a.xxzy AS "xxzy",
+		a.xxmc AS "xxmc",
+		a.xsxy AS "xsxy",
+		a.xszy AS "xszy",
 		a.zyfx AS "zyfx",
-		a.szbj AS "szbj",
+		a.xsbj AS "xsbj",
 		a.pyfs AS "pyfs",
 		a.wpdw AS "wpdw",
 		a.knslb AS "knslb",
 		a.sfslb AS "sfslb",
-		a.sjhm AS "sjhm",
-		a.dzyx AS "dzyx",
+		a.sjh AS "sjh",
+		a.yx AS "yx",
 		a.qqhm AS "qqhm",
 		a.jtdh AS "jtdh",
 		a.jtyb AS "jtyb",
@@ -79,7 +79,7 @@
 
 		FROM bckj_biz_syb a
 		<include refid="bckjBizSybJoins"/>
-		WHERE a.xh = #{xh}
+		WHERE a.xsxh = #{xsxh}
 	</select>
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizSyb">
 		SELECT 
@@ -88,8 +88,8 @@
 		<include refid="bckjBizSybJoins"/>
 		<where>
 			
-			<if test="xh != null and xh != ''">
-				AND a.xh = #{xh}
+			<if test="xsxh != null and xsxh != ''">
+				AND a.xsxh = #{xsxh}
 			</if>
 			<if test="xb != null and xb != ''">
 				AND a.xb = #{xb}
@@ -106,15 +106,16 @@
 			</otherwise>
 		</choose>
 	</select>
+
+	<!--后台展示生源list-->
 		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizSyb">
 	        SELECT
 			<include refid="bckjBizSybColumns"/>
 		FROM bckj_biz_syb a
 		<include refid="bckjBizSybJoins"/>
 		<where>
-			
-			<if test="xh != null and xh != ''">
-				AND a.xh = #{xh}
+			<if test="xsxh != null and xsxh != ''">
+				AND a.xsxh = #{xsxh}
 			</if>
 			<if test="xm != null and xm != ''">
 				AND a.xm LIKE concat('%',#{xm},'%')
@@ -131,6 +132,9 @@
 			</otherwise>
 		</choose>
 	</select>
+
+
+
 	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizSyb">
 		SELECT 
 			<include refid="bckjBizSybColumns"/>
@@ -152,11 +156,11 @@
 		INSERT INTO bckj_biz_syb(
 			owid,
 			yh_Ref_Owid,
-			xh,
+			xsxh,
 			ksh,
 			xm,
 			xb,
-			sfzh,
+			sfz,
 			csrq,
 			syd,
 			mz,
@@ -171,17 +175,17 @@
 			hkrx,
 			xlcc,
 			xz,
-			ssxx,
-			ssxy,
-			xxzy,
+			xxmc,
+			xsxy,
+			xszy,
 			zyfx,
-			szbj,
+			xsbj,
 			pyfs,
 			wpdw,
 			knslb,
 			sfslb,
-			sjhm,
-			dzyx,
+			sjh,
+			yx,
 			qqhm,
 			jtdh,
 			jtyb,
@@ -211,11 +215,11 @@
 		) VALUES (
 			#{owid},
 			#{yhRefOwid},
-			#{xh},
+			#{xsxh},
 			#{ksh},
 			#{xm},
 			#{xb},
-			#{sfzh},
+			#{sfz},
 			#{csrq},
 			#{syd},
 			#{mz},
@@ -230,17 +234,17 @@
 			#{hkrx},
 			#{xlcc},
 			#{xz},
-			#{ssxx},
-			#{ssxy},
-			#{xxzy},
+			#{xxmc},
+			#{xsxy},
+			#{xszy},
 			#{zyfx},
-			#{szbj},
+			#{xsbj},
 			#{pyfs},
 			#{wpdw},
 			#{knslb},
 			#{sfslb},
-			#{sjhm},
-			#{dzyx},
+			#{sjh},
+			#{yx},
 			#{qqhm},
 			#{jtdh},
 			#{jtyb},
@@ -274,11 +278,11 @@
 		UPDATE bckj_biz_syb SET 	
 			owid = #{owid},
 			yh_Ref_Owid=#{yhRefOwid},
-			xh = #{xh},
+			xsxh = #{xsxh},
 			ksh = #{ksh},
 			xm = #{xm},
 			xb = #{xb},
-			sfzh = #{sfzh},
+			sfz = #{sfz},
 			csrq = #{csrq},
 			syd = #{syd},
 			mz = #{mz},
@@ -293,17 +297,17 @@
 			hkrx = #{hkrx},
 			xlcc = #{xlcc},
 			xz = #{xz},
-			ssxx = #{ssxx},
-			ssxy = #{ssxy},
-			xxzy = #{xxzy},
+			xxmc = #{xxmc},
+			xsxy= #{xsxy},
+			xszy = #{xszy},
 			zyfx = #{zyfx},
-			szbj = #{szbj},
+			xsbj = #{xsbj},
 			pyfs = #{pyfs},
 			wpdw = #{wpdw},
 			knslb = #{knslb},
 			sfslb = #{sfslb},
-			sjhm = #{sjhm},
-			dzyx = #{dzyx},
+			sjh = #{sjh},
+			yx = #{yx},
 			qqhm = #{qqhm},
 			jtdh = #{jtdh},
 			jtyb = #{jtyb},
@@ -357,13 +361,13 @@
 			bynf=#{bynf},
 			jtdh = #{jtdh},
 			qqhm=#{qqhm}
-		WHERE xh = #{xh}
+		WHERE xsxh = #{xsxh}
 	</update>
 
 	<update id="updateByXsxh"  parameterType="BckjBizSyb">
 		 UPDATE bckj_biz_syb SET
 			ksh = #{ksh},
-			xh=#{xh},
+			xsxh=#{xsxh},
 			zzmm=#{zzmm},
 			syd = #{syd},
 			jtdz=#{jtdz},
@@ -376,14 +380,14 @@
 	<delete id="deleteByXsxh" parameterType="String">
 		DELETE FROM bckj_biz_syb
 		<where>
-				 xh = #{xsxh}
+			xsxh = #{xsxh}
 		</where>
 	</delete>
 
 	<update id="updateJyscheme" parameterType="BckjBizSyb">
 		UPDATE bckj_biz_syb SET
 			bynf=#{bynf},
-			xh=#{xh},
+			xsxh=#{xsxh},
 			xz=#{xz},
 			syd=#{syd},
 			jtdh = #{jtdh},
@@ -404,7 +408,7 @@
 			c.JTDZ as jtdz,c.exp1 as exp1
 		from bckj_biz_yhxx a ,bckj_biz_yhkz b ,bckj_biz_syb c,bckj_biz_jyscheme d
 		<where>
-			a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh
+			a.owid = b.yh_ref_owid and b.xsxh = c.xsxh and b.xsxh = d.xsxh
 			<if test="xm!=null and xm!=''">
 				and  a.xm like CONCAT('%',#{xm},'%')
 			</if>
@@ -462,32 +466,27 @@
 	</select>
 
 
-	<select id="getOne" parameterType="Map" resultType="Map">
+	<select id="getOne" parameterType="String" resultType="BckjBizSyb">
 		select
-			a.owid as  owid , b.xsxh as xsxh ,c.ksh as ksh ,a.xb as xb ,
-			a.xm as xm , a.sfz as sfz , a.csrq as csrq ,
-			c.syd as syd , a.mz as mz ,c.zzmm as zzmm ,c.rxnf  as rxnf ,
-			c.bynf as bynf ,c.byrq as byrq , c.cxsy as cxsy , c.xqda as xqda,
-			c.SFRX as sfrx , c.HKPCS as hkpcs , c.HKRX as hkrx , c.XLCC as xlcc ,
-			c.XZ as xz ,d.xxmc as xxmc, b.xsxy as xsxy ,b.xszy as xszy, c.zyfx as zyfx , c.szbj as szbj,
-			c.pyfs as pyfs , c.wpdw as wpdw , c.KNSLB  as knslb , c.SFSLB as sfslb,
-			a.sjh as sjh , a.yx as yx ,c.QQHM as qqhm , c.JTDH as jtdh ,c.JTYB as jtyb,
-			c.JTDZ as jtdz
-		from bckj_biz_yhxx a ,bckj_biz_yhkz b ,bckj_biz_syb c,bckj_biz_jyscheme d
-		where a.owid = b.yh_ref_owid and b.xsxh = c.xh and b.xsxh = d.xsxh and a.owid=#{owid}
+			<include refid="bckjBizSybColumns"></include>
+		from bckj_biz_syb a
+		where a.owid=#{value}
 	</select>
 
 
 	<select id="getBynfByXsxh" parameterType="Map" resultType="Map">
 		select bynf from  bckj_biz_syb
-		where xh=#{xsxh}
+		where xsxh=#{xsxh}
 	</select>
 
 	<select id="getOneByCondition" resultType="String" parameterType="BckjBizSyb">
 		select  owid from bckj_biz_syb
 		<where>
-			<if test="xh != null and xh!=null">
-				and xh=#{xh}
+			<if test="xsxh != null and xsxh!=null">
+				and xsxh=#{xsxh}
+			</if>
+			<if test="yhRefOwid!=null and yhRefOwid!=''">
+				and yh_Ref_Owid=#{yhRefOwid}
 			</if>
 			<if test="yhRefOwid!=null and yhRefOwid!=''">
 				and yh_Ref_Owid=#{yhRefOwid}
@@ -496,10 +495,30 @@
 	</select>
 
 	<select id="getByTypeSort" parameterType="Map" resultType="Map">
-		select
-				*
-		from ourway_sys_dic a ,ourway_sys_dic_value b
+		select * from ourway_sys_dic a ,ourway_sys_dic_value b
 		where b.dic_ref_owid = a.owid and a.type=#{dicType}
 		order by b.dic_val2
 	</select>
+
+
+	<update id="deleteBySfz" parameterType="String" >
+		DELETE from bckj_biz_syb where sfz=#{value}
+	</update>
+
+	<select id="getBynfBySfz" parameterType="Map" resultType="Map">
+		select bynf as bynf from bckj_biz_syb where sfz=#{value}
+	</select>
+
+	<select id="getOneByXsxh" parameterType="String" resultType="BckjBizSyb">
+		select <include refid="bckjBizSybColumns"></include>
+		from bckj_biz_syb a
+		where a.xsxh=#{value}
+	</select>
+
+	<select id="getOneBySfz" parameterType="String" resultType="BckjBizSyb">
+		select <include refid="bckjBizSybColumns"></include>
+		from bckj_biz_syb a
+		where a.sfz=#{sfz}
+	</select>
+
 </mapper>

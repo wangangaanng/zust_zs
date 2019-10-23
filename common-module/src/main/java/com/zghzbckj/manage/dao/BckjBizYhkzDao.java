@@ -39,4 +39,8 @@ public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
     void updateJyscheme(BckjBizYhkz bckjBizYhkz);
 
     void updateSyscheme(BckjBizYhkz bckjBizYhkz);
+
+    void updateSudentInfo(BckjBizYhkz bckjBizYhkz);
+
+    void deleteByYhRefOwid(String yhRefOwid);
 }

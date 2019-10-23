@@ -54,7 +54,7 @@ public class BckjBizJyschemeController extends BaseController {
     }
     }
 
-            @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
+         /*   @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
             @ResponseBody
             public ResponseMessage saveInfo(PublicDataVO dataVO) {
             try {
@@ -65,7 +65,7 @@ public class BckjBizJyschemeController extends BaseController {
             log.error(e+"保存BckjBizJyscheme信息失败\r\n"+e.getStackTrace()[0]  , e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
             }
-            }
+            }*/
 
     /**
      * <p>功能描述:保存学生填写的就业方案</p >
@@ -159,7 +159,7 @@ public class BckjBizJyschemeController extends BaseController {
         }
     }
 
-    /**
+  /*  *//**
      * <p>功能描述:后台录入就业方案信息</p >
      * <ul>
      * <li>@param </li>
@@ -168,7 +168,7 @@ public class BckjBizJyschemeController extends BaseController {
      * <li>@author wangangaanng</li>
      * <li>@date 2019/9/20</li>
      * </ul>
-     */
+     *//*
     @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage recordInfo(PublicDataVO dataVO) {
@@ -183,7 +183,7 @@ public class BckjBizJyschemeController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
-    }
+    }*/
    /* *//**
      * <p>功能描述:后台显示就业方案列表</p >
      * <ul>
@@ -264,11 +264,11 @@ public class BckjBizJyschemeController extends BaseController {
     }
 
 
-    /**
+  /*  *//**
      * 后台jyscheme删除gridlist
      * @param dataVO
      * @return ResponseMessage
-     */
+     *//*
     @PostMapping("deleteInfoList")
     @ResponseBody
     public ResponseMessage deleteInfoList(PublicDataVO dataVO){
@@ -286,9 +286,9 @@ public class BckjBizJyschemeController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
-    }
+    }*/
 
-    /**
+ /*   *//**
      * <p>功能描述:新建或修改就业方案信息</p >
      * <ul>
      * <li>@param </li>
@@ -297,7 +297,7 @@ public class BckjBizJyschemeController extends BaseController {
      * <li>@author wangangaanng</li>
      * <li>@date 2019/10/14</li>
      * </ul>
-     */
+     *//*
     @PostMapping("insertssInfo")
     @ResponseBody
     public ResponseMessage insertssInfo(PublicDataVO dataVO){
@@ -311,6 +311,6 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
 
-    }
+    }*/
 
 }

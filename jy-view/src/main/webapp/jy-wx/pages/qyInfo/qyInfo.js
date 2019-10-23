@@ -145,6 +145,14 @@ var getContent = function (that, owid) {//招聘详情
       }
       var memo = res.data.bean.memo
       WxParse.wxParse('memo', 'html', memo, that, 5);
+      if (res.data.bean.zwGwzz){
+        var zwGwzz = res.data.bean.zwGwzz
+        WxParse.wxParse('zwGwzz', 'html', zwGwzz, that, 5);
+      }
+      if ((res.data.bean.qyxx) && (res.data.bean.qyxx.qyGsjs)){
+        var qyGsjs = res.data.bean.qyxx.qyGsjs
+        WxParse.wxParse('qyGsjs', 'html', qyGsjs, that, 5);
+      }
       that.setData({
         result: res.data.bean,
       })

@@ -5,6 +5,7 @@ package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
+import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     BckjBizYhxx getOneByCondition(Map<String, Object> datamap);
 
-    Map<String, Object>  logIn(Map<String, Object> datamap);
+    Map<String, Object> logIn(Map<String, Object> datamap);
 
     Integer modfiyPassword(Map<String, Object> datamap);
 
@@ -60,9 +61,11 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     String getYhxxBmSum(Map<String, Object> dataMap);
 
-    Map<String,Object> getOneYhxxGzOrQdInfo(Map<String, Object> dataMap);
+    BckjBizYhxx getOneBySfz(String sfz);
 
+    void deleteBySfz(String sfz);
     Map<String,Object> getOneYhxxBmInfo(Map<String, Object> dataMap);
 
     BckjBizYhxx getOneByMap(Map param);
 }
+
