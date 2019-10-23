@@ -446,4 +446,21 @@
     </select>
 
 
+	<select id="countNumber" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		from bckj_biz_jybm a
+		<where>
+
+			<if test="jobRefOwid != null and jobRefOwid  != ''">
+				AND a.job_ref_owid = #{jobRefOwid}
+			</if>
+			<if test="bmlx != null and bmlx != ''">
+				AND a.bmlx = #{bmlx}
+			</if>
+		</where>
+	</select>
+
+
+
 </mapper>

@@ -151,8 +151,37 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (4 == state) {
             dataMap.put("ddw", 1);
         }
-        page = findPage(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
         return ResponseMessage.sendOK(page);
+    }
+
+
+    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy) {
+        Page page = new Page(pageNo, pageSize);
+        paramsMap.put("page", page);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(orderBy)) {
+            paramsMap.put("orderBy", orderBy);
+        }
+        List<BckjBizJob> resultList = this.dao.findListByMap(paramsMap);
+        if (!TextUtils.isEmpty(resultList) && resultList.size() > 0) {
+            for (BckjBizJob job : resultList) {
+                Map params = Maps.newHashMap();
+                params.put("jobRefOwid", job.getOwid());
+                params.put("bmlx", JyContant.BMLX_XS);
+                Integer number = bmDao.countNumber(params);
+                job.setBmNumber(number);
+            }
+        }
+
+        page.setList(resultList);
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
     }
 
 
@@ -192,7 +221,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 mapData.put("sdtj" + i, mapData.get("sdtj" + i).toString().replace(",", "，"));
             }
         }
-       clearCompany(mapData);
+        clearCompany(mapData);
         BckjBizJob bckjBizJob = JsonUtil.map2Bean(mapData, BckjBizJob.class);
 
         String zwbt = bckjBizJob.getZwbt();

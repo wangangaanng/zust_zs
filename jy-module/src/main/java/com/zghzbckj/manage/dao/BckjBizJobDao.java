@@ -12,6 +12,7 @@ import java.util.Map;
 
 /**
  * ccDAO接口
+ *
  * @author cc
  * @version 2019-09-09
  */
@@ -27,6 +28,8 @@ public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
     List<BckjBizJob> getCdList(Map<String, Object> dataMap);
 
     void setCdPoint(Map<String, Object> dataMap);
+
+    void LowerJob(Map params);
 
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }

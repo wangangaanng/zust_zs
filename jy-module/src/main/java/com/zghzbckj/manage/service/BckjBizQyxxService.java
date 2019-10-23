@@ -15,6 +15,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.JyContant;
+import com.zghzbckj.manage.dao.BckjBizJobDao;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.util.PageUtils;
@@ -42,6 +43,10 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     private static final Logger log = Logger.getLogger(BckjBizQyxxService.class);
     @Autowired
     BckjBizQyxxDao qyxxDao;
+    @Autowired
+    BckjBizJobService jobService;
+    @Autowired
+    BckjBizJobDao jobDao;
 
     @Override
     public BckjBizQyxx get(String owid) {
@@ -324,6 +329,12 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                 result.put("owid", qyxx.getOwid());
                 resluts.add(result);
                 result = Maps.newHashMap();
+                if (qyxx.getState() == 3) {
+                    //下架职位
+                    Map params = Maps.newHashMap();
+                    params.put("qyxxRefOwid", qyxx.getOwid());
+                     jobDao.LowerJob(params);
+                }
             }
         }
         return resluts;
