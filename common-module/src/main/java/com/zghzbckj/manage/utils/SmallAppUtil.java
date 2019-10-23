@@ -56,7 +56,7 @@ public class SmallAppUtil {
             return userModel;
         }
         userModel.setOpenId(userInfoJSON.getString("openId"));
-        if(TextUtils.isEmpty(userInfoJSON.getString("unionID"))) {
+        if(!TextUtils.isEmpty(userInfoJSON.getString("unionId"))) {
             userModel.setUnionid(userInfoJSON.getString("unionId"));
         }
         userModel.setAvatarUrl(userInfoJSON.getString("avatarUrl"));
