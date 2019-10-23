@@ -20,7 +20,8 @@ Page({
   },
   cancel: function () {
     this.setData({
-      modal1: true
+      modal1: true,
+      wtnr: ''
     });
   },
   ask:function(e){
@@ -55,7 +56,8 @@ Page({
             if (res.confirm) {
               console.log('用户点击确定')
               that.setData({
-                modal1: true
+                modal1: true,
+                wtnr:''
               })
             } else if (res.cancel) {
               console.log('用户点击取消')
@@ -81,6 +83,8 @@ Page({
   clickTab(e){
     if(e.detail.index==1){
       this.setData({
+        modal1: true,
+        wtnr: '',
         totalPage: '',
         list1: [],
         pageNo1: 1,
