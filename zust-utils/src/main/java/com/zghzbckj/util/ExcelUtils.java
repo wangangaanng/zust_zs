@@ -437,22 +437,37 @@ public class ExcelUtils {
     }
 
     public static Date stringtoDate(String str) throws ParseException {
-        String[] split = str.split("\\/");
-        String year=split[0];
-        String month=split[1];
-        String day=split[2];
-        String dateStr= (year+"-"+month+"-"+day);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date utilDate=sdf.parse(dateStr);
-        return  utilDate;
-    }
-    public static Date stringtoDatec(String str) throws ParseException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date utilDate=sdf.parse(str);
-        return  utilDate;
+        Date utilDate=null;
+        if(str.indexOf("/")!=-1){
+            String[] split = str.split("\\/");
+            String dateStr = getString(split);
+            utilDate = getDate(dateStr);
+        }else if(str.indexOf("-")!=-1){
+            String[] split = str.split("-");
+            String dateStr = getString(split);
+            utilDate = getDate(dateStr);
+        }
+        return utilDate;
     }
 
+    private static Date getDate(String dateStr) throws ParseException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date utilDate = sdf.parse(dateStr);
+        return utilDate;
+    }
 
+    private static String getString(String[] split) {
+        String year = split[0];
+        String month = split[1];
+        if(month.length()<2){
+            month="0"+month;
+        }
+        String day = split[2];
+        if(day.length()<2){
+            day="0"+day;
+        }
+        return year + "-" + month + "-" + day;
+    }
 
 }
 

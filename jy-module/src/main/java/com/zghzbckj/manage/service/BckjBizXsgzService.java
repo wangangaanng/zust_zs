@@ -210,7 +210,10 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             if (bckjBizJob.getZphSfqd() != null && bckjBizJob.getZphSfqd() == 0) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
             }
-
+            //判断是否已经定的
+            if(bckjBizJob.getExp5().equals("1")){
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "管理员还未设置签到点位，无法签到");
+            }
             //判断job信息是否失效
             if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZwSxsj())) {
                 if (!(bckjBizJob.getZwSxsj().compareTo(new Date()) > 0)) {

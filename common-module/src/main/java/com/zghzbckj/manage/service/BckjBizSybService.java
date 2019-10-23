@@ -6,6 +6,7 @@ package com.zghzbckj.manage.service;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.TextUtils;
+import com.ourway.base.zk.utils.excel.ExcelUtil;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -13,8 +14,10 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.dao.BckjBizSybDao;
 import com.zghzbckj.manage.entity.*;
+import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import org.apache.log4j.Logger;
@@ -22,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -61,62 +65,30 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
     public void delete(BckjBizSyb bckjBizSyb) {
         super.delete(bckjBizSyb);
     }
+
     @Autowired
     BckjBizYhkzService bckjBizYhkzService;
-    @Autowired
-    BckjBizJypuchongService bckjBizJypuchongService;
-    @Autowired
-    BckjBizStudentinfoService bckjBizStudentinfoService;
     @Autowired
     BckjBizYhxxService bckjBizYhxxService;
     @Autowired
     BckjBizJyschemeService bckjBizJyschemeService;
-
+    @Autowired
+    BckjBizStudentExpandService bckjBizStudentExpandService;
 
     /**
-     * <p>方法:findPagebckjBizSyb TODO后台BckjBizSyb分页列表</p>
-     * <ul>
-     * <li> @param filters TODO</li>
-     * <li> @param pageNo TODO</li>
-     * <li> @param pageSize TODO</li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-     * <li>@author D.cehn.g </li>
-     * <li>@date 2018/9/5 9:47  </li>
-     * </ul>
+     * 后台展示生源list
+     *
+     * @param filters
+     * @param pageNo
+     * @param pageSize
+     * @return List<bckjbizsyb>
      */
     public ResponseMessage findPageBckjBizSyb(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizSyb> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizSyb> page = findPage(dataMap, pageNo, pageSize, " xsxh asc");
         return ResponseMessage.sendOK(page);
     }
 
-    /**
-     * <p>方法:savebckjBizSyb TODO保存BckjBizSyb信息 </p>
-     * <ul>
-     * <li> @param mapData TODO</li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-     * <li>@author D.chen.g </li>
-     * <li>@date 2018/9/6 17:05  </li>
-     * </ul>
-     */
-    @Transactional(readOnly = false)
-    public ResponseMessage saveBckjBizSyb(BckjBizSyb bckjBizSyb) {
-        BckjBizSyb xh =this.dao.findByXh(bckjBizSyb.getXh());
-        if (!TextUtils.isEmpty(bckjBizSyb.getOwid())) {
-            if(null!=xh&&!(xh.getOwid().equals(bckjBizSyb.getOwid()))){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"已存在此学号学生");
-            }
-            BckjBizSyb bckjBizSybIndata = get(bckjBizSyb.getOwid());
-            BeanUtil.copyPropertiesIgnoreNull(bckjBizSyb, bckjBizSybIndata);
-            bckjBizSyb = bckjBizSybIndata;
-        }else{
-            if(null!=xh){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"已存在此学号学生");
-            }
-        }
-        saveOrUpdate(bckjBizSyb);
-        return ResponseMessage.sendOK(bckjBizSyb);
-    }
 
     /**
      * <p>方法:removeOrder TODO多条删除BckjBizSyb </p>
@@ -143,16 +115,14 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
 
     /**
      * 前端获得学生生源地信息
+     *
      * @param mapData
      * @return Map
      */
     public Map<String, Object> getSyInfo(Map<String, Object> mapData) {
         Map<String, Object> resMap = Maps.newHashMap();
-        return resMap = bckjBizYhxxService.getStudentOne(mapData);
+        return null;
     }
-
-
-
 
 
     /**
@@ -164,7 +134,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
      * <li>@date 2018/9/6 17:14  </li>
      * </ul>
      */
-    public void updataInfo(BckjBizSyb bckjBizSyb){
+    public void updataInfo(BckjBizSyb bckjBizSyb) {
         this.dao.updataInfo(bckjBizSyb);
     }
 
@@ -182,6 +152,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
 
     /**
      * 后台生源管理获得gridlist
+     *
      * @param filters
      * @param pageNo
      * @param pageSize
@@ -197,103 +168,318 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return PageUtils.assimblePageInfo(page);
     }
 
-    public Object getOne(String owid) {
+
+    /**
+     * 后台展示一条学生生源信息
+     * @param owid
+     * @return BckjBizSyb
+     */
+    public BckjBizSyb getOne(String owid) {
         return this.dao.getOne(owid);
     }
 
-    /**
-     * 后台保存或更新生源管理信息
-     * @param dataMap
-     * @return ResponseMessage
-     */
-    @Transactional(readOnly = false,rollbackFor = Exception.class)
-    public ResponseMessage insertssInfo(Map<String, Object> dataMap) {
 
-        BckjBizJyscheme bckjBizJyscheme = new BckjBizJyscheme();
-        BckjBizStudentinfo bckjBizStudentinfo=new BckjBizStudentinfo();
-        BckjBizYhkz bckjBizYhkz=new BckjBizYhkz();
-        BckjBizYhxx bckjBizYhxx=new BckjBizYhxx();
-        BckjBizSyb bckjBizSyb=new BckjBizSyb();
-        BckjBizJypuchong bckjBizJypuchong = new BckjBizJypuchong();
-
-        dataMap.put("xh", dataMap.get("xsxh"));
-        dataMap.put("xsxm", dataMap.get("xm"));
-        dataMap.put("yhRefOwid",dataMap.get("owid"));
-        BckjBizYhkz bckjBizYhkz1 = bckjBizYhkzService.getByXsxh(dataMap.get("xsxh").toString());
-
-        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
-        MapUtil.easySetByMap(dataMap, bckjBizStudentinfo);
-        MapUtil.easySetByMap(dataMap, bckjBizYhkz);
-        MapUtil.easySetByMap(dataMap,bckjBizJyscheme);
-        MapUtil.easySetByMap(dataMap,bckjBizJypuchong);
-        dataMap.remove("owid");
-        MapUtil.easySetByMap(dataMap, bckjBizSyb);
-
-        if (!TextUtils.isEmpty(bckjBizYhxx.getSfz())) {
-            String regex = "\\d{15}(\\d{2}[0-9xX])?";
-            if (!bckjBizYhxx.getSfz().matches(regex)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
-            }
-        }
-        if (!TextUtils.isEmpty(bckjBizYhxx.getSjh())) {
-            if (bckjBizYhxx.getSjh().length() != 11) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);
-            }
-        }
-        //如果為更新
-        if (bckjBizYhxx.getOwid() != null) {
-            if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizYhkz1)) {
-                if (!(bckjBizYhkz1.getYhRefOwid().equals(bckjBizYhxx.getOwid()))) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, "此学号已在库内");
-                }
-            }
-            bckjBizJypuchongService.updateXsxhByHyOwid(bckjBizJypuchong);
-            bckjBizJyschemeService.updateXsxhByHyOwid(bckjBizJyscheme);
-            bckjBizYhxx.setYhDlzh(bckjBizYhkz.getXsxh());
-            bckjBizYhxx.setYhDlmm(TextUtils.MD5(bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6)));
-            bckjBizYhxxService.updateSyscheme(bckjBizYhxx);
-            bckjBizYhkzService.updateSyscheme(bckjBizYhkz);
-            bckjBizStudentinfoService.updateSyscheme(bckjBizStudentinfo);
-            String sybOwid = this.dao.getOneByCondition(bckjBizSyb);
-            bckjBizSyb.setExp2("2");
-            bckjBizSyb.setOwid(sybOwid);
-            this.dao.update(bckjBizSyb);
-        }
-        //否则为新建
-        if (bckjBizYhxx.getOwid() == null) {
-            if (!TextUtils.isEmpty(bckjBizYhkz1)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "学号已在库内");
-            }
-            //更新yhxx
-            String uuid = IdGen.uuid();
-            bckjBizYhxx.setOwid(uuid);
-            bckjBizYhxx.setYhlx(1);
-            bckjBizYhxxService.insert(bckjBizYhxx);
-            //更新yhkz
-            bckjBizYhkz.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizYhkz.setOlx(0);
-            bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
-            //更新syb
-            bckjBizSyb.setYhRefOwid(bckjBizYhxx.getOwid());
-            saveOrUpdate(bckjBizSyb);
-            //更新studentInfo
-            bckjBizStudentinfo.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
-            //新保存jypuchong
-            bckjBizJypuchong.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizJypuchongService.saveOrUpdate(bckjBizJypuchong);
-            //新保存jyscheme
-            bckjBizJyscheme.setYhRefOwid(bckjBizYhxx.getOwid());
-            bckjBizJyschemeService.saveOrUpdate(bckjBizJyscheme);
-        }
-        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-    }
-    public Map<String,Object> getBynfByXsxh(Map<String,Object> dataMap){
+    public Map<String, Object> getBynfByXsxh(Map<String, Object> dataMap) {
         return this.dao.getBynfByXsxh(dataMap);
     }
 
 
-    public List<Map<String,Object>> getByTypeSort(Map<String, Object> dataMap) {
-       return this.dao.getByTypeSort(dataMap);
+    public List<Map<String, Object>> getByTypeSort(Map<String, Object> dataMap) {
+        return this.dao.getByTypeSort(dataMap);
+    }
+
+    public void deleteBySfz(String sfz) {
+        this.dao.deleteBySfz(sfz);
+    }
+
+    public Map<String, Object> getBynfBySfz(Map<String, Object> map) {
+        return this.dao.getBynfBySfz(map);
+    }
+
+
+    /**
+     * <p>功能描述:后台录入学生投档信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/10/23</li>
+     * </ul>
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage recordStudentInfo(String path) throws ParseException, RepeatException {
+        //文件路径
+        String filename = path;
+        ExcelUtils poi = new ExcelUtils();
+        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = poi.read(filename);
+        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        HashMap<Object, Object> resMap = Maps.newHashMap();
+        List<BckjBizYhxx> yhxxes = new ArrayList<BckjBizYhxx>();
+        List<BckjBizYhkz> yhkzes = new ArrayList<BckjBizYhkz>();
+        List<BckjBizSyb> sybs = new ArrayList<BckjBizSyb>();
+        List<BckjBizStudentExpand> stus = new ArrayList<>();
+        //读取自定义扩展字段
+        List<String> fieldLists = new ArrayList<>();
+        List<String> codeList = list.get(0);   //拿到code行
+        for (int j = 34; j <codeList.size(); j++) {
+            if (TextUtils.isEmpty(codeList.get(j))) {
+                break;
+            }
+            fieldLists.add(codeList.get(j));
+        }
+        if (list != null) {
+            for (int i = 2; i < list.size(); i++) {
+                //学生信息录入
+                List<String> cellList = list.get(i);//行循环
+                String sfz = cellList.get(4); //身份证号
+                //如果身份证为空则退出
+                if (TextUtils.isEmpty(sfz)) {
+                    break;
+                }
+                String regex = "\\d{15}(\\d{2}[0-9xX])?";
+                if (!sfz.matches(regex)) {
+                    return ResponseMessage.sendOK("存在错误的身份证格式录入");
+                }
+                resMap.put("sfz", sfz);
+                String xsxh = cellList.get(0); //学生学号
+                resMap.put("xsxh", xsxh);
+                String ksh = cellList.get(1); //考生号
+                resMap.put("ksh", ksh);
+                String xm = cellList.get(2); //姓名
+                resMap.put("xm", xm);
+                String xb = cellList.get(3); //性别
+                if (xb.equals("男")) {
+                    resMap.put("xb", 1);
+                } else {
+                    resMap.put("xb", 2);
+                }
+                String csrq = cellList.get(5); //出生日期
+                resMap.put("csrq", ExcelUtils.stringtoDate(csrq));
+                String syd = cellList.get(6); //生源地
+                resMap.put("syd", bckjBizJyschemeService.getDicVal(50005, syd));
+                String mz = cellList.get(7); //民族
+                resMap.put("mz", bckjBizJyschemeService.getDicVal(50009, mz));
+                String zzmm = cellList.get(8); //政治面貌
+                resMap.put("zzmm", bckjBizJyschemeService.getDicVal(50008, zzmm));
+                String rxnf = cellList.get(9); //入学日期
+                resMap.put("rxnf", ExcelUtils.stringtoDate(rxnf));
+                String bynf = cellList.get(10); //毕业年份
+                resMap.put("bynf", bynf);
+                String byrq = cellList.get(11); //毕业日期
+                resMap.put("byrq", ExcelUtils.stringtoDate(byrq));
+                String cxsy = cellList.get(12); //城乡生源
+                resMap.put("cxsy", cxsy);
+                String xqda = cellList.get(13); //入学前档案所在单位
+                resMap.put("xqda", xqda);
+                String sfrx = cellList.get(14); //档案是否转入学校
+                if(sfrx.equals("是")){
+                    resMap.put("sfrx", 1);
+                }else if(sfrx.equals("否")){
+                    resMap.put("sfrx", 0);
+                }
+                String hkpcs = cellList.get(15); //入学前户口所在地派出所
+                resMap.put("hkpcs", hkpcs);
+                String hkrx = cellList.get(16); //户口是否转入学校
+                if(hkrx.equals("是")){
+                    resMap.put("hkrx", 1);
+                }else if(hkrx.equals("否")){
+                    resMap.put("hkrx", 0);
+                }
+                String xlcc = cellList.get(17); //学历层次
+                resMap.put("xlcc", xlcc);
+                String xz = cellList.get(18); //学制
+                resMap.put("xz", xz);
+                String xxmc = cellList.get(19); //所属学校
+                resMap.put("xxmc", xxmc);
+                String xsxy = cellList.get(20); //所属学院
+                resMap.put("xsxy", xsxy);
+                String xszy = cellList.get(21); //学校专业
+                resMap.put("xszy", xszy);
+                String zyfx = cellList.get(22); //专业方向
+                resMap.put("zyfx", zyfx);
+                String xsbj = cellList.get(23); //所在班级
+                resMap.put("xsbj", xsbj);
+                String pyfs = cellList.get(24); //培养方式
+                resMap.put("pyfs", pyfs);
+                String wpdw = cellList.get(25); //委培单位
+                resMap.put("wpdw", wpdw);
+                String knslb = cellList.get(26); //困难生类别
+                resMap.put("knslb", knslb);
+                String sfslb = cellList.get(27); //师范生类别
+                resMap.put("sfslb", sfslb);
+                String sjh = cellList.get(28); //手机号码
+                resMap.put("sjh", sjh);
+                String yx = cellList.get(29); //电子邮箱
+                resMap.put("yx", yx);
+                String qqhm = cellList.get(30); //QQ号码
+                resMap.put("qqhm", qqhm);
+                String jtdh = cellList.get(31); //家庭电话
+                resMap.put("jtdh", jtdh);
+                String jtyb = cellList.get(32); //家庭邮编
+                resMap.put("jtyb", jtyb);
+                String jtdz = cellList.get(33); //家庭地址
+                resMap.put("jtdz", jtdz);
+                //收集自定义字段
+                for (int n = 1; n < fieldLists.size(); n++) {
+                    BckjBizStudentExpand bckjBizStudentExpand = new BckjBizStudentExpand();
+                    bckjBizStudentExpand.setName(sfz);
+                    bckjBizStudentExpand.setCode(fieldLists.get(n - 1));
+                    bckjBizStudentExpand.setVal(cellList.get(34+n));
+                    stus.add(bckjBizStudentExpand);
+                }
+                BckjBizSyb bckjBizSyb = new BckjBizSyb();
+                BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
+                BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
+                MapUtil.easySetByMap(resMap, bckjBizSyb);
+                MapUtil.easySetByMap(resMap, bckjBizYhxx);
+                MapUtil.easySetByMap(resMap, bckjBizYhkz);
+                //此sfz判断是存在
+                BckjBizSyb oneBySfz = getOneBySfz(bckjBizSyb.getSfz());
+                //判断sfz是否存在学生 不为空则删除此身份证学生信息
+                if (!TextUtils.isEmpty(oneBySfz)) {
+                    bckjBizYhxxService.deleteBySfz(oneBySfz.getSfz());
+                    bckjBizYhkzService.deleteByYhRefOwid(oneBySfz.getYhRefOwid());
+                    delete(oneBySfz);
+                    bckjBizStudentExpandService.deleteBySfz(oneBySfz.getSfz());
+                }
+                String owid = IdGen.uuid();
+                bckjBizYhxx.setOwid(owid);
+                bckjBizYhkz.setYhRefOwid(owid);
+                bckjBizSyb.setYhRefOwid(owid);
+                //非企业
+                bckjBizYhxx.setYhlx(1);
+                bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
+                String dlmm = TextUtils.MD5(sfz.substring(sfz.length() - 6));
+                bckjBizYhxx.setYhDlmm(dlmm);
+                //学生为未编辑状态
+                bckjBizSyb.setExp2("1");
+                //学生
+                bckjBizYhkz.setOlx(0);
+                yhxxes.add(bckjBizYhxx);
+                yhkzes.add(bckjBizYhkz);
+                sybs.add(bckjBizSyb);
+            }
+            //开始批量更新
+            for (BckjBizYhkz bckjBizYhkz : yhkzes) {
+                bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+            }
+            for (BckjBizYhxx bckjBizYhxx : yhxxes) {
+                bckjBizYhxxService.insert(bckjBizYhxx);
+            }
+            for (BckjBizSyb bckjBizSyb : sybs) {
+                saveOrUpdate(bckjBizSyb);
+            }
+            for (BckjBizStudentExpand bckjBizStudentExpand : stus) {
+                bckjBizStudentExpandService.saveOrUpdate(bckjBizStudentExpand);
+            }
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    private BckjBizSyb getOneBySfz(String sfz) {
+        return this.dao.getOneBySfz(sfz);
+    }
+
+
+    /**
+     * 后台删除gridlist
+     *
+     * @return
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public List deleteInfoList(List<String> owidcodes) {
+        List<Map<String, Object>> objs = new ArrayList();
+        for (String owid : owidcodes) {
+            BckjBizSyb bckjBizSyb = getOne(owid);
+            bckjBizYhxxService.deleteBySfz(bckjBizSyb.getSfz());
+            bckjBizYhkzService.deleteByYhRefOwid(bckjBizSyb.getYhRefOwid());
+            delete(bckjBizSyb);
+            bckjBizStudentExpandService.deleteBySfz(bckjBizSyb.getSfz());
+            Map<String, Object> params = Maps.newHashMap();
+            params.put("owid", owid);
+            objs.add(params);
+        }
+        return objs;
+    }
+
+
+    /**
+     * <p>功能描述:新建或修改学生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/10/23</li>
+     * </ul>
+     */
+
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage insertssInfo(Map<String,Object> dataMap){
+        BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
+        BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
+        BckjBizSyb bckjBizSyb = new BckjBizSyb();
+        MapUtil.easySetByMap(dataMap, bckjBizSyb);
+        //移除owid
+        dataMap.remove("owid");
+        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+        MapUtil.easySetByMap(dataMap, bckjBizYhkz);
+        //如果為更新
+        if (bckjBizSyb.getOwid() != null) {
+            //判断是否存在相同的学号
+            if(!TextUtils.isEmpty(bckjBizSyb.getXsxh())){
+                BckjBizSyb oneByXsxh = getOneByXsxh(bckjBizSyb.getXsxh());
+                if (!TextUtils.isEmpty(oneByXsxh)){
+                    //判断两个owid是否相等 如不相等则删除另一个
+                    if (!oneByXsxh.getOwid().equals(bckjBizSyb.getOwid())){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL,"保存失败,此学号已存在");
+                    }
+                }
+            }
+            //设置状态为已编辑
+            bckjBizSyb.setExp2("2");
+            bckjBizYhxx.setOwid(bckjBizSyb.getYhRefOwid());
+            bckjBizYhkzService.updateSudentInfo(bckjBizYhkz);
+            saveOrUpdate(bckjBizSyb);
+            //重新设置登入账号
+            if (!TextUtils.isEmpty(bckjBizSyb.getXsxh())){
+                bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
+            }
+            bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
+        }
+        //否则为新建
+        if (bckjBizSyb.getOwid() == null) {
+            String uuid = IdGen.uuid();
+            bckjBizYhxx.setOwid(uuid);
+            bckjBizYhkz.setYhRefOwid(uuid);
+            bckjBizSyb.setYhRefOwid(uuid);
+            //非企业
+            bckjBizYhxx.setYhlx(1);
+            //判断sfz是否存在学生 不为空则删除此身份证学生信息
+            BckjBizYhxx oneBySfz = bckjBizYhxxService.getOneBySfz(bckjBizYhxx.getSfz());
+            if (!TextUtils.isEmpty(oneBySfz)) {
+                deleteBySfz(bckjBizSyb.getSfz());
+                bckjBizYhkzService.deleteByYhRefOwid(oneBySfz.getOwid());
+                bckjBizYhxxService.deleteBySfz(oneBySfz.getSfz());
+            }
+            //设置登入密码
+            String dlmm = TextUtils.MD5(bckjBizSyb.getSfz().substring(bckjBizSyb.getSfz().length() - 6));
+            bckjBizYhxx.setYhDlmm(dlmm);
+            bckjBizYhxx.setCreatetime(new Date());
+            bckjBizYhxxService.insert(bckjBizYhxx);
+            //设置未编辑状态
+            bckjBizSyb.setExp2("1");
+            //学生
+            bckjBizYhkz.setOlx(0);
+            bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+            saveOrUpdate(bckjBizSyb);
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    private BckjBizSyb getOneByXsxh(String xsxh) {
+        return this.dao.getOneByXsxh(xsxh);
     }
 }
