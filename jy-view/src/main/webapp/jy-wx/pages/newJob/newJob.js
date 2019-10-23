@@ -36,7 +36,7 @@ Page({
     nlyqStr: '请选择',
     xlyqStr: '请选择',
     gznxStr: '请选择',
-    yyyqStr: '请选择',
+    yyyqStr: '不限',
     zwSxsjStr: '请选择',
     form: {
       zwbt: '',
@@ -47,7 +47,7 @@ Page({
       zwGzxz: '',
       zwLxyx: '',
       zwXs: '',
-      zwZprs: '',
+      zwZprs: 1,
       zwNlyq: '',
       zwXlyq: '',
       zwGznx: '',
@@ -55,6 +55,7 @@ Page({
       zwGwzz: '',
       zwSxsj: '',
     },
+    btndisabled:false
   },
   showModal(error) {
     wx.showModal({
@@ -74,10 +75,15 @@ Page({
       return false
     }
     params.zwlx = 0
-    params.zwXs = parseInt(params.zwXs)
+    if (params.zwXs){
+      params.zwXs = parseInt(params.zwXs)
+    }
     params.qyxxRefOwid = wx.getStorageSync('yhOwid')
     common.ajax('zustjy/bckjBizJob/addOneJob', params, function (res) {
       if (res.data.backCode == 0) {
+        that.setData({
+          btndisabled: true
+        })
         wx.showModal({
           title: '提示',
           showCancel: false,
@@ -123,9 +129,6 @@ Page({
       zwGzxz: {
         required: true
       },
-      zwXs: {
-        required: true
-      },
       zwZprs: {
         required: true
       },
@@ -140,9 +143,6 @@ Page({
         required: true
       },
       zwGznx: {
-        required: true
-      },
-      zwYyyq: {
         required: true
       },
       zwGwzz: {
@@ -175,9 +175,6 @@ Page({
         required: '请填写邮箱',
         email: '请填写正确邮箱',
       },
-      zwXs: {
-        required: '请填写薪水',
-      },
       zwZprs: {
         required: '请填写招聘人数',
       },
@@ -189,9 +186,6 @@ Page({
       },
       zwGznx: {
         required: '请选择工作年限',
-      },
-      zwYyyq: {
-        required: '请选择语言要求',
       },
       zwGwzz: {
         required: '请填写职位详情',
@@ -292,6 +286,7 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate()
+    getOneCompany(this)
     getByType1(this)
     getByType2(this)
     getByType3(this)
@@ -379,6 +374,12 @@ var getByType1 = function (that) {
           obj.dicVal1 = data.bean[i].dicVal1
           obj.dicVal2 = data.bean[i].dicVal2
           that.data.zwNlyqColumns.push(obj)
+          if (obj.dicVal2 == "不限") {
+            that.setData({
+              nlyqStr: obj.dicVal2,
+              'form.zwNlyq': obj.dicVal1
+            })
+          }      
         }
         that.setData({
           zwNlyqColumns: that.data.zwNlyqColumns
@@ -405,6 +406,13 @@ var getByType2 = function (that) {
           obj.dicVal1 = data.bean[i].dicVal1
           obj.dicVal2 = data.bean[i].dicVal2
           that.data.zwXlyqColumns.push(obj)
+
+          if (obj.dicVal2 == "不限") {
+            that.setData({
+              xlyqStr: obj.dicVal2,
+              'form.zwXlyq': obj.dicVal1
+            })
+          }      
         }
         that.setData({
           zwXlyqColumns: that.data.zwXlyqColumns
@@ -432,6 +440,7 @@ var getByType3 = function (that) {
           obj.dicVal2 = data.bean[i].dicVal2
           that.data.zwYyyqColumns.push(obj)
         }
+        that.data.zwYyyqColumns.push({ 'dicVal1': '','dicVal2':'不限'})
         that.setData({
           zwYyyqColumns: that.data.zwYyyqColumns
         })
@@ -457,6 +466,12 @@ var getByType4 = function (that) {
           obj.dicVal1 = data.bean[i].dicVal1
           obj.dicVal2 = data.bean[i].dicVal2
           that.data.zwGznxColumns.push(obj)
+          if (obj.dicVal2 == "不限") {
+            that.setData({
+              gznxStr: obj.dicVal2,
+              'form.zwGznx': obj.dicVal1
+            })
+          }      
         }
         that.setData({
           zwGznxColumns: that.data.zwGznxColumns
@@ -509,10 +524,46 @@ var getByType6 = function (that) {
           obj.dicVal1 = data.bean[i].dicVal1
           obj.dicVal2 = data.bean[i].dicVal2
           that.data.zwGzxzColumns.push(obj)
+          if (obj.dicVal2=="不限"){
+            that.setData({
+              gzxzStr: obj.dicVal2,
+              'form.zwGzxz': obj.dicVal1
+            })
+          }         
         }
         that.setData({
           zwGzxzColumns: that.data.zwGzxzColumns
         })
+      }
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+var getOneCompany = function (that) {
+  var data = { "owid":wx.getStorageSync('yhOwid') };
+  common.ajax('zustjy/bckjBizQyxx/getOneCompany', data, function (res) {
+    if (res.data.backCode == 0) {
+      var data = res.data;
+      if(data.bean){
+        if (data.bean.qyYx){
+          that.setData({
+            'form.zwLxyx': data.bean.qyYx
+          })
+        }
+        if (data.bean.qyProv && data.bean.qyCity && data.bean.qyArea){
+          that.setData({
+            area: `${data.bean.qyProv}-${data.bean.qyCity}-${data.bean.qyArea}`,
+            'form.zwPro': data.bean.qyProv,
+            'form.zwCity': data.bean.qyCity,
+            'form.zwArea': data.bean.qyArea
+          })
+        }
       }
     } else {
       wx.showToast({

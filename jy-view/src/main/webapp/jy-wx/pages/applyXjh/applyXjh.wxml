@@ -4,12 +4,12 @@
 <van-cell-group>
   <van-field input-align="right" value="{{form.lxdh}}" name="lxdh" label="联系人手机" type="number" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.jkr}}" name="jkr" label="讲课人" placeholder="输入内容" required />
-  <van-cell required title="宣讲时间" value="{{xjsjStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
+  <van-cell required title="宣讲日期" value="{{xjsjStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
   <van-popup show="{{ show.xjsj }}" position="bottom" custom-style="height: 540rpx" data-type="8" bind:close="hideBottom">
   <van-datetime-picker
     data-type="8"
     value="{{xjsj}}"
-    type="datetime"
+    type="date"
     bind:confirm="onConfirm"
     bind:cancel="onCancel"
     min-date="{{minDate}}"

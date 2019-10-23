@@ -165,7 +165,7 @@ Page({
   onConfirm(e) {
     if (e.target.dataset.type == 8) {
       console.log(e)
-      var date = util.formatTime2(new Date(e.detail))
+      var date = util.formatTime1(new Date(e.detail))
       this.setData({
         xjsjStr: date,
         'form.xjsj': date
@@ -281,7 +281,6 @@ var xjhtjList = function (that) {
           list: arr
         })
       }
-      console.log(arr)
     } else {
       wx.showToast({
         title: res.data.errorMess,
