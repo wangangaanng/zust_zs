@@ -113,5 +113,10 @@ public class BckjDicTreeController {
         return bckjDicTreeService.listAllDicByType(type);
     }
 
-
+    @RequestMapping(value = "listAddrDicTree", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage listAddrDicTree(HttpServletRequest request, PublicDataVO data) {
+        List<FilterModel> filters = JsonUtil.jsonToList(data.getData(), FilterModel.class);
+        return ResponseMessage.sendOK(bckjDicTreeService.listAddrTree(filters));
+    }
 }

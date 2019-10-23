@@ -3,7 +3,7 @@
  */
 package com.zghzbckj.manage.entity;
 
-import com.zghzbckj.base.entity.DataWithLongExpEntity;
+import com.zghzbckj.base.entity.DataIntegerEntity;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
  * @author cg
  * @version 2019-03-15
  */
-public class BckjDicTree extends DataWithLongExpEntity<BckjDicTree> {
+public class BckjDicTree extends DataIntegerEntity<BckjDicTree> {
 	
 	private static final long serialVersionUID = 1L;
 	private Integer fid;		// fid
