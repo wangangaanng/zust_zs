@@ -48,7 +48,7 @@
           <view class="l-ask">
           <view>
             <image src="../../static/icon-ans.png"></image>
-            {{item.danr}}老师的回答：
+            {{item.zjxm}}老师的回答：
             <!-- <view class="ask-time">{{tools.convertStr(item.danr,"")}}</view> -->
           </view>
           <view class="ask-nr">{{tools.convertStr(item.danr,"暂无回复")}}</view>

@@ -10,6 +10,7 @@ import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.BaseTree;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
@@ -112,11 +113,11 @@ public class BckjDicTreeService extends CrudService<BckjDicTreeDao, BckjDicTree>
      */
     @Transactional(readOnly = false)
     public ResponseMessage removeOrder(List<Long> codes) {
-        List<Map<String, Object>> objs =Lists.newArrayList();
+        List<Map<String, Object>> objs = Lists.newArrayList();
         for (Long owid : codes) {
             Map<String, Object> params = new HashMap<String, Object>(1);
             BckjDicTree bckjDicTree = new BckjDicTree();
-            bckjDicTree.setOwid(owid);
+            bckjDicTree.setOwid(owid.intValue());
             this.dao.delete(bckjDicTree);
             params.put("owid", owid);
             objs.add(params);
@@ -126,10 +127,10 @@ public class BckjDicTreeService extends CrudService<BckjDicTreeDao, BckjDicTree>
 
 
     public ResponseMessage listAllDicByType(Integer type) {
-        Map map= Maps.newHashMap();
-        map.put("type",type.toString());
+        Map map = Maps.newHashMap();
+        map.put("type", type.toString());
         List<BckjDicTree> list = this.dao.findListByMap(map);
-        return ResponseMessage.sendOK(getAreaTrees(list,-1));
+        return ResponseMessage.sendOK(getAreaTrees(list, -1));
     }
 
     public List<BckjDicTree> getAreaTrees(List<BckjDicTree> datas, int fatherId) {
@@ -155,17 +156,35 @@ public class BckjDicTreeService extends CrudService<BckjDicTreeDao, BckjDicTree>
      */
     public void convertMenuToTree(List<BckjDicTree> datas, BckjDicTree node) {
         for (BckjDicTree treeNode : datas) {
-            if (node.getOwid().intValue()==treeNode.getFid()) {
+            if (node.getOwid().intValue() == treeNode.getFid()) {
                 if (null == node.getSubChidren()) {
-                    List<BckjDicTree>subList=Lists.newArrayList();
+                    List<BckjDicTree> subList = Lists.newArrayList();
                     node.setSubChidren(subList);
                 }
-                // node.setLeaf(true);
                 node.getSubChidren().add(treeNode);
                 convertMenuToTree(datas, treeNode);
             } else {
                 continue;
             }
         }
+    }
+
+    public List<BaseTree> listAddrTree(List<FilterModel> filters) {
+        Map params = Maps.newHashMap();
+        List<BckjDicTree> poTree = findListByParams(params, "cc,px");
+        List<BaseTree> baseTreeList = new ArrayList<BaseTree>();
+        if (null != poTree && poTree.size() > 0) {
+            for (BckjDicTree po : poTree) {
+                BaseTree bt = new BaseTree();
+                bt.setOwid(po.getOwid());
+                bt.setFid(po.getFid());
+                bt.setName(po.getDicName());
+                bt.setPath(po.getPath());
+                bt.setCc(po.getCc());
+                bt.setPx(po.getPx().doubleValue());
+                baseTreeList.add(bt);
+            }
+        }
+        return baseTreeList;
     }
 }
