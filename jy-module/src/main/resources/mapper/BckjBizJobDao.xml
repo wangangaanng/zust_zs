@@ -135,6 +135,15 @@
             <if test="zwbt != null and zwbt != ''">
                 AND a.zwbt like CONCAT('%', #{zwbt},'%')
             </if>
+            <if test="zwMxxy != null and zwMxxy != ''">
+                AND a.zw_mxxy like CONCAT('%', #{zwMxxy},'%')
+            </if>
+            <if test="zwMxzy != null and zwMxzy != ''">
+                AND a.zw_mxzy like CONCAT('%', #{zwMxzy},'%')
+            </if>
+            <if test="zphJbdd != null and zphJbdd != ''">
+                AND a.zph_jbdd like CONCAT('%', #{zphJbdd},'%')
+            </if>
             <if test="zwgjz != null and zwgjz != ''">
                 AND( a.zwgjz like CONCAT('%', #{zwgjz},'%') OR a.zwbt like CONCAT('%', #{zwgjz},'%') )
             </if>

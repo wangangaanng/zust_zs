@@ -194,7 +194,7 @@
         <#--</tr>-->
     </table>
     <div class="flex">
-        <div>${map.name}</div>
+        <div style="text-align: center;font-size: 25px;">${map.name}</div>
         <div>举办地点：${map.zphJbdd}</div>
         <div>举办日期：${map.zphKsrq}</div>
         <div>具体时间：${map.zphJtsj}</div>
