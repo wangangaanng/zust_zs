@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizYhglService;
+import com.zghzbckj.manage.utils.SmallAppUtil;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -121,7 +122,7 @@ public class BckjBizYhglController extends BaseController {
                     if (!msg.getSuccess()) {
                         return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
                     }
-                    WxXcxUserModel wxUser = WxUtils.getOpenId(dataMap);
+                    WxXcxUserModel wxUser = SmallAppUtil.getOpenId(dataMap);
                         return ResponseMessage.sendOK(wxUser);
                 } catch(Exception e){
                         log.error(CommonConstant.ERROR_MESSAGE, e);
