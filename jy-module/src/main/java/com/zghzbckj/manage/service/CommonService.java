@@ -8,6 +8,7 @@ import com.zghzbckj.manage.entity.BckjBizJyscheme;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.util.MapUtil;
+
 import com.zghzbckj.util.TextUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -141,7 +142,7 @@ public class CommonService {
         Map<String, Object> objectMap = null;
         return result;
     }
-    
+
     /**
      *<p>方法:统计招聘会、职位数、宣讲会数柱状图 getJobBar TODO </p>
      *<ul>

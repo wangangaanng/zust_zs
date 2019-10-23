@@ -6,6 +6,7 @@ package com.zghzbckj.manage.dao;
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizSyb;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
 
 import java.util.List;
 import java.util.Map;
@@ -17,9 +18,7 @@ import java.util.Map;
  */
 @MyBatisDao
 public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
-    BckjBizSyb findByXh(String xh);
 
-    Map getUserXh(Map yhOwid);
     void updataInfo(BckjBizSyb bckjBizSyb);
 
     void updateByXsxh(BckjBizSyb bckjBizSyb);
@@ -30,10 +29,21 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
 
     List<Object> getSybList(Map<String, Object> dataMap);
 
-    Object getOne(String owid);
+    BckjBizSyb getOne(String owid);
+
     Map<String,Object> getBynfByXsxh(Map<String,Object> dataMap);
 
-    String getOneByCondition(BckjBizSyb bckjBizSyb);
 
     List<Map<String, Object>> getByTypeSort(Map<String, Object> dataMap);
+
+    void deleteBySfz(String sfz);
+
+
+
+
+    Map<String, Object> getBynfBySfz(Map<String, Object> map);
+
+    BckjBizSyb getOneByXsxh(String xsxh);
+
+    BckjBizSyb getOneBySfz(String sfz);
 }

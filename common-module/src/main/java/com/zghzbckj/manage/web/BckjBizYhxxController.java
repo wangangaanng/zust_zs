@@ -204,92 +204,38 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-    /**
-     * <p>功能描述:后台录入师生信息</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/20</li>
-     * </ul>
-     */
-    @RequestMapping(value = "recordInfo/{state}",method = RequestMethod.POST)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @PostMapping("deleteInfo")
     @ResponseBody
-    public ResponseMessage recordInfo(@PathVariable("state") Integer olx,PublicDataVO dataVO) {
+    public  ResponseMessage deleteInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
-            if (!msg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
-            }
-            //如果为学生录入
-            if (olx == 0) {
-                return bckjBizYhxxService.recordStudentInfo(dataMap.get("path").toString());
-            }
-            //如果为老师录入
-            if (olx == 1) {
-                return ResponseMessage.sendOK("");
-            }
-                return ResponseMessage.sendOK("");
-        } catch (RepeatException e) {
-            log.error(CommonConstant.ERROR_MESSAGE, e);
-            return ResponseMessage.sendOK("excel表中存在学号\" + i + \"重复录入,导入失败");
-        } catch (Exception e) {
-            log.error(CommonConstant.ERROR_MESSAGE, e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
-    /**
-     * <p>功能描述:后台显示师生信息</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/20</li>
-     * </ul>
-     */
-    @PostMapping("showInfoList/{state}")
-    @ResponseBody
-    public ResponseMessage showInfoList(@PathVariable("state") Integer state,PublicDataVO dataVO){
-        try {
-            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            //显示学生信息列表
-            if(state==0){
-                return ResponseMessage.sendOK(bckjBizYhxxService.showInfoList(filters,dataVO.getPageNo(),dataVO.getPageSize()));
-            }
-            return  ResponseMessage.sendOK("");
+            bckjBizYhxxService.delete(bckjBizYhxx);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-    /**
-     * <p>功能描述:新建或修改学生信息</p >
-     * <ul>
-     * <li>@param </li>
-     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     * <li>@throws </li>
-     * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/23</li>
-     * </ul>
-     */
-    @PostMapping("insertssInfo")
-    @ResponseBody
-    public ResponseMessage insertssInfo(PublicDataVO dataVO){
-        try{
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            return bckjBizYhxxService.insertssInfo(dataMap);
-        }
-        catch (Exception e)
-        {
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
 
-    }
+
+
+
+
+
     @PostMapping("saveOrALL")
     @ResponseBody
     public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists){
@@ -316,18 +262,7 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-    @PostMapping("deleteInfo")
-    @ResponseBody
-    public  ResponseMessage deleteInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
-        try {
-            bckjBizYhxxService.delete(bckjBizYhxx);
-            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
+
     @PostMapping("saveconInfo")
     @ResponseBody
     public  ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
@@ -340,6 +275,7 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     @PostMapping("insertInfo")
     @ResponseBody
     public  ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
@@ -352,50 +288,8 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-    /**
-     * 后台进入修改页面读取出信息
-     * @param
-     * @return
-     */
-    @PostMapping("getStudentOne")
-    @ResponseBody
-    public  ResponseMessage getStudentOne(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return ResponseMessage.sendOK(bckjBizYhxxService.getStudentOne(dataMap));
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
-    /**
-     * 后台删除gridlist
-     * @param dataVO
-     * @return ResponseMessage
-     */
-    @PostMapping("deleteInfoList")
-    @ResponseBody
-    public ResponseMessage deleteInfoList(PublicDataVO dataVO){
-        try {
-            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
-            List<String> owidcodes = new ArrayList<String>(list.size());
-            List<String> xsxhcodes = new ArrayList<String>(list.size());
-            for (Object obj : list) {
-                owidcodes.add(((Map<String, Object>) obj).get("owid").toString());
-                xsxhcodes.add(((Map<String, Object>) obj).get("xsxh").toString());
-            }
-            return   ResponseMessage.sendOK(bckjBizYhxxService.deleteInfoList(owidcodes,xsxhcodes));
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
-        }
-    }
+
+
     /**
      *后台根据job 的 owid 获得关注学生信息
      * @param dataVO

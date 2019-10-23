@@ -123,7 +123,7 @@ public class BckjBizYhkzController extends BaseController {
             if (ValidateUtils.isEmpty(yhRefOwid)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_NOPARAMS);
             }
-            return  bckjBizYhkzService.getOneByYhRefOwid(yhRefOwid);
+            return  ResponseMessage.sendOK(bckjBizYhkzService.getOneByYhRefOwid(yhRefOwid));
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
