@@ -2,7 +2,7 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="宣讲会信息">
-     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
+     <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y>
       
       <view class="cell">
           <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
@@ -82,7 +82,7 @@
         <view>关注时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:73px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>
@@ -100,7 +100,7 @@
         <view>报名时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:73px;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>

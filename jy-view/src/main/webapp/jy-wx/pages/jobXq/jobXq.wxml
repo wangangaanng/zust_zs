@@ -2,7 +2,7 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="职位信息">
-     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
+     <scroll-view  style='position:fixed;top:45px;bottom:0px;' scroll-y>
         <form bindsubmit="submitForm">
   <van-field disabled input-align="right" value="{{form.zwbt}}" name="zwbt" label="职位名称" placeholder="输入内容" required />
 <van-cell-group>
@@ -79,7 +79,7 @@
         <view>关注时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:73px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>
@@ -97,7 +97,7 @@
         <view>报名时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:73px;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>
