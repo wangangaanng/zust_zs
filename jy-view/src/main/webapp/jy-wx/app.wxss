@@ -25,8 +25,8 @@ page{background: #f3f3f5;}
 }
 .wxParse-img{width:100% !important;}
 .float-btn{
-  background: #00aba5e3;
-  border: 1px solid #008783;
+  background: #00aba5;
+  border: 1px solid #008782;
   color: #fff;
   width: 80rpx;
   height: 80rpx;
@@ -214,9 +214,9 @@ margin-right: 10rpx;
 .hiddenInput{display: none;}
 
 
-.bm-table{display: flex;justify-content: space-around;background-color: #F1F8F8;height: 70rpx;line-height: 70rpx;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
+.bm-table{display: flex;justify-content: space-around;background-color: #F1F8F8;height: 35px;line-height: 35px;border-top:1px solid #ddd;border-bottom:1px solid #ddd;}
 .bm-table view{flex:4;text-align: center;color: #6c9d9c;font-size: 30rpx;}
 .bm-table view:nth-last-of-type(2){border-left: 1px solid #ddd;border-right:1px solid #ddd;}
-.bm-tbody{display: flex;justify-content: space-around;border-bottom:1px solid #ddd;height: 70rpx;line-height: 70rpx;background-color: #fff;}
+.bm-tbody{display: flex;justify-content: space-around;border-bottom:1px solid #ddd;height: 35px;line-height: 35px;background-color: #fff;}
 .bm-tbody view{flex:4;text-align: center;font-size: 28rpx;}
 .bm-tbody view:nth-last-of-type(2){border-left: 1px solid #ddd;border-right:1px solid #ddd;}

@@ -45,31 +45,16 @@ function getLogIn(){
     publicDataVO.zkCookie=getCookie("zkCookie");
 }
 
-function ajax(method,data,successMethod,type,raNum,raNumMd5){
+function ajax(method,data,successMethod){
     var baseUrl = "../ajax/executeAPI.do";
     getLogIn();
-    // alert(publicDataVO.zkCookie);
-    if(type==1){
-        var params = {
-            "method":method,
-            "data":JSON.stringify(data),
-            "openId":publicDataVO.empId,
-            "appKey": publicDataVO.appKey,
-            "randNum":raNum,
-            "privateKey":raNumMd5,
-            "empLanguage":publicDataVO.empLanguage,
-            "zkCookie":publicDataVO.zkCookie,
-            timestamp: new Date().getTime(),
-        }
-    }else{
-        var params = {
-            "method":method,
-            "data":JSON.stringify(data),
-            "empId":publicDataVO.empId,
-            "empLanguage":publicDataVO.empLanguage,
-            "zkCookie":publicDataVO.zkCookie,
-            timestamp: new Date().getTime(),
-        }
+    var params = {
+        "method":method,
+        "data":JSON.stringify(data),
+        "empId":publicDataVO.empId,
+        "empLanguage":publicDataVO.empLanguage,
+        "zkCookie":publicDataVO.zkCookie,
+        timestamp: new Date().getTime(),
     }
     $.post(baseUrl,params,successMethod);
 }

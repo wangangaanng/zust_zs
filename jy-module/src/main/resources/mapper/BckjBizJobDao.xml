@@ -135,6 +135,15 @@
             <if test="zwbt != null and zwbt != ''">
                 AND a.zwbt like CONCAT('%', #{zwbt},'%')
             </if>
+            <if test="zwMxxy != null and zwMxxy != ''">
+                AND a.zw_mxxy like CONCAT('%', #{zwMxxy},'%')
+            </if>
+            <if test="zwMxzy != null and zwMxzy != ''">
+                AND a.zw_mxzy like CONCAT('%', #{zwMxzy},'%')
+            </if>
+            <if test="zphJbdd != null and zphJbdd != ''">
+                AND a.zph_jbdd like CONCAT('%', #{zphJbdd},'%')
+            </if>
             <if test="zwgjz != null and zwgjz != ''">
                 AND( a.zwgjz like CONCAT('%', #{zwgjz},'%') OR a.zwbt like CONCAT('%', #{zwgjz},'%') )
             </if>
@@ -530,19 +539,28 @@
 	</select>
 
 
-	<select id="getCdList" resultType="BckjBizJob" parameterType="Map">
-		select <include refid="bckjBizJobColumns"></include>
-		from bckj_biz_job a
-		where  a.exp5='1'
-	</select>
+    <select id="getCdList" resultType="BckjBizJob" parameterType="Map">
+        select
+        <include refid="bckjBizJobColumns"></include>
+        from bckj_biz_job a
+        where a.exp5='1'
+    </select>
 
 
-	<update id="setCdPoint"  parameterType="Map" >
+    <update id="setCdPoint" parameterType="Map">
 		UPDATE bckj_biz_job SET
 		zph_gpsjd=#{zphGpsjd},
 		zph_gpswd=#{zphGpswd},
 		exp5='2'
 		where owid=#{owid}
 	</update>
+
+
+    <update id="LowerJob" parameterType="Map">
+		UPDATE bckj_biz_job SET
+		state = 6
+		where qyxx_ref_owid=#{qyxxRefOwid}
+	</update>
+
 
 </mapper>

@@ -3,20 +3,32 @@ package com.ourway.syszk.controll;
 import com.beust.jcommander.internal.Maps;
 import com.ourway.WebZKConstant;
 import com.ourway.base.utils.DateUtil;
+import com.ourway.base.utils.qrcode.QRCodeUtil;
 import com.ourway.base.zk.BaseConstants;
 import com.ourway.base.zk.ZKConstants;
 import com.ourway.base.zk.models.EmployVO;
 import com.ourway.base.zk.models.PublicData;
 import com.ourway.base.zk.models.ResponseMessage;
-import com.ourway.base.zk.utils.*;
+import com.ourway.base.zk.utils.CookieUtils;
+import com.ourway.base.zk.utils.HttpUtils;
+import com.ourway.base.zk.utils.JsonUtil;
+import com.ourway.base.zk.utils.TextUtils;
 import com.ourway.base.zk.utils.data.LoginUtil;
 import com.ourway.base.zk.zpspring.SpringZkBaseControl;
+import org.apache.commons.codec.binary.Base64;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,13 +46,18 @@ public class IndexController extends SpringZkBaseControl {
         return "index";
     }
 
-//    @RequestMapping("/projectReport")
+    //    @RequestMapping("/projectReport")
 //    public String projectReport(HttpServletRequest request) {
 //        CookieUtils.setRequest(request);
 //        //把常用的参数设置到界面上，并传递给界面使用
 //        System.out.println("client ip :" + request.getRemoteAddr() + " : " + DateUtil.getDateStr("yyyy-MM-dd HH:mm:ss"));
 //        return "projectReport";
 //    }
+    @RequestMapping("/leaderIndex")
+    public String leaderIndex(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        return "leaderIndex";
+    }
 
     @RequestMapping("/loginNewDetail")
     public String newsDetail(HttpServletRequest request) {
@@ -104,35 +121,104 @@ public class IndexController extends SpringZkBaseControl {
             String zphJbdd = request.getParameter("zphJbdd");
             String zphKsrq = request.getParameter("zphKsrq");
             String zphJtsj = request.getParameter("zphJtsj");
+            String owid = request.getParameter("owid");
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
             String url = WebZKConstant.WX_VIEW_URL;
-            String picName = TextUtils.getUUID() + ".jpg";
+            String picName = "result.jpg";
             //生成二维码
             QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
                     picName, true);
-            Map map = Maps.newHashMap();
+//            String tokenStr = com.zghzbckj.base.util.CacheUtil.getVal("config.wechat.wx618803b392a8c474");
+//            getminiqrQr("owid=" + owid, tokenStr);
 
+
+            Map map = Maps.newHashMap();
             map.put("qrPic", tpPath + "qrcode/" + picName);
-            map.put("name", name);
-            map.put("zphJbdd", zphJbdd);
-            map.put("zphKsrq", zphKsrq);
-            map.put("zphJtsj", zphJtsj);
-//            map.put("name", new String(name.getBytes("utf-8"),"ISO-8859-1"));
-//            map.put("zphJbdd", new String(zphJbdd.getBytes("utf-8"),"ISO-8859-1"));
-//            map.put("zphKsrq", new String(zphKsrq.getBytes("utf-8"),"ISO-8859-1"));
-//            map.put("zphJtsj",new String(zphJtsj.getBytes("utf-8"),"ISO-8859-1"));
+            if (!TextUtils.isEmpty(name)) {
+                map.put("name", name);
+            } else {
+                map.put("name", "待定");
+            }
+            if (!TextUtils.isEmpty(zphJbdd)) {
+                map.put("zphJbdd", zphJbdd);
+            } else {
+                map.put("zphJbdd", "待定");
+            }
+            if (!TextUtils.isEmpty(zphKsrq)) {
+                map.put("zphKsrq", zphKsrq);
+            } else {
+                map.put("zphKsrq", "待定");
+            }
+            if (!TextUtils.isEmpty(zphJtsj)) {
+                map.put("zphJtsj", zphJtsj);
+            } else {
+                map.put("zphJtsj", "待定");
+            }
             request.setAttribute("map", map);
-//            request.setAttribute("qrCode", tpPath+ picName);
             return "projectReport";
-//            return "redirect:/projectReport.htm?name=" + name + "&qrCode=" + tpPath + "qrcode/" + picName;
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/error.htm";
-//        return "redirect:/index.htm";
 
     }
 
+
+    public Map getminiqrQr(String sceneStr, String accessToken) {
+        RestTemplate rest = new RestTemplate();
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + accessToken;
+            Map<String, Object> param = new HashMap<>();
+            param.put("scene", sceneStr);
+            param.put("page", "pages/qiandao/qiandao");
+            param.put("width", 430);
+            param.put("auto_color", false);
+            Map<String, Object> line_color = new HashMap<>();
+            line_color.put("r", 0);
+            line_color.put("g", 0);
+            line_color.put("b", 0);
+            param.put("line_color", line_color);
+            System.out.println("调用生成微信URL接口传参:" + param);
+            MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+            HttpEntity requestEntity = new HttpEntity(param, headers);
+            ResponseEntity<byte[]> entity = rest.exchange(url, HttpMethod.POST, requestEntity, byte[].class, new Object[0]);
+            System.out.println("调用小程序生成微信永久小程序码URL接口返回结果:" + entity.getBody());
+            byte[] result = entity.getBody();
+            System.out.println(Base64.encodeBase64String(result));
+            inputStream = new ByteArrayInputStream(result);
+            File file = new File(ZKConstants.SYSTEM_FILE_PATH + "/qrcode/result.png");
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            outputStream = new FileOutputStream(file);
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len = inputStream.read(buf, 0, 1024)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.flush();
+        } catch (Exception e) {
+            System.out.println("调用小程序生成微信永久小程序码URL接口异常");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
 //    public static void main(String[] args) {
 //        try {
 //            QRCodeUtil.encode("www.baidu.com",  "C:\\files\\kk.png", "C:\\files\\qrcode\\",

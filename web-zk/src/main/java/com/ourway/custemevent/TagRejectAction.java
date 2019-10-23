@@ -22,8 +22,8 @@ import java.util.Map;
 /**
  * Created by ChenChao on 2018/5/18.
  */
-public class TagSaveAction implements ComponentListinerSer {
-    public TagSaveAction() {
+public class TagRejectAction implements ComponentListinerSer {
+    public TagRejectAction() {
     }
 
     @Override
@@ -54,11 +54,10 @@ public class TagSaveAction implements ComponentListinerSer {
                         Map data = (Map) selectRow.getValue();
                         /**调用接口**/
                         PublicData publicData = PublicData.instantce();
-                        publicData.setMethod("web/zustjy/bckjBizJybm/backPassOne");
+                        publicData.setMethod("web/zustjy/bckjBizJybm/backRejectOne");
                         Map<String, Object> ppt = new HashMap<String, Object>(2);
                         ppt.put("owid", data.get("owid"));
                         ppt.put("bmdx", 0);
-                        ppt.put("zwbh", "无需分配");
                         publicData.setData(JsonUtil.toJson(ppt));
                         String result = HttpUtils.doPost(publicData, BaseConstants.UTF8, false);
                         ResponseMessage responseMessage = JsonUtil.getResponseMsg(result);

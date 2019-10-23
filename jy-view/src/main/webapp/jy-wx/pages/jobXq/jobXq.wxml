@@ -2,41 +2,41 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="职位信息">
-     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
+     <scroll-view  style='position:fixed;top:45px;bottom:0px;' scroll-y>
         <form bindsubmit="submitForm">
-  <van-field input-align="right" value="{{form.zwbt}}" name="zwbt" label="职位名称" placeholder="输入内容" required />
+  <van-field disabled input-align="right" value="{{form.zwbt}}" name="zwbt" label="职位名称" placeholder="输入内容" required />
 <van-cell-group>
-  <van-cell required title="所在省市区" value="{{area}}" is-link arrow-direction="down" data-type="7" bind:click="showBottom" required />
-  <van-cell required title="职能类别" value="{{gzznStr}}" is-link arrow-direction="down" data-type="1" bind:click="showBottom" />
+  <van-cell disabled required title="所在省市区" value="{{area}}" is-link arrow-direction="down" data-type="7" bind:click="showBottom" required />
+  <van-cell disabled required title="职能类别" value="{{gzznStr}}" is-link arrow-direction="down" data-type="1" bind:click="showBottom" />
   <van-popup show="{{ show.gzzn }}" position="bottom" custom-style="height: 540rpx" data-type="1" bind:close="hideBottom">
     <van-picker show-toolbar title="职能类别" value-key="dicVal2" columns="{{zwGzznColumns}}" data-type="1" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-cell required title="工作性质" value="{{gzxzStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
+  <van-cell disabled required title="工作性质" value="{{gzxzStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
   <van-popup show="{{ show.gzxz }}" position="bottom" custom-style="height: 540rpx" data-type="2" bind:close="hideBottom">
     <van-picker show-toolbar title="工作性质" value-key="dicVal2" columns="{{zwGzxzColumns}}" data-type="2" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-field input-align="right" value="{{form.zwXs}}" name="zwXs" label="薪水(元)" type="number" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.zwLxyx}}" name="zwLxyx" label="邮箱" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.zwZprs}}" name="zwZprs" label="招聘人数" placeholder="输入内容" required />
+  <van-field disabled input-align="right" value="{{form.zwXs}}" name="zwXs" label="薪水(元)" type="number" placeholder="面议"  />
+  <van-field disabled input-align="right" value="{{form.zwLxyx}}" name="zwLxyx" label="邮箱" placeholder="输入内容" required />
+  <van-field disabled input-align="right" value="{{form.zwZprs}}" name="zwZprs" label="招聘人数" placeholder="输入内容" required />
 
-  <van-cell required title="年龄要求" value="{{nlyqStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
+  <van-cell disabled required title="年龄要求" value="{{nlyqStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
   <van-popup show="{{ show.nlyq }}" position="bottom" custom-style="height: 540rpx" data-type="3" bind:close="hideBottom">
     <van-picker show-toolbar title="年龄要求" value-key="dicVal2" columns="{{zwNlyqColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-cell required title="学历要求" value="{{xlyqStr}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" />
+  <van-cell disabled required title="学历要求" value="{{xlyqStr}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" />
   <van-popup show="{{ show.xlyq }}" position="bottom" custom-style="height: 540rpx" data-type="4" bind:close="hideBottom">
     <van-picker show-toolbar title="学历要求" value-key="dicVal2" columns="{{zwXlyqColumns}}" data-type="4" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-cell required title="工作年限" value="{{gznxStr}}" is-link arrow-direction="down" data-type="5" bind:click="showBottom" />
+  <van-cell disabled required title="工作年限" value="{{gznxStr}}" is-link arrow-direction="down" data-type="5" bind:click="showBottom" />
   <van-popup show="{{ show.gznx }}" position="bottom" custom-style="height: 540rpx" data-type="5" bind:close="hideBottom">
     <van-picker show-toolbar title="工作年限" value-key="dicVal2" columns="{{zwGznxColumns}}" data-type="5" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-cell required title="语言要求" value="{{yyyqStr}}" is-link arrow-direction="down" data-type="6" bind:click="showBottom" />
+  <van-cell disabled title="语言要求" value="{{yyyqStr}}" is-link arrow-direction="down" data-type="6" bind:click="showBottom" />
   <van-popup show="{{ show.yyyq }}" position="bottom" custom-style="height: 540rpx" data-type="6" bind:close="hideBottom">
     <van-picker show-toolbar title="语言要求" value-key="dicVal2" columns="{{zwYyyqColumns}}" data-type="6" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-field required value="{{form.zwGwzz}}" name="zwGwzz" required label="职位详情" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
-  <van-cell title="失效时间" value="{{zwSxsjStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
+  <van-field disabled required value="{{form.zwGwzz}}" name="zwGwzz" required label="职位详情" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  <van-cell disabled title="失效时间" value="{{zwSxsjStr}}" is-link arrow-direction="down" data-type="8" bind:click="showBottom" />
   <van-popup show="{{ show.zwSxsj }}" position="bottom" custom-style="height: 540rpx" data-type="8" bind:close="hideBottom">
   <van-datetime-picker
     data-type="8"
@@ -59,7 +59,7 @@
 <input type="text" class="hiddenInput" name="zwYyyq" value="{{form.zwYyyq}}"></input>
 <input type="text" class="hiddenInput" name="zwSxsj" value="{{form.zwSxsj}}"></input>
 
-<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">修改</button>
+<!-- <button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">修改</button> -->
 </form>
 <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="7" bind:close="hideBottom">
   <van-area
@@ -79,7 +79,7 @@
         <view>关注时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>
@@ -97,7 +97,7 @@
         <view>报名时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>

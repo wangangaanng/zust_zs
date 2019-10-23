@@ -44,9 +44,21 @@ const getVal = (a,arr) => {
   }
 }
 
+const compareToday = d => {
+  var d1 = new Date(d).getTime()
+  var td = new Date(new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' 00:00:00').getTime()
+
+  if (d1 < td) {
+    return true
+  } else {
+    return false
+  }
+}
+
 module.exports = {
   formatTime: formatTime,
   formatTime1: formatTime1,
   formatTime2: formatTime2,
-  getVal: getVal
+  getVal: getVal,
+  compareToday: compareToday
 }

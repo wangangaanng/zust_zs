@@ -287,8 +287,8 @@
 		SELECT
 		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh",b.OLX as "olx" ,b.XSXM as "xsxm" ,b.XSXH as "xsxh",
 		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm",a.xm as xm
-		FROM bckj_biz_yhxx a
-		WHERE a.`OWID`=b.`YH_REF_OWID` AND a.`YH_DLZH`=#{yhDlzh} or a.sfz=#{yhDlzh};
+		FROM bckj_biz_yhxx a ,bckj_biz_yhkz b
+		WHERE a.`OWID`=b.`YH_REF_OWID` AND a.`YH_DLZH`=#{yhDlzh};
 	</select>
 
     <update id="modfiyPassword" parameterType="Map">

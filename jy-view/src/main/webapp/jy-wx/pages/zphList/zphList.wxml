@@ -10,13 +10,16 @@
           <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd}}</view>
         </view>
         <view class="uni-media-list-text-content">
-          举办时间：<span>{{tools.substr(item.zphKsrq,0,10)}}</span>
-            <van-button type="primary" class="pull-right" size="small" data-owid="{{item.owid}}" bindtap="order">预定展位</van-button>
+          <view>举办时间：<span>{{tools.substr(item.zphKsrq,0,10)}}</span>
+              <span wx:if="{{!item.sfkbm}}" class="pull-right">{{item.str}}</span>
+              <van-button wx:elif="{{item.sfkbm}}" type="primary" class="pull-right" size="small" data-owid="{{item.owid}}" bindtap="order">预定展位</van-button>
+          </view>
+          <view wx:if="{{item.zphBmjzsj}}">报名截止：{{tools.substr(item.zphBmjzsj,0,10)}}</view>
         </view>
       </view>
     </view>
   </view>
   </block>
-<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
 </view>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
 

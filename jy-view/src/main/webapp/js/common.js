@@ -33,11 +33,17 @@ function isTimeOut() {
 function login(url,user) {//1学生 0企业
     url=convertStr(url,'');
     var title='';
+    var label1="";
+    var label2="";
     if(user==0){
         title='企业登录'
+        label1='请输入社会统一信用码'
+        label2='请输入法人身份证后六位'
     }else{
         user=1;//默认学生
         title='学生登录'
+        label1='请输入身份证或学号'
+        label2='请输入身份证后六位'
     }
     var layer1;
     layer1=layer.open({
@@ -49,7 +55,7 @@ function login(url,user) {//1学生 0企业
         '                            <div class="form-group">\n' +
         '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
         '                                <div class="col-sm-6">\n' +
-        '                                    <input type="text" class="form-control" id="username" name="lxr" placeholder="" autocomplete="off">\n' +
+        '                                    <input type="text" class="form-control" id="username" placeholder="'+label1+'" name="lxr" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                        </div>\n' +
@@ -57,7 +63,7 @@ function login(url,user) {//1学生 0企业
         '                            <div class="form-group">\n' +
         '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">密码：</label>\n' +
         '                                <div class="col-sm-6">\n' +
-        '                                    <input type="password" class="form-control" id="psd" name="lxdh" placeholder="" autocomplete="off">\n' +
+        '                                    <input type="password" class="form-control" id="psd" placeholder="'+label2+'" name="lxdh" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                        </div><div class="row btn-yd">\n' +
@@ -135,14 +141,14 @@ function loginout() {
     // delCookie("qyOwid");
     // delCookie("stuSjh");
     // delCookie("stuOwid");
-    document.cookie  = "stuXm=;path=/";
-    document.cookie  = "qyInfo=;path=/";
-    document.cookie  = "qyOwid=;path=/";
-    document.cookie  = "stuSjh=;path=/";
-    document.cookie  = "stuOwid=;path=/";
-    document.cookie  = "userType=;path=/";
-    document.cookie  = "yhOwid=;path=/";
-    window.location.href='/'
+    document.cookie  = "stuXm=;path="+base;
+    document.cookie  = "qyInfo=;path="+base;
+    document.cookie  = "qyOwid=;path="+base;
+    document.cookie  = "stuSjh=;path="+base;
+    document.cookie  = "stuOwid=;path="+base;
+    document.cookie  = "userType=;path="+base;
+    document.cookie  = "yhOwid=;path="+base;
+    window.location.href=base+"/"
     // location.reload();
 }
 
@@ -558,7 +564,7 @@ function addCookie(name, value, expires, path, domain) {
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
     }else {
-        str += ";path=/";// 指定可访问cookie的目录
+        str += ";path="+base;// 指定可访问cookie的目录
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域

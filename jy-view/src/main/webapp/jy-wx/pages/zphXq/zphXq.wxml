@@ -2,7 +2,7 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="宣讲会信息">
-     <scroll-view  style='position:fixed;top:90rpx;bottom:0px;' scroll-y>
+     <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y>
       
       <view class="cell">
           <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
@@ -10,38 +10,32 @@
         <view class="content">
           <view class="table">
               <view class="tr" wx:if="{{result.zphKsrq}}">
-                <view class="td td-name"  style="width:180rpx;">举办日期：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{tools.substr(result.zphKsrq,0,10)}}</view>
+                <view class="td" style="flex:12">举办日期：{{tools.substr(result.xjsj,0,10)}}</view>
               </view>
               <view class="tr" wx:if="{{result.zphJtsj}}">
-                <view class="td td-name"  style="width:180rpx;">具体时间：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJtsj}}</view>
+                <view class="td" style="flex:12">具体时间：{{result.zphJtsj}}</view>
               </view>
               <view class="tr" wx:if="{{result.zphJbdd}}">
-                <view class="td td-name"  style="width:180rpx;">举办地点：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJbdd}}</view>
+                <view class="td" style="flex:12">举办地点：{{result.zphJbdd}}</view>
               </view>
               <view class="tr" wx:if="{{result.zphBmjzsj}}">
-                <view class="td td-name"  style="width:180rpx;">报名截止：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{tools.substr(result.zphBmjzsj,0,10)}}</view>
+                <view class="td" style="flex:12">报名截止：{{tools.substr(result.zphBmjzsj,0,10)}}</view>
               </view>
               <view class="tr" wx:if="{{result.xxlxr}}">
-                <view class="td td-name"  style="width:180rpx;">学校联系人：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xxlxr}}</view>
+                <view class="td" style="flex:12">学校联系人：{{result.xxlxr}}</view>
               </view>
               <view class="tr" wx:if="{{result.xxlxrdh}}">
-                <view class="td td-name"  style="width:180rpx;">学校联系电话：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xxlxrdh}}</view>
+                <view class="td" style="flex:12">学校联系电话：{{result.xxlxrdh}}</view>
               </view>
               <view class="tr">
-                <view class="td td-name"  style="width:180rpx;">审核状态：</view>
-                <view class="td td-value" wx:if="{{result.state==0}}" style="width:calc(100% - 180rpx)">待审核</view>
-                <view class="td td-value" wx:elif="{{result.state==1}}" style="width:calc(100% - 180rpx);color: #008784;">审核通过</view>
-                <view class="td td-value" wx:elif="{{result.state==2}}" style="width:calc(100% - 180rpx);color: red;">审核拒绝</view>
+                <view class="td" style="flex:12">审核状态：
+                <span wx:if="{{result.state==0}}" >待审核</span>
+                <span wx:elif="{{result.state==1}}" style="color: #008784;">审核通过</span>
+                <span wx:elif="{{result.state==2}}" style="color: red;">审核拒绝</span>
+                </view>
               </view>
                <view class="tr" wx:if="{{result.zwbh}}">
-                <view class="td td-name"  style="width:180rpx;">展位：</view>
-                <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwbh}}</view>
+                <view class="td" style="flex:12">展位：{{result.zwbh}}</view>
               </view>
               <view class="tr" wx:if="{{result.zdytj1}}">
                 <view class="td" style="flex:12">{{result.zdytj1}}</view>
@@ -64,13 +58,13 @@
 
      </scroll-view>
   </van-tab>
-  <van-tab title="关注学生">
+  <van-tab title="关注学生" wx:if="{{result.state==1}}">
     <view class="bm-table">
         <view>学生姓名</view>
         <view>关注时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>
@@ -82,13 +76,13 @@
      </scroll-view>
      
   </van-tab>
-  <van-tab title="报名学生" wx:if="{{result.zphSfbm==1}}">
+  <van-tab title="报名学生" wx:if="{{result.zphSfbm==1 && result.state==1}}">
     <view class="bm-table">
         <view>学生姓名</view>
         <view>报名时间</view>
         <view>联系方式</view>
     </view>
-     <scroll-view  style='position:fixed;top:162rpx;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
+     <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>

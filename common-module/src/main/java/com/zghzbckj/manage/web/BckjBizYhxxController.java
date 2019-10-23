@@ -3,11 +3,8 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.druid.sql.ast.statement.SQLForeignKeyImpl;
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
@@ -16,21 +13,15 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
-
-import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.soap.Text;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -194,7 +185,7 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage appletLogin(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhDlzh","yhDlmm","openid","unionid","wxid");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "yhDlzh", "yhDlmm", "openid", "unionid", "wxid");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
@@ -238,11 +229,11 @@ public class BckjBizYhxxController extends BaseController {
 
     @PostMapping("saveOrALL")
     @ResponseBody
-    public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists){
-        try{
-            List<BckjBizYhxx> listYhxx=new ArrayList<>();
-            for(BckjBizYhxxVo bckjBizYhxxVo:lists){
-                BckjBizYhxx bckjBizYhxx=new BckjBizYhxx();
+    public ResponseMessage saveOrALL(@RequestBody List<BckjBizYhxxVo> lists) {
+        try {
+            List<BckjBizYhxx> listYhxx = new ArrayList<>();
+            for (BckjBizYhxxVo bckjBizYhxxVo : lists) {
+                BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
                 bckjBizYhxx.setOwid(bckjBizYhxxVo.getOwid());
                 bckjBizYhxx.setXm(bckjBizYhxxVo.getXm());
                 bckjBizYhxx.setYhDlzh(bckjBizYhxxVo.getYhDlzh());
@@ -256,36 +247,33 @@ public class BckjBizYhxxController extends BaseController {
             }
             bckjBizYhxxService.saveAll(listYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
     @PostMapping("saveconInfo")
     @ResponseBody
-    public  ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+    public ResponseMessage saveconInfo(@RequestBody BckjBizYhxx bckjBizYhxx) {
         try {
             bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
     @PostMapping("insertInfo")
     @ResponseBody
-    public  ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx){
+    public ResponseMessage insertInfo(@RequestBody BckjBizYhxx bckjBizYhxx) {
         try {
             bckjBizYhxxService.insertInfo(bckjBizYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE,e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
@@ -309,4 +297,32 @@ public class BckjBizYhxxController extends BaseController {
                 }
     }
 
+
+    /**
+    *<p>方法:swYtzc TODO三位一体注册接口 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/23 15:54  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "swYtzc", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage swYtzc(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "unionid","sjh","xm","xb","yzm");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.swYtzc(mapData));
+        }catch (CustomerException e){
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        }catch (Exception e) {
+            log.info("三位一体注册接口失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

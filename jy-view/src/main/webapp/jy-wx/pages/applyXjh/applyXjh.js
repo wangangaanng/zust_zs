@@ -19,14 +19,15 @@ Page({
       xjsj: false
     },
     form: {
-      lxr: '',
-      lxdh: '',
+      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
+      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
       xjsj: '',
       jkr: '',
       jkrjs: '',
       xjhsqly: '',
       memo: '',
     },
+    btndisabled: false
   },
   showModal(error) {
     wx.showModal({
@@ -43,6 +44,7 @@ Page({
     })
   },
   submitForm(e) {
+    var that = this
     const params = e.detail.value
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
@@ -77,6 +79,9 @@ Page({
     params.qyxxRefOwid = wx.getStorageSync('yhOwid')
     common.ajax('zustjy/bckjBizJybm/applyJob', params, function (res) {
       if (res.data.backCode == 0) {
+        that.setData({
+          btndisabled: true
+        })
         wx.showModal({
           title: '提示',
           showCancel: false,
@@ -140,11 +145,11 @@ Page({
         required: '请填写联系人手机',
         tel: '请填写正确手机号',
       },
-      xjsj: {
-        required: '请选择宣讲时间',
-      },
       jkr: {
         required: '请填写讲课人',
+      },
+      xjsj: {
+        required: '请选择宣讲时间',
       },
       jkrjs: {
         required: '请填写讲课人介绍',
@@ -165,7 +170,7 @@ Page({
   onConfirm(e) {
     if (e.target.dataset.type == 8) {
       console.log(e)
-      var date = util.formatTime2(new Date(e.detail))
+      var date = util.formatTime1(new Date(e.detail))
       this.setData({
         xjsjStr: date,
         'form.xjsj': date
@@ -184,7 +189,7 @@ Page({
   },
   onCancel(e) {
     if (e.target.dataset.type == 8) {
-      this.toggle('zwSxsj', false);
+      this.toggle('xjsj', false);
     } else {
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = false
@@ -219,7 +224,7 @@ Page({
   },
   hideBottom(e) {
     if (e.target.dataset.type == 8) {
-      this.toggle('zwSxsj', false);
+      this.toggle('xjsj', false);
     } else {
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = false
@@ -281,7 +286,6 @@ var xjhtjList = function (that) {
           list: arr
         })
       }
-      console.log(arr)
     } else {
       wx.showToast({
         title: res.data.errorMess,

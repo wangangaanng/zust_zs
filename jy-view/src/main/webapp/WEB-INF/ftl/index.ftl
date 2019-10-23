@@ -93,13 +93,13 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" id="yhDlzh" onkeydown="keyLogin()" placeholder="请输入用户名" class="login-act">
+                        <input type="text" id="yhDlzh" onkeydown="keyLogin()" placeholder="请输入身份证或学号" class="login-act">
                     </li>
                     <li>
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="password" id="yhDlmm" onkeydown="keyLogin()" placeholder="请输入密码" class="login-pswd">
+                        <input type="password" id="yhDlmm" onkeydown="keyLogin()" placeholder="请输入身份证后六位" class="login-pswd">
                     </li>
                     <li>
                         <input type="button" onclick="stuLogin()" value="登录" class="login-btn">

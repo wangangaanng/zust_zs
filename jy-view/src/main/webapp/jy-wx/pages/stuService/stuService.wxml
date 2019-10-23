@@ -4,7 +4,7 @@
   <view class='stu-h-m'>
     <view class='stu-sinfo'>
       <view class='stu-tx'>
-        <image src='../../static/headImg.png'></image>
+        <image src='{{headImg}}'></image>
       </view>
       <view class='stu-name'>{{name}}</view>
     </view>

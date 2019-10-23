@@ -58,8 +58,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     BckjBizJyschemeService bckjBizJyschemeService;
     @Autowired
     private BckjBizUserlogService bckjBizUserlogService;
-    @Autowired
-    BckjBizStudentExpandService bckjBizStudentExpandService;
 
 
     @Override
@@ -189,6 +187,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 }
             }
         }
+
         //设置最近登录时间
         this.dao.updateDlsj(map.get("owid").toString());
         resMap.put("olx", map.get("olx"));
@@ -401,4 +400,12 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public void deleteBySfz(String yhRefOwid) {
         this.dao.deleteBySfz(yhRefOwid);
     }
+    @Transactional(readOnly = false)
+    public String swYtzc(Map  yhxx) throws CustomerException {
+        yhxx.put("yhlx",3);
+        BckjBizYhxx indata=this.dao.getOneByMap(yhxx);
+//        this.saveOrUpdate(yhxx);
+        return indata.getOwid();
+    }
+
 }

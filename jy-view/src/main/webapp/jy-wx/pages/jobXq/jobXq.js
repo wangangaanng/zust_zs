@@ -44,7 +44,7 @@ Page({
     nlyqStr: '请选择',
     xlyqStr: '请选择',
     gznxStr: '请选择',
-    yyyqStr: '请选择',
+    yyyqStr: '不限',
     zwSxsjStr: '请选择',
     form: {
       zwbt: '',
@@ -360,7 +360,7 @@ Page({
    */
   onShow: function () {
     wx.request({
-      url: 'https://cashier.youzan.com/wsctrade/uic/address/getAllRegion.json',
+      url: app.globalData.imgPath + 'getAllRegion.json',
       success: response => {
         this.setData({
           loading: false,
@@ -476,7 +476,7 @@ var getOneJob = function (that, owid) {
           xlyqStr: data.bean.zwXlyqStr,
           gznxStr: data.bean.zwGznxStr,
           yyyqStr: data.bean.zwYyyqStr,
-          zwSxsjStr: data.bean.zwSxsj.substring(0,10),
+          zwSxsjStr: data.bean.zwSxsj?data.bean.zwSxsj.substring(0,10):'暂无',
         })
       }
     } else {

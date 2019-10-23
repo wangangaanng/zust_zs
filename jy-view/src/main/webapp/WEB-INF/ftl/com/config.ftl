@@ -1,7 +1,4 @@
 <#assign base=request.contextPath />
-<script>
-    console.log("${base}")
-</script>
 <#assign title="浙江科技学院就业信息网" />
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">

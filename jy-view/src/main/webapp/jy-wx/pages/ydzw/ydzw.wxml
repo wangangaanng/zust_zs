@@ -40,7 +40,7 @@
    </block>
   </block>
 </van-cell-group>
-<button class="common-button" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+<button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
 </form>
 
 
