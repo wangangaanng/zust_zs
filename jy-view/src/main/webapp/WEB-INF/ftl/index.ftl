@@ -65,7 +65,7 @@
                                                     <em>${obj.fbsj?substring(0,4)}</em>
                                                 </#if>
                                             </div>
-                                            <div class="news-content">
+                                            <div class="news-content" title="${obj.wzbt!''}">
                                             ${obj.wzbt!''}
                                             </div>
                                         </li>
