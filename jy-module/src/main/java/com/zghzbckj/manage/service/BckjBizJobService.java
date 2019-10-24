@@ -126,12 +126,19 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("over", 1);
             dataMap.put("zwlx", "3");
         }
+        //-------------------------------->  改开始
+        // 王显弘改  收集待举办和已举办的joblist
+        else if("7".equals(zwlx.toString())){
+            dataMap.put("over", 1);
+            dataMap.put("wait", 3);
+            dataMap.put("zwlx", "3");
+        }
+        //-------------------------------->  改结束
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
         } else {
             page = findPageWithDay(dataMap, pageNo, pageSize, " a.createtime desc ");
         }
-
         return ResponseMessage.sendOK(page);
     }
 
