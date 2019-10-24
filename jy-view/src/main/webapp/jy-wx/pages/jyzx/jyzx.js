@@ -86,7 +86,7 @@ Page({
   clickTab(e){
     if(e.detail.index==1){
       this.setData({
-        modal1: true,
+        modal1: false,
         wtnr: '',
         totalPage: '',
         list1: [],

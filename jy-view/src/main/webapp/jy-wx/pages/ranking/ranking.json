@@ -3,6 +3,7 @@
     "van-cell-group": "vant-weapp/cell-group",
     "van-cell": "vant-weapp/cell",
     "van-picker": "vant-weapp/picker",
-    "van-popup": "vant-weapp/popup"
+    "van-popup": "vant-weapp/popup",
+    "van-divider": "vant-weapp/divider"
   }
 }

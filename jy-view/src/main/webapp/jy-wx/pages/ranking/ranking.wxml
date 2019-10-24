@@ -33,3 +33,4 @@
   </view>
   </block>
 </view>
+ <van-divider contentPosition="center" textColor="#008783" style="{{hidden1?'display:none':'display:block;'}}">暂无数据</van-divider>

@@ -1,6 +1,6 @@
 page{background-color: #008784;}
 .logo{width: 100%;height: 150rpx;background: #008784;text-align: center;}
-.logo image{width: 600rpx;height: 100rpx;margin-top:20rpx;}
+.logo image{width: 600rpx;height: 84rpx;margin-top:20rpx;}
 .search-form{background: #fff;width:620rpx;margin: 100rpx auto;}
 .search-title{background: #fff;text-align: center;height: 55px;line-height: 55px;color: #008784;border-bottom: 1px solid #eee;}
 .van-cell{border: 1px solid #eee;margin-bottom: 15px;}
