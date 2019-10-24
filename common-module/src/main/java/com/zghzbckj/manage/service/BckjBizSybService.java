@@ -211,15 +211,12 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
     public ResponseMessage recordStudentInfo(String path) throws ParseException, RepeatException {
         //文件路径
         String filename = path;
-        ExcelUtils poi = new ExcelUtils();
-        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
-        List<List<String>> list = poi.read(filename);
-        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = getExcelLists(filename);
         HashMap<Object, Object> resMap = Maps.newHashMap();
-        List<BckjBizYhxx> yhxxes = new ArrayList<BckjBizYhxx>();
-        List<BckjBizYhkz> yhkzes = new ArrayList<BckjBizYhkz>();
-        List<BckjBizSyb> sybs = new ArrayList<BckjBizSyb>();
-        List<BckjBizStudentExpand> stus = new ArrayList<>();
+        List<BckjBizYhxx> yhxxes = new ArrayList();
+        List<BckjBizYhkz> yhkzes = new ArrayList();
+        List<BckjBizSyb> sybs = new ArrayList();
+        List<BckjBizStudentExpand> stus = new ArrayList();
         //读取自定义扩展字段
         List<String> fieldLists = new ArrayList<>();
         List<String> codeList = list.get(0);   //拿到code行
@@ -359,6 +356,8 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 bckjBizYhkz.setOlx(0);
                 yhxxes.add(bckjBizYhxx);
                 yhkzes.add(bckjBizYhkz);
+                //生源地统计放在exp1
+                bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizSyb.getSyd()));
                 sybs.add(bckjBizSyb);
             }
             //开始批量更新
@@ -376,6 +375,14 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             }
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    public static List<List<String>> getExcelLists(String filename) {
+        ExcelUtils poi = new ExcelUtils();
+        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = poi.read(filename);
+        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        return list;
     }
 
     private BckjBizSyb getOneBySfz(String sfz) {
@@ -415,7 +422,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
      * <li>@date 2019/10/23</li>
      * </ul>
      */
-
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage insertssInfo(Map<String,Object> dataMap){
         BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
@@ -442,7 +448,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             bckjBizSyb.setExp2("2");
             bckjBizYhxx.setOwid(bckjBizSyb.getYhRefOwid());
             bckjBizYhkzService.updateSudentInfo(bckjBizYhkz);
-            saveOrUpdate(bckjBizSyb);
             //重新设置登入账号
             if (!TextUtils.isEmpty(bckjBizSyb.getXsxh())){
                 bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
@@ -474,11 +479,11 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             //学生
             bckjBizYhkz.setOlx(0);
             bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
-            saveOrUpdate(bckjBizSyb);
         }
+        bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizSyb.getSyd()));
+        saveOrUpdate(bckjBizSyb);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
-
     private BckjBizSyb getOneByXsxh(String xsxh) {
         return this.dao.getOneByXsxh(xsxh);
     }

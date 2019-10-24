@@ -5,25 +5,21 @@ package com.zghzbckj.manage.service;
 
 
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
-import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
-import com.zghzbckj.manage.entity.*;
-import com.zghzbckj.util.*;
-
-
+import com.zghzbckj.manage.entity.BckjBizUserlog;
+import com.zghzbckj.manage.entity.BckjBizYhgl;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.util.PageUtils;
+import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-
 
 
 /**
@@ -45,7 +39,6 @@ import java.util.*;
 @Service
 @Transactional(readOnly = true)
 public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx> {
-
 
 
     private static final Logger log = Logger.getLogger(BckjBizYhxxService.class);
@@ -316,9 +309,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         return ResponseMessage.sendOK(resMap);
     }
 
-    public BckjBizYhxx getOneByUnionId(String unionid) {
-        return this.dao.getOneByUnionId(unionid);
-    }
+
 
 
     /**
@@ -405,12 +396,122 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public void deleteBySfz(String yhRefOwid) {
         this.dao.deleteBySfz(yhRefOwid);
     }
+    /***
+    *<p>方法:swYtzc TODO三位一体注册 </p>
+    *<ul>
+     *<li> @param yhxx TODO</li>
+    *<li>@return java.lang.String  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/23 17:53  </li>
+    *</ul>
+    */
     @Transactional(readOnly = false)
-    public String swYtzc(Map  yhxx) throws CustomerException {
-        yhxx.put("yhlx",3);
-        BckjBizYhxx indata=this.dao.getOneByMap(yhxx);
-//        this.saveOrUpdate(yhxx);
-        return indata.getOwid();
+    public BckjBizYhxx swYtzc(Map yhxx) throws CustomerException {
+        BckjBizYhxx indata = getBySwZh(yhxx,"swZh");
+        if (null != indata) {
+            throw new CustomerException("手机号信息不存在，请重新发送验证码");
+        }
+        if (indata.getState() == 1) {
+            throw new CustomerException("此手机号已经注册！");
+        }
+        BckjBizYhxx userNew = JackSonJsonUtils.map2Bean(yhxx, BckjBizYhxx.class);
+        if (!indata.getYzm().equals(userNew.getYzm())) {
+            throw new CustomerException("验证码错误！");
+        }
+        BeanUtil.copyPropertiesIgnoreNull(userNew, indata);
+        indata.setState(1);
+        indata.setSwMm(TextUtils.MD5(indata.getSwMm()).toUpperCase());
+        this.saveOrUpdate(indata);
+        return indata;
     }
 
+    /**
+     * 根据账号和用户类型获取三位一体用户
+     * @param mapData
+     * @return
+     */
+    public BckjBizYhxx getBySwZh(Map<String, Object> mapData,String paramName) {
+        Map param = Maps.newHashMap();
+        param.put(paramName, MapUtils.getString(mapData, paramName));
+        param.put("yhlx", 3);
+        BckjBizYhxx indata = this.dao.getOneByCondition(param);
+        return indata;
+    }
+
+    /**
+    *<p>方法:loginSwty TODO登录 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.String  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/23 17:52  </li>
+    *</ul>
+    */
+    public BckjBizYhxx loginSwty(Map<String, Object> mapData) throws CustomerException {
+        BckjBizYhxx indata = getBySwZh(mapData,"swZh");
+        if (null == indata || indata.getState() != 1) {
+            throw new CustomerException("用户尚未注册");
+        }
+        String passWord = TextUtils.MD5(MapUtils.getString(mapData, "swMm")).toUpperCase();
+        if (!(passWord.equals(indata.getSwMm()))) {
+            throw new CustomerException("密码错误");
+        } else {
+            return indata;
+        }
+    }
+
+
+    @Transactional(readOnly = false)
+    public void swWxinfo(WxXcxUserModel wxUser) {
+        if(null!=wxUser) {
+            Map param = Maps.newHashMap();
+            param.put("unionid", wxUser.getUnionid());
+            param.put("yhlx", 3);
+            BckjBizYhxx indata = this.dao.getOneByCondition(param);
+            if (null == indata) {
+                BckjBizYhxx yhxx = new BckjBizYhxx();
+                yhxx.setState(0);
+                yhxx.setYhlx(3);
+                if(!TextUtils.isEmpty(wxUser.getGender())) {
+                    yhxx.setXb(Integer.valueOf(wxUser.getGender()));
+                }
+                yhxx.setUnionid(wxUser.getUnionid());
+                yhxx.setYhtx(wxUser.getAvatarUrl());
+                this.save(yhxx);
+                BckjBizYhgl yhgl=new BckjBizYhgl();
+                yhgl.setYhRefOwid(yhxx.getOwid());
+                yhgl.setWxbh(wxUser.getWxid());
+                yhgl.setOpenid(wxUser.getOpenId());
+                yhgl.setGzsj(new Date());
+                bckjBizYhglService.save(yhgl);
+            }
+        }
+    }
+
+    /**
+    *<p>方法:forgetPwd TODO忘记密码 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return com.zghzbckj.manage.entity.BckjBizYhxx  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/23 19:15  </li>
+    *</ul>
+    */
+    @Transactional(readOnly = false)
+    public BckjBizYhxx forgetPwd(Map<String, Object> mapData) throws CustomerException{
+        BckjBizYhxx indata = getBySwZh(mapData,"swZh");
+        String yzm=MapUtils.getString(mapData,"swMm");
+        if (null != indata) {
+            throw new CustomerException("不存在此用户");
+        }
+        if(indata.getState()==0){
+            throw new CustomerException("此手机号未注册");
+        }
+        if(!yzm.equals(indata.getYzm())){
+            throw new CustomerException("验证码错误");
+        }
+        indata.setSwMm(TextUtils.MD5(MapUtils.getString(mapData,"swMm")).toUpperCase());
+        saveOrUpdate(indata);
+        return indata;
+    }
 }

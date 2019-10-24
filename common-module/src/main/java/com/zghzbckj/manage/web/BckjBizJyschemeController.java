@@ -168,7 +168,7 @@ public class BckjBizJyschemeController extends BaseController {
      * <li>@author wangangaanng</li>
      * <li>@date 2019/9/20</li>
      * </ul>
-     *//*
+     */
     @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage recordInfo(PublicDataVO dataVO) {
@@ -183,7 +183,7 @@ public class BckjBizJyschemeController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
-    }*/
+    }
    /* *//**
      * <p>功能描述:后台显示就业方案列表</p >
      * <ul>
