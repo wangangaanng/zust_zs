@@ -12,7 +12,16 @@ var nullThisTip='<a class="wrap-list">暂无</a>';
 
 var deptId="";//科室编号
 var reginCode="";//地区编号
+var currentYear=(new Date()).getFullYear()
+
 $(document).ready(function(){
+    $("#year").text(currentYear);
+    $(".dropdown-menu").html('<li><a>'+currentYear+'</a></li> <li><a>'+(currentYear-1)+'</a></li> <li><a>'+(currentYear-2)+'</a></li>')
+    $(".dropdown-menu").on("click",'li',function () {
+        currentYear=$(this).text();
+        $("#year").text(currentYear);
+        initBar();
+    })
     getJob(3);//待举办招聘会
     getJob(4);//待举办宣讲会
     getQy();//待审核企业
@@ -185,7 +194,7 @@ function topChart(isAll) {
 function initBar(isAll) {
     if(!isAll){isAll=false}
     var params = {
-
+        year:currentYear
     };
     var barChart = echarts.init(document.getElementById('indexBar'));
     var legendData = [];
@@ -297,7 +306,7 @@ function initBar(isAll) {
                 ],
                 series: seriesData,
             };
-            barChart.setOption(option5);
+            barChart.setOption(option5,true);
             window.onresize = barChart.resize;
         }
     })
