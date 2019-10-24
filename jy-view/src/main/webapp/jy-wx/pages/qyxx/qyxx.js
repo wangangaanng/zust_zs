@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1: false,
     imgPath: imgPath,
     gsxzColumns: [],
     hylbColumns: [],
@@ -247,7 +248,8 @@ Page({
   },
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**

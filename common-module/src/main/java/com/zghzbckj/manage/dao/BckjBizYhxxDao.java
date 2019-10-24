@@ -67,5 +67,7 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     Map<String,Object> getOneYhxxBmInfo(Map<String, Object> dataMap);
 
     BckjBizYhxx getOneByMap(Map param);
+
+    Map<String, Object> logInBySfz(Map<String, Object> datamap);
 }
 

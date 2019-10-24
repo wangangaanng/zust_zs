@@ -9,6 +9,7 @@ var imgPath = app.globalData.imgPath;
 Page({
 
   data: {
+    hidden1: false,
     minDate: new Date().getTime(),
     imgPath: imgPath,
     zwGzznColumns: [],
@@ -279,7 +280,8 @@ Page({
   },
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**
