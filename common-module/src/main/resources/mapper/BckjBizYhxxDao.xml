@@ -264,7 +264,7 @@
 	</delete>
 
 
-    <select id="getOneByCondition" resultType="BckjBizYhxx" parameterType="Map">
+    <select id="getOneByCondition" resultType="com.zghzbckj.manage.entity.BckjBizYhxx" parameterType="Map">
         SELECT
         <include refid="bckjBizYhxxColumns"/>
         FROM bckj_biz_yhxx a
@@ -279,6 +279,15 @@
             <if test="sjh!=null and sjh !=''">
                 and a.sjh = #{sjh}
             </if>
+			<if test="yhlx!=null and yhlx !=''">
+				and a.yhlx = #{yhlx}
+			</if>
+			<if test="swZh!=null and swZh !=''">
+				and a.sw_zh = #{swZh}
+			</if>
+			<if test="unionid!=null and unionid !=''">
+				and a.unionid = #{unionid}
+			</if>
         </where>
     </select>
 

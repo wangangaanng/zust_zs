@@ -295,8 +295,7 @@ public class BckjBizQyxxController extends BaseController {
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return ResponseMessage.sendOK(bckjBizQyxxService.showStudentInfo(filters,dataVO.getPageNo(),dataVO.getPageSize(),dataMap));
+            return ResponseMessage.sendOK(bckjBizQyxxService.showStudentInfo(Integer.parseInt(dataMap.get("pageNo").toString()),Integer.parseInt(dataMap.get("pageSize").toString()),dataMap));
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);

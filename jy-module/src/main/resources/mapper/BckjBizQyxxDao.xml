@@ -367,7 +367,7 @@
     <select id="getGuanZhuList" parameterType="Map" resultType="Map">
 			select c.yh_ref_owid as yhRefOwid ,c.gzsj as gzsj, c.lxdh as lxdh ,c.lxr as lxr
 				from bckj_biz_job b , bckj_biz_xsgz c
-				where  b.owid =#{jobOwid} and c.job_ref_owid = b.owid
+				where  b.owid =#{jobOwid} and c.job_ref_owid = b.owid and c.xxlb=0
 	</select>
 
     <select id="getZlzwInfo" resultType="Map">
