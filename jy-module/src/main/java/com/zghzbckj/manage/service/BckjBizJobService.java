@@ -129,8 +129,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         //-------------------------------->  改开始
         // 王显弘改  收集待举办和已举办的joblist
         else if("7".equals(zwlx.toString())){
-            dataMap.put("over", 1);
-            dataMap.put("wait", 3);
             dataMap.put("zwlx", "3");
         }
         //-------------------------------->  改结束

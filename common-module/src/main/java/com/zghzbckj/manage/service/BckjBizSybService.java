@@ -348,6 +348,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 //非企业
                 bckjBizYhxx.setYhlx(1);
                 bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
+                //登入密码身份后6位
                 String dlmm = TextUtils.MD5(sfz.substring(sfz.length() - 6));
                 bckjBizYhxx.setYhDlmm(dlmm);
                 //学生为未编辑状态
@@ -484,7 +485,11 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         saveOrUpdate(bckjBizSyb);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
-    private BckjBizSyb getOneByXsxh(String xsxh) {
+    public BckjBizSyb getOneByXsxh(String xsxh) {
         return this.dao.getOneByXsxh(xsxh);
+    }
+
+    public void updateBySfz(BckjBizSyb bckjBizSyb){
+        this.dao.updateBySfz(bckjBizSyb);
     }
 }

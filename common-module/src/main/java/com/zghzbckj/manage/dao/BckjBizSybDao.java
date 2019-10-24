@@ -46,4 +46,6 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
     BckjBizSyb getOneByXsxh(String xsxh);
 
     BckjBizSyb getOneBySfz(String sfz);
+
+    void updateBySfz(BckjBizSyb bckjBizSyb);
 }

@@ -71,6 +71,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     BckjBizYhkzService bckjBizYhkzService;
     @Autowired
     BckjBizYhxxService bckjBizYhxxService;
+    @Autowired
+    BckjBizJobPlanOtherService bckjBizJobPlanOtherService;
 
 
     /**
@@ -224,181 +226,153 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param path
      * @return ResponseMessage
      */
-   /* @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public ResponseMessage recordJyInfo(String path) {
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage recordJyInfo(String path) throws IllegalAccessException, InstantiationException, ParseException {
+        //用来存放错误信息
         String error = "";
         //文件路径
         String filename = path;
-        ExcelUtils poi = new ExcelUtils();
-        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
-        List<List<String>> list = poi.read(filename);
-        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        List<List<String>> list= bckjBizSybService.getExcelLists(path);
         HashMap<Object, Object> resMap = Maps.newHashMap();
-
+        List<BckjBizYhxx> yhxxes = new ArrayList();
+        List<BckjBizSyb> sybs = new ArrayList();
+        List<BckjBizJyscheme> jys=new ArrayList();
+        List<BckjBizJobPlanOther> jos = new ArrayList();
+        //读取自定义扩展字段
+        List<String> fieldLists = new ArrayList<>();
+        List<String> codeList = list.get(0);   //拿到code行
+        for (int j = 26; j <codeList.size(); j++) {
+            if (TextUtils.isEmpty(codeList.get(j))) {
+                break;
+            }
+            fieldLists.add(codeList.get(j));
+        }
         if (list != null) {
-            for (int i = 1; i < list.size(); i++) {
-                //就业方案录入
+            for (int i = 2; i < list.size(); i++) {
+                //学生信息录入
                 List<String> cellList = list.get(i);//行循环
-                String xsxh = cellList.get(0);//学生学号/工号/税号
+                String xsxh = cellList.get(0); //身份证号
+                //如果学号为空则退出
+                if (TextUtils.isEmpty(xsxh)) {
+                    break;
+                }
                 resMap.put("xsxh", xsxh);
                 String xm = cellList.get(1); //姓名
                 resMap.put("xm", xm);
-                //如果学生学号为空则跳出
-                if(TextUtils.isEmpty(xsxh)){
-                    break;
-                }
-                String sfz = cellList.get(2); //身份证号
-                sfz = ExcelUtils.stmodifyExcelData(sfz);
-                String regex = "\\d{15}(\\d{2}[0-9xX])?";
-                if (!sfz.matches(regex)) {
-                    return ResponseMessage.sendOK("存在错误的身份证格式录入");
-                }
-                resMap.put("sfz", sfz);
-                String xb = cellList.get(3); //性别
-                if (xb.equals("男")) {
-                    resMap.put("xb", 1);
-                } else {
-                    resMap.put("xb", 2);
-                }
-                String mz = cellList.get(4); //民族
-                resMap.put("mz", getDicVal(50009,mz));
-                String xxmc = cellList.get(5); //学校名称
+                String xxmc = cellList.get(2); //学校名称
                 resMap.put("xxmc", xxmc);
-                String xsxy = cellList.get(6); //院系
-                resMap.put("xsxy", xsxy);
-                String xszy = cellList.get(7); //专业
-                resMap.put("xszy", xszy);
-                String xsbj = cellList.get(8); //班级
-                resMap.put("xsbj", xsbj);
-                String bynf = cellList.get(9); //毕业年份
-                resMap.put("bynf", bynf);
-                String byxl = cellList.get(10); //毕业学历
-                resMap.put("byxl", byxl);
-                String xz = cellList.get(11); //学制
-                resMap.put("xz", xz);
-                String sfsf = cellList.get(12); //是否师范
-                if (sfsf.equals("是")) {
-                    resMap.put("sfsf", 1);
-                } else {
-                    resMap.put("sfsf", 2);
-                }
-                String sfzz = cellList.get(13); //是否在职
-                if (sfzz.equals("是")) {
-                    resMap.put("sfzz", 1);
-                } else {
-                    resMap.put("sfzz", 2);
-                }
-                String sfdlxy = cellList.get(14); //是否独立学院
-                if (sfdlxy.equals("是")) {
-                    resMap.put("sfdlxy", 1);
-                } else {
-                    resMap.put("sfdlxy", 2);
-                }
-                String syddm = cellList.get(15); //生源地代码
-                resMap.put("syddm",syddm);
-                String syd = cellList.get(16); //生源地
-                resMap.put("syd", getDicVal(50005,syd));
-                String sjh = cellList.get(17); //联系手机
-                resMap.put("sjh", sjh);
-                String jtdh = cellList.get(18); //联系方式(固定电话)
-                resMap.put("jtdh", jtdh);
-                String qqhm = cellList.get(19); //QQ号码
-                resMap.put("qqhm", qqhm);
-                String yx = cellList.get(20); //Email
-                resMap.put("yx", yx);
-                String byqx = cellList.get(21); //毕业去向
-                resMap.put("byqx",dao.getDicVal(50001,byqx));
-                String jyqdbz = cellList.get(22); //就业标志
-                resMap.put("jyqdbz", jyqdbz);
-                String yrdwxz = cellList.get(23); //用人单位性质
-                resMap.put("yrdwxz", dao.getDicVal(50002,yrdwxz));
-                String gzzwlb = cellList.get(24); //工作职位类别
-                resMap.put("gzzwlbmc", dao.getDicVal(50004,gzzwlb));
-                String yrdwdm = cellList.get(25); //用人单位代码
-                resMap.put("yrdwdm", yrdwdm);
-                String yrdwmc = cellList.get(26); //用人单位名称
-                resMap.put("yrdwmc", yrdwmc);
-                String zgdwdm = cellList.get(27); //主管单位代码
-                resMap.put("zgdwdm", zgdwdm);
-                String zgdwmc = cellList.get(28); //主管单位名称
-                resMap.put("zgdwmc", zgdwmc);
-                String yrdwlsmc = cellList.get(29); //用人单位隶属部门
-                resMap.put("yrdwlsmc", yrdwlsmc);
-                String dwszdmc = cellList.get(30); //用人单位所在地址
-                resMap.put("dwszdmc", dao.getDicVal(50005,dwszdmc));
-                String dwszddm = cellList.get(31); //报到地区代码
-                resMap.put("dwszddm", dwszddm);
-                String bdzszdmc = cellList.get(32); //报到地区
-                String bdzszdmc1=bdzszdmc;
-                resMap.put("bdzszdmc", dao.getDicVal(50005,bdzszdmc));
-                String bdzqflbmc = cellList.get(33); //报到证签发类别
-                resMap.put("bdzqflbmc",dao.getDicVal(50007,bdzqflbmc) );
-                String bdkssj = cellList.get(34); //报到开始时间
-                resMap.put("bdkssj", bdkssj);
-                String bdjssj = cellList.get(35); //报到结束时间
-                resMap.put("bdjssj", bdjssj);
-                String bdzbh = cellList.get(36); //报到证号
-                resMap.put("bdzbh", bdzbh);
-                String xjcqk = cellList.get(37); //下基层情况
-                resMap.put("xjcqk", xjcqk);
-                String datdxxdz = cellList.get(38); //档案投递地址
-                resMap.put("datdxxdz", datdxxdz);
-                String datddw = cellList.get(39); //档案投递单位
-                resMap.put("datddw", datddw);
-                String hkqydz = cellList.get(40); //户口迁移地址
-                resMap.put("hkqydz", hkqydz);
-                String dwlxr = cellList.get(41); //单位联系人
-                resMap.put("dwlxr", dwlxr);
-                String dwdh = cellList.get(42); //单位联系电话
+                String byqx = cellList.get(3); //毕业去向名称
+                resMap.put("byqx",byqx);
+                String sfzydk = cellList.get(4); //专业是否对口
+                resMap.put("sfzydk",sfzydk);
+                String yrdwmc = cellList.get(5); //用人单位名称
+                resMap.put("yrdwmc",yrdwmc);
+                String yrdwdm = cellList.get(6); //用人单位代码
+                resMap.put("yrdwdm",yrdwdm);
+                String yrdwxzmc = cellList.get(7); //用人单位性质名称
+                resMap.put("yrdwxzmc",yrdwxzmc);
+                String dwhylbmc = cellList.get(8); //单位行业类别名称
+                resMap.put("dwhylbmc",dwhylbmc);
+                String dwszdmc = cellList.get(9); //单位所在地名称
+                resMap.put("dwszdmc", dwszdmc);
+                String dwlxr = cellList.get(10); //单位联系人
+                resMap.put("dwlxr",dwlxr);
+                String dwdh = cellList.get(11); //单位电话
                 resMap.put("dwdh", dwdh);
-                String sfzydk = cellList.get(43); //专业是否对口
-                if (sfzydk.equals("是")) {
-                    resMap.put("sfzydk", 1);
-                } else {
-                    resMap.put("sfzydk", 2);
-                }
-                String dwlbmc = cellList.get(44);//就业行业
-                resMap.put("dwlbmc", dao.getDicVal(50003,dwlbmc));
-                String bdzlsh = cellList.get(45);//报到证流水号
-                resMap.put("bdzlsh", bdzlsh);
-                String bzone = cellList.get(46);
+                String gzzwlbmc = cellList.get(12); //工作职位类别名称
+                resMap.put("gzzwlbmc", gzzwlbmc);
+                String bdzqflbmc = cellList.get(13); //报到证签发类别名称
+                resMap.put("bdzqflbmc",bdzqflbmc);
+                String bdzqwdwmc = cellList.get(14); //报到证签往单位名称
+                resMap.put("bdzqwdwmc", bdzqwdwmc);
+                String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
+                resMap.put("bdzqwszdmc",bdzqwszdmc);
+                String bdkssj = cellList.get(16); //报到开始时间
+                resMap.put("bdkssj", ExcelUtils.stringtoDate(bdkssj));
+                String bdjssj = cellList.get(17); //报到结束时间
+                resMap.put("bdjssj", ExcelUtils.stringtoDate(bdjssj));
+                String sfdydwbdz = cellList.get(18); //是否打印单位到报到证备注
+                resMap.put("sfdydwbdz", sfdydwbdz);
+                String datddw = cellList.get(19); //档案投递单位
+                resMap.put("datddw", datddw);
+                String bdzbz = cellList.get(20); //报到证备注
+                resMap.put("bdzbz", bdzbz);
+                String datdxxdz = cellList.get(21); //档案投递详细地址
+                resMap.put("datdxxdz", datdxxdz);
+                String datddh = cellList.get(22); //档案投递电话
+                resMap.put("datddh", datddh);
+                String hkqydz = cellList.get(23); //户口迁移地址
+                resMap.put("hkqydz", hkqydz);
+                String bzone = cellList.get(24); //备注1
                 resMap.put("bzone", bzone);
-                String bztwo = cellList.get(47);
+                String bztwo = cellList.get(25); //备注2
                 resMap.put("bztwo", bztwo);
-                String bzthree = cellList.get(48);
+                String bzthree = cellList.get(26); //备注3
                 resMap.put("bzthree", bzthree);
-                String sfdydwbdz=cellList.get(49);
-                if(sfdydwbdz.equals("是")){
-                    resMap.put("sfdydwbdz",1);
-                }else {
-                    resMap.put("sfdydwbdz",2);
+                //收集自定义字段
+                for (int n = 1; n < fieldLists.size(); n++) {
+                    BckjBizJobPlanOther bckjBizJobPlanOther=BckjBizJobPlanOther.class.newInstance();
+                    bckjBizJobPlanOther.setName(xsxh);
+                    bckjBizJobPlanOther.setCode(fieldLists.get(n - 1));
+                    bckjBizJobPlanOther.setVal(cellList.get(26+n));
+                    jos.add(bckjBizJobPlanOther);
                 }
-                String bdzbz=cellList.get(50);
-                resMap.put("bdzbz",bdzbz);
-                //根据学号身份证去查出
-                BckjBizStudentinfo bckjBizStudentinfo = bckjBizStudentinfoService.getOneBySfz(resMap.get("sfz").toString());
+                BckjBizSyb bckjBizSyb =  BckjBizSyb.class.newInstance();
+                BckjBizYhxx bckjBizYhxx =  BckjBizYhxx.class.newInstance();
+                BckjBizJyscheme bckjBizJyscheme=BckjBizJyscheme.class.newInstance();
+                MapUtil.easySetByMap(resMap, bckjBizSyb);
+                MapUtil.easySetByMap(resMap, bckjBizYhxx);
+                MapUtil.easySetByMap(resMap, bckjBizJyscheme);
 
-                if (TextUtils.isEmpty(bckjBizStudentinfo)){
+                //判断此xsxh是否存在
+                BckjBizJyscheme bckjBizJyscheme1 = getOneByXsxh(bckjBizJyscheme.getXsxh());
+                //判断xsxh是否存在学生 不为空则删除jyscheme表和jobplanother表的信息
+                if (!TextUtils.isEmpty(bckjBizJyscheme1)) {
+                    deleteByXsxh(bckjBizJyscheme.getXsxh());
+                    bckjBizJobPlanOtherService.deleteByName(bckjBizJyscheme.getXsxh());
+                }
+                BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(bckjBizJyscheme.getXsxh());
+                //如果无该学号的生源 这收集错误error
+                if(TextUtils.isEmpty(oneByXsxh)){
+                    error=error+bckjBizJyscheme.getXsxh()+",";
                     continue;
                 }
-                BckjBizYhkz bckjBizYhkz = bckjBizYhkzService.getOneByYhRefOwid(bckjBizStudentinfo.getYhRefOwid());
-                BckjBizYhxx bckjBizYhxx = bckjBizYhxxService.getByOwid(bckjBizStudentinfo.getYhRefOwid());
-                MapUtil.easySetByMap(resMap, bckjBizYhxx);
-                MapUtil.easySetByMap(resMap, bckjBizYhkz);
-                MapUtil.easySetByMap(resMap, bckjBizStudentinfo);
-                //更新yhxx
-                bckjBizYhxx.setYhDlmm(TextUtils.MD5(bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6)));
-                bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
-                //更新yhkz
-                bckjBizYhkzService.updateSudentInfo(bckjBizYhkz);
-                //更新Studentinfo
-                bckjBizStudentinfo.setExp3("1");
-                bckjBizStudentinfo.setExp1(recordLx(bckjBizStudentinfo.getDwszdmc()));
-                bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
+                //按身份证号码更新 yhxx和syb
+                bckjBizYhxx.setSfz(oneByXsxh.getSfz());
+                bckjBizSyb.setSfz(oneByXsxh.getSfz());
+                //设置yh_ref_owid
+                bckjBizJyscheme.setYhRefOwid(oneByXsxh.getYhRefOwid());
+                //设置为未编辑状态
+                bckjBizJyscheme.setExp2("1");
+                //就业所在地地统计放在exp1
+                bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getDwszdmc()));
+                yhxxes.add(bckjBizYhxx);
+                sybs.add(bckjBizSyb);
+                jys.add(bckjBizJyscheme);
+            }
+            //开始批量更新
+            for (BckjBizYhxx bckjBizYhxx : yhxxes) {
+                bckjBizYhxxService.updateBySfz(bckjBizYhxx);
+            }
+            for (BckjBizSyb bckjBizSyb : sybs) {
+                bckjBizSybService.updateBySfz(bckjBizSyb);
+            }
+            for (BckjBizJyscheme bckjBizJyscheme:jys){
+                saveOrUpdate(bckjBizJyscheme);
+            }
+            for (BckjBizJobPlanOther bckjBizJobPlanOther : jos) {
+                bckjBizJobPlanOtherService.saveOrUpdate(bckjBizJobPlanOther);
             }
         }
-        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-    }*/
+        return ResponseMessage.sendOK("以下学号不在生源中，无法导入:"+error.substring(0, error.length()-1));
+    }
+
+
+
+
+    private BckjBizJyscheme getOneByXsxh(String xsxh) {
+        return this.dao.getOneByXsxh(xsxh);
+    }
 
     /**
      * 后台显示方案就业方案列表
@@ -424,8 +398,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param dataMap
      * @return
      */
-    public ResponseMessage getJySchemeOne(Map<String, Object> dataMap) {
-        return ResponseMessage.sendOK(this.dao.showJyInfo(dataMap));
+    public BckjBizJyscheme getOneJyscheme(Map<String, Object> dataMap) {
+        return this.dao.getOneJyscheme(dataMap);
     }
 
     public void deleteByXsxh(String xsxh) {
@@ -468,6 +442,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
          return "不详";
      }
 
+
+
     /**
      * 后台删除jyscheme gridlist
      *
@@ -475,20 +451,21 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param owidcodes
      * @return List
      */
-  /*  @Transactional(readOnly = false,rollbackFor = Exception.class)
-    public Object deleteInfoList(List<String> xsxhcodes, List<String> owidcodes) {
+   @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public Object deleteJyList(List<String> xsxhcodes, List<String> owidcodes) {
         List<Map<String, Object>> objs = new ArrayList<>();
         int count = 0;
         for(String xsxh : xsxhcodes){
             HashMap<String, Object> params = Maps.newHashMap();
-            bckjBizJypuchongService.deleteByXsxh(xsxh);
+            this.dao.deleteByXsxh(xsxh);
+            bckjBizJobPlanOtherService.deleteByName(xsxh);
             deleteByXsxh(xsxh);
             params.put("owid",owidcodes.get(count));
             count++;
             objs.add(params);
         }
         return objs;
-    }*/
+    }
     /**
      * <p>功能描述:新建或修改就业方案信息</p >
      * <ul>
@@ -499,40 +476,49 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * <li>@date 2019/10/14</li>
      * </ul>
      */
-    /*@Transactional(readOnly = false,rollbackFor = Exception.class)
-    public ResponseMessage insertssInfo(Map<String, Object> dataMap) {
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage insertssInfo(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
+        BckjBizJobPlanOther bckjBizJobPlanOther=BckjBizJobPlanOther.class.newInstance();
+        BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
+        BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();
+        BckjBizJyscheme bckjBizJyscheme = BckjBizJyscheme.class.newInstance();
 
-        BckjBizStudentinfo bckjBizStudentinfo = new BckjBizStudentinfo();
-        BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
-        BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
+        MapUtil.easySetByMap(dataMap, bckjBizJyscheme);
+        MapUtil.easySetByMap(dataMap, bckjBizSyb);
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
-        MapUtil.easySetByMap(dataMap, bckjBizStudentinfo);
-        MapUtil.easySetByMap(dataMap, bckjBizYhkz);
-        if (!TextUtils.isEmpty(bckjBizYhxx.getSfz())) {
-            String regex = "\\d{15}(\\d{2}[0-9xX])?";
-            if (!bckjBizYhxx.getSfz().matches(regex)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
-            }
-        }
-        if (!TextUtils.isEmpty(bckjBizYhxx.getSjh())) {
-            if (bckjBizYhxx.getSjh().length() != 11) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);
-            }
-        }
+        MapUtil.easySetByMap(dataMap, bckjBizJobPlanOther);
+        BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(bckjBizJyscheme.getXsxh());
         //如果為更新
-        if (bckjBizStudentinfo.getOwid() != null) {
-            //更改后的登入账号
-            bckjBizYhxx.setYhDlzh(bckjBizStudentinfo.getXsxh());
-            bckjBizYhxx.setOwid(bckjBizStudentinfo.getYhRefOwid());
-            bckjBizYhxx.setYhDlmm(TextUtils.MD5(bckjBizYhxx.getSfz().substring(bckjBizYhxx.getSfz().length() - 6)));
-            bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
-            bckjBizStudentinfo.setExp1(recordLx(bckjBizStudentinfo.getDwszdmc()));
-            bckjBizStudentinfo.setExp3("2");
-            bckjBizYhkzService.updateSudentInfo(bckjBizYhkz);
-            bckjBizStudentinfoService.saveOrUpdate(bckjBizStudentinfo);
+        if (bckjBizJyscheme.getOwid() != null) {
+            bckjBizJyscheme.setExp2("2");
         }
+        //如果為新建
+        else if(bckjBizJyscheme.getOwid()==null){
+            //先判断有无此学号的生源
+            if(TextUtils.isEmpty(oneByXsxh)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号生源不存在,无法保存");
+            }
+            //再判断jyscheme中此学号是否存在
+            BckjBizJyscheme oneByXsxh1 = getOneByXsxh(oneByXsxh.getXsxh());
+            if(!TextUtils.isEmpty(oneByXsxh1)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号已存在,无法保存");
+            }
+            //设置为未编辑状态
+            bckjBizJyscheme.setExp2("1");
+        }
+        //按身份证号码更新 yhxx和syb
+        bckjBizYhxx.setSfz(oneByXsxh.getSfz());
+        bckjBizSyb.setSfz(oneByXsxh.getSfz());
+        //设置yh_ref_owid
+        bckjBizJyscheme.setYhRefOwid(oneByXsxh.getYhRefOwid());
+        //就业所在地地统计放在exp1
+        bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getDwszdmc()));
+        //更新yhxx syb jyscheme
+        bckjBizYhxxService.updateBySfz(bckjBizYhxx);
+        bckjBizSybService.updateBySfz(bckjBizSyb);
+        saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-    }*/
+    }
     /**
      * 根据yhrefowid得到就业方案信息
      * @param yhRefOwid
@@ -578,12 +564,16 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         return this.dao.getDicListByType(type);
     }
 
-    /**
+
+
+    /*  *//**
      * 查询档案信息
      * @param  dataMap
      * @return  Map<String ,Object>
-     */
+     *//*
     public  Map<String ,Object> queryDocument(Map<String, Object> dataMap) {
         return this.dao.showJyInfo(dataMap);
-    }
+    }*/
+
+
 }

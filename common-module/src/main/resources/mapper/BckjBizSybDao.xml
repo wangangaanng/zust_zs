@@ -521,4 +521,12 @@
 		where a.sfz=#{sfz}
 	</select>
 
+	<update id="updateBySfz" parameterType="BckjBizSyb">
+			UPDATE bckj_biz_syb SET
+			xm=#{xm},
+			xsxh=#{xsxh},
+			xxmc=#{xxmc}
+			WHERE sfz=#{sfz}
+	</update>
+
 </mapper>

@@ -7,4 +7,6 @@ import com.zghzbckj.manage.entity.BckjBizStudentExpand;
 @MyBatisDao
 public interface BckjBizStudentExpandDao extends CrudDao<BckjBizStudentExpand> {
     void deleteBySfz(String sfz);
+
+    void deleteByName(String xsxh);
 }

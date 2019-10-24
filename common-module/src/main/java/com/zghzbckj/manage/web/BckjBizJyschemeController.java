@@ -42,30 +42,6 @@ public class BckjBizJyschemeController extends BaseController {
     BckjBizYhxxService bckjBizYhxxService;
 
 
-	@RequestMapping(value = "/getList")
-    @ResponseBody
-    public ResponseMessage getListApi(PublicDataVO dataVO) {
-        try {
-            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-    return bckjBizJyschemeService.findPageBckjBizJyscheme(filters, dataVO.getPageNo(), dataVO.getPageSize());
-    } catch (Exception e) {
-    log.error(e+"获取bckjBizJyscheme列表失败\r\n"+e.getStackTrace()[0] , e);
-    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-    }
-    }
-
-         /*   @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
-            @ResponseBody
-            public ResponseMessage saveInfo(PublicDataVO dataVO) {
-            try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断id是否为
-            return bckjBizJyschemeService.saveBckjBizJyscheme(mapData);
-            } catch (Exception e) {
-            log.error(e+"保存BckjBizJyscheme信息失败\r\n"+e.getStackTrace()[0]  , e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-            }
-            }*/
 
     /**
      * <p>功能描述:保存学生填写的就业方案</p >
@@ -159,14 +135,14 @@ public class BckjBizJyschemeController extends BaseController {
         }
     }
 
-  /*  *//**
+  /**
      * <p>功能描述:后台录入就业方案信息</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
      * <li>@throws </li>
      * <li>@author wangangaanng</li>
-     * <li>@date 2019/9/20</li>
+     * <li>@date 2019/10/24</li>
      * </ul>
      */
     @RequestMapping(value = "recordInfo",method = RequestMethod.POST)
@@ -184,14 +160,15 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-   /* *//**
+
+    /**
      * <p>功能描述:后台显示就业方案列表</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
      * <li>@throws </li>
      * <li>@author wangangaanng</li>
-     * <li>@date 2019/10/12</li>
+     * <li>@date 2019/10/24</li>
      * </ul>
      */
     @RequestMapping(value = "getJySchemeList",method = RequestMethod.POST)
@@ -206,21 +183,22 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
     /**
-     * 后台进入修改页面读取出信息
+     * 后台进入修改页面读取出一条信息
      * @param
      * @return
      */
-    @PostMapping("getStudentOne")
+    @PostMapping("getOneJyscheme")
     @ResponseBody
-    public  ResponseMessage getStudentOne(PublicDataVO dataVO){
+    public  ResponseMessage getOneJyscheme(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return bckjBizJyschemeService.getJySchemeOne(dataMap);
+            return ResponseMessage.sendOK(bckjBizJyschemeService.getOneJyscheme(dataMap));
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
@@ -229,11 +207,11 @@ public class BckjBizJyschemeController extends BaseController {
     }
 
 
-    /**
+   /* *//**
      * 查询档案信息
      * @param  dataVO
      * @return  queryDocument
-     */
+     *//*
     @PostMapping("queryDocument")
     @ResponseBody
     public  ResponseMessage queryDocument(PublicDataVO dataVO){
@@ -261,17 +239,17 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
 
-    }
+    }*/
 
 
-  /*  *//**
+/**
      * 后台jyscheme删除gridlist
      * @param dataVO
      * @return ResponseMessage
-     *//*
-    @PostMapping("deleteInfoList")
+     */
+    @PostMapping("deleteJyList")
     @ResponseBody
-    public ResponseMessage deleteInfoList(PublicDataVO dataVO){
+    public ResponseMessage deleteJyList(PublicDataVO dataVO){
         try {
             List<Object> list = JsonUtil.jsonToList(dataVO.getData());
             List<String> xsxhcodes = new ArrayList<String>(list.size());
@@ -280,24 +258,24 @@ public class BckjBizJyschemeController extends BaseController {
                 xsxhcodes.add(((Map<String, Object>) obj).get("xsxh").toString());
                 owidcodes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            return   ResponseMessage.sendOK(bckjBizJyschemeService.deleteInfoList(xsxhcodes,owidcodes));
+            return   ResponseMessage.sendOK(bckjBizJyschemeService.deleteJyList(xsxhcodes,owidcodes));
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
-    }*/
+    }
 
- /*   *//**
-     * <p>功能描述:新建或修改就业方案信息</p >
+     /**
+     * <p>功能描述:新建或修改保存就业方案信息</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
      * <li>@throws </li>
      * <li>@author wangangaanng</li>
-     * <li>@date 2019/10/14</li>
+     * <li>@date 2019/10/24</li>
      * </ul>
-     *//*
+     */
     @PostMapping("insertssInfo")
     @ResponseBody
     public ResponseMessage insertssInfo(PublicDataVO dataVO){
@@ -311,6 +289,6 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
 
-    }*/
+    }
 
 }

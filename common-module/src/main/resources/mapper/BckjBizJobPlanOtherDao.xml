@@ -123,4 +123,8 @@
 			exp10=#{exp10}
 		WHERE owid = #{owid}
 	</update>
+
+	<update id="deleteByName" parameterType="String" >
+		DELETE FROM bckj_biz_job_plan_other where name=#{value}
+	</update>
 </mapper>

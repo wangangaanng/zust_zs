@@ -64,10 +64,14 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     BckjBizYhxx getOneBySfz(String sfz);
 
     void deleteBySfz(String sfz);
-    Map<String,Object> getOneYhxxBmInfo(Map<String, Object> dataMap);
 
-    BckjBizYhxx getOneByMap(Map param);
 
     Map<String, Object> logInBySfz(Map<String, Object> datamap);
+
+    void updateBySfz(BckjBizYhxx bckjBizYhxx);
+
+    String getYhxxQdSuccessSum(Map<String, Object> dataMap);
+
+    String getYhxxQdNoSuccessSum(Map<String, Object> dataMap);
 }
 

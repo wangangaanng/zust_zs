@@ -7,6 +7,7 @@ package com.zghzbckj.manage.dao;
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJyscheme;
+import com.zghzbckj.manage.entity.BckjBizSyb;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +26,6 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     String getXsxhByOwid(String owid);
 
-    BckjBizJyscheme getJyFzInfo(Map<String, Object> sendMap);
 
     BckjBizJyscheme getJyschemeByMap(Map<String, Object> sendMap);
 
@@ -35,15 +35,11 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     List<Object> showJyInfoList(Map<String, Object> dataMap);
 
-    Map<String ,Object> showJyInfo(Map<String, Object> dataMap);
 
     void deleteByXsxh(String xsxh);
 
     String getDicVal(int type ,String val);
 
-    void updateJyscheme(BckjBizJyscheme bckjBizJyscheme);
-
-    BckjBizJyscheme getByXsxh(String xsxh);
 
     void  updateXsxhByHyOwid(BckjBizJyscheme bckjBizJyscheme);
 
@@ -52,4 +48,8 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
     String getDicVall(int type, String val1);
 
     List<String> getDicListByType(int type);
+
+    BckjBizJyscheme getOneByXsxh(String xsxh);
+
+    BckjBizJyscheme getOneJyscheme(Map<String, Object> dataMap);
 }

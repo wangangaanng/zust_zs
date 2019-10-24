@@ -6,4 +6,5 @@ import com.zghzbckj.manage.entity.BckjBizJobPlanOther;
 
 @MyBatisDao
 public interface BckjBizJobPlanOtherDao extends CrudDao<BckjBizJobPlanOther> {
+    void deleteByName(String xsxh);
 }

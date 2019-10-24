@@ -359,9 +359,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         List<Map> resLists = null;
         //签到
         if (type == 1) {
+            //获得总人数
             String Sum = this.dao.getYhxxQdSum(dataMap);
+            //签到未成功人数
+            String NoSuccessSum = this.dao.getYhxxQdNoSuccessSum(dataMap);
+            //签到成功人数
+            String SuccessSum = this.dao.getYhxxQdSuccessSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("xsxh", "签到总人数：" + Sum);
+            resMap.put("xsxh", "签到总人数：" + Sum+"其中 成功人数:"+SuccessSum+"未成功人数:"+NoSuccessSum);
             resMap.put("readonly", true);
             resLists= this.dao.getYhxxQdInfo(dataMap);
             resLists.add(0, resMap);
@@ -513,5 +518,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         indata.setSwMm(TextUtils.MD5(MapUtils.getString(mapData,"swMm")).toUpperCase());
         saveOrUpdate(indata);
         return indata;
+    }
+
+    public void updateBySfz(BckjBizYhxx bckjBizYhxx) {
+        this.dao.updateBySfz(bckjBizYhxx);
     }
 }

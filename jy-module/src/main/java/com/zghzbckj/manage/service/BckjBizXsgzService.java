@@ -241,10 +241,10 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             }
             distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()));
             //设置距离
-            Integer bj = bckjBizJob.getZphGpsbj();
-            if (distance > bj) {
+            /*Integer bj = bckjBizJob.getZphGpsbj();*/
+            /*if (distance > bj) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);
-            }
+            }*/
             //查看此微信号是否已经注册过   unionid存exp5
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
             if (!TextUtils.isEmpty(oneByUnionId)) {
@@ -260,18 +260,24 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             bckjBizJob.setZwGzs(count);
             bckjBizJobService.saveOrUpdate(bckjBizJob);
         }
-
         BckjBizXsgz bckjBizXsgz = new BckjBizXsgz();
         if (bckjBizJob.getZwlx() == 0) {
             bckjBizXsgz.setGzlx(0);
         } else {
             bckjBizXsgz.setGzlx(1);
         }
+        bckjBizXsgz.setState(1);
         bckjBizXsgz.setXxlb(Integer.parseInt(datamap.get("xxlb").toString()));
         //设置unionid
         if (bckjBizXsgz.getXxlb() == 1) {
             bckjBizXsgz.setExp5(yhxxVo.getUnionid());
             bckjBizXsgz.setExp10(distance + "");
+            //设置距离
+            Integer bj = bckjBizJob.getZphGpsbj();
+            if (distance > bj) {
+                //未通过
+                bckjBizXsgz.setState(0);
+            }
         }
         bckjBizXsgz.setGzsj(new Date());
         bckjBizXsgz.setJobRefOwid(bckjBizJob.getOwid());
@@ -281,7 +287,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setGpsJd(bckjBizJob.getZphGpsjd());
         bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
         bckjBizXsgz.setCreatetime(new Date());
-        bckjBizXsgz.setState(1);
+
         bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
         HashMap<String, Object> sendMap = Maps.newHashMap();

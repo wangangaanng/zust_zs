@@ -624,6 +624,68 @@
         </where>
     </select>
 
+
+	<select id="getYhxxQdNoSuccessSum" resultType="String">
+		select count(*) as num
+		from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
+		<where>
+			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1 and d.stat=0
+			<if test="owid!=null and owid!=''">
+				and b.owid=#{owid}
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and c.xsxh=#{xsxh}
+			</if>
+			<if test="xm!=null and xm!=''">
+				and a.xm=#{xm}
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and c.xsxy=#{xsxh}
+			</if>
+			<if test="xsbj!=null and xsbj!=''">
+				and c.xsbj=#{xsbj}
+			</if>
+			<if test="xszy!=null and xszy!=''">
+				and c.xszy=#{xszy}
+			</if>
+			<if test="sjh!=null and sjh!=''">
+				and a.sjh=#{sjh}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="getYhxxQdSuccessSum" resultType="String">
+		select count(*) as num
+		from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
+		<where>
+			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1 and d.stat=1
+			<if test="owid!=null and owid!=''">
+				and b.owid=#{owid}
+			</if>
+			<if test="xsxh!=null and xsxh!=''">
+				and c.xsxh=#{xsxh}
+			</if>
+			<if test="xm!=null and xm!=''">
+				and a.xm=#{xm}
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and c.xsxy=#{xsxh}
+			</if>
+			<if test="xsbj!=null and xsbj!=''">
+				and c.xsbj=#{xsbj}
+			</if>
+			<if test="xszy!=null and xszy!=''">
+				and c.xszy=#{xszy}
+			</if>
+			<if test="sjh!=null and sjh!=''">
+				and a.sjh=#{sjh}
+			</if>
+		</where>
+	</select>
+
+
+
     <select id="getYhxxGzInfo" parameterType="Map" resultType="Map">
         select
         b.owid as owid,a.xm as xm,a.sjh as sjh, c.xsxh as xsxh ,c.xsxy as xsxy ,c.xszy as xszy ,c.xsbj as xsbj ,
@@ -763,5 +825,11 @@
 	<update id="deleteBySfz" parameterType="String" >
 		DELETE FROM BCKJ_BIZ_YHXX
 		WHERE sfz=#{value}
+	</update>
+
+
+	<update id="updateBySfz" parameterType="BckjBizYhxx">
+			UPDATE BCKJ_BIZ_YHXX SET xm=#{xm}
+			WHERE sfz=#{sfz}
 	</update>
 </mapper>
