@@ -137,7 +137,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         if (!TextUtils.isEmpty(map.get("wait"))) {
             dataMap.put("wait", map.get("wait").toString());
         }
-        PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.createtime desc ");
+        PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.state,a.createtime desc ");
         return ResponseMessage.sendOK(page);
     }
 
@@ -235,6 +235,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             //报名类型企业
             if (bmlx == JyContant.BMLX_QY) {
                 BckjBizQyxx qyxx = qyxxService.get(mapData.get("qyxxRefOwid").toString());
+                if (3 == qyxx.getState()) {
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", JyContant.HMD_ERROR_MESSAGE);
+                    return resultMap;
+                }
                 //企业名称，税号
                 jybm.setQymc(qyxx.getQymc());
                 jybm.setQysh(qyxx.getQyTysh());
@@ -343,12 +348,6 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
                     params.put("state", 1);
                     if (!TextUtils.isEmpty(mapData.get("qyxxRefOwid"))) {
-                        BckjBizQyxx qyxx = qyxxDao.get(mapData.get("qyxxRefOwid").toString());
-                        if (3 == qyxx.getState()) {
-                            resultMap.put("result", "false");
-                            resultMap.put("msg", JyContant.HMD_ERROR_MESSAGE);
-                            return resultMap;
-                        }
                         params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
                     }
                     List<BckjBizJybm> existBm = findListByParams(params, "");

@@ -17,6 +17,8 @@ import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
+import com.zghzbckj.manage.entity.BckjBizJob;
+import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.util.TextUtils;
@@ -47,6 +49,8 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     BckjBizJobService jobService;
     @Autowired
     BckjBizJobDao jobDao;
+    @Autowired
+    BckjBizJybmService jybmService;
 
     @Override
     public BckjBizQyxx get(String owid) {
@@ -138,6 +142,21 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             this.dao.delete(bckjBizQyxx);
             params.put("owid", owid);
             objs.add(params);
+
+            Map temp = new HashMap<>();
+            temp.put("qyxxRefOwid", owid);
+            List<BckjBizJob> jobList = jobService.findListByParams(temp, "");
+            if (jobList != null && jobList.size() > 0) {
+                for (BckjBizJob job : jobList) {
+                    jobService.delete(job);
+                }
+            }
+            List<BckjBizJybm> bmList = jybmService.findListByParams(temp, "");
+            if (bmList != null && bmList.size() > 0) {
+                for (BckjBizJybm bm : bmList) {
+                    jybmService.delete(bm);
+                }
+            }
         }
         return ResponseMessage.sendOK(objs);
     }
@@ -200,6 +219,11 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         company = new BckjBizQyxx();
         params.put("state", JyContant.QY_ZT_TG);
         company = qyxxDao.getOne(params);
+        if (TextUtils.isEmpty(company)) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", "不存在该账户或企业已被拒绝");
+            return resultMap;
+        }
         String sfzStr = company.getQyFrsfz();
 
         if (!sfzStr.substring(sfzStr.length() - 6, sfzStr.length()).equals(getSfzStr)) {
@@ -333,7 +357,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                     //下架职位
                     Map params = Maps.newHashMap();
                     params.put("qyxxRefOwid", qyxx.getOwid());
-                     jobDao.LowerJob(params);
+                    jobDao.LowerJob(params);
                 }
             }
         }
