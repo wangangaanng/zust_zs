@@ -306,25 +306,23 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     /**
      * 企业查看关注的或报名的学生信息
      *
-     * @param filters
      * @param pageNo
      * @param pageSize
+     * @param dataMap
      * @return
      */
-    public PageInfo<Object> showStudentInfo(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map<String, Object> dataMap) {
-        Map<String, Object> sendMap = FilterModel.doHandleMap(filters);
+    public PageInfo<Object> showStudentInfo(Integer pageNo, Integer pageSize, Map<String, Object> dataMap) {
         Page<Object> page = new Page(pageNo, pageSize);
-        sendMap.put("page", page);
+        dataMap.put("page", page);
         List<Object> lists = null;
         String type = dataMap.get("type").toString();
-        sendMap.put("jobOwid", dataMap.get("jobOwid"));
         //如果为报名
         if (type.equals("1")) {
-            lists = this.dao.getBaoMingList(sendMap);
+            lists = this.dao.getBaoMingList(dataMap);
         }
         //如果为关注
         else if (type.equals("2")) {
-            lists = this.dao.getGuanZhuList(sendMap);
+            lists = this.dao.getGuanZhuList(dataMap);
         }
         page.setList(lists);
         return PageUtils.assimblePageInfo(page);

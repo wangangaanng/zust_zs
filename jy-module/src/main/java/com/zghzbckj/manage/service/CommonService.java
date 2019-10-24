@@ -87,12 +87,21 @@ public class CommonService {
         //企业数
         result.put("qys", MapUtils.getInt(qyxxList.get(0), "value") + MapUtils.getInt(qyxxList.get(1), "value"));
         //涉及行业
-        result.put("sjhy", commonDao.getCompanyNum("qy_hylb").size());
+        result.put("sjhy", commonDao.getCompanyNum("qy_hylb", MapUtils.getString(dataMap, "year")).size());
         //涉及类型
-        result.put("sjlx", commonDao.getCompanyNum("qy_gsxz").size());
+        result.put("sjlx", commonDao.getCompanyNum("qy_gsxz", MapUtils.getString(dataMap, "year")).size());
         return result;
     }
 
+    /**
+     *<p>方法:职位按照工作职能统计职位数量 getJobPie TODO </p>
+     *<ul>
+     *<li> @param dataMap TODO</li>
+     *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+     *<li>@author xuyux </li>
+     *<li>@date 2019/10/24 15:50  </li>
+     *</ul>
+     */
     public Map<String, Object> getJobPie(Map<String, Object> dataMap) {
         List<Map<String, Object>> jobList = commonDao.getListJobNumber(dataMap);
         List<Map<String, Object>> resultList = new ArrayList<>();
@@ -117,9 +126,9 @@ public class CommonService {
         //涉及行业
         result.put("sjhy", jobList.size());
         //报名数，bmlx 1学生 bmdx 2职位
-        result.put("bms", commonDao.getJobApplyNumber("1", "2"));
+        result.put("bms", commonDao.getJobApplyNumber("1", "2", MapUtils.getString(dataMap, "year")));
         //关注数，gzlx 0职位 xxlb 0关注
-        result.put("gzs", commonDao.getJobFollowNumber("0", "0"));
+        result.put("gzs", commonDao.getJobFollowNumber("0", "0", MapUtils.getString(dataMap, "year")));
         return result;
     }
 
@@ -138,11 +147,11 @@ public class CommonService {
         //3招聘会 4宣讲会
         if ("3".equals(MapUtils.getString(dataMap, "zwlx"))) {
             //未举办
-            Map<String, Object> wjbMap = commonDao.getMapWjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            Map<String, Object> wjbMap = commonDao.getMapWjbNumber(dataMap);
             wjbMap.put("name", "未举办招聘会");
             resultList.add(wjbMap);
             //已举办
-            Map<String, Object> yjbMap = commonDao.getMapYjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            Map<String, Object> yjbMap = commonDao.getMapYjbNumber(dataMap);
             yjbMap.put("name", "已举办招聘会");
             resultList.add(yjbMap);
             //招聘会总数
@@ -150,18 +159,18 @@ public class CommonService {
             //未举办
             result.put("wjb", MapUtils.getInt(wjbMap, "value"));
             //学生数
-            result.put("xss", commonDao.getJobApplyNumber("1", "0"));
+            result.put("xss", commonDao.getJobApplyNumber("1", "0", MapUtils.getString(dataMap, "year")));
             //企业数
-            result.put("qys", commonDao.getJobApplyNumber("0", "0"));
+            result.put("qys", commonDao.getJobApplyNumber("0", "0", MapUtils.getString(dataMap, "year")));
             //招聘会饼图数据
             result.put("pieData", resultList);
         } else {
             //未举办
-            Map<String, Object> wjbMap = commonDao.getMapWjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            Map<String, Object> wjbMap = commonDao.getMapWjbNumber(dataMap);
             wjbMap.put("name", "未举办宣讲会");
             resultList.add(wjbMap);
             //已举办
-            Map<String, Object> yjbMap = commonDao.getMapYjbNumber(MapUtils.getString(dataMap, "zwlx"));
+            Map<String, Object> yjbMap = commonDao.getMapYjbNumber(dataMap);
             yjbMap.put("name", "已举办宣讲会");
             resultList.add(yjbMap);
             //宣讲会总数
@@ -169,9 +178,9 @@ public class CommonService {
             //未举办
             result.put("wjb", MapUtils.getInt(wjbMap, "value"));
             //学生数
-            result.put("xss", commonDao.getJobApplyNumber("1", "1"));
+            result.put("xss", commonDao.getJobApplyNumber("1", "1", MapUtils.getString(dataMap, "year")));
             //企业数
-            result.put("qys", commonDao.getJobApplyNumber("0", "1"));
+            result.put("qys", commonDao.getJobApplyNumber("0", "1", MapUtils.getString(dataMap, "year")));
             //宣讲会饼图数据
             result.put("pieData", resultList);
         }
@@ -195,7 +204,7 @@ public class CommonService {
         List<Integer> dataList = null;
         for (String zwlx : zwlxList) {
             resultMap = new HashMap<>();
-            dataList = listMonth(zwlx);
+            dataList = listMonth(zwlx, MapUtils.getString(dataMap, "year"));
             resultMap.put("type", "bar");
             resultMap.put("data", dataList);
             if ("0".equals(zwlx)) {
@@ -219,10 +228,10 @@ public class CommonService {
      *<li>@date 2019/10/23 13:48  </li>
      *</ul>
      */
-    private List<Integer> listMonth(String zwlx) {
+    private List<Integer> listMonth(String zwlx, String year) {
         List<Integer> result = new ArrayList<>(12);
         for (int i = 1; i <= 12; i++) {
-            result.add(commonDao.getJobNumber(zwlx, i));
+            result.add(commonDao.getJobNumber(zwlx, i, year));
         }
         return result;
     }

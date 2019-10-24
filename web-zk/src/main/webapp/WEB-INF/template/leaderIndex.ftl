@@ -128,6 +128,7 @@
 <!--content end-->
 <script type="text/javascript" src="html/js/jquery-3.2.1.min.js" ></script>
 <script type="text/javascript" src="html/js/echarts.min.js" ></script>
+<script type="text/javascript" src="html/js/swiper.min.js"></script>
 <script type="text/javascript" src="html/js/common.js"></script>
 <script type="text/javascript" src="html/js/leaderIndex.js" ></script>
 </body>

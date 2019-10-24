@@ -27,19 +27,19 @@ public interface CommonDao {
 
     List<Map<String, Object>> getListCompanyNumber(Map<String, Object> dataMap);
 
-    List<Integer> getCompanyNum(@Param("groupBy") String  groupBy);
+    List<Integer> getCompanyNum(@Param("groupBy") String  groupBy, @Param("year") String year);
 
     List<Map<String, Object>> getListJobNumber(Map<String, Object> dataMap);
 
-    Integer getJobNumber(@Param("zwlx") String zwlx, @Param("month") Integer month);
+    Integer getJobNumber(@Param("zwlx") String zwlx, @Param("month") Integer month, @Param("year") String  year);
 
-    Integer getJobApplyNumber(@Param("bmlx") String bmlx,@Param("bmdx") String bmdx);
+    Integer getJobApplyNumber(@Param("bmlx") String bmlx,@Param("bmdx") String bmdx, @Param("year") String year);
 
-    Integer getJobFollowNumber(@Param("gzlx") String gzlx,@Param("xxlb") String xxlb);
+    Integer getJobFollowNumber(@Param("gzlx") String gzlx,@Param("xxlb") String xxlb, @Param("year") String year);
 
-    Map<String, Object> getMapWjbNumber(@Param("zwlx") String zwlx);
+    Map<String, Object> getMapWjbNumber(Map<String, Object> dataMap);
 
-    Map<String, Object> getMapYjbNumber(@Param("zwlx") String zwlx);
+    Map<String, Object> getMapYjbNumber(Map<String, Object> dataMap);
 
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
