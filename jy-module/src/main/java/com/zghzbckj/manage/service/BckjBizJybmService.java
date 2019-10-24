@@ -341,6 +341,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 if (JyContant.BMLX_QY == bmlx) {
                     Map params = new HashMap<String, Object>();
                     params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+                    params.put("state", 1);
                     if (!TextUtils.isEmpty(mapData.get("qyxxRefOwid"))) {
                         params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
                     }

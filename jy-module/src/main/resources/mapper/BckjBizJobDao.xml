@@ -135,6 +135,9 @@
             <if test="zwbt != null and zwbt != ''">
                 AND a.zwbt like CONCAT('%', #{zwbt},'%')
             </if>
+			<if test="qymc != null and qymc != ''">
+				AND b.qymc like CONCAT('%', #{qymc},'%')
+			</if>
             <if test="zwMxxy != null and zwMxxy != ''">
                 AND a.zw_mxxy like CONCAT('%', #{zwMxxy},'%')
             </if>
