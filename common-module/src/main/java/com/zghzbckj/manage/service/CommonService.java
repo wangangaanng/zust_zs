@@ -4,10 +4,12 @@ import com.beust.jcommander.internal.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.utils.HttpUtil;
 import com.zghzbckj.util.HttpBackUtil;
@@ -15,7 +17,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -41,6 +45,8 @@ public class CommonService {
     BckjBizSybService bckjBizSybService;
     @Autowired
     BckjBizYhxxService bckjBizYhxxService;
+    @Autowired
+    CommonDao commonDao;
 
     public ResponseMessage getSecondMenu(Map<String, Object> mapData) {
         Map<String, Object> param = Maps.newHashMap();
@@ -134,5 +140,37 @@ public class CommonService {
         yhxx.setYzm(getRandom());
         yhxx.setFssj(new Date());
         bckjBizYhxxService.saveOrUpdate(yhxx);
+    }
+
+    /**
+    *<p>方法:saveFile TODO保存到附件中心 </p>
+    *<ul>
+     *<li> @param file TODO</li>
+    *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/24 17:09  </li>
+    *</ul>
+    */
+    @Transactional(readOnly = false)
+    public Map<String,Object> saveFile(MultipartFile file,String yhRefOwid) throws IOException ,CustomerException{
+        String fileName = file.getOriginalFilename();
+        String type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
+        String realName=String.valueOf(System.currentTimeMillis());
+        String trueFileName =CommonModuleContant.SWTYFILEPATH+File.separator+realName  + CommonConstant.SPILT_POINT + type;
+        String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH) + trueFileName;
+        File tarFile = new File(path, fileName);
+        file.transferTo(tarFile);
+        Map<String,Object> fileCenter=Maps.newHashMap();
+        fileCenter.put("owid",TextUtils.getUUID());
+        fileCenter.put("fileClass","BckjBizJbxx");
+        fileCenter.put("fileClassId",yhRefOwid);
+        fileCenter.put("fileName",realName);
+        fileCenter.put("fileLabel",fileName);
+        fileCenter.put("filePath",trueFileName);
+        fileCenter.put("fileSize",file.getSize());
+        fileCenter.put("fileExtion",type);
+        fileCenter.put("createtime",new Date());
+        commonDao.insertFile(fileCenter);
+        return fileCenter;
     }
 }

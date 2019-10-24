@@ -39,4 +39,6 @@ public interface CommonDao {
     List<Map> getSysFiles(Map<String,Object> value);
 
     int deleteFiles(Map<String, Object> params);
+
+    int insertFile(Map<String, Object> fileCenter);
 }
