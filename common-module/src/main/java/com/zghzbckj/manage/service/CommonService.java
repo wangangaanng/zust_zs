@@ -1,21 +1,26 @@
 package com.zghzbckj.manage.service;
 
 import com.beust.jcommander.internal.Maps;
-import com.zghzbckj.manage.entity.BckjBizSyb;
-import com.zghzbckj.manage.utils.HttpUtil;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
+import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.utils.HttpUtil;
 import com.zghzbckj.util.HttpBackUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * <dl>
@@ -34,6 +39,8 @@ public class CommonService {
 
     @Autowired
     BckjBizSybService bckjBizSybService;
+    @Autowired
+    BckjBizYhxxService bckjBizYhxxService;
 
     public ResponseMessage getSecondMenu(Map<String, Object> mapData) {
         Map<String, Object> param = Maps.newHashMap();
@@ -89,5 +96,43 @@ public class CommonService {
      */
     public List<Map<String,Object>> getByTypeSort(Map<String, Object> dataMap) {
         return bckjBizSybService.getByTypeSort(dataMap);
+    }
+
+    @Transactional(readOnly = false)
+    public void sendCode(Map<String, Object> mapData) throws CustomerException {
+        BckjBizYhxx yhxx=bckjBizYhxxService.getBySwZh(mapData,"unionid");
+        if(null==yhxx){
+            throw new CustomerException("不存在基础信息，请重新进入小程序");
+        }
+        if(yhxx.getState()==1){
+            throw new CustomerException("此用户已经绑定");
+        }
+        yhxx.setSwZh(MapUtils.getString(mapData,"swZh"));
+        yhxx.setYzm(getRandom());
+        yhxx.setFssj(new Date());
+        bckjBizYhxxService.saveOrUpdate(yhxx);
+    }
+
+    private String getRandom(){
+        Random rd = new Random();
+        String tmp = "";
+        for (int i = 0; i < 6; i++) {
+            tmp += rd.nextInt(10);
+        }
+        return tmp;
+    }
+
+    @Transactional(readOnly = false)
+    public void sendCodeForget(Map<String, Object> mapData) throws CustomerException{
+        BckjBizYhxx yhxx=bckjBizYhxxService.getBySwZh(mapData,"swZh");
+        if (null != yhxx) {
+            throw new CustomerException("不存在此用户");
+        }
+        if(yhxx.getState()==0){
+            throw new CustomerException("此手机号未注册");
+        }
+        yhxx.setYzm(getRandom());
+        yhxx.setFssj(new Date());
+        bckjBizYhxxService.saveOrUpdate(yhxx);
     }
 }

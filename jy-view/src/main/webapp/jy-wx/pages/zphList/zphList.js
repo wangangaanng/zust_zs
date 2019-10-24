@@ -94,7 +94,6 @@ var myJobList = function (that, lx) {
           res.data.bean.records[i].sfkbm = false;
           if (res.data.bean.records[i].state == 2) {
             if (res.data.bean.records[i].zphSfbm == 0) {
-              str = '';
               res.data.bean.records[i].sfkbm = false;
             } else if (res.data.bean.records[i].zphSfbm == 1) {
               res.data.bean.records[i].sfkbm = true;
@@ -115,7 +114,6 @@ var myJobList = function (that, lx) {
             res.data.bean.records[i].str = '已结束';
             res.data.bean.records[i].sfkbm = false;
           }
-
         }
         xjhList = that.data.xjhList.concat(res.data.bean.records)
       }

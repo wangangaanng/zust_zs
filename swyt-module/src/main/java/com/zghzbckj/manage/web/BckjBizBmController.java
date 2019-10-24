@@ -3,20 +3,20 @@
  */
 package com.zghzbckj.manage.web;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.CommonConstants;
+import com.zghzbckj.manage.service.BckjBizBmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.zghzbckj.manage.service.BckjBizBmService;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +29,7 @@ import java.util.Map;
  * ccController
  *
  * @author cc
- * @version 2019-09-09
+ * @version 2019-10-21
  */
 @Controller
 @RequestMapping(value = "bckjBizBm")
@@ -43,7 +43,7 @@ public class BckjBizBmController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizBmService.findPageBckjBizBm(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return ResponseMessage.sendOK(bckjBizBmService.findPageBckjBizBm(filters, dataVO.getPageNo(), dataVO.getPageSize()));
         } catch (Exception e) {
             log.error(e + "获取bckjBizBm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -63,8 +63,8 @@ public class BckjBizBmController extends BaseController {
             for (Object obj : list) {
                 codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            ResponseMessage data = bckjBizBmService.removeOrder(codes);
-            return data;
+            List data = bckjBizBmService.removeOrder(codes);
+            return ResponseMessage.sendOK(data);
         } catch (Exception e) {
             log.error(e + "删除BckjBizBm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -77,7 +77,7 @@ public class BckjBizBmController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizBmService.saveBckjBizBm(mapData);
+            return ResponseMessage.sendOK(bckjBizBmService.saveBckjBizBm(mapData));
         } catch (Exception e) {
             log.error(e + "保存BckjBizBm信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

@@ -1,41 +1,46 @@
+<import src="../../templates/textarea/index.wxml" />
 <wxs src="../fcn.wxs" module="tools" />
+
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="专家列表">
-     <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
-  <block wx:for="{{list}}" wx:key="{{index}}">
-  <view class="t-item">
-    <view class="t-js">
-      <view class="t-tx">
-        <view><image src="{{imgPath}}{{item.zjtx}}"></image></view>
+  <view>
+    <view>
+      <block wx:for="{{list}}" wx:key="{{index}}">
+      <view class="t-item">
+        <view class="t-js">
+          <view class="t-tx">
+            <view><image src="{{imgPath}}{{item.zjtx}}"></image></view>
+          </view>
+          <view class="t-jj">
+            <view class="t-xm">{{item.zjxm}}</view>
+            <view class="t-xq">{{item.zjxx}}</view>
+          </view>
+        </view>
+        <view class="t-cz">
+          <view class="t-f6" data-owid="{{item.owid}}" bindtap="detail">
+            <image src="../../static/icon-xq.png"></image>
+            <view class="green">详情</view>
+          </view>
+          <view class="t-f6" data-owid="{{item.owid}}" bindtap="ask">
+            <image src="../../static/icon-zx.png"></image>
+            <view>咨询</view>
+          </view>
+        </view>
       </view>
-      <view class="t-jj">
-        <view class="t-xm">{{item.zjxm}}</view>
-        <view class="t-xq">{{item.zjxx}}</view>
-      </view>
-    </view>
-    <view class="t-cz">
-      <view class="t-f6" data-owid="{{item.owid}}" bindtap="detail">
-        <image src="../../static/icon-xq.png"></image>
-        <view class="green">详情</view>
-      </view>
-      <view class="t-f6" data-owid="{{item.owid}}" bindtap="ask">
-        <image src="../../static/icon-zx.png"></image>
-        <view>咨询</view>
-      </view>
+      </block>
     </view>
   </view>
-  </block>
 
-  <modal hidden="{{modal1}}" title="请输入咨询内容" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-      <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" auto-focus></textarea>
-  </modal>
+  <!-- <modal hidden="{{modal1}}" title="请输入咨询内容" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" ></textarea>
+  </modal> -->
     
 <van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
-  </scroll-view>
   </van-tab>
   <van-tab title="历史咨询">
-      <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
-        <block wx:for="{{list1}}" wx:key="{{index}}">
+    <view>
+    <view>
+      <block wx:for="{{list1}}" wx:key="{{index}}">
         <view class="l-item">
           <view class="l-ask">
           <view>
@@ -55,8 +60,11 @@
           </view>
         </view>
         </block>
+    </view>
+      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+    </view>
         
-<van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
-      </scroll-view>
   </van-tab>
 </van-tabs>
+
+  <template is="zxmodal" data="{{modal1,wtnr}}" />

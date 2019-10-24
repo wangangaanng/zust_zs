@@ -191,11 +191,12 @@
         SELECT a.zwbt, a.zph_ksrq AS ksrq
         FROM bckj_biz_job a
         <where> a.state = 2
-            AND a.zph_ksrq &gt;= CURRENT_DATE AND (( a.zph_sfqd = 0) OR ( a.zph_sfqd = 1 AND a.zph_gpsjd IS NOT NULL ))
+            AND a.zph_ksrq &gt;= CURRENT_DATE
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx=#{zwlx}
             </if>
         </where>
+        ORDER BY zph_ksrq
     </select>
 
     <!--根据企业信息表的状态来获取待审核的企业 1待审核    -->
@@ -203,6 +204,7 @@
         SELECT qymc, createtime
         FROM bckj_biz_qyxx
         WHERE state=#{state}
+        ORDER BY createtime desc
     </select>
 
     <!--根据企业信息表的状态来统计企业数量 1待审核2已审核的正常企业-->

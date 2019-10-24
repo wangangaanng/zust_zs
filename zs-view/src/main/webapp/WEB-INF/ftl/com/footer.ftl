@@ -1,27 +1,4 @@
 <div class="bottom">
-    <div class="websites-nav">
-        <div class="container">
-            <#if (footer??)&&(footer?size>0)>
-                <#list footer as obj>
-                    <div class="website">
-                        <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                ${obj.NAME!''}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                <#if (obj.chirdMenu??)&&(obj.chirdMenu?size>0)>
-                                    <#list obj.chirdMenu as ob>
-                                        <li><a href="${ob.TZLJ!''}" target="_blank">${ob.NAME!''}</a></li>
-                                    </#list>
-                                </#if>
-                            </ul>
-                        </div>
-                    </div>
-                </#list>
-            </#if>
-        </div>
-    </div>
     <div class="contact">
         <div class="container text-center">
             <div class="contact-info text-center">

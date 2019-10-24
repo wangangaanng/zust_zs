@@ -59,6 +59,9 @@ Component({
               iv: iv,
               wxid:'wx01'
             };
+            wx.showLoading({
+              title: '加载中',
+            })
             wx.request({
               url: app.globalData.ApiUrl + 'zustcommon/bckjBizYhgl/getYhInfoByOpenid',
               data: {
@@ -70,6 +73,7 @@ Component({
               },
               method: 'POST',
               success: function (res) {
+                wx.hideLoading();
                 if (res.data.bean) {
                   openId = res.data.bean.openId;
                   unionid = res.data.bean.unionid;
@@ -89,6 +93,14 @@ Component({
                 //     url: '../index/index'
                 //   })
                 // }
+              },
+              fail:function(){
+                wx.hideLoading();
+                wx.showToast({
+                  title: '网络出错，请稍后再试',
+                  icon: 'none',
+                  duration: 2000
+                })
               }
 
             })

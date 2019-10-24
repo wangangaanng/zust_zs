@@ -17,6 +17,7 @@ import java.util.Date;
 public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 	
 	private static final long serialVersionUID = 1L;
+	private String yhRefOwid;
 	private String sfzzm;		// sfzzm
 	private String sfzfm;		// sfzfm
 	private String hjzm;		// hjzm
@@ -48,8 +49,26 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 	private String jssm;		// jssm
 	private String jsfj;		// jsfj
 	private String qtqk;		// qtqk
+	private Integer xkState;
+	private Integer hkState;
+	private Integer jtcyState;
 
-	
+	public Integer getHkState() {
+		return hkState;
+	}
+
+	public void setHkState(Integer hkState) {
+		this.hkState = hkState;
+	}
+
+	public Integer getJtcyState() {
+		return jtcyState;
+	}
+
+	public void setJtcyState(Integer jtcyState) {
+		this.jtcyState = jtcyState;
+	}
+
 	public BckjBizJbxx() {
 		super();
 	}
@@ -331,5 +350,20 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 	public void setQtqk(String qtqk) {
 		this.qtqk = qtqk;
 	}
-	
+
+	public Integer getXkState() {
+		return xkState;
+	}
+
+	public void setXkState(Integer xkState) {
+		this.xkState = xkState;
+	}
+
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
+
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
 }

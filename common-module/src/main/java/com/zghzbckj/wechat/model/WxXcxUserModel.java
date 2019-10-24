@@ -18,6 +18,7 @@ public class WxXcxUserModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String openId;
+    private String wxid;
     private String nickname;
     private String gender;
     private String city;
@@ -119,5 +120,13 @@ public class WxXcxUserModel implements Serializable {
 
     public void setIsBind(Integer isBind) {
         this.isBind = isBind;
+    }
+
+    public String getWxid() {
+        return wxid;
+    }
+
+    public void setWxid(String wxid) {
+        this.wxid = wxid;
     }
 }

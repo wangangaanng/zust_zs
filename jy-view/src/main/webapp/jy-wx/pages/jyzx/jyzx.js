@@ -6,7 +6,8 @@ var imgPath = app.globalData.imgPath;
 
 Page({
   data: {
-    modal1: true,
+    currentTab: 0,
+    modal1: false,
     wtnr:'',
     imgPath: imgPath,
     list: [],
@@ -20,14 +21,15 @@ Page({
   },
   cancel: function () {
     this.setData({
-      modal1: true,
+      modal1: false,
       wtnr: ''
     });
   },
   ask:function(e){
+    console.log(e.currentTarget.dataset.owid)
     this.setData({
       tOwid: e.currentTarget.dataset.owid,
-      modal1: false
+      modal1: true
     });
   },
   //确认
@@ -40,6 +42,7 @@ Page({
       })
       return false
     }
+    console.log('that.data.tOwid', that.data.tOwid)
     var data = { 
       "wtnr": that.data.wtnr.trim(),
       "owid": that.data.tOwid,
@@ -56,7 +59,7 @@ Page({
             if (res.confirm) {
               console.log('用户点击确定')
               that.setData({
-                modal1: true,
+                modal1: false,
                 wtnr:''
               })
             } else if (res.cancel) {
@@ -92,6 +95,9 @@ Page({
       })
       historyConsult(this)
     }
+    this.setData({
+      currentTab: e.detail.index
+    })
   },
   detail(e){
     wx.navigateTo({
@@ -102,24 +108,6 @@ Page({
     this.setData({
       wtnr: e.detail.value
     })
-  },
-  loadMore: function () {
-    var that = this;
-    if ((that.data.pageNo + 1) <= that.data.totalPage) {
-      that.setData({
-        pageNo: that.data.pageNo + 1,
-      })
-      supervisorList(that);
-    }
-  },
-  loadMore1: function () {
-    var that = this;
-    if ((that.data.pageNo1 + 1) <= that.data.totalPage1) {
-      that.setData({
-        pageNo1: that.data.pageNo1 + 1,
-      })
-      historyConsult(that);
-    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -160,7 +148,22 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    var that = this;
+    if (that.data.currentTab == 0) {
+      if ((that.data.pageNo + 1) <= that.data.totalPage) {
+        that.setData({
+          pageNo: that.data.pageNo + 1,
+        })
+        supervisorList(that);
+      }
+    } else if (that.data.currentTab == 1) {
+      if ((that.data.pageNo1 + 1) <= that.data.totalPage1) {
+        that.setData({
+          pageNo1: that.data.pageNo1 + 1,
+        })
+        historyConsult(that);
+      }
+    }
   },
 
   /**
