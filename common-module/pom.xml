@@ -28,7 +28,7 @@
         <bckjbase.models.verson>2.0.7</bckjbase.models.verson>
         <bckjbase.utils.verson>32.1</bckjbase.utils.verson>
         <bckjbase.service.verson>2.0.2</bckjbase.service.verson>
-        <bckjbase.dao.verson>2.2.0</bckjbase.dao.verson>
+        <bckjbase.dao.verson>2.2.3</bckjbase.dao.verson>
         <poi.version>3.15</poi.version>
         <netflixEureka.version>2.0.0.RELEASE</netflixEureka.version>
         <feign.version>1.4.5.RELEASE</feign.version>

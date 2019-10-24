@@ -102,6 +102,21 @@
             </if>
         </where>
     </select>
+	<select id="findStateByMap" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
+		SELECT
+		a.owid AS "owid",
+		a.xk_state AS "xkState",
+		a.state AS "state",
+		a.hk_state AS "hkState",
+		a.jtcy_state AS "jtcyState"
+		FROM bckj_biz_jbxx a
+		<include refid="bckjBizJbxxJoins"/>
+		<where>
+			<if test="yhRefOwid !=null and yhRefOwid!='' ">
+				a.yh_ref_owid=#{yhRefOwid}
+			</if>
+		</where>
+	</select>
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
         SELECT
         <include refid="bckjBizJbxxColumns"/>

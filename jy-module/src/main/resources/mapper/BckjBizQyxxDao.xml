@@ -73,7 +73,7 @@
                 AND a.qy_tysh = #{qyTysh}
             </if>
             <if test="qyFrsfz != null and qyFrsfz != ''">
-                AND a.qy_frsfz like CONCAT('%',#{qyFrsfz},'')
+                AND a.qy_frsfz LIKE concat('%',#{qyFrsfz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="qymc != null and qymc != ''">
                 AND a.qymc = #{qymc}
@@ -135,10 +135,10 @@
                 AND a.state !=1 AND a.state !=3
             </if>
             <if test=" qymc != null and qymc != '' ">
-                AND a.qymc like CONCAT('%',#{qymc},'%')
+				AND a.qymc LIKE concat('%',#{qymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" qyTysh != null and qyTysh != '' ">
-                AND a.qy_tysh like CONCAT('%',#{qyTysh},'%')
+                AND a.qy_tysh LIKE concat('%',#{qyTysh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" qyHylb != null and qyHylb != '' ">
                 AND a.qy_hylb = #{qyHylb}
@@ -150,13 +150,13 @@
                 AND a.qy_gsxz = #{qyGsxz}
             </if>
             <if test=" qyProv != null and qyProv != '' ">
-                AND a.qy_prov like CONCAT('%',#{qyProv},'%')
+                AND a.qy_prov LIKE concat('%',#{qyProv,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" qyCity != null and qyCity != '' ">
-                AND a.qy_city like CONCAT('%',#{qyCity},'%')
+                AND a.qy_city LIKE concat('%',#{qyCity,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" qyArea != null and qyArea != '' ">
-                AND a.qy_area like CONCAT('%',#{qyArea},'%')
+                AND a.qy_area LIKE concat('%',#{qyArea,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
         </where>
         <choose>

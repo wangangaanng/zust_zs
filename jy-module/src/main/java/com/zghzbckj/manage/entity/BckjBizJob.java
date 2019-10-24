@@ -80,6 +80,33 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private List<Map<String, String[]>> resultList;
     private Integer bmNumber;
     private Integer rqState;
+    private Integer qdNumber;
+    private Integer gzNumber;
+    private boolean readOnly;
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
+    public Integer getQdNumber() {
+        return qdNumber;
+    }
+
+    public void setQdNumber(Integer qdNumber) {
+        this.qdNumber = qdNumber;
+    }
+
+    public Integer getGzNumber() {
+        return gzNumber;
+    }
+
+    public void setGzNumber(Integer gzNumber) {
+        this.gzNumber = gzNumber;
+    }
 
     public Integer getRqState() {
         return rqState;
