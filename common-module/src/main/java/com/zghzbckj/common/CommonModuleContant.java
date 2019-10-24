@@ -12,7 +12,7 @@ package com.zghzbckj.common;
  * @author xby
  */
 public class CommonModuleContant {
-
+    public static final String SWTYFILEPATH = "swytFiles";
     public static final String SPILE_DOUHAO = ",";
     public static final String HPATH = "htmlfile.path";
     public static final String BACKEJ_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getSeclm.do";

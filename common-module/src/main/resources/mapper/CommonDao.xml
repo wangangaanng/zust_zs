@@ -198,4 +198,53 @@
         DELETE  FROM ourway_sys_files where FILE_CLASS_ID=#{owid}
     </delete>
 
+    <insert id="insertFile">
+        INSERT INTO ourway_sys_files( OWID,FILE_CLASS,FILE_CLASS_ID,FILE_NAME,FILE_LABEL,FILE_SIZE,FILE_PATH,FILE_EXTION, createtime,
+            createtime,
+            creator,
+            creator_name,
+            lastupdate,
+            updator,
+            updator_name,
+            ver,
+            vertime,
+            dept_id,
+            dept_path,
+            delflg,
+            state,
+            exp1,
+			exp2,
+			exp3,
+			exp4,
+			exp5,
+			exp6,
+			exp7,
+			exp8,
+			exp9,
+			exp10)
+        VALUES(#{owid},#{fileClass},#{fileClassId},#{fileName},#{fileLabel},#{fileSize},#{filePath},#{fileExtion} ,
+        #{createtime},
+                     #{creator},
+                     #{creatorName},
+                     #{lastupdate},
+                     #{updator},
+                     #{updatorName},
+                     #{ver},
+                     #{vertime},
+                     #{deptId},
+                     #{deptPath},
+                     #{delflg},
+                     #{state},
+                     #{exp1},
+                    #{exp2},
+                    #{exp3},
+                    #{exp4},
+                    #{exp5},
+                    #{exp6},
+                    #{exp7},
+                    #{exp8},
+                    #{exp9},
+                    #{exp10})
+    </insert>
+
 </mapper>

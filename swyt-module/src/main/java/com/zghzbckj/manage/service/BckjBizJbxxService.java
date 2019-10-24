@@ -157,4 +157,14 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
         BckjBizJbxx indata=this.dao.findOneByMap(mapData);
         return indata;
     }
+
+    /**
+     * 只取状态字段
+     * @param mapData
+     * @return
+     */
+    public BckjBizJbxx getIndexState(Map<String, Object> mapData) {
+        BckjBizJbxx indata=this.dao.findStateByMap(mapData);
+        return indata;
+    }
 }

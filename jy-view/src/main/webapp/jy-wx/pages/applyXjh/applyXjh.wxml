@@ -37,4 +37,5 @@
 <input type="text" class="hiddenInput" name="xjsj" value="{{form.xjsj}}"></input>
 
 <button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+<view style="height:40rpx;"></view>
 </form>

@@ -18,4 +18,6 @@ import java.util.Map;
 public interface BckjBizJbxxDao extends CrudDao<BckjBizJbxx> {
 
     BckjBizJbxx findOneByMap(Map<String, Object> mapData);
+
+    BckjBizJbxx findStateByMap(Map<String, Object> mapData);
 }

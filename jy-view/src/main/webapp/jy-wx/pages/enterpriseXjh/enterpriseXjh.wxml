@@ -16,7 +16,7 @@
   <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid1="{{item.owid}}" data-owid2="{{item.jobRefOwid}}" bindtap="detail">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
-        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无宣讲会名称'}}</view>
         <view class="uni-media-list-text-bottom">
           <view class="uni-media-list-text-bottom-left">举办时间：{{tools.substr(item.xjsj,0,16)}}</view>
             <van-icon

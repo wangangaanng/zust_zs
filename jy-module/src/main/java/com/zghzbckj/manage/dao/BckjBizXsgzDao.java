@@ -28,4 +28,5 @@ public interface BckjBizXsgzDao extends CrudDao<BckjBizXsgz> {
 
     Map<String,Object> qdSuccessInfo(HashMap<String, Object> sendMap);
 
+    Integer countNumber(Map params);
 }

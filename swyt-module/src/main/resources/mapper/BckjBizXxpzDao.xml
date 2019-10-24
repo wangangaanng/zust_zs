@@ -262,5 +262,22 @@
 		DELETE FROM bckj_biz_xxpz
 		WHERE owid = #{owid}
 	</delete>
-	
+
+	<select id="findMapListByMap" resultType="Map">
+		SELECT a.xxbh AS "xxbh",
+		a.logo AS "logo",
+		a.xxmc AS "xxmc",
+		a.xcjs AS "xcjs",
+		a.xxbq AS "xxbq",
+		a.bmnd AS "bmnd",
+		a.kssj AS "kssj",
+		a.jzsj AS "jzsj",
+		a.sfks AS "sfks",
+		a.xxlj AS "xxlj",
+		b.xzzymc AS "bmzy",
+		b.xybnr AS "xybCz",
+		b.state AS "bmState",
+		b.owid AS "applyOwid"
+		 FROM bckj_biz_bm b RIGHT  JOIN  bckj_biz_xxpz a ON a.xxbh=b.xxbh
+	</select>
 </mapper>

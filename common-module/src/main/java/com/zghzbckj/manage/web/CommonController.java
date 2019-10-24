@@ -1,5 +1,6 @@
 package com.zghzbckj.manage.web;
 
+import com.google.common.collect.Maps;
 import com.ourway.baiduapi.constants.BaiDuApiInfo;
 import com.ourway.baiduapi.dto.InfoDTO;
 import com.ourway.baiduapi.utils.Base64ImageUtils;
@@ -71,7 +72,6 @@ public class CommonController {
 
         String path = null;// 文件路径
         String type = null;// 文件类型
-        String zippath = null;// 压缩文件路径
         String fileName = file.getOriginalFilename();// 文件原名称
         type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
         if (type != null) {// 判断文件类型是否为空
@@ -79,7 +79,6 @@ public class CommonController {
                 // 项目在容器中实际发布运行的根路径
                 byte[] picbyte = file.getBytes();
                 float picsize = (float) picbyte.length / 1024 / 1024;
-                System.out.println("图片大小：" + picsize + "MB");
                 if (picsize > 5) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "图片不大于5MB");
                 }
@@ -88,7 +87,7 @@ public class CommonController {
                 try {
                     Image srcFile = ImageIO.read(file.getInputStream());
                     file.transferTo(new File(path));
-                    Map resultMap = new HashMap();
+                    Map resultMap = Maps.newHashMap();
                     resultMap = ocrPic(path, trueFileName, Integer.parseInt(dataMap.get("type").toString()));
 //                    System.out.println(JackSonJsonUtils.toJson(resultMap));
                     return ResponseMessage.sendOK(resultMap);
@@ -139,6 +138,20 @@ public class CommonController {
             }
         } else if (2 == type) {
             bodys.put("id_card_side", "front");
+            bodys.put("detect_risk", "true");
+            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.ID_URL + baidToken, headers, bodys);
+            String result = HttpClientUtils.toString(backResponse);
+            if (!TextUtils.isEmpty(result)) {
+                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
+                vat = (Map<String, String>) idcardDTO.get("words_result");
+                if (null == vat) {
+                    vat = new HashMap(1);
+                }
+                vat.put("image_status", idcardDTO.get("image_status").toString());
+                vat.put("fileName", "pic/" + fileName);
+            }
+        } else if (3 == type) {
+            bodys.put("id_card_side", "back");
             bodys.put("detect_risk", "true");
             CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.ID_URL + baidToken, headers, bodys);
             String result = HttpClientUtils.toString(backResponse);
@@ -202,13 +215,13 @@ public class CommonController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "mobile","type");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "mobile", "type");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            if(MapUtils.getInt(mapData,"type")==0) {
+            if (MapUtils.getInt(mapData, "type") == 0) {
                 commonService.sendCode(mapData);
-            }else{
+            } else {
                 commonService.sendCodeForget(mapData);
             }
             return ResponseMessage.sendOK(Boolean.TRUE);
@@ -216,6 +229,39 @@ public class CommonController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
             log.info("发送验证码失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+    /**
+    *<p>方法:pictureUp TODO上传到文件中心 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/24 17:03  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "fileUpload", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage fileUpload(PublicDataVO dataVO,@RequestParam(required = false) MultipartFile file) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            if (null == file || file.isEmpty()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "文件数据空");
+            }
+            byte[] picbyte = file.getBytes();
+            float picsize = (float) picbyte.length / 1024 / 1024;
+            if (picsize > 5) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "文件不大于5MB");
+            }
+
+            return ResponseMessage.sendOK(commonService.saveFile(file, MapUtils.getString(mapData,"yhRefOwid")));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("上传到文件中心失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }

@@ -78,5 +78,12 @@ public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 		this.xssx = xssx;
 	}
 
-	
+
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
+
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
 }

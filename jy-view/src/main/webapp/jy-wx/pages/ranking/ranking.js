@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1:true,
     years: [],
     show: {
       bottom: false
@@ -113,7 +114,8 @@ var getByType1 = function (that) {
 
 var getByType2 = function (that, year) {
   that.setData({
-    list: []
+    list: [],
+    hidden1: true
   })
   var data = { "pmnf": year };
   common.ajax('zustjy/bckjBizJypm/jypmList', data, function (res) {
@@ -124,9 +126,8 @@ var getByType2 = function (that, year) {
           list: data.bean
         })
       }else{
-        wx.showModal({
-          content: "该年度暂无数据",
-          showCancel: false,
+        that.setData({
+          hidden1:false
         })
       }
     } else {

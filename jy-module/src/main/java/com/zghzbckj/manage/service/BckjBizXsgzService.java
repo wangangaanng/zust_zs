@@ -103,6 +103,14 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             dataMap.put("xxlb", map.get("xxlb").toString());
         }
         PageInfo<BckjBizXsgz> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+
+
+        List<BckjBizXsgz> records = page.getRecords();
+        BckjBizXsgz job = new BckjBizXsgz();
+        job.setZwbt("共有：" + page.getTotalCount() + "条信息");
+        job.setReadOnly(true);
+        records.add(0, job);
+
         return ResponseMessage.sendOK(page);
     }
 
@@ -211,7 +219,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
             }
             //判断是否已经定的
-            if(bckjBizJob.getExp5().equals("1")){
+            if (bckjBizJob.getExp5().equals("1")) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "管理员还未设置签到点位，无法签到");
             }
             //判断job信息是否失效
@@ -291,13 +299,13 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
         HashMap<String, Object> sendMap = Maps.newHashMap();
-        sendMap.put("jobRefOwid",bckjBizXsgz.getJobRefOwid());
-        sendMap.put("yhRefOwid",bckjBizXsgz.getYhRefOwid());
+        sendMap.put("jobRefOwid", bckjBizXsgz.getJobRefOwid());
+        sendMap.put("yhRefOwid", bckjBizXsgz.getYhRefOwid());
         List<BckjBizXsgz> bckjbiz = this.dao.findListByMap(sendMap);
-        if(!TextUtils.isEmpty(bckjbiz)&&bckjbiz.size()>0){
+        if (!TextUtils.isEmpty(bckjbiz) && bckjbiz.size() > 0) {
             return ResponseMessage.sendOK(bckjbiz);
         }
-        return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.FAIL_MESSAGE);
+        return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
     }
 
     @Transactional(readOnly = false, rollbackFor = Exception.class)

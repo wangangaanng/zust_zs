@@ -149,13 +149,15 @@ position: relative;margin-bottom: 30px;}
 .select-mode li a{background-color: #eee;padding: 8px;border-radius: 4px;display: inline-block;
 max-width: 210px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;min-width: 128px;min-height: 28px;color: #333;}
 .pie-list li{float: left;width: 25%;margin-top: 8px;}
-.pie-list li:last-child span{cursor: pointer;}
+/*.pie-list li:last-child span{cursor: pointer;}*/
 .pie-list_wrap{margin-left: 15px;height: 286px;}
 .pie-list li:first-child div{border: none;}
 .finish-amount{color: #afafb0}
 .pie-list_wrap p,.point-chart p{margin: 0px 10px;line-height: 1;font-size: 15px;font-weight: bold;}
 .tab-selected{color: #595757}
-.pie-list_wrap p span{padding: 4px 3px 8px 3px;display: inline-block;cursor: default;font-size: 15px;font-weight: bold;}
+.pie-list_wrap p span{padding: 4px 3px 8px 3px;display: inline-block;cursor: default;font-size: 15px;font-weight: bold;
+ border-bottom: 3px solid #60bbf5;
+ border-radius: 10px;}
 .pie-list li:first-child .pie-list_wrap{margin-left: 0px;}
 .pie-list_wrap .pie-wrap{height: 230px;}
 .top-wrap:nth-child(2){margin-top: 28px;}
@@ -168,11 +170,13 @@ max-width: 210px;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;min
 .show{display: block;}
 .hide{display: none;}
 #indexpoint{height: 256px;}
-.point-chart{margin-top: 0px;margin-bottom: 4px;}
+.point-chart{margin-top: 0px;margin-bottom: 4px;
+ position: relative;}
 .chart-bottom ul{padding-right: 16px;padding-left: 62px;}
 .chart-bottom li{float: left;width: 12.5%;text-align: center;}
 .chart-bottom li span{display: block;font-size: 14px;line-height: 24px;}
-.point-chart p span{padding: 0px 8px 8px 8px;display: inline-block;}
+.point-chart p span{padding: 0px 8px 8px 8px;display: inline-block;    border-bottom: 3px solid #60bbf5;
+ border-radius: 10px;}
 .null-tip p{border: none;text-align: center!important;font-weight: normal!important;}
 .chart-bottom li span:last-child{padding-bottom: 1px;}
 .chart-bottom li span:first-child,.chart-bottom li span:nth-child(3),.chart-bottom_title p:first-child,.chart-bottom_title p:nth-child(3){background-color: #f8fbfc;}
