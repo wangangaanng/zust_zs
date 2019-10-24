@@ -31,7 +31,9 @@ public interface CommonDao {
 
     List<Map<String, Object>> getListJobNumber(Map<String, Object> dataMap);
 
-    Integer getJobNumber(@Param("zwlx") String zwlx, @Param("month") Integer month, @Param("year") String  year);
+    Integer getJobNumberByCreatetime(@Param("zwlx") String zwlx, @Param("month") Integer month, @Param("year") String  year);
+
+    Integer getJobNumberByZphKsrq(@Param("zwlx") String zwlx, @Param("month") Integer month, @Param("year") String  year);
 
     Integer getJobApplyNumber(@Param("bmlx") String bmlx,@Param("bmdx") String bmdx, @Param("year") String year);
 
