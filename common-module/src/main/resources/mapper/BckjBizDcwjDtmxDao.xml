@@ -53,7 +53,7 @@
 				AND a.dcwjtm_ref_owid=#{dcwjtmRefOwid}
 			</if>
 			<if test="wjda != null and wjda != ''">
-				AND a.wjda LIKE CONCAT('%',#{wjda},'%')
+				AND a.wjda LIKE CONCAT('%',#{wjda, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 	</select>

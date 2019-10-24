@@ -75,7 +75,7 @@
 		<include refid="bckjBizDcwjJoins"/>
 		<where>
 			<if test="wjmc != null">
-				AND a.wjmc LIKE concat('%',#{wjmc},'%')
+				AND a.wjmc LIKE concat('%',#{wjmc, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="wzbh != null and wzbh != ''">
 				AND a.wzbh=#{wzbh}

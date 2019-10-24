@@ -84,7 +84,7 @@
 				and a.dtrxm=#{dtrxm}
 			</if>
 			<if test="exp2 != null and exp2 !=''">
-				and a.exp2 LIKE concat('%',#{exp2},'%')
+				and a.exp2 LIKE concat('%',#{exp2, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="ksdt != null and ksdt !=''">
 				and a.ksdt <![CDATA[>=]]> #{ksdt}
