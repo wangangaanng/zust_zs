@@ -1,3 +1,4 @@
+<import src="../../templates/textarea/index.wxml" />
 <view class="t-item">
   <view class="t-js">
     <view class="t-tx">
@@ -20,6 +21,8 @@
 </view>
 
 
-  <modal hidden="{{modal1}}" title="请输入咨询内容" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
-      <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" auto-focus></textarea>
-  </modal>
+  <!-- <modal hidden="{{modal1}}" title="请输入咨询内容" confirm-text="提交" cancel-text="取消" bindcancel="cancel" bindconfirm="confirm">
+      <textarea class="wtnr" value="{{wtnr}}" bindinput="getWtnr" placeholder="请输入" ></textarea>
+  </modal> -->
+
+   <template is="zxmodal" data="{{modal1,wtnr}}" />

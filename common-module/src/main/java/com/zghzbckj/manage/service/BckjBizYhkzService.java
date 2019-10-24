@@ -132,10 +132,12 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
             }
 
 
-    public ResponseMessage getOneByYhRefOwid(String yhRefOwid) {
+
+
+    public BckjBizYhkz getOneByYhRefOwid(String yhRefOwid) {
         HashMap<String, Object> map = Maps.newHashMap();
         map.put("yhRefOwid",yhRefOwid);
-        return ResponseMessage.sendOK(this.dao.getOneByYhRefOwid(map));
+        return this.dao.getOneByYhRefOwid(map);
     }
 
     public List<String> getXsxhList() {
@@ -190,5 +192,18 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
      */
     public void updateSyscheme(BckjBizYhkz bckjBizYhkz){
         this.dao.updateSyscheme(bckjBizYhkz);
+    }
+
+    /**
+     * 根据yhowid更新
+     * @param bckjBizYhkz
+     */
+    public void updateSudentInfo(BckjBizYhkz bckjBizYhkz){
+        this.dao.updateSudentInfo(bckjBizYhkz);
+    }
+
+
+    public void deleteByYhRefOwid(String yhRefOwid) {
+        this.dao.deleteByYhRefOwid(yhRefOwid);
     }
 }

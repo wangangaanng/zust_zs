@@ -27,13 +27,13 @@ Page({
     if (!this.data.yhDlzh){
       wx.showToast({
         icon:'none',
-        title: '请输入用户名',
+        title: '请输入身份证或学号',
       })
       return false
     } else if (!this.data.yhDlmm) {
       wx.showToast({
         icon: 'none',
-        title: '请输入密码',
+        title: '请输入身份证后六位',
       })
       return false
     }

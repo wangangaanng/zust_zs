@@ -10,19 +10,19 @@ Page({
    */
   data: {
     imgPath: imgPath,
-    modal1: true,
+    modal1: false,
     wtnr: '',
   },
   cancel: function () {
     this.setData({
-      modal1: true,
+      modal1: false,
       wtnr: ''
     });
   },
   ask: function (e) {
     this.setData({
       tOwid: e.currentTarget.dataset.owid,
-      modal1: false
+      modal1: true
     });
   },
   getWtnr(e) {
@@ -56,7 +56,7 @@ Page({
             if (res.confirm) {
               console.log('用户点击确定')
               that.setData({
-                modal1: true,
+                modal1: false,
                 wtnr: ''
               })
             } else if (res.cancel) {

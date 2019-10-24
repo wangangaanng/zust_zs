@@ -42,6 +42,14 @@ Page({
   onReady: function () {
 
   },
+  logout:function(){
+    wx.removeStorageSync('userType')
+    wx.removeStorageSync('yhOwid')
+    wx.removeStorageSync('stuInfo')
+    wx.reLaunch({
+      url: '../index/index',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面显示

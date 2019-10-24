@@ -289,7 +289,7 @@
 			 a.zjxm=#{zjxm},
 		</if>
 		<if test="zjtx!= null and zjtx!=''">
-			a.zjtx=#{zjtxbckjBizZxzx/saveZxzxDetail},
+			a.zjtx=#{zjtx},
 		</if>
 		<if test="zjlxfs!=null and zjlxfs!=''">
 			 a.zjlxfs=#{zjlxfs},

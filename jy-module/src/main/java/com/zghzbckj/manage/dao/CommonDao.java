@@ -1,11 +1,8 @@
 package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.MyBatisDao;
-import com.zghzbckj.manage.entity.BckjBizJob;
-import com.zghzbckj.manage.entity.BckjBizJyscheme;
-import com.zghzbckj.manage.entity.BckjBizQyxx;
-import com.zghzbckj.manage.entity.BckjBizSyb;
 import org.apache.ibatis.annotations.Param;
+
 
 import java.util.List;
 import java.util.Map;

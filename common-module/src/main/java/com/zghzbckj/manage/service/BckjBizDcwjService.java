@@ -229,6 +229,12 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         if (TextUtils.isEmpty(dcwj.getOwid())) {
             dcwj.setSfyx(1);
         }
+        //调查问卷题目为空，设置状态为1 0为前端可见
+        if (TextUtils.isEmpty(tmList) || tmList.size() <= 0) {
+            dcwj.setState(1);
+        } else {
+            dcwj.setState(0);
+        }
         save(dcwj);
         String wjOwid = dcwj.getOwid();
         //保存调查问卷题目表

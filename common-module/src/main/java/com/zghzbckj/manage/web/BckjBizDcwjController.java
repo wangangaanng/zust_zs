@@ -71,6 +71,8 @@ public class BckjBizDcwjController extends BaseController {
             //设置分页属性
             Integer pageNo = Integer.parseInt(dataMap.get("pageNo").toString());
             Integer pageSize = Integer.parseInt(dataMap.get("pageSize").toString());
+            //只显示已发布的调查问卷
+            dataMap.put("state", "0");
             PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjService.listAllQuestionnaire(dataMap, pageNo, pageSize);
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
@@ -250,6 +252,33 @@ public class BckjBizDcwjController extends BaseController {
         }
         bckjBizDcwjService.saveAll(bckjBizDcwj, tmList);
         return ResponseMessage.sendOK("");
+    }
+
+    /**
+     *<p>功能描述:发布调查问卷 setState</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/23 19:15</li>
+     *</ul>
+     */
+    @PostMapping(value = "setState")
+    @ResponseBody
+    public ResponseMessage setState(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid", "state");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        BckjBizDcwj dcwj = bckjBizDcwjService.get(MapUtils.getString(dataMap, "owid"));
+        if (TextUtils.isEmpty(dcwj)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "无此调查问卷");
+        }
+        dcwj.setState(MapUtils.getInt(dataMap, "state"));
+        bckjBizDcwjService.saveOrUpdate(dcwj);
+        return ResponseMessage.sendOK(dcwj);
     }
 
     @RequestMapping(value = "/getList")
