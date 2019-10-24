@@ -43,6 +43,7 @@ public class BckjBizQyxx extends DataWithExpEntity<BckjBizQyxx> {
     private String qybq;        // qybq
     private String memo;        // memo
 
+    private Integer  hmdqzt;
     private String qyGsxzStr;
     private String qyHylbStr;
     private String qyGsgmStr;
@@ -291,4 +292,11 @@ public class BckjBizQyxx extends DataWithExpEntity<BckjBizQyxx> {
     }
 
 
+    public Integer getHmdqzt() {
+        return hmdqzt;
+    }
+
+    public void setHmdqzt(Integer hmdqzt) {
+        this.hmdqzt = hmdqzt;
+    }
 }

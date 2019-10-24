@@ -569,11 +569,13 @@
 	</update>
 
 
-    <update id="LowerJob" parameterType="Map">
+    <update id="lowerJob" parameterType="Map">
 		UPDATE bckj_biz_job SET
 		state = 6
 		where qyxx_ref_owid=#{qyxxRefOwid}
 	</update>
+
+
 
 
 </mapper>
