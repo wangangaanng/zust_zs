@@ -13,6 +13,7 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.service.BckjBizSybService;
+import com.zghzbckj.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -115,13 +116,14 @@ public class BckjBizSybController extends BaseController {
     @ResponseBody
     public ResponseMessage insertssInfo(PublicDataVO dataVO){
         try{
-            BckjBizSyb bckjBizSyb = JackSonJsonUtils.fromJson(dataVO.getData(), BckjBizSyb.class);
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            BckjBizSyb bckjBizSyb = new BckjBizSyb();
+            MapUtil.easySetByMap(dataMap,bckjBizSyb);
             String valid = doValid(bckjBizSyb);
             if(!TextUtils.isEmpty(valid)){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,valid);
             }
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            return ResponseMessage.sendOK(bckjBizSybService.insertssInfo(dataMap));
+            return bckjBizSybService.insertssInfo(dataMap);
         }
         catch (Exception e)
         {
