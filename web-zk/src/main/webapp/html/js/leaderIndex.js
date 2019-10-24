@@ -101,7 +101,7 @@ function topChart(isAll) {
                     if(k==0){
                         colorList = ['#43cfa9', '#43a9cf','#3e8be2','#2b63f0','#5144fd',"#aa4ef8",'#f84ebe','#ff635e','#ff8746','#ffb22d','#fed755','#92cf43','#2fa4f5',"#7089fa"];
                         var str1 = '<tr><td>企业数</td><td><span>'+data.bean.qys+'</span></td><td>行业数</td><td><span>'+data.bean.sjhy+'</span></td></tr>';
-                        str1 += '<tr><td>审核数</td><td><span>'+data.bean.shs+'</span></td><td>类型数</td><td><span>'+data.bean.sjlx+'</span></td></tr>';
+                        str1 += '<tr><td>通过数</td><td><span>'+data.bean.shs+'</span></td><td>类型数</td><td><span>'+data.bean.sjlx+'</span></td></tr>';
                         $("#qytj").html(str1);
                     }
                     if(k==1){
