@@ -48,8 +48,10 @@
     <typeAliases>
         <typeAlias alias="Page" type="com.zghzbckj.base.entity.Page" /><!--分页  -->
     </typeAliases>
-
-
+	<!--类型转换-->
+	<typeHandlers>
+		<typeHandler handler="com.zghzbckj.base.typehandle.EscapeVarcharHandle" jdbcType="VARCHAR" javaType="string"/>
+	</typeHandlers>
 	<!-- 插件配置 -->
 	<plugins>
 		<plugin interceptor="com.zghzbckj.base.interceptor.PaginationInterceptor" />

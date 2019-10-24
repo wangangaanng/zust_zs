@@ -95,6 +95,12 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             dataMap.put("bmdx", map.get("bmdx").toString());
         }
         PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, "a.state, a.createtime desc ");
+
+        List<BckjBizJybm> records = page.getRecords();
+        BckjBizJybm job = new BckjBizJybm();
+        job.setZwbt("共有：" + page.getTotalCount() + "条信息");
+        job.setReadOnly(true);
+        records.add(0, job);
         return ResponseMessage.sendOK(page);
     }
 
@@ -138,7 +144,14 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             dataMap.put("wait", map.get("wait").toString());
         }
         PageInfo<BckjBizJybm> page = findPageXjh(dataMap, pageNo, pageSize, " a.state,a.createtime desc ");
+
+        List<BckjBizJybm> records = page.getRecords();
+        BckjBizJybm job = new BckjBizJybm();
+        job.setQymc("共有：" + page.getTotalCount() + "条宣讲会信息");
+        job.setReadOnly(true);
+        records.add(0, job);
         return ResponseMessage.sendOK(page);
+
     }
 
     private PageInfo<BckjBizJybm> findPageXjh(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
