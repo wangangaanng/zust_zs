@@ -196,7 +196,7 @@
                 AND a.zwlx=#{zwlx}
             </if>
         </where>
-        ORDER BY zph_ksrq desc
+        ORDER BY zph_ksrq
     </select>
 
     <!--根据企业信息表的状态来获取待审核的企业 1待审核    -->
