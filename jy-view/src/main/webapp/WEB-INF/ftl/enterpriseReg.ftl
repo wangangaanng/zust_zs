@@ -268,14 +268,8 @@
                                             if(d.bean["社会信用代码"].words){
                                                 if(d.bean["社会信用代码"].words!="无"){
                                                     $("#qyTysh").val(d.bean["社会信用代码"].words)
-                                                }else{
-                                                    walert("识别失败")
                                                 }
-                                            }else{
-                                                walert("识别失败")
                                             }
-                                        }else{
-                                            walert("识别失败")
                                         }
                                         if(d.bean["单位名称"]){
                                             if(d.bean["单位名称"].words){
@@ -292,6 +286,7 @@
                                             }
                                         }
                                         if(d.bean.fileName){
+                                            walert("上传成功")
                                             $("#qyYyzzzp").val(d.bean.fileName)
                                         }
                                     }else if(type==2){
@@ -327,12 +322,13 @@
                                             }
                                         }
                                         if(d.bean.fileName){
+                                            walert("上传成功")
                                             $("#qyFrsfzzp").val(d.bean.fileName)
                                         }
                                     }
 
                                 }else{
-                                    walert("识别失败")
+                                    walert("上传失败")
                                 }
                             },
                             fail:function () {
