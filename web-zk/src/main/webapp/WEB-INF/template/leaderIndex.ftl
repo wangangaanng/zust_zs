@@ -31,7 +31,6 @@
         .col1 { color: #999;}
         .col2 { color: #000;}
         #indexBar{height: 320px;}
-        table td{text-align: right;}
     </style>
     <script type="text/javascript">
         <#include "comTem/comUtil.ftl" />
