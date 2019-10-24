@@ -99,6 +99,13 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         }
 
         PageInfo<BckjBizQyxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+
+        List<BckjBizQyxx> records = page.getRecords();
+        BckjBizQyxx qy = new BckjBizQyxx();
+        qy.setQymc("共有：" + page.getTotalCount() + "家企业");
+        qy.setReadOnly(true);
+        records.add(0, qy);
+
         return ResponseMessage.sendOK(page);
     }
 

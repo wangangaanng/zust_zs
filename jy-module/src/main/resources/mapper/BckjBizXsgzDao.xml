@@ -374,5 +374,21 @@
         where b.job_ref_owid = a.owid and a.owid=#{jobRefOwid}
     </select>
 
+    <select id="countNumber" parameterType="java.util.Map" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        from bckj_biz_xsgz a
+        <where>
+            <if test="jobRefOwid != null and jobRefOwid  != ''">
+                AND a.job_ref_owid = #{jobRefOwid}
+            </if>
+            <if test="gzlx != null and gzlx != ''">
+                AND a.gzlx = #{gzlx}
+            </if>
+            <if test="xxlb != null and xxlb != ''">
+                AND a.xxlb = #{xxlb}
+            </if>
+        </where>
+    </select>
 
 </mapper>

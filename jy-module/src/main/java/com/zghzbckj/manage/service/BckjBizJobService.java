@@ -128,7 +128,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         //-------------------------------->  改开始
         // 王显弘改  收集待举办和已举办的joblist
-        else if("7".equals(zwlx.toString())){
+        else if ("7".equals(zwlx.toString())) {
             dataMap.put("over", 1);
             dataMap.put("wait", 3);
             dataMap.put("zwlx", "3");
@@ -139,6 +139,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         } else {
             page = findPageWithDay(dataMap, pageNo, pageSize, " a.createtime desc ");
         }
+
+
+        List<BckjBizJob> records = page.getRecords();
+        BckjBizJob job = new BckjBizJob();
+        job.setZwbt("共有：" + page.getTotalCount() + "条信息");
+        job.setReadOnly(true);
+        job.setState(null);
+        records.add(0, job);
         return ResponseMessage.sendOK(page);
     }
 
@@ -210,9 +218,22 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("ddw", 1);
         }
         page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+
+        List<BckjBizJob> records = page.getRecords();
+        BckjBizJob job = new BckjBizJob();
+        job.setZwbt("共有：" + page.getTotalCount() + "条宣讲会");
+        job.setReadOnly(true);
+        job.setState(null);
+        job.setBmNumber(bmAllNumber);
+        job.setQdNumber(qdAllNumber);
+        job.setGzNumber(gzAllNumber);
+        records.add(0, job);
         return ResponseMessage.sendOK(page);
     }
 
+    Integer qdAllNumber = 0;
+    Integer bmAllNumber = 0;
+    Integer gzAllNumber = 0;
 
     public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy) {
         Page page = new Page(pageNo, pageSize);
@@ -222,12 +243,25 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         List<BckjBizJob> resultList = this.dao.findListByMap(paramsMap);
         if (!TextUtils.isEmpty(resultList) && resultList.size() > 0) {
+
             for (BckjBizJob job : resultList) {
                 Map params = Maps.newHashMap();
                 params.put("jobRefOwid", job.getOwid());
                 params.put("bmlx", JyContant.BMLX_XS);
                 Integer number = bmDao.countNumber(params);
                 job.setBmNumber(number);
+                bmAllNumber += number;
+                //关注
+                params.put("gzlx", 2);
+                params.put("xxlb", 0);
+                number = xsgzDao.countNumber(params);
+                job.setGzNumber(number);
+                gzAllNumber += number;
+                //签到
+                params.put("xxlb", 1);
+                number = xsgzDao.countNumber(params);
+                job.setQdNumber(number);
+                qdAllNumber += number;
             }
         }
 
@@ -239,6 +273,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         pageInfo.setPageSize((long) page.getPageSize());
         pageInfo.setTotalCount(page.getCount());
         pageInfo.setCurrentPage((long) page.getPageNo());
+
         return pageInfo;
     }
 
