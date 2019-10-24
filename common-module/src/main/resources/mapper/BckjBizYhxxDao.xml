@@ -286,9 +286,17 @@
     <select id="logIn" parameterType="Map" resultType="Map">
 		SELECT
 		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh",b.OLX as "olx" ,b.XSXM as "xsxm" ,b.XSXH as "xsxh",
-		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm",a.xm as xm
-		FROM bckj_biz_yhxx a ,bckj_biz_yhkz b
+		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm",a.sfz as sfz,a.xm as xm
+		FROM bckj_biz_yhxx a , bckj_biz_yhkz b
 		WHERE a.`OWID`=b.`YH_REF_OWID` AND a.`YH_DLZH`=#{yhDlzh};
+	</select>
+
+	<select id="logInBySfz" parameterType="Map" resultType="Map">
+		SELECT
+		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh",b.OLX as "olx" ,b.XSXM as "xsxm" ,b.XSXH as "xsxh",
+		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm",a.sfz as sfz,a.xm as xm
+		FROM bckj_biz_yhxx a , bckj_biz_yhkz b
+		WHERE a.`OWID`=b.`YH_REF_OWID` AND a.sfz=#{yhDlzh};
 	</select>
 
     <update id="modfiyPassword" parameterType="Map">

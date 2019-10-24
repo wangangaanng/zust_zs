@@ -506,7 +506,7 @@
 	</update>
 
 	<select id="getBynfBySfz" parameterType="Map" resultType="Map">
-		select bynf as bynf from bckj_biz_syb where sfz=#{value}
+		select bynf as bynf from bckj_biz_syb where sfz=#{sfz}
 	</select>
 
 	<select id="getOneByXsxh" parameterType="String" resultType="BckjBizSyb">
