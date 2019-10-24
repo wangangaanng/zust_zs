@@ -7,14 +7,14 @@
     <view class="search-body">
       <view>
         <van-field
-          placeholder="请输入用户名"
+          placeholder="请输入身份证或学号"
           left-icon="contact"
           bindinput="getyhDlzh"
           value="{{yhDlzh}}"
           border="{{ false }}"
         />
         <van-field
-          placeholder="请输入密码"
+          placeholder="请输入身份证后六位"
           type="password"
           bindinput="getyhDlmm"
           value="{{yhDlmm}}"

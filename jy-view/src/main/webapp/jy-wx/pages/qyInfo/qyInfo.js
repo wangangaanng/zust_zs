@@ -37,7 +37,7 @@ Page({
   },
   applyJob: function () {
     var that = this;
-    if (!wx.getStorageSync('userType') == 1) {//学生登录
+    if (wx.getStorageSync('userType')!= 1) {//学生登录
       wx.navigateTo({
         url: '../stuLogin/stuLogin',
       })
@@ -71,7 +71,7 @@ Page({
   },
   saveJob:function(){
     var that=this;
-    if (!wx.getStorageSync('userType')==1){//学生登录
+    if (wx.getStorageSync('userType')!=1){//学生登录
       wx.navigateTo({
         url: '../stuLogin/stuLogin',
       })
@@ -100,7 +100,7 @@ Page({
   },
   cancelJob:function(){
     var that = this;
-    if (!wx.getStorageSync('userType') == 1) {//学生登录
+    if (wx.getStorageSync('userType') != 1) {//学生登录
       wx.navigateTo({
         url: '../stuLogin/stuLogin',
       })
