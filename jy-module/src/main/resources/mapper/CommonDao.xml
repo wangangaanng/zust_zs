@@ -211,14 +211,23 @@
     <select id="getListCompanyNumber" resultType="java.util.Map">
         SELECT COUNT(*) AS value, a.state
         FROM bckj_biz_qyxx a
-        WHERE a.state=1 OR a.state=2 GROUP BY a.state
+        <where>a.state=1 OR a.state=2
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
+        </where>
+        GROUP BY a.state
     </select>
 
     <!--根据企业信息表的行业类别、类型来统计企业数量 默认为已审核与待审核企业    -->
     <select id="getCompanyNum" resultType="java.lang.Integer">
         select count(*)
-        from bckj_biz_qyxx
-        WHERE state=1 OR state=2
+        from bckj_biz_qyxx a
+        <where>a.state=1 OR a.state=2
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
+        </where>
         GROUP BY ${groupBy}
     </select>
 
@@ -230,6 +239,9 @@
             <if test="zwlx != null and zwlx != ''">
                 AND zwlx=#{zwlx}
             </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
         </where>
         <if test="groupBy != null and groupBy != ''">
             GROUP BY zw_gzzn
@@ -240,7 +252,17 @@
     <select id="getJobNumber" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM bckj_biz_job
-        WHERE state=2 AND zwlx=#{zwlx} AND MONTH (createtime)=#{month}
+        <where>state=2
+            <if test="zwlx != null and zwlx != ''">
+                AND zwlx=#{zwlx}
+            </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
+            <if test="month != null and month != ''">
+                AND month(createtime)=#{month}
+            </if>
+        </where>
     </select>
 
     <!--根据就业报名表报名类型、报名对象统计学生报名数量 state=1通过 bmlx=1学生 bmdx=2职位    -->
@@ -253,6 +275,9 @@
             </if>
             <if test="bmdx != null and bmdx != ''">
                 AND bmdx=#{bmdx}
+            </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
             </if>
         </where>
     </select>
@@ -268,6 +293,9 @@
             <if test="xxlb != null and xxlb != ''">
                 AND xxlb=#{xxlb}
             </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
         </where>
     </select>
 
@@ -275,14 +303,28 @@
     <select id="getMapWjbNumber" resultType="java.util.Map">
         SELECT COUNT(*) AS value
         FROM bckj_biz_job
-        WHERE state=2 AND zwlx=#{zwlx} AND zph_ksrq &gt;= CURRENT_DATE
+        <where>state=2 AND zph_ksrq &gt;= CURRENT_DATE
+            <if test="zwlx != null and zwlx !=''">
+                AND zwlx=#{zwlx}
+            </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
+        </where>
     </select>
 
     <!--根据招聘信息表招聘会或宣讲会的开始日期统计已举办的招聘会或宣讲会    -->
     <select id="getMapYjbNumber" resultType="java.util.Map">
         SELECT COUNT(*) AS value
         FROM bckj_biz_job
-        WHERE state=2 AND zwlx=#{zwlx} AND zph_ksrq &lt; CURRENT_DATE
+        <where> state=2 AND zph_ksrq &lt; CURRENT_DATE
+            <if test="zwlx != null and zwlx !=''">
+                AND zwlx=#{zwlx}
+            </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
+        </where>
     </select>
 
     <!--查询字典表值    -->
