@@ -31,6 +31,7 @@
         .col1 { color: #999;}
         .col2 { color: #000;}
         #indexBar{height: 320px;}
+        table td{text-align: right;}
     </style>
     <script type="text/javascript">
         <#include "comTem/comUtil.ftl" />
@@ -128,6 +129,7 @@
 <!--content end-->
 <script type="text/javascript" src="html/js/jquery-3.2.1.min.js" ></script>
 <script type="text/javascript" src="html/js/echarts.min.js" ></script>
+<script type="text/javascript" src="html/js/swiper.min.js"></script>
 <script type="text/javascript" src="html/js/common.js"></script>
 <script type="text/javascript" src="html/js/leaderIndex.js" ></script>
 </body>

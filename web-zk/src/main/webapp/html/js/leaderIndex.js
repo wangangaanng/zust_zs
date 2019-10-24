@@ -30,10 +30,12 @@ function getJob(zwlx) {
             var str='';
             if((data.bean)&&(data.bean.length>0)){
                 $.each(data.bean,function (k,p) {
-                    str += '<div class="article skt">';
-                    str += '<div class="bt col2">'+p.zwbt+'</div>';
-                    str += '<div class="fbsj col1">举办日期：'+(p.ksrq).substring(0,10)+'</div>';
-                    str += '</div>';
+                    if(k<6){
+                        str += '<div class="article skt">';
+                        str += '<div class="bt col2">'+p.zwbt+'</div>';
+                        str += '<div class="fbsj col1">举办日期：'+(p.ksrq).substring(0,10)+'</div>';
+                        str += '</div>';
+                    }
                 })
             }else{
                 str="<div class = 'null-tip'><img src = 'img/index_nulltip.png' style='margin-top: 0px'/><p style='margin-top: 10px'>查询结果暂为空</p></div>";
@@ -57,10 +59,12 @@ function getQy() {
             var str='';
             if((data.bean)&&(data.bean.length>0)){
                 $.each(data.bean,function (k,p) {
-                    str += '<div class="article skt">';
-                    str += '<div class="bt col2">'+p.qymc+'</div>';
-                    str += '<div class="fbsj col1">'+(p.createtime).substring(0,10)+'</div>';
-                    str += '</div>';
+                    if(k<6) {
+                        str += '<div class="article skt">';
+                        str += '<div class="bt col2">' + p.qymc + '</div>';
+                        str += '<div class="fbsj col1">' + (p.createtime).substring(0, 10) + '</div>';
+                        str += '</div>';
+                    }
                 })
             }else{
                 str='<p style="text-align: center;margin: 20px auto;">暂无数据</p>'
@@ -87,26 +91,26 @@ function topChart(isAll) {
                 if(data.backCode == 0) {
                     if(k==0){
                         colorList = ['#43cfa9', '#43a9cf','#3e8be2','#2b63f0','#5144fd',"#aa4ef8",'#f84ebe','#ff635e','#ff8746','#ffb22d','#fed755','#92cf43','#2fa4f5',"#7089fa"];
-                        var str1 = '<tr><td>企业数</td><td><span>'+data.bean.qys+'</span></td><td>涉及行业</td><td><span>'+data.bean.sjhy+'</span><label>个</label></td></tr>';
-                        str1 += '<tr><td>审核数</td><td><span>'+data.bean.shs+'</span></td><td>涉及类型</td><td><span>'+data.bean.sjlx+'</span><label>个</label></td></tr>';
+                        var str1 = '<tr><td>企业数</td><td><span>'+data.bean.qys+'</span></td><td>行业数</td><td><span>'+data.bean.sjhy+'</span></td></tr>';
+                        str1 += '<tr><td>审核数</td><td><span>'+data.bean.shs+'</span></td><td>类型数</td><td><span>'+data.bean.sjlx+'</span></td></tr>';
                         $("#qytj").html(str1);
                     }
                     if(k==1){
                         colorList = ["#009cff","#ffb22d",'#43cfa9','#aa4ef8','#ff635e'];
-                        var str2 = '<tr><td>职位数</td><td><span>'+data.bean.zws+'</span></td><td>涉及行业</td><td><span>'+data.bean.sjhy+'</span><label>个</label></td></tr>';
+                        var str2 = '<tr><td>职位数</td><td><span>'+data.bean.zws+'</span></td><td>行业数</td><td><span>'+data.bean.sjhy+'</span></td></tr>';
                         str2 += '<tr><td>关注数</td><td><span>'+data.bean.gzs+'</span></td><td>报名数</td><td><span>'+data.bean.bms+'</span></td></tr>';
                         $("#zwtj").html(str2);
                     }
                     if(k==2){
                         colorList = ["#92cf43","#f84ebe","#ff635e","#ff8746","#ffb22d"];
-                        var str3 = '<tr><td>招聘会</td><td><span>'+data.bean.total+'</span></td><td>未举办</td><td><span>'+data.bean.wjb+'</span><label>个</label></td></tr>';
-                        str3 += '<tr><td>企业报名数</td><td><span>'+data.bean.qys+'</span></td><td>学生报名数</td><td><span>'+data.bean.xss+'</span></td></tr>';
+                        var str3 = '<tr><td>场次数</td><td><span>'+data.bean.total+'</span></td><td>企业数</td><td><span>'+data.bean.qys+'</span></td></tr>';
+                        str3 += '<tr><td>待举办</td><td><span>'+data.bean.wjb+'</span></td><td>学生数</td><td><span>'+data.bean.xss+'</span></td></tr>';
                         $("#zphtj").html(str3);
                     }
                     if(k==3){
                         colorList = ["#009cff","#ffb22d","#f84ebe","#ff8746","#ffb22d"];
-                        var str4 = '<tr><td>宣讲会</td><td><span>'+data.bean.total+'</span></td><td>未举办</td><td><span>'+data.bean.wjb+'</span><label>个</label></td></tr>';
-                        str4 += '<tr><td>企业报名数</td><td><span>'+data.bean.qys+'</span></td><td>学生报名数</td><td><span>'+data.bean.xss+'</span></td></tr>';
+                        var str4 = '<tr><td>场次数</td><td><span>'+data.bean.total+'</span></td><td>企业数</td><td><span>'+data.bean.qys+'</span></td></tr>';
+                        str4 += '<tr><td>待举办</td><td><span>'+data.bean.wjb+'</span></td><td>学生数</td><td><span>'+data.bean.xss+'</span></td></tr>';
                         $("#xjhtj").html(str4);
                     }
                     if((data.bean.pieData)&&(data.bean.pieData.length>0)){
