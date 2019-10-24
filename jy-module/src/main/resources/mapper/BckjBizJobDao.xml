@@ -133,10 +133,10 @@
                 and a.zph_ksrq &lt;= #{endTime}
             </if>
             <if test="zwbt != null and zwbt != ''">
-                AND a.zwbt like CONCAT('%', #{zwbt},'%')
+                AND a.zwbt LIKE concat('%',#{zwbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="qymc != null and qymc != ''">
-                AND b.qymc like CONCAT('%', #{qymc},'%')
+                AND b.qymc LIKE concat('%',#{qymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="qyGsxz != null and qyGsxz != ''">
                 AND b.qy_gsxz =#{qyGsxz}
@@ -145,25 +145,25 @@
                 AND b.qy_gsgm =#{qyGsgm}
             </if>
             <if test="qyHylb != null and qyHylb != ''">
-                AND b.qy_hylb like CONCAT('%', #{qyHylb},'%')
+                AND b.qy_hylb LIKE concat('%',#{qyHylb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zwMxxy != null and zwMxxy != ''">
-                AND a.zw_mxxy like CONCAT('%', #{zwMxxy},'%')
+                AND a.zw_mxxy LIKE concat('%',#{zwMxxy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zwMxzy != null and zwMxzy != ''">
-                AND a.zw_mxzy like CONCAT('%', #{zwMxzy},'%')
+                AND a.zw_mxzy LIKE concat('%',#{zwMxzy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zphJbdd != null and zphJbdd != ''">
-                AND a.zph_jbdd like CONCAT('%', #{zphJbdd},'%')
+                AND a.zph_jbdd LIKE concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zwgjz != null and zwgjz != ''">
-                AND( a.zwgjz like CONCAT('%', #{zwgjz},'%') OR a.zwbt like CONCAT('%', #{zwgjz},'%') )
+                AND( a.zwgjz LIKE concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' OR a.zwbt LIKE concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
             </if>
             <if test="zwPro != null and zwPro != ''">
-                AND a.zw_pro like CONCAT('%', #{zwPro},'%')
+                AND a.zw_pro LIKE concat('%',#{zwProv,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zwCity != null and zwCity != ''">
-                AND a.zw_city like CONCAT('%', #{zwCity},'%')
+                AND a.zw_city LIKE concat('%',#{zwCity,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zphKsrq!= null and zphKsrq != ''">
                 AND a.zph_ksrq = #{zphKsrq}
@@ -214,19 +214,19 @@
                 AND a.zph_ksrq &lt; CURRENT_DATE
             </if>
             <if test=" zdytj1 != null and zdytj1 != '' ">
-                AND a.zdytj1 like CONCAT('%',#{zdytj1},'%')
+                AND a.zdytj1 LIKE concat('%',#{zdytj1,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" zdytj2 != null and zdytj2 != '' ">
-                AND a.zdytj2 like CONCAT('%',#{zdytj2},'%')
+                AND a.zdytj2 LIKE concat('%',#{zdytj2,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" zdytj3 != null and zdytj3 != '' ">
-                AND a.zdytj3 like CONCAT('%',#{zdytj3},'%')
+                AND a.zdytj3 LIKE concat('%',#{zdytj3,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" zdytj4 != null and zdytj4 != '' ">
-                AND a.zdytj4 like CONCAT('%',#{zdytj4},'%')
+                AND a.zdytj4 LIKE concat('%',#{zdytj4,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" zdytj5 != null and zdytj5 != '' ">
-                AND a.zdytj5 like CONCAT('%',#{zdytj5},'%')
+                AND a.zdytj5 LIKE concat('%',#{zdytj5,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="createtime1 != null and createtime1 !='' and createtime2 != null and createtime2 !='' ">
                 AND a.createtime &gt;= #{createtime1} AND a.createtime &lt;= #{createtime2}
@@ -253,7 +253,7 @@
         LEFT JOIN bckj_biz_qyxx b ON a.qyxx_ref_owid = b.owid
         <where>
             <if test="zwbt != null and zwbt != ''">
-                AND a.zwbt like CONCAT('%', #{zwbt},'%')
+                AND a.zwbt LIKE concat('%',#{zwbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zwlx != null and zwlx != ''">
                 AND a.zwlx = #{zwlx}
