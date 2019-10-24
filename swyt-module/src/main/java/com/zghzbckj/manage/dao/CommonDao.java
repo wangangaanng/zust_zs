@@ -36,4 +36,10 @@ public interface CommonDao {
 
     List<Map<String, Object>> getConfig();
 
+
+    int updateFileByjbxx(Map param);
+
+    int deleteFilesByjbxx(Map param);
+
+    List<Map> findFileByJbxx(String owid);
 }

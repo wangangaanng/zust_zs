@@ -5,18 +5,16 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.dao.BckjBizCjxxDao;
+import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizCjxx;
 import com.zghzbckj.manage.entity.BckjBizJbxx;
-import com.zghzbckj.manage.entity.BckjBizJtcyxx;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,6 +37,8 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
 
     @Autowired
     BckjBizJbxxService bckjBizJbxxService;
+    @Autowired
+    CommonDao commonDao;
     @Override
     public BckjBizCjxx get(String owid) {
         return super.get(owid);
@@ -146,15 +146,71 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
             jbxx.setHkState(1);
             bckjBizJbxxService.saveOrUpdate(jbxx);
         }
-//        mapData.put("",);
-        this.dao.deleteByMap(mapData);
-        List<Map<String,Object>> dataList= (List) mapData.get("dataList");
-        for(Map<String,Object> mapOne:dataList){
-            BckjBizJtcyxx jtcyxx=JsonUtil.map2Bean(mapOne,BckjBizJtcyxx.class);
-            jtcyxx.setXssx(jtcyxx.getCylb());
-            jtcyxx.setYhRefOwid(jbxx.getYhRefOwid());
-            saveOrUpdate(null);
-        }
+        mapData.put("lx","0");
+        mapData.put("lx2",2);
+        this.dao.deleteByHkZh(mapData);
+        saveList(mapData,"zhList",0);
+        saveList(mapData,"hkList",2);
         return Boolean.TRUE;
+    }
+
+    /**
+     *
+     * @param dataMap
+     * @param listName  列表参数名
+     * @param lx 类型
+     */
+    private void saveList(Map<String, Object> dataMap, String listName, int lx) {
+        List<Map<String,Object> >dataList= (List<Map<String, Object>>) dataMap.get(listName);
+        for(Map<String,Object> mapOne:dataList){
+            BckjBizCjxx jtcyxx=JsonUtil.map2Bean(mapOne,BckjBizCjxx.class);
+            jtcyxx.setYhRefOwid(MapUtils.getString(dataMap,"yhRefOwid"));
+            jtcyxx.setLx(lx);
+            saveOrUpdate(jtcyxx);
+        }
+    }
+
+
+    /**
+    *<p>方法:finishXk TODO完善选考成绩 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return boolean  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/24 14:52  </li>
+    *</ul>
+    */
+    public boolean finishXk(Map<String, Object> mapData) throws CustomerException{
+        BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
+        if(null==jbxx){
+            throw CustomerException.newInstances("用户基本信息不存在");
+        }
+        if(jbxx.getJtcyState()!=1) {
+            jbxx.setXkState(1);
+        }
+        BckjBizJbxx param=JsonUtil.map2Bean(mapData,BckjBizJbxx.class);
+        BeanUtil.copyPropertiesIgnoreNull(param,jbxx);
+        bckjBizJbxxService.saveOrUpdate(jbxx);
+        saveList(mapData,"xkList",1);
+        mapData.put("jbxxOwid",jbxx.getOwid());
+        this.commonDao.deleteFilesByjbxx(mapData);
+        this.commonDao.updateFileByjbxx(mapData);
+        return Boolean.TRUE;
+    }
+
+    public Object getXkcj(Map<String, Object> mapData) throws CustomerException{
+        BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
+        if(null==jbxx){
+            throw CustomerException.newInstances("用户基本信息不存在");
+        }
+        Map<String,Object> result= JackSonJsonUtils.objectToMap(jbxx);
+        Map<String,Object>  paramsCjxx=Maps.newHashMap();
+        paramsCjxx.put("yhRefOwid",jbxx.getOwid());
+        paramsCjxx.put("lx",1);
+        paramsCjxx.put("orderBy","a.xssx");
+        result.put("xkList",this.dao.findListByMap(paramsCjxx));
+        List<Map> fileList=commonDao.findFileByJbxx(jbxx.getOwid());
+        result.put("jsfj",fileList);
+        return result;
     }
 }

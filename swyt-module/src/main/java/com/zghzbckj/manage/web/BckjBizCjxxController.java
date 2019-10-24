@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -104,21 +101,21 @@ public class BckjBizCjxxController extends BaseController {
     }
 
     /**
-    *<p>方法:finishHk TODO完善会考科目 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 13:39  </li>
-    *</ul>
-    */
+     * <p>方法:finishHk TODO完善会考科目 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 13:39  </li>
+     * </ul>
+     */
     @RequestMapping(value = "finishHk", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage finishHk(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "yhRefOwid","hkList");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "yhRefOwid", "hkList");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -131,5 +128,91 @@ public class BckjBizCjxxController extends BaseController {
         }
     }
 
+
+    /***
+     *<p>方法:getHkcj TODO获取会考成绩 </p>
+     *<ul>
+     *<li> @param dataVO TODO</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     *<li>@author D.chen.g </li>
+     *<li>@date 2019/10/24 14:38  </li>
+     *</ul>
+     */
+    @RequestMapping(value = "getHkcj", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getHkcj(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "yhRefOwid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            mapData.put("lx", MapUtils.getString(mapData, "lx"));
+            return ResponseMessage.sendOK(bckjBizCjxxService.findListByParams(mapData, "a.xssx"));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取营业日志失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+    /**
+     * <p>方法:finishXk TODO完善选考信息 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 14:48  </li>
+     * </ul>
+     */
+    @RequestMapping(value = "finishXk", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage finishXk(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xkList", "yhRefOwid", "wyyz", "wycj", "zxlb", "tcah");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizCjxxService.finishXk(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("完善选考成绩失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    /**
+    *<p>方法:getXkcj TODO获取选考成绩 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/24 15:52  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "getXkcj", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getXkcj(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "yhRefOwid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizCjxxService.getXkcj(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取选考成绩失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 
 }
