@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 public class BckjBizJtcyxx extends DataWithExpEntity<BckjBizJtcyxx> {
 	
 	private static final long serialVersionUID = 1L;
+	private String yhRefOwid;
 	private Integer cylb;		// cylb
 	private String xm;		// xm
 	private Integer xb;		// xb
@@ -108,5 +109,12 @@ public class BckjBizJtcyxx extends DataWithExpEntity<BckjBizJtcyxx> {
 		this.xssx = xssx;
 	}
 
-	
+
+	public String getYhRefOwid() {
+		return yhRefOwid;
+	}
+
+	public void setYhRefOwid(String yhRefOwid) {
+		this.yhRefOwid = yhRefOwid;
+	}
 }

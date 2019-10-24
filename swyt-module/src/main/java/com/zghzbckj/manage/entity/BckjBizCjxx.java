@@ -6,8 +6,6 @@ package com.zghzbckj.manage.entity;
 import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.Date;
-
 /**
  * ccEntity
  * @author cc
@@ -16,35 +14,13 @@ import java.util.Date;
 public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 	
 	private static final long serialVersionUID = 1L;
+	private String yhRefOwid;
 	private Integer lx;		// 0会考；1选考；2；综合测评
 	private String kmbh;		// kmbh
 	private String kmsj;		// kmsj
 	private String kmdj;		// kmdj
 	private Double kmcj;		// kmcj
 	private Integer xssx;		// xssx
-	private String exp1;		// exp1
-	private String exp2;		// exp2
-	private String exp3;		// exp3
-	private String exp4;		// exp4
-	private String exp5;		// exp5
-	private String exp6;		// exp6
-	private String exp7;		// exp7
-	private String exp8;		// exp8
-	private String exp9;		// exp9
-	private String exp10;		// exp10
-	private String creator;		// creator
-	private Date createtime;		// createtime
-	private String creatorName;		// creator_name
-	private Date lastupdate;		// lastupdate
-	private String updator;		// updator
-	private String updatorName;		// updator_name
-	private String ver;		// ver
-	private Date vertime;		// vertime
-	private String deptId;		// dept_id
-	private String deptPath;		// dept_path
-	private String delflg;		// delflg
-	private String state;		// state
-	
 	public BckjBizCjxx() {
 		super();
 	}

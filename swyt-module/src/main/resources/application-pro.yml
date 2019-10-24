@@ -16,7 +16,7 @@ spring:
     datasource:
         type: com.alibaba.druid.pool.DruidDataSource                                #  配置当前要使用的数据源的操作类型
         driver-class-name: com.mysql.jdbc.Driver                                    #  配置mysql的驱动程序类
-        url: jdbc:mysql://127.0.0.1:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
+        url: jdbc:mysql://172.16.13.107:3306/zust_website?useUnicode=true&characterEncoding=utf8 #  数据库连接地址
         username: root                                                              #  数据库用户名
         password: root11                                                            #  数据库密码
         druid:
