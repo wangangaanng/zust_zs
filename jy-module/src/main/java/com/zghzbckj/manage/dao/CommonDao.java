@@ -1,8 +1,8 @@
 package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.MyBatisDao;
+import org.apache.ibatis.annotations.Param;
 
-import feign.Param;
 
 import java.util.List;
 import java.util.Map;

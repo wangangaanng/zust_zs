@@ -341,10 +341,16 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 if (JyContant.BMLX_QY == bmlx) {
                     Map params = new HashMap<String, Object>();
                     params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+                    params.put("state", 1);
                     if (!TextUtils.isEmpty(mapData.get("qyxxRefOwid"))) {
+                        BckjBizQyxx qyxx = qyxxDao.get(mapData.get("qyxxRefOwid").toString());
+                        if (3 == qyxx.getState()) {
+                            resultMap.put("result", "false");
+                            resultMap.put("msg", JyContant.HMD_ERROR_MESSAGE);
+                            return resultMap;
+                        }
                         params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
                     }
-
                     List<BckjBizJybm> existBm = findListByParams(params, "");
                     if (!TextUtils.isEmpty(existBm) && existBm.size() > 0) {
                         resultMap.put("result", "false");
