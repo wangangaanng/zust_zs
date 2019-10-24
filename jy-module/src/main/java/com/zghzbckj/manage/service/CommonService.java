@@ -231,7 +231,13 @@ public class CommonService {
     private List<Integer> listMonth(String zwlx, String year) {
         List<Integer> result = new ArrayList<>(12);
         for (int i = 1; i <= 12; i++) {
-            result.add(commonDao.getJobNumber(zwlx, i, year));
+            if ("0".equals(zwlx)) {
+                //职位根据创建时间
+                result.add(commonDao.getJobNumberByCreatetime(zwlx, i, year));
+            } else {
+                //招聘会、宣讲会根据开始日期
+                result.add(commonDao.getJobNumberByZphKsrq(zwlx, i, year));
+            }
         }
         return result;
     }

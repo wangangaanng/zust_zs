@@ -183,7 +183,8 @@ Page({
       list[parseInt(e.target.dataset.type) - 1].show = false
       list[parseInt(e.target.dataset.type) - 1].val = e.detail.value
       this.setData({
-        list: list
+        list: list,
+        hidden1: false
       })
     }
 
@@ -195,7 +196,8 @@ Page({
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = false
       this.setData({
-        list: list
+        list: list,
+        hidden1: false
       })
     }
   },
@@ -219,7 +221,8 @@ Page({
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = true
       this.setData({
-        list: list
+        list: list,
+        hidden1: true
       })
     }
     
@@ -231,7 +234,8 @@ Page({
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].show = false
       this.setData({
-        list: list
+        list: list,
+        hidden1: false
       })
     }
   },

@@ -249,7 +249,7 @@
     </select>
 
     <!--根据招聘信息表职位类型、招聘会开始日期统计职位数量、宣讲会数量、招聘会数量    -->
-    <select id="getJobNumber" resultType="java.lang.Integer">
+    <select id="getJobNumberByCreatetime" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM bckj_biz_job
         <where>state=2
@@ -261,6 +261,23 @@
             </if>
             <if test="month != null and month != ''">
                 AND month(createtime)=#{month}
+            </if>
+        </where>
+    </select>
+
+    <!--根据招聘信息表职位类型、招聘会开始日期统计职位数量、宣讲会数量、招聘会数量    -->
+    <select id="getJobNumberByZphKsrq" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bckj_biz_job
+        <where>state=2
+            <if test="zwlx != null and zwlx != ''">
+                AND zwlx=#{zwlx}
+            </if>
+            <if test="year != null and year != ''">
+                AND YEAR(createtime)=#{year}
+            </if>
+            <if test="month != null and month != ''">
+                AND month(zph_ksrq)=#{month}
             </if>
         </where>
     </select>

@@ -58,6 +58,7 @@
 <input type="text" class="hiddenInput" name="zwSxsj" value="{{form.zwSxsj}}"></input>
 
 <button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+<view style="height:40rpx;"></view>
 </form>
 <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="7" bind:close="hideBottom">
   <van-area

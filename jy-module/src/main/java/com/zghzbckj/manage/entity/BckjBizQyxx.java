@@ -46,7 +46,15 @@ public class BckjBizQyxx extends DataWithExpEntity<BckjBizQyxx> {
     private String qyGsxzStr;
     private String qyHylbStr;
     private String qyGsgmStr;
+    private  boolean readOnly;
 
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
 
     public String getQyGsxzStr() {
         return qyGsxzStr;
