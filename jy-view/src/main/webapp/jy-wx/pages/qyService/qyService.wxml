@@ -2,3 +2,4 @@
 <van-grid square column-num="3">
   <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
 </van-grid>
+<view style="width:90%;margin:40rpx auto 0;"><van-button type="primary" size="large" color="#008783" bindtap="logout">退出登录</van-button></view>
