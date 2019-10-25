@@ -31,7 +31,7 @@ public class ZsController {
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
     }
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public ModelAndView ZSindex(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
