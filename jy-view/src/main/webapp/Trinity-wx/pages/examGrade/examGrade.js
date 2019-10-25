@@ -62,5 +62,17 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  //上一步基本信息
+  preStep: function () {
+    wx.navigateTo({
+      url: '../basicInfo/basicInfo',
+    })
+  },
+  //下一步选考信息
+  nextStep: function () {
+    wx.navigateTo({
+      url: '../selectExamInfo/selectExamInfo',
+    })
   }
 })

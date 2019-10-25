@@ -91,5 +91,15 @@ Page({
     this.setData({
       result: event.detail
     });
+  },
+  preStep:function(){
+    wx.navigateTo({
+      url: '../examGrade/examGrade',
+    })
+  },
+  finish:function(){
+    wx.navigateTo({
+      url: '../Process/Process',
+    })
   }
 })

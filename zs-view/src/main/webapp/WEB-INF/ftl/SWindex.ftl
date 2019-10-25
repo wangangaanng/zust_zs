@@ -7,10 +7,10 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
-    <link rel="stylesheet" href="${base}/css/style.css"/>
+    <link rel="stylesheet" href="${base}/css/swyt.css"/>
 </head>
 <body>
-<#include "com/header.ftl">
+<#include "com/SWheader.ftl">
 <div class="main">
     <div class="container">
         <div class="swiper-container">

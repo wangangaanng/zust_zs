@@ -6,6 +6,6 @@
   </view>
   <!-- 按钮 -->
   <view class="main-btn_wrap">
-    <van-button round type="primary" class="main-button" size="large">去完善</van-button>
+    <van-button round type="primary" class="main-button" size="large" bindtap="perfectInfo" >去完善</van-button>
   </view>
 </view>
