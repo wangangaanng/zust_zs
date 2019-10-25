@@ -52,7 +52,7 @@ $(document).ready(function () {
             xz:"required",
             xsxy:"required",
             xszy:"required",
-            szbj:"required",
+            xsbj:"required",
             pyfs:"required",
             wpdw:"required",
             knslb:"required",
@@ -67,6 +67,7 @@ $(document).ready(function () {
                 isMobile: true
             },
             yx:{
+                required: true,
                 email: true
             },
         },
@@ -89,7 +90,7 @@ $(document).ready(function () {
             xz:"请选择",
             xsxy:"请填写",
             xszy:"请填写",
-            szbj:"请填写",
+            xsbj:"请填写",
             pyfs:"请选择",
             wpdw:"请填写",
             knslb:"请选择",
@@ -104,6 +105,7 @@ $(document).ready(function () {
                 email: "手机号有误"
             },
             yx: {
+                required: "请填写",
                 email: "邮箱有误"
             },
         },
@@ -175,7 +177,7 @@ function saveSyxx() {
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustcommon/bckjBizSyb/saveSybInfo", jsonObj, function (data) {
+        ajax("zustcommon/bckjBizSyb/insertssInfo", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {

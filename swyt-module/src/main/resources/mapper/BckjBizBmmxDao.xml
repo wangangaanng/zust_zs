@@ -192,5 +192,10 @@
 		DELETE FROM bckj_biz_bmmx
 		WHERE owid = #{owid}
 	</delete>
+
+	<delete id="deleteByMap">
+		DELETE FROM bckj_biz_bmmx
+		WHERE bm_ref_owid = #{bmRefOwid}
+	</delete>
 	
 </mapper>

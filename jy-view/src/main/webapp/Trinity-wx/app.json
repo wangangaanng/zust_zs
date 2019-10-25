@@ -4,6 +4,7 @@
   },
   "pages": [
     "pages/login/login",
+    "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
     "pages/Process/Process",
     "pages/messageCenter/messageCenter",

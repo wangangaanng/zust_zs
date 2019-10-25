@@ -5,23 +5,23 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizBmDao;
-import com.zghzbckj.manage.entity.BckjBizBkzy;
-import com.zghzbckj.manage.entity.BckjBizBm;
+import com.zghzbckj.manage.entity.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -39,6 +39,13 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     @Autowired
     BckjBizBkzyService bckjBizBkzyService;
+    @Autowired
+    BckjBizBmmxService bckjBizBmmxService;
+    @Autowired
+    BckjBizCjxxService bckjBizCjxxService;
+
+    @Autowired
+    BckjBizJbxxService bckjBizJbxxService;
 
     @Override
     public BckjBizBm get(String owid) {
@@ -129,23 +136,142 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     }
 
     /**
-    *<p>方法:submit TODO提交专业报名 </p>
+     * <p>方法:submit TODO提交专业报名 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 10:11  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public String submit(Map<String, Object> mapData) throws Exception {
+        String bmnd=DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
+        mapData.put("bmnd",bmnd );
+        BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
+        BckjBizBm bm = this.dao.getOneByMap(mapData);
+        if (null == bm) {
+            bm = bmParam;
+            bm.setSqsj(new Date());
+            bm.setState(0);
+            bm.setBmnd(bmnd);
+            bm.setXybnr(SwytConstant.BMXZQZ);
+        } else {
+            BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
+        }
+        BckjBizBkzy zy = bckjBizBkzyService.get(Long.valueOf(MapUtils.getInt(mapData, "zyOwid")));
+        bm.setBkzyRefOwid(zy.getOwid());
+        bm.setXzzylj(zy.getPath());
+        bm.setXzzymc(zy.getName());
+        Map param = Maps.newHashMap();
+        param.put("yhRefOwid", bm.getUserRefOwid());
+        BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(param);
+        BeanUtil.copyBean(jbxx, bm, "xm", "sfzh", "xb", "tcah", "qq", "yx", "mz", "wyyz",
+                "wycj", "lxdh", "jtzz", "zxlb", "jssm", "qtqk");
+        applyCjxx(bm.getOwid(), param);
+        saveOrUpdate(bm);
+        return bm.getOwid();
+    }
+
+    /**
+     * @param bmOwid
+     * @param param  带有参数为yhRefOwid
+     */
+    private void applyCjxx(String bmOwid, Map param) {
+        List<BckjBizCjxx> cjxx = bckjBizCjxxService.findListByParams(param, CommonConstants.EMPTY_STR);
+        param.put("bmRefOwid", bmOwid);
+        bckjBizBmmxService.deleteByMap(param);
+        for (BckjBizCjxx one : cjxx) {
+            BckjBizBmmx bmmx = new BckjBizBmmx();
+            bmmx.setBmRefOwid(bmOwid);
+            bmmx.setLx(one.getLx());
+            bmmx.setMxsx(one.getXssx());
+            bmmx.setMxnr(String.valueOf(one.getKmcj()));
+            bmmx.setMxmc(one.getKmmc());
+            bckjBizBmmxService.saveOrUpdate(bmmx);
+        }
+    }
+
+    /**
+     * <p>方法:confirmApply TODO失败 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 13:51  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public boolean confirmApply(Map<String, Object> mapData) throws Exception {
+        BckjBizBm bm = getBmxx(mapData);
+        //报名表确认
+        bm.setState(1);
+        bm.setXybnr(SwytConstant.BMXZ);
+        return Boolean.TRUE;
+    }
+
+
+    /**
+     * <p>方法:getResult TODO查报名表所有信息 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return com.zghzbckj.manage.entity.BckjBizBm  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 15:45  </li>
+     * </ul>
+     */
+    public BckjBizBm getResult(Map<String, Object> mapData) throws CustomerException {
+        BckjBizBm bm = getBmxx(mapData);
+        return bm;
+    }
+
+    /**
+     * 查申请表
+     * @param mapData applyOwid
+     * @return
+     * @throws CustomerException
+     */
+    private BckjBizBm getBmxx(Map<String, Object> mapData) throws CustomerException {
+        BckjBizBm bm = this.dao.getOneByMap(mapData);
+        if (null == bm) {
+            throw CustomerException.newInstances("无报名信息");
+        }
+        return bm;
+    }
+
+    /**
+     * <p>方法:promise TODO承诺书和报名表提交</p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 15:48  </li>
+     * </ul>
+     */
+    @Transactional(readOnly = false)
+    public boolean promise(Map<String, Object> mapData) throws CustomerException {
+        BckjBizBm bm = getBmxx(mapData);
+        bm.setCnszp(MapUtils.getString(mapData, "cnszp"));
+        bm.setBmbZp(MapUtils.getString(mapData, "bmbZp"));
+        bm.setState(3);
+        bm.setXybnr(SwytConstant.BMDSH);
+        saveOrUpdate(bm);
+        return Boolean.TRUE;
+    }
+    /**
+    *<p>方法:submitJft TODO缴费凭证提交 </p>
     *<ul>
      *<li> @param mapData TODO</li>
-    *<li>@return boolean  </li>
+    *<li>@return java.lang.Object  </li>
     *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 10:11  </li>
+    *<li>@date 2019/10/25 16:17  </li>
     *</ul>
     */
-    public boolean submit(Map<String, Object> mapData) throws CustomerException {
-        BckjBizBm bmParam=JsonUtil.map2Bean(mapData,BckjBizBm.class);
-        BckjBizBm bm=this.dao.getOneByMap(mapData);
-        if(null==bm){
-            bm=bmParam;
-        }else{
-            BeanUtil.copyPropertiesIgnoreNull(bmParam,bm);
-        }
-        BckjBizBkzy zy=bckjBizBkzyService.get(Long.valueOf(MapUtils.getInt(mapData,"zyOwid")));
+    @Transactional(readOnly = false)
+    public Object submitJft(Map<String, Object> mapData) {
+        BckjBizBm bm = getBmxx(mapData);
+        bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
+        saveOrUpdate(bm);
         return Boolean.TRUE;
     }
 }

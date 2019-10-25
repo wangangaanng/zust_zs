@@ -76,7 +76,7 @@
             </div>
 
             <div class="content-list" style="height: auto;">
-                <#if (stuInfo.owid)??>
+                <#if stuInfo??>
                 <form class="form-horizontal" style="padding-top: 20px;" id="registerForm" method="" action="" target="rfFrame">
                     <div class="form-group">
                         <label for="xm" class="col-sm-2 control-label">姓名<span class="red">*</span>：</label>
@@ -247,9 +247,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="szbj" class="col-sm-2 control-label">所在班级<span class="red">*</span>：</label>
+                        <label for="xsbj" class="col-sm-2 control-label">所在班级<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="szbj" name="szbj" value="${(stuInfo.szbj)!''}" placeholder="" autocomplete="off">
+                            <input type="text" class="form-control" id="xsbj" name="xsbj" value="${(stuInfo.xsbj)!''}" placeholder="" autocomplete="off">
                         </div>
                         <label for="pyfs" class="col-sm-2 control-label">培养方式<span class="red">*</span>：</label>
                         <div class="col-sm-3">
@@ -312,7 +312,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="jtyb" class="col-sm-2 control-label">家庭邮编<span class="red">*</span>：</label>
+                        <label for="jtyb" class="col-sm-2 control-label">邮政编码<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="jtyb" name="jtyb" value="${(stuInfo.jtyb)!''}" placeholder="" autocomplete="off">
                         </div>
@@ -333,7 +333,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="yx" class="col-sm-2 control-label">电子邮箱：</label>
+                        <label for="yx" class="col-sm-2 control-label">电子邮箱<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <input type="text" class="form-control" id="yx" name="yx" value="${(stuInfo.yx)!''}" placeholder="" autocomplete="off">
                         </div>

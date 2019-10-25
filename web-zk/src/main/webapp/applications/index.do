@@ -88,7 +88,7 @@
                 <tabpanels id="resourceTabpanels" sclass="z-tabpanels-index"></tabpanels>
             </tabbox>
         </hlayout>
-        <div sclass="indexFooter">
+        <div sclass="indexFooter" >
             <label style="font-color:#000000;font-size:12px;text-align:center;width:100%;"
                    value="Copyright © 2019 浙江科技学院. All Rights Reserved  "></label>
         </div>

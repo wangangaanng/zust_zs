@@ -58,7 +58,9 @@
 		FROM bckj_biz_bkzy a
 		<include refid="bckjBizBkzyJoins"/>
 		<where>
-			
+			<if test="xxbh != null and xxbh != ''">
+				AND a.xxbh = #{xxbh}
+			</if>
 			<if test="fid != null and fid != ''">
 				AND a.fid = #{fid}
 			</if>
@@ -66,10 +68,7 @@
 				AND a.type = #{type}
 			</if>
 			<if test="name != null and name != ''">
-				AND a.name LIKE 
-					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+				AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>
@@ -94,10 +93,7 @@
 				AND a.type = #{type}
 			</if>
 			<if test="name != null and name != ''">
-				AND a.name LIKE
-					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+				AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>

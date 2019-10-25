@@ -3,11 +3,11 @@
  */
 package com.zghzbckj.manage.entity;
 
-import org.hibernate.validator.constraints.Length;
-import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import org.hibernate.validator.constraints.Length;
+
+import java.util.Date;
 
 /**
  * ccEntity
@@ -27,8 +27,11 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	private String sfzh;		// sfzh
 	private String yx;		// yx
 	private String qq;		// qq
+	private String jtzz;		// qq
+	private String lxdh;		// qq
+
 	private String tcah;		// tcah
-	private Integer xklb;		// 0普通类    1艺术类；
+	private String xklb;		// 0普通类    1艺术类；
 	private String wyyz;		// wyyz
 	private Double wycj;		// wycj
 	private String zxlb;		// zxlb
@@ -166,11 +169,11 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.tcah = tcah;
 	}
 	
-	public Integer getXklb() {
+	public String getXklb() {
 		return xklb;
 	}
 
-	public void setXklb(Integer xklb) {
+	public void setXklb(String xklb) {
 		this.xklb = xklb;
 	}
 	
@@ -468,5 +471,20 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.zzcj = zzcj;
 	}
 
-	
+
+	public String getLxdh() {
+		return lxdh;
+	}
+
+	public void setLxdh(String lxdh) {
+		this.lxdh = lxdh;
+	}
+
+	public String getJtzz() {
+		return jtzz;
+	}
+
+	public void setJtzz(String jtzz) {
+		this.jtzz = jtzz;
+	}
 }

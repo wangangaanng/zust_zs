@@ -76,5 +76,17 @@ Page({
    wx.reLaunch({
      url: '../shouye/shouye',
    })
-  }
+  },
+  //注册
+  register: function (e) {
+    wx.navigateTo({
+      url: '../register/register',
+    })
+  },
+  //忘记密码
+  forgetPsw: function (e) {
+    wx.navigateTo({
+      url: '../forgetPsw/forgetPsw',
+    })
+  },
 })

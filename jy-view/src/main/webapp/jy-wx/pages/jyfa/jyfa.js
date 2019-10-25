@@ -114,7 +114,7 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    common.ajax('zustcommon/bckjBizJyscheme/insertssInfo', params, function (res) {
+    common.ajax('zustjy/bckjBizJyscheme/insertssInfo', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
@@ -143,65 +143,19 @@ Page({
       xm: {
         required: true,
       },
-      xb: {
-        required: true
-      },
-      mz: {
-        required: true
-      },
-      sfz: {
-        required: true
-      },
       xxmc: {
         required: true,
       },
-      xsxy: {
-        required: true
-      },
-      xszy: {
-        required: true
-      },
-      xsbj: {
-        required: true
-      },
-      bynf: {
-        required: true
-      },
-      byxl: {
-        required: true
-      },
-      xz: {
-        required: true
-      },
-      sfdlxy: {
-        required: true
-      },
-      sfzz: {
-        required: true
-      },
-      sfsf: {
-        required: true,
-      },
-      syddm: {
-        required: true
-      },
-      syd: {
-        required: true
-      },
-      sjh: {
-        required: true,
-        tel: true,
-      },
-      yx: {
-        email: true,
-      },
       byqx: {
-        required: true,
-      },
-      jyqdbz: {
         required: true
       },
-      bdzqflbmc: {
+      bdzqwszdmc: {
+        required: true
+      },
+      bdkssj: {
+        required: true
+      },
+      bdjssj: {
         required: true
       }
     }
@@ -211,66 +165,20 @@ Page({
       xm: {
         required: '请填写姓名'
       },
-      xb: {
-        required: '请选择性别'
-      },
-      mz: {
-        required: '请选择民族'
-      },
-      sfz: {
-        required: '请填写身份证号'
-      },
       xxmc: {
         required: '请填写学校名称',
-      },
-      xsxy: {
-        required: '请填写学生院系'
-      },
-      xszy: {
-        required: '请填写学生专业'
-      },
-      xsbj: {
-        required: '请填写班级'
-      },
-      bynf: {
-        required: '请选择毕业年份'
-      },
-      byxl: {
-        required: '请填写毕业学历'
-      },
-      xz: {
-        required: '请选择学制'
-      },
-      sfdlxy: {
-        required: '请选择是否独立学院'
-      },
-      sfzz: {
-        required: '请选择是否在职'
-      },
-      sfsf: {
-        required: '请选择是否师范',
-      },
-      syddm: {
-        required: '请填写生源地代码'
-      },
-      syd: {
-        required: '请填写生源地'
-      },
-      sjh: {
-        required: '请填写手机号码',
-        tel: '请填写正确手机号码',
-      },
-      yx: {
-        email: '请填写正确邮箱',
       },
       byqx: {
         required: '请选择毕业去向',
       },
-      jyqdbz: {
-        required: '请填写就业标志'
+      bdzqwszdmc: {
+        required: '请选择报到证签往单位所在地'
       },
-      bdzqflbmc: {
-        required: '请选择报到证签发类别名称'
+      bdkssj: {
+        required: '请选择报到开始时间'
+      },
+      bdjssj: {
+        required: '请选择报到结束时间'
       }
       
     }
@@ -377,7 +285,7 @@ Page({
       const { dicVal1, dicVal2 } = e.detail.value;
       this.setData({
         yrdwxzStr: dicVal2,
-        'form.yrdwxz': dicVal1
+        'form.yrdwxzmc': dicVal1
       })
       this.toggle('yrdwxz', false);
     } else if (e.target.dataset.type == 20) {
@@ -398,7 +306,7 @@ Page({
       const { dicVal1, dicVal2 } = e.detail.value;
       this.setData({
         dwlbmcStr: dicVal2,
-        'form.dwlbmc': dicVal1
+        'form.dwhylbmc': dicVal1
       })
       this.toggle('dwlbmc', false);
     } else if (e.target.dataset.type == 23) {
@@ -419,7 +327,7 @@ Page({
       const { dicVal1, dicVal2 } = e.detail.value;
       this.setData({
         bdzszdmcStr: dicVal2,
-        'form.bdzszdmc': dicVal1
+        'form.bdzqwdwmc': dicVal1
       })
       this.toggle('bdzszdmc', false);
     } else if(e.target.dataset.type == 26) {
@@ -646,107 +554,109 @@ Page({
 
 var getOne = function (that) {
   var data = { "owid": wx.getStorageSync('yhOwid') };
-  common.ajax('zustcommon/bckjBizJyscheme/getStudentOne', data, function (res) {
+  common.ajax('zustcommon/bckjBizJyscheme/getOneJyschemeQt', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
         that.setData({
           form: data.bean,
           owid: data.bean.owid,
-          bynfStr: data.bean.bynf,
-          xzStr: data.bean.xz,
           // sydStr: data.bean.syd,
           // dwszdmcStr: data.bean.dwszdmc,
-          // bdzszdmcStr: data.bean.bdzszdmc,
+          bdzszdmcStr: data.bean.bdzqwdwmc || '请选择',
         })
-      }
+        if (data.bean.xb) {
+          that.setData({
+            xbStr: util.getVal(data.bean.xb, that.data.xbColumns),
+          })
+        }
+        if (data.bean.sfdlxy == 2) {
+          that.setData({
+            sfdlxyStr: '否'
+          })
+        } else if (data.bean.sfdlxy == 1) {
+          that.setData({
+            sfdlxyStr: '是'
+          })
+        }
 
+        if (data.bean.sfzz == 2) {
+          that.setData({
+            sfzzStr: '否'
+          })
+        } else if (data.bean.sfzz == 1) {
+          that.setData({
+            sfzzStr: '是'
+          })
+        }
 
-      if (data.bean.xb) {
-        that.setData({
-          xbStr: util.getVal(data.bean.xb, that.data.xbColumns),
-        })
-      }
-      if (data.bean.sfdlxy == 2) {
-        that.setData({
-          sfdlxyStr: '否'
-        })
-      } else if (data.bean.sfdlxy == 1) {
-        that.setData({
-          sfdlxyStr: '是'
-        })
-      }
+        if (data.bean.sfsf == 2) {
+          that.setData({
+            sfsfStr: '否'
+          })
+        } else if (data.bean.sfsf == 1) {
+          that.setData({
+            sfsfStr: '是'
+          })
+        }
 
-      if (data.bean.sfzz == 2) {
-        that.setData({
-          sfzzStr: '否'
-        })
-      } else if (data.bean.sfzz == 1) {
-        that.setData({
-          sfzzStr: '是'
-        })
-      }
+        if (data.bean.sfzydk == 2) {
+          that.setData({
+            sfzydkStr: '否'
+          })
+        } else if (data.bean.sfzydk == 1) {
+          that.setData({
+            sfzydkStr: '是'
+          })
+        }
 
-      if (data.bean.sfsf == 2) {
-        that.setData({
-          sfsfStr: '否'
-        })
-      } else if (data.bean.sfsf == 1) {
-        that.setData({
-          sfsfStr: '是'
-        })
-      }
+        if (data.bean.sfdydwbdz == 2) {
+          that.setData({
+            sfdydwbdzStr: '否'
+          })
+        } else if (data.bean.sfdydwbdz == 1) {
+          that.setData({
+            sfdydwbdzStr: '是'
+          })
+        }
 
-      if (data.bean.sfzydk == 2) {
-        that.setData({
-          sfzydkStr: '否'
-        })
-      } else if (data.bean.sfzydk == 1) {
-        that.setData({
-          sfzydkStr: '是'
-        })
-      }
-
-      if (data.bean.sfdydwbdz == 2) {
-        that.setData({
-          sfdydwbdzStr: '否'
-        })
-      } else if (data.bean.sfdydwbdz == 1) {
-        that.setData({
-          sfdydwbdzStr: '是'
-        })
-      }
-
-      if (data.bean.mz) {
-        getByType1(that, data.bean.mz)//民族
-      } else {
-        getByType1(that)//民族
-      }
-      if (data.bean.byqx) {
-        getByType2(that, data.bean.byqx)//毕业去向
-      } else {
+        if (data.bean.byqx) {
+          getByType2(that, data.bean.byqx)//毕业去向
+        } else {
+          getByType2(that)//毕业去向
+        }
+        if (data.bean.yrdwxzmc) {
+          getByType3(that, data.bean.yrdwxzmc)
+        } else {
+          getByType3(that)
+        }
+        if (data.bean.gzzwlbmc) {
+          getByType4(that, data.bean.gzzwlbmc)
+        } else {
+          getByType4(that)
+        }
+        if (data.bean.dwhylbmc) {
+          getByType5(that, data.bean.dwhylbmc)
+        } else {
+          getByType5(that)
+        }
+        if (data.bean.bdzqflbmc) {
+          getByType6(that, data.bean.bdzqflbmc)
+        } else {
+          getByType6(that)
+        }
+      }else{
         getByType2(that)//毕业去向
-      }
-      if (data.bean.yrdwxz) {
-        getByType3(that, data.bean.yrdwxz)
-      } else {
         getByType3(that)
-      }
-      if (data.bean.gzzwlbmc) {
-        getByType4(that, data.bean.gzzwlbmc)
-      } else {
         getByType4(that)
-      }
-      if (data.bean.dwlbmc) {
-        getByType5(that, data.bean.dwlbmc)
-      } else {
         getByType5(that)
-      }
-      if (data.bean.bdzqflbmc) {
-        getByType6(that, data.bean.bdzqflbmc)
-      } else {
         getByType6(that)
       }
+
+
+      
+
+      
     } else {
       wx.showToast({
         title: res.data.errorMess,

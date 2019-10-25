@@ -105,21 +105,21 @@ public class BckjBizBmController extends BaseController {
 
 
     /**
-    *<p>方法:submit TODO报考专业提交 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 10:08  </li>
-    *</ul>
-    */
+     * <p>方法:submit TODO报考专业提交 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 10:08  </li>
+     * </ul>
+     */
     @RequestMapping(value = "submit", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage submit(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xklb","bklb","zyOwid","yhRefOwid","xxbh");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xklb", "bklb", "zyOwid", "yhRefOwid", "xxbh");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -132,5 +132,116 @@ public class BckjBizBmController extends BaseController {
         }
     }
 
+
+    /**
+     * 确认申请表
+     *
+     * @param dataVO
+     * @return
+     */
+    @RequestMapping(value = "confirmApply", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage confirmApply(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizBmService.confirmApply(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info(" 确认申请表失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    /***
+     *<p>方法:promise TODO 承诺书提交</p>
+     *<ul>
+     *<li> @param dataVO TODO</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     *<li>@author D.chen.g </li>
+     *<li>@date 2019/10/25 15:38  </li>
+     *</ul>
+     */
+    @RequestMapping(value = "promise", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage promise(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizBmService.promise(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("承诺书提交失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+    /***
+     *<p>方法:getResult TODO获取报名信息 </p>
+     *<ul>
+     *<li> @param dataVO TODO</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     *<li>@author D.chen.g </li>
+     *<li>@date 2019/10/25 16:13  </li>
+     *</ul>
+     */
+    @RequestMapping(value = "getResult", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getResult(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizBmService.getResult(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取报名失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    /**
+     * <p>方法:submitJft TODO提交缴费截图 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 16:15  </li>
+     * </ul>
+     */
+    @RequestMapping(value = "/submitJft", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage submitJft(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid", "jfpzZp");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizBmService.submitJft(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("提交缴费截图失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 
 }

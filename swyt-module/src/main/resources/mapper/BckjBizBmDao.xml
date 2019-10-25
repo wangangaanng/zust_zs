@@ -9,6 +9,8 @@
 		a.user_ref_owid AS "userRefOwid",
 		a.xm AS "xm",
 		a.xb AS "xb",
+			a.lxdh AS "lxdh",
+		a.jtzz AS "jtzz",
 		a.bmnd AS "bmnd",
 		a.mz AS "mz",
 		a.sfzh AS "sfzh",
@@ -82,11 +84,17 @@
 		FROM bckj_biz_bm a
 		<include refid="bckjBizBmJoins"/>
 		<where>
+			<if test="applyOwid !=null and applyOwid!='' ">
+				 a.owid=#{applyOwid}
+			</if>
 			<if test="userRefOwid !=null and userRefOwid!='' ">
-				a.user_ref_owid=#{userRefOwid}
+				AND a.user_ref_owid=#{userRefOwid}
 			</if>
 			<if test="xxbh !=null and xxbh!='' ">
 				 AND a.xxbh=#{xxbh}
+			</if>
+			<if test="bmnd !=null and bmnd!='' ">
+				AND a.bmnd=#{bmnd}
 			</if>
 		</where>
 	</select>
@@ -167,6 +175,8 @@
 			user_ref_owid,
 			xm,
 			xb,
+			lxdh,
+			jtzz,
 			bmnd,
 			mz,
 			sfzh,
@@ -236,6 +246,8 @@
 			#{userRefOwid},
 			#{xm},
 			#{xb},
+			#{lxdh},
+			#{jtzz},
 			#{bmnd},
 			#{mz},
 			#{sfzh},
@@ -309,6 +321,8 @@
 			user_ref_owid = #{userRefOwid},
 			xm = #{xm},
 			xb = #{xb},
+			lxdh = #{lxdh},
+			jtzz = #{jtzz},
 			bmnd = #{bmnd},
 			mz = #{mz},
 			sfzh = #{sfzh},

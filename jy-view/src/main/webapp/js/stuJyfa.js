@@ -2,7 +2,7 @@
 $(document).ready(function () {
     $('#syd').chosen();
     $('#dwszdmc').chosen();
-    $('#bdzszdmc').chosen();
+    $('#bdzqwszdmc').chosen();
 
     laydate.render({
         elem: '#bdkssj',
@@ -34,61 +34,19 @@ $(document).ready(function () {
     $("#registerForm").validate({
         rules: {
             xm:"required",
-            sfz:"required",
-            xb:"required",
-            mz:"required",
             xxmc:"required",
-            xsxy:"required",
-            xszy:"required",
-            xsbj:"required",
-            bynf:"required",
-            byxl:"required",
-            xz:"required",
-            sfsf:"required",
-            sfzz:"required",
-            sfdlxy:"required",
-            sfsf:"required",
-            syddm:"required",
-            syd:"required",
-            jyqdbz:"required",
-            sjh:{
-                required: true,
-                isMobile: true
-            },
-            yx:{
-                email: true
-            },
             byqx:"required",
-            bdzqflbmc:"required",
+            bdzqwszdmc:"required",
+            bdkssj:"required",
+            bdjssj:"required"
         },
         messages: {
             xm:"请填写",
-            sfz:"请填写",
-            xb:"请选择",
-            mz:"请选择",
             xxmc:"请填写",
-            xsxy:"请填写",
-            xszy:"请填写",
-            xsbj:"请填写",
-            bynf:"请填写",
-            byxl:"请填写",
-            xz:"请选择",
-            sfdlxy:"请选择",
-            sfsf:"请选择",
-            sfzz:"请选择",
-            sfsf:"请选择",
-            syddm:"请填写",
-            syd:"请选择",
-            jyqdbz:"请填写",
-            sjh:  {
-                required: "请填写",
-                email: "手机号有误"
-            },
-            yx: {
-                email: "邮箱有误"
-            },
             byqx:"请选择",
-            bdzqflbmc:"请选择",
+            bdzqwszdmc:"请选择",
+            bdkssj:"请选择",
+            bdjssj:"请选择"
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {
@@ -109,33 +67,24 @@ $(document).ready(function () {
         }
     });
 
-    $("#xb").val($("#xb").attr("data-val"))
-    $("#mz").val($("#mz").attr("data-val"))
-    $("#xz").val($("#xz").attr("data-val"))
-    $("#sfsf").val($("#sfsf").attr("data-val"))
-    $("#sfzz").val($("#sfzz").attr("data-val"))
-    $("#sfdlxy").val($("#sfdlxy").attr("data-val"))
-
-    $("#syd1").val($("#syd1").attr("data-val"))
-    $("#syd").val($("#syd").attr("data-val"))
-    $("#syd").parent().find('.chosen-container  a.chosen-single span').html($("#syd1 option:selected").html())
+    $("#byqx").val($("#byqx").attr("data-val"))
+    $("#sfzydk").val($("#sfzydk").attr("data-val"))
+    $("#yrdwxzmc").val($("#yrdwxzmc").attr("data-val"))
+    $("#dwhylbmc").val($("#dwhylbmc").attr("data-val"))
 
     $("#dwszdmc1").val($("#dwszdmc1").attr("data-val"))
     $("#dwszdmc").val($("#dwszdmc").attr("data-val"))
     $("#dwszdmc").parent().find('.chosen-container  a.chosen-single span').html($("#dwszdmc1 option:selected").html())
 
-    $("#bdzszdmc1").val($("#bdzszdmc1").attr("data-val"))
-    $("#bdzszdmc").val($("#bdzszdmc").attr("data-val"))
-    $("#bdzszdmc").parent().find('.chosen-container  a.chosen-single span').html($("#bdzszdmc1 option:selected").html())
-
-    $("#byqx").val($("#byqx").attr("data-val"))
-    $("#bdzqflbmc").val($("#bdzqflbmc").attr("data-val"))
-    $("#yrdwxz").val($("#yrdwxz").attr("data-val"))
     $("#gzzwlbmc").val($("#gzzwlbmc").attr("data-val"))
-    $("#dwlbmc").val($("#dwlbmc").attr("data-val"))
-    $("#sfzydk").val($("#sfzydk").attr("data-val"))
     $("#bdzqflbmc").val($("#bdzqflbmc").attr("data-val"))
+
+    $("#bdzqwszdmc1").val($("#bdzqwszdmc1").attr("data-val"))
+    $("#bdzqwszdmc").val($("#bdzqwszdmc").attr("data-val"))
+    $("#bdzqwszdmc").parent().find('.chosen-container  a.chosen-single span').html($("#bdzqwszdmc1 option:selected").html())
+
     $("#sfdydwbdz").val($("#sfdydwbdz").attr("data-val"))
+
     // getJyBaseInfo()
 })
 
@@ -169,7 +118,7 @@ function saveJyFaInfo() {
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustcommon/bckjBizJyscheme/insertssInfo", jsonObj, function (data) {
+        ajax("zustjy/bckjBizJyscheme/insertssInfo", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {

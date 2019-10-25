@@ -4,7 +4,7 @@
 <van-cell-group>
   <van-field input-align="right" value="{{form.xm}}" name="xm" label="姓名" placeholder="输入内容" required />
   <van-field value="{{form.xsxh}}" name="xsxh" input-align="right" disabled required label="学号" placeholder="输入内容" />
-  <van-field input-align="right" type="idcard" value="{{form.sfz}}" name="sfz" label="身份证号" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" type="idcard" value="{{form.sfz}}" name="sfz" label="身份证号" placeholder="输入内容" required />
   <van-cell required title="性别" value="{{xbStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
   <van-popup show="{{ show.xb }}" position="bottom" custom-style="height: 540rpx" data-type="2" bind:close="hideBottom">
     <van-picker show-toolbar title="性别" value-key="dicVal2" columns="{{xbColumns}}" data-type="2" bind:confirm="onConfirm" bind:cancel="onCancel" />
@@ -12,9 +12,9 @@
   <van-cell required title="民族" value="{{mzStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
   <van-popup show="{{ show.mz }}" position="bottom" custom-style="height: 540rpx" data-type="3" bind:close="hideBottom">
     <van-picker show-toolbar title="民族" value-key="dicVal2" columns="{{mzColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
+  </van-popup> -->
   <van-field input-align="right" value="{{form.xxmc}}" name="xxmc" label="学校名称" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.xsxy}}" name="xsxy" label="学生院系" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" value="{{form.xsxy}}" name="xsxy" label="学生院系" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.xszy}}" name="xszy" label="学生专业" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.xsbj}}" name="xsbj" label="班级" placeholder="输入内容" required />
   <van-cell required title="毕业年份" value="{{bynfStr}}" is-link arrow-direction="down" data-type="7" bind:click="showBottom" />
@@ -59,59 +59,56 @@
       <view>123</view>
       <view>123</view>
     </scroll-view>
-  </view>
+  </view> -->
   <!-- <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
   <van-popup show="{{ show.syd }}" position="bottom" custom-style="height: 540rpx" data-type="55" bind:close="hideBottom">
     <van-picker show-toolbar title="生源地" value-key="dicVal2" columns="{{sydColumns}}" data-type="55" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup> -->
-  <van-field input-align="right" value="{{form.sjh}}" name="sjh" label="手机号码" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" value="{{form.sjh}}" name="sjh" label="手机号码" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.jtdh}}" name="jtdh" label="固定电话" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.qqhm}}" name="qqhm" label="qq号码" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.yx}}" name="yx" label="电子邮箱" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.yx}}" name="yx" label="电子邮箱" placeholder="输入内容" /> -->
 <view class="form-title">毕业去向信息</view>
   <van-cell required title="毕业去向" value="{{byqxStr}}" is-link arrow-direction="down" data-type="18" bind:click="showBottom" />
   <van-popup show="{{ show.byqx }}" position="bottom" custom-style="height: 540rpx" data-type="18" bind:close="hideBottom">
     <van-picker show-toolbar title="毕业去向" value-key="dicVal2" columns="{{byqxColumns}}" data-type="18" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-field input-align="right" value="{{form.jyqdbz}}" name="jyqdbz" label="就业标志" placeholder="输入内容" required />
+  <van-cell title="专业是否对口" value="{{sfzydkStr}}" is-link arrow-direction="down" data-type="23" bind:click="showBottom" />
+  <van-popup show="{{ show.sfzydk }}" position="bottom" custom-style="height: 540rpx" data-type="23" bind:close="hideBottom">
+    <van-picker show-toolbar title="专业是否对口" value-key="dicVal2" columns="{{sfzydkColumns}}" data-type="23" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-field input-align="right" value="{{form.yrdwdm}}" name="yrdwdm" label="用人单位代码" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.yrdwmc}}" name="yrdwmc" label="用人单位名称" placeholder="输入内容" />
   <van-cell title="用人单位性质名称" value="{{yrdwxzStr}}" is-link arrow-direction="down" data-type="19" bind:click="showBottom" />
   <van-popup show="{{ show.yrdwxz }}" position="bottom" custom-style="height: 540rpx" data-type="19" bind:close="hideBottom">
     <van-picker show-toolbar title="用人单位性质名称" value-key="dicVal2" columns="{{yrdwxzColumns}}" data-type="19" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="单位行业类别名称" value="{{dwlbmcStr}}" is-link arrow-direction="down" data-type="22" bind:click="showBottom" />
+  <van-popup show="{{ show.dwlbmc }}" position="bottom" custom-style="height: 540rpx" data-type="22" bind:close="hideBottom">
+    <van-picker show-toolbar title="单位行业类别名称" value-key="dicVal2" columns="{{dwlbmcColumns}}" data-type="22" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="单位所在地名称" value="{{dwszdmcStr}}" is-link arrow-direction="down" data-type="21" bind:click="showBottom" />
+  <van-popup show="{{ show.dwszdmc }}" position="bottom" custom-style="height: 540rpx" data-type="21" bind:close="hideBottom">
+    <van-picker show-toolbar title="单位所在地名称" value-key="dicVal2" columns="{{dwszdmcColumns}}" data-type="21" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-cell title="工作职位类别名称" value="{{gzzwlbmcStr}}" is-link arrow-direction="down" data-type="20" bind:click="showBottom" />
   <van-popup show="{{ show.gzzwlbmc }}" position="bottom" custom-style="height: 540rpx" data-type="20" bind:close="hideBottom">
     <van-picker show-toolbar title="用人单位性质名称" value-key="dicVal2" columns="{{gzzwlbmcColumns}}" data-type="20" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-field input-align="right" value="{{form.yrdwdm}}" name="yrdwdm" label="用人单位代码" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.yrdwmc}}" name="yrdwmc" label="用人单位名称" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.zgdwdm}}" name="zgdwdm" label="主管单位代码" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.zgdwmc}}" name="zgdwmc" label="主管单位名称" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.yrdwlsmc}}" name="yrdwlsmc" label="用人单位隶属部门" placeholder="输入内容" />
-  <van-cell title="单位所在地名称" value="{{dwszdmcStr}}" is-link arrow-direction="down" data-type="21" bind:click="showBottom" />
-  <van-popup show="{{ show.dwszdmc }}" position="bottom" custom-style="height: 540rpx" data-type="21" bind:close="hideBottom">
-    <van-picker show-toolbar title="单位所在地名称" value-key="dicVal2" columns="{{dwszdmcColumns}}" data-type="21" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
-  <van-field input-align="right" value="{{form.dwszddm}}" name="dwszddm" label="单位所在地代码" placeholder="输入内容" />
-  <van-cell title="单位行业类别名称" value="{{dwlbmcStr}}" is-link arrow-direction="down" data-type="22" bind:click="showBottom" />
-  <van-popup show="{{ show.dwlbmc }}" position="bottom" custom-style="height: 540rpx" data-type="22" bind:close="hideBottom">
-    <van-picker show-toolbar title="单位行业类别名称" value-key="dicVal2" columns="{{dwlbmcColumns}}" data-type="22" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
   <van-field input-align="right" value="{{form.dwlxr}}" name="dwlxr" label="单位联系人" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.dwdh}}" name="dwdh" label="单位联系电话" placeholder="输入内容" />
-  <van-cell title="专业是否对口" value="{{sfzydkStr}}" is-link arrow-direction="down" data-type="23" bind:click="showBottom" />
-  <van-popup show="{{ show.sfzydk }}" position="bottom" custom-style="height: 540rpx" data-type="23" bind:close="hideBottom">
-    <van-picker show-toolbar title="专业是否对口" value-key="dicVal2" columns="{{sfzydkColumns}}" data-type="23" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
+  
 <view class="form-title">报到证信息</view>
-  <van-cell required title="报到证签发类别名称" value="{{bdzqflbmcStr}}" is-link arrow-direction="down" data-type="24" bind:click="showBottom" />
+ <van-cell title="报到证签发类别名称" value="{{bdzqflbmcStr}}" is-link arrow-direction="down" data-type="24" bind:click="showBottom" />
   <van-popup show="{{ show.bdzqflbmc }}" position="bottom" custom-style="height: 540rpx" data-type="24" bind:close="hideBottom">
     <van-picker show-toolbar title="报到证签发类别名称" value-key="dicVal2" columns="{{bdzqflbmcColumns}}" data-type="24" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-cell title="报到证签往单位所在地名称" value="{{bdzszdmcStr}}" is-link arrow-direction="down" data-type="25" bind:click="showBottom" />
+  <van-field value="{{form.bdzqwdwmc}}" name="bdzqwdwmc" label="报到证签往单位名称" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  <van-cell required title="报到证签往单位所在地" value="{{bdzszdmcStr}}" is-link arrow-direction="down" data-type="25" bind:click="showBottom" />
   <van-popup show="{{ show.bdzszdmc }}" position="bottom" custom-style="height: 540rpx" data-type="25" bind:close="hideBottom">
-    <van-picker show-toolbar title="报到证签往单位所在地名称" value-key="dicVal2" columns="{{bdzszdmcColumns}}" data-type="25" bind:confirm="onConfirm" bind:cancel="onCancel" />
+    <van-picker show-toolbar title="报到证签往单位所在地" value-key="dicVal2" columns="{{bdzszdmcColumns}}" data-type="25" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-cell title="报到开始时间" value="{{bdkssjStr}}" is-link arrow-direction="down" data-type="26" bind:click="showBottom" />
+  <van-cell required title="报到开始时间" value="{{bdkssjStr}}" is-link arrow-direction="down" data-type="26" bind:click="showBottom" />
   <van-popup show="{{ show.bdkssj }}" position="bottom" custom-style="height: 540rpx" data-type="26" bind:close="hideBottom">
   <van-datetime-picker
     data-type="26"
@@ -122,7 +119,7 @@
     bind:cancel="onCancel"
   />
   </van-popup>
-  <van-cell title="报到结束时间" value="{{bdjssjStr}}" is-link arrow-direction="down" data-type="27" bind:click="showBottom" />
+  <van-cell required title="报到结束时间" value="{{bdjssjStr}}" is-link arrow-direction="down" data-type="27" bind:click="showBottom" />
   <van-popup show="{{ show.bdjssj }}" position="bottom" custom-style="height: 540rpx" data-type="27" bind:close="hideBottom">
   <van-datetime-picker
     data-type="27"
@@ -133,8 +130,7 @@
     bind:cancel="onCancel"
   />
   </van-popup>
-  <van-field input-align="right" value="{{form.bdzbh}}" name="bdzbh" label="报到证编号" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.bdzlsh}}" name="bdzlsh" label="报到证流水号" placeholder="输入内容" />
+
   <van-field value="{{form.bdzbz}}" name="bdzbz" label="报到证备注" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   <van-cell title="是否打印单位到报到证备注" value="{{sfdydwbdzStr}}" is-link arrow-direction="down" data-type="28" bind:click="showBottom" />
   <van-popup show="{{ show.sfdydwbdz }}" position="bottom" custom-style="height: 540rpx" data-type="28" bind:close="hideBottom">
@@ -143,6 +139,7 @@
 <view class="form-title">档案信息</view>
   <van-field value="{{form.datdxxdz}}" name="datdxxdz" label="档案投递详细地址" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   <van-field input-align="right" value="{{form.datddw}}" name="datddw" label="档案投递单位" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.datddh}}" name="datddh" label="档案投递电话" placeholder="输入内容" />
   <van-field value="{{form.hkqydz}}" name="hkqydz" label="户口迁移地址" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   <van-field input-align="right" value="{{form.xjcqk}}" name="xjcqk" label="下基层情况" placeholder="输入内容" />
   <van-field value="{{form.bzone}}" name="bzone" label="备注一" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
@@ -150,21 +147,16 @@
   <van-field value="{{form.bzthree}}" name="bzthree" label="备注三" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
 
 </van-cell-group>
-<input type="text" class="hiddenInput" name="xb" value="{{form.xb}}"></input>
-<input type="text" class="hiddenInput" name="bynf" value="{{form.bynf}}"></input>
-<input type="text" class="hiddenInput" name="mz" value="{{form.mz}}"></input>
-<input type="text" class="hiddenInput" name="xz" value="{{form.xz}}"></input>
-<input type="text" class="hiddenInput" name="sfdlxy" value="{{form.sfdlxy}}"></input>
-<input type="text" class="hiddenInput" name="sfzz" value="{{form.sfzz}}"></input>
-<input type="text" class="hiddenInput" name="sfsf" value="{{form.sfsf}}"></input>
+
 <input type="text" class="hiddenInput" name="byqx" value="{{form.byqx}}"></input>
-<input type="text" class="hiddenInput" name="yrdwxz" value="{{form.yrdwxz}}"></input>
-<input type="text" class="hiddenInput" name="gzzwlbmc" value="{{form.gzzwlbmc}}"></input>
-<input type="text" class="hiddenInput" name="dwszdmc" value="{{form.dwszdmc}}"></input>
-<input type="text" class="hiddenInput" name="dwlbmc" value="{{form.dwlbmc}}"></input>
 <input type="text" class="hiddenInput" name="sfzydk" value="{{form.sfzydk}}"></input>
+<input type="text" class="hiddenInput" name="yrdwxzmc" value="{{form.yrdwxzmc}}"></input>
+<input type="text" class="hiddenInput" name="dwhylbmc" value="{{form.dwhylbmc}}"></input>
+<input type="text" class="hiddenInput" name="dwszdmc" value="{{form.dwszdmc}}"></input>
+
+<input type="text" class="hiddenInput" name="gzzwlbmc" value="{{form.gzzwlbmc}}"></input>
 <input type="text" class="hiddenInput" name="bdzqflbmc" value="{{form.bdzqflbmc}}"></input>
-<input type="text" class="hiddenInput" name="bdzszdmc" value="{{form.bdzszdmc}}"></input>
+<input type="text" class="hiddenInput" name="bdzqwszdmc" value="{{form.bdzqwszdmc}}"></input>
 <input type="text" class="hiddenInput" name="bdkssj" value="{{form.bdkssj}}"></input>
 <input type="text" class="hiddenInput" name="bdjssj" value="{{form.bdjssj}}"></input>
 <input type="text" class="hiddenInput" name="sfdydwbdz" value="{{form.sfdydwbdz}}"></input>
