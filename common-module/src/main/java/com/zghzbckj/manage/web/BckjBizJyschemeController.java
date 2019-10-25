@@ -207,6 +207,29 @@ public class BckjBizJyschemeController extends BaseController {
     }
 
 
+    /**
+     * 前台进入就业方案读取出一条信息
+     * @param
+     * @return
+     */
+    @PostMapping("getOneJyschemeQt")
+    @ResponseBody
+    public  ResponseMessage getOneJyschemeQt(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJyschemeService.getOneJyschemeQt(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
    /* *//**
      * 查询档案信息
      * @param  dataVO

@@ -529,4 +529,11 @@
 			WHERE sfz=#{sfz}
 	</update>
 
+
+	<select id="getOneQt" parameterType="String" resultType="BckjBizSyb">
+		SELECT <include refid="bckjBizSybColumns"></include>
+		from bckj_biz_syb a
+		where a.yh_ref_owid=#{owid}
+	</select>
+
 </mapper>

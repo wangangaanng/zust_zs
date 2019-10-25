@@ -102,6 +102,30 @@ public class BckjBizSybController extends BaseController {
         }
     }
 
+
+
+    /**
+     * 后台展示一条学生生源信息
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @RequestMapping(value = "getOneQt", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOneQt(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizSybService.getOneQt(mapData.get("owid").toString()));
+        } catch (Exception e) {
+            log.error(e + "初始BckjBizSyb\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     /**
      * <p>功能描述:新建或修改学生信息</p >
      * <ul>z

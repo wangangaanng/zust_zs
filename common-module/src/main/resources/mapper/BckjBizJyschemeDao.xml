@@ -398,6 +398,33 @@
 	<select id="showJyInfoList" resultType="BckjBizJyscheme">
 		select <include refid="bckjBizJyschemeColumns"></include>
 		from bckj_biz_jyscheme a
+		<where>
+			<if test="xsxh!=null and xsxh!=''">
+				and a.xsxh=#{xsxh}
+			</if>
+			<if test="xm!=null and xm!=''">
+				and a.xm=#{xm}
+			</if>
+			<if test="sfzydk!=null and sfzydk!=''">
+				and a.sfzydk=#{sfzydk}
+			</if>
+			<if test="sfdydwbdz!=null and sfdydwbdz!=''">
+				and a.sfdydwbdz=#{sfdydwbdz}
+			</if>
+			<if test="byqx!=null and byqx!=''">
+				and a.byqx=#{byqx}
+			</if>
+			<if test="dwhylbmc!=null and dwhylbmc!=''">
+				and a.dwhylbmc=#{dwhylbmc}
+			</if>
+			<if test="gzzwlbmc!=null and gzzwlbmc!=''">
+				and a.gzzwlbmc=#{gzzwlbmc}
+			</if>
+			<if test="bdzqflbmc!=null and bdzqflbmc!=''">
+				and a.bdzqflbmc=#{bdzqflbmc}
+			</if>
+		</where>
+
 	</select>
 
 
@@ -508,6 +535,13 @@
 		<include refid="bckjBizJyschemeColumns"></include>
 		from bckj_biz_jyscheme a
 		where a.owid=#{owid}
+	</select>
+
+
+	<select id="getOneByYhRefOwid"  parameterType="Map" resultType="BckjBizJyscheme" >
+		SELECT 		<include refid="bckjBizJyschemeColumns"></include>
+		from bckj_biz_jyscheme a
+		where a.yh_ref_owid=#{owid}
 	</select>
 
 </mapper>

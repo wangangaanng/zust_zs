@@ -48,4 +48,6 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
     BckjBizSyb getOneBySfz(String sfz);
 
     void updateBySfz(BckjBizSyb bckjBizSyb);
+
+    BckjBizSyb getOneQt(String owid);
 }

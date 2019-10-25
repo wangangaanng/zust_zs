@@ -52,4 +52,6 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
     BckjBizJyscheme getOneByXsxh(String xsxh);
 
     BckjBizJyscheme getOneJyscheme(Map<String, Object> dataMap);
+
+    BckjBizJyscheme getOneByYhRefOwid(Map<String, Object> dataMap);
 }
