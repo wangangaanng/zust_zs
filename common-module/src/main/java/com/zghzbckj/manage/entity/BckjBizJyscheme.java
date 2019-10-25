@@ -22,7 +22,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	private String xm;
 	private String xxmc;
 	private String byqx;
-	private String sfzydk;
+	private Integer sfzydk;
 	private String yrdwmc;
 	private String yrdwdm;
 	private String yrdwxzmc;
@@ -36,7 +36,7 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 	private String bdzqwszdmc;
 	private Date bdkssj;
 	private Date bdjssj;
-	private String sfdydwbdz;
+	private Integer sfdydwbdz;
 	private String datddw;
 	private String bdzbz;
 	private String datdxxdz;
@@ -86,11 +86,11 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.byqx = byqx;
 	}
 
-	public String getSfzydk() {
+	public Integer getSfzydk() {
 		return sfzydk;
 	}
 
-	public void setSfzydk(String sfzydk) {
+	public void setSfzydk(Integer sfzydk) {
 		this.sfzydk = sfzydk;
 	}
 
@@ -198,11 +198,11 @@ public class BckjBizJyscheme extends DataWithExpEntity<BckjBizJyscheme> {
 		this.bdjssj = bdjssj;
 	}
 
-	public String getSfdydwbdz() {
+	public Integer getSfdydwbdz() {
 		return sfdydwbdz;
 	}
 
-	public void setSfdydwbdz(String sfdydwbdz) {
+	public void setSfdydwbdz(Integer sfdydwbdz) {
 		this.sfdydwbdz = sfdydwbdz;
 	}
 

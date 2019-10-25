@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
  * </pre>
  */
 @Controller
-public class DemoController {
-    private static final Logger log = Logger.getLogger(DemoController.class);
+public class SwytController {
+    private static final Logger log = Logger.getLogger(SwytController.class);
     @ModelAttribute
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
