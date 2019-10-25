@@ -182,6 +182,10 @@ $.validator.setDefaults({
 
 function saveSyxx() {
     if(!isTimeOut()) {
+        if(!$("#syd").val()){
+            walert("请选择生源地")
+            return
+        }
         var jsonObj = $("#registerForm").serializeObject()
         jsonObj.xsxh = $("#xsxh").val();
         if($("#owid").val()){

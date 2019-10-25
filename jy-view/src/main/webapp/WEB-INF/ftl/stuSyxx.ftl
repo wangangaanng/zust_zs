@@ -76,7 +76,7 @@
             </div>
 
             <div class="content-list" style="height: auto;">
-                <#if stuInfo??>
+                <#--<#if stuInfo??>-->
                 <form class="form-horizontal" style="padding-top: 20px;" id="registerForm" method="" action="" target="rfFrame">
                     <div class="form-group">
                         <label for="xm" class="col-sm-2 control-label">姓名<span class="red">*</span>：</label>
@@ -85,11 +85,7 @@
                         </div>
                         <label for="xsxh" class="col-sm-2 control-label">学号<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <#if (stuInfo.xsxh)??>
-                                <input type="text" class="form-control" id="xsxh" name="xsxh" value="${(stuInfo.xsxh)!''}" disabled="disabled" placeholder="" autocomplete="off">
-                            <#else>
-                               <input type="text" class="form-control" id="xsxh" name="xsxh" value=""  placeholder="" autocomplete="off">
-                            </#if>
+                            <input type="text" class="form-control" id="xsxh" name="xsxh" value="${(stuInfo.xsxh)!''}" disabled="disabled" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <div class="form-group">
@@ -379,7 +375,7 @@
                     </form>
                     <input type="hidden" value="${(stuInfo.owid)!''}" id="owid" />
                     <iframe id="rfFrame" name="rfFrame" src="about:blank" style="display:none;"></iframe>
-                </#if>
+                <#--</#if>-->
             </div>
         </div>
     </div>
