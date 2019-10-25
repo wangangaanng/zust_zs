@@ -2,7 +2,7 @@
 <script>
     console.log("${base}")
 </script>
-<#assign title="浙江科技学院三位一体招生网" />
+<#assign swyt_title="浙江科技学院三位一体招生网" />
 <meta name="renderer" content="webkit">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <link rel="stylesheet" href="${base}/css/bootstrap.min.css" />

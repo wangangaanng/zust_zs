@@ -20,7 +20,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -92,9 +91,26 @@ public class BckjBizQyxxController extends BaseController {
 
             List<Object> list = JsonUtil.jsonToList(dataVO.getData());
 
-            return ResponseMessage.sendOK(bckjBizQyxxService.addIntoHmd(list,state));
+            return ResponseMessage.sendOK(bckjBizQyxxService.addIntoHmd(list));
         } catch (Exception e) {
             log.error(e + "加入黑名单列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping(value = "reIntoHmd")
+    @ResponseBody
+    public ResponseMessage reIntoHmd(PublicDataVO dataVO,@PathVariable("state")Integer state) {
+        try {
+            if (TextUtils.isEmpty(dataVO.getData())) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+            }
+
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+
+            return ResponseMessage.sendOK(bckjBizQyxxService.reIntoHmd(list));
+        } catch (Exception e) {
+            log.error(e + "移除黑名单列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }

@@ -346,28 +346,52 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
      * </ul>
      */
     @Transactional(readOnly = false)
-    public List<Map> addIntoHmd(List<Object> codes, Integer state) {
+    public List<Map> addIntoHmd(List<Object> codes) {
         BckjBizQyxx qyxx;
         Map result = Maps.newHashMap();
         List<Map> resluts = Lists.newArrayList();
         for (Object one : codes) {
             qyxx = this.get(MapUtils.getString((Map) one, "owid"));
-            if (null != qyxx && qyxx.getState() != 4) {
-                qyxx.setState(state);
+            if (null != qyxx ) {
+                qyxx.setHmdqzt(qyxx.getState());
+                qyxx.setState(3);
                 saveOrUpdate(qyxx);
                 result.put("owid", qyxx.getOwid());
                 resluts.add(result);
                 result = Maps.newHashMap();
-                if (qyxx.getState() == 3) {
                     //下架职位
                     Map params = Maps.newHashMap();
                     params.put("qyxxRefOwid", qyxx.getOwid());
-                    jobDao.LowerJob(params);
-                }
+                    jobDao.lowerJob(params);
             }
         }
         return resluts;
     }
 
-
+    /**
+    *<p>方法:reIntoHmd TODO移除黑名单 </p>
+    *<ul>
+     *<li> @param list TODO</li>
+    *<li>@return java.util.List<java.util.Map>  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/24 20:45  </li>
+    *</ul>
+    */
+    @Transactional(readOnly = false)
+    public List<Map> reIntoHmd(List<Object> list) {
+        BckjBizQyxx qyxx;
+        Map result = Maps.newHashMap();
+        List<Map> resluts = Lists.newArrayList();
+        for (Object one : list) {
+            qyxx = this.get(MapUtils.getString((Map) one, "owid"));
+            if (null != qyxx ) {
+                qyxx.setState(qyxx.getHmdqzt());
+                saveOrUpdate(qyxx);
+                result.put("owid", qyxx.getOwid());
+                resluts.add(result);
+                result = Maps.newHashMap();
+            }
+        }
+        return resluts;
+    }
 }
