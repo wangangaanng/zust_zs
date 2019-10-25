@@ -63,11 +63,18 @@ Page({
   onShareAppMessage: function() {
 
   },
+  //密码是否可见
   clickPass: function(e) {
     let pass = !this.data.pass
     console.log(pass)
     this.setData({
       pass
     })
+  },
+  //登录
+ loginBtn: function (e) {
+   wx.reLaunch({
+     url: '../shouye/shouye',
+   })
   }
 })
