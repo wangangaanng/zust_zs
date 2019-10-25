@@ -111,4 +111,22 @@
 .z-single:before{content:"\F00B";}/*当个项目*/
 .z-double:before{content:"\F009";}/*多个项目*/
 
+/*就业*/
+.qygl:before { content: "\0110";  }
+.zpxx:before {  content: "\010E";  }
+.qyzw:before {  content: "\00CE";  }
+.qyxjh:before {  content: "\00CD";  }
+.xnzp:before {  content: "\011A";  }
+.jyph:before {  content: "\00CB";  }
+.dcwj:before {  content: "\0118";  }
+.lygl:before {  content: "\00C9";  }
+.xxll:before {  content: "\010C";  }
+.xsgl:before {  content: "\00C7";  }
+.xwgg:before {  content: "\0106";  }
+.xygk:before {  content: "\0139";  }
+.zpxx:before {  content: "\00C4";  }
+.qyzn:before {  content: "\0102";  }
+.xsfw:before {  content: "\00C2";  }
+.lxwm:before {  content: "\00C1";  }
+
 
