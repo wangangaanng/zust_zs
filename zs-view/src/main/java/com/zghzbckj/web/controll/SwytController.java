@@ -28,7 +28,7 @@ public class SwytController {
 
     @RequestMapping(value = "/swIndex", method = RequestMethod.GET)
     public ModelAndView swIndex(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWindex");
+        view.setViewName("SWYTindex2");
         return view;
     }
     @RequestMapping(value = "SWTYlogin", method = RequestMethod.GET)
