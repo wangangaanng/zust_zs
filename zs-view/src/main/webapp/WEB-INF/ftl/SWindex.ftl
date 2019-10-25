@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
 </head>
 <body>
-<#include "com/SWYTheader.ftl">
+<#include "com/SWheader.ftl">
 <div class="main">
     <div class="container">
         <div class="swiper-container">
