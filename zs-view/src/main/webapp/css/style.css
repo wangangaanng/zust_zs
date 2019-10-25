@@ -64,8 +64,8 @@ body, div, ul, li, a, img {
     text-overflow:ellipsis;
     word-wrap: break-word;
 }
-.detail span{color: rgb(85,167,153);font-size:16px;float:left;}
-.rnum span{color: rgb(85,167,153);font-size:16px;float:left;}
+.detail span{color: #008784;font-size:16px;float:left;}
+.rnum span{color: #008784;font-size:16px;float:left;}
 .detail_str
 {
     display: block;
@@ -76,11 +76,11 @@ body, div, ul, li, a, img {
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
-    color:rgb(85,167,153);
+    color:#008784;
 }
 .detail_date,.detail_num
 {
-    color: rgb(85,167,153);
+    color: #008784;
     font-family: "微软雅黑";
     float:left;
     margin-left: 6px;
@@ -197,7 +197,7 @@ body, div, ul, li, a, img {
     color: rgb(184, 184, 184);
     font-family: "å¾®è½¯é›…é»‘";
 }
-.queryButton{width:50px;height:30px;line-height:30px;margin-left: 10px;background-color:rgb(85,167,153);color:white;boder:0px;display:inline-block;text-align:center;position:relative;top:0px;}
+.queryButton{width:50px;height:30px;line-height:30px;margin-left: 10px;background-color:#008784;color:white;boder:0px;display:inline-block;text-align:center;position:relative;top:0px;}
 .chaXunSels
 {
     margin-left: 3%;

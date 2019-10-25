@@ -127,7 +127,7 @@
     }
     .gzwximg_wx
     {
-        margin-top: -140px;
+        margin-top: -200px;
         position: relative;
         left: 490%;
     }
