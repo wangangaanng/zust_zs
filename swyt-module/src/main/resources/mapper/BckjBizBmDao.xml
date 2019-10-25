@@ -75,7 +75,21 @@
 	
 	<sql id="bckjBizBmJoins">
 	</sql>
-    
+
+	<select id="getOneByMap" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+		SELECT
+		<include refid="bckjBizBmColumns"/>
+		FROM bckj_biz_bm a
+		<include refid="bckjBizBmJoins"/>
+		<where>
+			<if test="userRefOwid !=null and userRefOwid!='' ">
+				a.user_ref_owid=#{userRefOwid}
+			</if>
+			<if test="xxbh !=null and xxbh!='' ">
+				 AND a.xxbh=#{xxbh}
+			</if>
+		</where>
+	</select>
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizBm">
 		SELECT 
 			<include refid="bckjBizBmColumns"/>

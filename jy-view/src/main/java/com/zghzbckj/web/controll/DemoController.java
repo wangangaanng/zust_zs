@@ -940,7 +940,7 @@ public class DemoController {
                 view.setViewName("stuCenter");
                 Map param=Maps.newHashMap();
                 param.put("pageNo",'1');
-                param.put("pageSize","9");
+                param.put("pageSize","12");
                 PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
                 ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
                 view.addObject("tlist",result.getBean());
@@ -948,7 +948,7 @@ public class DemoController {
                 view.setViewName("stuZx");
                 Map param1=Maps.newHashMap();
                 param1.put("pageNo",'1');
-                param1.put("pageSize","9");
+                param1.put("pageSize","12");
                 param1.put("zxlx",'2');
                 param1.put("twOwid",stuOwid);
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");
@@ -1061,7 +1061,7 @@ public class DemoController {
                 view.setViewName("stuZx");
                 Map param1=Maps.newHashMap();
                 param1.put("pageNo",currentPage);
-                param1.put("pageSize","10");
+                param1.put("pageSize","12");
                 param1.put("zxlx",'2');
                 param1.put("twOwid",stuOwid);
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizZxzx/historyConsult");

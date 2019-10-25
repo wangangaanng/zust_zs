@@ -262,37 +262,45 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String xxmc = cellList.get(2); //学校名称
                 resMap.put("xxmc", xxmc);
                 String byqx = cellList.get(3); //毕业去向名称
-                resMap.put("byqx",byqx);
+                resMap.put("byqx",getDicVal(50001,byqx));
                 String sfzydk = cellList.get(4); //专业是否对口
-                resMap.put("sfzydk",sfzydk);
+                if(sfzydk.equals("是")){
+                    resMap.put("sfzydk",1);
+                }else if(sfzydk.equals("否")){
+                    resMap.put("sfzydk",2);
+                }
                 String yrdwmc = cellList.get(5); //用人单位名称
                 resMap.put("yrdwmc",yrdwmc);
                 String yrdwdm = cellList.get(6); //用人单位代码
                 resMap.put("yrdwdm",yrdwdm);
-                String yrdwxzmc = cellList.get(7); //用人单位性质名称
-                resMap.put("yrdwxzmc",yrdwxzmc);
-                String dwhylbmc = cellList.get(8); //单位行业类别名称
-                resMap.put("dwhylbmc",dwhylbmc);
-                String dwszdmc = cellList.get(9); //单位所在地名称
-                resMap.put("dwszdmc", dwszdmc);
+                String yrdwxzmc = cellList.get(7); //用人单位性质名称 50002
+                resMap.put("yrdwxzmc",getDicVal(50002,yrdwxzmc));
+                String dwhylbmc = cellList.get(8); //单位行业类别名称 50003
+                resMap.put("dwhylbmc",getDicVal(50003,dwhylbmc));
+                String dwszdmc = cellList.get(9); //单位所在地名称  50005
+                resMap.put("dwszdmc", getDicVal(50005,dwszdmc));
                 String dwlxr = cellList.get(10); //单位联系人
                 resMap.put("dwlxr",dwlxr);
                 String dwdh = cellList.get(11); //单位电话
                 resMap.put("dwdh", dwdh);
-                String gzzwlbmc = cellList.get(12); //工作职位类别名称
-                resMap.put("gzzwlbmc", gzzwlbmc);
+                String gzzwlbmc = cellList.get(12); //工作职位类别名称 50004
+                resMap.put("gzzwlbmc", getDicVal(50004,gzzwlbmc));
                 String bdzqflbmc = cellList.get(13); //报到证签发类别名称
-                resMap.put("bdzqflbmc",bdzqflbmc);
+                resMap.put("bdzqflbmc",getDicVal(50007,bdzqflbmc));
                 String bdzqwdwmc = cellList.get(14); //报到证签往单位名称
                 resMap.put("bdzqwdwmc", bdzqwdwmc);
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
-                resMap.put("bdzqwszdmc",bdzqwszdmc);
+                resMap.put("bdzqwszdmc",getDicVal(50005,bdzqwszdmc));
                 String bdkssj = cellList.get(16); //报到开始时间
                 resMap.put("bdkssj", ExcelUtils.stringtoDate(bdkssj));
                 String bdjssj = cellList.get(17); //报到结束时间
                 resMap.put("bdjssj", ExcelUtils.stringtoDate(bdjssj));
                 String sfdydwbdz = cellList.get(18); //是否打印单位到报到证备注
-                resMap.put("sfdydwbdz", sfdydwbdz);
+                if(sfdydwbdz.equals("是")){
+                    resMap.put("sfdydwbdz", 1);
+                }else if(sfdydwbdz.equals("否")){
+                    resMap.put("sfdydwbdz", 2);
+                }
                 String datddw = cellList.get(19); //档案投递单位
                 resMap.put("datddw", datddw);
                 String bdzbz = cellList.get(20); //报到证备注
