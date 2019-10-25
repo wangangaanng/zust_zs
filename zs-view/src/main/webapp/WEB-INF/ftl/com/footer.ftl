@@ -12,7 +12,7 @@
         width: 1000px;
         height: 60px;
         line-height: 60px;
-        border-top: 1px solid #DCDCDC;
+        /*border-top: 1px solid #DCDCDC;*/
     }
     .linktxt
     {
