@@ -1,0 +1,27 @@
+/* pages/wxDetail/wxDetail.wxss */
+.page{
+  padding: 30rpx;
+}
+.title{
+  text-align: center;
+  font-size: 18px;
+  margin: 20rpx;
+}
+.date{
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+}
+.conter{
+  margin-top: 20rpx;
+  font-size: 14px;
+  text-indent: 2rem;
+  letter-spacing: 1px;
+  line-height: 27px;
+  color: #333;
+  text-align: justify;
+}
+.img{
+  width: 100%;
+  margin-top: 20rpx;
+}

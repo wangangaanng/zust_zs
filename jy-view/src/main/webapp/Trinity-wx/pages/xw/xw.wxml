@@ -23,9 +23,9 @@ bindfocus="focus" bindblur="blur" bind:search="onSearch" />
       <van-icon name="arrow" />
     </view>
   </scroll-view>
-  <swiper indicator-dots="{{false}}" current="{{index1}}" bindchange="swiper">
+  <swiper indicator-dots="{{false}}" current="{{index1}}" bindchange="swiper" style="height: initial;position: fixed;top: 202rpx;bottom: 0;left: 0;right: 0;">
     <swiper-item wx:for="{{array}}" wx:key="index">
-      <view class="list">
+      <navigator url="../wxDetail/wxDetail" class="list">
         <image src="../../static/img1.png" class="li-left"></image>
         <view class="li-right">
           <view class="li-right-title">2019年新疆拟录取情况名单公示</view>
@@ -33,7 +33,7 @@ bindfocus="focus" bindblur="blur" bind:search="onSearch" />
           </view>
           <view class="li-right-date">2018.11.15</view>
         </view>
-      </view>
+      </navigator>      
     </swiper-item>
   </swiper>
 </view>

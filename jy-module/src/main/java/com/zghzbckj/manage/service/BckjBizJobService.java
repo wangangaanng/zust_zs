@@ -199,6 +199,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return 0;
     }
 
+    Integer qdAllNumber = 0;
+    Integer bmAllNumber = 0;
+    Integer gzAllNumber = 0;
+
     public ResponseMessage findPageBckjBizJobXjh(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJob> page = new PageInfo<>();
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
@@ -221,10 +225,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("ddw", 1);
         }
 
-        Integer qdAllNumber = 0;
-        Integer bmAllNumber = 0;
-        Integer gzAllNumber = 0;
-
         page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ",qdAllNumber,bmAllNumber,gzAllNumber);
 
         List<BckjBizJob> records = page.getRecords();
@@ -235,11 +235,14 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         job.setBmNumber(bmAllNumber);
         job.setQdNumber(qdAllNumber);
         job.setGzNumber(gzAllNumber);
+        //王显弘改          -------》该开始
+        bmAllNumber=0;
+        qdAllNumber=0;
+        gzAllNumber=0;
+        //王显弘改
         records.add(0, job);
         return ResponseMessage.sendOK(page);
     }
-
-
 
     public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy,Integer qdAllNumber,Integer bmAllNumber,Integer gzAllNumber) {
         Page page = new Page(pageNo, pageSize);
