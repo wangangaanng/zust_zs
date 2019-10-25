@@ -46,9 +46,11 @@
   <view class="cell-wrap line-btm">
     <view class="sm-title">专项类别（可多选)：</view>
     <van-checkbox-group value="{{ result }}" bind:change="onChange" class="select-group df">
-      <van-checkbox class="chose-type" name="a">复选框 a</van-checkbox>
-      <van-checkbox class="chose-type" name="b">复选框 b</van-checkbox>
-      <van-checkbox class="chose-type" name="c">复选框 c</van-checkbox>
+      <van-checkbox class="chose-type" name="a">学科竞赛类</van-checkbox>
+      <van-checkbox class="chose-type" name="b">科技创新类</van-checkbox>
+      <van-checkbox class="chose-type" name="c">言语文学特长类</van-checkbox>
+      <van-checkbox class="chose-type" name="d">艺术或体育类</van-checkbox>
+      <van-checkbox class="chose-type" name="d">其他特殊才能</van-checkbox>
     </van-checkbox-group>
   </view>
 
@@ -87,8 +89,8 @@
 </view>
 <!-- 按钮 -->
 <view class="bottom-btn_wrap df">
-  <van-button round type="primary" class="main-button f1" size="large">上一步，会考科目</van-button>
-  <van-button round type="primary" class="main-button f1" size="large">完成</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="preStep" >上一步，学考等第</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="finish">完成</van-button>
 </view>
 <!-- 科目选择 -->
 <van-popup show="{{showPop}}" bind:close="onClose" position="bottom">

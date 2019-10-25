@@ -82,5 +82,11 @@ Page({
     this.setData({
       //sexRadio: event.detail
     });
+  },
+  //下一步 完善联系人
+  nextStep:function(){
+    wx.navigateTo({
+      url: '../contactors/contactors',
+    })
   }
 })

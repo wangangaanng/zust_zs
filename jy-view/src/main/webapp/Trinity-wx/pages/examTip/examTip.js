@@ -62,5 +62,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  perfectInfo:function(){
+    wx.navigateTo({
+      url: '../basicInfo/basicInfo',
+    })
   }
 })
