@@ -100,7 +100,7 @@ public class BckjBizQyxxController extends BaseController {
 
     @PostMapping(value = "reIntoHmd")
     @ResponseBody
-    public ResponseMessage reIntoHmd(PublicDataVO dataVO,@PathVariable("state")Integer state) {
+    public ResponseMessage reIntoHmd(PublicDataVO dataVO) {
         try {
             if (TextUtils.isEmpty(dataVO.getData())) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
