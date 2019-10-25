@@ -117,7 +117,7 @@
             $(".teacher-list").append(nulltip)
         }else {
             setPage(currentPage, "${tlist.totalPage!'1'}", function () {
-                openUrl('sutCenter/0/'+currentPage)
+                openUrl('stuCenter/0/'+currentPage)
             })
         }
         $(".list-group-item").click(function(e) {
