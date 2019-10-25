@@ -20,14 +20,14 @@
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
-    <view class="lc-rows">
+    <view class="lc-rows" >
       <view class="lc-row">预览，发送到邮箱</view>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
-    <view class="lc-rows">
-      <view class="lc-row">拍照上传</view>
+    <view class="lc-rows" >
+      <navigator class="lc-row" url='../uploadSignature/uploadSignature'>拍照上传</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>
@@ -40,22 +40,22 @@
       <image src="../../static/arrow2.png" class="arrow2"></image>
       <text class="arrow2-text">拒绝</text>
     </view>
-    <view class="lc-rows2">
-      <view class="lc-row yet" style="">缴费</view>
+    <view class="lc-rows2" >
+      <navigator class="lc-row yet" style="" url='../payOline/payOline'>缴费</navigator>
       <view class="lc-row yet">结束</view>
     </view>
     <view class="lc-rows2">      
       <image src="../../static/arrow.png" class="arrow"></image>      
     </view>
     <view class="lc-rows2">
-      <view class="lc-row yet" style="">分配面试时间</view>
+      <navigator class="lc-row yet" style=""  url='../drawGroup/drawGroup'>面试分组</navigator>
       <view class="lc-row hide"></view>
     </view>
     <view class="lc-rows2">      
       <image src="../../static/arrow.png" class="arrow"></image>      
     </view>
     <view class="lc-rows2">
-      <view class="lc-row yet" style="">面试通知单</view>
+      <navigator class="lc-row yet" style="">面试通知单</navigator>
       <view class="lc-row hide"></view>
     </view>
     <view class="lc-rows2">      

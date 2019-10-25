@@ -199,11 +199,20 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return 0;
     }
 
+    Integer qdAllNumber = 0;
+    Integer bmAllNumber = 0;
+    Integer gzAllNumber = 0;
+
     public ResponseMessage findPageBckjBizJobXjh(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJob> page = new PageInfo<>();
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
         dataMap.put("zwlx", JyContant.ZWLB_XJH);
+        //王显弘改          -------》该开始
+        if(state==7){
+            dataMap.put("zwlx", JyContant.ZWLB_ZPH);
+        }
+        //王显弘改          -------》该结束
         //1待举办 2已举办  3报名中
         if (1 == state) {
             dataMap.put("wait", 1);
@@ -215,7 +224,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (4 == state) {
             dataMap.put("ddw", 1);
         }
-        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+
+        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ",qdAllNumber,bmAllNumber,gzAllNumber);
 
         List<BckjBizJob> records = page.getRecords();
         BckjBizJob job = new BckjBizJob();
@@ -225,15 +235,16 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         job.setBmNumber(bmAllNumber);
         job.setQdNumber(qdAllNumber);
         job.setGzNumber(gzAllNumber);
+        //王显弘改          -------》该开始
+        bmAllNumber=0;
+        qdAllNumber=0;
+        gzAllNumber=0;
+        //王显弘改
         records.add(0, job);
         return ResponseMessage.sendOK(page);
     }
 
-    Integer qdAllNumber = 0;
-    Integer bmAllNumber = 0;
-    Integer gzAllNumber = 0;
-
-    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy) {
+    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy,Integer qdAllNumber,Integer bmAllNumber,Integer gzAllNumber) {
         Page page = new Page(pageNo, pageSize);
         paramsMap.put("page", page);
         if (!com.ourway.base.utils.TextUtils.isEmpty(orderBy)) {

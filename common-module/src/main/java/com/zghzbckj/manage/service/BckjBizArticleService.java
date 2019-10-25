@@ -93,6 +93,11 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     public ResponseMessage findPageBckjBizArticle(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         PageInfo<BckjBizArticle> page = findPage(dataMap, pageNo, pageSize, " a.fbsj DESC");
+        List<BckjBizArticle> records = page.getRecords();
+        BckjBizArticle articleCount = new BckjBizArticle();
+        articleCount.setWzbt("共有：" + page.getTotalCount() + "篇文章");
+        articleCount.setReadOnly(true);
+        records.add(0, articleCount);
         return ResponseMessage.sendOK(page);
     }
 

@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class RecordInfo implements ComponentFileSer {
     //师生录入url
-    public final String xsURL = "web/zustcommon/bckjBizYhxx/recordInfo";
+    public final String xsURL = "web/zustcommon/bckjBizSyb/recordInfo";
     //就业方案录入url
     public final String jsURL = "web/zustcommon/bckjBizJyscheme/recordInfo";
     //专家录入url
@@ -36,8 +36,7 @@ public class RecordInfo implements ComponentFileSer {
     //上传excela保存的本地地址
     public final String savePath = "/mnt/files/zjcFiles/excel/";
     public final String foundPath = "/mnt/files/zjcFiles/";
-    /*public final String FolderPath = "/mnt/files/zjcFiles/excel/";*/
-   /* public final String FolderPath = "F:\\img\\";*/
+    /*public final String FolderPath = "F:\\img\\";*/
     //地区典表 导入
     public final String dwszURL = "web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -73,9 +72,9 @@ public class RecordInfo implements ComponentFileSer {
         String savefilePath=savePath+path;
         copyXsFile(foundfilePath,savefilePath);
 
-        //String filePath = FolderPath + path;  //本地上传路径*/
+        /*String filePath = FolderPath + path;*/  //本地上传路径*/
         //添加后缀
-        /*copyFile(filePath);*/
+        /*copyFile(filePath);*/ //本地上传路径
 
         Map<String, Object> params = new HashMap<String, Object>();
         if (!TextUtils.isEmpty(savefilePath)) {
