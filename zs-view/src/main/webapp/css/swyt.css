@@ -1,0 +1,29 @@
+/*
+  作者：2515421994@qq.com
+  时间：2019-10-25
+  描述：三位一体样式
+*/
+/* common */
+.w100{width: 100%}
+.pr{position: relative}
+.input{outline: none}
+.frame-wrap {width: 1200px;margin-left: auto;margin-right: auto;}
+.box{background: #FFF;border: 2px solid #f7f7f7;}
+.overh{overflow: hidden;}
+.bold{font-weight: bold;}
+.frame-a,.frame-b,.frame-c{margin-top: 20px;overflow: hidden;}
+.frame-a_left{min-width: 840px;width: 70%;height: 323px;float: left;border: none;}
+.mt20{margin-top: 20px;}
+/*swiper*/
+.swiper-pagination-bullet{width: 15px;height: 15px; background: inherit; border: 1px solid #008784;}
+.swiper-pagination-bullet-active{background: #008784;}
+.index-swiper img{width: 100%;height: 425px;}
+.swiper-slide img,.swiper-slide{border-radius: 0px 0px 4px 4px;}
+
+.content-list{border: 1px solid #008784}
+.articleTpl-title{border-bottom: 1px solid #d4e5dc}
+.content-list{width: 955px;min-height: 497px;}
+.articleTpl-title::before{height: 20px;visibility: hidden;}
+.list-group-item{border: 1px solid #d4e5dc;}
+
+

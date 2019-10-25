@@ -8,7 +8,7 @@
   <view class="field">
     <view class="li">
       <image src="../../static/phone.png" class="left-icon"></image>
-      <input placeholder="请输入账号"></input>
+      <input placeholder="请输入手机号"></input>
     </view>
     <view class="li">
       <image src="../../static/password.png" style="width:15px;" class="left-icon"></image>

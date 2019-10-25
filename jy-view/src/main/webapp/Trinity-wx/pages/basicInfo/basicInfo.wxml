@@ -21,7 +21,7 @@
 <view class="shadow-wrap">
   <form bindsubmit="submitForm" class="form-wrap">
     <van-cell-group>
-      <van-field value="{{ name }}" clearable label="姓名" placeholder="请输入用姓名" />
+      <van-field value="{{ '张小凡' }}" clearable label="姓名" placeholder="请输入用姓名" />
       <van-field value="{{ idNum }}" clearable label="身份证号" placeholder="请输入身份证号码" />
       <van-field value="{{ '女' }}" clearable label="性别" placeholder="请选择性别" />
       <van-field value="{{ nationality }}" clearable label="民族" placeholder="请选择民族" />
@@ -36,5 +36,5 @@
 
 <!-- 按钮 -->
 <view class="main-btn_wrap">
-  <van-button round type="primary" loading-text="注册中..." class="main-button" size="large">下一步，完善联系人</van-button>
+  <van-button round type="primary" loading-text="注册中..." class="main-button" size="large" bindtap="nextStep">下一步，完善联系人</van-button>
 </view>

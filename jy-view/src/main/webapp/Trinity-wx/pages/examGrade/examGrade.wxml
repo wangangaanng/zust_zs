@@ -34,8 +34,8 @@
 
 <!-- 按钮 -->
 <view class="bottom-btn_wrap df">
-  <van-button round type="primary" class="main-button f1" size="large">上一步，联系人</van-button>
-  <van-button round type="primary" class="main-button f1" size="large">下一步，选考信息</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="preStep">上一步，联系人</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="nextStep">下一步，选考信息</van-button>
 </view>
 
 

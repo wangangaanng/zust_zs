@@ -26,9 +26,9 @@ public class SwytController {
         model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView index(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWYTindex");
+    @RequestMapping(value = "/swIndex", method = RequestMethod.GET)
+    public ModelAndView swIndex(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("SWYTindex2");
         return view;
     }
     @RequestMapping(value = "SWTYlogin", method = RequestMethod.GET)

@@ -246,37 +246,7 @@
   <view class="float-btn2" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
 </view>
 <view wx:if="{{result.zwlx==0}}">
-  <view class="float-btn">申请职位</view>
-  <view class="float-btn" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>
-  <view class="float-btn" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
+  <view class="float-btn" bindtap="applyJob">申请职位</view>
+  <view class="float-btn2" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>
+  <view class="float-btn2" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
 </view>
-
-<!-- <modal hidden="{{hiddenmodal}}" title="学生登录" cancel-text='' confirm-text=''>
-  <van-icon name="close" bind:click="closemodal" />
-  <view class="search-form">
-    <view class="search-content">
-      <view class="search-body">
-        <view>
-          <van-field
-            placeholder="请输入用户名"
-            left-icon="contact"
-            bindinput="getyhDlzh"
-            value="{{yhDlzh}}"
-            border="{{ false }}"
-          />
-          <van-field
-            placeholder="请输入密码"
-            type="password"
-            bindinput="getyhDlmm"
-            value="{{yhDlmm}}"
-            left-icon="lock"
-            border="{{ false }}"
-          />
-        </view>
-      </view>
-      <view class="search-btn">
-        <van-button type="primary" size="large" bindtap="login">登录</van-button>
-      </view>
-    </view>
-  </view>
-</modal> -->
