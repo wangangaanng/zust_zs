@@ -57,7 +57,7 @@ public class DicValueController {
             if (TextUtils.isEmpty(type)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "null");
             }
-            String order= MapUtils.getString(dataMap,"orderBy");
+            String order = MapUtils.getString(dataMap, "orderBy");
             return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(dataMap.get("dicType").toString()), order));
         } catch (Exception e) {
             log.info("获取一级菜单失败：" + e);
@@ -183,25 +183,6 @@ public class DicValueController {
         }
     }
 
-    /**
-     * 处理一级菜单
-     *
-     * @param dataVO
-     * @return
-     */
-    @RequestMapping(value = "saveYjDic", method = RequestMethod.POST)
-    @ResponseBody
-    public ResponseMessage saveYjDic(PublicDataVO dataVO) {
-        try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断owid是否为空
-
-            return customDicService.saveYjDic(mapData);
-        } catch (Exception e) {
-            log.error("{}：" + e.toString(), e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
-        }
-    }
 
     @RequestMapping(
             value = {"listDic/{type}"},
