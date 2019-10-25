@@ -629,7 +629,7 @@
 		select count(*) as num
 		from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
 		<where>
-			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1 and d.stat=0
+			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1 and d.state=0
 			<if test="owid!=null and owid!=''">
 				and b.owid=#{owid}
 			</if>
@@ -659,7 +659,7 @@
 		select count(*) as num
 		from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
 		<where>
-			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1 and d.stat=1
+			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and  d.xxlb=1 and d.state=1
 			<if test="owid!=null and owid!=''">
 				and b.owid=#{owid}
 			</if>
