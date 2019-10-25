@@ -5,6 +5,7 @@
     <META HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
     <META HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
     <META HTTP-EQUIV="expires" CONTENT="0">
+    <#include "com/config.ftl">
 </head>
 <body>
 <script type="text/javascript">

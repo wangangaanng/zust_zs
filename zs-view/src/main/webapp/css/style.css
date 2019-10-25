@@ -1,10 +1,7 @@
-ul {
-    list-style: none;
-}
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input, textarea, p, th, td, a {
+
+body, div, ul, li, a, img {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 .index-nav{
     width: 100%;
@@ -37,4 +34,254 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, h7, pre, form, input,
     font-weight: 400;
     color: white;
     cursor: pointer;
+}
+.dyn_details {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+}
+
+.detail
+{
+    width: 220px;
+    height: 230px;
+    display:inline-block;
+    margin-right: 15px;
+    clear:both;
+}
+.detail_img
+{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 5px;
+}
+.detail_p
+{
+    height: 40px;
+    color: rgb(140,140,140);
+    overflow: hidden;
+    text-overflow:ellipsis;
+    word-wrap: break-word;
+}
+.detail span{color: #008784;font-size:16px;float:left;}
+.rnum span{color: #008784;font-size:16px;float:left;}
+.detail_str
+{
+    display: block;
+    width: 95%;
+    margin-left: 2px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    color:#008784;
+}
+.detail_date,.detail_num
+{
+    color: #008784;
+    font-family: "微软雅黑";
+    float:left;
+    margin-left: 6px;
+}
+.rnum
+{
+    float: right;
+}
+.detail_more {
+    font-family: "微软雅黑";
+    color: #008784;
+    text-align: center;
+    width: 155px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 3%;
+    border: 2px solid #008784;
+    cursor: pointer;
+    margin: 0 auto;
+    font-size: 16px;
+}
+.shouYe_div_chaxun
+{
+    width: 1200px;
+    height:300px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.chaxun_line1
+{
+    width: 27%;
+    height: 1px;
+    background-color: rgb(140,140,140);
+    float: left;
+}
+.chaxun_line2
+{
+    width: 45%;
+    height: 1px;
+    background-color: rgb(140,140,140);
+    float: left;
+}
+.chaxun_line3
+{
+    width: 15%;
+    height: 1px;
+    background-color: rgb(140,140,140);
+    float: left;
+}
+.chaxun_line4,.chaxun_line5,.chaxun_line6,.chaxun_line7
+{
+    width: 1px;
+    height: 8px;
+    background-color: rgb(140,140,140);
+    float: left;
+    position: relative;
+    top: -4px;
+}
+.chaxun_b
+{
+    float: left;
+    font-family: "å¾®è½¯é›…é»‘";
+    margin: 9px;
+    position: relative;
+    top: -20px;
+}
+.woYaoChaXun
+{
+    position: relative;
+    top: 90px;
+}
+.chaXuns
+{
+    margin-left: 12%;
+    position: relative;
+    top: -50px;
+    left: -20px;
+}
+.jhcx,.cjcx,.lqcx,.lncx
+{
+    float: left;
+    cursor: pointer;
+    margin-left: 5%;
+}
+.jhcx_icon,.cjcx_icon,.lqcx_icon,.lncx_icon
+{
+    width: 50px;
+    height: 50px;
+    border: 2px solid rgb(184, 184, 184);
+    border-radius: 50%;
+    text-align: center;
+}
+.jhcx_icon
+{
+    border-color: rgb(31,26,23);
+    background-color: rgb(31,26,23);
+}
+#jhcx_p
+{
+    color: rgb(31,26,23);
+}
+#jhcx_icon_span,#cjcx_icon_span,#lqcx_icon_span,#lncx_icon_span
+{
+    position: relative;
+    top: 10px;
+}
+#jhcx_icon_span
+{
+    color: rgb(31,26,23);
+}
+.chaXuns_p
+{
+    color: rgb(184, 184, 184);
+    font-family: "å¾®è½¯é›…é»‘";
+}
+.queryButton{width:50px;height:30px;line-height:30px;margin-left: 10px;background-color:#008784;color:white;boder:0px;display:inline-block;text-align:center;position:relative;top:0px;}
+.chaXunSels
+{
+    margin-left: 3%;
+}
+.jhcx_form
+{
+    display: block;
+}
+.cjcx_form
+{
+    display: none;
+}
+.lqcx_form
+{
+    display: none;
+}
+.lncx_form
+{
+    display: none;
+}
+.nf,.sf,.kl,.pc,.zy
+{
+    width: 8%;
+    margin-left: 10px;
+    height: 30px;
+}
+.jhcx_form,.lncx_form
+{
+    margin-left: 60px;
+}
+.cjcx_form,.lqcx_form
+{
+    margin-left: 100px;
+}
+.input_zkzh,.input_sfzh
+{
+    margin-left: 20px;
+}
+.tongZhiGongGao
+{
+    width: 30%;
+    height: 220px;
+    border: 1px solid rgb(140,140,140);
+    position: relative;
+    left: 68%;
+    top: -130px;
+    overflow:hidden;
+}
+.gongGao_ul
+{
+    margin-top: 15px;
+    list-style-type: none;
+}
+.gongGao_ul_li
+{
+    clear: both;
+}
+.gongGao_ul_li>span
+{
+    margin-left: 10px;
+    margin-right: 5px;
+}
+.gongGao_title
+{
+    float: left;
+    font-size: 14px;
+    width: 80%;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    cursor:pointer;
+}
+.gongGao_intro
+{
+    margin-left: 35px;
+    clear: both;
+    padding-right: 10px;
+}
+.gongGao_intro a:link{color:rgb(100,100,100)}
+.shouYe_division
+{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(140,140,140);
+    position: relative;
+    top: -90px;
 }

@@ -32,6 +32,10 @@ $(document).ready(function () {
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请正确填写您的手机号码");
 
+    jQuery.validator.addMethod("isIdCardNo", function (value, element){
+        return this.optional(element) || isIdCardNo(value);
+    },"请正确输入您的身份证号码");
+
     $("#registerForm").validate({
         rules: {
             xm:"required",
@@ -40,7 +44,10 @@ $(document).ready(function () {
             xb:"required",
             mz:"required",
             zzmm:"required",
-            sfz:"required",
+            sfz:{
+                required: true,
+                isIdCardNo: true
+            },
             jtdz:"required",
             syd:"required",
             rxnf:"required",
@@ -52,7 +59,7 @@ $(document).ready(function () {
             xz:"required",
             xsxy:"required",
             xszy:"required",
-            szbj:"required",
+            xsbj:"required",
             pyfs:"required",
             wpdw:"required",
             knslb:"required",
@@ -67,6 +74,7 @@ $(document).ready(function () {
                 isMobile: true
             },
             yx:{
+                required: true,
                 email: true
             },
         },
@@ -77,7 +85,10 @@ $(document).ready(function () {
             xb:"请选择",
             mz:"请选择",
             zzmm:"请选择",
-            sfz:"请填写",
+            sfz:{
+                required: "请填写",
+                isIdCardNo: "手机号有误"
+            },
             jtdz:"请填写",
             syd:"请选择",
             rxnf:"请填写",
@@ -89,7 +100,7 @@ $(document).ready(function () {
             xz:"请选择",
             xsxy:"请填写",
             xszy:"请填写",
-            szbj:"请填写",
+            xsbj:"请填写",
             pyfs:"请选择",
             wpdw:"请填写",
             knslb:"请选择",
@@ -104,6 +115,7 @@ $(document).ready(function () {
                 email: "手机号有误"
             },
             yx: {
+                required: "请填写",
                 email: "邮箱有误"
             },
         },
@@ -170,12 +182,16 @@ $.validator.setDefaults({
 
 function saveSyxx() {
     if(!isTimeOut()) {
+        if(!$("#syd").val()){
+            walert("请选择生源地")
+            return
+        }
         var jsonObj = $("#registerForm").serializeObject()
         jsonObj.xsxh = $("#xsxh").val();
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustcommon/bckjBizSyb/saveSybInfo", jsonObj, function (data) {
+        ajax("zustcommon/bckjBizSyb/insertssInfo", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {
