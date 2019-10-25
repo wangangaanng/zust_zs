@@ -31,7 +31,7 @@ public class ZsController {
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
     }
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView ZSindex(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
@@ -45,7 +45,7 @@ public class ZsController {
         }else {
             key="";
         }
-        view.setViewName("wzOrTpOrSq");
+        view.setViewName("ZSnewsList");
         view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("secondDir",secondDir);
@@ -83,7 +83,7 @@ public class ZsController {
         }else {
             view.addObject("key","");
         }
-        view.setViewName("newsList");
+        view.setViewName("ZSnewsList");
         view.addObject("header",getHeader().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
