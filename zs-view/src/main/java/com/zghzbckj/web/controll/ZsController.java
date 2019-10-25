@@ -35,17 +35,6 @@ public class ZsController {
         return view;
     }
 
-    @RequestMapping(value = "/swyt", method = RequestMethod.GET)
-    public ModelAndView index(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWYTindex");
-        return view;
-    }
-    @RequestMapping(value = "SWTYlogin", method = RequestMethod.GET)
-    public ModelAndView login(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWTYlogin");
-        return view;
-    }
-
     public ResponseMessage getHeader() {
         Map param= Maps.newHashMap();
         param.put("wzbh","0");
