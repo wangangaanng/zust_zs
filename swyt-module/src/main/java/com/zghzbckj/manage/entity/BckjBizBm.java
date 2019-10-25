@@ -31,7 +31,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	private String lxdh;		// qq
 
 	private String tcah;		// tcah
-	private Integer xklb;		// 0普通类    1艺术类；
+	private String xklb;		// 0普通类    1艺术类；
 	private String wyyz;		// wyyz
 	private Double wycj;		// wycj
 	private String zxlb;		// zxlb
@@ -169,11 +169,11 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 		this.tcah = tcah;
 	}
 	
-	public Integer getXklb() {
+	public String getXklb() {
 		return xklb;
 	}
 
-	public void setXklb(Integer xklb) {
+	public void setXklb(String xklb) {
 		this.xklb = xklb;
 	}
 	
