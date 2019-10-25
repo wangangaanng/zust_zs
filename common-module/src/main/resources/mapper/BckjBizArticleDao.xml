@@ -80,7 +80,7 @@
 		<include refid="bckjBizArticleJoins"/>
 		<where>
             <if test="wzbt != null and wzbt != ''">
-                AND a.wzbt LIKE concat('%',#{wzbt},'%')
+                AND a.wzbt LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="fbsj1 != null and fbsj1 != ''">
                 AND a.fbsj &gt; #{fbsj1}
@@ -99,7 +99,7 @@
             </if>
 
             <if test="wzly != null and wzly != ''">
-                AND a.wzly LIKE concat('%',#{wzly},'%')
+                AND a.wzly LIKE concat('%',#{wzly,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="fbr != null and fbr != ''">
                 AND a.fbr = #{fbr}
@@ -130,7 +130,7 @@
                 AND a.wzzt = #{wzzt}
             </if>
             <if test="gjz != null and gjz != ''">
-				AND (a.gjz LIKE concat('%',#{gjz},'%')  OR a.wzbt  LIKE concat('%',#{gjz},'%'))
+				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
             </if>
 			<if test="sxh != null and sxh != ''">
 				${sxh}
@@ -303,7 +303,7 @@
 				AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b,bckj_dic_menu_apply c WHERE b.owid=c.MENU_REF_OWID AND c.wzbh=1 AND b.SJHQDX=5)
 				AND a.wzzt = 1
 			<if test="gjz != null and gjz != ''">
-				AND (a.gjz LIKE concat('%',#{gjz},'%')  OR a.wzbt  LIKE concat('%',#{gjz},'%'))
+				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
 			</if>
 		</where>
 		ORDER BY ${orderBy}

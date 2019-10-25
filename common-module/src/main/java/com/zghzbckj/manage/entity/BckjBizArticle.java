@@ -38,6 +38,7 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	private String memo;		// memo
 	private String xgfj;
     private List<Map> fileList;
+    private Boolean readOnly;
 	
 	public BckjBizArticle() {
 		super();
@@ -210,5 +211,13 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 
 	public void setXgfj(String xgfj) {
 		this.xgfj = xgfj;
+	}
+
+	public Boolean getReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(Boolean readOnly) {
+		this.readOnly = readOnly;
 	}
 }
