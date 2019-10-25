@@ -32,6 +32,10 @@ $(document).ready(function () {
         return this.optional(element) || (length == 11 && mobile.test(value));
     }, "请正确填写您的手机号码");
 
+    jQuery.validator.addMethod("isIdCardNo", function (value, element){
+        return this.optional(element) || isIdCardNo(value);
+    },"请正确输入您的身份证号码");
+
     $("#registerForm").validate({
         rules: {
             xm:"required",
@@ -40,7 +44,10 @@ $(document).ready(function () {
             xb:"required",
             mz:"required",
             zzmm:"required",
-            sfz:"required",
+            sfz:{
+                required: true,
+                isIdCardNo: true
+            },
             jtdz:"required",
             syd:"required",
             rxnf:"required",
@@ -78,7 +85,10 @@ $(document).ready(function () {
             xb:"请选择",
             mz:"请选择",
             zzmm:"请选择",
-            sfz:"请填写",
+            sfz:{
+                required: "请填写",
+                isIdCardNo: "手机号有误"
+            },
             jtdz:"请填写",
             syd:"请选择",
             rxnf:"请填写",
