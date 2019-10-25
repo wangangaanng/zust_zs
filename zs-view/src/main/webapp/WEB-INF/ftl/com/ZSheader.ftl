@@ -70,7 +70,7 @@
     function openUrl(url) {
         if(url){
             if(url=='/'){
-                window.location.href="${base}/"
+                window.location.href="${base}/index"
             }else{
                 window.location.href="${base}/"+url
             }
