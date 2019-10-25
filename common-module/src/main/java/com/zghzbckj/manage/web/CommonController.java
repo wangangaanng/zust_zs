@@ -247,7 +247,11 @@ public class CommonController {
     public ResponseMessage fileUpload(PublicDataVO dataVO,@RequestParam(required = false) MultipartFile file) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "type");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
             if (null == file || file.isEmpty()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "文件数据空");
             }
@@ -257,7 +261,8 @@ public class CommonController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "文件不大于5MB");
             }
 
-            return ResponseMessage.sendOK(commonService.saveFile(file, MapUtils.getString(mapData,"yhRefOwid")));
+            return ResponseMessage.sendOK(commonService.saveFile(file, mapData));
+
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
