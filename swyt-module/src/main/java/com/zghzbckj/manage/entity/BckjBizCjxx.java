@@ -17,6 +17,7 @@ public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 	private String yhRefOwid;
 	private Integer lx;		// 0会考；1选考；2；综合测评
 	private String kmbh;		// kmbh
+	private String kmmc;		// kmbh
 	private String kmsj;		// kmsj
 	private String kmdj;		// kmdj
 	private Double kmcj;		// kmcj
@@ -85,5 +86,13 @@ public class BckjBizCjxx extends DataWithExpEntity<BckjBizCjxx> {
 
 	public void setYhRefOwid(String yhRefOwid) {
 		this.yhRefOwid = yhRefOwid;
+	}
+
+	public String getKmmc() {
+		return kmmc;
+	}
+
+	public void setKmmc(String kmmc) {
+		this.kmmc = kmmc;
 	}
 }
