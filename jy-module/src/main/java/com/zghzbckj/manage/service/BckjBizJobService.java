@@ -204,6 +204,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         //职位类型 0 职位 1职来职往 2社会招聘会 3 企业招聘会 4 宣讲会
         dataMap.put("zwlx", JyContant.ZWLB_XJH);
+        //王显弘改          -------》该开始
+        if(state==7){
+            dataMap.put("zwlx", JyContant.ZWLB_ZPH);
+        }
+        //王显弘改          -------》该结束
         //1待举办 2已举办  3报名中
         if (1 == state) {
             dataMap.put("wait", 1);
@@ -215,7 +220,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (4 == state) {
             dataMap.put("ddw", 1);
         }
-        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+
+        Integer qdAllNumber = 0;
+        Integer bmAllNumber = 0;
+        Integer gzAllNumber = 0;
+
+        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ",qdAllNumber,bmAllNumber,gzAllNumber);
 
         List<BckjBizJob> records = page.getRecords();
         BckjBizJob job = new BckjBizJob();
@@ -229,11 +239,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return ResponseMessage.sendOK(page);
     }
 
-    Integer qdAllNumber = 0;
-    Integer bmAllNumber = 0;
-    Integer gzAllNumber = 0;
 
-    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy) {
+
+    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy,Integer qdAllNumber,Integer bmAllNumber,Integer gzAllNumber) {
         Page page = new Page(pageNo, pageSize);
         paramsMap.put("page", page);
         if (!com.ourway.base.utils.TextUtils.isEmpty(orderBy)) {

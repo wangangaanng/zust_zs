@@ -36,7 +36,7 @@
 
 
     <insert id="insert">
-		INSERT INTO bckj_biz_student_expand(
+		INSERT INTO bckj_biz_job_plan_other(
 			owid,
 			name,
 			code,
