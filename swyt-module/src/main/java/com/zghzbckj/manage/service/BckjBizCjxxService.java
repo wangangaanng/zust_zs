@@ -198,7 +198,16 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         return Boolean.TRUE;
     }
 
-    public Object getXkcj(Map<String, Object> mapData) throws CustomerException{
+    /**
+    *<p>方法:getXkcj TODO获取选考成绩 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/25 14:27  </li>
+    *</ul>
+    */
+    public Map<String,Object> getXkcj(Map<String, Object> mapData) throws CustomerException{
         BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
         if(null==jbxx){
             throw CustomerException.newInstances("用户基本信息不存在");
