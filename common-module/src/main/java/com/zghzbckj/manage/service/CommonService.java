@@ -152,7 +152,7 @@ public class CommonService {
     *</ul>
     */
     @Transactional(readOnly = false)
-    public Map<String,Object> saveFile(MultipartFile file,String yhRefOwid) throws IOException ,CustomerException{
+    public Map<String,Object> saveFile(MultipartFile file,Map mapData) throws IOException ,CustomerException{
         String fileName = file.getOriginalFilename();
         String type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
         String realName=String.valueOf(System.currentTimeMillis());
@@ -161,12 +161,16 @@ public class CommonService {
         File tarFile = new File(path, fileName);
         file.transferTo(tarFile);
         Map<String,Object> fileCenter=Maps.newHashMap();
+        fileCenter.put("filePath",trueFileName);
+        if(MapUtils.getInt(mapData,"type")==1){
+           return fileCenter;
+        }
+        String yhRefOwid=MapUtils.getString(mapData,"yhRefOwid");
         fileCenter.put("owid",TextUtils.getUUID());
         fileCenter.put("fileClass","BckjBizJbxx");
         fileCenter.put("fileClassId",yhRefOwid);
         fileCenter.put("fileName",realName);
         fileCenter.put("fileLabel",fileName);
-        fileCenter.put("filePath",trueFileName);
         fileCenter.put("fileSize",file.getSize());
         fileCenter.put("fileExtion",type);
         fileCenter.put("createtime",new Date());

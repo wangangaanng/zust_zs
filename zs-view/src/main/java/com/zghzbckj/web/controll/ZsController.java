@@ -122,5 +122,56 @@ public class ZsController {
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
     }
+
+    /**
+     *<p>功能描述:招生网成绩查询 cjcx</p >
+     *<ul>
+     *<li>@param [request, view]</li>
+     *<li>@return org.springframework.web.servlet.ModelAndView</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/25 15:02</li>
+     *</ul>
+     */
+    @RequestMapping(value = "cjcx", method = RequestMethod.GET)
+    public ModelAndView zsCjcx(HttpServletRequest request, ModelAndView view) {
+        view.setViewName("ZScjcx");
+        view.addObject("header", getHeader().getBean());
+        return view;
+    }
+
+    /**
+     *<p>功能描述:招生网录取查询 lqcx</p >
+     *<ul>
+     *<li>@param [request, view]</li>
+     *<li>@return org.springframework.web.servlet.ModelAndView</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/25 15:04</li>
+     *</ul>
+     */
+    @RequestMapping(value = "lqcx", method = RequestMethod.GET)
+    public ModelAndView zsLqcx(HttpServletRequest request, ModelAndView view) {
+        view.setViewName("ZSlqcx");
+        view.addObject("header", getHeader().getBean());
+        return view;
+    }
+
+    /**
+     *<p>功能描述:招生网历年分数名次查询 lnfsmc</p >
+     *<ul>
+     *<li>@param [request, view]</li>
+     *<li>@return org.springframework.web.servlet.ModelAndView</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/25 15:06</li>
+     *</ul>
+     */
+    @RequestMapping(value = "lnfsmc", method = RequestMethod.GET)
+    public ModelAndView zsLnfsmc(HttpServletRequest request, ModelAndView view) {
+        view.setViewName("ZSlnfsmc");
+        view.addObject("header", getHeader().getBean());
+        return view;
+    }
 }
 

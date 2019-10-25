@@ -107,7 +107,7 @@ Page({
       "jsdt": common.formatTime(new Date()),
       "dtrId": wx.getStorageSync("yhOwid"),
     };
-    ajax('zustcommon/bckjBizDcwj/submit', data, function (res) {
+    common.ajax('zustcommon/bckjBizDcwj/submit', data, function (res) {
       if (res.data.backCode == 0) {
         wx.showToast({
           title: '提交成功',
