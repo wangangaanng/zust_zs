@@ -4,7 +4,7 @@
 <van-cell-group>
   <van-field input-align="right" value="{{form.xm}}" name="xm" label="姓名" placeholder="输入内容" required />
   <van-field value="{{form.xsxh}}" name="xsxh" input-align="right" disabled required label="学号" placeholder="输入内容" />
-  <van-field input-align="right" type="idcard" value="{{form.sfz}}" name="sfz" label="身份证号" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" type="idcard" value="{{form.sfz}}" name="sfz" label="身份证号" placeholder="输入内容" required />
   <van-cell required title="性别" value="{{xbStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
   <van-popup show="{{ show.xb }}" position="bottom" custom-style="height: 540rpx" data-type="2" bind:close="hideBottom">
     <van-picker show-toolbar title="性别" value-key="dicVal2" columns="{{xbColumns}}" data-type="2" bind:confirm="onConfirm" bind:cancel="onCancel" />
@@ -12,9 +12,9 @@
   <van-cell required title="民族" value="{{mzStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
   <van-popup show="{{ show.mz }}" position="bottom" custom-style="height: 540rpx" data-type="3" bind:close="hideBottom">
     <van-picker show-toolbar title="民族" value-key="dicVal2" columns="{{mzColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
+  </van-popup> -->
   <van-field input-align="right" value="{{form.xxmc}}" name="xxmc" label="学校名称" placeholder="输入内容" required />
-  <van-field input-align="right" value="{{form.xsxy}}" name="xsxy" label="学生院系" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" value="{{form.xsxy}}" name="xsxy" label="学生院系" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.xszy}}" name="xszy" label="学生专业" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.xsbj}}" name="xsbj" label="班级" placeholder="输入内容" required />
   <van-cell required title="毕业年份" value="{{bynfStr}}" is-link arrow-direction="down" data-type="7" bind:click="showBottom" />
@@ -59,21 +59,21 @@
       <view>123</view>
       <view>123</view>
     </scroll-view>
-  </view>
+  </view> -->
   <!-- <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
   <van-popup show="{{ show.syd }}" position="bottom" custom-style="height: 540rpx" data-type="55" bind:close="hideBottom">
     <van-picker show-toolbar title="生源地" value-key="dicVal2" columns="{{sydColumns}}" data-type="55" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup> -->
-  <van-field input-align="right" value="{{form.sjh}}" name="sjh" label="手机号码" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" value="{{form.sjh}}" name="sjh" label="手机号码" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.jtdh}}" name="jtdh" label="固定电话" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.qqhm}}" name="qqhm" label="qq号码" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.yx}}" name="yx" label="电子邮箱" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.yx}}" name="yx" label="电子邮箱" placeholder="输入内容" /> -->
 <view class="form-title">毕业去向信息</view>
   <van-cell required title="毕业去向" value="{{byqxStr}}" is-link arrow-direction="down" data-type="18" bind:click="showBottom" />
   <van-popup show="{{ show.byqx }}" position="bottom" custom-style="height: 540rpx" data-type="18" bind:close="hideBottom">
     <van-picker show-toolbar title="毕业去向" value-key="dicVal2" columns="{{byqxColumns}}" data-type="18" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  <van-field input-align="right" value="{{form.jyqdbz}}" name="jyqdbz" label="就业标志" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" value="{{form.jyqdbz}}" name="jyqdbz" label="就业标志" placeholder="输入内容" required /> -->
   <van-cell title="用人单位性质名称" value="{{yrdwxzStr}}" is-link arrow-direction="down" data-type="19" bind:click="showBottom" />
   <van-popup show="{{ show.yrdwxz }}" position="bottom" custom-style="height: 540rpx" data-type="19" bind:close="hideBottom">
     <van-picker show-toolbar title="用人单位性质名称" value-key="dicVal2" columns="{{yrdwxzColumns}}" data-type="19" bind:confirm="onConfirm" bind:cancel="onCancel" />

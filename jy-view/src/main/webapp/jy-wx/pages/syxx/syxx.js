@@ -83,7 +83,7 @@ Page({
       xxmc: '',
       xsxy: '',
       xszy: '',
-      szbj: '',
+      xsbj: '',
       pyfs: '',
       wpdw: '',
       knslb: '',
@@ -119,7 +119,7 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    common.ajax('zustcommon/bckjBizSyb/saveSybInfo', params, function (res) {
+    common.ajax('zustcommon/bckjBizSyb/insertssInfo', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
@@ -196,7 +196,7 @@ Page({
       xszy: {
         required: true,
       },
-      szbj: {
+      xsbj: {
         required: true
       },
       pyfs: {
@@ -286,8 +286,8 @@ Page({
       xszy: {
         required: '请填写学校专业',
       },
-      szbj: {
-        required: '请填写所在班级'
+      xsbj: {
+        required: '请填写学生班级'
       },
       pyfs: {
         required: '请选择培养方式'
@@ -312,7 +312,7 @@ Page({
         required: '请填写家庭电话'
       },
       jtyb: {
-        required: '请填写家庭邮编'
+        required: '请填写邮政编码'
       },
       xlcc: {
         required: '请选择学历层次'
@@ -590,7 +590,7 @@ Page({
 
 var getOne = function (that) {
   var data = { "owid": wx.getStorageSync('yhOwid') };
-  common.ajax('zustcommon/bckjBizSyb/getOne', data, function (res) {
+  common.ajax('zustcommon/bckjBizSyb/getOneQt', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if(data.bean){
@@ -609,41 +609,45 @@ var getOne = function (that) {
           sfslbStr: data.bean.sfslb,
           xlccStr: data.bean.xlcc,
         })
-      }
-      if (data.bean.xb) {
-        that.setData({
-          xbStr: util.getVal(data.bean.xb, that.data.xbColumns),
-        })
-      }
-      if (data.bean.sfrx==0) {
-        that.setData({
-          sfrxStr: '否'
-        })
-      } else if (data.bean.sfrx == 1){
-        that.setData({
-          sfrxStr: '是'
-        })
-      }
-      if (data.bean.hkrx == 0) {
-        that.setData({
-          hkrxStr: '否'
-        })
-      } else if (data.bean.hkrx == 1) {
-        that.setData({
-          hkrxStr: '是'
-        })
-      }
-      
-      if (data.bean.mz){
-        getByType1(that, data.bean.mz)//民族
+        if (data.bean.xb) {
+          that.setData({
+            xbStr: util.getVal(data.bean.xb, that.data.xbColumns),
+          })
+        }
+        if (data.bean.sfrx == 0) {
+          that.setData({
+            sfrxStr: '否'
+          })
+        } else if (data.bean.sfrx == 1) {
+          that.setData({
+            sfrxStr: '是'
+          })
+        }
+        if (data.bean.hkrx == 0) {
+          that.setData({
+            hkrxStr: '否'
+          })
+        } else if (data.bean.hkrx == 1) {
+          that.setData({
+            hkrxStr: '是'
+          })
+        }
+
+        if (data.bean.mz) {
+          getByType1(that, data.bean.mz)//民族
+        } else {
+          getByType1(that)//民族
+        }
+        if (data.bean.zzmm) {
+          getByType2(that, data.bean.zzmm)//政治面貌
+        } else {
+          getByType2(that)//政治面貌
+        }
       }else{
         getByType1(that)//民族
-      }
-      if (data.bean.zzmm) {
-        getByType2(that, data.bean.zzmm)//政治面貌
-      } else {
         getByType2(that)//政治面貌
       }
+
     } else {
       wx.showToast({
         title: res.data.errorMess,
