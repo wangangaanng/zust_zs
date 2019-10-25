@@ -105,21 +105,21 @@ public class BckjBizBmController extends BaseController {
 
 
     /**
-    *<p>方法:submit TODO报考专业提交 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 10:08  </li>
-    *</ul>
-    */
+     * <p>方法:submit TODO报考专业提交 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 10:08  </li>
+     * </ul>
+     */
     @RequestMapping(value = "submit", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage submit(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xklb","bklb","zyOwid","yhRefOwid","xxbh");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xklb", "bklb", "zyOwid", "yhRefOwid", "xxbh");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -128,6 +128,31 @@ public class BckjBizBmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
             log.info("报考专业提交 失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    /**
+     * 确认申请表
+     * @param dataVO
+     * @return
+     */
+    @RequestMapping(value = "confirmApply", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage confirmApply(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizBmService.confirmApply(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info(" 确认申请表失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
