@@ -101,6 +101,7 @@
             </otherwise>
         </choose>
     </select>
+
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJob">
         SELECT
         b.qymc AS "qymc",

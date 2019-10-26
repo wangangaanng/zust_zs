@@ -481,7 +481,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
      * <li>@throws </li>
      * <li>@author wangangaanng</li>
-     * <li>@date 2019/10/14</li>
+     * <li>@date 2019/10/26</li>
      * </ul>
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
@@ -524,6 +524,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         //更新yhxx syb jyscheme
         bckjBizYhxxService.updateBySfz(bckjBizYhxx);
         bckjBizSybService.updateBySfz(bckjBizSyb);
+        //设置就业所在地的省份
+        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }

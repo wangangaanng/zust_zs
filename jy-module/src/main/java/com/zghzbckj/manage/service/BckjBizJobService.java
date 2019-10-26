@@ -224,9 +224,32 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (4 == state) {
             dataMap.put("ddw", 1);
         }
-
-        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
-
+        //      --------->>  王显弘改  开始
+        if(state==5||state==7){
+            dataMap.put("wait", 1);
+            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+            List<BckjBizJob> records = page.getRecords();
+            for(BckjBizJob bckjBizJob:records){
+                //设置待举办
+                bckjBizJob.setState(6);
+            }
+            dataMap.remove("wait");
+            dataMap.put("over",1);
+            PageInfo<BckjBizJob> page2 = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+            List<BckjBizJob>  records2 = page2.getRecords();
+            for(BckjBizJob bckjBizJob:records2){
+                //设置已举办
+                bckjBizJob.setState(2);
+            }
+            page.setTotalCount(page.getTotalCount()+page2.getTotalCount());
+            records.addAll(records2);
+            page.setRecords(records);
+        }else {
+            //《--------------------    结束
+            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+        //      --------->>   王显弘改  开始
+        }
+        //《--------------------   结束
         List<BckjBizJob> records = page.getRecords();
         BckjBizJob job = new BckjBizJob();
         job.setZwbt("共有：" + page.getTotalCount() + "条宣讲会");

@@ -491,7 +491,8 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             bckjBizYhkz.setOlx(0);
             bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
         }
-        bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizSyb.getSyd()));
+        //exp1字段统计生源地所在省
+        bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizJyschemeService.getDicVall(50005,bckjBizSyb.getSyd())));
         saveOrUpdate(bckjBizSyb);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
