@@ -225,7 +225,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("ddw", 1);
         }
 
-        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ",qdAllNumber,bmAllNumber,gzAllNumber);
+        page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
 
         List<BckjBizJob> records = page.getRecords();
         BckjBizJob job = new BckjBizJob();
@@ -244,7 +244,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return ResponseMessage.sendOK(page);
     }
 
-    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy,Integer qdAllNumber,Integer bmAllNumber,Integer gzAllNumber) {
+    public PageInfo<BckjBizJob> findPageWithNumber(Map<String, Object> paramsMap, int pageNo, int pageSize, String orderBy) {
         Page page = new Page(pageNo, pageSize);
         paramsMap.put("page", page);
         if (!com.ourway.base.utils.TextUtils.isEmpty(orderBy)) {
