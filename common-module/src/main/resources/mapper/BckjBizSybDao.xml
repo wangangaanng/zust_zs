@@ -118,7 +118,7 @@
 				AND a.xsxh = #{xsxh}
 			</if>
 			<if test="xm != null and xm != ''">
-				AND a.xm #{xm}
+				AND a.xm=#{xm}
 			</if>
 			<if test="sfz != null and sfz != ''">
 				AND a.sfz = #{sfz}
