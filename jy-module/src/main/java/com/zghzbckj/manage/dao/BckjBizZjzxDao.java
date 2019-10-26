@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.manage.entity.BckjBizZjzx;
+import com.zghzbckj.vo.BckjBizYhxxVo;
 
 import java.util.List;
 import java.util.Map;
@@ -30,4 +31,8 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
     Map<String,Object> getConsultsOne(Map<String, Object> dataMap);
 
     void deleteByHyid(BckjBizZjzx bckjBizZjzx);
+
+    String getOneByDlzh(String dlzh);
+
+    void deleteYhxx(String owid);
 }

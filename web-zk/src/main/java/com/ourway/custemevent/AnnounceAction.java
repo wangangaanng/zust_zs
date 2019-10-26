@@ -57,6 +57,9 @@ public class AnnounceAction implements ComponentListinerSer {
             if ("0".equals(stateParam.get("state")) && !AlterDialog.corfirm("您确定发布该问卷吗？")) {
                 return;
             }
+            if ("1".equals(stateParam.get("state")) && !AlterDialog.corfirm("您确定撤回该问卷吗？")) {
+                return;
+            }
             //调用接口
             String apiURL = params.get("apiUrl").toString();
             PublicData publicData = PublicData.instantce();

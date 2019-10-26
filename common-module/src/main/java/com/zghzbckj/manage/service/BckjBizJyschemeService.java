@@ -251,7 +251,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             for (int i = 2; i < list.size(); i++) {
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
-                String xsxh = cellList.get(0); //身份证号
+                String xsxh = cellList.get(0); //学生学号
                 //如果学号为空则退出
                 if (TextUtils.isEmpty(xsxh)) {
                     break;
@@ -291,7 +291,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 resMap.put("bdzqwdwmc", bdzqwdwmc);
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
                 resMap.put("bdzqwszdmc",getDicVal(50005,bdzqwszdmc));
-                String bdkssj = cellList.get(16); //报到开始时间
+                    String bdkssj = cellList.get(16); //报到开始时间
                 resMap.put("bdkssj", ExcelUtils.stringtoDate(bdkssj));
                 String bdjssj = cellList.get(17); //报到结束时间
                 resMap.put("bdjssj", ExcelUtils.stringtoDate(bdjssj));
@@ -481,7 +481,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
      * <li>@throws </li>
      * <li>@author wangangaanng</li>
-     * <li>@date 2019/10/14</li>
+     * <li>@date 2019/10/26</li>
      * </ul>
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
@@ -524,6 +524,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         //更新yhxx syb jyscheme
         bckjBizYhxxService.updateBySfz(bckjBizYhxx);
         bckjBizSybService.updateBySfz(bckjBizSyb);
+        //设置就业所在地的省份
+        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
@@ -570,6 +572,12 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      */
     public  List getDicListByType(int type){
         return this.dao.getDicListByType(type);
+    }
+
+    public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
+        return  this.dao.getOneByYhRefOwid(dataMap);
+
+
     }
 
 

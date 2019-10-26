@@ -235,10 +235,10 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 if (TextUtils.isEmpty(sfz)) {
                     break;
                 }
-                String regex = "\\d{15}(\\d{2}[0-9xX])?";
+              /*  String regex = "\\d{15}(\\d{2}[0-9xX])?";
                 if (!sfz.matches(regex)) {
                     return ResponseMessage.sendOK("存在错误的身份证格式录入");
-                }
+                }*/
                 resMap.put("sfz", sfz);
                 String xsxh = cellList.get(0); //学生学号
                 resMap.put("xsxh", xsxh);
@@ -366,13 +366,23 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
             }
             for (BckjBizYhxx bckjBizYhxx : yhxxes) {
-                bckjBizYhxxService.insert(bckjBizYhxx);
+                    bckjBizYhxxService.insert(bckjBizYhxx);
             }
             for (BckjBizSyb bckjBizSyb : sybs) {
+                try {
                 saveOrUpdate(bckjBizSyb);
+                }
+                catch (Exception e){
+                    System.out.println(bckjBizSyb);
+                }
             }
             for (BckjBizStudentExpand bckjBizStudentExpand : stus) {
-                bckjBizStudentExpandService.saveOrUpdate(bckjBizStudentExpand);
+                try {
+                    bckjBizStudentExpandService.saveOrUpdate(bckjBizStudentExpand);
+                }
+                catch (Exception e){
+                    System.out.println(bckjBizStudentExpand);
+                }
             }
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
@@ -481,7 +491,8 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             bckjBizYhkz.setOlx(0);
             bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
         }
-        bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizSyb.getSyd()));
+        //exp1字段统计生源地所在省
+        bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizJyschemeService.getDicVall(50005,bckjBizSyb.getSyd())));
         saveOrUpdate(bckjBizSyb);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
@@ -491,5 +502,10 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
 
     public void updateBySfz(BckjBizSyb bckjBizSyb){
         this.dao.updateBySfz(bckjBizSyb);
+    }
+
+    public BckjBizSyb getOneQt(String owid) {
+        return this.dao.getOneQt(owid);
+
     }
 }

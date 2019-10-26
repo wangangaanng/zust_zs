@@ -2,7 +2,7 @@
 <style>
     .search-bar{display: block;float: right;margin-right: 0px;width: 195px;height: 40px;padding-left: 15px;padding-right: 45px;background-color: #fff;border-radius: 20px;overflow: hidden;position: relative;padding: 0px 30px 0px 20px;margin-top: 58px;margin-bottom: 40px;}
     .search-bar input{height: 100%;outline: none;}
-    .search-btn{ position: absolute;right: 11px;top:11px;}
+    .search-btn{ position: absolute;right: 11px;top:10px;}
     .search-ipt{width:100%;background-color:#fff;border: none;line-height: 40px;}
     header .top{height: auto}
 </style>

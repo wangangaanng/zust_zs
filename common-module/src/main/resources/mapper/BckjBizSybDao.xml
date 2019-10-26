@@ -118,10 +118,46 @@
 				AND a.xsxh = #{xsxh}
 			</if>
 			<if test="xm != null and xm != ''">
-				AND a.xm LIKE concat('%',#{xm},'%')
+				AND a.xm=#{xm}
 			</if>
-			<if test="xb != null and xb != ''">
-				AND a.xb = #{xb}
+			<if test="sfz != null and sfz != ''">
+				AND a.sfz = #{sfz}
+			</if>
+			<if test="syd != null and syd != ''">
+				AND a.syd = #{syd}
+			</if>
+			<if test="zyfx != null and zyfx != ''">
+				AND a.zyfx = #{zyfx}
+			</if>
+			<if test="xz != null and xz != ''">
+				AND a.xz = #{xz}
+			</if>
+			<if test="knslb != null and knslb != ''">
+				AND a.knslb = #{knslb}
+			</if>
+			<if test="cxsy != null and cxsy != ''">
+				AND a.cxsy = #{cxsy}
+			</if>
+			<if test="pyfs != null and pyfs != ''">
+				AND a.pyfs = #{pyfs}
+			</if>
+			<if test="xsxy != null and xsxy != ''">
+				AND a.xsxy = #{xsxy}
+			</if>
+			<if test="xszy != null and xszy != ''">
+				AND a.xszy = #{xszy}
+			</if>
+			<if test="xsbj != null and xsbj != ''">
+				AND a.xsbj = #{xsbj}
+			</if>
+			<if test="mz != null and mz != ''">
+				AND a.mz = #{mz}
+			</if>
+			<if test="zzmm != null and zzmm != ''">
+				AND a.zzmm = #{zzmm}
+			</if>
+			<if test="ksh != null and ksh != ''">
+				AND a.ksh = #{ksh}
 			</if>
 		</where>
 		<choose>
@@ -528,5 +564,12 @@
 			xxmc=#{xxmc}
 			WHERE sfz=#{sfz}
 	</update>
+
+
+	<select id="getOneQt" parameterType="String" resultType="BckjBizSyb">
+		SELECT <include refid="bckjBizSybColumns"></include>
+		from bckj_biz_syb a
+		where a.yh_ref_owid=#{owid}
+	</select>
 
 </mapper>

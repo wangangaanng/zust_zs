@@ -1,15 +1,15 @@
 <!--
     作者：2515421994@qq.com
     时间：2019-10-25
-    描述：三位一体首页
+    描述：三位一体container
 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-<#include "com/config.ftl">
-    <title>${title!''}</title>
+    <#include "com/config.ftl">
+    <title>${swyt_title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
@@ -19,7 +19,7 @@
 <#include "com/SWheader.ftl">
 <div class="frame-wrap">
 
-<#--swiper start-->
+    <#--swiper start-->
     <div class="swiper-container index-swiper">
         <div class="swiper-wrapper">
             <div class="swiper-slide">
@@ -35,9 +35,9 @@
         <!-- 如果需要分页器 -->
         <div class="swiper-pagination"></div>
     </div>
-<#--swiper end-->
+   <#--swiper end-->
 
-<#--content start -->
+     <#--content start -->
     <div class="content mt20">
 
     <#--leftMenu start -->
@@ -48,6 +48,11 @@
             <div class="articleTpl-detail">
                 <div class="articleTpl-title">
                     我的报名表
+                </div>
+                <div class="article-detail-text">
+                    <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
+                    <#include "SWInfoBasic.ftl">
+
                 </div>
             </div>
         </div>

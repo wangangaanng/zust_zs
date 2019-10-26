@@ -25,10 +25,10 @@ public class SwytController {
         model.addAttribute("localUrl", ApiConstants.localUrl);
         model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
     }
-
-    @RequestMapping(value = "/swIndex", method = RequestMethod.GET)
-    public ModelAndView swIndex(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWYTindex2");
+   // 三位一体框首页容器
+    @RequestMapping(value = "/trinityEnrollment", method = RequestMethod.GET)
+    public ModelAndView trinityEnrollment(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("trinityEnrollment");
         return view;
     }
     @RequestMapping(value = "SWTYlogin", method = RequestMethod.GET)

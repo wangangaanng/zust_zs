@@ -335,4 +335,14 @@
 	<delete id="deleteByHyid">
       DELETE FROM bckj_biz_zjzx WHERE yhid = #{owid}
   </delete>
+
+
+	<select id="getOneByDlzh" resultType="String" parameterType="String">
+		SELECT yh_dlzh from bckj_biz_yhxx
+		where yh_dlzh=#{dlzh}
+	</select>
+
+	<delete id="deleteYhxx" parameterType="String" >
+		DELETE FROM bckj_biz_yhxx where owid=#{value }
+	</delete>
 </mapper>
