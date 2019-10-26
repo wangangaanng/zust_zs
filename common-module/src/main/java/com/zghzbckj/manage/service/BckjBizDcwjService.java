@@ -263,6 +263,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         //统计行
         BckjBizDcwj dcwj = new BckjBizDcwj();
         dcwj.setWjmc("共有："+ page.getTotalCount() +"张调查问卷");
+        dcwj.setState(null);
         dcwj.setReadOnly(true);
         records.add(0, dcwj);
         return ResponseMessage.sendOK(page);

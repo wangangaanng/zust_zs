@@ -46,8 +46,6 @@ public class BckjBizDcwjController extends BaseController {
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
-    //调查问卷开始答题、结束答题
-    Map<String, Object> dcwjTime = new HashMap<>(2);
 
     /**
      *<p>功能描述:调查问卷列表 dcwjList</p >
@@ -116,7 +114,7 @@ public class BckjBizDcwjController extends BaseController {
             result.put("questionList", questionList);
             //判断调查人数是否已满。调查人数默认为0，代表不限制
             int maxNumber = bckjBizDcwjJgService.countPeople(dataMap.get("dcwjRefOwid").toString());
-            if (maxNumber > questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
+            if (maxNumber >= questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
                 result.put("tips", "调查人数已满，无需再填写");
                 return ResponseMessage.sendOK(result);
             }
@@ -129,8 +127,6 @@ public class BckjBizDcwjController extends BaseController {
                     return ResponseMessage.sendOK(result);
                 }
             }
-            //点击进入详情接口，保存开始答题时间
-            dcwjTime.put("ksdt", DateUtil.getCurrentDate("yyyy-MM-dd HH:mm:ss"));
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();
@@ -164,7 +160,7 @@ public class BckjBizDcwjController extends BaseController {
             }
             //判断调查人数是否已满
             int maxNumber = bckjBizDcwjJgService.countPeople(dataMap.get("dcwjRefOwid").toString());
-            if (maxNumber > questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
+            if (maxNumber >= questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查人数已满，无需再填写");
             }
             //若有答题人id，查找答题人姓名，若无答题人id，表示为
