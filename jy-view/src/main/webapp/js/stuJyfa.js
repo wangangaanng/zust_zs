@@ -113,6 +113,10 @@ $.validator.setDefaults({
 
 function saveJyFaInfo() {
     if(!isTimeOut()) {
+        if(!$("#bdzqwszdmc").val()){
+            walert("请选择报到证签往单位所在地")
+            return
+        }
         var jsonObj = $("#registerForm").serializeObject()
         jsonObj.xsxh = $("#xsxh").val();
         if($("#owid").val()){

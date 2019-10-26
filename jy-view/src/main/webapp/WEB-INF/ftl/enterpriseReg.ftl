@@ -347,10 +347,17 @@
                 return this.optional(element) || (length == 11 && mobile.test(value));
             }, "请正确填写您的手机号码");
 
+            jQuery.validator.addMethod("isIdCardNo", function (value, element){
+                return this.optional(element) || isIdCardNo(value);
+            },"请正确输入您的身份证号码");
+
             $("#registerForm").validate({
                 rules: {
                     qyTysh:"required",
-                    qyFrsfz:"required",
+                    qyFrsfz:{
+                        required: true,
+                        isIdCardNo: true
+                    },
                     qyFrdbxm:"required",
                     qymc:"required",
                     qyProv:"required",
@@ -373,7 +380,10 @@
                 },
                 messages: {
                     qyTysh: "请填写",
-                    qyFrsfz: "请填写",
+                    qyFrsfz:  {
+                        required: "请填写",
+                        isIdCardNo: "请填写正确身份证号码"
+                    },
                     qyFrdbxm: "请填写",
                     qymc: "请填写",
                     qyProv: "请选择",
