@@ -129,6 +129,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             BckjBizZjzx bckjBizZjzx = new BckjBizZjzx();
             bckjBizZjzx.setOwid(owid);
             this.dao.deleteByHyid(bckjBizZjzx);
+            this.dao.deleteYhxx(owid);
             params.put("owid", owid);
             objs.add(params);
         }
@@ -302,7 +303,12 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         if (ClassUtils.isAllFieldNull(bckjBizYhxx) && ClassUtils.isAllFieldNull(bckjBizZjzx)) {
             return ResponseMessage.sendOK( "无保存内容");
         }
-        if(TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
+        //根据登入账号去寻找用户
+    String oneDlzh = getOneByDlzh(bckjBizYhxx.getYhDlzh());
+        if(!TextUtils.isEmpty(oneDlzh)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
+        }
+    if(TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
             bckjBizYhxx.setXm(bckjBizZjzx.getZjxm());
             bckjBizYhxx.setYhlx(1);
             bckjBizYhxx.setYhDlmm(com.zghzbckj.util.TextUtils.MD5(bckjBizZjzx.getExp1()));
@@ -324,6 +330,10 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
                 this.dao.updateBycondition(bckjBizZjzx);
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    private String getOneByDlzh(String dlzh) {
+        return this.dao.getOneByDlzh(dlzh);
     }
 
     public ResponseMessage getConsultsOne(Map<String, Object> dataMap) {

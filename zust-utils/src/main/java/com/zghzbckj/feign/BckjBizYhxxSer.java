@@ -51,6 +51,4 @@ public interface BckjBizYhxxSer {
     @RequestMapping(value = "/bckjBizYhxx/insertInfo",method = RequestMethod.POST)
     ResponseMessage insertInfo(@RequestBody  BckjBizYhxxVo bckjBizYhxxVo);
 
-
-
 }
