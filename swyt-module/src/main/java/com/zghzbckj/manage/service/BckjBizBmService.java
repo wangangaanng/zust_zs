@@ -5,8 +5,10 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.itextpdf.text.DocumentException;
 import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
+import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -16,11 +18,15 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizBmDao;
 import com.zghzbckj.manage.entity.*;
+import com.zghzbckj.manage.utils.JavaToPdfHtmlFreeMarker;
+import com.zghzbckj.manage.utils.TemplateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -146,8 +152,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      */
     @Transactional(readOnly = false)
     public String submit(Map<String, Object> mapData) throws Exception {
-        String bmnd=DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
-        mapData.put("bmnd",bmnd );
+        String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
+        mapData.put("bmnd", bmnd);
         BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
@@ -227,6 +233,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     /**
      * 查申请表
+     *
      * @param mapData applyOwid
      * @return
      * @throws CustomerException
@@ -258,15 +265,16 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         saveOrUpdate(bm);
         return Boolean.TRUE;
     }
+
     /**
-    *<p>方法:submitJft TODO缴费凭证提交 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.lang.Object  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 16:17  </li>
-    *</ul>
-    */
+     * <p>方法:submitJft TODO缴费凭证提交 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.Object  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 16:17  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
     public Object submitJft(Map<String, Object> mapData) {
         BckjBizBm bm = getBmxx(mapData);
@@ -274,4 +282,39 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         saveOrUpdate(bm);
         return Boolean.TRUE;
     }
+
+    /**
+     * <p>方法:getApply TODO </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.Object  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/26 15:53  </li>
+     * </ul>
+     */
+    public String getApply(Map<String, Object> mapData) throws IOException, DocumentException {
+        BckjBizBm bm = getBmxx(mapData);
+        String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
+                "xm", "xbStr", "qq", "mz", "jtzz", "yx", "sfzh", "lxdh",
+                "wycj", "zxlb", "jssm", "qtqk", "tcah"};
+        Map datas = BeanUtil.obj2Map(bm, bmStrs);
+        Map paramCjxx = Maps.newConcurrentMap();
+        paramCjxx.put("yhRefOwid", bm.getUserRefOwid());
+        paramCjxx.put("lx","0");
+        List<BckjBizCjxx> hkList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
+        paramCjxx.put("lx",1);
+        List<BckjBizCjxx> xkList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
+        paramCjxx.put("lx",2);
+        List<BckjBizCjxx> zcList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
+        datas.put("hkList",hkList);
+        datas.put("xkList",xkList);
+        datas.put("zcList",zcList);
+        String fileName = bm.getOwid() + SwytConstant.GENAL_PDF_FILE;
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + fileName;
+        String htmlData = TemplateUtils.freeMarkerContent(datas, "applicationForm");
+        JavaToPdfHtmlFreeMarker.createPdf(htmlData, saveFilePath);
+        return SwytConstant.SWTYFILEPATH + File.separator + fileName;
+    }
+
+
 }

@@ -12,6 +12,10 @@ package com.zghzbckj.common;
  * @author xby
  */
 public class SwytConstant {
+    public static final String SWTYFILEPATH = "swytFiles";
+    public static final String ORDERBY_NAME = "a.xssx";
+    public static final String GENAL_PDF_FILE = ".pdf";
+
     //state=0
     public static final String BMXZQZ = "报名表待确认";
     //state=1
@@ -30,4 +34,5 @@ public class SwytConstant {
     public static final String BMXZMSD = "下载面试单";
     //state=8
     public static final String BMCJCX = "成绩查询";
+    public static final String FTLFILE_SUFFIX = ".ftl";
 }
