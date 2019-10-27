@@ -133,83 +133,72 @@
             padding: 7px;
         }
     </style>
-    <script type="text/javascript">
-        var projectTitle = "${mianInfo.projectTitle}";
-        var projectRefOwid = "${projectRefOwid}";
-        var reviewListRefId = "${reviewListRefId}";
-        var planRefId = "${planRefId}";
-
-        function doPrint() {
-            bdhtml = window.document.body.innerHTML;
-            sprnstr = "<!--startprint-->";
-            eprnstr = "<!--endprint-->";
-            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
-            console.log(prnhtml);
-            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-            console.log(prnhtml);
-            window.document.body.innerHTML = prnhtml;
-            window.print();
-        }
-
-    </script>
 </head>
 <body>
-<!--startprint-->
-<!--第一页开始-->
 <div class="page">
-    <a href="javascript:doPrint()" class="noprint">
-        <img src="img/print.png"/>
-        <h6>打印</h6>
-    </a>
     <table width="100%" align="center" style="border-collapse:collapse">
         <tr>
             <td align="center">
                 <h1 style="margin: 8px; font-style: initial;">浙江科技学院“三位一体”综合评价招生申请表</h1>
             </td>
         </tr>
-
     </table>
-    <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" style="margin-top: 10px;border-collapse:collapse">
+    <div style="font-style: normal;font-weight: 400;text-align: center;">
+        <span>学科类别：</span><span style="margin-right: 20px;">${xklb}</span>
+        <span>外语语种：</span><span style="margin-right: 20px;">${wyyz}</span>
+        <span>类别：</span><span style="margin-right: 20px;">${bklb}</span>
+        <span>招生专业：</span><span style="margin-right: 20px;">${xzzymc}</span>
+    </div>
+    <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0"
+           style="margin-top: 10px;border-collapse:collapse">
         <tr>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 120px;">姓名
             </td>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 150px;">
+            ${xm}
             </td>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 120px;">性别
             </td>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 150px;">
+            ${xbStr}
             </td>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 120px;">民族
             </td>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 150px;">
+            ${mz}
             </td>
             <td align="center" colspan="2" rowspan="4" valign="middle" class="contentFont han" style="width: 200px;">
-				请粘贴一寸照
+                请粘贴一寸照
             </td>
         </tr>
         <tr>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 160px;">QQ
             </td>
             <td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+            ${qq}
             </td>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 180px;">电子邮箱</td>
             <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
+            ${yx}
             </td>
         </tr>
         <tr>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 160px;">手机号
             </td>
             <td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+            ${lxdh}
             </td>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 180px;">身份证号
             </td>
             <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
+            ${sfzh}
             </td>
         </tr>
         <tr>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 160px;">家庭地址
             </td>
             <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 300px;">
+            ${jtzz}
             </td>
         </tr>
         <tr>
@@ -220,135 +209,60 @@
             <td align="center" valign="middle" class="contentFont han" style="width: 278px;">
                 科目
             </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                历史
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                地理
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                技术
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                英语
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                物理
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                化学
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                思想政治
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                生物
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                语文
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                数学
-            </td>
+              <#list hkList as hk>
+          <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
+              ${hk.kmmc}
+          </td>
+              </#list>
         </tr>
         <tr>
             <td align="center" valign="middle" class="contentFont han" style="width: 278px;">
                 等第
             </td>
+            <#list hkList as hk>
             <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                A
+                ${hk.kmdj}
             </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                B
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                A
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 120px;">
-                B
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                A
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                B
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                A
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                B
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                A
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">
-                B
-            </td>
+            </#list>
         </tr>
         <tr>
             <td align="center" colspan="12" valign="middle" class="contentFont han" style="width: 120px;">综合素质评价
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 133px;">
-                品德表现
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
-                A
-            </td>
-            <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
-                运动健康
-            </td>
-            <td align="center"  valign="middle" class="contentFont han" style="width: 65px;">
-                B
-            </td>
-            <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
-                艺术素养
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
-                A
-            </td>
-            <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
-                创新实践
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
-                B
-            </td>
+     <#list zcList as zc>
+         <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 133px;">
+             ${zc.kmmc}
+         </td>
+         <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
+             ${zc.kmdj}
+         </td>
+     </#list>
         </tr>
         <tr>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
                 选考成绩
             </td>
+                 <#list xkList as xk>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 65px;">
-                物理
+                ${xk.kmmc}
             </td>
             <td align="center" valign="middle" class="contentFont han" style="width: 133px;">
-                95
+                ${xk.kmcj}
             </td>
-            <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 65px;">
-                化学
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 133px;">
-                90
-            </td>
-            <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 65px;">
-                生物
-            </td>
-            <td align="center" valign="middle" class="contentFont han" style="width: 133px;">
-                88
-            </td>
+                 </#list>
         </tr>
         <tr>
             <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 133px;">
                 外语成绩
             </td>
             <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 65px;">
-                100
+            ${wycj}
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="12" valign="middle" class="contentFont han" style="width: 120px;">专项条件（严格按招生章程中的5类条件填写）
+            <td align="center" colspan="12" valign="middle" class="contentFont han" style="width: 120px;">
+                专项条件（严格按招生章程中的5类条件填写）
             </td>
         </tr>
         <tr>
@@ -356,7 +270,7 @@
                 专项类别（可多选）
             </td>
             <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
-                学科竞赛类、科技创新类、语言文学特长类
+            ${zxlb}
             </td>
         </tr>
         <tr>
@@ -364,7 +278,7 @@
                 高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次
             </td>
             <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
-
+            ${jssm}
             </td>
         </tr>
         <tr>
@@ -376,7 +290,7 @@
                 高中阶段参加的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或职责）
             </td>
             <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
-
+            ${qtqk}
             </td>
         </tr>
         <tr>
@@ -384,12 +298,11 @@
                 特长和爱好
             </td>
             <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
-
+            ${tcah}
             </td>
         </tr>
     </table>
-	<div style="text-align: right;margin-right: 150px;font-style: normal;margin-top: 10px;">本人签名：</div>
+    <div style="text-align: right;margin-right: 150px;font-style: normal;margin-top: 10px;">本人签名：</div>
 </div>
-<!--endprint-->
 </body>
 </html>
