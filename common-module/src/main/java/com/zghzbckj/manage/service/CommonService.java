@@ -134,7 +134,7 @@ public class CommonService {
     @Transactional(readOnly = false)
     public void sendCodeForget(Map<String, Object> mapData) throws CustomerException {
         BckjBizYhxx yhxx = bckjBizYhxxService.getBySwZh(mapData, "swZh");
-        if (null != yhxx) {
+        if (null == yhxx) {
             throw new CustomerException("不存在此用户");
         }
         if (yhxx.getState() == 0) {
@@ -145,6 +145,7 @@ public class CommonService {
             MessageUtil.sendMessageCode(yhxx.getSwZh(), yhxx.getYzm());
         } catch (Exception e) {
             e.printStackTrace();
+            throw new CustomerException("验证按发送失败");
         }
         yhxx.setFssj(new Date());
         bckjBizYhxxService.saveOrUpdate(yhxx);
