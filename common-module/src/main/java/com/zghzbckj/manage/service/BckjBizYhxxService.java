@@ -413,7 +413,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false)
     public BckjBizYhxx swYtzc(Map yhxx) throws CustomerException {
         BckjBizYhxx indata = getBySwZh(yhxx,"swZh");
-        if (null != indata) {
+        if (null == indata) {
             throw new CustomerException("手机号信息不存在，请重新发送验证码");
         }
         if (indata.getState() == 1) {
