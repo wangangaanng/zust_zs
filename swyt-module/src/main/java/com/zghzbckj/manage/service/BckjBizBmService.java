@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
+import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -16,11 +17,16 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizBmDao;
 import com.zghzbckj.manage.entity.*;
+import com.zghzbckj.manage.utils.Html2PdfUtil;
+import com.zghzbckj.manage.utils.MailUtils;
+import com.zghzbckj.manage.utils.TemplateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -146,8 +152,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      */
     @Transactional(readOnly = false)
     public String submit(Map<String, Object> mapData) throws Exception {
-        String bmnd=DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
-        mapData.put("bmnd",bmnd );
+        String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
+        mapData.put("bmnd", bmnd);
         BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
@@ -157,6 +163,9 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
         } else {
+            if(bm.getState()!=0){
+                throw CustomerException.newInstances("此报名已提交，不能修改");
+            }
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
         }
         BckjBizBkzy zy = bckjBizBkzyService.get(Long.valueOf(MapUtils.getInt(mapData, "zyOwid")));
@@ -207,6 +216,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         //报名表确认
         bm.setState(1);
         bm.setXybnr(SwytConstant.BMXZ);
+        saveOrUpdate(bm);
         return Boolean.TRUE;
     }
 
@@ -227,6 +237,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     /**
      * 查申请表
+     *
      * @param mapData applyOwid
      * @return
      * @throws CustomerException
@@ -258,20 +269,118 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         saveOrUpdate(bm);
         return Boolean.TRUE;
     }
+
     /**
-    *<p>方法:submitJft TODO缴费凭证提交 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.lang.Object  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 16:17  </li>
-    *</ul>
-    */
+     * <p>方法:submitJft TODO缴费凭证提交 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.Object  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 16:17  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
     public Object submitJft(Map<String, Object> mapData) {
         BckjBizBm bm = getBmxx(mapData);
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
+        bm.setState(6);
+        bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
         return Boolean.TRUE;
+    }
+
+    /**
+     * <p>方法:getApply TODO </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.Object  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/26 15:53  </li>
+     * </ul>
+     */
+    public String getApply(Map<String, Object> mapData) throws IOException {
+        BckjBizBm bm = getBmxx(mapData);
+        String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
+                "xm", "xbStr", "qq", "mz", "jtzz", "yx", "sfzh", "lxdh",
+                "wycj", "zxlb", "jssm", "qtqk", "tcah"};
+        Map datas = BeanUtil.obj2Map(bm, bmStrs);
+        Map paramCjxx = Maps.newConcurrentMap();
+        paramCjxx.put("yhRefOwid", bm.getUserRefOwid());
+        paramCjxx.put("lx","0");
+        List<BckjBizCjxx> hkList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
+        paramCjxx.put("lx",1);
+        List<BckjBizCjxx> xkList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
+        paramCjxx.put("lx",2);
+        List<BckjBizCjxx> zcList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
+        datas.put("hkList",hkList);
+        datas.put("xkList",xkList);
+        datas.put("zcList",zcList);
+        String fileName = bm.getOwid() + File.separator+SwytConstant.SWTYSQB;
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + fileName;
+        String htmlData = TemplateUtils.freeMarkerContent(datas, "apcationForm");
+        Html2PdfUtil.createPdf(htmlData, saveFilePath);
+        return SwytConstant.SWTYFILEPATH + File.separator + fileName;
+    }
+
+
+    /**
+    *<p>方法:sendApplyEmail TODO发送面试单</p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.Object  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 12:22  </li>
+    *</ul>
+    */
+    public boolean sendApplyEmail(Map<String, Object> mapData) {
+
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) +  MapUtils.getString(mapData,"applyOwid")+File.separator+SwytConstant.SWTYSQB;
+        String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) +SwytConstant.SWTYCNS;
+        String email=MapUtils.getString(mapData,"yx");
+        Map value= Maps.newHashMap();
+        value.put("to",email);
+        value.put("subject","浙江科技学院三位一体综合评价招生申请表");
+        value.put("content","");
+        List<String> fileList= Lists.newArrayList();
+        fileList.add(cns);
+        fileList.add(saveFilePath);
+        MailUtils.sendMails(fileList,value);
+        return Boolean.TRUE;
+    }
+
+    /**
+    *<p>方法:sendView TODO </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return boolean  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 14:17  </li>
+    *</ul>
+    */
+    public boolean sendView(Map<String, Object> mapData) {
+        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+        String email=MapUtils.getString(mapData,"yx");
+        Map value= Maps.newHashMap();
+        value.put("to",email);
+        value.put("subject",CacheUtil.getVal("swyt.view.subject"));//"浙江科技学院三位一体综合评价招生综合测试通知单"
+        value.put("content",CacheUtil.getVal("swyt.view.content"));
+        List<String> fileList= Lists.newArrayList();
+        fileList.add(view);
+        MailUtils.sendMails(fileList,value);
+        return Boolean.TRUE;
+    }
+
+    /**
+    *<p>方法:getNotice TODO </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.String  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 21:03  </li>
+    *</ul>
+    */
+    public String  getNotice(Map<String, Object> mapData) {
+        String view = SwytConstant.SWTYFILEPATH +File.separator+MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+        return view;
     }
 }

@@ -8,11 +8,13 @@ import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
+import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.service.BckjBizBkzyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -104,21 +106,21 @@ public class BckjBizBkzyController extends BaseController {
 
 
     /**
-    *<p>方法:getMajors TODO 获取专业列表</p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 16:20  </li>
-    *</ul>
-    */
+     * <p>方法:getMajors TODO 获取专业列表</p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 16:20  </li>
+     * </ul>
+     */
     @RequestMapping(value = "getMajors", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getMajors(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xxbh","fid");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "xxbh", "fid");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -131,4 +133,18 @@ public class BckjBizBkzyController extends BaseController {
         }
     }
 
+
+    @RequestMapping(value = "test", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage test(PublicDataVO dataVO) {
+        try {
+
+            return ResponseMessage.sendOK(9999);
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取营业日志失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

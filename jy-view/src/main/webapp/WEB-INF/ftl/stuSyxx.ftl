@@ -85,14 +85,18 @@
                         </div>
                         <label for="xsxh" class="col-sm-2 control-label">学号<span class="red">*</span>：</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="xsxh" name="xsxh" value="${(stuInfo.xsxh)!''}" disabled="disabled" placeholder="" autocomplete="off">
-                        </div>
+                             <#if (stuInfo.xsxh)??>
+                                 <input type="text" class="form-control" id="xsxh" name="xsxh" value="${(stuInfo.xsxh)!''}" disabled="disabled" placeholder="" autocomplete="off">
+                             <#else>
+                                <input type="text" class="form-control" id="xsxh" name="xsxh" placeholder="" autocomplete="off">
+                             </#if>
+                            </div>
                     </div>
                     <div class="form-group">
                         <label for="csrq" class="col-sm-2 control-label">出生日期<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <#if (stuInfo.csrq)??>
-                                <input type="text" class="form-control" id="csrq" name="csrq" value="${(stuInfo.csrq)!''}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="csrq" name="csrq" value="${((stuInfo.csrq)?substring(0,10))!''}" placeholder="" autocomplete="off">
                             <#else>
                                 <input type="text" class="form-control" id="csrq" name="csrq" value="${(stuInfo.csrq)!''}" placeholder="" autocomplete="off">
                             </#if>

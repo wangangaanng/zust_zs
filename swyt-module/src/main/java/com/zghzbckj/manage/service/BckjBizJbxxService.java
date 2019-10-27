@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -122,49 +123,56 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
     }
 
     /**
-    *<p>方法:finishInfo TODO完善身份信息 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return boolean  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 10:33  </li>
-    *</ul>
-    */
+     * <p>方法:finishInfo TODO完善身份信息 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 10:33  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
     public boolean finishInfo(Map<String, Object> mapData) {
-        BckjBizJbxx indata=this.dao.findOneByMap(mapData);
-        BckjBizJbxx param=JsonUtil.map2Bean(mapData,BckjBizJbxx.class);
-        if(null==indata){
-            indata =param;
-            indata.setState(1);
-        }else{
-            BeanUtil.copyPropertiesIgnoreNull(param,indata);
-        }
+        BckjBizJbxx indata = this.dao.findOneByMap(mapData);
+        BckjBizJbxx param = JsonUtil.map2Bean(mapData, BckjBizJbxx.class);
+        BeanUtil.copyPropertiesIgnoreNull(param, indata);
+        indata.setState(1);
         this.saveOrUpdate(indata);
         return Boolean.TRUE;
     }
 
     /**
-    *<p>方法:getInfo TODO取个人基本信息 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return com.zghzbckj.manage.entity.BckjBizJbxx  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 10:59  </li>
-    *</ul>
-    */
+     * <p>方法:getInfo TODO取个人基本信息 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return com.zghzbckj.manage.entity.BckjBizJbxx  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 10:59  </li>
+     * </ul>
+     */
     public BckjBizJbxx getInfo(Map<String, Object> mapData) {
-        BckjBizJbxx indata=this.dao.findOneByMap(mapData);
+        BckjBizJbxx indata = this.dao.findOneByMap(mapData);
         return indata;
     }
 
     /**
      * 只取状态字段
+     *
      * @param mapData
      * @return
      */
+    @Transactional(readOnly = false)
     public BckjBizJbxx getIndexState(Map<String, Object> mapData) {
-        BckjBizJbxx indata=this.dao.findStateByMap(mapData);
+        BckjBizJbxx indata = this.dao.findStateByMap(mapData);
+        if (null == indata) {
+            BckjBizJbxx bckjBizJbxx = new BckjBizJbxx();
+            bckjBizJbxx.setYhRefOwid(MapUtils.getString(mapData, "yhRefOwid"));
+            bckjBizJbxx.setState(0);
+            bckjBizJbxx.setHkState(0);
+            bckjBizJbxx.setXkState(0);
+            bckjBizJbxx.setJtcyState(0);
+            saveOrUpdate(bckjBizJbxx);
+        }
         return indata;
     }
 }

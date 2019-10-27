@@ -22,6 +22,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	private String userRefOwid;		// user_ref_owid
 	private String xm;		// xm
 	private Integer xb;		// xb
+	private String xbStr;		// xb
 	private String bmnd;		// bmnd
 	private String mz;		// mz
 	private String sfzh;		// sfzh
@@ -486,5 +487,21 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 
 	public void setJtzz(String jtzz) {
 		this.jtzz = jtzz;
+	}
+
+	public String getXbStr() {
+		if(null!=xb ){
+			if(xb==1) {
+				return "男";
+			}
+			if(xb==2){
+				return "女";
+			}
+		}
+		return xbStr;
+	}
+
+	public void setXbStr(String xbStr) {
+		this.xbStr = xbStr;
 	}
 }

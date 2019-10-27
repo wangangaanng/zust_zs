@@ -4,7 +4,7 @@
 
     <sql id="bckjBizJbxxColumns">
 		a.owid AS "owid",
-		a.yh_ref_owid AS "yhRefowid",
+		a.yh_ref_owid AS "yhRefOwid",
 		a.sfzzm AS "sfzzm",
 		a.sfzfm AS "sfzfm",
 		a.hjzm AS "hjzm",
@@ -212,7 +212,7 @@
 			state
 		) VALUES (
 			#{owid},
-			#{yhRefowid},
+			#{yhRefOwid},
 			#{sfzzm},
 			#{sfzfm},
 			#{hjzm},

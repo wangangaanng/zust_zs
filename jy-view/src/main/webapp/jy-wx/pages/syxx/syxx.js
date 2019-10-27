@@ -597,17 +597,17 @@ var getOne = function (that) {
         that.setData({
           form: data.bean,
           owid: data.bean.owid,
-          csrqStr: data.bean.csrq,
-          sydStr: data.bean.syd,
-          rxnfStr: data.bean.rxnf,
-          bynfStr: data.bean.bynf,
-          byrqStr: data.bean.byrq,
-          cxsyStr: data.bean.cxsy,
-          xzStr: data.bean.xz,
-          pyfsStr: data.bean.pyfs,
-          knslbStr: data.bean.knslb,
-          sfslbStr: data.bean.sfslb,
-          xlccStr: data.bean.xlcc,
+          csrqStr: data.bean.csrq?data.bean.csrq.substring(0,10):'请选择',
+          sydStr: data.bean.syd || '请选择',
+          rxnfStr: data.bean.rxnf || '请选择',
+          bynfStr: data.bean.bynf || '请选择',
+          byrqStr: data.bean.byrq || '请选择',
+          cxsyStr: data.bean.cxsy || '请选择',
+          xzStr: data.bean.xz || '请选择',
+          pyfsStr: data.bean.pyfs || '请选择',
+          knslbStr: data.bean.knslb || '请选择',
+          sfslbStr: data.bean.sfslb || '请选择',
+          xlccStr: data.bean.xlcc || '请选择',
         })
         if (data.bean.xb) {
           that.setData({

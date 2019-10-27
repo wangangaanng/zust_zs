@@ -12,6 +12,16 @@ package com.zghzbckj.common;
  * @author xby
  */
 public class SwytConstant {
+    //文件名
+    public static final String SWTYFILEPATH = "swytFiles";
+    public static final String ORDERBY_NAME = "a.xssx";
+    public static final String GENAL_PDF_FILE = ".pdf";
+    //承诺书文件名
+    public static final String SWTYCNS = "承诺书.pdf";
+    public static final String SWTYSQB = "浙江科技学院三位一体综合评价招生申请表.pdf";
+
+    public static final String SWTYMSTZD = "浙江科技学院三位一体综合综合测试通知单.pdf";
+
     //state=0
     public static final String BMXZQZ = "报名表待确认";
     //state=1
@@ -25,9 +35,12 @@ public class SwytConstant {
     //state=5
     public static final String BMDJF = "待缴费";
     //state=6
-    public static final String BMDMSFP = "等待面试分配";
+    public static final String BMDDQR = "缴费待确认";
     //state=7
-    public static final String BMXZMSD = "下载面试单";
+    public static final String BMDMSFP = "等待面试分配";
     //state=8
+    public static final String BMXZMSD = "下载面试单";
+    //state=9
     public static final String BMCJCX = "成绩查询";
+    public static final String FTLFILE_SUFFIX = ".ftl";
 }
