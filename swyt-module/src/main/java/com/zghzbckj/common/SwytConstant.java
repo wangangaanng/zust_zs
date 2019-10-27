@@ -12,9 +12,15 @@ package com.zghzbckj.common;
  * @author xby
  */
 public class SwytConstant {
+    //文件名
     public static final String SWTYFILEPATH = "swytFiles";
     public static final String ORDERBY_NAME = "a.xssx";
     public static final String GENAL_PDF_FILE = ".pdf";
+    //承诺书文件名
+    public static final String SWTYCNS = "承诺书.pdf";
+    public static final String SWTYSQB = "浙江科技学院三位一体综合评价招生申请表.pdf";
+
+    public static final String SWTYMSTZD = "浙江科技学院三位一体综合综合测试通知单.pdf";
 
     //state=0
     public static final String BMXZQZ = "报名表待确认";

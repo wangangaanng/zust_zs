@@ -142,15 +142,15 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         if(null==jbxx){
             throw CustomerException.newInstances("用户基本信息不存在");
         }
-        if(jbxx.getJtcyState()!=1) {
+        if(jbxx.getHkState()!=1) {
             jbxx.setHkState(1);
             bckjBizJbxxService.saveOrUpdate(jbxx);
         }
         mapData.put("lx","0");
         mapData.put("lx2",2);
         this.dao.deleteByHkZh(mapData);
-        saveList(mapData,"zhList",0);
-        saveList(mapData,"hkList",2);
+        saveList(mapData,"zhList",2);
+        saveList(mapData,"hkList",0);
         return Boolean.TRUE;
     }
 
@@ -180,21 +180,26 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     *<li>@date 2019/10/24 14:52  </li>
     *</ul>
     */
+    @Transactional(readOnly = false)
     public boolean finishXk(Map<String, Object> mapData) throws CustomerException{
         BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
         if(null==jbxx){
             throw CustomerException.newInstances("用户基本信息不存在");
         }
-        if(jbxx.getJtcyState()!=1) {
+        if(jbxx.getXkState()!=1) {
             jbxx.setXkState(1);
         }
         BckjBizJbxx param=JsonUtil.map2Bean(mapData,BckjBizJbxx.class);
         BeanUtil.copyPropertiesIgnoreNull(param,jbxx);
         bckjBizJbxxService.saveOrUpdate(jbxx);
+        mapData.put("lx",1);
+        this.dao.deleteByHkZh(mapData);
         saveList(mapData,"xkList",1);
         mapData.put("jbxxOwid",jbxx.getOwid());
-        this.commonDao.deleteFilesByjbxx(mapData);
-        this.commonDao.updateFileByjbxx(mapData);
+        if(!TextUtils.isEmpty(mapData.get("jsfj"))) {
+            this.commonDao.deleteFilesByjbxx(mapData);
+            this.commonDao.updateFileByjbxx(mapData);
+        }
         return Boolean.TRUE;
     }
 
@@ -214,7 +219,6 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         }
         Map<String,Object> result= JackSonJsonUtils.objectToMap(jbxx);
         Map<String,Object>  paramsCjxx=Maps.newHashMap();
-        paramsCjxx.put("yhRefOwid",jbxx.getOwid());
         paramsCjxx.put("lx",1);
         paramsCjxx.put("orderBy","a.xssx");
         result.put("xkList",this.dao.findListByMap(paramsCjxx));

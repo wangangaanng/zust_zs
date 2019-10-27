@@ -19,6 +19,7 @@ import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizBmDao;
 import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.JavaToPdfHtmlFreeMarker;
+import com.zghzbckj.manage.utils.MailUtils;
 import com.zghzbckj.manage.utils.TemplateUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -317,4 +318,50 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     }
 
 
+    /**
+    *<p>方法:sendApplyEmail TODO发送面试单</p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.Object  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 12:22  </li>
+    *</ul>
+    */
+    public boolean sendApplyEmail(Map<String, Object> mapData) {
+
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) +  MapUtils.getString(mapData,"applyOwid")+File.separator+SwytConstant.SWTYSQB;
+        String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) +SwytConstant.SWTYCNS;
+        String email=MapUtils.getString(mapData,"yx");
+        Map value= Maps.newHashMap();
+        value.put("to",email);
+        value.put("subject","浙江科技学院三位一体综合评价招生申请表");
+        value.put("content","");
+        List<String> fileList= Lists.newArrayList();
+        fileList.add(cns);
+        fileList.add(saveFilePath);
+        MailUtils.sendMails(fileList,value);
+        return Boolean.TRUE;
+    }
+
+    /**
+    *<p>方法:sendView TODO </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return boolean  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 14:17  </li>
+    *</ul>
+    */
+    public boolean sendView(Map<String, Object> mapData) {
+        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +SwytConstant.SWTYMSTZD;
+        String email=MapUtils.getString(mapData,"yx");
+        Map value= Maps.newHashMap();
+        value.put("to",email);
+        value.put("subject","浙江科技学院三位一体综合评价招生综合测试通知单");
+        value.put("content","");
+        List<String> fileList= Lists.newArrayList();
+        fileList.add(view);
+        MailUtils.sendMails(fileList,value);
+        return Boolean.TRUE;
+    }
 }

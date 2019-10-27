@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -163,8 +164,18 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      * @param mapData
      * @return
      */
+    @Transactional(readOnly = false)
     public BckjBizJbxx getIndexState(Map<String, Object> mapData) {
         BckjBizJbxx indata=this.dao.findStateByMap(mapData);
+        if(null==indata){
+            BckjBizJbxx bckjBizJbxx=new BckjBizJbxx();
+            bckjBizJbxx.setYhRefOwid(MapUtils.getString(mapData,"yhRefOwid"));
+            bckjBizJbxx.setState(0);
+            bckjBizJbxx.setHkState(0);
+            bckjBizJbxx.setXkState(0);
+            bckjBizJbxx.setJtcyState(0);
+            saveOrUpdate(bckjBizJbxx);
+        }
         return indata;
     }
 }
