@@ -28,6 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -173,7 +175,11 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         Map<String, Object> bynfMap = bckjBizSybService.getBynfBySfz(map);
         if (!TextUtils.isEmpty(bynfMap)) {
             if (!TextUtils.isEmpty(bynfMap.get("bynf"))) {
-                String year = bynfMap.get("bynf").toString();
+                String REGEX_CHINESE = "[\u4e00-\u9fa5]";//中文正则
+                // 去除中文
+                Pattern pat = Pattern.compile(REGEX_CHINESE);
+                Matcher mat= pat.matcher(bynfMap.get("bynf").toString());
+                String year = mat.replaceAll("").substring(0,4);
                 String month = "07";
                 String day = "01";
                 String dateStr = (year + "-" + month + "-" + day);

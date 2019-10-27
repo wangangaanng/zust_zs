@@ -175,12 +175,12 @@ public class BckjBizSybController extends BaseController {
         }
         if (TextUtils.isEmpty(syb.getSfz())) {
             return "身份证为空";
-        } else {
+        } /*else {
             String regex = "\\d{15}(\\d{2}[0-9xX])?";
             if (!syb.getSfz().matches(regex)) {
                 return "身份证格式错误";
-            }
-        }
+            }*/
+      /*  }*/
         if (TextUtils.isEmpty(syb.getRxnf())) {
             return "入学日期不能为空";
         }
@@ -380,9 +380,6 @@ public class BckjBizSybController extends BaseController {
                 return ResponseMessage.sendOK("");
             }
             return ResponseMessage.sendOK("");
-        } catch (RepeatException e) {
-            log.error(CommonConstant.ERROR_MESSAGE, e);
-            return ResponseMessage.sendOK("excel表中存在学号\" + i + \"重复录入,导入失败");
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);

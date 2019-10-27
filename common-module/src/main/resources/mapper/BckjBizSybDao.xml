@@ -551,6 +551,12 @@
 		where a.xsxh=#{value}
 	</select>
 
+	<select id="getListByXsxh" parameterType="String" resultType="BckjBizSyb">
+		select <include refid="bckjBizSybColumns"></include>
+		from bckj_biz_syb a
+		where a.xsxh=#{value}
+	</select>
+
 	<select id="getOneBySfz" parameterType="String" resultType="BckjBizSyb">
 		select <include refid="bckjBizSybColumns"></include>
 		from bckj_biz_syb a

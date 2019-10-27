@@ -230,11 +230,11 @@ public class BckjBizJyschemeController extends BaseController {
     }
 
 
-   /* *//**
+    /**
      * 查询档案信息
      * @param  dataVO
      * @return  queryDocument
-     *//*
+     */
     @PostMapping("queryDocument")
     @ResponseBody
     public  ResponseMessage queryDocument(PublicDataVO dataVO){
@@ -244,25 +244,19 @@ public class BckjBizJyschemeController extends BaseController {
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            //正则判断身份证号格式
-            String regex = "\\d{15}(\\d{2}[0-9xX])?";
-            if (dataMap.get("sfz").toString().matches(regex)) {
                 Map<String,Object> resMap=bckjBizYhxxService.queryDocument(dataMap);
                 if(TextUtils.isEmpty(resMap)){
                     return  ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.GetMessageFail);
                 }
                 dataMap.put("owid",resMap.get("owid"));
-                return ResponseMessage.sendOK(bckjBizJyschemeService.queryDocument(dataMap));
-            } else {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ErrorForIdentityCard);
-            }
+                return ResponseMessage.sendOK(bckjBizJyschemeService.getOneJyschemeQt(dataMap));
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
 
-    }*/
+    }
 
 
 /**
