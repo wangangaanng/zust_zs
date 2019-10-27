@@ -292,9 +292,9 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
                 resMap.put("bdzqwszdmc",getDicVal(50005,bdzqwszdmc));
                     String bdkssj = cellList.get(16); //报到开始时间
-                resMap.put("bdkssj", ExcelUtils.stringtoDate(bdkssj));
+                resMap.put("bdkssj", bckjBizSybService.stringtoDate(bdkssj));
                 String bdjssj = cellList.get(17); //报到结束时间
-                resMap.put("bdjssj", ExcelUtils.stringtoDate(bdjssj));
+                resMap.put("bdjssj", bckjBizSybService.stringtoDate(bdjssj));
                 String sfdydwbdz = cellList.get(18); //是否打印单位到报到证备注
                 if(sfdydwbdz.equals("是")){
                     resMap.put("sfdydwbdz", 1);
@@ -529,22 +529,6 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
-    /**
-     * 根据yhrefowid得到就业方案信息
-     * @param yhRefOwid
-     * @return
-     */
-    public BckjBizJyscheme getByYhRefOwid(String yhRefOwid){
-        return this.dao.getByYhRefOwid(yhRefOwid);
-    }
-
-    /**
-     * 根据用户id 更新学号
-     * @param bckjBizJyscheme
-     */
-     public void updateXsxhByHyOwid( BckjBizJyscheme bckjBizJyscheme){
-         this.dao.updateXsxhByHyOwid(bckjBizJyscheme);
-     }
 
     /**
      * 根据字典表type 和 val2 获得val1
@@ -553,7 +537,11 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @return
      */
     public String getDicVal(int type,String val2){
-         return this.dao.getDicVal(type,val2);
+        List<String> dicVal = this.dao.getDicVal(type, val2);
+        if(dicVal.size()>0){
+            return dicVal.get(0);
+        }
+        return "";
     }
 
     /**
@@ -563,7 +551,11 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @return
      */
     public String getDicVall(int type,String val1){
-        return this.dao.getDicVall(type,val1);
+        List<String> dicVall = this.dao.getDicVall(type, val1);
+        if(dicVall.size()>0){
+            return dicVall.get(0);
+        }
+        return "";
     }
     /**
      * 根据字典表type 获得val2list
@@ -576,20 +568,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
         return  this.dao.getOneByYhRefOwid(dataMap);
-
-
     }
-
-
-
-    /*  *//**
-     * 查询档案信息
-     * @param  dataMap
-     * @return  Map<String ,Object>
-     *//*
-    public  Map<String ,Object> queryDocument(Map<String, Object> dataMap) {
-        return this.dao.showJyInfo(dataMap);
-    }*/
 
 
 }

@@ -38,14 +38,9 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     void deleteByXsxh(String xsxh);
 
-    String getDicVal(int type ,String val);
+    List<String> getDicVal(int type ,String val);
 
-
-    void  updateXsxhByHyOwid(BckjBizJyscheme bckjBizJyscheme);
-
-    BckjBizJyscheme getByYhRefOwid(String yhRefOwid);
-
-    String getDicVall(int type, String val1);
+    List<String> getDicVall(int type, String val1);
 
     List<String> getDicListByType(int type);
 
