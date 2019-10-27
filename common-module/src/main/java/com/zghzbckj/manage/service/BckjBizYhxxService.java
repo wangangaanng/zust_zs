@@ -511,7 +511,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false)
     public BckjBizYhxx forgetPwd(Map<String, Object> mapData) throws CustomerException{
         BckjBizYhxx indata = getBySwZh(mapData,"swZh");
-        String yzm=MapUtils.getString(mapData,"swMm");
+        String yzm=MapUtils.getString(mapData,"yzm");
         if (null == indata) {
             throw new CustomerException("不存在此用户");
         }
