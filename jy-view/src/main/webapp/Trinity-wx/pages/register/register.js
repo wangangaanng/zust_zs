@@ -1,4 +1,5 @@
 // pages/register/register.js
+var common = require('../../libs/common/common.js')
 var utils = require('../../utils/util.js');
 import WxValidate from '../../utils/WxValidate'
 Page({
@@ -7,95 +8,118 @@ Page({
    * 页面的初始数据
    */
   data: {
+    form:{
+      tel:"",//手机号
+      code:"",//验证码
+      name:"",//真实姓名
+      sex:"1",//性别
+      psw:"",//登录密码
+      surePsw:"",//确认密码
+      studyArea:"",//学籍地址
+      major:"",//倾向专业
+      prov:'',//学籍省
+      city: '',//学籍市
+      area: ''//学籍区
+    },
     loginPswType:true,
     surePswType: true,
-    sexRadio: '2',//性别
     areaList: utils.areaList,//全国省市区
     areaShowBool:false,//显示pop
-    studyArea:"",//学籍地址
-    majorShowBool:false,
-    majorList: ['杭州', '宁波', '温州', '嘉兴', '湖州'],//倾向专业
-    wantMajor:""
+    time: '获取验证码', //倒计时 
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
+  //注册表单提交
+  formRegister:function(e){
+    const params = e.detail.value;
+    //传入表单数据，调用验证方法
+    if (!this.WxValidate.checkForm(params)) {
+      const error = this.WxValidate.errorList[0]
+      common.toast(error.msg, 'none', 2000)
+      return false
+    }
+    var data = {
+      "swZh": params.tel
+      , "xm": params.name
+      , "xb": params.sex
+      , "yzm": params.code
+      , "swMm": params.surePsw
+      , "prov": params.prov
+      , "city": params.city
+      , "area": params.area
+      , "qxzy": params.major
+    }
+    common.ajax('zustcommon/bckjBizYhxx/swYtzc', data, function (res) {
+      if (res.data.backCode == 0) {
+        wx.reLaunch({
+          url: '../login/login',
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+
+
   onLoad: function (options) {
-
+    this.initValidate();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
 
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  //显示登陆密码
-  showPswType(){
-    (this.data.loginPswType) ? this.data.loginPswType=false : this.data.loginPswType =true;
-    this.setData({
-      loginPswType: this.data.loginPswType
-    });
-  },
-  //显示确认密码
-  surePswType(){
-    (this.data.surePswType) ? this.data.surePswType = false : this.data.surePswType = true;
-    this.setData({
-      surePswType: this.data.surePswType
-    });
-  },
   //获取验证码
-  sendCode(){
-    console.log('获取验证码');
+  getVerificationCode() {
+    var mobile = this.data.form['tel  '];
+    console.log(this);
+    //传入表单数据，调用验证方法
+    if (!this.WxValidate.checkForm(mobile)) {
+      const error = this.WxValidate.errorList[0]
+      common.toast(error.msg, 'none', 2000)
+      return false
+    }
+    this.ajaxCode()
   },
+
+  //倒计时
+  getCode: function (options) {
+    var that = this;
+    var currentTime = that.data.currentTime
+    interval = setInterval(function () {
+      currentTime--;
+      that.setData({
+        time: currentTime + '秒'
+      })
+      if (currentTime <= 0) {
+        clearInterval(interval)
+        that.setData({
+          time: '重新获取',
+          currentTime: 60,
+          disabled: false
+        })
+      }
+    }, 1000)
+  },
+  //验证码发送ajax
+  ajaxCode(){
+    var data = {
+      "swZh": this.data.form['tel']
+      , "type": 0 //0表示小程序用户注册
+      , "unionid": '',
+    }
+    common.ajax('zustcommon/common/sendCode', data, function (res) {
+      if (res.data.backCode == 0) {
+        this.setData({
+          ["form.code"]: res.data.bean
+        });
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+
   //单选框 选择性别
   sexSelect(event) {
     console.log(event.detail);
     this.setData({
-      sexRadio: event.detail
+      ["form.sex"]: event.detail
     });
   },
   //显示省市区
@@ -116,41 +140,116 @@ Page({
   //确认选择地区
   confirmArea(event) {
     let areaName = "";
+    var that = this;
     const { picker, values, index } = event.detail;
     for (var i = 0; i < values.length; i++) {
+      console.log(i);
+      switch (i){
+        case 0: //省
+          that.data.form['prov'] = values[i].name;
+          break;
+        case 1: //市
+          that.data.form['city'] = values[i].name;
+          break; 
+        case 2: //区
+          that.data.form['area'] = values[i].name;
+          break;    
+      }
       areaName = areaName + values[i].name + ' '
     }
     this.setData({ 
       areaShowBool: false,
-      studyArea: areaName
+      ["form.studyArea"]: areaName,
+      ["form.prov"]: that.data.form['prov'],
+      ["form.city"]: that.data.form['city'],
+      ["form.area"]: that.data.form['area']
     });
   },
-  //地区选择
-  onChangeArea(event) {
-    let areaName = "";
-    const { picker, values, index } = event.detail;
-    for (var i = 0; i < values.length; i++) {
-      areaName = areaName + values[i].name + ' '
+  initValidate() {
+    // 验证字段的规则
+    const rules = {
+      tel: {
+        required: true,
+        tel: true,
+      }
+      , code: {
+        required: true
+      }
+      , name: {
+        required: true
+      }
+      , sex: {
+        required: true
+      }
+      , psw: {
+        required: true,
+        rangelength:[6,16],
+        numLetter: true
+      }
+      , surePsw: {
+        required: true,
+        equalTo: 'psw',
+        numLetter:true
+      }
+      , studyArea: {
+        required: true
+      }
+      , major: {
+        required: true
+      }
     }
-    this.setData({ studyArea: areaName });
+
+    // 验证字段的提示信息，若不传则调用默认的信息
+    const messages = {
+      tel: {
+        required: '请填写手机号',
+        tel: '请填写正确手机号',
+      }
+      , code: {
+        required: '请填写验证码',
+      }
+      , name: {
+        required: '请填写真实姓名',
+      }
+      , sex: {
+        required: '请选择性别',
+      }
+      , psw: {
+        required: '请设置登录密码',
+        numLetter:'请输入字母和数字的组合'
+      }
+      , surePsw: {
+        required: '请填写确认密码',
+        equalTo: '两次密码输入不一致',
+        numLetter: '请输入字母和数字的组合'
+      }
+      , studyArea: {
+        required: '请选择学籍地址',
+      }
+      , major: {
+        required: '请填写倾向专业',
+      }
+    }
+    this.WxValidate = new WxValidate(rules, messages)
   },
-  //显示专业
-  showMajor(){
-    this.setData({ majorShowBool: true });
+  //显示登陆密码
+  showPswType() {
+    (this.data.loginPswType) ? this.data.loginPswType = false : this.data.loginPswType = true;
+    this.setData({
+      loginPswType: this.data.loginPswType
+    });
   },
-  //隐藏专业
-  cancelMajor(){
-    this.setData({ majorShowBool: false });
+  //显示确认密码
+  surePswType() {
+    (this.data.surePswType) ? this.data.surePswType = false : this.data.surePswType = true;
+    this.setData({
+      surePswType: this.data.surePswType
+    });
   },
-  //选择专业
-  onChangeMajor(event){
-    const { picker, value, index } = event.detail; 
-    this.setData({ wantMajor:value});
-    //console.log(`当前值：${value}, 当前索引：${index}`);
-  },
-  //确定选择
-  confirmMajor(event){
-    const { picker, value, index } = event.detail; 
-    this.setData({ majorShowBool: false, wantMajor: value });
+  //获取手机号码
+  telBlur(e){
+    this.setData({
+      ["form.tel"]: e.detail.value
+    });
   }
 })

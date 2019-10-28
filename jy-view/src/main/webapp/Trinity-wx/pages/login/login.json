@@ -2,6 +2,7 @@
   "navigationStyle":"custom",
   "navigationBarTextStyle":"white",
   "usingComponents": {
+    "authorize": "../../pages/auth/auth",
     "van-icon": "vant-weapp/icon"
   }
 }

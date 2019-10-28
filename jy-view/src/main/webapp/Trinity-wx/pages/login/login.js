@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    isauthorize: false,
     phone:'',
     psw:'',
     pass: true
@@ -30,7 +31,7 @@ Page({
     // 验证字段的提示信息，若不传则调用默认的信息
     const messages = {
       phone: {
-        required: '请填写联系人手机',
+        required: '请填写手机号/账号',
         tel: '请填写正确手机号',
       },
       psw: {
@@ -68,6 +69,20 @@ Page({
    */
   onLoad: function(options) {
     this.initValidate();
+    var that = this;
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.userInfo']) {
+          that.setData({
+            isauthorize: true,
+          })
+        } else {
+          that.setData({
+            isauthorize: false,
+          })
+        }
+      }
+    })
   },
 
   /**

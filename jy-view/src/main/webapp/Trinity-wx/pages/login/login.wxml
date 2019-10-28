@@ -30,3 +30,4 @@
     <text bindtap="register">快速注册></text>
   </view>
 </view>
+<authorize show="{{isauthorize}}" type="{{userType}}" bindmyevent="onLoad"></authorize>
