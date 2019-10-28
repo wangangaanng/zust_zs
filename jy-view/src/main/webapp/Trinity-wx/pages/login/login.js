@@ -3,6 +3,7 @@ var common = require('../../libs/common/common.js')
 var util = require('../../utils/md5.min.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
+import WxValidate from '../../libs/wx-validate/WxValidate'
 Page({
 
   /**
@@ -14,11 +15,44 @@ Page({
     pass: true
   },
 
+  initValidate() {
+    // 验证字段的规则
+    const rules = {
+      phone: {
+        required: true,
+        tel: true,
+      },
+      psw: {
+        required: true
+      }
+    }
+
+    // 验证字段的提示信息，若不传则调用默认的信息
+    const messages = {
+      phone: {
+        required: '请填写联系人手机',
+        tel: '请填写正确手机号',
+      },
+      psw: {
+        required: '请填写密码',
+      }
+    }
+    this.WxValidate = new WxValidate(rules, messages)
+  },
   //登录
-  loginBtn: function (e) {
+  formLogin: function (e) {
+    var that = this;
+    const params = e.detail.value;
+    // 传入表单数据，调用验证方法
+    console.log(this);
+    if (!this.WxValidate.checkForm(params)) {
+      const error = this.WxValidate.errorList[0]
+      this.showModal(error)
+      return false
+    }
     var data = {
-      "swZh": this.data.phone,
-      "swMm": this.data.psw
+      "swZh": params.phone,
+      "swMm": params.psw
     }
     common.ajax('zustcommon/bckjBizYhxx/swYtLogin', data, function (res) {
       if (res.data.backCode == 0) {
@@ -38,7 +72,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.initValidate();
   },
 
   /**
@@ -109,4 +143,12 @@ Page({
       url: '../forgetPsw/forgetPsw',
     })
   },
+  //弹出错误提示
+  showModal(error) {
+    wx.showToast({
+      title: error.msg,
+      icon: 'none',
+      duration: 2000
+    })
+  }
 })
