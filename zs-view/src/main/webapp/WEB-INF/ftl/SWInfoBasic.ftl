@@ -27,7 +27,7 @@
 <#--步骤条 end-->
 
 <#--步骤基本信息1 start-->
-<form class="form-horizontal" id="basicForm" method="" action="" target="bcFrame">
+<form class="form-horizontal" id="basicForm" method="" action="" target="bcFrame" >
     <div class="form-group">
         <label for="qymc" class="col-sm-2 control-label  col-sm-offset-1">姓名<span class="red">*</span>：</label>
         <div class="col-sm-8">
