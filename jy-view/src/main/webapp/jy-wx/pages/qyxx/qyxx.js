@@ -46,6 +46,7 @@ Page({
       qyHylb: '',
       qyGsgm: '',
       qyGsjs: '',
+      qyZczj: ''
     },
   },
   showModal(error) {
@@ -116,6 +117,9 @@ Page({
       qydz: {
         required: true
       },
+      qyZczj: {
+        required: true
+      },
       qyLxr: {
         required: true
       },
@@ -170,6 +174,9 @@ Page({
       },
       qydz: {
         required: '请填写公司地址',
+      },
+      qyZczj: {
+        required: '请填写注册资本',
       },
       qyLxr: {
         required: '请填写联系人',

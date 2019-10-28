@@ -140,10 +140,11 @@ $(document).ready(function () {
     $("#registerForm").validate({
         rules: {
             qymc:"required",
+            qydz:"required",
+            qyZczj:"required",
             qyProv:"required",
             qyCity:"required",
             qyArea:"required",
-            qydz:"required",
             qyLxr:"required",
             qyLxrdh:{
                 required: true,
@@ -160,10 +161,11 @@ $(document).ready(function () {
         },
         messages: {
             qymc: "请填写",
+            qydz: "请填写",
+            qyZczj: "请填写",
             qyProv: "请选择",
             qyCity: "请选择",
             qyArea: "请选择",
-            qydz: "请填写",
             qyLxr: "请填写",
             qyLxrdh:  {
                 required: "请填写",
