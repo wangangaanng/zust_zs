@@ -112,6 +112,9 @@ Page({
         wx.showToast({
           title: '提交成功',
         })
+        that.setData({
+          tips: '已提交'
+        })
 
       } else {
         wx.showToast({

@@ -21,7 +21,7 @@
   </van-search>
     <scroll-view  style='position:fixed;top:98px;bottom:0px;' scroll-y>
       <view class="uni-list">
-            <block wx:for="{{item2.list}}" wx:for-item="itm" wx:for-index="idx">
+            <block wx:for="{{wzList}}" wx:for-item="itm" wx:for-index="idx">
                <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="newsDetail">
                   <view class="uni-media-list">
                     <view class="news-date">

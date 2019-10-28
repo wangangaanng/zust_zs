@@ -31,9 +31,9 @@ public class SwytController {
         view.setViewName("trinityEnrollment");
         return view;
     }
-    @RequestMapping(value = "SWTYlogin", method = RequestMethod.GET)
-    public ModelAndView login(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWTYlogin");
+    @RequestMapping(value = "SWYTlogin", method = RequestMethod.GET)
+    public ModelAndView SWYTlogin(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("SWYTlogin");
         return view;
     }
 }
