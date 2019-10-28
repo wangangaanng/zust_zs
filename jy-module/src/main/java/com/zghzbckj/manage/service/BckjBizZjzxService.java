@@ -304,10 +304,15 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             return ResponseMessage.sendOK( "无保存内容");
         }
         //根据登入账号去寻找用户
-    String oneDlzh = getOneByDlzh(bckjBizYhxx.getYhDlzh());
-        if(!TextUtils.isEmpty(oneDlzh)&&!TextUtils.isEmpty(dataMap.get("owid"))){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
+    Map<String, String> oneByDlzh = getOneByDlzh(bckjBizYhxx.getYhDlzh());
+    if(!TextUtils.isEmpty(oneByDlzh)&&!TextUtils.isEmpty(dataMap.get("owid"))){
+            if(!oneByDlzh.get("owid").equals(dataMap.get("owid"))){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
+            }
         }
+    if(!TextUtils.isEmpty(oneByDlzh)&&TextUtils.isEmpty(dataMap.get("owid"))){
+        return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
+    }
     if(TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
             bckjBizYhxx.setXm(bckjBizZjzx.getZjxm());
             bckjBizYhxx.setYhlx(1);
@@ -332,7 +337,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
-    private String getOneByDlzh(String dlzh) {
+    private Map<String,String> getOneByDlzh(String dlzh) {
         return this.dao.getOneByDlzh(dlzh);
     }
 

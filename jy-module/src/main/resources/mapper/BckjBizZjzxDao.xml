@@ -337,8 +337,8 @@
   </delete>
 
 
-	<select id="getOneByDlzh" resultType="String" parameterType="String">
-		SELECT yh_dlzh from bckj_biz_yhxx
+	<select id="getOneByDlzh" resultType="Map" parameterType="String">
+		SELECT owid as owid ,yh_dlzh as dlzh  from bckj_biz_yhxx
 		where yh_dlzh=#{dlzh}
 	</select>
 

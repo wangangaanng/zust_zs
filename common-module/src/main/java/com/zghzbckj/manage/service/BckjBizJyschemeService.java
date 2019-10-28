@@ -294,9 +294,19 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
                 resMap.put("bdzqwszdmc",getDicVal(50005,bdzqwszdmc));
                     String bdkssj = cellList.get(16); //报到开始时间
-                resMap.put("bdkssj", bckjBizSybService.stringtoDate(bdkssj));
+                try {
+                    resMap.put("bdkssj", bckjBizSybService.stringtoDate(bdkssj));
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
                 String bdjssj = cellList.get(17); //报到结束时间
-                resMap.put("bdjssj", bckjBizSybService.stringtoDate(bdjssj));
+                try {
+                    resMap.put("bdjssj", bckjBizSybService.stringtoDate(bdjssj));
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
                 String sfdydwbdz = cellList.get(18); //是否打印单位到报到证备注
                 if(sfdydwbdz.equals("是")){
                     resMap.put("sfdydwbdz", 1);
@@ -622,8 +632,14 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
         BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByYhRefOwid(dataMap);
-        bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
-        bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+        if(!TextUtils.isEmpty(bckjBizJyscheme)){
+            if(!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())){
+                bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
+            }
+            if(!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())){
+                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+            }
+        }
         return bckjBizJyscheme;
     }
 
@@ -633,6 +649,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param dataMap
      * @return ResponseMessage
      */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage saveOneJyschemeXcx(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
         BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
         BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();
