@@ -1,13 +1,13 @@
 
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs sticky animated bind:click="clickTab">
-  <van-tab title="宣讲会信息">      
+  <van-tab title="招聘会信息">      
       <view class="cell">
           <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
           <view class="title" wx:else>{{result.zwbt}}</view>
         <view class="content">
           <view class="table">
-              <view class="tr" wx:if="{{result.zphKsrq}}">
+              <view class="tr" wx:if="{{result.xjsj}}">
                 <view class="td" style="flex:12">举办日期：{{tools.substr(result.xjsj,0,10)}}</view>
               </view>
               <view class="tr" wx:if="{{result.zphJtsj}}">

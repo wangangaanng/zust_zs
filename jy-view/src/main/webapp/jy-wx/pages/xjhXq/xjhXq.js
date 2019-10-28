@@ -118,10 +118,17 @@ var getOne = function (that, owid) {
       }
       if (res.data.bean.xjsj) {
         var thetime = res.data.bean.xjsj;
-        var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
-
-        var curDate = new Date();
-        if (d <= curDate) {
+        var d = (new Date(Date.parse(thetime.replace(/-/g, "/")))).getTime();
+        var start = new Date();
+        start.setHours(0);
+        start.setMinutes(0);
+        start.setSeconds(0);
+        start.setMilliseconds(0);
+        var curDate = start.getTime();
+        console.log('d',d)
+        console.log('curDate', curDate)
+        if (d < curDate) {
+          console.log('1111')
           that.setData({
             old: '1',
           })
