@@ -8,6 +8,10 @@
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
     <link rel="stylesheet" href="${base}/css/style.css"/>
+    <link rel="stylesheet" href="${base}/css/swyt.css"/>
+    <style>
+        .top:before{    background-image: url("${base}/img/loginbackgrouind.jpg");    content: "";    background-repeat: no-repeat;    background-size: 100% 100%;    position: absolute;    left: 0;    opacity: 0.3;    right: 0;    top: 0;    bottom: 0;}
+    </style>
 </head>
 <body>
 <header>
@@ -28,7 +32,28 @@
 </header>
 <div class="w1200">
     <div class="login">
+        <div class="login_left">
+            <div class="login_title">登录</div>
+            <div class="login_input">
+                <img src="${base}/img/phone.png">
+                <input type="number" placeholder="请输入手机号码">
+            </div>
+            <div class="login_input">
+                <img src="${base}/img/password.png">
+                <input type="password" placeholder="请输入密码">
+            </div>
+            <div class="forget"><a href="">忘记密码？</a></div>
+            <div class="login_bun">登录</div>
+        </div>
+        <div class="login_right">
+            <div class="login_right_border">
+                <div>还没有账号</div>
+                <div class="registered">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div>手机小程序登录</div>
+                <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
+            </div>
 
+        </div>
     </div>
 </div>
 <div class="bottom">
@@ -68,10 +93,5 @@
 
 <script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
 <script src="${base}/js/jquery.jdate.js"></script>
-<style>
-    .login{
-
-    }
-</style>
 </body>
 </html>

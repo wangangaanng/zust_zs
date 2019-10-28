@@ -75,4 +75,10 @@ public class JyContant {
     public static final String[] provinceList = {"北京", "天津", "上海", "重庆", "河北", "河南", "云南", "辽宁", "黑龙江", "湖南", "安徽", "山东",
             "新疆", "江苏", "浙江", "江西", "湖北", "广西", "甘肃", "山西", "内蒙古", "陕西", "吉林", "福建", "贵州", "广东", "青海", "西藏",
             "四川", "宁夏", "海南", "台湾", "香港", "澳门"};
+
+    public static final String QY_PASS_MESS = "恭喜您，您注册的公司已通过审核";
+    public static final String QY_REJECT_MESS = "很抱歉，您注册的公司未通过审核";
+    public static final String ZPH_PASS_MESS = "恭喜您，您申请的招聘会已通过审核，展位编号：";
+    public static final String ZPH_REJECT_MESS = "很抱歉，您申请的招聘会未通过审核。";
+    public static final String XJH_PASS_MESS = "恭喜您，您申请的宣讲会已通过审核，学校联系人：";
 }

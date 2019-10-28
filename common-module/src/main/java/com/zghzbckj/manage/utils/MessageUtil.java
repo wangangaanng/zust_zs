@@ -51,6 +51,22 @@ public class MessageUtil {
         return doPost(requesturl, map, "utf-8");
     }
 
+
+    public static String sendMessage(String mobile, String contenet) throws Exception {
+        if (TextUtils.isEmpty(mobile)) {
+            throw new Exception("手机号为空");
+        }
+        long timestamp = System.currentTimeMillis();    //时间戳
+        String pass = MD5Util.MD5Encode(password + mobile + timestamp, "utf-8");
+        String content = "【浙江科技学院】"+contenet;
+        Map map = new HashMap();
+        map.put("appkey", account);
+        map.put("appsecret", pass);
+        map.put("mobile", mobile);
+        map.put("timestamp", timestamp + "");
+        map.put("content", content);
+        return doPost(requesturl, map, "utf-8");
+    }
     /**
      * <p>功能描述：doPost 发送post请求</p>
      * <ul>

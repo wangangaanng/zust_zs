@@ -35,10 +35,12 @@ function login(url,user) {//1学生 0企业
     var title='';
     var label1="";
     var label2="";
+    var strs=''
     if(user==0){
         title='企业登录'
         label1='请输入社会统一信用码'
         label2='请输入法人身份证后六位'
+        strs='<div class="regqy">还没有账号？<a href="'+base+'/enterpriseReg">注册</a></div>'
     }else{
         user=1;//默认学生
         title='学生登录'
@@ -69,7 +71,8 @@ function login(url,user) {//1学生 0企业
         '                        </div><div class="row btn-yd">\n' +
         '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
         '                                <button class="btn green" onclick="confirmDl(\''+url+'\','+user+')">确定</button>\n' +
-        '                            </div>\n' +
+        '                            </div>\n' +strs+
+
         '                        </div></div>'
     });
 }

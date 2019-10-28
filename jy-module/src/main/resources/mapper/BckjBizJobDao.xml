@@ -4,6 +4,7 @@
 
     <sql id="bckjBizJobColumns">
 		a.owid AS "owid",
+		a.zph_bmxz AS "zphBmxz",
 		a.qyxx_ref_owid AS "qyxxRefOwid",
 		a.zwbt AS "zwbt",
 		a.zwgjz AS "zwgjz",
@@ -158,7 +159,8 @@
                 AND a.zph_jbdd LIKE concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="zwgjz != null and zwgjz != ''">
-                AND( a.zwgjz LIKE concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' OR a.zwbt LIKE concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
+                AND( a.zwgjz LIKE concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' OR a.zwbt LIKE
+                concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
             </if>
             <if test="zwPro != null and zwPro != ''">
                 AND a.zw_pro LIKE concat('%',#{zwProv,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
@@ -321,6 +323,7 @@
     <insert id="insert">
 		INSERT INTO bckj_biz_job(
 			owid,
+			zph_bmxz,
 			qyxx_ref_owid,
 			zwbt,
 			zwgjz,
@@ -392,6 +395,7 @@
 			exp10
 		) VALUES (
 			#{owid},
+			#{zphBmxz},
 			#{qyxxRefOwid},
 			#{zwbt},
 			#{zwgjz},
@@ -467,6 +471,7 @@
     <update id="update">
 		UPDATE bckj_biz_job SET 	
 			owid = #{owid},
+			zph_bmxz =#{zphBmxz},
 			qyxx_ref_owid = #{qyxxRefOwid},
 			zwbt = #{zwbt},
 			zwgjz = #{zwgjz},
@@ -575,8 +580,6 @@
 		state = 6
 		where qyxx_ref_owid=#{qyxxRefOwid}
 	</update>
-
-
 
 
 </mapper>

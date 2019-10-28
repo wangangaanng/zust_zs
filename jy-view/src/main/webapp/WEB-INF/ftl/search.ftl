@@ -18,6 +18,15 @@
 <div class="main" style="margin-top: 20px;">
     <div class="container">
         <div class="content">
+            <div class="menu-nav">
+                <div class="menu-title">
+                    <div class="title-chn">站内搜索</div>
+                    <div class="title-en">INFORMATION
+                        <div class="menu-nav-icon"></div>
+                    </div>
+
+                </div>
+            </div>
             <div class="content-list">
             <div class="news-list">
                 <ul>

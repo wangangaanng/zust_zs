@@ -32,6 +32,7 @@ Page({
     newsList4: [],
     currentTab:'0',
     floorstatus:false,
+    userType: ''
   },
   newsDetail(e){
     wx.navigateTo({
@@ -82,19 +83,19 @@ Page({
     getList2(this, '2');//企业招聘公告
     getList3(this, '3');//招聘会
     getList4(this, '4');//宣讲会
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          that.setData({
-            isauthorize: true,
-          })
-        }else{
-          that.setData({
-            isauthorize: false,
-          })
-        }
-      }
-    })
+    // wx.getSetting({
+    //   success(res) {
+    //     if (!res.authSetting['scope.userInfo']) {
+    //       that.setData({
+    //         isauthorize: true,
+    //       })
+    //     }else{
+    //       that.setData({
+    //         isauthorize: false,
+    //       })
+    //     }
+    //   }
+    // })
 
   },
   onReachBottom: function () {
@@ -143,61 +144,86 @@ Page({
     })
   },
   linkurl:function(e){
+    var that = this
     var url = e.currentTarget.dataset.url;
     var index = e.currentTarget.dataset.index;
     if(url){
       if (index == 6) {
-        if (wx.getStorageSync('yhOwid')){
-          if (wx.getStorageSync('userType') == 1){
-            wx.navigateTo({
-              url: url,
-            })
-          } else if (wx.getStorageSync('userType') == 0) {
-            wx.showModal({
-              title: '提示',
-              content: "当前登录的是企业账户，是否要登录学生账户？",
-              success(res) {
-                if (res.confirm) {
-                  wx.navigateTo({
-                    url: '../stuLogin/stuLogin',
-                  })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
-            })
-          }
-        }else{
-          wx.navigateTo({
-            url: '../stuLogin/stuLogin',
+        if (!wx.getStorageSync('unionid')) {
+          that.setData({
+            userType:'1',
+            isauthorize: true,
           })
-        }
-      } else if (index == 7) {
-        if (wx.getStorageSync('yhOwid')) {
-          if (wx.getStorageSync('userType') == 1) {
-            wx.showModal({
-              title: '提示',
-              content: "当前登录的是学生账户，是否要登录企业账户？",
-              success(res) {
-                if (res.confirm) {
-                  wx.navigateTo({
-                    url: '../qyLogin/qyLogin',
-                  })
-                } else if (res.cancel) {
-                  console.log('用户点击取消')
-                }
-              }
-            })
-          } else if (wx.getStorageSync('userType') == 0) {
-            wx.navigateTo({
-              url: url,
-            })
-          }
         } else {
-          wx.navigateTo({
-            url: '../qyLogin/qyLogin',
+          that.setData({
+            isauthorize: false,
           })
+
+          if (wx.getStorageSync('yhOwid')) {
+            if (wx.getStorageSync('userType') == 1) {
+              wx.navigateTo({
+                url: url,
+              })
+            } else if (wx.getStorageSync('userType') == 0) {
+              wx.showModal({
+                title: '提示',
+                content: "当前登录的是企业账户，是否要登录学生账户？",
+                success(res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../stuLogin/stuLogin',
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            }
+          } else {
+            wx.navigateTo({
+              url: '../stuLogin/stuLogin',
+            })
+          }
         }
+          
+      } else if (index == 7) {
+        if (!wx.getStorageSync('unionid')) {
+          that.setData({
+            userType: '2',
+            isauthorize: true,
+          })
+        } else {
+          that.setData({
+            isauthorize: false,
+          })
+
+          if (wx.getStorageSync('yhOwid')) {
+            if (wx.getStorageSync('userType') == 1) {
+              wx.showModal({
+                title: '提示',
+                content: "当前登录的是学生账户，是否要登录企业账户？",
+                success(res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../qyLogin/qyLogin',
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            } else if (wx.getStorageSync('userType') == 0) {
+              wx.navigateTo({
+                url: url,
+              })
+            }
+          } else {
+            wx.navigateTo({
+              url: '../qyLogin/qyLogin',
+            })
+          }
+        }
+        
       } else {
         wx.navigateTo({
           url: url,
