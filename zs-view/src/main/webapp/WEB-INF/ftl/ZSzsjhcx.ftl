@@ -81,10 +81,9 @@
                                 <th> 批次 </th>
                                 <th> 专业 </th>
                                 <th> 学制 </th>
-                                <th> 录取数</th>
-                                <th> 最高分</th>
-                                <th> 最低分</th>
-                                <th> 平均分</th>
+                                <th> 招生数</th>
+                                <th> 学费/年</th>
+                                <th> 授予学位</th>
                             </tr>
                         </table>
                         <div class="text-center">

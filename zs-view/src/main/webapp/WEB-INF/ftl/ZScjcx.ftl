@@ -35,7 +35,7 @@
                                aria-describedby="basic-addon1">
                     </div>
                     <button type="button" class="btn btn-default"
-                            style="background-color: rgb(85,167,153);color: #ffffff;width: 100px;height: 34px;margin: 20px">查询</button>
+                            style="background-color: rgb(85,167,153);color: #ffffff;width: 100px;height: 34px;margin: 20px 15px">查询</button>
                 </div>
                 <p style="color: red; margin: 0 40px 10px;">注：身份证和准考证必须都输入正确才可查询</p>
                 <table class="table">
