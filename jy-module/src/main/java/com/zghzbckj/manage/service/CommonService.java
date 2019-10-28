@@ -69,15 +69,19 @@ public class CommonService {
         List<Map<String, Object>> resultList = new ArrayList<>();
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> objectMap = null;
+        int ytg = 0;
+        int wtg = 0;
         for (Map<String, Object> qyxx : qyxxList) {
             objectMap = new HashMap<>();
             if ("2".equals(MapUtils.getString(qyxx, "state"))) {
                 objectMap.put("name", "已通过企业");
-                objectMap.put("value", MapUtils.getInt(qyxx, "value"));
+                ytg = MapUtils.getInt(qyxx, "value");
+                objectMap.put("value", ytg);
                 //审核数
                 result.put("shs", MapUtils.getInt(qyxx, "value"));
             } else {
-                objectMap.put("value", MapUtils.getInt(qyxx, "value"));
+                wtg = MapUtils.getInt(qyxx, "value");
+                objectMap.put("value", wtg);
                 objectMap.put("name", "未通过企业");
             }
             resultList.add(objectMap);
@@ -85,7 +89,7 @@ public class CommonService {
         //饼图数据
         result.put("pieData", resultList);
         //企业数
-        result.put("qys", MapUtils.getInt(qyxxList.get(0), "value") + MapUtils.getInt(qyxxList.get(1), "value"));
+        result.put("qys", ytg + wtg);
         //涉及行业
         result.put("sjhy", commonDao.getCompanyNum("qy_hylb", MapUtils.getString(dataMap, "year")).size());
         //涉及类型
