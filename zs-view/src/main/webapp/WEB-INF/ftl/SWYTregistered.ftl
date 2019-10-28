@@ -39,10 +39,77 @@
                 <input type="number" placeholder="请输入手机号码">
             </div>
             <div class="login_input">
+                <img src="${base}/img/yh.png">
+                <input type="text" placeholder="请输入真实姓名">
+            </div>
+            <div class="login_input">
                 <img src="${base}/img/password.png">
                 <input type="password" placeholder="请输入密码">
+                <i class="glyphicon glyphicon-eye-open"></i>
             </div>
-            <div class="forget"><a href="">忘记密码？</a></div>
+            <div class="login_input">
+                <img src="${base}/img/password.png">
+                <input type="password" placeholder="确认密码">
+                <i class="glyphicon glyphicon-eye-close"></i>
+            </div>
+            <div class="login_input">
+                <img src="${base}/img/sex.png">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>请选择性别</span>  <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="login_input2">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>-学籍省-</span>  <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>-学籍市-</span>  <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <button style="margin-right: 0;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>-学籍区-</span>  <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="login_input">
+                <img src="${base}/img/class.png">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span>专业倾向</span>  <span class="glyphicon glyphicon-chevron-down"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                    </ul>
+                </div>
+            </div>
             <div class="login_bun">登录</div>
         </div>
         <div class="login_right">
