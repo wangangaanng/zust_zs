@@ -310,6 +310,9 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
             }
         }
+    if(!TextUtils.isEmpty(oneByDlzh)&&TextUtils.isEmpty(dataMap.get("owid"))){
+        return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
+    }
     if(TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
             bckjBizYhxx.setXm(bckjBizZjzx.getZjxm());
             bckjBizYhxx.setYhlx(1);
