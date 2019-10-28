@@ -9,6 +9,8 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * ccEntity
@@ -559,5 +561,14 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
 
     public void setQyxx(BckjBizQyxx qyxx) {
         this.qyxx = qyxx;
+    }
+
+    private List<Map> zwList;
+    public void setZwList(List<Map> zwList) {
+        this.zwList = zwList;
+    }
+
+    public List<Map> getZwList() {
+        return zwList;
     }
 }
