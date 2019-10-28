@@ -432,6 +432,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
         }
         saveOrUpdate(bckjBizJob);
+        if(!com.ourway.base.utils.TextUtils.isEmpty(mapData.get("fileExtId"))){
+            mapData.put("articleOwid",bckjBizJob.getOwid());
+            qyxxDao.updateFile(mapData);
+        }
+
         return ResponseMessage.sendOK(bckjBizJob);
     }
 
@@ -747,6 +752,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setExp2("0");
             }
         }
+
+
+        Map mapParam= Maps.newHashMap();
+        mapParam.put("wzRefOwid",owid);
+        List<Map> files=qyxxDao.getSysFiles(mapParam);
+        job.setFileList(files);
+
         return job;
     }
 

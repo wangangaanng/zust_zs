@@ -35,8 +35,10 @@ public interface CommonDao {
     Map<String, Object> updateDicTree(Map<String, Object> dataMap);
 
     List<Map<String, Object>> getConfig();
-     int updateFile(Map<String,Object> value);
-    List<Map> getSysFiles(Map<String,Object> value);
+
+    int updateFile(Map<String, Object> value);
+
+    List<Map> getSysFiles(Map<String, Object> value);
 
     int deleteFiles(Map<String, Object> params);
 
