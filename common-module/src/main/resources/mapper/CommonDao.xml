@@ -247,4 +247,11 @@
                     #{exp10})
     </insert>
 
+    <select id="getXkcj" parameterType="Map" resultType="Map">
+           SELECT b.dic_val1 AS dicval1,b.dic_val2 AS dicval2,b.dic_val3 AS dicval3,b.dic_val4 AS dicval4
+
+             FROM ourway_sys_dic a,ourway_sys_dic_value b WHERE a.owid=b.dic_Ref_Owid AND a.type=#{dicType}
+             AND b.dic_val5=#{dicVal5}
+             ORDER BY b.dic_val4
+    </select>
 </mapper>

@@ -504,6 +504,10 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 bckjBizYhkzService.deleteByYhRefOwid(oneBySfz.getOwid());
                 bckjBizYhxxService.deleteBySfz(oneBySfz.getSfz());
             }
+            //设置登入账号
+            if(!TextUtils.isEmpty(bckjBizYhkz.getXsxh())){
+                bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
+            }
             //设置登入密码
             String dlmm = TextUtils.MD5(bckjBizSyb.getSfz().substring(bckjBizSyb.getSfz().length() - 6));
             bckjBizYhxx.setYhDlmm(dlmm);
