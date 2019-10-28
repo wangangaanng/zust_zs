@@ -95,7 +95,7 @@
         }
 
         @page {
-            size: A4 landscape;
+            size: A4;
             margin: 0;
         }
 
@@ -130,7 +130,7 @@
 
         .han {
             margin: 10px;
-            padding: 7px;
+            padding: 15px;
         }
     </style>
 </head>
@@ -167,7 +167,7 @@
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 150px;">
             ${mz}
             </td>
-            <td align="center" colspan="2" rowspan="4" valign="middle" class="contentFont han" style="width: 200px;">
+            <td align="center" colspan="2" rowspan="3" valign="middle" class="contentFont han" style="width: 200px;">
                 请粘贴一寸照
             </td>
         </tr>
@@ -197,7 +197,7 @@
         <tr>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 160px;">家庭地址
             </td>
-            <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 300px;">
+            <td align="center" colspan="10" valign="middle" class="contentFont han" style="width: 300px;">
             ${jtzz}
             </td>
         </tr>
@@ -229,16 +229,32 @@
             <td align="center" colspan="12" valign="middle" class="contentFont han" style="width: 120px;">综合素质评价
             </td>
         </tr>
-        <tr>
-     <#list zcList as zc>
-         <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 133px;">
-             ${zc.kmmc}
-         </td>
-         <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
-             ${zc.kmdj}
-         </td>
-     </#list>
-        </tr>
+		<tr>
+		    <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 133px;">
+		        ${zcList[0].kmmc}
+		    </td>
+		    <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
+		        ${zcList[0].kmdj}
+		    </td>
+		    <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
+		        ${zcList[1].kmmc}
+		    </td>
+		    <td align="center"  valign="middle" class="contentFont han" style="width: 65px;">
+		        ${zcList[1].kmdj}
+		    </td>
+		    <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
+		        ${zcList[2].kmmc}
+		    </td>
+		    <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
+		        ${zcList[2].kmdj}
+		    </td>
+		    <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
+		        ${zcList[3].kmmc}
+		    </td>
+		    <td align="center" valign="middle" class="contentFont han" style="width: 65px;">
+		        ${zcList[3].kmdj}
+		    </td>
+		</tr>
         <tr>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 133px;">
                 选考成绩
