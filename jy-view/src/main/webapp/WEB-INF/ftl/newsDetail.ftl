@@ -29,7 +29,7 @@
                         <p>${result.wznr!''}</p>
                         <#if (result.fileList??)&&(result.fileList?size>0)>
                             <div class="file">
-                                <div>附件</div>
+                                <div style="font-weight: bold;font-size: 16px;">附件</div>
                                 <ul>
                                     <#list result.fileList as obj>
                                         <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
