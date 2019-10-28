@@ -632,8 +632,12 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
         BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByYhRefOwid(dataMap);
-        bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
-        bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+        if(!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())){
+            bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
+        }
+        if(!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())){
+            bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+        }
         return bckjBizJyscheme;
     }
 
@@ -643,6 +647,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param dataMap
      * @return ResponseMessage
      */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage saveOneJyschemeXcx(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
         BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
         BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();

@@ -720,6 +720,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
      * @param dataMap
      * @return ResponseMessage
      */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage savaOneXcx(Map<String, Object> dataMap) {
         BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
         BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
