@@ -119,7 +119,7 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    common.ajax('zustcommon/bckjBizSyb/insertssInfo', params, function (res) {
+    common.ajax('zustcommon/bckjBizSyb/insertssInfoQt', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
