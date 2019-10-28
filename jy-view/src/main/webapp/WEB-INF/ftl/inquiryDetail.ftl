@@ -100,7 +100,7 @@
                         <#if result.tips??>
                             <button type="submit" class="btn btn-default btn-common" style="background-color: #e6e6e6;color: #333;">不可作答</button>
                         <#else >
-                            <button type="submit" class="btn btn-default btn-common green" onclick="commitWj()">提交</button>
+                            <button type="submit" class="btn btn-default btn-common green" id="commitBtn" onclick="commitWj()">提交</button>
                         </#if>
 
                     </div>
@@ -188,6 +188,7 @@
         ajax("zustcommon/bckjBizDcwj/submit", jsonObj, function (data) {
             if(data.backCode==0){
                 layer.msg('提交成功', {icon: 1});
+                $("#commitBtn").parent().html('<button type="submit" class="btn btn-default btn-common" style="background-color: #e6e6e6;color: #333;">不可作答</button>')
             }else if(data.backCode==2){
                 layer.msg("请先登录", {icon: 2});
                 setTimeout('window.location.href=base+"/"',1500);
