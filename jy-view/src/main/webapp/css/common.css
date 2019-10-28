@@ -1392,3 +1392,5 @@ input[type=number]::-webkit-outer-spin-button {
 
 .f-title{font-size: 18px;padding-top: 15px;}
 .twrq{font-size: 14px;color: #888;}
+.regqy{position: absolute;
+    right:15px;bottom: 30px;}
