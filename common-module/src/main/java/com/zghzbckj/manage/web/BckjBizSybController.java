@@ -16,6 +16,7 @@ import com.zghzbckj.manage.service.BckjBizSybService;
 import com.zghzbckj.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -155,6 +156,30 @@ public class BckjBizSybController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+    /**
+     * 前台保存生源
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("insertssInfoQt")
+    @ResponseBody
+    public ResponseMessage insertssInfoQt(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+            }
+            return  bckjBizSybService.insertssInfoQt(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 
 
