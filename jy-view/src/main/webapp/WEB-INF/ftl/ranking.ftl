@@ -136,7 +136,8 @@
                 "pmnf":$("#year").val()
             }
             beginLoad()
-            ajax("zustjy/bckjBizJypm/jypmList", jsonObj, function (data) {
+            //zustjy/bckjBizJypm/jypmList
+            ajax("http://172.16.13.108:8083/bckjBizJypm/jypmList", jsonObj, function (data) {
                 if(data.backCode==0){
                     finishLoad()
                     if(data.bean && data.bean.length>0){

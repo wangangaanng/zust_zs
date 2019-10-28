@@ -266,7 +266,7 @@ public class ZsController {
      *</ul>
      */
     @RequestMapping(value = "zxtw", method = RequestMethod.GET)
-    public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
+    public ModelAndView zxtw(HttpServletRequest request, ModelAndView view) {
         view.setViewName("ZSzxtw");
         view.addObject("header", getHeader().getBean());
 //        view.addObject("secondDir",secondDir);
