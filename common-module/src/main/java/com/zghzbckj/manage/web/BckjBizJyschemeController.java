@@ -305,6 +305,29 @@ public class BckjBizJyschemeController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+
+
+    /**
+     * 前台保存就业方案
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("insertssInfoQt")
+    @ResponseBody
+    public ResponseMessage insertssInfoQt(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
+            }
+            return bckjBizJyschemeService.insertssInfoQt(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
 
     }
 
