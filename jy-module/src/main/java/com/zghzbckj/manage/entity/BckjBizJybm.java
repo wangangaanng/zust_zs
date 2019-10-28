@@ -70,6 +70,97 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String qyLxrdh;
     private boolean readOnly;
 
+    private String zw1;
+    private String zw2;
+    private String zw3;
+    private String zw4;
+    private String zw5;
+    private String rs1;
+    private String rs2;
+    private String rs3;
+    private String rs4;
+    private String rs5;
+
+    public String getZw1() {
+        return zw1;
+    }
+
+    public void setZw1(String zw1) {
+        this.zw1 = zw1;
+    }
+
+    public String getZw2() {
+        return zw2;
+    }
+
+    public void setZw2(String zw2) {
+        this.zw2 = zw2;
+    }
+
+    public String getZw3() {
+        return zw3;
+    }
+
+    public void setZw3(String zw3) {
+        this.zw3 = zw3;
+    }
+
+    public String getZw4() {
+        return zw4;
+    }
+
+    public void setZw4(String zw4) {
+        this.zw4 = zw4;
+    }
+
+    public String getZw5() {
+        return zw5;
+    }
+
+    public void setZw5(String zw5) {
+        this.zw5 = zw5;
+    }
+
+    public String getRs1() {
+        return rs1;
+    }
+
+    public void setRs1(String rs1) {
+        this.rs1 = rs1;
+    }
+
+    public String getRs2() {
+        return rs2;
+    }
+
+    public void setRs2(String rs2) {
+        this.rs2 = rs2;
+    }
+
+    public String getRs3() {
+        return rs3;
+    }
+
+    public void setRs3(String rs3) {
+        this.rs3 = rs3;
+    }
+
+    public String getRs4() {
+        return rs4;
+    }
+
+    public void setRs4(String rs4) {
+        this.rs4 = rs4;
+    }
+
+    public String getRs5() {
+        return rs5;
+    }
+
+    public void setRs5(String rs5) {
+        this.rs5 = rs5;
+    }
+
     public boolean isReadOnly() {
         return readOnly;
     }
@@ -460,5 +551,13 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
         this.memo = memo;
     }
 
+    private BckjBizQyxx qyxx;
 
+    public BckjBizQyxx getQyxx() {
+        return qyxx;
+    }
+
+    public void setQyxx(BckjBizQyxx qyxx) {
+        this.qyxx = qyxx;
+    }
 }

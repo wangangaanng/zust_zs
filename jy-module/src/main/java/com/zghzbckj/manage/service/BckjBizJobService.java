@@ -432,8 +432,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
         }
         saveOrUpdate(bckjBizJob);
-        if(!com.ourway.base.utils.TextUtils.isEmpty(mapData.get("fileExtId"))){
-            mapData.put("articleOwid",bckjBizJob.getOwid());
+        if (!com.ourway.base.utils.TextUtils.isEmpty(mapData.get("fileExtId"))) {
+            mapData.put("articleOwid", bckjBizJob.getOwid());
             qyxxDao.updateFile(mapData);
         }
 
@@ -445,6 +445,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         mapData.remove("qyxx.qydz");
         mapData.remove("qyxx.qyYyzzzp");
         mapData.remove("qyxx.qyTysh");
+        mapData.remove("qyxx.qyZczj");
         mapData.remove("qyxx.qyLxr");
         mapData.remove("qyxx.qyLxrdh");
         mapData.remove("qyxx.qyProv");
@@ -454,7 +455,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         mapData.remove("qyHylb");
         mapData.remove("qyGsxz");
         mapData.remove("qyGsgm");
-        mapData.remove("qyxx");
+        mapData.remove("qyxx.qyZczj");
 
     }
 
@@ -707,6 +708,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             String str = qyxxDao.queryDic(params);
             job.setZwGznxStr(str);
         }
+
+
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
             BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
             if (!TextUtils.isEmpty(qyxx)) {
@@ -731,7 +734,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setQyxx(qyxx);
             }
         }
-//阅读数+1
+        //报名企业
+        params.clear();
+        params.put("jobRefOwid", job.getOwid());
+        params.put("state", 1);
+        List<BckjBizJybm> bmList = bmService.findListByParams(params, " a.qymc desc ");
+        job.setBmList(bmList);
+        //阅读数+1
         BckjBizJob newJob = get(owid);
         if (!TextUtils.isEmpty(newJob.getZwYds())) {
             newJob.setZwYds(newJob.getZwYds() + 1);
@@ -754,10 +763,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
 
 
-        Map mapParam= Maps.newHashMap();
-        mapParam.put("wzRefOwid",owid);
-        List<Map> files=qyxxDao.getSysFiles(mapParam);
+        Map mapParam = Maps.newHashMap();
+        mapParam.put("wzRefOwid", owid);
+        List<Map> files = qyxxDao.getSysFiles(mapParam);
         job.setFileList(files);
+
 
         return job;
     }

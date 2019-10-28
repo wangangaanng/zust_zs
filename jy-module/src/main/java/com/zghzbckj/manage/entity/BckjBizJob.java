@@ -83,6 +83,15 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private Integer qdNumber;
     private Integer gzNumber;
     private boolean readOnly;
+    private Integer zphBmxz;
+
+    public Integer getZphBmxz() {
+        return zphBmxz;
+    }
+
+    public void setZphBmxz(Integer zphBmxz) {
+        this.zphBmxz = zphBmxz;
+    }
 
     public boolean isReadOnly() {
         return readOnly;
@@ -629,5 +638,15 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
 
     public void setFileList(List<Map> fileList) {
         this.fileList = fileList;
+    }
+
+    private List<BckjBizJybm> bmList;
+
+    public List<BckjBizJybm> getBmList() {
+        return bmList;
+    }
+
+    public void setBmList(List<BckjBizJybm> bmList) {
+        this.bmList = bmList;
     }
 }
