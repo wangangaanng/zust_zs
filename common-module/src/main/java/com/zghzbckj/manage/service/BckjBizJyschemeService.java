@@ -632,11 +632,13 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
         BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByYhRefOwid(dataMap);
-        if(!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())){
-            bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
-        }
-        if(!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())){
-            bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+        if(!TextUtils.isEmpty(bckjBizJyscheme)){
+            if(!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())){
+                bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
+            }
+            if(!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())){
+                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+            }
         }
         return bckjBizJyscheme;
     }
