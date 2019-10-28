@@ -44,10 +44,9 @@ Page({
     var that = this;
     const params = e.detail.value;
     // 传入表单数据，调用验证方法
-    console.log(this);
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
-      this.showModal(error)
+      common.toast(error.msg,'none',2000)
       return false
     }
     var data = {
@@ -60,11 +59,7 @@ Page({
           url: '../shouye/shouye',
         })
       } else {
-        wx.showToast({
-          title: res.data.errorMess,
-          icon: 'none',
-          duration: 2000
-        })
+        common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },
@@ -141,14 +136,6 @@ Page({
   forgetPsw: function (e) {
     wx.navigateTo({
       url: '../forgetPsw/forgetPsw',
-    })
-  },
-  //弹出错误提示
-  showModal(error) {
-    wx.showToast({
-      title: error.msg,
-      icon: 'none',
-      duration: 2000
     })
   }
 })
