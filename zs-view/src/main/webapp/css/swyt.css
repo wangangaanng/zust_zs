@@ -42,4 +42,25 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .contact-wrap_title{font-size: 16px;font-weight: bold;position: relative;padding-left: 14px;}
 .contact-wrap_title:before{position: absolute;left: 0px;content: "";width: 3px;height: 20px;background: #008784;border-radius: 3px;}
 
-
+/*登录注册*/
+.top{position: relative;height: 500px!important;}
+header .top-logo{margin-top: 100px;margin-left: 200px;}
+.login{    width: 800px;    margin: -250px auto 0;    padding: 70px 0;    border: 1px solid #ddd;    background: #fff;     z-index: 1;    position: relative;    border-radius: 5px;    display: flex;}
+.login_left{    flex: 5.5;    border-right: 1px #e5e5e5 dashed;}
+.login_right{    flex: 4.5;}
+.login_title{font-size: 23px;text-align: center;color: #008784;font-weight: 600;margin-bottom: 50px;}
+.login_input{text-align: center;margin-bottom: 20px;position: relative;}
+.login_input2{width:300px;margin: 0 auto 20px;position: relative;}
+.login_input input{background: #F7F7F7;font-size: 14px;border-radius: 3px;outline: 0;border:none;    -webkit-appearance:none;/*去除阴影边框*/    -webkit-tap-highlight-color:rgba(0,0,0,0);/*点击高亮的颜色*/    line-height: 45px;    text-indent: 3rem;    width: 300px;}
+.login_input .btn-group>.btn:first-child{width: 300px;background: #F7F7F7;border: none;height: 45px;text-align: left;text-indent: 2rem;color: #008784 !important;}
+.login_input2 .btn-group>.btn:first-child{margin-right: 11px;position:relative;width: 90px;background: #F7F7F7;border: none;height: 45px;text-align: left;color: #008784 !important;}
+.login_input .btn-group.open .dropdown-toggle{box-shadow: none;}
+.login_input .glyphicon.glyphicon-chevron-down{position: absolute;right: 10px;top: 15px;color: #008784;}
+.login_input .dropdown-toggle:active, .dropdown-toggle:focus, .dropdown-toggle:hover{color: #008784 !important; background-color: #F7F7F7 !important;}
+.login_input img{height: 20px; position: absolute; margin: 13px 10px;z-index: 3;}
+.login_input i{ position: absolute; margin-top: 15px; margin-left: -25px;color: #008784;}
+.forget{color: #008784;font-size: 14px;text-align: right;width: 300px;margin: 0 auto;}
+.login_bun{color: #fff;background: #f5b900;border-radius: 45px; line-height: 45px;width: 300px;margin: 40px auto 0;text-align: center;font-size: 16px;}
+.login-icon{height: 110px;width: 110px;margin-top: 15px;}
+.login_right_border{margin: 80px 0 0 70px;color: #505050;}
+.registered{margin: 15px 0 40px;color: #f5b900;}
