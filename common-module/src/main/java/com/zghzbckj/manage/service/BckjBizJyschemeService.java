@@ -4,11 +4,11 @@
 package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
@@ -23,6 +23,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.util.*;
@@ -492,6 +494,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         BckjBizJyscheme bckjBizJyscheme = BckjBizJyscheme.class.newInstance();
 
         MapUtil.easySetByMap(dataMap, bckjBizJyscheme);
+        dataMap.remove("owid");
         MapUtil.easySetByMap(dataMap, bckjBizSyb);
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizJobPlanOther);
@@ -530,6 +533,11 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
+
+
+
+
+
     /**
      * 根据字典表type 和 val2 获得val1
      * @param type
@@ -565,10 +573,46 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     public  List getDicListByType(int type){
         return this.dao.getDicListByType(type);
     }
-
+    /**
+     * 前台进入就业方案读取出一条信息
+     * @param
+     * @return
+     */
     public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
         return  this.dao.getOneByYhRefOwid(dataMap);
     }
 
-
+    /**
+     * 前台进入就业方案读取出一条信息
+     * @param
+     * @return
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage insertssInfoQt(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
+        BckjBizJobPlanOther bckjBizJobPlanOther=BckjBizJobPlanOther.class.newInstance();
+        BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
+        BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();
+        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+        BckjBizJyscheme bckjBizJyscheme = getOneByXsxh(dataMap.get("xsxh").toString());
+        dataMap.remove("owid");
+        MapUtil.easySetByMap(dataMap, bckjBizJyscheme);
+        MapUtil.easySetByMap(dataMap, bckjBizSyb);
+        MapUtil.easySetByMap(dataMap, bckjBizJobPlanOther);
+        BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(bckjBizJyscheme.getXsxh());
+        bckjBizJyscheme.setExp2("2");
+        //按身份证号码更新 yhxx和syb
+        bckjBizYhxx.setSfz(oneByXsxh.getSfz());
+        bckjBizSyb.setSfz(oneByXsxh.getSfz());
+        //设置yh_ref_owid
+        bckjBizJyscheme.setYhRefOwid(oneByXsxh.getYhRefOwid());
+        //就业所在地地统计放在exp1
+        bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getDwszdmc()));
+        //更新yhxx syb jyscheme
+        bckjBizYhxxService.updateBySfz(bckjBizYhxx);
+        bckjBizSybService.updateBySfz(bckjBizSyb);
+        //设置就业所在地的省份
+        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
+        saveOrUpdate(bckjBizJyscheme);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
 }

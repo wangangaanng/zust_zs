@@ -305,7 +305,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         }
         //根据登入账号去寻找用户
     String oneDlzh = getOneByDlzh(bckjBizYhxx.getYhDlzh());
-        if(!TextUtils.isEmpty(oneDlzh)){
+        if(!TextUtils.isEmpty(oneDlzh)&&!TextUtils.isEmpty(dataMap.get("owid"))){
             return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
         }
     if(TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
