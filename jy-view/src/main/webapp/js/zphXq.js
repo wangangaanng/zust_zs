@@ -2,7 +2,7 @@
 $(document).ready(function () {
 
 
-    getOne()
+    // getOne()
 })
 
 function getOne() {

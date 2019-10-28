@@ -108,6 +108,9 @@
                     <#if result.zwbh?exists>
                         <li>展位：<span> ${result.zwbh!''}</span></li>
                     </#if>
+                    <#if (result.memo?exists) && (result.state==2)>
+                        <li>拒绝原因：<span> ${result.memo!''}</span></li>
+                    </#if>
                     </ul>
                     <ul class="xInfo" style="width: 50%;float: left;">
                     <#if result.zdytj1?exists>
@@ -124,6 +127,21 @@
                     </#if>
                     <#if result.zdytj5?exists>
                         <li><span> ${result.zdytj5!''}</span></li>
+                    </#if>
+                    <#if result.zw1?exists>
+                        <li>招聘职位：<span> ${result.zw1!''}</span><span>（${(result.rs1)!''}人）</span></li>
+                    </#if>
+                    <#if result.zw2?exists>
+                    <li>招聘职位：<span> ${result.zw2!''}</span><span>（${(result.rs2)!''}人）</span></li>
+                    </#if>
+                    <#if result.zw3?exists>
+                    <li>招聘职位：<span> ${result.zw3!''}</span><span>（${(result.rs3)!''}人）</span></li>
+                    </#if>
+                    <#if result.zw4?exists>
+                    <li>招聘职位：<span> ${result.zw4!''}</span><span>（${(result.rs4)!''}人）</span></li>
+                    </#if>
+                    <#if result.zw5?exists>
+                    <li>招聘职位：<span> ${result.zw5!''}</span><span>（${(result.rs5)!''}人）</span></li>
                     </#if>
                     </ul>
             </div>

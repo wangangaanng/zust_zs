@@ -100,6 +100,26 @@ Page({
       hkrx: '',
       hkpcs: ''
     },
+    sydList:[],
+    showSyd: true
+  },
+  getSydItem(e){
+    var that = this
+    that.data.form.syd = e.target.dataset.val
+    that.setData({
+      form: that.data.form
+    })
+  },
+  getSyd(e){
+    console.log(e)
+    if(e.detail.length>2){
+      getSmallRoutine(this, e.detail)
+    }
+  },
+  close1(){
+    this.setData({
+      howSyd: true
+    })
   },
   showModal(error) {
     wx.showModal({
@@ -119,7 +139,7 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    common.ajax('zustcommon/bckjBizSyb/insertssInfoQt', params, function (res) {
+    common.ajax('zustcommon/bckjBizSyb/savaOneXcx', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
@@ -467,7 +487,7 @@ Page({
       this.toggle('sfrx', false);
     } else if (e.target.dataset.type == 16) {
       this.toggle('hkrx', false);
-    } 
+    }
 
   }, 
   toggle(type, show) {
@@ -529,7 +549,7 @@ Page({
       this.toggle('sfrx', true);
     } else if (e.target.dataset.type == 16) {
       this.toggle('hkrx', true);
-    } 
+    }
   },
 
   hideBottom(e) {
@@ -565,7 +585,7 @@ Page({
       this.toggle('sfrx', false);
     } else if (e.target.dataset.type == 16) {
       this.toggle('hkrx', false);
-    } 
+    }
   },
   /**
    * 生命周期函数--监听页面显示
@@ -590,18 +610,18 @@ Page({
 
 var getOne = function (that) {
   var data = { "owid": wx.getStorageSync('yhOwid') };
-  common.ajax('zustcommon/bckjBizSyb/getOneQt', data, function (res) {
+  common.ajax('zustcommon/bckjBizSyb/getOneXcx', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if(data.bean){
         that.setData({
           form: data.bean,
           owid: data.bean.owid,
-          csrqStr: data.bean.csrq?data.bean.csrq.substring(0,10):'请选择',
-          sydStr: data.bean.syd || '请选择',
-          rxnfStr: data.bean.rxnf || '请选择',
+          csrqStr: data.bean.csrq ? data.bean.csrq.substring(0, 10) : '请选择',
+          syd: data.bean.syd || '',
+          rxnfStr: data.bean.rxnf ? data.bean.rxnf.substring(0, 10) : '请选择',
           bynfStr: data.bean.bynf || '请选择',
-          byrqStr: data.bean.byrq || '请选择',
+          byrqStr: data.bean.byrq ? data.bean.byrq.substring(0, 10) : '请选择',
           cxsyStr: data.bean.cxsy || '请选择',
           xzStr: data.bean.xz || '请选择',
           pyfsStr: data.bean.pyfs || '请选择',
@@ -632,7 +652,6 @@ var getOne = function (that) {
             hkrxStr: '是'
           })
         }
-
         if (data.bean.mz) {
           getByType1(that, data.bean.mz)//民族
         } else {
@@ -648,6 +667,34 @@ var getOne = function (that) {
         getByType2(that)//政治面貌
       }
 
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+var getSmallRoutine = function (that, val) {
+  var data = { 
+    "dicType": "50009" ,
+    "text":val  
+  };
+  common.ajax('zustcommon/common/getSmallRoutine', data, function (res) {
+    if (res.data.backCode == 0) {
+      var data = res.data;
+      if (data.bean && data.bean.length > 0) {
+        that.setData({
+          sydList: data.bean,
+          showSyd: false
+        })
+      }else{
+        that.setData({
+          showSyd:true
+        })
+      }
     } else {
       wx.showToast({
         title: res.data.errorMess,
@@ -721,22 +768,28 @@ var getByType2 = function (that, zzmm) {
   });
 }
 
-var getByType3 = function (that) {
-  var data = { "dicType": "20002" };
-  common.ajax('zustcommon/common/getByType', data, function (res) {
+var getByType3 = function (that,syd) {
+  var data = { "dicType": "50005" };
+  common.ajax('zustcommon/common/getByTypeSort', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
-      // if (data.bean && data.bean.length > 0) {
-      //   for (var i in data.bean) {
-      //     var obj = {}
-      //     obj.dicVal1 = data.bean[i].dicVal1
-      //     obj.dicVal2 = data.bean[i].dicVal2
-      //     that.data.gsgmColumns.push(obj)
-      //   }
-      //   that.setData({
-      //     gsgmColumns: that.data.gsgmColumns
-      //   })
-      // }
+      if (data.bean && data.bean.length > 0) {
+        for (var i in data.bean) {
+          var obj = {}
+          obj.dicVal1 = data.bean[i].DIC_VAL1
+          obj.dicVal2 = data.bean[i].DIC_VAL2
+          that.data.sydColumns.push(obj)
+        }
+        that.setData({
+          sydColumns: that.data.sydColumns
+        })
+        if (syd) {
+          console.log(util.getVal(syd, that.data.sydColumns))
+          that.setData({
+            sydStr: util.getVal(syd, that.data.sydColumns)
+          })
+        }
+      }
     } else {
       wx.showToast({
         title: res.data.errorMess,
