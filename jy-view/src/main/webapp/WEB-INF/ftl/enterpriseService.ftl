@@ -131,6 +131,16 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="qyZczj" class="col-sm-2 control-label">注册资本<span class="red">*</span>：</label>
+                        <div class="col-sm-8">
+                            <#if (cInfo.qyZczj)??>
+                                <input type="text" class="form-control" id="qyZczj" name="qyZczj" placeholder="" autocomplete="off" value="${cInfo.qyZczj}">
+                            <#else>
+                                <input type="text" class="form-control" id="qyZczj" name="qyZczj" placeholder="" autocomplete="off" value="">
+                            </#if>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="qyLxr" class="col-sm-2 control-label">联系人<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <#if (cInfo.qyLxr)??>
