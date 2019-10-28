@@ -132,17 +132,15 @@
                     </div>
                     <div class="form-group">
                         <label for="qyLxr" class="col-sm-2 control-label">联系人<span class="red">*</span>：</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-3">
                             <#if (cInfo.qyLxr)??>
                                 <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off" value="${cInfo.qyLxr}">
                             <#else>
                                 <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="" autocomplete="off" value="">
                             </#if>
                         </div>
-                    </div>
-                    <div class="form-group">
                         <label for="qyLxrdh" class="col-sm-2 control-label">手机<span class="red">*</span>：</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-3">
                             <#if (cInfo.qyLxrdh)??>
                                 <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off" value="${cInfo.qyLxrdh}">
                             <#else>
@@ -153,11 +151,19 @@
 
                     <div class="form-group">
                         <label for="qyYx" class="col-sm-2 control-label">邮箱<span class="red">*</span>：</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-3">
                             <#if (cInfo.qyYx)??>
                                 <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="${cInfo.qyYx}">
                             <#else>
                                 <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="">
+                            </#if>
+                        </div>
+                        <label for="qylxfs" class="col-sm-2 control-label">固定电话：</label>
+                        <div class="col-sm-3">
+                            <#if (cInfo.qylxfs)??>
+                                <input type="text" class="form-control" id="qylxfs" name="qylxfs" placeholder="" autocomplete="off" value="${cInfo.qylxfs}">
+                            <#else>
+                                <input type="text" class="form-control" id="qylxfs" name="qylxfs" placeholder="" autocomplete="off" value="">
                             </#if>
                         </div>
                     </div>

@@ -133,10 +133,15 @@ public class ZsController {
      *<li>@date 2019/10/25 15:02</li>
      *</ul>
      */
-    @RequestMapping(value = "cjcx", method = RequestMethod.GET)
-    public ModelAndView zsCjcx(HttpServletRequest request, ModelAndView view) {
+    @RequestMapping(value = "cjcx/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView zsCjcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZScjcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 
@@ -150,10 +155,15 @@ public class ZsController {
      *<li>@date 2019/10/25 15:04</li>
      *</ul>
      */
-    @RequestMapping(value = "lqcx", method = RequestMethod.GET)
-    public ModelAndView zsLqcx(HttpServletRequest request, ModelAndView view) {
+    @RequestMapping(value = "lqcx/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView zsLqcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlqcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 
@@ -167,10 +177,15 @@ public class ZsController {
      *<li>@date 2019/10/25 15:06</li>
      *</ul>
      */
-    @RequestMapping(value = "lnfsmc", method = RequestMethod.GET)
-    public ModelAndView zsLnfsmc(HttpServletRequest request, ModelAndView view) {
+    @RequestMapping(value = "lnfsmc/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView zsLnfsmc(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlnfsmc");
         view.addObject("header", getHeader().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 }
