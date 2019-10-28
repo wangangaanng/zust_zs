@@ -219,10 +219,11 @@ public class CommonController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            if (MapUtils.getInt(mapData, "type") == 0) {
-                commonService.sendCode(mapData);
-            } else {
+            int type=MapUtils.getInt(mapData, "type");
+            if (type== 1) {
                 commonService.sendCodeForget(mapData);
+            } else {
+                commonService.sendCode(mapData,type);
             }
             return ResponseMessage.sendOK(Boolean.TRUE);
         } catch (CustomerException e) {
