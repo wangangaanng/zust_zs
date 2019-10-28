@@ -8,7 +8,7 @@
 }
 .z-icon {
     font-family: "z-icon" !important;
-    font-size: 20px;
+    font-size: 20px!important;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     /*-webkit-text-stroke-width: 0.2px;*/
@@ -124,7 +124,7 @@
 .xsgl:before {  content: "\00C7";  }
 .xwgg:before {  content: "\0106";  }
 .xygk:before {  content: "\0139";  }
-.zyzd:before {  content: "\00C4";  }
+.zyzd:before {  content: "\00C4";  }/*职业指导*/
 .qyzn:before {  content: "\0102";  }
 .xsfw:before {  content: "\00C2";  }
 .lxwm:before {  content: "\00C1";  }
