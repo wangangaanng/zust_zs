@@ -280,7 +280,7 @@
         <ul class="adv">
             <li onclick="linkUrl('http://gzdc.zjedu.gov.cn/')"><img src="${base}/img/pic1.png" /></li>
             <li onclick="linkUrl('http://www.ejobmart.cn/jyxt-v5/xtgl/index/initMenu.zf')"><img src="${base}/img/pic2.png" /></li>
-            <li onclick="openUrl('ranking')"><img src="${base}/img/pic3.png" /></li>
+            <li onclick="linkUrl('http://172.16.13.106/ranking')"><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
     <!-- S c -->
