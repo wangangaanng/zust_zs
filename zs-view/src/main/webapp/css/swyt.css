@@ -22,6 +22,8 @@ button.yellow{  background-color: #f5b900!important;  color: #fff; border-radius
 button.yellow:active, button.yellow:focus,
 button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !important;  border-color: #f5b900 !important;  opacity: 0.7 !important;  }
 .articleTpl-title{font-weight: bold}
+.list-group-item:hover{color: #008784;}
+.list-group-item.active1{font-weight: bold}
 /*swiper*/
 .swiper-pagination{bottom: 14px!important;}
 .swiper-pagination-bullet{width: 15px;height: 15px; background: inherit; border: 1px solid #008784;opacity: 1;}

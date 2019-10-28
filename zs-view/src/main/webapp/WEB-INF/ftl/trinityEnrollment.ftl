@@ -71,6 +71,10 @@
                             <#--分组信息-->
                             <#include "SWgroupInfo.ftl">
                             <#break>
+                        <#case "5">
+                            <#--面试通知单-->
+                            <#include "SWofferNotice.ftl">
+                            <#break>
                         <#case "6">
                             <#--成绩查询-->
                             <#include "SWquerySearch.ftl">
