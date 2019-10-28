@@ -86,7 +86,7 @@ header .nav>ul>li.current{background: #fff;color:#008784;}
 /*二级导航*/
 .subnav-wrap{position: absolute;width: 100%;left: 0;top:53px;z-index: 500;background: #ffffff;}
 .subnav-cont{display: none;}
-.subnav-left{width: 620px;padding: 25px 0;}
+.subnav-left{width: 620px;padding: 25px 0 25px 25px;}
 .subnav-left img{display: block;float: left;width: 320px;height: 180px;}
 .subnav-left img:hover{opacity: 0.9;filter:alpha(opacity=90);}
 .subnav-motto{width: 225px;margin: 33px 0 auto 345px;}
