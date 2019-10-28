@@ -621,5 +621,13 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
         this.memo = memo;
     }
 
+    private List<Map> fileList;
 
+    public List<Map> getFileList() {
+        return fileList;
+    }
+
+    public void setFileList(List<Map> fileList) {
+        this.fileList = fileList;
+    }
 }

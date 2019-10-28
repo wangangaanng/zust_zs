@@ -199,4 +199,17 @@ public class CommonService {
         commonDao.insertFile(fileCenter);
         return fileCenter;
     }
+
+    /***
+    *<p>方法:getXkkm TODO获取选课列表 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.Object  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/28 11:43  </li>
+    *</ul>
+    */
+    public Object getXkkm(Map<String, Object> mapData) {
+        return this.commonDao.getXkcj(mapData);
+    }
 }
