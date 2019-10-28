@@ -48,4 +48,4 @@
         </view>
 			</view>
 		</view>
-    <authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>
+    <authorize show="{{isauthorize}}" type="{{userType}}" bindmyevent="onLoad"></authorize>

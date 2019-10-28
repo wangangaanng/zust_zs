@@ -25,7 +25,8 @@ Page({
       longitude: '',
       width: 50,
       height: 50
-    }]
+    }],
+    userType: '3'
   },
 
   /**

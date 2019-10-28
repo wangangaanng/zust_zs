@@ -449,6 +449,7 @@
                 addCookie("stuSjh",data.bean.sjh)
                 addCookie("userType","1") //1学生 0企业
                 addCookie("stuXm",data.bean.xm)
+                addCookie("stuXh",data.bean.xsxh)
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
