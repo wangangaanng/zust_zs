@@ -114,7 +114,7 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    common.ajax('zustcommon/bckjBizJyscheme/insertssInfoQt', params, function (res) {
+    common.ajax('zustcommon/bckjBizJyscheme/saveOneJyschemeXcx', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
@@ -554,7 +554,7 @@ Page({
 
 var getOne = function (that) {
   var data = { "owid": wx.getStorageSync('yhOwid') };
-  common.ajax('zustcommon/bckjBizJyscheme/getOneJyschemeQt', data, function (res) {
+  common.ajax('zustcommon/bckjBizJyscheme/getOneJyschemeXcx', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
