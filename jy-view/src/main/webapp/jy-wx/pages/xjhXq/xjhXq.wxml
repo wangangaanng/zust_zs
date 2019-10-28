@@ -32,6 +32,9 @@
                   <span wx:elif="{{result.state==2}}" style="color: red;">审核拒绝</span>
                 </view>
               </view>
+              <view class="tr" wx:if="{{result.memo && result.state==2}}">
+                <view class="td" style="flex:12">拒绝原因：{{result.memo}}</view>
+              </view>
                <view class="tr" wx:if="{{result.jkr}}">
                 <view class="td" style="flex:12">讲课人：{{result.jkr}}</view>
               </view>
