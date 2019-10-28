@@ -158,10 +158,10 @@
                                 </#if>
                             </ul>
                             <div class="tools cl">
-                                <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
-                                    <a class="btn_1">无需报名</a>
-                                <#else >
+                                <#if (result.zphSfbm??)&&(result.zphSfbm==1)>
                                     <a class="btn_1" onclick="applyJob()">学生报名参加</a>
+                                <#else >
+                                    <a class="btn_1">无需报名</a>
                                 </#if>
 
                                 <#if (result.exp2??)&&(result.exp2!="0")>
@@ -169,10 +169,10 @@
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
                                 </#if>
-
-                                <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
-                                <#else >
-                                    <a class="btn_1" onclick="applyJob2()">企业预定展位</a>
+                                <#if (result.state??)&&(result.state==2)>
+                                    <#if (result.zphSfbm??)&&(result.zphSfbm==1)>
+                                        <a class="btn_1" onclick="applyJob2()">企业预定展位</a>
+                                    </#if>
                                 </#if>
                             </div>
                             <div class="vTools">
@@ -230,10 +230,10 @@
                                 </#if>
                             </ul>
                             <div class="tools cl">
-                                <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
-                                    <a class="btn_1">无需报名</a>
-                                <#else >
+                                <#if (result.zphSfbm??)&&(result.zphSfbm==1)>
                                     <a class="btn_1" onclick="applyJob()">我要报名</a>
+                                <#else >
+                                    <a class="btn_1">无需报名</a>
                                 </#if>
                                 <#if (result.exp2??)&&(result.exp2!="0")>
                                     <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
