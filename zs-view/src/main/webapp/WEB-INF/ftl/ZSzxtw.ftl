@@ -29,6 +29,8 @@
     .question_online .form h5{padding:8px 5px;}
     .question_online .form p{ padding:5px;}
     .question_online .form textarea{ width:780px; height:100px; margin-bottom:10px;}
+    .path{ border-bottom:1px solid #d6d6d6; padding-bottom:10px;}
+    .path a{ padding:0 5px;}
 </style>
 <body>
 <#include "com/ZSheader.ftl">

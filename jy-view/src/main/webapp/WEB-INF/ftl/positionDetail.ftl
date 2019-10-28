@@ -222,6 +222,10 @@
                                                             </tr>
                                                         </#if>
                                                     </#list>
+                                                <#else >
+                                                    <tr>
+                                                        <td>${qy_index+1}</td><td>${qy.qymc!''}</td><td>-</td><td>-</td>
+                                                    </tr>
                                                 </#if>
 
                                                 </#list>

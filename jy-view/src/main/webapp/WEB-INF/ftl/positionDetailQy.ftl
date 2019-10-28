@@ -8,6 +8,9 @@
     <#include "com/config.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
+    <style>
+        table>tbody>tr>td{vertical-align: middle !important;}
+    </style>
 </head>
 
 <body>
@@ -182,6 +185,10 @@
                                                                 </tr>
                                                             </#if>
                                                         </#list>
+                                                        <#else >
+                                                            <tr>
+                                                                <td>${qy_index+1}</td><td>${qy.qymc!''}</td><td>-</td><td>-</td>
+                                                            </tr>
                                                     </#if>
 
                                                 </#list>
