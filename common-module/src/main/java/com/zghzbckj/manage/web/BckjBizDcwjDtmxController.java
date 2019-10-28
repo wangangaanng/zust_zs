@@ -48,6 +48,18 @@ public class BckjBizDcwjDtmxController extends BaseController {
 
     private Map<String, Object> map = new HashMap<>(1);
 
+    @RequestMapping(value = "/setOwid")
+    @ResponseBody
+    public void setOwid(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            map.put("dcwjRefOwid", dataMap.get("owid"));
+        } catch (Exception e) {
+            log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
+        }
+
+    }
+
     /**
      *<p>功能描述:问卷结果getResultList</p >
      *<ul>
@@ -62,10 +74,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getResultList(PublicDataVO dataVO) {
         try {
-            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
-            map.put("dcwjRefOwid", MapUtils.getString(dataMap, "dcwjRefOwid"));
-            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(map, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -86,6 +96,7 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @PostMapping(value = "listQuestionName")
     @ResponseBody
     public ResponseMessage listQuestionName(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
         List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(map, "dcwjRefOwid"));
         if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
