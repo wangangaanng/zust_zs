@@ -1,4 +1,8 @@
 // pages/login/login.js
+var common = require('../../libs/common/common.js')
+var util = require('../../utils/md5.min.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
 Page({
 
   /**
