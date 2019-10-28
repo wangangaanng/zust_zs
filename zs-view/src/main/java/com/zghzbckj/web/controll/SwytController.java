@@ -3,10 +3,14 @@ package com.zghzbckj.web.controll;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.UnsupportedEncodingException;
 
 /**
  * <p>方法 DemoController : <p>
@@ -26,11 +30,12 @@ public class SwytController {
         model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
     }
    // 三位一体框首页容器
-    @RequestMapping(value = "/trinityEnrollment", method = RequestMethod.GET)
-    public ModelAndView trinityEnrollment(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("trinityEnrollment");
-        return view;
-    }
+   @RequestMapping(value = "/trinityEnrollment/{pageType}", method = RequestMethod.GET)
+   public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String pageType) throws UnsupportedEncodingException {
+       view.addObject("page",pageType);
+       view.setViewName("trinityEnrollment");
+       return view;
+   }
     @RequestMapping(value = "SWYTlogin", method = RequestMethod.GET)
     public ModelAndView SWYTlogin(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWYTlogin");

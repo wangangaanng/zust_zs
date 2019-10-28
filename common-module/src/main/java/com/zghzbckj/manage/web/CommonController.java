@@ -47,6 +47,25 @@ public class CommonController {
     CommonService commonService;
 
 
+    @RequestMapping(value = "getXkkm", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getXkkm(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "dicType","dicVal5");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(commonService.getXkkm(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取选课成绩失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
     /**
      * pc端文件上传
      *
@@ -219,10 +238,11 @@ public class CommonController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            if (MapUtils.getInt(mapData, "type") == 0) {
-                commonService.sendCode(mapData);
-            } else {
+            int type = MapUtils.getInt(mapData, "type");
+            if (type == 1) {
                 commonService.sendCodeForget(mapData);
+            } else {
+                commonService.sendCode(mapData, type);
             }
             return ResponseMessage.sendOK(Boolean.TRUE);
         } catch (CustomerException e) {
@@ -234,17 +254,17 @@ public class CommonController {
     }
 
     /**
-    *<p>方法:pictureUp TODO上传到文件中心 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 17:03  </li>
-    *</ul>
-    */
+     * <p>方法:pictureUp TODO上传到文件中心 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 17:03  </li>
+     * </ul>
+     */
     @RequestMapping(value = "fileUpload", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage fileUpload(PublicDataVO dataVO,@RequestParam(required = false) MultipartFile file) {
+    public ResponseMessage fileUpload(PublicDataVO dataVO, @RequestParam(required = false) MultipartFile file) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空

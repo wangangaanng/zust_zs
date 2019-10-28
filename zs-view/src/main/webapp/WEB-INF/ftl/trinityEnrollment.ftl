@@ -18,6 +18,8 @@
 <body>
 <#include "com/SWheader.ftl">
 <div class="frame-wrap">
+    <#--menu constant-->
+   <#assign menuList=["我的报名表","报名表打印","拍照上传","初审结果/缴费","分组信息","面试通知单打印","成绩查询","在线提问"] />
 
     <#--swiper start-->
     <div class="swiper-container index-swiper">
@@ -47,12 +49,37 @@
         <div class="content-list">
             <div class="articleTpl-detail">
                 <div class="articleTpl-title">
-                    我的报名表
+                    <#list menuList as data>
+                        ${((data_index?number)==(page?number))?string(data,'')}
+                    </#list>
                 </div>
                 <div class="article-detail-text">
-                    <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
-                    <#include "SWInfoBasic.ftl">
-
+                    <#switch page>
+                        <#case "0">
+                             <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
+                            <#include "SWInfoBasic.ftl">
+                            <#break>
+                        <#case "2">
+                            <#--拍照上传-->
+                            <#include "SWphotoUpload.ftl">
+                            <#break>
+                        <#case "3">
+                            <#--初审结果/缴费-->
+                            <#include "SWpayOnline.ftl">
+                            <#break>
+                        <#case "4">
+                            <#--分组信息-->
+                            <#include "SWgroupInfo.ftl">
+                            <#break>
+                        <#case "5">
+                            <#--面试通知单-->
+                            <#include "SWofferNotice.ftl">
+                            <#break>
+                        <#case "6">
+                            <#--成绩查询-->
+                            <#include "SWquerySearch.ftl">
+                            <#break>
+                    </#switch>
                 </div>
             </div>
         </div>

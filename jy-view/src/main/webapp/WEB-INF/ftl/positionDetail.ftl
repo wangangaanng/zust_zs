@@ -64,6 +64,16 @@
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
                                 <div><p>${result.memo!''}</p></div>
+                                <#if (result.fileList??)&&(result.fileList?size>0)>
+                                    <div class="file">
+                                        <div>附件</div>
+                                        <ul>
+                                            <#list result.fileList as obj>
+                                                <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                            </#list>
+                                        </ul>
+                                    </div>
+                                </#if>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==2)>
@@ -102,6 +112,16 @@
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
                                 <div><p>${result.memo!''}</p></div>
+                                <#if (result.fileList??)&&(result.fileList?size>0)>
+                                    <div class="file">
+                                        <div>附件</div>
+                                        <ul>
+                                            <#list result.fileList as obj>
+                                                <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                            </#list>
+                                        </ul>
+                                    </div>
+                                </#if>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==3)>
@@ -141,13 +161,18 @@
                                 <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
                                     <a class="btn_1">无需报名</a>
                                 <#else >
-                                    <a class="btn_1" onclick="applyJob()">我要报名</a>
+                                    <a class="btn_1" onclick="applyJob()">学生报名参加</a>
                                 </#if>
 
                                 <#if (result.exp2??)&&(result.exp2!="0")>
-                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
+                                    <a class="link_1 shoucang" style="display: none;" onclick="saveJob()">学生收藏</a><a class="link_1 quxiao" onclick="cancelJob()">取消收藏</a>
                                 <#else >
                                     <a class="link_1 shoucang" onclick="saveJob()">收藏</a><a class="link_1 quxiao" style="display: none;" onclick="cancelJob()">取消收藏</a>
+                                </#if>
+
+                                <#if (result.zphSfbm??)&&(result.zphSfbm==0)>
+                                <#else >
+                                    <a class="btn_1" onclick="applyJob2()">企业预定展位</a>
                                 </#if>
                             </div>
                             <div class="vTools">
@@ -159,6 +184,16 @@
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
                                 <div><p>${result.memo!''}</p></div>
+                                <#if (result.fileList??)&&(result.fileList?size>0)>
+                                    <div class="file">
+                                        <div>附件</div>
+                                        <ul>
+                                            <#list result.fileList as obj>
+                                                <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                            </#list>
+                                        </ul>
+                                    </div>
+                                </#if>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==4)>
@@ -215,6 +250,16 @@
                             <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
                             <div class="frame-body tabbar-frame_content">
                                 <div><p>${result.memo!''}</p></div>
+                                <#if (result.fileList??)&&(result.fileList?size>0)>
+                                    <div class="file">
+                                        <div>附件</div>
+                                        <ul>
+                                            <#list result.fileList as obj>
+                                                <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                            </#list>
+                                        </ul>
+                                    </div>
+                                </#if>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==0)>
@@ -349,6 +394,38 @@
             }else{
                 login();
 
+            }
+        }
+        function applyJob2() {
+            var bmdx="${result.zwlx!''}";
+            if(bmdx=='0'){
+                bmdx=2
+            }else if(bmdx=='3'){
+                bmdx=0
+            }else if(bmdx=='4'){
+                bmdx=1
+            }
+            if(getCookie('qyOwid')){
+                window.location.href="${base}/jobFair/1/"+"${result.owid!''}"
+                <#--var jsonObj={-->
+                    <#--"jobRefOwid":"${result.owid!''}",-->
+                    <#--"bmlx":'0',-->
+                    <#--"bmdx":bmdx,-->
+                    <#--"qyxxRefOwid":getCookie('qyOwid'),-->
+                <#--}-->
+                <#--ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {-->
+                    <#--if(data.backCode==0){-->
+                        <#--layer.msg('申请成功', {icon: 1});-->
+                    <#--}else if(data.backCode==2){-->
+                        <#--layer.msg("请先登录", {icon: 2});-->
+                        <#--setTimeout('window.location.href=base+"/"',1500);-->
+                    <#--}else{-->
+                        <#--layer.msg(data.errorMess, {icon: 2});-->
+                    <#--}-->
+
+                <#--})-->
+            }else{
+                login("",0)//企业登录
             }
         }
         function saveJob() {

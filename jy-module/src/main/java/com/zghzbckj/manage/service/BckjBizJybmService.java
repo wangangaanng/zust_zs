@@ -17,6 +17,7 @@ import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
+import com.zghzbckj.manage.web.MessageUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -359,7 +360,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 if (JyContant.BMLX_QY == bmlx) {
                     Map params = new HashMap<String, Object>();
                     params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
-                    params.put("state", 1);
+//                    params.put("state", 1);
                     if (!TextUtils.isEmpty(mapData.get("qyxxRefOwid"))) {
                         params.put("qyxxRefOwid", mapData.get("qyxxRefOwid").toString());
                     }
@@ -475,6 +476,14 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     return resultMap;
                 }
                 bm.setZwbh(mapData.get("zwbh").toString());
+                String content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh");
+                String mobile = bm.getLxdh();
+                try {
+                    MessageUtil.sendMessage(mobile, content);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             } else if (bmdx == JyContant.BMDX_XJH) {
 //                if (TextUtils.isEmpty(mapData.get("zphJbdd"))) {
 //                    resultMap.put("result", "false");
@@ -564,8 +573,17 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 }
                 bm.setJobRefOwid(job.getOwid());
                 jobService.saveOrUpdate(job);
+
+                String content = JyContant.XJH_PASS_MESS + mapData.get("exp3") + "。联系：" + mapData.get("exp4");
+                String mobile = bm.getLxdh();
+                try {
+                    MessageUtil.sendMessage(mobile, content);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
-            // TODO: 2019/9/18 通过短信
+
 
         } else if (2 == state) {
             // TODO: 2019/9/18 拒绝短信

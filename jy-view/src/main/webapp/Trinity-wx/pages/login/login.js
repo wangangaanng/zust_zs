@@ -1,13 +1,39 @@
 // pages/login/login.js
+var common = require('../../libs/common/common.js')
+var util = require('../../utils/md5.min.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    phone:'',
+    psw:'',
     pass: true
   },
 
+  //登录
+  loginBtn: function (e) {
+    var data = {
+      "swZh": this.data.phone,
+      "swMm": this.data.psw
+    }
+    common.ajax('zustcommon/bckjBizYhxx/swYtLogin', data, function (res) {
+      if (res.data.backCode == 0) {
+        wx.reLaunch({
+          url: '../shouye/shouye',
+        })
+      } else {
+        wx.showToast({
+          title: res.data.errorMess,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -70,12 +96,6 @@ Page({
     this.setData({
       pass
     })
-  },
-  //登录
- loginBtn: function (e) {
-   wx.reLaunch({
-     url: '../shouye/shouye',
-   })
   },
   //注册
   register: function (e) {

@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.zk.utils.excel.ExcelUtil;
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -470,7 +471,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 }
                 //如果找出一个
                 if (bckjBizSybs.size()==1){
-                    //判断两个owid是否相等 如不相等则删除另一个
+                    //判断两个owid是否相等
                     if (!bckjBizSybs.get(0).getOwid().equals(bckjBizSyb.getOwid())){
                         return ResponseMessage.sendError(ResponseMessage.FAIL,"保存失败,此学号已存在");
                     }
@@ -502,6 +503,10 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 deleteBySfz(bckjBizSyb.getSfz());
                 bckjBizYhkzService.deleteByYhRefOwid(oneBySfz.getOwid());
                 bckjBizYhxxService.deleteBySfz(oneBySfz.getSfz());
+            }
+            //设置登入账号
+            if(!TextUtils.isEmpty(bckjBizYhkz.getXsxh())){
+                bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
             }
             //设置登入密码
             String dlmm = TextUtils.MD5(bckjBizSyb.getSfz().substring(bckjBizSyb.getSfz().length() - 6));
@@ -617,4 +622,48 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return "";
 
     }
+
+    /**
+     * 前台保存生源
+     * @param dataMap
+     * @return ResponseMessage
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage insertssInfoQt(Map<String, Object> dataMap) {
+        BckjBizYhxx bckjBizYhxx = new BckjBizYhxx();
+        BckjBizYhkz bckjBizYhkz = new BckjBizYhkz();
+        BckjBizSyb bckjBizSyb = getOneBySfz(dataMap.get("sfz").toString());
+        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+        //移除owid
+        dataMap.remove("owid");
+        MapUtil.easySetByMap(dataMap, bckjBizSyb);
+        MapUtil.easySetByMap(dataMap, bckjBizYhkz);
+            //判断是否存在相同的学号
+            if(!TextUtils.isEmpty(bckjBizSyb.getXsxh())){
+                List<BckjBizSyb> bckjBizSybs = getListByXsxh(bckjBizSyb.getXsxh());
+                if(bckjBizSybs.size()>1){
+                    return ResponseMessage.sendError(ResponseMessage.FAIL,"保存失败,此学号已存在");
+                }
+                //如果找出一个
+                if (bckjBizSybs.size()==1){
+                    //判断两个owid是否相等
+                    if (!bckjBizSybs.get(0).getOwid().equals(bckjBizSyb.getOwid())){
+                        return ResponseMessage.sendError(ResponseMessage.FAIL,"保存失败,此学号已存在");
+                    }
+                }
+            }
+            //设置状态为已编辑
+            bckjBizSyb.setExp2("2");
+            bckjBizYhkzService.updateSudentInfo(bckjBizYhkz);
+            //重新设置登入账号
+            if (!TextUtils.isEmpty(bckjBizSyb.getXsxh())){
+                bckjBizYhxx.setYhDlzh(bckjBizSyb.getXsxh());
+            }
+            String dlmm = TextUtils.MD5(bckjBizSyb.getSfz().substring(bckjBizSyb.getSfz().length() - 6));
+                bckjBizYhxx.setYhDlmm(dlmm);
+            bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
+            bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizJyschemeService.getDicVall(50005,bckjBizSyb.getSyd())));
+            saveOrUpdate(bckjBizSyb);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
 }
