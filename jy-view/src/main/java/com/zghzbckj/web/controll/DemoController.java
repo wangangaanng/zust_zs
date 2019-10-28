@@ -820,6 +820,7 @@ public class DemoController {
     @RequestMapping(value = "ranking", method = RequestMethod.GET)
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
         String host=request.getRemoteHost();
+        System.out.println(host);
         if(!PropertiesUtil.innerIp(host)){
             view.setViewName("errerIp");
             return view;
