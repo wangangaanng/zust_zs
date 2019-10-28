@@ -746,7 +746,7 @@ public class DemoController {
         view.addObject("mzList",type7.getBean());
         Map param=Maps.newHashMap();//生源地
         param.put("dicType","50005");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByTypeSort");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
         ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
         view.addObject("sydList",type.getBean());
         Map param2=Maps.newHashMap();//毕业去向名称（字典表）
