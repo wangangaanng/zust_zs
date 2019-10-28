@@ -257,6 +257,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 //企业名称，税号
                 jybm.setQymc(qyxx.getQymc());
                 jybm.setQysh(qyxx.getQyTysh());
+
             }
             //学生职位
             else if (JyContant.BMLX_XS == bmlx) {
@@ -370,6 +371,19 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                         resultMap.put("msg", "已存在报名信息");
                         return resultMap;
                     }
+                    if (!TextUtils.isEmpty(job.getZphBmxz())) {
+                        //报名限制
+                        Integer bmxz = job.getZphBmxz();
+                        params.clear();
+                        params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
+                        params.put("state", 1);
+                        existBm = findListByParams(params, "");
+                        if (!TextUtils.isEmpty(existBm) && existBm.size() > 0 && existBm.size() >= bmdx) {
+                            resultMap.put("result", "false");
+                            resultMap.put("msg", "企业报名已满");
+                            return resultMap;
+                        }
+                    }
                 }
 
                 if (!TextUtils.isEmpty(job.getZphKsrq())) {
@@ -464,19 +478,21 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
     @Transactional(readOnly = false)
     public Map submitPurchaseBack(List<String> codes, Integer state, Map mapData) {
+        clearCompany(mapData);
         Map resultMap = new HashMap<>(2);
         BckjBizJybm bm = get(codes.get(0));
         //报名对象  0招聘会 1宣讲会
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
         if (1 == state) {
             if (bmdx == JyContant.BMDX_ZPH) {
+                BckjBizJob job = jobService.get(bm.getJobRefOwid());
                 if (TextUtils.isEmpty(mapData.get("zwbh"))) {
                     resultMap.put("result", "false");
                     resultMap.put("msg", "审核通过时请填写分配的展位编号");
                     return resultMap;
                 }
                 bm.setZwbh(mapData.get("zwbh").toString());
-                String content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh");
+                String content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
                 String mobile = bm.getLxdh();
                 try {
                     MessageUtil.sendMessage(mobile, content);
@@ -485,11 +501,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 }
 
             } else if (bmdx == JyContant.BMDX_XJH) {
-//                if (TextUtils.isEmpty(mapData.get("zphJbdd"))) {
-//                    resultMap.put("result", "false");
-//                    resultMap.put("msg", "审核通过时请填写举办地点");
-//                    return resultMap;
-//                }
+//
                 if (TextUtils.isEmpty(mapData.get("xjsj"))) {
                     resultMap.put("result", "false");
                     resultMap.put("msg", "审核通过时请填写宣讲时间");
@@ -561,11 +573,6 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 job.setZdytj3(bm.getZdytj3());
                 job.setZdytj4(bm.getZdytj4());
                 job.setZdytj5(bm.getZdytj5());
-//                job.setTjsd1(bm.getTjsd1());
-//                job.setTjsd2(bm.getTjsd2());
-//                job.setTjsd3(bm.getTjsd3());
-//                job.setTjsd4(bm.getTjsd4());
-//                job.setTjsd5(bm.getTjsd5());
                 jobService.saveOrUpdate(job);
                 if (!TextUtils.isEmpty(mapData.get("memo"))) {
                     bm.setMemo(mapData.get("memo").toString());
@@ -586,7 +593,22 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
 
 
         } else if (2 == state) {
-            // TODO: 2019/9/18 拒绝短信
+            if (bmdx == JyContant.BMDX_ZPH) {
+                BckjBizJob job = jobService.get(bm.getJobRefOwid());
+                String content = JyContant.ZPH_REJECT_MESS;
+                if (!TextUtils.isEmpty(mapData.get("memo"))) {
+                    bm.setMemo(mapData.get("memo").toString());
+                    content += "原因：" + bm.getMemo();
+                }
+                String mobile = bm.getLxdh();
+                try {
+                    MessageUtil.sendMessage(mobile, content);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
         }
         bm.setState(state);
         saveOrUpdate(bm);
@@ -596,6 +618,24 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         _list.add(bm);
         resultMap.put("bean", _list);
         return resultMap;
+    }
+
+    private void clearCompany(Map mapData) {
+        mapData.remove("qyxx.qymc");
+        mapData.remove("qyxx.qydz");
+        mapData.remove("qyxx.qyYyzzzp");
+        mapData.remove("qyxx.qyTysh");
+        mapData.remove("qyxx.qyZczj");
+        mapData.remove("qyxx.qyLxr");
+        mapData.remove("qyxx.qyLxrdh");
+        mapData.remove("qyxx.qyProv");
+        mapData.remove("qyxx.qyCity");
+        mapData.remove("qyxx.qyArea");
+        mapData.remove("qyxx.qyGsjs");
+        mapData.remove("qyxx.qyHylb");
+        mapData.remove("qyxx.qyGsxz");
+        mapData.remove("qyxx.qyGsgm");
+        mapData.remove("qyxx.qyZczj");
     }
 
     public BckjBizJybm getWithJob(String owid) {
@@ -610,6 +650,10 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             jybm.setZphSfbm(job.getZphSfbm());
             jybm.setZphSfqd(job.getZphSfqd());
             jybm.setZphBmjzsj(job.getZphBmjzsj());
+        }
+        if (!TextUtils.isEmpty(jybm.getQyxxRefOwid())) {
+            BckjBizQyxx qyxx = qyxxService.get(jybm.getQyxxRefOwid());
+            jybm.setQyxx(qyxx);
         }
         return jybm;
     }

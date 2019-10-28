@@ -13,6 +13,8 @@
             position: relative;
             top: -2px;
         }
+        a:hover{text-decoration: none;}
+        table>tbody>tr>td{vertical-align: middle !important;}
     </style>
 </head>
 
@@ -57,7 +59,7 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="${base}/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -66,7 +68,7 @@
                                 <div><p>${result.memo!''}</p></div>
                                 <#if (result.fileList??)&&(result.fileList?size>0)>
                                     <div class="file">
-                                        <div>附件</div>
+                                        <div style="font-weight: bold;font-size: 16px;">附件</div>
                                         <ul>
                                             <#list result.fileList as obj>
                                                 <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
@@ -105,7 +107,7 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="${base}/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -114,7 +116,7 @@
                                 <div><p>${result.memo!''}</p></div>
                                 <#if (result.fileList??)&&(result.fileList?size>0)>
                                     <div class="file">
-                                        <div>附件</div>
+                                        <div style="font-weight: bold;font-size: 16px;">附件</div>
                                         <ul>
                                             <#list result.fileList as obj>
                                                 <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
@@ -177,23 +179,57 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="${base}/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
-                            <div class="position-tabbar"><ul><li class="active"><a>详情</a></li></ul></div>
-                            <div class="frame-body tabbar-frame_content">
-                                <div><p>${result.memo!''}</p></div>
-                                <#if (result.fileList??)&&(result.fileList?size>0)>
-                                    <div class="file">
-                                        <div>附件</div>
-                                        <ul>
-                                            <#list result.fileList as obj>
-                                                <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
-                                            </#list>
-                                        </ul>
+                            <div class="position-tabcontent">
+                                <div class="position-tabbar"><ul><li class="active"><a>详情</a></li>
+                                    <#if (result.bmList??)&&(result.bmList?size>0)>
+                                        <li><a>参会企业</a></li>
+                                    </#if>
+                                </ul></div>
+                                <div class="frame-body tabbar-frame_content">
+                                    <div class="tabcontent">
+                                        <div><p>${result.memo!''}</p></div>
+                                        <#if (result.fileList??)&&(result.fileList?size>0)>
+                                            <div class="file">
+                                                <div style="font-weight: bold;font-size: 16px;">附件</div>
+                                                <ul>
+                                                    <#list result.fileList as obj>
+                                                        <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                                    </#list>
+                                                </ul>
+                                            </div>
+                                        </#if>
                                     </div>
-                                </#if>
+                                    <div class="tabcontent" style="display: none;">
+                                        <table class="table table-bordered" style="text-align: center">
+                                            <tr>
+                                                <td>序号</td><td>企业名称</td><td>招聘岗位</td><td>招聘人数</td>
+                                            </tr>
+                                            <#if (result.bmList??)&&(result.bmList?size>0)>
+                                                <#list result.bmList as qy>
+                                                <#if (qy.zwList??)&&(qy.zwList?size>0)>
+                                                    <#list qy.zwList as gw>
+                                                        <#if gw_index==0>
+                                                            <tr>
+                                                                <td rowspan="${qy.zwList?size}">${qy_index+1}</td><td rowspan="${qy.zwList?size}">${qy.qymc!''}</td><td>${gw.zw!''}</td><td>${gw.rs!''}</td>
+                                                            </tr>
+                                                        <#else >
+                                                            <tr>
+                                                                <td>${gw.zw!''}</td><td>${gw.rs!''}</td>
+                                                            </tr>
+                                                        </#if>
+                                                    </#list>
+                                                </#if>
+
+                                                </#list>
+                                            </#if>
+                                        </table>
+                                    </div>
+
+                                </div>
                             </div>
                         </#if>
                         <#if (result??)&&(result.zwlx==4)>
@@ -243,7 +279,7 @@
                             </div>
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="${base}/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -252,7 +288,7 @@
                                 <div><p>${result.memo!''}</p></div>
                                 <#if (result.fileList??)&&(result.fileList?size>0)>
                                     <div class="file">
-                                        <div>附件</div>
+                                        <div style="font-weight: bold;font-size: 16px;">附件</div>
                                         <ul>
                                             <#list result.fileList as obj>
                                                 <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
@@ -321,7 +357,7 @@
 
                             <div class="vTools">
                                 <div class="warn">
-                                    <span>信息来源：<img src="../img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
+                                    <span>信息来源：<img src="${base}/img/icon-zz.png" class="shield">浙江科技学院就业信息网</span>
                                     温馨提示：求职需提高谨慎，辨别信息真伪，勿上当受骗。
                                 </div>
                             </div>
@@ -360,7 +396,7 @@
     <#include "com/footer.ftl">
     <script>
         var jlowid="${result.exp2!'0'}"
-        $(".position-tabbar ul li").hover(function () {
+        $(".position-tabbar ul li").click(function () {
             $(this).addClass('active').siblings().removeClass('active');
             $(this).parents(".position-tabcontent").find(".tabcontent").eq($(this).index()).show().siblings().hide();
         })
@@ -397,14 +433,14 @@
             }
         }
         function applyJob2() {
-            var bmdx="${result.zwlx!''}";
-            if(bmdx=='0'){
-                bmdx=2
-            }else if(bmdx=='3'){
-                bmdx=0
-            }else if(bmdx=='4'){
-                bmdx=1
-            }
+            <#--var bmdx="${result.zwlx!''}";-->
+            <#--if(bmdx=='0'){-->
+                <#--bmdx=2-->
+            <#--}else if(bmdx=='3'){-->
+                <#--bmdx=0-->
+            <#--}else if(bmdx=='4'){-->
+                <#--bmdx=1-->
+            <#--}-->
             if(getCookie('qyOwid')){
                 window.location.href="${base}/jobFair/1/"+"${result.owid!''}"
                 <#--var jsonObj={-->

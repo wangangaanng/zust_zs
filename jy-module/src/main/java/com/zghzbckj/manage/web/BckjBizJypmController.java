@@ -56,6 +56,7 @@ public class BckjBizJypmController extends BaseController {
     public ResponseMessage jypmList(HttpServletRequest request, PublicDataVO dataVO) {
         try {
             String ip = IpAdrressUtil.getIpAdrress(request);
+            System.out.println(ip);
             if (innerIp(ip)) {
                 Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
                 ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pmnf");

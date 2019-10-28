@@ -79,6 +79,6 @@ public class JyContant {
     public static final String QY_PASS_MESS = "恭喜您，您注册的公司已通过审核";
     public static final String QY_REJECT_MESS = "很抱歉，您注册的公司未通过审核";
     public static final String ZPH_PASS_MESS = "恭喜您，您申请的招聘会已通过审核，展位编号：";
-    public static final String ZPH_REJECT_MESS = "很抱歉，您申请的招聘会未通过审核";
+    public static final String ZPH_REJECT_MESS = "很抱歉，您申请的招聘会未通过审核。";
     public static final String XJH_PASS_MESS = "恭喜您，您申请的宣讲会已通过审核，学校联系人：";
 }
