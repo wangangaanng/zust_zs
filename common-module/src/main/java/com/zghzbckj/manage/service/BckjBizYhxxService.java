@@ -419,7 +419,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false)
     public BckjBizYhxx swYtzc(Map yhxx) throws CustomerException {
         BckjBizYhxx indata = getBySwZh(yhxx,"swZh");
-        if (null != indata) {
+        if (null == indata) {
             throw new CustomerException("手机号信息不存在，请重新发送验证码");
         }
         if (indata.getState() == 1) {
@@ -511,8 +511,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false)
     public BckjBizYhxx forgetPwd(Map<String, Object> mapData) throws CustomerException{
         BckjBizYhxx indata = getBySwZh(mapData,"swZh");
-        String yzm=MapUtils.getString(mapData,"swMm");
-        if (null != indata) {
+        String yzm=MapUtils.getString(mapData,"yzm");
+        if (null == indata) {
             throw new CustomerException("不存在此用户");
         }
         if(indata.getState()==0){

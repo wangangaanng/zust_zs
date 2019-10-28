@@ -14,7 +14,6 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
-import com.zghzbckj.common.RepeatException;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
 import com.zghzbckj.manage.utils.SmallAppUtil;
@@ -315,7 +314,7 @@ public class BckjBizYhxxController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "unionid", "sjh", "xm", "xb", "yzm");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "swZh", "xm", "xb", "yzm","swMm");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }

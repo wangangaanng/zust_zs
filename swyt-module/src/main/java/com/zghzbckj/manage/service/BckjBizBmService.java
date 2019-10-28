@@ -298,8 +298,16 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * <li>@date 2019/10/26 15:53  </li>
      * </ul>
      */
-    public String getApply(Map<String, Object> mapData) throws IOException {
+    public String getApply(Map<String, Object> mapData) throws IOException,CustomerException {
         BckjBizBm bm = getBmxx(mapData);
+        if(null==bm){
+            throw CustomerException.newInstances("报名表不存在");
+        }
+        String fileName = bm.getOwid() + File.separator+SwytConstant.SWTYSQB;
+
+        if(bm.getState()!=0){
+            return SwytConstant.SWTYFILEPATH + File.separator + fileName;
+        }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
                 "xm", "xbStr", "qq", "mz", "jtzz", "yx", "sfzh", "lxdh",
                 "wycj", "zxlb", "jssm", "qtqk", "tcah"};
@@ -315,7 +323,6 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         datas.put("hkList",hkList);
         datas.put("xkList",xkList);
         datas.put("zcList",zcList);
-        String fileName = bm.getOwid() + File.separator+SwytConstant.SWTYSQB;
         String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + fileName;
         String htmlData = TemplateUtils.freeMarkerContent(datas, "apcationForm");
         Html2PdfUtil.createPdf(htmlData, saveFilePath);

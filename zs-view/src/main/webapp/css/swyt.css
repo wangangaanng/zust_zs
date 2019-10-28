@@ -11,6 +11,9 @@
 .box{background: #FFF;border: 2px solid #f7f7f7;}
 .overh{overflow: hidden;}
 .bold{font-weight: bold;}
+ul li{list-style: none;}
+ul{padding-left: 0px;}
+.tc{text-align: center}
 .frame-a,.frame-b,.frame-c{margin-top: 20px;overflow: hidden;}
 .frame-a_left{min-width: 840px;width: 70%;height: 323px;float: left;border: none;}
 .mt20{margin-top: 20px;}
@@ -19,8 +22,6 @@ button.yellow{  background-color: #f5b900!important;  color: #fff; border-radius
 button.yellow:active, button.yellow:focus,
 button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !important;  border-color: #f5b900 !important;  opacity: 0.7 !important;  }
 .articleTpl-title{font-weight: bold}
-.label-select{border: none;box-shadow:none;width: 116px;margin-right: 0px;position: absolute;right: 17px;}
-.label-select:focus{border: none;box-shadow: none}
 /*swiper*/
 .swiper-pagination{bottom: 14px!important;}
 .swiper-pagination-bullet{width: 15px;height: 15px; background: inherit; border: 1px solid #008784;opacity: 1;}
@@ -34,12 +35,54 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 /*基本信息*/
 .jf-item{width: 25%;}
 .jf-steps{border-bottom: none;padding-top: 0px;}
-.uploadlabel{display: inline-block;width: 100%;padding: 5px;}
-.label-select_wrap .red{top: 16px;position: absolute;right: 32px;}
+.uploadlabel{display: inline-block;width: 100%;padding: 5px;text-align: center}
+.label-select_wrap{padding-top: 0px!important;}
+#basicForm .label-select_wrap .red{top: 6px;position: absolute;right: 32px;}
+#basicForm  .label-select{border: none;box-shadow:none;width: 116px;margin-right: 0px;position: absolute;right: 17px;}
+#basicForm  .label-select:focus{border: none;box-shadow: none}
 
 /*联系人*/
 .contact-wrap{margin-bottom: 40px;}
 .contact-wrap_title{font-size: 16px;font-weight: bold;position: relative;padding-left: 14px;}
 .contact-wrap_title:before{position: absolute;left: 0px;content: "";width: 3px;height: 20px;background: #008784;border-radius: 3px;}
+#selectForm .label-select{width: 146px;}
+#selectForm .label-select_wrap .red{top: 9px;position: absolute;right: 15px;}
+.label-full{text-align: left!important;padding-left: 18px;margin-bottom: 10px!important;}
 
+/*选考信息*/
+.checkbox-wrap li{list-style: none;float: left;}
+.checkbox-wrap .checkbox{padding-top: 5px;}
+.checkbox span{line-height: 14px;}
+.file-btn{position: absolute;width:100%;height: 100%;opacity: 0;cursor: pointer;top: 0px;}
+.file-btn_wrap{position: relative;width: 180px;height: 120px;border: 1px dashed #008784;border-radius: 4px;text-align: center;line-height: 116px;}
+.upimg-wrap{display: inline-block;width: 160px;margin-top: 10px;position: relative;}
+.up-btn_img{width: 44px;}
+
+/*在线支付*/
+.pay-online ul{padding-left: 14px;}
+.pay-online ul li:not(:last-child){margin-bottom: 30px;}
+.pay-online h5{font-size: 14px;}
+.pay-online .contact-wrap_title{padding-left: 24px;}
+.pay-online .contact-wrap_title:before{width: 15px;height: 15px;border-radius: 50%;top: 3px;background: #eee;}
+.pay-online_ctxt{padding-left: 25px;}
+.active:before{background: #008784!important;}
+.link-url{background: #f5b900;color: #FFF;padding: 2px 20px;border-radius: 10px;cursor: pointer;text-decoration: none;}
+.link-url:hover{text-decoration: none;color: #FFF;}
+.link-url .glyphicon-hand-up{margin-right: 4px;position: relative;top: 2px;font-size: 13px;}
+
+/*分组信息*/
+.group-wrap{background: #fafafa}
+.group-wrap .list-group{padding: 17px 50px;}
+.group-wrap .list-group-item{background: transparent}
+.group-label{margin-right: 60px;}
+.group-wrap .list-group-item{border: none;border-bottom: 1px dashed #eee}
+.group-wrap .list-group-item:last-child{border-bottom: none}
+.group-value{font-weight: normal;font-size: 15px;}
+.wait{background: rgba(214,48,48,0.26);color: #d43030;padding: 1px 12px;}
+.search-score{color: #008784;font-size: 22px;}
+.search-score_label{font-size: 16px;color: #595959}
+.grade-result{padding: 11px 0px;}
+
+.sw-tip{background: rgba(0,135,132,0.21);color: #008784; border-radius: 4px;  padding: 9px 10px;  font-size: 13px;margin-bottom: 10px;}
+.sw-tip .glyphicon-list-alt{margin-right: 4px;top: 2px;}
 

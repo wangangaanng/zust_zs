@@ -215,14 +215,15 @@ public class CommonController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "mobile", "type");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "swZh", "type");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            if (MapUtils.getInt(mapData, "type") == 0) {
-                commonService.sendCode(mapData);
-            } else {
+            int type=MapUtils.getInt(mapData, "type");
+            if (type== 1) {
                 commonService.sendCodeForget(mapData);
+            } else {
+                commonService.sendCode(mapData,type);
             }
             return ResponseMessage.sendOK(Boolean.TRUE);
         } catch (CustomerException e) {

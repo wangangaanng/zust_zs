@@ -12,6 +12,7 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.utils.HttpUtil;
+import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.HttpBackUtil;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +84,7 @@ public class CommonService {
     public ResponseMessage getByType(Map<String, Object> mapData) {
         try {
 //            String resStr = HttpBackUtil.doPost(CommonModuleContant.BACK_TYPE_URL_HOST, param, "utf-8", false);
-            String resStr =  HttpUtil.doPostJson(CommonModuleContant.BACK_TYPE_URL_HOST,  JsonUtil.toJson(mapData), "UTF-8", true);
+            String resStr = HttpUtil.doPostJson(CommonModuleContant.BACK_TYPE_URL_HOST, JsonUtil.toJson(mapData), "UTF-8", true);
             if (!TextUtils.isEmpty(resStr)) {
                 Map value = JsonUtil.jsonToMap(resStr);
                 return JsonUtil.map2Bean(value, ResponseMessage.class);
@@ -97,29 +98,44 @@ public class CommonService {
 
     /**
      * 返回字典表 按val2排序
+     *
      * @param dataMap
      * @return
      */
-    public List<Map<String,Object>> getByTypeSort(Map<String, Object> dataMap) {
+    public List<Map<String, Object>> getByTypeSort(Map<String, Object> dataMap) {
         return bckjBizSybService.getByTypeSort(dataMap);
     }
 
     @Transactional(readOnly = false)
-    public void sendCode(Map<String, Object> mapData) throws CustomerException {
-        BckjBizYhxx yhxx=bckjBizYhxxService.getBySwZh(mapData,"unionid");
-        if(null==yhxx){
-            throw new CustomerException("不存在基础信息，请重新进入小程序");
+    public void sendCode(Map<String, Object> mapData, int type) throws Exception {
+        BckjBizYhxx yhxx;
+        if (type == 0) {
+            if(TextUtils.isEmpty(mapData.get("unionid"))){
+                throw new CustomerException("unionid必传");
+            }
+            yhxx = bckjBizYhxxService.getBySwZh(mapData, "unionid");
+            if (null == yhxx) {
+                throw new CustomerException("微信基本信息不存在，请重新进入小程序");
+            }
+        } else {
+            yhxx = bckjBizYhxxService.getBySwZh(mapData, "swZh");
+            if (null == yhxx) {
+                yhxx = new BckjBizYhxx();
+                yhxx.setYhlx(3);
+                yhxx.setState(0);
+            }
         }
-        if(yhxx.getState()==1){
+        if (null != yhxx.getState() && yhxx.getState() == 1) {
             throw new CustomerException("此用户已经绑定");
         }
-        yhxx.setSwZh(MapUtils.getString(mapData,"swZh"));
+        yhxx.setSwZh(MapUtils.getString(mapData, "swZh"));
         yhxx.setYzm(getRandom());
+        MessageUtil.sendMessageCode(yhxx.getSwZh(), yhxx.getYzm());
         yhxx.setFssj(new Date());
         bckjBizYhxxService.saveOrUpdate(yhxx);
     }
 
-    private String getRandom(){
+    private String getRandom() {
         Random rd = new Random();
         String tmp = "";
         for (int i = 0; i < 6; i++) {
@@ -129,51 +145,57 @@ public class CommonService {
     }
 
     @Transactional(readOnly = false)
-    public void sendCodeForget(Map<String, Object> mapData) throws CustomerException{
-        BckjBizYhxx yhxx=bckjBizYhxxService.getBySwZh(mapData,"swZh");
-        if (null != yhxx) {
+    public void sendCodeForget(Map<String, Object> mapData) throws CustomerException {
+        BckjBizYhxx yhxx = bckjBizYhxxService.getBySwZh(mapData, "swZh");
+        if (null == yhxx) {
             throw new CustomerException("不存在此用户");
         }
-        if(yhxx.getState()==0){
+        if (yhxx.getState() == 0) {
             throw new CustomerException("此手机号未注册");
         }
         yhxx.setYzm(getRandom());
+        try {
+            MessageUtil.sendMessageCode(yhxx.getSwZh(), yhxx.getYzm());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new CustomerException("验证按发送失败");
+        }
         yhxx.setFssj(new Date());
         bckjBizYhxxService.saveOrUpdate(yhxx);
     }
 
     /**
-    *<p>方法:saveFile TODO保存到附件中心 </p>
-    *<ul>
-     *<li> @param file TODO</li>
-    *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 17:09  </li>
-    *</ul>
-    */
+     * <p>方法:saveFile TODO保存到附件中心 </p>
+     * <ul>
+     * <li> @param file TODO</li>
+     * <li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 17:09  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
-    public Map<String,Object> saveFile(MultipartFile file,Map mapData) throws IOException ,CustomerException{
+    public Map<String, Object> saveFile(MultipartFile file, Map mapData) throws IOException, CustomerException {
         String fileName = file.getOriginalFilename();
         String type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
-        String realName=String.valueOf(System.currentTimeMillis());
-        String trueFileName =CommonModuleContant.SWTYFILEPATH+File.separator+realName  + CommonConstant.SPILT_POINT + type;
+        String realName = String.valueOf(System.currentTimeMillis());
+        String trueFileName = CommonModuleContant.SWTYFILEPATH + File.separator + realName + CommonConstant.SPILT_POINT + type;
         String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH) + trueFileName;
         File tarFile = new File(path, fileName);
         file.transferTo(tarFile);
-        Map<String,Object> fileCenter=Maps.newHashMap();
-        fileCenter.put("filePath",trueFileName);
-        if(MapUtils.getInt(mapData,"type")==1){
-           return fileCenter;
+        Map<String, Object> fileCenter = Maps.newHashMap();
+        fileCenter.put("filePath", trueFileName);
+        if (MapUtils.getInt(mapData, "type") == 1) {
+            return fileCenter;
         }
-        String yhRefOwid=MapUtils.getString(mapData,"yhRefOwid");
-        fileCenter.put("owid",TextUtils.getUUID());
-        fileCenter.put("fileClass","BckjBizJbxx");
-        fileCenter.put("fileClassId",yhRefOwid);
-        fileCenter.put("fileName",realName);
-        fileCenter.put("fileLabel",fileName);
-        fileCenter.put("fileSize",file.getSize());
-        fileCenter.put("fileExtion",type);
-        fileCenter.put("createtime",new Date());
+        String yhRefOwid = MapUtils.getString(mapData, "yhRefOwid");
+        fileCenter.put("owid", TextUtils.getUUID());
+        fileCenter.put("fileClass", "BckjBizJbxx");
+        fileCenter.put("fileClassId", yhRefOwid);
+        fileCenter.put("fileName", realName);
+        fileCenter.put("fileLabel", fileName);
+        fileCenter.put("fileSize", file.getSize());
+        fileCenter.put("fileExtion", type);
+        fileCenter.put("createtime", new Date());
         commonDao.insertFile(fileCenter);
         return fileCenter;
     }
