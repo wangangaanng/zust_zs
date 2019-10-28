@@ -10,7 +10,7 @@
             <div class="pay-online_ctxt">
                 <h5>恭喜你，你的初审已通过，缴费完成后将分配面试时间，请点击进入在线缴费环节！</h5>
                 <h5>请点击前往缴费地址：
-                    <a class="link-url">https：\\www.xxxxx.com</a>
+                    <a class="link-url"><span class="glyphicon glyphicon-hand-up"></span>https：\\www.xxxxx.com</a>
                 </h5>
             </div>
         </li>

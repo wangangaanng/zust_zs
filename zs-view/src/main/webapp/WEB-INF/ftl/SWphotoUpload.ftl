@@ -3,7 +3,7 @@
     时间：2019-10-26
     描述：拍照上传
 -->
-
+<#include "com/SWtip.ftl">
 <form class="form-horizontal basic-from" id="selectForm" method="" action="" target="baFrame">
     <div class="form-group">
         <label for="qyFrsfz" class="col-sm-2 control-label  col-sm-offset-1">报名表签字上传<span class="red">*</span>：</label>

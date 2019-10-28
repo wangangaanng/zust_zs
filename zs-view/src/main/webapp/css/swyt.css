@@ -68,6 +68,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .active:before{background: #008784!important;}
 .link-url{background: #f5b900;color: #FFF;padding: 2px 20px;border-radius: 10px;cursor: pointer;text-decoration: none;}
 .link-url:hover{text-decoration: none;color: #FFF;}
+.link-url .glyphicon-hand-up{margin-right: 4px;position: relative;top: 2px;font-size: 13px;}
 
 /*分组信息*/
 .group-wrap{background: #fafafa}
@@ -81,4 +82,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .search-score{color: #008784;font-size: 22px;}
 .search-score_label{font-size: 16px;color: #595959}
 .grade-result{padding: 11px 0px;}
+
+.sw-tip{background: rgba(0,135,132,0.21);color: #008784; border-radius: 4px;  padding: 9px 10px;  font-size: 13px;margin-bottom: 10px;}
+.sw-tip .glyphicon-list-alt{margin-right: 4px;top: 2px;}
 
