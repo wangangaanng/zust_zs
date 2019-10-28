@@ -242,7 +242,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                     resMap.put("csrq", stringtoDate(csrq));
                 }
                 catch (Exception e){
-                    System.out.println(e.toString());
+                    System.out.println(e);
                 }
 
                 String syd = cellList.get(6); //生源地
@@ -252,11 +252,21 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 String zzmm = cellList.get(8); //政治面貌
                 resMap.put("zzmm", bckjBizJyschemeService.getDicVal(50008, zzmm));
                 String rxnf = cellList.get(9); //入学日期
-                resMap.put("rxnf", stringtoDate(rxnf));
+                try{
+                    resMap.put("rxnf", stringtoDate(rxnf));
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
                 String bynf = cellList.get(10); //毕业年份
                 resMap.put("bynf", bynf);
                 String byrq = cellList.get(11); //毕业日期
-                resMap.put("byrq", stringtoDate(byrq));
+                try {
+                    resMap.put("byrq", stringtoDate(byrq));
+                }
+                catch (Exception e){
+                    System.out.println(e);
+                }
                 String cxsy = cellList.get(12); //城乡生源
                 resMap.put("cxsy", cxsy);
                 String xqda = cellList.get(13); //入学前档案所在单位
@@ -351,25 +361,18 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 //生源地统计放在exp1
                 bckjBizSyb.setExp1(bckjBizJyschemeService.recordLx(bckjBizSyb.getSyd()));
                 sybs.add(bckjBizSyb);
-                System.out.println(bckjBizSyb.getXm());
             }
             //判断excel表中是否存在重复身份证
             Set<String> sfzSet = new HashSet<>();
             int count = 1;
-            try {
                 for (String sfz : sfzs) {
                     System.out.println("<----"+count);
                     sfzSet.add(sfz);
-                    if (sfzSet.size() != count++) {
-                        System.out.println(sfz);
-                        return ResponseMessage.sendError(ResponseMessage.FAIL, "身份证存在重复:" + sfz);
+                    if (sfzSet.size() != count++){
+                        return ResponseMessage.sendOK("导入失败,身份证存在重复:"+sfz);
                     }
                     System.out.println("---->"+count);
                 }
-            }
-            catch (Exception e){
-                System.out.println(e);
-            }
             //开始批量更新
             for (BckjBizYhkz bckjBizYhkz : yhkzes) {
                 bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
