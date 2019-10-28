@@ -832,4 +832,9 @@
 			UPDATE BCKJ_BIZ_YHXX SET xm=#{xm}
 			WHERE sfz=#{sfz}
 	</update>
+
+
+	<delete id="deleteByOwid">
+		DELETE FROM BCKJ_BIZ_YHXX WHERE OWID=#{owid}
+	</delete>
 </mapper>

@@ -529,4 +529,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public void updateBySfz(BckjBizYhxx bckjBizYhxx) {
         this.dao.updateBySfz(bckjBizYhxx);
     }
+
+    public void deleteByOwid(String owid) {
+        this.dao.deleteByOwid(owid);
+    }
 }

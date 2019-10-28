@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.alibaba.fastjson.JSON;
 import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
@@ -126,6 +127,54 @@ public class BckjBizSybController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
+
+    /**
+     * 小程序显示生源地
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getOneXcx")
+    @ResponseBody
+    public ResponseMessage getOneXcx(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.USER_RELOGIN);
+            }
+             return ResponseMessage.sendOK(bckjBizSybService.getOneXcx(dataMap));
+        }
+        catch (Exception e){
+            log.error(e + "初始BckjBizSyb\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 小程序保存
+     * @param dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("savaOneXcx")
+    @ResponseBody
+    public ResponseMessage savaOneXcx(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizSybService.savaOneXcx(dataMap);
+        }
+        catch (Exception e){
+            log.error(e + "初始BckjBizSyb\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
 
     /**
      * <p>功能描述:新建或修改学生信息</p >
@@ -410,10 +459,4 @@ public class BckjBizSybController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-
-
-
-
-
-
 }
