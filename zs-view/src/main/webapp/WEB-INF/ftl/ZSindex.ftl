@@ -7,6 +7,13 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/style.css" />
+    <style>
+        a:hover
+        {
+            text-decoration:none;
+            out-line: none;
+        }
+    </style>
 </head>
 <body>
 <#include "com/ZSheader.ftl">
@@ -26,7 +33,7 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zydh.png" />
-                <a href="">专业导航</a>
+                <a href="${base}/zszy">专业导航</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/swytbmxt.png" />
