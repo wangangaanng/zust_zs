@@ -29,7 +29,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    myBmList(this);
+    
   },
   onChange(e) {
     this.setData({
@@ -64,7 +64,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.setData({
+      xjhList: [],
+      pageNo: 1,
+      totalPage: ""
+    })
+    myBmList(this);
   },
 
   /**

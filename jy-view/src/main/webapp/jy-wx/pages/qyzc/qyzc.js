@@ -46,6 +46,7 @@ Page({
       qyHylb: '',
       qyGsgm: '',
       qyGsjs: '',
+      qylxfs: '',
     },
     btndisabled: false
   },
@@ -344,27 +345,9 @@ Page({
                       that.setData({
                         'form.qyTysh': d.bean["社会信用代码"].words
                       })
-                    } else {
-                      wx.showModal({
-                        title: '提示',
-                        showCancel: false,
-                        content: "识别失败",
-                      })
-                    }
-                  } else {
-                    wx.showModal({
-                      title: '提示',
-                      showCancel: false,
-                      content: "识别失败",
-                    })
-                  }
-                } else {
-                  wx.showModal({
-                    title: '提示',
-                    showCancel: false,
-                    content: "识别失败",
-                  })
-                }
+                    } 
+                  } 
+                } 
                 if (d.bean["单位名称"]) {
                   if (d.bean["单位名称"].words) {
                     if (d.bean["单位名称"].words != "无") {
@@ -384,8 +367,19 @@ Page({
                   }
                 }
                 if (d.bean.fileName) {
+                  wx.showToast({
+                    title: '上传成功',
+                    icon: 'none',
+                    duration: 2000
+                  })
                   that.setData({
                     'form.qyYyzzzp': d.bean.fileName
+                  })
+                }else{
+                  wx.showModal({
+                    title: '提示',
+                    showCancel: false,
+                    content: "上传失败",
                   })
                 }
               } else if (type == 2) {
@@ -431,8 +425,19 @@ Page({
                   }
                 }
                 if (d.bean.fileName) {
+                  wx.showToast({
+                    title: '上传成功',
+                    icon: 'none',
+                    duration: 2000
+                  })
                   that.setData({
                     'form.qyFrsfzzp': d.bean.fileName
+                  })
+                } else {
+                  wx.showModal({
+                    title: '提示',
+                    showCancel: false,
+                    content: "上传失败",
                   })
                 }
               }
@@ -441,7 +446,7 @@ Page({
               wx.showModal({
                 title: '提示',
                 showCancel: false,
-                content: "识别失败",
+                content: "上传失败",
               })
             }
             

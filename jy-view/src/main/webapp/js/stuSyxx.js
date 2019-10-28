@@ -187,7 +187,7 @@ function saveSyxx() {
             return
         }
         var jsonObj = $("#registerForm").serializeObject()
-        jsonObj.xsxh = $("#xsxh").val();
+        jsonObj.sfz = $("#sfz").val();
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }

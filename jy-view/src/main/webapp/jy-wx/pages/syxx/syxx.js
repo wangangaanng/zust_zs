@@ -148,6 +148,9 @@ Page({
       xm: {
         required: true,
       },
+      xsxh: {
+        required: true
+      },
       csrq: {
         required: true
       },
@@ -158,9 +161,6 @@ Page({
         required: true
       },
       zzmm: {
-        required: true
-      },
-      sfz: {
         required: true
       },
       jtdz: {
@@ -238,6 +238,9 @@ Page({
       xm: {
         required: '请填写姓名'
       },
+      xsxh: {
+        required: '请填写学号'
+      },
       csrq: {
         required: '请选择出生日期'
       },
@@ -249,9 +252,6 @@ Page({
       },
       zzmm: {
         required: '请选择政治面貌'
-      },
-      sfz: {
-        required: '请填写身份证号'
       },
       jtdz: {
         required: '请填写家庭地址',
