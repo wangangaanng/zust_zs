@@ -107,12 +107,25 @@ public class CommonService {
     }
 
     @Transactional(readOnly = false)
-    public void sendCode(Map<String, Object> mapData) throws Exception {
-        BckjBizYhxx yhxx = bckjBizYhxxService.getBySwZh(mapData, "unionid");
-        if (null == yhxx) {
-            throw new CustomerException("不存在基础信息，请重新进入小程序");
+    public void sendCode(Map<String, Object> mapData, int type) throws Exception {
+        BckjBizYhxx yhxx;
+        if (type == 0) {
+            if(TextUtils.isEmpty(mapData.get("unionid"))){
+                throw new CustomerException("unionid必传");
+            }
+            yhxx = bckjBizYhxxService.getBySwZh(mapData, "unionid");
+            if (null == yhxx) {
+                throw new CustomerException("微信基本信息不存在，请重新进入小程序");
+            }
+        } else {
+            yhxx = bckjBizYhxxService.getBySwZh(mapData, "swZh");
+            if (null == yhxx) {
+                yhxx = new BckjBizYhxx();
+                yhxx.setYhlx(3);
+                yhxx.setState(0);
+            }
         }
-        if (null!=yhxx.getState()&&yhxx.getState() == 1) {
+        if (null != yhxx.getState() && yhxx.getState() == 1) {
             throw new CustomerException("此用户已经绑定");
         }
         yhxx.setSwZh(MapUtils.getString(mapData, "swZh"));
