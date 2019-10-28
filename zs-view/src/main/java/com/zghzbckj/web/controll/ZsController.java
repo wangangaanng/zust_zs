@@ -35,6 +35,14 @@ public class ZsController {
     public ModelAndView ZSindex(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        return view;
+    }
+    @RequestMapping(value = "zszy", method = RequestMethod.GET)
+    public ModelAndView ZSzszy(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("ZSzszy");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         return view;
     }
     @RequestMapping(value = "wzOrTpOrSq/{secondDir}/{thirdDir}", method = RequestMethod.GET)
@@ -48,6 +56,7 @@ public class ZsController {
         view.setViewName("ZSnewsList");
         view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -85,6 +94,7 @@ public class ZsController {
         }
         view.setViewName("ZSnewsList");
         view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -122,6 +132,15 @@ public class ZsController {
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
     }
+    public ResponseMessage getFooter(){
+        //底部链接
+        Map param=Maps.newHashMap();
+        param.put("lmbh","-1");
+        param.put("lx","2");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjBizPicvid/getPicList");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        return result;
+    }
 
     /**
      *<p>功能描述:招生网成绩查询 cjcx</p >
@@ -137,6 +156,7 @@ public class ZsController {
     public ModelAndView zsCjcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZScjcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -159,6 +179,7 @@ public class ZsController {
     public ModelAndView zsLqcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlqcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -181,6 +202,7 @@ public class ZsController {
     public ModelAndView zsLnfsmc(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlnfsmc");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
