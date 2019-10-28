@@ -17,6 +17,10 @@ Component({
     height: {
       type: String,
       value: '300rpx'
+    },
+    type: {
+      type: String,
+      value: '0'
     }
   },
 
@@ -24,7 +28,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-
+    type:''
   },
 
   /**
@@ -45,6 +49,8 @@ Component({
     //   this.triggerEvent('confirm')
     // }
     getInfo: function (e) {
+      console.log(e)
+      // if (e.detail.iv)
       var that = this;
       app.globalData.userInfo = e.detail.userInfo;
       wx.setStorageSync('userInfo', e.detail.userInfo);
@@ -83,7 +89,17 @@ Component({
                   wx.setStorageSync('unionid', unionid);
                 }
                 that.setData({ show: false });
-                that.triggerEvent('myevent');
+                // that.triggerEvent('myevent');
+                if (that.data.type==1){
+                  wx.navigateTo({
+                    url: '../stuLogin/stuLogin',
+                  })
+                } else if (that.data.type == 2) {
+                  wx.navigateTo({
+                    url: '../qyLogin/qyLogin',
+                  })
+                }
+                
                 // if (wx.getStorageSync("fxid")) {
                 //   wx.reLaunch({
                 //     url: '../index/index?scene=' + wx.getStorageSync("fxid")
@@ -105,6 +121,9 @@ Component({
 
             })
           }
+        },
+        fail:function(res){
+          console.log(res)
         }
       })
     }
