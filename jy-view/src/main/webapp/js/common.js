@@ -164,7 +164,6 @@ function ajax(method, data, successMethod, pageNo, pageSize) {
                 "data": JSON.stringify(data),
                 "pageNo": pageNo,
                 "pageSize": pageSize,
-                "timeout": 5000,
                 timestamp: new Date().getTime()
             },
             method: 'POST',
