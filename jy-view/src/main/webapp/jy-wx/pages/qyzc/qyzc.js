@@ -113,6 +113,12 @@ Page({
       qymc: {
         required: true
       },
+      qydz: {
+        required: true
+      },
+      qyZczj: {
+        required: true
+      },
       qyProv: {
         required: true
       },
@@ -120,9 +126,6 @@ Page({
         required: true
       },
       qyArea: {
-        required: true
-      },
-      qydz: {
         required: true
       },
       qyLxr: {
@@ -168,6 +171,12 @@ Page({
       qymc: {
         required: '请填写企业名称',
       },
+      qydz: {
+        required: '请填写公司地址',
+      },
+      qyZczj: {
+        required: '请填写注册资本',
+      },
       qyProv: {
         required: '请选择所在省市区',
       },
@@ -176,9 +185,6 @@ Page({
       },
       qyArea: {
         required: '请选择所在省市区',
-      },
-      qydz: {
-        required: '请填写公司地址',
       },
       qyLxr: {
         required: '请填写联系人',
@@ -366,6 +372,17 @@ Page({
                     }
                   }
                 }
+
+                if (d.bean["注册资本"]) {
+                  if (d.bean["注册资本"].words) {
+                    if (d.bean["注册资本"].words != "无") {
+                      that.setData({
+                        'form.qyZczj': d.bean["注册资本"].words
+                      })
+                    }
+                  }
+                }
+                
                 if (d.bean.fileName) {
                   wx.showToast({
                     title: '上传成功',

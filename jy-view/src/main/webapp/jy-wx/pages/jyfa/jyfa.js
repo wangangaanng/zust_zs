@@ -114,7 +114,7 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    common.ajax('zustjy/bckjBizJyscheme/insertssInfo', params, function (res) {
+    common.ajax('zustcommon/bckjBizJyscheme/insertssInfoQt', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
           title: '提示',
@@ -558,6 +558,13 @@ var getOne = function (that) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
+        
+        if (!data.bean.xm) {
+          data.bean.xm = wx.getStorageSync('stuInfo').xm || ''
+        }
+        if (!data.bean.xsxh) {
+          data.bean.xsxh = wx.getStorageSync('stuInfo').xsxh || ''
+        }
         that.setData({
           form: data.bean,
           owid: data.bean.owid,
@@ -565,6 +572,7 @@ var getOne = function (that) {
           // dwszdmcStr: data.bean.dwszdmc,
           bdzszdmcStr: data.bean.bdzqwdwmc || '请选择',
         })
+
         if (data.bean.xb) {
           that.setData({
             xbStr: util.getVal(data.bean.xb, that.data.xbColumns),
@@ -646,6 +654,14 @@ var getOne = function (that) {
           getByType6(that)
         }
       }else{
+
+        that.data.form.xm = wx.getStorageSync('stuInfo').xm || ''
+        that.data.form.xsxh = wx.getStorageSync('stuInfo').xsxh || ''
+
+        that.setData({
+          form: that.data.form
+        })
+
         getByType2(that)//毕业去向
         getByType3(that)
         getByType4(that)

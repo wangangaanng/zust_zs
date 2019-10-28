@@ -180,11 +180,9 @@ Page({
               })
             }
           } else {
-            if (!wx.getStorageSync('unionid')) {
-              wx.navigateTo({
-                url: '../stuLogin/stuLogin',
-              })
-            }
+            wx.navigateTo({
+              url: '../stuLogin/stuLogin',
+            })
           }
         }
           

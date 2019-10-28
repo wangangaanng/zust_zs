@@ -1,4 +1,7 @@
 // pages/shouye/shouye.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
 Page({
 
   /**

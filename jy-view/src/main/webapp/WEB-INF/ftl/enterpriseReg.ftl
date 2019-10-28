@@ -69,6 +69,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="qyZczj" class="col-sm-2 control-label">注册资本<span class="red">*</span>：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="qyZczj" name="qyZczj" placeholder="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                     <div class="col-sm-2">
                         <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv">
@@ -287,6 +293,13 @@
                                                 }
                                             }
                                         }
+                                        if(d.bean["注册资本"]){
+                                            if(d.bean["注册资本"].words){
+                                                if(d.bean["注册资本"].words!="无"){
+                                                    $("#qyZczj").val(d.bean["注册资本"].words)
+                                                }
+                                            }
+                                        }
                                         if(d.bean.fileName){
                                             walert("上传成功")
                                             $("#qyYyzzzp").val(d.bean.fileName)
@@ -362,6 +375,7 @@
                     },
                     qyFrdbxm:"required",
                     qymc:"required",
+                    qyZczj:"required",
                     qyProv:"required",
                     qyCity:"required",
                     qyArea:"required",
@@ -388,6 +402,7 @@
                     },
                     qyFrdbxm: "请填写",
                     qymc: "请填写",
+                    qyZczj:"请填写",
                     qyProv: "请选择",
                     qyCity: "请选择",
                     qyArea: "请选择",

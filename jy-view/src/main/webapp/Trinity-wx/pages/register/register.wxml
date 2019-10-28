@@ -1,6 +1,6 @@
 <!--pages/register/register.wxml-->
 <!-- 表单 -->
-<form bindsubmit="submitForm" class="form-wrap">
+<form bindsubmit="formRegister" class="form-wrap">
   <van-cell-group>
     <van-field v-model="username" placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message="" clearable>
       <van-button slot="button" size="small" plain hairline type="primary" bind:click="sendCode">发送验证码</van-button>

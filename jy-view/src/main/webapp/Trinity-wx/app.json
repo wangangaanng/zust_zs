@@ -4,6 +4,7 @@
   },
   "pages": [
     "pages/login/login",
+    "pages/register/register",
     "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
     "pages/Process/Process",
@@ -15,14 +16,12 @@
     "pages/payOline/payOline",
     "pages/majorExam/majorExam",
     "pages/forgetPsw/forgetPsw",
-    "pages/register/register",
     "pages/drawGroup/drawGroup",
     "pages/basicInfo/basicInfo",
     "pages/uploadSignature/uploadSignature",
     "pages/xw/xw",
     "pages/grzx/grzx",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
