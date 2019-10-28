@@ -21,7 +21,7 @@ Page({
    * 
    */
   data: {
-    showSyd:false,
+    hidden1: false,
     minDate: new Date("1990-01-01").getTime(),
     minDate1: new Date("2010-01-01").getTime(),
     minDate2: new Date(new Date().getFullYear() + '-01-01').getTime(),
@@ -87,14 +87,46 @@ Page({
     form: {
 
     },
+    sydList: [],
+    sydList2: [],
+    showSyd2: true,
+    showSyd: true
   },
-  getSyd(e){
-    // console.log(e)
-    // if(e.detail.trim().length>2){
-    //   this.setData({
-    //     showSyd: true
-    //   })
-    // }
+  getSydItem(e) {
+    var that = this
+    that.data.form.dwszdmc = e.target.dataset.val
+    that.setData({
+      form: that.data.form
+    })
+  },
+  getSydItem2(e) {
+    var that = this
+    that.data.form.bdzqwszdmc = e.target.dataset.val
+    that.setData({
+      form: that.data.form
+    })
+  },
+  getSyd(e) {
+    console.log(e)
+    if (e.detail.length > 2) {
+      getSmallRoutine(this, e.detail)
+    }
+  },
+  getSyd2(e) {
+    console.log(e)
+    if (e.detail.length > 2) {
+      getSmallRoutine2(this, e.detail)
+    }
+  },
+  close1() {
+    this.setData({
+      showSyd: true
+    })
+  },
+  close2() {
+    this.setData({
+      showSyd2: true
+    })
   },
   showModal(error) {
     wx.showModal({
@@ -409,7 +441,8 @@ Page({
   }, 
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**
@@ -567,10 +600,7 @@ var getOne = function (that) {
         }
         that.setData({
           form: data.bean,
-          owid: data.bean.owid,
-          // sydStr: data.bean.syd,
-          // dwszdmcStr: data.bean.dwszdmc,
-          bdzszdmcStr: data.bean.bdzqwdwmc || '请选择',
+          owid: data.bean.owid
         })
 
         if (data.bean.xb) {
@@ -673,6 +703,62 @@ var getOne = function (that) {
       
 
       
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+var getSmallRoutine = function (that, val) {
+  var data = {
+    "dicType": "50009",
+    "text": val
+  };
+  common.ajax('zustcommon/common/getSmallRoutine', data, function (res) {
+    if (res.data.backCode == 0) {
+      var data = res.data;
+      if (data.bean && data.bean.length > 0) {
+        that.setData({
+          sydList: data.bean,
+          showSyd: false
+        })
+      } else {
+        that.setData({
+          showSyd: true
+        })
+      }
+    } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+var getSmallRoutine2 = function (that, val) {
+  var data = {
+    "dicType": "50009",
+    "text": val
+  };
+  common.ajax('zustcommon/common/getSmallRoutine', data, function (res) {
+    if (res.data.backCode == 0) {
+      var data = res.data;
+      if (data.bean && data.bean.length > 0) {
+        that.setData({
+          sydList2: data.bean,
+          showSyd2: false
+        })
+      } else {
+        that.setData({
+          showSyd2: true
+        })
+      }
     } else {
       wx.showToast({
         title: res.data.errorMess,

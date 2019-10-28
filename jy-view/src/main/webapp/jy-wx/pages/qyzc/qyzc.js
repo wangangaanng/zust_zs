@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1: false,
     yyzz:'../../static/uploadImg1.png',
     sfz:'../../static/uploadImg2.png',
     column1: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
@@ -263,7 +264,8 @@ Page({
   },
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**

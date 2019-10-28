@@ -12,6 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1: false,
     minDate: new Date("1990-01-01").getTime(),
     minDate1: new Date("2010-01-01").getTime(),
     minDate2: new Date(new Date().getFullYear()+'-01-01').getTime(),
@@ -118,7 +119,7 @@ Page({
   },
   close1(){
     this.setData({
-      howSyd: true
+      showSyd: true
     })
   },
   showModal(error) {
@@ -492,7 +493,8 @@ Page({
   }, 
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**
