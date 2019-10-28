@@ -105,12 +105,12 @@ function myJobList1() {
                         return "企业招聘会";
                     }
                 }, {
-                    field: 'zphKsrq',
+                    field: 'xjsj',
                     title: '举办时间',
                     align: 'center',
                     formatter: function (value, row, index) {
-                        if (row.zphKsrq) {
-                            var value = row.zphKsrq.substring(0, 10);
+                        if (row.xjsj) {
+                            var value = row.xjsj.substring(0, 10);
                             return value;
                         } else {
                             return "-"
