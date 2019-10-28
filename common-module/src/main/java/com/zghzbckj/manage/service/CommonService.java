@@ -199,4 +199,13 @@ public class CommonService {
         commonDao.insertFile(fileCenter);
         return fileCenter;
     }
+    /**
+     * 小程序下拉框显示20字典表内容
+     * @param  dataMap
+     * @return List<Map>
+     */
+    public List<Map> getSmallRoutine(Map<String, Object> dataMap) {
+        return bckjBizSybService.getSmallRoutine(dataMap);
+
+    }
 }

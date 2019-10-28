@@ -1,5 +1,6 @@
 package com.zghzbckj.manage.web;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.ourway.baiduapi.constants.BaiDuApiInfo;
 import com.ourway.baiduapi.dto.InfoDTO;
@@ -204,6 +205,28 @@ public class CommonController {
             }
             return ResponseMessage.sendOK(commonService.getByTypeSort(dataMap));
         } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 小程序下拉框显示20字典表内容
+     * @param  dataVO
+     * @return ResponseMessage
+     */
+    @PostMapping("getSmallRoutine")
+    @ResponseBody
+    public ResponseMessage getSmallRoutine(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "text", "dicType");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(commonService.getSmallRoutine(dataMap));
+        }
+        catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
