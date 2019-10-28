@@ -30,11 +30,11 @@ $(document).ready(function () {
         var length = value.length;
         var mobile = /^1[345789]\d{9}$/;/*/^1(3|4|5|7|8)\d{9}$/*/
         return this.optional(element) || (length == 11 && mobile.test(value));
-    }, "请正确填写您的手机号码");
+    }, "手机号码有误");
 
     jQuery.validator.addMethod("isIdCardNo", function (value, element){
         return this.optional(element) || isIdCardNo(value);
-    },"请正确输入您的身份证号码");
+    },"身份证号码有误");
 
     $("#registerForm").validate({
         rules: {
@@ -87,7 +87,7 @@ $(document).ready(function () {
             zzmm:"请选择",
             sfz:{
                 required: "请填写",
-                isIdCardNo: "手机号有误"
+                isIdCardNo: "身份证号码有误"
             },
             jtdz:"请填写",
             syd:"请选择",
@@ -187,11 +187,11 @@ function saveSyxx() {
             return
         }
         var jsonObj = $("#registerForm").serializeObject()
-        jsonObj.xsxh = $("#xsxh").val();
+        jsonObj.sfz = $("#sfz").val();
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustcommon/bckjBizSyb/insertssInfo", jsonObj, function (data) {
+        ajax("zustcommon/bckjBizSyb/insertssInfoQt", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {

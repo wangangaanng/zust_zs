@@ -432,6 +432,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
         }
         saveOrUpdate(bckjBizJob);
+        if(!com.ourway.base.utils.TextUtils.isEmpty(mapData.get("fileExtId"))){
+            mapData.put("articleOwid",bckjBizJob.getOwid());
+            qyxxDao.updateFile(mapData);
+        }
+
         return ResponseMessage.sendOK(bckjBizJob);
     }
 
@@ -747,6 +752,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setExp2("0");
             }
         }
+
+
+        Map mapParam= Maps.newHashMap();
+        mapParam.put("wzRefOwid",owid);
+        List<Map> files=qyxxDao.getSysFiles(mapParam);
+        job.setFileList(files);
+
         return job;
     }
 
@@ -822,6 +834,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         Map resultMap = new HashMap<>(2);
         BckjBizJob job = get(codes.get(0));
         if (JyContant.JOB_ZT_TG.equals(state)) {
+
             // TODO: 2019/9/18 通过短信
 
         } else if (JyContant.JOB_ZT_JJ.equals(state)) {

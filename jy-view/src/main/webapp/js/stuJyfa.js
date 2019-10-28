@@ -122,7 +122,7 @@ function saveJyFaInfo() {
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustjy/bckjBizJyscheme/insertssInfo", jsonObj, function (data) {
+        ajax("zustjy/bckjBizJyscheme/insertssInfoQt", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {

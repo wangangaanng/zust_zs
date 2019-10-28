@@ -136,7 +136,7 @@
                 AND a.state !=1 AND a.state !=3
             </if>
             <if test=" qymc != null and qymc != '' ">
-				AND a.qymc LIKE concat('%',#{qymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+                AND a.qymc LIKE concat('%',#{qymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test=" qyTysh != null and qyTysh != '' ">
                 AND a.qy_tysh LIKE concat('%',#{qyTysh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
@@ -382,5 +382,15 @@
 
     </select>
 
-
+    <update id="saveOrUpdateFile" parameterType="java.util.Map">
+		UPDATE
+		ourway_sys_files
+		SET
+		file_class_id = #{newOwid}
+		WHERE
+		file_class_id = #{oldOwid}
+	</update>
+    <select id="getSysFiles" resultType="java.util.Map">
+		SELECT FILE_LABEL ,FILE_PATH FROM  ourway_sys_files WHERE  FILE_CLASS_ID=#{wzRefOwid}
+	</select>
 </mapper>

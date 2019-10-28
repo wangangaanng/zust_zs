@@ -33,4 +33,8 @@ public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
     Map<String, Object> getZlzwInfo();
 
     Map<String, Object> getXjhInfo();
+
+    int updateFile(Map<String, Object> value);
+
+    List<Map> getSysFiles(Map mapParam);
 }

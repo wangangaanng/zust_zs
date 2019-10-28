@@ -3,6 +3,7 @@
     时间：2019-10-26
     描述：拍照上传
 -->
+<#assign tip="请考生上传：报名表签字和承诺书签字"/>
 <#include "com/SWtip.ftl">
 <form class="form-horizontal basic-from" id="selectForm" method="" action="" target="baFrame">
     <div class="form-group">
