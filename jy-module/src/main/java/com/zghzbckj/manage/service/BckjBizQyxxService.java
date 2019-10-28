@@ -20,6 +20,7 @@ import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
+import com.zghzbckj.manage.web.MessageUtil;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.util.TextUtils;
 import org.apache.log4j.Logger;
@@ -192,6 +193,14 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             String flag = CacheUtil.getVal(JyContant.KG + JyContant.QYSH);
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
                 company.setState(JyContant.QY_ZT_TG);
+                String content = JyContant.QY_PASS_MESS;
+                String mobile = company.getQyLxrdh();
+                try {
+                    MessageUtil.sendMessage(mobile, content);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
             saveOrUpdate(company);
         } catch (Exception e) {
@@ -295,10 +304,22 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         BckjBizQyxx qyxx = get(codes.get(0));
         //
         if (JyContant.QY_ZT_TG.equals(state)) {
-            // TODO: 2019/9/18 通过短信
+            String content = JyContant.QY_PASS_MESS;
+            String mobile = qyxx.getQyLxrdh();
+            try {
+                MessageUtil.sendMessage(mobile, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         } else if (JyContant.QY_ZT_JJ.equals(state)) {
-            // TODO: 2019/9/18 拒绝短信
+            String content = JyContant.QY_REJECT_MESS;
+            String mobile = qyxx.getQyLxrdh();
+            try {
+                MessageUtil.sendMessage(mobile, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         qyxx.setState(state);
         saveOrUpdate(qyxx);
@@ -352,31 +373,31 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         List<Map> resluts = Lists.newArrayList();
         for (Object one : codes) {
             qyxx = this.get(MapUtils.getString((Map) one, "owid"));
-            if (null != qyxx ) {
+            if (null != qyxx) {
                 qyxx.setHmdqzt(qyxx.getState());
                 qyxx.setState(3);
                 saveOrUpdate(qyxx);
                 result.put("owid", qyxx.getOwid());
                 resluts.add(result);
                 result = Maps.newHashMap();
-                    //下架职位
-                    Map params = Maps.newHashMap();
-                    params.put("qyxxRefOwid", qyxx.getOwid());
-                    jobDao.lowerJob(params);
+                //下架职位
+                Map params = Maps.newHashMap();
+                params.put("qyxxRefOwid", qyxx.getOwid());
+                jobDao.lowerJob(params);
             }
         }
         return resluts;
     }
 
     /**
-    *<p>方法:reIntoHmd TODO移除黑名单 </p>
-    *<ul>
-     *<li> @param list TODO</li>
-    *<li>@return java.util.List<java.util.Map>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 20:45  </li>
-    *</ul>
-    */
+     * <p>方法:reIntoHmd TODO移除黑名单 </p>
+     * <ul>
+     * <li> @param list TODO</li>
+     * <li>@return java.util.List<java.util.Map>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 20:45  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
     public List<Map> reIntoHmd(List<Object> list) {
         BckjBizQyxx qyxx;
@@ -384,7 +405,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         List<Map> resluts = Lists.newArrayList();
         for (Object one : list) {
             qyxx = this.get(MapUtils.getString((Map) one, "owid"));
-            if (null != qyxx ) {
+            if (null != qyxx) {
                 qyxx.setState(qyxx.getHmdqzt());
                 saveOrUpdate(qyxx);
                 result.put("owid", qyxx.getOwid());
