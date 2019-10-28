@@ -12,6 +12,7 @@ Page({
   data: {
     result: '',
     old: '',
+    zphOwid:'',
     form: {
       lxr: wx.getStorageSync('qyInfo').qyLxr || '',
       lxdh: wx.getStorageSync('qyInfo').qyLxrdh || ''
@@ -67,6 +68,7 @@ Page({
     params.bmlx = 0
     params.bmdx = 0
     params.qyxxRefOwid = wx.getStorageSync('yhOwid')
+    params.jobRefOwid = that.data.zphOwid
     common.ajax('zustjy/bckjBizJybm/applyJob', params, function (res) {
       if (res.data.backCode == 0) {
         that.setData({
@@ -79,7 +81,7 @@ Page({
           success(res) {
             if (res.confirm) {
               wx.navigateBack({
-                delta: 1
+                delta: 2
               })
               console.log('用户点击确定')
             } else if (res.cancel) {
@@ -161,9 +163,13 @@ Page({
   onLoad: function (options) {
     this.initValidate()
     if (options.owid) {
+      this.setData({
+        zphOwid: options.owid
+      })
       getContent(this, options.owid);
+      xjhtjList(this, options.owid)
     }
-    xjhtjList(this)
+    
   },
 
   /**
@@ -181,11 +187,11 @@ Page({
   },
 })
 
-var xjhtjList = function (that) {
+var xjhtjList = function (that,owid) {
   var data = {
-    "owid": wx.getStorageSync('yhOwid')
+    "owid": owid
   };
-  common.ajax('zustjy/bckjBizJob/xjhtjList', data, function (res) {
+  common.ajax('zustjy/bckjBizJob/zphtjList', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
       var arr = [];
