@@ -25,8 +25,9 @@
 </view>
 
 <form bindsubmit="submitForm">
-  <van-field input-align="right" value="{{form.lxr}}" name="lxr" label="联系人" placeholder="输入内容" required />
 <van-cell-group>
+  <view>
+  <van-field input-align="right" value="{{form.lxr}}" name="lxr" label="联系人" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.lxdh}}" name="lxdh" label="联系人手机" type="number" placeholder="输入内容" required />
   <block wx:for="{{list}}" wx:key="{{index}}">
   <block wx:if="{{!item.isInput}}">
@@ -39,6 +40,17 @@
       <van-field input-align="right" value="{{item.val}}" data-xh="{{item.xh}}" bindinput="gettjsd" label="{{item.zdytj}}" placeholder="输入内容" required />
    </block>
   </block>
+  </view>
+  <van-field input-align="right" value="{{form.zw1}}" name="zw1" label="岗位" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.rs1}}" type="number" name="rs1" label="招聘人数" placeholder="输入内容" />
+    <van-field input-align="right" value="{{form.zw2}}" name="zw2" label="岗位" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.rs2}}" type="number" name="rs2" label="招聘人数" placeholder="输入内容" />
+    <van-field input-align="right" value="{{form.zw3}}" name="zw3" label="岗位" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.rs3}}" type="number" name="rs3" label="招聘人数" placeholder="输入内容" />
+    <van-field input-align="right" value="{{form.zw4}}" name="zw4" label="岗位" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.rs4}}" type="number" name="rs4" label="招聘人数" placeholder="输入内容" />
+    <van-field input-align="right" value="{{form.zw5}}" name="zw5" label="岗位" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.rs5}}" type="number" name="rs5" label="招聘人数" placeholder="输入内容" />
 </van-cell-group>
 <button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
 </form>
