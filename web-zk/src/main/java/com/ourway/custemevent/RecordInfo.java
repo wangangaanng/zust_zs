@@ -33,10 +33,12 @@ public class RecordInfo implements ComponentFileSer {
     public final String daURL = "web/zustjy/bckjBizDacx/recDanInfo";
     //就业排行榜url
     public final String rankURL = "web/zustjy/bckjBizJypm/importRankFromExcel";
+    //企业信息录入url
+    public final String qyxxURL = "web/zustjy/bckjBizQyxx/recordQyxxInfo";
     //上传excela保存的本地地址
     public final String savePath = "/mnt/files/zjcFiles/excel/";
     public final String foundPath = "/mnt/files/zjcFiles/";
-    /*public final String FolderPath = "F:\\img\\";*/
+   /* public final String FolderPath = "F:\\img\\";*/
     //地区典表 导入
     public final String dwszURL = "web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -66,13 +68,16 @@ public class RecordInfo implements ComponentFileSer {
         if (pageCA.indexOf("jyscheme") != -1) {
             url = jsURL;
         }
+        if (pageCA.indexOf("CompanyList") != -1) {
+            url = qyxxURL;
+        }
         String result = "";
         String path = map.get("filePath").toString();
         String foundfilePath = foundPath + path;  //线上路径
         String savefilePath=savePath+path;
         copyXsFile(foundfilePath,savefilePath);
 
-        /*String filePath = FolderPath + path;*/  //本地上传路径*/
+        /*String filePath = FolderPath + path; */ //本地上传路径*/
         //添加后缀
         /*copyFile(filePath);*/ //本地上传路径
 
@@ -80,7 +85,7 @@ public class RecordInfo implements ComponentFileSer {
         if (!TextUtils.isEmpty(savefilePath)) {
             params.put("path", savefilePath + ".xls");
         }
-        System.out.println(savefilePath);
+
         if (!TextUtils.isEmpty(savefilePath)) {
             params.put("path", savefilePath + ".xls");
         }

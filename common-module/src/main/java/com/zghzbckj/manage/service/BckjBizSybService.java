@@ -129,23 +129,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
     }
 
 
-    /**
-     * 后台生源管理获得gridlist
-     *
-     * @param filters
-     * @param pageNo
-     * @param pageSize
-     * @return PageInfo<Object>
-     */
-    public PageInfo<Object> getSybList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
-        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        Page<Object> page = new Page(pageNo, pageSize);
-        dataMap.put("page", page);
-        List<Object> lists = null;
-        lists = this.dao.getSybList(dataMap);
-        page.setList(lists);
-        return PageUtils.assimblePageInfo(page);
-    }
 
 
     /**
@@ -158,10 +141,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return this.dao.getOne(owid);
     }
 
-
-    public Map<String, Object> getBynfByXsxh(Map<String, Object> dataMap) {
-        return this.dao.getBynfByXsxh(dataMap);
-    }
 
 
     public List<Map<String, Object>> getByTypeSort(Map<String, Object> dataMap) {
@@ -204,6 +183,9 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         //读取自定义扩展字段
         List<String> fieldLists = new ArrayList<>();
         List<String> codeList = list.get(0);   //拿到code行
+        List<Map> syds= bckjBizJyschemeService.getDicListMapByType(50005);
+        List<Map> mzs= bckjBizJyschemeService.getDicListMapByType(50009);
+        List<Map> zzmms= bckjBizJyschemeService.getDicListMapByType(50008);
         for (int j = 34; j < codeList.size(); j++) {
             if (TextUtils.isEmpty(codeList.get(j))) {
                 break;
@@ -246,11 +228,20 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 }
 
                 String syd = cellList.get(6); //生源地
-                resMap.put("syd", bckjBizJyschemeService.getDicVal(50005, syd));
+                for (Map map:syds){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(syd)))
+                        resMap.put("syd",map.get(syd));
+                }
                 String mz = cellList.get(7); //民族
-                resMap.put("mz", bckjBizJyschemeService.getDicVal(50009, mz));
+                for (Map map:mzs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(mz)))
+                        resMap.put("mz",map.get(mz));
+                }
                 String zzmm = cellList.get(8); //政治面貌
-                resMap.put("zzmm", bckjBizJyschemeService.getDicVal(50008, zzmm));
+                for (Map map:zzmms){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(zzmm)))
+                        resMap.put("zzmm",map.get(zzmm));
+                }
                 String rxnf = cellList.get(9); //入学日期
                 try{
                     resMap.put("rxnf", stringtoDate(rxnf));
@@ -333,15 +324,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 MapUtil.easySetByMap(resMap, bckjBizSyb);
                 MapUtil.easySetByMap(resMap, bckjBizYhxx);
                 MapUtil.easySetByMap(resMap, bckjBizYhkz);
-               /* //此sfz判断是存在
-                BckjBizSyb oneBySfz = getOneBySfz(bckjBizSyb.getSfz());
-                //判断sfz是否存在学生 不为空则删除此身份证学生信息
-                if (!TextUtils.isEmpty(oneBySfz)) {
-                    bckjBizYhxxService.deleteBySfz(oneBySfz.getSfz());
-                    bckjBizYhkzService.deleteByYhRefOwid(oneBySfz.getYhRefOwid());
-                    delete(oneBySfz);
-                    bckjBizStudentExpandService.deleteBySfz(oneBySfz.getSfz());
-                }*/
                 String owid = IdGen.uuid();
                 bckjBizYhxx.setOwid(owid);
                 bckjBizYhkz.setYhRefOwid(owid);
@@ -366,12 +348,10 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             Set<String> sfzSet = new HashSet<>();
             int count = 1;
                 for (String sfz : sfzs) {
-                    System.out.println("<----"+count);
                     sfzSet.add(sfz);
                     if (sfzSet.size() != count++){
                         return ResponseMessage.sendOK("导入失败,身份证存在重复:"+sfz);
                     }
-                    System.out.println("---->"+count);
                 }
             //开始批量更新
             for (BckjBizYhkz bckjBizYhkz : yhkzes) {
@@ -388,21 +368,8 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
             }
         }
         /**
-         * 开始后台线程删除更新
+         * 后台录入学生信息时开启新的线程进行检查，相同身份证进行删除
          */
-        newThread(sfzs,resOldSybs);
-        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
-    }
-
-    private List<BckjBizSyb> getOldSybs() {
-        return this.dao.getOldSybs();
-    }
-
-    /**
-     * 后台录入学生信息时开启新的线程进行检查，相同身份证进行删除
-     */
-    @Transactional(readOnly = false, rollbackFor = Exception.class)
-    void newThread(List<String> sfzs, List<BckjBizSyb> resOldSybs) {
         Set<String> results = new HashSet<>(sfzs);
         Thread t = new Thread(new Runnable() {
             // run方法具体重写
@@ -415,13 +382,16 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                         bckjBizYhkzService.deleteByYhRefOwid(bckjBizSyb.getYhRefOwid());
                         delete(bckjBizSyb);
                         count--;
-                        //这里不删除bckjBizStudentExpand
-                        /* bckjBizStudentExpandService.deleteBySfz(bckjBizSyb.getSfz());*/
                     }
                 }
             }
         });
         t.start();
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    public List<BckjBizSyb> getOldSybs() {
+        return this.dao.getOldSybs();
     }
 
 
@@ -433,9 +403,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return list;
     }
 
-    private BckjBizSyb getOneBySfz(String sfz) {
-        return this.dao.getOneBySfz(sfz);
-    }
 
 
     /**
