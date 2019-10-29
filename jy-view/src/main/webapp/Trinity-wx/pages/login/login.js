@@ -70,7 +70,7 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    var currAccount = wx.getStorageSync("account");
+    var currAccount = wx.getStorageSync("mobile");
     that.initValidate();
     that.setData({
       phone: currAccount,

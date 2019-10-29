@@ -1,7 +1,6 @@
 // pages/register/register.js
 var common = require('../../libs/common/common.js');
 var utils = require('../../utils/util.js');
-var interval = null; //倒计时函数
 import WxValidate from '../../utils/WxValidate'
 Page({
 
@@ -27,7 +26,6 @@ Page({
     areaList: utils.areaList,//全国省市区初始化数据
     areaShowBool:false,//显示pop
     time: '获取验证码', //倒计时
-    currentTime: 60, 
   },
 
   //注册表单提交
@@ -52,7 +50,7 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/swYtzc', data, function (res) {
       if (res.data.backCode == 0) {
-        wx.setStorageSync('account', params.tel);
+        wx.setStorageSync('mobile', params.tel);
         wx.reLaunch({
           url: '../login/login',
         })
@@ -66,57 +64,10 @@ Page({
   onLoad: function (options) {
     this.initValidate();
   },
-
-
+  
   //获取验证码
-  getVerificationCode() {
-    var mobile = this.data.form['tel'];
-    if (!mobile){
-      common.toast('请填写手机号', 'none', 2000);
-      return;
-    }
-    if (mobile.length!='11'){
-      common.toast('请填写正确的手机号', 'none', 2000);
-      return;
-    }
-    this.ajaxCode()
-  },
-
-  //倒计时
-  getCode: function (options) {
-    var that = this;
-    var currentTime = that.data.currentTime
-    interval = setInterval(function () {
-      currentTime--;
-      that.setData({
-        time: currentTime + '秒'
-      })
-      if (currentTime <= 0) {
-        clearInterval(interval)
-        that.setData({
-          time: '重新获取',
-          currentTime: 60,
-          disabled: false
-        })
-      }
-    }, 1000)
-  },
-  //验证码发送ajax
-  ajaxCode(){
-    var that = this;
-    return;
-    var data = {
-      "swZh": this.data.form['tel']
-      , "type": 0 //0表示小程序用户注册
-      , "unionid": wx.getStorageSync('unionid'),
-    }
-    common.ajax('zustcommon/common/sendCode', data, function (res) {
-      if (res.data.backCode == 0) {
-        that.getCode();//获取验证码
-      } else {
-        common.toast(res.data.errorMess, 'none', 2000)
-      }
-    });
+  getVerificationCode(){
+    common.getCode(this.data.form['tel'], 0, this);
   },
 
   //单选框 选择性别

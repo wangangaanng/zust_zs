@@ -2,18 +2,18 @@
   xiayuwei  忘记密码  2019.10.21
 -->
 <!-- 表单 -->
-<form bindsubmit="submitForm" class="form-wrap">
+<form bindsubmit="changePswForm" class="form-wrap">
   <van-cell-group>
-    <van-field v-model="username" placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message=""  clearable>
-     <van-button slot="button" size="small" plain hairline  type="primary" bind:click="sendCode">发送验证码</van-button>
+    <van-field  value="{{tel}}" name="tel"  bindblur='telBlur'  placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message=""  clearable>
+     <van-button slot="button" size="small" plain hairline  type="primary" bind:click="sendCode">{{time}}</van-button>
     </van-field>
-    <van-field v-model="username" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message=""  clearable/>
+    <van-field  value="{{code}}" name="code" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message=""  clearable/>
   
-    <van-field v-model="username" placeholder="登录密码（6-16位数字字母组合密码）"  placeholder-style="{{'font-size:30rpx'}}" password="{{loginPswType}}" left-icon=" iconfont icon-denglu-mima" error-message="" right-icon=" iconfont {{(loginPswType)?'icon-comiisyincangmima':'icon-yanjing'}}"  bind:click-icon="showPswType"  clearable/>
-    <van-field v-model="username" placeholder="确认密码（6-16位数字字母组合密码）"  placeholder-style="{{'font-size:30rpx'}}" password="{{surePswType}}" left-icon=" iconfont icon-denglu-mima" right-icon=" iconfont {{(surePswType)?'icon-comiisyincangmima':'icon-yanjing'}}" error-message="" bind:click-icon="surePswType"  clearable/>
+    <van-field  value="{{psw}}" name="psw" placeholder="登录密码（6-16位）"  password="{{loginPswType}}" left-icon=" iconfont icon-denglu-mima" error-message="" right-icon=" iconfont {{(loginPswType)?'icon-comiisyincangmima':'icon-yanjing'}}"  bind:click-icon="showPswType"  clearable/>
+    <van-field value="{{surePsw}}" name="surePsw" placeholder="确认密码（6-16位）"  password="{{surePswType}}" left-icon=" iconfont icon-denglu-mima" right-icon=" iconfont {{(surePswType)?'icon-comiisyincangmima':'icon-yanjing'}}" error-message="" bind:click-icon="surePswType"  clearable/>
   </van-cell-group>
   <!-- 按钮 -->
-  <view class="main-btn_wrap">
-   <van-button round type="primary" loading-text="重置密码..." class="main-button" size="large">重置密码</van-button>
+  <view class="main-btn_wrap button">
+    <button  formType="submit" >重置密码</button>
   </view>
 </form>
