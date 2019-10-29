@@ -126,7 +126,7 @@
                             </ul>
                             <div class="tools cl">
                             <#if (result.state??)&&(result.state==2)>
-                                <#if (result.zphSfbm??)&&(result.zphSfbm==1)>
+                                <#if (result.zphSfbm??)&&(result.zphSfbm==1)&&(result.zphKsrq??)&&((result.zphKsrq?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date))&&(result.zphBmjzsj??)&&((result.zphBmjzsj?date("yyyy-MM-dd HH:mm:ss") gt (.now)?date))>
                                     <a class="btn_1" onclick="applyJob2()">企业预定展位</a>
                                 </#if>
                             </#if>
