@@ -107,7 +107,7 @@ var myJobList = function (that, lx) {
             res.data.bean.records[i].str = '';
           }
           if (res.data.bean.records[i].zphBmjzsj && util.compareToday(res.data.bean.records[i].zphBmjzsj)) {
-            res.data.bean.records[i].str = '已截止报名 ';
+            res.data.bean.records[i].str = '已截止报名';
             res.data.bean.records[i].color = 'color:red;';
           }
           if (util.compareToday(res.data.bean.records[i].zphKsrq)) {
