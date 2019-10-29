@@ -3,9 +3,10 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
+    "pages/basicInfo/basicInfo",
+    "pages/register/register",
     "pages/login/login",
     "pages/forgetPsw/forgetPsw",
-    "pages/register/register",
     "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
     "pages/Process/Process",
@@ -17,7 +18,6 @@
     "pages/payOline/payOline",
     "pages/majorExam/majorExam",
     "pages/drawGroup/drawGroup",
-    "pages/basicInfo/basicInfo",
     "pages/uploadSignature/uploadSignature",
     "pages/xw/xw",
     "pages/grzx/grzx",

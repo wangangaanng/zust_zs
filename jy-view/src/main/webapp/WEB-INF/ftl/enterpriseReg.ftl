@@ -119,7 +119,7 @@
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off">
                     </div>
-                    <label for="qylxfs" class="col-sm-2 control-label">固定电话：</label>
+                    <label for="qylxfs" class="col-sm-2 control-label">固定电话<span class="red">*</span>：</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="qylxfs" name="qylxfs" placeholder="" autocomplete="off">
                     </div>
@@ -390,6 +390,7 @@
                         required: true,
                         email: true
                     },
+                    qylxfs:"required",
                     qyGsxz:"required",
                     qyHylb:"required",
                     qyGsgm:"required",
@@ -417,6 +418,7 @@
                         required: "请填写",
                         email: "请填写正确电子邮箱"
                     },
+                    qylxfs:"请填写",
                     qyGsxz: "请选择",
                     qyHylb: "请选择",
                     qyGsgm: "请选择",
