@@ -70,34 +70,46 @@ Page({
       return false
     }
 
-    common.ajax('zustjy/bckjBizQyxx/companyRegister', params, function (res) {
-      if (res.data.backCode == 0) {
-        that.setData({
-          btndisabled: true
-        })
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: "注册成功，待后台人员审核通过，便可登录。",
-          success(res) {
-            if (res.confirm) {
-              wx.reLaunch({
-                url: '../index/index',
+    wx.showModal({
+      title: '提示',
+      content: `您的企业税号为${params.qyTysh}，法人身份证号为${params.qyFrsfz}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          common.ajax('zustjy/bckjBizQyxx/companyRegister', params, function (res) {
+            if (res.data.backCode == 0) {
+              that.setData({
+                btndisabled: true
               })
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
+              wx.showModal({
+                title: '提示',
+                showCancel: false,
+                content: "注册成功，待后台人员审核通过，便可登录。",
+                success(res) {
+                  if (res.confirm) {
+                    wx.reLaunch({
+                      url: '../index/index',
+                    })
+                    console.log('用户点击确定')
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            } else {
+              wx.showToast({
+                title: res.data.errorMess,
+                icon: 'none',
+                duration: 2000
+              })
             }
-          }
-        })
-      } else {
-        wx.showToast({
-          title: res.data.errorMess,
-          icon: 'none',
-          duration: 2000
-        })
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
-    });
+    })
+    
   },
   initValidate() {
     // 验证字段的规则
