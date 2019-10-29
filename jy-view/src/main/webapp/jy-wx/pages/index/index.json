@@ -1,4 +1,6 @@
 {
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark",
   "usingComponents": {
     "authorize": "../../pages/auth/auth",
     "van-grid": "vant-weapp/grid",
