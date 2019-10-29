@@ -49,7 +49,12 @@ Page({
         if (res.data.bean) {
           wx.setStorageSync('userType', '0')
           wx.setStorageSync('yhOwid', res.data.bean.owid)
-          wx.setStorageSync('qyInfo', res.data.bean)
+          var obj={}
+          obj.qymc = res.data.bean.qymc;
+          obj.qyLxr = res.data.bean.qyLxr;
+          obj.qyLxrdh = res.data.bean.qyLxrdh;
+          obj.qyYx = res.data.bean.qyYx;
+          wx.setStorageSync('qyInfo', obj)
         }
         // wx.reLaunch({
         //   url: '../index/index',

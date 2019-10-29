@@ -152,6 +152,9 @@ Page({
         required: true,
         email: true,
       },
+      qylxfs: {
+        required: true
+      },
       qyGsxz: {
         required: true
       },
@@ -209,6 +212,9 @@ Page({
       qyYx: {
         required: '请填写邮箱',
         email: '请填写正确邮箱',
+      },
+      qylxfs: {
+        required: '请填写固定电话',
       },
       qyGsxz: {
         required: '请选择公司性质',
