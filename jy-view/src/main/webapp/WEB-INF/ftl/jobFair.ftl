@@ -500,11 +500,10 @@ var pageSize=10;
                 str= '<a class="green-color order" href="#">预定展位</a> ';
             }
 
-        }else if(row.state==6){
-            str= '<span style="color: red;">已结束</span> ';
         }else{
             str= '';
         }
+
         if(row.zphBmjzsj && compareToday(row.zphBmjzsj)){
             str= '<span style="color: #ccc;">已截止报名</span> ';
         }

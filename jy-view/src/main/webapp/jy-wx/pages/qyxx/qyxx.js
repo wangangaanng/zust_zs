@@ -47,8 +47,76 @@ Page({
       qyGsgm: '',
       qyGsjs: '',
       qyZczj: '',
-      qylxfs:''
+      qylxfs:'',
+      qyYyzzzp:''
     },
+    yyzz:'',
+    hasYyzz: false
+
+  },
+  upload(e) {
+    var that = this
+    wx.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        var tempFilePaths = res.tempFilePaths
+        console.log(res)
+        var jsonObj = {
+          "file": tempFilePaths[0],
+          "type": 1
+        }
+        that.setData({
+          yyzz: tempFilePaths[0]
+        })
+       
+        wx.showLoading({
+          title: '上传中',
+        })
+        wx.uploadFile({
+          url: url + 'zustcommon/common/picUpload',
+          filePath: tempFilePaths[0],
+          name: 'file',
+          method: 'POST',
+          formData: {
+            "data": JSON.stringify(jsonObj)
+          },
+          success: function (res) {
+            wx.hideLoading();
+            var d = JSON.parse(res.data)
+            if (d.bean) {
+              if (d.bean.fileName) {
+                wx.showToast({
+                  title: '上传成功',
+                  icon: 'none',
+                  duration: 2000
+                })
+                that.setData({
+                  'form.qyYyzzzp': d.bean.fileName
+                })
+              }
+            } else {
+              wx.showModal({
+                title: '提示',
+                showCancel: false,
+                content: "上传失败",
+              })
+            }
+
+          },
+          fail: function () {
+            wx.hideLoading();
+            wx.showModal({
+              title: '提示',
+              showCancel: false,
+              content: "上传失败",
+            })
+          }
+        })
+
+      }
+    })
   },
   showModal(error) {
     wx.showModal({
@@ -206,8 +274,7 @@ Page({
         required: '请选择公司规模',
       },
       qyGsjs: {
-        required: '请填写公司介绍',
-        maxlength: 200,
+        required: '请填写公司介绍'
       },
       qyYyzzzp: {
         required: '请上传企业营业执照',
@@ -316,7 +383,7 @@ Page({
   },
   preview(){
     var previewImageList=[];
-    var image = this.data.imgPath + this.data.form.qyYyzzzp;
+    var image = this.data.yyzz
     previewImageList.push(image)
     wx.previewImage({
       urls: previewImageList // 需要预览的图片http链接列表
@@ -347,6 +414,8 @@ var getOneCompany = function (that) {
         gsxzStr: data.bean.qyGsxzStr,
         hylbStr: data.bean.qyHylbStr,
         gsgmStr: data.bean.qyGsgmStr,
+        yyzz: data.bean.qyYyzzzp ? that.data.imgPath + data.bean.qyYyzzzp : '',
+        hasYyzz: data.bean.qyYyzzzp ? false : true,
         area: `${data.bean.qyProv}-${data.bean.qyCity}-${data.bean.qyArea}`
       })
     } else {
