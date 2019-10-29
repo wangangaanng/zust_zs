@@ -441,8 +441,8 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                 }
                 qyshs.add(qyTysh);
                 resMap.put("qyTysh", qyTysh);
-                String qySfz = cellList.get(1); //法人身份证号
-                resMap.put("qySfz", qySfz);
+                String qyFrsfz = cellList.get(1); //法人身份证号
+                resMap.put("qyFrsfz", qyFrsfz);
                 String qyFrdbxm = cellList.get(2); //法人姓名
                 resMap.put("qyFrdbxm", qyFrdbxm);
                 String qymc = cellList.get(3); //公司名称
@@ -461,31 +461,32 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                 resMap.put("qyLxr",qyLxr);
                 String qyLxrdh = cellList.get(10); //联系方式
                 resMap.put("qyLxrdh", qyLxrdh);
-                String qyYx = cellList.get(11); //企业邮箱
+                String qylxfs = cellList.get(11); //企业固话
+                resMap.put("qylxfs", qylxfs);
+                String qyYx = cellList.get(12); //企业邮箱
                 resMap.put("qyYx",qyYx);
-                String qyGsxz = cellList.get(12); //公司性质
+                String qyGsxz = cellList.get(13); //公司性质
                 for (Map map:gsxzs){
                     if(map.get("val2").equals(qyGsxz))
                         resMap.put("qyGsxz", map.get("val1"));
                 }
-                String qyHylb = cellList.get(13); //行业类别
+                String qyHylb = cellList.get(14); //行业类别
                 for (Map map:gshys){
                     if(map.get("val2").equals(qyHylb))
                         resMap.put("qyHylb", map.get("val1"));
                 }
-                String qyGsgm = cellList.get(14); //公司规模
+                String qyGsgm = cellList.get(15); //公司规模
                 for (Map map:gsgms){
                     if(map.get("val2").equals(qyGsgm))
                         resMap.put("qyGsgm", map.get("val1"));
                 }
-                String qyGsjs = cellList.get(15); //公司介绍
+                String qyGsjs = cellList.get(16); //公司介绍
                 resMap.put("qyGsjs", qyGsjs);
                 BckjBizQyxx bckjBizQyxx=new BckjBizQyxx();
                 MapUtil.easySetByMap(resMap, bckjBizQyxx);
                 BckjBizQyxx oneCompanyByTysh = getOneCompanyByTysh(bckjBizQyxx);
                 if(!TextUtils.isEmpty(oneCompanyByTysh)){
                     bckjBizQyxx.setOwid(oneCompanyByTysh.getOwid());
-                    delete(oneCompanyByTysh);
                 }
                 bckjBizQyxx.setState(2);
                 qyxxes.add(bckjBizQyxx);
@@ -511,6 +512,8 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     private BckjBizQyxx getOneCompanyByTysh(BckjBizQyxx bckjBizQyxx) {
         return this.dao.getOneCompanyByTysh(bckjBizQyxx);
     }
+
+
 
 
 
