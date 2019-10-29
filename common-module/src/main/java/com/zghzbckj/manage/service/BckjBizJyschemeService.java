@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
@@ -236,10 +237,17 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         String filename = path;
         List<List<String>> list= bckjBizSybService.getExcelLists(path);
         HashMap<Object, Object> resMap = Maps.newHashMap();
-        List<BckjBizYhxx> yhxxes = new ArrayList();
-        List<BckjBizSyb> sybs = new ArrayList();
         List<BckjBizJyscheme> jys=new ArrayList();
         List<BckjBizJobPlanOther> jos = new ArrayList();
+        List<String> xsxhs= Lists.newArrayList();
+        List<BckjBizJyscheme> oldJyschemes=getOldJyscheme();
+        //获得毕业去向字典表内容
+        List<Map> byqxs=getDicListMapByType(50001);
+        List<Map> dwszdmcs=getDicListMapByType(50005);
+        List<Map> yrdwxzmcs=getDicListMapByType(50002);
+        List<Map> dwhylbmcs=getDicListMapByType(50003);
+        List<Map> gzzwlbmcs=getDicListMapByType(50004);
+        List<Map> bdzqflbmcs=getDicListMapByType(50007);
         //读取自定义扩展字段
         List<String> fieldLists = new ArrayList<>();
         List<String> codeList = list.get(0);   //拿到code行
@@ -258,13 +266,17 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 if (TextUtils.isEmpty(xsxh)) {
                     break;
                 }
+                xsxhs.add(xsxh);
                 resMap.put("xsxh", xsxh);
                 String xm = cellList.get(1); //姓名
                 resMap.put("xm", xm);
                 String xxmc = cellList.get(2); //学校名称
                 resMap.put("xxmc", xxmc);
-                String byqx = cellList.get(3); //毕业去向名称
-                resMap.put("byqx",getDicVal(50001,byqx));
+                String byqx = cellList.get(3); //毕业去向名称 50001
+                for(Map map:byqxs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(byqx)))
+                    resMap.put("byqx",map.get(byqx));
+                }
                 String sfzydk = cellList.get(4); //专业是否对口
                 if(sfzydk.equals("是")){
                     resMap.put("sfzydk",1);
@@ -276,24 +288,46 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String yrdwdm = cellList.get(6); //用人单位代码
                 resMap.put("yrdwdm",yrdwdm);
                 String yrdwxzmc = cellList.get(7); //用人单位性质名称 50002
-                resMap.put("yrdwxzmc",getDicVal(50002,yrdwxzmc));
+                for(Map map:yrdwxzmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(yrdwxzmc)))
+                    resMap.put("yrdwxzmc",map.get(yrdwxzmc));
+                }
                 String dwhylbmc = cellList.get(8); //单位行业类别名称 50003
-                resMap.put("dwhylbmc",getDicVal(50003,dwhylbmc));
+                for(Map map:dwhylbmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(dwhylbmc)))
+                    resMap.put("dwhylbmc",map.get(dwhylbmc));
+                }
                 String dwszdmc = cellList.get(9); //      50005
-                resMap.put("dwszdmc", getDicVal(50005,dwszdmc));
+                for(Map map:dwszdmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(dwszdmc)))
+                    resMap.put("dwszdmc",map.get(dwszdmc));
+                }
                 String dwlxr = cellList.get(10); //单位联系人
                 resMap.put("dwlxr",dwlxr);
                 String dwdh = cellList.get(11); //单位电话
                 resMap.put("dwdh", dwdh);
                 String gzzwlbmc = cellList.get(12); //工作职位类别名称 50004
-                resMap.put("gzzwlbmc", getDicVal(50004,gzzwlbmc));
+                for(Map map:gzzwlbmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(gzzwlbmc)))
+                    resMap.put("gzzwlbmc",map.get(gzzwlbmc));
+                }
                 String bdzqflbmc = cellList.get(13); //报到证签发类别名称
-                resMap.put("bdzqflbmc",getDicVal(50007,bdzqflbmc));
+                for(Map map:bdzqflbmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(bdzqflbmc)))
+                    resMap.put("bdzqflbmc",map.get(bdzqflbmc));
+                }
                 String bdzqwdwmc = cellList.get(14); //报到证签往单位名称
+                for(Map map:bdzqflbmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(bdzqwdwmc)))
+                    resMap.put("bdzqwdwmc",map.get(bdzqwdwmc));
+                }
                 resMap.put("bdzqwdwmc", bdzqwdwmc);
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
-                resMap.put("bdzqwszdmc",getDicVal(50005,bdzqwszdmc));
-                    String bdkssj = cellList.get(16); //报到开始时间
+                for(Map map:dwszdmcs){
+                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(bdzqwszdmc)))
+                    resMap.put("bdzqwszdmc",map.get(bdzqwszdmc));
+                }
+                String bdkssj = cellList.get(16); //报到开始时间
                 try {
                     resMap.put("bdkssj", bckjBizSybService.stringtoDate(bdkssj));
                 }
@@ -337,46 +371,46 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                     bckjBizJobPlanOther.setVal(cellList.get(26+n));
                     jos.add(bckjBizJobPlanOther);
                 }
-                BckjBizSyb bckjBizSyb =  BckjBizSyb.class.newInstance();
-                BckjBizYhxx bckjBizYhxx =  BckjBizYhxx.class.newInstance();
                 BckjBizJyscheme bckjBizJyscheme=BckjBizJyscheme.class.newInstance();
-                MapUtil.easySetByMap(resMap, bckjBizSyb);
-                MapUtil.easySetByMap(resMap, bckjBizYhxx);
                 MapUtil.easySetByMap(resMap, bckjBizJyscheme);
-
-                //判断此xsxh是否存在
-                BckjBizJyscheme bckjBizJyscheme1 = getOneByXsxh(bckjBizJyscheme.getXsxh());
-                //判断xsxh是否存在学生 不为空则删除jyscheme表和jobplanother表的信息
-                if (!TextUtils.isEmpty(bckjBizJyscheme1)) {
-                    deleteByXsxh(bckjBizJyscheme.getXsxh());
-                    bckjBizJobPlanOtherService.deleteByName(bckjBizJyscheme.getXsxh());
-                }
-                BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(bckjBizJyscheme.getXsxh());
-                //如果无该学号的生源 这收集错误error
-                if(TextUtils.isEmpty(oneByXsxh)){
-                    error=error+bckjBizJyscheme.getXsxh()+",";
-                    continue;
-                }
-                //按身份证号码更新 yhxx和syb
-                bckjBizYhxx.setSfz(oneByXsxh.getSfz());
-                bckjBizSyb.setSfz(oneByXsxh.getSfz());
-                //设置yh_ref_owid
-                bckjBizJyscheme.setYhRefOwid(oneByXsxh.getYhRefOwid());
                 //设置为未编辑状态
                 bckjBizJyscheme.setExp2("1");
                 //就业所在地地统计放在exp1
                 bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getDwszdmc()));
-                yhxxes.add(bckjBizYhxx);
-                sybs.add(bckjBizSyb);
+            /*    yhxxes.add(bckjBizYhxx);
+                sybs.add(bckjBizSyb);*/
                 jys.add(bckjBizJyscheme);
             }
-            //开始批量更新
-            for (BckjBizYhxx bckjBizYhxx : yhxxes) {
-                bckjBizYhxxService.updateBySfz(bckjBizYhxx);
+            //判断excel表中是否存在重复的xsxh
+            Set<String> xsxhSet = new HashSet<>();
+            int count = 1;
+            for (String xsxh : xsxhs) {
+                xsxhSet.add(xsxh);
+                if (xsxhSet.size() != count++){
+                    return ResponseMessage.sendOK("导入失败,学生学号存在重复:"+xsxh);
+                }
             }
-            for (BckjBizSyb bckjBizSyb : sybs) {
-                bckjBizSybService.updateBySfz(bckjBizSyb);
-            }
+
+             /**
+             * 后台录入学生信息时开启新的线程进行检查，相同学号进行删除jyshcheme
+             */
+            Set<String> results = new HashSet<>(xsxhs);
+            Thread t = new Thread(new Runnable() {
+                // run方法具体重写
+                public void run() {
+                    for ( BckjBizJyscheme bckjBizJyscheme : oldJyschemes) {
+                        int count = results.size();
+                        results.add(bckjBizJyscheme.getXsxh());
+                        if (results.size() != (++count)) {
+                            delete(bckjBizJyscheme);
+                            count--;
+                            //这里不删除bckjBizStudentExpand
+                            /* bckjBizStudentExpandService.deleteBySfz(bckjBizSyb.getSfz());*/
+                        }
+                    }
+                }
+            });
+            t.start();
             for (BckjBizJyscheme bckjBizJyscheme:jys){
                 saveOrUpdate(bckjBizJyscheme);
             }
@@ -384,10 +418,16 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 bckjBizJobPlanOtherService.saveOrUpdate(bckjBizJobPlanOther);
             }
         }
-        return ResponseMessage.sendOK("以下学号不在生源中，无法导入:"+error.substring(0, error.length()-1));
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
+    public List<Map> getDicListMapByType(Integer i) {
+        return this.dao.getDicListMapByType(i);
+    }
 
+    private List<BckjBizJyscheme> getOldJyscheme() {
+        return this.dao.getOldJyscheme();
+    }
 
 
     private BckjBizJyscheme getOneByXsxh(String xsxh) {
@@ -509,17 +549,16 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizJobPlanOther);
         BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(bckjBizJyscheme.getXsxh());
+        if(TextUtils.isEmpty(oneByXsxh)){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号生源不存在,无法保存");
+        }
         //如果為更新
         if (bckjBizJyscheme.getOwid() != null) {
             bckjBizJyscheme.setExp2("2");
         }
         //如果為新建
         else if(bckjBizJyscheme.getOwid()==null){
-            //先判断有无此学号的生源
-            if(TextUtils.isEmpty(oneByXsxh)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号生源不存在,无法保存");
-            }
-            //再判断jyscheme中此学号是否存在
+            //判断jyscheme中此学号是否存在
             BckjBizJyscheme oneByXsxh1 = getOneByXsxh(oneByXsxh.getXsxh());
             if(!TextUtils.isEmpty(oneByXsxh1)){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号已存在,无法保存");
