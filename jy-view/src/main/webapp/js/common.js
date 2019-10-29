@@ -844,7 +844,7 @@ function isIdCardNo(num) {
     var intStrLen = num.length;
     var idNumber= num;
     //initialize
-    if((intStrLen != 15) && (intStrLen !=18)) {
+    if(intStrLen !=18) {
         return false;
     }
     // check andset value

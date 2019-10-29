@@ -102,7 +102,8 @@ Page({
       hkpcs: ''
     },
     sydList:[],
-    showSyd: true
+    showSyd: true,
+    owid:''
   },
   getSydItem(e){
     var that = this
@@ -139,6 +140,7 @@ Page({
       this.showModal(error)
       return false
     }
+    params.owid = this.data.owid
     params.csrq = this.data.csrq ? this.data.csrq.substring(0, 10) : ''
     params.rxnf = this.data.rxnf ? this.data.rxnf.substring(0, 10) : ''
     params.byrq = this.data.byrq ? this.data.byrq.substring(0, 10) : ''
