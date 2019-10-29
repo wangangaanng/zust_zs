@@ -124,7 +124,13 @@ function confirmDl(url,user) {
             if(data.backCode==0){
                 loginout2()
                 addCookie("qyOwid",data.bean.owid)
-                addCookie("qyInfo",JSON.stringify(data.bean))
+                var obj={}
+                obj.qymc=data.bean.qymc;
+                obj.qyLxr=data.bean.qyLxr;
+                obj.qyLxrdh=data.bean.qyLxrdh;
+                obj.qyYx=data.bean.qyYx;
+                addCookie("qyInfo",JSON.stringify(obj));
+                // addCookie("qyInfo",JSON.stringify(data.bean))
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
