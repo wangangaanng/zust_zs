@@ -25,11 +25,11 @@
         <div class="index-nav_content">
             <div class="index-nav_item">
                 <img src="${base}/img/zsdt.png" />
-                <a onclick="">招生动态</a>
+                <a name="zsdt" onclick="changeNews(this)">招生动态</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/2017zszy.png" />
-                <a onclick="">2019招生专业</a>
+                <a id="zszylab" val="按专业招生" name="2017zszy" onclick="changeNews(this)">2019招生专业</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zydh.png" />
@@ -45,7 +45,7 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zsjd.png" />
-                <a onclick="">生源基地</a>
+                <a name="zsjd" onclick="changeNews(this)">生源基地</a>
             </div>
         </div>
     </div>
@@ -53,20 +53,26 @@
     <!-- E a -->
     <!-- S b -->
     <#assign list=[1,2,3,4,5,6,7,8,9,10]>
-    <div class="dyn_details">
-    <#list list as obj>
-        <div class="detail">
-            <img class="detail_img" src=""/>
-            <strong class="detail_str">浙江科技学院2017艺术类热门专业介绍</strong>
-            <p class="detail_p">2047年斯洛克斯洛伐克顺路快递附件文件呢副科级还胡歌卡俊女是的发送到广发噶的风格还是规划是否更换地方规划的法规哈地方噶地方噶地方噶分公司体会让他</p>
-            <span class="glyphicon glyphicon-time"></span><b class="detail_date"> 2016-11-11</b>
-            <div class="rnum">
-                <span class="glyphicon glyphicon-eye-open"></span><b class="detail_num"> 935</b>
-            </div>
+    <div class="shouYe_div_dynamic">
+        <div class="dyn_nav" id="zylbDiv">
+            <ul class="zylb" id="zylb">
+            </ul>
         </div>
-    </#list>
+        <div class="dyn_details">
+        <#list list as obj>
+            <div class="detail">
+                <img class="detail_img" src=""/>
+                <strong class="detail_str">浙江科技学院2017艺术类热门专业介绍</strong>
+                <p class="detail_p">2047年斯洛克斯洛伐克顺路快递附件文件呢副科级还胡歌卡俊女是的发送到广发噶的风格还是规划是否更换地方规划的法规哈地方噶地方噶地方噶分公司体会让他</p>
+                <span class="glyphicon glyphicon-time"></span><b class="detail_date"> 2016-11-11</b>
+                <div class="rnum">
+                    <span class="glyphicon glyphicon-eye-open"></span><b class="detail_num"> 935</b>
+                </div>
+            </div>
+        </#list>
+        </div>
+        <div class="detail_more">查看更多</div>
     </div>
-    <div class="detail_more">查看更多</div>
     <!-- E b -->
 
     <!-- S c -->
@@ -175,8 +181,9 @@
 </div>
 <!-- E frame-content -->
 <#include "com/footer.ftl">
-<script src="js/bootstrap.min.js" type="text/javascript"></script>
-<script src="js/swiper.min.js"></script>
+<script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/zs/shouYe.js" type="text/javascript"></script>
 
 </body>
 </html>
