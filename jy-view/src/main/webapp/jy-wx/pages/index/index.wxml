@@ -113,4 +113,3 @@
      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo4<totalPage4?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
 </van-tabs>
-<authorize show="{{isauthorize}}" type="{{userType}}" bindmyevent="onLoad"></authorize>

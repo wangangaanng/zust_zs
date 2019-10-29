@@ -71,9 +71,9 @@
                         <label for="qymc" class="col-sm-2 control-label">公司名称<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <#if (cInfo.qymc)??>
-                                <input type="text" class="form-control" id="qymc" disabled="disabled" value="${cInfo.qymc}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="qymc" name="qymc" value="${cInfo.qymc}" placeholder="" autocomplete="off">
                                 <#else>
-                                <input type="text" class="form-control" id="qymc" disabled="disabled" value="" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="qymc" name="qymc" value="" placeholder="" autocomplete="off">
                             </#if>
                         </div>
                     </div>
@@ -81,9 +81,9 @@
                         <label for="qyTysh" class="col-sm-2 control-label">统一信用代码<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <#if (cInfo.qyTysh)??>
-                                <input type="text" class="form-control" id="qyTysh" disabled="disabled" value="${cInfo.qyTysh}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="qyTysh" name="qyTysh" value="${cInfo.qyTysh}" placeholder="" autocomplete="off">
                             <#else>
-                                <input type="text" class="form-control" id="qyTysh" disabled="disabled" value="" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="qyTysh" name="qyTysh" value="" placeholder="" autocomplete="off">
                             </#if>
                         </div>
                     </div>
@@ -91,9 +91,9 @@
                         <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <#if (cInfo.qyFrsfz)??>
-                                <input type="text" class="form-control" id="qyFrsfz" disabled="disabled" value="${(cInfo.qyFrsfz)!''}" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="qyFrsfz" name="qyFrsfz" value="${(cInfo.qyFrsfz)!''}" placeholder="" autocomplete="off">
                             <#else>
-                                <input type="text" class="form-control" id="qyFrsfz" disabled="disabled" value="" placeholder="" autocomplete="off">
+                                <input type="text" class="form-control" id="qyFrsfz" name="qyFrsfz" value="" placeholder="" autocomplete="off">
                             </#if>
                         </div>
                     </div>
@@ -231,15 +231,14 @@
                         <label for="qyGsjs" class="col-sm-2 control-label">营业执照照片：</label>
                         <div class="col-sm-8">
                             <#if (cInfo.qyYyzzzp)??>
-                            <img src="${imagePath}${cInfo.qyYyzzzp}" style="width: 150px;height: 180px;" />
-                            <#--<textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10" data-val="${cInfo.qyGsjs}"></textarea>-->
-                            <#else>
-                                <div style="width: 150px;text-align: center;">
-                                    <img src="${base}/img/upload.png" id="yyzz"  style="width: 150px;max-height: 180px;" />
-                                    <label class="uploadlabel" for="file">上传图片</label>
-                                    <input type="file" style="display: none;" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
-                                </div>
+                            <img src="${imagePath}${cInfo.qyYyzzzp}" id="yyzz" style="width: 150px;height: 180px;" />
                             </#if>
+                            <div style="width: 150px;text-align: center;">
+                                <#--<img src="${base}/img/upload.png" id="yyzz"  style="width: 150px;max-height: 180px;" />-->
+                                <label class="uploadlabel" for="file">上传图片</label>
+                                <input type="file" style="display: none;" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                            </div>
+
                         </div>
                     </div>
                     <input type="hidden" id="qyYyzzzp" name="qyYyzzzp" />
