@@ -431,7 +431,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         List<Map> gshys = getDicListMapByType(20001);//公司行业20001
         List<Map> gsgms = getDicListMapByType(20002);//公司规模20002
         if (list != null) {
-            for (int i = 2; i < list.size(); i++) {
+            for (int i = 1; i < list.size(); i++) {
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
                 String qyTysh = cellList.get(0); //企业统一税号
