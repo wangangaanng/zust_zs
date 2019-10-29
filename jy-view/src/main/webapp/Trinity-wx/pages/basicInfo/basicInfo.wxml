@@ -15,7 +15,7 @@
     </van-field>
     <!-- 证件类型身份证 S-->
     <view wx:if="{{idType=='1'}}">
-      <view class="img-null_tip">身份证正反面必传</view>
+      <view class="img-null_tip" hidden="{{showIdError}}">身份证正反面必传</view>
       <view class="btn-upload" bindtap='takePhoto' data-type="2">
         <view wx:if="{{faceImg!=''}}">
           <image src="{{faceImg}}"></image>
@@ -43,7 +43,7 @@
 
     <!-- 证件类型户籍 S-->
     <view wx:if="{{idType=='2'}}">
-      <view class="img-null_tip">户籍证明必传</view>
+      <view class="img-null_tip" hidden="{{showHJError}}">户籍证明必传</view>
       <view class="btn-upload" bindtap='takePhoto' data-type="1">
         <view wx:if="{{houseHold!=''}}">
           <image src="{{faceBck}}"></image>
