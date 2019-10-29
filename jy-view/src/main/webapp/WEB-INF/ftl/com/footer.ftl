@@ -32,7 +32,7 @@
             </div>
             <div class="ewm">
                 <div class="ewmxq">
-                    <div class="ewm-border">
+                    <div class="ewm-border" style="padding: 0;">
                         <img src="${base}/img/ewm-jiuye.png">
                     </div>
                     <div class="ewmsm">
