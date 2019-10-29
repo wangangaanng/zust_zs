@@ -742,9 +742,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         List<Map> zwList = new ArrayList<>();
         Map map = Maps.newHashMap();
         if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
-
             for (BckjBizJybm jybm : bmList) {
+                zwList = new ArrayList<>();
                 if (!TextUtils.isEmpty(jybm.getZw1())) {
+                    map = Maps.newHashMap();
                     map.put("zw", jybm.getZw1());
                     map.put("rs", jybm.getRs1());
                     zwList.add(map);

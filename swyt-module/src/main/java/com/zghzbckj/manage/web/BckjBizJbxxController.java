@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -136,14 +137,14 @@ public class BckjBizJbxxController extends BaseController {
     }
 
     /**
-    *<p>方法:getInfo TODO获取用户基本信息 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 10:53  </li>
-    *</ul>
-    */
+     * <p>方法:getInfo TODO获取用户基本信息 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 10:53  </li>
+     * </ul>
+     */
     @RequestMapping(value = "getInfo", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getInfo(PublicDataVO dataVO) {
@@ -164,14 +165,14 @@ public class BckjBizJbxxController extends BaseController {
     }
 
     /***
-    *<p>方法:indexState TODO获取填写状态 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 15:40  </li>
-    *</ul>
-    */
+     * <p>方法:indexState TODO获取填写状态 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 15:40  </li>
+     * </ul>
+     */
     @RequestMapping(value = "indexState", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage indexState(PublicDataVO dataVO) {
@@ -190,4 +191,18 @@ public class BckjBizJbxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+
+    @RequestMapping(value = "resetPsw", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage resetPsw(HttpServletRequest request, PublicDataVO data) {
+        if (TextUtils.isEmpty(data.getData())) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL.intValue(), "数据为空");
+        } else {
+            List list = JackSonJsonUtils.jsonToList(data.getData(), Map.class);
+            List datas = bckjBizJbxxService.updateResetPsw(list);
+            return ResponseMessage.sendOK(datas);
+        }
+    }
+
 }

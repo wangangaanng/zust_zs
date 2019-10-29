@@ -1,30 +1,30 @@
 <!--pages/shouye/shouye.wxml-->
 <view class="head">
   <navigator class="li" url='../basicInfo/basicInfo'>
-    <view class="head_li">
+    <view class="head_li {{state.state!='1'?'yet':''}}">
       <image src="../../static/sy6.png" class="head_in"></image>
-      <image src="../../static/sy1.png" class="head_out"></image>
+      <image src="../../static/{{state.state!='1'?'sy2':'sy1'}}.png" class="head_out"></image>
     </view>
     <view class="head_name">基本信息</view>
   </navigator >
   <navigator class="li" url='../contactors/contactors' >
-    <view class="head_li">
+    <view class="head_li {{state.jtcyState!='1'?'yet':''}}">
       <image src="../../static/sy5.png" class="head_in"></image>
-      <image src="../../static/sy1.png" class="head_out"></image>
+      <image src="../../static/{{state.jtcyState!='1'?'sy2':'sy1'}}.png" class="head_out"></image>
     </view>
     <view class="head_name">联系人</view>
   </navigator>
   <navigator class="li" url='../examGrade/examGrade'>
-    <view class="head_li yet">
+    <view class="head_li {{state.hkState!='1'?'yet':''}}">
       <image src="../../static/sy4.png" class="head_in"></image>
-      <image src="../../static/sy2.png" class="head_out"></image>
+      <image src="../../static/{{state.hkState!='1'?'sy2':'sy1'}}.png" class="head_out"></image>
     </view>
     <view class="head_name">学考等第</view>
   </navigator>
   <navigator class="li" url='../selectExamInfo/selectExamInfo'>
-    <view class="head_li yet">
+    <view class="head_li {{state.xkState!='1'?'yet':''}}">
       <image src="../../static/sy3.png" class="head_in"></image>
-      <image src="../../static/sy2.png" class="head_out"></image>
+      <image src="../../static/{{state.xkState!='1'?'sy2':'sy1'}}.png" class="head_out"></image>
     </view>
     <view class="head_name">选考信息</view>
   </navigator>
