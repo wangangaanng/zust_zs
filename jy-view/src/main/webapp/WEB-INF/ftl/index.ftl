@@ -475,8 +475,15 @@
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
             finishLoad()
             if(data.backCode==0){
+//                console.log(JSON.stringify(data.bean));
                 addCookie("qyOwid",data.bean.owid)
-                addCookie("qyInfo",JSON.stringify(data.bean))
+//                addCookie("qyInfo",data.bean.qymc)
+                var obj={}
+                obj.qymc=data.bean.qymc;
+                obj.qyLxr=data.bean.qyLxr;
+                obj.qyLxrdh=data.bean.qyLxrdh;
+                obj.qyYx=data.bean.qyYx;
+                addCookie("qyInfo",JSON.stringify(obj));
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();

@@ -146,6 +146,8 @@ Page({
       return false
     }
     params.owid = this.data.owid
+    params.bdkssj = this.data.bdkssj.substring(0,10)
+    params.bdjssj = this.data.bdjssj.substring(0, 10)
     common.ajax('zustcommon/bckjBizJyscheme/saveOneJyschemeXcx', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
@@ -598,6 +600,8 @@ var getOne = function (that) {
         if (!data.bean.xsxh) {
           data.bean.xsxh = wx.getStorageSync('stuInfo').xsxh || ''
         }
+        data.bean.bdkssj = data.bean.bdkssj ? data.bean.bdkssj.substring(0, 10) : ''
+        data.bean.bdjssj = data.bean.bdjssj ? data.bean.bdjssj.substring(0, 10) : ''
         that.setData({
           form: data.bean,
           owid: data.bean.owid

@@ -283,6 +283,7 @@ header .subnav-list li a{
     background-position: -15px 0;
     width: 20px;
     height: 18px;
+    margin-top: 15px;
 }
 
 .location img {
@@ -293,8 +294,12 @@ header .subnav-list li a{
 }
 
 .routes {
-    padding: 36px 0 30px 0;
+    /*padding: 36px 0 30px 0;*/
     overflow: hidden;
+    float: left;
+    height: 51px;
+    line-height: 51px;
+    font-size:18px;
 }
 
 .menu-nav {
@@ -381,14 +386,18 @@ header .subnav-list li a{
     width: calc(100% - 255px);
     float: left;
     min-height: 707px;
-    border: solid 1px #e0e0e0;
+    /*border: solid 1px #e0e0e0;*/
 }
-
-.search-bar {
-    margin: 0 20px;
-    padding: 15px 0;
+.nav-bar{
+    /*margin: 0 20px;*/
+    /*padding: 15px 0;*/
     border-bottom: 1px solid #c6c6c6;
     overflow: hidden;
+}
+.search-bar {
+
+    float: right;
+    margin-top: 8px;
 }
 
 .search-label {
@@ -1189,7 +1198,7 @@ ul.pagination {
 }
 
 .content-form {
-    border: solid 1px #e0e0e0;
+    /*border: solid 1px #e0e0e0;*/
     padding: 30px 0;
 }
 

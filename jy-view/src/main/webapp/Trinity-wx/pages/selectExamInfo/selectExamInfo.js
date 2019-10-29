@@ -1,4 +1,8 @@
 // pages/selectExamInfo/selectExamInfo.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
+var yhRefOwid = app.globalData.yhRefOwid;
 Page({
 
   /**
@@ -15,7 +19,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.getByType()
+    this.getXkkm()
   },
 
   /**
@@ -66,6 +71,17 @@ Page({
   onShareAppMessage: function () {
 
   },
+  Image(){
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths
+      }
+    })
+  },
   //确定选择
   confirmSubject(event){
     const { value, index } = event.detail;
@@ -101,5 +117,38 @@ Page({
     wx.navigateTo({
       url: '../Process/Process',
     })
-  }
+  },
+  //获取选课列表
+  getXkkm: function (e) {
+    let that = this;
+    let data = {
+      dicType:'10022',
+      dicVal5:'1'
+    }
+    common.ajax('zustcommon/common/getXkkm', data, function (res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          xk: res.data.bean
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  //获取外语语种
+  getByType: function (e) {
+    let that = this;
+    let data = {
+      dicType: '10020',
+    }
+    common.ajax('zustcommon/common/getByType', data, function (res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          wy:res.data.bean
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
 })

@@ -91,13 +91,13 @@ Component({
                   that.setData({ show: false });
                   // that.triggerEvent('myevent');
                   if (that.data.type == 1) {
-                    wx.navigateTo({
-                      url: '../stuLogin/stuLogin',
-                    })
+                    // wx.navigateTo({
+                    //   url: '../stuLogin/stuLogin',
+                    // })
                   } else if (that.data.type == 2) {
-                    wx.navigateTo({
-                      url: '../qyLogin/qyLogin',
-                    })
+                    // wx.navigateTo({
+                    //   url: '../qyLogin/qyLogin',
+                    // })
                   } else if (that.data.type == 3) {
                     that.triggerEvent('myevent');
                   }

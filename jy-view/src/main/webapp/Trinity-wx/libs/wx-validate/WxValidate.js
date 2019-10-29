@@ -38,8 +38,8 @@ class WxValidate {
   __initDefaults() {
     this.defaults = {
       messages: {
-        required: '这是必填字段。',
-        email: '请输入有效的电子邮件地址。',
+        required: '必填项',
+        email: '请输入有效的电子邮件地址',
         tel: '请输入11位的手机号码。',
         url: '请输入有效的网址。',
         date: '请输入有效的日期。',

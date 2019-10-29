@@ -11,7 +11,9 @@ Page({
    */
   data: {
     qyTysh: '',
-    qyFrsfz: ''
+    qyFrsfz: '',
+    isauthorize: false,
+    userType: ''
   },
   getqyTysh(e) {
     this.setData({
@@ -49,7 +51,12 @@ Page({
         if (res.data.bean) {
           wx.setStorageSync('userType', '0')
           wx.setStorageSync('yhOwid', res.data.bean.owid)
-          wx.setStorageSync('qyInfo', res.data.bean)
+          var obj={}
+          obj.qymc = res.data.bean.qymc;
+          obj.qyLxr = res.data.bean.qyLxr;
+          obj.qyLxrdh = res.data.bean.qyLxrdh;
+          obj.qyYx = res.data.bean.qyYx;
+          wx.setStorageSync('qyInfo', obj)
         }
         // wx.reLaunch({
         //   url: '../index/index',
@@ -74,7 +81,16 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (!wx.getStorageSync('unionid')) {
+      this.setData({
+        userType: '2',
+        isauthorize: true,
+      })
+    } else {
+      this.setData({
+        isauthorize: false,
+      })
+    }
   },
 
   /**

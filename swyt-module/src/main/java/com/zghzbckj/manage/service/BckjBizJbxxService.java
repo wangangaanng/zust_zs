@@ -5,10 +5,7 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -19,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -74,7 +72,11 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      */
     public PageInfo<BckjBizJbxx> findPageBckjBizJbxx(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizJbxx> page = findPage(dataMap, pageNo, pageSize, null);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
+            dataMap.put("createtime2", date);
+        }
+        PageInfo<BckjBizJbxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
         return page;
     }
 
@@ -174,5 +176,23 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
             saveOrUpdate(bckjBizJbxx);
         }
         return indata;
+    }
+
+    @Transactional(readOnly = false)
+    public List updateResetPsw(List objs) {
+        List returnDatas = com.beust.jcommander.internal.Lists.newArrayList();
+        Iterator var3 = objs.iterator();
+
+        while (var3.hasNext()) {
+            Map obj = (Map) var3.next();
+            if (null != obj && !TextUtils.isEmpty(obj.get("owid"))) {
+                BckjBizJbxx jbxx = get(obj.get("owid").toString());
+                jbxx.setSwytDlmm(TextUtils.MD5("123456").toUpperCase());
+                saveOrUpdate(jbxx);
+                returnDatas.add(obj);
+            }
+        }
+
+        return returnDatas;
     }
 }

@@ -98,7 +98,7 @@ function confirmDl(url,user) {
         }
         ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
             if(data.backCode==0){
-                loginout()
+                loginout2()
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
                 addCookie("stuXm",data.bean.xm)
@@ -122,9 +122,15 @@ function confirmDl(url,user) {
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
             finishLoad()
             if(data.backCode==0){
-                loginout()
+                loginout2()
                 addCookie("qyOwid",data.bean.owid)
-                addCookie("qyInfo",JSON.stringify(data.bean))
+                var obj={}
+                obj.qymc=data.bean.qymc;
+                obj.qyLxr=data.bean.qyLxr;
+                obj.qyLxrdh=data.bean.qyLxrdh;
+                obj.qyYx=data.bean.qyYx;
+                addCookie("qyInfo",JSON.stringify(obj));
+                // addCookie("qyInfo",JSON.stringify(data.bean))
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 if(url){
@@ -139,20 +145,44 @@ function confirmDl(url,user) {
     }
 
 }
+function loginout2() {
+    if(base){
+        document.cookie  = "stuXm=;path="+base;
+        document.cookie  = "qyInfo=;path="+base;
+        document.cookie  = "qyOwid=;path="+base;
+        document.cookie  = "stuSjh=;path="+base;
+        document.cookie  = "stuOwid=;path="+base;
+        document.cookie  = "userType=;path="+base;
+        document.cookie  = "yhOwid=;path="+base;
+    }else{
+        document.cookie  = "stuXm=;path=/";
+        document.cookie  = "qyInfo=;path=/";
+        document.cookie  = "qyOwid=;path=/";
+        document.cookie  = "stuSjh=;path=/";
+        document.cookie  = "stuOwid=;path=/";
+        document.cookie  = "userType=;path=/";
+        document.cookie  = "yhOwid=;path=/";
+    }
+}
 function loginout() {
-    // delCookie("qyInfo");
-    // delCookie("qyOwid");
-    // delCookie("stuSjh");
-    // delCookie("stuOwid");
-    document.cookie  = "stuXm=;path="+base;
-    document.cookie  = "qyInfo=;path="+base;
-    document.cookie  = "qyOwid=;path="+base;
-    document.cookie  = "stuSjh=;path="+base;
-    document.cookie  = "stuOwid=;path="+base;
-    document.cookie  = "userType=;path="+base;
-    document.cookie  = "yhOwid=;path="+base;
+    if(base){
+        document.cookie  = "stuXm=;path="+base;
+        document.cookie  = "qyInfo=;path="+base;
+        document.cookie  = "qyOwid=;path="+base;
+        document.cookie  = "stuSjh=;path="+base;
+        document.cookie  = "stuOwid=;path="+base;
+        document.cookie  = "userType=;path="+base;
+        document.cookie  = "yhOwid=;path="+base;
+    }else{
+        document.cookie  = "stuXm=;path=/";
+        document.cookie  = "qyInfo=;path=/";
+        document.cookie  = "qyOwid=;path=/";
+        document.cookie  = "stuSjh=;path=/";
+        document.cookie  = "stuOwid=;path=/";
+        document.cookie  = "userType=;path=/";
+        document.cookie  = "yhOwid=;path=/";
+    }
     window.location.href=base+"/"
-    // location.reload();
 }
 
 var userKey = '';
@@ -552,7 +582,7 @@ function AntiSqlValidAll(val,successMethod ) {
 
 }
 
-//添加Cookie 时间以小时计
+// 添加Cookie 时间以小时计
 function addCookie(name, value, expires, path, domain) {
     var str = name + "=" + escape(value);
     if (expires !== "" && expires !== null && expires !== undefined) {
@@ -567,7 +597,12 @@ function addCookie(name, value, expires, path, domain) {
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
     }else {
-        str += ";path="+base;// 指定可访问cookie的目录
+        if(base){
+            str += ";path="+base;// 指定可访问cookie的目录
+        }else{
+            str += ";path=/";// 指定可访问cookie的目录
+        }
+
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域
@@ -784,9 +819,14 @@ function formatNumber(n) {
 }
 
 function compareToday(d) {
-    var d1=new Date(d).getTime()
-    var td=new Date(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' 00:00:00').getTime()
-
+    var d1=(new Date(Date.parse(d.replace(/-/g,"/")))).getTime()
+    // var td=new Date(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' 00:00:00').getTime()
+    var start = new Date();
+    start.setHours(0);
+    start.setMinutes(0);
+    start.setSeconds(0);
+    start.setMilliseconds(0);
+    var td = start.getTime();
     if(d1<td) {
         return true
     }else{
@@ -804,7 +844,7 @@ function isIdCardNo(num) {
     var intStrLen = num.length;
     var idNumber= num;
     //initialize
-    if((intStrLen != 15) && (intStrLen !=18)) {
+    if(intStrLen !=18) {
         return false;
     }
     // check andset value

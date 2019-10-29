@@ -102,7 +102,8 @@ Page({
       hkpcs: ''
     },
     sydList:[],
-    showSyd: true
+    showSyd: true,
+    owid:''
   },
   getSydItem(e){
     var that = this
@@ -140,6 +141,10 @@ Page({
       return false
     }
     params.owid = this.data.owid
+    params.csrq = this.data.csrq ? this.data.csrq.substring(0, 10) : ''
+    params.rxnf = this.data.rxnf ? this.data.rxnf.substring(0, 10) : ''
+    params.byrq = this.data.byrq ? this.data.byrq.substring(0, 10) : ''
+   
     common.ajax('zustcommon/bckjBizSyb/savaOneXcx', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
@@ -616,6 +621,9 @@ var getOne = function (that) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if(data.bean){
+        data.bean.csrq = data.bean.csrq ? data.bean.csrq.substring(0, 10) : ''
+        data.bean.rxnf = data.bean.rxnf ? data.bean.rxnf.substring(0, 10) : ''
+        data.bean.byrq = data.bean.byrq ? data.bean.byrq.substring(0, 10) : ''
         that.setData({
           form: data.bean,
           owid: data.bean.owid,

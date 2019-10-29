@@ -32,7 +32,6 @@ Page({
     newsList4: [],
     currentTab:'0',
     floorstatus:false,
-    userType: ''
   },
   newsDetail(e){
     wx.navigateTo({
@@ -149,16 +148,7 @@ Page({
     var index = e.currentTarget.dataset.index;
     if(url){
       if (index == 6) {
-        if (!wx.getStorageSync('unionid')) {
-          that.setData({
-            userType:'1',
-            isauthorize: true,
-          })
-        } else {
-          that.setData({
-            isauthorize: false,
-          })
-
+        
           if (wx.getStorageSync('yhOwid')) {
             if (wx.getStorageSync('userType') == 1) {
               wx.navigateTo({
@@ -184,18 +174,8 @@ Page({
               url: '../stuLogin/stuLogin',
             })
           }
-        }
-          
+                  
       } else if (index == 7) {
-        if (!wx.getStorageSync('unionid')) {
-          that.setData({
-            userType: '2',
-            isauthorize: true,
-          })
-        } else {
-          that.setData({
-            isauthorize: false,
-          })
 
           if (wx.getStorageSync('yhOwid')) {
             if (wx.getStorageSync('userType') == 1) {
@@ -222,7 +202,7 @@ Page({
               url: '../qyLogin/qyLogin',
             })
           }
-        }
+        
         
       } else {
         wx.navigateTo({

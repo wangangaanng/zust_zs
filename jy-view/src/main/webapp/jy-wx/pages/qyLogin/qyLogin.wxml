@@ -29,3 +29,5 @@
     <view class="reg-btn" bindtap="register">注册</view>
   </view>
 </view>
+
+<authorize show="{{isauthorize}}" type="{{userType}}" bindmyevent="onLoad"></authorize>
