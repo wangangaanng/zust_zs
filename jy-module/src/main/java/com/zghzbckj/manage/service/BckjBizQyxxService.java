@@ -189,6 +189,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
             company.setState(JyContant.QY_ZT_DSH);
+            saveOrUpdate(company);
             //审核开关 0表示关 1表示开
             String flag = CacheUtil.getVal(JyContant.KG + JyContant.QYSH);
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {

@@ -378,7 +378,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                         params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
                         params.put("state", 1);
                         existBm = findListByParams(params, "");
-                        if (!TextUtils.isEmpty(existBm) && existBm.size() > 0 && existBm.size() >= bmdx) {
+                        if (!TextUtils.isEmpty(existBm) && existBm.size() > 0 && existBm.size() >= bmxz) {
                             resultMap.put("result", "false");
                             resultMap.put("msg", "企业报名已满");
                             return resultMap;

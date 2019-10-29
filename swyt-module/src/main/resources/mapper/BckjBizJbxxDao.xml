@@ -4,6 +4,8 @@
 
     <sql id="bckjBizJbxxColumns">
 		a.owid AS "owid",
+		a.swyt_dlzh AS "swytDlzh",
+		a.swyt_dlmm AS "swytDlmm",
 		a.yh_ref_owid AS "yhRefOwid",
 		a.sfzzm AS "sfzzm",
 		a.sfzfm AS "sfzfm",
@@ -102,28 +104,48 @@
             </if>
         </where>
     </select>
-	<select id="findStateByMap" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
-		SELECT
-		a.owid AS "owid",
-		a.xk_state AS "xkState",
-		a.state AS "state",
-		a.hk_state AS "hkState",
-		a.jtcy_state AS "jtcyState"
-		FROM bckj_biz_jbxx a
-		<include refid="bckjBizJbxxJoins"/>
-		<where>
-			<if test="yhRefOwid !=null and yhRefOwid!='' ">
-				a.yh_ref_owid=#{yhRefOwid}
-			</if>
-		</where>
-	</select>
+    <select id="findStateByMap" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
+        SELECT
+        a.owid AS "owid",
+        a.xk_state AS "xkState",
+        a.state AS "state",
+        a.hk_state AS "hkState",
+        a.jtcy_state AS "jtcyState"
+        FROM bckj_biz_jbxx a
+        <include refid="bckjBizJbxxJoins"/>
+        <where>
+            <if test="yhRefOwid !=null and yhRefOwid!='' ">
+                a.yh_ref_owid=#{yhRefOwid}
+            </if>
+        </where>
+    </select>
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
         SELECT
         <include refid="bckjBizJbxxColumns"/>
         FROM bckj_biz_jbxx a
         <include refid="bckjBizJbxxJoins"/>
         <where>
-
+            <if test="createtime1 != null and createtime1 !=''  ">
+                AND a.createtime &gt;= #{createtime1}
+            </if>
+            <if test="createtime2 != null and createtime2 !=''  ">
+                AND a.createtime &lt;= #{createtime2}
+            </if>
+            <if test="xm != null and xm != ''">
+                AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="sfzh != null and sfzh != ''">
+                AND a.sfzh LIKE concat('%',#{sfzh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="prov != null and prov != ''">
+                AND a.prov LIKE concat('%',#{prov,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="city != null and city != ''">
+                AND a.city LIKE concat('%',#{city,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="area != null and area != ''">
+                AND a.area LIKE concat('%',#{area,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">
@@ -153,6 +175,8 @@
     <insert id="insert">
 		INSERT INTO bckj_biz_jbxx(
 			owid,
+			swyt_dlzh,
+			swyt_dlmm,
 			yh_ref_owid ,
 			sfzzm,
 			sfzfm,
@@ -185,9 +209,9 @@
 			jssm,
 			jsfj,
 			qtqk,
-				xk_state,
-	hk_state,
-	jtcy_state,
+			xk_state,
+	        hk_state,
+	        jtcy_state,
 			exp1,
 			exp2,
 			exp3,
@@ -212,6 +236,8 @@
 			state
 		) VALUES (
 			#{owid},
+			#{swytDlzh},
+			#{swytDlmm},
 			#{yhRefOwid},
 			#{sfzzm},
 			#{sfzfm},
@@ -275,6 +301,8 @@
     <update id="update">
 		UPDATE bckj_biz_jbxx SET 	
 			owid = #{owid},
+			swyt_dlzh =#{swytDlzh},
+			swyt_dlmm =#{swytDlmm},
 			 yh_ref_owid= #{yhRefOwid},
 			sfzzm = #{sfzzm},
 			sfzfm = #{sfzfm},
