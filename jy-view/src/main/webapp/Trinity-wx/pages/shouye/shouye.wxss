@@ -130,7 +130,6 @@ page {
 }
 
 .signUp {
-  display: table;
   width: 100%;
 }
 
