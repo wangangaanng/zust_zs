@@ -23,31 +23,67 @@ Page({
     faceBck: '',//身份证方面
     idType:"1",//1 身份证 2户籍
     houseHold:"",//户籍证明
+    showIdError:true,//显示
+    showHJError: true,//显示
   },
 
   //完善基本信息
   basicForm(e) {
+    let that = this.data;
+    let nullMark = 0; 
+    let imgError = '';//图片未传的提示
     const params = e.detail.value;
-    console.log(params);
+    //身份证（户籍）必传
+    if ((this.data.faceImg == "" || this.data.faceBck == "") && this.data.idType == "1") {
+      this.setData({
+        showIdError: false,
+      });
+      imgError= "身份证正反面必传";
+      nullMark=1;
+    }else{
+      this.setData({
+        showIdError: true,
+      });
+    }
+    if (this.data.houseHold == "" && this.data.idType=="2") {
+      this.setData({
+        showHJError: false,
+      });
+      imgError = "户籍证明必传";
+      nullMark = 1;
+    }else{
+      this.setData({
+        showHJError: true,
+      });
+    }
     //传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
       common.errorHash(this.WxValidate.errorList, this);
       console.log(this.data.errorList);
-      return false
+      return;
+    }else{
+      this.setData({
+        errorList: {}
+      });
+      common.toast(imgError, 'none', 2000)
+      if (nullMark==1){
+        return;
+      }
     }
+    console.log(params);
     var data = {
-      "xm": params.tel
+      "xm": params.name
       , "sfzh": params.name
-      , "mz": params.sex
-      , "xb": params.code
-      , "jtzz": params.surePsw //家庭住址
-      , "sfzzm": params.prov //身份证正面
-      , "sfzfm": params.city//身份证反面
-      , "hjzm": params.area//户籍地址
-      , "yx": params.major//邮箱
-      , "qq": params.major
-      , "lxdh": params.major//联系电话
-      , "yhRefOwid": params.major//用户owid
+      , "mz": params.idcard
+      , "xb": params.sex
+      , "jtzz": params.address 
+      , "sfzzm": that.faceImg //身份证正面
+      , "sfzfm": that.faceBck //身份证反面
+      , "hjzm": that.houseHold//户籍证明
+      , "yx": params.email//邮箱
+      , "qq": params.qq
+      , "lxdh": params.phone//联系电话
+      , "yhRefOwid": ''//用户owid
     }
     common.ajax('zustswyt/bckjBizJbxx/finishInfo', data, function (res) {
       if (res.data.backCode == 0) {

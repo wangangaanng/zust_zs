@@ -9,6 +9,10 @@ $(document).ready(function () {
     }
 })
 
+function wybm(){
+    window.open(base+"/wybm")
+}
+
 function keyLogin(){
     if (event.keyCode==13){
         searchXjh()
