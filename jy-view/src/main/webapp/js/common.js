@@ -126,9 +126,10 @@ function confirmDl(url,user) {
                 addCookie("qyOwid",data.bean.owid)
                 var obj={}
                 obj.qymc=data.bean.qymc;
+                obj.qyLxr=data.bean.qyLxr;
                 obj.qyLxrdh=data.bean.qyLxrdh;
                 obj.qyYx=data.bean.qyYx;
-                addCookie("qyInfo",obj);
+                addCookie("qyInfo",JSON.stringify(obj));
                 // addCookie("qyInfo",JSON.stringify(data.bean))
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
@@ -818,9 +819,14 @@ function formatNumber(n) {
 }
 
 function compareToday(d) {
-    var d1=new Date(d).getTime()
-    var td=new Date(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' 00:00:00').getTime()
-
+    var d1=(new Date(Date.parse(d.replace(/-/g,"/")))).getTime()
+    // var td=new Date(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' 00:00:00').getTime()
+    var start = new Date();
+    start.setHours(0);
+    start.setMinutes(0);
+    start.setSeconds(0);
+    start.setMilliseconds(0);
+    var td = start.getTime();
     if(d1<td) {
         return true
     }else{

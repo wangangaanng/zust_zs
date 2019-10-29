@@ -35,8 +35,8 @@
     <view class="conter-right-date">7.09-7.20</view>
   </view>
   <view class="conter-left">
-    <image src="../../static/sy7.png" class="cont-img"></image>
-    <view class="cont-name">浙江科技学院</view>
+    <image src="{{res.logo}}" class="cont-img"></image>
+    <view class="cont-name">{{res.xxmc}}</view>
     <view class="conter-left-ul">
       <text class="conter-left-li">浙江</text>
       <text class="conter-left-li">杭州</text>
@@ -44,14 +44,14 @@
     </view>
   </view>
   <view class="jieshao">
-  学校小和山校区位于杭州市西湖区西溪湿地畔，校园土地面积1000余亩，建筑面积47万平方米;安吉校区土地面积800亩，建筑面积16.5万平方米。
+  {{res.xcjs}}
   </view>
   <view class="signUp">
     <navigator class="button" url='../Process/Process'>我要报名</navigator>
-    <view class="text">报名专业:计算机科学与技术</view>
+    <view class="text">报名专业:{{res.bmzy}}</view>
   </view>
   <view class="step">
-  下一步：报名表、承诺书签字拍照上传
+  下一步：{{res.xybCz}}
   </view>
 </view>
 <view class="FQA">

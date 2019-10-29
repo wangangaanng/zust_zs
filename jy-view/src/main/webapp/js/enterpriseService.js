@@ -154,6 +154,7 @@ $(document).ready(function () {
                 required: true,
                 email: true
             },
+            qylxfs:"required",
             qyGsxz:"required",
             qyHylb:"required",
             qyGsgm:"required",
@@ -175,6 +176,7 @@ $(document).ready(function () {
                 required: "请填写",
                 email: "请填写正确电子邮箱"
             },
+            qylxfs: "请填写",
             qyGsxz: "请选择",
             qyHylb: "请选择",
             qyGsgm: "请选择",
