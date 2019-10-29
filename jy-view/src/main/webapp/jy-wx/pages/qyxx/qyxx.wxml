@@ -1,13 +1,13 @@
 
 <form bindsubmit="submitForm">
-  <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="企业名称" placeholder="输入内容" disabled required />
+  <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="企业名称" placeholder="输入内容" required />
 <van-cell-group>
-  <van-field value="{{form.qyTysh}}" name="qyTysh" input-align="right" disabled required label="企业代码" placeholder="组织机构代码或者统一信用码" />
+  <van-field value="{{form.qyTysh}}" name="qyTysh" input-align="right" required label="企业代码" placeholder="组织机构代码或者统一信用码" />
  </van-cell-group>
 
  <van-cell-group>
-  <van-field input-align="right" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" disabled required />
-  <van-field input-align="right" value="{{form.qyFrdbxm}}" name="qyFrdbxm" label="法人姓名" placeholder="输入内容" disabled required />
+  <van-field input-align="right" type="idcard" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.qyFrdbxm}}" name="qyFrdbxm" label="法人姓名" placeholder="输入内容" required />
 <van-cell required title="所在省市区" value="{{area}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" required />
   <view hidden="{{hidden1}}">
   <van-field input-align="right" value="{{form.qydz}}" name="qydz" label="公司地址" type="textarea" rows="1" autosize placeholder="输入内容" required />
@@ -32,8 +32,9 @@
    <view hidden="{{hidden1}}">
   <van-field required value="{{form.qyGsjs}}" name="qyGsjs" required label="公司介绍" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   </view>
-  <van-cell title="营业执照" wx:if="{{form.qyYyzzzp}}" >
-    <image class="qyYyzzzp" bindtap="preview" src="{{imgPath}}{{form.qyYyzzzp}}"></image>
+  <van-cell title="营业执照" >
+    <image class="qyYyzzzp" bindtap="preview" hidden="{{hasYyzz}}" src="{{yyzz}}"></image>
+    <van-button type="primary" size="small" bindtap="upload">上传营业执照</van-button>
   </van-cell>
 </van-cell-group>
 <input type="text" class="hiddenInput" name="qyProv" value="{{form.qyProv}}"></input>

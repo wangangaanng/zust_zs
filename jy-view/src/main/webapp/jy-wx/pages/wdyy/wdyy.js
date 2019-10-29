@@ -27,6 +27,11 @@ Page({
   onLoad: function (options) {
     myBmList(this);
   },
+  shenqin() {
+    wx.navigateTo({
+      url: '../wybm/wybm',
+    })
+  },
   onChange(e) {
     this.setData({
       key: e.detail

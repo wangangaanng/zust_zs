@@ -70,6 +70,14 @@ Page({
       return false
     }
 
+    if (params.qyFrsfz.trim().length!=18){
+      wx.showModal({
+        content: '法人身份证长度有误',
+        showCancel: false,
+      })
+      return false
+    }
+
     wx.showModal({
       title: '提示',
       content: `您的企业税号为${params.qyTysh}，法人身份证号为${params.qyFrsfz}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
@@ -118,7 +126,7 @@ Page({
         required: true,
       },
       qyFrsfz: {
-        required: true,
+        required: true
       },
       qyFrdbxm: {
         required: true
@@ -165,8 +173,7 @@ Page({
         required: true
       },
       qyGsjs: {
-        required: true,
-        maxlength: 200,
+        required: true
       },
       qyYyzzzp: {
         required: true
@@ -179,7 +186,7 @@ Page({
         required: '请填写企业统一信用代码'
       },
       qyFrsfz: {
-        required: '请填写法人身份证号',
+        required: '请填写法人身份证号'
       },
       qyFrdbxm: {
         required: '请填写法人姓名',
