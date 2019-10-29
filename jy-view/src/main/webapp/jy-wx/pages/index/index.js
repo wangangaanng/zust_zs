@@ -97,6 +97,16 @@ Page({
     // })
 
   },
+  onPullDownRefresh: function () {
+    var that = this;
+    getAdv(this);
+    getList1(this, '0');//职位
+    getList2(this, '2');//企业招聘公告
+    getList3(this, '3');//招聘会
+    getList4(this, '4');//宣讲会
+    //当逻辑执行完后关闭刷新    
+    wx.stopPullDownRefresh()
+  },
   onReachBottom: function () {
     var that = this;
     if (this.data.currentTab==0){
