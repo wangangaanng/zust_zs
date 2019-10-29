@@ -26,6 +26,7 @@ Page({
     areaList: utils.areaList,//全国省市区初始化数据
     areaShowBool:false,//显示pop
     time: '获取验证码', //倒计时
+    disabled: false,//获取验证码disabled
   },
 
   //注册表单提交
@@ -64,9 +65,9 @@ Page({
   onLoad: function (options) {
     this.initValidate();
   },
-  
+
   //获取验证码
-  getVerificationCode(){
+  sendCode(){
     common.getCode(this.data.form['tel'], 0, this);
   },
 

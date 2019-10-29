@@ -4,8 +4,8 @@
   },
   "pages": [
     "pages/login/login",
-    "pages/register/register",
     "pages/forgetPsw/forgetPsw",
+    "pages/register/register",
     "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
     "pages/Process/Process",

@@ -11,11 +11,12 @@ Page({
     loginPswType:true,
     surePswType: true,
     time: '获取验证码', //倒计时
-    mobile:''
+    tel:'',
+    disabled:false
   },
   //点击获取验证码
   sendCode() {
-    common.getCode(this.data.mobile,1,this);
+    common.getCode(this.data.tel,1,this);
   },
   changePswForm(e){
     const params = e.detail.value;
@@ -46,6 +47,10 @@ Page({
    */
   onLoad: function (options) {
     this.initValidate();
+    var currAccount = wx.getStorageSync("mobile");
+    this.setData({
+      tel: currAccount,
+    });
   },
 
   /**
@@ -113,7 +118,7 @@ Page({
   //获取手机号码
   telBlur(e) {
     this.setData({
-      mobile: e.detail.value
+      tel: e.detail.value
     });
   },
   initValidate() {
