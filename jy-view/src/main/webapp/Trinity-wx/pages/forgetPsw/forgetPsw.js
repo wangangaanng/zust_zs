@@ -11,7 +11,8 @@ Page({
     loginPswType:true,
     surePswType: true,
     time: '获取验证码', //倒计时
-    mobile:''
+    mobile:'',
+    disabled:false
   },
   //点击获取验证码
   sendCode() {

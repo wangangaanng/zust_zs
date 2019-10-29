@@ -78,7 +78,8 @@ function countDown(that){
   interval = setInterval(function () {
     currentTime--;
     that.setData({
-      time: currentTime + '秒'
+      time: currentTime + '秒',
+      disabled:true
     })
     if (currentTime <= 0) {
       clearInterval(interval)
