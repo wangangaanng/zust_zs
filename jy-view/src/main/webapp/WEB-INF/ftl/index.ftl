@@ -482,7 +482,7 @@
                 obj.qymc=data.bean.qymc;
                 obj.qyLxrdh=data.bean.qyLxrdh;
                 obj.qyYx=data.bean.qyYx;
-                addCookie("qyInfo",obj);
+                addCookie("qyInfo",JSON.stringify(obj));
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();
