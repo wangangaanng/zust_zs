@@ -47,14 +47,10 @@ function ajax(method, data, successMethod,hideload) {
 
 //获取验证码
 function getCode(mobile, type, that) {//that 小程序中的this 【type 0：注册 1：忘记密码 2：网站注册】
-  if (!mobile) {
-    toast('请填写手机号', 'none', 2000);
-    return;
-  }
-  if (mobile.length != '11') {
+  if (!(/^1[3456789]\d{9}$/.test(mobile))) {
     toast('请填写正确的手机号', 'none', 2000);
-    return;
-  }
+    return false;
+  } 
   //验证码发送ajax
   var data = {
     "swZh": mobile
