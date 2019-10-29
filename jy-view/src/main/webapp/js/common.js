@@ -567,7 +567,7 @@ function addCookie(name, value, expires, path, domain) {
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
     }else {
-        str += ";path="+base;// 指定可访问cookie的目录
+        str += ";path="+/;// 指定可访问cookie的目录
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域
