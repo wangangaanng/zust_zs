@@ -1,6 +1,8 @@
 {
   "navigationBarTitleText": "基本信息",
   "usingComponents": {
+    "van-radio": "vant-weapp/radio",
+    "van-radio-group": "vant-weapp/radio-group",
     "van-field": "vant-weapp/field",
     "van-popup": "vant-weapp/popup",
     "van-cell": "vant-weapp/cell",
