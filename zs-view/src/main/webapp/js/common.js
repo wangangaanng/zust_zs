@@ -33,11 +33,19 @@ function isTimeOut() {
 function login(url,user) {//1学生 0企业
     url=convertStr(url,'');
     var title='';
+    var label1="";
+    var label2="";
+    var strs=''
     if(user==0){
         title='企业登录'
+        label1='请输入社会统一信用码'
+        label2='请输入法人身份证后六位'
+        strs='<div class="regqy">还没有账号？<a href="'+base+'/enterpriseReg">注册</a></div>'
     }else{
         user=1;//默认学生
         title='学生登录'
+        label1='请输入身份证或学号'
+        label2='请输入身份证后六位'
     }
     var layer1;
     layer1=layer.open({
@@ -45,11 +53,11 @@ function login(url,user) {//1学生 0企业
         title:title,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '240px'], //宽高
-        content: '<div class="lxr-modal"><div class="row">\n' +
+        content: '<div class="lxr-modal ohidden"><div class="row">\n' +
         '                            <div class="form-group">\n' +
         '                                <label for="lxr" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">账号：</label>\n' +
         '                                <div class="col-sm-6">\n' +
-        '                                    <input type="text" class="form-control" id="username" name="lxr" placeholder="" autocomplete="off">\n' +
+        '                                    <input type="text" class="form-control" id="username" placeholder="'+label1+'" name="lxr" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                        </div>\n' +
@@ -57,13 +65,14 @@ function login(url,user) {//1学生 0企业
         '                            <div class="form-group">\n' +
         '                                <label for="lxdh" class="col-sm-3 col-sm-offset-1 control-label text-right" style="line-height: 34px;">密码：</label>\n' +
         '                                <div class="col-sm-6">\n' +
-        '                                    <input type="password" class="form-control" id="psd" name="lxdh" placeholder="" autocomplete="off">\n' +
+        '                                    <input type="password" class="form-control" id="psd" placeholder="'+label2+'" name="lxdh" placeholder="" autocomplete="off">\n' +
         '                                </div>\n' +
         '                            </div>\n' +
         '                        </div><div class="row btn-yd">\n' +
         '                            <div class="col-md-9 col-sm-offset-1 text-center">\n' +
         '                                <button class="btn green" onclick="confirmDl(\''+url+'\','+user+')">确定</button>\n' +
-        '                            </div>\n' +
+        '                            </div>\n' +strs+
+
         '                        </div></div>'
     });
 }
@@ -89,7 +98,7 @@ function confirmDl(url,user) {
         }
         ajax("zustcommon/bckjBizYhxx/logIn", jsonObj, function (data) {
             if(data.backCode==0){
-                loginout()
+                loginout2()
                 addCookie("stuOwid",data.bean.owid)
                 addCookie("stuSjh",data.bean.sjh)
                 addCookie("stuXm",data.bean.xm)
@@ -113,7 +122,7 @@ function confirmDl(url,user) {
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
             finishLoad()
             if(data.backCode==0){
-                loginout()
+                loginout2()
                 addCookie("qyOwid",data.bean.owid)
                 addCookie("qyInfo",JSON.stringify(data.bean))
                 addCookie("userType","0") //1学生 0企业
@@ -130,23 +139,46 @@ function confirmDl(url,user) {
     }
 
 }
+function loginout2() {
+    if(base){
+        document.cookie  = "stuXm=;path="+base;
+        document.cookie  = "qyInfo=;path="+base;
+        document.cookie  = "qyOwid=;path="+base;
+        document.cookie  = "stuSjh=;path="+base;
+        document.cookie  = "stuOwid=;path="+base;
+        document.cookie  = "userType=;path="+base;
+        document.cookie  = "yhOwid=;path="+base;
+    }else{
+        document.cookie  = "stuXm=;path=/";
+        document.cookie  = "qyInfo=;path=/";
+        document.cookie  = "qyOwid=;path=/";
+        document.cookie  = "stuSjh=;path=/";
+        document.cookie  = "stuOwid=;path=/";
+        document.cookie  = "userType=;path=/";
+        document.cookie  = "yhOwid=;path=/";
+    }
+}
 function loginout() {
-    // delCookie("qyInfo");
-    // delCookie("qyOwid");
-    // delCookie("stuSjh");
-    // delCookie("stuOwid");
-    document.cookie  = "stuXm=;path=/";
-    document.cookie  = "qyInfo=;path=/";
-    document.cookie  = "qyOwid=;path=/";
-    document.cookie  = "stuSjh=;path=/";
-    document.cookie  = "stuOwid=;path=/";
-    document.cookie  = "userType=;path=/";
-    document.cookie  = "yhOwid=;path=/";
-    window.location.href='/'
-    // location.reload();
+    if(base){
+        document.cookie  = "stuXm=;path="+base;
+        document.cookie  = "qyInfo=;path="+base;
+        document.cookie  = "qyOwid=;path="+base;
+        document.cookie  = "stuSjh=;path="+base;
+        document.cookie  = "stuOwid=;path="+base;
+        document.cookie  = "userType=;path="+base;
+        document.cookie  = "yhOwid=;path="+base;
+    }else{
+        document.cookie  = "stuXm=;path=/";
+        document.cookie  = "qyInfo=;path=/";
+        document.cookie  = "qyOwid=;path=/";
+        document.cookie  = "stuSjh=;path=/";
+        document.cookie  = "stuOwid=;path=/";
+        document.cookie  = "userType=;path=/";
+        document.cookie  = "yhOwid=;path=/";
+    }
+    window.location.href=base+"/"
 }
 
-// var localUrl = 'http://www.hwhautomall.com/ajax/executeAPI';
 var userKey = '';
 function ajax(method, data, successMethod, pageNo, pageSize) {
         $.ajax({
@@ -543,7 +575,7 @@ function AntiSqlValidAll(val,successMethod ) {
 
 }
 
-//添加Cookie 时间以小时计
+// 添加Cookie 时间以小时计
 function addCookie(name, value, expires, path, domain) {
     var str = name + "=" + escape(value);
     if (expires !== "" && expires !== null && expires !== undefined) {
@@ -558,7 +590,12 @@ function addCookie(name, value, expires, path, domain) {
     if (path !== "" && path !== null && path !== undefined) {
         str += ";path=" + path;// 指定可访问cookie的目录
     }else {
-        str += ";path=/";// 指定可访问cookie的目录
+        if(base){
+            str += ";path="+base;// 指定可访问cookie的目录
+        }else{
+            str += ";path=/";// 指定可访问cookie的目录
+        }
+
     }
     if (domain !== "" && domain !== null && domain !== undefined) {
         str += ";domain=" + domain;// 指定可访问cookie的域
@@ -759,3 +796,117 @@ $.fn.serializeObject = function() {
     });
     return o;
 };
+function formatTime(date) {
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+}
+function formatNumber(n) {
+    n = n.toString()
+    return n[1] ? n : '0' + n
+}
+
+function compareToday(d) {
+    var d1=new Date(d).getTime()
+    var td=new Date(new Date().getFullYear()+'-'+(new Date().getMonth()+1)+'-'+new Date().getDate()+' 00:00:00').getTime()
+
+    if(d1<td) {
+        return true
+    }else{
+        return false
+    }
+}
+
+function isIdCardNo(num) {
+    var factorArr = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5,8, 4, 2, 1);
+    var parityBit = new Array("1", "0", "X", "9", "8", "7", "6", "5", "4","3", "2");
+    var varArray= new Array();
+    var intValue;
+    var lngProduct = 0;
+    var intCheckDigit;
+    var intStrLen = num.length;
+    var idNumber= num;
+    //initialize
+    if((intStrLen != 15) && (intStrLen !=18)) {
+        return false;
+    }
+    // check andset value
+    for (i = 0;i < intStrLen; i++) {
+        varArray[i] = idNumber.charAt(i);
+        if ((varArray[i] < '0' || varArray[i]> '9') && (i != 17)){
+            return false;
+        } else if (i < 17) {
+            varArray[i] = varArray[i] * factorArr[i];
+        }
+    }
+
+    if(intStrLen == 18) {
+        //check date
+        var date8 = idNumber.substring(6, 14);
+        if (isDate8(date8) == false) {
+            return false;
+        }
+        // calculate the sum of the products
+        for (var i = 0; i < 17; i++) {
+            lngProduct = lngProduct + varArray[i];
+        }
+        // calculate the check digit
+        intCheckDigit = parityBit[lngProduct % 11];
+        // check last digit
+        if (varArray[17] != intCheckDigit) {
+            return false;
+        }
+    }
+    else{       //length is 15
+                //check date
+        var date6 = idNumber.substring(6, 12);
+        if (isDate6(date6) == false) {
+            return false;
+        }
+    }
+    return true;
+}
+function isDate6(sDate) {
+    if(!/^[0-9]{6}$/.test(sDate)) {
+        return false;
+    }
+    var year,month, day;
+    year =sDate.substring(0, 4);
+    month =sDate.substring(4, 6);
+    if (year< 1700 || year > 2500) {
+        return false
+    }
+    if (month< 1 || month > 12){
+        return false
+    }
+    return true
+}
+
+function isDate8(sDate) {
+    if(!/^[0-9]{8}$/.test(sDate)) {
+        return false;
+    }
+    var year,month, day;
+    year =sDate.substring(0, 4);
+    month =sDate.substring(4, 6);
+    day =sDate.substring(6, 8);
+    var iaMonthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,31]
+    if (year< 1700 || year > 2500){
+        return false
+    }
+    if (((year %4 == 0) && (year % 100 != 0)) ||(year % 400 == 0)){
+        iaMonthDays[1] = 29;
+    }
+    if (month< 1 || month > 12){
+        return false
+    }
+    if (day< 1 || day > iaMonthDays[month - 1]){
+        return false
+    }
+    return true
+}
