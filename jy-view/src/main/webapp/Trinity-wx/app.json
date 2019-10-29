@@ -5,6 +5,7 @@
   "pages": [
     "pages/login/login",
     "pages/register/register",
+    "pages/forgetPsw/forgetPsw",
     "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
     "pages/Process/Process",
@@ -15,7 +16,6 @@
     "pages/examTip/examTip",
     "pages/payOline/payOline",
     "pages/majorExam/majorExam",
-    "pages/forgetPsw/forgetPsw",
     "pages/drawGroup/drawGroup",
     "pages/basicInfo/basicInfo",
     "pages/uploadSignature/uploadSignature",
