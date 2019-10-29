@@ -480,6 +480,7 @@
 //                addCookie("qyInfo",data.bean.qymc)
                 var obj={}
                 obj.qymc=data.bean.qymc;
+                obj.qyLxr=data.bean.qyLxr;
                 obj.qyLxrdh=data.bean.qyLxrdh;
                 obj.qyYx=data.bean.qyYx;
                 addCookie("qyInfo",JSON.stringify(obj));
