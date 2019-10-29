@@ -231,7 +231,7 @@ header .subnav-list li a{
     width: 86px;
     height: 86px;
     padding: 5px;
-    border: 1px solid #f3f3f3;
+    /*border: 1px solid #f3f3f3;*/
 }
 
 .ewm-border img {
@@ -241,7 +241,7 @@ header .subnav-list li a{
 
 .ewmxq {
     float: left;
-    margin-right: 20px;
+    margin-right: 40px;
 }
 
 .ewmxq:last-child {

@@ -87,6 +87,12 @@ Page({
             qflbName: qflbName,
             result: res.data.bean
           })
+        }else{
+          wx.showToast({
+            title: '未查询到您的档案数据',
+            icon: 'none',
+            duration: 2000
+          })
         }
 
       } else {

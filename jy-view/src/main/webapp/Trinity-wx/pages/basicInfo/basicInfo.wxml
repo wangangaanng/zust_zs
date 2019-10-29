@@ -4,37 +4,82 @@
 <view class="com-wrap">
   <view class="com-title">基本信息</view>
   <view class="cell-wrap">
-    <view class="sm-title">拍摄二代身份证或者户籍证明，识别身份证信息
-      <i class=" iconfont icon-tishi"></i>
+    <view class="sm-title">
+      <i class=" iconfont icon-tishi"></i>拍摄二代身份证(没有身份证请上传户籍证明)，识别身份证信息</view>
+
+    <van-field label="证件类型" error-message="" disabled class="id-type_wrap" border="{{false}}">
+      <van-radio-group value="{{idType}}" name="idType" bind:change="idTypeSelect" slot="right-icon" class="select-group">
+        <van-radio name="1" checked-color="#26b887">身份证</van-radio>
+        <van-radio name="2" checked-color="#26b887">户籍</van-radio>
+      </van-radio-group>
+    </van-field>
+    <!-- 证件类型身份证 S-->
+    <view wx:if="{{idType=='1'}}">
+      <view class="img-null_tip">身份证正反面必传</view>
+      <view class="btn-upload" bindtap='takePhoto' data-type="2">
+        <view wx:if="{{faceImg!=''}}">
+          <image src="{{faceImg}}"></image>
+        </view>
+        <view wx:elif="{{faceImg==''}}">
+          <view class="btn-upload_wrap">
+            <i class=" iconfont icon-paizhao"></i>
+            <view class="btn-txt">点击拍摄身份证正面（人像面）</view>
+          </view>
+        </view>
+      </view>
+      <view class="btn-upload" style="margin-top:28rpx;" bindtap='takePhoto' data-type="3">
+        <view wx:if="{{faceBck!=''}}">
+          <image src="{{faceBck}}"></image>
+        </view>
+        <view wx:elif="{{faceBck==''}}">
+          <view class="btn-upload_wrap">
+            <i class=" iconfont icon-paizhao"></i>
+            <view class="btn-txt">点击拍摄身份证反面（国徽面）</view>
+          </view>
+        </view>
+      </view>
     </view>
-    <view class="btn-upload">
-      <i class=" iconfont icon-paizhao"></i>
-      <view class="btn-txt">点击拍摄身份证正面/户籍证明</view>
+    <!-- 证件类型身份证 E-->
+
+    <!-- 证件类型户籍 S-->
+    <view wx:if="{{idType=='2'}}">
+      <view class="img-null_tip">户籍证明必传</view>
+      <view class="btn-upload" bindtap='takePhoto' data-type="1">
+        <view wx:if="{{houseHold!=''}}">
+          <image src="{{faceBck}}"></image>
+        </view>
+        <view wx:elif="{{houseHold==''}}">
+          <view class="btn-upload_wrap">
+            <i class=" iconfont icon-paizhao"></i>
+            <view class="btn-txt">点击拍摄户籍证明</view>
+          </view>
+        </view>
+      </view>
     </view>
-    <view class="btn-upload" style="margin-top:28rpx;">
-      <i class=" iconfont icon-paizhao"></i>
-      <view class="btn-txt">点击拍摄身份证国徽面</view>
-    </view>
+    <!-- 证件类型户籍 E-->
+
   </view>
 </view>
 
 <form bindsubmit="basicForm" class="form-wrap">
-  <van-cell-group class="shadow-wrap">
-    <van-field value="{{ name }}" name="name" clearable label="姓名" placeholder="请输入用姓名" error-message="{{errorList['name'].msg}}"/>
-    <van-field value="{{ idcard }}" name="idcard" clearable label="身份证号" placeholder="请输入身份证号码" error-message="{{errorList['idcard'].msg}}"/>
-    <van-field label="性别" error-message="" disabled>
-      <van-radio-group value="{{sex}}" name="sex" bind:change="sexSelect" slot="right-icon" class="select-group">
-        <van-radio name="1" checked-color="#26b887">男</van-radio>
-        <van-radio name="2" checked-color="#26b887">女</van-radio>
-      </van-radio-group>
-    </van-field>
-    <van-field value="{{ race }}" name="race" clearable label="民族" placeholder="请选择民族" error-message="{{errorList['race'].msg}}"/>
-    <van-field value="{{ address }}" name="address" clearable label="通讯地址" placeholder="请输入通讯地址" error-message="{{errorList['address'].msg}}"/>
-    <van-field value="{{ phone }}" name="phone" clearable label="联系电话" placeholder="请输入联系电话" error-message="{{errorList['phone'].msg}}"/>
-    <van-field value="{{ tel }}" name="tel" clearable label="手机" placeholder="请输入手机" error-message="{{errorList['tel'].msg}}"/>
-    <van-field value="{{ email }}" name="email" label="电子邮箱" placeholder="请输入电子邮箱" error-message="{{errorList['email'].msg}}"/>
-    <van-field value="{{ qq }}" name="qq" clearable label="QQ号" placeholder="请输入QQ号" error-message="{{errorList['qq'].msg}}"/>
-  </van-cell-group>
+  <view class="shadow-wrap">
+    <van-cell-group>
+      <van-field value="{{ name }}" name="name" clearable label="姓名" placeholder="请输入用姓名" error-message="{{errorList['name'].msg}}" />
+      <van-field value="{{ idcard }}" name="idcard" clearable label="身份证号" placeholder="请输入身份证号码" error-message="{{errorList['idcard'].msg}}" />
+      <van-field label="性别" error-message="" disabled>
+        <van-radio-group value="{{sex}}" name="sex" bind:change="sexSelect" slot="right-icon" class="select-group">
+          <van-radio name="1" checked-color="#26b887">男</van-radio>
+          <van-radio name="2" checked-color="#26b887">女</van-radio>
+        </van-radio-group>
+      </van-field>
+      <van-field value="{{ race }}" name="race" clearable label="民族" placeholder="请选择民族" error-message="{{errorList['race'].msg}}" />
+      <van-field value="{{ address }}" name="address" clearable label="通讯地址" placeholder="请输入通讯地址" error-message="{{errorList['address'].msg}}" />
+      <van-field value="{{ phone }}" name="phone" clearable label="联系电话" placeholder="请输入联系电话" error-message="{{errorList['phone'].msg}}" />
+      <van-field value="{{ tel }}" name="tel" clearable label="手机" placeholder="请输入手机" error-message="{{errorList['tel'].msg}}" />
+      <van-field value="{{ email }}" name="email" label="电子邮箱" placeholder="请输入电子邮箱" error-message="{{errorList['email'].msg}}" />
+      <van-field value="{{ qq }}" name="qq" clearable label="QQ号" placeholder="请输入QQ号" error-message="{{errorList['qq'].msg}}" />
+    </van-cell-group>
+  </view>
   <!-- 按钮 -->
   <view class="main-btn_wrap main-btn_wrap button">
     <button formType="submit">下一步，完善联系人</button>
