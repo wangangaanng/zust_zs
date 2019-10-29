@@ -98,10 +98,6 @@
             <view class="td td-name"  style="width:180rpx;">举办时间：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}} {{result.zphJtsj}}</view>
           </view>
-          <!-- <view class="tr" wx:if="{{result.zphJtsj}}">
-            <view class="td td-name"  style="width:180rpx;">举办时长：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJtsj}}</view>
-          </view> -->
           <view class="tr">
             <view class="td td-name"  style="width:180rpx;">具体城市：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwCity}}</view>

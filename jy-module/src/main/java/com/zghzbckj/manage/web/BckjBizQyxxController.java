@@ -319,6 +319,33 @@ public class BckjBizQyxxController extends BaseController {
         }
     }
 
+
+    /**
+     * <p>功能描述:录入企业信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/10/29</li>
+     * </ul>
+     */
+    @RequestMapping(value = "recordQyxxInfo",method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordQyxxInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+                return bckjBizQyxxService.recordQyxxInfo(dataMap.get("path").toString());
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
   
 
 

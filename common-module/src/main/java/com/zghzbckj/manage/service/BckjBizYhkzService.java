@@ -202,7 +202,7 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
         this.dao.updateSudentInfo(bckjBizYhkz);
     }
 
-
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
     public void deleteByYhRefOwid(String yhRefOwid) {
         this.dao.deleteByYhRefOwid(yhRefOwid);
     }

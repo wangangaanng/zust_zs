@@ -14,6 +14,8 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.CacheUtil;
+import com.zghzbckj.base.util.IdGen;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
@@ -21,17 +23,17 @@ import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
 import com.zghzbckj.manage.web.MessageUtil;
+import com.zghzbckj.util.ExcelUtils;
+import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.util.TextUtils;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -52,6 +54,8 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     BckjBizJobDao jobDao;
     @Autowired
     BckjBizJybmService jybmService;
+
+
 
     @Override
     public BckjBizQyxx get(String owid) {
@@ -201,7 +205,6 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
             saveOrUpdate(company);
         } catch (Exception e) {
@@ -415,5 +418,121 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             }
         }
         return resluts;
+    }
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage recordQyxxInfo(String path) {
+        //文件路径
+        String filename = path;
+        List<List<String>> list = getExcelLists(filename);
+        HashMap<Object, Object> resMap = Maps.newHashMap();
+        List<BckjBizQyxx> qyxxes= Lists.newArrayList();
+        List<String> qyshs=Lists.newArrayList();
+        List<Map> gsxzs = getDicListMapByType(20000);//公司性质20000
+        List<Map> gshys = getDicListMapByType(20001);//公司行业20001
+        List<Map> gsgms = getDicListMapByType(20002);//公司规模20002
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                //学生信息录入
+                List<String> cellList = list.get(i);//行循环
+                String qyTysh = cellList.get(0); //企业统一税号
+                //如果企业统一税号为空则退出
+                if (com.ourway.base.utils.TextUtils.isEmpty(qyTysh)) {
+                    break;
+                }
+                qyshs.add(qyTysh);
+                resMap.put("qyTysh", qyTysh);
+                String qyFrsfz = cellList.get(1); //法人身份证号
+                resMap.put("qyFrsfz", qyFrsfz);
+                String qyFrdbxm = cellList.get(2); //法人姓名
+                resMap.put("qyFrdbxm", qyFrdbxm);
+                String qymc = cellList.get(3); //公司名称
+                resMap.put("qymc", qymc);
+                String qyProv = cellList.get(4); //所在省份
+                resMap.put("qyProv", qyProv);
+                String qyCity = cellList.get(5); //所在市
+                resMap.put("qyCity",qyCity);
+                String qyArea = cellList.get(6); //所在区
+                resMap.put("qyArea",qyArea);
+                String qyZczj = cellList.get(7); //公司注册资金
+                resMap.put("qyZczj",qyZczj);
+                String qydz = cellList.get(8); //公司地址
+                resMap.put("qydz",qydz);
+                String qyLxr = cellList.get(9); //联系人
+                resMap.put("qyLxr",qyLxr);
+                String qyLxrdh = cellList.get(10); //联系方式
+                resMap.put("qyLxrdh", qyLxrdh);
+                String qylxfs = cellList.get(11); //企业固话
+                resMap.put("qylxfs", qylxfs);
+                String qyYx = cellList.get(12); //企业邮箱
+                resMap.put("qyYx",qyYx);
+                String qyGsxz = cellList.get(13); //公司性质
+                for (Map map:gsxzs){
+                    if(map.get("val2").equals(qyGsxz))
+                        resMap.put("qyGsxz", map.get("val1"));
+                }
+                String qyHylb = cellList.get(14); //行业类别
+                for (Map map:gshys){
+                    if(map.get("val2").equals(qyHylb))
+                        resMap.put("qyHylb", map.get("val1"));
+                }
+                String qyGsgm = cellList.get(15); //公司规模
+                for (Map map:gsgms){
+                    if(map.get("val2").equals(qyGsgm))
+                        resMap.put("qyGsgm", map.get("val1"));
+                }
+                String qyGsjs = cellList.get(16); //公司介绍
+                resMap.put("qyGsjs", qyGsjs);
+                BckjBizQyxx bckjBizQyxx=new BckjBizQyxx();
+                MapUtil.easySetByMap(resMap, bckjBizQyxx);
+                BckjBizQyxx oneCompanyByTysh = getOneCompanyByTysh(bckjBizQyxx);
+                if(!TextUtils.isEmpty(oneCompanyByTysh)){
+                    bckjBizQyxx.setOwid(oneCompanyByTysh.getOwid());
+                }
+                bckjBizQyxx.setState(2);
+                qyxxes.add(bckjBizQyxx);
+                }
+            }
+            //判断excel表中是否存在税号
+            Set<String> qyshSet= new HashSet<>();
+            int count = 1;
+            for (String qysh : qyshs) {
+                qyshSet.add(qysh);
+                if (qyshSet.size() != count++){
+                    return ResponseMessage.sendOK("导入失败,企业税号存在重复:"+qysh);
+                }
+            }
+            //开始批量更新
+            for (BckjBizQyxx bckjBizQyxx : qyxxes) {
+                saveOrUpdate(bckjBizQyxx);
+            }
+
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    private BckjBizQyxx getOneCompanyByTysh(BckjBizQyxx bckjBizQyxx) {
+        return this.dao.getOneCompanyByTysh(bckjBizQyxx);
+    }
+
+
+
+
+
+
+    /**
+     * 读取excel
+     * @param filename
+     * @return
+     */
+    public static List<List<String>> getExcelLists(String filename) {
+        ExcelUtils poi = new ExcelUtils();
+        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = poi.read(filename);
+        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        return list;
+    }
+
+
+    public List<Map> getDicListMapByType(Integer i) {
+        return this.dao.getDicListMapByType(i);
     }
 }

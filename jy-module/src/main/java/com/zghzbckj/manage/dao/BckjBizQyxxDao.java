@@ -37,4 +37,10 @@ public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
     int updateFile(Map<String, Object> value);
 
     List<Map> getSysFiles(Map mapParam);
+
+    List<BckjBizQyxx> getOldQyxx();
+
+    List<Map> getDicListMapByType(Integer i);
+
+    BckjBizQyxx getOneCompanyByTysh(BckjBizQyxx bckjBizQyxx);
 }
