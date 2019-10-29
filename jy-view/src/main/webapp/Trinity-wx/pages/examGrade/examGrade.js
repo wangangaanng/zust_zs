@@ -131,10 +131,12 @@ Page({
           that.setData({
             km: res.data.bean
           })
+          that.getHkcj('1')
         } else if (dicType == '10023') {
           that.setData({
             xm: res.data.bean
           })
+          that.getHkcj('2')
         }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -183,6 +185,40 @@ Page({
         wx.navigateTo({
           url: '../selectExamInfo/selectExamInfo',
         })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  //完善学考等第
+  getHkcj: function (lx) {
+    let that = this;    
+    let data = {
+      yhRefOwid: yhRefOwid,
+      lx: lx
+    }
+    common.ajax('zustswyt/bckjBizCjxx/getHkcj', data, function (res) {
+      if (res.data.backCode == 0) {
+        if (lx=='1'){
+          let km = that.data.km;
+          for(let i in res.data.bean){
+            if (km[i].dicVal1 == res.data.bean[i].kmbh)
+              km[i].value = res.data.bean[i].kmcj
+          }
+          that.setData({
+            km
+          })
+        }
+        if (lx == '2') {
+          let xm = that.data.xm;
+          for (let i in res.data.bean) {
+            if (xm[i].dicVal1 == res.data.bean[i].kmbh)
+              xm[i].value = res.data.bean[i].kmcj
+          }
+          that.setData({
+            xm
+          })
+        }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
