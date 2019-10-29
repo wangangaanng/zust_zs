@@ -45,6 +45,7 @@ function ajax(method, data, successMethod,hideload) {
 }
 
 
+// author:2515421994@qq.com,time:2019.10.29++++++++++++++++++++++++++++++++++++++++++++++++++++
 //获取验证码
 function getCode(mobile, type, that) {//that 小程序中的this 【type 0：注册 1：忘记密码 2：网站注册】
   if (!(/^1[3456789]\d{9}$/.test(mobile))) {
@@ -88,6 +89,19 @@ function countDown(that){
   }, 1000)
 }
 
+//重组errorList
+function errorHash(err,that){
+  var obj2 = {};
+  for (var i = 0; i < err.length; i++) {
+    var obj1 = {};
+    obj1.msg = err[i].msg;
+    obj2[err[i].param] = obj1;
+  }
+  that.setData({
+    errorList: obj2
+  });
+}
+//author:2515421994@qq.com,time:2019.10.29 end++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //获取数组中字符串的位置
 function indexOf(arr, str) {
@@ -151,5 +165,8 @@ exports.emptyCheck = emptyCheck
 exports.indexOf = indexOf
 exports.ajax = ajax
 exports.convertStr = convertStr
-exports.getCode = getCode
+
+//author:2515421994@qq.com,time:2019.10.29 获取验证码 重组errorList
+exports.getCode = getCode 
+exports.errorHash = errorHash
 

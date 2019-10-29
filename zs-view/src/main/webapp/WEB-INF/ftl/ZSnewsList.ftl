@@ -15,22 +15,27 @@
 
 <body>
     <#include "com/ZSheader.ftl">
+    <img class="ejgg" style="width:100%;height:300px;" src="${base}/img/loginbackgrouind2.jpg">
+    <div class="clear"></div>
         <div class="main">
             <div class="container">
-                <#include "com/route.ftl">
                 <div class="content">
                    <#include "com/subMenu.ftl">
                     <div class="content-list">
-                        <div class="search-bar">
-                            <div class="search-label">搜索关键字：</div>
-                            <div class="input-group search-input">
-                                <input type="text" id="key" class="form-control" placeholder="输入内容" value="${key!''}">
-                                <div class="input-group-btn">
-                                    <button onclick="search()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
+                        <div class="nav-bar">
+                        <#include "com/route.ftl">
+                            <div class="search-bar">
+                                <div class="input-group search-input">
+                                    <input type="text" id="key" class="form-control" placeholder="搜索关键字" value="${key!''}">
+                                    <div class="input-group-btn">
+                                        <button onclick="search()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
+                                    </div>
                                 </div>
                             </div>
+                            <div style="clear:both;"></div>
                         </div>
+
                         <div class="news-list">
                             <ul>
                                 <#if (result??)&&(result.records??)&&(result.records?size>0)>

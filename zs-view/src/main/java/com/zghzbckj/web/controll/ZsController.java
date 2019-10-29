@@ -221,10 +221,11 @@ public class ZsController {
      *<li>@date 2019/10/28 11:02</li>
      *</ul>
      */
-    @RequestMapping(value = "lqtzscx", method = RequestMethod.GET)
+    @RequestMapping(value = "lqtzscx/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView zsLqtzscx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlqtzscx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -243,10 +244,11 @@ public class ZsController {
      *<li>@date 2019/10/28 15:23</li>
      *</ul>
      */
-    @RequestMapping(value = "zsjhcx", method = RequestMethod.GET)
+    @RequestMapping(value = "zsjhcx/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView zsjhcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzsjhcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
@@ -265,15 +267,16 @@ public class ZsController {
      *<li>@date 2019/10/28 15:26</li>
      *</ul>
      */
-    @RequestMapping(value = "zxtw", method = RequestMethod.GET)
-    public ModelAndView zxtw(HttpServletRequest request, ModelAndView view) {
+    @RequestMapping(value = "zxtw/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzxtw");
         view.addObject("header", getHeader().getBean());
-//        view.addObject("secondDir",secondDir);
-//        view.addObject("thirdDir",thirdDir);
-//        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
-//        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
-//        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        view.addObject("footer",getFooter().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 }

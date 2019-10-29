@@ -17,3 +17,4 @@ page{background: rgb(245,245,245)}
 .van-cell__title,.van-field__input{
   font-size: 30rpx;
 }
+.van-field__error-message{text-align: right!important}
