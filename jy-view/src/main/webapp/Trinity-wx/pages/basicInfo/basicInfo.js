@@ -58,8 +58,8 @@ Page({
     }
     //传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
+      const error = this.WxValidate.errorList[0];
       common.errorHash(this.WxValidate.errorList, this);
-      console.log(this.data.errorList);
       return;
     }else{
       this.setData({

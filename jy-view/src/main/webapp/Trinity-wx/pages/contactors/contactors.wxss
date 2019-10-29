@@ -3,3 +3,6 @@ page{background: rgb(245,245,245)}
 .van-cell{padding: 10px 0px!important;}
 .van-field__input{text-align: right!Important; color: #595959!important}
 .van-cell:after{left:0px!important;}
+.van-field__error-message{text-align: right!important;}
+.select-group{display: flex;}
+.van-radio{margin-left: 66rpx;}
