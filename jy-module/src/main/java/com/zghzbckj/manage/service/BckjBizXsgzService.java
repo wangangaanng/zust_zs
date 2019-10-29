@@ -205,20 +205,23 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         }
         //如果为新的签到
         if (Integer.parseInt(datamap.get("xxlb").toString()) == 1) {
-            //如果需要报名的
-            if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
-                //根据用户和job找到报名信息
-                BckjBizJybm bckjbizjybm = bckjBizJybmService.getOneByJobHy(datamap);
-                //报名类型不为学生或。。。。。。
-                if (bckjbizjybm.getBmlx() != 1 || bckjbizjybm.getSfxz() != 1 || bckjbizjybm.getState() != 1) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
+            //如果职来职往 学生不用报名
+            if(bckjBizJob.getZwlx()!=3){
+                //如果需要报名的
+                if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
+                    //根据用户和job找到报名信息
+                    BckjBizJybm bckjbizjybm = bckjBizJybmService.getOneByJobHy(datamap);
+                    //报名类型不为学生或。。。。。。
+                    if (bckjbizjybm.getBmlx() != 1 || bckjbizjybm.getState() != 1) {
+                        return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
+                    }
                 }
             }
             //如果不需要签到的
             if (bckjBizJob.getZphSfqd() != null && bckjBizJob.getZphSfqd() == 0) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
             }
-            //判断是否已经定的
+            //判断是否已经定点
             if (bckjBizJob.getExp5().equals("1")) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "管理员还未设置签到点位，无法签到");
             }
@@ -235,13 +238,13 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 }
             }
             //判断签到时间是否在举办时间区间内
-            if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
+         /*   if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
                 String zphJtsj = bckjBizJob.getZphJtsj();
                 String[] splits = zphJtsj.split("-");
                 if (!JudgeInTimeIntervalUtils.judgeInTimeIntervalUtils(splits[0], splits[1])) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
                 }
-            }
+            }*/
             //根据经纬度判断距离
             ValidateMsg msg = ValidateUtils.isEmpty(datamap, "gpsJd", "gpsWd");
             if (!msg.getSuccess()) {

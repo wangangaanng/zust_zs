@@ -526,7 +526,7 @@ function operateFormatterZph2(value, row, index) {
         },
         'click .zphxq': function (e, value, row, index) {
             if(!isTimeOut()) {
-                window.open("${base}/positionDetail/qy/" + row.owid)
+                window.open("${base}/positionDetail/" + row.owid)
             }
         },
         'click .remove': function (e, value, row, index) {

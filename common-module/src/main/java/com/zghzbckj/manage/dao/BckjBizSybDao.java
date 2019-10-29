@@ -19,11 +19,10 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
 
-    List<Object> getSybList(Map<String, Object> dataMap);
 
     BckjBizSyb getOne(String owid);
 
-    Map<String,Object> getBynfByXsxh(Map<String,Object> dataMap);
+
 
     List<Map<String, Object>> getByTypeSort(Map<String, Object> dataMap);
 

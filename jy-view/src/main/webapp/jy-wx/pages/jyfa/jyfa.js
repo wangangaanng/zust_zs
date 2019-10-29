@@ -145,6 +145,7 @@ Page({
       this.showModal(error)
       return false
     }
+    params.owid = this.data.owid
     params.bdkssj = this.data.bdkssj.substring(0,10)
     params.bdjssj = this.data.bdjssj.substring(0, 10)
     common.ajax('zustcommon/bckjBizJyscheme/saveOneJyschemeXcx', params, function (res) {
