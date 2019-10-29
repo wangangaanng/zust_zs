@@ -168,7 +168,7 @@
                                 <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="">
                             </#if>
                         </div>
-                        <label for="qylxfs" class="col-sm-2 control-label">固定电话：</label>
+                        <label for="qylxfs" class="col-sm-2 control-label">固定电话<span class="red">*</span>：</label>
                         <div class="col-sm-3">
                             <#if (cInfo.qylxfs)??>
                                 <input type="text" class="form-control" id="qylxfs" name="qylxfs" placeholder="" autocomplete="off" value="${cInfo.qylxfs}">
