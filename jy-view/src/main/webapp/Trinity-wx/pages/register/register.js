@@ -1,6 +1,7 @@
 // pages/register/register.js
-var common = require('../../libs/common/common.js')
+var common = require('../../libs/common/common.js');
 var utils = require('../../utils/util.js');
+var interval = null; //倒计时函数
 import WxValidate from '../../utils/WxValidate'
 Page({
 
@@ -21,11 +22,12 @@ Page({
       city: '',//学籍市
       area: ''//学籍区
     },
-    loginPswType:true,
-    surePswType: true,
-    areaList: utils.areaList,//全国省市区
+    loginPswType:true,//密码
+    surePswType: true,//确认密码
+    areaList: utils.areaList,//全国省市区初始化数据
     areaShowBool:false,//显示pop
-    time: '获取验证码', //倒计时 
+    time: '获取验证码', //倒计时
+    currentTime: 60, 
   },
 
   //注册表单提交
@@ -67,13 +69,14 @@ Page({
 
   //获取验证码
   getVerificationCode() {
-    var mobile = this.data.form['tel  '];
-    console.log(this);
-    //传入表单数据，调用验证方法
-    if (!this.WxValidate.checkForm(mobile)) {
-      const error = this.WxValidate.errorList[0]
-      common.toast(error.msg, 'none', 2000)
-      return false
+    var mobile = this.data.form['tel'];
+    if (!mobile){
+      common.toast('请填写手机号', 'none', 2000);
+      return;
+    }
+    if (mobile.length!='11'){
+      common.toast('请填写正确的手机号', 'none', 2000);
+      return;
     }
     this.ajaxCode()
   },
@@ -99,16 +102,16 @@ Page({
   },
   //验证码发送ajax
   ajaxCode(){
+    var that = this;
+    return;
     var data = {
       "swZh": this.data.form['tel']
       , "type": 0 //0表示小程序用户注册
-      , "unionid": '',
+      , "unionid": wx.getStorageSync('unionid'),
     }
     common.ajax('zustcommon/common/sendCode', data, function (res) {
       if (res.data.backCode == 0) {
-        this.setData({
-          ["form.code"]: res.data.bean
-        });
+        that.getCode();//获取验证码
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
