@@ -1,7 +1,7 @@
 <div class="routes">
     <div class="location">
         <i></i>
-        当前位置：
+        <#--当前位置：-->
     </div>
 
     <ol class="breadcrumb">

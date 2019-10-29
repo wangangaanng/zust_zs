@@ -26,11 +26,14 @@
 </style>
 <body>
 <#include "com/ZSheader.ftl">
+<img class="ejgg" style="width:100%;height:300px;" src="${base}/img/loginbackgrouind2.jpg">
 <div class="main">
     <div class="container">
-        <#include "com/route.ftl">
         <div class="content">
             <#include "com/subMenu.ftl">
+            <div class="nav-bar">
+            <#include "com/route.ftl">
+            </div>
             <div class="content-list">
                 <div style="display: flex">
                     <div class="input-group" style="width: 300px;margin: 20px 40px">
