@@ -7,16 +7,7 @@
     <view class="com-title">学考等第</view>
   </view>
   <van-cell-group>
-    <van-cell title="历史" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="地理" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="技术" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="英语" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="物理" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="化学" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="思想政治" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="生物" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="语文" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="数学" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
+    <van-cell wx:for="{{km}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="0" data-index="{{index}}"/>
   </van-cell-group>
 </view>
 
@@ -25,10 +16,7 @@
     <view class="com-title">综合素质评价</view>
   </view>
   <van-cell-group>
-    <van-cell title="品德表现" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="运动健康" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="艺术素养" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
-    <van-cell title="创新实践" is-link value="{{(subject=='')?'-- 请选择等第 --':'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" />
+    <van-cell wx:for="{{xm}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="1" data-index="{{index}}"/>
   </van-cell-group>
 </view>
 
@@ -40,6 +28,6 @@
 
 
  <!-- 弹出选择等第 -->
-  <van-popup show="{{showPop}}" bind:close="onClose" position="bottom">
-    <van-picker show-toolbar columns="{{ gradeCategory }}" bind:change="onChangeGrade" bind:cancel="cancelPop" bind:confirm="confirmGrade" />
+  <van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
+    <van-picker show-toolbar columns="{{ gradeCategory }}" bind:cancel="cancelPop" bind:confirm="confirmGrade" />
   </van-popup>
