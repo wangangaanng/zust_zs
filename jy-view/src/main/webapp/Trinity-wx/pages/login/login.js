@@ -56,6 +56,7 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/swYtLogin', data, function (res) {
       if (res.data.backCode == 0) {
+        wx.setStorageSync('hasLogin', '1');
         wx.reLaunch({
           url: '../shouye/shouye',
         })
@@ -68,8 +69,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.initValidate();
     var that = this;
+    var currAccount = wx.getStorageSync("account");
+    that.initValidate();
+    that.setData({
+      phone: currAccount,
+    });
+
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userInfo']) {
@@ -83,6 +89,7 @@ Page({
         }
       }
     })
+
   },
 
   /**
@@ -96,7 +103,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (wx.getStorageSync("hasLogin")==1){
+      wx.reLaunch({
+        url: '../shouye/shouye',
+      })
+    }
   },
 
   /**
