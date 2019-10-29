@@ -4,6 +4,7 @@
   },
   "pages": [
     "pages/login/login",
+    "pages/forgetPsw/forgetPsw",
     "pages/register/register",
     "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
@@ -15,7 +16,6 @@
     "pages/examTip/examTip",
     "pages/payOline/payOline",
     "pages/majorExam/majorExam",
-    "pages/forgetPsw/forgetPsw",
     "pages/drawGroup/drawGroup",
     "pages/basicInfo/basicInfo",
     "pages/uploadSignature/uploadSignature",

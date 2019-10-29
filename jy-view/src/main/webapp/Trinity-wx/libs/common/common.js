@@ -44,6 +44,51 @@ function ajax(method, data, successMethod,hideload) {
   })
 }
 
+
+//获取验证码
+function getCode(mobile, type, that) {//that 小程序中的this 【type 0：注册 1：忘记密码 2：网站注册】
+  if (!(/^1[3456789]\d{9}$/.test(mobile))) {
+    toast('请填写正确的手机号', 'none', 2000);
+    return false;
+  } 
+  //验证码发送ajax
+  var data = {
+    "swZh": mobile
+    , "type": type //0表示小程序用户注册
+    , "unionid": wx.getStorageSync('unionid'),
+  }
+  ajax('zustcommon/common/sendCode', data, function (res) {
+    if (res.data.backCode == 0) {
+      countDown(that);//倒计时
+    } else {
+      toast(res.data.errorMess, 'none', 2000)
+    }
+  });
+
+}
+
+//倒计时显示
+let interval= null;
+function countDown(that){
+  var currentTime = 60;
+  interval = setInterval(function () {
+    currentTime--;
+    that.setData({
+      time: currentTime + '秒',
+      disabled:true
+    })
+    if (currentTime <= 0) {
+      clearInterval(interval)
+      that.setData({
+        time: '重新获取',
+        currentTime: 60,
+        disabled: false
+      })
+    }
+  }, 1000)
+}
+
+
 //获取数组中字符串的位置
 function indexOf(arr, str) {
   // 如果可以的话，调用原生方法
@@ -106,4 +151,5 @@ exports.emptyCheck = emptyCheck
 exports.indexOf = indexOf
 exports.ajax = ajax
 exports.convertStr = convertStr
+exports.getCode = getCode
 
