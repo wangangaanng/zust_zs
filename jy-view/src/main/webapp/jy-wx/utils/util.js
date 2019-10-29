@@ -45,9 +45,18 @@ const getVal = (a,arr) => {
 }
 
 const compareToday = d => {
-  var d1 = new Date(d).getTime()
-  var td = new Date(new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' 00:00:00').getTime()
+  var d1 = new Date(new Date(Date.parse(d.replace(/-/g, "/")))).getTime()
+  // var td = new Date(new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate() + ' 00:00:00').getTime()
 
+  var start = new Date();
+  start.setHours(0);
+  start.setMinutes(0);
+  start.setSeconds(0);
+  start.setMilliseconds(0);
+  var td = start.getTime();
+  
+  console.log('d1', d1)
+  console.log('td', td)
   if (d1 < td) {
     return true
   } else {

@@ -32,7 +32,7 @@
    <van-field input-align="right" value="{{form.qyLxr}}" name="qyLxr" label="联系人" placeholder="输入内容" required />
     <van-field input-align="right" value="{{form.qyLxrdh}}" name="qyLxrdh" label="手机" placeholder="输入内容" required />
     <van-field input-align="right" value="{{form.qyYx}}" name="qyYx" label="邮箱" placeholder="输入内容" required />
-    <van-field input-align="right" value="{{form.qylxfs}}" name="qylxfs" label="固定电话" placeholder="输入内容" />
+    <van-field input-align="right" value="{{form.qylxfs}}" name="qylxfs" label="固定电话" placeholder="输入内容" required />
   <van-cell required title="公司性质" value="{{gsxzStr}}" is-link arrow-direction="down" data-type="1" bind:click="showBottom" />
   <van-popup show="{{ show.gsxz }}" position="bottom" custom-style="height: 540rpx" data-type="1" bind:close="hideBottom">
     <van-picker show-toolbar title="公司性质" value-key="dicVal2" columns="{{gsxzColumns}}" data-type="1" bind:confirm="onConfirm" bind:cancel="onCancel" />
