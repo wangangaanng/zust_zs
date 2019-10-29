@@ -52,6 +52,7 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/swYtzc', data, function (res) {
       if (res.data.backCode == 0) {
+        wx.setStorageSync('account', params.tel);
         wx.reLaunch({
           url: '../login/login',
         })
