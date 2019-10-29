@@ -10,7 +10,7 @@
   >
     <view slot="action" bind:tap="onSearch">搜索</view>
   </van-search>
-<van-tabs animated sticky bind:click="clickTab">
+<van-tabs swipeable bind:click="clickTab">
   <block wx:for="{{navList}}" wx:key="index" wx:for-item="item" wx:for-index="index">
      <van-tab title="{{item.name}}">
       <scroll-view  style='position:fixed;top:98px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
