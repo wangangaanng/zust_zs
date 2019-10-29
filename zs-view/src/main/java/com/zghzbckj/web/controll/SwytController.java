@@ -47,4 +47,10 @@ public class SwytController {
         view.setViewName("SWYTregistered");
         return view;
     }
+
+    @RequestMapping(value = "SWYTpassword", method = RequestMethod.GET)
+    public ModelAndView SWYTpassword(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("SWYTpassword");
+        return view;
+    }
 }
