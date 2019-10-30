@@ -6,3 +6,6 @@ page{background:rgba(245,245,245);height: 100%;}
 .main-btn_wrap{padding: 54rpx 0px 0px;}
 .promise .van-cell{margin-bottom: 0px;}
 .df{margin-bottom: 40rpx;}
+.icon-mail:before,.icon-jtbmb:before{color: #999}
+.van-field__input--disabled{color: #333!important;}
+.van-button--small{height: 26px!important;line-height: 26px!important;}

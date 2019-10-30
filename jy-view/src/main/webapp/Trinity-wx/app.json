@@ -3,11 +3,12 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-    "pages/basicInfo/basicInfo",
+    "pages/sendMail/sendMail",
+    "pages/register/register",
     "pages/shouye/shouye",
+    "pages/basicInfo/basicInfo",
     "pages/grzx/grzx",
     "pages/login/login",
-    "pages/sendMail/sendMail",
     "pages/messageCenter/messageCenter",
     "pages/Process/Process",
     "pages/payOline/payOline",
@@ -15,7 +16,6 @@
     "pages/majorExam/majorExam",
     "pages/examTip/examTip",
     "pages/contactors/contactors",
-    "pages/register/register",
     "pages/forgetPsw/forgetPsw",
     "pages/wxDetail/wxDetail",
     "pages/examGrade/examGrade",
