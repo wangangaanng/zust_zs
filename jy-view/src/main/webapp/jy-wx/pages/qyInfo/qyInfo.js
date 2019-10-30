@@ -11,6 +11,7 @@ Page({
   data: {
     result:'',
     old:'',
+    table:'',
   },
 
   /**
@@ -219,6 +220,29 @@ var getContent = function (that, owid) {//招聘详情
             sfbm: false
           })
         }
+      }
+     
+      if ((res.data.bean.bmList) && (res.data.bean.bmList.length>0)){
+        var str = '<table style="width:100%;border-left:1px solid #eee;text-align: center"><tr><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">序号</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">企业名称</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">招聘岗位</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">招聘人数</td></tr>'
+        for (var i = 0; i < res.data.bean.bmList.length;i++){
+          var qy = res.data.bean.bmList[i];
+          if ((qy.zwList) && (qy.zwList.length>0)){
+            for(var j=0;j<qy.zwList.length;j++){
+              var gw = qy.zwList[j];
+              if(j==0){
+
+                str += '<tr><td rowspan = "' + qy.zwList.length + '" style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + parseInt(i + 1) + '</td><td rowspan="' + qy.zwList.length + '" style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + qy.qymc + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.zw + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.rs + '</td></tr>'
+              }
+              else{
+                str += '<tr><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.zw + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.rs +'</td></tr>'
+              }
+            }
+          }
+        }
+        str +='</table>'
+        that.setData({
+          table:str
+        })
       }
 
     } else {
