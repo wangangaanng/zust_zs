@@ -10,6 +10,7 @@ Page({
     teacher:{
       sex:"1"
     },
+    detailList:[],//联系人信息
     errorList: '', //错误信息重组
   },
   //点击想下一步保存联系人
@@ -29,7 +30,8 @@ Page({
       , "whcd": params.faEdu
       , "gzdw": params.faCom
       , "gzzw": params.faJob
-      , "gzzw": params.faTel
+      , "lxsj": params.faTel
+      , "dwdh": params.faComTel
     }
     dataArr[1] = {//母亲
       "cylb": 1
@@ -38,7 +40,8 @@ Page({
       , "whcd": params.moEdu
       , "gzdw": params.moCom
       , "gzzw": params.moJob
-      , "gzzw": params.moTel
+      , "lxsj": params.moTel
+      , "dwdh": params.moComTel
     }
     dataArr[2] = {//高中老师
       "cylb": 2
@@ -47,15 +50,18 @@ Page({
       , "whcd": params.teEdu
       , "gzdw": params.teCom
       , "gzzw": params.teJob
-      , "gzzw": params.teTel
+      , "lxsj": params.teTel
+      , "dwdh": params.teComTel
     }
     var data = {
       "dataList": dataArr,
-      "yhRefOwid":''
+      "yhRefOwid": wx.getStorageSync('yhRefOwid')
     } 
     common.ajax('zustswyt/bckjBizJtcyxx/finish', data, function(res) {
       if (res.data.backCode == 0) {
-       
+        wx.navigateTo({
+          url: '../examGrade/examGrade',
+        })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
@@ -66,6 +72,7 @@ Page({
    */
   onLoad: function(options) {
     this.initValidate();
+    getContactor(this);
   },
 
   /**
@@ -123,13 +130,31 @@ Page({
 })
 
 //获取联系人信息
-function getContactor() {
+function getContactor(that) {
   var data = {
-    "yhRefOwid": common.unionid
+    "yhRefOwid": wx.getStorageSync('yhRefOwid')
   }
   common.ajax('zustswyt/bckjBizJtcyxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
-
+      var list = res.data.bean;
+      for (var i = 0; i < list.length;i++){
+        switch (list[i].cylb){
+          case 0:
+            that.data.father = list[i];
+            break;
+          case 1:
+            that.data.mother = list[i];
+            break;
+          case 3:
+            that.data.teacher= list[i];
+            break;
+        }
+      }
+      that.setData({
+        father: that.data.father,
+        mother: that.data.mother,
+        teacher: that.data.teacher
+      });
     } else {
       common.toast(res.data.errorMess, 'none', 2000)
     }
