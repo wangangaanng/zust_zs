@@ -54,9 +54,6 @@ const compareToday = d => {
   start.setSeconds(0);
   start.setMilliseconds(0);
   var td = start.getTime();
-  
-  console.log('d1', d1)
-  console.log('td', td)
   if (d1 < td) {
     return true
   } else {
