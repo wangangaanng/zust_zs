@@ -81,7 +81,7 @@ Page({
     params.sfzzm = that.upFaceImg;
     params.sfzfm = that.upFaceBck;
     params.hjzm = that.upHouseHold;
-    common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function(res) {
+    common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
       if (res.data.backCode == 0) {
         wx.navigateTo({
           url: '../contactors/contactors',
@@ -94,43 +94,55 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.initValidate();
     //获取基本信息填充
     getInfoBasic();
   },
 
   //点击上传图片
-  takePhoto: function(event) {
+  takePhoto: function (event) {
     var that = this;
     var type = event.currentTarget.dataset.type;
     wx.chooseImage({
       count: 1, // 默认9
       sizeType: ['compressed'], // 可以指定是原图还是压缩图
       sourceType: ['camera', 'album'], // 可以指定来源是相册还是相机，默认二者都有
-      success: function(res) {
+      success: function (res) {
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
-        switch (type) {
-          case '1': //户籍
-            that.setData({
-              houseHold: tempFilePaths[0],
-            });
-            break;
-          case '2': //身份证正面
-            that.setData({
-              faceImg: tempFilePaths[0],
-            });
-            uploadOcr(that, tempFilePaths, type);
-            break;
-          case '3': //身份证反面
-            that.setData({
-              faceBck: tempFilePaths[0],
-            });
-            break;
-        }
-        if (type=="2"){
-
+        if (type == "2") {//身份证正面
+          that.setData({
+            faceImg: tempFilePaths[0],
+          });
+          uploadOcr(that, tempFilePaths, type);
+          that.setData({
+            faceImg: tempFilePaths[0]
+          });
+        } else {
+          common.uploadFile(res.tempFilePaths, 1, function (res) {
+            let data = JSON.parse(res.data)
+            if (data.backCode == 0) {//3 身份证反面 1 户籍证明]
+              switch (type) {
+                case "1":
+                  that.data.upHouseHold = data.bean;
+                  that.setData({
+                    houseHold: tempFilePaths[0],
+                    upHouseHold: that.data.upHouseHold
+                  });
+                  break;
+                case "3":
+                  that.data.upFaceBck = data.bean;
+                  that.setData({
+                    faceBck: tempFilePaths[0],
+                    upFaceBck: that.data.upHouseHold
+                  });
+                  break; 
+              }
+            } else {
+              common.toast('上传失败', 'none', 2000);
+            }
+          });
         }
       }
     })
@@ -148,7 +160,7 @@ Page({
     });
   },
   //下一步 完善联系人
-  nextStep: function() {
+  nextStep: function () {
     wx.navigateTo({
       url: '../contactors/contactors',
     })
@@ -207,7 +219,7 @@ function uploadOcr(that, path, type) {
     formData: {
       "data": JSON.stringify(jsonObj)
     },
-    success: function(res) {
+    success: function (res) {
       wx.hideLoading();
       if (res.statusCode != 200) {
         wx.showModal({
@@ -229,7 +241,7 @@ function uploadOcr(that, path, type) {
       }
 
     },
-    fail: function(e) {
+    fail: function (e) {
       console.log(e);
       wx.showModal({
         title: '提示',
@@ -248,7 +260,7 @@ function getInfoBasic() {
   var data = {
     "yhRefOwid": wx.getStorageSync('yhRefOwid')
   }
-  common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function(res) {
+  common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
 
     } else {

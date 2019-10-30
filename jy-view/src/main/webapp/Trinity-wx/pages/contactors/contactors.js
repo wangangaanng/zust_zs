@@ -124,7 +124,7 @@ Page({
   //单选框 选择性别
   sexSelect(event) {
     this.setData({
-      ['teacher.sex']: event.detail
+      ['teacher.xb']: event.detail
     });
   },
 })
@@ -145,7 +145,8 @@ function getContactor(that) {
           case 1:
             that.data.mother = list[i];
             break;
-          case 3:
+          case 2:
+            list[i].xb = list[i].xb.toString();
             that.data.teacher= list[i];
             break;
         }
