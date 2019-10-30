@@ -3,24 +3,26 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.*;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.ValidateMsg;
+import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
-import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.entity.BckjBizJypm;
 import com.zghzbckj.manage.service.BckjBizJypmService;
 import com.zghzbckj.util.ExcelUtils;
+import com.zghzbckj.util.IpAdrressUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.zghzbckj.util.IpAdrressUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
@@ -75,14 +77,14 @@ public class BckjBizJypmController extends BaseController {
     }
 
     /**
-     *<p>功能描述:最近几年 getRecentYears</p >
-     *<ul>
-     *<li>@param [dataVO]</li>
-     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/9/23 17:22</li>
-     *</ul>
+     * <p>功能描述:最近几年 getRecentYears</p >
+     * <ul>
+     * <li>@param [dataVO]</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/9/23 17:22</li>
+     * </ul>
      */
     @PostMapping(value = "getRecentYears")
     @ResponseBody
@@ -100,14 +102,14 @@ public class BckjBizJypmController extends BaseController {
     }
 
     /**
-     *<p>功能描述:从excel导入就业排行榜</p >
-     *<ul>
-     *<li>@param [dataVO]</li>
-     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/9/20 16:43</li>
-     *</ul>
+     * <p>功能描述:从excel导入就业排行榜</p >
+     * <ul>
+     * <li>@param [dataVO]</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/9/20 16:43</li>
+     * </ul>
      */
     @PostMapping(value = "importRankFromExcel")
     @ResponseBody
@@ -155,13 +157,13 @@ public class BckjBizJypmController extends BaseController {
     }
 
     /**
-     *<p>方法:判断是否内网IP innerIp TODO </p>
-     *<ul>
-     *<li> @param ip TODO</li>
-     *<li>@return boolean  </li>
-     *<li>@author xuyux </li>
-     *<li>@date 2019/9/26 16:18  </li>
-     *</ul>
+     * <p>方法:判断是否内网IP innerIp TODO </p>
+     * <ul>
+     * <li> @param ip TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author xuyux </li>
+     * <li>@date 2019/9/26 16:18  </li>
+     * </ul>
      */
     private boolean innerIp(String ip) {
         Pattern reg = Pattern.compile("^(127\\.0\\.0\\.1)|(localhost)|(10\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|(172\\.((1[6-9])|(2\\d)|(3[01]))\\.\\d{1,3}\\.\\d{1,3})|(192\\.168\\.\\d{1,3}\\.\\d{1,3})$");
@@ -209,7 +211,7 @@ public class BckjBizJypmController extends BaseController {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
             return bckjBizJypmService.saveBckjBizJypm(mapData);
-        } catch (Exception  e) {
+        } catch (Exception e) {
             log.error(e + "保存BckjBizJypm信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
@@ -230,6 +232,30 @@ public class BckjBizJypmController extends BaseController {
 
             log.error(e + "初始BckjBizJypm\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * <p>接口 recordJobInfo.java : <p>
+     * 导入
+     * <pre>
+     * @author cc
+     * @date 2019/10/30 9:22
+     * </pre>
+     */
+    @RequestMapping(value = "recordJobInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordJobInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizJypmService.recordJobInfo(dataMap.get("path").toString());
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
