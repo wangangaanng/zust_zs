@@ -229,18 +229,18 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
 
                 String syd = cellList.get(6); //生源地
                 for (Map map:syds){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(syd)))
-                        resMap.put("syd",map.get(syd));
+                    if(map.get("val2").equals(syd))
+                        resMap.put("syd", map.get("val1"));
                 }
                 String mz = cellList.get(7); //民族
                 for (Map map:mzs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(mz)))
-                        resMap.put("mz",map.get(mz));
+                    if(map.get("val2").equals(mz))
+                        resMap.put("mz", map.get("val1"));
                 }
                 String zzmm = cellList.get(8); //政治面貌
                 for (Map map:zzmms){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(zzmm)))
-                        resMap.put("zzmm",map.get(zzmm));
+                    if(map.get("val2").equals(zzmm))
+                        resMap.put("zzmm", map.get("val1"));
                 }
                 String rxnf = cellList.get(9); //入学日期
                 try{
