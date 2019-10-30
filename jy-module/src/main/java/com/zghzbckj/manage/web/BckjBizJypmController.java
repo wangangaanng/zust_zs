@@ -171,6 +171,28 @@ public class BckjBizJypmController extends BaseController {
         return match.find();
     }
 
+    /**
+     *<p>功能描述:清空所有数据 deleteAll</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/30 11:39</li>
+     *</ul>
+     */
+    @PostMapping(value = "deleteAll")
+    @ResponseBody
+    public ResponseMessage deleteAll(PublicDataVO dataVO) {
+        try {
+            bckjBizJypmService.deleteAll();
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {
@@ -253,6 +275,23 @@ public class BckjBizJypmController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return bckjBizJypmService.recordJobInfo(dataMap.get("path").toString());
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    @RequestMapping(value = "recordBmInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordBmInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path", "yqRefOwid", "jobRefOwid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizJypmService.recordBmInfo(dataMap);
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);

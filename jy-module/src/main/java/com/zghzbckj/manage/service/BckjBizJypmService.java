@@ -14,6 +14,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
+import com.zghzbckj.manage.dao.BckjBizJybmDao;
 import com.zghzbckj.manage.dao.BckjBizJypmDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
@@ -47,6 +48,8 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
     BckjBizJypmDao bckjBizJypmDao;
     @Autowired
     BckjBizJobDao jobDao;
+    @Autowired
+    BckjBizJybmDao bmDao;
     @Autowired
     BckjBizQyxxService qyxxServie;
     @Autowired
@@ -129,6 +132,11 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public BckjBizJypm getByCollegeMajor(String collegeName, String majorName, String pmnf) {
         return this.dao.getByMajor(collegeName, majorName, pmnf);
+    }
+
+    @Transactional(readOnly = false)
+    public void deleteAll() {
+        bckjBizJypmDao.deleteAll();
     }
 
     /**
@@ -280,6 +288,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 jybm.setZwbh(zwbh);
                 jybm.setLxr(qyLxr);
                 jybm.setLxdh(qyLxrdh);
+                jybm.setBmqygs(1);
                 jybm.setQymc(qymc);
                 jybm.setQysh(qyTysh);
                 jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd"));
@@ -340,6 +349,152 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
 //
 //        }
 
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+    @Transactional(readOnly = false)
+    public ResponseMessage recordBmInfo(Map<String, Object> dataMap) {
+        //文件路径
+
+        String path = dataMap.get("path").toString();
+        List<List<String>> list = getExcelLists(path);
+        String yqRefOwid = dataMap.get("yqRefOwid").toString();
+        String jobRefOwid = dataMap.get("jobRefOwid").toString();
+        BckjBizQyxx qyxx = qyxxServie.get(yqRefOwid);
+        if (TextUtils.isEmpty(qyxx)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "园区不存在");
+        }
+        Map params = Maps.newHashMap();
+        params.put("qyxxRefOwid", yqRefOwid);
+        params.put("jobRefOwid", jobRefOwid);
+        BckjBizJybm jybm = jybmService.findOneByParams(params, "");
+        if (TextUtils.isEmpty(jybm)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "不存在报名信息");
+        }
+        params.clear();
+        params.put("yqRefOwid", yqRefOwid);
+        params.put("jobRefOwid", jobRefOwid);
+        params.put("state", 1);
+        List<BckjBizJybm> bmList = bmDao.findListByMap(params);
+        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0 && list != null && list.size() > 0) {
+            Integer jybmAllSize = jybm.getBmqygs();
+            Integer existSize = bmList.size();
+            Integer bmSize = list.size() + 1;
+            if (existSize + bmSize > jybmAllSize) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "导入失败，分配企业已满，请核实");
+            }
+        }
+
+        HashMap<Object, Object> resMap = Maps.newHashMap();
+        List<String> qyshs = Lists.newArrayList();
+
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                //企业信息录入
+                List<String> cellList = list.get(i);//行循环
+                String qyTysh = cellList.get(1); //企业统一税号
+                //如果企业统一税号为空则退出
+                if (com.ourway.base.utils.TextUtils.isEmpty(qyTysh)) {
+                    break;
+                }
+                qyshs.add(qyTysh);
+                resMap.put("qyTysh", qyTysh);
+                String qyFrsfz = cellList.get(2); //法人身份证号
+                resMap.put("qyFrsfz", qyFrsfz);
+                String qyFrdbxm = cellList.get(3); //法人姓名
+                resMap.put("qyFrdbxm", qyFrdbxm);
+                String qymc = cellList.get(4); //公司名称
+                resMap.put("qymc", qymc);
+                String qyLxr = cellList.get(5); //联系人
+                resMap.put("qyLxr", qyLxr);
+                String qyLxrdh = cellList.get(6); //联系方式
+                resMap.put("qyLxrdh", qyLxrdh);
+                String qylxfs = cellList.get(7); //企业固话
+                resMap.put("qylxfs", qylxfs);
+                resMap.put("yqRefOwid", yqRefOwid);
+                resMap.put("yqmc", qyxx.getQymc());
+
+                String zwbh = cellList.get(0); //展位编号
+                String zw1 = cellList.get(8); //岗位1
+                String zw2 = cellList.get(10); //岗位2
+                String zw3 = cellList.get(12); //岗位3
+                String zw4 = cellList.get(14); //岗位4
+                String zw5 = cellList.get(16); //岗位5
+
+                String rs1 = cellList.get(9);
+                String rs2 = cellList.get(11);
+                String rs3 = cellList.get(13);
+                String rs4 = cellList.get(15);
+                String rs5 = cellList.get(17);
+
+                BckjBizQyxx bckjBizQyxx = new BckjBizQyxx();
+                MapUtil.easySetByMap(resMap, bckjBizQyxx);
+                BckjBizQyxx oneCompanyByTysh = qyxxServie.getOneCompanyByTysh(bckjBizQyxx);
+                if (!com.zghzbckj.util.TextUtils.isEmpty(oneCompanyByTysh)) {
+                    bckjBizQyxx.setOwid(oneCompanyByTysh.getOwid());
+                    bckjBizQyxx.setCreatetime(new Date());
+                }
+                bckjBizQyxx.setState(2);
+                qyxxServie.saveOrUpdate(bckjBizQyxx);
+                ///保存职来职往企业报名
+                jybm = new BckjBizJybm();
+                jybm.setQyxxRefOwid(bckjBizQyxx.getOwid());
+                BckjBizJob job = jobDao.getByName(JyContant.ZWBT);
+                jybm.setJobRefOwid(job.getOwid());
+                jybm.setBmlx(JyContant.BMLX_QY);
+                jybm.setBmdx(JyContant.BMDX_ZPH);
+                jybm.setBmsj(new Date());
+                jybm.setZwbh(zwbh);
+                jybm.setLxr(qyLxr);
+                jybm.setLxdh(qyLxrdh);
+                jybm.setBmqygs(1);
+                jybm.setQymc(qymc);
+                jybm.setQysh(qyTysh);
+                jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd"));
+                jybm.setYqRefOwid(yqRefOwid);
+                if (!TextUtils.isEmpty(zw1)) {
+                    jybm.setZw1(zw1);
+                }
+                if (!TextUtils.isEmpty(zw2)) {
+                    jybm.setZw2(zw2);
+                }
+                if (!TextUtils.isEmpty(zw3)) {
+                    jybm.setZw3(zw3);
+                }
+                if (!TextUtils.isEmpty(zw4)) {
+                    jybm.setZw4(zw4);
+                }
+                if (!TextUtils.isEmpty(zw5)) {
+                    jybm.setZw5(zw5);
+                }
+                if (!TextUtils.isEmpty(rs1)) {
+                    jybm.setRs1(rs1);
+                }
+                if (!TextUtils.isEmpty(rs2)) {
+                    jybm.setRs2(rs2);
+                }
+                if (!TextUtils.isEmpty(rs3)) {
+                    jybm.setRs3(rs3);
+                }
+                if (!TextUtils.isEmpty(rs4)) {
+                    jybm.setRs4(rs4);
+                }
+                if (!TextUtils.isEmpty(rs5)) {
+                    jybm.setRs5(rs5);
+                }
+                jybm.setState(1);
+                jybmService.saveOrUpdate(jybm);
+                //发送通知短信
+                String content = JyContant.ZPH_PASS_MESS + zwbh + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
+                String mobile = qyLxrdh;
+                try {
+                    MessageUtil.sendMessage(mobile, content);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 }

@@ -3,7 +3,6 @@ package com.ourway.syszk.controll;
 import com.beust.jcommander.internal.Maps;
 import com.ourway.WebZKConstant;
 import com.ourway.base.utils.DateUtil;
-import com.ourway.base.utils.qrcode.QRCodeUtil;
 import com.ourway.base.zk.BaseConstants;
 import com.ourway.base.zk.ZKConstants;
 import com.ourway.base.zk.models.EmployVO;
@@ -15,6 +14,7 @@ import com.ourway.base.zk.utils.JsonUtil;
 import com.ourway.base.zk.utils.TextUtils;
 import com.ourway.base.zk.utils.data.LoginUtil;
 import com.ourway.base.zk.zpspring.SpringZkBaseControl;
+import com.zghzbckj.base.util.CacheUtil;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -122,17 +122,21 @@ public class IndexController extends SpringZkBaseControl {
             String zphKsrq = request.getParameter("zphKsrq");
             String zphJtsj = request.getParameter("zphJtsj");
             String owid = request.getParameter("owid");
+            String token = request.getParameter("token");
+            System.out.println("token:" + token);
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
             String url = WebZKConstant.WX_VIEW_URL;
             String picName = "result.jpg";
             System.out.println("开始生成二维码");
             //生成二维码
-            QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
-                    picName, true);
+//            QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
+//                    picName, true);
 
 //            String tokenStr = CacheUtil.getVal("config.wechat.wx618803b392a8c474");
 //            System.out.println("token:" + tokenStr);
-//            getminiqrQr("owid=" + owid, tokenStr);
+            String timeStamp = DateUtil.getTimeStamp();
+            CacheUtil.setVal(timeStamp, owid);
+            getminiqrQr("owid=" + timeStamp, token);
 
 
             Map map = Maps.newHashMap();
@@ -166,6 +170,9 @@ public class IndexController extends SpringZkBaseControl {
 
     }
 
+    public static void main(String[] args) {
+        System.out.println(CacheUtil.getVal("config.wechat.wx618803b392a8c474"));
+    }
 
     public Map getminiqrQr(String sceneStr, String accessToken) {
         RestTemplate rest = new RestTemplate();

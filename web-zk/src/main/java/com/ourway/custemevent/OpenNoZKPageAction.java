@@ -4,12 +4,15 @@ import com.ourway.base.utils.DateUtil;
 import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseWindow;
 import com.ourway.base.zk.models.PageControlVO;
+import com.ourway.base.zk.models.PublicData;
+import com.ourway.base.zk.models.ResponseMessage;
 import com.ourway.base.zk.service.ComponentListinerSer;
 import com.ourway.base.zk.service.ComponentWindowSer;
 import com.ourway.base.zk.utils.AlterDialog;
 import com.ourway.base.zk.utils.JsonUtil;
 import com.ourway.base.zk.utils.PageUtils;
 import com.ourway.base.zk.utils.TextUtils;
+import com.ourway.base.zk.utils.data.JsonPostUtils;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
@@ -69,32 +72,24 @@ public class OpenNoZKPageAction implements ComponentListinerSer {
                 AlterDialog.alert("未包含主键值,不能获取指定关键字值");
                 return;
             }
-//            String taskRefOwid = "";
-//            String taskTime = "";
-//            String taskState = "";
-//            if (!TextUtils.isEmpty(rowData.get("taskRefOwid"))) {
-//                taskRefOwid = rowData.get("taskRefOwid").toString();
-//                PublicData publicData = PublicData.instantce();
-//                publicData.setMethod("/wxBizTask/getOne");
-//                Map<String, Object> ppt = new HashMap<String, Object>(2);
-//                ppt.put("owid", taskRefOwid);
-//                publicData.setData(com.ourway.base.zk.utils.JsonUtil.toJson(ppt));
-//                ResponseMessage responseMessage = JsonPostUtils.executeAPI(baseGrid.getSelectRowsData().get(0), _params.get("apiUrl").toString());
-//                Map resultMap = (Map) responseMessage.getBean();
-//                taskTime = resultMap.get("taskTime").toString();
-//                taskState = resultMap.get("state").toString();
-//            }
-//            if (url.indexOf("?") > 0) {
-//                url = url + "&owid=" + rowData.get("owid") + "&taskTime=" + taskTime + "&taskState=" + taskState + "&taskRefOwid=" + taskRefOwid + "";
-//            } else {
-//                url = url + "?owid=" + rowData.get("owid") + "&taskTime=" + taskTime + "&taskState=" + taskState + "&taskRefOwid=" + taskRefOwid + "";
-//            }
+//
             String zphKsrq = null;
             if (!TextUtils.isEmpty(rowData.get("zphKsrq"))) {
                 zphKsrq = DateUtil.getDateString(rowData.get("zphKsrq").toString(), "yyyy-MM-dd");
             }
 
-            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid");
+
+            String apiURL = "web/zustcommon/common/getToken";
+            PublicData publicData = PublicData.instantce();
+            publicData.setMethod(apiURL);
+            Map ppt = new HashMap<>();
+            publicData.setData(JsonUtil.toJson(ppt));
+            ResponseMessage e = JsonPostUtils.executeAPI(ppt, apiURL);
+            String token = (String) e.getBean();
+
+
+//            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid");
+            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid") + "&token=" + token;
             ComponentWindowSer root = PageUtils.getBaseMainWindow(window);
             if (null == root) {
                 AlterDialog.alert("无tab页面，不能打开");

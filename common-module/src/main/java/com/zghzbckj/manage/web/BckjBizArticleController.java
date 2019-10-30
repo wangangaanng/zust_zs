@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -36,7 +33,6 @@ import java.util.Map;
 public class BckjBizArticleController extends BaseController {
     @Autowired
     private BckjBizArticleService bckjBizArticleService;
-
 
     @RequestMapping(value = "/getList")
     @ResponseBody
@@ -205,7 +201,7 @@ public class BckjBizArticleController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "gjz","wzbh","pageSize","pageNo");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "gjz", "wzbh", "pageSize", "pageNo");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }

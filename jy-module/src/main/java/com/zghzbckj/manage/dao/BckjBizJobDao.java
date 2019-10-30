@@ -33,6 +33,8 @@ public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
 
     BckjBizJob getByName(String zwbt);
 
+    List<BckjBizJob> getAllBmInfo();
+
 
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);
 }

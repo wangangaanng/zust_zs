@@ -26,6 +26,9 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
 
     List<Map<String, Object>> showInfoList(Map<String, Object> dataMap);
 
+    List<Map<String, Object>> showInfoListQt(Map<String, Object> dataMap);
+
+
     void updateBycondition(BckjBizZjzx bckjBizZjzx);
 
     Map<String,Object> getConsultsOne(Map<String, Object> dataMap);
@@ -35,4 +38,6 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
     Map getOneByDlzh(String dlzh);
 
     void deleteYhxx(String owid);
+
+   List<String>  getConsultsReplyDay();
 }

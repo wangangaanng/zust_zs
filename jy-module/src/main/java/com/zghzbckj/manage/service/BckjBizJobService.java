@@ -400,6 +400,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             bckjBizJob.setZphKsrq(date);
         }
         if (JyContant.ZWLB_ZW == zwlx) {
+            bckjBizJob.setSfbm(1);
             if (!TextUtils.isEmpty(mapData.get("exp1"))) {
                 Map temp = new HashMap<>(1);
                 temp.put("qymc", mapData.get("exp1").toString());
@@ -525,6 +526,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             job.setState(JyContant.JOB_ZT_TG);
             //职位类型，需要判断自动审核 0表示关 1表示开
             if (JyContant.ZWLB_ZW == job.getZwlx()) {
+                job.setSfbm(1);
                 String flag = CacheUtil.getVal(JyContant.KG + JyContant.ZWSH);
                 if (!TextUtils.isEmpty(flag) && "0".equals(flag)) {
                     job.setState(JyContant.JOB_ZT_DSH);

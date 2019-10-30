@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "其他联系人",
+  "navigationBarTitleText": "联系人",
   "usingComponents": {
     "van-field": "vant-weapp/field",
     "van-popup": "vant-weapp/popup",
