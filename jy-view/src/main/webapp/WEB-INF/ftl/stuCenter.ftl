@@ -10,6 +10,7 @@
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
 </head>
 <style>
+    .container{min-width: 1024px;}
 
     /*.teacher-item .t-bg {
         width: 100%;
@@ -77,16 +78,16 @@
                         <#list tlist.records as obj>
                         <div class="teacher-item">
                             <div class="t-bg" style="background: url(${imagePath!""}${obj.zjtx!''});background-size: 100% 100%;"></div>
-                        <div class="teacher-detail">
-                            <div class="t-name">${obj.zjxm!''}</div>
-                            <div class="t-xhx"><span></span></div>
-                            <div class="t-sm">${obj.zjxx!'暂无信息'}</div>
-                            <div class="t-btn">
-                                <button class="btn t-zx green" onclick="question('${obj.owid}')">我要咨询</button>
-                                <button class="btn t-xq" onclick="window.open('${base}/teacherDetail/${obj.owid}')">查看详情</button>
+                            <div class="teacher-detail">
+                                <div class="t-name">${obj.zjxm!''}</div>
+                                <div class="t-xhx"><span></span></div>
+                                <div class="t-sm">${obj.zjxx!'暂无信息'}</div>
+                                <div class="t-btn">
+                                    <button class="btn t-zx green" onclick="question('${obj.owid}')">我要咨询</button>
+                                    <button class="btn t-xq" onclick="window.open('${base}/teacherDetail/${obj.owid}')">查看详情</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
                         </#list>
                     <#else >
                         <#assign flag=0>

@@ -2,42 +2,46 @@
   xiayuwei  联系人  2019.10.21
 -->
 <form bindsubmit="contactForm" class="form-wrap">
+
   <view class="com-wrap">
     <view class="com-title">父亲(或其他监护人)</view>
     <van-cell-group>
-      <van-field value="{{father.name}}" name="faName" error-message="{{errorList['faName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
-      <van-field value="{{ father.edu }}" name="faEdu" error-message="{{errorList['faEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" />
-      <van-field value="{{ father.company }}" name="faCom" error-message="{{errorList['faCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
-      <van-field value="{{ father.job }}" name="faJob" error-message="{{errorList['faJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
-      <van-field value="{{ father.tel }}" name="faTel" error-message="{{errorList['faTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field value="{{father.xm}}" name="faName" error-message="{{errorList['faName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
+      <van-field value="{{father.lxsj}}" name="faTel" error-message="{{errorList['faTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field value="{{father.whcd}}" name="faEdu" error-message="{{errorList['faEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" />
+      <van-field value="{{father.gzdw}}" name="faCom" error-message="{{errorList['faCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
+      <van-field value="{{father.gzzw}}" name="faJob" error-message="{{errorList['faJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
+      <van-field value="{{father.dwdh}}" name="faComTel" error-message="{{errorList['faComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
     </van-cell-group>
   </view>
 
   <view class="com-wrap">
     <view class="com-title">母亲(或其他监护人)</view>
     <van-cell-group>
-      <van-field value="{{ mother.name }}" name="moName" error-message="{{errorList['moName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
-      <van-field value="{{ mother.edu }}" name="moEdu" error-message="{{errorList['moEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" />
-      <van-field value="{{ mother.company }}" name="moCom" error-message="{{errorList['moCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
-      <van-field value="{{ mother.job }}" name="moJob" error-message="{{errorList['moJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
-      <van-field value="{{ mother.tel }}" name="moTel" error-message="{{errorList['moTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field value="{{ mother.xm }}" name="moName" error-message="{{errorList['moName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
+      <van-field value="{{ mother.lxsj }}" name="moTel" error-message="{{errorList['moTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field value="{{ mother.whcd }}" name="moEdu" error-message="{{errorList['moEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" />
+      <van-field value="{{ mother.gzdw }}" name="moCom" error-message="{{errorList['moCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
+      <van-field value="{{ mother.gzzw }}" name="moJob" error-message="{{errorList['moJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
+      <van-field value="{{ mother.dwdh }}" name="moComTel" error-message="{{errorList['moComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
     </van-cell-group>
   </view>
 
   <view class="com-wrap">
     <view class="com-title">高中联系人</view>
     <van-cell-group>
-      <van-field value="{{ teacher.name }}" name="teName" error-message="{{errorList['teName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
-       <van-field label="性别" error-message="" disabled>
-        <van-radio-group value="{{teacher.sex}}" name="teSex" bind:change="sexSelect" slot="right-icon" class="select-group">
+      <van-field value="{{ teacher.xm }}" name="teName" error-message="{{errorList['teName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
+      <van-field value="{{ teacher.lxsj }}" name="teTel" error-message="{{errorList['teTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field label="性别" error-message="" disabled>
+        <van-radio-group value="{{teacher.xb}}" name="teSex" bind:change="sexSelect" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
           <van-radio name="2" checked-color="#26b887">女</van-radio>
         </van-radio-group>
       </van-field>
-      <van-field value="{{ teacher.edu }}" name="teEdu" error-message="{{errorList['teEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" />
-      <van-field value="{{ teacher.company }}" name="teCom" error-message="{{errorList['teCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
-      <van-field value="{{ teacher.job }}" name="teJob" error-message="{{errorList['teJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
-      <van-field value="{{ teacher.tel }}" name="teTel" error-message="{{errorList['teTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
+      <van-field value="{{ teacher.whcd }}" name="teEdu" error-message="{{errorList['teEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" />
+      <van-field value="{{ teacher.gzdw }}" name="teCom" error-message="{{errorList['teCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
+      <van-field value="{{ teacher.gzzw }}" name="teJob" error-message="{{errorList['teJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
+      <van-field value="{{ teacher.dwdh }}" name="teComTel" error-message="{{errorList['teComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
     </van-cell-group>
   </view>
 

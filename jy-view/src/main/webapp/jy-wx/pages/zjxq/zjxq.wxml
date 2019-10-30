@@ -5,9 +5,9 @@
       <view><image src="{{imgPath}}{{result.zjtx}}"></image></view>
     </view>
     <view class="t-jj">
-      <view class="t-xm">职位：{{result.zjzw}}</view>
-      <view class="t-xm">办公室：{{result.zjbgs}}</view>
-      <view class="t-xm">所属专业：{{result.szzy}}</view>
+      <view class="t-xm">职位：{{result.zjzw?result.zjzw:''}}</view>
+      <view class="t-xm">办公室：{{result.zjbgs?result.zjbgs:''}}</view>
+      <view class="t-xm">所属专业：{{result.szzy?result.szzy:''}}</view>
 
       <button class="t-zxbtn" hover-class="common-btn-hover" data-owid="{{result.owid}}" bindtap="ask">
         <image src="../../static/icon-zx2.png"></image>
@@ -17,7 +17,7 @@
   </view>
 </view>
 <view class="t-content">
-  {{result.zjxx}}
+  {{result.zjxx?result.zjxx:''}}
 </view>
 
 

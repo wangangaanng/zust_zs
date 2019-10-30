@@ -13,7 +13,14 @@ Page({
     pageSize: 20,
     pageNo: 1,
     totalPage: '',
-    xjhList: []
+    key: '',
+    xjhList: [],
+    show:{
+      bottom: false
+    },
+    lx:'',
+    lxStr:'请选择',
+    lxColumns: [{ dicVal1: '0', dicVal2: '职位' }, { dicVal1: '3', dicVal2: '职来职往' }, { dicVal1: '4', dicVal2: '宣讲会' }],
   },
   /**
    * 生命周期函数--监听页面加载
@@ -21,7 +28,33 @@ Page({
   onLoad: function (options) {
     myJobList(this);
   },
+  onConfirm(e) {
+      const { dicVal1, dicVal2 } = e.detail.value;
+      this.setData({
+        lxStr: dicVal2,
+        lx: dicVal1,
+        xjhList: [],
+        pageNo: 1,
+        totalPage: ""
+      })
+    this.toggle('bottom', false);
+    myJobList(this)
+  },
+  onCancel(e) {
+    this.toggle('bottom', false);
+  },
+  toggle(type, show) {
+    this.setData({
+      [`show.${type}`]: show
+    });
+  },
+  showBottom(e) {
+    this.toggle('bottom', true);
+  },
 
+  hideBottom(e) {
+    this.toggle('bottom', false);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -56,11 +89,20 @@ Page({
   onPullDownRefresh: function () {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
+  onChange(e) {
+    this.setData({
+      key: e.detail
+    });
+  },
+  onClear() {
+    var that = this;
+    refresh(this);
+  },
+  onSearch: function () {
+    var that = this;
+    refresh(this);
+  },
+  loadMore: function () {
     var that = this;
     if ((that.data.pageNo + 1) <= that.data.totalPage) {
       that.setData({
@@ -68,6 +110,12 @@ Page({
       })
       myJobList(that);
     }
+  },
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+    
   },
   positionDetail(e) {
     if (e.currentTarget.dataset.lx == 5) {
@@ -83,15 +131,38 @@ Page({
   },
 })
 
-var myJobList = function (that, lx) {
+
+function refresh(that) {
+  that.setData({
+    xjhList: [],
+    pageNo: 1,
+    totalPage: ""
+  })
+  myJobList(that);
+
+}
+
+var myJobList = function (that) {
   var data = {
-    "zwlx": "", "zphSfbm": 1, "yhRefOwid":wx.getStorageSync('yhOwid'), "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
+    "zwbt": that.data.key, 
+    "zwlx": that.data.lx,
+    "zphSfbm": 1, "yhRefOwid":wx.getStorageSync('yhOwid'), 
+    "pageNo": that.data.pageNo,
+    "pageSize": that.data.pageSize,
   };
   common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
       var xjhList;
       if (res.data.bean.records && res.data.bean.records.length > 0) {
         for (var i = 0; i < res.data.bean.records.length; i++) {
+          res.data.bean.records[i].zwlxStr = '';
+          if (res.data.bean.records[i].zwlx==0){
+            res.data.bean.records[i].zwlxStr = '职位';
+          } else if (res.data.bean.records[i].zwlx == 3) {
+            res.data.bean.records[i].zwlxStr = '职来职往';
+          } else if (res.data.bean.records[i].zwlx == 4) {
+            res.data.bean.records[i].zwlxStr = '宣讲会';
+          }
           res.data.bean.records[i].str = '';
           res.data.bean.records[i].color = '';
           if (res.data.bean.records[i].state == 2) {
@@ -110,7 +181,7 @@ var myJobList = function (that, lx) {
             res.data.bean.records[i].str = '已截止报名';
             res.data.bean.records[i].color = 'color:red;';
           }
-          if (util.compareToday(res.data.bean.records[i].zphKsrq)) {
+          if (res.data.bean.records[i].zphKsrq && util.compareToday(res.data.bean.records[i].zphKsrq)) {
             res.data.bean.records[i].str = '已结束';
             res.data.bean.records[i].color = 'color:red;';
           }

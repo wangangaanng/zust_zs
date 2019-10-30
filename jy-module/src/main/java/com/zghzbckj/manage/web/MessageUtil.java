@@ -19,7 +19,8 @@ public class MessageUtil {
     //请求地址
     private static final String requesturl = "http://api.hspaas.cn:8080/sms/send";
     //查询余额地址
-    private static final String requestBalanceurl = "http://sms.hspaas.com:8080/msgHttp/json/balance";
+//    private static final String requestBalanceurl = "http://sms.hspaas.com:8080/msgHttp/json/balance";
+    private static final String requestBalanceurl = "http://api.hspaas.cn:8080/sms/balance";
     //账户
     private static final String account = "hsw7upeW1Oyc1N";
     //密码
@@ -51,6 +52,16 @@ public class MessageUtil {
         return doPost(requesturl, map, "utf-8");
     }
 
+    public static void main(String[] args) {
+        long timestamp = System.currentTimeMillis();    //时间戳
+        String pass = MD5Util.MD5Encode(password + timestamp, "utf-8");
+        Map map = new HashMap();
+        map.put("appkey", account);
+        map.put("appsecret", pass);
+        map.put("timestamp", timestamp + "");
+        System.out.println(doPost(requestBalanceurl, map, "utf-8"));
+        return;
+    }
 
     public static String sendMessage(String mobile, String contenet) throws Exception {
         if (TextUtils.isEmpty(mobile)) {
@@ -58,7 +69,7 @@ public class MessageUtil {
         }
         long timestamp = System.currentTimeMillis();    //时间戳
         String pass = MD5Util.MD5Encode(password + mobile + timestamp, "utf-8");
-        String content = "【浙江科技学院】"+contenet;
+        String content = "【浙江科技学院】" + contenet;
         Map map = new HashMap();
         map.put("appkey", account);
         map.put("appsecret", pass);
@@ -67,6 +78,7 @@ public class MessageUtil {
         map.put("content", content);
         return doPost(requesturl, map, "utf-8");
     }
+
     /**
      * <p>功能描述：doPost 发送post请求</p>
      * <ul>
@@ -108,14 +120,6 @@ public class MessageUtil {
         return result;
     }
 
-    public static void main(String[] args) {
-        try {
-            String sjh = "13588279280";
-            String temp = "1234";
-            System.out.println(sendMessageCode(sjh, temp));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 
 }

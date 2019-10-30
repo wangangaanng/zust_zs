@@ -2,7 +2,7 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = app.globalData.yhRefOwid;
+var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**

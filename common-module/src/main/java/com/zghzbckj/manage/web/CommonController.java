@@ -12,6 +12,8 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.service.CommonService;
+import com.zghzbckj.wechat.WechatConstants;
+import com.zghzbckj.wechat.model.AccessToken;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,7 +53,7 @@ public class CommonController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "dicType","dicVal5");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "dicType", "dicVal5");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -227,21 +229,21 @@ public class CommonController {
 
     /**
      * 小程序下拉框显示20字典表内容
-     * @param  dataVO
+     *
+     * @param dataVO
      * @return ResponseMessage
      */
     @PostMapping("getSmallRoutine")
     @ResponseBody
-    public ResponseMessage getSmallRoutine(PublicDataVO dataVO){
+    public ResponseMessage getSmallRoutine(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "text", "dicType");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
             return ResponseMessage.sendOK(commonService.getSmallRoutine(dataMap));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
@@ -309,4 +311,15 @@ public class CommonController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+
+    @RequestMapping(value = "getToken", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getToken(PublicDataVO publicDataVO) {
+        AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx618803b392a8c474", AccessToken.class);
+        System.out.println("接口获取token" + accessToken.getToken());
+        return ResponseMessage.sendOK(accessToken.getToken());
+    }
+
+
 }
