@@ -20,12 +20,13 @@
                 <div class="user-info" id="stuInfo" style="display: none;">
                     <a href="${base}/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
                 </div>
-                <div class="search-bar" style="float: right;width: 350px;margin-top: 50px;margin-right:12px;border-bottom: none;">
-                    <div class="input-group">
-                        <input type="text" class="form-control" onkeydown="keySearch()" id="gjz22" placeholder="请输入">
-                        <span class="input-group-btn">
-                            <button class="btn btn-default header-search" type="button" onclick="searchAll()">搜索</button>
-                        </span>
+                <div class="search-bar" style="float: right;width: 300px;margin-top: 50px;margin-right:12px;border-bottom: none;">
+                    <div class="input-group" style="position: relative;width: 100%;">
+                        <input type="text" class="form-control" onkeydown="keySearch()" style="height: 40px;border-radius: 25px;" id="gjz22" placeholder="请输入">
+                        <#--<span class="input-group-btn">-->
+                            <#--<button class="btn btn-default header-search" type="button" onclick="searchAll()">搜索</button>-->
+                        <#--</span>-->
+                        <span class="glyphicon glyphicon-search" onclick="searchAll()" style="background-color: #fff;color: #008784;position: absolute;right: 15px;top: 10px;font-size: 22px;z-index: 99;cursor: pointer;"></span>
                     </div>
                 </div>
             </div>
