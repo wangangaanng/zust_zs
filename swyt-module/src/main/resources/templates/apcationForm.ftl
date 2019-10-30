@@ -44,7 +44,7 @@
         }
 
         .page {
-            width: 21cm;
+            width: 16cm;
             /*height: 29.7cm;*/
             padding: .5cm 1cm;
             margin: 1cm auto;
@@ -130,7 +130,7 @@
 
         .han {
             margin: 10px;
-            padding: 15px;
+            padding: 9px;
         }
     </style>
 </head>
@@ -282,18 +282,18 @@
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 300px;">
+            <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
                 专项类别（可多选）
             </td>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
+            <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
             ${zxlb}
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 300px;">
+            <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
                 高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次
             </td>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
+            <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
             ${jssm}
             </td>
         </tr>
@@ -302,18 +302,18 @@
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 300px;">
+            <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
                 高中阶段参加的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或职责）
             </td>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
+            <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
             ${qtqk}
             </td>
         </tr>
         <tr>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 300px;">
+            <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
                 特长和爱好
             </td>
-            <td align="center" colspan="6" valign="middle" class="contentFont han" style="width: 425px;">
+            <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
             ${tcah}
             </td>
         </tr>

@@ -36,6 +36,6 @@ App({
     ApiUrl: 'https://job.zust.edu.cn//gate/',//'http://172.16.13.106:8888/',//
     localimgUrl: '',
     imgPath: 'https://job.zust.edu.cn//gate/',
-    yhRefOwid:'111',
+    yhRefOwid:'',
   }
 })

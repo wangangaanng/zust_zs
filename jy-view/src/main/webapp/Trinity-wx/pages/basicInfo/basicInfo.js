@@ -101,7 +101,7 @@ Page({
   onLoad: function (options) {
     this.initValidate();
     //获取基本信息填充
-    //getInfoBasic();
+    getInfoBasic();
   },
 
   //点击上传图片
@@ -248,7 +248,7 @@ function upload(that,path,type) {
 //获取基本信息
 function getInfoBasic(){
   var data = {
-    "yhRefOwid": common.unionid
+    "yhRefOwid": wx.getStorageSync('yhRefOwid')
   }
   common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
