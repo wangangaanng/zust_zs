@@ -3,12 +3,15 @@ var Mustache = require('../../libs/mustache/mustache');
 var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
 var util = require('../../utils/util.js')
+const app = getApp()
+var imgPath = app.globalData.imgPath;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgPath: imgPath,
     result:'',
     old:'',
     table:'',
