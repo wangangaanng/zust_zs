@@ -14,7 +14,6 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.CacheUtil;
-import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
@@ -27,7 +26,6 @@ import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.util.TextUtils;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +52,6 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     BckjBizJobDao jobDao;
     @Autowired
     BckjBizJybmService jybmService;
-
 
 
     @Override
@@ -198,7 +195,8 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             String flag = CacheUtil.getVal(JyContant.KG + JyContant.QYSH);
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
                 company.setState(JyContant.QY_ZT_TG);
-                String content = JyContant.QY_PASS_MESS;
+                String sfzStr = company.getQyFrsfz();
+                String content = JyContant.QY_PASS_MESS + company.getQyTysh() + "密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
                 String mobile = company.getQyLxrdh();
                 try {
                     MessageUtil.sendMessage(mobile, content);
@@ -419,14 +417,15 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         }
         return resluts;
     }
+
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage recordQyxxInfo(String path) {
         //文件路径
         String filename = path;
         List<List<String>> list = getExcelLists(filename);
         HashMap<Object, Object> resMap = Maps.newHashMap();
-        List<BckjBizQyxx> qyxxes= Lists.newArrayList();
-        List<String> qyshs=Lists.newArrayList();
+        List<BckjBizQyxx> qyxxes = Lists.newArrayList();
+        List<String> qyshs = Lists.newArrayList();
         List<Map> gsxzs = getDicListMapByType(20000);//公司性质20000
         List<Map> gshys = getDicListMapByType(20001);//公司行业20001
         List<Map> gsgms = getDicListMapByType(20002);//公司规模20002
@@ -450,76 +449,74 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                 String qyProv = cellList.get(4); //所在省份
                 resMap.put("qyProv", qyProv);
                 String qyCity = cellList.get(5); //所在市
-                resMap.put("qyCity",qyCity);
+                resMap.put("qyCity", qyCity);
                 String qyArea = cellList.get(6); //所在区
-                resMap.put("qyArea",qyArea);
+                resMap.put("qyArea", qyArea);
                 String qyZczj = cellList.get(7); //公司注册资金
-                resMap.put("qyZczj",qyZczj);
+                resMap.put("qyZczj", qyZczj);
                 String qydz = cellList.get(8); //公司地址
-                resMap.put("qydz",qydz);
+                resMap.put("qydz", qydz);
                 String qyLxr = cellList.get(9); //联系人
-                resMap.put("qyLxr",qyLxr);
+                resMap.put("qyLxr", qyLxr);
                 String qyLxrdh = cellList.get(10); //联系方式
                 resMap.put("qyLxrdh", qyLxrdh);
                 String qylxfs = cellList.get(11); //企业固话
                 resMap.put("qylxfs", qylxfs);
                 String qyYx = cellList.get(12); //企业邮箱
-                resMap.put("qyYx",qyYx);
+                resMap.put("qyYx", qyYx);
                 String qyGsxz = cellList.get(13); //公司性质
-                for (Map map:gsxzs){
-                    if(map.get("val2").equals(qyGsxz))
+                for (Map map : gsxzs) {
+                    if (map.get("val2").equals(qyGsxz))
                         resMap.put("qyGsxz", map.get("val1"));
                 }
                 String qyHylb = cellList.get(14); //行业类别
-                for (Map map:gshys){
-                    if(map.get("val2").equals(qyHylb))
+                for (Map map : gshys) {
+                    if (map.get("val2").equals(qyHylb))
                         resMap.put("qyHylb", map.get("val1"));
                 }
                 String qyGsgm = cellList.get(15); //公司规模
-                for (Map map:gsgms){
-                    if(map.get("val2").equals(qyGsgm))
+                for (Map map : gsgms) {
+                    if (map.get("val2").equals(qyGsgm))
                         resMap.put("qyGsgm", map.get("val1"));
                 }
                 String qyGsjs = cellList.get(16); //公司介绍
                 resMap.put("qyGsjs", qyGsjs);
-                BckjBizQyxx bckjBizQyxx=new BckjBizQyxx();
+                BckjBizQyxx bckjBizQyxx = new BckjBizQyxx();
                 MapUtil.easySetByMap(resMap, bckjBizQyxx);
                 BckjBizQyxx oneCompanyByTysh = getOneCompanyByTysh(bckjBizQyxx);
-                if(!TextUtils.isEmpty(oneCompanyByTysh)){
+                if (!TextUtils.isEmpty(oneCompanyByTysh)) {
                     bckjBizQyxx.setOwid(oneCompanyByTysh.getOwid());
+                    bckjBizQyxx.setCreatetime(new Date());
                 }
                 bckjBizQyxx.setState(2);
                 qyxxes.add(bckjBizQyxx);
-                }
             }
-            //判断excel表中是否存在税号
-            Set<String> qyshSet= new HashSet<>();
-            int count = 1;
-            for (String qysh : qyshs) {
-                qyshSet.add(qysh);
-                if (qyshSet.size() != count++){
-                    return ResponseMessage.sendOK("导入失败,企业税号存在重复:"+qysh);
-                }
+        }
+        //判断excel表中是否存在税号
+        Set<String> qyshSet = new HashSet<>();
+        int count = 1;
+        for (String qysh : qyshs) {
+            qyshSet.add(qysh);
+            if (qyshSet.size() != count++) {
+                return ResponseMessage.sendOK("导入失败,企业税号存在重复:" + qysh);
             }
-            //开始批量更新
-            for (BckjBizQyxx bckjBizQyxx : qyxxes) {
-                saveOrUpdate(bckjBizQyxx);
-            }
+        }
+        //开始批量更新
+        for (BckjBizQyxx bckjBizQyxx : qyxxes) {
+            saveOrUpdate(bckjBizQyxx);
+        }
 
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
-    private BckjBizQyxx getOneCompanyByTysh(BckjBizQyxx bckjBizQyxx) {
+    public BckjBizQyxx getOneCompanyByTysh(BckjBizQyxx bckjBizQyxx) {
         return this.dao.getOneCompanyByTysh(bckjBizQyxx);
     }
 
 
-
-
-
-
     /**
      * 读取excel
+     *
      * @param filename
      * @return
      */

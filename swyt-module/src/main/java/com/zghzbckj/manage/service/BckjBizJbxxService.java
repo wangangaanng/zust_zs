@@ -154,6 +154,9 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      */
     public BckjBizJbxx getInfo(Map<String, Object> mapData) {
         BckjBizJbxx indata = this.dao.findOneByMap(mapData);
+        if(null==indata){
+            indata=this.dao.findByUser(mapData);
+        }
         return indata;
     }
 

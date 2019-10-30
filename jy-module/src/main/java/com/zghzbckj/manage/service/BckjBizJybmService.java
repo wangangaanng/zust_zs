@@ -101,6 +101,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         BckjBizJybm job = new BckjBizJybm();
         job.setZwbt("共有：" + page.getTotalCount() + "条信息");
         job.setReadOnly(true);
+        job.setState(null);
         records.add(0, job);
         return ResponseMessage.sendOK(page);
     }

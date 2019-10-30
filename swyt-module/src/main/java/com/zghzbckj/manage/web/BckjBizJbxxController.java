@@ -192,7 +192,14 @@ public class BckjBizJbxxController extends BaseController {
         }
     }
 
-
+    /**
+     * <p>接口 resetPsw.java : <p>
+     * <p>说明：重置密码</p>
+     * <pre>
+     * @author cc
+     * @date 2019/10/29 19:04
+     * </pre>
+     */
     @RequestMapping(value = "resetPsw", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage resetPsw(HttpServletRequest request, PublicDataVO data) {
