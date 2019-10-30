@@ -273,9 +273,9 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String xxmc = cellList.get(2); //学校名称
                 resMap.put("xxmc", xxmc);
                 String byqx = cellList.get(3); //毕业去向名称 50001
-                for(Map map:byqxs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(byqx)))
-                    resMap.put("byqx",map.get(byqx));
+                for (Map map:byqxs){
+                    if(map.get("val2").equals(byqx))
+                        resMap.put("byqx", map.get("val1"));
                 }
                 String sfzydk = cellList.get(4); //专业是否对口
                 if(sfzydk.equals("是")){
@@ -288,44 +288,40 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String yrdwdm = cellList.get(6); //用人单位代码
                 resMap.put("yrdwdm",yrdwdm);
                 String yrdwxzmc = cellList.get(7); //用人单位性质名称 50002
-                for(Map map:yrdwxzmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(yrdwxzmc)))
-                    resMap.put("yrdwxzmc",map.get(yrdwxzmc));
+                for (Map map:yrdwxzmcs){
+                    if(map.get("val2").equals(yrdwxzmc))
+                        resMap.put("yrdwxzmc", map.get("val1"));
                 }
                 String dwhylbmc = cellList.get(8); //单位行业类别名称 50003
-                for(Map map:dwhylbmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(dwhylbmc)))
-                    resMap.put("dwhylbmc",map.get(dwhylbmc));
+                for (Map map:dwhylbmcs){
+                    if(map.get("val2").equals(dwhylbmc))
+                        resMap.put("dwhylbmc", map.get("val1"));
                 }
                 String dwszdmc = cellList.get(9); //      50005
-                for(Map map:dwszdmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(dwszdmc)))
-                    resMap.put("dwszdmc",map.get(dwszdmc));
+                for (Map map:dwszdmcs){
+                    if(map.get("val2").equals(dwszdmc))
+                        resMap.put("dwszdmc", map.get("val1"));
                 }
                 String dwlxr = cellList.get(10); //单位联系人
                 resMap.put("dwlxr",dwlxr);
                 String dwdh = cellList.get(11); //单位电话
                 resMap.put("dwdh", dwdh);
                 String gzzwlbmc = cellList.get(12); //工作职位类别名称 50004
-                for(Map map:gzzwlbmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(gzzwlbmc)))
-                    resMap.put("gzzwlbmc",map.get(gzzwlbmc));
+                for (Map map:gzzwlbmcs){
+                    if(map.get("val2").equals(gzzwlbmc))
+                        resMap.put("gzzwlbmc", map.get("val1"));
                 }
                 String bdzqflbmc = cellList.get(13); //报到证签发类别名称
-                for(Map map:bdzqflbmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(bdzqflbmc)))
-                    resMap.put("bdzqflbmc",map.get(bdzqflbmc));
+                for (Map map:bdzqflbmcs){
+                    if(map.get("val2").equals(bdzqflbmc))
+                        resMap.put("bdzqflbmc", map.get("val1"));
                 }
                 String bdzqwdwmc = cellList.get(14); //报到证签往单位名称
-                for(Map map:bdzqflbmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(bdzqwdwmc)))
-                    resMap.put("bdzqwdwmc",map.get(bdzqwdwmc));
-                }
                 resMap.put("bdzqwdwmc", bdzqwdwmc);
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
-                for(Map map:dwszdmcs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(bdzqwszdmc)))
-                    resMap.put("bdzqwszdmc",map.get(bdzqwszdmc));
+                for (Map map:dwszdmcs){
+                    if(map.get("val2").equals(bdzqwszdmc))
+                        resMap.put("bdzqwszdmc", map.get("val1"));
                 }
                 String bdkssj = cellList.get(16); //报到开始时间
                 try {
@@ -377,8 +373,6 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 bckjBizJyscheme.setExp2("1");
                 //就业所在地地统计放在exp1
                 bckjBizJyscheme.setExp1(recordLx(bckjBizJyscheme.getDwszdmc()));
-            /*    yhxxes.add(bckjBizYhxx);
-                sybs.add(bckjBizSyb);*/
                 jys.add(bckjBizJyscheme);
             }
             //判断excel表中是否存在重复的xsxh

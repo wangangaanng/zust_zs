@@ -56,6 +56,7 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/swYtLogin', data, function (res) {
       if (res.data.backCode == 0) {
+        wx.setStorageSync('yhRefOwid', res.data.bean.owid);
         wx.setStorageSync('hasLogin', '1');
         wx.reLaunch({
           url: '../shouye/shouye',
@@ -103,6 +104,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    //已经登录跳转到首页
     if (wx.getStorageSync("hasLogin")==1){
       wx.reLaunch({
         url: '../shouye/shouye',
