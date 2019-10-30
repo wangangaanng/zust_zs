@@ -179,7 +179,7 @@ public class CommonService {
         String type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
         String realName = String.valueOf(System.currentTimeMillis());
         String trueFileName = CommonModuleContant.SWTYFILEPATH + File.separator + realName + CommonConstant.SPILT_POINT + type;
-        String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH) + trueFileName;
+        String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH);
         File tarFile = new File(path, fileName);
         file.transferTo(tarFile);
         Map<String, Object> fileCenter = Maps.newHashMap();
