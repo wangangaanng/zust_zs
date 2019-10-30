@@ -628,6 +628,17 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
                 job.setXsgzList(xsgzList);
                 job.setNumber(xsgzList.size());
+                params.clear();
+                params.put("jobRefOwid", job.getOwid());
+                if (!TextUtils.isEmpty(dataMap.get("yhRefOwid"))) {
+                    params.put("yhRefOwid", dataMap.get("yhRefOwid").toString());
+                }
+                List<BckjBizJybm> bmList = bmDao.findListByMap(params);
+                if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+                    job.setSfbm(2);
+                } else {
+                    job.setSfbm(1);
+                }
             }
 
         }
