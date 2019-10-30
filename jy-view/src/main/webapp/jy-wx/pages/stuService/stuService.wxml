@@ -6,7 +6,7 @@
       <view class='stu-tx'>
         <image src='{{headImg}}'></image>
       </view>
-      <view class='stu-name'>{{name}}</view>
+      <view class='stu-name'>{{name?name:''}}</view>
     </view>
     <image class='bg-wave' src='../../static/bg-wave.png'></image>
   </view>

@@ -268,6 +268,17 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
     }
 
 
+    public ResponseMessage showInfoListQt(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        Page<Map<String, Object>> page = new Page(pageNo, pageSize);
+        dataMap.put("page", page);
+        page.setList(this.dao.showInfoListQt(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+
+
+
+
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage saveConsultInfo(List<Map<String, Object>> components) {
         try {
@@ -293,27 +304,30 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
-@Transactional(readOnly = false,rollbackFor = Exception.class)
+
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage insertssInfo(Map<String, Object> dataMap) throws Exception {
         BckjBizYhxxVo bckjBizYhxx = new BckjBizYhxxVo();
         BckjBizZjzx bckjBizZjzx = new BckjBizZjzx();
-
-        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizZjzx);
+        dataMap.remove("exp2");//办公司电话
+        dataMap.remove("exp3");//部门
+        dataMap.remove("exp4");//咨询方向
+        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         if (ClassUtils.isAllFieldNull(bckjBizYhxx) && ClassUtils.isAllFieldNull(bckjBizZjzx)) {
-            return ResponseMessage.sendOK( "无保存内容");
+            return ResponseMessage.sendOK("无保存内容");
         }
         //根据登入账号去寻找用户
-    Map<String, String> oneByDlzh = getOneByDlzh(bckjBizYhxx.getYhDlzh());
-    if(!TextUtils.isEmpty(oneByDlzh)&&!TextUtils.isEmpty(dataMap.get("owid"))){
-            if(!oneByDlzh.get("owid").equals(dataMap.get("owid"))){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
+        Map<String, String> oneByDlzh = getOneByDlzh(bckjBizYhxx.getYhDlzh());
+        if (!TextUtils.isEmpty(oneByDlzh) && !TextUtils.isEmpty(dataMap.get("owid"))) {
+            if (!oneByDlzh.get("owid").equals(dataMap.get("owid"))) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "存在相同的账号，无法保存");
             }
         }
-    if(!TextUtils.isEmpty(oneByDlzh)&&TextUtils.isEmpty(dataMap.get("owid"))){
-        return ResponseMessage.sendError(ResponseMessage.FAIL,"存在相同的账号，无法保存");
-    }
-    if(TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
+        if (!TextUtils.isEmpty(oneByDlzh) && TextUtils.isEmpty(dataMap.get("owid"))) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "存在相同的账号，无法保存");
+        }
+        if (TextUtils.isEmpty(bckjBizYhxx.getOwid())) {
             bckjBizYhxx.setXm(bckjBizZjzx.getZjxm());
             bckjBizYhxx.setYhlx(1);
             bckjBizYhxx.setYhDlmm(com.zghzbckj.util.TextUtils.MD5(bckjBizZjzx.getExp1()));
@@ -321,27 +335,39 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             bckjBizZjzx.setYhid(owid);
             bckjbizyhxxSer.insertInfo(bckjBizYhxx);
             saveOrUpdate(bckjBizZjzx);
-        }else {
-                bckjBizYhxx.setYhDlmm(com.zghzbckj.util.TextUtils.MD5(bckjBizZjzx.getExp1()));
-                bckjBizYhxx.setYhlx(1);
-                ResponseMessage responseMessage = bckjbizyhxxSer.saveconInfo(bckjBizYhxx);
-                if (responseMessage == null || responseMessage.getBackCode() != 0 || responseMessage.getBean() == null) {
-                    throw new Exception(CommonConstant.ERROR_MESSAGE);
-                }
-                if (responseMessage.getBean().toString().indexOf("错误") != -1) {
-                    throw new Exception(CommonConstant.ERROR_MESSAGE);
-                }
-                bckjBizZjzx.setYhid(bckjBizYhxx.getOwid());
-                this.dao.updateBycondition(bckjBizZjzx);
+        } else {
+            bckjBizYhxx.setYhDlmm(com.zghzbckj.util.TextUtils.MD5(bckjBizZjzx.getExp1()));
+            bckjBizYhxx.setYhlx(1);
+            ResponseMessage responseMessage = bckjbizyhxxSer.saveconInfo(bckjBizYhxx);
+            if (responseMessage == null || responseMessage.getBackCode() != 0 || responseMessage.getBean() == null) {
+                throw new Exception(CommonConstant.ERROR_MESSAGE);
+            }
+            if (responseMessage.getBean().toString().indexOf("错误") != -1) {
+                throw new Exception(CommonConstant.ERROR_MESSAGE);
+            }
+            bckjBizZjzx.setYhid(bckjBizYhxx.getOwid());
+            this.dao.updateBycondition(bckjBizZjzx);
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
-    private Map<String,String> getOneByDlzh(String dlzh) {
+    private Map<String, String> getOneByDlzh(String dlzh) {
         return this.dao.getOneByDlzh(dlzh);
     }
 
     public ResponseMessage getConsultsOne(Map<String, Object> dataMap) {
         return ResponseMessage.sendOK(this.dao.getConsultsOne(dataMap));
+    }
+
+    public Map getConsultsReplyDay() {
+        Map<String, String> resMap = Maps.newHashMap();
+        List<String> consultsReplyDay = this.dao.getConsultsReplyDay();
+        if (consultsReplyDay.size() > 1) {
+            resMap.put("hfts", consultsReplyDay.get(0));
+        } else {
+            if (TextUtils.isEmpty(resMap) || TextUtils.isEmpty(resMap.get(0)))
+                resMap.put("hfts", "无设置");
+        }
+        return resMap;
     }
 }

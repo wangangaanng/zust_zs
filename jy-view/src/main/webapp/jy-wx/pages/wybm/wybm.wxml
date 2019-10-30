@@ -1,24 +1,45 @@
 <wxs src="../fcn.wxs" module="tools" />
 <!--pages/enterpriseXjh/enterpriseXjh.wxml-->
+<van-search
+    value="{{ key }}"
+    placeholder="请输入搜索关键词"
+    use-action-slot
+    bind:clear="onClear"
+    bind:change="onChange"
+    bind:search="onSearch"
+    shape="round"
+  >
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search>
+  <van-cell-group>
+  <van-cell title="类型" value="{{lxStr}}" is-link arrow-direction="down" bind:click="showBottom" />
+  </van-cell-group>
+  <van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" bind:close="hideBottom">
+    <van-picker show-toolbar title="类型" value-key="dicVal2" columns="{{lxColumns}}" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+
+  <scroll-view  style='position:fixed;top:98px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
 <view class="uni-list">
   <block wx:for="{{xjhList}}" wx:key="{{index}}">
   <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
-        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无名称'}}</view>
         <view class="uni-media-list-text-bottom">
-          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd}}</view>
+          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd?item.zphJbdd:'暂无'}}</view>
         </view>
         <view class="uni-media-list-text-content">
-          <view>举办时间：<span>{{tools.substr(item.zphKsrq,0,10)}}</span>
+          <view>举办时间：<span>{{item.zphKsrq?tools.substr(item.zphKsrq,0,10):''}}</span>
               <span class="pull-right" style="{{item.color}}">{{item.str}}</span>
           </view>
-          <view wx:if="{{item.zphBmjzsj}}">报名截止：{{tools.substr(item.zphBmjzsj,0,10)}}</view>
+          <view wx:if="{{item.zphBmjzsj}}">报名截止：{{item.zphBmjzsj?tools.substr(item.zphBmjzsj,0,10):''}}</view>
+          <view>类型：{{item.zwlxStr?item.zwlxStr:''}}</view>
         </view>
       </view>
     </view>
   </view>
   </block>
 </view>
-<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
 
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
+</scroll-view>

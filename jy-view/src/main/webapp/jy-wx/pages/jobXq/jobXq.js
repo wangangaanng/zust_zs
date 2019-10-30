@@ -459,12 +459,12 @@ var getOneJob = function (that, owid) {
         that.setData({
           form: data.bean,
           area: `${data.bean.zwPro}-${data.bean.zwCity}-${data.bean.zwArea}`,
-          gzznStr: data.bean.zwGzznStr,
-          gzxzStr: data.bean.zwGzxzStr,
-          nlyqStr: data.bean.zwNlyqStr,
-          xlyqStr: data.bean.zwXlyqStr,
-          gznxStr: data.bean.zwGznxStr,
-          yyyqStr: data.bean.zwYyyqStr,
+          gzznStr: data.bean.zwGzznStr || '',
+          gzxzStr: data.bean.zwGzxzStr || '',
+          nlyqStr: data.bean.zwNlyqStr || '',
+          xlyqStr: data.bean.zwXlyqStr || '',
+          gznxStr: data.bean.zwGznxStr || '',
+          yyyqStr: data.bean.zwYyyqStr || '',
           zwSxsjStr: data.bean.zwSxsj?data.bean.zwSxsj.substring(0,10):'暂无',
         })
       }
