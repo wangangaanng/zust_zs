@@ -214,6 +214,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 String xm = cellList.get(2); //姓名
                 resMap.put("xm", xm);
                 String xb = cellList.get(3); //性别
+                resMap.put("xb", xb);
                 if (xb.equals("男")) {
                     resMap.put("xb", 1);
                 } else {
@@ -229,18 +230,18 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
 
                 String syd = cellList.get(6); //生源地
                 for (Map map:syds){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(syd)))
-                        resMap.put("syd",map.get(syd));
+                    if(map.get("val2").equals(syd))
+                        resMap.put("syd", map.get("val1"));
                 }
                 String mz = cellList.get(7); //民族
                 for (Map map:mzs){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(mz)))
-                        resMap.put("mz",map.get(mz));
+                    if(map.get("val2").equals(mz))
+                        resMap.put("mz", map.get("val1"));
                 }
                 String zzmm = cellList.get(8); //政治面貌
                 for (Map map:zzmms){
-                    if(!com.zghzbckj.util.TextUtils.isEmpty(map.get(zzmm)))
-                        resMap.put("zzmm",map.get(zzmm));
+                    if(map.get("val2").equals(zzmm))
+                        resMap.put("zzmm", map.get("val1"));
                 }
                 String rxnf = cellList.get(9); //入学日期
                 try{
@@ -279,7 +280,24 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
                 String xlcc = cellList.get(17); //学历层次
                 resMap.put("xlcc", xlcc);
                 String xz = cellList.get(18); //学制
-                resMap.put("xz", xz);
+                resMap.put("xz",xz);
+                if(xz.indexOf("一")!=-1||xz.indexOf("1")!=-1){
+                    resMap.put("xz", "1");
+                }else if(xz.indexOf("二")!=-1||xz.indexOf("2")!=-1){
+                    resMap.put("xz", "2");
+                }else if(xz.indexOf("三")!=-1||xz.indexOf("3")!=-1){
+                    resMap.put("xz", "3");
+                }else if(xz.indexOf("四")!=-1||xz.indexOf("4")!=-1){
+                    resMap.put("xz", "4");
+                }else if(xz.indexOf("五")!=-1||xz.indexOf("5")!=-1){
+                    resMap.put("xz", "5");
+                }else if(xz.indexOf("六")!=-1||xz.indexOf("6")!=-1){
+                    resMap.put("xz", "6");
+                }else if(xz.indexOf("七")!=-1||xz.indexOf("7")!=-1){
+                    resMap.put("xz", "7");
+                }else if(xz.indexOf("八")!=-1||xz.indexOf("8")!=-1){
+                    resMap.put("xz", "8");
+                }
                 String xxmc = cellList.get(19); //所属学校
                 resMap.put("xxmc", xxmc);
                 String xsxy = cellList.get(20); //所属学院
