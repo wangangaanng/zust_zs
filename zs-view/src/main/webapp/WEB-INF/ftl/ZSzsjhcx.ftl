@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${base}/css/style.css"/>
 </head>
 <style>
-    .fuye_search{border-width:1px 0; padding:18px 5px 0; background-color:#f9f9f9; overflow:hidden;}
+    .fuye_search{border-width:1px 0; padding: 18px 0 0 10px;; background-color:#f9f9f9; overflow:hidden;margin-right: 22px;}
     .fuye_search ul li{ float:left; padding:0 15px; margin-bottom:5px;}
     .fuye_search ul li p.title{ line-height:36px; float:left;}
     .fuye_search ul li a.fuye_search_btn, a.fuye_search_btn{ display: inline-block; background-color:rgb(85,167,153); height:34px; width:120px; text-align:center; line-height:34px; color:#fff; font-size:14px;}
@@ -30,7 +30,7 @@
             </div>
             <div class="content-form">
                 <form class="form-horizontal" id="queryForm"  action="" target="queryFrame">
-                    <div class="fuye_search" style="margin-top: 30px">
+                    <div class="fuye_search">
                         <div class="form-group">
                             <label for="nf" class="col-sm-1">年份：</label>
                             <div class="col-sm-3">
@@ -70,7 +70,7 @@
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <button type="button" class="btn btn-default"
-                                    style="background-color: rgb(85,167,153);color: #ffffff;width: 150px;height: 34px;margin-left: 90px">查询</button>
+                                    style="background-color: rgb(85,167,153);color: #ffffff;width: 150px;height: 34px;margin-left: 90px">导出</button>
                         </div>
                     </div>
                 </form>
