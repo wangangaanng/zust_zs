@@ -1,6 +1,5 @@
 package com.zghzbckj.manage.web;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.ourway.baiduapi.constants.BaiDuApiInfo;
 import com.ourway.baiduapi.dto.InfoDTO;
@@ -19,10 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -105,7 +102,6 @@ public class CommonController {
                 String trueFileName = String.valueOf(System.currentTimeMillis()) + "." + type;
                 path = CommonModuleContant.picPath + File.separator + trueFileName;
                 try {
-                    Image srcFile = ImageIO.read(file.getInputStream());
                     file.transferTo(new File(path));
                     Map resultMap = Maps.newHashMap();
                     resultMap = ocrPic(path, trueFileName, Integer.parseInt(dataMap.get("type").toString()));
