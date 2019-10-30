@@ -87,13 +87,13 @@
     </select>
 
 
-	<select id="getByName" resultType="com.zghzbckj.manage.entity.BckjBizJob">
-		SELECT
-		<include refid="bckjBizJobColumns"/>
-		FROM bckj_biz_job a
-		<include refid="bckjBizJobJoins"/>
-		WHERE a.zwbt = #{zwbt}
-	</select>
+    <select id="getByName" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+        SELECT
+        <include refid="bckjBizJobColumns"/>
+        FROM bckj_biz_job a
+        <include refid="bckjBizJobJoins"/>
+        WHERE a.zwbt = #{zwbt}
+    </select>
 
 
     <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizJob">

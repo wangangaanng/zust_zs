@@ -14,6 +14,7 @@ package com.zghzbckj.web.controll;
 public class CommonModuleContant {
 
     public final static String picPath = "/mnt/files/zjcFiles/pic";
+    public final static String excelPath = "/mnt/files/zjcFiles/excel";
     public final static String PIC_PNG = "PNG";
     public final static String PIC_JPG = "JPG";
     public final static String PIC_JPEG = "JPEG";
