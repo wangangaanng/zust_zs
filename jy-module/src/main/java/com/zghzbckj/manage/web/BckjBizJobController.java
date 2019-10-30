@@ -287,7 +287,7 @@ public class BckjBizJobController extends BaseController {
                                      PublicDataVO dataVO) {
 
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo",  "pageSize");
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "pageSize");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
@@ -377,6 +377,9 @@ public class BckjBizJobController extends BaseController {
     }
 
 
+
+
+
     @RequestMapping(value = "setJbdd", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage setJbdd(PublicDataVO publicDataVO) {
@@ -406,6 +409,7 @@ public class BckjBizJobController extends BaseController {
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
+
 
     @RequestMapping(value = "backPassOne", method = RequestMethod.POST)
     @ResponseBody

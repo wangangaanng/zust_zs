@@ -142,6 +142,43 @@ public class WebAjaxController {
         }
     }
 
+
+    @RequestMapping(value = "excelUpload", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage excelUpload(PublicDataVO dataVO, @RequestParam(required = false) MultipartFile file, final HttpServletRequest request, HttpServletResponse response) throws Exception {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+//        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "");
+//        if (!msg.getSuccess()) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+//        }
+
+        if (null == file || file.isEmpty()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "数据为空");
+        }
+
+        String path = null;// 文件路径
+        String type = null;// 文件类型
+        String zippath = null;// 压缩文件路径
+        String fileName = file.getOriginalFilename();// 文件原名称
+        type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
+        if (type != null) {// 判断文件类型是否为空
+            // 项目在容器中实际发布运行的根路径
+            String trueFileName = String.valueOf(System.currentTimeMillis()) + "." + type;
+            path = CommonModuleContant.excelPath + File.separator + trueFileName;
+            try {
+                file.transferTo(new File(path));
+                return ResponseMessage.sendOK(path);
+            } catch (IOException e) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "upload failed");
+            }
+
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "file type is null");
+        }
+    }
+
+
     public static String getToKen() {
         String access_token_url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + CommonModuleContant.API_KEY + "&client_secret=" + CommonModuleContant.SECRET_KEY;
         CloseableHttpResponse response = HttpClientUtils.doHttpsGet(access_token_url, (String) null);
