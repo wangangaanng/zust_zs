@@ -10,10 +10,8 @@
     <link rel="stylesheet" href="${base}/css/style.css"/>
 </head>
 <style>
-    .table{
-        margin: 0 40px;
-        width: 90%;
-    }
+    .table{ margin: 0 40px; width: 90%; text-align: center;}
+    .table th{ text-align: center;}
     .fuye_sr_con{ margin:20px 40px; width: 90%}
     .fuye_sr_con dl{ border:1px solid #e0e0e0; background-color:#fff; padding:20px 0 20px 30px; overflow:hidden;}
     .fuye_sr_con dl dt, .fuye_sr_con dl dd{float:left;}
@@ -46,23 +44,27 @@
                         <input id="input_zkzh" type="number" class="form-control" placeholder="请输入准考证号"
                                aria-describedby="basic-addon1">
                     </div>
-                    <button type="button" class="btn btn-default"
+                    <button type="button" class="btn btn-default" onclick="queryIn()"
                             style="background-color: rgb(85,167,153);color: #ffffff;width: 100px;height: 34px;margin: 20px 15px">查询</button>
                 </div>
                 <div>
                     <table class="table table-bordered">
-                        <tr>
-                            <th style="width: 150px">准考证号： </th>
-                            <th style="width: 250px" id="zkzh">17330102111092</th>
-                            <th style="width: 150px" >身份证： </th>
-                            <th style="width: 250px" id="sfzh">330103199809131614</th>
-                        </tr>
-                        <tr>
-                            <th style="width: 150px">姓名： </th>
-                            <th style="width: 250px" id="xm">程义泰</th>
-                            <th style="width: 150px" >联系电话： </th>
-                            <th style="width: 250px" id="lxdh">18268161215</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th style="width: 150px">准考证号： </th>
+                                <th style="width: 250px" id="zkzh">17330102111092</th>
+                                <th style="width: 150px" >身份证： </th>
+                                <th style="width: 250px" id="sfzh">330103199809131614</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th style="width: 150px">姓名： </th>
+                                <th style="width: 250px" id="xm">程义泰</th>
+                                <th style="width: 150px" >联系电话： </th>
+                                <th style="width: 250px" id="lxdh">18268161215</th>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
                 <div class="fuye_sr_con">
@@ -91,6 +93,7 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/zs/lqcx.js"></script>
 <script>
 
 </script>
