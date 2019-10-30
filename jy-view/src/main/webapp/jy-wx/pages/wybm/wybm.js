@@ -110,7 +110,7 @@ var myJobList = function (that, lx) {
             res.data.bean.records[i].str = '已截止报名';
             res.data.bean.records[i].color = 'color:red;';
           }
-          if (util.compareToday(res.data.bean.records[i].zphKsrq)) {
+          if (res.data.bean.records[i].zphKsrq && util.compareToday(res.data.bean.records[i].zphKsrq)) {
             res.data.bean.records[i].str = '已结束';
             res.data.bean.records[i].color = 'color:red;';
           }

@@ -347,7 +347,7 @@ function myJobList2() {
                     formatter: function (value, row, index) {
                         var value = ""
                         if (row.state == 0) {
-                            if(compareToday(row.xjsj)){
+                            if(row.xjsj && compareToday(row.xjsj)){
                                 value = "<span>已失效</span>"
                             }else{
                                 value = "<span>待审核</span>"

@@ -64,20 +64,19 @@
 <form bindsubmit="basicForm" class="form-wrap">
   <view class="shadow-wrap">
     <van-cell-group>
-      <van-field value="{{ name }}" name="name" clearable label="姓名" placeholder="请输入用姓名" error-message="{{errorList['name'].msg}}" />
-      <van-field value="{{ idcard }}" name="idcard" clearable label="身份证号" placeholder="请输入身份证号码" error-message="{{errorList['idcard'].msg}}" />
+      <van-field value="{{ form.xm }}" name="xm" clearable label="姓名" placeholder="请输入用姓名" error-message="{{errorList['xm'].msg}}" />
+      <van-field value="{{ form.sfzh }}" name="sfzh" clearable label="身份证号" placeholder="请输入身份证号码" error-message="{{errorList['sfzh'].msg}}" />
       <van-field label="性别" error-message="" disabled>
-        <van-radio-group value="{{sex}}" name="sex" bind:change="sexSelect" slot="right-icon" class="select-group">
+        <van-radio-group value="{{form.xb}}" name="xb" bind:change="sexSelect" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
           <van-radio name="2" checked-color="#26b887">女</van-radio>
         </van-radio-group>
       </van-field>
-      <van-field value="{{ race }}" name="race" clearable label="民族" placeholder="请选择民族" error-message="{{errorList['race'].msg}}" />
-      <van-field value="{{ address }}" name="address" clearable label="通讯地址" placeholder="请输入通讯地址" error-message="{{errorList['address'].msg}}" />
-      <van-field value="{{ phone }}" name="phone" clearable label="联系电话" placeholder="请输入联系电话" error-message="{{errorList['phone'].msg}}" />
-      <van-field value="{{ tel }}" name="tel" clearable label="手机" placeholder="请输入手机" error-message="{{errorList['tel'].msg}}" />
-      <van-field value="{{ email }}" name="email" label="电子邮箱" placeholder="请输入电子邮箱" error-message="{{errorList['email'].msg}}" />
-      <van-field value="{{ qq }}" name="qq" clearable label="QQ号" placeholder="请输入QQ号" error-message="{{errorList['qq'].msg}}" />
+      <van-field value="{{ form.mz }}" name="mz" clearable label="民族" placeholder="请选择民族" error-message="{{errorList['mz'].msg}}" />
+      <van-field value="{{ form.jtzz }}" name="jtzz" clearable label="通讯地址" placeholder="请输入通讯地址" error-message="{{errorList['jtzz'].msg}}" />
+      <van-field value="{{ form.lxdh }}" name="lxdh" clearable label="联系电话" placeholder="请输入联系电话" error-message="{{errorList['lxdh'].msg}}" />
+      <van-field value="{{ form.yx }}" name="yx" label="电子邮箱" placeholder="请输入电子邮箱" error-message="{{errorList['yx'].msg}}" />
+      <van-field value="{{ form.qq }}" name="qq" clearable label="QQ号" placeholder="请输入QQ号" error-message="{{errorList['qq'].msg}}" />
     </van-cell-group>
   </view>
   <!-- 按钮 -->

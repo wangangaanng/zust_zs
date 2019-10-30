@@ -507,7 +507,7 @@ var pageSize=10;
         if(row.zphBmjzsj && compareToday(row.zphBmjzsj)){
             str= '<span style="color: #ccc;">已截止报名</span> ';
         }
-        if(compareToday(row.zphKsrq)){
+        if(row.zphKsrq && compareToday(row.zphKsrq)){
             str= '<span style="color:red;">已结束</span> ';
         }
 

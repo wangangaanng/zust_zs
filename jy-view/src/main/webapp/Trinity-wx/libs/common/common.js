@@ -5,6 +5,7 @@ var imgPath = app.globalData.imgPath;
 var localImgPath = app.globalData.localimgUrl;
 var openId = app.globalData.openId;
 var unionid = app.globalData.unionid;
+var yhRefOwid = wx.getStorageSync('yhRefOwid');
 function ajax(method, data, successMethod,hideload) {
   if (hideload==1){
 
@@ -44,7 +45,36 @@ function ajax(method, data, successMethod,hideload) {
   })
 }
 
-
+function uploadFile(tempFilePaths, type,fun){
+  var jsonObj = {
+    "file": tempFilePaths[0],
+    "type": type,
+    "yhRefOwid": yhRefOwid
+  }
+  wx.showLoading({
+    title: '上传中',
+  })
+  wx.uploadFile({
+    url: app.globalData.ApiUrl + "zustcommon/common/fileUpload",
+    filePath: tempFilePaths[0],
+    name: 'file',
+    header: { "Content-Type": "multipart/form-data" },
+    formData: {
+      "data": JSON.stringify(jsonObj)
+    },
+    success: function (res) {
+      wx.hideLoading()
+      fun(res)
+    },
+    fail: function (e) {
+      wx.showModal({
+        title: '提示',
+        content: '上传失败',
+        showCancel: false
+      });
+    }
+  })
+}
 // author:2515421994@qq.com,time:2019.10.29++++++++++++++++++++++++++++++++++++++++++++++++++++
 //获取验证码
 function getCode(mobile, type, that) {//that 小程序中的this 【type 0：注册 1：忘记密码 2：网站注册】
@@ -165,6 +195,7 @@ exports.emptyCheck = emptyCheck
 exports.indexOf = indexOf
 exports.ajax = ajax
 exports.convertStr = convertStr
+exports.uploadFile = uploadFile
 
 //author:2515421994@qq.com,time:2019.10.29 获取验证码 重组errorList
 exports.getCode = getCode 

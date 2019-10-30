@@ -22,6 +22,9 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
 
     private static final long serialVersionUID = 1L;
     private String qyxxRefOwid;        // qyxx_ref_owid
+    private String yqRefOwid;
+    private String yqmc;
+    private Integer bmqygs;
     private String jobRefOwid;        // job_ref_owid
     private String yhRefOwid;        // yh_ref_owid
     private Integer bmlx;        // bmlx
@@ -82,6 +85,40 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String rs3;
     private String rs4;
     private String rs5;
+    private Integer showUpload;
+
+
+    public Integer getShowUpload() {
+        return showUpload;
+    }
+
+    public void setShowUpload(Integer showUpload) {
+        this.showUpload = showUpload;
+    }
+
+    public String getYqRefOwid() {
+        return yqRefOwid;
+    }
+
+    public void setYqRefOwid(String yqRefOwid) {
+        this.yqRefOwid = yqRefOwid;
+    }
+
+    public String getYqmc() {
+        return yqmc;
+    }
+
+    public void setYqmc(String yqmc) {
+        this.yqmc = yqmc;
+    }
+
+    public Integer getBmqygs() {
+        return bmqygs;
+    }
+
+    public void setBmqygs(Integer bmqygs) {
+        this.bmqygs = bmqygs;
+    }
 
     public String getZw1() {
         return zw1;
@@ -564,6 +601,7 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     }
 
     private List<Map> zwList;
+
     public void setZwList(List<Map> zwList) {
         this.zwList = zwList;
     }
