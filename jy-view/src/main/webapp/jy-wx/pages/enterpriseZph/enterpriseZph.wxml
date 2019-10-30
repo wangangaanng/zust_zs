@@ -16,9 +16,9 @@
   <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid1="{{item.owid}}" data-owid2="{{item.jobRefOwid}}" bindtap="detail">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
-        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无招聘会名称'}}</view>
         <view class="uni-media-list-text-bottom">
-          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd}}</view>
+          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd?item.zphJbdd:''}}</view>
           <van-icon
         name="arrow"
         custom-class="icon"

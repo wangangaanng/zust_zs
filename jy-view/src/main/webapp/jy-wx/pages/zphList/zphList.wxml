@@ -5,12 +5,12 @@
   <view class="uni-list-cell" hover-class="uni-list-cell-hover">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
-        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无名称'}}</view>
         <view class="uni-media-list-text-bottom">
-          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd}}</view>
+          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd?item.zphJbdd:''}}</view>
         </view>
         <view class="uni-media-list-text-content">
-          <view>举办时间：<span>{{tools.substr(item.zphKsrq,0,10)}}</span>
+          <view>举办时间：<span>{{item.zphKsrq?tools.substr(item.zphKsrq,0,10):''}}</span>
               <span wx:if="{{!item.sfkbm}}" class="pull-right">{{item.str}}</span>
               <van-button wx:elif="{{item.sfkbm}}" type="primary" class="pull-right" size="small" data-owid="{{item.owid}}" bindtap="order">预定展位</van-button>
           </view>

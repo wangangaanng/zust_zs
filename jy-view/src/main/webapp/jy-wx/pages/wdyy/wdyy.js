@@ -114,6 +114,16 @@ var myBmList = function (that, lx) {
     if (res.data.backCode == 0) {
       var xjhList;
       if (res.data.bean.records && res.data.bean.records.length > 0) {
+        for (var i = 0; i < res.data.bean.records.length;i++){
+          res.data.bean.records[i].bmdxStr=''
+          if (res.data.bean.records[i].bmdx==0){
+            res.data.bean.records[i].bmdxStr = '职来职往'
+          } else if (res.data.bean.records[i].bmdx == 1) {
+            res.data.bean.records[i].bmdxStr = '宣讲会'
+          } else if (res.data.bean.records[i].bmdx == 2) {
+            res.data.bean.records[i].bmdxStr = '职位'
+          }
+        }
         xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
 

@@ -3,8 +3,8 @@
 <van-tabs sticky animated bind:click="clickTab">
   <van-tab title="招聘会信息">      
       <view class="cell">
-          <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
-          <view class="title" wx:else>{{result.zwbt}}</view>
+          <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt?result.zwbt:''}}</view>
+          <view class="title" wx:else>{{result.zwbt?result.zwbt:''}}</view>
         <view class="content">
           <view class="table">
               <view class="tr" wx:if="{{result.xjsj}}">
@@ -66,9 +66,9 @@
     </view>
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
-        <view>{{item.lxr}}</view>
-        <view>{{tools.substr(item.gzsj,0,10)}}</view>
-        <view>{{item.lxdh}}</view>
+        <view>{{item.lxr?item.lxr:''}}</view>
+        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
+        <view>{{item.lxdh?item.lxdh:''}}</view>
       </view>
       </block>
       </view>
@@ -84,9 +84,9 @@
     </view>
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
-        <view>{{item.lxr}}</view>
-        <view>{{tools.substr(item.bmsj,0,10)}}</view>
-        <view>{{item.lxdh}}</view>
+        <view>{{item.lxr?item.lxr:''}}</view>
+        <view>{{item.bmsj?tools.substr(item.bmsj,0,10):''}}</view>
+        <view>{{item.lxdh?item.lxdh:''}}</view>
       </view>
       </block>
       </view>
