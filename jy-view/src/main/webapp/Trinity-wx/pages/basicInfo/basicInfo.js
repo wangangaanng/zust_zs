@@ -83,7 +83,7 @@ Page({
       , "yx": params.email//邮箱
       , "qq": params.qq
       , "lxdh": params.phone//联系电话
-      , "yhRefOwid": ''//用户owid
+      , "yhRefOwid": wx.getSystemInfoSync('yhRefOwid')//用户owid
     }
     common.ajax('zustswyt/bckjBizJbxx/finishInfo', data, function (res) {
       if (res.data.backCode == 0) {
@@ -119,12 +119,12 @@ Page({
           case 1:
 
           break;
-          case 2:
+          case 2: //身份证正面
             that.setData({
               faceImg: tempFilePaths,
             });
             break;
-          case 3:
+          case 3: //身份证反面
             that.setData({
               faceBck: tempFilePaths,
             });
@@ -192,41 +192,98 @@ Page({
 
 //图片上传
 function upload(that,path,type) {
-  wx.showToast({
-    icon: "loading",
-    title: "正在上传"
-  }),
+  var jsonObj = {
+    "file": path[0],
+    "type": type
+  }
+  wx.showLoading({
+    title: '识别中',
+  })
   wx.uploadFile({
-    url: app.globalData.ApiUrl + "zustcommon/common/idCardOcr",
+    url: app.globalData.ApiUrl + "zustcommon/common/picUpload",
     filePath: path[0],
     name: 'file',
     header: { "Content-Type": "multipart/form-data" },
     formData: {
-      //和服务器约定的token, 一般也可以放在header中
-      'session_token': wx.getStorageSync('session_token')
+      "data": JSON.stringify(jsonObj)
     },
     success: function (res) {
-      // if (res.statusCode != 200) {
-      //   wx.showModal({
-      //     title: '提示',
-      //     content: '上传失败',
-      //     showCancel: false
-      //   });
-      //   that.setData({
-      //     src: "../../images/img-hean_green.png",
-      //   });
-      //   return;
-      // } else {
-      //   var data = res.data;
-      //   common.ajax("zustcommon/common/idCardOcr", { "file": res.data, "type": type }, function (res) {
-      //     if (res.backCode == 0) {
-      //       wx.showToast({
-      //         title: '上传成功',
-      //       });
-      //     }
-      //   })
-      // }
+      if (res.statusCode != 200) {
+        wx.showModal({
+          title: '提示',
+          content: '上传失败',
+          showCancel: false
+        });
+        that.setData({
+          src: "../../images/img-hean_green.png",
+        });
+        return;
+      } else {
+        let d = JSON.parse(res.data);
+        console.log(d);
+        let statusStr = "";
+        switch (d.bean.image_status){
+          case "reversed_side":
+            statusStr = "身份证正反面颠倒，请重新选择"
+            break;
+          case "non_idcard":
+            statusStr = "上传的图片中不包含身份证，请重新选择"
+            break;
+          case "blurred":
+            statusStr = "身份证模糊，请重新选择"
+            break;
+          case "other_type_card":
+            statusStr = "上传照片为其他类型证照，请重新选择"
+            break;
+          case "over_exposure":
+            statusStr = "身份证关键字段反光或过曝，请重新选择"
+            break; 
+          case "over_dark":
+            statusStr = "身份证欠曝（亮度过低），请重新选择"
+            break;
+          default:
+            statusStr = d.bean.image_status;
+            break;          
+        }
+        common.toast(statusStr, 'none', 2000);
 
+        if (d.bean["姓名"] && d.bean["姓名"].words != "无") {
+            that.setData({
+              'name': d.bean["姓名"].words
+            })
+        }
+        if (d.bean["公民身份号码"] && d.bean["公民身份号码"].words != "无") {
+          that.setData({
+            'idcard': d.bean["公民身份号码"].words
+          })
+        }
+        if (d.bean["住址"] && d.bean["住址"].words != "无") {
+          that.setData({
+            'address': d.bean["住址"].words
+          })
+        }
+        if (d.bean["民族"] && d.bean["民族"].words != "无") {
+          that.setData({
+            'race': d.bean["民族"].words
+          })
+        }
+        if (d.bean["性别"] && d.bean["性别"].words != "无") {
+          switch (d.bean["性别"].words){
+            case "女":
+              that.bean.sex = "2"
+              break;
+            case "男":
+              that.bean.sex = "1"
+              break;  
+          }
+
+          that.setData({
+            'sex': that.bean.sex
+          })
+        }
+        
+        
+      }
     },
     fail: function (e) {
       console.log(e);
@@ -238,9 +295,6 @@ function upload(that,path,type) {
       that.setData({
         src: "../../images/img-hean_green.png",
       });
-    },
-    complete: function () {
-      wx.hideToast();  //隐藏Toast
     }
   })
 }
