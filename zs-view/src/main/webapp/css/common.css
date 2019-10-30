@@ -459,8 +459,27 @@ ul.pagination {
 
 .article-detail {
     width: 100%;
-    border: solid 1px #e0e0e0;
+    /*border: solid 1px #e0e0e0;*/
 }
+/*列表详情页*/
+.fuye_list_infor{}
+.fuye_list_infor h1{ text-align:center; font-family:"宋体"; font-size:24px;font-weight:700;padding-top:30px;margin:0 20px;}
+.fuye_list_infor h6{ color:#999; border-bottom:1px dashed #ddd; font-weight:300; text-align:center; overflow:hidden;margin:0 20px;}
+.fuye_list_infor h6 span{ display:inline-block; padding:20px 20px; font-size:14px; }
+.fuye_list_infor h6 span.liulan{ padding-left:0px; margin-left:20px;}
+.fuye_list_infor h6 span.liulan .icon{
+    background: url(../img/icon1.png) -122px 0px no-repeat;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    position: relative;
+    top: 8px;
+}
+.fuye_list_infor_con{ margin:30px 20px 0; padding-bottom:30px;}
+.other{ padding:15px; border-top:1px solid #ddd;}
+.other p{ line-height:30px;}
+.other p a{ color:#333; font-size:14px;}
+.other p a:hover{color:#f88012;}
 
 .article-detail-title {
     margin: 0 20px;
@@ -1401,3 +1420,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 .f-title{font-size: 18px;padding-top: 15px;}
 .twrq{font-size: 14px;color: #888;}
+.cxRes
+{
+    width: 1165px;
+    border: 1px solid rgb(140,140,140);
+    border-color:rgb(140,140,140);
+}
+.cxRes tr>th
+{
+    text-align: center!important;
+}
+.cxRes tr>td
+{
+    border-color:rgb(140,140,140);
+    text-align: center!important;
+}

@@ -200,4 +200,5 @@ exports.uploadFile = uploadFile
 //author:2515421994@qq.com,time:2019.10.29 获取验证码 重组errorList
 exports.getCode = getCode 
 exports.errorHash = errorHash
+exports.imgPath = imgPath
 

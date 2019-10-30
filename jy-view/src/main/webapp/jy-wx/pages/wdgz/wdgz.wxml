@@ -16,9 +16,9 @@
   <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.jobRefOwid}}" bindtap="positionDetail">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
-        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-top">{{(item.zwbt)?item.zwbt:''}}</view>
         <view class="uni-media-list-text-bottom">
-          <view class="uni-media-list-text-bottom-left">类型：{{tools.getType(item.zwlx,type)}}</view>
+          <view class="uni-media-list-text-bottom-left">类型：{{item.zwlxStr}}</view>
           <van-icon
         name="arrow"
         custom-class="icon"
@@ -26,16 +26,16 @@
         </view>
         <view class="uni-media-list-text-content">
           <block wx:if="{{item.zwlx==1}}">
-            召开时间：<span>{{tools.substr(item.zphKsrq,0,10)}} {{item.zphJtsj}}</span>
+            召开时间：<span>{{item.zphKsrq?tools.substr(item.zphKsrq,0,10):''}} {{item.zphJtsj?item.zphJtsj:''}}</span>
           </block>
            <block wx:elif="{{item.zwlx==3}}">
-            召开时间：<span>{{tools.substr(item.zphKsrq,0,10)}} {{item.zphJtsj}}</span>
+            召开时间：<span>{{item.zphKsrq?tools.substr(item.zphKsrq,0,10):''}} {{item.zphJtsj?item.zphJtsj:''}}</span>
           </block>
           <block wx:elif="{{item.zwlx==4}}">
-            召开时间：<span>{{tools.substr(item.zphKsrq,0,10)}} {{item.zphJtsj}}</span>
+            召开时间：<span>{{item.zphKsrq?tools.substr(item.zphKsrq,0,10):''}} {{item.zphJtsj?item.zphJtsj:''}}</span>
           </block>
           <block wx:else>
-            收藏时间：<span>{{tools.substr(item.gzsj,0,10)}}</span>
+            收藏时间：<span>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</span>
           </block>
         </view>
       </view>

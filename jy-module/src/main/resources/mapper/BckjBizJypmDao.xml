@@ -79,6 +79,11 @@
 		where a.pmzy=#{majorName} and a.szxy=#{collegeName} and a.pmnf=#{pmnf}
 	</select>
 
+	<!--清空所有数据	-->
+	<delete id="deleteAll">
+		DELETE FROM bckj_biz_jypm
+	</delete>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		SELECT 
 			<include refid="bckjBizJypmColumns"/>

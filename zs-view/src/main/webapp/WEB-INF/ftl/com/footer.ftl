@@ -228,26 +228,26 @@
                     </div>
                     <div class="first_Paginationtxtcont">
                         <ul style="list-style-type: none;">
-                            <li><a href="IndexPage!wzOrTpOrSq.htm?fid=1">招生动态</a></li>
-                            <li><a href="IndexPage!wzOrTpOrSq.htm?fid=2">查询服务</a></li>
-                            <li><a href="IndexPage!wzOrTpOrSq.htm?fid=3">奖助学金</a></li>
-                            <li><a href="IndexPage!wzOrTpOrSq.htm?fid=4">合作办学</a></li>
+                            <li><a href="">招生动态</a></li>
+                            <li><a href="${base}/cjcx/1/0">查询服务</a></li>
+                            <li><a href="">奖助学金</a></li>
+                            <li><a href="${base}/wzOrTpOrSq/2/0">合作办学</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="second_Pagination">
                     <ul style="list-style-type: none;">
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=5">招生计划</a></li>
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=6">招生政策</a></li>
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=7">在线咨询</a></li>
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=8">招生简章</a></li>
+                        <li><a href="${base}/wzOrTpOrSq/3/0">招生计划</a></li>
+                        <li><a href="${base}/wzOrTpOrSq/4/0">招生政策</a></li>
+                        <li><a href="${base}/wzOrTpOrSq/5/0">在线咨询</a></li>
+                        <li><a href="">招生简章</a></li>
                     </ul>
                 </div>
                 <div class="third_Pagination">
                     <ul style="list-style-type: none;">
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=9">学院专业</a></li>
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=10">科院掠影</a></li>
-                        <li><a href="IndexPage!wzOrTpOrSq.htm?fid=11">学在科院</a></li>
+                        <li><a href="${base}/wzOrTpOrSq/6/0">学院专业</a></li>
+                        <li><a href="${base}/kyly">科院掠影</a></li>
+                        <li><a href="${base}/wzOrTpOrSq/7/0">学在科院</a></li>
                     </ul>
                 </div>
             </div>

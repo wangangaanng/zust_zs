@@ -1162,7 +1162,7 @@ public class DemoController {
             view.addObject("towid",towid);
             Map param=Maps.newHashMap();
             param.put("owid",towid);
-            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/details");
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/getConsultsOne");
             ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
             view.addObject("detail",result.getBean());
             return view;

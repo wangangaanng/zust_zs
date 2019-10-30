@@ -134,6 +134,11 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         return this.dao.getByMajor(collegeName, majorName, pmnf);
     }
 
+    @Transactional(readOnly = false)
+    public void deleteAll() {
+        bckjBizJypmDao.deleteAll();
+    }
+
     /**
      * <p>方法:findPagebckjBizJypm TODO后台BckjBizJypm分页列表</p>
      * <ul>

@@ -131,7 +131,7 @@ Page({
           that.setData({
             km: res.data.bean
           })
-          that.getHkcj('1')
+          that.getHkcj('0')
         } else if (dicType == '10023') {
           that.setData({
             xm: res.data.bean
@@ -153,7 +153,8 @@ Page({
         let obj = {
           kmbh: current.dicVal1,
           kmdj: current.value,
-          kmbh: current.dicVal4,
+          xssx: current.dicVal4,
+          kmmc: current.dicVal2,
         }
         hkList.push(obj)
       }else{
@@ -167,7 +168,8 @@ Page({
         let obj = {
           kmbh: current.dicVal1,
           kmdj: current.value,
-          kmbh: current.dicVal4,
+          xssx: current.dicVal4,
+          kmmc: current.dicVal2,
         }
         zhList.push(obj)
       } else {
@@ -190,7 +192,7 @@ Page({
       }
     });
   },
-  //完善学考等第
+  //获取学考等第
   getHkcj: function (lx) {
     let that = this;    
     let data = {
@@ -199,11 +201,11 @@ Page({
     }
     common.ajax('zustswyt/bckjBizCjxx/getHkcj', data, function (res) {
       if (res.data.backCode == 0) {
-        if (lx=='1'){
+        if (lx=='0'){
           let km = that.data.km;
           for(let i in res.data.bean){
             if (km[i].dicVal1 == res.data.bean[i].kmbh)
-              km[i].value = res.data.bean[i].kmcj
+              km[i].value = res.data.bean[i].kmdj
           }
           that.setData({
             km
@@ -213,7 +215,7 @@ Page({
           let xm = that.data.xm;
           for (let i in res.data.bean) {
             if (xm[i].dicVal1 == res.data.bean[i].kmbh)
-              xm[i].value = res.data.bean[i].kmcj
+              xm[i].value = res.data.bean[i].kmdj
           }
           that.setData({
             xm
@@ -223,5 +225,5 @@ Page({
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
-  },
+  }  
 })

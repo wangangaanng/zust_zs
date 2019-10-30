@@ -109,6 +109,20 @@ var myBmList = function (that, lx) {
     if (res.data.backCode == 0) {
       var xjhList;
       if (res.data.bean.records && res.data.bean.records.length > 0) {
+        for (var i = 0; i < res.data.bean.records.length; i++) {
+          res.data.bean.records[i].zwlxStr = ''
+          if (res.data.bean.records[i].zwlx == 0) {
+            res.data.bean.records[i].zwlxStr = '职位'
+          } else if (res.data.bean.records[i].zwlx == 1) {
+            res.data.bean.records[i].zwlxStr = '社会招聘会'
+          } else if (res.data.bean.records[i].zwlx == 2) {
+            res.data.bean.records[i].zwlxStr = '企业招聘会'
+          } else if (res.data.bean.records[i].zwlx == 3) {
+            res.data.bean.records[i].zwlxStr = '职来职往'
+          } else if (res.data.bean.records[i].zwlx == 4) {
+            res.data.bean.records[i].zwlxStr = '宣讲会'
+          }
+        }
         xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
 

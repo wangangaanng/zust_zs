@@ -27,8 +27,8 @@
       </van-cell-group>
     </view>
     <!-- 按钮 -->
-    <view class="main-btn_wrap">
-      <van-button round type="primary" class="main-button" size="large">下一步，确认报名表</van-button>
+    <view class="main-btn_wrap button">
+      <button  formType="submit" >下一步，确认报名表</button>
     </view>
   </form>
 </view>

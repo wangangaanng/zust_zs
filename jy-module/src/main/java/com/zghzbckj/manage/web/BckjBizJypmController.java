@@ -171,6 +171,28 @@ public class BckjBizJypmController extends BaseController {
         return match.find();
     }
 
+    /**
+     *<p>功能描述:清空所有数据 deleteAll</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/10/30 11:39</li>
+     *</ul>
+     */
+    @PostMapping(value = "deleteAll")
+    @ResponseBody
+    public ResponseMessage deleteAll(PublicDataVO dataVO) {
+        try {
+            bckjBizJypmService.deleteAll();
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {

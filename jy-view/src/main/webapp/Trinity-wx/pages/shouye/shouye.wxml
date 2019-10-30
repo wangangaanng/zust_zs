@@ -32,43 +32,35 @@
 <view class="conter">
   <view class="conter-right">
     <view class="conter-right-name">报名时间</view>
-    <view class="conter-right-date">7.09-7.20</view>
+    <view class="conter-right-date">{{kssj}}-{{jzsj}}</view>
   </view>
   <view class="conter-left">
     <image src="{{res.logo}}" class="cont-img"></image>
     <view class="cont-name">{{res.xxmc}}</view>
     <view class="conter-left-ul">
-      <text class="conter-left-li">浙江</text>
-      <text class="conter-left-li">杭州</text>
-      <text class="conter-left-li">本科</text>
+      <text class="conter-left-li" wx:for='{{xxbq}}' wx:key='index'>{{item}}</text>
     </view>
   </view>
   <view class="jieshao">
   {{res.xcjs}}
   </view>
   <view class="signUp">
-    <navigator class="button" url='../Process/Process'>我要报名</navigator>
-    <view class="text">报名专业:{{res.bmzy}}</view>
+    <navigator class="button" wx:if="{{!res.bmzy&&res.sfks==1}}" url='../Process/Process'>我要报名</navigator>
+    <view class="button" wx:if="{{!res.bmzy&&res.sfks==0}}">我要报名</view>
+    <navigator class="button ybm" wx:if="{{res.bmzy}}" url='../Process/Process'>已报名</navigator>
+    <view class="text" wx:if="{{res.bmzy}}">报名专业:{{res.bmzy}}</view>
   </view>
   <view class="step">
   下一步：{{res.xybCz}}
   </view>
 </view>
 <view class="FQA">
-  <view class="FQA-li">
+  <view class="FQA-li" wx:for='{{historyMessage}}' wx:key='index'>
     <image src="../../static/wen.png" class="FQA-li-img"></image>
-    <view class="quetion">来自172.16.13.108的提问：需要毕业证吗？</view>
+    <view class="quetion">来自{{item.TW_NAME}}的提问：{{item.WTNR}}</view>
     <view class="da">
       <image src="../../static/da.png" class="FQA-li-img"></image>
-      <view class="quetion">管理员的回复：需要</view>
-    </view>
-  </view>
-  <view class="FQA-li">
-    <image src="../../static/wen.png" class="FQA-li-img"></image>
-    <view class="quetion">来自172.16.13.108的提问：需要毕业证吗？</view>
-    <view class="da">
-      <image src="../../static/da.png" class="FQA-li-img"></image>
-      <view class="quetion">管理员的回复：需要</view>
+      <view class="quetion">管理员的回复：{{item.DANR}}</view>
     </view>
   </view>
 </view>

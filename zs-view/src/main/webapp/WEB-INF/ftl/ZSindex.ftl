@@ -177,7 +177,22 @@
         <div class="shouYe_division"></div>
     </div>
     <!-- E c -->
-
+    <!-- 模态弹出查询结果 -->
+    <div class="modal" id="mymodal">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="height: 200px">
+                        <table class="cxRes" border='1'cellspacing="0" cellpadding="0">
+                            <!-- <tr><th>Header</th></tr>
+                            <tr><td>Data</td></tr> -->
+                        </table>
+                    </div>
+                    <div class="fenye" style="width:250px;margin:0px auto;margin-top:20px;"></div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
 <!-- E frame-content -->
 <#include "com/footer.ftl">

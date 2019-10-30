@@ -24,4 +24,6 @@ public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
     List<Map<String, Object>> majorList(@Param("szxy") String szxy, @Param("pmnf") String pmnf);
 
     BckjBizJypm getByMajor(@Param("collegeName") String collegeName, @Param("majorName") String majorName, @Param("pmnf") String pmnf);
+
+    void deleteAll();
 }

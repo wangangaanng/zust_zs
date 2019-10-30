@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "发送邮箱",
+  "usingComponents": {
+    "topBck": "/components/topBck/topBck",
+    "van-cell": "vant-weapp/cell",
+    "van-cell-group": "vant-weapp/cell-group",
+    "van-field": "vant-weapp/field"
+  }
+}

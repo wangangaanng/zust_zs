@@ -7,7 +7,6 @@ Page({
   data: {
 
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
@@ -64,6 +63,8 @@ Page({
 
   },
   loginOut:function(){
+    wx.setStorageSync("hasLogin", "0");
+    wx.setStorageSync("mobile", "");
     wx.navigateTo({
       url: '../login/login'
     })
