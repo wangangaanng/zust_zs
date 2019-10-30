@@ -171,8 +171,12 @@
             </otherwise>
         </choose>
     </select>
+	<select id="findByUser" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
+		select a.xb AS "xb",a.xm AS "xm",a.sw_zh AS "lxdh" FROM bckj_biz_yhxx a
+		where a.owid=#{yhRefOwid}
+	</select>
 
-    <insert id="insert">
+	<insert id="insert">
 		INSERT INTO bckj_biz_jbxx(
 			owid,
 			swyt_dlzh,
