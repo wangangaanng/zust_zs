@@ -36,7 +36,7 @@
                         <img src="${base}/img/ewm-jiuye.png">
                     </div>
                     <div class="ewmsm">
-                        科院微就业
+                        浙科微就业
                     </div>
                 </div>
                 <div class="ewmxq">

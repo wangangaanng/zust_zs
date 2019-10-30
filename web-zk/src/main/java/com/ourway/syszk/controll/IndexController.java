@@ -125,10 +125,13 @@ public class IndexController extends SpringZkBaseControl {
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
             String url = WebZKConstant.WX_VIEW_URL;
             String picName = "result.jpg";
+            System.out.println("开始生成二维码");
             //生成二维码
             QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
                     picName, true);
-//            String tokenStr = com.zghzbckj.base.util.CacheUtil.getVal("config.wechat.wx618803b392a8c474");
+
+//            String tokenStr = CacheUtil.getVal("config.wechat.wx618803b392a8c474");
+//            System.out.println("token:" + tokenStr);
 //            getminiqrQr("owid=" + owid, tokenStr);
 
 

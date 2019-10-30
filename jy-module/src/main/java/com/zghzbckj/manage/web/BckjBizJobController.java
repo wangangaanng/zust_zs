@@ -287,7 +287,7 @@ public class BckjBizJobController extends BaseController {
                                      PublicDataVO dataVO) {
 
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo", "zwlx", "pageSize");
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageNo",  "pageSize");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
