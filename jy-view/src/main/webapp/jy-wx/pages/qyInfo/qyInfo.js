@@ -3,14 +3,18 @@ var Mustache = require('../../libs/mustache/mustache');
 var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
 var util = require('../../utils/util.js')
+const app = getApp()
+var imgPath = app.globalData.imgPath;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    imgPath: imgPath,
     result:'',
     old:'',
+    table:'',
   },
 
   /**
@@ -34,6 +38,27 @@ Page({
    */
   onShow: function () {
 
+  },
+  wxParseTagATap: function (e) {
+    console.log(e.currentTarget.dataset.src);
+    if (e.currentTarget.dataset.src) {
+      wx.downloadFile({
+        // 示例 url，并非真实存在
+        url: e.currentTarget.dataset.src,
+        success: function (res) {
+          const filePath = res.tempFilePath
+          wx.openDocument({
+            filePath: filePath,
+            success: function (res) {
+              console.log('打开文档成功')
+            }
+          })
+        },
+        fail: function () {
+          console.log('打开失败')
+        }
+      })
+    }
   },
   applyJob2: function () {
     var that = this;
@@ -219,6 +244,29 @@ var getContent = function (that, owid) {//招聘详情
             sfbm: false
           })
         }
+      }
+     
+      if ((res.data.bean.bmList) && (res.data.bean.bmList.length>0)){
+        var str = '<table style="width:100%;border-left:1px solid #eee;text-align: center"><tr><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">序号</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">企业名称</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">招聘岗位</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">招聘人数</td></tr>'
+        for (var i = 0; i < res.data.bean.bmList.length;i++){
+          var qy = res.data.bean.bmList[i];
+          if ((qy.zwList) && (qy.zwList.length>0)){
+            for(var j=0;j<qy.zwList.length;j++){
+              var gw = qy.zwList[j];
+              if(j==0){
+
+                str += '<tr><td rowspan = "' + qy.zwList.length + '" style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + parseInt(i + 1) + '</td><td rowspan="' + qy.zwList.length + '" style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + qy.qymc + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.zw + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.rs + '</td></tr>'
+              }
+              else{
+                str += '<tr><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.zw + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.rs +'</td></tr>'
+              }
+            }
+          }
+        }
+        str +='</table>'
+        that.setData({
+          table:str
+        })
       }
 
     } else {
