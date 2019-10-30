@@ -475,7 +475,7 @@
                 '                <div class="col-sm-7" style="padding:0;line-height: 34px;">\n' +$("#qyFrsfz").val()+
                 '                </div>\n' +
                 '             </div>\n' +
-                '           <div class="col-sm-11 col-sm-offset-1">请确认您的注册信息，点击确认进行注册，点击取消进行修改。</div></div>' ,
+                '           <div class="col-sm-11 col-sm-offset-1">请确认您的注册信息，点击确定进行注册，点击取消进行修改。</div></div>' ,
                 btn1:function(index, layero){
                     var jsonObj = $("#registerForm").serializeObject()
                     ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {

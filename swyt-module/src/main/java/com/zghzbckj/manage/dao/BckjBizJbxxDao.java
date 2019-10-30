@@ -20,4 +20,6 @@ public interface BckjBizJbxxDao extends CrudDao<BckjBizJbxx> {
     BckjBizJbxx findOneByMap(Map<String, Object> mapData);
 
     BckjBizJbxx findStateByMap(Map<String, Object> mapData);
+
+    BckjBizJbxx findByUser(Map<String, Object> mapData);
 }

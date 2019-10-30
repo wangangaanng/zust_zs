@@ -16,6 +16,8 @@ public class SwytConstant {
     public static final String SWTYFILEPATH = "swytFiles";
     public static final String ORDERBY_NAME = "a.xssx";
     public static final String GENAL_PDF_FILE = ".pdf";
+    //字体文件
+    public static final String FONTS_TTF = "fonts";
     //承诺书文件名
     public static final String SWTYCNS = "承诺书.pdf";
     public static final String SWTYSQB = "浙江科技学院三位一体综合评价招生申请表.pdf";

@@ -10,6 +10,8 @@ import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.IBlockElement;
 import com.itextpdf.layout.element.IElement;
 import com.itextpdf.layout.font.FontProvider;
+import com.zghzbckj.base.config.Global;
+import com.zghzbckj.common.SwytConstant;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,16 +38,17 @@ public class Html2PdfUtil {
      * @throws IOException IO异常
      */
     public static void createPdf(String htmlContent, String dest) throws IOException {
+        dest=new String((dest).getBytes("UTF-8"), System.getProperty("sun.jnu.encoding"));
         File file=new File(dest);
         if(!file.getParentFile().exists()){
             file.getParentFile().mkdirs();
         }
         ConverterProperties props = new ConverterProperties();
-        // props.setCharset("UFT-8"); 编码
+         props.setCharset("UFT-8"); //编码
         FontProvider fp = new FontProvider();
         fp.addStandardPdfFonts();
         // .ttf 字体所在目录
-        String resources = Html2PdfUtil.class.getResource(FONT_RESOURCE_DIR).getPath();
+        String resources = Global.getConfig(SwytConstant.SWTYFILEPATH)+SwytConstant.FONTS_TTF;//Html2PdfUtil.class.getResource(FONT_RESOURCE_DIR).getPath();
         fp.addDirectory(resources);
         props.setFontProvider(fp);
         // html中使用的图片等资源目录（图片也可以直接用url或者base64格式而不放到资源里）
@@ -53,7 +56,7 @@ public class Html2PdfUtil {
 
         List<IElement> elements = HtmlConverter.convertToElements(htmlContent, props);
         PdfDocument pdf = new PdfDocument(new PdfWriter(dest));
-        Document document = new Document(pdf, PageSize.A4.rotate(), false);
+        Document document = new Document(pdf, PageSize.A4, false);
         for (IElement element : elements) {
             // 分页符
             if (element instanceof HtmlPageBreak) {

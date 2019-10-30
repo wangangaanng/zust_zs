@@ -23,8 +23,8 @@ Page({
   data: {
     hidden1: false,
     minDate: new Date("1990-01-01").getTime(),
-    minDate1: new Date("2010-01-01").getTime(),
-    minDate2: new Date(new Date().getFullYear() + '-01-01').getTime(),
+    minDate1: new Date("1990-01-01").getTime(),
+    minDate2: new Date("1990-01-01").getTime(),
     imgPath: imgPath,
     xbColumns: [{ dicVal1: '1', dicVal2: '男' }, { dicVal1: '2', dicVal2: '女' }],
     mzColumns: [],

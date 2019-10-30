@@ -1,7 +1,7 @@
 // pages/register/register.js
 var common = require('../../libs/common/common.js');
 var utils = require('../../utils/util.js');
-import WxValidate from '../../utils/WxValidate'
+import WxValidate from '../../utils/WxValidate';
 Page({
 
   /**

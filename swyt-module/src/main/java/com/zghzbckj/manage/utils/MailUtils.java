@@ -19,10 +19,10 @@ import java.util.*;
 public class MailUtils {
 
     private String to = "";// 收件人
-    private final static String from = "1074012885@qq.com";// 发件人
-    private final static String host = "smtp.qq.com";// smtp主机
-    private final static String username = "1074012885@qq.com";
-    private final static String password = "mmlvjdhqwxmoghic";
+    private final static String from = "zsb165@zust.edu.cn";// 发件人
+    private final static String host = "smtp.zust.edu.cn";// smtp主机
+    private final static String username = "zsb165@zust.edu.cn";
+    private final static String password = "13819103305";
     private String filename = "";// 附件文件名
     private String subject = "";// 邮件主题
     private String content = "";// 邮件正文
