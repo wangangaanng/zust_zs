@@ -56,8 +56,6 @@ Page({
     }
     common.ajax('zustcommon/bckjBizYhxx/swYtLogin', data, function (res) {
       if (res.data.backCode == 0) {
-        console.log();
-        app.globalData.yhRefOwid = res.data.bean.owid;
         wx.setStorageSync('yhRefOwid', res.data.bean.owid);
         wx.setStorageSync('hasLogin', '1');
         wx.reLaunch({
@@ -107,11 +105,11 @@ Page({
    */
   onShow: function() {
     //已经登录跳转到首页
-    // if (wx.getStorageSync("hasLogin")==1){
-    //   wx.reLaunch({
-    //     url: '../shouye/shouye',
-    //   })
-    // }
+    if (wx.getStorageSync("hasLogin")==1){
+      wx.reLaunch({
+        url: '../shouye/shouye',
+      })
+    }
   },
 
   /**

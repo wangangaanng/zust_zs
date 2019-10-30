@@ -17,7 +17,7 @@ function ajax(method, data, successMethod,hideload) {
   wx.request({
     url: url + method,
     data: {
-      openId: wx.getStorageSync('openId'),
+      //openId: wx.getStorageSync('openId'),
       "data": JSON.stringify(data),
       timestamp: new Date().getTime()
     },
