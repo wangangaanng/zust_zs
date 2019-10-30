@@ -15,7 +15,17 @@ Page({
     zphOwid:'',
     form: {
       lxr: wx.getStorageSync('qyInfo').qyLxr || '',
-      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || ''
+      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
+      zw1:'',
+      zw2: '',
+      zw3: '',
+      zw4: '',
+      zw5: '',
+      rs1: '',
+      rs2: '',
+      rs3: '',
+      rs4: '',
+      rs5: '',
     },
     list:[],
     btndisabled: false
@@ -37,6 +47,7 @@ Page({
   submitForm(e) {
     var that = this
     const params = e.detail.value
+    console.log(params)
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
@@ -64,6 +75,22 @@ Page({
 
       }
       params['tjsd' + a] = list[i].val;
+    }
+    for (var i = 1; i < 6; i++) {
+      if (params['zw' + i] && !params['rs' + i]){
+        wx.showModal({
+          content: '请填写请填写岗位及相应招聘人数',
+          showCancel: false,
+        })
+        return false
+      }
+      if (!params['zw' + i] && params['rs' + i]) {
+        wx.showModal({
+          content: '请填写请填写岗位及相应招聘人数',
+          showCancel: false,
+        })
+        return false
+      }
     }
     params.bmlx = 0
     params.bmdx = 0

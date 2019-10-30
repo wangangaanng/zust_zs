@@ -578,4 +578,26 @@
 		where a.yh_ref_owid=#{owid}
 	</select>
 
+
+	<select id="getOldSybs" resultType="BckjBizSyb" >
+		select <include refid="bckjBizSybColumns"></include>
+		 FROM  BCKJ_BIZ_SYB a
+	</select>
+
+	<select id="getSmallRoutine" resultType="String">
+		SELECT  b.dic_Val2 as dicVal2 FROM OURWAY_SYS_DIC a ,OURWAY_SYS_DIC_VALUE b
+		<where>
+			a.owid=b.dic_ref_owid
+			<if test="type!=null and type!=''">
+				 a.type=#{type}
+			</if>
+			<if test="text!=null and text!=''">
+				and b.dic_val2 LIKE concat(#{text,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+
+		</where>
+		order by b.dic_val2
+		limit 20
+	</select>
+
 </mapper>

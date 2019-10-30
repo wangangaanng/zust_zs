@@ -67,7 +67,7 @@
     <view class="border-area">
       <textarea placeholder="输入内容"  placeholder-style="color:#999;"></textarea>
     </view>
-    <view class="btn-upload">
+    <view class="btn-upload" bindtap="Image">
       <i class=" iconfont icon-hao"></i>
       <view class="btn-txt">证书拍照上传</view>
     </view>

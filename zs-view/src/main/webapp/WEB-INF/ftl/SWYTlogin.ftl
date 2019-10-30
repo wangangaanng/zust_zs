@@ -36,19 +36,19 @@
             <div class="login_title">登录</div>
             <div class="login_input">
                 <img src="${base}/img/phone.png">
-                <input type="number" placeholder="请输入手机号码">
+                <input type="number" placeholder="请输入手机号码" id="swZh" oninput="if(value.length>11)value=value.slice(0,11)">
             </div>
             <div class="login_input">
                 <img src="${base}/img/password.png">
-                <input type="password" placeholder="请输入密码">
+                <input type="password" placeholder="请输入密码" id="swMm">
             </div>
-            <div class="forget"><a href="">忘记密码？</a></div>
-            <div class="login_bun">登录</div>
+            <div class="forget"><a href="SWYTpassword">忘记密码？</a></div>
+            <div class="login_bun" onclick="swYtLogin()">登录</div>
         </div>
         <div class="login_right">
             <div class="login_right_border">
                 <div>还没有账号</div>
-                <div class="registered">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div class="registered" onclick="window.location.href='SWYTregistered'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
                 <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
             </div>
@@ -89,9 +89,7 @@
 <#--<#include "com/footer.ftl">-->
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
-<script src="${base}/js/jui.min.js"></script>
 
-<script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
-<script src="${base}/js/jquery.jdate.js"></script>
+<script src="${base}/js/swyt/SWYTlogin.js"></script>
 </body>
 </html>

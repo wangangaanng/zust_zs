@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="${base}/css/style.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <style>
-        .top:before{    background-image: url("${base}/img/loginbackgrouind.jpg");    content: "";    background-repeat: no-repeat;    background-size: 100% 100%;    position: absolute;    left: 0;    opacity: 0.3;    right: 0;    top: 0;    bottom: 0;}
+        .top:before{    background-image: url("${base}/img/loginbackgrouind2.jpg");    content: "";    background-repeat: no-repeat;    background-size: 100% 100%;    position: absolute;    left: 0;    opacity: 0.3;    right: 0;    top: 0;    bottom: 0;}
+        .dropdown-menu{width: 100%;}
     </style>
 </head>
 <body>
@@ -33,89 +34,64 @@
 <div class="w1200">
     <div class="login">
         <div class="login_left">
-            <div class="login_title">登录</div>
+            <div class="login_title">注册</div>
             <div class="login_input">
                 <img src="${base}/img/phone.png">
-                <input type="number" placeholder="请输入手机号码">
+                <input type="number" placeholder="请输入手机号码" id="swZh" oninput="if(value.length>11)value=value.slice(0,11)">
+            </div>
+            <div class="login_input">
+                <img src="${base}/img/yzm.png">
+                <input style="padding-right: 100px;" type="text" placeholder="请输入验证码" id="yzm">
+                <div class="getymz" onclick="sendCode()">获取验证码</div>
             </div>
             <div class="login_input">
                 <img src="${base}/img/yh.png">
-                <input type="text" placeholder="请输入真实姓名">
+                <input type="text" placeholder="请输入真实姓名" id="xm">
             </div>
             <div class="login_input">
                 <img src="${base}/img/password.png">
-                <input type="password" placeholder="请输入密码">
-                <i class="glyphicon glyphicon-eye-open"></i>
+                <input style="padding-right: 40px;" type="password" placeholder="请输入密码(6-11位)" id="swMm">
+                <i class="glyphicon glyphicon-eye-close" onclick="eye(this)" value="0"></i>
+<#--                <i class="glyphicon glyphicon-eye-open"></i>-->
             </div>
             <div class="login_input">
                 <img src="${base}/img/password.png">
-                <input type="password" placeholder="确认密码">
-                <i class="glyphicon glyphicon-eye-close"></i>
+                <input style="padding-right: 40px;" type="password" placeholder="确认密码" id="swMm2">
+                <i class="glyphicon glyphicon-eye-close" onclick="eye(this)" value="0"></i>
             </div>
             <div class="login_input">
                 <img src="${base}/img/sex.png">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>请选择性别</span>  <span class="glyphicon glyphicon-chevron-down"></span>
+                        <span id="sex">请选择性别</span>  <span class="glyphicon glyphicon-chevron-down"></span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
+                        <li><a>男</a></li>
+                        <li><a>女</a></li>
                     </ul>
                 </div>
             </div>
             <div class="login_input2">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>-学籍省-</span>  <span class="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>-学籍市-</span>  <span class="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                    </ul>
-                </div>
-                <div class="btn-group">
-                    <button style="margin-right: 0;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>-学籍区-</span>  <span class="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                    </ul>
-                </div>
+                <select name="prov" id="prov" onchange="showCity(this)">
+                    <option>学籍省</option>
+                </select>
+                <select id="city" name="city" onchange="showCountry(this)">
+                    <option>学籍市</option>
+                </select>
+                <select id="country" name="country" onchange="selecCountry(this)" style="margin-right: 0;">
+                    <option>学籍区</option>
+                </select>
             </div>
             <div class="login_input">
                 <img src="${base}/img/class.png">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span>专业倾向</span>  <span class="glyphicon glyphicon-chevron-down"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                    </ul>
-                </div>
+                <input type="text" placeholder="专业倾向" id="qxzy">
             </div>
-            <div class="login_bun">登录</div>
+            <div class="login_bun met1" onclick="swYtzc()">注册</div>
         </div>
         <div class="login_right">
             <div class="login_right_border">
                 <div>还没有账号</div>
-                <div class="registered">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div class="registered" onclick="window.location.href='SWYTlogin'">登录<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
                 <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
             </div>
@@ -153,12 +129,9 @@
         </div>
     </div>
 </div>
-<#--<#include "com/footer.ftl">-->
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="${base}/js/swiper.min.js"></script>
-<script src="${base}/js/jui.min.js"></script>
-
-<script src="${base}/js/artdialog/jquery.artDialog.js?skin=blue"></script>
-<script src="${base}/js/jquery.jdate.js"></script>
+<script src="${base}/js/city.js"></script>
+<script src="${base}/js/method.js"></script>
+<script src="${base}/js/swyt/SWYTregistered.js"></script>
 </body>
 </html>

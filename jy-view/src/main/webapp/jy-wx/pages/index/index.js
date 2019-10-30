@@ -32,7 +32,6 @@ Page({
     newsList4: [],
     currentTab:'0',
     floorstatus:false,
-    userType: ''
   },
   newsDetail(e){
     wx.navigateTo({
@@ -98,6 +97,16 @@ Page({
     // })
 
   },
+  onPullDownRefresh: function () {
+    var that = this;
+    getAdv(this);
+    getList1(this, '0');//职位
+    getList2(this, '2');//企业招聘公告
+    getList3(this, '3');//招聘会
+    getList4(this, '4');//宣讲会
+    //当逻辑执行完后关闭刷新    
+    wx.stopPullDownRefresh()
+  },
   onReachBottom: function () {
     var that = this;
     if (this.data.currentTab==0){
@@ -149,16 +158,7 @@ Page({
     var index = e.currentTarget.dataset.index;
     if(url){
       if (index == 6) {
-        if (!wx.getStorageSync('unionid')) {
-          that.setData({
-            userType:'1',
-            isauthorize: true,
-          })
-        } else {
-          that.setData({
-            isauthorize: false,
-          })
-
+        
           if (wx.getStorageSync('yhOwid')) {
             if (wx.getStorageSync('userType') == 1) {
               wx.navigateTo({
@@ -180,24 +180,12 @@ Page({
               })
             }
           } else {
-            if (!wx.getStorageSync('unionid')) {
-              wx.navigateTo({
-                url: '../stuLogin/stuLogin',
-              })
-            }
+            wx.navigateTo({
+              url: '../stuLogin/stuLogin',
+            })
           }
-        }
-          
+                  
       } else if (index == 7) {
-        if (!wx.getStorageSync('unionid')) {
-          that.setData({
-            userType: '2',
-            isauthorize: true,
-          })
-        } else {
-          that.setData({
-            isauthorize: false,
-          })
 
           if (wx.getStorageSync('yhOwid')) {
             if (wx.getStorageSync('userType') == 1) {
@@ -224,7 +212,7 @@ Page({
               url: '../qyLogin/qyLogin',
             })
           }
-        }
+        
         
       } else {
         wx.navigateTo({

@@ -393,4 +393,22 @@
     <select id="getSysFiles" resultType="java.util.Map">
 		SELECT FILE_LABEL ,FILE_PATH FROM  ourway_sys_files WHERE  FILE_CLASS_ID=#{wzRefOwid}
 	</select>
+
+	<select id="getOldQyxx" resultType="BckjBizQyxx">
+		SELECT <include refid="bckjBizQyxxColumns"></include>
+		FROM BCKJ_BIZ_QYXX a
+	</select>
+
+
+	<select id="getDicListMapByType" resultType="Map">
+		SELECT dic_val1 as val1 ,dic_val2 as val2 FROM OURWAY_SYS_DIC a,OURWAY_SYS_DIC_VALUE b
+		WHERE a.owid = b.dic_ref_owid and a.type=#{type}
+	</select>
+
+
+	<select id="getOneCompanyByTysh" resultType="BckjBizQyxx" parameterType="BckjBizQyxx">
+		SELECT <include refid="bckjBizQyxxColumns"></include>
+		FROM BCKJ_BIZ_QYXX a
+		WHERE a.qy_tysh=#{qyTysh}
+	</select>
 </mapper>

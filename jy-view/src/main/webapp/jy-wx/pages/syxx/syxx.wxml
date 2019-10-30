@@ -27,11 +27,26 @@
     <van-picker show-toolbar title="政治面貌" value-key="dicVal2" columns="{{zzmmColumns}}" data-type="4" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field input-align="right" type="idcard" value="{{form.sfz}}" disabled name="sfz" label="身份证号" placeholder="输入内容" required />
+  <view hidden="{{hidden1}}">
   <van-field input-align="right" value="{{form.jtdz}}" name="jtdz" label="家庭地址" type="textarea" rows="1" autosize placeholder="输入内容" required />
-  <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
+  </view>
+  <view class="down-scroll-view">
+  <van-field input-align="right" value="{{form.syd}}" name="syd" label="生源地" bindinput="getSyd" placeholder="输入内容" required />
+    <view class="scroll-view" hidden="{{showSyd}}">
+      <scroll-view  scroll-y>
+        <block wx:for="{{sydList}}" wx:key="{{index}}">
+          <view><span bindtap="getSydItem" data-val="{{item}}">{{item}}</span></view>
+        </block>
+      </scroll-view>
+    </view>
+    <view class="btn-close" bindtap="close1" hidden="{{showSyd}}">关闭</view>
+  </view>
+  
+  
+  <!-- <van-cell required title="生源地" value="{{sydStr}}" is-link arrow-direction="down" data-type="55" bind:click="showBottom" />
   <van-popup show="{{ show.syd }}" position="bottom" custom-style="height: 540rpx" data-type="55" bind:close="hideBottom">
     <van-picker show-toolbar title="生源地" value-key="dicVal2" columns="{{sydColumns}}" data-type="55" bind:confirm="onConfirm" bind:cancel="onCancel" />
-  </van-popup>
+  </van-popup> -->
   <van-cell required title="入学日期" value="{{rxnfStr}}" is-link arrow-direction="down" data-type="6" bind:click="showBottom" />
   <van-popup show="{{ show.rxnf }}" position="bottom" custom-style="height: 540rpx" data-type="6" bind:close="hideBottom">
   <van-datetime-picker
@@ -103,8 +118,9 @@
   <van-popup show="{{ show.hkrx }}" position="bottom" custom-style="height: 540rpx" data-type="16" bind:close="hideBottom">
     <van-picker show-toolbar title="户口是否转入学校" value-key="dicVal2" columns="{{hkrxColumns}}" data-type="16" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
-  
+  <view hidden="{{hidden1}}">
   <van-field value="{{form.hkpcs}}" name="hkpcs" label="入学前户口所在地派出所" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+  </view>
 
 </van-cell-group>
 <input type="text" class="hiddenInput" name="csrq" value="{{form.csrq}}"></input>

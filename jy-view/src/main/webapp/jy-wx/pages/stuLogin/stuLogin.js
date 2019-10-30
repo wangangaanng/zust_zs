@@ -11,7 +11,9 @@ Page({
    */
   data: {
     yhDlzh:'',
-    yhDlmm:''
+    yhDlmm:'',
+    isauthorize: false,
+    userType: ''
   },
   getyhDlzh(e){
     this.setData({
@@ -82,7 +84,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    if (!wx.getStorageSync('unionid')) {
+      this.setData({
+        userType: '1',
+        isauthorize: true,
+      })
+    } else {
+      this.setData({
+        isauthorize: false,
+      })
+
+    }
   },
 
   /**

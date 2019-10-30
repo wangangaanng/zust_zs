@@ -50,82 +50,101 @@ Component({
     // }
     getInfo: function (e) {
       console.log(e)
-      // if (e.detail.iv)
       var that = this;
-      app.globalData.userInfo = e.detail.userInfo;
-      wx.setStorageSync('userInfo', e.detail.userInfo);
-      var encryptedData = e.detail.encryptedData
-      var iv = e.detail.iv
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            var jsonObj = {
-              code: res.code,
-              encryptedData: encryptedData,
-              iv: iv,
-              wxid:'wx01'
-            };
-            wx.showLoading({
-              title: '加载中',
-            })
-            wx.request({
-              url: app.globalData.ApiUrl + 'zustcommon/bckjBizYhgl/getYhInfoByOpenid',
-              data: {
-                "data": JSON.stringify(jsonObj),
-                timestamp: new Date().getTime()
-              },
-              header: {
-                "Content-Type": "application/x-www-form-urlencoded"
-              },
-              method: 'POST',
-              success: function (res) {
-                wx.hideLoading();
-                if (res.data.bean) {
-                  openId = res.data.bean.openId;
-                  unionid = res.data.bean.unionid;
-                  app.globalData.openId = res.data.bean.openId;
-                  app.globalData.unionid = res.data.bean.unionid;
-                  wx.setStorageSync('openId', openId);
-                  wx.setStorageSync('unionid', unionid);
-                }
-                that.setData({ show: false });
-                // that.triggerEvent('myevent');
-                if (that.data.type==1){
-                  wx.navigateTo({
-                    url: '../stuLogin/stuLogin',
-                  })
-                } else if (that.data.type == 2) {
-                  wx.navigateTo({
-                    url: '../qyLogin/qyLogin',
-                  })
-                }
-                
-                // if (wx.getStorageSync("fxid")) {
-                //   wx.reLaunch({
-                //     url: '../index/index?scene=' + wx.getStorageSync("fxid")
-                //   })
-                // } else {
-                //   wx.reLaunch({
-                //     url: '../index/index'
-                //   })
-                // }
-              },
-              fail:function(){
-                wx.hideLoading();
-                wx.showToast({
-                  title: '网络出错，请稍后再试',
-                  icon: 'none',
-                  duration: 2000
-                })
-              }
+      if (e.detail.iv && e.detail.encryptedData){
+        app.globalData.userInfo = e.detail.userInfo;
+        wx.setStorageSync('userInfo', e.detail.userInfo);
+        var encryptedData = e.detail.encryptedData
+        var iv = e.detail.iv
+        wx.login({
+          success: function (res) {
+            if (res.code) {
+              var jsonObj = {
+                code: res.code,
+                encryptedData: encryptedData,
+                iv: iv,
+                wxid: 'wx01'
+              };
+              wx.showLoading({
+                title: '加载中',
+              })
+              wx.request({
+                url: app.globalData.ApiUrl + 'zustcommon/bckjBizYhgl/getYhInfoByOpenid',
+                data: {
+                  "data": JSON.stringify(jsonObj),
+                  timestamp: new Date().getTime()
+                },
+                header: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                },
+                method: 'POST',
+                success: function (res) {
+                  wx.hideLoading();
+                  if (res.data.bean) {
+                    openId = res.data.bean.openId;
+                    unionid = res.data.bean.unionid;
+                    app.globalData.openId = res.data.bean.openId;
+                    app.globalData.unionid = res.data.bean.unionid;
+                    wx.setStorageSync('openId', openId);
+                    wx.setStorageSync('unionid', unionid);
+                  }
+                  that.setData({ show: false });
+                  // that.triggerEvent('myevent');
+                  if (that.data.type == 1) {
+                    // wx.navigateTo({
+                    //   url: '../stuLogin/stuLogin',
+                    // })
+                  } else if (that.data.type == 2) {
+                    // wx.navigateTo({
+                    //   url: '../qyLogin/qyLogin',
+                    // })
+                  } else if (that.data.type == 3) {
+                    that.triggerEvent('myevent');
+                  }
 
-            })
+                  // if (wx.getStorageSync("fxid")) {
+                  //   wx.reLaunch({
+                  //     url: '../index/index?scene=' + wx.getStorageSync("fxid")
+                  //   })
+                  // } else {
+                  //   wx.reLaunch({
+                  //     url: '../index/index'
+                  //   })
+                  // }
+                },
+                fail: function () {
+                  wx.hideLoading();
+                  wx.showToast({
+                    title: '网络出错，请稍后再试',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+
+              })
+            }
+          },
+          fail: function (res) {
+            console.log(res)
           }
-        },
-        fail:function(res){
-          console.log(res)
-        }
-      })
+        })
+      }else{
+        wx.showModal({
+          title: '提示',
+          content: "用户登录需要授权，请重新授权",
+          showCancel:false,
+          success(res) {
+            if (res.confirm) {
+              
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+        return false;
+      }
+      
+      
     }
   }
 })

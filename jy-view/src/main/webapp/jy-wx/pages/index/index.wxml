@@ -62,7 +62,7 @@
     </view>
      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
-  <van-tab title="招聘会信息">
+  <van-tab title="职来职往">
     <view class="uni-list">
       <block wx:for="{{newsList3}}" wx:key="{{index}}">
 				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
@@ -113,4 +113,3 @@
      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo4<totalPage4?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
 </van-tabs>
-<authorize show="{{isauthorize}}" type="{{userType}}" bindmyevent="onLoad"></authorize>

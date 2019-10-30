@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1: false,
     yyzz:'../../static/uploadImg1.png',
     sfz:'../../static/uploadImg2.png',
     column1: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
@@ -69,34 +70,54 @@ Page({
       return false
     }
 
-    common.ajax('zustjy/bckjBizQyxx/companyRegister', params, function (res) {
-      if (res.data.backCode == 0) {
-        that.setData({
-          btndisabled: true
-        })
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: "注册成功，待后台人员审核通过，便可登录。",
-          success(res) {
-            if (res.confirm) {
-              wx.reLaunch({
-                url: '../index/index',
+    if (params.qyFrsfz.trim().length!=18){
+      wx.showModal({
+        content: '法人身份证长度有误',
+        showCancel: false,
+      })
+      return false
+    }
+
+    wx.showModal({
+      title: '提示',
+      content: `您的企业税号为${params.qyTysh}，法人身份证号为${params.qyFrsfz}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
+      success(res) {
+        if (res.confirm) {
+          console.log('用户点击确定')
+          common.ajax('zustjy/bckjBizQyxx/companyRegister', params, function (res) {
+            if (res.data.backCode == 0) {
+              that.setData({
+                btndisabled: true
               })
-              console.log('用户点击确定')
-            } else if (res.cancel) {
-              console.log('用户点击取消')
+              wx.showModal({
+                title: '提示',
+                showCancel: false,
+                content: "注册成功，待后台人员审核通过，便可登录。",
+                success(res) {
+                  if (res.confirm) {
+                    wx.reLaunch({
+                      url: '../index/index',
+                    })
+                    console.log('用户点击确定')
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            } else {
+              wx.showToast({
+                title: res.data.errorMess,
+                icon: 'none',
+                duration: 2000
+              })
             }
-          }
-        })
-      } else {
-        wx.showToast({
-          title: res.data.errorMess,
-          icon: 'none',
-          duration: 2000
-        })
+          });
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
       }
-    });
+    })
+    
   },
   initValidate() {
     // 验证字段的规则
@@ -105,12 +126,18 @@ Page({
         required: true,
       },
       qyFrsfz: {
-        required: true,
+        required: true
       },
       qyFrdbxm: {
         required: true
       },
       qymc: {
+        required: true
+      },
+      qydz: {
+        required: true
+      },
+      qyZczj: {
         required: true
       },
       qyProv: {
@@ -120,9 +147,6 @@ Page({
         required: true
       },
       qyArea: {
-        required: true
-      },
-      qydz: {
         required: true
       },
       qyLxr: {
@@ -136,6 +160,9 @@ Page({
         required: true,
         email: true,
       },
+      qylxfs: {
+        required: true
+      },
       qyGsxz: {
         required: true
       },
@@ -146,8 +173,7 @@ Page({
         required: true
       },
       qyGsjs: {
-        required: true,
-        maxlength: 200,
+        required: true
       },
       qyYyzzzp: {
         required: true
@@ -160,13 +186,19 @@ Page({
         required: '请填写企业统一信用代码'
       },
       qyFrsfz: {
-        required: '请填写法人身份证号',
+        required: '请填写法人身份证号'
       },
       qyFrdbxm: {
         required: '请填写法人姓名',
       },
       qymc: {
         required: '请填写企业名称',
+      },
+      qydz: {
+        required: '请填写公司地址',
+      },
+      qyZczj: {
+        required: '请填写注册资本',
       },
       qyProv: {
         required: '请选择所在省市区',
@@ -176,9 +208,6 @@ Page({
       },
       qyArea: {
         required: '请选择所在省市区',
-      },
-      qydz: {
-        required: '请填写公司地址',
       },
       qyLxr: {
         required: '请填写联系人',
@@ -190,6 +219,9 @@ Page({
       qyYx: {
         required: '请填写邮箱',
         email: '请填写正确邮箱',
+      },
+      qylxfs: {
+        required: '请填写固定电话',
       },
       qyGsxz: {
         required: '请选择公司性质',
@@ -257,7 +289,8 @@ Page({
   },
   toggle(type, show) {
     this.setData({
-      [`show.${type}`]: show
+      [`show.${type}`]: show,
+      hidden1: show
     });
   },
   /**
@@ -366,6 +399,17 @@ Page({
                     }
                   }
                 }
+
+                if (d.bean["注册资本"]) {
+                  if (d.bean["注册资本"].words) {
+                    if (d.bean["注册资本"].words != "无") {
+                      that.setData({
+                        'form.qyZczj': d.bean["注册资本"].words
+                      })
+                    }
+                  }
+                }
+                
                 if (d.bean.fileName) {
                   wx.showToast({
                     title: '上传成功',

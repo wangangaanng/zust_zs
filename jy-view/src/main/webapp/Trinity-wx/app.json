@@ -3,26 +3,25 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
+    "pages/contactors/contactors",
+    "pages/basicInfo/basicInfo",
+    "pages/register/register",
     "pages/login/login",
+    "pages/forgetPsw/forgetPsw",
     "pages/wxDetail/wxDetail",
     "pages/shouye/shouye",
     "pages/Process/Process",
     "pages/messageCenter/messageCenter",
     "pages/examGrade/examGrade",
     "pages/selectExamInfo/selectExamInfo",
-    "pages/contactors/contactors",
     "pages/examTip/examTip",
     "pages/payOline/payOline",
     "pages/majorExam/majorExam",
-    "pages/forgetPsw/forgetPsw",
-    "pages/register/register",
     "pages/drawGroup/drawGroup",
-    "pages/basicInfo/basicInfo",
     "pages/uploadSignature/uploadSignature",
     "pages/xw/xw",
     "pages/grzx/grzx",
-    "pages/index/index",
-    "pages/logs/logs"
+    "pages/index/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

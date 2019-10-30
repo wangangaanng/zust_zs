@@ -19,27 +19,14 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
 
-    void updataInfo(BckjBizSyb bckjBizSyb);
-
-    void updateByXsxh(BckjBizSyb bckjBizSyb);
-
-    void deleteByXsxh(String xh);
-
-    void updateJyscheme(BckjBizSyb bckjBizSyb);
-
-    List<Object> getSybList(Map<String, Object> dataMap);
 
     BckjBizSyb getOne(String owid);
 
-    Map<String,Object> getBynfByXsxh(Map<String,Object> dataMap);
 
 
     List<Map<String, Object>> getByTypeSort(Map<String, Object> dataMap);
 
     void deleteBySfz(String sfz);
-
-
-
 
     Map<String, Object> getBynfBySfz(Map<String, Object> map);
 
@@ -52,4 +39,8 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
     BckjBizSyb getOneQt(String owid);
 
     List<BckjBizSyb> getListByXsxh(String xsxh);
+
+    List<BckjBizSyb> getOldSybs();
+
+    List<Map> getSmallRoutine(Map<String, Object> dataMap);
 }

@@ -1,0 +1,18 @@
+<!--pages/auth/auth.wxml-->
+<modal hidden="{{!show}}" data-type="{{type}}"  cancel-text='' confirm-text=''>
+<!-- <view class='mask' wx:if='{{show}}'> -->
+<view class='stu-h'>
+  <view class='ellipse'>
+  </view>
+  <view class='stu-h-m'>
+    <view class='stu-sinfo'>
+      <view class='stu-tx'>
+        <image src='../../static/logo.png'></image>
+      </view>
+      <!-- <view class='stu-name'>浙江科技学院三位一体</view> -->
+    </view>
+    <image class='bg-wave' src='../../static/bg-wave.png'></image>
+  </view>
+</view>
+<button class="login-btn" open-type="getUserInfo" bindgetuserinfo="getInfo">微信授权</button>
+</modal>

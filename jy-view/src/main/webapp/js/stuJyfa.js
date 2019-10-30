@@ -1,5 +1,13 @@
 
 $(document).ready(function () {
+    // getCookie("stuXm",data.bean.xm)
+    // getCookie("stuXh",data.bean.xsxh)
+    if(!$("#xm").val()){
+        $("#xm").val(getCookie("stuXm"))
+    }
+    if(!$("#xsxh").val()){
+        $("#xsxh").val(getCookie("stuXh"))
+    }
     $('#syd').chosen();
     $('#dwszdmc').chosen();
     $('#bdzqwszdmc').chosen();
@@ -122,7 +130,7 @@ function saveJyFaInfo() {
         if($("#owid").val()){
             jsonObj.owid = $("#owid").val();
         }
-        ajax("zustjy/bckjBizJyscheme/insertssInfoQt", jsonObj, function (data) {
+        ajax("zustcommon/bckjBizJyscheme/insertssInfoQt", jsonObj, function (data) {
             if (data.backCode == 0) {
                 walert("保存成功")
             } else {

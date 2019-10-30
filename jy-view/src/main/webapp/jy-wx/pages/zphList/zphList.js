@@ -15,11 +15,6 @@ Page({
     totalPage: '',
     xjhList: []
   },
-  shenqin() {
-    wx.navigateTo({
-      url: '../applyXjh/applyXjh',
-    })
-  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -99,15 +94,12 @@ var myJobList = function (that, lx) {
               res.data.bean.records[i].sfkbm = true;
             }
 
-          }else if (res.data.bean.records[i].state == 6) {
-            res.data.bean.records[i].str = '已结束';
-            res.data.bean.records[i].sfkbm = false;
           } else {
             res.data.bean.records[i].str = '';
             res.data.bean.records[i].sfkbm = false;
           }
           if (res.data.bean.records[i].zphBmjzsj && util.compareToday(res.data.bean.records[i].zphBmjzsj)) {
-            res.data.bean.records[i].str = '已截止报名 ';
+            res.data.bean.records[i].str = '已截止报名';
             res.data.bean.records[i].sfkbm = false;
           }
           if (util.compareToday(res.data.bean.records[i].zphKsrq)) {

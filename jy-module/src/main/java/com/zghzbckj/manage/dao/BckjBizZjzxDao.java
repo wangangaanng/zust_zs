@@ -32,7 +32,7 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
 
     void deleteByHyid(BckjBizZjzx bckjBizZjzx);
 
-    String getOneByDlzh(String dlzh);
+    Map getOneByDlzh(String dlzh);
 
     void deleteYhxx(String owid);
 }

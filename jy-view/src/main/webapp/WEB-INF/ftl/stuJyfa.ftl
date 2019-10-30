@@ -167,14 +167,14 @@
                                 <option value="-1"></option>
                                 <#if sydList??>
                                     <#list sydList as obj>
-                                    <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                    <option value="${obj.DIC_VAL1}">${obj.DIC_VAL2}</option>
                                     </#list>
                                 </#if>
                             </select>
                             <select class="form-control" id="dwszdmc1" style="display: none;" data-val="${(result.dwszdmc)!''}">
                                 <#if sydList??>
                                     <#list sydList as obj>
-                                    <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                    <option value="${obj.DIC_VAL1}">${obj.DIC_VAL2}</option>
                                     </#list>
                                 </#if>
                             </select>
@@ -280,14 +280,14 @@
                                 <option value="-1"></option>
                                 <#if sydList??>
                                     <#list sydList as obj>
-                                    <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                    <option value="${obj.DIC_VAL1}">${obj.DIC_VAL2}</option>
                                     </#list>
                                 </#if>
                             </select>
                             <select class="form-control" id="bdzqwszdmc1" style="display: none;" data-val="${(result.bdzqwszdmc)!''}">
                                 <#if sydList??>
                                     <#list sydList as obj>
-                                    <option value="${obj.dicVal1}">${obj.dicVal2}</option>
+                                    <option value="${obj.DIC_VAL1}">${obj.DIC_VAL2}</option>
                                     </#list>
                                 </#if>
                             </select>

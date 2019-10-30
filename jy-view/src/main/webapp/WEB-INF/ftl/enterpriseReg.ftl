@@ -69,22 +69,28 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="qyZczj" class="col-sm-2 control-label">注册资本<span class="red">*</span>：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="qyZczj" name="qyZczj" placeholder="" autocomplete="off">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="padding-right: 0;">
                         <select class="form-control" onchange="getCity()" name="qyProv" id="qyProv">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
                     <label for="qyCity" class="col-sm-2 control-label">所在市<span class="red">*</span>：</label>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="padding-right: 0;">
                         <select class="form-control" onchange="getArea()" name="qyCity" id="qyCity">
                             <option value="">请选择</option>
 
                         </select>
                     </div>
                     <label for="qyArea" class="col-sm-2 control-label">所在区<span class="red">*</span>：</label>
-                    <div class="col-sm-2">
+                    <div class="col-sm-2" style="padding-left: 0;">
                         <select class="form-control" name="qyArea" id="qyArea">
                             <option value="">请选择</option>
 
@@ -113,7 +119,7 @@
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off">
                     </div>
-                    <label for="qylxfs" class="col-sm-2 control-label">固定电话：</label>
+                    <label for="qylxfs" class="col-sm-2 control-label">固定电话<span class="red">*</span>：</label>
                     <div class="col-sm-4">
                         <input type="text" class="form-control" id="qylxfs" name="qylxfs" placeholder="" autocomplete="off">
                     </div>
@@ -222,6 +228,7 @@
             }
         }
 
+        var layer1;
         $(document).ready(function () {
 
             $(".file1").change(function (e) {
@@ -284,6 +291,13 @@
                                             if(d.bean["地址"].words){
                                                 if(d.bean["地址"].words!="无"){
                                                     $("#qydz").val(d.bean["地址"].words)
+                                                }
+                                            }
+                                        }
+                                        if(d.bean["注册资本"]){
+                                            if(d.bean["注册资本"].words){
+                                                if(d.bean["注册资本"].words!="无"){
+                                                    $("#qyZczj").val(d.bean["注册资本"].words)
                                                 }
                                             }
                                         }
@@ -362,6 +376,7 @@
                     },
                     qyFrdbxm:"required",
                     qymc:"required",
+                    qyZczj:"required",
                     qyProv:"required",
                     qyCity:"required",
                     qyArea:"required",
@@ -375,6 +390,7 @@
                         required: true,
                         email: true
                     },
+                    qylxfs:"required",
                     qyGsxz:"required",
                     qyHylb:"required",
                     qyGsgm:"required",
@@ -388,6 +404,7 @@
                     },
                     qyFrdbxm: "请填写",
                     qymc: "请填写",
+                    qyZczj:"请填写",
                     qyProv: "请选择",
                     qyCity: "请选择",
                     qyArea: "请选择",
@@ -401,6 +418,7 @@
                         required: "请填写",
                         email: "请填写正确电子邮箱"
                     },
+                    qylxfs:"请填写",
                     qyGsxz: "请选择",
                     qyHylb: "请选择",
                     qyGsgm: "请选择",
@@ -439,25 +457,51 @@
                 walert("请上传营业执照");
                 return;
             }
-            $(".green").attr("disabled","disabled");
-            var jsonObj = $("#registerForm").serializeObject()
-            // console.log(jsonObj)
-            ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
-                if(data.backCode==0){
-                    layer.open({
-                        title:'提示',
-                        closeBtn: 0,
-                        content: '注册成功，待后台人员审核通过，便可登录。',
-                        yes: function(index, layero){
-                            window.location.href="${base}/";
-                            layer.close(index);
+            layer.open({
+                type: 1,
+                closeBtn: 0,
+                title: '提示',
+                btn:['确定','取消'],
+                skin: 'layui-layer-rim', //加上边框
+                area: ['400px', '300px'], //宽高
+                content: '  <div class="lxr-modal">' +
+                '              <div class="row">\n'+
+                '                <label class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">企业税号：</label>\n' +
+                '                <div class="col-sm-7" style="padding:0;line-height: 34px;">\n' +$("#qyTysh").val()+
+                '                </div>' +
+                '             </div>' +
+                '             <div class="row">\n' +
+                '                <label class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">法人身份证号：</label>\n' +
+                '                <div class="col-sm-7" style="padding:0;line-height: 34px;">\n' +$("#qyFrsfz").val()+
+                '                </div>\n' +
+                '             </div>\n' +
+                '           <div class="col-sm-11 col-sm-offset-1">请确认您的注册信息，点击确认进行注册，点击取消进行修改。</div></div>' ,
+                btn1:function(index, layero){
+                    var jsonObj = $("#registerForm").serializeObject()
+                    ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
+                        if(data.backCode==0){
+                            layer.open({
+                                title:'提示',
+                                closeBtn: 0,
+                                content: '注册成功，待后台人员审核通过，便可登录。',
+                                yes: function(index1, layero){
+                                    window.location.href="${base}/";
+                                    layer.close(index1);
+                                }
+                            });
+                        }else{
+                            $(".green").removeAttr("disabled");
+                            walert(data.errorMess)
                         }
-                    });
-                }else{
-                    $(".green").removeAttr("disabled");
-                    walert(data.errorMess)
+                    })
+                },
+                btn2:function(index, layero){
+
                 }
+
             })
+
+
         }
 
     </script>

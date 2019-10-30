@@ -136,6 +136,7 @@
                 "pmnf":$("#year").val()
             }
             beginLoad()
+            //zustjy/bckjBizJypm/jypmList
             ajax("zustjy/bckjBizJypm/jypmList", jsonObj, function (data) {
                 if(data.backCode==0){
                     finishLoad()

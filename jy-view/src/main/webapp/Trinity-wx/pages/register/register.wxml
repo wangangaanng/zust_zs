@@ -1,35 +1,39 @@
 <!--pages/register/register.wxml-->
 <!-- 表单 -->
-<form bindsubmit="submitForm" class="form-wrap">
+<form bindsubmit="formRegister" class="form-wrap">
   <van-cell-group>
-    <van-field v-model="username" placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message="" clearable>
-      <van-button slot="button" size="small" plain hairline type="primary" bind:click="sendCode">发送验证码</van-button>
+    <van-field value="{{form.tel}}" name="tel" placeholder="手机号码" bindblur='telBlur' left-icon=" iconfont icon-shouji" error-message="" clearable>
+      <van-button slot="button" size="small" plain hairline type="primary" disabled="{{disabled}}" bind:click="sendCode">{{time}}</van-button>
     </van-field>
-    <van-field v-model="username" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message="" clearable/>
-    <van-field v-model="username" placeholder="请输入真实姓名" left-icon=" iconfont icon-xingming" error-message="" clearable/>
-    <van-field v-model="username" placeholder="性别" left-icon=" iconfont icon-xingbie" error-message="" disabled>
-      <van-radio-group value="{{ sexRadio }}" bind:change="sexSelect" slot="right-icon" class="select-group">
+    <van-field value="{{form.code}}" name="code" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message="" clearable/>
+    <van-field value="{{form.name}}" name="name" placeholder="真实姓名" left-icon=" iconfont icon-xingming" error-message="" clearable/>
+    <van-field placeholder="性别" left-icon=" iconfont icon-xingbie" error-message="" disabled>
+      <van-radio-group value="{{ form.sex }}"  name="sex" bind:change="sexSelect" slot="right-icon" class="select-group">
         <van-radio name="1" checked-color="#26b887">男</van-radio>
         <van-radio name="2" checked-color="#26b887">女</van-radio>
       </van-radio-group>
     </van-field>
-    <van-field v-model="username" placeholder="登录密码（6-16位数字字母组合密码）"  placeholder-style="{{'font-size:30rpx'}}" password="{{loginPswType}}" left-icon=" iconfont icon-denglu-mima" error-message=""  placeholder-style="{{'font-size:30rpx'}}" right-icon=" iconfont {{(loginPswType)?'icon-comiisyincangmima':'icon-yanjing'}}" bind:click-icon="showPswType"
+    <van-field  value="{{ form.psw }}" name="psw"  placeholder="登录密码（6-16位）"  password="{{loginPswType}}" left-icon=" iconfont icon-denglu-mima" error-message=""  placeholder-style="{{'font-size:30rpx'}}" right-icon=" iconfont {{(loginPswType)?'icon-comiisyincangmima':'icon-yanjing'}}" bind:click-icon="showPswType"
       clearable/>
-    <van-field v-model="username" placeholder="确认密码（6-16位数字字母组合密码）" placeholder-style="{{'font-size:30rpx'}}"  password="{{surePswType}}" left-icon=" iconfont icon-denglu-mima" right-icon=" iconfont {{(surePswType)?'icon-comiisyincangmima':'icon-yanjing'}}" error-message="" bind:click-icon="surePswType"
+    <van-field value="{{ form.surePsw }}" name="surePsw" placeholder="确认密码（6-16位）"  password="{{surePswType}}" left-icon=" iconfont icon-denglu-mima" right-icon=" iconfont {{(surePswType)?'icon-comiisyincangmima':'icon-yanjing'}}" error-message="" bind:click-icon="surePswType"
       clearable/>
 
-    <van-cell title="学籍地区" class="study-area" icon=" iconfont icon-xuejiguanli" is-link value="{{studyArea?studyArea:' -- 请选择地区 -- '}}" arrow-direction="down" bind:click="showArea" />
+    <van-cell title="学籍地区" class="study-area" icon=" iconfont icon-xuejiguanli" is-link  name="studyArea" value="{{form.studyArea?form.studyArea:' -- 请选择地区 -- '}}" arrow-direction="down" bind:click="showArea" />
     <van-popup show="{{areaShowBool}}" bind:close="onClose" position="bottom">
-      <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="cancelArea" bind:change="onChangeArea" />
+      <van-area area-list="{{ areaList }}" bind:confirm="confirmArea" bind:cancel="cancelArea"  />
     </van-popup>
 
-    <van-cell title="倾向专业" icon=" iconfont icon-shuji" is-link value="{{wantMajor?wantMajor:' -- 请选择专业 -- '}}" arrow-direction="down" bind:click="showMajor" />
-    <van-popup show="{{majorShowBool}}" bind:close="onClose" position="bottom">
-      <van-picker show-toolbar columns="{{ majorList }}" bind:change="onChangeMajor" bind:cancel="cancelMajor" bind:confirm="confirmMajor" />
-    </van-popup>
+     <van-field value="{{form.major}}" name="major" placeholder="倾向专业" left-icon=" iconfont icon-shuji" error-message="" clearable/>
+    
   </van-cell-group>
   <!-- 按钮 -->
-  <view class="main-btn_wrap">
-    <van-button round type="primary" loading-text="注册中..." class="main-button" size="large">立即注册</van-button>
+  
+  <view class="main-btn_wrap button">
+    <button  formType="submit" >立即注册</button>
   </view>
+
+  <input type="text" class="hiddenInput" name="studyArea" value="{{form.studyArea}}"></input>
+  <input type="text" class="hiddenInput" name="prov" value="{{form.prov}}"></input>
+  <input type="text" class="hiddenInput" name="city" value="{{form.city}}"></input>
+  <input type="text" class="hiddenInput" name="area" value="{{form.area}}"></input>
 </form>

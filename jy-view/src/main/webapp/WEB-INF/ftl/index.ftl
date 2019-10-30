@@ -280,7 +280,7 @@
         <ul class="adv">
             <li onclick="linkUrl('http://gzdc.zjedu.gov.cn/')"><img src="${base}/img/pic1.png" /></li>
             <li onclick="linkUrl('http://www.ejobmart.cn/jyxt-v5/xtgl/index/initMenu.zf')"><img src="${base}/img/pic2.png" /></li>
-            <li onclick="openUrl('ranking')"><img src="${base}/img/pic3.png" /></li>
+            <li onclick="linkUrl('http://172.16.13.106/ranking')"><img src="${base}/img/pic3.png" /></li>
         </ul>
     </div>
     <!-- S c -->
@@ -449,6 +449,7 @@
                 addCookie("stuSjh",data.bean.sjh)
                 addCookie("userType","1") //1学生 0企业
                 addCookie("stuXm",data.bean.xm)
+                addCookie("stuXh",data.bean.xsxh)
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();
             }else{
@@ -474,8 +475,15 @@
         ajax("zustjy/bckjBizQyxx/login", jsonObj, function (data) {
             finishLoad()
             if(data.backCode==0){
+//                console.log(JSON.stringify(data.bean));
                 addCookie("qyOwid",data.bean.owid)
-                addCookie("qyInfo",JSON.stringify(data.bean))
+//                addCookie("qyInfo",data.bean.qymc)
+                var obj={}
+                obj.qymc=data.bean.qymc;
+                obj.qyLxr=data.bean.qyLxr;
+                obj.qyLxrdh=data.bean.qyLxrdh;
+                obj.qyYx=data.bean.qyYx;
+                addCookie("qyInfo",JSON.stringify(obj));
                 addCookie("userType","0") //1学生 0企业
                 addCookie("yhOwid",data.bean.owid)
                 location.reload();

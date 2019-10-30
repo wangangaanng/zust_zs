@@ -9,80 +9,74 @@
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
     <link rel="stylesheet" href="${base}/css/style.css"/>
 </head>
+<style>
+    .fuye_search{border-width:1px 0; padding: 18px 0 0 10px;; background-color:#f9f9f9; overflow:hidden;margin-right: 22px;}
+    .fuye_search ul li{ float:left; padding:0 15px; margin-bottom:5px;}
+    .fuye_search ul li p.title{ line-height:36px; float:left;}
+    .fuye_search ul li a.fuye_search_btn, a.fuye_search_btn{ display: inline-block; background-color:rgb(85,167,153); height:34px; width:120px; text-align:center; line-height:34px; color:#fff; font-size:14px;}
+    .form-control{width: 150px;display: inline-block}
+    .table-bordered{width: 78%}
+    .table-bordered th{text-align: center}
+</style>
 <body>
 <#include "com/ZSheader.ftl">
+<img class="ejgg" style="width:100%;height:300px;" src="${base}/img/loginbackgrouind2.jpg">
 <div class="main">
     <div class="container">
         <div class="content">
-            <div class="content-list">
-                <div class="fuye_search mt30">
-                    <ul>
-                        <li>
-                            <p class="title">年份：</p>
-                            <label class="select-normal">
-                                <select id="nf" onchange="mychange(this)">
-                                    <option value="" selected="selected">---请选择---</option>
-                                    <s:iterator value="#request.nfList" id="item">
-                                        <option val="${item.NF}">${item.NF }</option>
-                                    </s:iterator>
+            <#include "com/subMenu.ftl">
+            <div class="nav-bar">
+            <#include "com/route.ftl">
+            </div>
+            <div class="content-form">
+                <form class="form-horizontal" id="queryForm"  action="" target="queryFrame">
+                    <div class="fuye_search">
+                        <div class="form-group">
+                            <label for="nf" class="col-sm-1">年份：</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="nf" id="nf">
+                                    <option value="">---请选择---</option>
                                 </select>
-                                <span>---请选择---</span></label>
-                            <span style="background: #FFB300;border:1px solid #FFB300;"><a val="nf" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
-                        </li>
-                        <li>
-                            <p class="title">省份：</p>
-                            <label class="select-normal">
-                                <select id="sf" onchange="mychange(this)">
-                                    <option value="" selected="selected">---请选择---</option>
-                                    <s:iterator value="#request.sfList" id="item">
-                                        <option val="${item.SF}">${item.SF }</option>
-                                    </s:iterator>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                            </div>
+                            <label for="sf" class="col-sm-1">省份：</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="sf" id="sf">
+                                    <option value="">---请选择---</option>
                                 </select>
-                                <span>---请选择---</span> </label>
-                            <span style="background: #FFB300;border:1px solid #FFB300;"><a val="sf" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
-                        </li>
-                        <li>
-                            <p class="title">科类：</p>
-                            <label class="select-normal">
-                                <select id="kl" onchange="mychange(this)">
-                                    <option value="" selected="selected">---请选择---</option>
-                                    <s:iterator value="#request.klList" id="item">
-                                        <option val="${item.KL}">${item.KL }</option>
-                                    </s:iterator>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                            </div>
+                            <label for="kl" class="col-sm-1">科类：</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="sf" id="kl">
+                                    <option value="">---请选择---</option>
                                 </select>
-                                <span>---请选择---</span> </label>
-                            <span style="background: #FFB300;border:1px solid #FFB300;"><a val="kl" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
-                        </li>
-                        <li>
-                            <p class="title">批次：</p>
-                            <label class="select-normal">
-                                <select id="pc" onchange="mychange(this)">
-                                    <option value="" selected="selected">---请选择---</option>
-                                    <s:iterator value="#request.pcList" id="item">
-                                        <option val="${item.PC}">${item.PC }</option>
-                                    </s:iterator>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="pc" class="col-sm-1">批次：</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="pc" id="pc">
+                                    <option value="">---请选择---</option>
                                 </select>
-                                <span>---请选择---</span> </label>
-                            <span style="background: #FFB300;border:1px solid #FFB300;"><a val="pc" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
-                        </li>
-                        <li>
-                            <p class="title">专业：</p>
-                            <label class="select-normal">
-                                <select id="zy" onchange="mychange(this)">
-                                    <option value="" selected="selected">---请选择---</option>
-                                    <s:iterator value="#request.zyList" id="item">
-                                        <option val="${item.ZY}">${item.ZY }</option>
-                                    </s:iterator>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                            </div>
+                            <label for="zy" class="col-sm-1">专业：</label>
+                            <div class="col-sm-3">
+                                <select class="form-control" name="zy" id="zy">
+                                    <option value="">---请选择---</option>
                                 </select>
-                                <span>---请选择---</span> </label>
-                            <span style="background: #FFB300;border:1px solid #FFB300;"><a val="zy" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
-                        </li>
-                        <li><a id="export_btn" class="fuye_search_btn mr5">导出</a></li>
-                    </ul>
-                </div>
-                <div class="fuye_search_result mt20"> <em class="tip-label"></em>
-                    <div class="p10">
-                        <table id ="lnfsmc_list" class="tb2 w">
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                            </div>
+                            <button type="button" class="btn btn-default"
+                                    style="background-color: rgb(85,167,153);color: #ffffff;width: 150px;height: 34px;margin-left: 90px">导出</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="fuye_search_result" style="margin-top: 20px">
+                    <div class="p10" style="padding: 10px">
+                        <table class="table table-bordered">
                             <tr>
                                 <th> 年份 </th>
                                 <th> 省份 </th>
@@ -93,9 +87,16 @@
                                 <th> 录取数</th>
                                 <th> 最高分</th>
                                 <th> 最低分</th>
-                                <th>平均分</th>
+                                <th> 平均分</th>
                             </tr>
                         </table>
+                        <div class="text-center">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
                 </div>
                 <div class="text-center">

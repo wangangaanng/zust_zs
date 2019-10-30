@@ -1,1 +1,18 @@
 /* pages/wdyy/wdyy.wxss */
+
+.float-btn{
+  background: #00aba5;
+border: 1px solid #008782;
+color: #fff;
+width: 70rpx;
+height: 70rpx;
+border-radius: 50%;
+position: fixed;
+top: 750rpx;
+right: 35rpx;
+font-size: 26rpx;
+padding: 12rpx;
+text-align: center;
+z-index: 100;
+
+}

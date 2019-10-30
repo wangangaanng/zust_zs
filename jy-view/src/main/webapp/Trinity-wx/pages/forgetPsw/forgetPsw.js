@@ -1,21 +1,56 @@
 // pages/register/register.js
-var utils = require('../../utils/util.js');
-import WxValidate from '../../utils/WxValidate'
+var common = require('../../libs/common/common.js');
+import WxValidate from '../../utils/WxValidate';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    //显示隐藏密码
     loginPswType:true,
     surePswType: true,
+    time: '获取验证码', //倒计时
+    tel:'',
+    disabled:false
   },
-
+  //点击获取验证码
+  sendCode() {
+    common.getCode(this.data.tel,1,this);
+  },
+  changePswForm(e){
+    const params = e.detail.value;
+    //传入表单数据，调用验证方法
+    if (!this.WxValidate.checkForm(params)) {
+      const error = this.WxValidate.errorList[0]
+      common.toast(error.msg, 'none', 2000)
+      return false
+    }
+    var data = {
+      "swMm": params.tel
+      , "swZh": params.surePsw
+      , "yzm": params.code
+    }
+    common.ajax('zustcommon/bckjBizYhxx/forgetPwd', data, function (res) {
+      if (res.data.backCode == 0) {
+        wx.setStorageSync('account', params.tel);
+        wx.navigateTo({
+          url: '../login/login',
+        });
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.initValidate();
+    var currAccount = wx.getStorageSync("mobile");
+    this.setData({
+      tel: currAccount,
+    });
   },
 
   /**
@@ -80,8 +115,53 @@ Page({
       surePswType: this.data.surePswType
     });
   },
-  //获取验证码
-  sendCode(){
-    console.log('获取验证码');
+  //获取手机号码
+  telBlur(e) {
+    this.setData({
+      tel: e.detail.value
+    });
+  },
+  initValidate() {
+    // 验证字段的规则
+    const rules = {
+      tel: {
+        required: true,
+        tel: true,
+      }
+      , code: {
+        required: true
+      }
+      , psw: {
+        required: true,
+        rangelength: [6, 16],
+        numLetter: true
+      }
+      , surePsw: {
+        required: true,
+        equalTo: 'psw',
+        numLetter: true
+      }
+    }
+
+    // 验证字段的提示信息，若不传则调用默认的信息
+    const messages = {
+      tel: {
+        required: '请填写手机号',
+        tel: '请填写正确手机号',
+      }
+      , code: {
+        required: '请填写验证码',
+      }
+      , psw: {
+        required: '请设置登录密码',
+        numLetter: '请输入字母和数字的组合'
+      }
+      , surePsw: {
+        required: '请填写确认密码',
+        equalTo: '两次密码输入不一致',
+        numLetter: '请输入字母和数字的组合'
+      }
+    }
+    this.WxValidate = new WxValidate(rules, messages)
   }
 })

@@ -107,6 +107,9 @@
                         </#if>
                         </li>
                     </#if>
+                    <#if (result.memo?exists) && (result.state==2)>
+                        <li>拒绝原因：<span> ${result.memo!''}</span></li>
+                    </#if>
                     <#if result.jkr?exists>
                         <li>讲课人：<span> ${result.jkr!''}</span></li>
                     </#if>

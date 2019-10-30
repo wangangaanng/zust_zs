@@ -5,16 +5,20 @@
 .van-popup--bottom{
   border-radius: 22px 22px 0px 0px;
 }
-.main-btn_wrap{
-  padding: 90rpx;
+.button {
+  padding: 0 70rpx;
+  margin-bottom: 80rpx;
 }
-.main-btn_wrap button{
-  background-image: linear-gradient(0deg, rgb(81,204,163) 0%, rgb(38,184,135) 100%);
+
+.button button {
+  background-image: linear-gradient(0deg, #51cca3 0%, #26b887 100%);
   box-shadow: 0px 3px 10px 0px rgba(69, 214, 165, 0.75);
-  height: 88rpx;
-  line-height: 88rpx;
-  font-size: 32rpx;
+  border-radius: 40rpx;
+  color: #fff;
+  font-size: 16px;
 }
+.hiddenInput{display: none}
+.main-btn_wrap{padding: 80rpx;margin-bottom: 0px;}
 .van-picker__confirm{
   color: #26b887!important;
 }
@@ -35,8 +39,10 @@
 .com-title:before{position: absolute;left: 0px;content: "";width: 6rpx;height: 40rpx;background: rgb(38,184,135);
 border-radius: 3px;}
 .sm-title{font-size: 30rpx;}
-.btn-upload{border: 1px dotted rgb(38,184,135);border-radius: 10rpx;text-align: center;margin-top: 40rpx;padding: 34rpx 0px 40rpx 0px;}
+.btn-upload{border: 1px dotted rgb(38,184,135);border-radius: 10rpx;text-align: center;height:288rpx;margin: 15px 20px 0px 20px;}
 .btn-upload .icon-hao{font-size: 60rpx;color: rgb(38,184,135);}
+.btn-upload image{width: 100%;height: 288rpx;border-radius: 4px;}
+.btn-upload_wrap{padding-top: 84rpx;}
 .btn-txt{font-size: 28rpx;color:rgb(38,184,135); }
 .cell-wrap{padding: 30rpx 0rpx;}
 .cell-wrap input{ text-align: right}

@@ -98,10 +98,6 @@
             <view class="td td-name"  style="width:180rpx;">举办时间：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}} {{result.zphJtsj}}</view>
           </view>
-          <!-- <view class="tr" wx:if="{{result.zphJtsj}}">
-            <view class="td td-name"  style="width:180rpx;">举办时长：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJtsj}}</view>
-          </view> -->
           <view class="tr">
             <view class="td td-name"  style="width:180rpx;">具体城市：</view>
             <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwCity}}</view>
@@ -239,7 +235,15 @@
   <view class="float-btn" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>
   <view class="float-btn" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
 </view>
-<view wx:if="{{(result.zwlx==3)||(result.zwlx==4)}}">
+<view wx:if="{{result.zwlx==3}}">
+  <view class="float-btn" hidden="{{!sfbm}}" bindtap="applyJob">学生报名</view>
+  <view class="float-btn" hidden="{{sfbm}}">无需报名</view>
+  <view class="float-btn2" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>
+  <view class="float-btn2" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
+   <view class="float-btn3" hidden="{{!result.sfkbm}}" bindtap="applyJob2">企业预约</view>
+</view>
+
+<view wx:if="{{result.zwlx==4}}">
   <view class="float-btn" hidden="{{!sfbm}}" bindtap="applyJob">我要报名</view>
   <view class="float-btn" hidden="{{sfbm}}">无需报名</view>
   <view class="float-btn2" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>

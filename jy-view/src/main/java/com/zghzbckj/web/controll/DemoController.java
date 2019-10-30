@@ -809,6 +809,15 @@ public class DemoController {
         return view;
     }
 
+    @RequestMapping(value = "wybm", method = RequestMethod.GET)
+    public ModelAndView wybm(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("wybm");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        return view;
+    }
+
+
     @RequestMapping(value = "errerIp", method = RequestMethod.GET)
     public ModelAndView errerIp(HttpServletRequest request,ModelAndView view) {
         view.setViewName("errerIp");
@@ -820,6 +829,7 @@ public class DemoController {
     @RequestMapping(value = "ranking", method = RequestMethod.GET)
     public ModelAndView ranking(HttpServletRequest request,ModelAndView view) {
         String host=request.getRemoteHost();
+        System.out.println(host);
         if(!PropertiesUtil.innerIp(host)){
             view.setViewName("errerIp");
             return view;
@@ -962,7 +972,7 @@ public class DemoController {
                 view.setViewName("stuSyxx");
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
-                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByTypeSort");
                 ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
                 view.addObject("sydList",type.getBean());
                 Map param2=Maps.newHashMap();//政治面貌
@@ -993,7 +1003,7 @@ public class DemoController {
                 }
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
-                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByTypeSort");
                 ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
                 view.addObject("sydList",type.getBean());
                 Map param2=Maps.newHashMap();//毕业去向名称（字典表）
@@ -1074,7 +1084,7 @@ public class DemoController {
                 view.setViewName("stuSyxx");
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
-                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByTypeSort");
                 ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
                 view.addObject("sydList",type.getBean());
                 Map param2=Maps.newHashMap();//政治面貌
@@ -1105,7 +1115,7 @@ public class DemoController {
                 }
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
-                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByTypeSort");
                 ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
                 view.addObject("sydList",type.getBean());
                 Map param2=Maps.newHashMap();//毕业去向名称（字典表）

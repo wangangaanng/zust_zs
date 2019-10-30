@@ -23,7 +23,7 @@
     .zph-d .row{
         padding: 5px 0;
     }
-
+    .layui-layer-content{overflow-y:auto !important;}
 
 </style>
 
@@ -233,8 +233,8 @@ var pageSize=10;
                     for(var i=1;i<data.bean.length+1;i++){
                         zdytjStr+='<div class="row">\n' +
                                 '     <div class="form-group">\n' +
-                                '     <label for="zdytj'+i+'" class="col-sm-3 control-label text-right" style="line-height: 34px;">'+zdytjObj['zdytj'+i]+'<span class="red">*</span>：</label>\n' +
-                                '     <div class="col-sm-4">\n' +zdytjObj['str'+i]+
+                                '     <label for="zdytj'+i+'" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">'+zdytjObj['zdytj'+i]+'<span class="red">*</span>：</label>\n' +
+                                '     <div class="col-sm-3" style="padding:0;">\n' +zdytjObj['str'+i]+
                                 // '          <select class="form-control" id="tjsd'+i+'" name="tjsd'+i+'" >'+zdytjObj['str'+i]+'</select>\n' +
                                 '     </div>\n' +
                                 '     </div>\n' +
@@ -251,21 +251,82 @@ var pageSize=10;
     function order() {
         layer1=layer.open({
             type: 1,
-            title:'联系人信息',
+            title:'招聘信息',
             skin: 'layui-layer-rim', //加上边框
-            area: ['800px', '480px'], //宽高
+            area: ['800px', '700px'], //宽高
             content: '<div class="lxr-modal">\n' +
-            '                        <div class="row"><div class="form-group">\n' +
-            '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-3">\n' +
+            '                        <div class="row">\n'+
+            '                           <div class="form-group">\n' +
+            '                                <label for="lxr" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">联系人<span class="red">*</span>：</label>\n' +
+            '                                <div class="col-sm-3" style="padding:0;">\n' +
             '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+JSON.parse(getCookie("qyInfo")).qyLxr+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
-            '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机号<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-3">\n' +
+            '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">联系人手机号<span class="red">*</span>：</label>\n' +
+            '                                <div class="col-sm-2" style="padding:0;">\n' +
             '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+JSON.parse(getCookie("qyInfo")).qyLxrdh+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                        </div>\n' +zdytjStr+
+            '                        <div class="row">\n'+
+            '                           <div class="form-group">\n' +
+            '                                <label for="zw1" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">岗位：</label>\n' +
+            '                                <div class="col-sm-3" style="padding:0;">\n' +
+            '                                    <input type="text" class="form-control" id="zw1" name="zw1" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                                <label for="rs1" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">招聘人数：</label>\n' +
+            '                                <div class="col-sm-2" style="padding:0;">\n' +
+            '                                    <input type="number" class="form-control" id="rs1" name="rs1" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                        <div class="row">\n'+
+            '                           <div class="form-group">\n' +
+            '                                <label for="zw2" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">岗位：</label>\n' +
+            '                                <div class="col-sm-3" style="padding:0;">\n' +
+            '                                    <input type="text" class="form-control" id="zw2" name="zw2" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                                <label for="rs2" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">招聘人数：</label>\n' +
+            '                                <div class="col-sm-2" style="padding:0;">\n' +
+            '                                    <input type="number" class="form-control" id="rs2" name="rs2" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                        <div class="row">\n'+
+            '                           <div class="form-group">\n' +
+            '                                <label for="zw3" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">岗位：</label>\n' +
+            '                                <div class="col-sm-3" style="padding:0;">\n' +
+            '                                    <input type="text" class="form-control" id="zw3" name="zw3" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                                <label for="rs3" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">招聘人数：</label>\n' +
+            '                                <div class="col-sm-2" style="padding:0;">\n' +
+            '                                    <input type="number" class="form-control" id="rs3" name="rs3" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                        <div class="row">\n'+
+            '                           <div class="form-group">\n' +
+            '                                <label for="zw4" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">岗位：</label>\n' +
+            '                                <div class="col-sm-3" style="padding:0;">\n' +
+            '                                    <input type="text" class="form-control" id="zw4" name="zw4" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                                <label for="rs4" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">招聘人数：</label>\n' +
+            '                                <div class="col-sm-2" style="padding:0;">\n' +
+            '                                    <input type="number" class="form-control" id="rs4" name="rs4" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                        <div class="row">\n'+
+            '                           <div class="form-group">\n' +
+            '                                <label for="zw5" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">岗位：</label>\n' +
+            '                                <div class="col-sm-3" style="padding:0;">\n' +
+            '                                    <input type="text" class="form-control" id="zw5" name="zw5" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                                <label for="rs5" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">招聘人数：</label>\n' +
+            '                                <div class="col-sm-2" style="padding:0;">\n' +
+            '                                    <input type="number" class="form-control" id="rs5" name="rs5" value="" placeholder="" autocomplete="off">\n' +
+            '                                </div>\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
             '                        <div class="row btn-yd"><div class="col-md-9 col-sm-offset-1 text-center">\n' +
             '                                <button class="btn green" style="width: 120px;" onclick="confirmQd()">确定</button>\n' +
             '                            </div>\n' +
@@ -298,6 +359,17 @@ var pageSize=10;
                 }
             }
 
+            for(var i=1;i<6;i++){
+                if($("#zw"+i).val() && !$("#rs"+i).val()){
+                    walert("请填写岗位及相应招聘人数")
+                    return;
+                }
+                if(!$("#zw"+i).val() && $("#rs"+i).val()){
+                    walert("请填写岗位及相应招聘人数")
+                    return;
+                }
+            }
+
             var jsonObj = {
                 "jobRefOwid": $("#zphOwid").val(),
                 "bmlx": 0,
@@ -309,6 +381,10 @@ var pageSize=10;
             for(var i=1;i<zdytjLength+1;i++){
                 jsonObj['zdytj'+i]=zdytjObj['zdytj'+i]
                 jsonObj['tjsd'+i]=$("#tjsd"+i).val()
+            }
+            for(var i=1;i<6;i++){
+                jsonObj['zw'+i]=$("#zw"+i).val()
+                jsonObj['rs'+i]=$("#rs"+i).val()
             }
             ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
                 if (data.backCode == 0) {
@@ -424,11 +500,10 @@ var pageSize=10;
                 str= '<a class="green-color order" href="#">预定展位</a> ';
             }
 
-        }else if(row.state==6){
-            str= '<span style="color: red;">已结束</span> ';
         }else{
             str= '';
         }
+
         if(row.zphBmjzsj && compareToday(row.zphBmjzsj)){
             str= '<span style="color: #ccc;">已截止报名</span> ';
         }
@@ -450,7 +525,7 @@ function operateFormatterZph2(value, row, index) {
         },
         'click .zphxq': function (e, value, row, index) {
             if(!isTimeOut()) {
-                window.open("${base}/positionDetail/qy/" + row.owid)
+                window.open("${base}/positionDetail/" + row.owid)
             }
         },
         'click .remove': function (e, value, row, index) {

@@ -1,0 +1,24 @@
+<wxs src="../fcn.wxs" module="tools" />
+<!--pages/enterpriseXjh/enterpriseXjh.wxml-->
+<view class="uni-list">
+  <block wx:for="{{xjhList}}" wx:key="{{index}}">
+  <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
+    <view class="uni-media-list">
+      <view class="uni-media-list-body">
+        <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+        <view class="uni-media-list-text-bottom">
+          <view class="uni-media-list-text-bottom-left">地点：{{item.zphJbdd}}</view>
+        </view>
+        <view class="uni-media-list-text-content">
+          <view>举办时间：<span>{{tools.substr(item.zphKsrq,0,10)}}</span>
+              <span class="pull-right" style="{{item.color}}">{{item.str}}</span>
+          </view>
+          <view wx:if="{{item.zphBmjzsj}}">报名截止：{{tools.substr(item.zphBmjzsj,0,10)}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  </block>
+</view>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>
+

@@ -229,6 +229,28 @@ public class BckjBizJyschemeController extends BaseController {
         }
     }
 
+    /**
+     * 获得就业方案信息  小程序
+     * @param dataVO
+     * @return
+     */
+    @RequestMapping("getOneJyschemeXcx")
+    @ResponseBody
+    public ResponseMessage getOneJyschemeXcx(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.USER_RELOGIN);
+            }
+            return ResponseMessage.sendOK(bckjBizJyschemeService.getOneJyschemeXcx(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     /**
      * 查询档案信息
@@ -283,6 +305,8 @@ public class BckjBizJyschemeController extends BaseController {
         }
     }
 
+
+
      /**
      * <p>功能描述:新建或修改保存就业方案信息</p >
      * <ul>
@@ -308,6 +332,8 @@ public class BckjBizJyschemeController extends BaseController {
     }
 
 
+
+
     /**
      * 前台保存就业方案
      * @param dataVO
@@ -318,17 +344,33 @@ public class BckjBizJyschemeController extends BaseController {
     public ResponseMessage insertssInfoQt(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.NoAccounctExists);
-            }
             return bckjBizJyschemeService.insertssInfoQt(dataMap);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
-
     }
+
+
+    /**
+     * 保存就业方案信息   小程序
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("saveOneJyschemeXcx")
+    @ResponseBody
+    public ResponseMessage saveOneJyschemeXcx(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return bckjBizJyschemeService.saveOneJyschemeXcx(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 
 }
