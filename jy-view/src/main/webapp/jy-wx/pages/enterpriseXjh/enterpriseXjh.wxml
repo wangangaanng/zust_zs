@@ -18,7 +18,7 @@
       <view class="uni-media-list-body">
         <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无宣讲会名称'}}</view>
         <view class="uni-media-list-text-bottom">
-          <view class="uni-media-list-text-bottom-left">举办时间：{{tools.substr(item.xjsj,0,16)}}</view>
+          <view class="uni-media-list-text-bottom-left">举办时间：{{item.xjsj?tools.substr(item.xjsj,0,16):''}}</view>
             <van-icon
           name="arrow"
           custom-class="icon"

@@ -260,26 +260,35 @@
 		select
 		a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1,b.zjjj as zjjj,
-		b.zjxx as zjxx, b.zjtx as zjtx
+		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4
 		from bckj_biz_yhxx a ,bckj_biz_zjzx b
 		<where>
 			a.owid = b.yhid AND  a.yhlx=1
 			<if test="zjxm!=null and zjxm!=''">
-				and  b.zjxm like CONCAT('%',#{zjxm},'%')
+				and  b.zjxm like CONCAT('%',#{zjxm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="szzy!=null and szzy!=''">
-				and  b.szzy like CONCAT('%',#{szzy},'%')
+				and  b.szzy like CONCAT('%',#{szzy,jdbcType=VARCHAR},'%')ESCAPE '&amp;'
 			</if>
 			<if test="szxy!=null and szxy!=''">
-				and  b.szxy like CONCAT('%',#{szxy},'%')
+				and  b.szxy like CONCAT('%',#{szxy,jdbcType=VARCHAR},'%')ESCAPE '&amp;'
 			</if>
 			<if test="zjzw!=null and zjzw!=''">
-				and  b.zjzw like CONCAT('%',#{zjzw},'%')
+				and  b.zjzw like CONCAT('%',#{zjzw,jdbcType=VARCHAR},'%')ESCAPE '&amp;'
 			</if>
 			<if test="zjlxfs!=null and zjlxfs!=''">
-				and  b.zjlxfs like CONCAT('%',#{zjlxfs},'%')
+				and  b.zjlxfs like CONCAT('%',#{zjlxfs,jdbcType=VARCHAR},'%')ESCAPE '&amp;'
 			</if>
 		</where>
+		order by b.zjxm desc
+	</select>
+
+	<select id="showInfoListQt"  resultType="Map">
+		select
+		b.owid as owid ,a.owid as yhid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
+		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1,b.zjjj as zjjj,
+		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4
+		from bckj_biz_yhxx a ,bckj_biz_zjzx b
 		order by b.zjxm desc
 	</select>
 
@@ -325,7 +334,7 @@
 			select
 			a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 			b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1 ,b.zjjj as zjjj,
-			b.zjxx as zjxx ,b.zjtx as zjtx
+			b.zjxx as zjxx ,b.zjtx as zjtx ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4 ,a.sjh as sjh
 			from bckj_biz_yhxx a ,bckj_biz_zjzx b
 			<where>
 				a.owid = b.yhid AND  a.yhlx=1 and a.owid =#{owid}
@@ -345,4 +354,8 @@
 	<delete id="deleteYhxx" parameterType="String" >
 		DELETE FROM bckj_biz_yhxx where owid=#{value }
 	</delete>
+	<select id="getConsultsReplyDay" resultType="String">
+		SELECT b.dic_val2 FROM bckj_biz_dic a ,bckj_biz_dic_value b
+		WHERE a.owid=b.dic_ref_owid AND a.type=60000
+	</select>
 </mapper>

@@ -316,6 +316,4 @@ public class BckjBizJybmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
         }
     }
-
-
 }

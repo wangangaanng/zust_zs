@@ -1,5 +1,11 @@
 {
   "usingComponents": {
-    "van-divider": "vant-weapp/divider"
+    "van-icon": "vant-weapp/icon",
+    "van-search": "vant-weapp/search",
+    "van-divider": "vant-weapp/divider",
+    "van-cell-group": "vant-weapp/cell-group",
+    "van-cell": "vant-weapp/cell",
+    "van-picker": "vant-weapp/picker",
+    "van-popup": "vant-weapp/popup"
   }
 }

@@ -478,9 +478,16 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 params.put("jobRefOwid", jybm.getJobRefOwid());
                 params.put("state", 1);
                 Integer allNumber = jybm.getBmqygs();
+                if (TextUtils.isEmpty(allNumber)) {
+                    allNumber = 1;
+                }
+                if (1 == allNumber) {
+                    continue;
+                }
                 List<BckjBizJybm> existList = findListByParams(params, "");
                 if (!TextUtils.isEmpty(existList) && existList.size() > 0) {
                     Integer existNumber = existList.size();
+                    //2表示显示上传按钮 1不显示
                     if (allNumber > existNumber) {
                         jybm.setShowUpload(2);
                     } else {
@@ -698,4 +705,5 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         }
         return jybm;
     }
+
 }

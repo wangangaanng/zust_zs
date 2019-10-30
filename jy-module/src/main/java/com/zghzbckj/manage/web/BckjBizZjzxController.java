@@ -267,6 +267,32 @@ public class BckjBizZjzxController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
             }
         }
+
+    /**
+     * <p>功能描述:前台显示专家信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/25</li>
+     * </ul>
+     */
+    @PostMapping("showInfoListQt")
+    @ResponseBody
+    public  ResponseMessage showInfoListQt(PublicDataVO dataVO){
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizZjzxService.showInfoListQt(filters,dataVO.getPageNo(),dataVO.getPageSize());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
     /**
      * <p>功能描述:后台保存专家信息</p >
      * <ul>
@@ -326,7 +352,7 @@ public class BckjBizZjzxController extends BaseController {
     }
 
     /**
-     * <p>功能描述:新建专家信息</p >
+     * <p>功能描述:得到专家详情信息</p >
      * <ul>
      * <li>@param </li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
@@ -351,5 +377,22 @@ public class BckjBizZjzxController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+
+    /**
+     * 获得字典表中专家回复的天数
+     * @return
+     */
+    @PostMapping("getConsultsReplyDay")
+    @ResponseBody
+    public ResponseMessage getConsultsReplyDay(){
+        try {
+            return  ResponseMessage.sendOK(bckjBizZjzxService.getConsultsReplyDay());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
     }
 }

@@ -17,9 +17,9 @@
     <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="detail">
       <view class="uni-media-list">
         <view class="uni-media-list-body">
-          <view class="uni-media-list-text-top">{{item.zwbt}}</view>
+          <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无职位名称'}}</view>
           <view class="uni-media-list-text-bottom">
-            <view class="uni-media-list-text-bottom-left">发布时间：{{tools.substr(item.createtime,0,10)}}</view>
+            <view class="uni-media-list-text-bottom-left">发布时间：{{item.createtime?tools.substr(item.createtime,0,10):'暂无'}}</view>
             <view class="uni-media-list-text-bottom-right ">
               <span wx:if="{{item.state==0}}" style="color:#888;">待审核</span>
               <span wx:if="{{item.state==2}}" style="color:green;">已发布</span>
@@ -28,7 +28,7 @@
             </view>
           </view>
           <view class="uni-media-list-text-content">
-          职能类别：{{item.zwGzznStr}}
+          职能类别：{{item.zwGzznStr?item.zwGzznStr:''}}
           <van-icon
             name="arrow"
             class="pull-right"
@@ -36,7 +36,7 @@
           />
           </view>
           <view class="uni-media-list-text-content">
-          关注人数：{{tools.getSize(item.xsgzList) || 0}}
+          关注人数：{{item.xsgzList?(tools.getSize(item.xsgzList) || 0) : 0}}
           </view>
         </view>
       </view>
