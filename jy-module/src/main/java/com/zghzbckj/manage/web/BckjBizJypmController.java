@@ -260,4 +260,21 @@ public class BckjBizJypmController extends BaseController {
     }
 
 
+    @RequestMapping(value = "recordBmInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordBmInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path", "yqRefOwid", "jobRefOwid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizJypmService.recordBmInfo(dataMap);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

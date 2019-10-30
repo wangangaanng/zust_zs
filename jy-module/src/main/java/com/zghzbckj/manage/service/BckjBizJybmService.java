@@ -385,6 +385,16 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                             return resultMap;
                         }
                     }
+                    //报名企业个数
+                    if (TextUtils.isEmpty(mapData.get("bmqygs"))) {
+                        jybm.setBmqygs(1);
+                    }
+//                    else if (!TextUtils.isEmpty(mapData.get("bmqygs"))) {
+//                        Integer bmqygs = Integer.parseInt(mapData.get("bmqygs").toString());
+//                        if (bmqygs >= 2) {
+//
+//                        }
+//                    }
                 }
 
                 if (!TextUtils.isEmpty(job.getZphKsrq())) {
@@ -461,6 +471,26 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         }
 
         List<BckjBizJybm> bmList = this.dao.findListByMap(dataMap);
+        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+            for (BckjBizJybm jybm : bmList) {
+                Map params = Maps.newHashMap();
+                params.put("yqRefOwid", jybm.getQyxxRefOwid());
+                params.put("jobRefOwid", jybm.getJobRefOwid());
+                params.put("state", 1);
+                Integer allNumber = jybm.getBmqygs();
+                List<BckjBizJybm> existList = findListByParams(params, "");
+                if (!TextUtils.isEmpty(existList) && existList.size() > 0) {
+                    Integer existNumber = existList.size();
+                    if (allNumber > existNumber) {
+                        jybm.setShowUpload(2);
+                    } else {
+                        jybm.setShowUpload(1);
+                    }
+                }
+
+
+            }
+        }
         page.setList(bmList);
         PageInfo<BckjBizJybm> pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());
@@ -493,7 +523,17 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     return resultMap;
                 }
                 bm.setZwbh(mapData.get("zwbh").toString());
-                String content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
+                String content = "";
+                if (!TextUtils.isEmpty(mapData.get("bmqygs"))) {
+                    Integer bmqygs = Integer.parseInt(mapData.get("bmqygs").toString());
+                    bm.setBmqygs(bmqygs);
+                    if (bmqygs >= 2) {
+                        content = "已经同意您的招聘会申请，允许参会企业" + bmqygs + "家，" + "展位编号：" + bm.getZwbh() + "，请组织好园区企业，在报名截止前进入到我的招聘会申请-上传界面中上传参与的企业信息和职位信息。";
+                    } else {
+                        content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
+                    }
+                }
+
                 String mobile = bm.getLxdh();
                 try {
                     MessageUtil.sendMessage(mobile, content);

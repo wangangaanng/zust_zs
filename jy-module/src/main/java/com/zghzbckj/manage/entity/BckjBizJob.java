@@ -23,6 +23,7 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private static final long serialVersionUID = 1L;
 
     private String qyxxRefOwid;        // qyxx_ref_owid
+
     private String zwbt;        // zwbt
     private String zwgjz;        // zwgjz
     private Integer zwlx;        // zwlx
@@ -89,6 +90,8 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     public Integer getSfbm() {
         return sfbm;
     }
+
+
 
     public void setSfbm(Integer sfbm) {
         this.sfbm = sfbm;
