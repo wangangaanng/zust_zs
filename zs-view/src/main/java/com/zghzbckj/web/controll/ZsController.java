@@ -121,6 +121,18 @@ public class ZsController {
         }
         return view;
     }
+    @RequestMapping(value = "wzxq/{owid}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String owid) throws UnsupportedEncodingException {
+        view.setViewName("ZSnewsDetail");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getOne");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
+        return view;
+    }
 
 
     public ResponseMessage getHeader() {
