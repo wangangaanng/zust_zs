@@ -1,10 +1,16 @@
-// pages/grzx/grzx.js
+// 预览发送到邮箱
+var common = require('../../libs/common/common.js');
+var utils = require('../../utils/util.js');
+import WxValidate from '../../utils/WxValidate';
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+
+  },
+  sendMail(){
 
   },
   /**
@@ -61,12 +67,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  loginOut:function(){
-    wx.setStorageSync("hasLogin", "0");
-    wx.setStorageSync("mobile", "");
-    wx.navigateTo({
-      url: '../login/login'
-    })
   }
 })

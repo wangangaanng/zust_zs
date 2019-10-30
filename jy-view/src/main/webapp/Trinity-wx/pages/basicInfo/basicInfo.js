@@ -40,6 +40,7 @@ Page({
     const params = e.detail.value;
     //身份证（户籍）必传
     if ((this.data.upFaceImg == "" || this.data.upFaceBck == "") && this.data.idType == "1") {
+      console.log(this.data.upFaceBck);
       this.setData({
         showIdError: false,
       });
@@ -77,12 +78,15 @@ Page({
       }
     }
     console.log(params);
-    params.yhRefOwid = wx.getStorageInfoSync("yhRefOwid");
+    params.yhRefOwid = wx.getStorageSync("yhRefOwid");
     params.sfzzm = that.upFaceImg;
     params.sfzfm = that.upFaceBck;
     params.hjzm = that.upHouseHold;
+    delete params['1'];
+    delete params['2']
     common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
       if (res.data.backCode == 0) {
+        wx.setStorageSync('eamil', params.yx);
         wx.navigateTo({
           url: '../contactors/contactors',
         })
@@ -97,7 +101,7 @@ Page({
   onLoad: function (options) {
     this.initValidate();
     //获取基本信息填充
-    getInfoBasic();
+    getInfoBasic(this);
   },
 
   //点击上传图片
@@ -116,26 +120,23 @@ Page({
             faceImg: tempFilePaths[0],
           });
           uploadOcr(that, tempFilePaths, type);
-          that.setData({
-            faceImg: tempFilePaths[0]
-          });
         } else {
           common.uploadFile(res.tempFilePaths, 1, function (res) {
             let data = JSON.parse(res.data)
             if (data.backCode == 0) {//3 身份证反面 1 户籍证明]
               switch (type) {
                 case "1":
-                  that.data.upHouseHold = data.bean;
+                  that.data.upHouseHold = data.bean.filePath;
                   that.setData({
                     houseHold: tempFilePaths[0],
                     upHouseHold: that.data.upHouseHold
                   });
                   break;
                 case "3":
-                  that.data.upFaceBck = data.bean;
+                  that.data.upFaceBck = data.bean.filePath;
                   that.setData({
                     faceBck: tempFilePaths[0],
-                    upFaceBck: that.data.upHouseHold
+                    upFaceBck: that.data.upFaceBck
                   });
                   break; 
               }
@@ -221,28 +222,24 @@ function uploadOcr(that, path, type) {
     },
     success: function (res) {
       wx.hideLoading();
-      if (res.statusCode != 200) {
-        wx.showModal({
-          title: '提示',
-          content: '上传失败',
-          showCancel: false
-        });
-        that.setData({
-          src: "../../images/img-hean_green.png",
-        });
-        return;
-      } else {
-        let d = JSON.parse(res.data);
+      if (res.statusCode == 200) {
+         let d = JSON.parse(res.data);
         //是被信息回显  
         ocrImgStatus(d, d.bean.image_status, that);
         that.setData({
           'upFaceImg': d.bean.fileName,
         })
+      } else {
+        wx.showModal({
+          title: '提示',
+          content: '上传失败,请重新上传',
+          showCancel: false
+        });
+        return;
       }
-
     },
     fail: function (e) {
-      console.log(e);
+      wx.hideLoading();
       wx.showModal({
         title: '提示',
         content: '上传失败',
@@ -256,13 +253,37 @@ function uploadOcr(that, path, type) {
 }
 
 //获取基本信息
-function getInfoBasic() {
+function getInfoBasic(that) {
   var data = {
     "yhRefOwid": wx.getStorageSync('yhRefOwid')
   }
   common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
-
+      var data = res.data.bean;
+      data['xb'] = data['xb'].toString();//性别转string
+      that.data.form = data;
+      console.log(common.imgPath + data.hjzm);
+      if (data.sfzzm){
+        that.setData({
+          faceImg: common.imgPath + data.sfzzm, //临时页面显示的身份证正面
+          upFaceImg: data.sfzzm,//上传身份证正面
+        });
+      }
+      if (data.sfzfm) {
+        that.setData({
+          faceBck: common.imgPath + (data.sfzfm.replace("\\", "/")),//临时页面显示的身份证方面
+          upFaceBck: data.sfzfm,//身份证反面
+        });
+      }
+      if (data.hjzm){
+        that.setData({
+          houseHold: common.imgPath + (data.hjzm.replace("\\", "/")),//临时页面显示的户籍证明
+          upHouseHold: data.hjzm,//户籍证明 
+        });
+      }
+      that.setData({
+        form: data,
+      });
     } else {
       common.toast(res.data.errorMess, 'none', 2000)
     }
@@ -294,6 +315,7 @@ function ocrImgStatus(d, status, that) {
         break;
       default:
         statusStr = status;
+        break;
     }
     common.toast(statusStr, 'none', 2000);
   }
