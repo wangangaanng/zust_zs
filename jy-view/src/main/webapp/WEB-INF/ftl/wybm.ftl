@@ -45,6 +45,20 @@
         <div class="content">
             <div class="jf-content">
                 <div>
+                    <div class="search-bar">
+                        <div class="input-group search-input">
+                            <input type="text" id="zwbt-zph" onkeydown="keyLogin()" class="form-control" placeholder="输入名称进行查询">
+                            <div class="input-group-btn">
+                                <button type="button" onclick="searchXjh()" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
+                            </div>
+                        </div>
+                        <select style="width: 200px;float: right;" onchange="searchXjh()" class="form-control" id="zwlx" name="zwlx">
+                            <option value="">请选择职位类型</option>
+                            <option value="0">职位</option>
+                            <option value="3">职来职往</option>
+                            <option value="4">宣讲会</option>
+                        </select>
+                    </div>
                     <div class="news-list">
                         <div class="e-table">
                             <table class="table table-hover" data-locale="zh-CN" id="table-zph" style="table-layout: fixed;
@@ -79,12 +93,29 @@
         initTable1()
     }
 
+
+    function keyLogin(){
+        if (event.keyCode==13){
+            searchXjh()
+        }
+    }
+
+    function searchXjh() {
+        var key=$("#zwbt-zph").val().trim()
+        if(testSql(key,$("#zwbt-zph"))){
+            if(!isTimeOut()) {
+                $("#table-zph").bootstrapTable('refresh', {pageNumber: 1});
+            }
+        }
+    }
+
     function initTable1(){
         $('#table-zph').bootstrapTable('destroy');
         $('#table-zph').bootstrapTable({
             ajax:function(request) {
                 ajax("zustjy/bckjBizJob/myJobList", {
-                    "zwlx":'',
+                    "zwlx": $("#zwlx").val(),
+                    "zwbt": $("#zwbt-zph").val().trim(),
                     "zphSfbm":1,
                     "yhRefOwid":getCookie("yhOwid"),
                     "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || 10,

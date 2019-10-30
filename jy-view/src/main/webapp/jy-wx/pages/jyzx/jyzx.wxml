@@ -17,7 +17,7 @@
           </view>
         </view>
         <view class="t-cz">
-          <view class="t-f6" data-owid="{{item.owid}}" bindtap="detail">
+          <view class="t-f6" data-owid="{{item.yhid}}" bindtap="detail">
             <image src="../../static/icon-xq.png"></image>
             <view class="green">详情</view>
           </view>
