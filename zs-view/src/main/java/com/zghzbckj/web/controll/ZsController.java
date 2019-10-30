@@ -244,7 +244,7 @@ public class ZsController {
      *<li>@date 2019/10/28 15:23</li>
      *</ul>
      */
-    @RequestMapping(value = "zsjhcx/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    @RequestMapping(value = "zsjhcx", method = RequestMethod.GET)
     public ModelAndView zsjhcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzsjhcx");
         view.addObject("header", getHeader().getBean());
@@ -267,7 +267,7 @@ public class ZsController {
      *<li>@date 2019/10/28 15:26</li>
      *</ul>
      */
-    @RequestMapping(value = "zxtw/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    @RequestMapping(value = "zxtw", method = RequestMethod.GET)
     public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzxtw");
         view.addObject("header", getHeader().getBean());
@@ -279,5 +279,40 @@ public class ZsController {
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
+
+    /**
+     * <p>功能描述:招生网问卷调查 wjdc</p >
+     * <ul>
+     * <li>@param [request, view]</li>
+     * <li>@return org.springframework.web.servlet.ModelAndView</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/10/29 9:09</li>
+     * </ul>
+     */
+    @RequestMapping(value = "wjdc", method = RequestMethod.GET)
+    public ModelAndView wjdc(HttpServletRequest request, ModelAndView view) {
+        view.setViewName("ZSwjdc");
+        view.addObject("header", getHeader().getBean());
+        return view;
+    }
+
+    /**
+     * <p>功能描述:科院掠影 kyly</p >
+     * <ul>
+     * <li>@param [request, view]</li>
+     * <li>@return org.springframework.web.servlet.ModelAndView</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/10/29 9:21</li>
+     * </ul>
+     */
+    @RequestMapping(value = "kyly")
+    public ModelAndView kyly(HttpServletRequest request, ModelAndView view) {
+        view.setViewName("ZSkyly");
+        view.addObject("header", getHeader().getBean());
+        return view;
+    }
+
 }
 

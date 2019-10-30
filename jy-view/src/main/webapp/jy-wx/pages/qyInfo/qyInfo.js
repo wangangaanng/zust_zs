@@ -2,7 +2,7 @@
 var Mustache = require('../../libs/mustache/mustache');
 var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
-var util = require('../../utils/md5.min.js')
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -34,6 +34,18 @@ Page({
    */
   onShow: function () {
 
+  },
+  applyJob2: function () {
+    var that = this;
+    if ((wx.getStorageSync('yhOwid'))&&(wx.getStorageSync('userType') == 0)) {//企业登录
+      wx.navigateTo({
+        url: '../ydzw/ydzw?owid=' + that.data.result.owid,
+      })
+    } else {
+      wx.navigateTo({
+        url: '../qyLogin/qyLogin',
+      })
+    }
   },
   applyJob: function () {
     var that = this;
@@ -132,6 +144,26 @@ var getContent = function (that, owid) {//招聘详情
   var data = { "owid": owid, "yhOwid": wx.getStorageSync("yhOwid") };
   common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
     if (res.data.backCode == 0) {
+      res.data.bean.sfkbm = false;
+      if (res.data.bean.state == 2) {
+        if (res.data.bean.zphSfbm == 0) {
+          res.data.bean.sfkbm = false;
+        } else if (res.data.bean.zphSfbm == 1) {
+          res.data.bean.sfkbm = true;
+        }
+
+      } else if (res.data.bean.state == 6) {
+        res.data.bean.sfkbm = false;
+      } else {
+        res.data.bean.sfkbm = false;
+      }
+      if (res.data.bean.zphBmjzsj && util.compareToday(res.data.bean.zphBmjzsj)) {
+        res.data.bean.sfkbm = false;
+      }
+      if (util.compareToday(res.data.bean.zphKsrq)) {
+        res.data.bean.sfkbm = false;
+      }
+
       res.data.bean.createtime = res.data.bean.createtime.substring(0, 16)
       if (res.data.bean.zphKsrq) {
         // if (res.data.bean.zwlx == 4) {
@@ -178,13 +210,13 @@ var getContent = function (that, owid) {//招聘详情
         })
       }
       if ((res.data.bean.zwlx == 3) || (res.data.bean.zwlx == 4)){
-        if (res.data.bean.zphSfbm == 0){
+        if (res.data.bean.zphSfbm == 1){
           that.setData({
-            sfbm:false
+            sfbm:true
           })
         }else{
           that.setData({
-            sfbm: true
+            sfbm: false
           })
         }
       }

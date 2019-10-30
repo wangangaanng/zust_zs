@@ -146,8 +146,8 @@ Page({
       return false
     }
     params.owid = this.data.owid
-    params.bdkssj = this.data.bdkssj.substring(0,10)
-    params.bdjssj = this.data.bdjssj.substring(0, 10)
+    params.bdkssj = params.bdkssj.substring(0,10)
+    params.bdjssj = params.bdjssj.substring(0, 10)
     common.ajax('zustcommon/bckjBizJyscheme/saveOneJyschemeXcx', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({

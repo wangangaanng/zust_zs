@@ -235,7 +235,15 @@
   <view class="float-btn" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>
   <view class="float-btn" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
 </view>
-<view wx:if="{{(result.zwlx==3)||(result.zwlx==4)}}">
+<view wx:if="{{result.zwlx==3}}">
+  <view class="float-btn" hidden="{{!sfbm}}" bindtap="applyJob">学生报名</view>
+  <view class="float-btn" hidden="{{sfbm}}">无需报名</view>
+  <view class="float-btn2" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>
+  <view class="float-btn2" hidden="{{!isSc}}" bindtap="cancelJob">取消关注</view>
+   <view class="float-btn3" hidden="{{!result.sfkbm}}" bindtap="applyJob2">企业预约</view>
+</view>
+
+<view wx:if="{{result.zwlx==4}}">
   <view class="float-btn" hidden="{{!sfbm}}" bindtap="applyJob">我要报名</view>
   <view class="float-btn" hidden="{{sfbm}}">无需报名</view>
   <view class="float-btn2" hidden="{{isSc}}" bindtap="saveJob">收藏关注</view>

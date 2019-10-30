@@ -3,6 +3,7 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
+    "pages/contactors/contactors",
     "pages/basicInfo/basicInfo",
     "pages/register/register",
     "pages/login/login",
@@ -13,7 +14,6 @@
     "pages/messageCenter/messageCenter",
     "pages/examGrade/examGrade",
     "pages/selectExamInfo/selectExamInfo",
-    "pages/contactors/contactors",
     "pages/examTip/examTip",
     "pages/payOline/payOline",
     "pages/majorExam/majorExam",
