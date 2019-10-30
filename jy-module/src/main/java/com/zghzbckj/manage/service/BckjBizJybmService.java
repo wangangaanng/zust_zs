@@ -657,4 +657,5 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         }
         return jybm;
     }
+
 }
