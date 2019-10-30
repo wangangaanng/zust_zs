@@ -82,7 +82,7 @@ public class LoginAction extends BaseWindow {
             //调用成功
 
                 // Clients.evalJavaScript("openUrl('" + contextPath + "/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId + "')");
-                Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis() + "&cityId=" + cityId);
+                Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis());
             }
 //               Executions.sendRedirect("/applications/index.do?" + System.currentTimeMillis());
 
