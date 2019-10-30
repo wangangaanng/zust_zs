@@ -1,0 +1,21 @@
+<!--pages/sendMail/sendMail.wxml-->
+<view>
+  <topBck>
+    <view class="df">
+      <icon class="iconfont icon-tongzhi" style=""></icon>
+      <view class="f1 notice-detail">你的报名表已成功提交,请确认邮箱地址。点击确认发送，报名表将发送到你的邮箱。</view>
+    </view>
+
+
+    <van-field class="mail" value="{{'2515421994@qq.com'}}" name="tel" placeholder="邮箱" bindblur='telBlur' left-icon=" iconfont icon-mail" error-message="" clearable>
+    </van-field>
+
+
+    <!-- 按钮 -->
+    <view class="main-btn_wrap button">
+      <button bindtap="sendMail">确认发送</button>
+    </view>
+  </topBck>
+
+  <view class="bottom-txt">浙江科技学院 三位一体</view>
+</view>
