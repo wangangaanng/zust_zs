@@ -400,16 +400,16 @@
 		from bckj_biz_jyscheme a
 		<where>
 			<if test="xsxh!=null and xsxh!=''">
-				and a.xsxh=#{xsxh}
+				AND a.xsxh LIKE concat ('%',#{xsxh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xm!=null and xm!=''">
-				and a.xm=#{xm}
+				AND a.xm LIKE concat ('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sfzydk!=null and sfzydk!=''">
-				and a.sfzydk=#{sfzydk}
+				AND a.sfzydk LIKE concat ('%',#{sfzydk,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sfdydwbdz!=null and sfdydwbdz!=''">
-				and a.sfdydwbdz=#{sfdydwbdz}
+				AND a.sfdydwbdz LIKE concat ('%',#{sfdydwbdz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="byqx!=null and byqx!=''">
 				and a.byqx=#{byqx}
