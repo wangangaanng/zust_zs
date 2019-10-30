@@ -185,7 +185,7 @@ var getContent = function (that, owid) {//招聘详情
       if (res.data.bean.zphBmjzsj && util.compareToday(res.data.bean.zphBmjzsj)) {
         res.data.bean.sfkbm = false;
       }
-      if (util.compareToday(res.data.bean.zphKsrq)) {
+      if (res.data.bean.zphKsrq && util.compareToday(res.data.bean.zphKsrq)) {
         res.data.bean.sfkbm = false;
       }
 
