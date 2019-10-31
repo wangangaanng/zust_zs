@@ -152,6 +152,7 @@
                     </#if>
                     </ul>
             </div>
+            <div class="position-detail">
                <div class="position-tabcontent">
                    <div class="position-tabbar"><ul><li class="active"><a>详情</a></li>
                                     <#if (result.bmList??)&&(result.bmList?size>0)>
@@ -204,6 +205,8 @@
 
                    </div>
                </div>
+
+            </div>
                 </#if>
         </div>
     </div>
