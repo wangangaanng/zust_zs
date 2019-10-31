@@ -17,6 +17,7 @@
   color: #fff;
   font-size: 16px;
 }
+.button button:active{opacity: 0.9}
 .hiddenInput{display: none}
 .main-btn_wrap{padding: 80rpx;margin-bottom: 0px;}
 .van-picker__confirm{

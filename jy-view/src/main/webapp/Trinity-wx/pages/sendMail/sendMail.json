@@ -4,6 +4,7 @@
     "topBck": "/components/topBck/topBck",
     "van-cell": "vant-weapp/cell",
     "van-cell-group": "vant-weapp/cell-group",
-    "van-field": "vant-weapp/field"
+    "van-field": "vant-weapp/field",
+    "van-dialog": "vant-weapp/dialog"
   }
 }

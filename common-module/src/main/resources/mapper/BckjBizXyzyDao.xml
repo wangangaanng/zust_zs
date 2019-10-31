@@ -34,71 +34,70 @@
 		a.exp9 AS "exp9",
 		a.exp10 AS "exp10"
 	</sql>
-	
-	<sql id="bckjBizXyzyJoins">
-	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-	        SELECT
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
-		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
-			select LAST_INSERT_ID()
-		</selectKey>
+
+    <sql id="bckjBizXyzyJoins">
+    </sql>
+
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+            <if test=" parentId !=null and parentId != '' ">
+                a.PARENT_ID = #{parentId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_xyzy(
 			owid,
 			parent_id,
