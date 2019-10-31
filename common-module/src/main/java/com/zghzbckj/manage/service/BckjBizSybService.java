@@ -751,4 +751,9 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         saveOrUpdate(bckjBizSyb1);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+
+    public BckjBizSyb getOneBySfz(Map<String,Object> dataMap){
+        String sfz=dataMap.get("sfz").toString();
+        return this.dao.getOneBySfz(sfz);
+    }
 }
