@@ -274,7 +274,7 @@ Page({
     common.ajax('zustswyt/bckjBizCjxx/finishXk', data, function(res) {
       if (res.data.backCode == 0) {
         wx.navigateTo({
-          url: '../Process/Process',
+          url: '../majorExam/majorExam',
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -346,7 +346,7 @@ Page({
       if (res.data.backCode == 0) {
         let files = [];
         for (let i in res.data.bean.jsfj){
-          files.push(app.globalData.imgPath + res.data.bean.jsfj[i].filePath.replace("\\", "/"))
+          files.push(common.imgPath + res.data.bean.jsfj[i].filePath.replace("\\", "/"))
         }
         let wyindex;
         for (let i in that.data.wy){
