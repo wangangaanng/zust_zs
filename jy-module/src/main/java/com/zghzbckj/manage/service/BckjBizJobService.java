@@ -393,10 +393,11 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             bckjBizJob.setState(JyContant.JOB_ZT_TG);
         }
         if (!TextUtils.isEmpty(mapData.get("zphKsrq"))) {
-            Date date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd HH:mm:ss");
-            if (TextUtils.isEmpty(date)) {
-                date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd");
-            }
+//            Date date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd HH:mm:ss");
+//            if (TextUtils.isEmpty(date)) {
+//                date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd");
+//            }
+            Date date = DateUtil.getDate(mapData.get("zphKsrq").toString(), "yyyy-MM-dd");
             bckjBizJob.setZphKsrq(date);
         }
         if (JyContant.ZWLB_ZW == zwlx) {
@@ -684,7 +685,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         BckjBizJob job = new BckjBizJob();
         String owid = mapData.get("owid").toString();
         if (owid.length() == 14) {
-            job= this.dao.queryByOwid(owid);
+            job = this.dao.queryByOwid(owid);
         } else {
             job = get(owid);
         }
@@ -1048,4 +1049,22 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         this.dao.setCdPoint(dataMap);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+
+//    public ResponseMessage sendMess() {
+//        Map params = new HashMap<>(1);
+//        params.put("lastupdate", "1");
+//        List<BckjBizQyxx> qyxx = qyxxDao.findListByMap(params);
+//        if (!TextUtils.isEmpty(qyxx) && qyxx.size() > 0) {
+//            for (BckjBizQyxx qy : qyxx) {
+//                String content = qy.getQymc() + "注册人您好，" + "您的登录账号：" + qy.getQyTysh() + ",您的登录密码(法人身份证后六位)：" + qy.getQyFrsfz().substring(qy.getQyFrsfz().length() - 6, qy.getQyFrsfz().length()) + "，欢迎您登录浙江科技学院就业网进行招聘会报名！";
+//                String mobile = qy.getQyLxrdh();
+//                try {
+//                    MessageUtil.sendMessage(mobile, content);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+//        return ResponseMessage.sendOK(qyxx.size());
+//    }
 }

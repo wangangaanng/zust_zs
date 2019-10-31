@@ -337,6 +337,9 @@
 		update bckj_biz_zxzx set exp1=#{exp1} where owid =#{owid}
 	</update>
 
-
+	<select id="getConsultsReplyDay" resultType="String">
+		SELECT b.dic_val2 FROM ourway_sys_dic a ,ourway_sys_dic_value b
+		WHERE a.owid=b.dic_ref_owid AND a.type=60000
+	</select>
 	
 </mapper>

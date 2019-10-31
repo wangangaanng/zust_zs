@@ -167,8 +167,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (!(datamap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString()))) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.PasswordError);
         }
-        //如果不是为老师或者学生
-        if (Integer.parseInt(map.get("olx").toString()) != 0 && Integer.parseInt(map.get("olx").toString()) != 1) {
+        //如果不是为学生
+        if (Integer.parseInt(map.get("olx").toString()) != 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
         }
         //根据学号去查询毕业年份如果已毕业则不能登入
@@ -191,7 +191,44 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                 }
             }
         }
+        //如果为学生的小程序登入
 
+        if(!TextUtils.isEmpty(datamap.get("type"))&&datamap.get("type").toString().indexOf("xcx")!=-1){
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "unionid", "openid", "wxid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            BckjBizYhxx bckjBizYhxx = this.dao.getOneByCondition(map);
+            BckjBizYhgl bckjBizYhgl = new BckjBizYhgl();
+            if (TextUtils.isEmpty(bckjBizYhxx.getUnionid())) {
+                bckjBizYhxx.setUnionid(datamap.get("unionid").toString());
+                bckjBizYhgl.setOpenid(datamap.get("openid").toString());
+                bckjBizYhgl.setWxbh(datamap.get("wxid").toString());
+                bckjBizYhgl.setGzsj(new Date());
+               /* if (!TextUtils.isEmpty(datamap.get("nickname"))) {
+                    bckjBizYhxx.setXm(datamap.get("nickname").toString());
+                }*/
+                if (!TextUtils.isEmpty(datamap.get("gender"))) {
+                    bckjBizYhxx.setXb(Integer.parseInt(datamap.get("gender").toString()));
+                }
+                if (!TextUtils.isEmpty(datamap.get("city"))) {
+                    bckjBizYhxx.setCity(datamap.get("city").toString());
+                }
+                if (!TextUtils.isEmpty(datamap.get("province"))) {
+                    bckjBizYhxx.setProv(datamap.get("province").toString());
+                }
+                if (!TextUtils.isEmpty(datamap.get("country"))) {
+                    bckjBizYhxx.setArea(datamap.get("country").toString());
+                }
+                if (!TextUtils.isEmpty(datamap.get("avatarUrl"))) {
+                    bckjBizYhxx.setYhtx(datamap.get("avatarUrl").toString());
+                }
+            }
+            bckjBizYhxx.setDlzhsj(new Date());
+            saveOrUpdate(bckjBizYhxx);
+            bckjBizYhgl.setYhRefOwid(bckjBizYhxx.getOwid());
+            bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
+        }
         //设置最近登录时间
         this.dao.updateDlsj(map.get("owid").toString());
         resMap.put("olx", map.get("olx"));
@@ -268,17 +305,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage appletLogin(Map<String, Object> dataMap) {
         Map<String, Object> resMap = Maps.newHashMap();
-        String psw = TextUtils.MD5(dataMap.get("yhDlmm").toString()).toUpperCase();
-        dataMap.remove("psw");
-        Map<String, Object> map = this.dao.logIn(dataMap);
+        /*String psw = TextUtils.MD5(dataMap.get("yhDlmm").toString()).toUpperCase();*/
+        /*dataMap.remove("psw");*/
+        Map<String, Object> map=this.dao.logInByteach(dataMap);
         if (TextUtils.isEmpty(map)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
         }
-        if (!psw.equalsIgnoreCase(map.get("yhDlmm").toString())) {
+        if (!dataMap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString())) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.PasswordError);
-        }
-        if (Integer.parseInt(map.get("olx").toString()) != 0) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
         }
         BckjBizYhxx bckjBizYhxx = this.dao.getOneByCondition(map);
         BckjBizYhgl bckjBizYhgl = new BckjBizYhgl();
@@ -287,34 +321,31 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhgl.setOpenid(dataMap.get("openid").toString());
             bckjBizYhgl.setWxbh(dataMap.get("wxid").toString());
             bckjBizYhgl.setGzsj(new Date());
-            if (TextUtils.isEmpty(dataMap.get("nickname"))) {
+           /* if (!TextUtils.isEmpty(dataMap.get("nickname"))) {
                 bckjBizYhxx.setXm(dataMap.get("nickname").toString());
-            }
-            if (TextUtils.isEmpty(dataMap.get("gender"))) {
+            }*/
+            if (!TextUtils.isEmpty(dataMap.get("gender"))) {
                 bckjBizYhxx.setXb(Integer.parseInt(dataMap.get("gender").toString()));
             }
-            if (TextUtils.isEmpty(dataMap.get("city"))) {
+            if (!TextUtils.isEmpty(dataMap.get("city"))) {
                 bckjBizYhxx.setCity(dataMap.get("city").toString());
             }
-            if (TextUtils.isEmpty(dataMap.get("province"))) {
+            if (!TextUtils.isEmpty(dataMap.get("province"))) {
                 bckjBizYhxx.setProv(dataMap.get("province").toString());
             }
-            if (TextUtils.isEmpty(dataMap.get("country"))) {
+            if (!TextUtils.isEmpty(dataMap.get("country"))) {
                 bckjBizYhxx.setArea(dataMap.get("country").toString());
             }
-            if (TextUtils.isEmpty(dataMap.get("avatarUrl"))) {
+            if (!TextUtils.isEmpty(dataMap.get("avatarUrl"))) {
                 bckjBizYhxx.setYhtx(dataMap.get("avatarUrl").toString());
             }
         }
         bckjBizYhxx.setDlzhsj(new Date());
         saveOrUpdate(bckjBizYhxx);
+        bckjBizYhgl.setYhRefOwid(bckjBizYhxx.getOwid());
         bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
-        resMap.put("owid", bckjBizYhxx.getOwid());
-        resMap.put("yhtx", bckjBizYhxx.getYhtx());
-        resMap.put("sjh", bckjBizYhxx.getSjh());
-        return ResponseMessage.sendOK(resMap);
+        return ResponseMessage.sendOK(map);
     }
-
 
 
 

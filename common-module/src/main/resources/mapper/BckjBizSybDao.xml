@@ -560,7 +560,7 @@
 	<select id="getOneBySfz" parameterType="String" resultType="BckjBizSyb">
 		select <include refid="bckjBizSybColumns"></include>
 		from bckj_biz_syb a
-		where a.sfz=#{sfz}
+		where a.sfz=#{value}
 	</select>
 
 	<update id="updateBySfz" parameterType="BckjBizSyb">

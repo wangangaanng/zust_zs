@@ -11,7 +11,10 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.feign.BckjBizYhkzSer;
+import com.zghzbckj.feign.BckjBizZxzxSer;
 import com.zghzbckj.manage.dao.BckjBizZxzxDao;
+import com.zghzbckj.manage.entity.BckjBizYhkz;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.entity.BckjBizZxzx;
 import com.zghzbckj.util.MapUtil;
@@ -63,6 +66,9 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
 
     @Autowired
     BckjBizYhxxService bckjBizYhxxService;
+    @Autowired
+    BckjBizYhkzService bckjBizYhkzService;
+
 
     /**
      * <p>方法:findPagebckjBizZxzx TODO后台BckjBizZxzx分页列表</p>
@@ -181,8 +187,39 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         bckjBizZxzx.setExp1("1");
         bckjBizZxzx.setLyip(dataMap.get("ipAdrress").toString());
         saveOrUpdate(bckjBizZxzx);
+        /**w
+         * 返回老师回复天数
+         */
+        if(bckjBizZxzx.getZxlx()==2){
+            Map consultsReplyDay = getConsultsReplyDay();
+            if(consultsReplyDay.get("hfts").toString().indexOf("无设置")!=-1){
+                return ResponseMessage.sendOK("咨询已提交，请等待回复");
+            }
+            else {
+                return ResponseMessage.sendOK("你的咨询老师会在"+consultsReplyDay.get("hfts").toString()+"天内回复,请实时关注");
+            }
+        }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+
+
+    /**
+     * 获得字典表中专家回复的天数
+     * @return
+     */
+    public Map getConsultsReplyDay() {
+        Map<String, String> resMap = Maps.newHashMap();
+        String consultsReplyDay = this.dao.getConsultsReplyDay();
+        if (!com.zghzbckj.util.TextUtils.isEmpty(consultsReplyDay)) {
+            resMap.put("hfts", consultsReplyDay);
+        } else {
+            if (TextUtils.isEmpty(resMap) || TextUtils.isEmpty(resMap.get(0)))
+                resMap.put("hfts", "无设置");
+        }
+        return resMap;
+    }
+
+
 
     public ResponseMessage historyConsult(Map<String, Object> dataMap) {
         if (Integer.parseInt(dataMap.get("zxlx").toString()) != 2) {
@@ -205,7 +242,12 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         Page<BckjBizZxzx> page = new Page(Integer.parseInt(dataMap.get("pageNo").toString()), Integer.parseInt(dataMap.get("pageSize").toString()));
         dataMap.put("page", page);
         dataMap.put("orderBy", "createtime desc");
-        page.setList(this.dao.findListByMap(dataMap));
+        List<BckjBizZxzx> listByMap = this.dao.findListByMap(dataMap);
+        for(BckjBizZxzx bckjBizZxzx:listByMap){
+            BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(bckjBizZxzx.getTwOwid());
+            bckjBizZxzx.setExp1(oneByYhRefOwid.getXsbj());
+        }
+        page.setList(listByMap);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 

@@ -32,4 +32,6 @@ public interface BckjBizZxzxDao extends CrudDao<BckjBizZxzx> {
     List<Object> historyMessage(Map<String, Object> dataMap);
 
     void faBu(Map<String, Object> dataMap);
+
+    String getConsultsReplyDay();
 }
