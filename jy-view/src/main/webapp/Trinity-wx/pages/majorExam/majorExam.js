@@ -234,6 +234,7 @@ Page({
     }
     common.ajax('zustswyt/bckjBizBm/submit', data, function(res) {
       if (res.data.backCode == 0) {
+        wx.setStorageSync('sqbOwid', res.data.bean)
         wx.showModal({
           title: '提示',
           showCancel: false,
