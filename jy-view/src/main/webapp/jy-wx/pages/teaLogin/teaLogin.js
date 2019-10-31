@@ -1,4 +1,4 @@
-// pages/stuLogin/stuLogin.js
+// pages/teaLogin/teaLogin.js
 var common = require('../../libs/common/common.js')
 var util = require('../../utils/md5.min.js')
 const app = getApp()
@@ -10,12 +10,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    yhDlzh:'',
-    yhDlmm:'',
+    yhDlzh: '',
+    yhDlmm: '',
     isauthorize: false,
     userType: ''
   },
-  getyhDlzh(e){
+  getyhDlzh(e) {
     this.setData({
       yhDlzh: e.detail
     })
@@ -25,25 +25,23 @@ Page({
       yhDlmm: e.detail
     })
   },
-  login(){
-    if (!this.data.yhDlzh){
+  login() {
+    if (!this.data.yhDlzh) {
       wx.showToast({
-        icon:'none',
-        title: '请输入身份证或学号',
+        icon: 'none',
+        title: '请输入账号',
       })
       return false
     } else if (!this.data.yhDlmm) {
       wx.showToast({
         icon: 'none',
-        title: '请输入身份证后六位',
+        title: '请输入密码',
       })
       return false
     }
-    var data={
+    var data = {
       "openid": wx.getStorageSync('openId'),
-      "wxid":'wx01',
-      "type":'xcx',
-      "nickname":wx.getStorageSync('userInfo').nickName,
+      "nickname": wx.getStorageSync('userInfo').nickName,
       "gender": wx.getStorageSync('openId').gender,
       "city": wx.getStorageSync('openId').city,
       "province": wx.getStorageSync('openId').province,
@@ -51,28 +49,28 @@ Page({
       "avatarUrl": wx.getStorageSync('openId').avatarUrl,
       "unionid": wx.getStorageSync('unionid'),
       "yhDlzh": this.data.yhDlzh,
-      "yhDlmm": util.md5(this.data.yhDlmm)
+      "yhDlmm": util.md5(this.data.yhDlmm),
+      "type":"teatch",
+      "wxid":'wx01',
     }
-    common.ajax('zustcommon/bckjBizYhxx/logIn', data, function (res) {
+    common.ajax('zustcommon/bckjBizYhxx/appletLogin', data, function (res) {
       if (res.data.backCode == 0) {
         wx.removeStorageSync('userType')
         wx.removeStorageSync('yhOwid')
         wx.removeStorageSync('qyInfo')
-        if (res.data.bean){
-          wx.setStorageSync('userType', '1')
+        wx.removeStorageSync('stuInfo')
+        if (res.data.bean) {
+          wx.setStorageSync('userType', '2')//教师
           wx.setStorageSync('yhOwid', res.data.bean.owid)
-          wx.setStorageSync('stuInfo', res.data.bean)
+          wx.setStorageSync('teaInfo', res.data.bean)
         }
-        // wx.reLaunch({
-        //   url: '../index/index',
-        // })
         var pages = getCurrentPages();
         var beforePage = pages[pages.length - 2];
-        if (JSON.stringify(beforePage.options) != "{}"){
+        if (JSON.stringify(beforePage.options) != "{}") {
           beforePage.onLoad(beforePage.options);
         }
         wx.navigateBack()
-        
+
       } else {
         wx.showToast({
           title: res.data.errorMess,

@@ -1,0 +1,63 @@
+/* pages/teaZx/teaZx.wxss */
+page{background-color: #F3F3F5;}
+.t-item{background-color: #fff;margin-bottom: 20rpx;}
+.t-js{overflow: hidden;padding: 35rpx 25rpx;}
+.t-tx{width: 114rpx;height: 127rpx;float: left;}
+.t-tx view image{width: 114rpx;height: 114rpx;border-radius: 50%;}
+.t-tx image{width: 100%;height: 100%;}
+.t-jj{margin-left: 130rpx;}
+.t-xm{font-size: 32rpx;color: #212121;margin-bottom: 20rpx;}
+.t-xq{font-size: 26rpx;
+      color: #636363;
+      text-overflow: -o-ellipsis-lastline;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+}
+.t-cz{
+  /* border-top: 1rpx solid #d5d5d5; */
+  border-bottom: 1rpx solid #d5d5d5;
+  display: flex;
+  /* padding: 24rpx 0; */
+  height: 80rpx;
+  line-height: 80rpx;
+  justify-content:center;
+}
+.t-f6{flex:6;text-align: center;}
+.t-cz view{font-size: 26rpx;display: flex;justify-content:center;}
+.t-cz image{width: 34rpx;height: 34rpx;margin-right: 15rpx;margin-top: 20rpx;}
+.t-cz .t-f6:first-child{
+  color: #008783;
+  /* border-right: 1rpx solid #d5d5d5; */
+  position: relative;
+}
+.t-cz .t-f6:first-child::after{
+  content: ' ';
+  width:1rpx;
+  height: 40rpx;
+  position: absolute;
+  top: 20rpx;
+  right: 0;
+  background-color: #d5d5d5;
+}
+.wtnr{border:1rpx solid #d5d5d5;width:96%;margin: 0 auto;margin-top: 15rpx;padding: 10rpx;}
+
+.l-ask{overflow: hidden;background-color: #fff;padding: 30rpx 25rpx;font-size: 32rpx;}
+.l-ask image{float: left;width: 45rpx;height: 45rpx;margin-right: 15rpx;}
+.l-ask .ask-time{float: right;color: #999;font-size: 28rpx;}
+.ask-nr{font-size: 30rpx;color: #888;margin-top: 20rpx;padding-left: 60rpx;}
+.l-item {margin-bottom: 20rpx;background: #fff;}
+.l-item .l-ask:first-child{border-bottom: 1rpx dashed #d5d5d5;}
+
+.modal{width: 100%;height: 100%;background: rgba(0, 0, 0, .7);position: fixed;left: 0;top: 0;z-index: 999999990;}
+.modal-content{
+  width: 84%;background-color: #fff;position: fixed;left: 8%;top: 240rpx;z-index: 999999999;border-radius: 5rpx;
+}
+.modal-content textarea{width: 95%;height: 320rpx;padding: 20rpx;}
+.btns{display: flex;height: 80rpx;}
+.btns button{width: 50%;height: 80rpx;line-height: 80rpx;border-radius: 0 !important;color: #888;}
+.btns button::after{border-radius: 0 !important;}
+.btns button.green{border-left: none !important; color: #008783;}
+.btns button.green:after{border-left: none !important;}

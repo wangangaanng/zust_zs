@@ -44,7 +44,8 @@ Page({
           that.setData({
             isauthorize: false,
           })
-          if (wx.getStorageSync("yhOwid")) {
+          // if (wx.getStorageSync("yhOwid")) {
+          if (wx.getStorageSync('userType') == 1) {//学生登录
             that.setData({
               show: true
             })

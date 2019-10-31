@@ -4,6 +4,37 @@
 .index-swiper{height: 400rpx;}
 .index-swiper image{width:750rpx;height: 100%;}
 .uni-media-list-text-content{color: #333;white-space: nowrap;-webkit-line-clamp:1;}
+.float-btn3{
+  background: #f5b900;
+border: 1px solid #f5b900;
+color: #fff;
+width: 70rpx;
+height: 70rpx;
+border-radius: 50%;
+position: fixed;
+top: 530rpx;
+right: 35rpx;
+font-size: 26rpx;
+padding: 12rpx;
+text-align: center;
+z-index: 100;
+}
+.float-btn2{
+  background: #3087ff;
+border: 1px solid #3087ff;
+color: #fff;
+width: 70rpx;
+height: 70rpx;
+border-radius: 50%;
+position: fixed;
+top: 640rpx;
+right: 35rpx;
+font-size: 26rpx;
+padding: 12rpx;
+text-align: center;
+z-index: 100;
+
+}
 .float-btn{
   background: #00aba5;
 border: 1px solid #008782;
@@ -20,6 +51,7 @@ text-align: center;
 z-index: 100;
 
 }
+.float-btn image{width: 50rpx;height:50rpx;margin-top: 10rpx;}
 .goTop{
   height: 96rpx;
   width: 96rpx;
