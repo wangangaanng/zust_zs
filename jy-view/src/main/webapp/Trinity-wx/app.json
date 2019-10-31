@@ -3,16 +3,16 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
-    "pages/sendMail/sendMail",
-    "pages/register/register",
+    "pages/payOline/payOline",
+    "pages/Process/Process",
     "pages/shouye/shouye",
+    "pages/sendMail/sendMail",
+    "pages/uploadSignature/uploadSignature",
+    "pages/register/register",
     "pages/basicInfo/basicInfo",
     "pages/grzx/grzx",
     "pages/login/login",
     "pages/messageCenter/messageCenter",
-    "pages/Process/Process",
-    "pages/payOline/payOline",
-    "pages/uploadSignature/uploadSignature",
     "pages/majorExam/majorExam",
     "pages/examTip/examTip",
     "pages/contactors/contactors",
@@ -23,7 +23,8 @@
     "pages/drawGroup/drawGroup",
     "pages/xw/xw",
     "pages/index/index",
-    "pages/confirmApplication/confirmApplication"
+    "pages/confirmApplication/confirmApplication",
+    "pages/payLink/payLink"
   ],
   "window": {
     "backgroundTextStyle": "light",

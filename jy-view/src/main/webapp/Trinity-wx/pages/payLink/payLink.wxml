@@ -1,0 +1,2 @@
+<!--打开支付地址-->
+<web-view src="{{payUrl}}"></web-view>

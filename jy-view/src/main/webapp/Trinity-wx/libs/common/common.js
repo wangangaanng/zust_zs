@@ -131,6 +131,34 @@ function errorHash(err,that){
     errorList: obj2
   });
 }
+
+//初始化获取缴费地址
+function getPayUrl(that) {
+  var data = {
+    "dicType": '10025',//字典表缴费说明
+  }
+  ajax('zustcommon/common/getByType', data, function (res) {
+    if (res.data.backCode == 0) {
+      that.setData({
+        "payUrl": res.data.bean
+      })
+    } else {
+      common.toast(res.data.errorMess, 'none', 2000)
+    }
+  });
+}
+
+//报名表所有查询
+function getProcssState(fun) {
+  var data = { "applyOwid": wx.getStorageSync('applyOwid') }
+  ajax('zustswyt/bckjBizBm/getResult', data, function (res) {
+    if (res.data.backCode == 0) {
+      fun(res);
+    } else {
+      toast(res.data.errorMess, 'none', 2000)
+    }
+  });
+}
 //author:2515421994@qq.com,time:2019.10.29 end++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //获取数组中字符串的位置
@@ -201,5 +229,7 @@ exports.uploadFile = uploadFile
 //author:2515421994@qq.com,time:2019.10.29 获取验证码 重组errorList
 exports.getCode = getCode 
 exports.errorHash = errorHash
+exports.getPayUrl = getPayUrl
+exports.getProcssState = getProcssState
 exports.imgPath = imgPath
 

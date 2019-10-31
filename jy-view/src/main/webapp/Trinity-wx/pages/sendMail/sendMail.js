@@ -32,21 +32,22 @@ Page({
       that.setData({
         "mailAddress": params.email
       })
-      wx.setStorageSync(key, data)
+      wx.setStorageSync('email', params.email)
       // 确认发送邮箱
-      this.ajaxSend();
+      that.ajaxSend(params.email);
     }).catch(() => {// on cancel
     });
 
   },
 
-  ajaxSend: function () {
+  ajaxSend: function (email) {
     var data = {
-      "applyOwid": wx.getStorageSync("sqbOwid"),//申请表owid
+      "applyOwid": wx.getStorageSync("applyOwid"),//申请表owid
+      "yx": email
     }
-    common.ajax('zustswyt/bckjBizBm/sendView', data, function (res) {
+    common.ajax('zustswyt/bckjBizBm/sendEmail', data, function (res) {
       if (res.data.backCode == 0) {
-        common.toast('报名表已成功发送到'+this.data.mailAddress+',请注意查收', 'none', 2000)
+        common.toast('报名表已成功发送到' + email+',请注意查收', 'none', 3000)
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
@@ -78,6 +79,9 @@ Page({
 
   onLoad: function (options) {
     this.initValidate();
+    //判断状态
+
+    //显示默认邮箱地址
     var email = wx.getStorageSync("email");
     this.setData({
       mailAddress: email,
@@ -92,12 +96,13 @@ Page({
   },
   //获取pdf文件路径
   getFileUrl: function () {
+    var that = this;
     var data = {
-      "applyOwid": wx.getStorageSync("sqbOwid"),//申请表owid
+      "applyOwid": wx.getStorageSync("applyOwid"),//申请表owid
     }
     common.ajax('zustswyt/bckjBizBm/getApply', data, function (res) {
       if (res.data.backCode == 0) {
-        this.setData({
+        that.setData({
           filePath: res.data.bean,
         });
       } else {

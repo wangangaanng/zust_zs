@@ -44,7 +44,7 @@
         <div class="content">
             <#include "com/subMenu.ftl">
             <div class="swiper-container gallery-top">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper" id="top-wrapper">
                     <div class="swiper-slide">
                         <img src="http://zsb.zust.edu.cn/files/imgs/F4C8C2EA34C24ACC8FE4A5AB5DEBD928.jpg" alt="">
                     </div>
@@ -62,7 +62,7 @@
                 <div class="swiper-button-next swiper-button-white"></div>
             </div>
             <div class="swiper-container gallery-thumbs" style="margin: 0 23%">
-                <div class="swiper-wrapper">
+                <div class="swiper-wrapper" id="bottom-wrapper">
                     <div class="swiper-slide">
                         <img src="http://zsb.zust.edu.cn/files/imgs/F4C8C2EA34C24ACC8FE4A5AB5DEBD928.jpg" alt="">
                     </div>
