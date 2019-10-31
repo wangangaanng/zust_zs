@@ -130,7 +130,7 @@
                 AND a.wzzt = #{wzzt}
             </if>
             <if test="gjz != null and gjz != ''">
-				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
+				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
             </if>
 			<if test="sxh != null and sxh != ''">
 				${sxh}
@@ -303,7 +303,7 @@
 				AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b,bckj_dic_menu_apply c WHERE b.owid=c.MENU_REF_OWID AND c.wzbh=1 AND b.SJHQDX=5)
 				AND a.wzzt = 1
 			<if test="gjz != null and gjz != ''">
-				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
+				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
 			</if>
 		</where>
 		ORDER BY ${orderBy}
