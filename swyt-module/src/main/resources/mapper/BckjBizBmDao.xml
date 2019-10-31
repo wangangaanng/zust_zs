@@ -141,6 +141,36 @@
 			<if test="userRefOwid != null and userRefOwid != ''">
 				AND a.user_ref_owid = #{userRefOwid}
 			</if>
+			<if test="userRefOwid != null and userRefOwid != ''">
+				AND a.user_ref_owid = #{userRefOwid}
+			</if>
+			<if test="sqsj1 != null and sqsj1 !=''  ">
+				AND a.sqsj &gt;= #{sqsj1}
+			</if>
+			<if test="sqsj2!= null and sqsj2 !=''  ">
+				AND a.sqsj &lt;= #{sqsj2}
+			</if>
+			<if test=" xm != null and xm != '' ">
+				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" bklb != null and bklb != '' ">
+				AND a.bklb LIKE concat('%',#{bklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" lxdh != null and lxdh != '' ">
+				AND a.lxdh = #{lxdh}
+			</if>
+			<if test=" sfzh != null and sfzh != '' ">
+				AND a.sfzh = #{sfzh}
+			</if>
+			<if test=" wyyz != null and wyyz != '' ">
+				AND a.wyyz = #{wyyz}
+			</if>
+			<if test=" state != null and state != '' ">
+				AND a.state = #{state}
+			</if>
+			<if test=" bmnd != null and bmnd != '' ">
+				AND a.bmnd = #{bmnd}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
