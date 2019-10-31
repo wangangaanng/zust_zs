@@ -2,36 +2,35 @@
 <van-search value="{{ value }}" placeholder="请输入搜索关键词" 
 bindfocus="focus" bindblur="blur" bind:search="onSearch" />
 <view class="search" wx:if="{{focus}}">
-  <view class="search_title">热门搜索</view>
+  <!-- <view class="search_title">热门搜索</view>
   <view class="search_ul">
     <view class="search_li">三位一体</view>
     <view class="search_li">成绩查询</view>
     <view class="search_li">杭州市</view>
   </view>
   <view class="search_title" style="float:right;">清除记录</view>
-  <view class="search_title">搜索历史</view>
+  <view class="search_title">搜索历史</view>-->
   <view class="search_ul2">
     <van-cell title="三位一体" icon="../../../static/histroy.png" is-link />
     <van-cell title="录取" icon="../../../static/histroy.png" is-link />
     <van-cell title="浙江科技学院" icon="../../../static/histroy.png" is-link />
-  </view>
+  </view> 
 </view>
 <view class="conter" wx:if="{{!focus}}">
   <scroll-view class="scroll-view_H" scroll-x="true" bindscrolltolower="scroll">
-    <view bindtap="click" wx:for="{{array}}" wx:key="index" class="scroll-view_H_li {{index1==index?'active':''}}" data-index1="{{index}}">{{item}}</view>
+    <view bindtap="click" wx:for="{{array}}" wx:key="index" class="scroll-view_H_li {{index1==index?'active':''}}" data-index1="{{index}}">{{item.NAME}}</view>
     <view class="ff" wx:if='{{ff}}'>
-      <van-icon name="arrow" />
+      <van-icon name="arrow"/>
     </view>
   </scroll-view>
-  <swiper indicator-dots="{{false}}" current="{{index1}}" bindchange="swiper" style="height: initial;position: fixed;top: 202rpx;bottom: 0;left: 0;right: 0;">
-    <swiper-item wx:for="{{array}}" wx:key="index">
-      <navigator url="../wxDetail/wxDetail" class="list">
+  <swiper indicator-dots="{{false}}" current="{{index1}}" bindchange="swiper">
+    <swiper-item style="posistion:relative" wx:for="{{array}}" wx:key="index">
+      <navigator wx:for="{{item.list}}" wx:for-index="idx" wx:for-item="itemName" wx:key='*this' url="../wxDetail/wxDetail?owid={{itemName.owid}}" class="list" >
         <image src="../../static/img1.png" class="li-left"></image>
         <view class="li-right">
-          <view class="li-right-title">2019年新疆拟录取情况名单公示</view>
-          <view class="li-right-detail">浙江科技学院2019年安新疆录取情况可查询浙江科技学院2019年安新疆录取情况可查询:http://zsb.zust.edu.cn/IndexPage...
-          </view>
-          <view class="li-right-date">2018.11.15</view>
+          <view class="li-right-title">{{itemName.wzbt}}</view>
+          <view class="li-right-detail">{{itemName.jjnr}}</view>
+          <view class="li-right-date">{{itemName.fbsj}}</view>
         </view>
       </navigator>      
     </swiper-item>
