@@ -76,35 +76,9 @@
                 </form>
                 <div class="fuye_search_result" style="margin-top: 20px">
                     <div class="p10" style="padding: 10px">
-                        <table class="table table-bordered">
-                            <tr>
-                                <th> 年份 </th>
-                                <th> 省份 </th>
-                                <th> 科类 </th>
-                                <th> 批次 </th>
-                                <th> 专业 </th>
-                                <th> 学制 </th>
-                                <th> 录取数</th>
-                                <th> 最高分</th>
-                                <th> 最低分</th>
-                                <th> 平均分</th>
-                            </tr>
+                        <table class="table table-bordered" data-locale="zh-CN" id="table-lnfsmc">
                         </table>
-                        <div class="text-center">
-                            <nav aria-label="Page navigation">
-                                <ul class="pagination">
-
-                                </ul>
-                            </nav>
-                        </div>
                     </div>
-                </div>
-                <div class="text-center">
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination">
-
-                        </ul>
-                    </nav>
                 </div>
             </div>
         </div>
@@ -113,6 +87,7 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/zs/lnfsmc.js"></script>
 <script>
 
 </script>
