@@ -1,6 +1,6 @@
 
 <wxs src="../fcn.wxs" module="tools" />
-<van-tabs sticky animated bind:click="clickTab">
+<van-tabs swipeable bind:click="clickTab">
   <van-tab title="宣讲会信息">      
       <view class="cell">
           <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt?result.zwbt:''}}</view>
@@ -79,173 +79,18 @@
         <view>关注时间</view>
         <view>联系方式</view>
     </view>
-    <view class="bm-list">
+    <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr?item.lxr:''}}</view>
         <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
         <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
-      </view><view class="bm-tbody">
-        <view>{{item.lxr?item.lxr:''}}</view>
-        <view>{{item.gzsj?tools.substr(item.gzsj,0,10):''}}</view>
-        <view>{{item.lxdh?item.lxdh:''}}</view>
       </view>
       </block>
-      </view>
-      </view>
       <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+      </scroll-view>
+      </view>
+
   </van-tab>
   <van-tab title="报名学生" wx:if="{{result.zphSfbm==1 && result.state==1}}">
     <view>
@@ -254,7 +99,7 @@
         <view>报名时间</view>
         <view>联系方式</view>
     </view>
-    <view class="bm-list">
+    <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr?item.lxr:''}}</view>
@@ -262,8 +107,8 @@
         <view>{{item.lxdh?item.lxdh:''}}</view>
       </view>
       </block>
-      </view>
-      </view>
       <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
+      </scroll-view>
+      </view>
   </van-tab>
 </van-tabs>
