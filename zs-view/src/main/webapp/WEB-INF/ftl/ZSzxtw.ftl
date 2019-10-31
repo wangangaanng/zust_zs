@@ -26,7 +26,7 @@
     .content-list .zxtw-form{ margin:20px; padding:0 0 20px 0; border-top:1px solid #ddd;}
     .content-list .zxtw-form h5{padding:8px 5px;}
     .content-list .zxtw-form p{ padding:5px;}
-    .content-list .zxtw-form textarea{ width:827px; height:100px; margin-bottom:10px;}
+    .content-list .zxtw-form wtnr{ width:827px; height:100px; margin-bottom:10px;}
     .path{ border-bottom:1px solid #d6d6d6; padding-bottom:10px;}
     .path a{ padding:0 5px;}
 </style>
@@ -65,7 +65,7 @@
                     <div class="zxtw-form">
                         <h5>我要留言</h5>
                         <p>
-                            <textarea name="textarea" id="textarea" cols="40" rows="5"></textarea>
+                            <textarea name="textarea" id="wtnr" cols="40" rows="5"></textarea>
                         </p>
                         <p>
                             <button type="button" class="btn btn-default"
@@ -80,7 +80,28 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
 <script>
-
+    function submit() {
+        if (!$('#wtnr').val()) {
+            walert("请填写咨询内容");
+            return;
+        }
+        var data = {
+            wtnr: $('#wtnr').val,
+            zxlx: 1
+        };
+        ajax("zustcommon/bckjBizZxzx/consult", data, function (res) {
+            if (res.backCode === 0) {
+                layer.close(index);
+                layer.open({
+                    title: '提示',
+                    content: '咨询已提交，请等待回复。',
+                    yes: function (index) {
+                        layer.close(index);
+                    }
+                });
+            }
+        })
+    }
 </script>
 </body>
 </html>
