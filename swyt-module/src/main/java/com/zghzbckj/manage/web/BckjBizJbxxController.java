@@ -13,10 +13,7 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.service.BckjBizJbxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ public class BckjBizJbxxController extends BaseController {
 
     @RequestMapping(value = "/getList")
     @ResponseBody
-    public ResponseMessage getListApi(PublicDataVO dataVO) {
+    public ResponseMessage getListApi( PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return ResponseMessage.sendOK(bckjBizJbxxService.findPageBckjBizJbxx(filters, dataVO.getPageNo(), dataVO.getPageSize()));

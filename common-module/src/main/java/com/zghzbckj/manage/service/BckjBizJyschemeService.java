@@ -21,6 +21,7 @@ import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import org.apache.log4j.Logger;
+import org.apache.poi.xdgf.usermodel.XDGFShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -617,12 +618,17 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         return this.dao.getDicListByType(type);
     }
     /**
-     * 前台进入就业方案读取出一条信息
+     * 前台进入就业方案读取出一条信息  根据xsxh去取
      * @param
      * @return
      */
     public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
-        return  this.dao.getOneByYhRefOwid(dataMap);
+        BckjBizJyscheme bckjBizJyscheme = null;
+        BckjBizSyb xsxh = bckjBizSybService.getOneByXsxh(dataMap.get("xsxh").toString());
+        if(!com.zghzbckj.util.TextUtils.isEmpty(xsxh)){
+            bckjBizJyscheme=getOneByXsxh(xsxh.getXsxh());
+        }
+        return bckjBizJyscheme;
     }
 
     /**
@@ -721,5 +727,19 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+    /**
+     * 查询档案信息
+     *
+     * @param dataMap
+     * @return queryDocument
+     */
+    public BckjBizJyscheme queryDocument(Map<String, Object> dataMap) {
+        BckjBizJyscheme bckjBizJyscheme=null;
+        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
+        if(!TextUtils.isEmpty(oneBySfz)){
+            bckjBizJyscheme = getOneByXsxh(oneBySfz.getXsxh());
+        }
+        return bckjBizJyscheme;
     }
 }

@@ -51,7 +51,10 @@
 		a.bscj AS "bscj",
 		a.mscj AS "mscj",
 		a.zzcj AS "zzcj",
-			a.memo AS "memo",
+		a.memo AS "memo",
+		a.yzmc AS "yzmc",
+		a.xklb_owid AS "xklbOwid",
+		a.bklb_owid AS "bklbOwid",
 		a.exp1 AS "exp1",
 		a.exp2 AS "exp2",
 		a.exp3 AS "exp3",
@@ -142,6 +145,36 @@
 			<if test="userRefOwid != null and userRefOwid != ''">
 				AND a.user_ref_owid = #{userRefOwid}
 			</if>
+			<if test="userRefOwid != null and userRefOwid != ''">
+				AND a.user_ref_owid = #{userRefOwid}
+			</if>
+			<if test="sqsj1 != null and sqsj1 !=''  ">
+				AND a.sqsj &gt;= #{sqsj1}
+			</if>
+			<if test="sqsj2!= null and sqsj2 !=''  ">
+				AND a.sqsj &lt;= #{sqsj2}
+			</if>
+			<if test=" xm != null and xm != '' ">
+				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" bklb != null and bklb != '' ">
+				AND a.bklb LIKE concat('%',#{bklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" lxdh != null and lxdh != '' ">
+				AND a.lxdh = #{lxdh}
+			</if>
+			<if test=" sfzh != null and sfzh != '' ">
+				AND a.sfzh = #{sfzh}
+			</if>
+			<if test=" wyyz != null and wyyz != '' ">
+				AND a.wyyz = #{wyyz}
+			</if>
+			<if test=" state != null and state != '' ">
+				AND a.state = #{state}
+			</if>
+			<if test=" bmnd != null and bmnd != '' ">
+				AND a.bmnd = #{bmnd}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -219,6 +252,9 @@
 			mscj,
 			zzcj,
 			memo,
+			yzmc,
+			xklb_owid,
+			bklb_owid,
 			exp1,
 			exp2,
 			exp3,
@@ -291,6 +327,9 @@
 			#{mscj},
 			#{zzcj},
 			#{memo},
+				#{yzmc},
+			#{xklbOwid},
+			#{bklbOwid},
 			#{exp1},
 			#{exp2},
 			#{exp3},
@@ -367,6 +406,9 @@
 			mscj = #{mscj},
 			zzcj = #{zzcj},
 				memo = #{memo},
+					yzmc=#{yzmc},
+			xklb_owid=#{xklbOwid},
+			bklb_owid=#{bklbOwid},
 			exp1 = #{exp1},
 			exp2 = #{exp2},
 			exp3 = #{exp3},

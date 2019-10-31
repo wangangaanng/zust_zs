@@ -171,6 +171,17 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     }
 
 
+    public static void main(String[] args) {
+        String str = "91330108586547926H- (1/1)";
+        String a = "9133010877T3580641H";
+
+        System.out.println(a.length());
+       if(str.length()>18){
+           System.out.println(str.substring(0,18));
+       }
+    }
+
+
     @Transactional(readOnly = false)
     public Map companyRegister(Map<String, Object> mapData) {
 

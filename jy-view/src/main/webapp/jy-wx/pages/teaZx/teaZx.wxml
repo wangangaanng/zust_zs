@@ -9,7 +9,7 @@
               <view class="l-ask">
               <view>
                 <image src="../../static/icon-ask.png"></image>
-                {{item.xsbj?item.xsbj:""}}{{item.twName}}的提问：
+                {{item.exp1?item.exp1:""}}{{item.twName}}的提问：
               </view>
               <!-- <view class="ask-time">{{item.twrq}}</view> -->
               <view class="ask-nr">{{item.wtnr}}</view>
@@ -36,7 +36,7 @@
               <view class="l-ask">
               <view>
                 <image src="../../static/icon-ask.png"></image>
-                {{item.xsbj?item.xsbj:""}}{{item.twName}}的提问：
+                {{item.exp1?item.exp1:""}}{{item.twName}}的提问：
                 <!-- <view class="ask-time">{{item.twrq}}</view> -->
               </view>
               <view class="ask-nr">{{item.wtnr}}</view>
