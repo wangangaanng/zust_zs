@@ -320,7 +320,8 @@ public class CommonController {
     @ResponseBody
     public ResponseMessage getToken(PublicDataVO publicDataVO) {
         AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx618803b392a8c474", AccessToken.class);
-        System.out.println("接口获取token" + accessToken.getToken());
+        System.out.println("接口获取token" + accessToken);
+        System.out.println("接口获取tokenStr" + accessToken.getToken());
         return ResponseMessage.sendOK(accessToken.getToken());
     }
 

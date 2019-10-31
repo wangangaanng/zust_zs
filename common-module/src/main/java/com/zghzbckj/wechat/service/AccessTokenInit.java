@@ -18,13 +18,13 @@ import java.util.List;
  * Created by Administrator on 2018/2/26.
  */
 public class AccessTokenInit {
- private static final Logger log = LoggerFactory.getLogger(AccessTokenInit.class);
+    private static final Logger log = LoggerFactory.getLogger(AccessTokenInit.class);
 
 
-    public static void  init() {
-        SysWxconfigService sysWxconfigService= SpringContextHolder.getBean(SysWxconfigService.class);
-        SysWxconfig param=new SysWxconfig();
-        List<SysWxconfig>configList= sysWxconfigService.findList(param);
+    public static void init() {
+        SysWxconfigService sysWxconfigService = SpringContextHolder.getBean(SysWxconfigService.class);
+        SysWxconfig param = new SysWxconfig();
+        List<SysWxconfig> configList = sysWxconfigService.findList(param);
         for (SysWxconfig config : configList) {
             if (config.getState() != 1) {
                 continue;
@@ -53,6 +53,7 @@ public class AccessTokenInit {
                 if (null != token) {
                     CacheUtil.setVal(WechatConstants.WECHAT_REDIS_PREX + config.getWeAppid(), token);
                     CacheUtil.setVal(WechatConstants.WECHAT_REDIS_PREX + config.getWeCode(), token);
+                    CacheUtil.setVal(config.getWeAppid(), token.getToken());
                     //获取js安全token
                     try {
                         JSTickets jsTickets = null;
@@ -91,9 +92,8 @@ public class AccessTokenInit {
 
 
 
-
-    public static void flashToken(String weCode){
-        SysWxconfig config= CacheUtil.getVal(WechatConstants.WECHAT_REDIS_CONFIG_PREX + weCode,SysWxconfig.class);
+    public static void flashToken(String weCode) {
+        SysWxconfig config = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_CONFIG_PREX + weCode, SysWxconfig.class);
         try {
             //把公众号信息放入缓存
             CacheUtil.setVal(WechatConstants.WECHAT_REDIS_CONFIG_PREX + config.getWeCode(), config);
@@ -104,7 +104,7 @@ public class AccessTokenInit {
                     break;
                 case 1:
                     token = WeixinUtils.getAccessToken(config.getWeAppid(), config.getWeSecrect());
-                    System.out.println(token.getToken()+"======");
+                    System.out.println(token.getToken() + "======");
                     break;
                 case 2:
                     token = WeixinUtils.getCompAccessToken(config.getWeAppid(), config.getWeSecrect());
@@ -119,6 +119,7 @@ public class AccessTokenInit {
             if (null != token) {
                 CacheUtil.setVal(WechatConstants.WECHAT_REDIS_PREX + config.getWeAppid(), token);
                 CacheUtil.setVal(WechatConstants.WECHAT_REDIS_PREX + config.getWeCode(), token);
+                CacheUtil.setVal(config.getWeAppid(), token.getToken());
                 //获取js安全token
                 try {
                     JSTickets jsTickets = null;
@@ -151,7 +152,6 @@ public class AccessTokenInit {
         }
 
     }
-
 
 
 }

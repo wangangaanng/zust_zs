@@ -93,7 +93,7 @@
             display: block;
             margin-top: 13px;
         }
-        .flex div{text-indent: 6rem;font-family: "Microsoft Yahei", "微软雅黑";font-size: 22px;font-style:normal;line-height: 85px;}
+        .flex div{text-indent: 6rem;font-family: "Microsoft Yahei", "微软雅黑";font-size: 20px;font-style:normal;line-height: 85px;}
         @page {
             size: A4;
             margin: 0;
@@ -202,7 +202,7 @@
     <table width="80%" align="center" style="margin-top: 100px;border-collapse:collapse">
         <tr>
             <td align="center" colspan="2" valign="middle" style="text-align: center;">
-                <img src="${map.qrPic}" id="qrCode" style="width: 300px;height: 300px;"/>
+                <img src="${map.qrPic}" id="qrCode" style="width: 250px;height: 250px;"/>
             </td>
         </tr>
     </table>
