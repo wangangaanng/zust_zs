@@ -135,9 +135,17 @@ Page({
 
 var details = function (that,owid) {//新闻快递轮播图
   var data = { "owid": owid };
-  common.ajax('zustjy/bckjBizZjzx/details', data, function (res) {
+  common.ajax('zustjy/bckjBizZjzx/getConsultsOne', data, function (res) {
     if (res.data.backCode == 0) {
       if(res.data.bean){
+        if (res.data.bean.xb){
+          if (res.data.bean.xb==1) {
+            res.data.bean.xbStr='男'
+          } else if(res.data.bean.xb == 1) {
+            res.data.bean.xbStr = '女'
+          }
+        }
+        
         that.setData({
           result: res.data.bean
         })

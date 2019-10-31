@@ -115,49 +115,49 @@
 		<include refid="bckjBizSybJoins"/>
 		<where>
 			<if test="xsxh != null and xsxh != ''">
-				AND a.xsxh = #{xsxh}
+				AND a.xsxh LIKE concat ('%',#{xsxh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xm != null and xm != ''">
-				AND a.xm=#{xm}
+				AND a.xm LIKE concat ('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sfz != null and sfz != ''">
-				AND a.sfz = #{sfz}
+				AND a.sfz LIKE concat ('%',#{sfz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="syd != null and syd != ''">
-				AND a.syd = #{syd}
+				AND a.syd LIKE concat ('%',#{syd,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="zyfx != null and zyfx != ''">
-				AND a.zyfx = #{zyfx}
+				AND a.zyfx LIKE concat ('%',#{zyfx,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xz != null and xz != ''">
-				AND a.xz = #{xz}
+				AND a.xz LIKE concat ('%',#{xz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="knslb != null and knslb != ''">
-				AND a.knslb = #{knslb}
+				AND a.knslb LIKE concat ('%',#{knslb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="cxsy != null and cxsy != ''">
-				AND a.cxsy = #{cxsy}
+				AND a.cxsy LIKE concat ('%',#{cxsy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="pyfs != null and pyfs != ''">
-				AND a.pyfs = #{pyfs}
+				AND a.pyfs LIKE concat ('%',#{pyfs,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xsxy != null and xsxy != ''">
-				AND a.xsxy = #{xsxy}
+				AND a.xsxy LIKE concat ('%',#{xsxy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xszy != null and xszy != ''">
-				AND a.xszy = #{xszy}
+				AND a.xszy LIKE concat ('%',#{xszy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xsbj != null and xsbj != ''">
-				AND a.xsbj = #{xsbj}
+				AND a.xsbj LIKE concat ('%',#{xsbj,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="mz != null and mz != ''">
-				AND a.mz = #{mz}
+				AND a.mz LIKE concat ('%',#{mz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="zzmm != null and zzmm != ''">
-				AND a.zzmm = #{zzmm}
+				AND a.zzmm LIKE concat ('%',#{zzmm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="ksh != null and ksh != ''">
-				AND a.ksh = #{ksh}
+				AND a.ksh LIKE concat ('%',#{ksh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>

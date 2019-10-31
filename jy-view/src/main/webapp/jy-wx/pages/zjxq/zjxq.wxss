@@ -7,7 +7,9 @@ page{background-color: #fff;}
 .t-tx view image{width: 114rpx;height: 114rpx;border-radius: 50%;}
 .t-tx image{width: 100%;height: 100%;}
 .t-jj{margin-left: 130rpx;}
-.t-xm{font-size: 26rpx;color: #212121;line-height: 42rpx;}
+.t-xm{font-size: 26rpx;color: #212121;line-height: 42rpx;
+  width: calc( 100% - 160rpx);
+}
 .t-zxbtn{
   float: right;
   width: 160rpx;
