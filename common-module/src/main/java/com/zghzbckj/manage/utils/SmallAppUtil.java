@@ -52,7 +52,6 @@ public class SmallAppUtil {
                 String results = AesCbcUtil.decrypt(encryptedData, session_key, iv, "UTF-8");
                 log.info(" results---" + results);
                 WxXcxUserModel userModel = SmallAppUtil.getWxXcxUser(results);
-
                 return userModel;
             } catch (Exception e) {
                 log.error("获取unionid解密失败{}", e);

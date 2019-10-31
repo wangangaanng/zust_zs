@@ -70,7 +70,6 @@ page {
   width: 157px;
   margin: 0 auto;
   text-align: center;
-
 }
 
 .arrow {
@@ -84,26 +83,39 @@ page {
   width: 170px;
   margin-bottom: 8px;
 }
-.arrow2-text{
+
+.arrow2-text {
   position: relative;
   top: -13px;
   color: #717171;
   font-size: 15px;
   margin: 10px;
 }
-.lc-rows2{
+
+.lc-rows2 {
   display: flex;
+  position: relative;
 }
-.yet{
+
+.yet {
   background-color: #e2f4ee;
   color: #26b887;
 }
-.lc-rows2 .lc-row{
+
+.lc-rows2 .lc-row {
   width: 127px;
 }
-.lc-rows2 .arrow{
+
+.lc-rows2 .arrow {
   margin-left: 63px;
 }
-.hide{
+
+.hide {
   opacity: 0;
+}
+
+.thyy {
+  color: red;
+  font-size: 13px;
+  margin: 5px;
 }

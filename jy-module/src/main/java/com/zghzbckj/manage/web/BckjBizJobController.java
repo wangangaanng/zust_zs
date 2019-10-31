@@ -62,6 +62,17 @@ public class BckjBizJobController extends BaseController {
     }
 
 
+//    @RequestMapping(value = "/test")
+//    @ResponseBody
+//    public ResponseMessage test() {
+//        try {
+//            return bckjBizJobService.sendMess();
+//        } catch (Exception e) {
+//            log.error(e + "获取bckjBizJob列表失败\r\n" + e.getStackTrace()[0], e);
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+//        }
+//    }
+
     @RequestMapping(value = "/getList/{zwlx}")
     @ResponseBody
     public ResponseMessage getListApi(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO) {
@@ -375,9 +386,6 @@ public class BckjBizJobController extends BaseController {
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }
-
-
-
 
 
     @RequestMapping(value = "setJbdd", method = RequestMethod.POST)

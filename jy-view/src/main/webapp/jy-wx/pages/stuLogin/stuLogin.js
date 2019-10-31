@@ -40,13 +40,15 @@ Page({
       return false
     }
     var data={
-      "openId": wx.getStorageSync('openId'),
+      "openid": wx.getStorageSync('openId'),
+      "wxid":'wx01',
+      "type":'xcx',
       "nickname":wx.getStorageSync('userInfo').nickName,
-      "gender": wx.getStorageSync('openId').gender,
-      "city": wx.getStorageSync('openId').city,
-      "province": wx.getStorageSync('openId').province,
-      "country": wx.getStorageSync('openId').country,
-      "avatarUrl": wx.getStorageSync('openId').avatarUrl,
+      "gender": wx.getStorageSync('userInfo').gender,
+      "city": wx.getStorageSync('userInfo').city,
+      "province": wx.getStorageSync('userInfo').province,
+      "country": wx.getStorageSync('userInfo').country,
+      "avatarUrl": wx.getStorageSync('userInfo').avatarUrl,
       "unionid": wx.getStorageSync('unionid'),
       "yhDlzh": this.data.yhDlzh,
       "yhDlmm": util.md5(this.data.yhDlmm)

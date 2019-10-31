@@ -1,0 +1,62 @@
+<!--pages/teaZx/teaZx.wxml-->
+<import src="../../templates/textarea/index.wxml" />
+<van-tabs swipeable bind:click="clickTab">
+  <van-tab title="未回复">
+     <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore">
+        <view>
+          <block wx:for="{{list1}}" wx:key="{{index}}">
+            <view class="l-item">
+              <view class="l-ask">
+              <view>
+                <image src="../../static/icon-ask.png"></image>
+                {{item.exp1?item.exp1:""}}{{item.twName}}的提问：
+              </view>
+              <!-- <view class="ask-time">{{item.twrq}}</view> -->
+              <view class="ask-nr">{{item.wtnr}}</view>
+              </view>
+              <view class="t-cz">
+                <view class="t-f6" style="color:#666;">{{item.twrq}}
+                </view>
+                <view class="t-f6" data-owid="{{item.owid}}" bindtap="ask">
+                  <image src="../../static/icon-zx.png"></image>
+                  <view>回复</view>
+                </view>
+              </view>
+            </view>
+          </block>
+        </view>
+        <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+     </scroll-view>
+  </van-tab>
+  <van-tab title="已回复">
+    <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore">
+        <view>
+          <block wx:for="{{list2}}" wx:key="{{index}}">
+            <view class="l-item">
+              <view class="l-ask">
+              <view>
+                <image src="../../static/icon-ask.png"></image>
+                {{item.exp1?item.exp1:""}}{{item.twName}}的提问：
+                <!-- <view class="ask-time">{{item.twrq}}</view> -->
+              </view>
+              <view class="ask-nr">{{item.wtnr}}</view>
+              </view>
+              <view class="l-ask">
+              <view>
+                <image src="../../static/icon-ans.png"></image>
+                {{item.zjxm?item.zjxm:''}}我的回答：
+                <!-- <view class="ask-time">{{tools.convertStr(item.danr,"")}}</view> -->
+              </view>
+              <view class="ask-nr">{{item.danr?item.danr:"暂无回复"}}</view>
+              </view>
+            </view>
+          </block>
+        </view>
+        <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
+     </scroll-view>
+  </van-tab>
+</van-tabs>
+
+
+
+  <template is="zxmodal" data="{{modal1,wtnr}}" />

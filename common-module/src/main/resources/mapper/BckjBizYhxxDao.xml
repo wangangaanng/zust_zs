@@ -300,6 +300,15 @@
 		WHERE a.`OWID`=b.`YH_REF_OWID` AND a.`YH_DLZH`=#{yhDlzh};
 	</select>
 
+	<select id="logInByteach" parameterType="Map" resultType="Map">
+		SELECT
+		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh" ,
+		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm",a.sfz as sfz,a.xm as xm,
+		b.zjxm,zjxm
+		FROM bckj_biz_yhxx a ,bckj_biz_zjzx b
+		WHERE a.`YH_DLZH`=#{yhDlzh} and b.yhid=a.owid;
+	</select>
+
 	<select id="logInBySfz" parameterType="Map" resultType="Map">
 		SELECT
 		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh",b.OLX as "olx" ,b.XSXM as "xsxm" ,b.XSXH as "xsxh",
@@ -837,4 +846,5 @@
 	<delete id="deleteByOwid">
 		DELETE FROM BCKJ_BIZ_YHXX WHERE OWID=#{owid}
 	</delete>
+
 </mapper>

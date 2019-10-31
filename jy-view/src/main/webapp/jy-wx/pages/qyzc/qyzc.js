@@ -375,6 +375,9 @@ Page({
                 if (d.bean["社会信用代码"]) {
                   if (d.bean["社会信用代码"].words) {
                     if (d.bean["社会信用代码"].words != "无") {
+                      if (d.bean["社会信用代码"].words.trim().length>18){
+                        d.bean["社会信用代码"].words = d.bean["社会信用代码"].words.trim().substring(0, 18)
+                      }
                       that.setData({
                         'form.qyTysh': d.bean["社会信用代码"].words
                       })

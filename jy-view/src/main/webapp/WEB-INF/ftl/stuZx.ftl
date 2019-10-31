@@ -186,9 +186,15 @@
             ajax("zustcommon/bckjBizZxzx/consult", jsonObj, function (data) {
                 if (data.backCode == 0) {
                     layer.close(index)
+                    var tip = "";
+                    if (data.bean) {
+                        tip = data.bean;
+                    } else {
+                        tip = "咨询已提交，请等待回复。"
+                    }
                     layer.open({
                         title: '提示',
-                        content: '咨询已提交，请等待回复。',
+                        content: tip,
                         yes: function (index, layero) {
                             layer.close(index);
                         }
