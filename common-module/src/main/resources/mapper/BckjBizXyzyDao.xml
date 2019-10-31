@@ -4,7 +4,7 @@
     
 	<sql id="bckjBizXyzyColumns">
 		a.owid AS "owid",
-		a.parent_id AS "parent.id",
+		a.parent_id AS "parentId",
 		a.path AS "path",
 		a.bh AS "bh",
 		a.mz AS "mz",
@@ -96,6 +96,9 @@
 	</select>
 	
 	<insert id="insert">
+		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO bckj_biz_xyzy(
 			owid,
 			parent_id,
@@ -128,8 +131,8 @@
 			exp9,
 			exp10
 		) VALUES (
-			#{owid},
-			#{parent.id},
+			null,
+			#{parentId},
 			#{path},
 			#{bh},
 			#{mz},
@@ -164,7 +167,7 @@
 	<update id="update">
 		UPDATE bckj_biz_xyzy SET 	
 			owid = #{owid},
-			parent_id = #{parent.id},
+			parent_id = #{parentId},
 			path = #{path},
 			bh = #{bh},
 			mz = #{mz},
