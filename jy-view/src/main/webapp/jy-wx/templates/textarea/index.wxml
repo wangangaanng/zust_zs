@@ -3,7 +3,7 @@
       <view class="modal-content">
         <view></view>
         <view>
-          <textarea value="{{wtnr}}" bindinput="getWtnr" placeholder="请填写咨询内容"></textarea>
+          <textarea value="{{wtnr}}" bindinput="getWtnr" placeholder="请填写内容"></textarea>
         </view>
         <view class="btns">
           <button bindtap="cancel">取消</button>
