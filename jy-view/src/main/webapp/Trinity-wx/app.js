@@ -33,9 +33,9 @@ App({
     // })
   },
   globalData: {
-    ApiUrl: 'http://192.168.3.222:8888/',//'http://172.16.13.106:8888/',//
+    ApiUrl: 'http://192.168.3.110:8888/',//'http://192.168.3.222:8888/',//192.168.3.110:8888/
     localimgUrl: '',
-    imgPath: 'https://job.zust.edu.cn/zjcFiles',
+    imgPath: 'http://192.168.3.110:8080/zjcFiles/',
     yhRefOwid:'',
   }
 })

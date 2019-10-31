@@ -10,6 +10,7 @@ Page({
    */
   data: {
     res: {},
+    xxbq:[],
     state: {}
   },
 
@@ -19,7 +20,7 @@ Page({
   onLoad: function(options) {
     this.historyMessage()
     this.getXxxx()
-    this.indexState()
+    
   },
 
   /**
@@ -33,7 +34,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.indexState()
   },
 
   /**
@@ -80,8 +81,10 @@ Page({
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
+        let xxbq=res.data.bean.list[0].xxbq.split(',')
         that.setData({
-          res: res.data.bean.list[0]
+          res: res.data.bean.list[0],
+          xxbq: xxbq
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -98,8 +101,12 @@ Page({
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
+        let kssj = res.data.bean.list[0].kssj.substring(5, 10).replace("-", ".")
+        let jzsj = res.data.bean.list[0].jzsj.substring(5, 10).replace("-", ".")
         that.setData({
-          res: res.data.bean.list[0]
+          res: res.data.bean.list[0],
+          kssj,
+          jzsj
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -112,13 +119,13 @@ Page({
     let data = {
       pageNo: 1,
       pageSize: 8,
-      zxlx: '1'
+      zxlx: '5'
     }
     common.ajax('zustcommon/bckjBizZxzx/historyMessage', data, function(res) {
       if (res.data.backCode == 0) {
-        // that.setData({
-        //   historyMessage: res.data.bean.list[0]
-        // })
+        that.setData({
+          historyMessage: res.data.bean.records
+        })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }

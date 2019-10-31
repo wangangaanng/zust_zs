@@ -674,10 +674,20 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         return map;
     }
 
+    public static void main(String[] args) {
+        System.out.println("703c695ce6dd4c".length());
+    }
+
+
     @Transactional(readOnly = false)
     public BckjBizJob getOneJob(Map<String, Object> mapData) {
+        BckjBizJob job = new BckjBizJob();
         String owid = mapData.get("owid").toString();
-        BckjBizJob job = get(owid);
+        if (owid.length() == 14) {
+            job= this.dao.queryByOwid(owid);
+        } else {
+            job = get(owid);
+        }
         Map params = new HashMap<>(2);
         if (!TextUtils.isEmpty(job.getZwGzzn())) {
             params.put("type", JyContant.GZZN);
@@ -792,7 +802,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         job.setBmList(bmList);
         //阅读数+1
-        BckjBizJob newJob = get(owid);
+        BckjBizJob newJob = get(job.getOwid());
         if (!TextUtils.isEmpty(newJob.getZwYds())) {
             newJob.setZwYds(newJob.getZwYds() + 1);
         } else {

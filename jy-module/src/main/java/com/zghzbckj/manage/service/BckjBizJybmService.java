@@ -539,8 +539,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     } else {
                         content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
                     }
+                } else {
+                    content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
                 }
-
                 String mobile = bm.getLxdh();
                 try {
                     MessageUtil.sendMessage(mobile, content);
@@ -698,6 +699,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             jybm.setZphSfbm(job.getZphSfbm());
             jybm.setZphSfqd(job.getZphSfqd());
             jybm.setZphBmjzsj(job.getZphBmjzsj());
+            jybm.setZphKsrq(job.getZphKsrq());
+            jybm.setDetail(job.getMemo());
         }
         if (!TextUtils.isEmpty(jybm.getQyxxRefOwid())) {
             BckjBizQyxx qyxx = qyxxService.get(jybm.getQyxxRefOwid());

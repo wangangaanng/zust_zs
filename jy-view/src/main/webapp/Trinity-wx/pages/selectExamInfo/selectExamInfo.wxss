@@ -1,5 +1,5 @@
 /* pages/selectExamInfo/selectExamInfo.wxss */
-@import '../../weui.wxss';
+/* @import '../../weui.wxss'; */
 page{background: rgb(245,245,245)}
 .van-cell__title{min-width: 120px!important;max-width: 120px!important;}
 .cell-lable_csm{font-size: 30rpx;line-height: 1;}

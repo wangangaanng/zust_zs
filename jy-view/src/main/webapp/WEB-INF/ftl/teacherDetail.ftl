@@ -24,18 +24,18 @@
 
             <ol class="breadcrumb">
                 <li><a href="${base}/">首页</a></li>
-                <li><a href="#">个人中心</a></li>
+                <li><a href="${base}/stuCenter/0">个人中心</a></li>
                 <li class="active">导师简介</li>
             </ol>
         </div>
         <div class="content">
             <div class="menu-nav" style="border: none;">
                 <div class="td-item">
-                    <div class="t-bg" style="background: url(${imagePath!""}${detail.zjtx!''});background-size: 100% 100%;"></div>
+                    <div class="t-bg" style="background: url(${imagePath!""}${(detail.zjtx)!''});background-size: 100% 100%;"></div>
                     <div class="td-detail">
-                        <div class="t-name">${detail.zjxm!''}</div>
+                        <div class="t-name">${(detail.zjxm)!''}</div>
                         <div class="t-xhx"><span></span></div>
-                        <div class="t-sm">${detail.zjxx!'暂无简介'}</div>
+                        <div class="t-sm">${(detail.zjxx)!'暂无简介'}</div>
 
                     </div>
                 </div>
@@ -47,8 +47,29 @@
                         <div class="h3">导师简介</div>
                     </div>
                     <div class="teacher-list">
+                        <p class="td-sm" style="padding: 0 20px;">
+                            <#if (detail.zjxm)??>
+                            <span>姓名：${(detail.zjxm)!''}</span>
+                            </#if>
+                            <#if (detail.xb)??>
+                            <span style="margin-left: 40px;">性别：
+                                <#if detail.xb==1>
+                                    男
+                                <#elseif detail.xb==2>
+                                     女
+                                <#else>
+                                </#if>
+                            </span>
+                            </#if>
+                            <#if (detail.exp4)??>
+                            <span style="margin-left: 40px;">咨询方向：${(detail.exp4)!''} </span>
+                            </#if>
+                            <#if (detail.exp3)??>
+                            <span style="margin-left: 40px;">部门：${(detail.exp3)!''} </span>
+                            </#if>
+                        </p>
                         <p class="td-sm">
-                            ${detail.zjxx!'暂无简介'}
+                            ${(detail.zjxx)!'暂无简介'}
                         </p>
                         <div class="td-ask">
                             <button class="btn" onclick="question()">我要咨询</button>
@@ -66,7 +87,6 @@
 <script>
 
     $(document).ready(function () {
-
 
     })
 

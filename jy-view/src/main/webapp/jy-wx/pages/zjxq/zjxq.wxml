@@ -5,9 +5,10 @@
       <view><image src="{{imgPath}}{{result.zjtx}}"></image></view>
     </view>
     <view class="t-jj">
-      <view class="t-xm">职位：{{result.zjzw?result.zjzw:''}}</view>
-      <view class="t-xm">办公室：{{result.zjbgs?result.zjbgs:''}}</view>
-      <view class="t-xm">所属专业：{{result.szzy?result.szzy:''}}</view>
+      <view class="t-xm" wx:if="{{result.zjxm}}">姓名：{{result.zjxm}}</view>
+      <view class="t-xm" wx:if="{{result.xb}}">性别：{{result.xbStr}}</view>
+      <view class="t-xm" wx:if="{{result.exp4}}">咨询方向：{{result.exp4?result.exp4:''}}</view>
+      <view class="t-xm" wx:if="{{result.exp3}}">部门：{{result.exp3?result.exp3:''}}</view>
 
       <button class="t-zxbtn" hover-class="common-btn-hover" data-owid="{{result.owid}}" bindtap="ask">
         <image src="../../static/icon-zx2.png"></image>

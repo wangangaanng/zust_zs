@@ -40,7 +40,7 @@ public class CommonConstant {
     public static  final String AlreadyCheck="已签到";
     public static  final String OutOfCheckTime="不在签到时间";
     public static final String SYSTEM_FILE_PATH = "F:\\img\\";
-    public  static String WX_CODE="";
+    public  static String WX_CODE="wx01";
     public  static String RepeatXsxh="重复学生学号";
     public  static String SjHError="手机号格式错误";
 

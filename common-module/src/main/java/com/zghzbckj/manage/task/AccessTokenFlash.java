@@ -16,7 +16,9 @@ public class AccessTokenFlash {
         try {
 
             AccessTokenInit.flashToken(CommonConstant.WX_CODE);
-            } catch (Exception throwable) {
+
+
+        } catch (Exception throwable) {
                 log.error(throwable.toString());
             }
     }

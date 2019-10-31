@@ -47,7 +47,7 @@
 
   <!-- 按钮 -->
   <view class="bottom-btn_wrap df button">
-    <button formType="submit" bindtap="preStep">上一步，基本信息</button>
+    <button bindtap="preStep">上一步，基本信息</button>
     <button formType="submit">下一步，学考等第</button>
   </view>
 </form>

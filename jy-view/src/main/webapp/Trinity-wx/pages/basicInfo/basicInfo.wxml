@@ -46,7 +46,7 @@
       <view class="img-null_tip" hidden="{{showHJError}}">户籍证明必传</view>
       <view class="btn-upload" bindtap='takePhoto' data-type="1">
         <view wx:if="{{houseHold!=''}}">
-          <image src="{{faceBck}}"></image>
+          <image src="{{houseHold}}"></image>
         </view>
         <view wx:elif="{{houseHold==''}}">
           <view class="btn-upload_wrap">

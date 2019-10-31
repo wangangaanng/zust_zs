@@ -59,11 +59,16 @@ Page({
                   latitude: res.latitude,
                   longitude: res.longitude
                 })
-                if (options.owid) {
-                  that.setData({
-                    owid: options.owid,
-                  })
+                if (options.owid) {//列表进入
+                  // that.setData({
+                  //   owid: options.owid,
+                  // })
                   getContent(that, options.owid);
+                } else if (options.scene) {//扫码签到
+                  // that.setData({
+                  //   owid: options.owid,
+                  // })
+                  getContent(that, options.scene);
                 }
               },
               fail: function (res) {
@@ -172,6 +177,9 @@ var getContent = function (that, owid) {//招聘详情
   var data = { "owid": owid, "yhOwid": wx.getStorageSync("yhOwid") };
   common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
     if (res.data.backCode == 0) {
+      that.setData({
+        owid: res.data.bean.owid,//真实owid
+      })
       res.data.bean.createtime = res.data.bean.createtime.substring(0, 10)
       if (res.data.bean.zphKsrq) {
         // if (res.data.bean.zwlx == 4) {

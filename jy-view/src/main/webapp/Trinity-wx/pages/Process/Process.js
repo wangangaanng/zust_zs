@@ -1,11 +1,15 @@
 // pages/Process/Process.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
+var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    bmState:''
   },
 
   /**
@@ -26,7 +30,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getXxxx()
   },
 
   /**
@@ -62,5 +66,23 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //学校信息获取
+  getXxxx: function (e) {
+    let that = this;
+    let data = {
+      pageNo: 1,
+      pageSize: 1,
+      yhRefOwid: yhRefOwid,
+    }
+    common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function (res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          bmState: res.data.bean.list[0].bmState
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
 })

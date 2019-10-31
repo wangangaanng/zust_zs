@@ -14,7 +14,6 @@ import com.ourway.base.zk.utils.JsonUtil;
 import com.ourway.base.zk.utils.TextUtils;
 import com.ourway.base.zk.utils.data.LoginUtil;
 import com.ourway.base.zk.zpspring.SpringZkBaseControl;
-import com.zghzbckj.base.util.CacheUtil;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -126,7 +125,7 @@ public class IndexController extends SpringZkBaseControl {
             System.out.println("token:" + token);
             String tpPath = ZKConstants.SYSTEM_FILE_URL;
             String url = WebZKConstant.WX_VIEW_URL;
-            String picName = "result.jpg";
+            String picName = DateUtil.getTimeStamp() + ".png";
             System.out.println("开始生成二维码");
             //生成二维码
 //            QRCodeUtil.encode(url, "/mnt/files/zjcFiles/qrcode/zust.png", ZKConstants.SYSTEM_FILE_PATH + "/qrcode/",
@@ -134,9 +133,10 @@ public class IndexController extends SpringZkBaseControl {
 
 //            String tokenStr = CacheUtil.getVal("config.wechat.wx618803b392a8c474");
 //            System.out.println("token:" + tokenStr);
-            String timeStamp = DateUtil.getTimeStamp();
-            CacheUtil.setVal(timeStamp, owid);
-            getminiqrQr("owid=" + timeStamp, token);
+//            String timeStamp = DateUtil.getTimeStamp();
+            String timeStamp = owid.substring(0, 14);
+            getminiqrQr(timeStamp, token, picName);
+            System.out.println("owid" + timeStamp);
 
 
             Map map = Maps.newHashMap();
@@ -171,10 +171,11 @@ public class IndexController extends SpringZkBaseControl {
     }
 
     public static void main(String[] args) {
-        System.out.println(CacheUtil.getVal("config.wechat.wx618803b392a8c474"));
+        System.out.println(DateUtil.getTimeStamp());
     }
 
-    public Map getminiqrQr(String sceneStr, String accessToken) {
+    public Map getminiqrQr(String sceneStr, String accessToken, String picName) {
+        System.out.println("开始小程序二维码生成");
         RestTemplate rest = new RestTemplate();
         InputStream inputStream = null;
         OutputStream outputStream = null;
@@ -198,7 +199,7 @@ public class IndexController extends SpringZkBaseControl {
             byte[] result = entity.getBody();
             System.out.println(Base64.encodeBase64String(result));
             inputStream = new ByteArrayInputStream(result);
-            File file = new File(ZKConstants.SYSTEM_FILE_PATH + "/qrcode/result.png");
+            File file = new File(ZKConstants.SYSTEM_FILE_PATH + "/qrcode/" + picName);
             if (!file.exists()) {
                 file.createNewFile();
             }

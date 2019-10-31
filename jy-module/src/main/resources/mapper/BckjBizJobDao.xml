@@ -86,6 +86,13 @@
         WHERE a.owid = #{owid}
     </select>
 
+    <select id="queryByOwid" resultType="com.zghzbckj.manage.entity.BckjBizJob">
+        SELECT
+        <include refid="bckjBizJobColumns"/>
+        FROM bckj_biz_job a
+        <include refid="bckjBizJobJoins"/>
+        WHERE a.owid like CONCAT('',#{owid,jdbcType=VARCHAR},'%')
+    </select>
 
     <select id="getByName" resultType="com.zghzbckj.manage.entity.BckjBizJob">
         SELECT
@@ -590,8 +597,6 @@
 		state = 6
 		where qyxx_ref_owid=#{qyxxRefOwid}
 	</update>
-
-
 
 
 </mapper>
