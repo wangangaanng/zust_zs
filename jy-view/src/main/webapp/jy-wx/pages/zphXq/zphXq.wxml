@@ -4,6 +4,7 @@
 
 <van-tabs swipeable bind:click="clickTab">
   <van-tab title="招聘会信息">      
+    <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y lower-threshold="100">
       <view class="cell">
           <view class="title" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt?result.zwbt:''}}</view>
           <view class="title" wx:else>{{result.zwbt?result.zwbt:''}}</view>
@@ -72,6 +73,7 @@
             </block>
         </view>
     </view>
+    </scroll-view>
   </van-tab>
   <van-tab title="关注学生" wx:if="{{result.state==1}}">
   <view>

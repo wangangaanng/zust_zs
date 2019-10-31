@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -289,6 +290,14 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageNo", "1");
+        params.put("pageSize", "10");
+        //1 招生在线咨询
+        params.put("zxlx", "1");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "/zustcommon/bckjBizZxzx/historyMessage");
+        ResponseMessage result = UnionHttpUtils.doPosts(publicData);
+        view.addObject("messageList", result.getBean());
         return view;
     }
 
