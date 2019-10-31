@@ -3,23 +3,18 @@
  */
 package com.zghzbckj.manage.entity;
 
-import javax.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.zghzbckj.base.entity.DataWithLongExpEntity;
 import org.hibernate.validator.constraints.Length;
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-
-import com.zghzbckj.base.entity.DataWithExpEntity;
 
 /**
  * ccEntity
  * @author cc
  * @version 2019-09-09
  */
-public class BckjBizXyzy extends DataWithExpEntity<BckjBizXyzy> {
+public class BckjBizXyzy extends DataWithLongExpEntity<BckjBizXyzy> {
 	
 	private static final long serialVersionUID = 1L;
-	private BckjBizXyzy parent;		// parent_id
+	private Long parentId;		// parent_id
 	private String path;		// path
 	private String bh;		// bh
 	private String mz;		// mz
@@ -35,13 +30,13 @@ public class BckjBizXyzy extends DataWithExpEntity<BckjBizXyzy> {
 
 
 	
-	@JsonBackReference
-	public BckjBizXyzy getParent() {
-		return parent;
+
+	public Long getParentId() {
+		return parentId;
 	}
 
-	public void setParent(BckjBizXyzy parent) {
-		this.parent = parent;
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
 	}
 	
 	@Length(min=0, max=36, message="path长度必须介于 0 和 36 之间")

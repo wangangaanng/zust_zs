@@ -180,7 +180,7 @@ public class CommonService {
         String realName = String.valueOf(System.currentTimeMillis());
         String trueFileName = CommonModuleContant.SWTYFILEPATH + File.separator + realName + CommonConstant.SPILT_POINT + type;
         String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH);
-        File tarFile = new File(path, fileName);
+        File tarFile = new File(path+trueFileName);
         file.transferTo(tarFile);
         Map<String, Object> fileCenter = Maps.newHashMap();
         fileCenter.put("filePath", trueFileName);

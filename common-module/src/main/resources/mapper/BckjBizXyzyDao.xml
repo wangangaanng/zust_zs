@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizXyzyDao">
-
-    <sql id="bckjBizXyzyColumns">
+    
+	<sql id="bckjBizXyzyColumns">
 		a.owid AS "owid",
-		a.parent_id AS "parent.id",
+		a.parent_id AS "parentId",
 		a.path AS "path",
 		a.bh AS "bh",
 		a.mz AS "mz",
@@ -130,8 +130,8 @@
 			exp9,
 			exp10
 		) VALUES (
-			#{owid},
-			#{parent.id},
+			null,
+			#{parentId},
 			#{path},
 			#{bh},
 			#{mz},
@@ -162,11 +162,11 @@
 			#{exp10}
 		)
 	</insert>
-
-    <update id="update">
+	
+	<update id="update">
 		UPDATE bckj_biz_xyzy SET 	
 			owid = #{owid},
-			parent_id = #{parent.id},
+			parent_id = #{parentId},
 			path = #{path},
 			bh = #{bh},
 			mz = #{mz},
@@ -197,10 +197,10 @@
 			exp10 = #{exp10}
 		WHERE owid = #{owid}
 	</update>
-
-    <delete id="delete">
+	
+	<delete id="delete">
 		DELETE FROM bckj_biz_xyzy
 		WHERE owid = #{owid}
 	</delete>
-
+	
 </mapper>
