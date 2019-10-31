@@ -75,5 +75,8 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     String getYhxxQdNoSuccessSum(Map<String, Object> dataMap);
 
     void deleteByOwid(String owid);
+
+    Map<String,Object> logInByteach(Map<String, Object> datamap);
+
 }
 

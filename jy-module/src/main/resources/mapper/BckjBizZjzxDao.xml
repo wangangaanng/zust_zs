@@ -354,8 +354,9 @@
 	<delete id="deleteYhxx" parameterType="String" >
 		DELETE FROM bckj_biz_yhxx where owid=#{value }
 	</delete>
-	<select id="getConsultsReplyDay" resultType="String">
-		SELECT b.dic_val2 FROM bckj_biz_dic a ,bckj_biz_dic_value b
-		WHERE a.owid=b.dic_ref_owid AND a.type=60000
+
+	<select id="getDicVal2ByVal1"  resultType="String" >
+		SELECT b.dic_val2 FROM ourway_sys_dic a ,ourway_sys_dic_value b
+		WHERE a.owid=b.dic_ref_owid AND a.type=#{type} and b.dic_val1=#{exp4}
 	</select>
 </mapper>
