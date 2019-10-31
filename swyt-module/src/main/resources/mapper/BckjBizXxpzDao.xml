@@ -277,6 +277,7 @@
 		b.xzzymc AS "bmzy",
 		b.xybnr AS "xybCz",
 		b.memo AS "memo",
+		b.jjly AS "jjly",
 		IFNULL(b.state,0) AS "bmState",
 		b.owid AS "applyOwid"
 		 FROM bckj_biz_bm b RIGHT  JOIN  bckj_biz_xxpz a ON a.xxbh=b.xxbh
