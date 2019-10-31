@@ -1,18 +1,23 @@
 // pages/messageCenter/messageCenter.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
+var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    applyOwid:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.data.applyOwid = options.applyOwid
+    this.getResult()
   },
 
   /**
@@ -62,5 +67,18 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  //报名表所有查询
+  getResult: function (e) {
+    let that = this;
+    let data = {
+      applyOwid: that.data.applyOwid
+    }
+    common.ajax('zustswyt/bckjBizBm/getResult', data, function (res) {
+      if (res.data.backCode == 0) {
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
 })

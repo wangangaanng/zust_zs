@@ -326,4 +326,32 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
             pageInfo.setCurrentPage((long)page.getPageNo());
             return pageInfo;
     }
+
+
+
+    /**
+     *<p>方法:searchAll TODO查询一级栏目下所有文章 </p>
+     *<ul>
+     *<li> @param mapData TODO</li>
+     *<li>@return com.zghzbckj.base.entity.PageInfo  </li>
+     *<li>@author D.chen.g </li>
+     *<li>@date 2019/10/9 16:43  </li>
+     *</ul>
+     */
+    public PageInfo searchByYjlm(Map<String, Object> mapData) {
+        String pageNo=MapUtils.getString(mapData,"pageNo");
+        String pageSize=MapUtils.getString(mapData,"pageSize");
+        Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
+        mapData.put("page", page);
+        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");
+        page.setList(this.dao.findYjBylmbh(mapData));
+        PageInfo<BckjBizArticle> pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long)page.getTotalPage());
+        pageInfo.setCurrentIndex((long)page.getPageNo());
+        pageInfo.setPageSize((long)page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long)page.getPageNo());
+        return pageInfo;
+    }
 }

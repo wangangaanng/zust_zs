@@ -114,7 +114,7 @@ public class BckjBizXyzyService extends CrudService<BckjBizXyzyDao, BckjBizXyzy>
         for (String owid : codes) {
             Map<String, Object> params = new HashMap<String, Object>(1);
             BckjBizXyzy bckjBizXyzy = new BckjBizXyzy();
-            bckjBizXyzy.setOwid(owid);
+            bckjBizXyzy.setOwid(Long.valueOf(owid));
             this.dao.delete(bckjBizXyzy);
             params.put("owid", owid);
             objs.add(params);

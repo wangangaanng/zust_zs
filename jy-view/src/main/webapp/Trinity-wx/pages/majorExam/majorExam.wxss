@@ -9,3 +9,7 @@ page{
 .van-cell__title{
   color: rgb(51, 51, 51)
 }
+.btn{
+  padding: 30rpx;
+  text-align: right;
+}

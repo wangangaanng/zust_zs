@@ -1,133 +1,256 @@
 // pages/majorExam/majorExam.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
+var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    subjectShowBool:false,
-    languageShowBool:false,
-    typeShowBool:false,
-    majorShowBool:false,
-    subject:"",//学科
-    language:"",//语种
-    type:"",//类别
-    major:"",//专业
-    subjectCategory: ['学科类别1', '宁波', '温州', '嘉兴', '湖州'],//学科类别
-    foreignLanguages: ['外语语种1', '宁波', '温州', '嘉兴', '湖州'],//外语语种
-    projectType: ['报考类别1', '宁波', '温州', '嘉兴', '湖州'],//报考类别
-    enrollmentMajor: ['招生专业1', '宁波', '温州', '嘉兴', '湖州'],//招生专业
+    open: false,
+    index1: null, //学科
+    index2: null, //类别
+    index3: null, //专业
+    subjectCategory: [], //学科类别
+    projectType: [], //报考类别
+    enrollmentMajor: [], //招生专业
+    list: [], //当前显示
+    subject: [],
+    project: [],
+    Major: [],
+    url: '', //pdf地址
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-
+  onLoad: function(options) {
+    this.indexState(-1);
+    this.getApply()
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
   //取消显示
-  cancelPop(){
-    this.setData({ 
-      subjectShowBool: false,
-      languageShowBool: false,
-      typeShowBool: false,
-      majorShowBool: false
-    });
-  },
-  //显示学科
-  showSubject(){
-    this.setData({subjectShowBool:true });
-  },
-  //确定学科
-  confirmSubject(event){
-    const { index, value} = event.detail;
-    console.log(value);
-    this.setData({ 
-      subject: value, 
-      subjectShowBool: false
-    });
-  },
-  //外语语种
-  showLanguage(){
-      this.setData({ languageShowBool: true });
-  },
-  //确定语种
-  confirmLanguages(event) {
-    const { index, value } = event.detail;
-    console.log(value);
+  cancelPop() {
     this.setData({
-      language: value,
-      languageShowBool: false
+      open: false,
     });
   },
-  //显示类别
-  showType(){
-    this.setData({ typeShowBool: true });
-  },
-  confirmType(event){
-    const { index, value } = event.detail;
+  //显示
+  show(e) {
+    console.log(e)
+    let type = e.target.dataset.type
+    if (type == "2" && this.data.index1 == null) {
+      common.toast('请先选择学科类别', 'none', 2000)
+      return
+    } else if (type == "3" && this.data.index2 == null) {
+      common.toast('请先选择报考类别', 'none', 2000)
+      return
+    }
+    let list = [];
+    if (type == "1") {
+      list = this.data.subject
+    } else if (type == "2") {
+      list = this.data.project
+    } else if (type == "3") {
+      list = this.data.Major
+    }
     this.setData({
-      type: value,
-      typeShowBool: false
+      open: true,
+      type: e.target.dataset.type,
+      list
     });
   },
-  showMajor(){
-    this.setData({ majorShowBool: true });
+  confirm(e) {
+    console.log(e);
+    if (this.data.type == '1') {
+      this.setData({
+        open: false,
+        index1: e.detail.index,
+        index2: null,
+        index3: null,
+      });
+      this.indexState(this.data.subjectCategory[e.detail.index].owid)
+    } else if (this.data.type == '2') {
+      this.setData({
+        open: false,
+        index2: e.detail.index,
+        index3: null,
+      });
+      this.indexState(this.data.projectType[e.detail.index].owid)
+    } else if (this.data.type == '3') {
+      this.setData({
+        open: false,
+        index3: e.detail.index,
+      });
+    }
   },
-  confirmMajor(event){
-    const { index, value } = event.detail;
-    this.setData({
-      major: value,
-      majorShowBool: false
+  indexState: function(e) {
+    let that = this;
+    let xxbh = wx.getStorageSync('xxbh');
+    let data = {
+      xxbh: xxbh,
+      fid: e
+    }
+    common.ajax('zustswyt/bckjBizBkzy/getMajors', data, function(res) {
+      if (res.data.backCode == 0) {
+        if (e == -1) {
+          let subject = [];
+          for (let i in res.data.bean) {
+            subject.push(res.data.bean[i].name)
+          }
+          that.setData({
+            subject: subject,
+            subjectCategory: res.data.bean
+          })
+        } else if (that.data.type == '1') {
+          let project = [];
+          for (let i in res.data.bean) {
+            project.push(res.data.bean[i].name)
+          }
+          that.setData({
+            project: project,
+            projectType: res.data.bean
+          })
+        } else if (that.data.type == '2') {
+          let Major = [];
+          for (let i in res.data.bean) {
+            Major.push(res.data.bean[i].name)
+          }
+          that.setData({
+            Major: Major,
+            enrollmentMajor: res.data.bean
+          })
+        }
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  //申请表预览
+  getApply: function(e) {
+    let that = this;
+    let applyOwid = wx.getStorageSync('applyOwid');
+    let data = {
+      applyOwid: applyOwid,
+    }
+    common.ajax('zustswyt/bckjBizBm/getApply', data, function(res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          url: res.data.bean
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  //预览pdf:报名表
+  openFile: function(e) {
+    let that = this;
+    wx.downloadFile({
+      // 示例 url，并非真实存在
+      url: common.imgPath + that.data.url,
+      success: function(res) {
+        const filePath = res.tempFilePath
+        wx.openDocument({
+          filePath: filePath,
+          success: function(res) {
+            console.log('打开文档成功')
+          }
+        })
+      },
+      fail: function() {
+        console.log('打开失败')
+      }
+    })
+  },
+  // 报考专业提交
+
+  submit() {
+    let that = this;
+    let xxbh = wx.getStorageSync('xxbh');
+    if (that.data.index1 == null || that.data.index2 == null || that.data.index3 == null) {
+      common.toast("尚有为选择项", 'none', 2000)
+      return
+    }
+    let xklb = that.data.subjectCategory[that.data.index1].owid; //学科类别
+    let bklb = that.data.projectType[that.data.index2].owid; //报考类别
+    let zyOwid = that.data.enrollmentMajor[that.data.index3].owid; //专业owid
+    let data = {
+      xxbh: xxbh,
+      xklb: xklb,
+      bklb: bklb,
+      zyOwid: zyOwid,
+      userRefOwid: yhRefOwid
+    }
+    common.ajax('zustswyt/bckjBizBm/submit', data, function(res) {
+      if (res.data.backCode == 0) {
+        wx.showModal({
+          title: '提示',
+          showCancel: false,
+          content: '报名表提交成功',
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../Process/Process'
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
     });
   }
 })

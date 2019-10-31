@@ -2,6 +2,7 @@
 var common = require('../../libs/common/common.js');
 var utils = require('../../utils/util.js');
 import WxValidate from '../../utils/WxValidate';
+//确认邮箱弹出框
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
