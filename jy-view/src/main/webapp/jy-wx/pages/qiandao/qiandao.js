@@ -192,9 +192,9 @@ var getContent = function (that, owid) {//招聘详情
       if (res.data.bean.zphGpsjd){
         var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
         if (jl < 1) {
-          jl = jl * 1000 + 'm'
+          jl = (jl * 1000).toFixed(2) + 'm'
         } else {
-          jl = jl + 'km'
+          jl = jl.toFixed(2) + 'km'
         }
         that.setData({
           jl: jl
