@@ -44,6 +44,7 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
     private String tcah;        // tcah
     private String grzp;        // grzp
     private String kslb;        // kslb
+    private String yzmc;		// zzcj
     private String wyyz;        // wyyz
     private Double wycj;        // wycj
     private String zxlb;        // zxlb
@@ -384,5 +385,13 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
 
     public void setYhRefOwid(String yhRefOwid) {
         this.yhRefOwid = yhRefOwid;
+    }
+
+    public String getYzmc() {
+        return yzmc;
+    }
+
+    public void setYzmc(String yzmc) {
+        this.yzmc = yzmc;
     }
 }
