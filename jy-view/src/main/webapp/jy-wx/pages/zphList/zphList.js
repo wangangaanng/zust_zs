@@ -73,6 +73,11 @@ Page({
     wx.navigateTo({
       url: '../ydzw/ydzw?owid='+e.currentTarget.dataset.owid,
     })
+  },
+  detail(e){
+    wx.navigateTo({
+      url: '../qyInfo/qyInfo?owid=' + e.currentTarget.dataset.owid,
+    })
   }
 })
 

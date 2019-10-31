@@ -7,8 +7,8 @@
           <view class="title" wx:else>{{result.zwbt?result.zwbt:''}}</view>
         <view class="content">
           <view class="table">
-              <view class="tr" wx:if="{{result.xjsj}}">
-                <view class="td" style="flex:12">举办日期：{{tools.substr(result.xjsj,0,10)}}</view>
+              <view class="tr" wx:if="{{result.zphKsrq}}">
+                <view class="td" style="flex:12">举办日期：{{tools.substr(result.zphKsrq,0,10)}}</view>
               </view>
               <view class="tr" wx:if="{{result.zphJtsj}}">
                 <view class="td" style="flex:12">具体时间：{{result.zphJtsj}}</view>
@@ -56,6 +56,20 @@
           </view>
         </view>
       </view>
+      <view class="cell" wx:if="{{result.detail}}">
+        <view class="title">详情</view>
+        <view class="content" >
+          <template is="wxParse" data="{{wxParseData:detail.nodes}}"/>
+        </view>
+        <view class="article" wx:if="{{result.fileList.length>0}}">
+          附件
+            <block wx:for="{{result.fileList}}" wx:key="">
+              <view>
+                <span style="color:#337ab7" bindtap="wxParseTagATap" data-src="{{imgPath+item.FILE_PATH}}">{{item.FILE_LABEL}}</span>
+              </view>
+            </block>
+        </view>
+    </view>
   </van-tab>
   <van-tab title="关注学生" wx:if="{{result.state==1}}">
   <view>

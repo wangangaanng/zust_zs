@@ -21,6 +21,13 @@
     /*height: 0 !important;*/
     /*}*/
     .xInfo li{min-height: 30px; height: auto;padding: 5px;}
+    .tag-grey{
+        position: relative;
+        top: -2px;
+    }
+    a:hover{text-decoration: none;}
+    table>tbody>tr>td{vertical-align: middle !important;}
+
 </style>
 
 <body>
@@ -77,8 +84,8 @@
                         </dl>
                     </div>
                     <ul class="xInfo" style="width: 50%;float: left;">
-                    <#if result.xjsj?exists>
-                        <li>举办日期：<span>${result.xjsj?substring(0,10)}</span></li>
+                    <#if result.zphKsrq?exists>
+                        <li>举办日期：<span>${result.zphKsrq?substring(0,10)}</span></li>
                     </#if>
                     <#if result.zphJtsj?exists>
                         <li>具体时间：<span> ${result.zphJtsj!''}</span></li>
@@ -145,6 +152,58 @@
                     </#if>
                     </ul>
             </div>
+               <div class="position-tabcontent">
+                   <div class="position-tabbar"><ul><li class="active"><a>详情</a></li>
+                                    <#if (result.bmList??)&&(result.bmList?size>0)>
+                                        <li><a>参会企业</a></li>
+                                    </#if>
+                   </ul></div>
+                   <div class="frame-body tabbar-frame_content">
+                       <div class="tabcontent">
+                           <div><p>${result.detail!''}</p></div>
+                                        <#if (result.fileList??)&&(result.fileList?size>0)>
+                                            <div class="file">
+                                                <div style="font-weight: bold;font-size: 16px;">附件</div>
+                                                <ul>
+                                                    <#list result.fileList as obj>
+                                                        <li><a href="${imagePath+obj.FILE_PATH}">${obj.FILE_LABEL!''}</a></li>
+                                                    </#list>
+                                                </ul>
+                                            </div>
+                                        </#if>
+                       </div>
+                       <div class="tabcontent" style="display: none;">
+                           <table class="table table-bordered" style="text-align: center">
+                               <tr>
+                                   <td>序号</td><td>企业名称</td><td>招聘岗位</td><td>招聘人数</td>
+                               </tr>
+                                            <#if (result.bmList??)&&(result.bmList?size>0)>
+                                                <#list result.bmList as qy>
+                                                    <#if (qy.zwList??)&&(qy.zwList?size>0)>
+                                                        <#list qy.zwList as gw>
+                                                            <#if gw_index==0>
+                                                            <tr>
+                                                                <td rowspan="${qy.zwList?size}">${qy_index+1}</td><td rowspan="${qy.zwList?size}">${qy.qymc!''}</td><td>${gw.zw!''}</td><td>${gw.rs!''}</td>
+                                                            </tr>
+                                                            <#else >
+                                                            <tr>
+                                                                <td>${gw.zw!''}</td><td>${gw.rs!''}</td>
+                                                            </tr>
+                                                            </#if>
+                                                        </#list>
+                                                    <#else >
+                                                    <tr>
+                                                        <td>${qy_index+1}</td><td>${qy.qymc!''}</td><td>-</td><td>-</td>
+                                                    </tr>
+                                                    </#if>
+
+                                                </#list>
+                                            </#if>
+                           </table>
+                       </div>
+
+                   </div>
+               </div>
                 </#if>
         </div>
     </div>
@@ -157,10 +216,6 @@
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="${base}/js/bootstrap-table.min.js" type="text/javascript"></script>
     <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
-    <script src="${base}/js/jquery.validate.min.js" type="text/javascript"></script>
-    <script src="${base}/js/messages_zh.min.js" type="text/javascript"></script>
-    <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
-    <script src="${base}/js/city1.js" type="text/javascript"></script>
     <script src="${base}/js/zphXq.js" type="text/javascript"></script>
 </body>
 

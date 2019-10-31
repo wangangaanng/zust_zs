@@ -2,7 +2,7 @@
 <!--pages/enterpriseXjh/enterpriseXjh.wxml-->
 <view class="uni-list">
   <block wx:for="{{xjhList}}" wx:key="{{index}}">
-  <view class="uni-list-cell" hover-class="uni-list-cell-hover">
+  <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="detail">
     <view class="uni-media-list">
       <view class="uni-media-list-body">
         <view class="uni-media-list-text-top">{{item.zwbt?item.zwbt:'暂无名称'}}</view>
@@ -12,7 +12,7 @@
         <view class="uni-media-list-text-content">
           <view>举办时间：<span>{{item.zphKsrq?tools.substr(item.zphKsrq,0,10):''}}</span>
               <span wx:if="{{!item.sfkbm}}" class="pull-right">{{item.str}}</span>
-              <van-button wx:elif="{{item.sfkbm}}" type="primary" class="pull-right" size="small" data-owid="{{item.owid}}" bindtap="order">预定展位</van-button>
+              <van-button wx:elif="{{item.sfkbm}}" type="primary" class="pull-right" size="small" data-owid="{{item.owid}}"  catchtap="order">预定展位</van-button>
           </view>
           <view wx:if="{{item.zphBmjzsj}}">报名截止：{{tools.substr(item.zphBmjzsj,0,10)}}</view>
         </view>
