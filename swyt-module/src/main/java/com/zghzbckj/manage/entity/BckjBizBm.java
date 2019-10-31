@@ -67,9 +67,27 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	private String mscj;		// mscj
 	private String zzcj;		// zzcj
 	private String memo;		// zzcj
+	private String yzmc;		// zzcj
+    private Integer xklbOwid;		// rzbd
+    private Integer bklbOwid;		// rzbd
 
-	
-	public BckjBizBm() {
+    public String getYzmc() {
+        return yzmc;
+    }
+
+    public void setYzmc(String yzmc) {
+        this.yzmc = yzmc;
+    }
+
+    public Integer getXklbOwid() {
+        return xklbOwid;
+    }
+
+    public void setXklbOwid(Integer xklbOwid) {
+        this.xklbOwid = xklbOwid;
+    }
+
+    public BckjBizBm() {
 		super();
 	}
 
@@ -513,4 +531,12 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	public void setMemo(String memo) {
 		this.memo = memo;
 	}
+
+    public Integer getBklbOwid() {
+        return bklbOwid;
+    }
+
+    public void setBklbOwid(Integer bklbOwid) {
+        this.bklbOwid = bklbOwid;
+    }
 }
