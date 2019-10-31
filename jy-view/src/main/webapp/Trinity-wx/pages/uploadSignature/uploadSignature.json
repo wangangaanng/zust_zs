@@ -3,6 +3,7 @@
   "usingComponents": {
     "topBck": "/components/topBck/topBck",
     "van-cell": "vant-weapp/cell",
-    "van-cell-group": "vant-weapp/cell-group"
+    "van-cell-group": "vant-weapp/cell-group",
+    "van-dialog": "vant-weapp/dialog"
   }
 }

@@ -86,7 +86,7 @@ Page({
     delete params['2']
     common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
       if (res.data.backCode == 0) {
-        wx.setStorageSync('eamil', params.yx);
+        wx.setStorageSync('email', params.yx);
         wx.navigateTo({
           url: '../contactors/contactors',
         })
@@ -260,9 +260,11 @@ function getInfoBasic(that) {
   common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data.bean;
-      data['xb'] = data['xb'].toString();//性别转string
-      that.data.form = data;
       console.log(common.imgPath + data.hjzm);
+      if (data.xb) {
+        data['xb'] = data['xb'].toString();//性别转string
+      }
+      that.data.form = data;
       if (data.sfzzm){
         that.setData({
           faceImg: common.imgPath + data.sfzzm, //临时页面显示的身份证正面

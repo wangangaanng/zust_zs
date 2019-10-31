@@ -170,7 +170,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
         } else {
-            if (bm.getState() != 0) {
+            if(bm.getState()>0){
                 throw CustomerException.newInstances("此报名已提交，不能修改");
             }
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
@@ -305,14 +305,14 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * <li>@date 2019/10/26 15:53  </li>
      * </ul>
      */
-    public String getApply(Map<String, Object> mapData) throws IOException, CustomerException {
+    public String getApply(Map<String, Object> mapData) throws IOException,CustomerException {
         BckjBizBm bm = getBmxx(mapData);
-        if (null == bm) {
+        if(null==bm){
             throw CustomerException.newInstances("报名表不存在");
         }
-        String fileName = bm.getOwid() + File.separator + SwytConstant.SWTYSQB;
+        String fileName = bm.getOwid() + File.separator+SwytConstant.SWTYSQB;
 
-        if (bm.getState() != 0) {
+        if(bm.getState()!=0){
             return SwytConstant.SWTYFILEPATH + File.separator + fileName;
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
@@ -321,15 +321,15 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         Map datas = BeanUtil.obj2Map(bm, bmStrs);
         Map paramCjxx = Maps.newConcurrentMap();
         paramCjxx.put("yhRefOwid", bm.getUserRefOwid());
-        paramCjxx.put("lx", "0");
+        paramCjxx.put("lx","0");
         List<BckjBizCjxx> hkList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
-        paramCjxx.put("lx", 1);
-        List<BckjBizCjxx> xkList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
-        paramCjxx.put("lx", 2);
-        List<BckjBizCjxx> zcList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
-        datas.put("hkList", hkList);
-        datas.put("xkList", xkList);
-        datas.put("zcList", zcList);
+        paramCjxx.put("lx",1);
+        List<BckjBizCjxx> xkList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
+        paramCjxx.put("lx",2);
+        List<BckjBizCjxx> zcList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
+        datas.put("hkList",hkList);
+        datas.put("xkList",xkList);
+        datas.put("zcList",zcList);
         String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + fileName;
         String htmlData = TemplateUtils.freeMarkerContent(datas, "apcationForm");
         Html2PdfUtil.createPdf(htmlData, saveFilePath);
@@ -338,63 +338,63 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
 
     /**
-     * <p>方法:sendApplyEmail TODO发送面试单</p>
-     * <ul>
-     * <li> @param mapData TODO</li>
-     * <li>@return java.lang.Object  </li>
-     * <li>@author D.chen.g </li>
-     * <li>@date 2019/10/27 12:22  </li>
-     * </ul>
-     */
+    *<p>方法:sendApplyEmail TODO发送面试单</p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.Object  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 12:22  </li>
+    *</ul>
+    */
     public boolean sendApplyEmail(Map<String, Object> mapData) {
 
-        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + MapUtils.getString(mapData, "applyOwid") + File.separator + SwytConstant.SWTYSQB;
-        String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) + SwytConstant.SWTYCNS;
-        String email = MapUtils.getString(mapData, "yx");
-        Map value = Maps.newHashMap();
-        value.put("to", email);
-        value.put("subject", "浙江科技学院三位一体综合评价招生申请表");
-        value.put("content", "");
-        List<String> fileList = Lists.newArrayList();
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) +  MapUtils.getString(mapData,"applyOwid")+File.separator+SwytConstant.SWTYSQB;
+        String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) +SwytConstant.SWTYCNS;
+        String email=MapUtils.getString(mapData,"yx");
+        Map value= Maps.newHashMap();
+        value.put("to",email);
+        value.put("subject","浙江科技学院三位一体综合评价招生申请表");
+        value.put("content","");
+        List<String> fileList= Lists.newArrayList();
         fileList.add(cns);
         fileList.add(saveFilePath);
-        MailUtils.sendMails(fileList, value);
+        MailUtils.sendMails(fileList,value);
         return Boolean.TRUE;
     }
 
     /**
-     * <p>方法:sendView TODO </p>
-     * <ul>
-     * <li> @param mapData TODO</li>
-     * <li>@return boolean  </li>
-     * <li>@author D.chen.g </li>
-     * <li>@date 2019/10/27 14:17  </li>
-     * </ul>
-     */
+    *<p>方法:sendView TODO </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return boolean  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 14:17  </li>
+    *</ul>
+    */
     public boolean sendView(Map<String, Object> mapData) {
-        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) + MapUtils.getString(mapData, "applyOwid") + SwytConstant.SWTYMSTZD;
-        String email = MapUtils.getString(mapData, "yx");
-        Map value = Maps.newHashMap();
-        value.put("to", email);
-        value.put("subject", CacheUtil.getVal("swyt.view.subject"));//"浙江科技学院三位一体综合评价招生综合测试通知单"
-        value.put("content", CacheUtil.getVal("swyt.view.content"));
-        List<String> fileList = Lists.newArrayList();
+        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+        String email=MapUtils.getString(mapData,"yx");
+        Map value= Maps.newHashMap();
+        value.put("to",email);
+        value.put("subject",CacheUtil.getVal("swyt.view.subject"));//"浙江科技学院三位一体综合评价招生综合测试通知单"
+        value.put("content",CacheUtil.getVal("swyt.view.content"));
+        List<String> fileList= Lists.newArrayList();
         fileList.add(view);
-        MailUtils.sendMails(fileList, value);
+        MailUtils.sendMails(fileList,value);
         return Boolean.TRUE;
     }
 
     /**
-     * <p>方法:getNotice TODO </p>
-     * <ul>
-     * <li> @param mapData TODO</li>
-     * <li>@return java.lang.String  </li>
-     * <li>@author D.chen.g </li>
-     * <li>@date 2019/10/27 21:03  </li>
-     * </ul>
-     */
-    public String getNotice(Map<String, Object> mapData) {
-        String view = SwytConstant.SWTYFILEPATH + File.separator + MapUtils.getString(mapData, "applyOwid") + SwytConstant.SWTYMSTZD;
+    *<p>方法:getNotice TODO </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.lang.String  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/27 21:03  </li>
+    *</ul>
+    */
+    public String  getNotice(Map<String, Object> mapData) {
+        String view = SwytConstant.SWTYFILEPATH +File.separator+MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
         return view;
     }
 }

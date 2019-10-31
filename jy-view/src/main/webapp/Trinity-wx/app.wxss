@@ -17,6 +17,7 @@
   color: #fff;
   font-size: 16px;
 }
+.button button:active{opacity: 0.9}
 .hiddenInput{display: none}
 .main-btn_wrap{padding: 80rpx;margin-bottom: 0px;}
 .van-picker__confirm{
@@ -50,6 +51,7 @@ border-radius: 3px;}
 .bottom-txt{color: #7b7b7b;font-size: 26rpx;text-align: center;position: absolute;bottom: 10%;width: 100%;}
 .icon-tongzhi{color:rgb(231,31,25);font-size:44rpx;margin-right:20rpx;}
 .notice-detail{font-size: 24rpx;line-height: 36rpx;color: rgb(235,24,24);}
+.van-dialog__header{color: rgb(38,184,135);font-weight: bold!important;}
 /* 下划线 */
 .line-btm{position: relative;}
 .line-btm::after{position: absolute;box-sizing: border-box;-webkit-transform-origin: center;
@@ -59,7 +61,11 @@ border-bottom: 1px solid #eee;-webkit-transform: scaleY(.5);transform: scaleY(.5
 .bottom-btn_wrap button{background: #26b887;height: 88rpx;line-height: 88rpx;font-size: 30rpx;}
 .bottom-btn_wrap .main-button:nth-child(2){margin-left: 40rpx;}
 .van-cell__title{color: #333;font-size: 30rpx;}
-
+.van-dialog__message-text{color: #333;font-size: 30rpx;}
+.dialog-index--van-dialog__confirm{color: #26b887!important}
+.dialog-index--van-dialog__cancel{color: #999!important}
+.sign-wrap image{width: 100%;height: 266rpx;margin-top: 4px;border-radius: 4rpx;}
+.sign-wrap{margin-bottom: 20rpx;}
 .container {
   height: 100%;
   display: flex;

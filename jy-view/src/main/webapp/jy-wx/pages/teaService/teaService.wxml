@@ -1,0 +1,17 @@
+<view class='stu-h'>
+  <view class='ellipse'>
+  </view>
+  <view class='stu-h-m'>
+    <view class='stu-sinfo'>
+      <view class='stu-tx'>
+        <image src='{{headImg}}'></image>
+      </view>
+      <view class='stu-name'>{{name?name:''}}</view>
+    </view>
+    <image class='bg-wave' src='../../static/bg-wave.png'></image>
+  </view>
+</view>
+<van-grid square >
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}"></van-grid-item>
+</van-grid>
+<view style="width:90%;margin:40rpx auto 0;"><van-button type="primary" size="large" color="#008783" bindtap="logout">退出登录</van-button></view>

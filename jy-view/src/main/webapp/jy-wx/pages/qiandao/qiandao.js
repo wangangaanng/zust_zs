@@ -18,6 +18,7 @@ Page({
     show:false,
     isauthorize: false,
     jl: false,
+    hidden:true,
     markers: [{
       iconPath: "/static/location.png",
       id: 0,
@@ -44,7 +45,8 @@ Page({
           that.setData({
             isauthorize: false,
           })
-          if (wx.getStorageSync("yhOwid")) {
+          // if (wx.getStorageSync("yhOwid")) {
+          if (wx.getStorageSync('userType') == 1) {//学生登录
             that.setData({
               show: true
             })
@@ -187,6 +189,17 @@ var getContent = function (that, owid) {//招聘详情
         // } else {
         res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
         // }
+      }
+      if (res.data.bean.zwlx==3){//职来职往不用定点
+        that.setData({
+          xyDd:false,
+          hidden: false,
+        })
+      }else{
+        that.setData({
+          xyDd: true,
+          hidden: false,
+        })
       }
       if (res.data.bean.zphGpsjd){
         var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);

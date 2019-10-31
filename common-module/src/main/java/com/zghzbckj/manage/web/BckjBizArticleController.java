@@ -211,4 +211,30 @@ public class BckjBizArticleController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+    /**
+    *<p>方法:searchByYjlm TODO </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/10/31 16:36  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "searchByYjlm", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage searchByYjlm(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh", "pageSize", "pageNo");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizArticleService.searchByYjlm(mapData));
+        } catch (Exception e) {
+            log.info("获取一级栏目下文章数据失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
 }

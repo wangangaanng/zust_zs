@@ -130,7 +130,7 @@
                 AND a.wzzt = #{wzzt}
             </if>
             <if test="gjz != null and gjz != ''">
-				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
+				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
             </if>
 			<if test="sxh != null and sxh != ''">
 				${sxh}
@@ -300,13 +300,24 @@
 		FROM bckj_biz_article a
 		<where>
 			( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
-				AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b,bckj_dic_menu_apply c WHERE b.owid=c.MENU_REF_OWID AND c.wzbh=1 AND b.SJHQDX=5)
+				AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b,bckj_dic_menu_apply c WHERE b.owid=c.MENU_REF_OWID AND c.wzbh=#{wzbh} AND b.SJHQDX=5)
 				AND a.wzzt = 1
 			<if test="gjz != null and gjz != ''">
-				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{wzbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
+				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
 			</if>
 		</where>
 		ORDER BY ${orderBy}
 	</select>
-	
+
+
+	<select id="findYjBylmbh" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
+		SELECT a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj"
+		FROM bckj_biz_article a
+		<where>
+		( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
+		AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b WHERE  b.SJHQDX=5 AND b.fid=#{lmbh} )
+		AND a.wzzt = 1
+		</where>
+		ORDER BY ${orderBy}
+	</select>
 </mapper>

@@ -32,6 +32,18 @@ Page({
     newsList4: [],
     currentTab:'0',
     floorstatus:false,
+    btntoggle:false,
+  },
+  btntap(e){
+    if (this.data.btntoggle){
+      this.setData({
+        btntoggle:false
+      })
+    }else{
+      this.setData({
+        btntoggle: true
+      })
+    }
   },
   newsDetail(e){
     wx.navigateTo({
@@ -51,6 +63,11 @@ Page({
 
   },
   onPageScroll: function (e) {
+    if(this.data.btntoggle){
+      this.setData({
+        btntoggle: false
+      })
+    }
     if (e.scrollTop > 700) {
       this.setData({
         floorstatus: true
@@ -142,6 +159,33 @@ Page({
       }
     }
   },
+  teacherUrl:function(){
+    if (wx.getStorageSync('yhOwid')) {
+      if (wx.getStorageSync('userType') == 2) {
+        wx.navigateTo({
+          url: '../teaService/teaService',
+        })
+      } else{
+        wx.showModal({
+          title: '提示',
+          content: "当前已登录其他账户，是否切换到教师账户？",
+          success(res) {
+            if (res.confirm) {
+              wx.navigateTo({
+                url: '../teaLogin/teaLogin',
+              })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      }
+    } else {
+      wx.navigateTo({
+        url: '../teaLogin/teaLogin',
+      })
+    }
+  },
   url1:function(){
     wx.navigateTo({
       url: '../lianxiwm/lianxiwm',
@@ -178,6 +222,20 @@ Page({
                   }
                 }
               })
+            } else if (wx.getStorageSync('userType') == 2) {
+              wx.showModal({
+                title: '提示',
+                content: "当前登录的是教师账户，是否要登录学生账户？",
+                success(res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../stuLogin/stuLogin',
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
             }
           } else {
             wx.navigateTo({
@@ -192,6 +250,20 @@ Page({
               wx.showModal({
                 title: '提示',
                 content: "当前登录的是学生账户，是否要登录企业账户？",
+                success(res) {
+                  if (res.confirm) {
+                    wx.navigateTo({
+                      url: '../qyLogin/qyLogin',
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            } else if (wx.getStorageSync('userType') == 2) {
+              wx.showModal({
+                title: '提示',
+                content: "当前登录的是教师账户，是否要登录企业账户？",
                 success(res) {
                   if (res.confirm) {
                     wx.navigateTo({
