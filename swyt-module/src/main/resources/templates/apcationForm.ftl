@@ -145,7 +145,7 @@
     </table>
     <div style="font-style: normal;font-weight: 400;text-align: center;">
         <span>学科类别：</span><span style="margin-right: 20px;">${xklb}</span>
-        <span>外语语种：</span><span style="margin-right: 20px;">${wyyz}</span>
+        <span>外语语种：</span><span style="margin-right: 20px;">${yzmc}</span>
         <span>类别：</span><span style="margin-right: 20px;">${bklb}</span>
         <span>招生专业：</span><span style="margin-right: 20px;">${xzzymc}</span>
     </div>

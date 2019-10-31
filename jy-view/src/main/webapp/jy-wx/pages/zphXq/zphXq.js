@@ -1,5 +1,7 @@
 // pages/school/school.js
 var common = require('../../libs/common/common.js')
+var Mustache = require('../../libs/mustache/mustache');
+var WxParse = require('../../libs/wxParse/wxParse.js');
 var util = require('../../utils/util.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
@@ -20,7 +22,27 @@ Page({
     imgPath: imgPath,
     old: ''
   },
-
+  wxParseTagATap: function (e) {
+    console.log(e.currentTarget.dataset.src);
+    if (e.currentTarget.dataset.src) {
+      wx.downloadFile({
+        // 示例 url，并非真实存在
+        url: e.currentTarget.dataset.src,
+        success: function (res) {
+          const filePath = res.tempFilePath
+          wx.openDocument({
+            filePath: filePath,
+            success: function (res) {
+              console.log('打开文档成功')
+            }
+          })
+        },
+        fail: function () {
+          console.log('打开失败')
+        }
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -109,6 +131,8 @@ var getOne = function (that, owid) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
+        var detail = data.bean.detail
+        WxParse.wxParse('detail', 'html', detail, that, 5);
         that.setData({
           result: data.bean
         })
