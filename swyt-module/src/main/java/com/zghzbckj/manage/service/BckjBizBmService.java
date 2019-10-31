@@ -163,7 +163,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
         } else {
-            if(bm.getState()!=0){
+            if(bm.getState()>0){
                 throw CustomerException.newInstances("此报名已提交，不能修改");
             }
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
