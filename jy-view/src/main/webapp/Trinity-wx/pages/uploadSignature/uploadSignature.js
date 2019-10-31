@@ -1,4 +1,8 @@
-// pages/uploadSignature/uploadSignature.js
+// 上传报名表和承诺书
+var common = require('../../libs/common/common.js');
+import WxValidate from '../../utils/WxValidate';
+//确认邮箱弹出框
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
   /**
@@ -6,82 +10,166 @@ Page({
    */
   data: {
 
+    signImg: '', //临时报名表图片
+    promiseImg: '', //承诺书图片
+
+    signInfo: '请上传报名表签字',
+    promiseInfo: '请上传承诺书签字',
+
+    class1: "",//报名表提示文字颜色
+    class2: "",//承诺书提示文字颜色
+
+    form: {
+      bmbZp: '',//报名表照片
+      cnszp: ''//承诺书照片
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
+  //点击提交
+  basicForm(e) {
+    const params = e.detail.value;
+    //验证是否上传
+    if (!this.WxValidate.checkForm(params)) {
+      const error = this.WxValidate.errorList[0]
+      common.toast(error.msg, 'none', 2000)
+      return false
+    }
+    Dialog.confirm({
+      title: '确认上传',
+      message: "请确认上传报名表签字和承诺书签字，确认提交后将不能修改！"
+    }).then(() => {
+      // 确认图片上传
+      upLoadImgs(params);
+    }).catch(() => {
+      // on cancel
+    });
 
   },
 
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
-  chooseImageSign(){
+  //选择图片
+  choseImageSign(event) {
     var that = this;
+    var type = event.currentTarget.dataset.type;
     wx.chooseImage({
       count: 1,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
-        // tempFilePath可以作为img标签的src属性显示图片
-        const tempFilePaths = res.tempFilePaths
+        const tempFilePaths = res.tempFilePaths;
+
+        //上传图片
+        common.uploadFile(tempFilePaths, 1, function (res) {
+          let data = JSON.parse(res.data)
+          if (data.backCode == 0) {
+            let imgUrl = data.bean.filePath;
+            switch (type) {
+              case "1":
+                that.setData({
+                  ["form.bmbZp"]: imgUrl,
+                  signInfo: '报名表签字上传成功',
+                  class1:'green'
+                })
+                break;
+              case "2":
+                that.setData({
+                  ["form.cnszp"]: imgUrl,
+                  promiseInfo: '承诺书签字上传成功',
+                  class2: 'green'
+                })
+                break;
+            }
+          } else {
+            switch (type) {
+              case "1":
+                that.setData({
+                  signInfo: '报名表签字上传失败，请重传',
+                  class1: 'red'
+                })
+                break;
+              case "2":
+                that.setData({
+                  promiseInfo: '承诺书签字上传失败，请重传',
+                  class2: 'red'
+                })
+                break;
+            }
+            common.toast('上传失败', 'none', 2000);
+          }
+        });
+
+        //图片临时显示
+        switch (type) {
+          case "1":
+            that.setData({
+              signImg: tempFilePaths[0]
+            });
+            break;
+          case "2":
+            that.setData({
+              promiseImg: tempFilePaths[0]
+            });
+            break;
+        }
       }
     })
+  },
+
+  previewImage: function (e) {
+    console.log(e);
+    var current = e.target.dataset.src
+    wx.previewImage({
+      current: current,
+      urls: this.data.imageList
+    })
+  },
+  onShareAppMessage: function () {
+
+  },
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.initValidate();
+  },
+
+  initValidate() {
+    // 验证字段的规则
+    const rules = {
+      bmbZp: {
+        required: true
+      }
+      , cnszp: {
+        required: true
+      }
+    }
+
+    // 验证字段的提示信息，若不传则调用默认的信息
+    const messages = {
+      bmbZp: {
+        required: '请上传报名表签字',
+      }
+      , cnszp: {
+        required: '请上传承诺书签字',
+      }
+    }
+    this.WxValidate = new WxValidate(rules, messages)
   }
-  // previewImage: function (e) {
-  //   var current = e.target.dataset.src
-
-  //   wx.previewImage({
-
-  //     current: current,
-  //     urls: this.data.imageList
-  //   }) 
-  // }
 })
+
+//上传图片
+function upLoadImgs(params) {
+  params.applyOwid = wx.getStorageSync("sqbOwid");//申请表owid
+  common.ajax('zustswyt/bckjBizBm/promise', params, function (res) {
+    if (res.data.backCode == 0) {
+      Dialog.alert({
+        message: '报名表签字和承诺书签字已成功上传，请进行下一步操作！'
+      }).then(() => {
+        wx.navigateTo({
+          url: '../Process/Process',
+        })
+      });
+    }else{
+      common.toast(res.data.errorMess, 'none')
+    }
+  });
+}

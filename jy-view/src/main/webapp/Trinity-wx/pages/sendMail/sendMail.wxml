@@ -7,14 +7,14 @@
     </view>
 
     <form bindsubmit="sendMailForm">
-      <van-field class="mail" value="{{'报名表'}}" disabled placeholder="邮箱地址" left-icon=" iconfont icon-jtbmb" error-message="">
+      <van-field class="mail" value="{{'报名表'}}" disabled placeholder="报名表" left-icon=" iconfont icon-jtbmb" error-message="">
         <van-button slot="button" size="small" plain hairline type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">报名表预览</van-button>
       </van-field>
       <van-field class="mail" value="{{mailAddress}}" name="email" placeholder="邮箱地址" left-icon=" iconfont icon-mail" error-message="" clearable>
       </van-field>
       <!-- 按钮 -->
       <view class="main-btn_wrap button">
-        <button bindtap="sendMail" formType="submit">确认发送</button>
+        <button formType="submit">确认发送</button>
       </view>
     </form>
 
@@ -22,3 +22,5 @@
 
   <view class="bottom-txt">浙江科技学院 三位一体</view>
 </view>
+
+<van-dialog id="van-dialog" />

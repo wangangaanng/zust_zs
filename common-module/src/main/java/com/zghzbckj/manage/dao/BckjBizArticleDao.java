@@ -22,4 +22,7 @@ public interface BckjBizArticleDao extends CrudDao<BckjBizArticle> {
     List<BckjBizArticle> findMapByShort(Map<String, Object> mapData);
 
     List<BckjBizArticle> findMapByKey(Map<String, Object> mapData);
+    //通过一级栏目获取二级栏目所有文章
+    List<BckjBizArticle> findYjBylmbh(Map<String, Object> mapData);
+
 }

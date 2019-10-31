@@ -86,6 +86,8 @@ Page({
           res: res.data.bean.list[0],
           xxbq: xxbq
         })
+        wx.setStorageSync('xxbh', res.data.bean.list[0].xxbh)
+        wx.setStorageSync('applyOwid', res.data.bean.list[0].applyOwid)
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }

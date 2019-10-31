@@ -154,8 +154,8 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      */
     public BckjBizJbxx getInfo(Map<String, Object> mapData) {
         BckjBizJbxx indata = this.dao.findOneByMap(mapData);
-        if(null==indata){
-            indata=this.dao.findByUser(mapData);
+        if (null == indata) {
+            indata = this.dao.findByUser(mapData);
         }
         return indata;
     }
@@ -190,7 +190,11 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
             Map obj = (Map) var3.next();
             if (null != obj && !TextUtils.isEmpty(obj.get("owid"))) {
                 BckjBizJbxx jbxx = get(obj.get("owid").toString());
-                jbxx.setSwytDlmm(TextUtils.MD5("123456").toUpperCase());
+//                jbxx.setSwytDlmm(TextUtils.MD5("123456").toUpperCase());
+                Map params = Maps.newHashMap();
+                params.put("owid", jbxx.getYhRefOwid());
+                params.put("swMm", TextUtils.MD5("123456").toUpperCase());
+                this.dao.updatePsw(params);
                 saveOrUpdate(jbxx);
                 returnDatas.add(obj);
             }

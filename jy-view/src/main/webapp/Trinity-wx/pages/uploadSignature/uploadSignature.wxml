@@ -1,19 +1,29 @@
 <!--pages/uploadSignature/uploadSignature.wxml-->
-<view>
+<form bindsubmit="basicForm">
   <topBck>
-    <van-cell title="请上传报名表签字" border="{{false}}" bind:click="chooseImageSign">
-      <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
-    </van-cell>
+    <view class="sign-wrap {{class1}}" >
+      <van-cell title="{{signInfo}}"  border="{{false}}"  bind:click="choseImageSign" data-type="1" >
+        <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+      </van-cell>
+      <image src="{{signImg}}" bindtap="previewImage" hidden="{{(signImg=='')}}" ></image>
+    </view>
 
-    <van-cell title="请上传承诺书签字" border="{{false}}" class="promise" bind:click="chooseImagePromise">
-      <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
-    </van-cell>
+    <view class="sign-wrap {{class2}}">
+      <van-cell title="{{promiseInfo}}" border="{{false}}" class="promise" bind:click="choseImageSign" data-type="2">
+        <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+      </van-cell>
+      <image src="{{promiseImg}}" bindtap="previewImage" hidden="{{(promiseImg=='')}}" ></image>
+    </view>
 
     <!-- 按钮 -->
     <view class="main-btn_wrap button">
-      <button  formType="submit" >提交</button>
+      <button formType="submit">提交</button>
     </view>
   </topBck>
 
-   <view class="bottom-txt">浙江科技学院 三位一体</view>
-</view>
+  <!-- 报名表照片 -->
+  <input value="{{form.bmbZp}}" name="bmbZp" hidden></input>
+  <!-- 承诺书照片 -->
+  <input value="{{form.cnszp}}" name="cnszp" hidden></input>
+  <van-dialog id="van-dialog" />
+</form>
