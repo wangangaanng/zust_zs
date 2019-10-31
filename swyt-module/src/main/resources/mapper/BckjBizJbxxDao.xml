@@ -68,6 +68,11 @@
     <sql id="bckjBizJbxxJoins">
     </sql>
 
+    <update id="updatePsw" parameterType="java.util.Map">
+		UPDATE BCKJ_BIZ_YHXX SET SW_MM = #{swMm} WHERE owid = #{owid}
+	</update>
+
+
     <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
         SELECT
         <include refid="bckjBizJbxxColumns"/>
@@ -171,12 +176,12 @@
             </otherwise>
         </choose>
     </select>
-	<select id="findByUser" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
+    <select id="findByUser" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
 		select a.xb AS "xb",a.xm AS "xm",a.sw_zh AS "lxdh" FROM bckj_biz_yhxx a
 		where a.owid=#{yhRefOwid}
 	</select>
 
-	<insert id="insert">
+    <insert id="insert">
 		INSERT INTO bckj_biz_jbxx(
 			owid,
 			swyt_dlzh,

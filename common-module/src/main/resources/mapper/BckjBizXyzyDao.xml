@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizXyzyDao">
-    
-	<sql id="bckjBizXyzyColumns">
+
+    <sql id="bckjBizXyzyColumns">
 		a.owid AS "owid",
 		a.parent_id AS "parent.id",
 		a.path AS "path",
@@ -34,68 +34,70 @@
 		a.exp9 AS "exp9",
 		a.exp10 AS "exp10"
 	</sql>
-	
-	<sql id="bckjBizXyzyJoins">
-	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-	        SELECT
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
+
+    <sql id="bckjBizXyzyJoins">
+    </sql>
+
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+            <if test=" parentId !=null and parentId != '' ">
+                a.PARENT_ID = #{parentId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_xyzy(
 			owid,
 			parent_id,
@@ -160,8 +162,8 @@
 			#{exp10}
 		)
 	</insert>
-	
-	<update id="update">
+
+    <update id="update">
 		UPDATE bckj_biz_xyzy SET 	
 			owid = #{owid},
 			parent_id = #{parent.id},
@@ -195,10 +197,10 @@
 			exp10 = #{exp10}
 		WHERE owid = #{owid}
 	</update>
-	
-	<delete id="delete">
+
+    <delete id="delete">
 		DELETE FROM bckj_biz_xyzy
 		WHERE owid = #{owid}
 	</delete>
-	
+
 </mapper>
