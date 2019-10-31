@@ -360,10 +360,12 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         if(!TextUtils.isEmpty(consultsOne)){
             if(!TextUtils.isEmpty(consultsOne.get("exp4"))){
                 String zxfx= getDicVal2ByVal1(60001,consultsOne.get("exp4").toString());
-                dataMap.put("exp4",zxfx);
+                consultsOne.put("exp4",zxfx);
             }
         }
-        return ResponseMessage.sendOK(this.dao.getConsultsOne(dataMap));
+        Map<String, Object> consultsOne1 = this.dao.getConsultsOne(dataMap);
+        consultsOne1.put("exp4",consultsOne.get("exp4"));
+        return ResponseMessage.sendOK(this.dao.getConsultsOne(consultsOne1));
     }
 
     private String getDicVal2ByVal1(Integer type , String exp4) {
