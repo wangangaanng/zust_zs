@@ -160,6 +160,7 @@ function emptyCheck(val) {
     return false;
 }
 function toast(title,icon,duration,mask){
+  if (!duration) { duration=2000}
   wx.showToast({
     title: title,
     icon: icon,

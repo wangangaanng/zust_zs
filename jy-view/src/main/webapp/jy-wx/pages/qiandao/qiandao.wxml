@@ -29,6 +29,7 @@
 				</view>
 			</view>
 			<view>
+      <view wx:if="{{xyDd}}" hidden="{{hidden}}">
         <view class="qdbt" wx:if="{{jl}}">距您当前位置：{{jl}}</view>
         <view class="qdbt" wx:else>尚未采集经纬度，请等待工作人员采点后再签到</view>
 				<!-- <view class="qdbt">本次未签到，请先签到</view> -->
@@ -46,6 +47,22 @@
             </view>
           </view>
         </view>
+      </view>
+      <view wx:else hidden="{{hidden}}">
+        <view class="qddiv" wx:if="{{!isqd}}" bindtap="qiandao">
+          <view>
+              <image src="../../static/qd.png"></image>
+              <view style="color:#fff;">签到</view>
+          </view>
+        </view>
+        <view class="qddiv" wx:else>
+          <view>
+            <image src="../../static/qd.png"></image>
+            <view style="color:#fff;">已签到</view>
+          </view>
+        </view>
+      </view>
+        
 			</view>
 		</view>
     <authorize show="{{isauthorize}}" type="{{userType}}" bindmyevent="onLoad"></authorize>

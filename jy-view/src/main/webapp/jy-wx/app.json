@@ -46,7 +46,10 @@
     "pages/school/school",
     "pages/qiandao/qiandao",
     "pages/stuCaidian/stuCaidian",
-    "pages/caidian/caidian"
+    "pages/caidian/caidian",
+    "pages/teaService/teaService",
+    "pages/teaLogin/teaLogin",
+    "pages/teaZx/teaZx"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -9,7 +9,11 @@
 <van-grid square>
   <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-index="{{index}}" data-url="{{item.url}}" bindclick="linkurl" wx:for="{{ menuList }}" wx:key=""></van-grid-item>
 </van-grid>
-<view class="float-btn" bindtap="url1">联系我们</view>
+<view wx:if="{{btntoggle}}">
+  <view class="float-btn3" bindtap="teacherUrl">我是老师</view>
+  <view class="float-btn2" bindtap="url1">联系我们</view>
+</view>
+<view class="float-btn" bindtap="btntap"><image src="../../static/icon-tools.png"></image></view>
 <image src='../../static/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
 <van-tabs animated bind:click="clicktab">
   <van-tab title="最新职位">

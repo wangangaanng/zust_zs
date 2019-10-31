@@ -91,9 +91,16 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public PageInfo<BckjBizBm> findPageBckjBizBm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public PageInfo<BckjBizBm> findPageBckjBizBm(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizBm> page = findPage(dataMap, pageNo, pageSize, null);
+        if (!TextUtils.isEmpty(state)) {
+            dataMap.put("state", state);
+        }
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("sqsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("sqsj2").toString(), 1);
+            dataMap.put("sqsj2", date);
+        }
+        PageInfo<BckjBizBm> page = findPage(dataMap, pageNo, pageSize, " a.sqsj desc ");
         return page;
     }
 
@@ -163,7 +170,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
         } else {
-            if(bm.getState()!=0){
+            if(bm.getState()>0){
                 throw CustomerException.newInstances("此报名已提交，不能修改");
             }
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);

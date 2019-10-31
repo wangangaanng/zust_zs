@@ -62,7 +62,7 @@ Page({
           url: '../shouye/shouye',
         })
       } else {
-        common.toast(res.data.errorMess, 'none', 2000)
+        common.toast((res.data.errorMess) ? res.data.errorMess:'请联系管理员', 'none', 2000)
       }
     });
   },

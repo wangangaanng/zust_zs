@@ -40,4 +40,6 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
     void deleteYhxx(String owid);
 
    List<String>  getConsultsReplyDay();
+
+    String getDicVal2ByVal1(Integer type , String exp4);
 }

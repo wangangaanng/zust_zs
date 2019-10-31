@@ -4,7 +4,7 @@
     
 	<sql id="bckjBizXyzyColumns">
 		a.owid AS "owid",
-		a.parent_id AS "parent.id",
+		a.parent_id AS "parentId",
 		a.path AS "path",
 		a.bh AS "bh",
 		a.mz AS "mz",
@@ -34,68 +34,70 @@
 		a.exp9 AS "exp9",
 		a.exp10 AS "exp10"
 	</sql>
-	
-	<sql id="bckjBizXyzyJoins">
-	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-	        SELECT
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
-		SELECT 
-			<include refid="bckjBizXyzyColumns"/>
-		FROM bckj_biz_xyzy a
-		<include refid="bckjBizXyzyJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
+
+    <sql id="bckjBizXyzyJoins">
+    </sql>
+
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+            <if test=" parentId !=null and parentId != '' ">
+                a.PARENT_ID = #{parentId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizXyzy">
+        SELECT
+        <include refid="bckjBizXyzyColumns"/>
+        FROM bckj_biz_xyzy a
+        <include refid="bckjBizXyzyJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_xyzy(
 			owid,
 			parent_id,
@@ -128,8 +130,8 @@
 			exp9,
 			exp10
 		) VALUES (
-			#{owid},
-			#{parent.id},
+			null,
+			#{parentId},
 			#{path},
 			#{bh},
 			#{mz},
@@ -164,7 +166,7 @@
 	<update id="update">
 		UPDATE bckj_biz_xyzy SET 	
 			owid = #{owid},
-			parent_id = #{parent.id},
+			parent_id = #{parentId},
 			path = #{path},
 			bh = #{bh},
 			mz = #{mz},

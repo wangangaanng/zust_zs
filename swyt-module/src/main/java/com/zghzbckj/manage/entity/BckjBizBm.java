@@ -66,6 +66,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 	private String bscj;		// bscj
 	private String mscj;		// mscj
 	private String zzcj;		// zzcj
+	private String memo;		// zzcj
 
 	
 	public BckjBizBm() {
@@ -503,5 +504,13 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 
 	public void setXbStr(String xbStr) {
 		this.xbStr = xbStr;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 }

@@ -48,10 +48,16 @@ Page({
     };
     common.ajax('zustcommon/bckjBizZxzx/consult', data, function (res) {
       if (res.data.backCode == 0) {
+        var tip="";
+        if(res.data.bean){
+          tip=res.data.bean;
+        }else{
+          tip ="咨询已提交，请等待回复。"
+        }
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: '咨询已提交，请等待回复。',
+          content: tip,
           success(res) {
             if (res.confirm) {
               console.log('用户点击确定')

@@ -6,6 +6,6 @@
   </view>
   <!-- 按钮 -->
   <view class="main-btn_wrap button">
-     <button  formType="submit" bindtap="perfectInfo">去完善</button>
+     <button  formType="submit" bindtap="perfectInfo">{{state==1?"去确认":"去完善"}}</button>
   </view>
 </view>

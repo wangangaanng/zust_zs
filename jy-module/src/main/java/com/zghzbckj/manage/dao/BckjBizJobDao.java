@@ -6,6 +6,7 @@ package com.zghzbckj.manage.dao;
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
+import com.zghzbckj.manage.entity.BckjBizQyxx;
 
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,10 @@ public interface BckjBizJobDao extends CrudDao<BckjBizJob> {
     BckjBizJob getByName(String zwbt);
 
     List<BckjBizJob> getAllBmInfo();
+
+    BckjBizJob queryByOwid(String owid);
+
+    List<BckjBizQyxx> findMess();
 
 
 //    List<BckjBizJob> myJobList(Map<String, Object> dataMap);

@@ -40,7 +40,9 @@ Page({
       return false
     }
     var data={
-      "openId": wx.getStorageSync('openId'),
+      "openid": wx.getStorageSync('openId'),
+      "wxid":'wx01',
+      "type":'xcx',
       "nickname":wx.getStorageSync('userInfo').nickName,
       "gender": wx.getStorageSync('userInfo').gender,
       "city": wx.getStorageSync('userInfo').city,
