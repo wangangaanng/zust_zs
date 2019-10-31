@@ -1,4 +1,5 @@
 // pages/drawGroup/drawGroup.js
+var common = require('../../libs/common/common.js');
 Page({
 
   /**
@@ -32,7 +33,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    common.getProcssState(function(res){
 
+    });
   },
 
   /**
@@ -70,3 +73,17 @@ Page({
 
   }
 })
+
+
+// function getProcssState(){
+//   var data = {
+//     "applyOwid": wx.getStorageSync('sqbOwid'),
+//   }
+//   ajax('zustswyt/bckjBizBm/getResult', data, function (res) {
+//     if (res.data.backCode == 0) {
+
+//     } else {
+//       common.toast(res.data.errorMess, 'none', 2000)
+//     }
+//   });
+// }
