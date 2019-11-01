@@ -6,12 +6,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    username:'张小凡',
-    subject:'普通类',
-    language:'英语',
-    type:'综合类',
-    major: '计算机科学与技术',
-    number: '20191019',
+    username:'',
+    subject:'暂无',
+    language:'暂无',
+    type:'暂无',
+    major: '暂无',
+    number: '暂无',
     result: ''
   },
 
@@ -19,7 +19,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    var that = this;
+    common.getProcssState(function(res){
+      var data = res.data.bean;
+      that.setData({
+        'state': data.state,
+        'subject': data.xklb, //学科类别
+        'number': data.zkzh, //准考证号
+        'language': data.wyyz,//外语语种
+        'major': data.xzzymc,//报考专业
+        'type': data.bklb,//报考类别
+        'result': data.xybnr,//待确认下一步内容
+        'username': data.xm //姓名
+      })
+    });
   },
 
   /**
@@ -73,17 +86,3 @@ Page({
 
   }
 })
-
-
-// function getProcssState(){
-//   var data = {
-//     "applyOwid": wx.getStorageSync('sqbOwid'),
-//   }
-//   ajax('zustswyt/bckjBizBm/getResult', data, function (res) {
-//     if (res.data.backCode == 0) {
-
-//     } else {
-//       common.toast(res.data.errorMess, 'none', 2000)
-//     }
-//   });
-// }

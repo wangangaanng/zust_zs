@@ -1,5 +1,7 @@
 // pages/payOline/payOline.js
 var common = require('../../libs/common/common.js');
+//确认邮箱弹出框
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
   /**
@@ -10,7 +12,8 @@ Page({
     class1: '',
     proveImg: '',
     upProveImg: '',
-    payUrl:''//缴费地址
+    payDetail:'',//缴费说明
+    payUrl:''
   },
 
   //选择图片
@@ -60,11 +63,13 @@ Page({
       return;
     }
     var data = {
-      "applyOwid": wx.getStorageSync("sqbOwid"),
+      "applyOwid": wx.getStorageSync("applyOwid"),
       "jfpzZp": that.data.upProveImg
     }
     common.ajax('zustswyt/bckjBizBm/submitJft', data, function (res) {
+      console.log(console.log(res.data.backCode));
       if (res.data.backCode == 0) {
+        console.log(res.data.backCode);
         Dialog.alert({
           message: '缴费证明图片已成功提交，请等待审核！'
         }).then(() => {
