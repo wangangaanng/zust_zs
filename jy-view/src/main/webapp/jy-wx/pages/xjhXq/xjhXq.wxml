@@ -39,9 +39,6 @@
                   <span wx:elif="{{result.state==2}}" style="color: red;">审核拒绝</span>
                 </view>
               </view>
-              <view class="tr" wx:if="{{result.memo && result.state==2}}">
-                <view class="td" style="flex:12">拒绝原因：{{result.memo}}</view>
-              </view>
                <view class="tr" wx:if="{{result.jkr}}">
                 <view class="td" style="flex:12">讲课人：{{result.jkr}}</view>
               </view>
@@ -52,7 +49,7 @@
                 <view class="td" style="flex:12">申请理由：{{result.xjhsqly}}</view>
               </view>
               <view class="tr" wx:if="{{result.memo}}">
-                <view class="td" style="flex:12">备注：{{result.memo}}</view>
+                <view class="td" style="flex:12">公司介绍:{{result.memo}}</view>
               </view>
               <view class="tr" wx:if="{{result.zdytj1}}">
                 <view class="td" style="flex:12">{{result.zdytj1}}</view>

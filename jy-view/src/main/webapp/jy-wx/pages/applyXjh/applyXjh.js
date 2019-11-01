@@ -25,7 +25,6 @@ Page({
       xjsj: '',
       jkr: '',
       jkrjs: '',
-      xjhsqly: '',
       memo: '',
     },
     btndisabled: false
@@ -47,12 +46,23 @@ Page({
   submitForm(e) {
     var that = this
     const params = e.detail.value
+    console.log(params)
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
       const error = this.WxValidate.errorList[0]
       this.showModal(error)
       return false
     }
+    var d1 = new Date(new Date(Date.parse(params.xjsj.replace(/-/g, "/")))).getDay()
+    if (d1 != 4) {
+      wx.showModal({
+        title: '提示',
+        content: '学校宣讲会仅在周四举行，请重新选择。如有特殊情况，请联系学校招就处。',
+        showCancel: false
+      })
+      return false
+    }
+
     var list=this.data.list;
     for (var i = 0; i < list.length;i++){
       var a=i+1;
@@ -90,7 +100,7 @@ Page({
           success(res) {
             if (res.confirm) {
               wx.navigateBack({
-                delta:1
+                delta: 1
               })
               console.log('用户点击确定')
             } else if (res.cancel) {
@@ -106,6 +116,9 @@ Page({
         })
       }
     });
+        
+     
+    
   },
   initValidate() {
     // 验证字段的规则
@@ -117,23 +130,18 @@ Page({
         required: true,
         tel: true,
       },
-      xjsj: {
-        required: true
-      },
       jkr: {
         required: true
       },
-      jkrjs: {
-        required: true,
-        maxlength: 200,
+      xjsj: {
+        required: true
       },
-      xjhsqly: {
-        required: true,
-        maxlength: 200,
+      jkrjs: {
+        required: true
       },
       memo: {
         required: true,
-        maxlength: 200,
+        minlength: 50,
       }
     }
 
@@ -154,15 +162,10 @@ Page({
       },
       jkrjs: {
         required: '请填写讲课人介绍',
-        maxlength: '讲课人介绍不得超过200字',
-      },
-      xjhsqly: {
-        required: '请填写申请理由',
-        maxlength: '申请理由不得超过200字',
       },
       memo: {
         required: '请填写备注',
-        maxlength: '备注不得超过200字',
+        minlength: '公司介绍不得少于50字',
       }
 
     }
@@ -170,13 +173,22 @@ Page({
   },
   onConfirm(e) {
     if (e.target.dataset.type == 8) {
-      console.log(e)
       var date = util.formatTime1(new Date(e.detail))
+      var d1 = new Date(new Date(Date.parse(date.replace(/-/g, "/")))).getDay()
+      console.log(d1)
+      console.log(date)
       this.setData({
         xjsjStr: date,
         'form.xjsj': date
       })
       this.toggle('xjsj', false);
+      if(d1!=4){
+        wx.showModal({
+          title: '提示',
+          content: '学校宣讲会仅在周四举行，请重新选择。如有特殊情况，请联系学校招就处。',
+          showCancel:false
+        })
+      }
     }else{
       var list = this.data.list;
       list[parseInt(e.target.dataset.type) - 1].str = e.detail.value

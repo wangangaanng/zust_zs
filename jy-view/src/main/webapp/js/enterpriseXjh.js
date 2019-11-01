@@ -192,6 +192,11 @@ function confirmQd() {
         if(!$("#memo").val().trim()){
             walert("请填写公司介绍")
             return
+        }else{
+            if($("#memo").val().trim().length<50){
+                walert("公司介绍不得少于50个字")
+                return
+            }
         }
         for(var i=1;i<zdytjLength+1;i++){
             if(!$("#tjsd"+i).val()){

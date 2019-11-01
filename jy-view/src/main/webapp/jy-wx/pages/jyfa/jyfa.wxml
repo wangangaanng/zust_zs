@@ -74,8 +74,8 @@
     <van-picker show-toolbar title="毕业去向" value-key="dicVal2" columns="{{byqxColumns}}" data-type="18" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-cell title="专业是否对口" value="{{sfzydkStr}}" is-link arrow-direction="down" data-type="23" bind:click="showBottom" />
-  <van-popup show="{{ show.sfzydk }}" position="bottom" custom-style="height: 540rpx" data-type="23" bind:close="hideBottom">
-    <van-picker show-toolbar title="专业是否对口" value-key="dicVal2" columns="{{sfzydkColumns}}" data-type="23" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  <van-popup class="sfzydk" show="{{ show.sfzydk }}" position="bottom" custom-style="height: 540rpx" data-type="23" bind:close="hideBottom">
+    <van-picker show-toolbar title="专业是否对口" value-key="dicVal2"  columns="{{sfzydkColumns}}" data-type="23" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field input-align="right" value="{{form.yrdwdm}}" name="yrdwdm" label="用人单位代码" placeholder="输入内容" />
   <van-field input-align="right" value="{{form.yrdwmc}}" name="yrdwmc" label="用人单位名称" placeholder="输入内容" />
@@ -175,7 +175,7 @@
   <view hidden="{{hidden1}}">
   <van-field value="{{form.hkqydz}}" name="hkqydz" label="户口迁移地址" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   </view>
-  <van-field input-align="right" value="{{form.xjcqk}}" name="xjcqk" label="下基层情况" placeholder="输入内容" />
+  <!-- <van-field input-align="right" value="{{form.xjcqk}}" name="xjcqk" label="下基层情况" placeholder="输入内容" /> -->
   <view hidden="{{hidden1}}">
   <van-field value="{{form.bzone}}" name="bzone" label="备注一" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   <van-field value="{{form.bztwo}}" name="bztwo" label="备注二" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
