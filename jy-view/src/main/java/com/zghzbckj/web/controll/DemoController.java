@@ -595,6 +595,48 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
+    @RequestMapping(value = "xyzyList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView xyzyList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("xyzyList");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("wzbh","0");
+        param2.put("fid","69");
+        PublicData publicData1= UnionHttpUtils.manageParam(param2,"zustcommon/bckjDicMenu/getLmMenu");
+        ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("menuList",result1.getBean());//学院列表
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",((List<Map>) result1.getBean()).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+
+        String lmbh=((List<Map>) result1.getBean()).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+
+
+        Map param = Maps.newHashMap();
+        param.put("lmbh",lmbh);
+        param.put("wzzt","1");
+        param.put("isDetail",1);
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "30");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
