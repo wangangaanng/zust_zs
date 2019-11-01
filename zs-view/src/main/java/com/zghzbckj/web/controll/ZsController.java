@@ -257,7 +257,7 @@ public class ZsController {
      *<li>@date 2019/10/28 15:23</li>
      *</ul>
      */
-    @RequestMapping(value = "zsjhcx", method = RequestMethod.GET)
+    @RequestMapping(value = "zsjhcx/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView zsjhcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzsjhcx");
         view.addObject("header", getHeader().getBean());
@@ -280,7 +280,7 @@ public class ZsController {
      *<li>@date 2019/10/28 15:26</li>
      *</ul>
      */
-    @RequestMapping(value = "zxtw", method = RequestMethod.GET)
+    @RequestMapping(value = "zxtw/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzxtw");
         view.addObject("header", getHeader().getBean());
@@ -295,9 +295,9 @@ public class ZsController {
         params.put("pageSize", "10");
         //1 招生在线咨询
         params.put("zxlx", "1");
-        PublicData publicData = UnionHttpUtils.manageParam(params, "/zustcommon/bckjBizZxzx/historyMessage");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result = UnionHttpUtils.doPosts(publicData);
-        view.addObject("messageList", result.getBean());
+        view.addObject("result", (Map) result.getBean());
         return view;
     }
 
@@ -311,10 +311,16 @@ public class ZsController {
      * <li>@date 2019/10/29 9:09</li>
      * </ul>
      */
-    @RequestMapping(value = "wjdc", method = RequestMethod.GET)
-    public ModelAndView wjdc(HttpServletRequest request, ModelAndView view) {
+    @RequestMapping(value = "wjdc/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView wjdc(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSwjdc");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 
@@ -328,10 +334,16 @@ public class ZsController {
      * <li>@date 2019/10/29 9:21</li>
      * </ul>
      */
-    @RequestMapping(value = "kyly")
-    public ModelAndView kyly(HttpServletRequest request, ModelAndView view) {
+    @RequestMapping(value = "kyly/{secondDir}/{thirdDir}")
+    public ModelAndView kyly(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSkyly");
         view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         return view;
     }
 

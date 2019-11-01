@@ -9,13 +9,11 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.manage.entity.BckjBizCjcx;
 import com.zghzbckj.manage.service.BckjBizCjcxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,7 +118,11 @@ public class BckjBizCjcxController extends BaseController {
             if(TextUtils.isEmpty(sfzh)&& TextUtils.isEmpty(zkzh)){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"准考证和身份证号不能同时为空");
             }
-            return ResponseMessage.sendOK(bckjBizCjcxService.getCjxx(mapData));
+            BckjBizCjcx cjcx = bckjBizCjcxService.getCjxx(mapData);
+            if (TextUtils.isEmpty(cjcx)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "未查到成绩，请检查身份证号或准考证号是否输入正确");
+            }
+            return ResponseMessage.sendOK(cjcx);
         } catch (Exception e) {
             log.info("成绩查询失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
