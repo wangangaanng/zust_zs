@@ -53,7 +53,7 @@
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows2">
-      <navigator class="lc-row {{bmState>7?'':'yet'}}" style="" url='{{bmState>6?"../drawGroup/drawGroup":""}}'>面试分组</navigator>
+      <navigator class="lc-row {{bmState>7?'':'yet'}}" style="" url='{{bmState>6?"../drawGroup/drawGroup?type=group":""}}'>面试分组</navigator>
       <view class="lc-row hide"></view>
     </view>
     <view class="lc-rows2">
@@ -67,7 +67,7 @@
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows2">
-      <navigator class="lc-row {{bmState>9?'':'yet'}}" url="{{bmState>9?'XXXX':''}}">成绩查询</navigator>
+      <navigator class="lc-row {{bmState>9?'':'yet'}}" url="{{bmState>9?'../drawGroup/drawGroup?type=grade':''}}">成绩查询</navigator>
       <view class="lc-row hide"></view>
     </view>
   </view>

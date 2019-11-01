@@ -1,4 +1,5 @@
 /**app.wxss**/
+@import './weui.wxss';
 .com-black{
   color: #686868;
 }
