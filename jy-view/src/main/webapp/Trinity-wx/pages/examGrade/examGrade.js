@@ -2,7 +2,6 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
@@ -179,7 +178,7 @@ Page({
     }
     let data = {
       hkList: hkList,
-      yhRefOwid: yhRefOwid,
+      yhRefOwid: wx.getStorageSync('yhRefOwid'),
       zhList: zhList
     }
     common.ajax('zustswyt/bckjBizCjxx/finishHk', data, function (res) {
@@ -196,7 +195,7 @@ Page({
   getHkcj: function (lx) {
     let that = this;    
     let data = {
-      yhRefOwid: yhRefOwid,
+      yhRefOwid: wx.getStorageSync('yhRefOwid'),
       lx: lx
     }
     common.ajax('zustswyt/bckjBizCjxx/getHkcj', data, function (res) {
