@@ -115,7 +115,7 @@ page {
 .li-right-detail {
   color: #888;
   font-size: 12px;
-  margin-top: 12rpx;
+  margin-top: 10rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -126,11 +126,14 @@ page {
 .li-right-date {
   color: #888;
   font-size: 12px;
-  margin-top: 12rpx;
+  margin-top: 10rpx;
 }
 
 .conter {
   width: 100%;
   overflow: hidden;
   position: relative;
+}
+.weui-loadmore__tips_in-line{
+  background-color: #ebeced
 }

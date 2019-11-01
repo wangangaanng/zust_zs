@@ -190,6 +190,8 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
             jbxx.setXkState(1);
         }
         BckjBizJbxx param=JsonUtil.map2Bean(mapData,BckjBizJbxx.class);
+        //防止默认的0覆盖
+        param.setState(null);
         BeanUtil.copyPropertiesIgnoreNull(param,jbxx);
         bckjBizJbxxService.saveOrUpdate(jbxx);
         mapData.put("lx",1);
@@ -218,10 +220,9 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
             throw CustomerException.newInstances("用户基本信息不存在");
         }
         Map<String,Object> result= JackSonJsonUtils.objectToMap(jbxx);
-        Map<String,Object>  paramsCjxx=Maps.newHashMap();
-        paramsCjxx.put("lx",1);
-        paramsCjxx.put("orderBy","a.xssx");
-        result.put("xkList",this.dao.findListByMap(paramsCjxx));
+        mapData.put("lx",1);
+        mapData.put("orderBy","a.xssx");
+        result.put("xkList",this.dao.findListByMap(mapData));
         List<Map> fileList=commonDao.findFileByJbxx(jbxx.getOwid());
         result.put("jsfj",fileList);
         return result;

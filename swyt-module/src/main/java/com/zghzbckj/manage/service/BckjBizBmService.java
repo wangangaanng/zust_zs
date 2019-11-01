@@ -183,7 +183,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         param.put("yhRefOwid", bm.getUserRefOwid());
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(param);
         BeanUtil.copyBean(jbxx, bm, "xm", "sfzh", "xb", "tcah", "qq", "yx", "mz", "wyyz",
-                "wycj", "lxdh", "jtzz", "zxlb", "jssm", "qtqk");
+                "wycj", "lxdh", "jtzz", "zxlb", "jssm", "qtqk","yzmc");
         applyCjxx(bm.getOwid(), param);
         saveOrUpdate(bm);
         return bm.getOwid();
@@ -317,7 +317,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
                 "xm", "xbStr", "qq", "mz", "jtzz", "yx", "sfzh", "lxdh",
-                "wycj", "zxlb", "jssm", "qtqk", "tcah"};
+                "wycj", "zxlb", "jssm", "qtqk", "tcah","yzmc"};
         Map datas = BeanUtil.obj2Map(bm, bmStrs);
         Map paramCjxx = Maps.newConcurrentMap();
         paramCjxx.put("yhRefOwid", bm.getUserRefOwid());
@@ -332,6 +332,9 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         datas.put("zcList",zcList);
         String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + fileName;
         String htmlData = TemplateUtils.freeMarkerContent(datas, "apcationForm");
+        if(TextUtils.isEmpty(htmlData)){
+            throw CustomerException.newInstances("生成报名表失败");
+        }
         Html2PdfUtil.createPdf(htmlData, saveFilePath);
         return SwytConstant.SWTYFILEPATH + File.separator + fileName;
     }
@@ -371,8 +374,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     *<li>@date 2019/10/27 14:17  </li>
     *</ul>
     */
-    public boolean sendView(Map<String, Object> mapData) {
+    public boolean sendView(Map<String, Object> mapData) throws CustomerException{
         String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+        if(MailUtils.fileIsExist(view)){
+            throw CustomerException.newInstances("面试通知单文件尚未生成");
+        }
         String email=MapUtils.getString(mapData,"yx");
         Map value= Maps.newHashMap();
         value.put("to",email);

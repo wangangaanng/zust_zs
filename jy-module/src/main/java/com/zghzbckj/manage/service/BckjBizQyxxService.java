@@ -176,9 +176,9 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         String a = "9133010877T3580641H";
 
         System.out.println(a.length());
-       if(str.length()>18){
-           System.out.println(str.substring(0,18));
-       }
+        if (str.length() > 18) {
+            System.out.println(str.substring(0, 18));
+        }
     }
 
 
@@ -207,7 +207,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
                 company.setState(JyContant.QY_ZT_TG);
                 String sfzStr = company.getQyFrsfz();
-                String content = JyContant.QY_PASS_MESS + company.getQyTysh() + "密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
+                String content = JyContant.QY_PASS_MESS + company.getQyTysh() + "，您的登录密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
                 String mobile = company.getQyLxrdh();
                 try {
                     MessageUtil.sendMessage(mobile, content);
@@ -315,9 +315,9 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     public Map submitPurchaseBack(List<String> codes, Integer state) {
         Map resultMap = new HashMap<>(2);
         BckjBizQyxx qyxx = get(codes.get(0));
-        //
+        String sfzStr = qyxx.getQyFrsfz();
         if (JyContant.QY_ZT_TG.equals(state)) {
-            String content = JyContant.QY_PASS_MESS;
+            String content = JyContant.QY_PASS_MESS + qyxx.getQyTysh() + "，您的登录密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
             String mobile = qyxx.getQyLxrdh();
             try {
                 MessageUtil.sendMessage(mobile, content);
@@ -477,18 +477,21 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
                 resMap.put("qyYx", qyYx);
                 String qyGsxz = cellList.get(13); //公司性质
                 for (Map map : gsxzs) {
-                    if (map.get("val2").equals(qyGsxz))
+                    if (map.get("val2").equals(qyGsxz)) {
                         resMap.put("qyGsxz", map.get("val1"));
+                    }
                 }
                 String qyHylb = cellList.get(14); //行业类别
                 for (Map map : gshys) {
-                    if (map.get("val2").equals(qyHylb))
+                    if (map.get("val2").equals(qyHylb)) {
                         resMap.put("qyHylb", map.get("val1"));
+                    }
                 }
                 String qyGsgm = cellList.get(15); //公司规模
                 for (Map map : gsgms) {
-                    if (map.get("val2").equals(qyGsgm))
+                    if (map.get("val2").equals(qyGsgm)) {
                         resMap.put("qyGsgm", map.get("val1"));
+                    }
                 }
                 String qyGsjs = cellList.get(16); //公司介绍
                 resMap.put("qyGsjs", qyGsjs);

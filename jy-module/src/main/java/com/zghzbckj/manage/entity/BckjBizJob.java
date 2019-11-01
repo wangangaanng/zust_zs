@@ -83,9 +83,18 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private Integer rqState;
     private Integer qdNumber;
     private Integer gzNumber;
+    private Integer qdSuccess;
     private boolean readOnly;
     private Integer zphBmxz;
     private Integer sfbm;
+
+    public Integer getQdSuccess() {
+        return qdSuccess;
+    }
+
+    public void setQdSuccess(Integer qdSuccess) {
+        this.qdSuccess = qdSuccess;
+    }
 
     public Integer getSfbm() {
         return sfbm;

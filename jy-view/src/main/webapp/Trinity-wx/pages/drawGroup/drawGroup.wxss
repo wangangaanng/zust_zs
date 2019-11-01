@@ -8,3 +8,6 @@ page{
 .van-cell__title,.van-cell__value{font-size: 26rpx;}
 .van-cell__title{color: #333!important;max-width: 80px!important;min-width: 80px!important;}
 .van-field__input--disabled{color: #666!important;}
+.grade-wrap{border-top: 1px dashed #eee;margin-top: 20rpx;padding-top: 20rpx;border-bottom: 1px dashed #eee;padding-bottom: 20rpx;}
+.final-score{text-align: center;margin-top: 20rpx;}
+.score-detail{font-size: 40rpx;color: #FF0000;margin-left: 20rpx;margin-right: 20rpx;font-weight: bold;}

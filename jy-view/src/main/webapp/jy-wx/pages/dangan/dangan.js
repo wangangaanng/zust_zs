@@ -72,7 +72,9 @@ Page({
     common.ajax('zustcommon/bckjBizJyscheme/queryDocument', data, function (res) {
       if (res.data.backCode == 0) {
         if (res.data.bean){
-          res.data.bean.csrq = res.data.bean.sfz.substring(6, 10) + '年' + res.data.bean.sfz.substring(10, 12) + '月' + res.data.bean.sfz.substring(12, 14) + '日'
+          if (res.data.bean.sfz){
+            res.data.bean.csrq = res.data.bean.sfz.substring(6, 10) + '年' + res.data.bean.sfz.substring(10, 12) + '月' + res.data.bean.sfz.substring(12, 14) + '日'
+          }
           var mzName = common.convertName(res.data.bean.mz,that.data.mzList)
           var sydName = common.convertName(res.data.bean.syd, that.data.sydList)
           var byqxName = common.convertName(res.data.bean.byqx, that.data.byqxList)
