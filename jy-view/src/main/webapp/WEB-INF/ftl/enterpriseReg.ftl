@@ -15,6 +15,8 @@
         margin-right: 280px !important;
         position: relative;
     }
+    .qyGsjs em.error{bottom: 3px !important;
+        top: auto;}
 </style>
 
 <body>
@@ -166,7 +168,7 @@
 
                 <div class="form-group">
                     <label for="qyGsjs" class="col-sm-2 control-label">公司介绍<span class="red">*</span>：</label>
-                    <div class="col-sm-10">
+                    <div class="col-sm-10 qyGsjs">
                         <textarea class="form-control" id="qyGsjs" name="qyGsjs" rows="10"></textarea>
                     </div>
                 </div>
@@ -397,7 +399,10 @@
                     qyGsxz:"required",
                     qyHylb:"required",
                     qyGsgm:"required",
-                    qyGsjs:"required",
+                    qyGsjs:{
+                        required: true,
+                        minlength: 150
+                    }
                 },
                 messages: {
                     qyTysh: "请填写",
@@ -425,7 +430,10 @@
                     qyGsxz: "请选择",
                     qyHylb: "请选择",
                     qyGsgm: "请选择",
-                    qyGsjs: "请填写",
+                    qyGsjs: {
+                        required: "请填写",
+                        minlength: "至少150字"
+                    }
                 },
                 errorElement: "em",
                 errorPlacement: function ( error, element ) {

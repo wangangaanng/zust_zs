@@ -24,7 +24,6 @@ Page({
     height: 0,
     imgPath: common.imgPath,
     top: 0,
-    history: wx.getStorageSync('history') || [],
     zwsj:false
   },
 
@@ -176,7 +175,6 @@ Page({
         }
         that.setData({
           list: res.data.bean.records || [],
-          history,
           zwsj: zwsj
         })
       } else {
@@ -184,13 +182,7 @@ Page({
       }
     });
   },
-  link(e) {
-    console.log(e)
-  },
-  clear(){
-    wx.removeStorageSync('history')
-    that.setData({
-      history:[]
-    })
+  Pagination(e){
+
   }
 })

@@ -18,9 +18,19 @@ page {
 }
 
 .mark {
+  height: 60px;
+  width: 60px;
+  margin-top: 15px;
+}
+
+.mark-view {
+  float: left;
   width: 180rpx;
   height: 180rpx;
-  float: left;
+  border-radius: 50%;
+  border: 3px solid #eee;
+  background: #fff;
+  text-align: center;
 }
 
 .left {

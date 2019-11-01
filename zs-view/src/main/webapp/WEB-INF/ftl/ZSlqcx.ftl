@@ -36,12 +36,12 @@
                 <div style="display: flex">
                     <div class="input-group" style="width: 300px;margin: 20px 40px">
                         <span class="input-group-addon">身份证号：</span>
-                        <input id="input_sfzh" type="number" class="form-control" placeholder="请输入身份证号"
+                        <input id="input_sfzh" type="text" class="form-control" placeholder="请输入身份证号"
                                aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group" style="width: 300px;margin: 20px">
                         <span class="input-group-addon">准考证号：</span>
-                        <input id="input_zkzh" type="number" class="form-control" placeholder="请输入准考证号"
+                        <input id="input_zkzh" type="text" class="form-control" placeholder="请输入准考证号"
                                aria-describedby="basic-addon1">
                     </div>
                     <button type="button" class="btn btn-default" onclick="queryIn()"
@@ -52,17 +52,17 @@
                         <thead>
                             <tr>
                                 <th style="width: 150px">准考证号： </th>
-                                <th style="width: 250px" id="zkzh">17330102111092</th>
+                                <th style="width: 250px" id="zkzh"></th>
                                 <th style="width: 150px" >身份证： </th>
-                                <th style="width: 250px" id="sfzh">330103199809131614</th>
+                                <th style="width: 250px" id="sfzh"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td style="width: 150px">姓名： </td>
-                                <td style="width: 250px" id="xm">程义泰</td>
+                                <td style="width: 250px" id="xm"></td>
                                 <td style="width: 150px" >联系电话： </td>
-                                <td style="width: 250px" id="lxdh">18268161215</td>
+                                <td style="width: 250px" id="lxdh"></td>
                             </tr>
                         </tbody>
                     </table>
