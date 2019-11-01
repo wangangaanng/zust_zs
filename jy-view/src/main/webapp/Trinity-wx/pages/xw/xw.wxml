@@ -24,7 +24,7 @@
   </scroll-view>
   <scroll-view scroll-y scroll-top="{{top}}" style="position: fixed;bottom: 0;top: 101px;">
     <navigator wx:for="{{list}}" wx:key='index' url="../wxDetail/wxDetail?owid={{item.owid}}" class="list">
-      <!-- <image src="{{imgPath+item.tpjj}}" class="li-left"></image> -->
+      <image src="{{imgPath+item.tpjj}}" class="li-left"></image>
       <view class="li-right">
         <view class="li-right-title">{{item.wzbt}}</view>
         <view class="li-right-detail">{{item.jjnr}}</view>
