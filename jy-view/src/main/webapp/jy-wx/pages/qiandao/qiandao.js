@@ -73,8 +73,38 @@ Page({
                 }
               },
               fail: function (res) {
-                wx.showToast({
-                  title: '获取位置失败',
+                if (options.owid) {//列表进入
+                  that.setData({
+                    option: options
+                  })
+                } else if (options.scene) {//扫码签到
+                  that.setData({
+                    option: options
+                  })
+                }
+                wx.showModal({
+                  title: '提示',
+                  content: '未获取到您的位置，请打开设置后重试',
+                  confirmColor: '#008783',
+                  success(res) {
+                    if (res.confirm) {
+                      wx.openSetting({
+                        success: function (osrs) {
+                          // 出发条件是返回的时候
+                          wx.getLocation({
+                            success: function (locationinfo) {
+                              that.onLoad(that.data.option);
+                            },
+                            fail: function (fres) {
+
+                            }
+                          })
+                        }
+                      })
+                    } else if (res.cancel) {
+
+                    }
+                  }
                 })
               }
             });
@@ -128,11 +158,23 @@ Page({
     }else{
       wx.showModal({
         title: '提示',
-        content: '未获取到您的位置，请打开设置后刷新重试',
+        content: '未获取到您的位置，请打开设置后重试',
         confirmColor: '#008783',
         success(res) {
           if (res.confirm) {
-          
+            wx.openSetting({
+              success: function (osrs) {
+                // 出发条件是返回的时候
+                wx.getLocation({
+                  success: function (locationinfo) {
+                    that.onLoad(that.data.option);
+                  },
+                  fail: function (fres) {
+                   
+                  }
+                })
+              }
+            })
           } else if (res.cancel) {
 
           }
