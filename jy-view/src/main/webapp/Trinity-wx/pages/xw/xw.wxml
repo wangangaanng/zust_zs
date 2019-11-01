@@ -1,21 +1,21 @@
 <!--pages/xw/xw.wxml-->
 <van-search value="{{ value }}" placeholder="请输入搜索关键词" bindfocus="focus" bindblur="blur" bind:search="searchAll" />
-<view class="search" wx:if="{{focus}}">
-  <!-- <view class="search_title">热门搜索</view>
+<!--<view class="search" wx:if="{{focus}}">
+   <view class="search_title">热门搜索</view>
   <view class="search_ul">
     <view class="search_li">三位一体</view>
     <view class="search_li">成绩查询</view>
     <view class="search_li">杭州市</view>
-  </view>-->
+  </view>
   <view class="search_title" style="float:right;" bindtap="clear">清除记录</view>
   <view class="search_title">搜索历史</view>
   <view class="search_ul2">
-    <van-cell wx:for="{{history}}" wx:key="index" title="{{item}}" bindtap="link({{item}})" icon="../../../static/histroy.png" is-link />
+    <van-cell wx:for="{{history}}" wx:key="index" title="{{item}}" bindtap="link" icon="../../../static/histroy.png" clickable="true" is-link />
   </view>
-</view>
+</view>-->
 <view class="conter" wx:if="{{!focus}}">
   <scroll-view class="scroll-view_H" scroll-x="true" bindscrolltolower="scroll">
-    <view bindtap="click" wx:for="{{array}}" wx:key="index" class="scroll-view_H_li {{index1==index?'active':''}}" data-index1="{{index}}">{{item.NAME}}</view>
+    <view bindtap="click" wx:for="{{array}}" wx:key="index" data-index="{{index}}" class="scroll-view_H_li {{index1==index?'active':''}}" data-index1="{{index}}">{{item.NAME}}</view>
     <view class="ff" wx:if='{{ff}}'>
       <van-icon name="arrow" />
     </view>
