@@ -9,6 +9,7 @@ import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.io.File;
 import java.util.*;
 
 /**
@@ -28,6 +29,7 @@ public class MailUtils {
     private String content = "";// 邮件正文
     private Vector file = new Vector();// 附件文件集合
 
+
     /**
      * <br>
      * 方法说明：默认构造器 <br>
@@ -37,6 +39,10 @@ public class MailUtils {
     public MailUtils() {
     }
 
+    public static boolean fileIsExist(String path){
+        File file=new File(path);
+        return file.exists();
+    }
     /**
      * <br>
      * 方法说明：构造器，提供直接的参数传入 <br>

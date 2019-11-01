@@ -371,8 +371,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     *<li>@date 2019/10/27 14:17  </li>
     *</ul>
     */
-    public boolean sendView(Map<String, Object> mapData) {
+    public boolean sendView(Map<String, Object> mapData) throws CustomerException{
         String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+        if(MailUtils.fileIsExist(view)){
+            throw CustomerException.newInstances("面试通知单文件尚未生成");
+        }
         String email=MapUtils.getString(mapData,"yx");
         Map value= Maps.newHashMap();
         value.put("to",email);
