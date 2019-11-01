@@ -23,8 +23,7 @@ Page({
     focus: false,
     height: 0,
     imgPath: common.imgPath,
-    top: 0,
-    history: wx.getStorageSync('history') || [],
+    top: 0
   },
 
   /**
@@ -161,25 +160,12 @@ Page({
     }
     common.ajax('zustcommon/bckjBizArticle/searchAll', data, function(res) {
       if (res.data.backCode == 0) {
-        let history = that.data.history
-        history.unshift(e.detail)
-        wx.setStorageSync('history', history)
         that.setData({
-          list: res.data.bean.records,
-          history
+          list: res.data.bean.records
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },
-  link(e) {
-    console.log(e)
-  },
-  clear(){
-    wx.removeStorageSync('history')
-    that.setData({
-      history:[]
-    })
-  }
 })

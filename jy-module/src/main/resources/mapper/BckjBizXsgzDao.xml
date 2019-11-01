@@ -388,6 +388,9 @@
             <if test="xxlb != null and xxlb != ''">
                 AND a.xxlb = #{xxlb}
             </if>
+            <if test="state!=null and state!=''">
+                AND  a.state =#{state}
+            </if>
         </where>
     </select>
 

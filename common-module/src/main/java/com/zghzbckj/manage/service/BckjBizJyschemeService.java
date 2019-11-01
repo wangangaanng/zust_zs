@@ -739,6 +739,13 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
         if(!TextUtils.isEmpty(oneBySfz)){
             bckjBizJyscheme = getOneByXsxh(oneBySfz.getXsxh());
+                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+                bckjBizJyscheme.setByqx(getDicVall(50001,bckjBizJyscheme.getByqx()));
+                bckjBizJyscheme.setYrdwxzmc(getDicVall(50002,bckjBizJyscheme.getYrdwxzmc()));
+                bckjBizJyscheme.setDwhylbmc(getDicVall(50003,bckjBizJyscheme.getDwhylbmc()));
+                bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
+                bckjBizJyscheme.setGzzwlbmc(getDicVall(50004,bckjBizJyscheme.getGzzwlbmc()));
+                bckjBizJyscheme.setBdzqflbmc(getDicVall(50007,bckjBizJyscheme.getBdzqflbmc()));
         }
         return bckjBizJyscheme;
     }
