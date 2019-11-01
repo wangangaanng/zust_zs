@@ -70,21 +70,24 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
+    
+  },
+  loadMore: function () {
     var that = this;
-    if (that.data.currentTab == 1) {
-      if ((that.data.pageNo1 + 1) <= that.data.totalPage1) {
-        that.setData({
-          pageNo1: that.data.pageNo1 + 1,
-        })
-        showStudentInfo1(that);
-      }
-    } else if (that.data.currentTab == 2) {
-      if ((that.data.pageNo2 + 1) <= that.data.totalPage2) {
-        that.setData({
-          pageNo2: that.data.pageNo2 + 1,
-        })
-        showStudentInfo2(that);
-      }
+    if ((that.data.pageNo1 + 1) <= that.data.totalPage1) {
+      that.setData({
+        pageNo1: that.data.pageNo1 + 1,
+      })
+      showStudentInfo1(that);
+    }
+  },
+  loadMore1: function () {
+    var that = this;
+    if ((that.data.pageNo2 + 1) <= that.data.totalPage2) {
+      that.setData({
+        pageNo2: that.data.pageNo2 + 1,
+      })
+      showStudentInfo2(that);
     }
   },
   /**

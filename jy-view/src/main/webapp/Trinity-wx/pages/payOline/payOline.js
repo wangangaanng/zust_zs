@@ -1,6 +1,5 @@
 // pages/payOline/payOline.js
 var common = require('../../libs/common/common.js');
-import WxValidate from '../../utils/WxValidate';
 Page({
 
   /**
@@ -10,7 +9,8 @@ Page({
     jfInfo: '缴费证明图片上传',
     class1: '',
     proveImg: '',
-    upProveImg: ''
+    upProveImg: '',
+    payUrl:''//缴费地址
   },
 
   //选择图片
@@ -91,11 +91,32 @@ Page({
     })
   },
 
+  //跳转到外部链接支付页面
+  goPayOline:function(){
+    wx.navigateTo({
+      url: '../payLink/payLink',
+    })
+  },
+
+  //复制链接地址
+  copyUrl:function(e){
+    wx.setClipboardData({
+      data: e.currentTarget.dataset.text,
+      success: function (res) {
+        wx.getClipboardData({
+          success: function (res) {
+            common.toast("复制成功 黏贴到浏览器打开",'none')
+          }
+        })
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getPayUrl();//获取缴费初始化地址
+    common.getPayUrl(this);//获取缴费初始化地址
   },
 
   /**
@@ -119,17 +140,3 @@ Page({
 
   }
 })
-
-//初始化获取缴费地址
-function getPayUrl(){
-  var data = {
-    "dicType": '10025',//字典表缴费说明
-  }
-  common.ajax('zustcommon/common/getByType', data, function (res) {
-    if (res.data.backCode == 0) {
-      
-    } else {
-      common.toast(res.data.errorMess, 'none', 2000)
-    }
-  });
-}

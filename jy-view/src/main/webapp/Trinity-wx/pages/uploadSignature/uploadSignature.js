@@ -115,11 +115,10 @@ Page({
   },
 
   previewImage: function (e) {
-    console.log(e);
-    var current = e.target.dataset.src
+    var currentSrc = e.target.dataset.src
     wx.previewImage({
-      current: current,
-      urls: this.data.imageList
+      current: currentSrc,
+      urls: [currentSrc]
     })
   },
   onShareAppMessage: function () {
@@ -158,7 +157,7 @@ Page({
 
 //上传图片
 function upLoadImgs(params) {
-  params.applyOwid = wx.getStorageSync("sqbOwid");//申请表owid
+  params.applyOwid = wx.getStorageSync("applyOwid");//申请表owid
   common.ajax('zustswyt/bckjBizBm/promise', params, function (res) {
     if (res.data.backCode == 0) {
       Dialog.alert({
