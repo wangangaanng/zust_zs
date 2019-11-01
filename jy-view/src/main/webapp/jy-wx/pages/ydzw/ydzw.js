@@ -196,7 +196,10 @@ Page({
       getContent(this, options.owid);
       xjhtjList(this, options.owid)
     }
-    
+    this.setData({
+      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
+      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
+    })
   },
 
   /**

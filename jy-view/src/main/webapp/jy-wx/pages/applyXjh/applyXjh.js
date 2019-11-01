@@ -225,6 +225,10 @@ Page({
   onLoad: function (options) {
     this.initValidate()
     xjhtjList(this)
+    this.setData({
+      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
+      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
+    })
   },
   showBottom(e) {
     if (e.target.dataset.type == 8) {
