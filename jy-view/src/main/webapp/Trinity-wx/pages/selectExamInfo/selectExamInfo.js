@@ -249,15 +249,13 @@ Page({
     let yzmc = this.data.wy[this.data.wyindex].dicVal2
     let zxlb = '';
     for (let i in this.data.zxtype) {
-      for (let k in this.data.zx) {
-        if (this.data.zx[k].dicVal1 == this.data.zxtype[i]) {
           if (!!zxlb) {
-            zxlb += ',' + this.data.zx[k].dicVal2;
+            zxlb += ',' + this.data.zxtype[i];
           } else {
-            zxlb = this.data.zx[k].dicVal2;
+            zxlb = this.data.zxtype[i];
           }
-        }
-      }
+        
+      
     }
     let jsfj = '';
     for (let i in this.data.jsfj) {

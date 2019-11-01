@@ -3,7 +3,11 @@
   <view class="title">{{data.wzbt}}</view>
   <view class="date">发布时间：{{data.fbsj}}　　发布人：{{data.fbr}}</view>
   <image src="{{imgPath+data.tpjj}}" class="img"></image>
-  <view class="conter">
+  <!-- <view class="conter">
     {{data.wznr}}
-  </view>
+  </view> -->
+  <view class="conter" wx:if="{{data.wznr}}">
+			<import src="../../libs/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
+		</view>
 </view>
