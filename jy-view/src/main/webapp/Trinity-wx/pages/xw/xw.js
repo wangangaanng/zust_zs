@@ -2,7 +2,6 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
@@ -24,7 +23,9 @@ Page({
     height: 0,
     imgPath: common.imgPath,
     top: 0,
-    zwsj:false
+    pageNo: 1,
+    zwsj: false,
+    current: 0,
   },
 
   /**
@@ -88,7 +89,10 @@ Page({
   click: function(e) {
     this.setData({
       top: 0,
-      index1: e.currentTarget.dataset.index1
+      index1: e.currentTarget.dataset.index1,
+      current: 0,
+      pageNo: 1,
+      list: []
     })
     this.getMuArticle(this.data.array[e.currentTarget.dataset.index1].CODE)
   },
@@ -135,8 +139,8 @@ Page({
   getMuArticle: function(e) {
     let that = this;
     let data = {
-      pageNo: 1,
-      pageSize: 20,
+      pageNo: that.data.pageNo,
+      pageSize: 8,
       isDetail: '1',
       wzzt: 1,
       lmbh: e
@@ -147,9 +151,14 @@ Page({
         if (!!res.data.bean.records) {
           zwsj = false
         }
+        let list = that.data.list;
+        if (res.data.bean.records){
+          list = list.concat(res.data.bean.records)
+        }
         that.setData({
-          list: res.data.bean.records || [],
-          zwsj: zwsj
+          list: list,
+          zwsj: zwsj,
+          totalPage: res.data.bean.totalPage
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -161,28 +170,32 @@ Page({
     let data = {
       gjz: e.detail,
       wzbh: 0,
-      pageSize: 20,
+      pageSize: 8,
       pageNo: 1,
     }
     common.ajax('zustcommon/bckjBizArticle/searchAll', data, function(res) {
       if (res.data.backCode == 0) {
-        let history = that.data.history
-        history.unshift(e.detail)
-        wx.setStorageSync('history', history)
         let zwsj = true
-        if (!!res.data.bean.records){
-          zwsj= false
+        if (!!res.data.bean.records) {
+          zwsj = false
         }
         that.setData({
           list: res.data.bean.records || [],
-          zwsj: zwsj
+          zwsj: zwsj,
+          current: 1
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },
-  Pagination(e){
-
-  }
+  pagination(e) {
+    let pageNo = this.data.pageNo + 1
+    if (this.data.current == 0 && this.data.totalPage > this.data.pageNo) {
+      this.setData({
+        pageNo: pageNo
+      })
+      this.getMuArticle(this.data.array[this.data.index1].CODE)
+    }
+  },
 })

@@ -5,7 +5,6 @@ var imgPath = app.globalData.imgPath;
 var localImgPath = app.globalData.localimgUrl;
 var openId = app.globalData.openId;
 var unionid = app.globalData.unionid;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
 function ajax(method, data, successMethod,hideload) {
   if (hideload==1){
 
@@ -49,7 +48,7 @@ function uploadFile(tempFilePaths, type,fun){
   var jsonObj = {
     "file": tempFilePaths[0],
     "type": type,
-    "yhRefOwid": yhRefOwid
+    "yhRefOwid": wx.getStorageSync('yhRefOwid')
   }
   wx.showLoading({
     title: '上传中',
