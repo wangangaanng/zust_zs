@@ -47,12 +47,11 @@
     {{res.xcjs}}
   </view>
   <view class="signUp">
-    <navigator class="button" wx:if="{{!res.bmzy&&res.sfks==1}}" url='../Process/Process'>我要报名</navigator>
-    <view class="button" wx:if="{{!res.bmzy&&res.sfks==0}}">我要报名</view>
+    <navigator class="button" wx:if="{{res.sfks==1}}" url='../Process/Process'>我要报名</navigator>
     <navigator class="button ybm" wx:if="{{res.bmzy}}" url='../Process/Process'>已报名</navigator>
     <view class="text" wx:if="{{res.bmzy}}">报名专业:{{res.bmzy}}</view>
   </view>
-  <view class="step">
+  <view class="step" wx:if='{{res.xybCz}}'>
     下一步：{{res.xybCz}}
   </view>
 </view>

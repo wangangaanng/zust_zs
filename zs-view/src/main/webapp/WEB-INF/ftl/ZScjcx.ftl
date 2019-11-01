@@ -27,12 +27,12 @@
                 <div style="display: flex">
                     <div class="input-group" style="width: 300px;margin: 20px 40px">
                         <span class="input-group-addon">身份证号：</span>
-                        <input id="input_sfzh" type="number" class="form-control" placeholder="请输入身份证号"
+                        <input id="input_sfzh" type="text" class="form-control" placeholder="请输入身份证号"
                                aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group" style="width: 300px;margin: 20px">
                         <span class="input-group-addon">准考证号：</span>
-                        <input id="input_zkzh" type="number" class="form-control" placeholder="请输入准考证号"
+                        <input id="input_zkzh" type="text" class="form-control" placeholder="请输入准考证号"
                                aria-describedby="basic-addon1">
                     </div>
                     <button type="button" class="btn btn-default" onclick="queryGrade()"
@@ -41,13 +41,13 @@
                 <p style="color: red; margin: 0 40px 10px;">注：身份证和准考证必须都输入正确才可查询</p>
                 <table class="table">
                     <tr>
-                        <th style="width: 138px">准考证号： </th>
-                        <th style="width: 250px" id="zkzh">44182</th>
                         <th style="width: 138px" >身份证号： </th>
-                        <th style="width: 250px" id="sfzh">370102199912212528</th>
+                        <th style="width: 250px" id="sfzh"></th>
+                        <th style="width: 138px">准考证号： </th>
+                        <th style="width: 250px" id="zkzh"></th>
                     </tr>
                 </table>
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="cx-table">
                     <thead>
                         <tr>
                             <th>姓名</th>
@@ -59,14 +59,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>王柯颖</td>
-                            <td>2018年表演类校考</td>
-                            <td>79</td>
-                            <td>2018-03-07</td>
-                            <td>否</td>
-                            <td>无</td>
-                        </tr>
+
                     </tbody>
                 </table>
             </div>

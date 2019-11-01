@@ -7,6 +7,7 @@
         <block wx:for="{{item.zyList}}" wx:key="" wx:for-item="itm">
           <van-cell is-link title="{{itm.wzbt}}" link-type="navigateTo" url="../newsDetail/newsDetail?owid={{itm.owid}}"/>
         </block>
+         <van-cell title="暂无专业数据" wx:if="{{item.zyList.length==0}}"/>
       </van-collapse-item>
     </block>
   </van-collapse>

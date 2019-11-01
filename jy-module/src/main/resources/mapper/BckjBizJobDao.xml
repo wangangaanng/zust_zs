@@ -579,7 +579,7 @@
         select
         <include refid="bckjBizJobColumns"></include>
         from bckj_biz_job a
-        where a.exp5='1'
+        where a.exp5='1' AND a.zph_ksrq &gt;= CURRENT_DATE
     </select>
 
 

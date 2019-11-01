@@ -135,7 +135,7 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
     public ResponseMessage consult(Map<String, Object> dataMap) {
         BckjBizZxzx bckjBizZxzx = new BckjBizZxzx();
         //就业专家咨询或者就业留言
-        if (Integer.parseInt(dataMap.get("zxlx").toString()) != 2 && Integer.parseInt(dataMap.get("zxlx").toString()) != 5) {
+        if (MapUtils.getInt(dataMap, "zxlx") != 2 && MapUtils.getInt(dataMap, "zxlx") != 5 && MapUtils.getInt(dataMap, "zxlx") != 1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         } //就业专家咨询
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 2) {

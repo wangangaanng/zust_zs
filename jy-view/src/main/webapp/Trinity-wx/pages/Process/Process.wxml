@@ -17,7 +17,7 @@
   <view class="pic" style="right: 95px;"></view>
   <view class="lc">
     <view class="lc-rows">
-      <navigator class="lc-row" url='../examTip/examTip?state={{state}}'>提交报名申请</navigator>
+      <navigator class="lc-row" url='{{bmState>0?"":"../examTip/examTip?state="+state}}'>提交报名申请</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>

@@ -270,11 +270,11 @@ public class BckjBizJyschemeController extends BaseController {
             }
             Map<String, Object> resMap = bckjBizYhxxService.queryDocument(dataMap);
             if (TextUtils.isEmpty(resMap)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.GetMessageFail);
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "无法查找此生源,请检查输入内容是否有误");
             }
             BckjBizJyscheme oneJyschemeQt = bckjBizJyschemeService.queryDocument(dataMap);
             if (TextUtils.isEmpty(oneJyschemeQt)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"无法查找此生源");
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"无法查找此生源,请检查输入内容是否有误");
             } else {
                 return ResponseMessage.sendOK(oneJyschemeQt);
             }
