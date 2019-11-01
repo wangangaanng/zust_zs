@@ -8,7 +8,7 @@
    </navigator > -->
   <view class="left">
     <view class="name">{{res.xxmc}}</view>
-    <view class="welcome">欢迎！</view>
+    <view class="welcome">欢迎！{{userName}}</view>
   </view>
 </view>
 <view class="conter">

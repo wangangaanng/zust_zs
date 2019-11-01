@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userName: '',
     bmState: ''
   },
 
@@ -30,8 +31,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getXxxx()
-    this.indexState()
+    var that = this;
+    that.getXxxx();
+    that.indexState();
+
+    if (wx.getStorageSync('userName')) {
+      that.setData({
+        'userName': that.data.userName
+      })
+    } else {
+      common.getInfoBasic(that);
+    }
   },
 
   /**

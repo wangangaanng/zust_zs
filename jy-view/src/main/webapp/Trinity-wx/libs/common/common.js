@@ -159,6 +159,23 @@ function getProcssState(fun) {
     }
   });
 }
+
+//获取基本信息 用于个人中心 和process用户名称显示
+function getInfoBasic(that) {
+  var data = {
+    "yhRefOwid": wx.getStorageSync('yhRefOwid')
+  }
+  ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
+    if (res.data.backCode == 0) {
+      var data = res.data.bean;
+      that.setData({
+        'userName': data.xm
+      })
+    } else {
+      common.toast("获取用户基本信息报错" + res.data.errorMess, 'none', 2000)
+    }
+  })
+}
 //author:2515421994@qq.com,time:2019.10.29 end++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //获取数组中字符串的位置
@@ -231,5 +248,6 @@ exports.getCode = getCode
 exports.errorHash = errorHash
 exports.getPayUrl = getPayUrl
 exports.getProcssState = getProcssState
+exports.getInfoBasic = getInfoBasic
 exports.imgPath = imgPath
 
