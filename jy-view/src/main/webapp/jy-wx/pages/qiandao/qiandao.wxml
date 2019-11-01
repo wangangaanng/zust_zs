@@ -30,6 +30,7 @@
 			</view>
 			<view>
         <view class="qdbt" wx:if="{{jl}}">距您当前位置约：{{jl}} <span bindtap="refreshGPS" class="freshbtn">刷新</span></view>
+        <view class="qdbt" wx:elif="{{!latitude}}">未获取到您的位置</view>
         <view class="qdbt" wx:else>尚未采集经纬度，请等待工作人员采点后再签到</view>
 				<!-- <view class="qdbt">本次未签到，请先签到</view> -->
 				<view wx:if="{{jl}}">
