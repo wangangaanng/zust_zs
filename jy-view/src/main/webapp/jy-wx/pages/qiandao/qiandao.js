@@ -73,8 +73,38 @@ Page({
                 }
               },
               fail: function (res) {
-                wx.showToast({
-                  title: '获取位置失败',
+                if (options.owid) {//列表进入
+                  that.setData({
+                    option: options
+                  })
+                } else if (options.scene) {//扫码签到
+                  that.setData({
+                    option: options
+                  })
+                }
+                wx.showModal({
+                  title: '提示',
+                  content: '未获取到您的位置，请打开设置后重试',
+                  confirmColor: '#008783',
+                  success(res) {
+                    if (res.confirm) {
+                      wx.openSetting({
+                        success: function (osrs) {
+                          // 出发条件是返回的时候
+                          wx.getLocation({
+                            success: function (locationinfo) {
+                              that.onLoad(that.data.option);
+                            },
+                            fail: function (fres) {
+
+                            }
+                          })
+                        }
+                      })
+                    } else if (res.cancel) {
+
+                    }
+                  }
                 })
               }
             });
@@ -112,18 +142,46 @@ Page({
   },
   qiandao:function(){
     var that = this
-    wx.showModal({
-      title: '提示',
-      content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
-      confirmColor:'#008783',
-      success(res) {
-        if (res.confirm) {
-          qd(that);
-        } else if (res.cancel) {
-          
+    if (that.data.latitude){//获取到本人位置
+      wx.showModal({
+        title: '提示',
+        content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
+        confirmColor: '#008783',
+        success(res) {
+          if (res.confirm) {
+            qd(that);
+          } else if (res.cancel) {
+
+          }
         }
-      }
-    })
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '未获取到您的位置，请打开设置后重试',
+        confirmColor: '#008783',
+        success(res) {
+          if (res.confirm) {
+            wx.openSetting({
+              success: function (osrs) {
+                // 出发条件是返回的时候
+                wx.getLocation({
+                  success: function (locationinfo) {
+                    that.onLoad(that.data.option);
+                  },
+                  fail: function (fres) {
+                   
+                  }
+                })
+              }
+            })
+          } else if (res.cancel) {
+
+          }
+        }
+      })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -192,9 +250,9 @@ var getContent = function (that, owid) {//招聘详情
       if (res.data.bean.zphGpsjd){
         var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
         if (jl < 1) {
-          jl = jl * 1000 + 'm'
+          jl = (jl * 1000).toFixed(0) + 'm'
         } else {
-          jl = jl + 'km'
+          jl = jl.toFixed(0) + 'km'
         }
         that.setData({
           jl: jl
@@ -220,7 +278,7 @@ var getContent = function (that, owid) {//招聘详情
   });
 }
 var qd = function(that){
-  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
+  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude,"distance":that.data.jl, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
   common.ajax('zustjy/bckjBizXsgz/signInOrScribe', data, function (res) {
     if (res.data.backCode == 0) {
       wx.showToast({

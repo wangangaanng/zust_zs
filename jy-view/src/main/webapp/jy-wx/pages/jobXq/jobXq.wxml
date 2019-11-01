@@ -2,6 +2,7 @@
 <wxs src="../fcn.wxs" module="tools" />
 <van-tabs swipeable bind:click="clickTab">
   <van-tab title="职位信息">
+  <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y lower-threshold="100">
   <van-cell-group>
         <van-cell title="职位名称" value="{{form.zwbt}}" />
         <van-cell title="所在省市区" value="{{area}}" />
@@ -18,7 +19,7 @@
         <van-cell title="失效时间" value="{{zwSxsjStr}}" />
  
   </van-cell-group>
-
+  </scroll-view>
   </van-tab>
   <van-tab title="关注学生">
   <view>

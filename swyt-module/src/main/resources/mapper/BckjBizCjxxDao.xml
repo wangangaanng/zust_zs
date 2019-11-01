@@ -70,10 +70,10 @@
 		<include refid="bckjBizCjxxJoins"/>
 		<where>
 			<if test="yhRefOwid !=null and yhRefOwid != '' ">
-				AND yh_ref_owid=#{yhRefOwid}
+				AND a.yh_ref_owid=#{yhRefOwid}
 			</if>
 			<if test="lx !=null and lx!= '' ">
-				AND lx=#{lx}
+				AND a.lx=#{lx}
 			</if>
 		</where>
 		<choose>
