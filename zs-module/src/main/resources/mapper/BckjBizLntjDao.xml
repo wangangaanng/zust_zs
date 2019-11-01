@@ -68,7 +68,7 @@
 		<include refid="bckjBizLntjJoins"/>
 		<where>
 			<if test="nf !=null and nf !='' ">
-				a.nf like concat('',#{nf},'%')
+				a.nf like concat('%',#{nf, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="pc !=null and pc !=''">
 				and a.pc=#{pc}

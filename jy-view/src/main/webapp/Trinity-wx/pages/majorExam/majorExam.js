@@ -222,15 +222,19 @@ Page({
       common.toast("尚有为选择项", 'none', 2000)
       return
     }
-    let xklb = that.data.subjectCategory[that.data.index1].owid; //学科类别
-    let bklb = that.data.projectType[that.data.index2].owid; //报考类别
+    let xklb = that.data.subjectCategory[that.data.index1].name; //学科类别
+    let xklbOwid = that.data.subjectCategory[that.data.index1].owid; //学科类别
+    let bklb = that.data.projectType[that.data.index2].name; //报考类别
+    let bklbOwid = that.data.projectType[that.data.index2].owid; //报考类别
     let zyOwid = that.data.enrollmentMajor[that.data.index3].owid; //专业owid
     let data = {
       xxbh: xxbh,
       xklb: xklb,
       bklb: bklb,
       zyOwid: zyOwid,
-      userRefOwid: yhRefOwid
+      userRefOwid: yhRefOwid,
+      xklbOwid: xklbOwid,
+      bklbOwid: bklbOwid,
     }
     common.ajax('zustswyt/bckjBizBm/submit', data, function(res) {
       if (res.data.backCode == 0) {

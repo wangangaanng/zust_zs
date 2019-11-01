@@ -2,22 +2,24 @@
 <form bindsubmit="basicForm">
   <topBck>
     <view class="sign-wrap {{class1}}" >
-      <van-cell title="{{signInfo}}"  border="{{false}}"  bind:click="choseImageSign" data-type="1" >
-        <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+      <van-cell title="{{signInfo}}"  border="{{false}}"  bind:click="{{state<3?'choseImageSign':''}}" data-type="1" >
+        <van-icon slot="right-icon" name="search" class=" iconfont {{state<3?'icon-xiangji':''}}" />
       </van-cell>
-      <image src="{{signImg}}" bindtap="previewImage" hidden="{{(signImg=='')}}" ></image>
+      <image src="{{signImg}}"  data-src="{{promiseImg}}" bindtap="previewImage" hidden="{{(signImg=='')}}" ></image>
     </view>
 
     <view class="sign-wrap {{class2}}">
-      <van-cell title="{{promiseInfo}}" border="{{false}}" class="promise" bind:click="choseImageSign" data-type="2">
-        <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+      <van-cell title="{{promiseInfo}}" border="{{false}}" class="promise" bind:click="{{state<3?'choseImageSign':''}}" data-type="2">
+        <van-icon slot="right-icon" name="search" class=" iconfont {{state<3?'icon-xiangji':''}}" />
       </van-cell>
-      <image src="{{promiseImg}}" bindtap="previewImage" hidden="{{(promiseImg=='')}}" ></image>
+      <image src="{{promiseImg}}" data-src="{{promiseImg}}" bindtap="previewImage" hidden="{{(promiseImg=='')}}" ></image>
     </view>
 
     <!-- 按钮 -->
-    <view class="main-btn_wrap button">
-      <button formType="submit">提交</button>
+    <view wx:if="{{state<3}}">
+      <view class="main-btn_wrap button">
+        <button formType="submit">提交</button>
+      </view>
     </view>
   </topBck>
 

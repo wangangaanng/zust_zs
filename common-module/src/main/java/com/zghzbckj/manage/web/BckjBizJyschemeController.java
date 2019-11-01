@@ -274,7 +274,7 @@ public class BckjBizJyschemeController extends BaseController {
             }
             BckjBizJyscheme oneJyschemeQt = bckjBizJyschemeService.queryDocument(dataMap);
             if (TextUtils.isEmpty(oneJyschemeQt)) {
-                return ResponseMessage.sendOK("无法查找此生源");
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"无法查找此生源");
             } else {
                 return ResponseMessage.sendOK(oneJyschemeQt);
             }

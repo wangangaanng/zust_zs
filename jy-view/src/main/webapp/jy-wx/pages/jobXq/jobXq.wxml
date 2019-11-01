@@ -1,7 +1,8 @@
 
 <wxs src="../fcn.wxs" module="tools" />
-<van-tabs sticky animated bind:click="clickTab">
+<van-tabs swipeable bind:click="clickTab">
   <van-tab title="职位信息">
+  <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y lower-threshold="100">
   <van-cell-group>
         <van-cell title="职位名称" value="{{form.zwbt}}" />
         <van-cell title="所在省市区" value="{{area}}" />
@@ -18,7 +19,7 @@
         <van-cell title="失效时间" value="{{zwSxsjStr}}" />
  
   </van-cell-group>
-
+  </scroll-view>
   </van-tab>
   <van-tab title="关注学生">
   <view>
@@ -27,6 +28,7 @@
         <view>关注时间</view>
         <view>联系方式</view>
     </view>
+      <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore" lower-threshold="100">
       <block wx:for="{{list1}}" wx:key="{{index}}">
       <view class="bm-tbody">
         <view>{{item.lxr}}</view>
@@ -34,8 +36,9 @@
         <view>{{item.lxdh}}</view>
       </view>
       </block>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+       </scroll-view>
       </view>
-      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
      
   </van-tab>
   <van-tab title="报名学生">
@@ -45,14 +48,16 @@
         <view>报名时间</view>
         <view>联系方式</view>
     </view>
+    <scroll-view  style='position:fixed;top:79px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
       <block wx:for="{{list2}}" wx:key="{{index}}">
       <view class="bm-tbody">
-        <view>{{item.lxr}}</view>
-        <view>{{tools.substr(item.bmsj,0,10)}}</view>
-        <view>{{item.lxdh}}</view>
+        <view>{{item.lxr?item.lxr:''}}</view>
+        <view>{{item.bmsj?tools.substr(item.bmsj,0,10):''}}</view>
+        <view>{{item.lxdh?item.lxdh:''}}</view>
       </view>
       </block>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
+      </scroll-view>
       </view>
-      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
 </van-tabs>

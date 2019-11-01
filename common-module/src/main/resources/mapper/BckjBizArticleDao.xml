@@ -311,7 +311,7 @@
 
 
 	<select id="findYjBylmbh" resultType="com.zghzbckj.manage.entity.BckjBizArticle">
-		SELECT a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj"
+		SELECT a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj",a.ydcs AS "ydcs"
 		FROM bckj_biz_article a
 		<where>
 		( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)

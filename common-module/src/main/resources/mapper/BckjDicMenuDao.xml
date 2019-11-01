@@ -263,7 +263,7 @@
 
 	<select id="getYjlm" resultType="Map">
 		SELECT a.OWID,a.CODE,a.BXLX,a.SJHQDX,a.TZLJ,b.NAME,b.GGT,b.JSY,b.PX FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
-		a.OWID=b.MENU_REF_OWID AND b.TYPE=#{type} and b.WZBH=#{wzbh} and a.FID=#{fid}
+		a.OWID=b.MENU_REF_OWID  and b.WZBH=#{wzbh} and a.FID=#{fid}
 		<if test="bxlx !=null">
 			AND a.BXLX=#{bxlx}
 		</if>

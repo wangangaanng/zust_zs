@@ -506,6 +506,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false)
     public void swWxinfo(WxXcxUserModel wxUser) {
         if(null!=wxUser) {
+            if(null==wxUser.getUnionid()){
+                return;
+            }
             Map param = Maps.newHashMap();
             param.put("unionid", wxUser.getUnionid());
             param.put("yhlx", 3);

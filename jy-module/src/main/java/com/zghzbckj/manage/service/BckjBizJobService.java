@@ -204,6 +204,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     Integer qdAllNumber = 0;
     Integer bmAllNumber = 0;
     Integer gzAllNumber = 0;
+    Integer successNumber=0;
 
     public ResponseMessage findPageBckjBizJobXjh(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJob> page = new PageInfo<>();
@@ -260,10 +261,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         job.setBmNumber(bmAllNumber);
         job.setQdNumber(qdAllNumber);
         job.setGzNumber(gzAllNumber);
+        job.setQdSuccess(successNumber);
         //王显弘改          -------》该开始
         bmAllNumber = 0;
         qdAllNumber = 0;
         gzAllNumber = 0;
+        successNumber =0;
         //王显弘改
         records.add(0, job);
         return ResponseMessage.sendOK(page);
@@ -277,7 +280,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         List<BckjBizJob> resultList = this.dao.findListByMap(paramsMap);
         if (!TextUtils.isEmpty(resultList) && resultList.size() > 0) {
-
             for (BckjBizJob job : resultList) {
                 Map params = Maps.newHashMap();
                 params.put("jobRefOwid", job.getOwid());
@@ -296,9 +298,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 number = xsgzDao.countNumber(params);
                 job.setQdNumber(number);
                 qdAllNumber += number;
+                //签到成功数
+                params.put("state", 1);
+                number= xsgzDao.countNumber(params);
+                job.setQdSuccess(number);
+                successNumber += number;
             }
         }
-
         page.setList(resultList);
         PageInfo pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());

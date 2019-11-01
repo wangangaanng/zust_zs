@@ -197,6 +197,6 @@
     </delete>
 
     <select id="findFileByJbxx" resultType="Map">
-        SELECT  file_path  AS filePath  FROM ourway_sys_files WHERE file_class_id =#{owid}
+        SELECT  file_path  AS filePath,owid AS owid  FROM ourway_sys_files WHERE file_class_id =#{owid}
     </select>
 </mapper>

@@ -23,8 +23,8 @@ Page({
       type: 'gcj02',// 默认wgs84
       success: function (res) {
         that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
+          latitude: res.latitude.toFixed(5),
+          longitude: res.longitude.toFixed(5)
         })
       },
       fail: function (res) { }
@@ -50,7 +50,8 @@ Page({
     })
     if (options.owid) {
       this.setData({
-        owid: options.owid
+        owid: options.owid,
+        option: options
       })
       getContent(this, options.owid);
     }
@@ -62,8 +63,8 @@ Page({
       type: 'gcj02',// 默认wgs84
       success: function (res2) {
         that.setData({
-          latitude: res2.latitude,
-          longitude: res2.longitude
+          latitude: res2.latitude.toFixed(5),
+          longitude: res2.longitude.toFixed(5)
         })
         wx.showModal({
           title: '提示',
@@ -79,8 +80,29 @@ Page({
         })
       },
       fail: function (res) {
-        wx.showToast({
-          title: '获取位置失败',
+        wx.showModal({
+          title: '提示',
+          content: '未获取到您的位置，请打开设置后重试',
+          confirmColor: '#008783',
+          success(res) {
+            if (res.confirm) {
+              wx.openSetting({
+                success: function (osrs) {
+                  // 出发条件是返回的时候
+                  wx.getLocation({
+                    success: function (locationinfo) {
+                      that.onLoad(that.data.option);
+                    },
+                    fail: function (fres) {
+
+                    }
+                  })
+                }
+              })
+            } else if (res.cancel) {
+
+            }
+          }
         })
       }
     });

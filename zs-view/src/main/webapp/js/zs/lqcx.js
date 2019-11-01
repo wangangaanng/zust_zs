@@ -26,6 +26,28 @@ function queryIn() {
         sfzh: sfzh
     };
     ajax('zustzs/bckjBizLqxs/lqcx', data, function (res) {
-        console.log(res)
+        console.log(res);
+        if (res.backCode === 0) {
+            $('#zkzh').html(res.bean.ksh);
+            $('#sfzh').html(res.bean.sfzh);
+            $('#lxdh').html(res.bean.lxdh ? res.bean.lxdh : "无");
+            $('#xm').html(res.bean.xm);
+            $('#zhuhe').html("浙江科技学院-" + res.bean.lqzy + "预录取，最终录取请查询当地考试院。");
+            if(null!=lqxx.jcsjStr) {
+                $("#lqd").html("录取通知单已经于<b>"+lqxx.jcsjStr+"</b>寄出");
+            }
+            if(null!=lqxx.emsId) {
+                $("#ems_dh").html("EMS单号：<b style='cursor: pointer'  class='emsUrl' ems='"+lqxx.ems+"'>"+lqxx.ems+"</b>，请注意查收！！！");
+            }
+            $("#successed").show();
+            $(".emsUrl").click(function () {
+                var emsUrl=$(this).attr("ems");
+                window.open("http://www.ems.com.cn/?mailNum="+emsUrl,"_blank");
+            })
+        } else {
+            ksh = '';
+            sfzh = '';
+            $('.error').show();
+        }
     })
 }

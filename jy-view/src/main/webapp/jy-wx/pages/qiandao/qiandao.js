@@ -18,15 +18,14 @@ Page({
     show:false,
     isauthorize: false,
     jl: false,
-    hidden:true,
-    markers: [{
-      iconPath: "/static/location.png",
-      id: 0,
-      latitude: '',
-      longitude: '',
-      width: 50,
-      height: 50
-    }],
+    // markers: [{
+    //   iconPath: "/static/location.png",
+    //   id: 0,
+    //   latitude: '',
+    //   longitude: '',
+    //   width: 50,
+    //   height: 50
+    // }],
     userType: '3'
   },
 
@@ -35,6 +34,15 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    if (options.owid) {//列表进入
+      that.setData({
+        option: options
+      })
+    } else if (options.scene) {//扫码签到
+      that.setData({
+        option: options
+      })
+    }
     wx.getSetting({
       success(res) {
         if (!res.authSetting['scope.userInfo']) {
@@ -53,29 +61,44 @@ Page({
             wx.getLocation({
               type: 'gcj02',// 默认wgs84
               success: function (res) {
-                var latitude = "markers[0].latitude"
-                var longitude = "markers[0].longitude"
+                // var latitude = "markers[0].latitude"
+                // var longitude = "markers[0].longitude"
                 that.setData({
-                  [latitude]: res.latitude,
-                  [longitude]: res.longitude,
+                  // [latitude]: res.latitude,
+                  // [longitude]: res.longitude,
                   latitude: res.latitude,
                   longitude: res.longitude
                 })
                 if (options.owid) {//列表进入
-                  // that.setData({
-                  //   owid: options.owid,
-                  // })
                   getContent(that, options.owid);
                 } else if (options.scene) {//扫码签到
-                  // that.setData({
-                  //   owid: options.owid,
-                  // })
                   getContent(that, options.scene);
                 }
               },
               fail: function (res) {
-                wx.showToast({
-                  title: '获取位置失败',
+                wx.showModal({
+                  title: '提示',
+                  content: '未获取到您的位置，请打开设置后重试',
+                  confirmColor: '#008783',
+                  success(res) {
+                    if (res.confirm) {
+                      wx.openSetting({
+                        success: function (osrs) {
+                          // 出发条件是返回的时候
+                          wx.getLocation({
+                            success: function (locationinfo) {
+                              that.onLoad(that.data.option);
+                            },
+                            fail: function (fres) {
+
+                            }
+                          })
+                        }
+                      })
+                    } else if (res.cancel) {
+
+                    }
+                  }
                 })
               }
             });
@@ -111,20 +134,90 @@ Page({
     })
     
   },
+  refreshGPS:function(){
+    var that = this
+    wx.getLocation({
+      type: 'gcj02',// 默认wgs84
+      success: function (res) {
+        that.setData({
+          latitude: res.latitude,
+          longitude: res.longitude
+        })
+        getDistance(that); 
+        wx.showToast({
+          title: '刷新成功',
+        })     
+      },
+      fail: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '未获取到您的位置，请打开设置后重试',
+          confirmColor: '#008783',
+          success(res) {
+            if (res.confirm) {
+              wx.openSetting({
+                success: function (osrs) {
+                  // 出发条件是返回的时候
+                  wx.getLocation({
+                    success: function (locationinfo) {
+                      that.onLoad(that.data.option);
+                    },
+                    fail: function (fres) {
+
+                    }
+                  })
+                }
+              })
+            } else if (res.cancel) {
+
+            }
+          }
+        })
+      }
+    });
+  },
   qiandao:function(){
     var that = this
-    wx.showModal({
-      title: '提示',
-      content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
-      confirmColor:'#008783',
-      success(res) {
-        if (res.confirm) {
-          qd(that);
-        } else if (res.cancel) {
-          
+    if (that.data.latitude){//获取到本人位置
+      wx.showModal({
+        title: '提示',
+        content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
+        confirmColor: '#008783',
+        success(res) {
+          if (res.confirm) {
+            qd(that);
+          } else if (res.cancel) {
+
+          }
         }
-      }
-    })
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '未获取到您的位置，请打开设置后重试',
+        confirmColor: '#008783',
+        success(res) {
+          if (res.confirm) {
+            wx.openSetting({
+              success: function (osrs) {
+                // 出发条件是返回的时候
+                wx.getLocation({
+                  success: function (locationinfo) {
+                    that.onLoad(that.data.option);
+                  },
+                  fail: function (fres) {
+                   
+                  }
+                })
+              }
+            })
+          } else if (res.cancel) {
+
+          }
+        }
+      })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -190,27 +283,12 @@ var getContent = function (that, owid) {//招聘详情
         res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
         // }
       }
-      if (res.data.bean.zwlx==3){//职来职往不用定点
-        that.setData({
-          xyDd:false,
-          hidden: false,
-        })
-      }else{
-        that.setData({
-          xyDd: true,
-          hidden: false,
-        })
-      }
       if (res.data.bean.zphGpsjd){
-        var jl = common.getDistance(res.data.bean.zphGpswd, res.data.bean.zphGpsjd, that.data.latitude, that.data.longitude);
-        if (jl < 1) {
-          jl = jl * 1000 + 'm'
-        } else {
-          jl = jl + 'km'
-        }
         that.setData({
-          jl: jl
+          zphGpsjd: res.data.bean.zphGpsjd,
+          zphGpswd: res.data.bean.zphGpswd,
         })
+        getDistance(that);
       }else{
         that.setData({
           jl: false,
@@ -231,8 +309,20 @@ var getContent = function (that, owid) {//招聘详情
     }
   });
 }
+var getDistance=function(that){
+  var jl = common.getDistance(that.data.zphGpswd, that.data.zphGpsjd, that.data.latitude, that.data.longitude);
+  if (jl < 1) {
+    jl = (jl * 1000).toFixed(0) + 'm'
+  } else {
+    jl = jl.toFixed(0) + 'km'
+  }
+  that.setData({
+    jl: jl
+  })
+}
+
 var qd = function(that){
-  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
+  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude,"distance":that.data.jl, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
   common.ajax('zustjy/bckjBizXsgz/signInOrScribe', data, function (res) {
     if (res.data.backCode == 0) {
       wx.showToast({

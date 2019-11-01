@@ -1,26 +1,19 @@
-// pages/wxDetail/wxDetail.js
-var common = require('../../libs/common/common.js')
-const app = getApp()
-var url = app.globalData.ApiUrl;
+// pages/payLink/payLink.js
+var common = require('../../libs/common/common.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgPath: common.imgPath,
-    owid:'',
-    data:{}
+    payUrl:""
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({
-      owid: options.owid
-    })
-    this.getOne();
+
   },
 
   /**
@@ -34,7 +27,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    common.getPayUrl(this);
   },
 
   /**
@@ -70,21 +63,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-  // 文章详情
-  getOne: function (e) {
-    let that = this;
-    let data = {
-      owid: this.data.owid
-    }
-    common.ajax('zustcommon/bckjBizArticle/getOne', data, function (res) {
-      if (res.data.backCode == 0) {
-        that.setData({
-          data:res.data.bean
-        })
-      } else {
-        common.toast(res.data.errorMess, 'none', 2000)
-      }
-    });
-  },
+  }
 })

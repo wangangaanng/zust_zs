@@ -20,14 +20,17 @@ import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizXsgz;
 import com.zghzbckj.util.JudgeInTimeIntervalUtils;
 import com.zghzbckj.util.LocationUtils;
+import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.vo.BckjBizYhkzVo;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.apache.log4j.Logger;
+import org.apache.tomcat.util.security.Escape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.lang.model.util.ElementScanner6;
 import java.util.*;
 
 /**
@@ -170,7 +173,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage signInOrScribe(Map<String, Object> datamap) {
-        Double distance = null;
+        String distance = null;
         BckjBizJob bckjBizJob = bckjBizJobService.get(datamap.get("jobRefOwid").toString());
         ResponseMessage responseYhxx = bckjbizyhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
         if (TextUtils.isEmpty(responseYhxx) || responseYhxx.getBackCode() != 0 || TextUtils.isEmpty(responseYhxx.getBean())) {
@@ -208,14 +211,14 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             //如果职来职往 学生不用报名
             if(bckjBizJob.getZwlx()!=3){
                 //如果需要报名的
-                if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
+                /*if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
                     //根据用户和job找到报名信息
                     BckjBizJybm bckjbizjybm = bckjBizJybmService.getOneByJobHy(datamap);
                     //报名类型不为学生或。。。。。。
                     if (bckjbizjybm.getBmlx() != 1 || bckjbizjybm.getState() != 1) {
                         return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
                     }
-                }
+                }*/
             }
             //如果不需要签到的
             if (bckjBizJob.getZphSfqd() != null && bckjBizJob.getZphSfqd() == 0) {
@@ -238,7 +241,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 }
             }
             //判断签到时间是否在举办时间区间内
-         /*   if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
+          /*  if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
                 String zphJtsj = bckjBizJob.getZphJtsj();
                 String[] splits = zphJtsj.split("-");
                 if (!JudgeInTimeIntervalUtils.judgeInTimeIntervalUtils(splits[0], splits[1])) {
@@ -250,10 +253,10 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()));
-            //设置距离
-            /*Integer bj = bckjBizJob.getZphGpsbj();*/
-            /*if (distance > bj) {
+
+         /*   //设置距离
+            Integer bj = bckjBizJob.getZphGpsbj();
+            if (distance > bj) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);
             }*/
             //查看此微信号是否已经注册过   unionid存exp5
@@ -282,12 +285,36 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         //设置unionid
         if (bckjBizXsgz.getXxlb() == 1) {
             bckjBizXsgz.setExp5(yhxxVo.getUnionid());
-            bckjBizXsgz.setExp10(distance + "");
-            //设置距离
-            Integer bj = bckjBizJob.getZphGpsbj();
-            if (distance > bj) {
-                //未通过
-                bckjBizXsgz.setState(0);
+            //前端传过来距离
+            Integer bj = null;
+            if(TextUtils.isEmpty(bckjBizJob.getZphGpsbj())){
+                //默认为100m半径
+                bj = 100;
+            }
+            else{
+                bj = bckjBizJob.getZphGpsbj();
+            }
+            if(!TextUtils.isEmpty(datamap.get("distance"))){
+                distance=datamap.get("distance").toString();
+
+            }else {
+                distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()))+"m";
+            }
+            //设置exp10距离if(da)
+            bckjBizXsgz.setExp10(distance);
+            if(distance.indexOf("km")!=-1){
+                 distance = distance.substring(0, distance.lastIndexOf("k"));
+                if (Integer.parseInt(distance)*1000 > bj) {
+                    //未通过
+                    bckjBizXsgz.setState(0);
+                }
+            }
+            if(distance.indexOf("m")!=-1){
+                distance = distance.substring(0, distance.lastIndexOf("m"));
+                if (Double.parseDouble(distance)> bj) {
+                    //未通过
+                    bckjBizXsgz.setState(0);
+                }
             }
         }
         bckjBizXsgz.setGzsj(new Date());

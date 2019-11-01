@@ -5,11 +5,9 @@ page{
 }
 .main-btn_wrap{padding: 62rpx 0 6px 0}
 
-.van-cell{background-color: #f5f5f5!important;border-radius: 6rpx;}
+.van-cell,.pay-url_wrap{background-color: #f5f5f5!important;border-radius: 6rpx;padding: 10px 15px;}
 .van-cell__title{color: rgb(153,153,153)}
 .icon-xiangji{color: #999999;font-size: 40rpx;}
-.main-btn_wrap{padding: 54rpx 0px 0px;}
-.promise .van-cell{margin-bottom: 0px;}
 .sign-wrap image{width: 100%;height: 266rpx;margin-top: 4px;border-radius: 4rpx;}
 .sign-wrap{margin-bottom: 20rpx;}
 .bottom-txt{position: relative;margin-top: 50px;}
@@ -19,4 +17,8 @@ page{
 .red .icon-xiangji{color: #FF0000}
 .van-button--small{height: 26px!important;line-height: 26px!important;}
 .df{margin-bottom: 40rpx;}
+
 .show-url .van-cell{padding: 9px 15px;}
+.detail-url{color: #333;font-size: 28rpx;word-break: break-all}
+.pay-button_wrap{text-align: center;margin-top: 20rpx;}
+.copy-btn{margin-right:20%;min-width: 76px;}

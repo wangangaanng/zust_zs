@@ -4,6 +4,7 @@ const app = getApp()
 var url = app.globalData.ApiUrl;
 var yhRefOwid = wx.getStorageSync('yhRefOwid');
 var num = 0;
+let t;
 Page({
 
   /**
@@ -38,7 +39,7 @@ Page({
     qtqk: '', //其他情况
     tcah: '', //特长爱好
     jsfj: [], //附件owid
-    res:{},//信息
+    res: {}, //信息
   },
 
   /**
@@ -46,16 +47,12 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
+    num=0;
     this.getByType('10020')
     this.getByType('10024')
     this.getXkkm()
-    let t = setInterval(function(){
-      if(num==3){
-        that.getXkcj()
-        clearInterval(t)
-      }
-    },100)
-    
+   
+
   },
 
   /**
@@ -69,7 +66,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    let that = this;
+    t = setInterval(function () {
+      if (num == 3) {
+        that.getXkcj()
+        clearInterval(t)
+      }
+    }, 100)
   },
 
   /**
@@ -243,12 +246,17 @@ Page({
       return
     }
     let wyyz = this.data.wy[this.data.wyindex].dicVal1
+    let yzmc = this.data.wy[this.data.wyindex].dicVal2
     let zxlb = '';
     for (let i in this.data.zxtype) {
-      if (!!zxlb) {
-        zxlb += ',' + this.data.zxtype[i]
-      } else {
-        zxlb = this.data.zxtype[i]
+      for (let k in this.data.zx) {
+        if (this.data.zx[k].dicVal1 == this.data.zxtype[i]) {
+          if (!!zxlb) {
+            zxlb += ',' + this.data.zx[k].dicVal2;
+          } else {
+            zxlb = this.data.zx[k].dicVal2;
+          }
+        }
       }
     }
     let jsfj = '';
@@ -268,7 +276,8 @@ Page({
       jssm: this.data.jssm,
       qtqk: this.data.qtqk,
       tcah: this.data.tcah,
-      jsfj: jsfj
+      jsfj: jsfj,
+      yzmc: yzmc
     }
     console.log(data)
     common.ajax('zustswyt/bckjBizCjxx/finishXk', data, function(res) {
@@ -342,30 +351,30 @@ Page({
     let data = {
       yhRefOwid: yhRefOwid
     }
-    common.ajax('zustswyt/bckjBizCjxx/getXkcj', data, function (res) {
+    common.ajax('zustswyt/bckjBizCjxx/getXkcj', data, function(res) {
       if (res.data.backCode == 0) {
         let files = [];
-        for (let i in res.data.bean.jsfj){
+        for (let i in res.data.bean.jsfj) {
           files.push(common.imgPath + res.data.bean.jsfj[i].filePath.replace("\\", "/"))
         }
         let wyindex;
-        for (let i in that.data.wy){
-          if (that.data.wy[i].dicVal1 == res.data.bean.wyyz){
-            wyindex=i
+        for (let i in that.data.wy) {
+          if (that.data.wy[i].dicVal1 == res.data.bean.wyyz) {
+            wyindex = i
           }
         }
         let xkindex = that.data.xkindex;
-        for (let i in xkindex){
+        for (let i in xkindex) {
           xkindex[i].value = res.data.bean.xkList[i].kmcj
-          for (let k in that.data.xk){
-            if (res.data.bean.xkList[i].kmbh == that.data.xk[k].dicval1){
+          for (let k in that.data.xk) {
+            if (res.data.bean.xkList[i].kmbh == that.data.xk[k].dicval1) {
               xkindex[i].index = k
             }
           }
         }
         console.log(xkindex)
         that.setData({
-          res:res.data.bean,
+          res: res.data.bean,
           qtqk: res.data.bean.qtqk,
           tcah: res.data.bean.tcah,
           jssm: res.data.bean.jssm,
