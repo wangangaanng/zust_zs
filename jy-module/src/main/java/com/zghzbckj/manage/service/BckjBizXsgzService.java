@@ -25,6 +25,7 @@ import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.vo.BckjBizYhkzVo;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.apache.log4j.Logger;
+import org.apache.poi.hssf.record.PageBreakRecord;
 import org.apache.tomcat.util.security.Escape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -174,6 +175,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage signInOrScribe(Map<String, Object> datamap) {
         String distance = null;
+        BckjBizXsgz bckjBizXsgz = new BckjBizXsgz();
         BckjBizJob bckjBizJob = bckjBizJobService.get(datamap.get("jobRefOwid").toString());
         ResponseMessage responseYhxx = bckjbizyhxxSer.getOneByOwid(datamap.get("yhRefOwid").toString());
         if (TextUtils.isEmpty(responseYhxx) || responseYhxx.getBackCode() != 0 || TextUtils.isEmpty(responseYhxx.getBean())) {
@@ -196,30 +198,35 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         }
         //如果已经存在
         BckjBizXsgz xsgz = this.dao.getOneByJobYh(datamap);
-        if (!TextUtils.isEmpty(xsgz) && xsgz.getState() == 1) {
+        if (!TextUtils.isEmpty(xsgz)) {
             //如果为关注
-            if (xsgz.getXxlb() == 0 && Integer.parseInt(datamap.get("xxlb").toString()) == xsgz.getXxlb()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
+            if (xsgz.getXxlb() == 0 && Integer.parseInt(datamap.get("xxlb").toString()) == xsgz.getXxlb()&&xsgz.getState()==1) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "已关注");
             }
             //如果为签到
             if (xsgz.getXxlb() == 1) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.AlreadyCheck);
+                //不成功的签到
+                if(xsgz.getState()==0){
+                    bckjBizXsgz.setOwid(xsgz.getOwid());
+                }else {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.AlreadyCheck);
+                }
             }
         }
         //如果为新的签到
         if (Integer.parseInt(datamap.get("xxlb").toString()) == 1) {
             //如果职来职往 学生不用报名
-            if(bckjBizJob.getZwlx()!=3){
+           /* if(bckjBizJob.getZwlx()!=3){
                 //如果需要报名的
-                /*if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
+                if (bckjBizJob.getZphSfbm() != null && bckjBizJob.getZphSfbm() == 1) {
                     //根据用户和job找到报名信息
                     BckjBizJybm bckjbizjybm = bckjBizJybmService.getOneByJobHy(datamap);
                     //报名类型不为学生或。。。。。。
                     if (bckjbizjybm.getBmlx() != 1 || bckjbizjybm.getState() != 1) {
                         return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
                     }
-                }*/
-            }
+                }
+            }*/
             //如果不需要签到的
             if (bckjBizJob.getZphSfqd() != null && bckjBizJob.getZphSfqd() == 0) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
@@ -261,7 +268,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             }*/
             //查看此微信号是否已经注册过   unionid存exp5
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
-            if (!TextUtils.isEmpty(oneByUnionId)) {
+            if (!TextUtils.isEmpty(oneByUnionId)&& oneByUnionId.getState()==1) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "此微信号注册");
             }
         }
@@ -274,7 +281,6 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             bckjBizJob.setZwGzs(count);
             bckjBizJobService.saveOrUpdate(bckjBizJob);
         }
-        BckjBizXsgz bckjBizXsgz = new BckjBizXsgz();
         if (bckjBizJob.getZwlx() == 0) {
             bckjBizXsgz.setGzlx(0);
         } else {
@@ -288,15 +294,14 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             //前端传过来距离
             Integer bj = null;
             if(TextUtils.isEmpty(bckjBizJob.getZphGpsbj())){
-                //默认为100m半径
-                bj = 100;
+                //默认为250m半径
+                bj = 250;
             }
             else{
                 bj = bckjBizJob.getZphGpsbj();
             }
             if(!TextUtils.isEmpty(datamap.get("distance"))){
                 distance=datamap.get("distance").toString();
-
             }else {
                 distance = LocationUtils.getDistance(bckjBizJob.getZphGpsjd().doubleValue(), bckjBizJob.getZphGpswd().doubleValue(), Double.valueOf(datamap.get("gpsJd").toString()), Double.valueOf(datamap.get("gpsWd").toString()))+"m";
             }
@@ -325,9 +330,11 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         bckjBizXsgz.setGpsJd(bckjBizJob.getZphGpsjd());
         bckjBizXsgz.setGpsWd(bckjBizJob.getZphGpswd());
         bckjBizXsgz.setCreatetime(new Date());
-
         bckjBizXsgz.setExp1(bckjBizJob.getZwlx().toString());
         saveOrUpdate(bckjBizXsgz);
+        if(bckjBizXsgz.getState()==0){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"距离太远签到失败!");
+        }
         HashMap<String, Object> sendMap = Maps.newHashMap();
         sendMap.put("jobRefOwid", bckjBizXsgz.getJobRefOwid());
         sendMap.put("yhRefOwid", bckjBizXsgz.getYhRefOwid());
