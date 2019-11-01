@@ -1,4 +1,8 @@
 // pages/xw/xw.js
+var common = require('../../libs/common/common.js')
+const app = getApp()
+var url = app.globalData.ApiUrl;
+var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
@@ -13,16 +17,20 @@ Page({
       '专业知识',
       'dengdeng'
     ],
+    list: [],
     index1: 0,
     ff: true,
-    focus:false
+    focus: false,
+    height: 0,
+    imgPath: common.imgPath,
+    top: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getLmMenu()
   },
 
   /**
@@ -78,8 +86,10 @@ Page({
   },
   click: function(e) {
     this.setData({
+      top: 0,
       index1: e.currentTarget.dataset.index1
     })
+    this.getMuArticle(this.data.array[e.currentTarget.dataset.index1].CODE)
   },
   scroll: function(e) {
     this.setData({
@@ -92,14 +102,70 @@ Page({
       index1: e.detail.current
     })
   },
-  focus:function(e){
+  focus: function(e) {
     this.setData({
-      focus:true
+      focus: true
     })
   },
-  blur:function(e){
+  blur: function(e) {
     this.setData({
       focus: false
     })
-  }
+  },
+  // 栏目获取（单级）
+  getLmMenu: function(e) {
+    let that = this;
+    let data = {
+      wzbh: 0,
+      fid: '119'
+    }
+    common.ajax('zustcommon/bckjDicMenu/getLmMenu', data, function(res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          array: res.data.bean
+        })
+        that.getMuArticle(res.data.bean[0].CODE)
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  // 文章列表获取
+  getMuArticle: function(e) {
+    let that = this;
+    let data = {
+      pageNo: 1,
+      pageSize: 20,
+      isDetail: '1',
+      wzzt: 1,
+      lmbh: e
+    }
+    common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function(res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          list: res.data.bean.records
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  searchAll: function(e) {
+    let that = this;
+    let data = {
+      gjz: e.detail,
+      wzbh: 0,
+      pageSize: 20,
+      pageNo: 1,
+    }
+    common.ajax('zustcommon/bckjBizArticle/searchAll', data, function(res) {
+      if (res.data.backCode == 0) {
+        that.setData({
+          list: res.data.bean.records
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
 })

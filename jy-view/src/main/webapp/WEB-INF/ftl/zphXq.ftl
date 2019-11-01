@@ -162,16 +162,18 @@
                    <div class="frame-body tabbar-frame_content">
                        <div class="tabcontent">
                            <div><p>${result.detail!''}</p></div>
-                                        <#if (result.fileList??)&&(result.fileList?size>0)>
+                                    <#if (result.job.fileList)??>
+                                        <#if (result.job.fileList??)&&(result.job.fileList?size>0)>
                                             <div class="file">
                                                 <div style="font-weight: bold;font-size: 16px;">附件</div>
                                                 <ul>
-                                                    <#list result.fileList as obj>
+                                                    <#list result.job.fileList as obj>
                                                         <li><a href="${imagePath+obj.FILE_PATH}">${obj.FILE_LABEL!''}</a></li>
                                                     </#list>
                                                 </ul>
                                             </div>
                                         </#if>
+                                    </#if>
                        </div>
                        <div class="tabcontent" style="display: none;">
                            <table class="table table-bordered" style="text-align: center">

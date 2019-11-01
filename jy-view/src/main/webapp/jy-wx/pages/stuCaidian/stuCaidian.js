@@ -74,6 +74,8 @@ var getList = function (that, pageNo) {
             var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
 
             var curDate = new Date();
+            curDate = curDate.setDate(curDate.getDate() - 1);
+            curDate = new Date(curDate);
             if (d <= curDate) {
               obj.old=1
             }

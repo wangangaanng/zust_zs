@@ -19,6 +19,8 @@ Page({
     class1: "",//报名表提示文字颜色
     class2: "",//承诺书提示文字颜色
 
+    state:'',//流程状态
+
     form: {
       bmbZp: '',//报名表照片
       cnszp: ''//承诺书照片
@@ -115,11 +117,10 @@ Page({
   },
 
   previewImage: function (e) {
-    console.log(e);
-    var current = e.target.dataset.src
+    var currentSrc = e.target.dataset.src
     wx.previewImage({
-      current: current,
-      urls: this.data.imageList
+      current: currentSrc,
+      urls: [currentSrc]
     })
   },
   onShareAppMessage: function () {
@@ -129,7 +130,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     this.initValidate();
+    //判断状态
+    common.getProcssState(function(res){
+      var data = res.data.bean;
+      that.setData({
+        'signImg': common.imgPath+data.bmbZp,
+        'promiseImg': common.imgPath + data.cnszp,
+        'state': data.state,
+        'signInfo':'报名表签字已上传成功',
+        'promiseInfo':'承诺书签字已上传成功',
+        'class1':'green',
+        'class2':'green'
+      })
+    });
   },
 
   initValidate() {
@@ -158,11 +173,11 @@ Page({
 
 //上传图片
 function upLoadImgs(params) {
-  params.applyOwid = wx.getStorageSync("sqbOwid");//申请表owid
+  params.applyOwid = wx.getStorageSync("applyOwid");//申请表owid
   common.ajax('zustswyt/bckjBizBm/promise', params, function (res) {
     if (res.data.backCode == 0) {
       Dialog.alert({
-        message: '报名表签字和承诺书签字已成功上传，请进行下一步操作！'
+        message: '报名表签字和承诺书签字已成功上传！'
       }).then(() => {
         wx.navigateTo({
           url: '../Process/Process',

@@ -9,16 +9,23 @@
     <!-- top tip E -->
 
     <view class="sign-wrap">
-      <van-field class="mail" class="show-url" value="{{'缴费地址显示哈哈哈哈缴费地址显示哈哈哈哈缴费地址显示哈哈哈哈缴费地址显示哈哈哈哈缴费地址显示哈哈哈哈缴费地址显示哈哈哈哈'}}" disabled placeholder="" error-message="">
-        <van-button slot="button" size="small" plain hairline type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">点击去缴费</van-button>
-      </van-field>
+      <view class="pay-url_wrap">
+        <text class="detail-url">{{payDetail}}</text>
+        <view class="pay-button_wrap">
+          <view wx:if="{{payUrl!=''}}">
+          <van-button class="copy-btn" size="small" plain hairline type="primary" bind:click="copyUrl" data-text="{{payUrl}}">复制地址</van-button>
+          </view>
+          <van-button size="small" plain hairline type="primary" bind:click="goPayOline" >直接去缴费
+          </van-button>
+        </view>
+      </view>
     </view>
 
     <view class="sign-wrap {{class1}}">
       <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="choseImageProve">
         <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
       </van-cell>
-      <image src="{{proveImg}}" data-src="{{proveImg}}" data-index='{{1}}'  bindtap="previewImage" hidden="{{(proveImg=='')}}"></image>
+      <image src="{{proveImg}}" data-src="{{proveImg}}" data-index='{{1}}' bindtap="previewImage" hidden="{{(proveImg=='')}}"></image>
     </view>
 
     <view class="main-btn_wrap button">
@@ -26,3 +33,5 @@
     </view>
   </topBck>
 </view>
+
+ <van-dialog id="van-dialog" />
