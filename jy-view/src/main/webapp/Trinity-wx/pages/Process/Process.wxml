@@ -15,19 +15,19 @@
   <view class="pic" style="right: 95px;"></view>
   <view class="lc">
     <view class="lc-rows">
-      <navigator wx:if="{{bmState==0||bmState<0}}" class="lc-row {{(bmState>0||bmState<0)?'':'yet'}}" url='../examTip/examTip?state={{state}}'>提交报名申请</navigator>
+      <navigator wx:if="{{bmState==0||bmState<0}}" class="lc-row {{(bmState>0||bmState<0)?'':'yet'}}" url='{{bmState>0?"#":"../examTip/examTip?state="+state}}'>提交报名申请</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows">
-      <navigator url="../sendMail/sendMail?type='sign'" class="lc-row {{(bmState>1||bmState<0)?'':'yet'}}">预览，发送到邮箱</navigator>
+      <navigator url="{{bmState<1?'#':'../sendMail/sendMail?type=sign'}}" class="lc-row {{(bmState>1||bmState<0)?'':'yet'}}">预览，发送到邮箱</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows">
-      <navigator class="lc-row {{(bmState>2||bmState<0)?'':'yet'}}" url='../uploadSignature/uploadSignature'>拍照上传</navigator>
+      <navigator class="lc-row {{(bmState>2||bmState<0)?'':'yet'}}" url="{{bmState==2?'../uploadSignature/uploadSignature?type=sign':''}}">拍照上传</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>
@@ -45,7 +45,7 @@
       <text class="arrow2-text">{{bmState==4?"拒绝":"　　"}}</text>
     </view>
     <view class="lc-rows2">
-      <navigator class="lc-row {{bmState>6?'':'yet'}}" style="" url='../payOline/payOline'>缴费</navigator>
+      <navigator class="lc-row {{bmState>6?'':'yet'}}" style="" url='{{bmState==5?"../payOline/payOline":""}}'>缴费</navigator>
       <view class="lc-row {{bmState==4?'':'yet'}}">结束</view>
       <view class="thyy" style="position: absolute;right: 0;top: 35px;width: 50%;text-align: center;" wx:if="{{bmState==4}}">{{res.jjly}}</view>
     </view>
@@ -53,21 +53,21 @@
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows2">
-      <navigator class="lc-row {{bmState>7?'':'yet'}}" style="" url='../drawGroup/drawGroup'>面试分组</navigator>
+      <navigator class="lc-row {{bmState>7?'':'yet'}}" style="" url='{{bmState>6?"../drawGroup/drawGroup":""}}'>面试分组</navigator>
       <view class="lc-row hide"></view>
     </view>
     <view class="lc-rows2">
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows2">
-      <navigator class="lc-row {{bmState>8?'':'yet'}}" url="../sendMail/sendMail?type='offer'">面试通知单</navigator>
+      <navigator class="lc-row {{bmState>8?'':'yet'}}" url="{{bmState>7?'../sendMail/sendMail?type=offer':''}}">面试通知单</navigator>
       <view class="lc-row hide"></view>
     </view>
     <view class="lc-rows2">
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows2">
-      <view class="lc-row {{bmState>9?'':'yet'}}" style="">成绩查询</view>
+      <navigator class="lc-row {{bmState>9?'':'yet'}}" url="{{bmState>9?'XXXX':''}}">成绩查询</navigator>
       <view class="lc-row hide"></view>
     </view>
   </view>
