@@ -5,18 +5,33 @@
 <view>
   <topBck>
     <van-cell-group>
-      <van-field value="{{ username }}"  disabled label="考生姓名:"  border="{{false}}"/>
-      <van-field value="{{ subject }}"  disabled label="学科类别：" border="{{false}}"/>
-      <van-field value="{{ language }}"  disabled label="外语语种：" border="{{false}}"/>
-      <van-field value="{{ type }}"  disabled label="报考类别：" border="{{false}}"/>
-      <van-field value="{{ major }}"  disabled label="招生专业:"  border="{{false}}" />
-      <van-field value="{{ number }}"  disabled label="准考证号:" border="{{false}}"/>
-      <van-field value="{{''}}"  error placeholder="{{result}}" disabled label="抽签结果:" border="{{false}}"/>
+
+     <!-- 2个页面共用部分 S-->
+      <van-field value="{{ username }}" disabled label="考生姓名:" border="{{false}}" />
+      <van-field value="{{ subject }}" disabled label="学科类别：" border="{{false}}" />
+      <van-field value="{{ language }}" disabled label="外语语种：" border="{{false}}" />
+      <van-field value="{{ type }}" disabled label="报考类别：" border="{{false}}" />
+      <van-field value="{{ major }}" disabled label="招生专业:" border="{{false}}" />
+      <van-field value="{{ number }}" disabled label="准考证号:" border="{{false}}" />
+      <!-- 2个页面共用部分 E-->
+
+      <!-- 页面分组查询 S-->
+      <view wx:if='{{pageType=="group"}}'>
+        <van-field value="{{''}}" error placeholder="{{result}}" disabled label="抽签结果:" border="{{false}}" />
+      </view>
+      <!-- 页面分组查询 E-->
     </van-cell-group>
-    <!-- 按钮 -->
-    <!-- <view class="main-btn_wrap">
-      <van-button round type="primary" class="main-button" size="large">开始抽签</van-button>
-    </view> -->
+
+    <!-- 页面成绩查询 S-->
+    <view wx:if='{{pageType=="grade"}}' >
+      <view class="grade-wrap">
+        <van-field value="{{ writeScore }} 分" disabled label="笔试成绩:" border="{{false}}" />
+        <van-field value="{{ faceScore }} 分" disabled label="面试成绩:" border="{{false}}" />
+      </view>
+       <view class="final-score">最终成绩
+      <text class="score-detail">{{finalScore}}</text>分</view>
+    </view>
+      <!-- 页面成绩查询 E-->
   </topBck>
 
   <view class="bottom-txt">浙江科技学院 三位一体</view>

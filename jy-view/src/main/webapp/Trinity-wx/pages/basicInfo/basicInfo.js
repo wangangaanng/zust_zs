@@ -151,7 +151,7 @@ Page({
   //单选框 选择性别
   sexSelect(event) {
     this.setData({
-      sex: event.detail
+      ['form.xb']: event.detail
     });
   },
   //选择证件类型

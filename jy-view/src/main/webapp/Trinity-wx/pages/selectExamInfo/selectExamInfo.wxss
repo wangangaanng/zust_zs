@@ -1,12 +1,12 @@
 /* pages/selectExamInfo/selectExamInfo.wxss */
-/* @import '../../weui.wxss'; */
+/*  */
 page{background: rgb(245,245,245)}
 .van-cell__title{min-width: 120px!important;max-width: 120px!important;}
 .cell-lable_csm{font-size: 30rpx;line-height: 1;}
 .select-group{display: flex;  flex-wrap: wrap;}
 .chose-type{min-width: 50%;flex: 1;padding-top: 36rpx}
 .van-checkbox__icon--checked{background-color: rgb(38,184,135)!important;border-color: rgb(38,184,135)!important;}
-.van-checkbox__label{color: rgb(153,153,153)!important;font-size: 30rpx;line-height: 70rpx;}
+.van-checkbox__label{color: #666!important;font-size: 30rpx;line-height: 70rpx;}
 .van-checkbox__icon{width: 0.9em!important;height: 0.9em!important;}
 .border-area{margin-top: 30rpx;border: 1px solid rgba(38,184,135,0.6);border-radius: 10rpx;}
 .border-area textarea{height:182rpx;padding: 20rpx;width: 100%;box-sizing: border-box;font-size: 30rpx;}

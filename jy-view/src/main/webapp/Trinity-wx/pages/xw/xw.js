@@ -17,9 +17,15 @@ Page({
       '专业知识',
       'dengdeng'
     ],
+    list: [],
     index1: 0,
     ff: true,
-    focus: false
+    focus: false,
+    height: 0,
+    imgPath: common.imgPath,
+    top: 0,
+    history: wx.getStorageSync('history') || [],
+    zwsj:false
   },
 
   /**
@@ -82,8 +88,10 @@ Page({
   },
   click: function(e) {
     this.setData({
+      top: 0,
       index1: e.currentTarget.dataset.index1
     })
+    this.getMuArticle(this.data.array[e.currentTarget.dataset.index1].CODE)
   },
   scroll: function(e) {
     this.setData({
@@ -118,32 +126,71 @@ Page({
         that.setData({
           array: res.data.bean
         })
-        that.getMuArticle(res.data.bean[0].CODE,0)
+        that.getMuArticle(res.data.bean[0].CODE)
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },
   // 文章列表获取
-  getMuArticle: function(e,index) {
+  getMuArticle: function(e) {
     let that = this;
     let data = {
       pageNo: 1,
-      pageSize: 8,
+      pageSize: 20,
       isDetail: '1',
       wzzt: 1,
       lmbh: e
     }
     common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function(res) {
       if (res.data.backCode == 0) {
-        let array = that.data.array;
-        array[index].list = res.data.bean.records;
+        let zwsj = true
+        if (!!res.data.bean.records) {
+          zwsj = false
+        }
         that.setData({
-          array
-        }) 
+          list: res.data.bean.records || [],
+          zwsj: zwsj
+        })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },
+  searchAll: function(e) {
+    let that = this;
+    let data = {
+      gjz: e.detail,
+      wzbh: 0,
+      pageSize: 20,
+      pageNo: 1,
+    }
+    common.ajax('zustcommon/bckjBizArticle/searchAll', data, function(res) {
+      if (res.data.backCode == 0) {
+        let history = that.data.history
+        history.unshift(e.detail)
+        wx.setStorageSync('history', history)
+        let zwsj = true
+        if (!!res.data.bean.records){
+          zwsj= false
+        }
+        that.setData({
+          list: res.data.bean.records || [],
+          history,
+          zwsj: zwsj
+        })
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    });
+  },
+  link(e) {
+    console.log(e)
+  },
+  clear(){
+    wx.removeStorageSync('history')
+    that.setData({
+      history:[]
+    })
+  }
 })
