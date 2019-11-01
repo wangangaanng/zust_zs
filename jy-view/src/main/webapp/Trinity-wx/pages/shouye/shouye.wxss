@@ -61,6 +61,7 @@ page {
 .cont-img-view {
   border-radius: 50%;
   border: 1px solid #26b887;
+  background: #fff;
   height: 100rpx;
   width: 100rpx;
   float: left;
