@@ -30,11 +30,12 @@
     <view class="student-head">
       <image src="../../static/headImg.png"></image>
       <view class="name">{{result.xm}}</view>
-      <view class="sex">{{result.xb==1?'男':'女'}}<span>{{mzName}}</span></view>
-      <view class="sex">{{result.csrq}}</view>
+      <view class="sex" wx:if="{{result.xb}}">{{result.xb==1?'男':'女'}}</view>
+      <view class="sex">{{result.xxmc}}</view>
+      <view class="sex"  wx:if="{{result.sfzydk}}">是否专业对口:{{result.sfzydk=='1'?'是':'否'}}</view>
     </view>
-    <view class="dx">{{result.xxmc}}</view>
-    <view class="zy">{{result.xszy}}  |   {{result.byxl}}</view>
+    <!-- <view class="dx">{{result.xxmc}}</view>
+    <view class="zy" wx:if="{{result.sfzydk}}">是否专业对口:{{result.sfzydk=='1'?'是':'否'}}</view> -->
   </view>
   <view class="student-info">
     <view class="table">
@@ -43,48 +44,86 @@
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xsxh}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">身份证号码：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.sfz}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">学院：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xsxy}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">专业：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xszy}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">班级：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xsbj}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">毕业年份：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bynf}}</view>
-        </view>
-         <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">学制：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.xz}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">生源地：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{sydName}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">毕业学历：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.byxl}}</view>
-        </view>
-         <view class="tr">
           <view class="td td-name"  style="width:300rpx;">毕业去向：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{byqxName}}</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.byqx}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">报到证单位所在地：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{bdzszdName}}</view>
+          <view class="td td-name"  style="width:300rpx;">用人单位名称：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.yrdwmc}}</view>
         </view>
         <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">用人单位代码：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.yrdwdm}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">用人单位性质：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.yrdwxzmc}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">用人单位行业类别：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dwhylbmc}}</view>
+        </view>
+         <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">单位联系人：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dwlxr}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">单位电话：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dwdh}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">工作职位类别：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.gzzwlbmc}}</view>
+        </view>
+         <view class="tr">
           <view class="td td-name"  style="width:300rpx;">报到证签发类别：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{qflbName}}</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzqflbmc}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">报到证签往单位：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzqwdwmc}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">报到证签往所在地：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzqwszdmc}}</view>
+        </view>
+
+
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">报到开始时间：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdkssj}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">报到结束时间：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdjssj}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">档案投递电话：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.datdxxdz}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">档案投递单位：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.datddw}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">户口迁移地址：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.hkqydz}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">报到证备注：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzbz}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">备注一：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bzone}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">备注二：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bztwo}}</view>
+        </view>
+        <view class="tr">
+          <view class="td td-name"  style="width:300rpx;">备注三：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bzthree}}</view>
         </view>
     </view>
   </view>
