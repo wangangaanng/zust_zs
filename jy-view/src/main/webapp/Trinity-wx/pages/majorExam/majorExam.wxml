@@ -11,14 +11,16 @@
       </van-cell-group>
     </view>
     <!-- 按钮 -->
-    <view class="btn">
-      <van-button slot="button" size="small" plain hairline type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">报名表预览</van-button>
+    <view class="btn" wx:if="{{index1!=null&&index2!=null&&index3!=null}}">
+      <text style="font-size:14px;">报名表:</text>
+      <van-button slot="button" style="float:right;margin-top: -3px;" size="small" plain hairline type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">报名表预览</van-button>
     </view>
     <view class="main-btn_wrap button">
-      <button bindtap="submit">确认提交报名表</button>
+      <button bindtap="openDialog">确认提交报名表</button>
     </view>
   </form>
   <van-popup show="{{open}}" bind:close="cancelPop" position="bottom">
     <van-picker show-toolbar columns="{{ list }}" bind:cancel="cancelPop" bind:confirm="confirm" />
   </van-popup>
 </view>
+<van-dialog id="van-dialog" />

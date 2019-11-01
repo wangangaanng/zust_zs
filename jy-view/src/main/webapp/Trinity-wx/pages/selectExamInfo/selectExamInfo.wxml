@@ -30,7 +30,7 @@
   <view class="cell-wrap line-btm">
     <view class="sm-title">专项类别（可多选)：</view>
     <van-checkbox-group bind:change="onChange" value="{{ zxtype }}" class="select-group df">
-      <van-checkbox wx:for="{{zx}}" wx:key='index' class="chose-type" name="{{item.dicVal1}}">{{item.dicVal2}}</van-checkbox>
+      <van-checkbox wx:for="{{zx}}" wx:key='index' class="chose-type" name="{{item.dicVal2}}">{{item.dicVal2}}</van-checkbox>
     </van-checkbox-group>
   </view>
 
