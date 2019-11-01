@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "报考专业",
   "usingComponents": {
+    "van-dialog": "vant-weapp/dialog",
     "van-field": "vant-weapp/field",
     "van-radio": "vant-weapp/radio",
     "van-radio-group": "vant-weapp/radio-group",

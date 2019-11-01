@@ -8,6 +8,12 @@ Page({
    */
   data: {
     list:[],
+    activeName: ''
+  },
+  onChange(event) {
+    this.setData({
+      activeName: event.detail
+    });
   },
 
   /**
@@ -67,20 +73,26 @@ Page({
   }
 })
 var getList = function (that) {
-  var data = { "lmbh": "23", "pageNo": "1", "pageSize": "20", "wzzt": "1", "isDetail": "1" };
-  common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
+  var data = {"wzbh": "0","fid": "69"};
+  common.ajax('zustcommon/bckjDicMenu/getLmMenu', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];
-      for (var i = 0; i < res.data.bean.records.length; i++) {
+      for (var i = 0; i < res.data.bean.length; i++) {
         var obj = {};
-        var object = res.data.bean.records[i];
-        obj.owid = object.owid;
-        obj.wzbt = object.wzbt;
+        var object = res.data.bean[i];
+        obj.OWID = object.OWID;
+        obj.CODE = object.CODE;
+        obj.NAME = object.NAME;
+        obj.zyList=[];
         arr.push(obj);
       }
       that.setData({
         list: arr,
       })
+      for (var i = 0; i < res.data.bean.length; i++) {
+        getSecondList(that, res.data.bean[i].CODE,i);
+      }
+      
     } else {
       wx.showToast({
         title: res.data.errorMess,
@@ -89,4 +101,26 @@ var getList = function (that) {
       })
     }
   });
+}
+var getSecondList=function(that,code,index){
+  var data = { "lmbh": code, "wzzt": "1", "isDetail": "1", "pageNo": '1', "pageSize": "30" };
+  common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function (res) {
+    if (res.data.backCode == 0) {
+      var arr = [];
+      if (res.data.bean.records) {
+        for (var i = 0; i < res.data.bean.records.length; i++) {
+          var obj = {};
+          var object = res.data.bean.records[i];
+          object.wzbt = object.wzbt;
+          object.owid = object.owid;
+          arr.push(object);
+        }
+      }
+
+      var zyList = "list[" + index + "].zyList";
+      that.setData({
+        [zyList]: arr,
+      })
+    }
+  })
 }

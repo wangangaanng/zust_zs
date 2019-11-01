@@ -58,6 +58,7 @@ Page({
       if (res.data.backCode == 0) {
         wx.setStorageSync('yhRefOwid', res.data.bean.owid);
         wx.setStorageSync('hasLogin', '1');
+        wx.setStorageSync('mobile', params.phone);
         wx.reLaunch({
           url: '../shouye/shouye',
         })

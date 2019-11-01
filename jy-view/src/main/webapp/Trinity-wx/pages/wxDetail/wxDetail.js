@@ -1,4 +1,5 @@
 // pages/wxDetail/wxDetail.js
+var WxParse = require('../../libs/wxParse/wxParse.js');
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
@@ -79,6 +80,8 @@ Page({
     }
     common.ajax('zustcommon/bckjBizArticle/getOne', data, function (res) {
       if (res.data.backCode == 0) {
+        var memo = res.data.bean.wznr
+        WxParse.wxParse('template', 'html', memo, that, 5);
         that.setData({
           data:res.data.bean
         })

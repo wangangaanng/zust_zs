@@ -116,7 +116,7 @@ Page({
   //上一步基本信息
   preStep: function() {
     wx.navigateTo({
-      url: '../basicInfo/basicInfo',
+      url: '../contactors/contactors',
     })
   },
   //科目字典表
