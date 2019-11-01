@@ -12,7 +12,12 @@ Page({
     type:'暂无',
     major: '暂无',
     number: '暂无',
-    result: ''
+    result: '',
+    pageType: '',//group 分组，grade成绩查询
+
+    writeScore:'',//笔试成绩
+    faceScore:'',//面试成绩
+    finalScore:'' //最终成绩
   },
 
   /**
@@ -20,6 +25,25 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    that.setData({
+      'pageType': options.type
+    });
+
+    let pageTitle = '';
+    switch (options.type){
+      case 'group':
+        pageTitle = '面试分组';
+        break;
+      break;
+      case 'grade':
+        pageTitle = '成绩查询';
+        break;
+    }
+    console.log(options.type);
+    wx.setNavigationBarTitle({
+      title: pageTitle
+    })
+
     common.getProcssState(function(res){
       var data = res.data.bean;
       that.setData({
@@ -30,9 +54,14 @@ Page({
         'major': data.xzzymc,//报考专业
         'type': data.bklb,//报考类别
         'result': data.xybnr,//待确认下一步内容
-        'username': data.xm //姓名
+        'username': data.xm, //姓名
+        
+        'writeScore': data.bscj,
+        'faceScore': data.mscj,
+        'finalScore': data.zzcj
       })
     });
+    
   },
 
   /**
@@ -46,9 +75,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    common.getProcssState(function(res){
-
-    });
   },
 
   /**
