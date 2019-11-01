@@ -1,6 +1,8 @@
 <!--pages/Process/Process.wxml-->
 <view class="top">
-  <image src="{{res.logo}}" class="mark"></image>
+  <view class="mark-view">
+    <image src="{{res.logo}}" class="mark"></image>
+  </view>
   <!-- <navigator class="li" url='../messageCenter/messageCenter?applyOwid={{res.applyOwid}}'>
     <image src="../../static/bell.png" class="bell"></image>
    </navigator > -->

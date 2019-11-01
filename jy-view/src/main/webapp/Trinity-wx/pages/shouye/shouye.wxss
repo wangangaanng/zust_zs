@@ -58,12 +58,20 @@ page {
   box-shadow: 0px 1px 3px 0px rgba(210, 210, 210, 0.75);
 }
 
-.cont-img {
-  float: left;
+.cont-img-view {
+  border-radius: 50%;
+  border: 1px solid #26b887;
   height: 100rpx;
   width: 100rpx;
-  margin-right: 20rpx;
-  margin-bottom: 20rpx;
+  float: left;
+  margin-right: 10px;
+  text-align: center;
+}
+
+.cont-img {
+  height: 40rpx;
+  width: 80rpx;
+  margin-top: 15px;
 }
 
 .cont-name {
@@ -129,7 +137,7 @@ page {
 .jieshao {
   font-size: 12px;
   color: #6e6e6e;
-  margin-bottom:  15px;
+  margin-bottom: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
