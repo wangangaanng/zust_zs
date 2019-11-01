@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.entity.BckjBizBm;
 import com.zghzbckj.manage.service.BckjBizBmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +42,7 @@ public class BckjBizBmController extends BaseController {
     public ResponseMessage getListApi(@PathVariable("state") Integer state, PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return ResponseMessage.sendOK(bckjBizBmService.findPageBckjBizBm(filters,state, dataVO.getPageNo(), dataVO.getPageSize()));
+            return ResponseMessage.sendOK(bckjBizBmService.findPageBckjBizBm(filters, state, dataVO.getPageNo(), dataVO.getPageSize()));
         } catch (Exception e) {
             log.error(e + "获取bckjBizBm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
@@ -157,13 +158,13 @@ public class BckjBizBmController extends BaseController {
 
 
     /***
-     *<p>方法:promise TODO 承诺书提交</p>
-     *<ul>
-     *<li> @param dataVO TODO</li>
-     *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-     *<li>@author D.chen.g </li>
-     *<li>@date 2019/10/25 15:38  </li>
-     *</ul>
+     * <p>方法:promise TODO 承诺书提交</p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 15:38  </li>
+     * </ul>
      */
     @RequestMapping(value = "promise", method = RequestMethod.POST)
     @ResponseBody
@@ -185,13 +186,13 @@ public class BckjBizBmController extends BaseController {
     }
 
     /***
-     *<p>方法:getResult TODO获取报名信息 </p>
-     *<ul>
-     *<li> @param dataVO TODO</li>
-     *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-     *<li>@author D.chen.g </li>
-     *<li>@date 2019/10/25 16:13  </li>
-     *</ul>
+     * <p>方法:getResult TODO获取报名信息 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 16:13  </li>
+     * </ul>
      */
     @RequestMapping(value = "getResult", method = RequestMethod.POST)
     @ResponseBody
@@ -328,14 +329,14 @@ public class BckjBizBmController extends BaseController {
     }
 
     /***
-    *<p>方法:notice TODO 面试通知单预览</p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/27 21:02  </li>
-    *</ul>
-    */
+     * <p>方法:notice TODO 面试通知单预览</p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/27 21:02  </li>
+     * </ul>
+     */
     @RequestMapping(value = "notice", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage notice(PublicDataVO dataVO) {
@@ -354,4 +355,54 @@ public class BckjBizBmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+
+    @RequestMapping(value = "bmPass", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage bmPass(PublicDataVO dataVo) throws Exception {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
+        List<String> codes = new ArrayList<String>();
+        codes.add(mapData.get("owid").toString());
+        //拒绝 状态为4  通过为5
+        Integer state = 5;
+        Map resultMap = bckjBizBmService.submitPurchaseBack(codes, state, mapData);
+        if ("true".equals(resultMap.get("result").toString())) {
+            //数据回写
+            return ResponseMessage.sendOK(resultMap.get("bean"));
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
+    }
+
+
+    @RequestMapping(value = "bmReject", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage bmReject(PublicDataVO publicDataVO) {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "state");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+        }
+        BckjBizBm bm = bckjBizBmService.get(mapData.get("owid").toString());
+        if (bm == null) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
+        }
+        Integer state = Integer.parseInt(mapData.get("state").toString());
+        //state 4 拒绝   -1打回修改
+        if (4 == state) {
+            if (!TextUtils.isEmpty(mapData.get("jjly"))) {
+                bm.setJjly(mapData.get("jjly").toString());
+            }
+        }
+        if (-1 == state) {
+            if (!TextUtils.isEmpty(mapData.get("memo"))) {
+                bm.setMemo(mapData.get("memo").toString());
+            }
+        }
+        bm.setState(state);
+        bckjBizBmService.saveOrUpdate(bm);
+        return ResponseMessage.sendOK(bm);
+    }
+
+
 }

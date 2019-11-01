@@ -134,3 +134,6 @@ page {
   overflow: hidden;
   position: relative;
 }
+.weui-loadmore__tips_in-line{
+  background-color: #ebeced
+}

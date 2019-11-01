@@ -10,6 +10,6 @@ page{
   color: rgb(51, 51, 51)
 }
 .btn{
-  padding: 30rpx;
-  text-align: right;
+  padding: 20rpx 30rpx;
+  background-color: #fff;
 }

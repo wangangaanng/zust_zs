@@ -121,7 +121,7 @@ Page({
     let data = {
       pageNo: 1,
       pageSize: 8,
-      zxlx: '5'
+      zxlx: '4'
     }
     common.ajax('zustcommon/bckjBizZxzx/historyMessage', data, function(res) {
       if (res.data.backCode == 0) {

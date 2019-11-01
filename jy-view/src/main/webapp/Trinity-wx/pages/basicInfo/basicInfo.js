@@ -151,7 +151,7 @@ Page({
   //单选框 选择性别
   sexSelect(event) {
     this.setData({
-      sex: event.detail
+      ['form.xb']: event.detail
     });
   },
   //选择证件类型
@@ -281,6 +281,16 @@ function getInfoBasic(that) {
         that.setData({
           houseHold: common.imgPath + (data.hjzm.replace("\\", "/")),//临时页面显示的户籍证明
           upHouseHold: data.hjzm,//户籍证明 
+        });
+      }
+      
+      if (data.hjzm) {//如果有户籍证明就默认显示户籍证明 其他情况就都是选身份证默认
+        that.setData({
+          idType: '2',//户籍证明
+        });
+      }else{
+        that.setData({
+          idType: '1',//身份证
         });
       }
       that.setData({

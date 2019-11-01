@@ -23,7 +23,9 @@ Page({
     focus: false,
     height: 0,
     imgPath: common.imgPath,
-    top: 0
+    top: 0,
+    history: wx.getStorageSync('history') || [],
+    zwsj:false
   },
 
   /**
@@ -142,8 +144,13 @@ Page({
     }
     common.ajax('zustcommon/bckjBizArticle/getMuArticle', data, function(res) {
       if (res.data.backCode == 0) {
+        let zwsj = true
+        if (!!res.data.bean.records) {
+          zwsj = false
+        }
         that.setData({
-          list: res.data.bean.records
+          list: res.data.bean.records || [],
+          zwsj: zwsj
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -160,12 +167,30 @@ Page({
     }
     common.ajax('zustcommon/bckjBizArticle/searchAll', data, function(res) {
       if (res.data.backCode == 0) {
+        let history = that.data.history
+        history.unshift(e.detail)
+        wx.setStorageSync('history', history)
+        let zwsj = true
+        if (!!res.data.bean.records){
+          zwsj= false
+        }
         that.setData({
-          list: res.data.bean.records
+          list: res.data.bean.records || [],
+          history,
+          zwsj: zwsj
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },
+  link(e) {
+    console.log(e)
+  },
+  clear(){
+    wx.removeStorageSync('history')
+    that.setData({
+      history:[]
+    })
+  }
 })

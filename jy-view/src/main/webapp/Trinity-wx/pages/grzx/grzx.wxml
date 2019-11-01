@@ -1,10 +1,10 @@
 <!--pages/grzx/grzx.wxml-->
 <view class="head">
   <view></view>
-  <image src="../../static/tx.png" class="tx"></image>
+  <image src="{{imgUrl}}" class="tx"></image>
 </view>
-<view class="name">我是一条小青龙</view>
-<view class="tel">15855681248</view>
+<view class="name">{{userName}}</view>
+<view class="tel">{{userMobile}}</view>
 <van-cell title="我的报名" icon="../../../static/wdbm.png" is-link url="/pages/Process/Process"/>
 <van-cell title="修改密码" icon="../../../static/xgmm.png" is-link url="/pages/forgetPsw/forgetPsw"/>
 <view class="button">
