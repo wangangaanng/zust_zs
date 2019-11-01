@@ -37,7 +37,7 @@ function ajax(method, data, successMethod,hideload) {
     },
     fail: function (err) {
       wx.showToast({
-        title: '系统错误，请联系管理员',
+        title: '请求失败，请联系管理员',
         icon: 'none',
         duration: 2000
       })
@@ -140,7 +140,8 @@ function getPayUrl(that) {
   ajax('zustcommon/common/getByType', data, function (res) {
     if (res.data.backCode == 0) {
       that.setData({
-        "payUrl": res.data.bean
+        "payUrl": res.data.bean[0].dicVal3,
+        "payDetail": res.data.bean[0].dicVal2
       })
     } else {
       common.toast(res.data.errorMess, 'none', 2000)

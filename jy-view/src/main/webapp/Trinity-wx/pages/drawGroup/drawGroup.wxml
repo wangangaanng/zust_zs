@@ -11,7 +11,7 @@
       <van-field value="{{ type }}"  disabled label="报考类别：" border="{{false}}"/>
       <van-field value="{{ major }}"  disabled label="招生专业:"  border="{{false}}" />
       <van-field value="{{ number }}"  disabled label="准考证号:" border="{{false}}"/>
-      <van-field value="{{result}}"  error placeholder="等待结果" disabled label="抽签结果:" border="{{false}}"/>
+      <van-field value="{{''}}"  error placeholder="{{result}}" disabled label="抽签结果:" border="{{false}}"/>
     </van-cell-group>
     <!-- 按钮 -->
     <!-- <view class="main-btn_wrap">
