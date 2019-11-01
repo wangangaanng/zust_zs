@@ -571,7 +571,7 @@
         select
         <include refid="bckjBizJobColumns"></include>
         from bckj_biz_job a
-        where a.zph_ksrq=CURRENT_DATE and a.zph_sfqd=1
+        where DATE(a.zph_ksrq)=CURRENT_DATE and a.zph_sfqd=1
     </select>
 
 
