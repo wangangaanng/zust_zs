@@ -190,6 +190,8 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
             jbxx.setXkState(1);
         }
         BckjBizJbxx param=JsonUtil.map2Bean(mapData,BckjBizJbxx.class);
+        //防止默认的0覆盖
+        param.setState(null);
         BeanUtil.copyPropertiesIgnoreNull(param,jbxx);
         bckjBizJbxxService.saveOrUpdate(jbxx);
         mapData.put("lx",1);

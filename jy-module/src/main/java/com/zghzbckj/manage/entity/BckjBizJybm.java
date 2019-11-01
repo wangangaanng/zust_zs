@@ -87,6 +87,15 @@ public class BckjBizJybm extends DataWithExpEntity<BckjBizJybm> {
     private String rs5;
     private Integer showUpload;
     private String detail;
+    private BckjBizJob job;
+
+    public BckjBizJob getJob() {
+        return job;
+    }
+
+    public void setJob(BckjBizJob job) {
+        this.job = job;
+    }
 
     public String getDetail() {
         return detail;

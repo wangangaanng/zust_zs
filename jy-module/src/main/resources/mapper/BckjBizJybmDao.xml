@@ -147,7 +147,7 @@
                 AND a.bmdx = #{bmdx}
             </if>
             <if test="qymc != null and qymc != ''">
-                AND a.qymc = #{qymc}
+				AND a.qymc LIKE concat('%',#{qymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
             <if test="qysh != null and qysh != ''">
                 AND a.qysh = #{qysh}
@@ -513,6 +513,9 @@
             <if test="bmlx != null and bmlx != ''">
                 AND a.bmlx = #{bmlx}
             </if>
+			<if test="state != null and state != ''">
+				AND a.state = #{state}
+			</if>
         </where>
     </select>
 

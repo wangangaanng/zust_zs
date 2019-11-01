@@ -261,10 +261,10 @@
             </td>
                  <#list xkList as xk>
             <td align="center" colspan="2" valign="middle" class="contentFont han" style="width: 65px;">
-                ${xk.kmmc}
+                ${xk.kmmc!''}
             </td>
             <td align="center" valign="middle" class="contentFont han" style="width: 133px;">
-                ${xk.kmcj}
+                ${xk.kmcj!''}
             </td>
                  </#list>
         </tr>
@@ -286,7 +286,7 @@
                 专项类别（可多选）
             </td>
             <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
-            ${zxlb}
+            ${zxlb!''}
             </td>
         </tr>
         <tr>
@@ -294,7 +294,7 @@
                 高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次
             </td>
             <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
-            ${jssm}
+            ${jssm!''}
             </td>
         </tr>
         <tr>
@@ -306,7 +306,7 @@
                 高中阶段参加的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或职责）
             </td>
             <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
-            ${qtqk}
+            ${qtqk!''}
             </td>
         </tr>
         <tr>
@@ -314,7 +314,7 @@
                 特长和爱好
             </td>
             <td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 425px;">
-            ${tcah}
+            ${tcah!''}
             </td>
         </tr>
     </table>
