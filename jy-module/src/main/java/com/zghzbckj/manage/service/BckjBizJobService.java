@@ -765,7 +765,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         List<BckjBizJybm> bmList = bmService.findListByParams(params, " a.qymc desc ");
         List<Map> zwList = new ArrayList<>();
         Map map = Maps.newHashMap();
-        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0)
+        {
             for (BckjBizJybm jybm : bmList) {
                 zwList = new ArrayList<>();
                 if (!TextUtils.isEmpty(jybm.getZw1())) {

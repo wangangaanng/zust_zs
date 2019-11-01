@@ -531,7 +531,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 }
                 bm.setZwbh(mapData.get("zwbh").toString());
                 String content = "";
-                if (!TextUtils.isEmpty(mapData.get("bmqygs"))) {
+                if (!TextUtils.isEmpty(mapData.get("bmqygs")))
+                {
                     Integer bmqygs = Integer.parseInt(mapData.get("bmqygs").toString());
                     bm.setBmqygs(bmqygs);
                     if (bmqygs >= 2) {
@@ -539,7 +540,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     } else {
                         content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
                     }
-                } else {
+                }
+                else {
                     content = JyContant.ZPH_PASS_MESS + mapData.get("zwbh") + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
                 }
                 String mobile = bm.getLxdh();
@@ -701,6 +703,13 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             jybm.setZphBmjzsj(job.getZphBmjzsj());
             jybm.setZphKsrq(job.getZphKsrq());
             jybm.setDetail(job.getMemo());
+
+            Map mapParam = Maps.newHashMap();
+            mapParam.put("wzRefOwid", job.getOwid());
+            List<Map> files = qyxxDao.getSysFiles(mapParam);
+            job.setFileList(files);
+            jybm.setJob(job);
+
         }
         if (!TextUtils.isEmpty(jybm.getQyxxRefOwid())) {
             BckjBizQyxx qyxx = qyxxService.get(jybm.getQyxxRefOwid());
