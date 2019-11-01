@@ -207,7 +207,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
                 company.setState(JyContant.QY_ZT_TG);
                 String sfzStr = company.getQyFrsfz();
-                String content = JyContant.QY_PASS_MESS + company.getQyTysh() + "密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
+                String content = JyContant.QY_PASS_MESS + company.getQyTysh() + "，您的登录密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
                 String mobile = company.getQyLxrdh();
                 try {
                     MessageUtil.sendMessage(mobile, content);
@@ -317,7 +317,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         BckjBizQyxx qyxx = get(codes.get(0));
         String sfzStr = qyxx.getQyFrsfz();
         if (JyContant.QY_ZT_TG.equals(state)) {
-            String content = JyContant.QY_PASS_MESS + qyxx.getQyTysh() + "密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
+            String content = JyContant.QY_PASS_MESS + qyxx.getQyTysh() + "，您的登录密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());
             String mobile = qyxx.getQyLxrdh();
             try {
                 MessageUtil.sendMessage(mobile, content);

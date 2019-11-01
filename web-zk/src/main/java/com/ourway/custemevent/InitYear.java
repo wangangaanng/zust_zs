@@ -17,7 +17,7 @@ public class InitYear implements ComponentInitSer {
     public void doAction(BaseWindow window, Component component, PageControlVO pageControlVO) {
         String label = "";
         String value = "";
-        Listitem newItem = new Listitem("--请选择--", "");
+        Listitem newItem = new Listitem("请选择", "");
         newItem.setParent(component);
         newItem.setSelected(true);
 
