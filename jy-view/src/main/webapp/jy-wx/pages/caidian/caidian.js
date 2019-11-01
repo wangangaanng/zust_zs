@@ -23,8 +23,8 @@ Page({
       type: 'gcj02',// 默认wgs84
       success: function (res) {
         that.setData({
-          latitude: res.latitude,
-          longitude: res.longitude
+          latitude: res.latitude.toFixed(5),
+          longitude: res.longitude.toFixed(5)
         })
       },
       fail: function (res) { }
@@ -62,8 +62,8 @@ Page({
       type: 'gcj02',// 默认wgs84
       success: function (res2) {
         that.setData({
-          latitude: res2.latitude,
-          longitude: res2.longitude
+          latitude: res2.latitude.toFixed(5),
+          longitude: res2.longitude.toFixed(5)
         })
         wx.showModal({
           title: '提示',

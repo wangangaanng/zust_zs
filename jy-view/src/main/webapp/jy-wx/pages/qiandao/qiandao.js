@@ -112,18 +112,34 @@ Page({
   },
   qiandao:function(){
     var that = this
-    wx.showModal({
-      title: '提示',
-      content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
-      confirmColor:'#008783',
-      success(res) {
-        if (res.confirm) {
-          qd(that);
-        } else if (res.cancel) {
-          
+    if (that.data.latitude){//获取到本人位置
+      wx.showModal({
+        title: '提示',
+        content: '签到后该微信号将与该账号绑定，绑定后不可更改，是否确认是本人签到',
+        confirmColor: '#008783',
+        success(res) {
+          if (res.confirm) {
+            qd(that);
+          } else if (res.cancel) {
+
+          }
         }
-      }
-    })
+      })
+    }else{
+      wx.showModal({
+        title: '提示',
+        content: '未获取到您的位置，请打开设置后刷新重试',
+        confirmColor: '#008783',
+        success(res) {
+          if (res.confirm) {
+          
+          } else if (res.cancel) {
+
+          }
+        }
+      })
+    }
+    
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -220,7 +236,7 @@ var getContent = function (that, owid) {//招聘详情
   });
 }
 var qd = function(that){
-  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
+  var data = { "xxlb": 1, "gpsJd": that.data.longitude, "gpsWd": that.data.latitude,"distance":that.data.jl, "jobRefOwid": that.data.owid, "yhRefOwid": wx.getStorageSync("yhOwid") };
   common.ajax('zustjy/bckjBizXsgz/signInOrScribe', data, function (res) {
     if (res.data.backCode == 0) {
       wx.showToast({
