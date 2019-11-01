@@ -107,20 +107,14 @@
                         </#if>
                         </li>
                     </#if>
-                    <#if (result.memo?exists) && (result.state==2)>
-                        <li>拒绝原因：<span> ${result.memo!''}</span></li>
-                    </#if>
                     <#if result.jkr?exists>
                         <li>讲课人：<span> ${result.jkr!''}</span></li>
                     </#if>
                     <#if result.jkrjs?exists>
                         <li>讲课人介绍：<span> ${result.jkrjs!''}</span></li>
                     </#if>
-                    <#if result.xjhsqly?exists>
-                        <li>申请理由：<span> ${result.xjhsqly!''}</span></li>
-                    </#if>
                     <#if result.memo?exists>
-                        <li>备注：<span> ${result.memo!''}</span></li>
+                        <li>公司介绍：<span> ${result.memo!''}</span></li>
                     </#if>
                 </ul>
                 <ul class="xInfo" style="width: 50%;float: left;">

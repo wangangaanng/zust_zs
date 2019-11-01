@@ -126,98 +126,92 @@
                     if(data.bean){
                         var str='';
                         var p=data.bean
-                        if(data.bean.xm){
+                        if(p.xm){
                             str+='<div class="da-item"><div>学生姓名：</div><p>'+p.xm+'</p></div>'
                         }
-                        if(data.bean.xsxh){
+                        if(p.xsxh){
                             str+='<div class="da-item"><div>学生学号：</div><p>'+p.xsxh+'</p></div>'
                         }
-                        if(data.bean.sfz){
-                            str+='<div class="da-item"><div>身份证号码：</div><p>'+p.sfz+'</p></div>'
-                        }
-                        if(data.bean.xb){
-                            if(data.bean.xb==1){
-                                str+='<div class="da-item"><div>性别：</div><p>男</p></div>'
-                            }else if(data.bean.xb==2){
-                                str+='<div class="da-item"><div>性别：</div><p>女</p></div>'
-                            }
-                        }
-                        if(data.bean.mz){
-                            $("#mz").val(data.bean.mz);
-                            str+='<div class="da-item"><div>民族：</div><p>'+$("#mz option:selected").html()+'</p></div>'
-                        }
-                        if(data.bean.xxmc){
+                        if(p.xxmc){
                             str+='<div class="da-item"><div>学校名称：</div><p>'+p.xxmc+'</p></div>'
                         }
-                        if(data.bean.xsxy){
-                            str+='<div class="da-item"><div>学生学院：</div><p>'+p.xsxy+'</p></div>'
+                        if(p.sfzydk){
+                            if(p.sfzydk==1){
+                                str+='<div class="da-item"><div>是否专业对口：</div><p>是</p></div>'
+                            }else if(p.sfzydk==2){
+                                str+='<div class="da-item"><div>是否专业对口：</div><p>否</p></div>'
+                            }
                         }
-                        if(data.bean.xszy){
-                            str+='<div class="da-item"><div>学生专业：</div><p>'+p.xszy+'</p></div>'
+                        if(p.byqx){
+                            // $("#byqx").val(p.byqx);
+                            // str+='<div class="da-item"><div>毕业去向：</div><p>'+$("#byqx option:selected").html()+'</p></div>'
+                            str+='<div class="da-item"><div>毕业去向：</div><p>'+p.byqx+'</p></div>'
                         }
-                        if(data.bean.xsbj){
-                            str+='<div class="da-item"><div>学生班级：</div><p>'+p.xsbj+'</p></div>'
+                        if(p.yrdwmc){
+                            str+='<div class="da-item"><div>用人单位名称：</div><p>'+p.yrdwmc+'</p></div>'
                         }
-                        if(data.bean.bynf){
-                            str+='<div class="da-item"><div>毕业年份：</div><p>'+p.bynf+'</p></div>'
+                        if(p.yrdwdm){
+                            str+='<div class="da-item"><div>用人单位代码：</div><p>'+p.yrdwdm+'</p></div>'
                         }
-                        if(data.bean.byxl){
-                            str+='<div class="da-item"><div>毕业学历：</div><p>'+p.byxl+'</p></div>'
+                        if(p.yrdwxzmc){
+                            str+='<div class="da-item"><div>用人单位性质：</div><p>'+p.yrdwxzmc+'</p></div>'
                         }
-                        if(data.bean.xz){
-                            str+='<div class="da-item"><div>学制：</div><p>'+p.xz+'</p></div>'
+                        if(p.dwhylbmc){
+                            str+='<div class="da-item"><div>用人单位行业类别：</div><p>'+p.dwhylbmc+'</p></div>'
                         }
-                        if(data.bean.syddm){
-                            str+='<div class="da-item"><div>生源地代码：</div><p>'+p.syddm+'</p></div>'
+                        if(p.dwszdmc){
+                            str+='<div class="da-item"><div>单位所在地：</div><p>'+p.dwszdmc+'</p></div>'
                         }
-                        if(data.bean.syd){
-                            $("#syd").val(data.bean.syd);
-                            str+='<div class="da-item"><div>生源地：</div><p>'+$("#syd option:selected").html()+'</p></div>'
+
+
+                        if(p.dwlxr){
+                            str+='<div class="da-item"><div>单位联系人：</div><p>'+p.dwlxr+'</p></div>'
                         }
-                        if(data.bean.sjh){
-                            str+='<div class="da-item"><div>手机号：</div><p>'+p.sjh+'</p></div>'
+                        if(p.dwdh){
+                            str+='<div class="da-item"><div>单位电话：</div><p>'+p.dwdh+'</p></div>'
                         }
-                        if(data.bean.yx){
-                            str+='<div class="da-item"><div>邮箱：</div><p>'+p.yx+'</p></div>'
+                        if(p.gzzwlbmc){
+                            str+='<div class="da-item"><div>工作职位类别：</div><p>'+p.gzzwlbmc+'</p></div>'
                         }
-                        if(data.bean.dwszddm){
-                            str+='<div class="da-item"><div>报到地区代码：</div><p>'+p.dwszddm+'</p></div>'
+
+
+                        if(p.bdzqflbmc){
+                            // $("#bdzqflbmc").val(p.bdzqflbmc);
+                            // str+='<div class="da-item"><div>报到证签发类别名称：</div><p>'+$("#bdzqflbmc option:selected").html()+'</p></div>'
+                            str+='<div class="da-item"><div>报到证签发类别：</div><p>'+p.bdzqflbmc+'</p></div>'
                         }
-                        if(data.bean.byqx){
-                            $("#byqx").val(data.bean.byqx);
-                            str+='<div class="da-item"><div>毕业去向：</div><p>'+$("#byqx option:selected").html()+'</p></div>'
+                        if(p.bdzqwdwmc){
+                            str+='<div class="da-item"><div>报到证签往单位：</div><p>'+p.bdzqwdwmc+'</p></div>'
                         }
-                        if(data.bean.bdzszdmc){
-                            $("#bdzszdmc").val(data.bean.bdzszdmc);
-                            str+='<div class="da-item"><div>报到证签往单位所在地：</div><p>'+$("#bdzszdmc option:selected").html()+'</p></div>'
+                        if(p.bdzqwszdmc){
+                            str+='<div class="da-item"><div>报到证签往所在地：</div><p>'+p.bdzqwszdmc+'</p></div>'
                         }
-                        if(data.bean.bdzqflbmc){
-                            $("#bdzqflbmc").val(data.bean.bdzqflbmc);
-                            str+='<div class="da-item"><div>报到证签发类别名称：</div><p>'+$("#bdzqflbmc option:selected").html()+'</p></div>'
-                        }
-                        if(data.bean.bdkssj){
+                        if(p.bdkssj){
                             str+='<div class="da-item"><div>报到开始时间：</div><p>'+p.bdkssj+'</p></div>'
                         }
-                        if(data.bean.bdjssj){
+                        if(p.bdjssj){
                             str+='<div class="da-item"><div>报到结束时间：</div><p>'+p.bdjssj+'</p></div>'
                         }
-                        if(data.bean.bdzbh){
-                            str+='<div class="da-item"><div>报到证编号：</div><p>'+p.bdzbh+'</p></div>'
+                        if(p.datdxxdz){
+                            str+='<div class="da-item"><div>档案投递电话：</div><p>'+p.datdxxdz+'</p></div>'
                         }
-                        if(data.bean.datdxxdz){
-                            str+='<div class="da-item"><div>档案投递详细地址：</div><p>'+p.datdxxdz+'</p></div>'
-                        }
-                        if(data.bean.datddw){
+                        if(p.datddw){
                             str+='<div class="da-item"><div>档案投递单位：</div><p>'+p.datddw+'</p></div>'
                         }
-                        if(data.bean.hkqydz){
+                        if(p.hkqydz){
                             str+='<div class="da-item"><div>户口迁移地址：</div><p>'+p.hkqydz+'</p></div>'
                         }
-                        if(data.bean.bdzlsh){
-                            str+='<div class="da-item"><div>报到证流水号：</div><p>'+p.bdzlsh+'</p></div>'
-                        }
-                        if(data.bean.bdzbz){
+                        if(p.bdzbz){
                             str+='<div class="da-item"><div>报到证备注：</div><p>'+p.bdzbz+'</p></div>'
+                        }
+                        if(p.bzone){
+                            str+='<div class="da-item"><div>备注一：</div><p>'+p.bzone+'</p></div>'
+                        }
+                        if(p.bztwo){
+                            str+='<div class="da-item"><div>备注二：</div><p>'+p.bztwo+'</p></div>'
+                        }
+                        if(p.bzthree){
+                            str+='<div class="da-item"><div>备注三：</div><p>'+p.bzthree+'</p></div>'
                         }
 
                         index = layer.open({
