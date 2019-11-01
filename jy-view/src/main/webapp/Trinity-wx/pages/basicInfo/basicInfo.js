@@ -283,6 +283,16 @@ function getInfoBasic(that) {
           upHouseHold: data.hjzm,//户籍证明 
         });
       }
+      
+      if (data.hjzm) {//如果有户籍证明就默认显示户籍证明 其他情况就都是选身份证默认
+        that.setData({
+          idType: '2',//户籍证明
+        });
+      }else{
+        that.setData({
+          idType: '1',//身份证
+        });
+      }
       that.setData({
         form: data,
       });
