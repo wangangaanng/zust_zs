@@ -62,7 +62,10 @@ var getContent = function (that, owid) {//学校简介
   var data = { "owid": owid };
   common.ajax('zustcommon/bckjBizArticle/getOne', data, function (res) {
     if (res.data.backCode == 0) {
-      res.data.bean.createtime = res.data.bean.createtime.substring(0, 4) + '年' + res.data.bean.createtime.substring(5, 7) + '月' + res.data.bean.createtime.substring(8, 10) + '日 ' + res.data.bean.createtime.substring(11, 16);
+      if (res.data.bean.createtime){
+        res.data.bean.createtime = res.data.bean.createtime.substring(0, 4) + '年' + res.data.bean.createtime.substring(5, 7) + '月' + res.data.bean.createtime.substring(8, 10) + '日 ' + res.data.bean.createtime.substring(11, 16);
+      }
+      
       var memo = res.data.bean.wznr
       // const regex1 = new RegExp('<h[1-6]', 'gi');
       // const regex2 = new RegExp('</h[1-6]', 'gi');
