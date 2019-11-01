@@ -739,26 +739,6 @@ public class DemoController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
-        Map param7=Maps.newHashMap();//民族
-        param7.put("dicType","50009");
-        PublicData publicData7= UnionHttpUtils.manageParam(param7,"zustcommon/common/getByType");
-        ResponseMessage type7  = UnionHttpUtils.doPosts(publicData7);
-        view.addObject("mzList",type7.getBean());
-        Map param=Maps.newHashMap();//生源地
-        param.put("dicType","50005");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-        ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("sydList",type.getBean());
-        Map param2=Maps.newHashMap();//毕业去向名称（字典表）
-        param2.put("dicType","50001");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-        ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
-        view.addObject("byqxList",type2.getBean());
-        Map param5=Maps.newHashMap();//报到证签发类别名称（字典表）
-        param5.put("dicType","50007");
-        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
-        ResponseMessage type5  = UnionHttpUtils.doPosts(publicData5);
-        view.addObject("bdzqflbList",type5.getBean());
         return view;
     }
 

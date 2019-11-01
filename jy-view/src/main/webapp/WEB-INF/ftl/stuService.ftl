@@ -62,42 +62,6 @@
     </div>
 </div>
 
-<select style="display: none;" id="mz">
-        <#if mzList??>
-            <#list mzList as obj>
-            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-            </#list>
-        </#if>
-</select>
-<select style="display: none;" id="syd">
-        <#if sydList??>
-            <#list sydList as obj>
-            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-            </#list>
-        </#if>
-</select>
-<select style="display: none;" id="bdzszdmc">
-        <#if sydList??>
-            <#list sydList as obj>
-            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-            </#list>
-        </#if>
-</select>
-<select style="display: none;" id="byqx">
-        <#if byqxList??>
-            <#list byqxList as obj>
-            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-            </#list>
-        </#if>
-</select>
-<select style="display: none;" id="bdzqflbmc">
-        <#if bdzqflbList??>
-            <#list bdzqflbList as obj>
-            <option value="${obj.dicVal1}">${obj.dicVal2}</option>
-            </#list>
-        </#if>
-</select>
-
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 
