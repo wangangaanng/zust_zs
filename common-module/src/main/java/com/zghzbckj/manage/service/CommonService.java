@@ -1,6 +1,7 @@
 package com.zghzbckj.manage.service;
 
 import com.beust.jcommander.internal.Maps;
+import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
@@ -110,14 +111,29 @@ public class CommonService {
     public void sendCode(Map<String, Object> mapData, int type) throws Exception {
         BckjBizYhxx yhxx;
         if (type == 0) {
-            if(TextUtils.isEmpty(mapData.get("unionid"))){
+            if (TextUtils.isEmpty(mapData.get("unionid"))) {
                 throw new CustomerException("unionid必传");
             }
             yhxx = bckjBizYhxxService.getBySwZh(mapData, "unionid");
             if (null == yhxx) {
                 throw new CustomerException("微信基本信息不存在，请重新进入小程序");
+            } else {
+                if (!TextUtils.isEmpty(yhxx.getState()) && yhxx.getState() == 1) {
+                    throw new CustomerException("每个微信号只能注册一个手机，此微信已注册");
+                }
             }
+            BckjBizYhxx indata = bckjBizYhxxService.getBySwZh(mapData, "swZh");
+            if (null != indata && yhxx != null) {
+                if (!indata.getOwid().equals(yhxx.getOwid())) {
+                    yhxx.setState(indata.getState());
+                    bckjBizYhxxService.delete(yhxx);
+                    BeanUtil.copyPropertiesIgnoreNull(yhxx, indata);
+                    yhxx = indata;
+                }
+            }
+
         } else {
+            //pc
             yhxx = bckjBizYhxxService.getBySwZh(mapData, "swZh");
             if (null == yhxx) {
                 yhxx = new BckjBizYhxx();
@@ -126,7 +142,7 @@ public class CommonService {
             }
         }
         if (null != yhxx.getState() && yhxx.getState() == 1) {
-            throw new CustomerException("此用户已经绑定");
+            throw new CustomerException("此手机号已经注册");
         }
         yhxx.setSwZh(MapUtils.getString(mapData, "swZh"));
         yhxx.setYzm(getRandom());
@@ -180,7 +196,7 @@ public class CommonService {
         String realName = String.valueOf(System.currentTimeMillis());
         String trueFileName = CommonModuleContant.SWTYFILEPATH + File.separator + realName + CommonConstant.SPILT_POINT + type;
         String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH);
-        File tarFile = new File(path+trueFileName);
+        File tarFile = new File(path + trueFileName);
         file.transferTo(tarFile);
         Map<String, Object> fileCenter = Maps.newHashMap();
         fileCenter.put("filePath", trueFileName);
@@ -199,9 +215,11 @@ public class CommonService {
         commonDao.insertFile(fileCenter);
         return fileCenter;
     }
+
     /**
      * 小程序下拉框显示20字典表内容
-     * @param  dataMap
+     *
+     * @param dataMap
      * @return List<Map>
      */
     public List<Map> getSmallRoutine(Map<String, Object> dataMap) {
@@ -210,14 +228,14 @@ public class CommonService {
     }
 
     /***
-    *<p>方法:getXkkm TODO获取选课列表 </p>
-    *<ul>
+     *<p>方法:getXkkm TODO获取选课列表 </p>
+     *<ul>
      *<li> @param mapData TODO</li>
-    *<li>@return java.lang.Object  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/28 11:43  </li>
-    *</ul>
-    */
+     *<li>@return java.lang.Object  </li>
+     *<li>@author D.chen.g </li>
+     *<li>@date 2019/10/28 11:43  </li>
+     *</ul>
+     */
     public Object getXkkm(Map<String, Object> mapData) {
         return this.commonDao.getXkcj(mapData);
     }
