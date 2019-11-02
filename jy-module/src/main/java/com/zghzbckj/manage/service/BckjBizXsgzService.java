@@ -269,7 +269,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             //查看此微信号是否已经注册过   unionid存exp5
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
             if (!TextUtils.isEmpty(oneByUnionId)&& oneByUnionId.getState()==1) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "此微信号注册");
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "不可重复签到");
             }
         }
         //如果为新的关注

@@ -32,7 +32,7 @@ public interface BckjBizZxzxSer {
      *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
      *<li>@throws </li>
      *<li>@author wangangaanng</li>
-     *<li>@date 2019/9/11</li>
+     *<li>@date 2019/9/11</li>bckjBizZxzx/replyConsult
      *</ul>
      */
     @RequestMapping(value = "/bckjBizZxzx/replyConsult",method = RequestMethod.POST)
