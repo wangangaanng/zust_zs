@@ -102,19 +102,28 @@ public class BckjBizPicvidController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "getAdvs", method = RequestMethod.POST)
+    /**
+    *<p>方法:getPicList TODO获取图片 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/11/2 19:43  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "getPicList", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage getAdvs(PublicDataVO dataVO) {
+    public ResponseMessage getPicList(PublicDataVO dataVO) {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh","zszd");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh","zszd","lx");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
             return ResponseMessage.sendOK(bckjBizPicvidService.getByLmbh(mapData));
         } catch (Exception e) {
-            log.info("获取营业日志失败：" + e);
+            log.info("获取图片失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }

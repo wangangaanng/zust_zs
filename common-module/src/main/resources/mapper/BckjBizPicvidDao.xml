@@ -76,6 +76,9 @@
 			<if test="zszd!=null and zszd!='' ">
 			 AND	a.zszd=#{zszd}
 			</if>
+			<if test="lx!=null and lx!='' ">
+				AND	a.lx=#{lx}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
