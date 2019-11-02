@@ -158,7 +158,8 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         dataMap.put("hfOwid", bckjBizZjzx.getYhid());
         dataMap.put("hfName", bckjBizZjzx.getZjxm());
         dataMap.put("zxzyid", bckjBizZjzx.getOwid());
-        return bckjbizzxzxSer.replyConsult(dataMap);
+        ResponseMessage responseMessage = bckjbizzxzxSer.replyConsult(dataMap);
+        return responseMessage;
     }
 
 

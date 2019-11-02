@@ -8,19 +8,21 @@ Page({
   data: {
     userName: '',
     userMobile: '',
-    imgUrl: '../../../static/logo.png'
+    imgUrl: '../../static/logo.png'
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var headUrl = wx.getStorageSync('headImg');
     var that = this;
+    var headUrl = wx.getStorageSync('headImg');
+    that.setData({
+        'imgUrl': headUrl
+    })
     if (headUrl) {
       that.setData({
         'imgUrl': headUrl,
-        'userMobile': wx.getStorageSync('mobile'),
-        'userName': wx.getStorageSync('userName')
+        'userMobile': wx.getStorageSync('mobile')
       })
     }
 

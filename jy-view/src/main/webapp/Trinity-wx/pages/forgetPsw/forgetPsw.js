@@ -34,7 +34,8 @@ Page({
     common.ajax('zustcommon/bckjBizYhxx/forgetPwd', data, function (res) {
       if (res.data.backCode == 0) {
         wx.setStorageSync('account', params.tel);
-        common.toast('密码设置成功', 'none', 2000);
+        wx.setStorageSync('hasLogin', '0');
+        common.toast('密码设置成功', 'none', 1500);
         setTimeout(function () {
           wx.navigateTo({
             url: '../login/login',

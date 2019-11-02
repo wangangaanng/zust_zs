@@ -12,9 +12,9 @@
       <view class="pay-url_wrap">
         <text class="detail-url">{{payDetail}}</text>
         <view class="pay-button_wrap">
-          <view wx:if="{{payUrl!=''}}">
+          <block wx:if="{{payUrl!=''}}">
           <van-button class="copy-btn" size="small" plain hairline type="primary" bind:click="copyUrl" data-text="{{payUrl}}">复制地址</van-button>
-          </view>
+          </block>
           <van-button size="small" plain hairline type="primary" bind:click="goPayOline" >直接去缴费
           </van-button>
         </view>
