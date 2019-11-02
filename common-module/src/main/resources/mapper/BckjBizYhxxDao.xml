@@ -304,7 +304,7 @@
 		SELECT
 		a.OWID as "owid" ,a.YHTX as "yhtx", a.SJH as "sjh" ,
 		a.YH_DLZH as "yhDlzh" , a.YH_DLMM as "yhDlmm",a.sfz as sfz,a.xm as xm,
-		b.zjxm,zjxm
+		b.zjxm,zjxm ,b.owid as zjOwid
 		FROM bckj_biz_yhxx a ,bckj_biz_zjzx b
 		WHERE a.`YH_DLZH`=#{yhDlzh} and b.yhid=a.owid;
 	</select>
