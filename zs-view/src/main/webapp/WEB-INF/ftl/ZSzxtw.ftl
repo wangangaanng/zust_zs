@@ -26,7 +26,7 @@
     .content-list .zxtw-form{ margin:20px; padding:0 0 20px 0; border-top:1px solid #ddd;}
     .content-list .zxtw-form h5{padding:8px 5px;}
     .content-list .zxtw-form p{ padding:5px;}
-    .content-list .zxtw-form wtnr{ width:827px; height:100px; margin-bottom:10px;}
+    .content-list .zxtw-form textarea{ width:100%; height:100px; margin-bottom:10px;}
     .path{ border-bottom:1px solid #d6d6d6; padding-bottom:10px;}
     .path a{ padding:0 5px;}
 </style>
@@ -42,18 +42,25 @@
                 </div>
                 <div class="content-list">
                     <ul id="wdListUi">
-                        <li>
-                            <div class="questions">
-                                <h6><span class="fr">2019-10-14 03:19:21</span>1、来自58.101.36.84的提问</h6>
-                                <p>科院授予的制药工程学士学位英文对应的是bachelor of science 还是bachelor of engineering？</p>
-                            </div>
-                            <div class="answer">
-                                <div class="answer-content">
-                                    <h6><span class="fr">2019-10-21 08:12:26</span><strong>管理员</strong>的回复：</h6>
-                                    <p>详情咨询请拨打85070116</p>
-                                </div>
-                            </div>
-                        </li>
+                        <#if (result??)&&(result.records??)&&(result.records?size>0)>
+                            <#assign flag=1>
+                            <#list result.records as obj>
+                                <li>
+                                    <div class="questions">
+                                        <h6><span class="fr">${obj.TWRQ}</span>${obj_index + 1}、来自${obj.LYIP}的提问</h6>
+                                        <p>${obj.WTNR}</p>
+                                    </div>
+                                    <div class="answer">
+                                        <div class="answer-content">
+                                            <h6><span class="fr">${obj.HDRQ}</span><strong>管理员</strong>的回复：</h6>
+                                            <p>${obj.DANR}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </#list>
+                        <#else >
+                            <#assign flag=0>
+                        </#if>
                     </ul>
                     <div class="text-center">
                         <nav aria-label="Page navigation">
@@ -68,7 +75,7 @@
                             <textarea name="textarea" id="wtnr" cols="40" rows="5"></textarea>
                         </p>
                         <p>
-                            <button type="button" class="btn btn-default"
+                            <button type="button" class="btn btn-default" onclick="submit()"
                                     style="background-color: rgb(85,167,153);color: #ffffff;width: 100px;height: 34px;">提交留言</button>
                         </p>
                     </div>
@@ -86,19 +93,15 @@
             return;
         }
         var data = {
-            wtnr: $('#wtnr').val,
+            wtnr: $('#wtnr').val(),
             zxlx: 1
         };
         ajax("zustcommon/bckjBizZxzx/consult", data, function (res) {
             if (res.backCode === 0) {
-                layer.close(index);
-                layer.open({
-                    title: '提示',
-                    content: '咨询已提交，请等待回复。',
-                    yes: function (index) {
-                        layer.close(index);
-                    }
-                });
+                walert("提交成功，请等待回答");
+                $('#wtnr').html("")
+            } else {
+                walert("提交失败")
             }
         })
     }

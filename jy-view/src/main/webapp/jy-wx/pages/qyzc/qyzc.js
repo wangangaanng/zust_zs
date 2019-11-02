@@ -122,58 +122,59 @@ Page({
   initValidate() {
     // 验证字段的规则
     const rules = {
-      qyTysh: {
-        required: true,
-      },
-      qyFrsfz: {
-        required: true
-      },
-      qyFrdbxm: {
-        required: true
-      },
-      qymc: {
-        required: true
-      },
-      qydz: {
-        required: true
-      },
-      qyZczj: {
-        required: true
-      },
-      qyProv: {
-        required: true
-      },
-      qyCity: {
-        required: true
-      },
-      qyArea: {
-        required: true
-      },
-      qyLxr: {
-        required: true
-      },
-      qyLxrdh: {
-        required: true,
-        tel: true,
-      },
-      qyYx: {
-        required: true,
-        email: true,
-      },
-      qylxfs: {
-        required: true
-      },
-      qyGsxz: {
-        required: true
-      },
-      qyHylb: {
-        required: true
-      },
-      qyGsgm: {
-        required: true
-      },
+      // qyTysh: {
+      //   required: true,
+      // },
+      // qyFrsfz: {
+      //   required: true
+      // },
+      // qyFrdbxm: {
+      //   required: true
+      // },
+      // qymc: {
+      //   required: true
+      // },
+      // qydz: {
+      //   required: true
+      // },
+      // qyZczj: {
+      //   required: true
+      // },
+      // qyProv: {
+      //   required: true
+      // },
+      // qyCity: {
+      //   required: true
+      // },
+      // qyArea: {
+      //   required: true
+      // },
+      // qyLxr: {
+      //   required: true
+      // },
+      // qyLxrdh: {
+      //   required: true,
+      //   tel: true,
+      // },
+      // qyYx: {
+      //   required: true,
+      //   email: true,
+      // },
+      // qylxfs: {
+      //   required: true
+      // },
+      // qyGsxz: {
+      //   required: true
+      // },
+      // qyHylb: {
+      //   required: true
+      // },
+      // qyGsgm: {
+      //   required: true
+      // },
       qyGsjs: {
-        required: true
+        required: true,
+        minlength:150
       },
       qyYyzzzp: {
         required: true
@@ -234,7 +235,7 @@ Page({
       },
       qyGsjs: {
         required: '请填写公司介绍',
-        maxlength: "公司介绍不得超过200字",
+        minlength: "公司介绍不得少于150字",
       },
       qyYyzzzp:{
         required: '请上传企业营业执照',

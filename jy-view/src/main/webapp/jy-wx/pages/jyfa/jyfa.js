@@ -21,10 +21,11 @@ Page({
    * 
    */
   data: {
+    sfzydkIndex:0,
     hidden1: false,
     minDate: new Date("1990-01-01").getTime(),
-    minDate1: new Date("1990-01-01").getTime(),
-    minDate2: new Date("1990-01-01").getTime(),
+    bdkssj: new Date().getTime(),
+    bdjssj: new Date().getTime(),
     imgPath: imgPath,
     xbColumns: [{ dicVal1: '1', dicVal2: '男' }, { dicVal1: '2', dicVal2: '女' }],
     mzColumns: [],
@@ -604,7 +605,11 @@ var getOne = function (that) {
         data.bean.bdjssj = data.bean.bdjssj ? data.bean.bdjssj.substring(0, 10) : ''
         that.setData({
           form: data.bean,
-          owid: data.bean.owid
+          owid: data.bean.owid,
+          bdkssj: data.bean.bdkssj ? new Date(data.bean.bdkssj).getTime() : '',
+          bdjssj: data.bean.bdjssj ? new Date(data.bean.bdjssj).getTime() : '',
+          bdkssjStr: data.bean.bdkssj ? data.bean.bdkssj.substring(0, 10) : '',
+          bdjssjStr: data.bean.bdjssj ? data.bean.bdjssj.substring(0, 10) : ''
         })
 
         if (data.bean.xb) {
@@ -702,10 +707,6 @@ var getOne = function (that) {
         getByType5(that)
         getByType6(that)
       }
-
-
-      
-
       
     } else {
       wx.showToast({

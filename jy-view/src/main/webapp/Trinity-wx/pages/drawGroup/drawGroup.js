@@ -50,7 +50,7 @@ Page({
         'state': data.state,
         'subject': data.xklb, //学科类别
         'number': data.zkzh, //准考证号
-        'language': data.wyyz,//外语语种
+        'language': data.yzmc,//外语语种
         'major': data.xzzymc,//报考专业
         'type': data.bklb,//报考类别
         'result': data.xybnr,//待确认下一步内容

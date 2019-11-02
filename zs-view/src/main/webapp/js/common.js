@@ -187,8 +187,9 @@ function loginout() {
 var userKey = '';
 function ajax(method, data, successMethod, pageNo, pageSize) {
         $.ajax({
-            url: 'https://job.zust.edu.cn//gate/'+method,
+            url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
             data: {
+                "method": method,
                 "data": JSON.stringify(data),
                 "pageNo": pageNo,
                 "pageSize": pageSize,

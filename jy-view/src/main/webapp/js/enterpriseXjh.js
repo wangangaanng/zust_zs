@@ -88,7 +88,7 @@ function applyXjh(){
             type: 1,
             title:'申请信息',
             skin: 'layui-layer-rim', //加上边框
-            area: ['800px', '600px'], //宽高
+            area: ['860px', '600px'], //宽高
             content: '<div class="lxr-modal"><div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
@@ -108,17 +108,9 @@ function applyXjh(){
             '                                    <input type="text" class="form-control" id="jkr" name="jkr" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                                <label for="xjsj" class="col-sm-2 control-label text-right" style="line-height: 34px;">宣讲日期<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-3">\n' +
+            '                                <div class="col-sm-3" style="position: relative;">\n' +
             '                                    <input type="text" class="form-control" id="xjsj" name="xjsj" placeholder="" autocomplete="off">\n' +
-            '                                </div>\n' +
-            '                            </div>\n' +
-            '                            </div>\n' +
-            '                        <div class="row">\n' +
-            '                            <div class="form-group">\n' +
-            '                                <label for="xjhsqly" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">申请理由<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-8">\n' +
-            '                                    <textarea  class="form-control" id="xjhsqly" style="resize: none;" rows="4" name="xjhsqly" placeholder="" autocomplete="off"></textarea>\n' +
-            '                                </div>\n' +
+            '                                <span style="position: absolute;right: 25px;top: 7px;">13:30</span></div>\n' +
             '                            </div>\n' +
             '                            </div>\n' +
             '                        <div class="row">\n' +
@@ -131,9 +123,9 @@ function applyXjh(){
             '                            </div>\n' +
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
-            '                                <label for="memo" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">备注<span class="red">*</span>：</label>\n' +
+            '                                <label for="memo" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;padding-left: 0;">公司介绍（招聘简章和岗位需求）<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-8">\n' +
-            '                                    <textarea  class="form-control" id="memo" style="resize: none;" rows="4" name="memo" placeholder="填写相关要求" autocomplete="off"></textarea>\n' +
+            '                                    <textarea  class="form-control" id="memo" style="resize: none;" rows="4" name="memo" placeholder="" autocomplete="off"></textarea>\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                            </div>\n' +zdytjStr+
@@ -143,10 +135,30 @@ function applyXjh(){
             '                            </div>\n' +
             '                        </div></div>'
         });
+        // laydate.render({
+        //     elem: '#xjsj', //指定元素
+        //     min: 0,
+        // });
         laydate.render({
-            elem: '#xjsj', //指定元素
             min: 0,
+            elem: '#xjsj'
+            ,ready: function(date){
+                $(".layui-laydate-content table tbody tr td:nth-child(1)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(2)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(3)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(4)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(6)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(7)").addClass("laydate-disabled")
+            },change: function(value, date, endDate){
+                $(".layui-laydate-content table tbody tr td:nth-child(1)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(2)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(3)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(4)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(6)").addClass("laydate-disabled")
+                $(".layui-laydate-content table tbody tr td:nth-child(7)").addClass("laydate-disabled")
+            }
         });
+
     }
 }
 
@@ -173,30 +185,16 @@ function confirmQd() {
             walert("请填写宣讲时间")
             return
         }
-        if(!$("#xjhsqly").val().trim()){
-            walert("请填写申请理由")
-            return
-        }else{
-            if($("#xjhsqly").val().trim().length>200){
-                walert("申请理由不得超过200字")
-                return
-            }
-        }
         if(!$("#jkrjs").val().trim()){
             walert("请填写讲课人介绍")
             return
-        }else{
-            if($("#jkrjs").val().trim().length>200){
-                walert("讲课人介绍不得超过200字")
-                return
-            }
         }
         if(!$("#memo").val().trim()){
-            walert("请填写备注")
+            walert("请填写公司介绍")
             return
         }else{
-            if($("#memo").val().trim().length>200){
-                walert("备注不得超过200字")
+            if($("#memo").val().trim().length<50){
+                walert("公司介绍不得少于50个字")
                 return
             }
         }
@@ -216,7 +214,6 @@ function confirmQd() {
             "xjsj":$("#xjsj").val(),
             "jkr":$("#jkr").val(),
             "jkrjs":$("#jkrjs").val(),
-            "xjhsqly":$("#xjhsqly").val(),
             "memo":$("#memo").val(),
 
         }

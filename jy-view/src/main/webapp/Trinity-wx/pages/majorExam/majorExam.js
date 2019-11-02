@@ -2,7 +2,7 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
   /**
@@ -28,7 +28,6 @@ Page({
    */
   onLoad: function(options) {
     this.indexState(-1);
-    this.getApply()
   },
 
   /**
@@ -112,6 +111,7 @@ Page({
   },
   confirm(e) {
     console.log(e);
+    let that = this;
     if (this.data.type == '1') {
       this.setData({
         open: false,
@@ -132,6 +132,7 @@ Page({
         open: false,
         index3: e.detail.index,
       });
+      that.submit()
     }
   },
   indexState: function(e) {
@@ -177,9 +178,8 @@ Page({
     });
   },
   //申请表预览
-  getApply: function(e) {
+  getApply: function(applyOwid) {
     let that = this;
-    let applyOwid = wx.getStorageSync('applyOwid');
     let data = {
       applyOwid: applyOwid,
     }
@@ -219,7 +219,7 @@ Page({
     let that = this;
     let xxbh = wx.getStorageSync('xxbh');
     if (that.data.index1 == null || that.data.index2 == null || that.data.index3 == null) {
-      common.toast("尚有为选择项", 'none', 2000)
+      common.toast("尚有未选择项", 'none', 2000)
       return
     }
     let xklb = that.data.subjectCategory[that.data.index1].name; //学科类别
@@ -232,30 +232,51 @@ Page({
       xklb: xklb,
       bklb: bklb,
       zyOwid: zyOwid,
-      userRefOwid: yhRefOwid,
+      userRefOwid: wx.getStorageSync('yhRefOwid'),
       xklbOwid: xklbOwid,
       bklbOwid: bklbOwid,
     }
     common.ajax('zustswyt/bckjBizBm/submit', data, function(res) {
       if (res.data.backCode == 0) {
         wx.setStorageSync('sqbOwid', res.data.bean)
-        wx.showModal({
-          title: '提示',
-          showCancel: false,
-          content: '报名表提交成功',
-          success(res) {
-            if (res.confirm) {
-              wx.navigateTo({
-                url: '../Process/Process'
-              })
-            } else if (res.cancel) {
-              console.log('用户点击取消')
-            }
-          }
-        })
+        that.getApply(res.data.bean)
+        // wx.showModal({
+        //   title: '提示',
+        //   showCancel: false,
+        //   content: '报名表提交成功',
+        //   success(res) {
+        //     if (res.confirm) {
+        //       wx.navigateTo({
+        //         url: '../Process/Process'
+        //       })
+        //     } else if (res.cancel) {
+        //       console.log('用户点击取消')
+        //     }
+        //   }
+        // })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
+    });
+  },
+  openDialog() {
+    Dialog.confirm({
+      title: '报名表确认',
+      message: '请确认报名表。（预览报名表点击页面上方按钮）'
+    }).then(() => {
+      let data = {
+        applyOwid: wx.getStorageSync('sqbOwid'),
+      }
+      common.ajax('zustswyt/bckjBizBm/confirmApply', data, function(res) {
+        if (res.data.backCode == 0) {
+          wx.navigateTo({
+            url: '../Process/Process'
+          })
+        } else {
+          common.toast(res.data.errorMess, 'none', 2000)
+        }
+      })
+    }).catch(() => { // on cancel
     });
   }
 })

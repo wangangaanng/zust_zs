@@ -52,7 +52,8 @@ Component({
       var that = this;
       if (e.detail.iv && e.detail.encryptedData){
         app.globalData.userInfo = e.detail.userInfo;
-        wx.setStorageSync('userInfo', e.detail.userInfo);
+        wx.setStorageSync('headImg', e.detail.userInfo.avatarUrl);
+        wx.setStorageSync('nickName', e.detail.userInfo.nickName);
         var encryptedData = e.detail.encryptedData
         var iv = e.detail.iv
         wx.login({
@@ -62,7 +63,7 @@ Component({
                 code: res.code,
                 encryptedData: encryptedData,
                 iv: iv,
-                wxid: 'wx01'
+                wxid: 'wx03'
               };
               wx.showLoading({
                 title: '加载中',
@@ -79,9 +80,9 @@ Component({
                 method: 'POST',
                 success: function (res) {
                   wx.hideLoading();
-                  console.log(res);
+                  //console.log(res);
                   if (res.data.bean) {
-                    console.log(res.data.bean.openId);
+                    //console.log(res.data.bean.openId);
                     openId = res.data.bean.openId;
                     unionid = res.data.bean.unionid;
                     app.globalData.openId = res.data.bean.openId;

@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userName: '',
     bmState: ''
   },
 
@@ -30,8 +31,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getXxxx()
-    this.indexState()
+    var that = this;
+    that.getXxxx();
+    that.indexState();
+
+    if (wx.getStorageSync('userName')) {
+      that.setData({
+        'userName': that.data.userName
+      })
+    } else {
+      common.getInfoBasic(that);
+    }
   },
 
   /**
@@ -74,7 +84,7 @@ Page({
     let data = {
       pageNo: 1,
       pageSize: 1,
-      yhRefOwid: yhRefOwid,
+      yhRefOwid: wx.getStorageSync('yhRefOwid'),
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
@@ -93,7 +103,7 @@ Page({
   indexState: function(e) {
     let that = this;
     let data = {
-      yhRefOwid: yhRefOwid
+      yhRefOwid: wx.getStorageSync('yhRefOwid')
     }
     common.ajax('zustswyt/bckjBizJbxx/indexState', data, function(res) {
       if (res.data.backCode == 0) {

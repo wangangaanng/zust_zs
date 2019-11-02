@@ -56,14 +56,24 @@ page {
   background: #fff;
   padding: 26rpx;
   box-shadow: 0px 1px 3px 0px rgba(210, 210, 210, 0.75);
+  min-height: 180px;
+}
+
+.cont-img-view {
+  border-radius: 50%;
+  border: 1px solid #26b887;
+  background: #fff;
+  height: 100rpx;
+  width: 100rpx;
+  float: left;
+  margin-right: 10px;
+  text-align: center;
 }
 
 .cont-img {
-  float: left;
-  height: 100rpx;
-  width: 100rpx;
-  margin-right: 20rpx;
-  margin-bottom: 20rpx;
+  height: 40rpx;
+  width: 80rpx;
+  margin-top: 15px;
 }
 
 .cont-name {
@@ -129,7 +139,7 @@ page {
 .jieshao {
   font-size: 12px;
   color: #6e6e6e;
-  margin-bottom:  15px;
+  margin-bottom: 15px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -140,6 +150,7 @@ page {
 
 .signUp {
   width: 100%;
+  display: table;
 }
 
 .signUp .text {
@@ -159,6 +170,7 @@ page {
   float: right;
   text-align: center;
   padding: 0;
+  margin-bottom: 0;
 }
 
 .step {

@@ -1,12 +1,14 @@
 <!--pages/Process/Process.wxml-->
 <view class="top">
-  <image src="{{res.logo}}" class="mark"></image>
+  <view class="mark-view">
+    <image src="{{res.logo}}" class="mark"></image>
+  </view>
   <!-- <navigator class="li" url='../messageCenter/messageCenter?applyOwid={{res.applyOwid}}'>
     <image src="../../static/bell.png" class="bell"></image>
    </navigator > -->
   <view class="left">
     <view class="name">{{res.xxmc}}</view>
-    <view class="welcome">欢迎！</view>
+    <view class="welcome">欢迎！{{userName}}</view>
   </view>
 </view>
 <view class="conter">
@@ -15,7 +17,7 @@
   <view class="pic" style="right: 95px;"></view>
   <view class="lc">
     <view class="lc-rows">
-      <navigator wx:if="{{bmState==0||bmState<0}}" class="lc-row {{(bmState>0||bmState<0)?'':'yet'}}" url='{{bmState>0?"#":"../examTip/examTip?state="+state}}'>提交报名申请</navigator>
+      <navigator class="lc-row" url='{{bmState>0?"":"../examTip/examTip?state="+state}}'>提交报名申请</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>

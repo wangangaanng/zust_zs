@@ -27,17 +27,18 @@ function queryIn() {
     };
     ajax('zustzs/bckjBizLqxs/lqcx', data, function (res) {
         console.log(res);
+        clearTable();
         if (res.backCode === 0) {
             $('#zkzh').html(res.bean.ksh);
             $('#sfzh').html(res.bean.sfzh);
             $('#lxdh').html(res.bean.lxdh ? res.bean.lxdh : "无");
             $('#xm').html(res.bean.xm);
             $('#zhuhe').html("浙江科技学院-" + res.bean.lqzy + "预录取，最终录取请查询当地考试院。");
-            if(null!=lqxx.jcsjStr) {
-                $("#lqd").html("录取通知单已经于<b>"+lqxx.jcsjStr+"</b>寄出");
+            if(null!=res.bean.jcsj) {
+                $("#lqd").html("录取通知单已经于<b>"+lqxx.jcsj+"</b>寄出");
             }
-            if(null!=lqxx.emsId) {
-                $("#ems_dh").html("EMS单号：<b style='cursor: pointer'  class='emsUrl' ems='"+lqxx.ems+"'>"+lqxx.ems+"</b>，请注意查收！！！");
+            if(null!=res.bean.ems) {
+                $("#ems_dh").html("EMS单号：<b style='cursor: pointer'  class='emsUrl' ems='"+res.bean.ems+"'>"+res.bean.ems+"</b>，请注意查收！！！");
             }
             $("#successed").show();
             $(".emsUrl").click(function () {
@@ -50,4 +51,13 @@ function queryIn() {
             $('.error').show();
         }
     })
+}
+
+function clearTable() {
+    $('#zkzh').html("");
+    $('#sfzh').html("");
+    $('#xm').html("");
+    $('#lxdh').html("");
+    $('.success').hide();
+    $('.error').hide();
 }

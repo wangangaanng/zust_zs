@@ -2,7 +2,6 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
 var num = 0;
 let t;
 Page({
@@ -249,15 +248,13 @@ Page({
     let yzmc = this.data.wy[this.data.wyindex].dicVal2
     let zxlb = '';
     for (let i in this.data.zxtype) {
-      for (let k in this.data.zx) {
-        if (this.data.zx[k].dicVal1 == this.data.zxtype[i]) {
           if (!!zxlb) {
-            zxlb += ',' + this.data.zx[k].dicVal2;
+            zxlb += ',' + this.data.zxtype[i];
           } else {
-            zxlb = this.data.zx[k].dicVal2;
+            zxlb = this.data.zxtype[i];
           }
-        }
-      }
+        
+      
     }
     let jsfj = '';
     for (let i in this.data.jsfj) {
@@ -269,7 +266,7 @@ Page({
     }
     let data = {
       xkList: xkList,
-      yhRefOwid: yhRefOwid,
+      yhRefOwid: wx.getStorageSync('yhRefOwid'),
       wyyz: wyyz,
       wycj: this.data.wycj,
       zxlb: zxlb,
@@ -349,7 +346,7 @@ Page({
   getXkcj() {
     let that = this;
     let data = {
-      yhRefOwid: yhRefOwid
+      yhRefOwid: wx.getStorageSync('yhRefOwid')
     }
     common.ajax('zustswyt/bckjBizCjxx/getXkcj', data, function(res) {
       if (res.data.backCode == 0) {

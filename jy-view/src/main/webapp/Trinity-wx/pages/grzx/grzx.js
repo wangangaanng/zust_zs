@@ -1,17 +1,36 @@
 // pages/grzx/grzx.js
+var common = require('../../libs/common/common.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userName: '',
+    userMobile: '',
+    imgUrl: '../../../static/logo.png'
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var headUrl = wx.getStorageSync('headImg');
+    var that = this;
+    if (headUrl) {
+      that.setData({
+        'imgUrl': headUrl,
+        'userMobile': wx.getStorageSync('mobile'),
+        'userName': wx.getStorageSync('userName')
+      })
+    }
 
+    if (wx.getStorageSync('userName')) {
+      that.setData({
+        'userName': that.data.userName
+      })
+    } else {
+      common.getInfoBasic(that);
+    }
   },
 
   /**
@@ -62,7 +81,7 @@ Page({
   onShareAppMessage: function () {
 
   },
-  loginOut:function(){
+  loginOut: function () {
     wx.setStorageSync("hasLogin", "0");
     wx.setStorageSync("mobile", "");
     wx.navigateTo({

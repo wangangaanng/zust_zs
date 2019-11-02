@@ -595,6 +595,48 @@ public class DemoController {
         view.addObject("result",result.getBean());
         return view;
     }
+    @RequestMapping(value = "xyzyList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView xyzyList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("xyzyList");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param2=Maps.newHashMap();
+        param2.put("wzbh","0");
+        param2.put("fid","69");
+        PublicData publicData1= UnionHttpUtils.manageParam(param2,"zustcommon/bckjDicMenu/getLmMenu");
+        ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+        view.addObject("menuList",result1.getBean());//学院列表
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",((List<Map>) result1.getBean()).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+
+        String lmbh=((List<Map>) result1.getBean()).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+
+
+        Map param = Maps.newHashMap();
+        param.put("lmbh",lmbh);
+        param.put("wzzt","1");
+        param.put("isDetail",1);
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "30");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
 
     @RequestMapping(value = "newsList/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
@@ -739,26 +781,6 @@ public class DemoController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
-        Map param7=Maps.newHashMap();//民族
-        param7.put("dicType","50009");
-        PublicData publicData7= UnionHttpUtils.manageParam(param7,"zustcommon/common/getByType");
-        ResponseMessage type7  = UnionHttpUtils.doPosts(publicData7);
-        view.addObject("mzList",type7.getBean());
-        Map param=Maps.newHashMap();//生源地
-        param.put("dicType","50005");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
-        ResponseMessage type  = UnionHttpUtils.doPosts(publicData);
-        view.addObject("sydList",type.getBean());
-        Map param2=Maps.newHashMap();//毕业去向名称（字典表）
-        param2.put("dicType","50001");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
-        ResponseMessage type2  = UnionHttpUtils.doPosts(publicData2);
-        view.addObject("byqxList",type2.getBean());
-        Map param5=Maps.newHashMap();//报到证签发类别名称（字典表）
-        param5.put("dicType","50007");
-        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/common/getByType");
-        ResponseMessage type5  = UnionHttpUtils.doPosts(publicData5);
-        view.addObject("bdzqflbList",type5.getBean());
         return view;
     }
 

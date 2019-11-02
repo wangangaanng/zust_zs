@@ -27,18 +27,21 @@ Page({
       return false
     }
     var data = {
-      "swMm": params.tel
-      , "swZh": params.surePsw
+      "swMm": params.surePsw
+      , "swZh": params.tel
       , "yzm": params.code
     }
     common.ajax('zustcommon/bckjBizYhxx/forgetPwd', data, function (res) {
       if (res.data.backCode == 0) {
         wx.setStorageSync('account', params.tel);
-        wx.navigateTo({
-          url: '../login/login',
-        });
+        common.toast('密码设置成功', 'none', 2000);
+        setTimeout(function () {
+          wx.navigateTo({
+            url: '../login/login',
+          });
+        }, 2000);
       } else {
-        common.toast(res.data.errorMess, 'none', 2000)
+        common.toast(res.data.errorMess, 'none', 1500)
       }
     });
   },

@@ -2,7 +2,6 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
 Page({
 
   /**
@@ -116,7 +115,7 @@ Page({
   //上一步基本信息
   preStep: function() {
     wx.navigateTo({
-      url: '../basicInfo/basicInfo',
+      url: '../contactors/contactors',
     })
   },
   //科目字典表
@@ -179,7 +178,7 @@ Page({
     }
     let data = {
       hkList: hkList,
-      yhRefOwid: yhRefOwid,
+      yhRefOwid: wx.getStorageSync('yhRefOwid'),
       zhList: zhList
     }
     common.ajax('zustswyt/bckjBizCjxx/finishHk', data, function (res) {
@@ -196,7 +195,7 @@ Page({
   getHkcj: function (lx) {
     let that = this;    
     let data = {
-      yhRefOwid: yhRefOwid,
+      yhRefOwid: wx.getStorageSync('yhRefOwid'),
       lx: lx
     }
     common.ajax('zustswyt/bckjBizCjxx/getHkcj', data, function (res) {

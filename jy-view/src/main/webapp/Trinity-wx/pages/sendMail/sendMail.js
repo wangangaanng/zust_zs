@@ -45,11 +45,21 @@ Page({
 
   ajaxSend: function (email) {
     var that = this;
+    let urlArr = ['zustswyt/bckjBizBm/sendEmail', 'zustswyt/bckjBizBm/sendView'];
+    let curUrl = "";
+    switch (that.data.sendMailType) {
+      case "sign":
+        curUrl = urlArr[0];
+        break;
+      case "offer":
+        curUrl = urlArr[1];
+        break;
+    }
     var data = {
       "applyOwid": wx.getStorageSync("applyOwid"),//申请表owid
       "yx": email
     }
-    common.ajax('zustswyt/bckjBizBm/sendView', data, function (res) {
+    common.ajax(curUrl, data, function (res) {
       if (res.data.backCode == 0) {
         common.toast(that.data.stringLable +'已成功发送到' + email+',请注意查收', 'none', 3000)
       } else {
@@ -86,9 +96,9 @@ Page({
     that.initValidate();
 
     //判断状态
-    common.getProcssState(function(res){
-      console.log(res);
-    })
+    // common.getProcssState(function(res){
+    //   console.log(res);
+    // })
 
     //显示默认邮箱地址
     let email = wx.getStorageSync("email");
@@ -103,13 +113,13 @@ Page({
     });
 
     switch (pageType) {
-      case "'sign'": //报名表
+      case "sign": //报名表
         that.setData({
           stringLable: '报名表',
           tipString:'你的报名表已成功提交'
         });
         break;
-      case "'offer'": //面试通知单
+      case "offer": //面试通知单
         that.setData({
           stringLable:'面试通知单',
           tipString: '恭喜你已成功通过初审'
@@ -131,10 +141,10 @@ Page({
     let urlArr = ['zustswyt/bckjBizBm/getApply','zustswyt/bckjBizBm/notice'];
     let curUrl = "";
     switch (type){
-      case "'sign'":
+      case "sign":
         curUrl = urlArr[0]
       break;
-      case "'offer'":
+      case "offer":
         curUrl = urlArr[1]
       break;
     }

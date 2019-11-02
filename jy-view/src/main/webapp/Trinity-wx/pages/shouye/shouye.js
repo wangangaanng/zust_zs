@@ -2,7 +2,7 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
+var yhRefOwid;
 Page({
 
   /**
@@ -10,7 +10,7 @@ Page({
    */
   data: {
     res: {},
-    xxbq:[],
+    xxbq: [],
     state: {}
   },
 
@@ -18,9 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    yhRefOwid = wx.getStorageSync('yhRefOwid')
     this.historyMessage()
     this.getXxxx()
-    
   },
 
   /**
@@ -34,6 +34,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+
     this.indexState()
   },
 
@@ -81,7 +82,7 @@ Page({
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
-        let xxbq=res.data.bean.list[0].xxbq.split(',')
+        let xxbq = res.data.bean.list[0].xxbq.split(',')
         that.setData({
           res: res.data.bean.list[0],
           xxbq: xxbq
@@ -121,7 +122,7 @@ Page({
     let data = {
       pageNo: 1,
       pageSize: 8,
-      zxlx: '5'
+      zxlx: '4'
     }
     common.ajax('zustcommon/bckjBizZxzx/historyMessage', data, function(res) {
       if (res.data.backCode == 0) {

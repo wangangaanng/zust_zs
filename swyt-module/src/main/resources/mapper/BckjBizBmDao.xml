@@ -173,8 +173,17 @@
 			<if test=" xm != null and xm != '' ">
 				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
+			<if test=" xklb != null and xklb != '' ">
+				AND a.xklb LIKE concat('%',#{xklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
 			<if test=" bklb != null and bklb != '' ">
 				AND a.bklb LIKE concat('%',#{bklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" zxlb != null and zxlb != '' ">
+				AND a.zxlb LIKE concat('%',#{zxlb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" xzzymc != null and xzzymc != '' ">
+				AND a.xzzymc LIKE concat('%',#{xzzymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test=" lxdh != null and lxdh != '' ">
 				AND a.lxdh = #{lxdh}

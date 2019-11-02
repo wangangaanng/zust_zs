@@ -301,14 +301,16 @@ var getAdv = function(that){//新闻快递轮播图
     if (res.data.backCode == 0) {
       var arr = [];
       var count=0;
-      for (var i = 0; i < res.data.bean.records.length; i++) {
-        var obj = {};
-        var object = res.data.bean.records[i];
-        if ((object.tpjj) && (count < 5)){
-          obj.owid = object.owid;
-          obj.tpjj = object.tpjj;
-          arr.push(obj);
-          count += 1;
+      if (res.data.bean.records){
+        for (var i = 0; i < res.data.bean.records.length; i++) {
+          var obj = {};
+          var object = res.data.bean.records[i];
+          if ((object.tpjj) && (count < 5)) {
+            obj.owid = object.owid;
+            obj.tpjj = object.tpjj;
+            arr.push(obj);
+            count += 1;
+          }
         }
       }
       that.setData({
