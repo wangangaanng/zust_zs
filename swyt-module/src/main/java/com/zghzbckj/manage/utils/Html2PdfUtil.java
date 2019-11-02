@@ -38,7 +38,6 @@ public class Html2PdfUtil {
      * @throws IOException IO异常
      */
     public static void createPdf(String htmlContent, String dest) throws IOException {
-        dest=new String((dest).getBytes("UTF-8"), System.getProperty("sun.jnu.encoding"));
         File file=new File(dest);
         if(!file.getParentFile().exists()){
             file.getParentFile().mkdirs();
