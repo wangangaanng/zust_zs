@@ -1,37 +1,53 @@
 <!--pages/payOline/payOline.wxml-->
 <view>
   <topBck>
-    <!-- top tip S -->
+    <!-- top tip S state==6 缴费待审核-->
     <view class="df">
       <icon class="iconfont icon-tongzhi" style=""></icon>
-      <view class="f1 notice-detail">恭喜你，你的初审已通过，缴费完成后将分配面试时间，请点击进入在线缴费环节。缴费成功后，请上传缴费成功证明图片！</view>
+      <view class="f1 notice-detail">
+        <block wx:if="{{state==6}}">
+          恭喜你，你的初审已通过。缴费证明图片已提交，请耐心等耐审核！
+        </block>
+         <block wx:if="{{state>6}}">
+          恭喜你，你的初审已通过，缴费审核已通过。
+        </block>
+        <block wx:else>
+          恭喜你，你的初审已通过，缴费完成后将分配面试时间，请点击进入在线缴费环节。缴费成功后，请上传缴费成功证明图片。
+        </block>
+      </view>
     </view>
     <!-- top tip E -->
 
     <view class="sign-wrap">
       <view class="pay-url_wrap">
         <text class="detail-url">{{payDetail}}</text>
-        <view class="pay-button_wrap">
-          <block wx:if="{{payUrl!=''}}">
-          <van-button class="copy-btn" size="small" plain hairline type="primary" bind:click="copyUrl" data-text="{{payUrl}}">复制地址</van-button>
-          </block>
-          <van-button size="small" plain hairline type="primary" bind:click="goPayOline" >直接去缴费
-          </van-button>
-        </view>
+        <block wx:if="{{state<6}}">
+          <view class="pay-button_wrap">
+            <block wx:if="{{payUrl!=''}}">
+              <van-button class="copy-btn" size="small" plain hairline type="primary" bind:click="copyUrl" data-text="{{payUrl}}">复制地址</van-button>
+            </block>
+            <van-button size="small" plain hairline type="primary" bind:click="goPayOline">直接去缴费
+            </van-button>
+          </view>
+        </block>
       </view>
     </view>
 
     <view class="sign-wrap {{class1}}">
       <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="choseImageProve">
-        <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+        <block wx:if="{{state<6}}">
+          <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
+        </block>
       </van-cell>
       <image src="{{proveImg}}" data-src="{{proveImg}}" data-index='{{1}}' bindtap="previewImage" hidden="{{(proveImg=='')}}"></image>
     </view>
 
-    <view class="main-btn_wrap button">
-      <button bindtap="upPayImg">提交</button>
-    </view>
+    <block wx:if="{{state<6}}">
+      <view class="main-btn_wrap button">
+        <button bindtap="upPayImg">提交</button>
+      </view>
+    </block>
   </topBck>
 </view>
 
- <van-dialog id="van-dialog" />
+<van-dialog id="van-dialog" />
