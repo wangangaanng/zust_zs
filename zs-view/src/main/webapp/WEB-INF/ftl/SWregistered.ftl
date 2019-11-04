@@ -132,6 +132,6 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/city.js"></script>
 <script src="${base}/js/method.js"></script>
-<script src="${base}/js/swyt/SWYTregistered.js"></script>
+<script src="${base}/js/swyt/SWregistered.js"></script>
 </body>
 </html>

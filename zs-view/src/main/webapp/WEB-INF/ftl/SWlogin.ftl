@@ -90,6 +90,6 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
 
-<script src="${base}/js/swyt/SWYTlogin.js"></script>
+<script src="${base}/js/swyt/SWlogin.js"></script>
 </body>
 </html>

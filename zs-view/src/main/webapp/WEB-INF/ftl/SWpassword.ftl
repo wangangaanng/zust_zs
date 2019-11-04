@@ -99,6 +99,6 @@
 <#--<#include "com/footer.ftl">-->
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
-<script src="${base}/js/swyt/SWYTpassword.js"></script>
+<script src="${base}/js/swyt/SWpassword.js"></script>
 </body>
 </html>
