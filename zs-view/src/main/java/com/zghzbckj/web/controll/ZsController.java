@@ -37,6 +37,43 @@ public class ZsController {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
+        Map param=Maps.newHashMap();
+        //轮播图
+        param.put("lmbh","127");
+        param.put("lx","0");
+        param.put("zszd","0");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizPicvid/getPicList");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("sliderList",result.getBean());
+        //通知公告
+        Map param2=Maps.newHashMap();
+        param2.put("lmbh","120");
+        param2.put("wzzt","1");
+        param2.put("isDetail","1");
+        param2.put("gjz","");
+        param2.put("pageNo", '1');
+        param2.put("pageSize", "7");
+        PublicData publicData2= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getMuArticle");
+        ResponseMessage result2  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("tzggList",result2.getBean());
+        //招生专业关键字
+        Map param3=Maps.newHashMap();
+        param3.put("dicType","10026");
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+        ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("zszyList",result3.getBean());
+
+//        //生源基地
+//        Map param3=Maps.newHashMap();
+//        param3.put("lmbh","120");
+//        param3.put("wzzt","1");
+//        param3.put("isDetail","1");
+//        param3.put("gjz","");
+//        param3.put("pageNo", '1');
+//        param3.put("pageSize", "7");
+//        PublicData publicData3= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getMuArticle");
+//        ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
+//        view.addObject("tzggList",result3.getBean());
         return view;
     }
     @RequestMapping(value = "zszy", method = RequestMethod.GET)
@@ -146,11 +183,12 @@ public class ZsController {
         return result;
     }
     public ResponseMessage getFooter(){
-        //底部链接
+        //底部链接友情链接
         Map param=Maps.newHashMap();
-        param.put("lmbh","-1");
+        param.put("lmbh","128");
         param.put("lx","2");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjBizPicvid/getPicList");
+        param.put("zszd","0");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizPicvid/getPicList");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
     }
