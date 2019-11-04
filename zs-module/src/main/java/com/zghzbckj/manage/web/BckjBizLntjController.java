@@ -148,6 +148,16 @@ public class BckjBizLntjController extends BaseController {
         }
     }
 
+    /**
+     *<p>功能描述:导出excel表格 exportExcel</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/4 19:39</li>
+     *</ul>
+     */
     @PostMapping(value = "exportExcel")
     @ResponseBody
     public ResponseMessage exportExcel(PublicDataVO dataVO) {

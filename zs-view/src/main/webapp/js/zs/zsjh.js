@@ -235,3 +235,28 @@ function clearVal(obj) {
 
     getChanges(obj);
 }
+
+function exportExcel() {
+    var nf = $('#nf').val();
+    var sf = $('#sf').val();
+    var kl = $('#kl').val();
+    var pc = $('#pc').val();
+    var zy = $('#zy').val();
+    var data = {
+        nf: nf,
+        sf: sf,
+        kl: kl,
+        pc: pc,
+        zy: zy
+    };
+    ajax("zustzs/bckjBizZsjh/exportExcel", data, function (res) {
+        if (res.backCode === 0) {
+            //本地
+            window.open("http://127.0.0.1:8081/files/" + res.bean);
+            //正式
+            // window.open("https://job.zust.edu.cn/zjcFiles/" + res.bean);
+        } else {
+            walert("导出失败")
+        }
+    })
+}
