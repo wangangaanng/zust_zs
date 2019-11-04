@@ -22,8 +22,8 @@ import java.util.Map;
 /**
  * Created by ChenChao on 2018/5/18.
  */
-public class BmPassAction implements ComponentListinerSer {
-    public BmPassAction() {
+public class MoneyPassAction implements ComponentListinerSer {
+    public MoneyPassAction() {
     }
 
     @Override
@@ -54,7 +54,7 @@ public class BmPassAction implements ComponentListinerSer {
                         Map data = (Map) selectRow.getValue();
                         /**调用接口**/
                         PublicData publicData = PublicData.instantce();
-                        publicData.setMethod("web/zustswyt/bckjBizBm/bmPass");
+                        publicData.setMethod("web/zustswyt/bckjBizBm/moneyPass");
                         Map<String, Object> ppt = new HashMap<String, Object>(2);
                         ppt.put("owid", data.get("owid"));
                         publicData.setData(JsonUtil.toJson(ppt));

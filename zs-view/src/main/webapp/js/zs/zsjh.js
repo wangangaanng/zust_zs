@@ -108,11 +108,10 @@ function searchZsjh(nf, sf, kl, pc, zy) {
                 kl: kl,
                 pc: pc,
                 zy: zy,
-                pageNo: $('#table-zsjh').bootstrapTable('getOptions').pageNo || 1,
+                pageNo: $('#table-zsjh').bootstrapTable('getOptions').pageNumber || 1,
                 pageSize: $('#table-zsjh').bootstrapTable('getOptions').pageSize || pageSize
             }, function (data) {
                 if (data.backCode === 0) {
-                    console.log(data)
                     request.success({
                         row: convertStr(data.bean.records, []),
                         total: data.bean.totalCount
@@ -230,7 +229,6 @@ function clearOption() {
 var clearObj;
 function clearVal(obj) {
     clearObj = $(obj).attr("class");
-    console.log($(obj).attr("class"));
     $("#"+clearObj).empty();
     var nfoption="<option selected='true' value=''>---请选择---</option>";
     $("#"+clearObj).append(nfoption);

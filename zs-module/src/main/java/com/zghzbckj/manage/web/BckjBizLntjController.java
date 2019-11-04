@@ -148,4 +148,17 @@ public class BckjBizLntjController extends BaseController {
         }
     }
 
+    @PostMapping(value = "exportExcel")
+    @ResponseBody
+    public ResponseMessage exportExcel(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            String fileUrl = bckjBizLntjService.generateExcel(dataMap);
+            return ResponseMessage.sendOK(fileUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
 }

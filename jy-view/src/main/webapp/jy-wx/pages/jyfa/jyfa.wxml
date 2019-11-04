@@ -119,11 +119,11 @@
   <van-field value="{{form.bdzqwdwmc}}" name="bdzqwdwmc" label="报到证签往单位名称" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   </view>
   <view class="down-scroll-view">
-  <van-field input-align="right" value="{{form.bdzqwszdmc}}" name="bdzqwszdmc" label="报到证签往单位所在地" bindinput="getSyd" placeholder="输入内容" required />
+  <van-field input-align="right" value="{{form.bdzqwszdmc}}" name="bdzqwszdmc" label="报到证签往单位所在地" bindinput="getSyd2" placeholder="输入内容" required />
     <view class="scroll-view" hidden="{{showSyd2}}">
       <scroll-view  scroll-y>
         <block wx:for="{{sydList2}}" wx:key="{{index}}">
-          <view><span bindtap="getSydItem" data-val="{{item}}">{{item}}</span></view>
+          <view><span bindtap="getSydItem2" data-val="{{item}}">{{item}}</span></view>
         </block>
       </scroll-view>
     </view>

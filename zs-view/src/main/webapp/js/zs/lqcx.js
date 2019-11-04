@@ -26,7 +26,6 @@ function queryIn() {
         sfzh: sfzh
     };
     ajax('zustzs/bckjBizLqxs/lqcx', data, function (res) {
-        console.log(res);
         clearTable();
         if (res.backCode === 0) {
             $('#zkzh').html(res.bean.ksh);

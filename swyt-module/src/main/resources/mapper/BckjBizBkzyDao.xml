@@ -122,6 +122,9 @@
 	</select>
 	
 	<insert id="insert">
+		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO bckj_biz_bkzy(
 			owid,
 			fid,

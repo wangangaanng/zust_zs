@@ -943,6 +943,13 @@ public class DemoController {
                 view.setViewName("enterpriseXjh");
             }else if(secondDir.equals("3")){//招聘会
                 view.setViewName("enterpriseZph");
+            }else if(secondDir.equals("4")){//招聘公告
+                Map param33=Maps.newHashMap();
+                param33.put("owid",qyOwid);
+                PublicData publicData33= UnionHttpUtils.manageParam(param33,"zustjy/bckjBizQyxx/getOneCompany");
+                ResponseMessage result  = UnionHttpUtils.doPosts(publicData33);
+                view.addObject("result",result.getBean());
+                view.setViewName("enterpriseZpgg");
             }
             return view;
         }else{

@@ -92,9 +92,9 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public List<Map<String, Object>> listRank(Map<String, Object> dataMap) {
         //统计学院就业情况
-        List<Map<String, Object>> collegeList = this.dao.collegeStats(MapUtils.getString(dataMap, "pmnf"));
+        List<Map<String, Object>> collegeList = this.dao.collegeStats();
         for (Map<String, Object> college : collegeList) {
-            List<Map<String, Object>> majorList = this.dao.majorList(MapUtils.getString(college, "szxy"), MapUtils.getString(college, "pmnf"));
+            List<Map<String, Object>> majorList = this.dao.majorList(MapUtils.getString(college, "szxy"));
             Map<String, Object> statsMap = new HashMap<>();
             BigDecimal pmbyzrs = new BigDecimal(MapUtils.getInt(college, "pmbyrs"));
             BigDecimal pmqyzrs = new BigDecimal(MapUtils.getInt(college, "pmqyrs") * 100);
@@ -130,8 +130,8 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      * <li>@date 2019/9/22 18:14  </li>
      * </ul>
      */
-    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName, String pmnf) {
-        return this.dao.getByMajor(collegeName, majorName, pmnf);
+    public BckjBizJypm getByCollegeMajor(String collegeName, String majorName) {
+        return this.dao.getByMajor(collegeName, majorName);
     }
 
     @Transactional(readOnly = false)

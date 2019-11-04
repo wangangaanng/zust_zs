@@ -71,7 +71,6 @@
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){
-                        console.log(data);
                         request.success({
                             row : convertStr(data.bean.records,[]),
                             total: data.bean.totalCount

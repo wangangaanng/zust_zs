@@ -109,7 +109,8 @@ Page({
     var that = this
     that.data.form.syd = e.target.dataset.val
     that.setData({
-      form: that.data.form
+      showSyd: true,
+      'form.syd': e.target.dataset.val
     })
   },
   getSyd(e){
@@ -117,6 +118,9 @@ Page({
     if(e.detail.length>2){
       getSmallRoutine(this, e.detail)
     }
+    this.setData({
+      'form.syd': e.detail
+    })
   },
   close1(){
     this.setData({

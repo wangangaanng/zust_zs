@@ -47,11 +47,6 @@
 	<select id="collegeStats" resultType="java.util.Map">
 		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmqyrs) as pmqyrs
 		from bckj_biz_jypm
-		<where>
-			<if test="pmnf != null and pmnf != ''">
-				pmnf=#{pmnf}
-			</if>
-		</where>
 		group by szxy
 	</select>
 
@@ -61,9 +56,6 @@
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"/>
 		<where>
-			<if test="pmnf != null and pmnf != ''">
-				a.pmnf=#{pmnf}
-			</if>
 			<if test="szxy != null and szxy != ''">
 				and	a.szxy=#{szxy}
 			</if>
@@ -76,7 +68,7 @@
 		select <include refid="bckjBizJypmColumns"></include>
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"></include>
-		where a.pmzy=#{majorName} and a.szxy=#{collegeName} and a.pmnf=#{pmnf}
+		where a.pmzy=#{majorName} and a.szxy=#{collegeName}
 	</select>
 
 	<!--清空所有数据	-->
