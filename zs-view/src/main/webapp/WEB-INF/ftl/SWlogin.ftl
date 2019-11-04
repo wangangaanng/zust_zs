@@ -48,7 +48,7 @@
         <div class="login_right">
             <div class="login_right_border">
                 <div>还没有账号</div>
-                <div class="registered" onclick="window.location.href='SWYTregistered'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div class="registered" onclick="window.location.href='SWregistered'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
                 <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
             </div>
