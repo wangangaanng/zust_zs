@@ -98,6 +98,46 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, "a.state, a.createtime desc ");
 
         List<BckjBizJybm> records = page.getRecords();
+        if (!TextUtils.isEmpty(records) && records.size() > 0) {
+            for (BckjBizJybm jybm : records) {
+                String zw = "";
+                Integer rs = 0;
+                if (!TextUtils.isEmpty(jybm.getZw1())) {
+                    zw += jybm.getZw1();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw2())) {
+                    zw += "、" + jybm.getZw2();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw3())) {
+                    zw += "、" + jybm.getZw3();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw4())) {
+                    zw += "、" + jybm.getZw4();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw5())) {
+                    zw += "、" + jybm.getZw5();
+                }
+                jybm.setZw(zw);
+                if (!TextUtils.isEmpty(jybm.getRs1())) {
+                    rs += Integer.parseInt(jybm.getRs1());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs2())) {
+                    rs += Integer.parseInt(jybm.getRs2());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs3())) {
+                    rs += Integer.parseInt(jybm.getRs3());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs4())) {
+                    rs += Integer.parseInt(jybm.getRs4());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs5())) {
+                    rs += Integer.parseInt(jybm.getRs5());
+                }
+                jybm.setRs(rs.toString());
+            }
+        }
+
+
         BckjBizJybm job = new BckjBizJybm();
         job.setZwbt("共有：" + page.getTotalCount() + "条信息");
         job.setReadOnly(true);
@@ -611,7 +651,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     job.setZphSfqd(Integer.parseInt(mapData.get("zphSfqd").toString()));
                 }
                 if (!TextUtils.isEmpty(mapData.get("zphBmjzsj"))) {
-                    job.setZphBmjzsj(DateUtil.getDate(mapData.get("zphBmjzsj").toString(), "yyyy-MM-dd HH:mm:ss"));
+                    job.setZphBmjzsj(DateUtil.getDate(mapData.get("zphBmjzsj").toString(), "yyyy-MM-dd"));
                 }
                 if (!TextUtils.isEmpty(mapData.get("zphJbdd"))) {
                     job.setZphJbdd(mapData.get("zphJbdd").toString());

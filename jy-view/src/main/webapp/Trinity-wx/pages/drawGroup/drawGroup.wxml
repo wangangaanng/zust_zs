@@ -17,7 +17,7 @@
 
       <!-- 页面分组查询 S-->
       <view wx:if='{{pageType=="group"}}'>
-        <van-field value="{{''}}" error placeholder="{{result}}" disabled label="抽签结果:" border="{{false}}" />
+        <van-field value="{{''}}" error placeholder="{{result}}" disabled label="面试时间:" border="{{false}}" />
       </view>
       <!-- 页面分组查询 E-->
     </van-cell-group>

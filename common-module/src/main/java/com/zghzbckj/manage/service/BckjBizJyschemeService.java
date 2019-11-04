@@ -236,23 +236,24 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         String error = "";
         //文件路径
         String filename = path;
-        List<List<String>> list= bckjBizSybService.getExcelLists(path);
+        List<List<String>> list = bckjBizSybService.getExcelLists(path);
         HashMap<Object, Object> resMap = Maps.newHashMap();
-        List<BckjBizJyscheme> jys=new ArrayList();
+        List<BckjBizJyscheme> jys = new ArrayList();
         List<BckjBizJobPlanOther> jos = new ArrayList();
-        List<String> xsxhs= Lists.newArrayList();
-        List<BckjBizJyscheme> oldJyschemes=getOldJyscheme();
+        List<String> xsxhs = Lists.newArrayList();
+        //GAI
+        List<Map> oldJyschemes = getOldJyscheme();
         //获得毕业去向字典表内容
-        List<Map> byqxs=getDicListMapByType(50001);
-        List<Map> dwszdmcs=getDicListMapByType(50005);
-        List<Map> yrdwxzmcs=getDicListMapByType(50002);
-        List<Map> dwhylbmcs=getDicListMapByType(50003);
-        List<Map> gzzwlbmcs=getDicListMapByType(50004);
-        List<Map> bdzqflbmcs=getDicListMapByType(50007);
+        List<Map> byqxs = getDicListMapByType(50001);
+        List<Map> dwszdmcs = getDicListMapByType(50005);
+        List<Map> yrdwxzmcs = getDicListMapByType(50002);
+        List<Map> dwhylbmcs = getDicListMapByType(50003);
+        List<Map> gzzwlbmcs = getDicListMapByType(50004);
+        List<Map> bdzqflbmcs = getDicListMapByType(50007);
         //读取自定义扩展字段
         List<String> fieldLists = new ArrayList<>();
         List<String> codeList = list.get(0);   //拿到code行
-        for (int j = 26; j <codeList.size(); j++) {
+        for (int j = 26; j < codeList.size(); j++) {
             if (TextUtils.isEmpty(codeList.get(j))) {
                 break;
             }
@@ -274,74 +275,72 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 String xxmc = cellList.get(2); //学校名称
                 resMap.put("xxmc", xxmc);
                 String byqx = cellList.get(3); //毕业去向名称 50001
-                for (Map map:byqxs){
-                    if(map.get("val2").equals(byqx))
+                for (Map map : byqxs) {
+                    if (map.get("val2").equals(byqx))
                         resMap.put("byqx", map.get("val1"));
                 }
                 String sfzydk = cellList.get(4); //专业是否对口
-                if(sfzydk.equals("是")){
-                    resMap.put("sfzydk",1);
-                }else if(sfzydk.equals("否")){
-                    resMap.put("sfzydk",2);
+                if (sfzydk.equals("是")) {
+                    resMap.put("sfzydk", 1);
+                } else if (sfzydk.equals("否")) {
+                    resMap.put("sfzydk", 2);
                 }
                 String yrdwmc = cellList.get(5); //用人单位名称
-                resMap.put("yrdwmc",yrdwmc);
+                resMap.put("yrdwmc", yrdwmc);
                 String yrdwdm = cellList.get(6); //用人单位代码
-                resMap.put("yrdwdm",yrdwdm);
+                resMap.put("yrdwdm", yrdwdm);
                 String yrdwxzmc = cellList.get(7); //用人单位性质名称 50002
-                for (Map map:yrdwxzmcs){
-                    if(map.get("val2").equals(yrdwxzmc))
+                for (Map map : yrdwxzmcs) {
+                    if (map.get("val2").equals(yrdwxzmc))
                         resMap.put("yrdwxzmc", map.get("val1"));
                 }
                 String dwhylbmc = cellList.get(8); //单位行业类别名称 50003
-                for (Map map:dwhylbmcs){
-                    if(map.get("val2").equals(dwhylbmc))
+                for (Map map : dwhylbmcs) {
+                    if (map.get("val2").equals(dwhylbmc))
                         resMap.put("dwhylbmc", map.get("val1"));
                 }
                 String dwszdmc = cellList.get(9); //      50005
-                for (Map map:dwszdmcs){
-                    if(map.get("val2").equals(dwszdmc))
+                for (Map map : dwszdmcs) {
+                    if (map.get("val2").equals(dwszdmc))
                         resMap.put("dwszdmc", map.get("val1"));
                 }
                 String dwlxr = cellList.get(10); //单位联系人
-                resMap.put("dwlxr",dwlxr);
+                resMap.put("dwlxr", dwlxr);
                 String dwdh = cellList.get(11); //单位电话
                 resMap.put("dwdh", dwdh);
                 String gzzwlbmc = cellList.get(12); //工作职位类别名称 50004
-                for (Map map:gzzwlbmcs){
-                    if(map.get("val2").equals(gzzwlbmc))
+                for (Map map : gzzwlbmcs) {
+                    if (map.get("val2").equals(gzzwlbmc))
                         resMap.put("gzzwlbmc", map.get("val1"));
                 }
                 String bdzqflbmc = cellList.get(13); //报到证签发类别名称
-                for (Map map:bdzqflbmcs){
-                    if(map.get("val2").equals(bdzqflbmc))
+                for (Map map : bdzqflbmcs) {
+                    if (map.get("val2").equals(bdzqflbmc))
                         resMap.put("bdzqflbmc", map.get("val1"));
                 }
                 String bdzqwdwmc = cellList.get(14); //报到证签往单位名称
                 resMap.put("bdzqwdwmc", bdzqwdwmc);
                 String bdzqwszdmc = cellList.get(15); //报到证签往单位所在地名称
-                for (Map map:dwszdmcs){
-                    if(map.get("val2").equals(bdzqwszdmc))
+                for (Map map : dwszdmcs) {
+                    if (map.get("val2").equals(bdzqwszdmc))
                         resMap.put("bdzqwszdmc", map.get("val1"));
                 }
                 String bdkssj = cellList.get(16); //报到开始时间
                 try {
                     resMap.put("bdkssj", bckjBizSybService.stringtoDate(bdkssj));
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e);
                 }
                 String bdjssj = cellList.get(17); //报到结束时间
                 try {
                     resMap.put("bdjssj", bckjBizSybService.stringtoDate(bdjssj));
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     System.out.println(e);
                 }
                 String sfdydwbdz = cellList.get(18); //是否打印单位到报到证备注
-                if(sfdydwbdz.equals("是")){
+                if (sfdydwbdz.equals("是")) {
                     resMap.put("sfdydwbdz", 1);
-                }else if(sfdydwbdz.equals("否")){
+                } else if (sfdydwbdz.equals("否")) {
                     resMap.put("sfdydwbdz", 2);
                 }
                 String datddw = cellList.get(19); //档案投递单位
@@ -362,13 +361,13 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 resMap.put("bzthree", bzthree);
                 //收集自定义字段
                 for (int n = 1; n < fieldLists.size(); n++) {
-                    BckjBizJobPlanOther bckjBizJobPlanOther=BckjBizJobPlanOther.class.newInstance();
+                    BckjBizJobPlanOther bckjBizJobPlanOther = BckjBizJobPlanOther.class.newInstance();
                     bckjBizJobPlanOther.setName(xsxh);
                     bckjBizJobPlanOther.setCode(fieldLists.get(n - 1));
-                    bckjBizJobPlanOther.setVal(cellList.get(26+n));
+                    bckjBizJobPlanOther.setVal(cellList.get(26 + n));
                     jos.add(bckjBizJobPlanOther);
                 }
-                BckjBizJyscheme bckjBizJyscheme=BckjBizJyscheme.class.newInstance();
+                BckjBizJyscheme bckjBizJyscheme = BckjBizJyscheme.class.newInstance();
                 MapUtil.easySetByMap(resMap, bckjBizJyscheme);
                 //设置为未编辑状态
                 bckjBizJyscheme.setExp2("1");
@@ -381,32 +380,32 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             int count = 1;
             for (String xsxh : xsxhs) {
                 xsxhSet.add(xsxh);
-                if (xsxhSet.size() != count++){
-                    return ResponseMessage.sendOK("导入失败,学生学号存在重复:"+xsxh);
+                if (xsxhSet.size() != count++) {
+                    return ResponseMessage.sendOK("导入失败,学生学号存在重复:" + xsxh);
                 }
             }
 
-             /**
+            /**
              * 后台录入学生信息时开启新的线程进行检查，相同学号进行删除jyshcheme
              */
             Set<String> results = new HashSet<>(xsxhs);
             Thread t = new Thread(new Runnable() {
                 // run方法具体重写
                 public void run() {
-                    for ( BckjBizJyscheme bckjBizJyscheme : oldJyschemes) {
+                    for (Map map : oldJyschemes) {
                         int count = results.size();
-                        results.add(bckjBizJyscheme.getXsxh());
+                        results.add(map.get("xsxh").toString());
                         if (results.size() != (++count)) {
-                            delete(bckjBizJyscheme);
+                            deleteByMap(map);
                             count--;
                             //这里不删除bckjBizStudentExpand
-                            /* bckjBizStudentExpandService.deleteBySfz(bckjBizSyb.getSfz());*/
+                            //* bckjBizStudentExpandService.deleteBySfz(bckjBizSyb.getSfz());*//*
                         }
                     }
                 }
             });
             t.start();
-            for (BckjBizJyscheme bckjBizJyscheme:jys){
+            for (BckjBizJyscheme bckjBizJyscheme : jys) {
                 saveOrUpdate(bckjBizJyscheme);
             }
             for (BckjBizJobPlanOther bckjBizJobPlanOther : jos) {
@@ -420,7 +419,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         return this.dao.getDicListMapByType(i);
     }
 
-    private List<BckjBizJyscheme> getOldJyscheme() {
+    private List<Map> getOldJyscheme() {
         return this.dao.getOldJyscheme();
     }
 
@@ -463,40 +462,40 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     /**
      * 根据单位所在地来记录学生去往的省份，直辖市，自治区，特别行政区
-      * @param szd
+     *
+     * @param szd
      * @return
      */
-     public String recordLx(String szd){
-         if(TextUtils.isEmpty(szd)){
-             return "不详";
-         }
-        if(szd.indexOf("北京")!=-1){
+    public String recordLx(String szd) {
+        if (TextUtils.isEmpty(szd)) {
+            return "不详";
+        }
+        if (szd.indexOf("北京") != -1) {
             return "北京市";
         }
-         if(szd.indexOf("上海")!=-1){
-             return "北京市";
-         }
-         if(szd.indexOf("天津")!=-1){
-             return "天津市";
-         }
-         if(szd.indexOf("重庆")!=-1){
-             return "重庆市";
-         }
-         if(szd.indexOf("香港")!=-1){
-             return "香港特别行政区";
-         }
-         if(szd.indexOf("澳门")!=-1){
-             return "澳门特别行政区";
-         }
-         if(szd.indexOf("自治区")!=-1){
-             return szd.substring(0,szd.indexOf("区")+1);
-         }
-         if(szd.indexOf("省")!=-1){
-             return szd.substring(0,szd.indexOf("省")+1);
-         }
-         return "不详";
-     }
-
+        if (szd.indexOf("上海") != -1) {
+            return "北京市";
+        }
+        if (szd.indexOf("天津") != -1) {
+            return "天津市";
+        }
+        if (szd.indexOf("重庆") != -1) {
+            return "重庆市";
+        }
+        if (szd.indexOf("香港") != -1) {
+            return "香港特别行政区";
+        }
+        if (szd.indexOf("澳门") != -1) {
+            return "澳门特别行政区";
+        }
+        if (szd.indexOf("自治区") != -1) {
+            return szd.substring(0, szd.indexOf("区") + 1);
+        }
+        if (szd.indexOf("省") != -1) {
+            return szd.substring(0, szd.indexOf("省") + 1);
+        }
+        return "不详";
+    }
 
 
     /**
@@ -506,21 +505,22 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param owidcodes
      * @return List
      */
-   @Transactional(readOnly = false,rollbackFor = Exception.class)
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public Object deleteJyList(List<String> xsxhcodes, List<String> owidcodes) {
         List<Map<String, Object>> objs = new ArrayList<>();
         int count = 0;
-        for(String xsxh : xsxhcodes){
+        for (String xsxh : xsxhcodes) {
             HashMap<String, Object> params = Maps.newHashMap();
             this.dao.deleteByXsxh(xsxh);
             bckjBizJobPlanOtherService.deleteByName(xsxh);
             deleteByXsxh(xsxh);
-            params.put("owid",owidcodes.get(count));
+            params.put("owid", owidcodes.get(count));
             count++;
             objs.add(params);
         }
         return objs;
     }
+
     /**
      * <p>功能描述:新建或修改就业方案信息</p >
      * <ul>
@@ -531,9 +531,9 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * <li>@date 2019/10/26</li>
      * </ul>
      */
-    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage insertssInfo(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
-        BckjBizJobPlanOther bckjBizJobPlanOther=BckjBizJobPlanOther.class.newInstance();
+        BckjBizJobPlanOther bckjBizJobPlanOther = BckjBizJobPlanOther.class.newInstance();
         BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
         BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();
         BckjBizJyscheme bckjBizJyscheme = BckjBizJyscheme.class.newInstance();
@@ -544,19 +544,19 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizJobPlanOther);
         BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(bckjBizJyscheme.getXsxh());
-        if(TextUtils.isEmpty(oneByXsxh)){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号生源不存在,无法保存");
+        if (TextUtils.isEmpty(oneByXsxh)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "此学号生源不存在,无法保存");
         }
         //如果為更新
         if (bckjBizJyscheme.getOwid() != null) {
             bckjBizJyscheme.setExp2("2");
         }
         //如果為新建
-        else if(bckjBizJyscheme.getOwid()==null){
+        else if (bckjBizJyscheme.getOwid() == null) {
             //判断jyscheme中此学号是否存在
             BckjBizJyscheme oneByXsxh1 = getOneByXsxh(oneByXsxh.getXsxh());
-            if(!TextUtils.isEmpty(oneByXsxh1)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"此学号已存在,无法保存");
+            if (!TextUtils.isEmpty(oneByXsxh1)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "此学号已存在,无法保存");
             }
             //设置为未编辑状态
             bckjBizJyscheme.setExp2("1");
@@ -572,25 +572,22 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         bckjBizYhxxService.updateBySfz(bckjBizYhxx);
         bckjBizSybService.updateBySfz(bckjBizSyb);
         //设置就业所在地的省份
-        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
+        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005, bckjBizJyscheme.getDwszdmc())));
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
 
-
-
-
-
     /**
      * 根据字典表type 和 val2 获得val1
+     *
      * @param type
      * @param val2
      * @return
      */
-    public String getDicVal(int type,String val2){
+    public String getDicVal(int type, String val2) {
         List<String> dicVal = this.dao.getDicVal(type, val2);
-        if(dicVal.size()>0){
+        if (dicVal.size() > 0) {
             return dicVal.get(0);
         }
         return "";
@@ -598,60 +595,66 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     /**
      * 根据字典表type 和 val1 获得val2
+     *
      * @param type
      * @param val1
      * @return
      */
-    public String getDicVall(int type,String val1){
+    public String getDicVall(int type, String val1) {
         List<String> dicVall = this.dao.getDicVall(type, val1);
-        if(dicVall.size()>0){
+        if (dicVall.size() > 0) {
             return dicVall.get(0);
         }
         return "";
     }
+
     /**
      * 根据字典表type 获得val2list
+     *
      * @param type
      * @return
      */
-    public  List getDicListByType(int type){
+    public List getDicListByType(int type) {
         return this.dao.getDicListByType(type);
     }
+
     /**
      * 前台进入就业方案读取出一条信息  根据xsxh去取
+     *
      * @param
      * @return
      */
     public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
         BckjBizJyscheme bckjBizJyscheme = null;
         BckjBizSyb xsxh = bckjBizSybService.getOneByXsxh(dataMap.get("xsxh").toString());
-        if(!com.zghzbckj.util.TextUtils.isEmpty(xsxh)){
-            bckjBizJyscheme=getOneByXsxh(xsxh.getXsxh());
+        if (!com.zghzbckj.util.TextUtils.isEmpty(xsxh)) {
+            bckjBizJyscheme = getOneByXsxh(xsxh.getXsxh());
         }
         return bckjBizJyscheme;
     }
 
     /**
      * 前台保存就业方案
+     *
      * @param
      * @return
      */
-    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage insertssInfoQt(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
         BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
         BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();
-        BckjBizJyscheme bckjBizJyscheme=BckjBizJyscheme.class.newInstance();
+        BckjBizJyscheme bckjBizJyscheme = BckjBizJyscheme.class.newInstance();
         BckjBizJyscheme resbckjBizJyscheme = getOneByXsxh(dataMap.get("xsxh").toString());
         BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(dataMap.get("xsxh").toString());
-        if(TextUtils.isEmpty(oneByXsxh)){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"生源库中无该学号");
+        if (TextUtils.isEmpty(oneByXsxh)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "生源库中无该学号");
         }
         //就业方案为null的话
-        if(!TextUtils.isEmpty(resbckjBizJyscheme)){
+        if (!TextUtils.isEmpty(resbckjBizJyscheme)) {
             bckjBizJyscheme.setOwid(resbckjBizJyscheme.getOwid());
             bckjBizJyscheme.setYhRefOwid(resbckjBizJyscheme.getYhRefOwid());
         }
-        MapUtil.easySetByMap(dataMap,bckjBizYhxx);
+        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizJyscheme);
         MapUtil.easySetByMap(dataMap, bckjBizSyb);
         bckjBizJyscheme.setExp2("2");
@@ -664,19 +667,19 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         bckjBizYhxxService.updateBySfz(bckjBizYhxx);
         bckjBizSybService.updateBySfz(bckjBizSyb);
         //设置就业所在地的省份
-        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
+        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005, bckjBizJyscheme.getDwszdmc())));
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
     public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
         BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByYhRefOwid(dataMap);
-        if(!TextUtils.isEmpty(bckjBizJyscheme)){
-            if(!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())){
-                bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
+        if (!TextUtils.isEmpty(bckjBizJyscheme)) {
+            if (!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())) {
+                bckjBizJyscheme.setDwszdmc(getDicVall(50005, bckjBizJyscheme.getDwszdmc()));
             }
-            if(!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())){
-                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
+            if (!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())) {
+                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005, bckjBizJyscheme.getBdzqwszdmc()));
             }
         }
         return bckjBizJyscheme;
@@ -685,25 +688,26 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
 
     /**
      * 保存就业方案信息   小程序
+     *
      * @param dataMap
      * @return ResponseMessage
      */
-    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage saveOneJyschemeXcx(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
         BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
         BckjBizSyb bckjBizSyb = BckjBizSyb.class.newInstance();
-        BckjBizJyscheme bckjBizJyscheme=BckjBizJyscheme.class.newInstance();
+        BckjBizJyscheme bckjBizJyscheme = BckjBizJyscheme.class.newInstance();
         BckjBizJyscheme resbckjBizJyscheme = getOneByXsxh(dataMap.get("xsxh").toString());
         BckjBizSyb oneByXsxh = bckjBizSybService.getOneByXsxh(dataMap.get("xsxh").toString());
-        if(TextUtils.isEmpty(oneByXsxh)){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"生源库中无该学号");
+        if (TextUtils.isEmpty(oneByXsxh)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "生源库中无该学号");
         }
         //就业方案为null的话
-        if(!TextUtils.isEmpty(resbckjBizJyscheme)){
+        if (!TextUtils.isEmpty(resbckjBizJyscheme)) {
             bckjBizJyscheme.setOwid(resbckjBizJyscheme.getOwid());
             bckjBizJyscheme.setYhRefOwid(resbckjBizJyscheme.getYhRefOwid());
         }
-        MapUtil.easySetByMap(dataMap,bckjBizYhxx);
+        MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         MapUtil.easySetByMap(dataMap, bckjBizJyscheme);
         MapUtil.easySetByMap(dataMap, bckjBizSyb);
         bckjBizJyscheme.setExp2("2");
@@ -716,18 +720,19 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         bckjBizYhxxService.updateBySfz(bckjBizYhxx);
         bckjBizSybService.updateBySfz(bckjBizSyb);
         //设置就业所在地的省份
-        if(TextUtils.isEmpty(getDicVal(50005,bckjBizJyscheme.getDwszdmc()))){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"单位所在地名称请从下拉框选择");
+        if (TextUtils.isEmpty(getDicVal(50005, bckjBizJyscheme.getDwszdmc()))) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "单位所在地名称请从下拉框选择");
         }
-        if(TextUtils.isEmpty(getDicVal(50005,bckjBizJyscheme.getBdzqwszdmc()))){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"报到证签往所在地名称所请从下拉框选择");
+        if (TextUtils.isEmpty(getDicVal(50005, bckjBizJyscheme.getBdzqwszdmc()))) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "报到证签往所在地名称所请从下拉框选择");
         }
-        bckjBizJyscheme.setDwszdmc(getDicVal(50005,bckjBizJyscheme.getDwszdmc()));
-        bckjBizJyscheme.setBdzqwszdmc(getDicVal(50005,bckjBizJyscheme.getBdzqwszdmc()));
-        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005,bckjBizJyscheme.getDwszdmc())));
+        bckjBizJyscheme.setDwszdmc(getDicVal(50005, bckjBizJyscheme.getDwszdmc()));
+        bckjBizJyscheme.setBdzqwszdmc(getDicVal(50005, bckjBizJyscheme.getBdzqwszdmc()));
+        bckjBizJyscheme.setExp1(recordLx(getDicVall(50005, bckjBizJyscheme.getDwszdmc())));
         saveOrUpdate(bckjBizJyscheme);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+
     /**
      * 查询档案信息
      *
@@ -735,18 +740,30 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @return queryDocument
      */
     public BckjBizJyscheme queryDocument(Map<String, Object> dataMap) {
-        BckjBizJyscheme bckjBizJyscheme=null;
+        BckjBizJyscheme bckjBizJyscheme = null;
         BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
-        if(!TextUtils.isEmpty(oneBySfz)){
-            bckjBizJyscheme = getOneByXsxh(oneBySfz.getXsxh());
-                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005,bckjBizJyscheme.getBdzqwszdmc()));
-                bckjBizJyscheme.setByqx(getDicVall(50001,bckjBizJyscheme.getByqx()));
-                bckjBizJyscheme.setYrdwxzmc(getDicVall(50002,bckjBizJyscheme.getYrdwxzmc()));
-                bckjBizJyscheme.setDwhylbmc(getDicVall(50003,bckjBizJyscheme.getDwhylbmc()));
-                bckjBizJyscheme.setDwszdmc(getDicVall(50005,bckjBizJyscheme.getDwszdmc()));
-                bckjBizJyscheme.setGzzwlbmc(getDicVall(50004,bckjBizJyscheme.getGzzwlbmc()));
-                bckjBizJyscheme.setBdzqflbmc(getDicVall(50007,bckjBizJyscheme.getBdzqflbmc()));
+        //如果由此生源就根据
+        if (!TextUtils.isEmpty(oneBySfz)) {
+            if (!TextUtils.isEmpty(oneBySfz.getXsxh())) {
+                bckjBizJyscheme = getOneByXsxh(oneBySfz.getXsxh());
+            }
+        } else {
+            bckjBizJyscheme = getJyselfInfo(dataMap);
+        }
+        if (!TextUtils.isEmpty(bckjBizJyscheme)) {
+            bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005, bckjBizJyscheme.getBdzqwszdmc()));
+            bckjBizJyscheme.setByqx(getDicVall(50001, bckjBizJyscheme.getByqx()));
+            bckjBizJyscheme.setYrdwxzmc(getDicVall(50002, bckjBizJyscheme.getYrdwxzmc()));
+            bckjBizJyscheme.setDwhylbmc(getDicVall(50003, bckjBizJyscheme.getDwhylbmc()));
+            bckjBizJyscheme.setDwszdmc(getDicVall(50005, bckjBizJyscheme.getDwszdmc()));
+            bckjBizJyscheme.setGzzwlbmc(getDicVall(50004, bckjBizJyscheme.getGzzwlbmc()));
+            bckjBizJyscheme.setBdzqflbmc(getDicVall(50007, bckjBizJyscheme.getBdzqflbmc()));
         }
         return bckjBizJyscheme;
+    }
+
+
+    private BckjBizJyscheme getJyselfInfo(Map<String, Object> dataMap) {
+        return this.dao.getJyselfInfo(dataMap);
     }
 }

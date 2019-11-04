@@ -13,7 +13,9 @@ Page({
     proveImg: '',
     upProveImg: '',
     payDetail:'',//缴费说明
-    payUrl:''
+    payUrl:'',
+    state:'' ,//流程进行带的状态
+    class1:''
   },
 
   //选择图片
@@ -121,7 +123,11 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     common.getPayUrl(this);//获取缴费初始化地址
+    that.setData({
+      'state': options.state
+    })
   },
 
   /**
@@ -134,8 +140,17 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
+  onShow: function () { 
+    var that = this;
+    common.getProcssState(function(res){
+      if (res.data.bean.jfpzZp){
+        that.setData({
+          proveImg: common.imgPath + res.data.bean.jfpzZp,
+          jfInfo: '缴费证明图片已上传',
+          class1: 'green'
+        })
+      }
+    })
   },
 
   /**

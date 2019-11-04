@@ -221,6 +221,15 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("nf", "");
+        params.put("sf", "");
+        params.put("kl", "");
+        params.put("pc", "");
+        params.put("zy", "");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustzs/bckjBizLntj/getChanges");
+        ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", responseMessage.getBean());
         return view;
     }
 

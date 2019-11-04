@@ -400,7 +400,7 @@
 		from bckj_biz_jyscheme a
 		<where>
 			<if test="xsxh!=null and xsxh!=''">
-				AND a.xsxh LIKE concat ('%',#{xsxh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.xsxh LIKE concat (#{xsxh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xm!=null and xm!=''">
 				AND a.xm LIKE concat ('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
@@ -427,12 +427,24 @@
 
 	</select>
 
+	<select id="getJyselfInfo" parameterType="Map" resultType="BckjBizJyscheme">
+		SELECT <include refid="bckjBizJyschemeColumns"></include>
+		FROM bckj_biz_jyscheme a ,bckj_biz_job_plan_other b
+		WHERE a.xsxh=b.name and a.xm=#{xsxm} and b.val=#{sfz}
+	</select>
+
 
 
 
     <delete id="deleteByXsxh" parameterType="String">
 		DELETE FROM bckj_biz_jyscheme
 		WHERE xsxh = #{xsxh}
+	</delete>
+
+
+	<delete id="deleteByMap" parameterType="Map">
+		DELETE  FROM  bckj_biz_jyscheme
+		where owid=#{owid}
 	</delete>
 
 
@@ -544,9 +556,11 @@
 		where a.yh_ref_owid=#{owid}
 	</select>
 
-	<select id="getOldJyscheme" resultType="BckjBizJyscheme" >
-		SELECT <include refid="bckjBizJyschemeColumns"></include>
-		FROM bckj_biz_jyscheme a
+
+
+	<select id="getOldJyscheme" resultType="Map" >
+		SELECT owid,xsxh
+		FROM bckj_biz_jyscheme
 	</select>
 
 
