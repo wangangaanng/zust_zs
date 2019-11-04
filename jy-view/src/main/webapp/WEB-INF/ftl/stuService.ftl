@@ -157,7 +157,7 @@
                             str+='<div class="da-item"><div>报到结束时间：</div><p>'+p.bdjssj+'</p></div>'
                         }
                         if(p.datdxxdz){
-                            str+='<div class="da-item"><div>档案投递电话：</div><p>'+p.datdxxdz+'</p></div>'
+                            str+='<div class="da-item"><div>档案投递电话：</div><p>'+p.datddh+'</p></div>'
                         }
                         if(p.datddw){
                             str+='<div class="da-item"><div>档案投递单位：</div><p>'+p.datddw+'</p></div>'

@@ -99,7 +99,7 @@
         </view>
         <view class="tr">
           <view class="td td-name"  style="width:300rpx;">档案投递电话：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.datdxxdz}}</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.datddh}}</view>
         </view>
         <view class="tr">
           <view class="td td-name"  style="width:300rpx;">档案投递单位：</view>
