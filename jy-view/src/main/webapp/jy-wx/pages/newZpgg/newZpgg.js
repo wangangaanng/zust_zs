@@ -140,7 +140,7 @@ Page({
         'form.zwCity': e.detail.values[1].name
       })
       this.toggle('bottom', false);
-    } 
+    }
 
   },
   onCancel(e) {
@@ -179,7 +179,7 @@ Page({
           icon:'none'
         })
       }
-      
+
     } else if (e.target.dataset.type == 7) {
       this.toggle('bottom', true);
     }
@@ -192,7 +192,7 @@ Page({
       this.toggle('zwMxzy', false);
     } else if (e.target.dataset.type == 7) {
       this.toggle('bottom', false);
-    } 
+    }
   },
   /**
    * 生命周期函数--监听页面显示

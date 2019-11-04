@@ -52,7 +52,6 @@
 
     <!-- E a -->
     <!-- S b -->
-    <#assign list=[1,2,3,4,5,6,7,8,9,10]>
     <div class="shouYe_div_dynamic">
         <div class="dyn_nav" id="zylbDiv">
             <ul class="zylb" id="zylb">
@@ -128,20 +127,46 @@
                 <div class="jhcx_form">
                     <select id="jhcx_nf" onchange="jhchang(this)" class="nf" name="nf">
                         <option value="">&nbsp;年份</option>
+                        <#if (conditionJh??)&&(conditionJh.nfList??)&&(conditionJh.nfList?size>0)>
+                            <#list conditionJh.nfList as obj>
+                                <option value="${obj.nf}">${obj.nf}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <select id="jhcx_sf" onchange="jhchang(this)" class="sf" name="sf">
                         <option value="">&nbsp;省份</option>
+                        <#if (conditionJh??)&&(conditionJh.sfList??)&&(conditionJh.sfList?size>0)>
+                            <#list conditionJh.sfList as obj>
+                                <option value="${obj.sf}">${obj.sf}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <select id="jhcx_kl" onchange="jhchang(this)" class="kl" name="kl">
                         <option value="">&nbsp;科类</option>
+                        <#if (conditionJh??)&&(conditionJh.klList??)&&(conditionJh.klList?size>0)>
+                            <#list conditionJh.klList as obj>
+                                <option value="${obj.kl}">${obj.kl}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <select id="jhcx_pc" onchange="jhchang(this)" class="pc" name="pc">
                         <option value="">&nbsp;批次</option>
+                        <#if (conditionJh??)&&(conditionJh.pcList??)&&(conditionJh.pcList?size>0)>
+                            <#list conditionJh.pcList as obj>
+                                <option value="${obj.pc}">${obj.pc}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <select id="jhcx_zy" onchange="jhchang(this)" class="zy" name="zy">
                         <option value="">&nbsp;专业</option>
+                        <#if (conditionJh??)&&(conditionJh.zyList??)&&(conditionJh.zyList?size>0)>
+                            <#list conditionJh.zyList as obj>
+                                <option value="${obj.zy}">${obj.zy}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <span id="jhcx_chaXun" class="queryButton" onclick="jhcx_chaXun()">查询</span>
+                    <span class="queryButton" onclick="jhcx_init()">重置</span>
                 </div>
                 <div class="cjcx_form">
                     <input id="cjcx_zkzh" class="input_zkzh" type="text" name="input_zkzh" placeholder="请输入准考证号" value="" />
@@ -156,31 +181,59 @@
                 <div class="lncx_form">
                     <select id="lncx_nf" onchange="mychange(this)" class="nf" name="">
                         <option value="">&nbsp;年份</option>
+                    <#if (conditionLn??)&&(conditionLn.nfList??)&&(conditionLn.nfList?size>0)>
+                        <#list conditionLn.nfList as obj>
+                            <option value="${obj.nf}">${obj.nf}</option>
+                        </#list>
+                    </#if>
                     </select>
                     <select id="lncx_sf" onchange="mychange(this)" class="sf" name="">
                         <option value="">&nbsp;省份</option>
+                        <#if (conditionLn??)&&(conditionLn.sfList??)&&(conditionLn.sfList?size>0)>
+                            <#list conditionLn.sfList as obj>
+                                <option value="${obj.sf}">${obj.sf}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <select id="lncx_kl" onchange="mychange(this)" class="kl" name="">
                         <option value="">&nbsp;科类</option>
+                    <#if (conditionLn??)&&(conditionLn.klList??)&&(conditionLn.klList?size>0)>
+                        <#list conditionLn.klList as obj>
+                            <option value="${obj.kl}">${obj.kl}</option>
+                        </#list>
+                    </#if>
                     </select>
                     <select id="lncx_pc" onchange="mychange(this)" class="pc" name="">
                         <option value="">&nbsp;批次</option>
+                        <#if (conditionLn??)&&(conditionLn.pcList??)&&(conditionLn.pcList?size>0)>
+                            <#list conditionLn.pcList as obj>
+                                <option value="${obj.pc}">${obj.pc}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <select id="lncx_zy" onchange="mychange(this)" class="zy" name="">
                         <option value="">&nbsp;专业</option>
+                        <#if (conditionLn??)&&(conditionLn.zyList??)&&(conditionLn.zyList?size>0)>
+                            <#list conditionLn.zyList as obj>
+                                <option value="${obj.zy}">${obj.zy}</option>
+                            </#list>
+                        </#if>
                     </select>
                     <span id="lncx_chaXun" class="queryButton" onclick="lncx_chaXun()">查询</span>
+                    <span class="queryButton" onclick="lncx_init()">重置</span>
                 </div>
             </div>
         </div>
         <div class="tongZhiGongGao">
             <ul class="gongGao_ul">
-                <#list list as obj>
-                    <li class="gongGao_ul_li">
-                        <span class="glyphicon glyphicon-volume-up" style="font-size: 20px;float: left;"></span>
-                        <p class="gongGao_title">浙江科技学院2017年艺术类热门专业</p>
-                    </li>
-                </#list>
+                <#if (tzggList??)&&(tzggList?size>0)>
+                    <#list tzggList as obj>
+                        <li class="gongGao_ul_li">
+                            <span class="glyphicon glyphicon-volume-up" style="font-size: 20px;float: left;"></span>
+                            <p class="gongGao_title">${obj.wzbt!''}</p>
+                        </li>
+                    </#list>
+                </#if>
             </ul>
         </div>
         <div class="shouYe_division"></div>
@@ -191,13 +244,12 @@
         <div class="modal-dialog" style="width:1200px;">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div style="height: 200px">
-                        <table class="cxRes" border='1'cellspacing="0" cellpadding="0">
+                    <div style="min-height: 200px;">
+                        <table class="cxRes" border='1'cellspacing="0" cellpadding="0" id="table-zsjh">
                             <!-- <tr><th>Header</th></tr>
                             <tr><td>Data</td></tr> -->
                         </table>
                     </div>
-                    <div class="fenye" style="width:250px;margin:0px auto;margin-top:20px;"></div>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -207,6 +259,8 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/bootstrap-table.min.js"></script>
+<script src="${base}/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="${base}/js/zs/shouYe.js" type="text/javascript"></script>
 
 </body>
