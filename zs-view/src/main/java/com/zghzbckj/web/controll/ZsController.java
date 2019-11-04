@@ -259,6 +259,15 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("nf", "");
+        params.put("sf", "");
+        params.put("kl", "");
+        params.put("pc", "");
+        params.put("zy", "");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustzs/bckjBizLntj/getChanges");
+        ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", responseMessage.getBean());
         return view;
     }
 
@@ -339,6 +348,27 @@ public class ZsController {
         return view;
     }
 
+    @RequestMapping(value = "zxtw/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir, @PathVariable String currentPage) {
+        view.setViewName("ZSzxtw");
+        view.addObject("header", getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("pageNo", currentPage);
+        params.put("pageSize", "10");
+        //1 招生在线咨询
+        params.put("zxlx", "1");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustcommon/bckjBizZxzx/historyMessage");
+        ResponseMessage result = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", (Map) result.getBean());
+        return view;
+    }
+
     /**
      * <p>功能描述:招生网问卷调查 wjdc</p >
      * <ul>
@@ -359,6 +389,32 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        return view;
+    }
+
+    /**
+     *<p>功能描述:调查问卷详情 inquiryDetail</p >
+     *<ul>
+     *<li>@param [request, view, owid, stuOwid]</li>
+     *<li>@return org.springframework.web.servlet.ModelAndView</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/2 15:51</li>
+     *</ul>
+     */
+    @RequestMapping(value = "inquiryDetail/{owid}", method = RequestMethod.GET)
+    public ModelAndView inquiryDetail(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+        view.setViewName("inquiryDetail");
+        view.addObject("owid",owid);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param=Maps.newHashMap();
+        param.put("dcwjRefOwid",owid);
+        //招生网 0
+        param.put("wzbh",0);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizDcwj/dcwjDetail");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
 

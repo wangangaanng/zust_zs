@@ -6,6 +6,7 @@ package com.zghzbckj.manage.service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
+import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.zk.utils.excel.ExcelUtil;
 import com.sun.org.apache.bcel.internal.generic.RETURN;
@@ -179,7 +180,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         //用来存sfz
         List<String> sfzs = Lists.newArrayList();
         //获得已经在数据库的生源信息:key---yhrefowid&&value---sfz
-        List<BckjBizSyb> resOldSybs = getOldSybs();
+        List<Map> resOldSybs = getOldSybs();
         //读取自定义扩展字段
         List<String> fieldLists = new ArrayList<>();
         List<String> codeList = list.get(0);   //拿到code行
@@ -392,13 +393,13 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         Thread t = new Thread(new Runnable() {
             // run方法具体重写
             public void run() {
-                for (BckjBizSyb bckjBizSyb : resOldSybs) {
+                for (Map map : resOldSybs) {
                     int count = results.size();
-                    results.add(bckjBizSyb.getSfz());
+                    results.add(map.get("sfz").toString());
                     if (results.size() != (++count)) {
-                        bckjBizYhxxService.deleteByOwid(bckjBizSyb.getYhRefOwid());
-                        bckjBizYhkzService.deleteByYhRefOwid(bckjBizSyb.getYhRefOwid());
-                        delete(bckjBizSyb);
+                        bckjBizYhxxService.deleteByOwid(map.get("yhOwid").toString());
+                        bckjBizYhkzService.deleteByYhRefOwid(map.get("yhOwid").toString());
+                        deleteByMap(map);
                         count--;
                     }
                 }
@@ -408,7 +409,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
-    public List<BckjBizSyb> getOldSybs() {
+    public List<Map> getOldSybs() {
         return this.dao.getOldSybs();
     }
 
@@ -589,10 +590,11 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         if (split.length == 1) {
             sdf = new SimpleDateFormat("yyyy");
         } else if (split.length == 2) {
-            sdf = new SimpleDateFormat("yyyy-mm");
+            sdf = new SimpleDateFormat("yyyy-MM ");
         } else if (split.length == 3) {
-            sdf = new SimpleDateFormat("yyyy-mm-dd");
+            sdf = new SimpleDateFormat("yyyy-MM-dd");
         }
+        DateUtil.getDate(dateStr,"yyyy-MM-dd");
         Date utilDate = sdf.parse(dateStr);
         return utilDate;
     }

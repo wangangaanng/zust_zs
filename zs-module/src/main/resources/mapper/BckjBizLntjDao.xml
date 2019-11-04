@@ -44,6 +44,122 @@
 		<include refid="bckjBizLntjJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
+
+	<!--根据年份查询年份条件	-->
+	<select id="findListByNf" resultType="com.zghzbckj.manage.entity.BckjBizLntj">
+		SELECT DISTINCT a.nf
+		FROM bckj_biz_lntj a
+		<where>a.nf IS NOT NULL
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
+		</where>
+		ORDER BY a.nf DESC
+	</select>
+
+	<!--根据省份查询省份条件	-->
+	<select id="findListBySf" resultType="com.zghzbckj.manage.entity.BckjBizLntj">
+		SELECT DISTINCT a.sf
+		FROM bckj_biz_lntj a
+		<where>a.sf IS NOT NULL
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
+		</where>
+	</select>
+
+	<!--根据科类查询科类条件	-->
+	<select id="findListByKl" resultType="com.zghzbckj.manage.entity.BckjBizLntj">
+		SELECT DISTINCT a.kl
+		FROM bckj_biz_lntj a
+		<where>a.kl IS NOT NULL
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
+		</where>
+	</select>
+
+	<!--根据批次查询批次条件	-->
+	<select id="findListByPc" resultType="com.zghzbckj.manage.entity.BckjBizLntj">
+		SELECT DISTINCT a.pc
+		FROM bckj_biz_lntj a
+		<where>a.pc IS NOT NULL
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
+		</where>
+	</select>
+
+	<!--根据专业查询专业条件	-->
+	<select id="findListByZy" resultType="com.zghzbckj.manage.entity.BckjBizLntj">
+		SELECT DISTINCT a.zy
+		FROM bckj_biz_lntj a
+		<where>a.zy IS NOT NULL
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
+		</where>
+	</select>
 	
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizLntj">
 		SELECT 

@@ -5,17 +5,17 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.dao.BckjBizBmDao;
 import com.zghzbckj.manage.dao.BckjBizXxpzDao;
 import com.zghzbckj.manage.entity.BckjBizXxpz;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +33,8 @@ import java.util.Map;
 public class BckjBizXxpzService extends CrudService<BckjBizXxpzDao, BckjBizXxpz> {
 
     private static final Logger log = Logger.getLogger(BckjBizXxpzService.class);
+    @Autowired
+    BckjBizBmDao bckjBizBmDao;
 
     @Override
     public BckjBizXxpz get(String owid) {
@@ -131,13 +133,24 @@ public class BckjBizXxpzService extends CrudService<BckjBizXxpzDao, BckjBizXxpz>
     *<li>@date 2019/10/24 16:12  </li>
     *</ul>
     */
-    public Page getXxxx(Map<String, Object> mapData) {
+    public Page getXxxx(Map<String, Object> mapData) throws Exception {
         int pageNo= MapUtils.getInt(mapData,"pageNo");
         int pageSize= MapUtils.getInt(mapData,"pageSize");
         Page<Map> page = new Page(pageNo, pageSize);
         mapData.put("page", page);
         mapData.put("orderBy", "");
         page.setList(this.dao.findMapListByMap(mapData));
+        String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
+        mapData.put("bmnd", bmnd);
+        for(Map one:page.getList()){
+            mapData.put("xxbh",MapUtils.getString(one,"xxbh"));
+            Map map= bckjBizBmDao.getBmxx(mapData);
+            if(null!=map){
+                BeanUtil.copyBean(map,one,"bmzy","xybCz","memo","jjly","bmState","applyOwid");
+            }else{
+                one.put("bmState",0);
+            }
+        }
         return page;
     }
 }

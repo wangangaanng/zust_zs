@@ -132,8 +132,19 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
      *<li>@date 2019/10/14 15:33  </li>
      *</ul>
      */
-    public List<BckjBizLntj> getChanges(Map<String, Object> mapData) {
-        return this.findListByParams(mapData, " a.createtime DESC");
+    public Map<String, Object> getChanges(Map<String, Object> mapData) {
+        Map<String, Object> result = new HashMap<>();
+        List<BckjBizLntj> nfList = this.dao.findListByNf(mapData);
+        List<BckjBizLntj> sfList = this.dao.findListBySf(mapData);
+        List<BckjBizLntj> klList = this.dao.findListByKl(mapData);
+        List<BckjBizLntj> pcList = this.dao.findListByPc(mapData);
+        List<BckjBizLntj> zyList = this.dao.findListByZy(mapData);
+        result.put("nfList", nfList);
+        result.put("sfList", sfList);
+        result.put("klList", klList);
+        result.put("pcList", pcList);
+        result.put("zyList", zyList);
+        return result;
     }
 
     /**

@@ -102,6 +102,22 @@
 			</if>
 		</where>
 	</select>
+	<select id="getBmxx" resultType="Map">
+		SELECT
+		b.xzzymc AS "bmzy",
+		b.xybnr AS "xybCz",
+		b.memo AS "memo",
+		b.jjly AS "jjly",
+		IFNULL(b.state,0) AS "bmState",
+		b.owid AS "applyOwid"
+		FROM bckj_biz_bm b
+		<include refid="bckjBizBmJoins"/>
+		<where>
+				 b.user_ref_owid=#{yhRefOwid}
+				 AND b.xxbh=#{xxbh}
+				AND b.bmnd=#{bmnd}
+		</where>
+	</select>
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizBm">
 		SELECT 
 			<include refid="bckjBizBmColumns"/>

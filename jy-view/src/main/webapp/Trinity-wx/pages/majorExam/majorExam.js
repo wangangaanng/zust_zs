@@ -2,7 +2,6 @@
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var url = app.globalData.ApiUrl;
-var yhRefOwid = wx.getStorageSync('yhRefOwid');
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
@@ -233,7 +232,7 @@ Page({
       xklb: xklb,
       bklb: bklb,
       zyOwid: zyOwid,
-      userRefOwid: yhRefOwid,
+      userRefOwid: wx.getStorageSync('yhRefOwid'),
       xklbOwid: xklbOwid,
       bklbOwid: bklbOwid,
     }

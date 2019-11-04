@@ -12,6 +12,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.entity.BckjDicMenu;
 import com.zghzbckj.manage.service.BckjDicMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,7 +196,7 @@ public class BckjDicMenuController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "wzbh","bxlx");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "wzbh", "bxlx");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -215,6 +216,29 @@ public class BckjDicMenuController extends BaseController {
             return ResponseMessage.sendOK(bckjDicMenuService.countMenu());
         } catch (Exception e) {
             log.info("获取菜单总数失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    /**
+    *<p>方法:getArticleType TODO 获取全部文章栏目</p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/11/2 21:35  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "getArticleType", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getArticleType(PublicDataVO dataVO) {
+        try {
+            return ResponseMessage.sendOK(bckjDicMenuService.getArticleType());
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取全部文章栏目：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }

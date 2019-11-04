@@ -1,8 +1,13 @@
 $(document).ready(function () {
-    searchLnfsmc();
+    // searchLnfsmc();
 });
 
-function getChanges() {
+var pageNo=1;
+var pageSize=10;
+var lnobj;
+
+function getChanges(obj) {
+    lnobj = $(obj).attr("id");
     var nf = $('#nf').val();
     var sf = $('#sf').val();
     var kl = $('#kl').val();
@@ -16,37 +21,51 @@ function getChanges() {
         zy: zy
     };
     ajax("zustzs/bckjBizLntj/getChanges", data, function (res) {
-        if (res.bcakCode === 0) {
+        if (res.backCode === 0) {
             var str = '';
-            if (res.bean && res.bean.length > 0) {
-                $.each(res.bean, function (k, p) {
-                    if (nf === p.nf) {
+            if (res.bean) {
+                $.each(res.bean.nfList, function (k, p) {
+                    if (!nf) {
                         str = "<option selected='selected' value='"+ p.nf +"'>"+ p.nf +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.nf+"'>"+p.nf+"</option>";
                     }
-                    if (sf === p.sf) {
+                    $('#nf').append(str);
+                });
+                $.each(res.bean.sfList, function (k, p) {
+                    console.log(sf);
+                    if (!sf) {
                         str = "<option selected='selected' value='"+ p.sf +"'>"+ p.sf +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
                     }
+                    $('#sf').append(str);
+                });
+                $.each(res.bean.klList, function (k, p) {
                     if (kl === p.kl) {
                         str = "<option selected='selected' value='"+ p.kl +"'>"+ p.kl +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.kl+"'>"+p.kl+"</option>";
                     }
+                    $('#kl').append(str);
+                });
+                $.each(res.bean.pcList, function (k, p) {
                     if (pc === p.pc) {
                         str = "<option selected='selected' value='"+ p.pc +"'>"+ p.pc +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
                     }
+                    $('#pc').append(str);
+                });
+                $.each(res.bean.zyList, function (k, p) {
                     if (zy === p.zy) {
                         str = "<option selected='selected' value='"+ p.zy +"'>"+ p.zy +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
                     }
+                    $('#zy').append(str);
                 });
-                searchLnfsmc(nf, sf, kl, pc, zy);
+                // searchLnfsmc(nf, sf, kl, pc, zy);
             } else {
                 layer.open({
                     title: '提示',
@@ -75,7 +94,7 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
     if ((zy == "") || (zy == null) || (zy == "null")) {
         zy = $("#zy").val();
     }
-    $('#table-lnfsmc').bootstrapTable('destory');
+    $('#table-lnfsmc').bootstrapTable('destroy');
     $('#table-lnfsmc').bootstrapTable({
         ajax: function (request) {
             ajax("zustzs/bckjBizLntj/getChanges", {
@@ -85,7 +104,7 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
                 pc: pc,
                 zy: zy,
                 pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNo || 1,
-                pageSize: $('table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
+                pageSize: $('#table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
             }, function (data) {
                 if (data.backCode === 0) {
                     request.success({

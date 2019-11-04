@@ -53,7 +53,7 @@ Component({
       if (e.detail.iv && e.detail.encryptedData){
         app.globalData.userInfo = e.detail.userInfo;
         wx.setStorageSync('headImg', e.detail.userInfo.avatarUrl);
-        wx.setStorageSync('userName', e.detail.userInfo.nickName);
+        wx.setStorageSync('nickName', e.detail.userInfo.nickName);
         var encryptedData = e.detail.encryptedData
         var iv = e.detail.iv
         wx.login({

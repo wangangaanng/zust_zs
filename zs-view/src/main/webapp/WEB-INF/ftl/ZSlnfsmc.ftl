@@ -34,22 +34,46 @@
                         <div class="form-group">
                             <label for="nf" class="col-sm-1">年份：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="nf" id="nf">
+                                <select class="form-control" name="nf" id="nf" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
+                                    <#if (result??)&&(result.nfList??)&&(result.nfList?size>0)>
+                                        <#assign flag=1>
+                                        <#list result.nfList as obj>
+                                            <option value="${obj.nf}">${obj.nf}</option>
+                                        </#list>
+                                    <#else >
+                                        <#assign flag=0>
+                                    </#if>
                                 </select>
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <label for="sf" class="col-sm-1">省份：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="sf" id="sf">
+                                <select class="form-control" name="sf" id="sf" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
+                                    <#if (result??)&&(result.sfList??)&&(result.sfList?size>0)>
+                                        <#assign flag=1>
+                                        <#list result.sfList as obj>
+                                            <option value="${obj.sf}">${obj.sf}</option>
+                                        </#list>
+                                    <#else >
+                                        <#assign flag=0>
+                                    </#if>
                                 </select>
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <label for="kl" class="col-sm-1">科类：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="sf" id="kl">
+                                <select class="form-control" name="sf" id="kl" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
+                                    <#if (result??)&&(result.klList??)&&(result.klList?size>0)>
+                                        <#assign flag=1>
+                                        <#list result.klList as obj>
+                                            <option value="${obj.kl}">${obj.kl}</option>
+                                        </#list>
+                                    <#else >
+                                        <#assign flag=0>
+                                    </#if>
                                 </select>
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
@@ -57,15 +81,31 @@
                         <div class="form-group">
                             <label for="pc" class="col-sm-1">批次：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="pc" id="pc">
+                                <select class="form-control" name="pc" id="pc" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
+                                    <#if (result??)&&(result.pcList??)&&(result.pcList?size>0)>
+                                        <#assign flag=1>
+                                        <#list result.pcList as obj>
+                                            <option value="${obj.pc}">${obj.pc}</option>
+                                        </#list>
+                                    <#else >
+                                        <#assign flag=0>
+                                    </#if>
                                 </select>
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <label for="zy" class="col-sm-1">专业：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="zy" id="zy">
+                                <select class="form-control" name="zy" id="zy" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
+                                    <#if (result??)&&(result.zyList??)&&(result.zyList?size>0)>
+                                        <#assign flag=1>
+                                        <#list result.zyList as obj>
+                                            <option value="${obj.zy}">${obj.zy}</option>
+                                        </#list>
+                                    <#else >
+                                        <#assign flag=0>
+                                    </#if>
                                 </select>
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
@@ -87,6 +127,8 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
+<script src="${base}/js/bootstrap-table.min.js"></script>
+<script src="${base}/js/bootstrap-table-zh-CN.min.js"></script>
 <script src="${base}/js/zs/lnfsmc.js"></script>
 <script>
 
