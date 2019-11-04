@@ -43,6 +43,6 @@ public class SwytConstant {
     //state=8
     public static final String BMXZMSD = "下载面试单";
     //state=9
-    public static final String BMCJCX = "成绩查询";
+    public static final String BMCJCX = "查询成绩";
     public static final String FTLFILE_SUFFIX = ".ftl";
 }

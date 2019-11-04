@@ -347,9 +347,19 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     *<li>@date 2019/10/27 12:22  </li>
     *</ul>
     */
-    public boolean sendApplyEmail(Map<String, Object> mapData) {
-
-        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) +  MapUtils.getString(mapData,"applyOwid")+File.separator+SwytConstant.SWTYSQB;
+    @Transactional(readOnly = false)
+    public boolean sendApplyEmail(Map<String, Object> mapData) throws CustomerException{
+        String owid=MapUtils.getString(mapData,"applyOwid");
+        BckjBizBm bm=get(owid);
+        if(null==bm){
+            throw CustomerException.newInstances("报名表不存在");
+        }
+        if(bm.getState()==1){
+            bm.setState(2);
+            bm.setXybnr(SwytConstant.BMPZSC);
+            saveOrUpdate(bm);
+        }
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) +  owid+File.separator+SwytConstant.SWTYSQB;
         String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) +SwytConstant.SWTYCNS;
         String email=MapUtils.getString(mapData,"yx");
         Map value= Maps.newHashMap();
@@ -372,8 +382,19 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     *<li>@date 2019/10/27 14:17  </li>
     *</ul>
     */
+    @Transactional(readOnly = false)
     public boolean sendView(Map<String, Object> mapData) throws CustomerException{
-        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+        String owid=MapUtils.getString(mapData,"applyOwid");
+        BckjBizBm bm=get(owid);
+        if(null==bm){
+            throw CustomerException.newInstances("报名表不存在");
+        }
+        if(bm.getState()==8){
+            bm.setState(9);
+            bm.setXybnr(SwytConstant.BMCJCX);
+            saveOrUpdate(bm);
+        }
+        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +owid+SwytConstant.SWTYMSTZD;
         if(MailUtils.fileIsExist(view)){
             throw CustomerException.newInstances("面试通知单文件尚未生成");
         }

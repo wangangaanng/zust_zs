@@ -2,6 +2,9 @@ $(document).ready(function () {
     searchLnfsmc();
 });
 
+var pageNo=1;
+var pageSize=10;
+
 function getChanges() {
     var nf = $('#nf').val();
     var sf = $('#sf').val();
@@ -75,7 +78,7 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
     if ((zy == "") || (zy == null) || (zy == "null")) {
         zy = $("#zy").val();
     }
-    $('#table-lnfsmc').bootstrapTable('destory');
+    $('#table-lnfsmc').bootstrapTable('destroy');
     $('#table-lnfsmc').bootstrapTable({
         ajax: function (request) {
             ajax("zustzs/bckjBizLntj/getChanges", {
@@ -85,7 +88,7 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
                 pc: pc,
                 zy: zy,
                 pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNo || 1,
-                pageSize: $('table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
+                pageSize: $('#table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
             }, function (data) {
                 if (data.backCode === 0) {
                     request.success({

@@ -50,7 +50,10 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     BckjBizJyscheme getOneByYhRefOwid(Map<String, Object> dataMap);
 
-    List<BckjBizJyscheme> getOldJyscheme();
+    List<Map> getOldJyscheme();
+
 
     List<Map> getDicListMapByType(int type);
+
+    BckjBizJyscheme getJyselfInfo(Map<String, Object> dataMap);
 }

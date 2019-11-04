@@ -73,6 +73,12 @@
 		<include refid="bckjBizSybJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
+
+
+	<update id="deleteByMap" parameterType="Map">
+		DELETE FROM bckj_biz_syb
+		WHERE yh_ref_owid=#{yhOwid}
+	</update>
 	<select id="findByXh" resultType="com.zghzbckj.manage.entity.BckjBizSyb">
 		SELECT
 		<include refid="bckjBizSybColumns"/>
@@ -115,13 +121,13 @@
 		<include refid="bckjBizSybJoins"/>
 		<where>
 			<if test="xsxh != null and xsxh != ''">
-				AND a.xsxh LIKE concat ('%',#{xsxh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.xsxh LIKE concat (#{xsxh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xm != null and xm != ''">
 				AND a.xm LIKE concat ('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sfz != null and sfz != ''">
-				AND a.sfz LIKE concat ('%',#{sfz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.sfz LIKE concat (#{sfz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="syd != null and syd != ''">
 				AND a.syd LIKE concat ('%',#{syd,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
@@ -157,7 +163,7 @@
 				AND a.zzmm LIKE concat ('%',#{zzmm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="ksh != null and ksh != ''">
-				AND a.ksh LIKE concat ('%',#{ksh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.ksh LIKE concat (#{ksh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>
@@ -579,9 +585,9 @@
 	</select>
 
 
-	<select id="getOldSybs" resultType="BckjBizSyb" >
-		select <include refid="bckjBizSybColumns"></include>
-		 FROM  BCKJ_BIZ_SYB a
+	<select id="getOldSybs" resultType="Map" >
+		select yh_ref_owid as yhOwid,sfz as sfz
+		 FROM  BCKJ_BIZ_SYB
 	</select>
 
 	<select id="getSmallRoutine" resultType="String">

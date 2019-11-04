@@ -15,37 +15,27 @@
 <#include "com/ZSheader.ftl">
 <div class="main">
     <div class="container">
-        <div class="routes">
-            <div class="location">
-                <i></i> 当前位置：
-            </div>
-
-            <ol class="breadcrumb">
-                <li><a href="${base}/">首页</a></li>
-                <li class="active">就业调查</li>
-            </ol>
-        </div>
         <div class="content">
-            <div>
-                <div>
-                    <div class="search-bar">
-                        <div class="search-label">搜索关键字：</div>
-                        <div class="input-group search-input">
-                            <input type="text" id="key" class="form-control" placeholder="输入内容">
-                            <div class="input-group-btn">
-                                <button onclick="initTable1()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
+            <#include "com/subMenu.ftl">
+            <div class="nav-bar">
+                <#include "com/route.ftl">
+            </div>
+            <div class="search-bar">
+                <div class="search-label">搜索关键字：</div>
+                <div class="input-group search-input">
+                    <input type="text" id="key" class="form-control" placeholder="输入内容">
+                    <div class="input-group-btn">
+                        <button onclick="initTable1()" type="button" class="btn btn-default green"><span class="glyphicon glyphicon-search"></span></button>
 
-                            </div>
-                        </div>
                     </div>
-                    <div class="news-list">
-                        <div class="e-table">
-                            <table class="table table-hover" data-locale="zh-CN" id="table-zph" style="table-layout: fixed;
-                          word-break:break-all; ">
-                            </table>
+                </div>
+            </div>
+            <div class="content-list">
+                <div class="e-table" style="width: 101%">
+                    <table class="table table-hover" data-locale="zh-CN" id="table-zph" style="table-layout: fixed;
+                  word-break:break-all; ">
+                    </table>
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -75,17 +65,17 @@
         $('#table-zph').bootstrapTable({
             ajax:function(request) {
                 ajax("zustcommon/bckjBizDcwj/dcwjList", {
-                    "wzbh":1,
+                    "wzbh":"0",
                     "wjmc":$("#key").val(),
                     "pageSize":$('#table-zph').bootstrapTable('getOptions').pageSize || pageSize,
                     "pageNo":$('#table-zph').bootstrapTable('getOptions').pageNumber || 1
                 }, function (data) {
                     if(data.backCode==0){
+                        console.log(data);
                         request.success({
                             row : convertStr(data.bean.records,[]),
                             total: data.bean.totalCount
                         });
-
                     }
                 })
             },

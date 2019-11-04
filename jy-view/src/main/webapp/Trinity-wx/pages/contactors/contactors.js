@@ -137,25 +137,27 @@ function getContactor(that) {
   common.ajax('zustswyt/bckjBizJtcyxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
       var list = res.data.bean;
-      for (var i = 0; i < list.length;i++){
-        switch (list[i].cylb){
-          case 0:
-            that.data.father = list[i];
-            break;
-          case 1:
-            that.data.mother = list[i];
-            break;
-          case 2:
-            list[i].xb = list[i].xb.toString();
-            that.data.teacher= list[i];
-            break;
+      if (list&&list.length>0){
+        for (var i = 0; i < list.length; i++) {
+          switch (list[i].cylb) {
+            case 0:
+              that.data.father = list[i];
+              break;
+            case 1:
+              that.data.mother = list[i];
+              break;
+            case 2:
+              list[i].xb = list[i].xb.toString();
+              that.data.teacher = list[i];
+              break;
+          }
         }
+        that.setData({
+          father: that.data.father,
+          mother: that.data.mother,
+          teacher: that.data.teacher
+        });
       }
-      that.setData({
-        father: that.data.father,
-        mother: that.data.mother,
-        teacher: that.data.teacher
-      });
     } else {
       common.toast(res.data.errorMess, 'none', 2000)
     }

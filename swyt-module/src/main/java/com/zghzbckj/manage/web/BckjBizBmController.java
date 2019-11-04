@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -365,7 +366,7 @@ public class BckjBizBmController extends BaseController {
         codes.add(mapData.get("owid").toString());
         //拒绝 状态为4  通过为5
         Integer state = 5;
-        Map resultMap = bckjBizBmService.submitPurchaseBack(codes, state, mapData);
+        Map resultMap = Maps.newHashMap();//bckjBizBmService.submitPurchaseBack(codes, state, mapData);
         if ("true".equals(resultMap.get("result").toString())) {
             //数据回写
             return ResponseMessage.sendOK(resultMap.get("bean"));
