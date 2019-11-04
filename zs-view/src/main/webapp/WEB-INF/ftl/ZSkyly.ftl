@@ -40,9 +40,9 @@
 <#include "com/ZSheader.ftl">
 <div class="main">
     <div class="container">
-        <#include "com/route.ftl">
+        <#include "com/subMenu.ftl">
         <div class="content">
-            <#include "com/subMenu.ftl">
+            <#include "com/route.ftl">
             <div class="swiper-container gallery-top">
                 <div class="swiper-wrapper" id="top-wrapper">
                     <div class="swiper-slide">
@@ -61,7 +61,7 @@
                 <div class="swiper-button-prev swiper-button-white"></div>
                 <div class="swiper-button-next swiper-button-white"></div>
             </div>
-            <div class="swiper-container gallery-thumbs" style="margin: 0 23%">
+            <div class="swiper-container gallery-thumbs" style="margin: 0 2%">
                 <div class="swiper-wrapper" id="bottom-wrapper">
                     <div class="swiper-slide">
                         <img src="http://zsb.zust.edu.cn/files/imgs/F4C8C2EA34C24ACC8FE4A5AB5DEBD928.jpg" alt="">
@@ -83,7 +83,6 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
-<script src="${base}/js/zs/kyly.js"></script>
 <script>
     var galleryThumbs = new Swiper('.gallery-thumbs', {
         spaceBetween: 10,
