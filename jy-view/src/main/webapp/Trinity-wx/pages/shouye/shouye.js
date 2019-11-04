@@ -82,33 +82,23 @@ Page({
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
-        let xxbq = res.data.bean.list[0].xxbq.split(',')
-        that.setData({
-          res: res.data.bean.list[0],
-          xxbq: xxbq
-        })
+        console.log(111)
+        let kssj = '';
+        let jzsj = '';
+        let xxbq = '';
+        if (res.data.bean.list[0].xxbq) {
+          xxbq = res.data.bean.list[0].xxbq.split(',')
+        }
         wx.setStorageSync('xxbh', res.data.bean.list[0].xxbh)
         wx.setStorageSync('applyOwid', res.data.bean.list[0].applyOwid)
-      } else {
-        common.toast(res.data.errorMess, 'none', 2000)
-      }
-    });
-  },
-  //学校信息获取
-  getXxxx: function(e) {
-    let that = this;
-    let data = {
-      pageNo: 1,
-      pageSize: 1,
-      yhRefOwid: yhRefOwid,
-    }
-    common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
-      if (res.data.backCode == 0) {
-        let kssj = res.data.bean.list[0].kssj.substring(5, 10).replace("-", ".")
-        let jzsj = res.data.bean.list[0].jzsj.substring(5, 10).replace("-", ".")
+        if (res.data.bean.list[0].kssj && res.data.bean.list[0].jzsj) {
+          kssj = res.data.bean.list[0].kssj.substring(5, 10).replace("-", ".")
+          jzsj = res.data.bean.list[0].jzsj.substring(5, 10).replace("-", ".")
+        }
         that.setData({
           res: res.data.bean.list[0],
           kssj,
+          xxbq,
           jzsj
         })
       } else {
