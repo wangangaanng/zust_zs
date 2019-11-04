@@ -63,17 +63,28 @@ public class ZsController {
         ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
         view.addObject("zszyList",result3.getBean());
 
-//        //生源基地
-//        Map param3=Maps.newHashMap();
-//        param3.put("lmbh","120");
-//        param3.put("wzzt","1");
-//        param3.put("isDetail","1");
-//        param3.put("gjz","");
-//        param3.put("pageNo", '1');
-//        param3.put("pageSize", "7");
-//        PublicData publicData3= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getMuArticle");
-//        ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
-//        view.addObject("tzggList",result3.getBean());
+
+        //计划查询条件
+        Map param4=Maps.newHashMap();
+        param4.put("nf", "");
+        param4.put("sf", "");
+        param4.put("kl", "");
+        param4.put("pc", "");
+        param4.put("zy", "");
+        PublicData publicData4 = UnionHttpUtils.manageParam(param4, "zustzs/bckjBizZsjh/getChanges");
+        ResponseMessage result4 = UnionHttpUtils.doPosts(publicData4);
+        view.addObject("conditionJh", result4.getBean());
+
+        //历年查询条件
+        Map param5=Maps.newHashMap();
+        param5.put("nf", "");
+        param5.put("sf", "");
+        param5.put("kl", "");
+        param5.put("pc", "");
+        param5.put("zy", "");
+        PublicData publicData5 = UnionHttpUtils.manageParam(param5, "zustzs/bckjBizLntj/getChanges");
+        ResponseMessage result5 = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("conditionLn", result5.getBean());
         return view;
     }
     @RequestMapping(value = "zszy", method = RequestMethod.GET)
