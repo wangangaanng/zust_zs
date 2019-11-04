@@ -43,8 +43,12 @@
     <view class="weui-uploader__bd" style="margin-top:12px;">
       <view class="weui-uploader__files" id="uploaderFiles">
         <block wx:for="{{files}}" wx:key="*this">
-          <view class="weui-uploader__file" bindtap="previewImage" id="{{item}}">
-            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" />
+
+          <view class="weui-uploader__file">
+            <image class="weui-uploader__img" src="{{item}}" mode="aspectFill" bindtap="previewImage" id="{{item}}" />
+            <view class="clear" data-index="{{index}}" bindtap="removePic">
+              <van-icon name="cross" color="#ffffff" size="8" style="position: relative;top:-7px;" />
+            </view>
           </view>
         </block>
       </view>

@@ -61,10 +61,6 @@ public class BckjBizJypmController extends BaseController {
             System.out.println(ip);
             if (innerIp(ip)) {
                 Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-                ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pmnf");
-                if (!msg.getSuccess()) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
-                }
                 List<Map<String, Object>> rankList = bckjBizJypmService.listRank(dataMap);
                 return ResponseMessage.sendOK(rankList);
             } else {
@@ -130,19 +126,19 @@ public class BckjBizJypmController extends BaseController {
                 ArrayList<String> cellList = list.get(i);
                 String szxy = cellList.get(0);    //所在学院
                 String pmzy = cellList.get(1);    //排名专业
-                String pmnf = cellList.get(2);    //排名年份
-                String pmyf = cellList.get(3);    //排名月份
-                String pmbyrs = cellList.get(4);  //排名毕业人数
-                String pmqyrs = cellList.get(5);  //就业人数
-                String pmjyl = cellList.get(6);   //排名就业率
+//                String pmnf = cellList.get(2);    //排名年份
+//                String pmyf = cellList.get(3);    //排名月份
+                String pmbyrs = cellList.get(2);  //排名毕业人数
+                String pmqyrs = cellList.get(3);  //就业人数
+                String pmjyl = cellList.get(4);   //排名就业率
 
                 BckjBizJypm jypm = new BckjBizJypm();
                 //根据不同年份学院专业名称查询
-                BckjBizJypm major = bckjBizJypmService.getByCollegeMajor(szxy, pmzy, pmnf);
+                BckjBizJypm major = bckjBizJypmService.getByCollegeMajor(szxy, pmzy);
                 if (!TextUtils.isEmpty(major)) {
                     jypm.setOwid(major.getOwid());
                 }
-                jypm.easySet("szxy", szxy, "pmzy", pmzy, "pmnf", pmnf, "pmyf", pmyf);
+                jypm.easySet("szxy", szxy, "pmzy", pmzy);
                 jypm.setPmbyrs(Integer.parseInt(pmbyrs));
                 jypm.setPmqyrs(Integer.parseInt(pmqyrs));
                 jypm.setPmjyl(new BigDecimal(pmjyl));

@@ -9,7 +9,6 @@ function initPicPath() {
         lx: 0
     };
     ajax("zustcommon/bckjBizPicvid/getPicList", data, function (res) {
-        console.log(res);
         if (res.backCode === 0) {
             if (res.bean && res.bean.length > 0) {
                 var top = '';
