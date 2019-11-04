@@ -182,8 +182,8 @@ function confirmQd() {
             "zwPro":$("#zwPro").val(),
             "zwCity":$("#zwCity").val(),
             "zwgjz":$("#zwgjz").val(),
-            "zwMxxy":$("#zwMxxy").val(),
-            "zwMxzy":$("#zwMxzy").val(),
+            "zwMxxy":$("#zwMxxy option:selected").html(),
+            "zwMxzy":$("#zwMxzy option:selected").html(),
             "memo":$("#memo").val(),
 
         }
