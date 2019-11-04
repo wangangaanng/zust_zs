@@ -166,6 +166,10 @@ Page({
     });
   },
   searchAll: function(e) {
+    if(!e.detail){
+      common.toast('请输入关键字', 'none', 2000)
+      return
+    }
     let that = this;
     let data = {
       gjz: e.detail,

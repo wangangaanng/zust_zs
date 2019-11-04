@@ -8,13 +8,12 @@ import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
-import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
-import com.zghzbckj.common.SwytConstant;
+import com.zghzbckj.manage.entity.BckjBizBkzy;
 import com.zghzbckj.manage.service.BckjBizBkzyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 
 /**
@@ -72,6 +70,23 @@ public class BckjBizBkzyController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
+
+    @RequestMapping(value = {"removeDepat"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseMessage removeDepat(HttpServletRequest request, PublicDataVO dataVo) {
+        Map dataMap = JsonUtil.jsonToMap(dataVo.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, new String[]{"owid"});
+        if (!msg.getSuccess().booleanValue()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL.intValue(), msg.toString());
+        } else {
+            List<String> owids = new ArrayList<>();
+            owids.add(dataMap.get("owid").toString());
+            bckjBizBkzyService.removeOrder(owids);
+            return ResponseMessage.sendOK(owids);
+        }
+    }
+
 
     @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
     @ResponseBody
@@ -147,4 +162,36 @@ public class BckjBizBkzyController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+
+    @RequestMapping(value = {"listTree"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseMessage listTree(HttpServletRequest request, PublicDataVO data) {
+        List filters = JsonUtil.jsonToList(data.getData(), FilterModel.class);
+        return ResponseMessage.sendOK(bckjBizBkzyService.listTree(filters));
+    }
+
+
+    @RequestMapping(value = {"updateMoveDepart"}, method = {RequestMethod.POST})
+    @ResponseBody
+    public ResponseMessage updateMoveMenu(HttpServletRequest request, PublicDataVO data) {
+        List datas = JsonUtil.jsonToList(data.getData(), Map.class);
+        ArrayList bckjBizBkzyList = new ArrayList(datas.size());
+        Iterator i$ = datas.iterator();
+
+        while (i$.hasNext()) {
+            Map menuData = (Map) i$.next();
+            BckjBizBkzy depat = (BckjBizBkzy) JsonUtil.map2Bean(menuData, BckjBizBkzy.class);
+            bckjBizBkzyList.add(depat);
+        }
+
+        if (null != bckjBizBkzyList && bckjBizBkzyList.size() > 0) {
+            this.bckjBizBkzyService.saveOrUpdateAll(bckjBizBkzyList);
+            return ResponseMessage.sendOK((Object) null);
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL.intValue(), "");
+        }
+    }
+
+
 }

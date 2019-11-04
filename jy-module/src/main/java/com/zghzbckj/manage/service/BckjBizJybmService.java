@@ -417,11 +417,11 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                         Integer bmxz = job.getZphBmxz();
                         params.clear();
                         params.put("jobRefOwid", mapData.get("jobRefOwid").toString());
-                        params.put("state", 1);
+                        params.put("bmlx", JyContant.BMLX_QY);
                         existBm = findListByParams(params, "");
                         if (!TextUtils.isEmpty(existBm) && existBm.size() > 0 && existBm.size() >= bmxz) {
                             resultMap.put("result", "false");
-                            resultMap.put("msg", "企业报名已满");
+                            resultMap.put("msg", "报名企业已满");
                             return resultMap;
                         }
                     }

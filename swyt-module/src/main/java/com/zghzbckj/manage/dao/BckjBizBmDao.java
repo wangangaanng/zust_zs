@@ -7,6 +7,7 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizBm;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,4 +21,6 @@ public interface BckjBizBmDao extends CrudDao<BckjBizBm> {
     BckjBizBm getOneByMap(Map<String, Object> mapData);
 
     Map getBmxx(Map<String, Object> mapData);
+
+    List<Map> listDicByType(Map params);
 }

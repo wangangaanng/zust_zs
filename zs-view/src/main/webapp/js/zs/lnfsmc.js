@@ -108,11 +108,10 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
                 kl: kl,
                 pc: pc,
                 zy: zy,
-                pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNo || 1,
+                pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNumber || 1,
                 pageSize: $('#table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
             }, function (data) {
                 if (data.backCode === 0) {
-                    console.log(data)
                     request.success({
                         row: convertStr(data.bean.records, []),
                         total: data.bean.totalCount
@@ -235,10 +234,34 @@ function clearOption() {
 var clearObj;
 function clearVal(obj) {
     clearObj = $(obj).attr("class");
-    console.log($(obj).attr("class"));
     $("#"+clearObj).empty();
     var nfoption="<option selected='true' value=''>---请选择---</option>";
     $("#"+clearObj).append(nfoption);
 
     getChanges(obj);
+}
+
+function exportExcel() {
+    var nf = $('#nf').val();
+    var sf = $('#sf').val();
+    var kl = $('#kl').val();
+    var pc = $('#pc').val();
+    var zy = $('#zy').val();
+    var data = {
+        nf: nf,
+        sf: sf,
+        kl: kl,
+        pc: pc,
+        zy: zy
+    };
+    ajax("zustzs/bckjBizLntj/exportExcel", data, function (res) {
+        if (res.backCode === 0) {
+            //本地
+            window.open("http://127.0.0.1:8081/files/" + res.bean);
+            //正式
+            // window.open("https://job.zust.edu.cn/zjcFiles/" + res.bean);
+        } else {
+            walert("导出失败")
+        }
+    })
 }

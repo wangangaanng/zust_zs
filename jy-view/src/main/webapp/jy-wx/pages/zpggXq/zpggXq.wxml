@@ -1,0 +1,13 @@
+
+<form bindsubmit="submitForm">
+<van-cell-group>
+  <van-cell title="标题" value="{{form.zwbt}}" />
+  <van-cell title="所在省市" value="{{form.zwbt}}" />
+  <van-cell title="面向学院" value="{{form.zwMxxy}}" />
+  <van-cell title="面向专业" value="{{form.zwMxzy}}" />
+  <van-cell value="{{form.zwgjz}}" title="关键字"  />
+  <van-cell value="{{form.memo}}" title="详细介绍" />
+  
+</van-cell-group>
+
+</form>

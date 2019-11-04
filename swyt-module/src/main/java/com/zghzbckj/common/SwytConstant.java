@@ -33,7 +33,7 @@ public class SwytConstant {
     //state=3
     public static final String BMDSH = "待审核";
     //state=4
-    public static final String BMJJ= "已拒绝";
+    public static final String BMJJ = "已拒绝";
     //state=5
     public static final String BMDJF = "待缴费";
     //state=6
@@ -45,4 +45,9 @@ public class SwytConstant {
     //state=9
     public static final String BMCJCX = "查询成绩";
     public static final String FTLFILE_SUFFIX = ".ftl";
+    public static final Integer HKCJ = 10022;
+    public static final Integer ZHCP = 10023;
+    public static final Integer BMMX_LX_HK = 0;
+    public static final Integer BMMX_LX_XK = 1;
+    public static final Integer BMMX_LX_ZH = 2;
 }

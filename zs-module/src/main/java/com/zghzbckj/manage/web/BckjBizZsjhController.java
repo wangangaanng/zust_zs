@@ -146,4 +146,27 @@ public class BckjBizZsjhController extends BaseController {
         }
     }
 
+    /**
+     *<p>功能描述:导出excel表格 exportExcel</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/4 19:40</li>
+     *</ul>
+     */
+    @PostMapping(value = "exportExcel")
+    @ResponseBody
+    public ResponseMessage exportExcel(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            String fileUrl = bckjBizZsjhService.generateExcel(dataMap);
+            return ResponseMessage.sendOK(fileUrl);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
 }

@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizLntjDao;
 import com.zghzbckj.manage.entity.BckjBizLntj;
+import com.zghzbckj.util.ExcelUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,13 +125,13 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
     }
 
     /**
-     *<p>方法:getChanges TODO查询条件数据获取</p>
-     *<ul>
-     *<li> @param mapData TODO</li>
-     *<li>@return java.util.List<com.zghzbckj.manage.entity.BckjBizLntj>  </li>
-     *<li>@author D.chen.g </li>
-     *<li>@date 2019/10/14 15:33  </li>
-     *</ul>
+     * <p>方法:getChanges TODO查询条件数据获取</p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.util.List<com.zghzbckj.manage.entity.BckjBizLntj>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/14 15:33  </li>
+     * </ul>
      */
     public Map<String, Object> getChanges(Map<String, Object> mapData) {
         Map<String, Object> result = new HashMap<>();
@@ -148,18 +149,55 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
     }
 
     /**
-    *<p>方法:getResult TODO分页获取查询结果 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return com.zghzbckj.base.entity.PageInfo<com.zghzbckj.manage.entity.BckjBizLntj>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/14 16:00  </li>
-    *</ul>
-    */
+     * <p>方法:getResult TODO分页获取查询结果 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return com.zghzbckj.base.entity.PageInfo<com.zghzbckj.manage.entity.BckjBizLntj>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/14 16:00  </li>
+     * </ul>
+     */
     public PageInfo<BckjBizLntj> getResult(Map<String, Object> mapData) {
-        Integer pageNo= MapUtils.getInt(mapData,"pageNo");
-        Integer pageSize= MapUtils.getInt(mapData,"pageSize");
+        Integer pageNo = MapUtils.getInt(mapData, "pageNo");
+        Integer pageSize = MapUtils.getInt(mapData, "pageSize");
         PageInfo<BckjBizLntj> page = findPage(mapData, pageNo, pageSize, " a.createtime DESC");
         return page;
+    }
+
+    /**
+     * <p>功能描述:导出历年分数名次excel表 generateExcel</p >
+     * <ul>
+     * <li>@param [dataMap]</li>
+     * <li>@return void</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/11/4 17:53</li>
+     * </ul>
+     */
+    public String generateExcel(Map<String, Object> dataMap) {
+        List<BckjBizLntj> dataList = this.dao.findListByMap(dataMap);
+        List<List<String>> excelList = new ArrayList<>(dataList.size());
+        //本地
+        String filePath = "F:\\img\\";
+        //正式
+//        String filePath = "/mnt/files/zjcFiles/excel";
+        String fileOutPath = System.currentTimeMillis() + ".xls";
+        String[] title = {"年份", "省份", "科类", "批次", "专业", "学制", "录取数", "最高分", "最低分", "平均分"};
+        for (BckjBizLntj data : dataList) {
+            List<String> colList = new ArrayList<>();
+            colList.add(data.getNf());
+            colList.add(data.getSf());
+            colList.add(data.getKl());
+            colList.add(data.getPc());
+            colList.add(data.getZy());
+            colList.add(data.getXz());
+            colList.add(data.getLqs().toString());
+            colList.add(data.getZdf().toPlainString());
+            colList.add(data.getZdf().toPlainString());
+            colList.add(data.getPjf().toPlainString());
+            excelList.add(colList);
+        }
+        ExcelUtils.writeContentToExcel(title, excelList, filePath + fileOutPath);
+        return fileOutPath;
     }
 }

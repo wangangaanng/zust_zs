@@ -1,4 +1,5 @@
 // pages/enterpriseXjh/enterpriseXjh.js
+import Dialog from 'vant-weapp/dialog/dialog';
 var common = require('../../libs/common/common.js')
 const app = getApp()
 var imgPath = app.globalData.imgPath;
@@ -13,13 +14,7 @@ Page({
     pageNo: 1,
     totalPage: '',
     xjhList: [],
-    key: '',
-  },
-  
-  detail(e) {
-    wx.navigateTo({
-      url: '../zphXq/zphXq?owid=' + e.currentTarget.dataset.owid1 + '&owid1=' + e.currentTarget.dataset.owid2,
-    })
+    key: ''
   },
   /**
    * 生命周期函数--监听页面加载
@@ -46,7 +41,67 @@ Page({
       that.setData({
         pageNo: that.data.pageNo + 1,
       })
-      myBmList(that);
+      myJobList(that);
+    }
+  },
+  shenqin() {
+    wx.navigateTo({
+      url: '../newZpgg/newZpgg',
+    })
+  },
+  detail(e) {
+    wx.navigateTo({
+      url: '../zpggXq/zpggXq?owid=' + e.currentTarget.dataset.owid,
+    })
+  },
+  onClose(event) {
+    var that = this
+    console.log(event)
+    const { position, instance } = event.detail;
+    switch (position) {
+      case 'left':
+      case 'cell':
+        instance.close();
+        break;
+      case 'right':
+        wx.showModal({
+          title: '提示',
+          content: "确定删除该条记录吗？",
+          success(res) {
+            if (res.confirm) {
+              var data = {
+                "owid": event.currentTarget.dataset.owid
+              };
+              common.ajax('zustjy/bckjBizJob/deleteOneJob', data, function (res) {
+                if (res.data.backCode == 0) {
+                  wx.showToast({
+                    title: '删除成功',
+                    icon: 'none',
+                    duration: 2000
+                  })
+                  that.data.xjhList.splice(event.currentTarget.dataset.index, 1)
+                  that.setData({
+                    xjhList: that.data.xjhList
+                  })
+                  instance.close();
+                } else {
+                  wx.showToast({
+                    title: res.data.errorMess,
+                    icon: 'none',
+                    duration: 2000
+                  })
+                }
+              });
+
+
+              console.log('用户点击确定')
+            } else if (res.cancel) {
+              instance.close();
+              console.log('用户点击取消')
+            }
+          }
+        })
+        break;
     }
   },
   /**
@@ -60,12 +115,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.setData({
-      xjhList: [],
-      pageNo: 1,
-      totalPage: ""
-    })
-    myBmList(this);
+    refresh(this)
   },
 
   /**
@@ -98,7 +148,7 @@ Page({
   //     that.setData({
   //       pageNo: that.data.pageNo + 1,
   //     })
-  //     myBmList(that);
+  //     myJobList(that);
   //   }
   // },
 
@@ -116,17 +166,17 @@ function refresh(that) {
     pageNo: 1,
     totalPage: ""
   })
-  myBmList(that);
+  myJobList(that);
 
 }
 
-var myBmList = function (that, lx) {
+var myJobList = function (that, lx) {
   var data = {
-    "zwbt": that.data.key, "qyxxRefOwid": wx.getStorageSync("yhOwid"), "bmdx": 0, "bmlx": 0, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
+    "zwbt": that.data.key, "qyxxRefOwid": wx.getStorageSync("yhOwid"), "zwlx": 2, "pageNo": that.data.pageNo, "pageSize": that.data.pageSize,
   };
-  common.ajax('zustjy/bckjBizJybm/myBmList', data, function (res) {
+  common.ajax('zustjy/bckjBizJob/myJobList', data, function (res) {
     if (res.data.backCode == 0) {
-      // var arr = [];
+      var arr = [];
       // for (var i = 0; i < res.data.bean.records.length; i++) {
       //   var obj = {};
       //   var object = res.data.bean.records[i];
@@ -140,14 +190,13 @@ var myBmList = function (that, lx) {
       //   arr.push(obj);
       // }
       var xjhList;
-      if (res.data.bean.records && res.data.bean.records.length>0){
+      if (res.data.bean.records && res.data.bean.records.length > 0) {
         xjhList = that.data.xjhList.concat(res.data.bean.records)
       }
-      
       var totalPage = res.data.bean.totalPage;
       that.setData({
         xjhList: xjhList,
-        totalPage: totalPage
+        totalPage: totalPage,
       })
     } else {
       wx.showToast({
