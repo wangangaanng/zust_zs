@@ -8,8 +8,10 @@ import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.TreeUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.BaseTree;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizBkzyDao;
@@ -18,6 +20,8 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -87,15 +91,30 @@ public class BckjBizBkzyService extends CrudService<BckjBizBkzyDao, BckjBizBkzy>
      * </ul>
      */
     @Transactional(readOnly = false)
-    public BckjBizBkzy saveBckjBizBkzy(Map<String, Object> mapData) {
-        BckjBizBkzy bckjBizBkzy = JsonUtil.map2Bean(mapData, BckjBizBkzy.class);
+    public BaseTree saveBckjBizBkzy(Map<String, Object> mapData) {
+        BckjBizBkzy depat = JsonUtil.map2Bean(mapData, BckjBizBkzy.class);
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
             BckjBizBkzy bckjBizBkzyIndata = get(mapData.get("owid").toString());
-            BeanUtil.copyPropertiesIgnoreNull(bckjBizBkzy, bckjBizBkzyIndata);
-            bckjBizBkzy = bckjBizBkzyIndata;
+            BeanUtil.copyPropertiesIgnoreNull(depat, bckjBizBkzyIndata);
+            depat = bckjBizBkzyIndata;
         }
-        saveOrUpdate(bckjBizBkzy);
-        return bckjBizBkzy;
+        if (TextUtils.isEmpty(depat.getOwid())) {
+            saveOrUpdate(depat);
+            depat.setPath(TreeUtils.checkPath(depat.getPath(), depat.getOwid().toString()));
+            saveOrUpdate(depat);
+        } else {
+            saveOrUpdate(depat);
+        }
+
+        BaseTree tree = new BaseTree();
+        tree.setOwid(depat.getOwid().intValue());
+        tree.setId(depat.getOwid().intValue());
+        tree.setFid(depat.getFid().intValue());
+        tree.setName(depat.getName());
+        tree.setPath(depat.getPath());
+        tree.setPx(Double.valueOf(depat.getPx()));
+        tree.setCc(depat.getCc());
+        return tree;
     }
 
     /**
@@ -122,15 +141,48 @@ public class BckjBizBkzyService extends CrudService<BckjBizBkzyDao, BckjBizBkzy>
     }
 
     /**
-    *<p>方法:getListByCj TODO获取专业列表 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.util.List<com.zghzbckj.manage.entity.BckjBizBkzy>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 16:40  </li>
-    *</ul>
-    */
+     * <p>方法:getListByCj TODO获取专业列表 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.util.List<com.zghzbckj.manage.entity.BckjBizBkzy>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 16:40  </li>
+     * </ul>
+     */
     public List<BckjBizBkzy> getListByCj(Map<String, Object> mapData) {
         return findListByParams(mapData, "a.px");
+    }
+
+    public List<BaseTree> listTree(List models) {
+        String name = "";
+        Map params = Maps.newHashMap();
+        params.put("orderBy", "cc,px");
+        List deptList = this.dao.findListByMap(params);
+        ArrayList baseTreeList = new ArrayList();
+        if (null != deptList && deptList.size() > 0) {
+            Iterator var5 = deptList.iterator();
+
+            while (var5.hasNext()) {
+                BckjBizBkzy depat = (BckjBizBkzy) var5.next();
+                name = depat.getName();
+                BaseTree bt = new BaseTree();
+                bt.setOwid(depat.getOwid().intValue());
+                bt.setFid(depat.getFid().intValue());
+//                if (!TextUtils.isEmpty(depat.getDepNo())) {
+//                    name = name + depat.getDepNo() + "-";
+//                }
+//
+//                if (!TextUtils.isEmpty(depat.getDepName())) {
+//                    name = name + depat.getDepName();
+//                }
+
+                bt.setName(name);
+                bt.setPath(depat.getPath());
+                bt.setCc(depat.getCc());
+                bt.setPx(Double.valueOf(depat.getPx()));
+                baseTreeList.add(bt);
+            }
+        }
+        return baseTreeList;
     }
 }

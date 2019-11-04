@@ -16,6 +16,7 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizBmDao;
+import com.zghzbckj.manage.dao.BckjBizBmmxDao;
 import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.Html2PdfUtil;
 import com.zghzbckj.manage.utils.MailUtils;
@@ -50,6 +51,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     @Autowired
     BckjBizJbxxService bckjBizJbxxService;
+    @Autowired
+    BckjBizBmmxDao bmmxDao;
 
     @Override
     public BckjBizBm get(String owid) {
@@ -90,16 +93,80 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * </ul>
      */
     public PageInfo<BckjBizBm> findPageBckjBizBm(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
+        Integer codtionState = null;
+
+
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!TextUtils.isEmpty(dataMap.get("state"))) {
+            codtionState = Integer.parseInt(dataMap.get("state").toString());
+        }
         if (!TextUtils.isEmpty(state)) {
             dataMap.put("state", state);
+        }
+
+        if (!TextUtils.isEmpty(codtionState)) {
+            dataMap.put("state", codtionState);
         }
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("sqsj2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("sqsj2").toString(), 1);
             dataMap.put("sqsj2", date);
         }
-        PageInfo<BckjBizBm> page = findPage(dataMap, pageNo, pageSize, " a.sqsj desc ");
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("jfsj").toString(), 1);
+            dataMap.put("jfsj2", date);
+        }
+        PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
+
         return page;
+    }
+
+    private PageInfo<BckjBizBm> findPageWithGrade(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
+        Page page = new Page(pageNo, pageSize);
+        paramsMap.put("page", page);
+        if (!TextUtils.isEmpty(orderBy)) {
+            paramsMap.put("orderBy", orderBy);
+        }
+
+        List<BckjBizBm> bmList = this.dao.findListByMap(paramsMap);
+        List<Map> mapList = new ArrayList<>();
+        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+            for (BckjBizBm bm : bmList) {
+                Map bmMap = JackSonJsonUtils.objectToMap(bm);
+                Map params = Maps.newHashMap();
+                params.put("bmRefOwid", bm.getOwid());
+                params.put("orderBy", "a.mxsx");
+                params.put("lx", SwytConstant.BMMX_LX_HK);
+                List<BckjBizBmmx> mxList = bmmxDao.findListByMap(params);
+                if (mxList != null && mxList.size() > 0) {
+                    for (BckjBizBmmx mx : mxList) {
+                        String mxmc = mx.getMxmc();
+                        bmMap.put(mxmc, mx.getMxnr());
+                    }
+                }
+                params.put("lx", SwytConstant.BMMX_LX_ZH);
+                mxList = bmmxDao.findListByMap(params);
+                if (mxList != null && mxList.size() > 0) {
+                    for (BckjBizBmmx mx : mxList) {
+                        String mxmc = mx.getMxmc();
+                        bmMap.put(mxmc, mx.getMxnr());
+                    }
+                }
+                bmMap.put("owid", bm.getOwid());
+                bmMap.put("state", bm.getState());
+                mapList.add(bmMap);
+            }
+        }
+
+        page.setList(mapList);
+        PageInfo pageInfo = new PageInfo();
+        pageInfo.setRecords(page.getList());
+        pageInfo.setTotalPage((long) page.getTotalPage());
+        pageInfo.setCurrentIndex((long) page.getPageNo());
+        pageInfo.setPageSize((long) page.getPageSize());
+        pageInfo.setTotalCount(page.getCount());
+        pageInfo.setCurrentPage((long) page.getPageNo());
+        return pageInfo;
+
     }
 
     /**
@@ -168,20 +235,20 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
         } else {
-            if(bm.getState()>0){
+            if (bm.getState() > 0) {
                 throw CustomerException.newInstances("此报名已提交，不能修改");
             }
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
         }
         BckjBizBkzy zy = bckjBizBkzyService.get(Long.valueOf(MapUtils.getInt(mapData, "zyOwid")));
-        bm.setBkzyRefOwid(zy.getOwid());
+        bm.setBkzyRefOwid(Long.valueOf(zy.getOwid()));
         bm.setXzzylj(zy.getPath());
         bm.setXzzymc(zy.getName());
         Map param = Maps.newHashMap();
         param.put("yhRefOwid", bm.getUserRefOwid());
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(param);
         BeanUtil.copyBean(jbxx, bm, "xm", "sfzh", "xb", "tcah", "qq", "yx", "mz", "wyyz",
-                "wycj", "lxdh", "jtzz", "zxlb", "jssm", "qtqk","yzmc");
+                "wycj", "lxdh", "jtzz", "zxlb", "jssm", "qtqk", "yzmc");
         applyCjxx(bm.getOwid(), param);
         saveOrUpdate(bm);
         return bm.getOwid();
@@ -303,34 +370,34 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * <li>@date 2019/10/26 15:53  </li>
      * </ul>
      */
-    public String getApply(Map<String, Object> mapData) throws IOException,CustomerException {
+    public String getApply(Map<String, Object> mapData) throws IOException, CustomerException {
         BckjBizBm bm = getBmxx(mapData);
-        if(null==bm){
+        if (null == bm) {
             throw CustomerException.newInstances("报名表不存在");
         }
-        String fileName = bm.getOwid() + File.separator+SwytConstant.SWTYSQB;
+        String fileName = bm.getOwid() + File.separator + SwytConstant.SWTYSQB;
 
-        if(bm.getState()!=0){
+        if (bm.getState() != 0) {
             return SwytConstant.SWTYFILEPATH + File.separator + fileName;
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
                 "xm", "xbStr", "qq", "mz", "jtzz", "yx", "sfzh", "lxdh",
-                "wycj", "zxlb", "jssm", "qtqk", "tcah","yzmc"};
+                "wycj", "zxlb", "jssm", "qtqk", "tcah", "yzmc"};
         Map datas = BeanUtil.obj2Map(bm, bmStrs);
         Map paramCjxx = Maps.newConcurrentMap();
         paramCjxx.put("yhRefOwid", bm.getUserRefOwid());
-        paramCjxx.put("lx","0");
+        paramCjxx.put("lx", "0");
         List<BckjBizCjxx> hkList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
-        paramCjxx.put("lx",1);
-        List<BckjBizCjxx> xkList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
-        paramCjxx.put("lx",2);
-        List<BckjBizCjxx> zcList = bckjBizCjxxService.findListByParams(paramCjxx,SwytConstant.ORDERBY_NAME);
-        datas.put("hkList",hkList);
-        datas.put("xkList",xkList);
-        datas.put("zcList",zcList);
+        paramCjxx.put("lx", 1);
+        List<BckjBizCjxx> xkList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
+        paramCjxx.put("lx", 2);
+        List<BckjBizCjxx> zcList = bckjBizCjxxService.findListByParams(paramCjxx, SwytConstant.ORDERBY_NAME);
+        datas.put("hkList", hkList);
+        datas.put("xkList", xkList);
+        datas.put("zcList", zcList);
         String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + fileName;
         String htmlData = TemplateUtils.freeMarkerContent(datas, "apcationForm");
-        if(TextUtils.isEmpty(htmlData)){
+        if (TextUtils.isEmpty(htmlData)) {
             throw CustomerException.newInstances("生成报名表失败");
         }
         Html2PdfUtil.createPdf(htmlData, saveFilePath);
@@ -339,87 +406,87 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
 
     /**
-    *<p>方法:sendApplyEmail TODO发送面试单</p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.lang.Object  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/27 12:22  </li>
-    *</ul>
-    */
+     * <p>方法:sendApplyEmail TODO发送面试单</p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.Object  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/27 12:22  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
-    public boolean sendApplyEmail(Map<String, Object> mapData) throws CustomerException{
-        String owid=MapUtils.getString(mapData,"applyOwid");
-        BckjBizBm bm=get(owid);
-        if(null==bm){
+    public boolean sendApplyEmail(Map<String, Object> mapData) throws CustomerException {
+        String owid = MapUtils.getString(mapData, "applyOwid");
+        BckjBizBm bm = get(owid);
+        if (null == bm) {
             throw CustomerException.newInstances("报名表不存在");
         }
-        if(bm.getState()==1){
+        if (bm.getState() == 1) {
             bm.setState(2);
             bm.setXybnr(SwytConstant.BMPZSC);
             saveOrUpdate(bm);
         }
-        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) +  owid+File.separator+SwytConstant.SWTYSQB;
-        String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) +SwytConstant.SWTYCNS;
-        String email=MapUtils.getString(mapData,"yx");
-        Map value= Maps.newHashMap();
-        value.put("to",email);
-        value.put("subject","浙江科技学院三位一体综合评价招生申请表");
-        value.put("content","");
-        List<String> fileList= Lists.newArrayList();
+        String saveFilePath = Global.getConfig(SwytConstant.SWTYFILEPATH) + owid + File.separator + SwytConstant.SWTYSQB;
+        String cns = Global.getConfig(SwytConstant.SWTYFILEPATH) + SwytConstant.SWTYCNS;
+        String email = MapUtils.getString(mapData, "yx");
+        Map value = Maps.newHashMap();
+        value.put("to", email);
+        value.put("subject", "浙江科技学院三位一体综合评价招生申请表");
+        value.put("content", "");
+        List<String> fileList = Lists.newArrayList();
         fileList.add(cns);
         fileList.add(saveFilePath);
-        MailUtils.sendMails(fileList,value);
+        MailUtils.sendMails(fileList, value);
         return Boolean.TRUE;
     }
 
     /**
-    *<p>方法:sendView TODO </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return boolean  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/27 14:17  </li>
-    *</ul>
-    */
+     * <p>方法:sendView TODO </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/27 14:17  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
-    public boolean sendView(Map<String, Object> mapData) throws CustomerException{
-        String owid=MapUtils.getString(mapData,"applyOwid");
-        BckjBizBm bm=get(owid);
-        if(null==bm){
+    public boolean sendView(Map<String, Object> mapData) throws CustomerException {
+        String owid = MapUtils.getString(mapData, "applyOwid");
+        BckjBizBm bm = get(owid);
+        if (null == bm) {
             throw CustomerException.newInstances("报名表不存在");
         }
-        if(bm.getState()==8){
+        if (bm.getState() == 8) {
             bm.setState(9);
             bm.setXybnr(SwytConstant.BMCJCX);
             saveOrUpdate(bm);
         }
-        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) +owid+SwytConstant.SWTYMSTZD;
-        if(MailUtils.fileIsExist(view)){
+        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) + owid + SwytConstant.SWTYMSTZD;
+        if (MailUtils.fileIsExist(view)) {
             throw CustomerException.newInstances("面试通知单文件尚未生成");
         }
-        String email=MapUtils.getString(mapData,"yx");
-        Map value= Maps.newHashMap();
-        value.put("to",email);
-        value.put("subject",CacheUtil.getVal("swyt.view.subject"));//"浙江科技学院三位一体综合评价招生综合测试通知单"
-        value.put("content",CacheUtil.getVal("swyt.view.content"));
-        List<String> fileList= Lists.newArrayList();
+        String email = MapUtils.getString(mapData, "yx");
+        Map value = Maps.newHashMap();
+        value.put("to", email);
+        value.put("subject", CacheUtil.getVal("swyt.view.subject"));//"浙江科技学院三位一体综合评价招生综合测试通知单"
+        value.put("content", CacheUtil.getVal("swyt.view.content"));
+        List<String> fileList = Lists.newArrayList();
         fileList.add(view);
-        MailUtils.sendMails(fileList,value);
+        MailUtils.sendMails(fileList, value);
         return Boolean.TRUE;
     }
 
     /**
-    *<p>方法:getNotice TODO </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.lang.String  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/27 21:03  </li>
-    *</ul>
-    */
-    public String  getNotice(Map<String, Object> mapData) {
-        String view = SwytConstant.SWTYFILEPATH +File.separator+MapUtils.getString(mapData,"applyOwid")+SwytConstant.SWTYMSTZD;
+     * <p>方法:getNotice TODO </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.String  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/27 21:03  </li>
+     * </ul>
+     */
+    public String getNotice(Map<String, Object> mapData) {
+        String view = SwytConstant.SWTYFILEPATH + File.separator + MapUtils.getString(mapData, "applyOwid") + SwytConstant.SWTYMSTZD;
         return view;
     }
 
@@ -441,5 +508,14 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         _list.add(bm);
         resultMap.put("bean", _list);
         return resultMap;
+    }
+
+    public List<Map> listDicByType(Integer hkcj) {
+        Map params = Maps.newHashMap();
+        params.put("type", hkcj);
+        params.put("orderBy", "a.dic_val4");
+        List<Map> results = this.dao.listDicByType(params);
+        return results;
+
     }
 }

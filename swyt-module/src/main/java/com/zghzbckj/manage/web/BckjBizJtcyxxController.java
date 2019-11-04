@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.beust.jcommander.internal.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -13,6 +14,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.entity.BckjBizJtcyxx;
 import com.zghzbckj.manage.service.BckjBizJtcyxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -133,13 +135,13 @@ public class BckjBizJtcyxxController extends BaseController {
     }
 
     /***
-     *<p>方法:getInfo TODO获取家庭成员信息 </p>
-     *<ul>
-     *<li> @param dataVO TODO</li>
-     *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-     *<li>@author D.chen.g </li>
-     *<li>@date 2019/10/24 11:50  </li>
-     *</ul>
+     * <p>方法:getInfo TODO获取家庭成员信息 </p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 11:50  </li>
+     * </ul>
      */
     @RequestMapping(value = "getInfo", method = RequestMethod.POST)
     @ResponseBody
@@ -159,5 +161,22 @@ public class BckjBizJtcyxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
+
+
+    @PostMapping(value = "getByBm")
+    @ResponseBody
+    public ResponseMessage getByBm(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            Map params = Maps.newHashMap();
+            params.put("yhRefOwid", dataMap.get("userRefOwid"));
+            List<BckjBizJtcyxx> cyxxList = bckjBizJtcyxxService.findListByParams(params, "a.xssx");
+            return ResponseMessage.sendOK(cyxxList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 }
