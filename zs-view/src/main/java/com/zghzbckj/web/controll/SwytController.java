@@ -13,11 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 
 /**
- * <p>方法 DemoController : <p>
- * <p>说明:Spring Mvc 测试类</p>
+ * <p>说明:三位一体招生网</p>
  * <pre>
- * @author JackZhou
- * @date 2017/3/21 20:54
+ * @author xiayuwei
+ * @date 2019/11/4 20:54
  * </pre>
  */
 @Controller
@@ -36,21 +35,21 @@ public class SwytController {
        view.setViewName("trinityEnrollment");
        return view;
    }
-    @RequestMapping(value = "SWYTlogin", method = RequestMethod.GET)
-    public ModelAndView SWYTlogin(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWYTlogin");
+    @RequestMapping(value = "SWlogin", method = RequestMethod.GET)
+    public ModelAndView SWlogin(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("SWlogin");
         return view;
     }
 
-    @RequestMapping(value = "SWYTregistered", method = RequestMethod.GET)
-    public ModelAndView SWYTregistered(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWYTregistered");
+    @RequestMapping(value = "SWregistered", method = RequestMethod.GET)
+    public ModelAndView SWregistered(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("SWregistered");
         return view;
     }
 
-    @RequestMapping(value = "SWYTpassword", method = RequestMethod.GET)
+    @RequestMapping(value = "SWpassword", method = RequestMethod.GET)
     public ModelAndView SWYTpassword(HttpServletRequest request,ModelAndView view) {
-        view.setViewName("SWYTpassword");
+        view.setViewName("SWpassword");
         return view;
     }
 }

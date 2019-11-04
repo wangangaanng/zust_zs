@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <label for="nf" class="col-sm-1">年份：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="nf" id="nf">
+                                <select class="form-control" name="nf" id="nf" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.nfList??)&&(result.nfList?size>0)>
                                         <#assign flag=1>
@@ -49,7 +49,7 @@
                             </div>
                             <label for="sf" class="col-sm-1">省份：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="sf" id="sf">
+                                <select class="form-control" name="sf" id="sf" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.sfList??)&&(result.sfList?size>0)>
                                         <#assign flag=1>
@@ -64,7 +64,7 @@
                             </div>
                             <label for="kl" class="col-sm-1">科类：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="sf" id="kl">
+                                <select class="form-control" name="sf" id="kl" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.klList??)&&(result.klList?size>0)>
                                         <#assign flag=1>
@@ -81,7 +81,7 @@
                         <div class="form-group">
                             <label for="pc" class="col-sm-1">批次：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="pc" id="pc">
+                                <select class="form-control" name="pc" id="pc" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.pcList??)&&(result.pcList?size>0)>
                                         <#assign flag=1>
@@ -96,7 +96,7 @@
                             </div>
                             <label for="zy" class="col-sm-1">专业：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="zy" id="zy">
+                                <select class="form-control" name="zy" id="zy" onchange="getChanges(this.value)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.zyList??)&&(result.zyList?size>0)>
                                         <#assign flag=1>
