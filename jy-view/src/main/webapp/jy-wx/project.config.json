@@ -69,6 +69,19 @@
 					"pathName": "pages/stuService/stuService",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/jyfa/jyfa",
+					"pathName": "pages/jyfa/jyfa",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/enterpriseZpgg/enterpriseZpgg",
+					"pathName": "pages/enterpriseZpgg/enterpriseZpgg",
+					"scene": null
 				}
 			]
 		}
