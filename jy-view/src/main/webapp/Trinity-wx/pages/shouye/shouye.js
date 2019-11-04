@@ -87,7 +87,7 @@ Page({
           let jzsj = '';
           let xxbq = '';
           if (list[i].xxbq) {
-            list[i].xxbq = res.data.bean.list[i].xxbq.split(',')
+            list[i].xxbq = res.data.bean.list[i].xxbq.split('，')
           }
           if (list[i].kssj && list[i].jzsj) {
             list[i].kssj = list[i].kssj.substring(5, 10).replace("-", ".")
