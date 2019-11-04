@@ -31,7 +31,7 @@
 
     <div class="form-group pr">
         <label for="qyGsjs" class="col-sm-2 control-label label-select_wrap  col-sm-offset-1">
-            <select class="form-control label-select">
+            <select class="form-control label-select" id="confrimType">
                 <option value="1" selected>身份证照片</option>
                 <option value="2">户籍证明</option>
             </select>
@@ -39,19 +39,20 @@
         </label>
         <div class="col-sm-8" style="padding: 0px;">
             <div style="text-align: center;" class="col-sm-4">
-                <div class="upimg-wrap">
+                <div class="upimg-wrap" typeNum="2">
                     <div class="file-btn_wrap">
-                        <img src="/zs/img/img-up.png" class="up-btn_img">
-                        <input type="file" class="file-btn" value="" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <img src="${base}/img/img-up.png" class="up-btn_img">
                     </div>
-                    <label class="uploadlabel" for="file">上传身份证正面</label>
+                    <input type="file"   class="file-btn" data-type="2"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                    <label class="uploadlabel"  for="file">上传身份证正面</label>
                 </div>
             </div>
             <div style="text-align: center;" class="col-sm-4">
-                <div class="upimg-wrap">
+                <div class="upimg-wrap"  typeNum="3">
                     <div class="file-btn_wrap">
-                        <img src="/zs/img/img-up.png" class="up-btn_img">
-                        <input type="file" class="file-btn" value="" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <img class="disPlayImg" src=""/>
+                        <img src="${base}/img/img-up.png" class="up-btn_img">
+                        <input type="file" class="file-btn" value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
                     </div>
                     <label class="uploadlabel" for="file">上传身份证反面</label>
                 </div>
@@ -117,6 +118,11 @@
             <button type="submit" id="saveBasic" class="btn btn-default btn-common yellow">下一步，完善联系人</button>
         </div>
     </div>
+
+    <#--身份证正反面和户籍证明-->
+    <input name="sfzzm" value="" id="sfzzm" type="text" style="display: none;"/>
+    <input name="sfzfm" value="" id="sfzfm" type="text" style="display: none;"/>
+    <input name="hjzm" value="" id="hjzm" type="text" style="display: none;"/>
 </form>
 <#--<iframe id="bcFrame" name="bcFrame" src="about:blank" style="display:none;"></iframe>-->
 <#--步骤基本信息1 end-->
