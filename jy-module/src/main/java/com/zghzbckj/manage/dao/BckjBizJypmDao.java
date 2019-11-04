@@ -19,11 +19,11 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
 
-    List<Map<String, Object>> collegeStats(@Param("pmnf") String pmnf);
+    List<Map<String, Object>> collegeStats();
 
-    List<Map<String, Object>> majorList(@Param("szxy") String szxy, @Param("pmnf") String pmnf);
+    List<Map<String, Object>> majorList(@Param("szxy") String szxy);
 
-    BckjBizJypm getByMajor(@Param("collegeName") String collegeName, @Param("majorName") String majorName, @Param("pmnf") String pmnf);
+    BckjBizJypm getByMajor(@Param("collegeName") String collegeName, @Param("majorName") String majorName);
 
     void deleteAll();
 }

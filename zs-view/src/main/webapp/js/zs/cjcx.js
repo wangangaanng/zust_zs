@@ -26,7 +26,6 @@ function queryGrade() {
         sfzh: sfzh
     };
     ajax('zustzs/bckjBizCjcx/cjcx', data, function (res) {
-        console.log(res);
         clearTable();
         if (res.backCode === 0) {
             $('#zkzh').html(res.bean.ksh);
