@@ -314,6 +314,15 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("nf", "");
+        params.put("sf", "");
+        params.put("kl", "");
+        params.put("pc", "");
+        params.put("zy", "");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustzs/bckjBizZsjh/getChanges");
+        ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", responseMessage.getBean());
         return view;
     }
 
@@ -438,6 +447,20 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        //lmbh栏目编号 安吉风光117 小和山风光118
+        if ("0".equals(thirdDir)) {
+            params.put("lmbh", "117");
+        } else {
+            params.put("lmbh", "118");
+        }
+        //lx类型 0图片 1视频 2友情链接
+        params.put("lx", "0");
+        //zszd展示终端 0PC 1手机
+        params.put("zszd", "0");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustcommon/bckjBizPicvid/getPicList");
+        ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", responseMessage.getBean());
         return view;
     }
 

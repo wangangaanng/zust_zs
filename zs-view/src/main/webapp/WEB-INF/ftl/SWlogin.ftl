@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${base}/css/style.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <style>
+        .top{position: relative;height: 500px!important;}
         .top:before{    background-image: url("${base}/img/loginbackgrouind.jpg");    content: "";    background-repeat: no-repeat;    background-size: 100% 100%;    position: absolute;    left: 0;    opacity: 0.3;    right: 0;    top: 0;    bottom: 0;}
     </style>
 </head>

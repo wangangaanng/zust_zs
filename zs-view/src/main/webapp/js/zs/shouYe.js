@@ -12,27 +12,18 @@ $(document).ready(function(){
 
 function init()
 {
-	// init_lbt();//轮播图
 	//初始化招生专业
-	// init_zszy();
-	//获取通知公告
-	// init_gg();
+	init_zszy();
+
 	//获取学院介绍
 	// init_xyIntro();
 	//初始化查询选项
 	// init_chaXun();
-	$("#zszylab").click(function(){
-		getLabel();
-		$("#zylbDiv").show();
-		$(".dyn_details").css("margin-top","0px");
-	});
-	$(".zsdt").click(function(){
-		$("#zylbDiv").hide();
-		$(".dyn_details").css("margin-top","30px");
-	});
-    $(".zsjd").click(function(){
-        $("#zylbDiv").hide();
-        $(".dyn_details").css("margin-top","30px");
+    $(".zylb").find("li").click(function(){
+        $(".zylb_li_a").parent().css("background-color","white");
+        $(".zylb_li_a").css("color","rgb(150,150,150)");
+        $(this).css("background-color","rgb(85,167,153)");
+        $(this).find("a").css("color","white");
     });
 	$(".jhcx").click(function(){
 		$(".jhcx_form").css("display","block");
@@ -187,71 +178,100 @@ function getLabel(){
 }
 
 function changeNews(obj){
-	lb = $(obj).attr("val");
+	// lb = $(obj).attr("val");
 	currPage=1;
+	var type=$(obj).attr("type");
 	if(emptyCheck($(obj).attr("name"))){
 		name = $(obj).attr("name");
 	}
 	$(".dyn_details").empty();
-	xsts = 10;
-	if(name =="zxzx"){
-		window.location.href="IndexPage!zxtw.htm";
-	}
-	init_details(name);
+	if(name=='zsdt'){//招生动态
+        $("#zylbDiv").hide();
+        $(".dyn_details").css("margin-top","30px");
+		getList('119',1);//一级
+	}else if(name=='zszy'){//招生专业
+        $("#zylbDiv").show();
+        $(".dyn_details").css("margin-top","0px");
+		// getListOne('119');
+	}else if(name=='zsjd'){//生源基地
+        $("#zylbDiv").hide();
+        $(".dyn_details").css("margin-top","30px");
+        getList('126',2)//二级
+    }
 }
-
-
-function init_details(name){
-	var url = "webAjaxAction!zxxwList.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "name": name,
-	        "pageNo":currPage,
-	        "pageSize":pageSize,
-	        "lb":lb,
-	        timestamp : new Date().getTime()
-	    };
-	$.post(url, params, function(data){
-		var x = "";
-		if(data.backCode == 0){
-			res = data.bean.length;
-			var nn = 1;
-			$.each(data.bean,function(j,k){
-				x = "<div class='detail' articleId='"+k.id+"'><a href=''>";
-				if(emptyCheck(k.tpjj))
-					x += "<img class='detail_img' src='"+k.tpjj+"'>";
-				else{
-					x += "<img class='detail_img' src='"+IMAGEPATH+"BZT"+nn+".png'/>";
-				}
-				x += "<strong class='detail_str' title='"+k.wzbt+"'>"+k.wzbt+"</strong>";
-				x += "<p class='detail_p'>"+convertStr(k.jjnr,'暂无简介')+"</p></a>";
-				x += "<span class='glyphicon glyphicon-time'></span><p class='detail_date'>"+(convertStr(k.fbsj,'2017-01-01')).substr(0,10)+"</p>";
-				x += "<div class='rnum'>";
-				if(k.ydcs!="0"&&k.ydcs!=null)
-					x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+(parseInt(k.ydcs)+500)+"</p>";
-				else{
-					x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+parseInt(Math.random()*300+100)+"</p>";
-				}
-				x += "</div></div>";
-				$(".dyn_details").append(x);
-			});
-			currPage++;
-			$.each($(".detail"),function(i){
-				var articleId = $(".detail:eq("+i+")").attr("articleId");
-				$(".detail:eq("+i+")").children().eq(0).attr("href","IndexPage!wzxq.htm?id="+articleId);
-                $(".detail:eq("+i+")").children().eq(0).attr("target","_blank");
-				if((i+1)%5==0)
-					$(".detail:eq("+i+")").css("margin-right","0px");
-			});
-			moreFlag = true;
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			moreFlag = false;
-			//$(".dyn_details").empty();
-			//walert(data.errorMess);
-		}
-	});
+function init_details(name) {
+    if(name=='zsdt'){//招生动态
+        getList('119',1);//一级
+    }else if(name=='zszy'){//招生专业
+        // getListOne('119');
+    }else if(name=='zsjd'){//生源基地
+        getList('126',2)//二级
+    }
+}
+function getList(lmbh,type) {
+	var jsonObj=""
+	var method=""
+	if(type==1){//一级
+        jsonObj = {
+            "lmbh": lmbh,
+            "pageNo":currPage,
+            "pageSize":pageSize,
+        };
+        method="zustcommon/bckjBizArticle/searchByYjlm"
+	}else if(type==2){//二级
+        jsonObj = {
+            "lmbh": lmbh,
+			"wzzt":'1',
+			"isDetail":"1",
+            "pageNo":currPage,
+            "pageSize":pageSize,
+        };
+        method="zustcommon/bckjBizArticle/getMuArticle"
+    }
+    ajax(method, jsonObj, function (data) {
+        var x = "";
+        if(data.backCode == 0){
+            if((data.bean.records)&&(data.bean.records.length>0)){
+                $.each(data.bean.records,function(j,k){
+                    x = "<div class='detail' articleId='"+k.owid+"'><a href=''>";
+                    if(emptyCheck(k.tpjj))
+                        x += "<img class='detail_img' src='"+imagePath+k.tpjj+"'>";
+                    else{
+                        x += "<img class='detail_img' src='"+imagePath+"defaultImg.png'/>";
+                    }
+                    x += "<strong class='detail_str' title='"+k.wzbt+"'>"+k.wzbt+"</strong>";
+                    x += "<p class='detail_p'>"+convertStr(k.jjnr,'暂无简介')+"</p></a>";
+                    x += "<span class='glyphicon glyphicon-time'></span><p class='detail_date'>"+(convertStr(k.fbsj,'2017-01-01')).substr(0,10)+"</p>";
+                    x += "<div class='rnum'>";
+                    if(k.ydcs!="0"&&k.ydcs!=null)
+                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+(parseInt(k.ydcs)+500)+"</p>";
+                    else{
+                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+parseInt(Math.random()*300+100)+"</p>";
+                    }
+                    x += "</div></div>";
+                    $(".dyn_details").append(x);
+                });
+                currPage++;
+                $.each($(".detail"),function(i){
+                    var articleId = $(".detail:eq("+i+")").attr("articleId");
+                    $(".detail:eq("+i+")").children().eq(0).attr("href",base+"/wzxq/"+articleId);
+                    $(".detail:eq("+i+")").children().eq(0).attr("target","_blank");
+                    if((i+1)%5==0)
+                        $(".detail:eq("+i+")").css("margin-right","0px");
+                });
+			}
+			if(currPage==data.bean.totalPage){
+            	$(".detail_more").hide();
+			}else{
+                $(".detail_more").show();
+			}
+            moreFlag = true;
+        }else if(data.backCode == 2){
+            window.location="";
+        }else{
+            moreFlag = false;
+        }
+    })
 }
 
 function init_zszy(){
@@ -261,119 +281,14 @@ function init_zszy(){
 		if(!moreFlag){
 			
 		}else{
-		//if(res<xsts)
-		//	walert("只有那么多了！");
-		//else{
-		    xsts += 10;
-			if(name=="gg"||name=="jxjzc")
-				init_details(name);
-			else
-				init_details(name);
-//			$(".dyn_details").css("height",xsts*150+"px");
-		//}
+            init_details(name);
 		}
 	});
 }
 
 var timeout_hid_ggIntro;
-var gg_num = -1;
-function init_gg(){
-	var url = "webAjaxAction!zxxwList.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "name": "zsdt",
-	        "type": "2",
-	        "pageNo": "0",
-	        "pageSize": "7"
-	    };
-	//获取公告
-	$.post(url, params, function(data){
-		var x = "";
-		if(data.backCode == 0)
-		{
-			$.each(data.bean,function(j,k){
-				x = "<li class='gongGao_ul_li' num='"+j+"'>";
-				x += "<span class='glyphicon glyphicon-volume-up' style='font-size: 20px;float: left;'></span>";
-				x += "<p class='gongGao_title'>"+k.wzbt+"</p>";
-				x += "<div class='gongGao_introdiv' style='display:none;width:335px;height:80px;line-height:20px;overflow:hidden;'>";
-				x += "<a href='IndexPage!wzxq.htm?id="+k.id+"'>";
-				if(k.jjnr.length>150)
-					x += "<p class='gongGao_intro'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jjnr.substr(0,80)+"...";
-				else
-					x += "<p class='gongGao_intro'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jjnr;
-				x += "</a></p></div></li>";
-				$(".gongGao_ul").append(x);
-				if(j>5)
-					return false;
-			});
-			$.each($(".gongGao_title"),function(j,k){
-				$(k).click(function(){
-					var isOpen = $(this).next().css("display");
-					if(isOpen=="none"){
-						$(this).prev().css("color","rgb(85,167,153)");
-						$(this).css("color","rgb(85,167,153)");
-						$(".gongGao_introdiv").slideUp(300);
-						$(this).next().slideDown(300);
-						var li_num = $(this).parent().attr("num");
-						if(li_num>2)
-							$(".gongGao_ul_li:eq("+(li_num-2)+")").prevAll().slideUp(300);
-					}
-					else{
-						$(this).prev().css("color","black");
-						$(this).css("color","black");
-						$(this).next().slideUp(300);
-						$(".gongGao_ul_li").slideDown(300);
-					}
-				});
-			});
-//			$(".tongZhiGongGao").mouseleave(function(){
-//				gg_num = -1;
-//				$(".gongGao_ul_li").slideDown(300);
-//				$(".gongGao_introdiv").slideUp(300);
-//			});
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			//walert(data.errorMess);
-		}
-	});
-}
 
-function init_xyIntro(){
-	var url = "webAjaxAction!xyjsList.htm";
-	var params = {
-	        "sessionId": _sessionid
-	    };
-	$.post(url, params, function(data){
-		if(data.backCode == 0){
-			var x = "";
-			var intro_hs = Math.ceil(data.bean.length/4);
-			$.each(data.bean,function(j,k){
-				x = "<a href='#'>";
-				x += "<div class='intro_detail'>";
-				x += "<img class='intro_detail_img' src='"+IMAGEPATH+"intro"+(j+1)+".png'/>";
-				x += "<strong class='intro_str'>"+k.mz+"</strong>";
-				x += "<hr />";
-				if(k.jj.length>70)
-					x += "<p class='intro_p'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jj.substr(0,70)+"..."+"</p>";
-				else
-					x += "<p class='intro_p'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jj+"</p>";
-				x += "</div></a>";
-				$(".intro_details").append(x);
-			});
-			x = "<div class='intro_detail' id='intro_moredetail'>";
-			x += "<p class='intro_moredetail_p'>MORE+</p></div>";
-			$(".intro_details").append(x);
-			for(var i=1;i<=intro_hs;i++){
-				$(".intro_detail:eq("+(i*4-1)+")").css("margin-right","0px");
-			}
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			//walert(data.errorMess);
-		}
-	});
-}
+
 function init_chaXun()
 {
 	var url = "webAjaxAction!changLnfs.htm";
@@ -390,7 +305,7 @@ function init_chaXun()
 				$(".nf").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 //			walert(data.errorMess);
 		}
@@ -406,7 +321,7 @@ function init_chaXun()
 				$(".sf").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 //			walert(data.errorMess);
 		}
@@ -422,7 +337,7 @@ function init_chaXun()
 				$(".kl").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 //			walert(data.errorMess);
 		}
@@ -438,7 +353,7 @@ function init_chaXun()
 				$(".pc").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
@@ -454,7 +369,7 @@ function init_chaXun()
 				$(".zy").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
@@ -515,22 +430,21 @@ function jhcx_chaXun(){
 				loadcs ++;
 			}
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
 	});
 }
 function cjcx_chaXun(){
-	var url = "webAjaxAction!cjcx.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "input_zkzh": $("#cjcx_zkzh").val(),
-	        "input_sfzh": $("#cjcx_sfzh").val(),
-	        "curPage": 0,
-	        "itemsPerPage": 1
-	    };
-	$.post(url, params, function(data){
+    var jsonObj = {
+        "lmbh": lmbh,
+        "wzzt":'1',
+        "isDetail":"1",
+        "pageNo":currPage,
+        "pageSize":pageSize,
+    };
+	ajax(method, jsonObj, function (data) {
 		var x = "";
 		$(".cxRes").empty();
 		$(".cxRes").next().remove();
@@ -553,7 +467,7 @@ function cjcx_chaXun(){
 			});
 			$("#mymodal").modal("toggle");
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
@@ -593,7 +507,7 @@ function lqcx_chaXun(){
 			}
 			$("#mymodal").modal("toggle");
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			x = "<img style='float:left;margin:15px' src='"+IMAGEPATH+"depress.png'></img>";
 			x += "<label style='margin-top:60px'>很抱歉，目前系统里没有你的录取信息，或者你的录取批次还未开始，请继续关注本网站公告，谢谢！</label>";
@@ -654,58 +568,13 @@ function lncx_chaXun(){
 				loadcs ++;
 			}
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
 	});
 }
-var news_lunbo1 = window.setInterval(news_lunbo,3000);
-function show_new(news_num)
-{
-	clearInterval(news_lunbo1);
-	$(".circle").css("background-color","white");
-	$(".circle").css("border-color","rgb(184,184,184)");
-	$(".li_group2").css("display","none");
-	$("#news_circle"+news_num).css("background-color","black");
-	$("#news_circle"+news_num).css("border-color","black");
-	$("#li_group2_"+news_num).css("display","inline");
-}
-var num=1;
-function news_lunbo(cicle)
-{
-	if(num>3)num=num-3;
-	$(".circle").css("background-color","white");
-	$(".circle").css("border-color","rgb(184,184,184)");
-	$(".li_group2").css("display","none");
-	$("#news_circle"+num).css("background-color","black");
-	$("#news_circle"+num).css("border-color","black");
-	$("#li_group2_"+num).css("display","inline");
-	num++;
-}
-function restart_news_lunbo()
-{
-	$(".circle").css("background-color","white");
-	$(".circle").css("border-color","rgb(184,184,184)");
-	$(".li_group2").css("display","none");
-	$("#news_circle1").css("background-color","black");
-	$("#news_circle1").css("border-color","black");
-	$("#li_group2_1").css("display","inline");
-	news_lunbo1 = window.setInterval(news_lunbo,3000);
-}
-function hid_ggIntro(t)
-{
-	t.slideUp(300);
-}
-function show_intro(t)
-{
-	t.css("display","block");
-}
-function baoChiXS_intro(t)
-{
-	clearTimeout(timeout_hid_ggIntro);
-	show_intro(t);
-}
+
 
 var lnjlid="";
 function mychange(obj){
