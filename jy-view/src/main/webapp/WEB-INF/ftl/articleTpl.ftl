@@ -30,7 +30,7 @@
                                 <div style="font-weight: bold;font-size: 16px;">附件</div>
                                 <ul>
                                     <#list result.fileList as obj>
-                                        <li>${obj.FILE_LABEL!''}<a href="${imagePath+obj.FILE_PATH}">${obj.FILE_PATH!''}</a></li>
+                                        <li><a href="${imagePath+obj.FILE_PATH}">${obj.FILE_LABEL!''}</a></li>
                                     </#list>
                                 </ul>
                             </div>
