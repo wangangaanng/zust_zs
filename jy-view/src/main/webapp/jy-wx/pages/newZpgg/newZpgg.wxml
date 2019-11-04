@@ -1,0 +1,39 @@
+
+<form bindsubmit="submitForm">
+  <van-field input-align="right" value="{{form.zwbt}}" name="zwbt" label="标题" placeholder="输入内容" required />
+<van-cell-group>
+  <van-cell required title="所在省市" value="{{area}}" is-link arrow-direction="down" data-type="7" bind:click="showBottom" required />
+ 
+  <van-cell title="面向学院" value="{{zwMxxyStr}}" is-link arrow-direction="down" data-type="1" bind:click="showBottom" />
+  <van-popup show="{{ show.zwMxxy }}" position="bottom" custom-style="height: 540rpx" data-type="1" bind:close="hideBottom">
+    <van-picker show-toolbar title="面向学院" value-key="mz" columns="{{zwMxxyColumns}}" data-type="1" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="面向专业" value="{{zwMxzyStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
+  <van-popup show="{{ show.zwMxzy }}" position="bottom" custom-style="height: 540rpx" data-type="2" bind:close="hideBottom">
+    <van-picker show-toolbar title="面向专业" value-key="mz" columns="{{zwMxzyColumns}}" data-type="2" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+    <van-field input-align="right" value="{{form.zwgjz}}" name="zwgjz" label="关键字" placeholder="输入内容" />
+  <view hidden="{{hidden1}}">
+  <van-field required value="{{form.memo}}" name="memo" required label="详细介绍" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
+   </view>
+  
+</van-cell-group>
+<input type="text" class="hiddenInput" name="zwPro" value="{{form.zwPro}}"></input>
+<input type="text" class="hiddenInput" name="zwCity" value="{{form.zwCity}}"></input>
+<input type="text" class="hiddenInput" name="zwMxxy" value="{{form.zwMxxy}}"></input>
+<input type="text" class="hiddenInput" name="zwMxzy" value="{{form.zwMxzy}}"></input>
+
+<button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" formType="submit">提交</button>
+<view style="height:40rpx;"></view>
+</form>
+<van-popup show="{{ show.bottom }}" position="bottom" custom-style="height: 540rpx" data-type="7" bind:close="hideBottom">
+  <van-area
+    value="{{ value }}"
+    loading="{{ loading }}"
+    area-list="{{ areaList }}"
+    columns-num="{{ 2 }}"
+    data-type="7"
+    bind:confirm="onConfirm"
+    bind:cancel="onCancel"
+  />
+</van-popup>
