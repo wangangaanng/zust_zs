@@ -93,7 +93,6 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 
 
 /*登录注册*/
-.top{position: relative;height: 500px!important;}
 header .top-logo{margin-top: 100px;margin-left: 200px;}
 .login{    width: 800px;    margin: -250px auto 0;    padding: 70px 0;    border: 1px solid #ddd;    background: #fff;     z-index: 1;    position: relative;    border-radius: 5px;    display: flex;}
 .login_left{    flex: 5.5;    border-right: 1px #e5e5e5 dashed;}
