@@ -95,7 +95,7 @@
                 AND a.sxsj &lt; #{sxsj2}
             </if>
             <if test="lmbh != null and lmbh != ''">
-                AND a.lmbh = #{lmbh}
+				AND a.lmbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
 
             <if test="wzly != null and wzly != ''">
@@ -124,8 +124,8 @@
         <where>
 			( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
             <if test="lmbh != null and lmbh != ''">
-                AND a.lmbh = #{lmbh}
-            </if>
+				AND a.lmbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
             <if test="wzzt != null and wzzt != ''">
                 AND a.wzzt = #{wzzt}
             </if>

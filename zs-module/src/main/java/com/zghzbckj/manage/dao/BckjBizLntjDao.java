@@ -9,6 +9,7 @@ import com.zghzbckj.manage.entity.BckjBizLntj;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ccDAO接口
@@ -18,14 +19,14 @@ import java.util.List;
 @MyBatisDao
 public interface BckjBizLntjDao extends CrudDao<BckjBizLntj> {
 
-    List<BckjBizLntj> findListByNf(@Param("nf") String nf);
+    List<BckjBizLntj> findListByNf(Map<String, Object> dataMap);
 
-    List<BckjBizLntj> findListBySf(@Param("sf")String sf);
+    List<BckjBizLntj> findListBySf(Map<String, Object> dataMap);
 
-    List<BckjBizLntj> findListByKl(@Param("kl") String kl);
+    List<BckjBizLntj> findListByKl(Map<String, Object> dataMap);
 
-    List<BckjBizLntj> findListByPc(@Param("pc")String pc);
+    List<BckjBizLntj> findListByPc(Map<String, Object> dataMap);
 
-    List<BckjBizLntj> findListByZy(@Param("zy")String zy);
+    List<BckjBizLntj> findListByZy(Map<String, Object> dataMap);
 
 }

@@ -35,6 +35,39 @@ body, div, ul, li, a, img {
     color: white;
     cursor: pointer;
 }
+.dyn_nav
+{
+    width: 1200px;
+    height: 70px;
+    line-height: 70px;
+    margin: 0px auto;
+    display: none;
+}
+.zylb{
+    width:100%;
+    height: 70px;
+    list-style:none;
+}
+.zylb li{
+    height: 30px;
+    float:left;
+    margin-right:15px;
+    margin-top: 20px;
+    font-family: "微软雅黑";
+    color: rgb(100,100,100);
+    cursor: pointer;
+}
+.zylb_li_a
+{
+    font-size: 16px;
+    color: rgb(150,150,150);
+    margin-left: 10px;padding-right:10px;
+    position: relative;
+    top: -21px;
+}
+.zylb_li_a:hover{
+    color: rgb(150,150,150);
+}
 .dyn_details {
     width: 1200px;
     margin-left: auto;
@@ -221,7 +254,6 @@ body, div, ul, li, a, img {
 .nf,.sf,.kl,.pc,.zy
 {
     width: 8%;
-    margin-left: 10px;
     height: 30px;
 }
 .jhcx_form,.lncx_form

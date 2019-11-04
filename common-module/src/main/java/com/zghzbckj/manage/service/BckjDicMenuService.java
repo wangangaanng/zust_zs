@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -212,5 +213,12 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
             map.put("chirdMenu",this.dao.getYjlm(mapData));
         }
         return yjMenu;
+    }
+
+    public Object getArticleType() {
+        Map mapParam= Maps.newHashMap();
+        mapParam.put("sjhqdx",5);
+        mapParam.put("orderBy"," a.owid ");
+        return this.dao.findListByMap(mapParam);
     }
 }
