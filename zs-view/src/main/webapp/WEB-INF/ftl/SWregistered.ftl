@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="${base}/css/style.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <style>
+        .top{position: relative;height: 500px!important;}
         .top:before{    background-image: url("${base}/img/loginbackgrouind2.jpg");    content: "";    background-repeat: no-repeat;    background-size: 100% 100%;    position: absolute;    left: 0;    opacity: 0.3;    right: 0;    top: 0;    bottom: 0;}
         .dropdown-menu{width: 100%;}
     </style>
@@ -132,6 +133,6 @@
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/city.js"></script>
 <script src="${base}/js/method.js"></script>
-<script src="${base}/js/swyt/SWYTregistered.js"></script>
+<script src="${base}/js/swyt/SWregistered.js"></script>
 </body>
 </html>

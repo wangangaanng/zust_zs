@@ -7,6 +7,8 @@
     <view class="search-body">
       <view>
         <van-field
+          type="text"
+          confirm-type="确定"
           placeholder="请输入社会统一信用码"
           left-icon="contact"
           bindinput="getqyTysh"

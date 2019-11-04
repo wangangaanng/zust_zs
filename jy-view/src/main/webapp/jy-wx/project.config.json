@@ -82,6 +82,27 @@
 					"name": "pages/enterpriseZpgg/enterpriseZpgg",
 					"pathName": "pages/enterpriseZpgg/enterpriseZpgg",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/stuCaidian/stuCaidian",
+					"pathName": "pages/stuCaidian/stuCaidian",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/xueyuan/xueyuan",
+					"pathName": "pages/xueyuan/xueyuan",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/newsDetail/newsDetail",
+					"pathName": "pages/newsDetail/newsDetail",
+					"query": "owid=28d170fb31364a22a132eac46d947017",
+					"scene": null
 				}
 			]
 		}

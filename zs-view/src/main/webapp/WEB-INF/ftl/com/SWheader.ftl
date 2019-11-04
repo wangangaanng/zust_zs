@@ -14,11 +14,14 @@
     <div class="top">
         <div class="container">
             <div class="top-logo">
-                <img class="logo" src="/zs/img/logo-zust.png">
+                <img class="logo" src="${base}/img/logo-zust.png">
                 <div class="title">三位一体招生网</div>
+                <div class="user-info" id="stuInfo">
+                    <a href="${base}/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
+                </div>
                 <span class="search-bar">
-                    <input class="search-btn" style="width:21px;height:21px;" type="image" src="/zs/img/search.png">
-                    <input name="showkeycode" class="search-ipt" id="showkeycode161734">
+                    <input class="search-btn" style="width:21px;height:21px;" type="image" src="${base}/img/search.png" >
+                    <input name="showkeycode" class="search-ipt" id="searchAll" placeholder="请输入">
                 </span>
             </div>
         </div>
