@@ -256,8 +256,10 @@ function exportExcel() {
     };
     ajax("zustzs/bckjBizLntj/exportExcel", data, function (res) {
         if (res.backCode === 0) {
-            console.log(res.bean);
-            window.open("127.0.0.1:8081/files/" + res.bean.fileUrl);
+            //本地
+            window.open("http://127.0.0.1:8081/files/" + res.bean);
+            //正式
+            // window.open("https://job.zust.edu.cn/zjcFiles/" + res.bean);
         } else {
             walert("导出失败")
         }

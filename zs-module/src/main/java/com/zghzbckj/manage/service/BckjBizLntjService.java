@@ -177,7 +177,11 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
     public String generateExcel(Map<String, Object> dataMap) {
         List<BckjBizLntj> dataList = this.dao.findListByMap(dataMap);
         List<List<String>> excelList = new ArrayList<>(dataList.size());
-        String fileOutPath = "F:\\img\\" + System.currentTimeMillis() + ".xls";
+        //本地
+        String filePath = "F:\\img\\";
+        //正式
+//        String filePath = "/mnt/files/zjcFiles/excel";
+        String fileOutPath = System.currentTimeMillis() + ".xls";
         String[] title = {"年份", "省份", "科类", "批次", "专业", "学制", "录取数", "最高分", "最低分", "平均分"};
         for (BckjBizLntj data : dataList) {
             List<String> colList = new ArrayList<>();
@@ -193,7 +197,7 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
             colList.add(data.getPjf().toPlainString());
             excelList.add(colList);
         }
-        ExcelUtils.writeContentToExcel(title, excelList, fileOutPath);
+        ExcelUtils.writeContentToExcel(title, excelList, filePath + fileOutPath);
         return fileOutPath;
     }
 }
