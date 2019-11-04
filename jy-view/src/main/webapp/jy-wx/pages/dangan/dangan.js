@@ -80,6 +80,13 @@ Page({
           // var byqxName = common.convertName(res.data.bean.byqx, that.data.byqxList)
           // var bdzszdName = common.convertName(res.data.bean.bdzszdmc, that.data.sydList)
           // var qflbName = common.convertName(res.data.bean.bdzqflbmc, that.data.qflbList)
+          if (res.data.bean.bdkssj){
+            res.data.bean.bdkssj = res.data.bean.bdkssj.substr(0, 10)
+          }
+          if (res.data.bean.bdjssj) {
+            res.data.bean.bdjssj = res.data.bean.bdjssj.substr(0, 10)
+          }
+          
           that.setData({
             isSearch: true,
             // mzName:mzName,

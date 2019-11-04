@@ -54,7 +54,7 @@
           <view>
             <image src="../../static/icon-ans.png"></image>
             {{item.zjxm?item.zjxm:''}}老师的回答：
-            <!-- <view class="ask-time">{{tools.convertStr(item.danr,"")}}</view> -->
+            <view class="ask-time">{{item.hdrq}}</view>
           </view>
           <view class="ask-nr">{{item.danr?item.danr:"暂无回复"}}</view>
           </view>
