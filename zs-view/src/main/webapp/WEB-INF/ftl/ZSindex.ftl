@@ -29,7 +29,7 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/2017zszy.png" />
-                <a id="zszylab" val="按专业招生" name="2017zszy" onclick="changeNews(this)">2019招生专业</a>
+                <a val="按专业招生" name="zszy" onclick="changeNews(this)">2019招生专业</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zydh.png" />
@@ -56,20 +56,29 @@
     <div class="shouYe_div_dynamic">
         <div class="dyn_nav" id="zylbDiv">
             <ul class="zylb" id="zylb">
+                <#if (zszyList??)&&(zszyList?size>0)>
+                    <#list zszyList as obj>
+                        <#if obj_index==0>
+                            <li val="${obj.dicVal1!''}" name='zszy' style='background-color: #008784;' onClick='changeNews(this)'><a class='zylb_li_a' style="color: white;">${obj.dicVal2!''}</a></li>
+                        <#else >
+                            <li val="${obj.dicVal1!''}" name='zszy' style='' onClick='changeNews(this)'><a class='zylb_li_a'>${obj.dicVal2!''}</a></li>
+                        </#if>
+                    </#list>
+                </#if>
             </ul>
         </div>
         <div class="dyn_details">
-        <#list list as obj>
-            <div class="detail">
-                <img class="detail_img" src=""/>
-                <strong class="detail_str">浙江科技学院2017艺术类热门专业介绍</strong>
-                <p class="detail_p">2047年斯洛克斯洛伐克顺路快递附件文件呢副科级还胡歌卡俊女是的发送到广发噶的风格还是规划是否更换地方规划的法规哈地方噶地方噶地方噶分公司体会让他</p>
-                <span class="glyphicon glyphicon-time"></span><b class="detail_date"> 2016-11-11</b>
-                <div class="rnum">
-                    <span class="glyphicon glyphicon-eye-open"></span><b class="detail_num"> 935</b>
-                </div>
-            </div>
-        </#list>
+        <#--<#list list as obj>-->
+            <#--<div class="detail">-->
+                <#--<img class="detail_img" src=""/>-->
+                <#--<strong class="detail_str">浙江科技学院2017艺术类热门专业介绍</strong>-->
+                <#--<p class="detail_p">2047年斯洛克斯洛伐克顺路快递附件文件呢副科级还胡歌卡俊女是的发送到广发噶的风格还是规划是否更换地方规划的法规哈地方噶地方噶地方噶分公司体会让他</p>-->
+                <#--<span class="glyphicon glyphicon-time"></span><b class="detail_date"> 2016-11-11</b>-->
+                <#--<div class="rnum">-->
+                    <#--<span class="glyphicon glyphicon-eye-open"></span><b class="detail_num"> 935</b>-->
+                <#--</div>-->
+            <#--</div>-->
+        <#--</#list>-->
         </div>
         <div class="detail_more">查看更多</div>
     </div>
