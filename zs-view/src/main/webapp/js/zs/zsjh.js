@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    searchLnfsmc();
+    searchZsjh();
 });
 
 var pageNo=1;
@@ -20,57 +20,57 @@ function getChanges(obj) {
         pc: pc,
         zy: zy
     };
-    ajax("zustzs/bckjBizLntj/getChanges", data, function (res) {
+    ajax("zustzs/bckjBizZsjh/getChanges", data, function (res) {
         if (res.backCode === 0) {
             var str = '';
             if (res.bean) {
                 clearOption();
                 if(lnobj!=='nf')
-                $.each(res.bean.nfList, function (k, p) {
-                    if (nf === p.nf) {
-                        str = "<option selected='selected' value='"+ p.nf +"'>"+ p.nf +"</option>"
-                    } else {
-                        str = "<option  value='"+p.nf+"'>"+p.nf+"</option>";
-                    }
-                    $('#nf').append(str);
-                });
+                    $.each(res.bean.nfList, function (k, p) {
+                        if (nf === p.nf) {
+                            str = "<option selected='selected' value='"+ p.nf +"'>"+ p.nf +"</option>"
+                        } else {
+                            str = "<option  value='"+p.nf+"'>"+p.nf+"</option>";
+                        }
+                        $('#nf').append(str);
+                    });
                 if(lnobj!=='sf')
-                $.each(res.bean.sfList, function (k, p) {
-                    if (sf === p.sf) {
-                        str = "<option selected='selected' value='"+ p.sf +"'>"+ p.sf +"</option>"
-                    } else {
-                        str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
-                    }
-                    $('#sf').append(str);
-                });
+                    $.each(res.bean.sfList, function (k, p) {
+                        if (sf === p.sf) {
+                            str = "<option selected='selected' value='"+ p.sf +"'>"+ p.sf +"</option>"
+                        } else {
+                            str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
+                        }
+                        $('#sf').append(str);
+                    });
                 if(lnobj!=='kl')
-                $.each(res.bean.klList, function (k, p) {
-                    if (kl === p.kl) {
-                        str = "<option selected='selected' value='"+ p.kl +"'>"+ p.kl +"</option>"
-                    } else {
-                        str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
-                    }
-                    $('#kl').append(str);
-                });
+                    $.each(res.bean.klList, function (k, p) {
+                        if (kl === p.kl) {
+                            str = "<option selected='selected' value='"+ p.kl +"'>"+ p.kl +"</option>"
+                        } else {
+                            str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
+                        }
+                        $('#kl').append(str);
+                    });
                 if(lnobj!=='pc')
-                $.each(res.bean.pcList, function (k, p) {
-                    if (pc === p.pc) {
-                        str = "<option selected='selected' value='"+ p.pc +"'>"+ p.pc +"</option>"
-                    } else {
-                        str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
-                    }
-                    $('#pc').append(str);
-                });
+                    $.each(res.bean.pcList, function (k, p) {
+                        if (pc === p.pc) {
+                            str = "<option selected='selected' value='"+ p.pc +"'>"+ p.pc +"</option>"
+                        } else {
+                            str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
+                        }
+                        $('#pc').append(str);
+                    });
                 if(lnobj!=='zy')
-                $.each(res.bean.zyList, function (k, p) {
-                    if (zy === p.zy) {
-                        str = "<option selected='selected' value='"+ p.zy +"'>"+ p.zy +"</option>"
-                    } else {
-                        str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
-                    }
-                    $('#zy').append(str);
-                });
-                searchLnfsmc(nf, sf, kl, pc, zy);
+                    $.each(res.bean.zyList, function (k, p) {
+                        if (zy === p.zy) {
+                            str = "<option selected='selected' value='"+ p.zy +"'>"+ p.zy +"</option>"
+                        } else {
+                            str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
+                        }
+                        $('#zy').append(str);
+                    });
+                searchZsjh(nf, sf, kl, pc, zy);
             } else {
                 layer.open({
                     title: '提示',
@@ -83,7 +83,7 @@ function getChanges(obj) {
     })
 }
 
-function searchLnfsmc(nf, sf, kl, pc, zy) {
+function searchZsjh(nf, sf, kl, pc, zy) {
     if ((nf == "") || (nf == null) || (nf = "null")) {
         nf = $("#nf").val();
     }
@@ -99,17 +99,17 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
     if ((zy == "") || (zy == null) || (zy == "null")) {
         zy = $("#zy").val();
     }
-    $('#table-lnfsmc').bootstrapTable('destroy');
-    $('#table-lnfsmc').bootstrapTable({
+    $('#table-zsjh').bootstrapTable('destroy');
+    $('#table-zsjh').bootstrapTable({
         ajax: function (request) {
-            ajax("zustzs/bckjBizLntj/getResult", {
+            ajax("zustzs/bckjBizZsjh/getResult", {
                 nf: nf,
                 sf: sf,
                 kl: kl,
                 pc: pc,
                 zy: zy,
-                pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNo || 1,
-                pageSize: $('#table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
+                pageNo: $('#table-zsjh').bootstrapTable('getOptions').pageNo || 1,
+                pageSize: $('#table-zsjh').bootstrapTable('getOptions').pageSize || pageSize
             }, function (data) {
                 if (data.backCode === 0) {
                     console.log(data)
@@ -121,7 +121,7 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
             })
         },
         responseHandler:function(res){
-            $('#table-lnfsmc').bootstrapTable('load', res.row);
+            $('#table-zsjh').bootstrapTable('load', res.row);
             return {
                 "total":res.total
             }
@@ -182,24 +182,19 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
             },
             {
                 align: 'center',
-                field: 'lqs',
-                title: '录取数'
+                field: 'zss',
+                title: '招生数'
             },
             {
                 align: 'center',
-                field: 'zgf',
-                title: '最高分'
+                field: 'xf',
+                title: '学费/年'
             },
             {
                 align: 'center',
-                field: 'zdf',
-                title: '最低分'
+                field: 'syxw',
+                title: '授予学位'
             },
-            {
-                align: 'center',
-                field: 'pjf',
-                title: '平均分'
-            }
         ]
     });
 }

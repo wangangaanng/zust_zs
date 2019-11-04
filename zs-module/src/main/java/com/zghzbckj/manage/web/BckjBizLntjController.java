@@ -99,7 +99,6 @@ public class BckjBizLntjController extends BaseController {
         }
     }
 
-
     /**
      * <p>方法:getListApi TODO查询条件数据</p>
      * <ul>

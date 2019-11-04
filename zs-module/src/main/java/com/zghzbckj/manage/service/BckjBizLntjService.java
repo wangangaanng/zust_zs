@@ -134,11 +134,11 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
      */
     public Map<String, Object> getChanges(Map<String, Object> mapData) {
         Map<String, Object> result = new HashMap<>();
-        List<BckjBizLntj> nfList = this.dao.findListByNf(MapUtils.getString(mapData, "nf"));
-        List<BckjBizLntj> sfList = this.dao.findListBySf(MapUtils.getString(mapData, "sf"));
-        List<BckjBizLntj> klList = this.dao.findListByKl(MapUtils.getString(mapData, "kl"));
-        List<BckjBizLntj> pcList = this.dao.findListByPc(MapUtils.getString(mapData, "pc"));
-        List<BckjBizLntj> zyList = this.dao.findListByZy(MapUtils.getString(mapData, "zy"));
+        List<BckjBizLntj> nfList = this.dao.findListByNf(mapData);
+        List<BckjBizLntj> sfList = this.dao.findListBySf(mapData);
+        List<BckjBizLntj> klList = this.dao.findListByKl(mapData);
+        List<BckjBizLntj> pcList = this.dao.findListByPc(mapData);
+        List<BckjBizLntj> zyList = this.dao.findListByZy(mapData);
         result.put("nfList", nfList);
         result.put("sfList", sfList);
         result.put("klList", klList);
