@@ -1,6 +1,7 @@
 {
   "navigationBarTitleText": "选考信息",
   "usingComponents": {
+    "van-icon": "vant-weapp/icon",
     "van-field": "vant-weapp/field",
     "van-radio-group": "vant-weapp/radio-group",
     "van-popup": "vant-weapp/popup",
