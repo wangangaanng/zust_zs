@@ -60,16 +60,16 @@
                                 </#if>
                             </div>
                             <div class="article-pager">
-                                <#--<#if (result.upArticle??)>-->
-                                    <#--<div>上一篇：<a href="${base}/wzxq/${result.upArticle.owid!''}">${result.upArticle.wzbt!''} </a></div>-->
-                                <#--<#else >-->
-                                    <#--<div>上一篇：<a href="#">无 </a></div>-->
-                                <#--</#if>-->
-                                <#--<#if (result.downArticle??)>-->
-                                    <#--<div>下一篇：<a href="${base}/wzxq/${result.downArticle.owid!''}">${result.downArticle.wzbt!''} </a></div>-->
-                                <#--<#else >-->
-                                    <#--<div>下一篇：<a href="#">无 </a></div>-->
-                                <#--</#if>-->
+                                <#if (result.upArticle??)&&!(result.upArticle?is_number)>
+                                    <div>上一篇：<a href="${base}/wzxq/${result.upArticle.owid!''}">${result.upArticle.wzbt!''} </a></div>
+                                <#else >
+                                    <div>上一篇：<a href="#">无 </a></div>
+                                </#if>
+                                <#if (result.downArticle??)&&!(result.downArticle?is_number)>
+                                    <div>下一篇：<a href="${base}/wzxq/${result.downArticle.owid!''}">${result.downArticle.wzbt!''} </a></div>
+                                <#else >
+                                    <div>下一篇：<a href="#">无 </a></div>
+                                </#if>
                             </div>
                         </div>
                     </#if>

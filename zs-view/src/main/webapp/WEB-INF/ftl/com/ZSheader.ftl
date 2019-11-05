@@ -40,6 +40,19 @@
                                 </#list>
                             </ul>
                         </div>
+                    <#elseif obj_index!=0>
+                        <div class="subnav-cont" rel="${obj_index}">
+                            <div class="subnav-left fl"><img alt="${imagePath}${obj.GGT!'defaultImg.png'}" src="${imagePath}${obj.GGT!'defaultImg.png'}">
+                                <div class="subnav-motto">
+                                    <p>${obj.JSY!''}</p>
+                                <#--<p class="tr">——张德江</p>-->
+                                </div></div>
+                            <ul class="clearfix subnav fr">
+                                <#list headerY as sub>
+                                    <li onclick='openUrl("wzOrTpOrSqnd/${obj_index}/${sub_index}")'><a>${sub.dicVal2}</a></li>
+                                </#list>
+                            </ul>
+                        </div>
                     </#if>
                 </#list>
                 </#if>
