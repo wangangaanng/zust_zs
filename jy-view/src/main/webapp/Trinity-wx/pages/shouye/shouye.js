@@ -153,8 +153,9 @@ Page({
         href = '../selectExamInfo/selectExamInfo'
         break;
     }
+    console.log(href)
     wx.navigateTo({
-      url: '../selectExamInfo/selectExamInfo',
+      url: href
     })
   }
 })
