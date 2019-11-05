@@ -1,5 +1,6 @@
 package com.zghzbckj.web.controll;
 
+import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.zghzbckj.web.model.PublicData;
@@ -95,6 +96,29 @@ public class ZsController {
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
+
+        Map param2=Maps.newHashMap();
+        param2.put("parentId","-1");
+        PublicData publicData1= UnionHttpUtils.manageParam(param2,"zustcommon/bckjBizXyzy/getZyList");
+        ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+        List<Map> beanList = (List<Map>) result1.getBean();
+        ResponseMessage resultMess  = new ResponseMessage();
+        if(beanList!=null&&beanList.size()>0){
+            view.addObject("xyList",beanList);
+            List zyList= Lists.newArrayList();
+            for(Map map:beanList){
+                String owid = map.get("owid").toString();
+                Map paramn=Maps.newHashMap();
+                paramn.put("parentId",owid);
+                PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizXyzy/getZyList");
+                resultMess = UnionHttpUtils.doPosts(_data);
+
+                zyList.add(resultMess.getBean());
+
+            }
+            view.addObject("zyList",zyList);
+        }
+
         return view;
     }
     @RequestMapping(value = "wzOrTpOrSq/{secondDir}/{thirdDir}", method = RequestMethod.GET)
