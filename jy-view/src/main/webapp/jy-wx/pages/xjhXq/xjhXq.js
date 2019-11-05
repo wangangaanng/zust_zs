@@ -128,10 +128,7 @@ var getOne = function (that, owid) {
         start.setSeconds(0);
         start.setMilliseconds(0);
         var curDate = start.getTime();
-        console.log('d',d)
-        console.log('curDate', curDate)
         if (d < curDate) {
-          console.log('1111')
           that.setData({
             old: '1',
           })

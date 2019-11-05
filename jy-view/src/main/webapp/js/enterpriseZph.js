@@ -374,7 +374,7 @@ function confirmQd(owid) {
             "lxdh": $("#lxdh").val().trim()
         }
         for(var i=1;i<zdytjLength+1;i++){
-            jsonObj['zdytj'+i]=zdytjObj['zdytj'+i]
+            // jsonObj['zdytj'+i]=zdytjObj['zdytj'+i]
             jsonObj['tjsd'+i]=$("#tjsd"+i).val()
         }
         for(var i=1;i<6;i++){
