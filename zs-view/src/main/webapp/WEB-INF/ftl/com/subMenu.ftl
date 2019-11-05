@@ -1,9 +1,9 @@
 <div class="menu-nav">
     <div class="menu-title">
-        <div class="title-chn">${secondDirName!''}</div>
-        <div class="title-en">INFORMATION
-            <div class="menu-nav-icon"></div>
-        </div>
+        <div class="title-chn">${secondDirName!''} <div class="menu-nav-icon"></div></div>
+        <#--<div class="title-en">INFORMATION-->
+            <#--<div class="menu-nav-icon"></div>-->
+        <#--</div>-->
 
     </div>
     <div class="menu-list">

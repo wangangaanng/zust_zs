@@ -92,8 +92,19 @@ public class MyWebSocket {
 //这里可以设定只推送给这个sid的
                 if (item.sid.equals(sid)) {
                     item.sendMessage(message);
-                    item.onClose();
                 }
+            } catch (IOException e) {
+                continue;
+            }
+        }
+    }
+
+    public static void sendInfo(String message) throws IOException {
+        log.info("推送消息到窗口" + "，推送内容:" + message);
+        for (MyWebSocket item : webSocketSet) {
+            try {
+//这群发
+                item.sendMessage(message);
             } catch (IOException e) {
                 continue;
             }

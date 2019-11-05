@@ -1,6 +1,6 @@
 /**
  * Created by Xia Yu on 2019/11/04.
- * 三位一体保存基本信息
+ * 三位一体基本信息
  */
 var imgType = "";//区分图片类型：身份证正反面 户籍
 var idType="1";//上传身份证还是上传户籍证明 默认1身份证 2户籍证明
@@ -14,41 +14,101 @@ $(function () {
     //身份证和户籍上传
     uploadImg();
 
+    //获取基本信息进来填充
+    getInfo()
+
     //点击上传按钮
     $(".uploadlabel").click(function () {
         imgType = $(this).parents(".upimg-wrap").attr("typeNum");
-        console.log(imgType);
     });
 
+    //选择证件类型：身份证/户籍
     $("#confrimType").on('change',function () {//监听select的改变
         idType = $("#confrimType").val();//获取选中的value值
+        (idType=="1")?($("#idCard").show(),$("#household").hide()):($("#idCard").hide(),$("#household").show());
     })
 });
 
 //表单验证触发保存基本信息
 $.validator.setDefaults({
     submitHandler: function () {
-        saveBasic();
-        return;
+       saveBasic();
     }
 });
 
 //保存基本信息
 function saveBasic() {
-    console.log(isTimeOut());
-    if(!isTimeOut()){
-        var jsonObj = $("#basicForm").serializeObject();
-        jsonObj.yhRefOwid=getCookie("swOwid");
-        ajax("zustswyt/bckjBizJbxx/finishInfo", jsonObj, function (data) {
-            if(data.backCode==0){
-                $("#basicForm").hide();
-                $("#contactForm").show();
-                $(".jf-items .jf-item").eq(1).addClass("jf-active");
+    var jsonObj = $("#basicForm").serializeObject();
+    jsonObj.yhRefOwid=getCookie("swOwid");
+    //身份证或者护照 必传单独判断
+    switch (idType){
+        case "1":
+            if(jsonObj.sfzfm==""||jsonObj.sfzzm==""){
+                $("#idCard .error-tip").html("身份证正反面必传");
+                return;
             }else{
-                walert(data.errorMess)
+                $("#idCard .error-tip").html("");
+                break;
             }
-        })
+        case "2":
+            if(jsonObj.hjzm==""){
+                $("#household .error-tip").html("户籍证明必传");
+                return;
+            }else{
+                $("#idCard .error-tip").html("");
+                break;
+            }
     }
+    ajax("zustswyt/bckjBizJbxx/finishInfo", jsonObj, function (data) {
+        if(data.backCode==0){
+            $("#basicForm").hide();
+            $("#contactForm").show();
+            $(".jf-items .jf-item").eq(1).addClass("jf-active");
+        }else{
+            walert(data.errorMess)
+        }
+    })
+}
+
+//获取基本信息
+function getInfo() {
+    var data = {
+        "yhRefOwid":getCookie("swOwid")
+    }
+    ajax("zustswyt/bckjBizJbxx/getInfo", data, function (data) {
+        if(data.backCode==0){
+            var data = data.bean;
+            $("#xm").val(data.xm);
+            $("#xb option[value='"+data.xb+"']").prop("selected","selected");
+            $("#sfzh").val(data.sfzh);
+            $("#mz").val(data.mz);
+            $("#jtzz").val(data.jtzz);
+            $("#lxdh").val(data.lxdh);
+            $("#yx").val(data.yx);
+            $("#qq").val(data.qq);
+            if(data.sfzzm){
+                $("#sfzzm").val(data.sfzzm);
+                $("#sfzzmImg").attr("src",imagePath+data.sfzzm);
+            }
+            if(data.sfzfm){
+                $("#sfzfm").val(data.sfzfm);
+                $("#sfzfmImg").attr("src",imagePath+data.sfzzm);
+            }
+            if(data.hjzm){
+                $("#hjzm").val(data.hjzm);
+                $("#hjzmImg").attr("src",imagePath+data.hjzm);
+            }
+            switch (data.qq){
+                case "1":
+
+                    break;
+                case "2":
+                    break;
+            }
+        }else{
+            walert(data.errorMess)
+        }
+    })
 }
 
 //图片上传
@@ -58,27 +118,23 @@ function uploadImg(){
         imgType =  $parents.attr("typeNum");
         var file = e.target.files[0] || e.dataTransfer.files[0];
         if (file) {
-            console.log("file.size",file.size)
             if(file.size>2000000){
                 walert("图片过大，请选择2M以下的图片")
                 return
             }
             var reader = new FileReader();
             reader.onload = function () {
-                console.log("file",file);
+                $parents.find(".up-btn_img").attr("src",this.result);
+                $parents.find(".up-btn_img").addClass("fullImg");
                 switch (imgType){
                     case "1"://户籍证明
-                        fileUpload("1",file,function (res) {
-                            
-                        })
+                        idOcr(imgType,file);//1是普通文件
                         break;
                     case "2"://2身份证正面
                         idOcr(imgType,file);//1是普通文件
                         break;
                     case "3"://身份证反面
-                        fileUpload("1",file,function (res) {
-
-                        })
+                        idOcr(imgType,file);//1是普通文件
                         break;
                 }
             }
@@ -89,14 +145,14 @@ function uploadImg(){
 
 //身份证Ocr识别
 function idOcr(imgType,file) {
+    var thisType= imgType;
+    (thisType=="3")?imgType=2:imgType;
     var fd = new FormData();
     fd.append("file",file);
     fd.append("method","zustcommon/common/picUpload")
     fd.append('data', JSON.stringify({
         "type": imgType
     }));
-    $parents.find(".up-btn_img").attr("src",this.result);
-    $parents.find(".up-btn_img").addClass("fullImg")
     beginLoad();
     $.ajax({
         url:  hostUrl+'/webAjax/picUpload',
@@ -105,20 +161,60 @@ function idOcr(imgType,file) {
         contentType: false,
         data: fd,
         success: function(d) {
-            // console.log(d);
-            finishLoad()
-            if(d.bean){
-                if(d.bean.fileName){
-                    $("#sfzzm").val(d.bean.fileName);
-                    $("#xm").val(d.bean['姓名'].words);
-                    $("#xb").val(d.bean['性别'].words);
-                    $("#mz").val(d.bean['民族'].words);
-                    $("#jtzz").val(d.bean['住址'].words);
-                    $("#sfzh").val(d.bean['公民身份号码'].words);
-                    walert("上传成功");
+            finishLoad();
+            if(d.backCode==0){
+                switch (thisType){
+                    case "1"://户籍
+                        $("#hjzm").val(d.bean.fileName);
+                        break;
+                    case "2"://身份证正面
+                        switch (d.bean.image_status!="normal") {
+                            case "reversed_side":
+                                statusStr = "身份证正反面颠倒，请重新选择";
+                                break;
+                            case "non_idcard":
+                                statusStr = "上传的图片中不包含身份证，请重新选择"
+                                break;
+                            case "blurred":
+                                statusStr = "身份证模糊，请重新选择"
+                                break;
+                            case "other_type_card":
+                                statusStr = "上传照片为其他类型证照，请重新选择"
+                                break;
+                            case "over_exposure":
+                                statusStr = "身份证关键字段反光或过曝，请重新选择"
+                                break;
+                            case "over_dark":
+                                statusStr = "身份证欠曝（亮度过低），请重新选择"
+                                break;
+                            default:
+                                statusStr = status;
+                                break;
+                        }
+
+                        if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
+                        if(d.bean['姓名']){$("#xm").val(d.bean['姓名'].words);}
+                        if(d.bean['性别']){
+                            if(d.bean['性别'].words == "男"){
+                                $("#xb option[value='1']").prop("selected","selected");
+                                $("#xb").val("1");
+                            }
+                            if(d.bean['性别'].words == "女"){
+                                $("#xb option[value='2']").prop("selected","selected");
+                                $("#xb").val("2");
+                            }
+                        }
+                        if(d.bean['民族']){$("#mz").val(d.bean['民族'].words);}
+                        if(d.bean['住址']){$("#jtzz").val(d.bean['住址'].words);}
+                        if(d.bean['公民身份号码']&&d.bean['公民身份号码'].words){$("#sfzh").val(d.bean['公民身份号码'].words);}
+                        break;
+                    case "3"://身份证反面
+                        $("#sfzfm").val(d.bean.fileName);
+                        break;
                 }
+                walert("上传成功");
             }else{
-                walert("上传失败")
+                walert(d.errorMess)
             }
         },
         fail:function () {
@@ -165,9 +261,7 @@ function initValidate() {
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {
-            // Add the `help-block` class to the error element
             error.addClass( "help-block" );
-
             if ( element.prop( "type" ) === "checkbox" ) {
                 error.insertAfter( element.parent( "label" ) );
             } else {

@@ -225,6 +225,8 @@
             </td>
             </#list>
         </tr>
+
+        ///
         <tr>
             <td align="center" colspan="12" valign="middle" class="contentFont han" style="width: 120px;">综合素质评价
             </td>

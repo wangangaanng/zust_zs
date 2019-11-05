@@ -7,22 +7,23 @@ var nulltip="<p style='text-align: center;'>暂无数据</p>";
 //ajax请求
 function ajax(method, data, successMethod, pageNo, pageSize) {
     console.log(localUrl);
-    $.ajax({
-        url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
-        data: {
-            "method": method,
-            "data": JSON.stringify(data),
-            "pageNo": pageNo,
-            "pageSize": pageSize,
-            timestamp: new Date().getTime()
-        },
-        method: 'POST',
-        success: successMethod,
-        error: function (err) {
-            // walert('系统出错');
-        }
-    })
-
+    if(!isTimeOut()) {
+        $.ajax({
+            url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
+            data: {
+                "method": method,
+                "data": JSON.stringify(data),
+                "pageNo": pageNo,
+                "pageSize": pageSize,
+                timestamp: new Date().getTime()
+            },
+            method: 'POST',
+            success: successMethod,
+            error: function (err) {
+                // walert('系统出错');
+            }
+        })
+    }
 }
 
 function keySearch(){
@@ -36,7 +37,6 @@ function isTimeOut() {
     addCookie("swOwid","359f287a40bb4fe98b0fd80766a91b4f");
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
-    console.log(getCookie("swOwid"));
     if(!getCookie("swOwid")){
         window.location.href=url+"/SWlogin";
     }else{
@@ -49,13 +49,13 @@ function fileUpload(type,file,fun) {
     var fd = new FormData();
     fd.append("yhRefOwid",getCookie("swOwid"));
     fd.append("file",file);
-    fd.append("method","zustcommon/common/fileUpload")
     fd.append('data', JSON.stringify({
         "type": type
     }));
     beginLoad();
+    console.log(uploadUrl);
     $.ajax({
-        url:  hostUrl+'/webAjax/picUpload',
+        url:  uploadUrl,
         type: "POST",
         processData: false,
         contentType: false,
@@ -63,10 +63,12 @@ function fileUpload(type,file,fun) {
         success: function(d) {
             // console.log(d);
             finishLoad();
-            if(d.bean){
+            if(d.backCode==0){
+                //d.bean.filePath;
+                console.log(d.bean.filePath);
                 return fun(d);
             }else{
-                walert("上传失败")
+                walert(d.errorMess)
             }
         },
         fail:function () {

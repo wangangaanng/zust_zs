@@ -157,5 +157,12 @@ Page({
     wx.navigateTo({
       url: href
     })
+  },
+  setxxbh(e){
+    wx.setStorageSync('xxbh', e.currentTarget.dataset.url);
+    wx.navigateTo({
+      url: '../Process/Process',
+    })
+    // data - url='?index={{index}}'
   }
 })
