@@ -29,7 +29,7 @@
       <image src="../../static/arrow.png" class="arrow"></image>
     </view>
     <view class="lc-rows">
-      <navigator class="lc-row {{(bmState>2||bmState<0)?'':'yet'}}" url="{{bmState==2?'../uploadSignature/uploadSignature?type=sign':''}}">拍照上传</navigator>
+      <navigator class="lc-row {{(bmState>2||bmState<0)?'':'yet'}}" url="{{bmState>1?'../uploadSignature/uploadSignature?type=sign':''}}">拍照上传</navigator>
     </view>
     <view class="lc-rows">
       <image src="../../static/arrow.png" class="arrow"></image>

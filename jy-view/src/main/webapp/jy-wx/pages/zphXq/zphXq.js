@@ -20,7 +20,8 @@ Page({
     totalPage2: '',
     minDate: new Date().getTime(),
     imgPath: imgPath,
-    old: ''
+    old: '',
+    showModify:false
   },
   wxParseTagATap: function (e) {
     console.log(e.currentTarget.dataset.src);
@@ -42,6 +43,11 @@ Page({
         }
       })
     }
+  },
+  modify1: function (e) { 
+    wx.navigateTo({
+      url: '../zphXg/zphXg?owid1='+this.data.owid1+'&owid2='+this.data.owid2,
+    })
   },
   /**
    * 生命周期函数--监听页面加载
@@ -143,15 +149,22 @@ var getOne = function (that, owid) {
           showStudentInfo2(that)
         }
       }
-      if (res.data.bean.xjsj) {
-        var thetime = res.data.bean.xjsj;
+      if (res.data.bean.zphKsrq) {
+        var thetime = res.data.bean.zphKsrq;
         var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
 
         var curDate = new Date();
         if (d <= curDate) {
           that.setData({
             old: '1',
+            showModify:false
           })
+        }else{
+          if (data.bean.state==0){
+            that.setData({
+              showModify: true
+            })
+          }
         }
       }
     } else {

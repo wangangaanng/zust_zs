@@ -14,5 +14,6 @@ import com.zghzbckj.manage.entity.BckjBizFzsz;
  */
 @MyBatisDao
 public interface BckjBizFzszDao extends CrudDao<BckjBizFzsz> {
-	
+
+    void deleteAll();
 }

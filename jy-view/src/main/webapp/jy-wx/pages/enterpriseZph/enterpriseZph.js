@@ -67,7 +67,11 @@ Page({
     })
     myBmList(this);
   },
-
+  shenqin: function () {
+    wx.navigateTo({
+      url: '../zphList/zphList',
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

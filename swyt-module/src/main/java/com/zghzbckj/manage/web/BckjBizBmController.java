@@ -484,4 +484,18 @@ public class BckjBizBmController extends BaseController {
         return ResponseMessage.sendOK(result);
     }
 
+
+    @PostMapping(value = "genZkz")
+    @ResponseBody
+    public ResponseMessage genZkz(PublicDataVO dataVO) {
+        try {
+            bckjBizBmService.genZkz();
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

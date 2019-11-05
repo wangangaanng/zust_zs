@@ -30,3 +30,18 @@
 		color: #474747;
 		padding: 30rpx 35rpx;
 	}
+
+.float-btn1{
+  background-color: #fff;
+  height: 96rpx;
+  width: 96rpx;
+  border-radius: 50%;
+  position: fixed;
+  top: 750rpx;
+  right: 35rpx;
+  font-size: 26rpx;
+  text-align: center;
+  z-index: 100;
+}
+.float-btn1 image{height: 96rpx;
+  width: 96rpx;}

@@ -564,19 +564,19 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         if (1 == state) {
             if (bmdx == JyContant.BMDX_ZPH) {
                 BckjBizJob job = jobService.get(bm.getJobRefOwid());
-                Map params = Maps.newHashMap();
-                params.put("jobRefOwid", job.getOwid());
-                params.put("bmlx", 0);
-                params.put("state", 1);
-                Integer exist = this.dao.countNumber(params);
-                if (exist != null && exist > 0) {
-                    Integer bmxz = job.getZphBmxz();
-                    if (bmxz != null && bmxz > 0 && exist >= bmxz) {
-                        resultMap.put("result", "false");
-                        resultMap.put("msg", "该招聘会通过企业已超过限制！");
-                        return resultMap;
-                    }
-                }
+//                Map params = Maps.newHashMap();
+//                params.put("jobRefOwid", job.getOwid());
+//                params.put("bmlx", 0);
+//                params.put("state", 1);
+//                Integer exist = this.dao.countNumber(params);
+//                if (exist != null && exist > 0) {
+//                    Integer bmxz = job.getZphBmxz();
+//                    if (bmxz != null && bmxz > 0 && exist >= bmxz) {
+//                        resultMap.put("result", "false");
+//                        resultMap.put("msg", "该招聘会通过企业已超过限制！");
+//                        return resultMap;
+//                    }
+//                }
 
 
                 if (TextUtils.isEmpty(mapData.get("zwbh"))) {
@@ -775,4 +775,23 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         return jybm;
     }
 
+    public Map fixJybm(Map<String, Object> mapData) {
+        Map resultMap = new HashMap<>(2);
+        BckjBizJybm bm = new BckjBizJybm();
+        BckjBizJybm oldBm = get(mapData.get("owid").toString());
+        try {
+            bm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
+            BeanUtil.copyPropertiesIgnoreNull(bm, oldBm);
+            saveOrUpdate(oldBm);
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultMap.put("result", "false");
+            resultMap.put("msg", e.getMessage());
+            return resultMap;
+        }
+        resultMap.put("result", "true");
+        resultMap.put("bean", oldBm);
+        return resultMap;
+
+    }
 }
