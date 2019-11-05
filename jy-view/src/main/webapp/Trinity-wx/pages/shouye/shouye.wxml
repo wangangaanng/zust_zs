@@ -47,9 +47,9 @@
     {{item.xcjs}}
   </view>
   <view class="signUp">
-    <navigator class="button" wx:if="{{!item.bmzy&&item.sfks==1}}" url='../Process/Process?index={{index}}'>我要报名</navigator>
+    <view class="button" wx:if="{{!item.bmzy&&item.sfks==1}}" bindtap='setxxbh' data-url='{{item.xxbh}}'>我要报名</view>
     <view class="button" wx:if="{{!item.bmzy&&item.sfks!=1}}">我要报名</view>
-    <navigator class="button ybm" wx:if="{{item.bmzy}}" url='../Process/Process?index={{index}}'>已报名</navigator>
+    <view class="button ybm" wx:if="{{item.bmzy}}" data-url='{{item.xxbh}}'>已报名</view>
     <view class="text" wx:if="{{item.bmzy}}">报名专业:{{item.bmzy}}</view>
   </view>
   <view class="step" wx:if='{{item.xybCz}}'>
