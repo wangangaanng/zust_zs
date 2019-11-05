@@ -117,6 +117,9 @@ Page({
       teTel: {
         required: true,
         tel: true,
+      },
+      teSex:{
+        required: true,
       }
     }
     this.WxValidate = new WxValidate(rules, '')
@@ -147,7 +150,9 @@ function getContactor(that) {
               that.data.mother = list[i];
               break;
             case 2:
-              list[i].xb = list[i].xb.toString();
+              if (list[i].xb){
+                list[i].xb = list[i].xb.toString();
+              }
               that.data.teacher = list[i];
               break;
           }
