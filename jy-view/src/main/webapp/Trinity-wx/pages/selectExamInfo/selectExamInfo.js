@@ -217,12 +217,11 @@ Page({
       xkeq: index
     });
   },
-  preStep: function() {
-    wx.navigateTo({
-      url: '../examGrade/examGrade',
-    })
-  },
-  finish: function() {
+  // preStep: function() {
+
+  // },
+  Step: function(e) {
+    let currentstep = e.currentTarget.dataset.index
     let xkList = [];
     for (let i in this.data.xkindex) {
       let current = this.data.xkindex[i];
@@ -232,11 +231,17 @@ Page({
       } else {
         xkList.push({
           kmbh: this.data.xk[current.index].dicval1,
+          kmmc: this.data.xk[current.index].dicval2,
           kmcj: current.value,
           xssx: parseInt(i) + 1
         })
       }
     }
+    if (this.data.xkindex[0].index == this.data.xkindex[1].index || this.data.xkindex[1].index == this.data.xkindex[2].index || this.data.xkindex[0].index == this.data.xkindex[2].index) {
+      common.toast('选考专业重复', 'none', 2000)
+      return
+    }
+
     if (this.data.wyindex == null) {
       common.toast('外语语种未选择', 'none', 2000)
       return
@@ -265,6 +270,10 @@ Page({
         jsfj = `"${this.data.jsfj[i]}"`
       }
     }
+    if (!this.data.tcah){
+      common.toast('请输入特长和爱好', 'none', 2000)
+      return
+    }
     let data = {
       xkList: xkList,
       yhRefOwid: wx.getStorageSync('yhRefOwid'),
@@ -281,14 +290,20 @@ Page({
     common.ajax('zustswyt/bckjBizCjxx/finishXk', data, function(res) {
       if (res.data.backCode == 0) {
         console.log(wx.getStorageSync('href'))
-        if (wx.getStorageSync('href') == 0) {
-          wx.navigateTo({
-            url: '../majorExam/majorExam',
+        if (currentstep == '0') {
+          wx.redirectTo({
+            url: '../examGrade/examGrade',
           })
         } else {
-          wx.switchTab({
-            url: '../shouye/shouye'
-          })
+          if (wx.getStorageSync('href') == 0) {
+            wx.redirectTo({
+              url: '../majorExam/majorExam',
+            })
+          } else {
+            wx.switchTab({
+              url: '../shouye/shouye'
+            })
+          }
         }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)

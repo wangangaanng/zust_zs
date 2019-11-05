@@ -37,7 +37,7 @@
   <view class="cell-wrap line-btm">
     <view class="sm-title">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次：</view>
     <view class="border-area">
-      <textarea placeholder="输入内容" placeholder-style="color:#999;" value="{{jssm}}" bindinput="jssm"></textarea>
+      <textarea placeholder="输入内容" placeholder-style="color:#999;" value="{{jssm}}" bindinput="jssm" wx:if="{{!showPop}}"></textarea>
     </view>
     <view class="sm-title" style="margin-top:12px;">证书拍照上传</view>
     <view class="weui-uploader__bd" style="margin-top:12px;">
@@ -61,21 +61,21 @@
   <view class="cell-wrap line-btm">
     <view class="sm-title">高中阶段参与的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或者职责）：</view>
     <view class="border-area">
-      <textarea placeholder="输入内容" placeholder-style="color:#999;" value="{{qtqk}}" bindinput="qtqk"></textarea>
+      <textarea placeholder="输入内容" placeholder-style="color:#999;" value="{{qtqk}}" bindinput="qtqk" wx:if="{{!showPop}}"></textarea>
     </view>
   </view>
 
   <view class="cell-wrap line-btm">
-    <view class="sm-title">特长和爱好：</view>
+    <view class="sm-title">特长和爱好<text class="red">*</text>：</view>
     <view class="border-area">
-      <textarea placeholder="输入内容" placeholder-style="color:#999;" value="{{tcah}}" bindinput="tcah"></textarea>
+      <textarea placeholder="输入内容" placeholder-style="color:#999;" value="{{tcah}}" bindinput="tcah" wx:if="{{!showPop}}"></textarea>
     </view>
   </view>
 </view>
 <!-- 按钮 -->
 <view class="bottom-btn_wrap df">
-  <van-button round type="primary" class="main-button f1" size="large" bindtap="preStep">上一步，学考等第</van-button>
-  <van-button round type="primary" class="main-button f1" size="large" bindtap="finish">完成</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="Step" data-index='0'>上一步，学考等第</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="Step" data-index='1'>完成</van-button>
 </view>
 <!-- 科目选择 -->
 <van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
