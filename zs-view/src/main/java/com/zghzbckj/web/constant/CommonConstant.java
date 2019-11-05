@@ -126,4 +126,14 @@ public final class CommonConstant {
     public static String PDF_FOOTER2_KEY = "pdfFooter2";
 
     public final static String EMPTY_STR ="";
+
+    public final static String PIC_PNG = "PNG";
+    public final static String PIC_JPG = "JPG";
+    public final static String PIC_JPEG = "JPEG";
+    public final static String SPILT_POINT = ".";
+    public final static String picPath = "/mnt/files/zjcFiles/pic";
+    public final static String ID_URL = "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard?access_token=";
+    public final static String LICENSE_URL = "https://aip.baidubce.com/rest/2.0/ocr/v1/business_license?access_token=";
+    public static String API_KEY = "dMST2glOiL4Z1RCx6I42AG0N";
+    public static String SECRET_KEY = "QQ2PADGVib0vzlz0GZN9EpSRFtKtZla4";
 }
