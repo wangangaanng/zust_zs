@@ -135,15 +135,17 @@ Page({
     //判断状态
     common.getProcssState(function(res){
       var data = res.data.bean;
-      that.setData({
-        'signImg': common.imgPath+data.bmbZp,
-        'promiseImg': common.imgPath + data.cnszp,
-        'state': data.state,
-        'signInfo':'报名表签字已上传成功',
-        'promiseInfo':'承诺书签字已上传成功',
-        'class1':'green',
-        'class2':'green'
-      })
+      if (data.state>2){
+        that.setData({
+          'signImg': common.imgPath + data.bmbZp,
+          'promiseImg': common.imgPath + data.cnszp,
+          'state': data.state,
+          'signInfo': '报名表签字已上传成功',
+          'promiseInfo': '承诺书签字已上传成功',
+          'class1': 'green',
+          'class2': 'green'
+        })
+      }
     });
   },
 
@@ -179,7 +181,7 @@ function upLoadImgs(params) {
       Dialog.alert({
         message: '报名表签字和承诺书签字已成功上传！'
       }).then(() => {
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../Process/Process',
         })
       });

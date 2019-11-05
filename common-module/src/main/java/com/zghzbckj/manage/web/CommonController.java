@@ -312,6 +312,7 @@ public class CommonController {
      * <li>@date 2019/10/24 17:03  </li>
      * </ul>
      */
+    @CrossOrigin("*")
     @RequestMapping(value = "fileUpload", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage fileUpload(PublicDataVO dataVO, @RequestParam(required = false) MultipartFile file) {

@@ -3,34 +3,42 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.*;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.ValidateMsg;
+import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.manage.entity.BckjBizLqxs;
-import com.zghzbckj.manage.service.BckjBizLqxsService;
+import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.service.BckjBizCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
  * ccController
  *
  * @author cc
- * @version 2019-09-09
+ * @version 2019-11-05
  */
 @Controller
-@RequestMapping(value = "bckjBizLqxs")
-public class BckjBizLqxsController extends BaseController {
+@RequestMapping(value = "bckjBizCard")
+public class BckjBizCardController extends BaseController {
     @Autowired
-    private BckjBizLqxsService bckjBizLqxsService;
+    private BckjBizCardService bckjBizCardService;
 
 
     @RequestMapping(value = "/getList")
@@ -38,9 +46,9 @@ public class BckjBizLqxsController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizLqxsService.findPageBckjBizLqxs(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return ResponseMessage.sendOK(bckjBizCardService.findPageBckjBizCard(filters, dataVO.getPageNo(), dataVO.getPageSize()));
         } catch (Exception e) {
-            log.error(e + "获取bckjBizLqxs列表失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "获取bckjBizCard列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
@@ -58,10 +66,10 @@ public class BckjBizLqxsController extends BaseController {
             for (Object obj : list) {
                 codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            ResponseMessage data = bckjBizLqxsService.removeOrder(codes);
-            return data;
+            List data = bckjBizCardService.removeOrder(codes);
+            return ResponseMessage.sendOK(data);
         } catch (Exception e) {
-            log.error(e + "删除BckjBizLqxs列表失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "删除BckjBizCard列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
@@ -72,9 +80,9 @@ public class BckjBizLqxsController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizLqxsService.saveBckjBizLqxs(mapData);
+            return ResponseMessage.sendOK(bckjBizCardService.saveBckjBizCard(mapData));
         } catch (Exception e) {
-            log.error(e + "保存BckjBizLqxs信息失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "保存BckjBizCard信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
@@ -89,46 +97,38 @@ public class BckjBizLqxsController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizLqxsService.get(mapData.get("owid").toString()));
+            return ResponseMessage.sendOK(bckjBizCardService.get(mapData.get("owid").toString()));
         } catch (Exception e) {
 
-            log.error(e + "初始BckjBizLqxs\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "初始BckjBizCard\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
 
 
-    /**
-    *<p>方法:lqcx TODO录取查询 </p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/15 14:52  </li>
-    *</ul>
-    */
-    @RequestMapping(value = "lqcx", method = RequestMethod.POST)
+    @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage lqcx(PublicDataVO dataVO) {
+    public ResponseMessage upload(PublicDataVO dataVO, HttpServletRequest request) {
         try {
-            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
-            //判断owid是否为空
-            String sfzh= MapUtils.getString(mapData,"sfzh");
-            String ksh= MapUtils.getString(mapData,"ksh");
-            if(TextUtils.isEmpty(sfzh) || TextUtils.isEmpty(ksh)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"准考证和身份证号不能同时为空");
+            String postData = "";
+            Set<String> set = request.getParameterMap().keySet();
+            for (String s : set) {
+                postData += s + "=";
+                postData += request.getParameterMap().get(s)[0];
             }
-            BckjBizLqxs lqxs = bckjBizLqxsService.getLqcx(mapData);
-            if (TextUtils.isEmpty(lqxs)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "未查到录取情况");
+            if (TextUtils.isEmpty(postData)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"不存在请求参数");
             }
-            return ResponseMessage.sendOK(lqxs);
+            if(postData.endsWith("="))
+                postData = postData.replaceAll("=","").trim();
+            bckjBizCardService.dealPostData(postData);
+            return ResponseMessage.sendOK(Boolean.TRUE);
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
-            log.info("录取查询失败：" + e);
+            log.info("获取三位一体身份证识别上传失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
-
-
 
 }

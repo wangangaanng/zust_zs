@@ -8,12 +8,14 @@ import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.BaseTree;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.manage.dao.BckjDicMenuDao;
 import com.zghzbckj.manage.entity.BckjDicMenu;
 import org.apache.log4j.Logger;
@@ -127,10 +129,10 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
 
     public List<BaseTree> listTree(List<FilterModel> filters) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        List<BckjDicMenu> menus=this.dao.findListByMap(dataMap);
+        List<BckjDicMenu> menus = this.dao.findListByMap(dataMap);
         List<BaseTree> baseTreeList = Lists.newArrayList();
-        if(menus.size()>0){
-            for(BckjDicMenu oneMenu:menus){
+        if (menus.size() > 0) {
+            for (BckjDicMenu oneMenu : menus) {
                 BaseTree bt = new BaseTree();
                 bt.setOwid(oneMenu.getOwid().intValue());
                 bt.setFid(oneMenu.getFid());
@@ -158,14 +160,14 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
     @Transactional(readOnly = false)
     public BaseTree saveTree(Map<String, Object> mapData) {
         BckjDicMenu menu = JsonUtil.map2Bean(mapData, BckjDicMenu.class);
-        if(TextUtils.isEmpty(menu.getOwid())) {
+        if (TextUtils.isEmpty(menu.getOwid())) {
             this.save(menu);
             menu.setCode(String.valueOf(menu.getOwid()));
-            if(!TextUtils.isEmpty(menu.getPath()) && menu.getPath().endsWith("//")){
-                String path = menu.getPath().substring(0,menu.getPath().length()-1);
-                menu.setPath(path + menu.getOwid()+"/");
-            }else{
-                menu.setPath(menu.getPath() + menu.getOwid()+"/");
+            if (!TextUtils.isEmpty(menu.getPath()) && menu.getPath().endsWith("//")) {
+                String path = menu.getPath().substring(0, menu.getPath().length() - 1);
+                menu.setPath(path + menu.getOwid() + "/");
+            } else {
+                menu.setPath(menu.getPath() + menu.getOwid() + "/");
             }
         }
         this.saveOrUpdate(menu);
@@ -178,17 +180,17 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         if (menu.getPx() != null) {
             tree.setPx(menu.getPx().doubleValue());
         }
-         tree.setCc(menu.getCc());
+        tree.setCc(menu.getCc());
         return tree;
     }
 
     public boolean isSingle(Map<String, Object> mapData) {
-        Object owid=mapData.get("owid");
-        BckjDicMenu menu=this.dao.getByCode(mapData.get("code").toString());
-        if(null!=menu){
-            if(owid!=null&& menu.getOwid().toString().equals(owid.toString())) {
+        Object owid = mapData.get("owid");
+        BckjDicMenu menu = this.dao.getByCode(mapData.get("code").toString());
+        if (null != menu) {
+            if (owid != null && menu.getOwid().toString().equals(owid.toString())) {
                 return true;
-            }else{
+            } else {
                 return false;
             }
         }
@@ -196,29 +198,43 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
     }
 
     public List<Map> getLmMenu(Map<String, Object> mapData) {
-        List<Map> yjMenu=this.dao.getYjlm(mapData);
+        List<Map> yjMenu = this.dao.getYjlm(mapData);
         return yjMenu;
     }
 
     public Long countMenu() {
-       return this.dao.countMenu();
+        return this.dao.countMenu();
     }
 
     public List<Map> getSyMenu(Map<String, Object> mapData) {
-        mapData.put("type","0");
-        List<Map> yjMenu=this.dao.getYjlm(mapData);
+        mapData.put("type", "0");
+        List<Map> yjMenu = this.dao.getYjlm(mapData);
         mapData.remove("bxlx");
-        for(Map map:yjMenu){
-            mapData.put("fid",map.get("OWID").toString());
-            map.put("chirdMenu",this.dao.getYjlm(mapData));
+        for (Map map : yjMenu) {
+            mapData.put("fid", map.get("OWID").toString());
+            map.put("chirdMenu", this.dao.getYjlm(mapData));
         }
         return yjMenu;
     }
 
     public Object getArticleType() {
-        Map mapParam= Maps.newHashMap();
-        mapParam.put("sjhqdx",5);
-        mapParam.put("orderBy"," a.owid ");
-        return this.dao.findListByMap(mapParam);
+        Map mapParam = Maps.newHashMap();
+        mapParam.put("sjhqdx", 5);
+        mapParam.put("orderBy", " a.owid ");
+        List<BckjDicMenu> meunList = this.dao.findListByMap(mapParam);
+        List<Map> mapList = Lists.newArrayList();
+        String outOwid = CacheUtil.getVal("twiceLmbh");
+        if (null == outOwid) {
+            outOwid = CommonConstants.EMPTY_STR;
+        }
+        for (BckjDicMenu one : meunList) {
+            if (!outOwid.contains(one.getOwid().toString())) {
+                mapParam = Maps.newHashMap();
+                mapParam.put("label", one.getName());
+                mapParam.put("value", one.getOwid());
+                mapList.add(mapParam);
+            }
+        }
+        return mapList;
     }
 }

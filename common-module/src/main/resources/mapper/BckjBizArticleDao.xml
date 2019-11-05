@@ -15,6 +15,9 @@
 		a.wznr AS "wznr",
 		a.wzzt AS "wzzt",
 		a.ydcs AS "ydcs",
+		a.nf AS "nf",
+			a.qtbh AS "qtbh",
+			a.qtbhname AS "qtbhname",
 		a.html_path AS "htmlPath",
 		a.atta_mm AS "attaMm",
 		a.istop AS "istop",
@@ -95,7 +98,7 @@
                 AND a.sxsj &lt; #{sxsj2}
             </if>
             <if test="lmbh != null and lmbh != ''">
-				AND a.lmbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.lmbh =#{lmbh}
             </if>
 
             <if test="wzly != null and wzly != ''">
@@ -124,11 +127,14 @@
         <where>
 			( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
             <if test="lmbh != null and lmbh != ''">
-				AND a.lmbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND (a.lmbh =#{lmbh} OR a.qtbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
 			</if>
             <if test="wzzt != null and wzzt != ''">
                 AND a.wzzt = #{wzzt}
             </if>
+			<if test="nf != null and nf != ''">
+				AND a.nf = #{nf}
+			</if>
             <if test="gjz != null and gjz != ''">
 				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
             </if>
@@ -175,6 +181,9 @@
 			sxh,
 			gjz,
 			memo,
+			nf,
+			qtbh,
+			qtbhname,
 			createtime,
 			creator,
 			creator_name,
@@ -217,6 +226,9 @@
 			#{sxh},
 			#{gjz},
 			#{memo},
+			#{nf},
+			#{qtbh},
+			#{qtbhname},
 			#{createtime},
 			#{creator},
 			#{creatorName},
@@ -263,6 +275,9 @@
 			sxh = #{sxh},
 			gjz = #{gjz},
 			memo = #{memo},
+				nf =#{nf},
+			qtbh =#{qtbh},
+			qtbhname =#{qtbhname},
 			createtime = #{createtime},
 			creator = #{creator},
 			creator_name = #{creatorName},

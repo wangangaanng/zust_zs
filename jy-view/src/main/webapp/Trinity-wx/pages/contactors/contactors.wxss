@@ -6,3 +6,4 @@ page{background: rgb(245,245,245)}
 .van-field__error-message{text-align: right!important;}
 .select-group{display: flex;}
 .van-radio{margin-left: 66rpx;}
+.van-cell--required:before{left: -7px!important;}

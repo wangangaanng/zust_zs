@@ -75,7 +75,7 @@ Page({
         Dialog.alert({
           message: '缴费证明图片已成功提交，请等待审核！'
         }).then(() => {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '../Process/Process',
           })
         });
