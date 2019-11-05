@@ -123,7 +123,7 @@
     <#--button  start -->
     <div class="row">
         <div class="col-sm-4 col-sm-offset-3">
-            <button type="submit" class="btn btn-default btn-common yellow">上一步，基本信息</button>
+            <button class="btn btn-default btn-common yellow" id="showBasic">上一步，基本信息</button>
         </div>
         <div class="col-sm-4">
             <button type="submit" class="btn btn-default btn-common yellow" id="saveContact">下一步，学考信息</button>
@@ -141,6 +141,12 @@
         $("#gradeForm").show();
         $(".jf-items .jf-item").eq(2).addClass("jf-active");
     });
+
+    //上一步
+//    $("#showBasic").click(function () {
+//        $("#basicForm").show();
+//        $("#contactForm").hide();
+//    });
 </script>
 
 
