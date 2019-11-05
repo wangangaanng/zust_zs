@@ -52,6 +52,7 @@
     "pages/teaService/teaService",
     "pages/teaLogin/teaLogin",
     "pages/newZpgg/newZpgg",
+    "pages/zphXg/zphXg",
     "pages/teaZx/teaZx"
   ],
   "window": {

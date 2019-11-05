@@ -12,11 +12,12 @@ Page({
   data: {
     result: '',
     old: '',
-    zphOwid:'',
+    zphOwid: '',
+    tjsjList:{},
     form: {
-      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
-      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
-      zw1:'',
+      lxr: '',
+      lxdh: '',
+      zw1: '',
       zw2: '',
       zw3: '',
       zw4: '',
@@ -27,7 +28,7 @@ Page({
       rs4: '',
       rs5: '',
     },
-    list:[],
+    list: [],
     btndisabled: false
   },
   showModal(error) {
@@ -77,7 +78,7 @@ Page({
       params['tjsd' + a] = list[i].val;
     }
     for (var i = 1; i < 6; i++) {
-      if (params['zw' + i] && !params['rs' + i]){
+      if (params['zw' + i] && !params['rs' + i]) {
         wx.showModal({
           content: '请填写请填写岗位及相应招聘人数',
           showCancel: false,
@@ -92,11 +93,8 @@ Page({
         return false
       }
     }
-    params.bmlx = 0
-    params.bmdx = 0
-    params.qyxxRefOwid = wx.getStorageSync('yhOwid')
-    params.jobRefOwid = that.data.zphOwid
-    common.ajax('zustjy/bckjBizJybm/applyJob', params, function (res) {
+    params.owid = that.data.owid1
+    common.ajax('zustjy/bckjBizJybm/fixJybm', params, function (res) {
       if (res.data.backCode == 0) {
         that.setData({
           btndisabled: true
@@ -104,7 +102,7 @@ Page({
         wx.showModal({
           title: '提示',
           showCancel: false,
-          content: "招聘会申请成功，请等待审核",
+          content: "修改成功",
           success(res) {
             if (res.confirm) {
               wx.navigateBack({
@@ -150,20 +148,20 @@ Page({
     this.WxValidate = new WxValidate(rules, messages)
   },
   onConfirm(e) {
-      var list = this.data.list;
-      list[parseInt(e.target.dataset.type) - 1].str = e.detail.value
-      list[parseInt(e.target.dataset.type) - 1].show = false
-      list[parseInt(e.target.dataset.type) - 1].val = e.detail.value
-      this.setData({
-        list: list
-      })
+    var list = this.data.list;
+    list[parseInt(e.target.dataset.type) - 1].str = e.detail.value
+    list[parseInt(e.target.dataset.type) - 1].show = false
+    list[parseInt(e.target.dataset.type) - 1].val = e.detail.value
+    this.setData({
+      list: list
+    })
   },
   onCancel(e) {
-      var list = this.data.list;
-      list[parseInt(e.target.dataset.type) - 1].show = false
-      this.setData({
-        list: list
-      })
+    var list = this.data.list;
+    list[parseInt(e.target.dataset.type) - 1].show = false
+    this.setData({
+      list: list
+    })
   },
   toggle(type, show) {
     this.setData({
@@ -171,35 +169,32 @@ Page({
     });
   },
   showBottom(e) {
-      var list = this.data.list;
-      list[parseInt(e.target.dataset.type) - 1].show = true
-      this.setData({
-        list: list
-      })
+    var list = this.data.list;
+    list[parseInt(e.target.dataset.type) - 1].show = true
+    this.setData({
+      list: list
+    })
   },
   hideBottom(e) {
-      var list = this.data.list;
-      list[parseInt(e.target.dataset.type) - 1].show = false
-      this.setData({
-        list: list
-      })
+    var list = this.data.list;
+    list[parseInt(e.target.dataset.type) - 1].show = false
+    this.setData({
+      list: list
+    })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
     this.initValidate()
-    if (options.owid) {
+    if (options.owid2) {
       this.setData({
-        zphOwid: options.owid
+        owid1: options.owid1,
+        zphOwid: options.owid2
       })
-      getContent(this, options.owid);
-      xjhtjList(this, options.owid)
+      getContent(this, options.owid1);
+      // xjhtjList(this, options.owid2)
     }
-    this.setData({
-      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
-      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
-    })
   },
 
   /**
@@ -217,9 +212,9 @@ Page({
   },
 })
 
-var xjhtjList = function (that,owid) {
+var xjhtjList = function (that) {
   var data = {
-    "owid": owid
+    "owid": that.data.zphOwid
   };
   common.ajax('zustjy/bckjBizJob/zphtjList', data, function (res) {
     if (res.data.backCode == 0) {
@@ -228,11 +223,10 @@ var xjhtjList = function (that,owid) {
       if (data.bean && data.bean.length > 0) {
         for (var i = 0; i < data.bean.length; i++) {
           var obj = {};
-          // console.log(data.bean[i])
           for (var a in data.bean[i]) {
             obj.xh = i + 1
             obj.zdytj = a;
-            obj.val = '';
+            obj.val = that.data.tjsjList['tjsd' + obj.xh] ? that.data.tjsjList['tjsd' + obj.xh]:''
             obj.show = false;
             obj.str = "请选择";
             obj.tjsd = data.bean[i][a];
@@ -251,7 +245,6 @@ var xjhtjList = function (that,owid) {
           list: arr
         })
       }
-      console.log(arr)
     } else {
       wx.showToast({
         title: res.data.errorMess,
@@ -263,35 +256,34 @@ var xjhtjList = function (that,owid) {
 }
 
 var getContent = function (that, owid) {//招聘详情
-  var data = { "owid": owid, "yhOwid": wx.getStorageSync("yhOwid") };
-  common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
+  var data = { "owid": owid };
+  common.ajax('zustjy/bckjBizJybm/getOne', data, function (res) {
     if (res.data.backCode == 0) {
-      res.data.bean.createtime = res.data.bean.createtime.substring(0, 10)
-      if (res.data.bean.zphKsrq) {
-        // if (res.data.bean.zwlx == 4) {
-        //   res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 16)
-        // } else {
-          res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
-        // }
-      }
-      if (res.data.bean.zphBmjzsj) {
-        res.data.bean.zphBmjzsj = res.data.bean.zphBmjzsj.substring(0, 10)
-      }
-      that.setData({
-        result: res.data.bean,
-      })
-      if (res.data.bean.zphKsrq) {
-        var thetime = res.data.bean.zphKsrq;
-        var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
-
-        var curDate = new Date();
-        if (d <= curDate) {
-          that.setData({
-            old: '1',
-          })
+      if (res.data.bean){
+        if (res.data.bean.tjsd1) {
+          that.data.tjsjList.tjsd1 = res.data.bean.tjsd1
         }
+        if (res.data.bean.tjsd2) {
+          that.data.tjsjList.tjsd2 = res.data.bean.tjsd2
+        }
+        if (res.data.bean.tjsd3) {
+          that.data.tjsjList.tjsd3 = res.data.bean.tjsd3
+        }
+        if (res.data.bean.tjsd4) {
+          that.data.tjsjList.tjsd4 = res.data.bean.tjsd4
+        }
+        if (res.data.bean.tjsd5) {
+          that.data.tjsjList.tjsd5 = res.data.bean.tjsd5
+        }
+
+        that.setData({
+          tjsjList: that.data.tjsjList,
+          form: res.data.bean,
+        })
       }
 
+      xjhtjList(that)
+     
     } else {
       wx.showToast({
         title: res.data.errorMess,
