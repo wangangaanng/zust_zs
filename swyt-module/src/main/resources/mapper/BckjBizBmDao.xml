@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizBmDao">
-    
-	<sql id="bckjBizBmColumns">
+
+    <sql id="bckjBizBmColumns">
 		a.owid AS "owid",
+		a.fzszRefOwid AS "fzszRefOwid",
 		a.bkzy_ref_owid AS "bkzyRefOwid",
 		a.xxbh AS "xxbh",
 		a.user_ref_owid AS "userRefOwid",
@@ -78,9 +79,9 @@
 		a.delflg AS "delflg",
 		a.state AS "state"
 	</sql>
-	
-	<sql id="bckjBizBmJoins">
-	</sql>
+
+    <sql id="bckjBizBmJoins">
+    </sql>
 
 	<select id="getOneByMap" resultType="com.zghzbckj.manage.entity.BckjBizBm">
 		SELECT
@@ -241,6 +242,7 @@
 	<insert id="insert">
 		INSERT INTO bckj_biz_bm(
 			owid,
+			fzsz_ref_owid,
 			bkzy_ref_owid,
 			xxbh,
 			user_ref_owid,
@@ -316,6 +318,7 @@
 			state
 		) VALUES (
 			#{owid},
+			#{fzszRefOwid},
 			#{bkzyRefOwid},
 			#{xxbh},
 			#{userRefOwid},
@@ -391,10 +394,11 @@
 			#{state}
 		)
 	</insert>
-	
-	<update id="update">
+
+    <update id="update">
 		UPDATE bckj_biz_bm SET 	
 			owid = #{owid},
+			fzszRefOwid =#{fzszRefOwid},
 			bkzy_ref_owid = #{bkzyRefOwid},
 			xxbh = #{xxbh},
 			user_ref_owid = #{userRefOwid},
@@ -470,25 +474,48 @@
 			state = #{state}
 		WHERE owid = #{owid}
 	</update>
-	
-	<delete id="delete">
+
+    <delete id="delete">
 		DELETE FROM bckj_biz_bm
 		WHERE owid = #{owid}
 	</delete>
 
 
-	<select id="listDicByType" resultType="java.util.Map">
-		SELECT a.*
-		FROM ourway_sys_dic b,ourway_sys_dic_value a
-		<where>
-			b.owid=a.dic_ref_owid and b.type=#{type}
-		</where>
-		<choose>
-			<when test="orderBy !=null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
+    <select id="listDicByType" resultType="java.util.Map">
+        SELECT a.*
+        FROM ourway_sys_dic b,ourway_sys_dic_value a
+        <where>
+            b.owid=a.dic_ref_owid and b.type=#{type}
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="queryWaitNumber" parameterType="Map" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        from bckj_biz_bm a
+        <where>
+
+            <if test="bklbOwid != null and bklbOwid  != ''">
+                AND a.bklb_owid = #{bklbOwid}
+            </if>
+			<if test="fzszRefOwid != null and fzszRefOwid  != ''">
+				AND a.fzsz_ref_owid = #{fzszRefOwid}
+			</if>
+			<if test="state != null and state  != ''">
+				AND a.state = #{state}
+			</if>
+			<if test="wait != null and wait  != ''">
+				AND   a.mssj IS NULL
+			</if>
+        </where>
+    </select>
+
 </mapper>

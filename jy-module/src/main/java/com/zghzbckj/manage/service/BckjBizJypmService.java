@@ -256,6 +256,9 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 resMap.put("qylxfs", qylxfs);
 
                 String zwbh = cellList.get(0); //展位编号
+                if (TextUtils.isEmpty(zwbh)) {
+                    zwbh = JyContant.ZWMESS;
+                }
                 String zw1 = cellList.get(8); //岗位1
                 String zw2 = cellList.get(10); //岗位2
                 String zw3 = cellList.get(12); //岗位3
@@ -267,6 +270,8 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 String rs3 = cellList.get(13);
                 String rs4 = cellList.get(15);
                 String rs5 = cellList.get(17);
+                //团报来源
+                String exp1 = cellList.get(18);
 
                 BckjBizQyxx bckjBizQyxx = new BckjBizQyxx();
                 MapUtil.easySetByMap(resMap, bckjBizQyxx);
@@ -291,6 +296,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 jybm.setBmqygs(1);
                 jybm.setQymc(qymc);
                 jybm.setQysh(qyTysh);
+                jybm.setExp1(exp1);
                 jybm.setXjsj(DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd"));
                 if (!TextUtils.isEmpty(zw1)) {
                     jybm.setZw1(zw1);
@@ -325,7 +331,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 jybm.setState(1);
                 jybmService.saveOrUpdate(jybm);
                 //发送通知短信
-                String content = JyContant.ZPH_PASS_MESS + zwbh + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj();
+                String content = JyContant.ZPH_PASS_MESS + zwbh + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj() + "，展位现场分配";
                 String mobile = qyLxrdh;
                 try {
                     MessageUtil.sendMessage(mobile, content);
