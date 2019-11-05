@@ -27,7 +27,7 @@
 		a.createtime AS "createtime",
 		a.creator AS "creator",
 		a.creator_name AS "creatorName",
-		a.updatetime AS "updatetime",
+		a.lastupdate AS "lastupdate",
 		a.updator AS "updator",
 		a.updator_name AS "updatorName"
 	</sql>
@@ -202,6 +202,7 @@
 				ORDER BY ${orderBy}
 			</when>
 			<otherwise>
+			order by a.nf desc
 			</otherwise>
 		</choose>
 	</select>
@@ -248,7 +249,7 @@
 			createtime,
 			creator,
 			creator_name,
-			updatetime,
+			lastupdate,
 			updator,
 			updator_name
 		) VALUES (
@@ -276,7 +277,7 @@
 			#{createtime},
 			#{creator},
 			#{creatorName},
-			#{updatetime},
+			#{lastupdate},
 			#{updator},
 			#{updatorName}
 		)
@@ -308,7 +309,7 @@
 			createtime = #{createtime},
 			creator = #{creator},
 			creator_name = #{creatorName},
-			updatetime = #{updatetime},
+			lastupdate = #{lastupdate},
 			updator = #{updator},
 			updator_name = #{updatorName}
 		WHERE owid = #{owid}
