@@ -47,7 +47,7 @@
       <text class="arrow2-text">{{bmState==4?"拒绝":"　　"}}</text>
     </view>
     <view class="lc-rows2">
-      <navigator class="lc-row {{bmState>6?'':'yet'}}" style="" url='{{bmState>5?"../payOline/payOline?state="+bmState:""}}'>{{bmState==6?'已缴费待确认':'缴费'}}
+      <navigator class="lc-row {{bmState>4?'':'yet'}}" style="" url='{{bmState==5?"../payOline/payOline?state="+bmState:""}}'>{{bmState==6?'已缴费待确认':'缴费'}}
       </navigator>
       <view class="lc-row {{bmState==4?'':'yet'}}">结束</view>
       <view class="thyy" style="position: absolute;right: 0;top: 35px;width: 50%;text-align: center;" wx:if="{{bmState==4}}">{{res.jjly}}</view>
