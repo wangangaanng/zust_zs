@@ -6,9 +6,9 @@
   <view class="com-wrap">
     <view class="com-title">父亲(或其他监护人)</view>
     <van-cell-group>
-      <van-field value="{{father.xm}}" name="faName" error-message="{{errorList['faName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
-      <van-field value="{{father.lxsj}}" name="faTel" error-message="{{errorList['faTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
-      <van-field label="性别" error-message="{{errorList['faSex'].msg}}" disabled>
+      <van-field value="{{father.xm}}" name="faName" error-message="{{errorList['faName'].msg}}" clearable label="姓名" placeholder="请输入姓名" required />
+      <van-field value="{{father.lxsj}}" name="faTel" error-message="{{errorList['faTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
+      <van-field label="性别" error-message="{{errorList['faSex'].msg}}" disabled required>
         <van-radio-group value="{{father.xb}}" name="faSex" bind:change="sexSelect" data-id="1" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
           <van-radio name="2" checked-color="#26b887">女</van-radio>
@@ -24,9 +24,9 @@
   <view class="com-wrap">
     <view class="com-title">母亲(或其他监护人)</view>
     <van-cell-group>
-      <van-field value="{{ mother.xm }}" name="moName" error-message="{{errorList['moName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
-      <van-field value="{{ mother.lxsj }}" name="moTel" error-message="{{errorList['moTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
-       <van-field label="性别" error-message="{{errorList['moSex'].msg}}" disabled>
+      <van-field value="{{ mother.xm }}" name="moName" error-message="{{errorList['moName'].msg}}" clearable label="姓名" placeholder="请输入姓名" required/>
+      <van-field value="{{ mother.lxsj }}" name="moTel" error-message="{{errorList['moTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
+       <van-field label="性别" error-message="{{errorList['moSex'].msg}}" disabled required>
         <van-radio-group value="{{mother.xb}}" name="moSex" bind:change="sexSelect" data-id="2" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
           <van-radio name="2" checked-color="#26b887">女</van-radio>
@@ -42,9 +42,9 @@
   <view class="com-wrap">
     <view class="com-title">高中联系人</view>
     <van-cell-group>
-      <van-field value="{{ teacher.xm }}" name="teName" error-message="{{errorList['teName'].msg}}" clearable label="姓名" placeholder="请输入姓名" />
-      <van-field value="{{ teacher.lxsj }}" name="teTel" error-message="{{errorList['teTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" />
-      <van-field label="性别" error-message="{{errorList['teSex'].msg}}" disabled>
+      <van-field value="{{ teacher.xm }}" name="teName" error-message="{{errorList['teName'].msg}}" clearable label="姓名" placeholder="请输入姓名" required/>
+      <van-field value="{{ teacher.lxsj }}" name="teTel" error-message="{{errorList['teTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
+      <van-field label="性别" error-message="{{errorList['teSex'].msg}}" disabled required>
         <van-radio-group value="{{teacher.xb}}" name="teSex" bind:change="sexSelect"  data-id="3" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
           <van-radio name="2" checked-color="#26b887">女</van-radio>
