@@ -58,7 +58,7 @@ Page({
     var list = this.data.list;
     for (var i = 0; i < list.length; i++) {
       var a = i + 1;
-      params['zdytj' + a] = list[i].zdytj;
+      // params['zdytj' + a] = list[i].zdytj;
       if (!list[i].val) {
         if (list[i].isInput) {
           wx.showModal({

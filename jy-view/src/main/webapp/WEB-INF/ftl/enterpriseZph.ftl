@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
     <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
 </head>
-
+<style>
+    .layui-layer-content{overflow-y:auto !important;}
+</style>
 <body>
 
 <#include "com/header.ftl">
