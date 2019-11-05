@@ -26,7 +26,7 @@ Page({
     dataArr[0] = {//父亲
       "cylb":0
       ,"xm": params.faName
-      ,"xb":1
+      , "xb": params.faSex
       , "whcd": params.faEdu
       , "gzdw": params.faCom
       , "gzzw": params.faJob
@@ -36,7 +36,7 @@ Page({
     dataArr[1] = {//母亲
       "cylb": 1
       , "xm": params.moName
-      , "xb": 2
+      , "xb": params.moSex
       , "whcd": params.moEdu
       , "gzdw": params.moCom
       , "gzzw": params.moJob
@@ -104,6 +104,9 @@ Page({
         required: true,
         tel: true,
       },
+      faSex:{
+        required: true,
+      },
       moName: {
         required: true,
       },
@@ -111,21 +114,41 @@ Page({
         required: true,
         tel: true,
       },
+      moSex: {
+        required: true,
+      },
       teName: {
         required: true,
       },
       teTel: {
         required: true,
         tel: true,
+      },
+      teSex:{
+        required: true,
       }
     }
     this.WxValidate = new WxValidate(rules, '')
   },
   //单选框 选择性别
   sexSelect(event) {
-    this.setData({
-      ['teacher.xb']: event.detail
-    });
+    switch (event.currentTarget.dataset.id){
+      case "1":
+        this.setData({
+          ['father.xb']: event.detail
+        });
+      break;
+      case "2":
+        this.setData({
+          ['mother.xb']: event.detail
+        });
+        break;
+      case "3":
+        this.setData({
+          ['teacher.xb']: event.detail
+        });
+        break;  
+    }
   },
 })
 
@@ -141,13 +164,21 @@ function getContactor(that) {
         for (var i = 0; i < list.length; i++) {
           switch (list[i].cylb) {
             case 0:
+              if (list[i].xb) {
+                list[i].xb = list[i].xb.toString();
+              }
               that.data.father = list[i];
               break;
             case 1:
+              if (list[i].xb) {
+                list[i].xb = list[i].xb.toString();
+              }
               that.data.mother = list[i];
               break;
             case 2:
-              list[i].xb = list[i].xb.toString();
+              if (list[i].xb){
+                list[i].xb = list[i].xb.toString();
+              }
               that.data.teacher = list[i];
               break;
           }
