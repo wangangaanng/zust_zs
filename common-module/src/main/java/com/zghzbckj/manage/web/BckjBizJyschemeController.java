@@ -268,13 +268,13 @@ public class BckjBizJyschemeController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-          /*  Map<String, Object> resMap = bckjBizYhxxService.queryDocument(dataMap);
+            Map<String, Object> resMap = bckjBizYhxxService.queryDocument(dataMap);
             if (TextUtils.isEmpty(resMap)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "无法查找此生源,请检查输入内容是否有误");
-            }*/
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "无法查找此生源");
+            }
             BckjBizJyscheme oneJyschemeQt = bckjBizJyschemeService.queryDocument(dataMap);
             if (TextUtils.isEmpty(oneJyschemeQt)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"无法查找此生源,请检查输入内容是否有误");
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"未找到你的档案信息");
             } else {
                 return ResponseMessage.sendOK(oneJyschemeQt);
             }

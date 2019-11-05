@@ -172,7 +172,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
         }
         //根据学号去查询毕业年份如果已毕业则不能登入
-        Map<String, Object> bynfMap = bckjBizSybService.getBynfBySfz(map);
+      /*  Map<String, Object> bynfMap = bckjBizSybService.getBynfBySfz(map);
         if (!TextUtils.isEmpty(bynfMap)) {
             if (!TextUtils.isEmpty(bynfMap.get("bynf"))) {
                 String REGEX_CHINESE = "[\u4e00-\u9fa5]";//中文正则
@@ -190,7 +190,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
                 }
             }
-        }
+        }*/
         //如果为学生的小程序登入
 
         if (!TextUtils.isEmpty(datamap.get("type")) && datamap.get("type").toString().indexOf("xcx") != -1) {

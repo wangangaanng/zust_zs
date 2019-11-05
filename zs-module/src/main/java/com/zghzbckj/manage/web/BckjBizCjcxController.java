@@ -114,8 +114,8 @@ public class BckjBizCjcxController extends BaseController {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
             String sfzh= MapUtils.getString(mapData,"sfzh");
-            String zkzh= MapUtils.getString(mapData,"ksh");
-            if(TextUtils.isEmpty(sfzh)&& TextUtils.isEmpty(zkzh)){
+            String ksh= MapUtils.getString(mapData,"ksh");
+            if(TextUtils.isEmpty(sfzh) || TextUtils.isEmpty(ksh)){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"准考证和身份证号不能同时为空");
             }
             BckjBizCjcx cjcx = bckjBizCjcxService.getCjxx(mapData);

@@ -6,3 +6,4 @@ page{
   padding: 30rpx 25rpx 0rpx 30rpx;
   background: #FFF;
 }
+.red{color: red;}

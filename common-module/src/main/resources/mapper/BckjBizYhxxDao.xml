@@ -580,7 +580,7 @@
           d.state AS state
         from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
          <where>
-             a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and d.xxlb=1
+             a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and d.xxlb=1 and b.owid=#{owid}
              <if test="xsxh!=null and xsxh!=''">
                 and c.xsxh=#{xsxh}
              </if>
@@ -702,7 +702,7 @@
         from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
         <where>
             a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and d.xxlb=0 and a.owid=d.YH_REF_OWID and
-            d.`JOB_REF_OWID`=b.`OWID` and  d.xxlb=0
+            d.`JOB_REF_OWID`=b.`OWID` and  d.xxlb=0  and b.owid =#{owid}
             <if test="owid!=null and owid !=''">
                 and b.owid=#{owid}
             </if>
@@ -798,7 +798,7 @@
 		b.bmsj AS bmsj
 		FROM bckj_biz_yhxx  a ,bckj_biz_jybm b , bckj_biz_yhkz c,bckj_biz_job d
 		<where>
-            a.owid=b.yh_ref_owid AND c.yh_ref_owid = a.owid AND b.job_ref_owid=d.owid AND b.YH_REF_OWID=a.owid and b.bmlx=1
+            a.owid=b.yh_ref_owid AND c.yh_ref_owid = a.owid AND b.job_ref_owid=d.owid AND b.YH_REF_OWID=a.owid and b.bmlx=1 and d.owid =#{owid}
             <if test="owid!=null and owid !=''">
                 and d.owid = #{owid}
             </if>

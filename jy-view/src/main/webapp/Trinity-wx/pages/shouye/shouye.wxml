@@ -7,7 +7,7 @@
     </view>
     <view class="head_name">基本信息</view>
   </view>
-  <view bindtap="openUrl" class="li" udata-index='1'>
+  <view bindtap="openUrl" class="li" data-index='1'>
     <view class="head_li {{state.jtcyState!='1'?'yet':''}}">
       <image src="../../static/sy5.png" class="head_in"></image>
       <image src="../../static/{{state.jtcyState!='1'?'sy2':'sy1'}}.png" class="head_out"></image>
@@ -47,9 +47,9 @@
     {{item.xcjs}}
   </view>
   <view class="signUp">
-    <navigator class="button" wx:if="{{!item.bmzy&&item.sfks==1}}" url='../Process/Process?index={{index}}'>我要报名</navigator>
+    <view class="button" wx:if="{{!item.bmzy&&item.sfks==1}}" bindtap='setxxbh' data-url='{{item.xxbh}}'>我要报名</view>
     <view class="button" wx:if="{{!item.bmzy&&item.sfks!=1}}">我要报名</view>
-    <navigator class="button ybm" wx:if="{{item.bmzy}}" url='../Process/Process?index={{index}}'>已报名</navigator>
+    <view class="button ybm" wx:if="{{item.bmzy}}" data-url='{{item.xxbh}}'>已报名</view>
     <view class="text" wx:if="{{item.bmzy}}">报名专业:{{item.bmzy}}</view>
   </view>
   <view class="step" wx:if='{{item.xybCz}}'>

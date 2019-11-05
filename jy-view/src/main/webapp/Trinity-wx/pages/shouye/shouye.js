@@ -153,8 +153,16 @@ Page({
         href = '../selectExamInfo/selectExamInfo'
         break;
     }
+    console.log(href)
     wx.navigateTo({
-      url: '../selectExamInfo/selectExamInfo',
+      url: href
     })
+  },
+  setxxbh(e){
+    wx.setStorageSync('xxbh', e.currentTarget.dataset.url);
+    wx.navigateTo({
+      url: '../Process/Process',
+    })
+    // data - url='?index={{index}}'
   }
 })

@@ -3,8 +3,10 @@
  * 三位一体comom
  */
 var nulltip="<p style='text-align: center;'>暂无数据</p>";
+
 //ajax请求
 function ajax(method, data, successMethod, pageNo, pageSize) {
+    console.log(localUrl);
     $.ajax({
         url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
         data: {
@@ -31,13 +33,46 @@ function keySearch(){
 
 //判断登录过期
 function isTimeOut() {
+    addCookie("swOwid","359f287a40bb4fe98b0fd80766a91b4f");
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
-    if(!getCookie("yhOwid")){
+    console.log(getCookie("swOwid"));
+    if(!getCookie("swOwid")){
         window.location.href=url+"/SWlogin";
     }else{
         return false;
     }
+}
+
+//调用附件上传接口
+function fileUpload(type,file,fun) {
+    var fd = new FormData();
+    fd.append("yhRefOwid",getCookie("swOwid"));
+    fd.append("file",file);
+    fd.append("method","zustcommon/common/fileUpload")
+    fd.append('data', JSON.stringify({
+        "type": type
+    }));
+    beginLoad();
+    $.ajax({
+        url:  hostUrl+'/webAjax/picUpload',
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: fd,
+        success: function(d) {
+            // console.log(d);
+            finishLoad();
+            if(d.bean){
+                return fun(d);
+            }else{
+                walert("上传失败")
+            }
+        },
+        fail:function () {
+            finishLoad()
+        }
+    });
 }
 
 
