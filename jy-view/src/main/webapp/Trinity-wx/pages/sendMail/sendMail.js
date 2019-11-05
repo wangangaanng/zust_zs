@@ -30,7 +30,7 @@ Page({
     }
     Dialog.confirm({
       title: '确认邮箱地址',
-      message: this.data.stringLable+'将发送到：'+this.data.mailAddress
+      message: this.data.stringLable + '将发送到：' + params.email
     }).then(() => {
       that.setData({
         "mailAddress": params.email

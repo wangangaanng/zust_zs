@@ -4,26 +4,7 @@
     描述：基本信息1
 -->
 <#--步骤条1 start-->
-<div class="jf-steps">
-    <div class="jf-items">
-        <div class="jf-item jf-active">1、基本信息
-            <div class="jf-box"></div>
-            <div class="jf-box1"></div>
-            <div class="jf-box2"></div>
-        </div>
-        <div class="jf-item ">2、联系人
-            <div class="jf-box"></div>
-            <div class="jf-box1"></div>
-            <div class="jf-box2"></div>
-        </div>
-        <div class="jf-item ">3、学考等第
-            <div class="jf-box"></div>
-            <div class="jf-box1"></div>
-            <div class="jf-box2"></div>
-        </div>
-        <div class="jf-item ">4、选考信息</div>
-    </div>
-</div>
+<#include "com/SWsteps.ftl">
 <#--步骤条 end-->
 
 <#--步骤基本信息1 start-->
@@ -38,23 +19,41 @@
             <span class="red">*</span>
         </label>
         <div class="col-sm-8" style="padding: 0px;">
-            <div style="text-align: center;" class="col-sm-4">
-                <div class="upimg-wrap" typeNum="2">
-                    <div class="file-btn_wrap">
-                        <img src="${base}/img/img-up.png" class="up-btn_img">
+            <div id="idCard">
+                <div style="text-align: center;" class="col-sm-4">
+                    <div class="upimg-wrap" typeNum="2">
+                        <div class="file-btn_wrap">
+                            <img src="${base}/img/img-up.png" class="up-btn_img" id="sfzzmImg">
+                        </div>
+                        <input type="file"   class="file-btn" data-type="2"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <label class="uploadlabel"  for="file">上传身份证正面</label>
                     </div>
-                    <input type="file"   class="file-btn" data-type="2"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
-                    <label class="uploadlabel"  for="file">上传身份证正面</label>
+                </div>
+                <div style="text-align: center;" class="col-sm-4">
+                    <div class="upimg-wrap"  typeNum="3">
+                        <div class="file-btn_wrap">
+                            <img src="${base}/img/img-up.png" class="up-btn_img" id="sfzfmImg">
+                        </div>
+                        <input type="file" class="file-btn" value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <label class="uploadlabel" for="file">上传身份证反面</label>
+                    </div>
+                </div>
+                <div class="col-sm-4 has-error">
+                    <p class="help-block error-tip"></p>
                 </div>
             </div>
-            <div style="text-align: center;" class="col-sm-4">
-                <div class="upimg-wrap"  typeNum="3">
-                    <div class="file-btn_wrap">
-                        <img class="disPlayImg" src=""/>
-                        <img src="${base}/img/img-up.png" class="up-btn_img">
-                        <input type="file" class="file-btn" value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+            <div id="household" style="display: none">
+                <div style="text-align: center;" class="col-sm-4">
+                    <div class="upimg-wrap" typeNum="1">
+                        <div class="file-btn_wrap">
+                            <img src="${base}/img/img-up.png" class="up-btn_img" id="hjzmImg">
+                        </div>
+                        <input type="file"   class="file-btn" data-type="1"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <label class="uploadlabel"  for="file">户籍证明</label>
                     </div>
-                    <label class="uploadlabel" for="file">上传身份证反面</label>
+                </div>
+                <div class="col-sm-4 has-error">
+                    <p class="help-block error-tip"></p>
                 </div>
             </div>
         </div>
@@ -63,15 +62,15 @@
     <div class="form-group">
         <label for="xm" class="col-sm-2 control-label  col-sm-offset-1">姓名<span class="red">*</span>：</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" name="xm" id="xm"  value="张小凡" placeholder="" >
+            <input type="text" class="form-control" name="xm" id="xm"  value="" placeholder="" >
         </div>
     </div>
     <div class="form-group">
         <label for="xb" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
         <div class="col-sm-8">
             <select class="form-control" name="xb" id="xb">
-                <option selected>男</option>
-                <option>女</option>
+                <option value="1" selected>男</option>
+                <option value="2" >女</option>
             </select>
         </div>
     </div>

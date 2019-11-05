@@ -17,4 +17,6 @@
     var base='${base!""}'
     var localUrl = '${base!""}'+'/webAjax/executeAPI';
     var uploadUrl='${uploadUrl!""}';
+    console.log("uploadUrl"+uploadUrl);
+    var hostUrl = '${base!""}'; //身份证识别用就业模块的 OCr需要调这个地址
 </script>

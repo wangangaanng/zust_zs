@@ -21,6 +21,7 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	private static final long serialVersionUID = 1L;
 	private String tpjj;		// tpjj
 	private String jjnr;		// jjnr
+	private String qtbhname;		// jjnr
 	private String lmbh;		// lmbh
 	private String fbr;		// fbr
 	private Date fbsj;		// fbsj
@@ -31,6 +32,8 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	private Integer wzzt;		// wzzt
 	private Integer ydcs;		// ydcs
 	private String htmlPath;		// html_path
+	private String nf;		// html_path
+	private String qtbh;		// html_path
 	private String attaMm;		// atta_mm
 	private Integer istop;		// istop
 	private Integer sxh;		// sxh
@@ -219,5 +222,29 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 
 	public void setReadOnly(Boolean readOnly) {
 		this.readOnly = readOnly;
+	}
+
+	public String getNf() {
+		return nf;
+	}
+
+	public void setNf(String nf) {
+		this.nf = nf;
+	}
+
+	public String getQtbh() {
+		return qtbh;
+	}
+
+	public void setQtbh(String qtbh) {
+		this.qtbh = qtbh;
+	}
+
+	public String getQtbhname() {
+		return qtbhname;
+	}
+
+	public void setQtbhname(String qtbhname) {
+		this.qtbhname = qtbhname;
 	}
 }

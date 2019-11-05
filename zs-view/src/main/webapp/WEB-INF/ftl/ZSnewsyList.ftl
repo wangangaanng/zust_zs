@@ -20,7 +20,27 @@
         <div class="main">
             <div class="container">
                 <div class="content">
-                   <#include "com/subMenu.ftl">
+                    <div class="menu-nav">
+                        <div class="menu-title">
+                            <div class="title-chn">${secondDirName!''} <div class="menu-nav-icon"></div></div>
+
+                        </div>
+                        <div class="menu-list">
+                            <ul class="list-group">
+                            <#if (menuList??)&&(menuList?size>0)>
+                                <#list menuList as obj>
+                                    <#if obj.dicVal2==thirdDirName>
+                                    <li class="list-group-item active1" onclick='openUrl("wzOrTpOrSqnd/${secondDir!''}/${obj_index}")'>
+                                    <#else >
+                                    <li class="list-group-item" onclick='openUrl("wzOrTpOrSqnd/${secondDir!''}/${obj_index}")'>
+                                    </#if>
+                                    <span class="ic-menu"></span> ${obj.dicVal2!''}
+                                </li>
+                                </#list>
+                            </#if>
+                            </ul>
+                        </div>
+                    </div>
                     <div class="content-list">
                         <div class="nav-bar">
                         <#include "com/route.ftl">
@@ -81,9 +101,9 @@
             setPage(currentPage, "${result.totalPage!'1'}", function () {
                 AntiSqlValidAll(["#key"],function () {
                     if ($("#key").val()) {
-                        openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
+                        openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
                     } else {
-                        openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage)
+                        openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/' + currentPage)
                     }
                 })
 
@@ -101,9 +121,9 @@
         AntiSqlValidAll(["#key"],function () {
             var key = $("#key").val();
             if (key) {
-                openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1?key=' + key)
+                openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/1?key=' + key)
             } else {
-                openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1')
+                openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/1')
             }
         })
 

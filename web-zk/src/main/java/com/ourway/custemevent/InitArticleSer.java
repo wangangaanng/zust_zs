@@ -1,14 +1,14 @@
 package com.ourway.custemevent;
 
-import com.ourway.base.zk.component.BaseDatebox;
-import com.ourway.base.zk.component.BaseIntbox;
-import com.ourway.base.zk.component.BaseTextbox;
-import com.ourway.base.zk.component.BaseWindow;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.ourway.base.zk.component.*;
 import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.models.ResponseMessage;
 import com.ourway.base.zk.service.PageInitSer;
 import com.ourway.base.zk.utils.*;
 import com.ourway.base.zk.utils.data.JsonPostUtils;
+import org.zkoss.zul.ListModelList;
 
 import java.util.*;
 
@@ -17,16 +17,17 @@ import java.util.*;
  */
 public class InitArticleSer implements PageInitSer {
     private static final String SINGLE_DETAIL_URL = "web/zustcommon/bckjBizArticle/getByEjLmbh";
+    private static final String INIT_CHOSE_URL = "web/zustcommon/bckjDicMenu/getArticleType";
 
     @Override
     public void initPage(BaseWindow window, Map args, PageVO pageVO) {
         boolean flag = null != args;
-//        && !TextUtils.isEmpty(args.get("ppt"))
         if (flag) {
             if (TextUtils.isEmpty(pageVO.getPageParams())) {
                 AlterDialog.alert("未定义apiUrl调用接口");
                 return;
             }
+            initCompBox(window);
             List<Map> paramsList = JsonUtil.jsonToList(pageVO.getPageParams(), Map.class);
             Map<String, Object> _params = paramsList.get(0);
             Map<String, Object> _rowMap = (Map<String, Object>) args.get("ppt");
@@ -59,18 +60,58 @@ public class InitArticleSer implements PageInitSer {
                 baseDatebox.setValue(new Date());
                 BaseIntbox intbox = (BaseIntbox) window.getFellowIfAny("mainTableGrid_sxh");
                 intbox.setValue(1);
-                BaseTextbox textbox=(BaseTextbox)window.getFellowIfAny("mainTableGrid_fbr");
+                BaseTextbox textbox = (BaseTextbox) window.getFellowIfAny("mainTableGrid_fbr");
                 textbox.setValue(ZKSessionUtils.getZkUser().getEmpName());
                 return;
             } else {
                 if (!TextUtils.isEmpty(responseMessage.getBean())) {
-                    window.setPpt((Map<String, Object>) responseMessage.getBean());
+                    if (!TextUtils.isEmpty(responseMessage.getBean())) {
+                        Map result = (Map<String, Object>) responseMessage.getBean();
+                        List<Object> filesList = Lists.newArrayList();
+                        if (!TextUtils.isEmpty(result.get("qtbhname"))) {
+                            String value = result.get("qtbhname").toString();
+                            String qtbh = result.get("qtbh").toString();
+                            String[] files = value.split("\\,");
+                            String[] qtbhs = qtbh.split("\\,");
+                            Map data = Maps.newHashMap();
+                            for (int i = 0; i < files.length; i++) {
+                                data.put("label", files[i]);
+                                data.put("value", qtbhs[i]);
+                                filesList.add(data);
+                                data = Maps.newHashMap();
+                            }
+                            result.put("qtbh", filesList);
+                        }
+                        window.setPpt(result);
+                    }
+                }
+
+                //查看初始化的时候，是否有页面标题传入，如果标题是变量名，则取ppt中的值
+                PageUtils.changeWindowTitle(window, args);
+
+            }
+        }
+    }
+    private void initCompBox(BaseWindow window) {
+        BaseChosenbox combobox = (BaseChosenbox) window.getFellowIfAny("mainTableGrid_qtbh");
+        ResponseMessage mess = JsonPostUtils.executeAPI("", INIT_CHOSE_URL);
+        if (null != mess && mess.getBackCode() == 0) {
+            List<Map<String, Object>> list = (List) mess.getBean();
+            ListModelList<String> values = new ListModelList(list.size());
+            Map<String, Map<String, Object>> valuesMap = new HashMap();
+            Iterator var14 = list.iterator();
+
+            while (var14.hasNext()) {
+                Map<String, Object> map = (Map) var14.next();
+                if (!TextUtils.isEmpty(map.get("label"))) {
+                    values.add(map.get("label").toString());
+                    valuesMap.put(map.get("label").toString(), map);
                 }
             }
 
-            //查看初始化的时候，是否有页面标题传入，如果标题是变量名，则取ppt中的值
-            PageUtils.changeWindowTitle(window, args);
-
+            combobox.setValues(values);
+            combobox.setValuesMap(valuesMap);
+            combobox.setModel(values);
         }
     }
 }
