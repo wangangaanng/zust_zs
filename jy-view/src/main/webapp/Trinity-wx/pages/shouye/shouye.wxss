@@ -57,6 +57,7 @@ page {
   padding: 26rpx;
   box-shadow: 0px 1px 3px 0px rgba(210, 210, 210, 0.75);
   min-height: 180px;
+  margin-bottom: 15px;
 }
 
 .cont-img-view {
@@ -197,7 +198,6 @@ page {
 }
 
 .FQA {
-  margin-top: 15px;
   background-color: #fff;
   box-shadow: 0px 1px 3px 0px rgba(210, 210, 210, 0.75);
 }

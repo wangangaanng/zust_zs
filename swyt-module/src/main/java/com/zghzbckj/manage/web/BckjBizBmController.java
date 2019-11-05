@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.entity.BckjBizBm;
 import com.zghzbckj.manage.service.BckjBizBmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -366,7 +368,27 @@ public class BckjBizBmController extends BaseController {
         codes.add(mapData.get("owid").toString());
         //拒绝 状态为4  通过为5
         Integer state = 5;
-        Map resultMap = Maps.newHashMap();//bckjBizBmService.submitPurchaseBack(codes, state, mapData);
+        Map resultMap = Maps.newHashMap();
+        resultMap=  bckjBizBmService.submitPurchaseBack(codes, state, mapData);
+        if ("true".equals(resultMap.get("result").toString())) {
+            //数据回写
+            return ResponseMessage.sendOK(resultMap.get("bean"));
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+        }
+    }
+
+
+    @RequestMapping(value = "moneyPass", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage moneyPass(PublicDataVO dataVo) throws Exception {
+        Map<String, Object> mapData = JsonUtil.jsonToMap(dataVo.getData());
+        List<String> codes = new ArrayList<String>();
+        codes.add(mapData.get("owid").toString());
+        //拒绝 状态为4  通过为5
+        Integer state = 7;
+        Map resultMap = Maps.newHashMap();
+        resultMap=   bckjBizBmService.submitPurchaseBack(codes, state, mapData);
         if ("true".equals(resultMap.get("result").toString())) {
             //数据回写
             return ResponseMessage.sendOK(resultMap.get("bean"));
@@ -405,5 +427,61 @@ public class BckjBizBmController extends BaseController {
         return ResponseMessage.sendOK(bm);
     }
 
+
+    /**
+     * <p>接口 listHkName.java : <p>
+     * <p>说明：动态字段 会考</p>
+     * <pre>
+     * @author cc
+     * @date 2019/11/4 10:27
+     * </pre>
+     */
+    @PostMapping(value = "listHkName")
+    @ResponseBody
+    public ResponseMessage listHkName(PublicDataVO dataVO) {
+        List<Map> questionList = bckjBizBmService.listDicByType(SwytConstant.HKCJ);
+        if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "会考列表为空");
+        }
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Map<String, Object> question : questionList) {
+            Map<String, Object> objectMap = new HashMap<>();
+            objectMap.put("kjName", question.get("DIC_VAL2"));
+            objectMap.put("kjAttribute", question.get("DIC_VAL2"));
+            objectMap.put("kjLabelid", question.get("DIC_VAL2"));
+            objectMap.put("kjAttributeDisplay", question.get("DIC_VAL2"));
+            objectMap.put("kjBindKey", question.get("DIC_VAL2"));
+            result.add(objectMap);
+        }
+        return ResponseMessage.sendOK(result);
+    }
+
+    /**
+     * <p>接口 listZhName.java : <p>
+     * <p>说明：动态字段 综合成绩</p>
+     * <pre>
+     * @author cc
+     * @date 2019/11/4 15:08
+     * </pre>
+     */
+    @PostMapping(value = "listZhName")
+    @ResponseBody
+    public ResponseMessage listZhName(PublicDataVO dataVO) {
+        List<Map> questionList = bckjBizBmService.listDicByType(SwytConstant.ZHCP);
+        if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "综合测评列表为空");
+        }
+        List<Map<String, Object>> result = new ArrayList<>();
+        for (Map<String, Object> question : questionList) {
+            Map<String, Object> objectMap = new HashMap<>();
+            objectMap.put("kjName", question.get("DIC_VAL2"));
+            objectMap.put("kjAttribute", question.get("DIC_VAL2"));
+            objectMap.put("kjLabelid", question.get("DIC_VAL2"));
+            objectMap.put("kjAttributeDisplay", question.get("DIC_VAL2"));
+            objectMap.put("kjBindKey", question.get("DIC_VAL2"));
+            result.add(objectMap);
+        }
+        return ResponseMessage.sendOK(result);
+    }
 
 }

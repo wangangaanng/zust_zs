@@ -28,80 +28,10 @@
 
 <#--步骤基本信息1 start-->
 <form class="form-horizontal" id="basicForm" method="" action="" target="bcFrame" >
-    <div class="form-group">
-        <label for="qymc" class="col-sm-2 control-label  col-sm-offset-1">姓名<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-        <#if (cInfo.qymc)??>
-            <input type="text" class="form-control" id="qymc"  value="${cInfo.qymc}" placeholder="" autocomplete="off">
-        <#else>
-            <input type="text" class="form-control" id="qymc"  value="张小凡" placeholder="" autocomplete="off">
-        </#if>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qyTysh" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-            <select class="form-control">
-                <option selected>男</option>
-                <option>女</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qyFrsfz" class="col-sm-2 control-label  col-sm-offset-1">身份证号<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="sfzh"  value="" placeholder="请输入身份证号" autocomplete="off">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qyFrsfz" class="col-sm-2 control-label  col-sm-offset-1">名族<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="mz"  value="" placeholder="请输入名族" autocomplete="off">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qydz" class="col-sm-2 control-label  col-sm-offset-1">通讯地址<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="txdx" name="qydz" placeholder="请输入通讯地址" autocomplete="off" value="">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qyLxr" class="col-sm-2 control-label  col-sm-offset-1">联系电话<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="qyLxr" name="qyLxr" placeholder="请输入联系电话" autocomplete="off" value="">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qyLxrdh" class="col-sm-2 control-label  col-sm-offset-1">手机<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-        <#if (cInfo.qyLxrdh)??>
-            <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="" autocomplete="off" value="${cInfo.qyLxrdh}">
-        <#else>
-            <input type="text" class="form-control" id="qyLxrdh" name="qyLxrdh" placeholder="请输入手机号" autocomplete="off" value="">
-        </#if>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label for="qyYx" class="col-sm-2 control-label  col-sm-offset-1">电子邮箱<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-        <#if (cInfo.qyYx)??>
-            <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="" autocomplete="off" value="${cInfo.qyYx}">
-        <#else>
-            <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="请输入电子邮箱" autocomplete="off" value="">
-        </#if>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="qyGsxz" class="col-sm-2 control-label  col-sm-offset-1">QQ号<span class="red">*</span>：</label>
-        <div class="col-sm-8">
-            <input type="text" class="form-control" id="qyYx" name="qyYx" placeholder="请输入QQ号" autocomplete="off" value="">
-        </div>
-    </div>
 
     <div class="form-group pr">
         <label for="qyGsjs" class="col-sm-2 control-label label-select_wrap  col-sm-offset-1">
-            <select class="form-control label-select">
+            <select class="form-control label-select" id="confrimType">
                 <option value="1" selected>身份证照片</option>
                 <option value="2">户籍证明</option>
             </select>
@@ -109,15 +39,77 @@
         </label>
         <div class="col-sm-8" style="padding: 0px;">
             <div style="text-align: center;" class="col-sm-4">
-                <img src="${base}/img/upload.png" id="yyzz"  style="max-height: 180px;" />
-                <label class="uploadlabel" for="file">点击上传身份证正面</label>
-                <input type="file" style="display: none;" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                <div class="upimg-wrap" typeNum="2">
+                    <div class="file-btn_wrap">
+                        <img src="${base}/img/img-up.png" class="up-btn_img">
+                    </div>
+                    <input type="file"   class="file-btn" data-type="2"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                    <label class="uploadlabel"  for="file">上传身份证正面</label>
+                </div>
             </div>
             <div style="text-align: center;" class="col-sm-4">
-                <img src="${base}/img/upload.png" id="yyzz"  style="max-height: 180px;" />
-                <label class="uploadlabel" for="file">点击上传身份证反面</label>
-                <input type="file" style="display: none;" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                <div class="upimg-wrap"  typeNum="3">
+                    <div class="file-btn_wrap">
+                        <img class="disPlayImg" src=""/>
+                        <img src="${base}/img/img-up.png" class="up-btn_img">
+                        <input type="file" class="file-btn" value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                    </div>
+                    <label class="uploadlabel" for="file">上传身份证反面</label>
+                </div>
             </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="xm" class="col-sm-2 control-label  col-sm-offset-1">姓名<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="xm" id="xm"  value="张小凡" placeholder="" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="xb" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <select class="form-control" name="xb" id="xb">
+                <option selected>男</option>
+                <option>女</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="sfzh" class="col-sm-2 control-label  col-sm-offset-1">身份证号<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" name="sfzh" id="sfzh"  value="" placeholder="请输入身份证号" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="mz" class="col-sm-2 control-label  col-sm-offset-1">名族<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="mz"  name="mz" value="" placeholder="请输入名族" >
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="jtzz" class="col-sm-2 control-label  col-sm-offset-1">通讯地址<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="jtzz" name="jtzz" placeholder="请输入通讯地址"  value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="lxdh" class="col-sm-2 control-label  col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="请输入联系电话"  value="">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="yx" class="col-sm-2 control-label  col-sm-offset-1">电子邮箱<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="yx" name="yx" placeholder="请输入电子邮箱" autocomplete="off" value="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="qyGsxz" class="col-sm-2 control-label  col-sm-offset-1">QQ号<span class="red">*</span>：</label>
+        <div class="col-sm-8">
+            <input type="text" class="form-control" id="qq" name="qq" placeholder="请输入QQ号"  value="">
         </div>
     </div>
 
@@ -126,7 +118,13 @@
             <button type="submit" id="saveBasic" class="btn btn-default btn-common yellow">下一步，完善联系人</button>
         </div>
     </div>
+
+    <#--身份证正反面和户籍证明-->
+    <input name="sfzzm" value="" id="sfzzm" type="text" style="display: none;"/>
+    <input name="sfzfm" value="" id="sfzfm" type="text" style="display: none;"/>
+    <input name="hjzm" value="" id="hjzm" type="text" style="display: none;"/>
 </form>
+<#--<iframe id="bcFrame" name="bcFrame" src="about:blank" style="display:none;"></iframe>-->
 <#--步骤基本信息1 end-->
 
 <#--联系人2 start-->
@@ -140,14 +138,5 @@
 <#--选考信息4 start-->
 <#include "SWInfoSelect.ftl">
 <#--选考信息4 end-->
-
-<script>
-    //基本信息保存
-    $("#saveBasic").click(function () {
-        $("#basicForm").hide();
-        $("#contactForm").show();
-        $(".jf-items .jf-item").eq(1).addClass("jf-active");
-    });
-</script>
-
+<script src="${base}/js/swyt/SWInfoBasic.js"></script>
 

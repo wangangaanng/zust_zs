@@ -12,27 +12,18 @@ $(document).ready(function(){
 
 function init()
 {
-	// init_lbt();//轮播图
 	//初始化招生专业
-	// init_zszy();
-	//获取通知公告
-	// init_gg();
+	init_zszy();
+
 	//获取学院介绍
 	// init_xyIntro();
 	//初始化查询选项
 	// init_chaXun();
-	$("#zszylab").click(function(){
-		getLabel();
-		$("#zylbDiv").show();
-		$(".dyn_details").css("margin-top","0px");
-	});
-	$(".zsdt").click(function(){
-		$("#zylbDiv").hide();
-		$(".dyn_details").css("margin-top","30px");
-	});
-    $(".zsjd").click(function(){
-        $("#zylbDiv").hide();
-        $(".dyn_details").css("margin-top","30px");
+    $(".zylb").find("li").click(function(){
+        $(".zylb_li_a").parent().css("background-color","white");
+        $(".zylb_li_a").css("color","rgb(150,150,150)");
+        $(this).css("background-color","#008784");
+        $(this).find("a").css("color","white");
     });
 	$(".jhcx").click(function(){
 		$(".jhcx_form").css("display","block");
@@ -187,71 +178,100 @@ function getLabel(){
 }
 
 function changeNews(obj){
-	lb = $(obj).attr("val");
+	// lb = $(obj).attr("val");
 	currPage=1;
+	var type=$(obj).attr("type");
 	if(emptyCheck($(obj).attr("name"))){
 		name = $(obj).attr("name");
 	}
 	$(".dyn_details").empty();
-	xsts = 10;
-	if(name =="zxzx"){
-		window.location.href="IndexPage!zxtw.htm";
-	}
-	init_details(name);
+	if(name=='zsdt'){//招生动态
+        $("#zylbDiv").hide();
+        $(".dyn_details").css("margin-top","30px");
+		getList('119',1);//一级
+	}else if(name=='zszy'){//招生专业
+        $("#zylbDiv").show();
+        $(".dyn_details").css("margin-top","0px");
+		// getListOne('119');
+	}else if(name=='zsjd'){//生源基地
+        $("#zylbDiv").hide();
+        $(".dyn_details").css("margin-top","30px");
+        getList('126',2)//二级
+    }
 }
-
-
-function init_details(name){
-	var url = "webAjaxAction!zxxwList.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "name": name,
-	        "pageNo":currPage,
-	        "pageSize":pageSize,
-	        "lb":lb,
-	        timestamp : new Date().getTime()
-	    };
-	$.post(url, params, function(data){
-		var x = "";
-		if(data.backCode == 0){
-			res = data.bean.length;
-			var nn = 1;
-			$.each(data.bean,function(j,k){
-				x = "<div class='detail' articleId='"+k.id+"'><a href=''>";
-				if(emptyCheck(k.tpjj))
-					x += "<img class='detail_img' src='"+k.tpjj+"'>";
-				else{
-					x += "<img class='detail_img' src='"+IMAGEPATH+"BZT"+nn+".png'/>";
-				}
-				x += "<strong class='detail_str' title='"+k.wzbt+"'>"+k.wzbt+"</strong>";
-				x += "<p class='detail_p'>"+convertStr(k.jjnr,'暂无简介')+"</p></a>";
-				x += "<span class='glyphicon glyphicon-time'></span><p class='detail_date'>"+(convertStr(k.fbsj,'2017-01-01')).substr(0,10)+"</p>";
-				x += "<div class='rnum'>";
-				if(k.ydcs!="0"&&k.ydcs!=null)
-					x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+(parseInt(k.ydcs)+500)+"</p>";
-				else{
-					x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+parseInt(Math.random()*300+100)+"</p>";
-				}
-				x += "</div></div>";
-				$(".dyn_details").append(x);
-			});
-			currPage++;
-			$.each($(".detail"),function(i){
-				var articleId = $(".detail:eq("+i+")").attr("articleId");
-				$(".detail:eq("+i+")").children().eq(0).attr("href","IndexPage!wzxq.htm?id="+articleId);
-                $(".detail:eq("+i+")").children().eq(0).attr("target","_blank");
-				if((i+1)%5==0)
-					$(".detail:eq("+i+")").css("margin-right","0px");
-			});
-			moreFlag = true;
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			moreFlag = false;
-			//$(".dyn_details").empty();
-			//walert(data.errorMess);
-		}
-	});
+function init_details(name) {
+    if(name=='zsdt'){//招生动态
+        getList('119',1);//一级
+    }else if(name=='zszy'){//招生专业
+        // getListOne('119');
+    }else if(name=='zsjd'){//生源基地
+        getList('126',2)//二级
+    }
+}
+function getList(lmbh,type) {
+	var jsonObj=""
+	var method=""
+	if(type==1){//一级
+        jsonObj = {
+            "lmbh": lmbh,
+            "pageNo":currPage,
+            "pageSize":pageSize,
+        };
+        method="zustcommon/bckjBizArticle/searchByYjlm"
+	}else if(type==2){//二级
+        jsonObj = {
+            "lmbh": lmbh,
+			"wzzt":'1',
+			"isDetail":"1",
+            "pageNo":currPage,
+            "pageSize":pageSize,
+        };
+        method="zustcommon/bckjBizArticle/getMuArticle"
+    }
+    ajax(method, jsonObj, function (data) {
+        var x = "";
+        if(data.backCode == 0){
+            if((data.bean.records)&&(data.bean.records.length>0)){
+                $.each(data.bean.records,function(j,k){
+                    x = "<div class='detail' articleId='"+k.owid+"'><a href=''>";
+                    if(emptyCheck(k.tpjj))
+                        x += "<img class='detail_img' src='"+imagePath+k.tpjj+"'>";
+                    else{
+                        x += "<img class='detail_img' src='"+imagePath+"defaultImg.png'/>";
+                    }
+                    x += "<strong class='detail_str' title='"+k.wzbt+"'>"+k.wzbt+"</strong>";
+                    x += "<p class='detail_p'>"+convertStr(k.jjnr,'暂无简介')+"</p></a>";
+                    x += "<span class='glyphicon glyphicon-time'></span><p class='detail_date'>"+(convertStr(k.fbsj,'2017-01-01')).substr(0,10)+"</p>";
+                    x += "<div class='rnum'>";
+                    if(k.ydcs!="0"&&k.ydcs!=null)
+                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+(parseInt(k.ydcs)+500)+"</p>";
+                    else{
+                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+parseInt(Math.random()*300+100)+"</p>";
+                    }
+                    x += "</div></div>";
+                    $(".dyn_details").append(x);
+                });
+                currPage++;
+                $.each($(".detail"),function(i){
+                    var articleId = $(".detail:eq("+i+")").attr("articleId");
+                    $(".detail:eq("+i+")").children().eq(0).attr("href",base+"/wzxq/"+articleId);
+                    $(".detail:eq("+i+")").children().eq(0).attr("target","_blank");
+                    if((i+1)%5==0)
+                        $(".detail:eq("+i+")").css("margin-right","0px");
+                });
+			}
+			if(currPage==data.bean.totalPage){
+            	$(".detail_more").hide();
+			}else{
+                $(".detail_more").show();
+			}
+            moreFlag = true;
+        }else if(data.backCode == 2){
+            window.location="";
+        }else{
+            moreFlag = false;
+        }
+    })
 }
 
 function init_zszy(){
@@ -261,119 +281,14 @@ function init_zszy(){
 		if(!moreFlag){
 			
 		}else{
-		//if(res<xsts)
-		//	walert("只有那么多了！");
-		//else{
-		    xsts += 10;
-			if(name=="gg"||name=="jxjzc")
-				init_details(name);
-			else
-				init_details(name);
-//			$(".dyn_details").css("height",xsts*150+"px");
-		//}
+            init_details(name);
 		}
 	});
 }
 
 var timeout_hid_ggIntro;
-var gg_num = -1;
-function init_gg(){
-	var url = "webAjaxAction!zxxwList.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "name": "zsdt",
-	        "type": "2",
-	        "pageNo": "0",
-	        "pageSize": "7"
-	    };
-	//获取公告
-	$.post(url, params, function(data){
-		var x = "";
-		if(data.backCode == 0)
-		{
-			$.each(data.bean,function(j,k){
-				x = "<li class='gongGao_ul_li' num='"+j+"'>";
-				x += "<span class='glyphicon glyphicon-volume-up' style='font-size: 20px;float: left;'></span>";
-				x += "<p class='gongGao_title'>"+k.wzbt+"</p>";
-				x += "<div class='gongGao_introdiv' style='display:none;width:335px;height:80px;line-height:20px;overflow:hidden;'>";
-				x += "<a href='IndexPage!wzxq.htm?id="+k.id+"'>";
-				if(k.jjnr.length>150)
-					x += "<p class='gongGao_intro'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jjnr.substr(0,80)+"...";
-				else
-					x += "<p class='gongGao_intro'>"+"&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jjnr;
-				x += "</a></p></div></li>";
-				$(".gongGao_ul").append(x);
-				if(j>5)
-					return false;
-			});
-			$.each($(".gongGao_title"),function(j,k){
-				$(k).click(function(){
-					var isOpen = $(this).next().css("display");
-					if(isOpen=="none"){
-						$(this).prev().css("color","rgb(85,167,153)");
-						$(this).css("color","rgb(85,167,153)");
-						$(".gongGao_introdiv").slideUp(300);
-						$(this).next().slideDown(300);
-						var li_num = $(this).parent().attr("num");
-						if(li_num>2)
-							$(".gongGao_ul_li:eq("+(li_num-2)+")").prevAll().slideUp(300);
-					}
-					else{
-						$(this).prev().css("color","black");
-						$(this).css("color","black");
-						$(this).next().slideUp(300);
-						$(".gongGao_ul_li").slideDown(300);
-					}
-				});
-			});
-//			$(".tongZhiGongGao").mouseleave(function(){
-//				gg_num = -1;
-//				$(".gongGao_ul_li").slideDown(300);
-//				$(".gongGao_introdiv").slideUp(300);
-//			});
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			//walert(data.errorMess);
-		}
-	});
-}
 
-function init_xyIntro(){
-	var url = "webAjaxAction!xyjsList.htm";
-	var params = {
-	        "sessionId": _sessionid
-	    };
-	$.post(url, params, function(data){
-		if(data.backCode == 0){
-			var x = "";
-			var intro_hs = Math.ceil(data.bean.length/4);
-			$.each(data.bean,function(j,k){
-				x = "<a href='#'>";
-				x += "<div class='intro_detail'>";
-				x += "<img class='intro_detail_img' src='"+IMAGEPATH+"intro"+(j+1)+".png'/>";
-				x += "<strong class='intro_str'>"+k.mz+"</strong>";
-				x += "<hr />";
-				if(k.jj.length>70)
-					x += "<p class='intro_p'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jj.substr(0,70)+"..."+"</p>";
-				else
-					x += "<p class='intro_p'>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"+k.jj+"</p>";
-				x += "</div></a>";
-				$(".intro_details").append(x);
-			});
-			x = "<div class='intro_detail' id='intro_moredetail'>";
-			x += "<p class='intro_moredetail_p'>MORE+</p></div>";
-			$(".intro_details").append(x);
-			for(var i=1;i<=intro_hs;i++){
-				$(".intro_detail:eq("+(i*4-1)+")").css("margin-right","0px");
-			}
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			//walert(data.errorMess);
-		}
-	});
-}
+
 function init_chaXun()
 {
 	var url = "webAjaxAction!changLnfs.htm";
@@ -390,7 +305,7 @@ function init_chaXun()
 				$(".nf").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 //			walert(data.errorMess);
 		}
@@ -406,7 +321,7 @@ function init_chaXun()
 				$(".sf").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 //			walert(data.errorMess);
 		}
@@ -422,7 +337,7 @@ function init_chaXun()
 				$(".kl").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 //			walert(data.errorMess);
 		}
@@ -438,7 +353,7 @@ function init_chaXun()
 				$(".pc").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
@@ -454,7 +369,7 @@ function init_chaXun()
 				$(".zy").append(x);
 			});
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
@@ -469,68 +384,118 @@ function jhcx_chaXun(){
 		loadcs = 0;
 		curPage = 1;
 	});
-	var url = "webAjaxAction!zsjhcx.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "nf": $("#jhcx_nf").val(),
-	        "sf": $("#jhcx_sf").val(),
-	        "kl": $("#jhcx_kl").val(),
-	        "pc": $("#jhcx_pc").val(),
-	        "zy": $("#jhcx_zy").val(),
-	        "curPage": curPage,
-	        "itemsPerPage": 6
-	    };
-	$.post(url, params, function(data){
-		var x = "";
-		$(".cxRes").empty();
-		x = "<tr style='height:30px;'><th>年份</th><th>省份</th><th>科类</th><th>批次</th><th>专业</th><th>学制</th><th>招生数</th><th>学费/年</th><th>授予学位</th></tr>";
-		if(data.backCode == 1){
-			$(".cxRes").empty();
-			$.each(data.bean,function(j,k){
-				x += "<tr style='height:30px;'><td>"+k.nf+"</td>";
-				x += "<td>"+k.sf+"</td>";
-				x += "<td>"+k.kl+"</td>";
-				x += "<td>"+k.pc+"</td>";
-				x += "<td>"+k.zy+"</td>";
-				x += "<td>"+k.xz+"</td>";
-				x += "<td>"+k.zss+"</td>";
-				x += "<td>"+k.xf+"</td>";
-				x += "<td>"+k.syxw+"</td>";
-				x += "</tr>";
-			});
-			$(".cxRes").append(x);
-			if(curPage==1&&loadcs==0){
-				$("#mymodal").modal("toggle");
-			}
-			if(loadcs==0){
-				$(".fenye").empty();
-				$(".fenye").createPage({
-					pageCount:data.allPages,
-					current:curPage,
-					backFn:function(p){
-						curPage = p;
-						jhcx_chaXun();
-					}
-				});
-				loadcs ++;
-			}
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			walert(data.errorMess);
-		}
-	});
+    $('#table-zsjh').bootstrapTable('destroy');
+    if(curPage==1&&loadcs==0){
+        $("#mymodal").modal("toggle");
+    }
+    $('#table-zsjh').bootstrapTable({
+        ajax: function (request) {
+            ajax("zustzs/bckjBizZsjh/getResult", {
+                "nf": $("#jhcx_nf").val(),
+				"sf": $("#jhcx_sf").val(),
+				"kl": $("#jhcx_kl").val(),
+				"pc": $("#jhcx_pc").val(),
+				"zy": $("#jhcx_zy").val(),
+                "pageNo": $('#table-zsjh').bootstrapTable('getOptions').pageNumber || 1,
+                "pageSize": $('#table-zsjh').bootstrapTable('getOptions').pageSize || pageSize
+            }, function (data) {
+                if (data.backCode === 0) {
+                    request.success({
+                        row: convertStr(data.bean.records, []),
+                        total: data.bean.totalCount
+                    })
+                }
+            })
+        },
+        responseHandler:function(res){
+            $('#table-zsjh').bootstrapTable('load', res.row);
+            return {
+                "total":res.total,
+                "pageNumber":res.pageNumber,
+                "pageSize":res.pageSize
+            }
+        },
+        toolbar: '#toolbar', //工具按钮用哪个容器
+        striped: true, //是否显示行间隔色
+        cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true, //是否显示分页（*）
+        sortable: true, //是否启用排序
+        sortOrder: "asc", //排序方式
+        sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+        pageNumber: 1, //初始化加载第一页，默认第一页
+        pageSize: 10, //每页的记录行数（*）
+        pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+        smartDisplay: false,
+        search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,
+        showColumns: false, //是否显示所有的列
+        showRefresh: false, //是否显示刷新按钮
+        minimumCountColumns: 2, //最少允许的列数
+        clickToSelect: true, //是否启用点击选中行
+        uniqueId: "owid", //每一行的唯一标识，一般为主键列
+        showToggle: false, //是否显示详细视图和列表视图的切换按钮
+        cardView: false, //是否显示详细视图
+        detailView: false, //是否显示父子表
+        theadClasses: "thead1",
+        queryParamsType:"limit",
+        columns: [
+            {
+                align: 'center',
+                field: 'nf',
+                title: '年份'
+            },
+            {
+                align: 'center',
+                field: 'sf',
+                title: '省份'
+            },
+            {
+                align: 'center',
+                field: 'kl',
+                title: '科类'
+            },
+            {
+                align: 'center',
+                field: 'pc',
+                title: '批次'
+            },
+            {
+                align: 'center',
+                field: 'zy',
+                title: '专业'
+            },
+            {
+                align: 'center',
+                field: 'xz',
+                title: '学制'
+            },
+            {
+                align: 'center',
+                field: 'zss',
+                title: '招生数'
+            },
+            {
+                align: 'center',
+                field: 'xf',
+                title: '学费/年'
+            },
+            {
+                align: 'center',
+                field: 'syxw',
+                title: '授予学位'
+            },
+        ]
+    });
 }
 function cjcx_chaXun(){
-	var url = "webAjaxAction!cjcx.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "input_zkzh": $("#cjcx_zkzh").val(),
-	        "input_sfzh": $("#cjcx_sfzh").val(),
-	        "curPage": 0,
-	        "itemsPerPage": 1
-	    };
-	$.post(url, params, function(data){
+    var jsonObj = {
+        "lmbh": lmbh,
+        "wzzt":'1',
+        "isDetail":"1",
+        "pageNo":currPage,
+        "pageSize":pageSize,
+    };
+	ajax(method, jsonObj, function (data) {
 		var x = "";
 		$(".cxRes").empty();
 		$(".cxRes").next().remove();
@@ -553,7 +518,7 @@ function cjcx_chaXun(){
 			});
 			$("#mymodal").modal("toggle");
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			walert(data.errorMess);
 		}
@@ -593,7 +558,7 @@ function lqcx_chaXun(){
 			}
 			$("#mymodal").modal("toggle");
 		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
+			window.location="";
 		}else{
 			x = "<img style='float:left;margin:15px' src='"+IMAGEPATH+"depress.png'></img>";
 			x += "<label style='margin-top:60px'>很抱歉，目前系统里没有你的录取信息，或者你的录取批次还未开始，请继续关注本网站公告，谢谢！</label>";
@@ -604,118 +569,128 @@ function lqcx_chaXun(){
 	});
 }
 function lncx_chaXun(){
-	$("#mymodal").on('hidden.bs.modal',function(){
-		loadcs = 0;
-		curPage=1;
-	});
-	var url = "webAjaxAction!lnfs.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "nf": $("#lncx_nf").val(),
-	        "sf": $("#lncx_sf").val(),
-	        "kl": $("#lncx_kl").val(),
-	        "pc": $("#lncx_pc").val(),
-	        "zy": $("#lncx_zy").val(),
-	        "curPage": curPage,
-	        "itemsPerPage": 6,
-	        timestamp : new Date().getTime()
-	    };
-	$.post(url, params, function(data){
-		var x = "";
-		$(".cxRes").empty();
-		x = "<tr style='height:30px'><th>年份</th><th>省份</th><th>科类</th><th>批次</th><th>专业</th><th>学制</th><th>录取数</th><th>最高分</th><th>最低分</th><th>平均分</th></tr>";
-		if(data.backCode == 1){
-			$.each(data.bean,function(j,k){
-				x += "<tr style='height:30px'><td>"+k.nf+"</td>";
-				x += "<td>"+k.sf+"</td>";
-				x += "<td>"+k.kl+"</td>";
-				x += "<td>"+k.pc+"</td>";
-				x += "<td>"+k.zy+"</td>";
-				x += "<td>"+k.xz+"</td>";
-				x += "<td>"+k.lqs+"</td>";
-				x += "<td>"+k.zgf+"</td>";
-				x += "<td>"+k.zdf+"</td>";
-				x += "<td>"+k.pjf+"</td>";
-				x += "</tr>";
-			});
-			$(".cxRes").append(x);
-			if(curPage==1&&loadcs==0){
-				$("#mymodal").modal("toggle");
-			}
-			if(loadcs==0){
-				$(".fenye").createPage({
-					pageCount:data.allPages,
-					current:curPage,
-					backFn:function(p){
-						curPage = p;
-						lncx_chaXun();
-					}
-				});
-				loadcs ++;
-			}
-		}else if(data.backCode == 2){
-			window.location="IndexPage!shouYe.htm";
-		}else{
-			walert(data.errorMess);
-		}
-	});
-}
-var news_lunbo1 = window.setInterval(news_lunbo,3000);
-function show_new(news_num)
-{
-	clearInterval(news_lunbo1);
-	$(".circle").css("background-color","white");
-	$(".circle").css("border-color","rgb(184,184,184)");
-	$(".li_group2").css("display","none");
-	$("#news_circle"+news_num).css("background-color","black");
-	$("#news_circle"+news_num).css("border-color","black");
-	$("#li_group2_"+news_num).css("display","inline");
-}
-var num=1;
-function news_lunbo(cicle)
-{
-	if(num>3)num=num-3;
-	$(".circle").css("background-color","white");
-	$(".circle").css("border-color","rgb(184,184,184)");
-	$(".li_group2").css("display","none");
-	$("#news_circle"+num).css("background-color","black");
-	$("#news_circle"+num).css("border-color","black");
-	$("#li_group2_"+num).css("display","inline");
-	num++;
-}
-function restart_news_lunbo()
-{
-	$(".circle").css("background-color","white");
-	$(".circle").css("border-color","rgb(184,184,184)");
-	$(".li_group2").css("display","none");
-	$("#news_circle1").css("background-color","black");
-	$("#news_circle1").css("border-color","black");
-	$("#li_group2_1").css("display","inline");
-	news_lunbo1 = window.setInterval(news_lunbo,3000);
-}
-function hid_ggIntro(t)
-{
-	t.slideUp(300);
-}
-function show_intro(t)
-{
-	t.css("display","block");
-}
-function baoChiXS_intro(t)
-{
-	clearTimeout(timeout_hid_ggIntro);
-	show_intro(t);
+    $("#mymodal").on('hidden.bs.modal',function(){
+        loadcs = 0;
+        curPage = 1;
+    });
+    $('#table-zsjh').bootstrapTable('destroy');
+    if(curPage==1&&loadcs==0){
+        $("#mymodal").modal("toggle");
+    }
+    $('#table-zsjh').bootstrapTable({
+        ajax: function (request) {
+            ajax("zustzs/bckjBizLntj/getResult", {
+                "nf": $("#lncx_nf").val(),
+                "sf": $("#lncx_sf").val(),
+                "kl": $("#lncx_kl").val(),
+                "pc": $("#lncx_pc").val(),
+                "zy": $("#lncx_zy").val(),
+                "pageNo": $('#table-zsjh').bootstrapTable('getOptions').pageNumber || 1,
+                "pageSize": $('#table-zsjh').bootstrapTable('getOptions').pageSize || pageSize
+            }, function (data) {
+                if (data.backCode === 0) {
+                    request.success({
+                        row: convertStr(data.bean.records, []),
+                        total: data.bean.totalCount
+                    })
+                }
+            })
+        },
+        responseHandler:function(res){
+            $('#table-zsjh').bootstrapTable('load', res.row);
+            return {
+                "total":res.total,
+                "pageNumber":res.pageNumber,
+                "pageSize":res.pageSize
+            }
+        },
+        toolbar: '#toolbar', //工具按钮用哪个容器
+        striped: true, //是否显示行间隔色
+        cache: false, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true, //是否显示分页（*）
+        sortable: true, //是否启用排序
+        sortOrder: "asc", //排序方式
+        sidePagination: "server", //分页方式：client客户端分页，server服务端分页（*）
+        pageNumber: 1, //初始化加载第一页，默认第一页
+        pageSize: 10, //每页的记录行数（*）
+        pageList: [10, 25, 50, 100], //可供选择的每页的行数（*）
+        smartDisplay: false,
+        search: false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+        strictSearch: true,
+        showColumns: false, //是否显示所有的列
+        showRefresh: false, //是否显示刷新按钮
+        minimumCountColumns: 2, //最少允许的列数
+        clickToSelect: true, //是否启用点击选中行
+        uniqueId: "owid", //每一行的唯一标识，一般为主键列
+        showToggle: false, //是否显示详细视图和列表视图的切换按钮
+        cardView: false, //是否显示详细视图
+        detailView: false, //是否显示父子表
+        theadClasses: "thead1",
+        queryParamsType:"limit",
+        columns: [
+            {
+                align: 'center',
+                field: 'nf',
+                title: '年份'
+            },
+            {
+                align: 'center',
+                field: 'sf',
+                title: '省份'
+            },
+            {
+                align: 'center',
+                field: 'kl',
+                title: '科类'
+            },
+            {
+                align: 'center',
+                field: 'pc',
+                title: '批次'
+            },
+            {
+                align: 'center',
+                field: 'zy',
+                title: '专业'
+            },
+            {
+                align: 'center',
+                field: 'xz',
+                title: '学制'
+            },
+            {
+                align: 'center',
+                field: 'lqs',
+                title: '录取数'
+            },
+            {
+                align: 'center',
+                field: 'zgf',
+                title: '最高分'
+            },
+            {
+                align: 'center',
+                field: 'zdf',
+                title: '最低分'
+            },
+            {
+                align: 'center',
+                field: 'pjf',
+                title: '平均分'
+            }
+        ]
+    });
 }
 
-var lnjlid="";
-function mychange(obj){
-    var lnjlid = $(obj).attr("id");
-    var nf1 = $("#lncx_nf").val();
-    var sf1 = $("#lncx_sf").val();
-    var kl1 = $("#lncx_kl").val();
-    var pc1 = $("#lncx_pc").val();
-    var zy1 = $("#lncx_zy").val();
-    var url = "zscxAjax!chang.htm";
+
+//重置历年查询
+function lncx_init() {
+    var nf1 = "";
+    var sf1 = "";
+    var kl1 = "";
+    var pc1 = "";
+    var zy1 = "";
+    var url = "zustzs/bckjBizLntj/getChanges";
     var params = {
         "nf" : nf1,
         "sf" : sf1,
@@ -724,12 +699,65 @@ function mychange(obj){
         "zy" : zy1,
         timestamp:new Date().getTime()
     };
-    $.post(url,params,function(data){
+    ajax(url, params, function (data) {
+        var backCode = data.backCode;
+        if(backCode==0){
+            $("#lncx_nf").empty();
+            $("#lncx_sf").empty();
+            $("#lncx_pc").empty();
+            $("#lncx_kl").empty();
+            $("#lncx_zy").empty();
+
+
+            $("#lncx_nf").append("<option value=''>年份</option>");
+            $("#lncx_sf").append("<option value=''>省份</option>");
+            $("#lncx_pc").append("<option value=''>批次</option>");
+            $("#lncx_kl").append("<option value=''>科类</option>");
+            $("#lncx_zy").append("<option value=''>专业</option>");
+
+            $.each(data.bean.nfList, function (k, p) {
+                str = "<option  value='"+p.nf+"'>"+p.nf+"</option>";
+                $("#lncx_nf").append(str);
+            });
+            $.each(data.bean.sfList, function (k, p) {
+                str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
+                $("#lncx_sf").append(str);
+            });
+            $.each(data.bean.klList, function (k, p) {
+                str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
+                $("#lncx_kl").append(str);
+            });
+            $.each(data.bean.pcList, function (k, p) {
+                str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
+                $("#lncx_pc").append(str);
+            });
+            $.each(data.bean.zyList, function (k, p) {
+                str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
+                $("#lncx_zy").append(str);
+            });
+        }
+    })
+}
+var lnjlid="";
+function mychange(obj){
+	lnjlid = $(obj).attr("id");
+    var nf1 = $("#lncx_nf").val();
+    var sf1 = $("#lncx_sf").val();
+    var kl1 = $("#lncx_kl").val();
+    var pc1 = $("#lncx_pc").val();
+    var zy1 = $("#lncx_zy").val();
+    var params = {
+        "nf" : nf1,
+        "sf" : sf1,
+        "kl" : kl1,
+        "pc" : pc1,
+        "zy" : zy1,
+        timestamp:new Date().getTime()
+    };
+    ajax("zustzs/bckjBizLntj/getChanges", params, function (data) {
         var backCode = data.backCode;
         // layer.close(layId);
         if(backCode==0){
-            // tip("无记录",$("#jhnf"));
-        }else if(backCode==1){
             if(lnjlid!='lncx_nf')
                 $("#lncx_nf").empty();
             if(lnjlid!='lncx_sf')
@@ -740,59 +768,134 @@ function mychange(obj){
                 $("#lncx_kl").empty();
             if(lnjlid!='lncx_zy')
                 $("#lncx_zy").empty();
-            var str = "<option value=''>---请选择---</option>";
-            if(lnjlid!='lncx_nf')
+
+            if(lnjlid!='lncx_nf'){
+                var str = "<option value=''>--年份--</option>";
                 $("#lncx_nf").append(str);
-            if(lnjlid!='lncx_sf')
+            }
+            if(lnjlid!='lncx_sf'){
+                var str = "<option value=''>--省份--</option>";
                 $("#lncx_sf").append(str);
-            if(lnjlid!='lncx_pc')
+            }
+            if(lnjlid!='lncx_pc'){
+                var str = "<option value=''>--批次--</option>";
                 $("#lncx_pc").append(str);
-            if(lnjlid!='lncx_kl')
+            }
+            if(lnjlid!='lncx_kl'){
+                var str = "<option value=''>--科类--</option>";
                 $("#lncx_kl").append(str);
-            if(lnjlid!='lncx_zy')
+            }
+            if(lnjlid!='lncx_zy'){
+                var str = "<option value=''>--专业--</option>";
                 $("#lncx_zy").append(str);
-            if(lnjlid!='lncx_nf')
-                $.each(data.bean.nf,function(k,p){
-                    if(p==nf1)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+            }
+            if(lnjlid!='lncx_nf') {
+                $.each(data.bean.nfList, function (k, p) {
+                    if (nf1 === p.nf) {
+                        str = "<option selected='selected' value='" + p.nf + "'>" + p.nf + "</option>"
+                    } else {
+                        str = "<option  value='" + p.nf + "'>" + p.nf + "</option>";
+                    }
                     $("#lncx_nf").append(str);
                 });
-            if(lnjlid!='lncx_sf')
-                $.each(data.bean.sf,function(k,p){
-                    if(p==sf1)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+            }
+            if(lnjlid!='lncx_sf'){
+                $.each(data.bean.sfList, function (k, p) {
+                    if (sf1 === p.sf) {
+                        str = "<option selected='selected' value='"+ p.sf +"'>"+ p.sf +"</option>"
+                    } else {
+                        str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
+                    }
                     $("#lncx_sf").append(str);
                 });
+            }
             if(lnjlid!='lncx_kl')
-                $.each(data.bean.kl,function(k,p){
-                    if(p==kl1)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                $.each(data.bean.klList, function (k, p) {
+                    if (kl1 === p.kl) {
+                        str = "<option selected='selected' value='"+ p.kl +"'>"+ p.kl +"</option>"
+                    } else {
+                        str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
+                    }
                     $("#lncx_kl").append(str);
                 });
             if(lnjlid!='lncx_pc')
-                $.each(data.bean.pc,function(k,p){
-                    if(p==pc1)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                $.each(data.bean.pcList, function (k, p) {
+                    if (pc1 === p.pc) {
+                        str = "<option selected='selected' value='"+ p.pc +"'>"+ p.pc +"</option>"
+                    } else {
+                        str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
+                    }
                     $("#lncx_pc").append(str);
                 });
             if(lnjlid!='lncx_zy')
-                $.each(data.bean.zy,function(k,p){
-                    if(p==zy1)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                $.each(data.bean.zyList, function (k, p) {
+                    if (zy1 === p.zy) {
+                        str = "<option selected='selected' value='"+ p.zy +"'>"+ p.zy +"</option>"
+                    } else {
+                        str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
+                    }
                     $("#lncx_zy").append(str);
                 });
+        }else {
+            // tip("无记录",$("#jhnf"));
         }
     });
+}
+
+//重置计划查询
+function jhcx_init() {
+    var nf2 = "";
+    var sf2 = "";
+    var kl2 = "";
+    var pc2 = "";
+    var zy2 = "";
+    var url = "zustzs/bckjBizZsjh/getChanges";
+    var params = {
+        "nf" : nf2,
+        "sf" : sf2,
+        "kl" : kl2,
+        "pc" : pc2,
+        "zy" : zy2,
+        timestamp:new Date().getTime()
+    };
+    ajax(url, params, function (data) {
+        var backCode = data.backCode;
+        if(backCode==0){
+			$("#jhcx_nf").empty();
+			$("#jhcx_sf").empty();
+			$("#jhcx_pc").empty();
+			$("#jhcx_kl").empty();
+			$("#jhcx_zy").empty();
+
+
+			$("#jhcx_nf").append("<option value=''>年份</option>");
+			$("#jhcx_sf").append("<option value=''>省份</option>");
+			$("#jhcx_pc").append("<option value=''>批次</option>");
+			$("#jhcx_kl").append("<option value=''>科类</option>");
+			$("#jhcx_zy").append("<option value=''>专业</option>");
+
+			$.each(data.bean.nfList, function (k, p) {
+				str = "<option  value='"+p.nf+"'>"+p.nf+"</option>";
+				$("#jhcx_nf").append(str);
+			});
+			$.each(data.bean.sfList, function (k, p) {
+				str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
+				$("#jhcx_sf").append(str);
+			});
+			$.each(data.bean.klList, function (k, p) {
+				str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
+				$("#jhcx_kl").append(str);
+			});
+			$.each(data.bean.pcList, function (k, p) {
+				str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
+				$("#jhcx_pc").append(str);
+			});
+			$.each(data.bean.zyList, function (k, p) {
+				str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
+				$("#jhcx_zy").append(str);
+			});
+        }
+    })
 }
 var jhid="";
 function jhchang(obj){
@@ -802,7 +905,6 @@ function jhchang(obj){
     var kl2 = $("#jhcx_kl").val();
     var pc2 = $("#jhcx_pc").val();
     var zy2 = $("#jhcx_zy").val();
-    var url = "zscxAjax!changz.htm";
     var params = {
         "nf" : nf2,
         "sf" : sf2,
@@ -811,12 +913,10 @@ function jhchang(obj){
         "zy" : zy2,
         timestamp:new Date().getTime()
     };
-    $.post(url,params,function(data){
+    ajax("zustzs/bckjBizZsjh/getChanges", params, function (data) {
         var backCode = data.backCode;
         // layer.close(layId);
         if(backCode==0){
-            // tip("无记录",$("#jhnf"));
-        }else if(backCode==1){
             if(jhid!='jhcx_nf')
                 $("#jhcx_nf").empty();
             if(jhid!='jhcx_sf')
@@ -827,58 +927,76 @@ function jhchang(obj){
                 $("#jhcx_kl").empty();
             if(jhid!='jhcx_zy')
                 $("#jhcx_zy").empty();
-            var str = "<option value=''>---请选择---</option>";
-            if(jhid!='jhcx_nf')
-                $("#jhcx_nf").append(str);
-            if(jhid!='jhcx_sf')
-                $("#jhcx_sf").append(str);
-            if(jhid!='jhcx_pc')
-                $("#jhcx_pc").append(str);
-            if(jhid!='jhcx_kl')
-                $("#jhcx_kl").append(str);
-            if(jhid!='jhcx_zy')
-                $("#jhcx_zy").append(str);
-            if(jhid!='jhcx_nf')
-                $.each(data.bean.nf,function(k,p){
 
-                    if(p==nf2)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+            if(jhid!='jhcx_nf'){
+                var str = "<option value=''>--年份--</option>";
+                $("#jhcx_nf").append(str);
+			}
+            if(jhid!='jhcx_sf'){
+                var str = "<option value=''>--省份--</option>";
+                $("#jhcx_sf").append(str);
+			}
+            if(jhid!='jhcx_pc'){
+                var str = "<option value=''>--批次--</option>";
+                $("#jhcx_pc").append(str);
+			}
+            if(jhid!='jhcx_kl'){
+                var str = "<option value=''>--科类--</option>";
+                $("#jhcx_kl").append(str);
+			}
+            if(jhid!='jhcx_zy'){
+                var str = "<option value=''>--专业--</option>";
+                $("#jhcx_zy").append(str);
+			}
+            if(jhid!='jhcx_nf') {
+                $.each(data.bean.nfList, function (k, p) {
+                    if (nf2 === p.nf) {
+                        str = "<option selected='selected' value='" + p.nf + "'>" + p.nf + "</option>"
+                    } else {
+                        str = "<option  value='" + p.nf + "'>" + p.nf + "</option>";
+                    }
                     $("#jhcx_nf").append(str);
                 });
-            if(jhid!='jhcx_sf')
-                $.each(data.bean.sf,function(k,p){
-                    if(p==sf2)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+            }
+            if(jhid!='jhcx_sf'){
+                $.each(data.bean.sfList, function (k, p) {
+                    if (sf2 === p.sf) {
+                        str = "<option selected='selected' value='"+ p.sf +"'>"+ p.sf +"</option>"
+                    } else {
+                        str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
+                    }
                     $("#jhcx_sf").append(str);
                 });
+			}
             if(jhid!='jhcx_kl')
-                $.each(data.bean.kl,function(k,p){
-                    if(p==kl2)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                $.each(data.bean.klList, function (k, p) {
+                    if (kl2 === p.kl) {
+                        str = "<option selected='selected' value='"+ p.kl +"'>"+ p.kl +"</option>"
+                    } else {
+                        str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
+                    }
                     $("#jhcx_kl").append(str);
                 });
             if(jhid!='jhcx_pc')
-                $.each(data.bean.pc,function(k,p){
-                    if(p==pc2)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                $.each(data.bean.pcList, function (k, p) {
+                    if (pc2 === p.pc) {
+                        str = "<option selected='selected' value='"+ p.pc +"'>"+ p.pc +"</option>"
+                    } else {
+                        str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
+                    }
                     $("#jhcx_pc").append(str);
                 });
             if(jhid!='jhcx_zy')
-                $.each(data.bean.zy,function(k,p){
-                    if(p==zy2)
-                        str = "<option  selected='selected' value='"+p+"'>"+p+"</option>";
-                    else
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                $.each(data.bean.zyList, function (k, p) {
+                    if (zy2 === p.zy) {
+                        str = "<option selected='selected' value='"+ p.zy +"'>"+ p.zy +"</option>"
+                    } else {
+                        str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
+                    }
                     $("#jhcx_zy").append(str);
                 });
-        }
+        }else {
+            // tip("无记录",$("#jhnf"));
+		}
     });
 }

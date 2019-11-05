@@ -4,8 +4,10 @@ $(document).ready(function () {
 
 var pageNo=1;
 var pageSize=10;
+var lnobj;
 
-function getChanges() {
+function getChanges(obj) {
+    lnobj = $(obj).attr("id");
     var nf = $('#nf').val();
     var sf = $('#sf').val();
     var kl = $('#kl').val();
@@ -19,35 +21,54 @@ function getChanges() {
         zy: zy
     };
     ajax("zustzs/bckjBizLntj/getChanges", data, function (res) {
-        if (res.bcakCode === 0) {
+        if (res.backCode === 0) {
             var str = '';
-            if (res.bean && res.bean.length > 0) {
-                $.each(res.bean, function (k, p) {
+            if (res.bean) {
+                clearOption();
+                if(lnobj!=='nf')
+                $.each(res.bean.nfList, function (k, p) {
                     if (nf === p.nf) {
                         str = "<option selected='selected' value='"+ p.nf +"'>"+ p.nf +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.nf+"'>"+p.nf+"</option>";
                     }
+                    $('#nf').append(str);
+                });
+                if(lnobj!=='sf')
+                $.each(res.bean.sfList, function (k, p) {
                     if (sf === p.sf) {
                         str = "<option selected='selected' value='"+ p.sf +"'>"+ p.sf +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.sf+"'>"+p.sf+"</option>";
                     }
+                    $('#sf').append(str);
+                });
+                if(lnobj!=='kl')
+                $.each(res.bean.klList, function (k, p) {
                     if (kl === p.kl) {
                         str = "<option selected='selected' value='"+ p.kl +"'>"+ p.kl +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option value='"+p.kl+"'>"+p.kl+"</option>";
                     }
+                    $('#kl').append(str);
+                });
+                if(lnobj!=='pc')
+                $.each(res.bean.pcList, function (k, p) {
                     if (pc === p.pc) {
                         str = "<option selected='selected' value='"+ p.pc +"'>"+ p.pc +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.pc+"'>"+p.pc+"</option>";
                     }
+                    $('#pc').append(str);
+                });
+                if(lnobj!=='zy')
+                $.each(res.bean.zyList, function (k, p) {
                     if (zy === p.zy) {
                         str = "<option selected='selected' value='"+ p.zy +"'>"+ p.zy +"</option>"
                     } else {
-                        str = "<option  value='"+p+"'>"+p+"</option>";
+                        str = "<option  value='"+p.zy+"'>"+p.zy+"</option>";
                     }
+                    $('#zy').append(str);
                 });
                 searchLnfsmc(nf, sf, kl, pc, zy);
             } else {
@@ -81,13 +102,13 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
     $('#table-lnfsmc').bootstrapTable('destroy');
     $('#table-lnfsmc').bootstrapTable({
         ajax: function (request) {
-            ajax("zustzs/bckjBizLntj/getChanges", {
+            ajax("zustzs/bckjBizLntj/getResult", {
                 nf: nf,
                 sf: sf,
                 kl: kl,
                 pc: pc,
                 zy: zy,
-                pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNo || 1,
+                pageNo: $('#table-lnfsmc').bootstrapTable('getOptions').pageNumber || 1,
                 pageSize: $('#table-lnfsmc').bootstrapTable('getOptions').pageSize || pageSize
             }, function (data) {
                 if (data.backCode === 0) {
@@ -155,7 +176,7 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
             },
             {
                 align: 'center',
-                filed: 'xz',
+                field: 'xz',
                 title: '学制'
             },
             {
@@ -180,4 +201,67 @@ function searchLnfsmc(nf, sf, kl, pc, zy) {
             }
         ]
     });
+}
+
+function clearOption() {
+    if (lnobj!=='nf')
+        $("#nf").empty();
+    if (lnobj!=='sf')
+        $("#sf").empty();
+    if (lnobj!=='kl')
+        $("#kl").empty();
+    if (lnobj!=='pc')
+        $("#pc").empty();
+    if (lnobj!=='zy')
+        $("#zy").empty();
+    var nfoption="<option value=''>---请选择---</option>";
+    var sfoption="<option value=''>---请选择---</option>";
+    var kloption="<option value=''>---请选择---</option>";
+    var pcoption="<option value=''>---请选择---</option>";
+    var zyoption="<option value=''>---请选择---</option>";
+    if(lnobj!=='nf')
+        $("#nf").append(nfoption);
+    if(lnobj!=='sf')
+        $("#sf").append(sfoption);
+    if(lnobj!=='pc')
+        $("#pc").append(pcoption);
+    if(lnobj!=='kl')
+        $("#kl").append(kloption);
+    if(lnobj!=='zy')
+        $("#zy").append(zyoption);
+}
+
+var clearObj;
+function clearVal(obj) {
+    clearObj = $(obj).attr("class");
+    $("#"+clearObj).empty();
+    var nfoption="<option selected='true' value=''>---请选择---</option>";
+    $("#"+clearObj).append(nfoption);
+
+    getChanges(obj);
+}
+
+function exportExcel() {
+    var nf = $('#nf').val();
+    var sf = $('#sf').val();
+    var kl = $('#kl').val();
+    var pc = $('#pc').val();
+    var zy = $('#zy').val();
+    var data = {
+        nf: nf,
+        sf: sf,
+        kl: kl,
+        pc: pc,
+        zy: zy
+    };
+    ajax("zustzs/bckjBizLntj/exportExcel", data, function (res) {
+        if (res.backCode === 0) {
+            //本地
+            window.open("http://127.0.0.1:8081/files/" + res.bean);
+            //正式
+            // window.open("https://job.zust.edu.cn/zjcFiles/" + res.bean);
+        } else {
+            walert("导出失败")
+        }
+    })
 }

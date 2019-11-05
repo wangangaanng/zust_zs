@@ -53,6 +53,18 @@
 			<if test="nf != null and nf != ''">
 				AND a.nf=#{nf}
 			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
+			</if>
 		</where>
 		ORDER BY a.nf DESC
 	</select>
@@ -62,8 +74,20 @@
 		SELECT DISTINCT a.sf
 		FROM bckj_biz_lntj a
 		<where>a.sf IS NOT NULL
-			<if test="sf != null and sf != ''">
-				AND a.sf=#{sf}
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
 			</if>
 		</where>
 	</select>
@@ -73,8 +97,20 @@
 		SELECT DISTINCT a.kl
 		FROM bckj_biz_lntj a
 		<where>a.kl IS NOT NULL
-			<if test="kl != null and kl != ''">
-				AND a.kl=#{kl}
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
 			</if>
 		</where>
 	</select>
@@ -84,8 +120,20 @@
 		SELECT DISTINCT a.pc
 		FROM bckj_biz_lntj a
 		<where>a.pc IS NOT NULL
-			<if test="pc != null and pc != ''">
-				AND a.pc=#{pc}
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
 			</if>
 		</where>
 	</select>
@@ -95,8 +143,20 @@
 		SELECT DISTINCT a.zy
 		FROM bckj_biz_lntj a
 		<where>a.zy IS NOT NULL
-			<if test="zy != null and zy != ''">
-				AND a.zy=#{zy}
+			<if test="nf != null and nf != ''">
+				AND a.nf=#{nf}
+			</if>
+			<if test="pc !=null and pc !=''">
+				and a.pc=#{pc}
+			</if>
+			<if test="sf !=null and sf !=''">
+				and a.sf=#{sf}
+			</if>
+			<if test="kl !=null and kl!='' ">
+				and a.kl=#{kl}
+			</if>
+			<if test="zy !=null and zy!='' ">
+				and a.zy=#{zy}
 			</if>
 		</where>
 	</select>

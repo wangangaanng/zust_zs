@@ -17,6 +17,8 @@
     .form-control{width: 150px;display: inline-block}
     .table-bordered{width: 78%}
     .table-bordered th{text-align: center}
+    .pagination-detail{margin-left: 21%}
+    .pagination{margin:0 6px}
 </style>
 <body>
 <#include "com/ZSheader.ftl">
@@ -34,7 +36,7 @@
                         <div class="form-group">
                             <label for="nf" class="col-sm-1">年份：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="nf" id="nf">
+                                <select class="form-control" name="nf" id="nf" onchange="getChanges(this)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.nfList??)&&(result.nfList?size>0)>
                                         <#assign flag=1>
@@ -45,11 +47,11 @@
                                         <#assign flag=0>
                                     </#if>
                                 </select>
-                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a class="nf" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <label for="sf" class="col-sm-1">省份：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="sf" id="sf">
+                                <select class="form-control" name="sf" id="sf" onchange="getChanges(this)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.sfList??)&&(result.sfList?size>0)>
                                         <#assign flag=1>
@@ -60,11 +62,11 @@
                                         <#assign flag=0>
                                     </#if>
                                 </select>
-                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a class="sf" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <label for="kl" class="col-sm-1">科类：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="sf" id="kl">
+                                <select class="form-control" name="sf" id="kl" onchange="getChanges(this)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.klList??)&&(result.klList?size>0)>
                                         <#assign flag=1>
@@ -75,13 +77,13 @@
                                         <#assign flag=0>
                                     </#if>
                                 </select>
-                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a class="kl" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="pc" class="col-sm-1">批次：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="pc" id="pc">
+                                <select class="form-control" name="pc" id="pc" onchange="getChanges(this)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.pcList??)&&(result.pcList?size>0)>
                                         <#assign flag=1>
@@ -92,11 +94,11 @@
                                         <#assign flag=0>
                                     </#if>
                                 </select>
-                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a class="pc" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
                             <label for="zy" class="col-sm-1">专业：</label>
                             <div class="col-sm-3">
-                                <select class="form-control" name="zy" id="zy">
+                                <select class="form-control" name="zy" id="zy" onchange="getChanges(this)">
                                     <option value="">---请选择---</option>
                                     <#if (result??)&&(result.zyList??)&&(result.zyList?size>0)>
                                         <#assign flag=1>
@@ -107,9 +109,9 @@
                                         <#assign flag=0>
                                     </#if>
                                 </select>
-                                <span style="background: #FFB300;border:1px solid #FFB300;"><a onclick="" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
+                                <span style="background: #FFB300;border:1px solid #FFB300;"><a class="zy" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
-                            <button type="button" class="btn btn-default"
+                            <button type="button" class="btn btn-default" onclick="exportExcel()"
                                     style="background-color: rgb(85,167,153);color: #ffffff;width: 150px;height: 34px;margin-left: 90px">导出</button>
                         </div>
                     </div>

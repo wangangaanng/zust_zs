@@ -40,9 +40,42 @@
 <#include "com/ZSheader.ftl">
 <div class="main">
     <div class="container">
-        <#include "com/route.ftl">
+        <div class="menu-nav">
+            <div class="menu-title">
+                <div class="title-chn">科院掠影</div>
+                <div class="title-en">INFORMATION
+                    <div class="menu-nav-icon"></div>
+                </div>
+
+            </div>
+            <div class="menu-list">
+                <ul class="list-group">
+                    <li class="list-group-item active1" onclick='openUrl("kyly/1/0")'>
+                        <span class="ic-menu"></span>安吉校园风光
+                    </li>
+                    <li class="list-group-item" onclick='openUrl("kyly/1/1")'>
+                        <span class="ic-menu"></span>小和山校园风光
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="content">
-            <#include "com/subMenu.ftl">
+            <div class="routes">
+                <div class="location">
+                    <i></i>
+                    <#--当前位置：-->
+                </div>
+
+                <ol class="breadcrumb">
+                    <li><a href="/">首页</a></li>
+                    <li><a href="#">科院掠影</a></li>
+                    <#if thirdDir?? && thirdDir != "" && thirdDir == "0">
+                        <li><a href="#">安吉校园风光</a></li>
+                    <#else >
+                        <li><a href="#">小和山校园风光</a></li>
+                    </#if>
+                </ol>
+            </div>
             <div class="swiper-container gallery-top">
                 <div class="swiper-wrapper" id="top-wrapper">
                     <div class="swiper-slide">
@@ -61,7 +94,7 @@
                 <div class="swiper-button-prev swiper-button-white"></div>
                 <div class="swiper-button-next swiper-button-white"></div>
             </div>
-            <div class="swiper-container gallery-thumbs" style="margin: 0 23%">
+            <div class="swiper-container gallery-thumbs" style="margin: 0 2%">
                 <div class="swiper-wrapper" id="bottom-wrapper">
                     <div class="swiper-slide">
                         <img src="http://zsb.zust.edu.cn/files/imgs/F4C8C2EA34C24ACC8FE4A5AB5DEBD928.jpg" alt="">
@@ -83,7 +116,6 @@
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="${base}/js/swiper.min.js"></script>
-<script src="${base}/js/zs/kyly.js"></script>
 <script>
     var galleryThumbs = new Swiper('.gallery-thumbs', {
         spaceBetween: 10,

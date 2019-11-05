@@ -95,6 +95,9 @@
 					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
 					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
 			</if>
+			<if test="sjhqdx !=null ">
+				AND a.sjhqdx=#{sjhqdx}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

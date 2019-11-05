@@ -37,6 +37,54 @@ public class ZsController {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
         view.addObject("footer",getFooter().getBean());
+        Map param=Maps.newHashMap();
+        //轮播图
+        param.put("lmbh","127");
+        param.put("lx","0");
+        param.put("zszd","0");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizPicvid/getPicList");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("sliderList",result.getBean());
+        //通知公告
+        Map param2=Maps.newHashMap();
+        param2.put("lmbh","120");
+        param2.put("wzzt","1");
+        param2.put("isDetail","1");
+        param2.put("gjz","");
+        param2.put("pageNo", '1');
+        param2.put("pageSize", "7");
+        PublicData publicData2= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getMuArticle");
+        ResponseMessage result2  = UnionHttpUtils.doPosts(publicData2);
+        view.addObject("tzggList",result2.getBean());
+        //招生专业关键字
+        Map param3=Maps.newHashMap();
+        param3.put("dicType","10026");
+        PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustcommon/common/getByType");
+        ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
+        view.addObject("zszyList",result3.getBean());
+
+
+        //计划查询条件
+        Map param4=Maps.newHashMap();
+        param4.put("nf", "");
+        param4.put("sf", "");
+        param4.put("kl", "");
+        param4.put("pc", "");
+        param4.put("zy", "");
+        PublicData publicData4 = UnionHttpUtils.manageParam(param4, "zustzs/bckjBizZsjh/getChanges");
+        ResponseMessage result4 = UnionHttpUtils.doPosts(publicData4);
+        view.addObject("conditionJh", result4.getBean());
+
+        //历年查询条件
+        Map param5=Maps.newHashMap();
+        param5.put("nf", "");
+        param5.put("sf", "");
+        param5.put("kl", "");
+        param5.put("pc", "");
+        param5.put("zy", "");
+        PublicData publicData5 = UnionHttpUtils.manageParam(param5, "zustzs/bckjBizLntj/getChanges");
+        ResponseMessage result5 = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("conditionLn", result5.getBean());
         return view;
     }
     @RequestMapping(value = "zszy", method = RequestMethod.GET)
@@ -146,11 +194,12 @@ public class ZsController {
         return result;
     }
     public ResponseMessage getFooter(){
-        //底部链接
+        //底部链接友情链接
         Map param=Maps.newHashMap();
-        param.put("lmbh","-1");
+        param.put("lmbh","128");
         param.put("lx","2");
-        PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjBizPicvid/getPicList");
+        param.put("zszd","0");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizPicvid/getPicList");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
     }
@@ -276,6 +325,15 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        params.put("nf", "");
+        params.put("sf", "");
+        params.put("kl", "");
+        params.put("pc", "");
+        params.put("zy", "");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustzs/bckjBizZsjh/getChanges");
+        ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", responseMessage.getBean());
         return view;
     }
 
@@ -400,6 +458,20 @@ public class ZsController {
         view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
+        Map<String, Object> params = new HashMap<>();
+        //lmbh栏目编号 安吉风光117 小和山风光118
+        if ("0".equals(thirdDir)) {
+            params.put("lmbh", "117");
+        } else {
+            params.put("lmbh", "118");
+        }
+        //lx类型 0图片 1视频 2友情链接
+        params.put("lx", "0");
+        //zszd展示终端 0PC 1手机
+        params.put("zszd", "0");
+        PublicData publicData = UnionHttpUtils.manageParam(params, "zustcommon/bckjBizPicvid/getPicList");
+        ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result", responseMessage.getBean());
         return view;
     }
 

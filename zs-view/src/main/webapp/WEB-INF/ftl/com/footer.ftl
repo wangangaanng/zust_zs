@@ -246,7 +246,7 @@
                 <div class="third_Pagination">
                     <ul style="list-style-type: none;">
                         <li><a href="${base}/wzOrTpOrSq/6/0">学院专业</a></li>
-                        <li><a href="${base}/kyly">科院掠影</a></li>
+                        <li><a href="${base}/kyly/1/0">科院掠影</a></li>
                         <li><a href="${base}/wzOrTpOrSq/7/0">学在科院</a></li>
                     </ul>
                 </div>

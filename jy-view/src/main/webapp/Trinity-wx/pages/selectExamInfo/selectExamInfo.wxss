@@ -10,3 +10,8 @@ page{background: rgb(245,245,245)}
 .van-checkbox__icon{width: 0.9em!important;height: 0.9em!important;}
 .border-area{margin-top: 30rpx;border: 1px solid rgba(38,184,135,0.6);border-radius: 10rpx;}
 .border-area textarea{height:182rpx;padding: 20rpx;width: 100%;box-sizing: border-box;font-size: 30rpx;}
+.clear{height: 15px;width: 15px;background-color: #CD292A;text-align: center;border-radius: 50%;position: absolute;
+top: -7px;right: -7px;}
+.weui-uploader__file{position: relative;}
+.weui-uploader__bd{overflow:auto;display: table;width: 100%;}
+.weui-uploader__files{position: relative;}

@@ -14,6 +14,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizZsjhDao;
 import com.zghzbckj.manage.entity.BckjBizZsjh;
+import com.zghzbckj.util.ExcelUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,8 +133,19 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
     *<li>@date 2019/10/14 15:33  </li>
     *</ul>
     */
-    public List<BckjBizZsjh> getChanges(Map<String, Object> mapData) {
-        return this.findListByParams(mapData, " a.createtime DESC");
+    public Map<String, Object> getChanges(Map<String, Object> mapData) {
+        Map<String, Object> result = new HashMap<>();
+        List<BckjBizZsjh> nfList = this.dao.findListByNf(mapData);
+        List<BckjBizZsjh> sfList = this.dao.findListBySf(mapData);
+        List<BckjBizZsjh> klList = this.dao.findListByKl(mapData);
+        List<BckjBizZsjh> pcList = this.dao.findListByPc(mapData);
+        List<BckjBizZsjh> zyList = this.dao.findListByZy(mapData);
+        result.put("nfList", nfList);
+        result.put("sfList", sfList);
+        result.put("klList", klList);
+        result.put("pcList", pcList);
+        result.put("zyList", zyList);
+        return result;
     }
 
     /**
@@ -151,4 +163,41 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         PageInfo<BckjBizZsjh> page = findPage(mapData, pageNo, pageSize, " a.createtime DESC");
         return page;
     }
+
+    /**
+     *<p>功能描述:导出招生计划excel表格 generateExcel</p >
+     *<ul>
+     *<li>@param [dataMap]</li>
+     *<li>@return java.lang.String</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/4 19:42</li>
+     *</ul>
+     */
+    public String generateExcel(Map<String, Object> dataMap) {
+        List<BckjBizZsjh> dataList = this.dao.findListByMap(dataMap);
+        List<List<String>> excelList = new ArrayList<>(dataList.size());
+        //本地
+        String filePath = "F:\\img\\";
+        //正式
+//        String filePath = "/mnt/files/zjcFiles/excel";
+        String fileOutPath = System.currentTimeMillis() + ".xls";
+        String[] title = {"年份", "省份", "科类", "批次", "专业", "学制", "招生数", "学费/年", "授予学位"};
+        for (BckjBizZsjh data : dataList) {
+            List<String> colList = new ArrayList<>();
+            colList.add(data.getNf());
+            colList.add(data.getSf());
+            colList.add(data.getKl());
+            colList.add(data.getPc());
+            colList.add(data.getZy());
+            colList.add(data.getXz());
+            colList.add(data.getZss().toString());
+            colList.add(data.getXf().toPlainString());
+            colList.add(data.getSyxw());
+            excelList.add(colList);
+        }
+        ExcelUtils.writeContentToExcel(title, excelList, filePath + fileOutPath);
+        return fileOutPath;
+    }
+
 }

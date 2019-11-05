@@ -42,19 +42,19 @@
                 <li><a href="/">首页</a></li>
                 <li class="active">就业排行榜</li>
             </ol>
-            <div class="form-group" style="float: right;">
-                <label for="year" class="col-sm-2 col-sm-offset-8 control-label text-right" style="line-height: 34px;padding-right: 0;margin-left: 0;width: 100px;">选择年份：</label>
-                <div class="col-sm-2" style="padding-left: 0;padding-right: 0;width: 100px;">
-                    <select class="form-control" onchange="jypmList()" name="year" id="year">
-                        <option value="">请选择</option>
+            <#--<div class="form-group" style="float: right;">-->
+                <#--<label for="year" class="col-sm-2 col-sm-offset-8 control-label text-right" style="line-height: 34px;padding-right: 0;margin-left: 0;width: 100px;">选择年份：</label>-->
+                <#--<div class="col-sm-2" style="padding-left: 0;padding-right: 0;width: 100px;">-->
+                    <#--<select class="form-control" onchange="jypmList()" name="year" id="year">-->
+                        <#--<option value="">请选择</option>-->
 
-                    </select>
-                </div>
-            </div>
+                    <#--</select>-->
+                <#--</div>-->
+            <#--</div>-->
         </div>
 
         <div class="content" style="margin-top: -20px;">
-            <div class="table-title"><span id="year1" class="year"></span>年就业排行榜</div>
+            <div class="table-title">浙江科技学院就业排行榜</div>
             <table class="table table-bordered" style="margin-top: 0px;background: #fff;">
                 <thead class="thead1">
                 <tr>
@@ -114,10 +114,11 @@
 
     <script>
         $(document).ready(function () {
-            getRecentYears()
+                jypmList()
+//            getRecentYears()
         })
 
-        function getRecentYears() {
+        /*function getRecentYears() {
             beginLoad()
             ajax("zustjy/bckjBizJypm/getRecentYears", {}, function (data) {
                 if(data.backCode==0){
@@ -135,20 +136,19 @@
                     walert(data.errorMess)
                 }
             })
-        }
+        }*/
 
         function jypmList() {
-            if(!$("#year").val()){
-                walert("请选择年份")
-                return
-            }
-            $("#year1").html($("#year").val())
+//            if(!$("#year").val()){
+//                walert("请选择年份")
+//                return
+//            }
+//            $("#year1").html($("#year").val())
             $(".table tbody").html("")
             var jsonObj={
-                "pmnf":$("#year").val()
+//                "pmnf":$("#year").val()
             }
             beginLoad()
-            //zustjy/bckjBizJypm/jypmList
             ajax("zustjy/bckjBizJypm/jypmList", jsonObj, function (data) {
                 if(data.backCode==0){
                     finishLoad()
