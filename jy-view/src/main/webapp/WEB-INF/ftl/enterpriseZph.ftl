@@ -52,6 +52,9 @@
                         <li class="list-group-item active1">
                             <span class="ic-menu"></span> 招聘会申请
                         </li>
+                        <li class="list-group-item">
+                            <span class="ic-menu"></span> 招聘公告发布
+                        </li>
                     </ul>
                 </div>
             </div>

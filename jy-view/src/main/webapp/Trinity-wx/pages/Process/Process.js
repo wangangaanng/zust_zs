@@ -10,14 +10,15 @@ Page({
    */
   data: {
     userName: '',
-    bmState: ''
+    bmState: '',
+    // eqindex: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    // this.data.eqindex = options.index
   },
 
   /**
@@ -88,12 +89,17 @@ Page({
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
-        that.setData({
-          bmState: res.data.bean.list[0].bmState,
-          res: res.data.bean.list[0]
-        })
-        wx.setStorageSync('xxbh', res.data.bean.list[0].xxbh)
-        wx.setStorageSync('applyOwid', res.data.bean.list[0].applyOwid)
+        // let eqindex = that.data.eqindex
+        for (let i in res.data.bean.list) {
+          if (wx.getStorageSync('xxbh') == res.data.bean.list[i].xxbh) {
+            wx.setStorageSync('xxbh', res.data.bean.list[i].xxbh)
+            wx.setStorageSync('applyOwid', res.data.bean.list[i].applyOwid)
+            that.setData({
+              bmState: res.data.bean.list[i].bmState,
+              res: res.data.bean.list[i]
+            })
+          }
+        }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }

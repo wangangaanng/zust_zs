@@ -46,12 +46,17 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-    num=0;
+    num = 0;
     this.getByType('10020')
     this.getByType('10024')
     this.getXkkm()
-   
-
+    t = setInterval(function() {
+      console.log(num)
+      if (num == 3) {
+        that.getXkcj()
+        clearInterval(t)
+      }
+    }, 100)
   },
 
   /**
@@ -65,13 +70,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    let that = this;
-    t = setInterval(function () {
-      if (num == 3) {
-        that.getXkcj()
-        clearInterval(t)
-      }
-    }, 100)
+
   },
 
   /**
@@ -123,7 +122,9 @@ Page({
         common.uploadFile(res.tempFilePaths, 2, function(res) {
           let data = JSON.parse(res.data)
           if (data.backCode == 0) {
-            that.data.jsfj.push(data.bean.owid)
+            that.setData({
+              jsfj: that.data.jsfj.concat(data.bean.owid)
+            });
           } else {
             common.toast('上传失败', 'none', 2000);
           }
@@ -248,20 +249,20 @@ Page({
     let yzmc = this.data.wy[this.data.wyindex].dicVal2
     let zxlb = '';
     for (let i in this.data.zxtype) {
-          if (!!zxlb) {
-            zxlb += ',' + this.data.zxtype[i];
-          } else {
-            zxlb = this.data.zxtype[i];
-          }
-        
-      
+      if (!!zxlb) {
+        zxlb += ',' + this.data.zxtype[i];
+      } else {
+        zxlb = this.data.zxtype[i];
+      }
+
+
     }
     let jsfj = '';
     for (let i in this.data.jsfj) {
       if (!!jsfj) {
-        jsfj += ',' + this.data.jsfj[i]
+        jsfj += `,"${this.data.jsfj[i]}"`
       } else {
-        jsfj = this.data.jsfj[i]
+        jsfj = `"${this.data.jsfj[i]}"`
       }
     }
     let data = {
@@ -279,9 +280,16 @@ Page({
     console.log(data)
     common.ajax('zustswyt/bckjBizCjxx/finishXk', data, function(res) {
       if (res.data.backCode == 0) {
-        wx.navigateTo({
-          url: '../majorExam/majorExam',
-        })
+        console.log(wx.getStorageSync('href'))
+        if (wx.getStorageSync('href') == 0) {
+          wx.navigateTo({
+            url: '../majorExam/majorExam',
+          })
+        } else {
+          wx.switchTab({
+            url: '../shouye/shouye'
+          })
+        }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
@@ -317,8 +325,8 @@ Page({
       dicType: e,
     }
     common.ajax('zustcommon/common/getByType', data, function(res) {
+      num++;
       if (res.data.backCode == 0) {
-        num++;
         if (e == '10020') {
           let wylist = [];
           for (let i in res.data.bean) {
@@ -350,9 +358,11 @@ Page({
     }
     common.ajax('zustswyt/bckjBizCjxx/getXkcj', data, function(res) {
       if (res.data.backCode == 0) {
+        let jsfj = [];
         let files = [];
         for (let i in res.data.bean.jsfj) {
           files.push(common.imgPath + res.data.bean.jsfj[i].filePath.replace("\\", "/"))
+          jsfj.push(res.data.bean.jsfj[i].owid)
         }
         let wyindex;
         for (let i in that.data.wy) {
@@ -361,13 +371,19 @@ Page({
           }
         }
         let xkindex = that.data.xkindex;
-        for (let i in xkindex) {
-          xkindex[i].value = res.data.bean.xkList[i].kmcj
-          for (let k in that.data.xk) {
-            if (res.data.bean.xkList[i].kmbh == that.data.xk[k].dicval1) {
-              xkindex[i].index = k
+        if (res.data.bean.xkList) {
+          for (let i in xkindex) {
+            xkindex[i].value = res.data.bean.xkList[i].kmcj
+            for (let k in that.data.xk) {
+              if (res.data.bean.xkList[i].kmbh == that.data.xk[k].dicval1) {
+                xkindex[i].index = k
+              }
             }
           }
+        }
+        let zxtype = [];
+        if (res.data.bean.zxlb) {
+          zxtype = res.data.bean.zxlb.split(',')
         }
         console.log(xkindex)
         that.setData({
@@ -376,14 +392,38 @@ Page({
           tcah: res.data.bean.tcah,
           jssm: res.data.bean.jssm,
           files,
-          zxtype: res.data.bean.zxlb.split(','),
+          zxtype: zxtype,
           wyindex: wyindex,
           wycj: res.data.bean.wycj,
-          xkindex
+          xkindex,
+          jsfj
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
     });
+  },
+  removePic(e) {
+    console.log(e)
+    let that = this;
+    let index = e.currentTarget.dataset.index
+    wx.showModal({
+      title: '提示',
+      content: '是否确定删除该图片',
+      success(res) {
+        if (res.confirm) {
+          let files = that.data.files;
+          files.splice(index, 1);
+          let jsfj = that.data.jsfj;
+          jsfj.splice(index, 1);
+          that.setData({
+            files: files,
+            jsfj: jsfj
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   }
 })

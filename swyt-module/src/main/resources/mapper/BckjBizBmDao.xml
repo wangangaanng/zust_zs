@@ -176,6 +176,12 @@
 			<if test="sqsj2!= null and sqsj2 !=''  ">
 				AND a.sqsj &lt;= #{sqsj2}
 			</if>
+			<if test="jfsj1 != null and jfsj1 !=''  ">
+				AND a.jfsj &gt;= #{jfsj1}
+			</if>
+			<if test="jfsj2!= null and jfsj2 !=''  ">
+				AND a.jfsj &lt;= #{jfsj2}
+			</if>
 			<if test=" xm != null and xm != '' ">
 				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
@@ -469,5 +475,20 @@
 		DELETE FROM bckj_biz_bm
 		WHERE owid = #{owid}
 	</delete>
-	
+
+
+	<select id="listDicByType" resultType="java.util.Map">
+		SELECT a.*
+		FROM ourway_sys_dic b,ourway_sys_dic_value a
+		<where>
+			b.owid=a.dic_ref_owid and b.type=#{type}
+		</where>
+		<choose>
+			<when test="orderBy !=null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
 </mapper>

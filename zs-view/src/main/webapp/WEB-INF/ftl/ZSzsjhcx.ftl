@@ -111,7 +111,7 @@
                                 </select>
                                 <span style="background: #FFB300;border:1px solid #FFB300;"><a class="zy" onclick="clearVal(this)" style="font-size:12px;margin-bottom:5px;color:#fff">清除</a></span>
                             </div>
-                            <button type="button" class="btn btn-default"
+                            <button type="button" class="btn btn-default" onclick="exportExcel()"
                                     style="background-color: rgb(85,167,153);color: #ffffff;width: 150px;height: 34px;margin-left: 90px">导出</button>
                         </div>
                     </div>

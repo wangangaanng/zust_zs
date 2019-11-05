@@ -267,9 +267,12 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckInRange);
             }*/
             //查看此微信号是否已经注册过   unionid存exp5
-            BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(yhxxVo.getUnionid());
+            HashMap<Object, Object> sendMap = Maps.newHashMap();
+            sendMap.put("jobRefOwid",bckjBizJob.getOwid());
+            sendMap.put("unionid",yhxxVo.getUnionid());
+            BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(sendMap);
             if (!TextUtils.isEmpty(oneByUnionId)&& oneByUnionId.getState()==1) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "不可重复签到");
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "该微信号已签到");
             }
         }
         //如果为新的关注

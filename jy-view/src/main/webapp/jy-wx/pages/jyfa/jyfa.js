@@ -97,14 +97,16 @@ Page({
     var that = this
     that.data.form.dwszdmc = e.target.dataset.val
     that.setData({
-      form: that.data.form
+      showSyd: true,
+      'form.dwszdmc': e.target.dataset.val
     })
   },
   getSydItem2(e) {
     var that = this
     that.data.form.bdzqwszdmc = e.target.dataset.val
     that.setData({
-      form: that.data.form
+      showSyd2: true,
+      'form.bdzqwszdmc': e.target.dataset.val
     })
   },
   getSyd(e) {
@@ -112,12 +114,18 @@ Page({
     if (e.detail.length > 2) {
       getSmallRoutine(this, e.detail)
     }
+    this.setData({
+      'form.dwszdmc': e.detail
+    })
   },
   getSyd2(e) {
     console.log(e)
     if (e.detail.length > 2) {
       getSmallRoutine2(this, e.detail)
     }
+    this.setData({
+      'form.bdzqwszdmc': e.detail
+    })
   },
   close1() {
     this.setData({

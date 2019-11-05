@@ -255,7 +255,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         //《--------------------   结束
         List<BckjBizJob> records = page.getRecords();
         BckjBizJob job = new BckjBizJob();
-        job.setZwbt("共有：" + page.getTotalCount() + "条宣讲会");
+        job.setZwbt("共有：" + page.getTotalCount());
         job.setReadOnly(true);
         job.setState(null);
         job.setBmNumber(bmAllNumber);
@@ -290,7 +290,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 //关注
                 params.put("gzlx", 1);
                 params.put("xxlb", 0);
-                number = xsgzDao.countNumber(params);
+                number = xsgzDao.countGzNumber(params);
                 job.setGzNumber(number);
                 gzAllNumber += number;
                 //签到
@@ -830,7 +830,6 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 job.setExp2("0");
             }
         }
-
 
         Map mapParam = Maps.newHashMap();
         mapParam.put("wzRefOwid", owid);

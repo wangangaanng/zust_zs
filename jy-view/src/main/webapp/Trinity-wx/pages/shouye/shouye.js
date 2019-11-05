@@ -10,7 +10,6 @@ Page({
    */
   data: {
     res: {},
-    xxbq: [],
     state: {}
   },
 
@@ -34,7 +33,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    wx.setStorageSync('href', 0)
     this.indexState()
   },
 
@@ -82,34 +81,21 @@ Page({
     }
     common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
       if (res.data.backCode == 0) {
-        let xxbq = res.data.bean.list[0].xxbq.split(',')
+        let list = res.data.bean.list
+        for (let i in res.data.bean.list) {
+          let kssj = '';
+          let jzsj = '';
+          let xxbq = '';
+          if (list[i].xxbq) {
+            list[i].xxbq = res.data.bean.list[i].xxbq.split('，')
+          }
+          if (list[i].kssj && list[i].jzsj) {
+            list[i].kssj = list[i].kssj.substring(5, 10).replace("-", ".")
+            list[i].jzsj = list[i].jzsj.substring(5, 10).replace("-", ".")
+          }
+        }
         that.setData({
-          res: res.data.bean.list[0],
-          xxbq: xxbq
-        })
-        wx.setStorageSync('xxbh', res.data.bean.list[0].xxbh)
-        wx.setStorageSync('applyOwid', res.data.bean.list[0].applyOwid)
-      } else {
-        common.toast(res.data.errorMess, 'none', 2000)
-      }
-    });
-  },
-  //学校信息获取
-  getXxxx: function(e) {
-    let that = this;
-    let data = {
-      pageNo: 1,
-      pageSize: 1,
-      yhRefOwid: yhRefOwid,
-    }
-    common.ajax('zustswyt/bckjBizXxpz/getXxxx', data, function(res) {
-      if (res.data.backCode == 0) {
-        let kssj = res.data.bean.list[0].kssj.substring(5, 10).replace("-", ".")
-        let jzsj = res.data.bean.list[0].jzsj.substring(5, 10).replace("-", ".")
-        that.setData({
-          res: res.data.bean.list[0],
-          kssj,
-          jzsj
+          res: list
         })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
@@ -150,4 +136,33 @@ Page({
       }
     });
   },
+  openUrl: function(e) {
+    let href = '';
+    wx.setStorageSync('href', 1) //通过缓存href判断选考信息保存后跳转的页面
+    switch (e.currentTarget.dataset.index) {
+      case '0':
+        href = '../basicInfo/basicInfo'
+        break;
+      case '1':
+        href = '../contactors/contactors'
+        break;
+      case '2':
+        href = '../examGrade/examGrade'
+        break;
+      case '3':
+        href = '../selectExamInfo/selectExamInfo'
+        break;
+    }
+    console.log(href)
+    wx.navigateTo({
+      url: href
+    })
+  },
+  setxxbh(e){
+    wx.setStorageSync('xxbh', e.currentTarget.dataset.url);
+    wx.navigateTo({
+      url: '../Process/Process',
+    })
+    // data - url='?index={{index}}'
+  }
 })

@@ -191,10 +191,10 @@ public class BckjBizSybController extends BaseController {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             BckjBizSyb bckjBizSyb = new BckjBizSyb();
             MapUtil.easySetByMap(dataMap, bckjBizSyb);
-            String valid = doValid(bckjBizSyb);
+          /*  String valid = doValid(bckjBizSyb);
             if (!TextUtils.isEmpty(valid)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, valid);
-            }
+            }*/
             return bckjBizSybService.insertssInfo(dataMap);
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);

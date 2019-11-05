@@ -332,7 +332,7 @@
 	</update>
 	<select id="getConsultsOne" parameterType="Map"  resultType="Map" >
 			select
-			a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
+			b.owid as owid ,a.owid as yhid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 			b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1 ,b.zjjj as zjjj,
 			b.zjxx as zjxx ,b.zjtx as zjtx ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4 ,a.sjh as sjh
 			from bckj_biz_yhxx a ,bckj_biz_zjzx b

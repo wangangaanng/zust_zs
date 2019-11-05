@@ -4,19 +4,23 @@
 
 <view class="com-wrap" style="padding:0px;">
   <view class="title-wrap">
-    <view class="com-title">学考等第</view>
+    <view class="com-title">学考等第
+      <text class="red">*</text>
+    </view>
   </view>
   <van-cell-group>
-    <van-cell wx:for="{{km}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="0" data-index="{{index}}"/>
+    <van-cell wx:for="{{km}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="0" data-index="{{index}}" />
   </van-cell-group>
 </view>
 
 <view class="com-wrap" style="padding:0px;">
   <view class="title-wrap">
-    <view class="com-title">综合素质评价</view>
+    <view class="com-title">综合素质评价
+      <text class="red">*</text>
+    </view>
   </view>
   <van-cell-group>
-    <van-cell wx:for="{{xm}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="1" data-index="{{index}}"/>
+    <van-cell wx:for="{{xm}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="1" data-index="{{index}}" />
   </van-cell-group>
 </view>
 
@@ -27,7 +31,7 @@
 </view>
 
 
- <!-- 弹出选择等第 -->
-  <van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
-    <van-picker show-toolbar columns="{{ gradeCategory }}" bind:cancel="cancelPop" bind:confirm="confirmGrade" />
-  </van-popup>
+<!-- 弹出选择等第 -->
+<van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
+  <van-picker show-toolbar columns="{{ gradeCategory }}" bind:cancel="cancelPop" bind:confirm="confirmGrade" />
+</van-popup>

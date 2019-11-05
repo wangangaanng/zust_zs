@@ -3,24 +3,27 @@
  * 三位一体comom
  */
 var nulltip="<p style='text-align: center;'>暂无数据</p>";
+
 //ajax请求
 function ajax(method, data, successMethod, pageNo, pageSize) {
-    $.ajax({
-        url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
-        data: {
-            "method": method,
-            "data": JSON.stringify(data),
-            "pageNo": pageNo,
-            "pageSize": pageSize,
-            timestamp: new Date().getTime()
-        },
-        method: 'POST',
-        success: successMethod,
-        error: function (err) {
-            // walert('系统出错');
-        }
-    })
-
+    console.log(localUrl);
+    if(!isTimeOut()) {
+        $.ajax({
+            url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
+            data: {
+                "method": method,
+                "data": JSON.stringify(data),
+                "pageNo": pageNo,
+                "pageSize": pageSize,
+                timestamp: new Date().getTime()
+            },
+            method: 'POST',
+            success: successMethod,
+            error: function (err) {
+                // walert('系统出错');
+            }
+        })
+    }
 }
 
 function keySearch(){
@@ -31,13 +34,47 @@ function keySearch(){
 
 //判断登录过期
 function isTimeOut() {
+    addCookie("swOwid","359f287a40bb4fe98b0fd80766a91b4f");
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
-    if(!getCookie("yhOwid")){
+    if(!getCookie("swOwid")){
         window.location.href=url+"/SWlogin";
     }else{
         return false;
     }
+}
+
+//调用附件上传接口
+function fileUpload(type,file,fun) {
+    var fd = new FormData();
+    fd.append("yhRefOwid",getCookie("swOwid"));
+    fd.append("file",file);
+    fd.append('data', JSON.stringify({
+        "type": type
+    }));
+    beginLoad();
+    console.log(uploadUrl);
+    $.ajax({
+        url:  uploadUrl,
+        type: "POST",
+        processData: false,
+        contentType: false,
+        data: fd,
+        success: function(d) {
+            // console.log(d);
+            finishLoad();
+            if(d.backCode==0){
+                //d.bean.filePath;
+                console.log(d.bean.filePath);
+                return fun(d);
+            }else{
+                walert(d.errorMess)
+            }
+        },
+        fail:function () {
+            finishLoad()
+        }
+    });
 }
 
 

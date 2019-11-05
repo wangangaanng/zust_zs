@@ -87,7 +87,7 @@ Page({
     common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
       if (res.data.backCode == 0) {
         wx.setStorageSync('email', params.yx);
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../contactors/contactors',
         })
       } else {
@@ -222,13 +222,10 @@ function uploadOcr(that, path, type) {
     },
     success: function (res) {
       wx.hideLoading();
-      if (res.statusCode == 200) {
-         let d = JSON.parse(res.data);
+      let d = JSON.parse(res.data);
+      if (d.backCode==0) {
         //是被信息回显  
         ocrImgStatus(d, d.bean.image_status, that);
-        that.setData({
-          'upFaceImg': d.bean.fileName,
-        })
       } else {
         wx.showModal({
           title: '提示',
@@ -306,9 +303,12 @@ function ocrImgStatus(d, status, that) {
   let statusStr = "";
   //身份证识别返回
   if (status != "normal") {
+    that.setData({
+      'upFaceImg': '',
+    })
     switch (status) {
       case "reversed_side":
-        statusStr = "身份证正反面颠倒，请重新选择"
+        statusStr = "身份证正反面颠倒，请重新选择";
         break;
       case "non_idcard":
         statusStr = "上传的图片中不包含身份证，请重新选择"
@@ -327,9 +327,16 @@ function ocrImgStatus(d, status, that) {
         break;
       default:
         statusStr = status;
+        that.setData({
+          'upFaceImg': d.bean.fileName,
+        })
         break;
     }
     common.toast(statusStr, 'none', 2000);
+  }else{
+    that.setData({
+      'upFaceImg': d.bean.fileName,
+    })
   }
 
   //身份证信息填充

@@ -61,7 +61,7 @@ public class BmPassAction implements ComponentListinerSer {
                         String result = HttpUtils.doPost(publicData, BaseConstants.UTF8, false);
                         ResponseMessage responseMessage = JsonUtil.getResponseMsg(result);
                         if (null != responseMessage && responseMessage.getBackCode() == 0) {
-                            AlterDialog.alert("审核成功！");
+                            AlterDialog.alert("成功！");
                         } else {
                             AlterDialog.alert(responseMessage.getErrorMess());
                         }

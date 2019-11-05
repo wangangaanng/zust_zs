@@ -29,6 +29,7 @@
     "pages/enterpriseZw/enterpriseZw",
     "pages/enterpriseXjh/enterpriseXjh",
     "pages/enterpriseZph/enterpriseZph",
+    "pages/enterpriseZpgg/enterpriseZpgg",
     "pages/zjxq/zjxq",
     "pages/jyzx/jyzx",
     "pages/qyzc/qyzc",
@@ -43,12 +44,14 @@
     "pages/wdgz/wdgz",
     "pages/xjhXq/xjhXq",
     "pages/zphXq/zphXq",
+    "pages/zpggXq/zpggXq",
     "pages/school/school",
     "pages/qiandao/qiandao",
     "pages/stuCaidian/stuCaidian",
     "pages/caidian/caidian",
     "pages/teaService/teaService",
     "pages/teaLogin/teaLogin",
+    "pages/newZpgg/newZpgg",
     "pages/teaZx/teaZx"
   ],
   "window": {
