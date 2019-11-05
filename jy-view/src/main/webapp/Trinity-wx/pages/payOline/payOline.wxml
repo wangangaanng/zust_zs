@@ -11,7 +11,7 @@
          <block wx:if="{{state>6}}">
           恭喜你，你的初审已通过，缴费审核已通过。
         </block>
-        <block wx:else>
+        <block wx:if="{{state<6}}">
           恭喜你，你的初审已通过，缴费完成后将分配面试时间，请点击进入在线缴费环节。缴费成功后，请上传缴费成功证明图片。
         </block>
       </view>
@@ -34,7 +34,7 @@
     </view>
 
     <view class="sign-wrap {{class1}}">
-      <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="choseImageProve">
+      <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="{{(state<6)?'choseImageProve':''}}">
         <block wx:if="{{state<6}}">
           <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
         </block>
