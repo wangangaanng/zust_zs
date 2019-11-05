@@ -118,6 +118,7 @@ Page({
 
   previewImage: function (e) {
     var currentSrc = e.target.dataset.src
+    console.log(e);
     wx.previewImage({
       current: currentSrc,
       urls: [currentSrc]
