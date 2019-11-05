@@ -226,8 +226,8 @@
         </div>
         <div class="tongZhiGongGao">
             <ul class="gongGao_ul">
-                <#if (tzggList??)&&(tzggList?size>0)>
-                    <#list tzggList as obj>
+                <#if (tzggList??)&&(tzggList.records??)&&(tzggList.records?size>0)>
+                    <#list tzggList.records as obj>
                         <li class="gongGao_ul_li">
                             <span class="glyphicon glyphicon-volume-up" style="font-size: 20px;float: left;"></span>
                             <p class="gongGao_title">${obj.wzbt!''}</p>
