@@ -15,8 +15,10 @@ import com.zghzbckj.base.model.BaseTree;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizBkzyDao;
+import com.zghzbckj.manage.dao.BckjBizBmDao;
 import com.zghzbckj.manage.entity.BckjBizBkzy;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,6 +38,10 @@ import java.util.Map;
 public class BckjBizBkzyService extends CrudService<BckjBizBkzyDao, BckjBizBkzy> {
 
     private static final Logger log = Logger.getLogger(BckjBizBkzyService.class);
+    @Autowired
+    BckjBizBmService bmService;
+    @Autowired
+    BckjBizBmDao bmDao;
 
     @Override
     public BckjBizBkzy get(String owid) {
@@ -184,5 +190,15 @@ public class BckjBizBkzyService extends CrudService<BckjBizBkzyDao, BckjBizBkzy>
             }
         }
         return baseTreeList;
+    }
+
+    public Integer getNumber(String dl) {
+        Map params = Maps.newHashMap();
+        params.put("bklbOwid", Integer.parseInt(dl));
+        params.put("state", 7);
+        params.put("wait", 1);
+        Integer count = bmDao.queryWaitNumber(params);
+        return count;
+
     }
 }

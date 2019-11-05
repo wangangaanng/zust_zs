@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizBmDao">
-    
-	<sql id="bckjBizBmColumns">
+
+    <sql id="bckjBizBmColumns">
 		a.owid AS "owid",
+		a.fzszRefOwid AS "fzszRefOwid",
 		a.bkzy_ref_owid AS "bkzyRefOwid",
 		a.xxbh AS "xxbh",
 		a.user_ref_owid AS "userRefOwid",
@@ -78,163 +79,166 @@
 		a.delflg AS "delflg",
 		a.state AS "state"
 	</sql>
-	
-	<sql id="bckjBizBmJoins">
-	</sql>
 
-	<select id="getOneByMap" resultType="com.zghzbckj.manage.entity.BckjBizBm">
-		SELECT
-		<include refid="bckjBizBmColumns"/>
-		FROM bckj_biz_bm a
-		<include refid="bckjBizBmJoins"/>
-		<where>
-			<if test="applyOwid !=null and applyOwid!='' ">
-				 a.owid=#{applyOwid}
+    <sql id="bckjBizBmJoins">
+    </sql>
+
+    <select id="getOneByMap" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+        SELECT
+        <include refid="bckjBizBmColumns"/>
+        FROM bckj_biz_bm a
+        <include refid="bckjBizBmJoins"/>
+        <where>
+            <if test="applyOwid !=null and applyOwid!='' ">
+                a.owid=#{applyOwid}
+            </if>
+            <if test="userRefOwid !=null and userRefOwid!='' ">
+                AND a.user_ref_owid=#{userRefOwid}
+            </if>
+            <if test="xxbh !=null and xxbh!='' ">
+                AND a.xxbh=#{xxbh}
+            </if>
+            <if test="bmnd !=null and bmnd!='' ">
+                AND a.bmnd=#{bmnd}
+            </if>
+        </where>
+    </select>
+    <select id="getBmxx" resultType="Map">
+        SELECT
+        b.xzzymc AS "bmzy",
+        b.xybnr AS "xybCz",
+        b.memo AS "memo",
+        b.jjly AS "jjly",
+        IFNULL(b.state,0) AS "bmState",
+        b.owid AS "applyOwid"
+        FROM bckj_biz_bm b
+        <include refid="bckjBizBmJoins"/>
+        <where>
+            b.user_ref_owid=#{yhRefOwid}
+            AND b.xxbh=#{xxbh}
+            AND b.bmnd=#{bmnd}
+        </where>
+    </select>
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+        SELECT
+        <include refid="bckjBizBmColumns"/>
+        FROM bckj_biz_bm a
+        <include refid="bckjBizBmJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+        SELECT
+        <include refid="bckjBizBmColumns"/>
+        FROM bckj_biz_bm a
+        <include refid="bckjBizBmJoins"/>
+        <where>
+
+            <if test="bkzyRefOwid != null and bkzyRefOwid != ''">
+                AND a.bkzy_ref_owid = #{bkzyRefOwid}
+            </if>
+            <if test="userRefOwid != null and userRefOwid != ''">
+                AND a.user_ref_owid = #{userRefOwid}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+        SELECT
+        <include refid="bckjBizBmColumns"/>
+        FROM bckj_biz_bm a
+        <include refid="bckjBizBmJoins"/>
+        <where>
+			<if test="fzszRefOwid != null and fzszRefOwid != ''">
+				AND a.fzsz_ref_owid = #{fzszRefOwid}
 			</if>
-			<if test="userRefOwid !=null and userRefOwid!='' ">
-				AND a.user_ref_owid=#{userRefOwid}
-			</if>
-			<if test="xxbh !=null and xxbh!='' ">
-				 AND a.xxbh=#{xxbh}
-			</if>
-			<if test="bmnd !=null and bmnd!='' ">
-				AND a.bmnd=#{bmnd}
-			</if>
-		</where>
-	</select>
-	<select id="getBmxx" resultType="Map">
-		SELECT
-		b.xzzymc AS "bmzy",
-		b.xybnr AS "xybCz",
-		b.memo AS "memo",
-		b.jjly AS "jjly",
-		IFNULL(b.state,0) AS "bmState",
-		b.owid AS "applyOwid"
-		FROM bckj_biz_bm b
-		<include refid="bckjBizBmJoins"/>
-		<where>
-				 b.user_ref_owid=#{yhRefOwid}
-				 AND b.xxbh=#{xxbh}
-				AND b.bmnd=#{bmnd}
-		</where>
-	</select>
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizBm">
-		SELECT 
-			<include refid="bckjBizBmColumns"/>
-		FROM bckj_biz_bm a
-		<include refid="bckjBizBmJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizBm">
-		SELECT 
-			<include refid="bckjBizBmColumns"/>
-		FROM bckj_biz_bm a
-		<include refid="bckjBizBmJoins"/>
-		<where>
-			
-			<if test="bkzyRefOwid != null and bkzyRefOwid != ''">
-				AND a.bkzy_ref_owid = #{bkzyRefOwid}
-			</if>
-			<if test="userRefOwid != null and userRefOwid != ''">
-				AND a.user_ref_owid = #{userRefOwid}
-			</if>
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizBm">
-	        SELECT
-			<include refid="bckjBizBmColumns"/>
-		FROM bckj_biz_bm a
-		<include refid="bckjBizBmJoins"/>
-		<where>
-			
-			<if test="bkzyRefOwid != null and bkzyRefOwid != ''">
-				AND a.bkzy_ref_owid = #{bkzyRefOwid}
-			</if>
-			<if test="userRefOwid != null and userRefOwid != ''">
-				AND a.user_ref_owid = #{userRefOwid}
-			</if>
-			<if test="userRefOwid != null and userRefOwid != ''">
-				AND a.user_ref_owid = #{userRefOwid}
-			</if>
-			<if test="sqsj1 != null and sqsj1 !=''  ">
-				AND a.sqsj &gt;= #{sqsj1}
-			</if>
-			<if test="sqsj2!= null and sqsj2 !=''  ">
-				AND a.sqsj &lt;= #{sqsj2}
-			</if>
-			<if test="jfsj1 != null and jfsj1 !=''  ">
-				AND a.jfsj &gt;= #{jfsj1}
-			</if>
-			<if test="jfsj2!= null and jfsj2 !=''  ">
-				AND a.jfsj &lt;= #{jfsj2}
-			</if>
-			<if test=" xm != null and xm != '' ">
-				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test=" xklb != null and xklb != '' ">
-				AND a.xklb LIKE concat('%',#{xklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test=" bklb != null and bklb != '' ">
-				AND a.bklb LIKE concat('%',#{bklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test=" zxlb != null and zxlb != '' ">
-				AND a.zxlb LIKE concat('%',#{zxlb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test=" xzzymc != null and xzzymc != '' ">
-				AND a.xzzymc LIKE concat('%',#{xzzymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test=" lxdh != null and lxdh != '' ">
-				AND a.lxdh = #{lxdh}
-			</if>
-			<if test=" sfzh != null and sfzh != '' ">
-				AND a.sfzh = #{sfzh}
-			</if>
-			<if test=" wyyz != null and wyyz != '' ">
-				AND a.wyyz = #{wyyz}
-			</if>
-			<if test=" state != null and state != '' ">
-				AND a.state = #{state}
-			</if>
-			<if test=" bmnd != null and bmnd != '' ">
-				AND a.bmnd = #{bmnd}
-			</if>
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizBm">
-		SELECT 
-			<include refid="bckjBizBmColumns"/>
-		FROM bckj_biz_bm a
-		<include refid="bckjBizBmJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
+            <if test="bkzyRefOwid != null and bkzyRefOwid != ''">
+                AND a.bkzy_ref_owid = #{bkzyRefOwid}
+            </if>
+            <if test="userRefOwid != null and userRefOwid != ''">
+                AND a.user_ref_owid = #{userRefOwid}
+            </if>
+            <if test="userRefOwid != null and userRefOwid != ''">
+                AND a.user_ref_owid = #{userRefOwid}
+            </if>
+            <if test="sqsj1 != null and sqsj1 !=''  ">
+                AND a.sqsj &gt;= #{sqsj1}
+            </if>
+            <if test="sqsj2!= null and sqsj2 !=''  ">
+                AND a.sqsj &lt;= #{sqsj2}
+            </if>
+            <if test="jfsj1 != null and jfsj1 !=''  ">
+                AND a.jfsj &gt;= #{jfsj1}
+            </if>
+            <if test="jfsj2!= null and jfsj2 !=''  ">
+                AND a.jfsj &lt;= #{jfsj2}
+            </if>
+            <if test=" xm != null and xm != '' ">
+                AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test=" xklb != null and xklb != '' ">
+                AND a.xklb LIKE concat('%',#{xklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test=" bklb != null and bklb != '' ">
+                AND a.bklb LIKE concat('%',#{bklb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test=" zxlb != null and zxlb != '' ">
+                AND a.zxlb LIKE concat('%',#{zxlb,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test=" xzzymc != null and xzzymc != '' ">
+                AND a.xzzymc LIKE concat('%',#{xzzymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test=" lxdh != null and lxdh != '' ">
+                AND a.lxdh = #{lxdh}
+            </if>
+            <if test=" sfzh != null and sfzh != '' ">
+                AND a.sfzh = #{sfzh}
+            </if>
+            <if test=" wyyz != null and wyyz != '' ">
+                AND a.wyyz = #{wyyz}
+            </if>
+            <if test=" state != null and state != '' ">
+                AND a.state = #{state}
+            </if>
+            <if test=" bmnd != null and bmnd != '' ">
+                AND a.bmnd = #{bmnd}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+        SELECT
+        <include refid="bckjBizBmColumns"/>
+        FROM bckj_biz_bm a
+        <include refid="bckjBizBmJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_bm(
 			owid,
+			fzsz_ref_owid,
 			bkzy_ref_owid,
 			xxbh,
 			user_ref_owid,
@@ -310,6 +314,7 @@
 			state
 		) VALUES (
 			#{owid},
+			#{fzszRefOwid},
 			#{bkzyRefOwid},
 			#{xxbh},
 			#{userRefOwid},
@@ -385,10 +390,11 @@
 			#{state}
 		)
 	</insert>
-	
-	<update id="update">
+
+    <update id="update">
 		UPDATE bckj_biz_bm SET 	
 			owid = #{owid},
+			fzszRefOwid =#{fzszRefOwid},
 			bkzy_ref_owid = #{bkzyRefOwid},
 			xxbh = #{xxbh},
 			user_ref_owid = #{userRefOwid},
@@ -464,25 +470,48 @@
 			state = #{state}
 		WHERE owid = #{owid}
 	</update>
-	
-	<delete id="delete">
+
+    <delete id="delete">
 		DELETE FROM bckj_biz_bm
 		WHERE owid = #{owid}
 	</delete>
 
 
-	<select id="listDicByType" resultType="java.util.Map">
-		SELECT a.*
-		FROM ourway_sys_dic b,ourway_sys_dic_value a
-		<where>
-			b.owid=a.dic_ref_owid and b.type=#{type}
-		</where>
-		<choose>
-			<when test="orderBy !=null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
+    <select id="listDicByType" resultType="java.util.Map">
+        SELECT a.*
+        FROM ourway_sys_dic b,ourway_sys_dic_value a
+        <where>
+            b.owid=a.dic_ref_owid and b.type=#{type}
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+
+    <select id="queryWaitNumber" parameterType="Map" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        from bckj_biz_bm a
+        <where>
+
+            <if test="bklbOwid != null and bklbOwid  != ''">
+                AND a.bklb_owid = #{bklbOwid}
+            </if>
+			<if test="fzszRefOwid != null and fzszRefOwid  != ''">
+				AND a.fzsz_ref_owid = #{fzszRefOwid}
+			</if>
+			<if test="state != null and state  != ''">
+				AND a.state = #{state}
+			</if>
+			<if test="wait != null and wait  != ''">
+				AND   a.mssj IS NULL
+			</if>
+        </where>
+    </select>
+
 </mapper>

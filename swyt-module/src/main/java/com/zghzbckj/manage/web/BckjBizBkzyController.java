@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.beust.jcommander.internal.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -190,6 +191,46 @@ public class BckjBizBkzyController extends BaseController {
             return ResponseMessage.sendOK((Object) null);
         } else {
             return ResponseMessage.sendError(ResponseMessage.FAIL.intValue(), "");
+        }
+    }
+
+
+    @RequestMapping(value = "listByName", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage listByName(PublicDataVO publicDataVO) {
+        ResponseMessage responseMessage = new ResponseMessage();
+        Map params = Maps.newHashMap();
+        params.put("cc", 2);
+        List<BckjBizBkzy> buys = bckjBizBkzyService.findListByParams(params, " a.px ");
+        if (buys == null || buys.size() == 0) {
+            return null;
+        }
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (BckjBizBkzy buy : buys) {
+            Map temp = new HashMap();
+            temp.put("label", buy.getName());
+            temp.put("value", buy.getOwid());
+            maps.add(temp);
+        }
+        return ResponseMessage.sendOK(maps);
+    }
+
+
+    @RequestMapping(value = "getNumber", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getNumber(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "dl");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizBkzyService.getNumber(mapData.get("dl").toString()));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizBkzy\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
 

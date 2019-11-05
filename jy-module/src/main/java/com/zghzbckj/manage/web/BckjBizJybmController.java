@@ -316,4 +316,27 @@ public class BckjBizJybmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
         }
     }
+
+
+    @RequestMapping(value = "fixJybm", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage fixJybm(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            Map resultMap = bckjBizJybmService.fixJybm(mapData);
+            if ("true".equals(resultMap.get("result").toString())) {
+                return ResponseMessage.sendOK("");
+            } else {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, resultMap.get("msg").toString());
+            }
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizQyxx\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
 }
