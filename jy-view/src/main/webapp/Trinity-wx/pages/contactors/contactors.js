@@ -62,12 +62,12 @@ Page({
       if (res.data.backCode == 0) {
         switch (curId){
           case "pre":
-            wx.navigateTo({
+            wx.redirectTo({
               url: '../basicInfo/basicInfo',
             })
           break;
           case "next":
-            wx.navigateTo({
+            wx.redirectTo({
               url: '../examGrade/examGrade',
             })
           break;
