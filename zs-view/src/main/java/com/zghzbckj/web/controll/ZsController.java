@@ -1,6 +1,7 @@
 package com.zghzbckj.web.controll;
 
 import com.google.common.collect.Maps;
+import com.ourway.base.utils.JsonUtil;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
 import com.zghzbckj.web.utils.PropertiesUtil;
@@ -36,6 +37,7 @@ public class ZsController {
     public ModelAndView ZSindex(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         //轮播图
@@ -91,6 +93,7 @@ public class ZsController {
     public ModelAndView ZSzszy(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSzszy");
         view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         return view;
     }
@@ -105,6 +108,7 @@ public class ZsController {
         view.setViewName("ZSnewsList");
         view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -143,6 +147,7 @@ public class ZsController {
         }
         view.setViewName("ZSnewsList");
         view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -169,10 +174,85 @@ public class ZsController {
         }
         return view;
     }
+    @RequestMapping(value = "wzOrTpOrSqnd/{secondDir}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("ZSnewsyList");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        //招生计划年度
+        view.addObject("thirdDirName",  ((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal2").toString());
+        view.addObject("menuList",((List<Map>) getZsYears().getBean()));
+        String nf=((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal1").toString();
+        Map param = Maps.newHashMap();
+        param.put("lmbh","66");
+        param.put("wzzt","1");
+        param.put("isDetail","1");
+        param.put("nf",nf);
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+        return view;
+    }
+
+    @RequestMapping(value = "wzOrTpOrSqnd/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            view.addObject("key", key);
+        }else {
+            view.addObject("key","");
+        }
+        view.setViewName("ZSnewsyList");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+        view.addObject("secondDir",secondDir);
+        view.addObject("thirdDir",thirdDir);
+        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+        //招生计划年度
+        view.addObject("thirdDirName",  ((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal2").toString());
+        view.addObject("menuList",((List<Map>) getZsYears().getBean()));
+        String nf=((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal1").toString();
+        Map param = Maps.newHashMap();
+        param.put("lmbh","66");
+        param.put("wzzt","1");
+        param.put("isDetail","1");
+        param.put("nf",nf);
+        param.put("gjz",key);
+        param.put("pageNo", currentPage);
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+        return view;
+    }
+
     @RequestMapping(value = "wzxq/{owid}", method = RequestMethod.GET)
     public ModelAndView wzxq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) throws UnsupportedEncodingException {
         view.setViewName("ZSnewsDetail");
         view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("owid",owid);
@@ -189,6 +269,20 @@ public class ZsController {
         param.put("fid","-1");
         param.put("bxlx","1");
         PublicData publicData= UnionHttpUtils.manageParam(param,"/zustcommon/bckjDicMenu/getSyMenu");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+
+        //招生计划
+        Map param2= Maps.newHashMap();
+        param2.put("dicType","10027");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/common/getByType");
+        ResponseMessage year  = UnionHttpUtils.doPosts(publicData2);
+        return result;
+    }
+    public ResponseMessage getZsYears() {
+        //招生计划
+        Map param= Maps.newHashMap();
+        param.put("dicType","10027");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/common/getByType");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         return result;
     }
@@ -217,6 +311,7 @@ public class ZsController {
     public ModelAndView zsCjcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZScjcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -240,6 +335,7 @@ public class ZsController {
     public ModelAndView zsLqcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlqcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -263,6 +359,7 @@ public class ZsController {
     public ModelAndView zsLnfsmc(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlnfsmc");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -295,6 +392,7 @@ public class ZsController {
     public ModelAndView zsLqtzscx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSlqtzscx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -318,6 +416,7 @@ public class ZsController {
     public ModelAndView zsjhcx(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzsjhcx");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -350,6 +449,7 @@ public class ZsController {
     public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSzxtw");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -371,6 +471,7 @@ public class ZsController {
     public ModelAndView zxtw(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir, @PathVariable String currentPage) {
         view.setViewName("ZSzxtw");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -402,6 +503,7 @@ public class ZsController {
     public ModelAndView wjdc(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSwjdc");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
@@ -426,6 +528,7 @@ public class ZsController {
         view.setViewName("inquiryDetail");
         view.addObject("owid",owid);
         view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         Map param=Maps.newHashMap();
         param.put("dcwjRefOwid",owid);
@@ -451,6 +554,7 @@ public class ZsController {
     public ModelAndView kyly(HttpServletRequest request, ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) {
         view.setViewName("ZSkyly");
         view.addObject("header", getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
         view.addObject("secondDir",secondDir);
         view.addObject("thirdDir",thirdDir);
