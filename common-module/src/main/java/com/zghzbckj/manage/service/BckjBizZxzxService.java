@@ -141,7 +141,7 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 2) {
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
             if (!msg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+                return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.USER_RELOGIN);
             }
             ValidateMsg studentOwid = ValidateUtils.isEmpty(dataMap, "studentOwid");
             if (!studentOwid.getSuccess()) {

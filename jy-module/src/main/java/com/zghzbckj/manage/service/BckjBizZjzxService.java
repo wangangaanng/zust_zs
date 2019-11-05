@@ -366,7 +366,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         }
         Map<String, Object> consultsOne1 = this.dao.getConsultsOne(dataMap);
         consultsOne1.put("exp4",consultsOne.get("exp4"));
-        return ResponseMessage.sendOK(this.dao.getConsultsOne(consultsOne1));
+        return ResponseMessage.sendOK(consultsOne);
     }
 
     private String getDicVal2ByVal1(Integer type , String exp4) {

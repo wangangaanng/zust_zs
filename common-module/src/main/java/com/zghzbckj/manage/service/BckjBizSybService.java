@@ -746,7 +746,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         bckjBizYhxx.setYhDlmm(dlmm);
         bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
         if(TextUtils.isEmpty(bckjBizJyschemeService.getDicVal(50005, bckjBizSyb1.getSyd()))){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"保存出错,生源地从下拉框中选择");
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"填写有误,请重新填写!");
         }
         bckjBizSyb1.setSyd(bckjBizJyschemeService.getDicVal(50005, bckjBizSyb1.getSyd()));
         bckjBizSyb1.setExp1(bckjBizJyschemeService.recordLx(bckjBizJyschemeService.getDicVall(50005, bckjBizSyb1.getSyd())));

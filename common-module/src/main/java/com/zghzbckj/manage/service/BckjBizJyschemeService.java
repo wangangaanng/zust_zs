@@ -673,7 +673,11 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     }
 
     public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
-        BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByYhRefOwid(dataMap);
+        BckjBizYhxx bckjBizYhxx = bckjBizYhxxService.get(dataMap.get("owid").toString());
+        HashMap<String, Object> sendMap = Maps.newHashMap();
+        sendMap.put("sfz",bckjBizYhxx.getSfz());
+        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(sendMap);
+        BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByXsxh(oneBySfz.getXsxh());
         if (!TextUtils.isEmpty(bckjBizJyscheme)) {
             if (!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())) {
                 bckjBizJyscheme.setDwszdmc(getDicVall(50005, bckjBizJyscheme.getDwszdmc()));
@@ -721,10 +725,10 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         bckjBizSybService.updateBySfz(bckjBizSyb);
         //设置就业所在地的省份
         if (TextUtils.isEmpty(getDicVal(50005, bckjBizJyscheme.getDwszdmc()))) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "单位所在地名称请从下拉框选择");
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "填写有误,请重新填写!");
         }
         if (TextUtils.isEmpty(getDicVal(50005, bckjBizJyscheme.getBdzqwszdmc()))) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "报到证签往所在地名称所请从下拉框选择");
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "填写有误,请重新填写!");
         }
         bckjBizJyscheme.setDwszdmc(getDicVal(50005, bckjBizJyscheme.getDwszdmc()));
         bckjBizJyscheme.setBdzqwszdmc(getDicVal(50005, bckjBizJyscheme.getBdzqwszdmc()));
@@ -747,7 +751,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             if (!TextUtils.isEmpty(oneBySfz.getXsxh())) {
                 bckjBizJyscheme = getOneByXsxh(oneBySfz.getXsxh());
             }
-        } else {
+        }
+        if (!TextUtils.isEmpty(getJyselfInfo(dataMap))){
             bckjBizJyscheme = getJyselfInfo(dataMap);
         }
         if (!TextUtils.isEmpty(bckjBizJyscheme)) {

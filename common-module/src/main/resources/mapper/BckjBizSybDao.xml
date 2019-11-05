@@ -598,7 +598,7 @@
 				 a.type=#{type}
 			</if>
 			<if test="text!=null and text!=''">
-				and b.dic_val2 LIKE concat(#{text,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				and b.dic_val2 LIKE concat('%',#{text,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 
 		</where>
