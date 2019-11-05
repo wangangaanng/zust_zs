@@ -102,5 +102,17 @@ public class BckjBizFzszController extends BaseController {
         }
     }
 
+    @PostMapping(value = "deleteAll")
+    @ResponseBody
+    public ResponseMessage deleteAll(PublicDataVO dataVO) {
+        try {
+            bckjBizFzszService.deleteAll();
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 }

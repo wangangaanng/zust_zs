@@ -92,6 +92,9 @@
 			<if test="type != null and type != ''">
 				AND a.type = #{type}
 			</if>
+			<if test="cc != null and cc != ''">
+				AND a.cc = #{cc}
+			</if>
 			<if test="name != null and name != ''">
 				AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>

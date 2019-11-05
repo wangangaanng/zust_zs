@@ -5,7 +5,7 @@
       <van-cell title="{{signInfo}}"  border="{{false}}"  bind:click="{{state<3?'choseImageSign':''}}" data-type="1" >
         <van-icon slot="right-icon" name="search" class=" iconfont {{state<3?'icon-xiangji':''}}" />
       </van-cell>
-      <image src="{{signImg}}"  data-src="{{promiseImg}}" bindtap="previewImage" hidden="{{(signImg=='')}}" ></image>
+      <image src="{{signImg}}"  data-src="{{signImg}}" bindtap="previewImage" hidden="{{(signImg=='')}}" ></image>
     </view>
 
     <view class="sign-wrap {{class2}}">

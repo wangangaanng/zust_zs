@@ -23,4 +23,6 @@ public interface BckjBizBmDao extends CrudDao<BckjBizBm> {
     Map getBmxx(Map<String, Object> mapData);
 
     List<Map> listDicByType(Map params);
+
+    Integer queryWaitNumber(Map params);
 }

@@ -43,6 +43,8 @@ public class InitArticleSer implements PageInitSer {
                 params.put(key, _params.get(key));
             }
             ResponseMessage responseMessage = null;
+            BaseListbox baseListbox = (BaseListbox) window.getFellowIfAny("mainTableGrid_nf");
+            BaseLabel baseNfLabel = (BaseLabel) window.getFellowIfAny("mainTableGrid_nf_label");
             if (null != _rowMap && !TextUtils.isEmpty(_rowMap.get("owid"))) {
                 responseMessage = JsonPostUtils.executeAPI(params, _params.get("apiUrl").toString());
             } else {
@@ -52,7 +54,10 @@ public class InitArticleSer implements PageInitSer {
                     params.remove("#lmbh");
                     responseMessage = JsonPostUtils.executeAPI(params, SINGLE_DETAIL_URL);
                 }
-
+                if (null!=params.get("lmbh")&&!params.get("lmbh").toString().equals("66")) {
+                    baseListbox.setVisible(false);
+                    baseNfLabel.setVisible(false);
+                }
             }
             if (null == responseMessage || responseMessage.getBackCode() != 0) {
 //                AlterDialog.alert("不存在详细信息列表");
@@ -85,13 +90,17 @@ public class InitArticleSer implements PageInitSer {
                         window.setPpt(result);
                     }
                 }
-
+                if (!(window.getPpt().get("lmbh").toString().contains("66"))) {
+                    baseListbox.setVisible(false);
+                    baseNfLabel.setVisible(false);
+                }
                 //查看初始化的时候，是否有页面标题传入，如果标题是变量名，则取ppt中的值
                 PageUtils.changeWindowTitle(window, args);
 
             }
         }
-    }
+
+        }
     private void initCompBox(BaseWindow window) {
         BaseChosenbox combobox = (BaseChosenbox) window.getFellowIfAny("mainTableGrid_qtbh");
         ResponseMessage mess = JsonPostUtils.executeAPI("", INIT_CHOSE_URL);
