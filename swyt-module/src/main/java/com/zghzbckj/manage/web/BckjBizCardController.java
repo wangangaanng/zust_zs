@@ -12,7 +12,8 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.manage.service.BckjBizFzszService;
+import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.service.BckjBizCardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,22 +21,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
  * ccController
  *
  * @author cc
- * @version 2019-09-09
+ * @version 2019-11-05
  */
 @Controller
-@RequestMapping(value = "bckjBizFzsz")
-public class BckjBizFzszController extends BaseController {
+@RequestMapping(value = "bckjBizCard")
+public class BckjBizCardController extends BaseController {
     @Autowired
-    private BckjBizFzszService bckjBizFzszService;
+    private BckjBizCardService bckjBizCardService;
 
 
     @RequestMapping(value = "/getList")
@@ -43,9 +46,9 @@ public class BckjBizFzszController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizFzszService.findPageBckjBizFzsz(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return ResponseMessage.sendOK(bckjBizCardService.findPageBckjBizCard(filters, dataVO.getPageNo(), dataVO.getPageSize()));
         } catch (Exception e) {
-            log.error(e + "获取bckjBizFzsz列表失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "获取bckjBizCard列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
@@ -63,10 +66,10 @@ public class BckjBizFzszController extends BaseController {
             for (Object obj : list) {
                 codes.add(((Map<String, Object>) obj).get("owid").toString());
             }
-            ResponseMessage data = bckjBizFzszService.removeOrder(codes);
-            return data;
+            List data = bckjBizCardService.removeOrder(codes);
+            return ResponseMessage.sendOK(data);
         } catch (Exception e) {
-            log.error(e + "删除BckjBizFzsz列表失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "删除BckjBizCard列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
@@ -77,9 +80,9 @@ public class BckjBizFzszController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
-            return bckjBizFzszService.saveBckjBizFzsz(mapData);
+            return ResponseMessage.sendOK(bckjBizCardService.saveBckjBizCard(mapData));
         } catch (Exception e) {
-            log.error(e + "保存BckjBizFzsz信息失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "保存BckjBizCard信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
@@ -94,25 +97,38 @@ public class BckjBizFzszController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizFzszService.get(mapData.get("owid").toString()));
+            return ResponseMessage.sendOK(bckjBizCardService.get(mapData.get("owid").toString()));
         } catch (Exception e) {
 
-            log.error(e + "初始BckjBizFzsz\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "初始BckjBizCard\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
 
-    @PostMapping(value = "deleteAll")
+
+    @RequestMapping(value = "upload", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseMessage deleteAll(PublicDataVO dataVO) {
+    public ResponseMessage upload(PublicDataVO dataVO, HttpServletRequest request) {
         try {
-            bckjBizFzszService.deleteAll();
-            return ResponseMessage.sendOK("");
+            String postData = "";
+            Set<String> set = request.getParameterMap().keySet();
+            for (String s : set) {
+                postData += s + "=";
+                postData += request.getParameterMap().get(s)[0];
+            }
+            if (TextUtils.isEmpty(postData)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"不存在请求参数");
+            }
+            if(postData.endsWith("="))
+                postData = postData.replaceAll("=","").trim();
+            bckjBizCardService.dealPostData(postData);
+            return ResponseMessage.sendOK(Boolean.TRUE);
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+            log.info("获取三位一体身份证识别上传失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
-
 
 }

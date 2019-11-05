@@ -6,6 +6,7 @@ import com.ourway.baiduapi.dto.InfoDTO;
 import com.ourway.baiduapi.utils.Base64ImageUtils;
 import com.ourway.baiduapi.utils.HttpClientUtils;
 import com.ourway.base.utils.*;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.common.CommonConstant;
@@ -205,6 +206,34 @@ public class CommonController {
         }
     }
 
+    @RequestMapping(value = "getOneByType/{type}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getOneByType(@PathVariable String type, HttpServletResponse response, PublicDataVO dataVO) {
+        try {
+            Map mapData = Maps.newHashMap();
+            mapData.put("dicType", type);
+            return ResponseMessage.sendOK(commonService.getByType(mapData));
+        } catch (Exception e) {
+            log.error(e + "初始BckjBizMidcompNews\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    @RequestMapping(value = "saveInfo/{type}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveInfo(@PathVariable String type, PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            mapData.put("dicType", type);
+            //判断id是否为
+            return commonService.saveBckjDic(mapData);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizMidcompNews信息失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     /**
      * 返回字典表 按val2排序
      *
@@ -283,6 +312,7 @@ public class CommonController {
      * <li>@date 2019/10/24 17:03  </li>
      * </ul>
      */
+    @CrossOrigin("*")
     @RequestMapping(value = "fileUpload", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage fileUpload(PublicDataVO dataVO, @RequestParam(required = false) MultipartFile file) {

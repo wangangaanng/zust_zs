@@ -228,15 +228,24 @@ public class CommonService {
     }
 
     /***
-     *<p>方法:getXkkm TODO获取选课列表 </p>
-     *<ul>
-     *<li> @param mapData TODO</li>
-     *<li>@return java.lang.Object  </li>
-     *<li>@author D.chen.g </li>
-     *<li>@date 2019/10/28 11:43  </li>
-     *</ul>
+     * <p>方法:getXkkm TODO获取选课列表 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.lang.Object  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/28 11:43  </li>
+     * </ul>
      */
     public Object getXkkm(Map<String, Object> mapData) {
         return this.commonDao.getXkcj(mapData);
+    }
+
+    public ResponseMessage saveBckjDic(Map<String, Object> mapData) {
+        try {
+            HttpUtil.doPostJson(CommonModuleContant.BACK_DIC_SAVE_HOST, JsonUtil.toJson(mapData), "UTF-8", true);
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return ResponseMessage.sendOK(null);
     }
 }

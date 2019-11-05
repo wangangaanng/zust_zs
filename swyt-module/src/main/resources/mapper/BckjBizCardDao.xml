@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zghzbckj.manage.dao.BckjBizBkzyDao">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizCardDao">
     
-	<sql id="bckjBizBkzyColumns">
+	<sql id="bckjBizCardColumns">
 		a.owid AS "owid",
-		a.fid AS "fid",
-		a.path AS "path",
-		a.cc AS "cc",
-		a.px AS "px",
-		a.xxbh AS "xxbh",
-		a.bknd AS "bknd",
-		a.type AS "type",
-		a.code AS "code",
+		a.head_image AS "headImage",
 		a.name AS "name",
-		a.content AS "content",
-		a.attach_file AS "attachFile",
-		a.xgyy AS "xgyy",
-		a.memo AS "memo",
+		a.xb AS "xb",
+		a.folk AS "folk",
+		a.birthday AS "birthday",
+		a.address AS "address",
+		a.validterm AS "validterm",
+		a.is_pass AS "isPass",
+		a.number AS "number",
+		a.face_value AS "faceValue",
+		a.face_image AS "faceImage",
+		a.source AS "source",
+		a.deviceid AS "deviceid",
 		a.createtime AS "createtime",
 		a.creator AS "creator",
 		a.creator_name AS "creatorName",
@@ -41,34 +41,32 @@
 		a.exp10 AS "exp10"
 	</sql>
 	
-	<sql id="bckjBizBkzyJoins">
+	<sql id="bckjBizCardJoins">
 	</sql>
     
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizBkzy">
+	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizCard">
 		SELECT 
-			<include refid="bckjBizBkzyColumns"/>
-		FROM bckj_biz_bkzy a
-		<include refid="bckjBizBkzyJoins"/>
+			<include refid="bckjBizCardColumns"/>
+		FROM bckj_biz_card a
+		<include refid="bckjBizCardJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
 	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizBkzy">
+	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizCard">
 		SELECT 
-			<include refid="bckjBizBkzyColumns"/>
-		FROM bckj_biz_bkzy a
-		<include refid="bckjBizBkzyJoins"/>
+			<include refid="bckjBizCardColumns"/>
+		FROM bckj_biz_card a
+		<include refid="bckjBizCardJoins"/>
 		<where>
-			<if test="xxbh != null and xxbh != ''">
-				AND a.xxbh = #{xxbh}
-			</if>
-			<if test="fid != null and fid != ''">
-				AND a.fid = #{fid}
-			</if>
-			<if test="type != null and type != ''">
-				AND a.type = #{type}
-			</if>
+			
 			<if test="name != null and name != ''">
-				AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.name LIKE 
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="number != null and number != ''">
+				AND a.number = #{number}
 			</if>
 		</where>
 		<choose>
@@ -79,24 +77,21 @@
 			</otherwise>
 		</choose>
 	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizBkzy">
+		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizCard">
 	        SELECT
-			<include refid="bckjBizBkzyColumns"/>
-		FROM bckj_biz_bkzy a
-		<include refid="bckjBizBkzyJoins"/>
+			<include refid="bckjBizCardColumns"/>
+		FROM bckj_biz_card a
+		<include refid="bckjBizCardJoins"/>
 		<where>
 			
-			<if test="fid != null and fid != ''">
-				AND a.fid = #{fid}
-			</if>
-			<if test="type != null and type != ''">
-				AND a.type = #{type}
-			</if>
-			<if test="cc != null and cc != ''">
-				AND a.cc = #{cc}
-			</if>
 			<if test="name != null and name != ''">
-				AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.name LIKE
+					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+			</if>
+			<if test="number != null and number != ''">
+				AND a.number = #{number}
 			</if>
 		</where>
 		<choose>
@@ -107,11 +102,11 @@
 			</otherwise>
 		</choose>
 	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizBkzy">
+	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizCard">
 		SELECT 
-			<include refid="bckjBizBkzyColumns"/>
-		FROM bckj_biz_bkzy a
-		<include refid="bckjBizBkzyJoins"/>
+			<include refid="bckjBizCardColumns"/>
+		FROM bckj_biz_card a
+		<include refid="bckjBizCardJoins"/>
 		<where>
 			
 		</where>		
@@ -125,24 +120,21 @@
 	</select>
 	
 	<insert id="insert">
-		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
-			select LAST_INSERT_ID()
-		</selectKey>
-		INSERT INTO bckj_biz_bkzy(
+		INSERT INTO bckj_biz_card(
 			owid,
-			fid,
-			path,
-			cc,
-			px,
-			xxbh,
-			bknd,
-			type,
-			code,
+			head_image,
 			name,
-			content,
-			attach_file,
-			xgyy,
-			memo,
+			xb,
+			folk,
+			birthday,
+			address,
+			validterm,
+			is_pass,
+			number,
+			face_value,
+			face_image,
+			source,
+			deviceid,
 			createtime,
 			creator,
 			creator_name,
@@ -167,19 +159,19 @@
 			exp10
 		) VALUES (
 			#{owid},
-			#{fid},
-			#{path},
-			#{cc},
-			#{px},
-			#{xxbh},
-			#{bknd},
-			#{type},
-			#{code},
+			#{headImage},
 			#{name},
-			#{content},
-			#{attachFile},
-			#{xgyy},
-			#{memo},
+			#{xb},
+			#{folk},
+			#{birthday},
+			#{address},
+			#{validterm},
+			#{isPass},
+			#{number},
+			#{faceValue},
+			#{faceImage},
+			#{source},
+			#{deviceid},
 			#{createtime},
 			#{creator},
 			#{creatorName},
@@ -206,21 +198,21 @@
 	</insert>
 	
 	<update id="update">
-		UPDATE bckj_biz_bkzy SET 	
+		UPDATE bckj_biz_card SET 	
 			owid = #{owid},
-			fid = #{fid},
-			path = #{path},
-			cc = #{cc},
-			px = #{px},
-			xxbh = #{xxbh},
-			bknd = #{bknd},
-			type = #{type},
-			code = #{code},
+			head_image = #{headImage},
 			name = #{name},
-			content = #{content},
-			attach_file = #{attachFile},
-			xgyy = #{xgyy},
-			memo = #{memo},
+			xb = #{xb},
+			folk = #{folk},
+			birthday = #{birthday},
+			address = #{address},
+			validterm = #{validterm},
+			is_pass = #{isPass},
+			number = #{number},
+			face_value = #{faceValue},
+			face_image = #{faceImage},
+			source = #{source},
+			deviceid = #{deviceid},
 			createtime = #{createtime},
 			creator = #{creator},
 			creator_name = #{creatorName},
@@ -247,7 +239,7 @@
 	</update>
 	
 	<delete id="delete">
-		DELETE FROM bckj_biz_bkzy
+		DELETE FROM bckj_biz_card
 		WHERE owid = #{owid}
 	</delete>
 	

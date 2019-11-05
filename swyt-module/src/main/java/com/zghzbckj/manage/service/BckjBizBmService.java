@@ -518,4 +518,40 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         return results;
 
     }
+
+
+    @Transactional(readOnly = false)
+    public void genZkz() {
+        Map params = Maps.newHashMap();
+        params.put("state", 7);
+        params.put("orderBy", " a.bklb_owid,a.mssj");
+        List<BckjBizBm> bmList = this.dao.findListByMap(params);
+        int zybh;//专业编号
+        String _zybh = "";
+        int xh = 1;
+        String _xh = "";
+        String nf = DateUtil.getDateStr("yyyy");
+        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+            for (BckjBizBm bm : bmList) {
+                _xh = getFixLen(xh, 4);
+                _xh = nf + bm.getBklbOwid() + _xh;
+                xh++;
+                bm.setZkzh(_xh);
+                saveOrUpdate(bm);
+            }
+        }
+    }
+
+
+    private String getFixLen(int xh, int len) {
+        String _xh = xh + "";
+        int _len = len - _xh.length();
+        for (int index = 0; index < _len; index++) {
+            _xh = "0" + _xh;
+        }
+        return _xh;
+
+    }
+
+
 }

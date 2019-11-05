@@ -14,7 +14,9 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.BckjBizArticleDao;
+import com.zghzbckj.manage.dao.BckjDicMenuDao;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizArticle;
 import org.apache.commons.collections.MapUtils;
@@ -41,6 +43,8 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     BckjDicKeysService bckjDicKeysService;
     @Autowired
     CommonDao commonDao;
+    @Autowired
+    BckjDicMenuDao bckjDicMenuDao;
     @Override
     @Transactional(readOnly = false)
     public BckjBizArticle get(String owid) {
@@ -224,6 +228,23 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         if (!TextUtils.isEmpty(mapData.get("sxsj"))) {
             article.setSxsj(DateUtil.getDate(mapData.get("sxsj").toString(), CommonConstant.DATE_FROMART));
         }
+        if(null!=mapData.get("qtbh")) {
+            List<Map<String, Object>> _list = (List<Map<String, Object>>) mapData.get("qtbh");
+            if(_list.size()>8){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"所在栏目不得超过8个");
+            }
+            String _ids = "";
+            String names="";
+            for (Map<String, Object> map : _list) {
+                _ids += map.get("value") + CommonModuleContant.SPILE_DOUHAO;
+                names +=map.get("label")+CommonModuleContant.SPILE_DOUHAO;
+            }
+            article.setQtbh(_ids);
+            article.setQtbhname(names);
+        }else{
+            article.setQtbh(null);
+            article.setQtbhname(null);
+        }
         Map mapFilter=Maps.newHashMap();
         mapFilter.put("content",article.getWzbt()+article.getJjnr());
         String filterResult=bckjDicKeysService.filterContent(mapFilter);
@@ -294,8 +315,10 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         if(null!=mapList2&&mapList2.size()>0){
             mapArticle.put("downArticle",mapList2.get(0));
         }
+//        putLmbh(article.getLmbh(),mapArticle);
         return mapArticle;
     }
+
 
     /**
     *<p>方法:searchAll TODO查询站点内所有文章数据 </p>

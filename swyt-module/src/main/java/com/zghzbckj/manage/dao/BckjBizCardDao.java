@@ -5,15 +5,14 @@ package com.zghzbckj.manage.dao;
 
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
-import com.zghzbckj.manage.entity.BckjBizFzsz;
+import com.zghzbckj.manage.entity.BckjBizCard;
 
 /**
  * ccDAO接口
  * @author cc
- * @version 2019-09-09
+ * @version 2019-11-05
  */
 @MyBatisDao
-public interface BckjBizFzszDao extends CrudDao<BckjBizFzsz> {
-
-    void deleteAll();
+public interface BckjBizCardDao extends CrudDao<BckjBizCard> {
+	
 }

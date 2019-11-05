@@ -1,11 +1,17 @@
 package com.ourway.manage.api;
 
+import com.ourway.base.dao.BaseDao;
 import com.ourway.base.model.FilterModel;
 import com.ourway.base.model.PublicDataVO;
 import com.ourway.base.model.ResponseMessage;
 import com.ourway.base.utils.*;
+import com.ourway.manage.WebConstants;
 import com.ourway.manage.service.CustomDicService;
+import com.ourway.sys.dao.SysDicValueDao;
+import com.ourway.sys.model.OurwaySysDic;
+import com.ourway.sys.model.OurwaySysDicValue;
 import com.ourway.sys.service.DicService;
+import com.ourway.sys.service.DicValueService;
 import com.ourway.sys.utils.I18nUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +34,14 @@ public class DicValueController {
     @Autowired
     DicService dicService;
     @Autowired
+    DicValueService dicValue;
+    @Autowired
     CustomDicService customDicService;
+    @Autowired
+    SysDicValueDao sysDicValueDao;
+    @Autowired
+    private BaseDao baseDao;
+
 
     @RequestMapping(value = "getByType", method = RequestMethod.POST)
     @ResponseBody
@@ -61,6 +74,52 @@ public class DicValueController {
             return ResponseMessage.sendOK(dicService.listDicByType(Integer.parseInt(dataMap.get("dicType").toString()), order));
         } catch (Exception e) {
             log.info("获取一级菜单失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    @RequestMapping(value = "saveDic", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage saveDic(@RequestBody Map<String, Object> dataMap) {
+        try {
+            //判断owid是否为空
+            String type = dataMap.get("dicType").toString();
+            if (TextUtils.isEmpty(type)) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "null");
+            }
+            OurwaySysDic dic = dicService.getSingleDicByType(Integer.parseInt(type));
+            List<OurwaySysDicValue> dicValList = dicValue.listDicValuesByRefOwid(dic);
+            if (TextUtils.isEmpty(dicValList) || dicValList.size() == 0) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
+            }
+            OurwaySysDicValue dicVal = dicValList.get(0);
+            if (!TextUtils.isEmpty(dataMap.get("dicVal1"))) {
+                dicVal.setDicVal1(dataMap.get("dicVal1").toString());
+            }
+            if (!TextUtils.isEmpty(dataMap.get("dicVal2"))) {
+                dicVal.setDicVal2(dataMap.get("dicVal2").toString());
+            }
+            if (!TextUtils.isEmpty(dataMap.get("dicVal3"))) {
+                dicVal.setDicVal3(dataMap.get("dicVal3").toString());
+            }
+            if (!TextUtils.isEmpty(dataMap.get("dicVal4"))) {
+                dicVal.setDicVal4(dataMap.get("dicVal4").toString());
+            }
+            if (!TextUtils.isEmpty(dataMap.get("dicVal5"))) {
+                dicVal.setDicVal5(dataMap.get("dicVal5").toString());
+            }
+            if (!TextUtils.isEmpty(dataMap.get("dicVal6"))) {
+                dicVal.setDicVal6(dataMap.get("dicVal6").toString());
+            }
+            if (!TextUtils.isEmpty(dataMap.get("dicVal7"))) {
+                dicVal.setDicVal7(dataMap.get("dicVal7").toString());
+            }
+            dicValue.saveOrUpdate(dicVal);
+            CacheUtil.setVal(WebConstants.SWYT_SYSTEM_PARAM, dicVal);
+            return ResponseMessage.sendOK(dicVal);
+        } catch (Exception e) {
+            log.info("保存字典表值失败：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
