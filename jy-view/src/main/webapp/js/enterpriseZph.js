@@ -168,6 +168,7 @@ function zphtjList(zphOwid,owid) {
                 if(data.bean.length){
                     zdytjLength=data.bean.length;
                 }
+                zdytjStr='';
                 for(var i=1;i<data.bean.length+1;i++){
                     for(var a in data.bean[i-1]){
                         zdytjObj['zdytj'+i]=a
