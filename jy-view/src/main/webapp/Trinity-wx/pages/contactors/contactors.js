@@ -15,6 +15,7 @@ Page({
   },
   //点击想下一步保存联系人
   contactForm: function(e) {
+    let curId = e.detail.target.id;
     const params = e.detail.value;
     console.log(params);
     //传入表单数据，调用验证方法
@@ -59,9 +60,18 @@ Page({
     } 
     common.ajax('zustswyt/bckjBizJtcyxx/finish', data, function(res) {
       if (res.data.backCode == 0) {
-        wx.navigateTo({
-          url: '../examGrade/examGrade',
-        })
+        switch (curId){
+          case "pre":
+            wx.navigateTo({
+              url: '../basicInfo/basicInfo',
+            })
+          break;
+          case "next":
+            wx.navigateTo({
+              url: '../examGrade/examGrade',
+            })
+          break;
+        }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
@@ -87,12 +97,6 @@ Page({
    */
   onShareAppMessage: function() {
 
-  },
-  //上一步基本信息
-  preStep: function() {
-    wx.navigateTo({
-      url: '../basicInfo/basicInfo',
-    })
   },
   initValidate() {
     // 验证字段的规则
