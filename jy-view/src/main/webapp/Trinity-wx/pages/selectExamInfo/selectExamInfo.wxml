@@ -3,7 +3,7 @@
 -->
 <!-- 选考信息 -->
 <view class="com-wrap">
-  <view class="com-title">选考信息</view>
+  <view class="com-title">选考信息<text class="red">*</text></view>
 
   <view class="df cell-wrap line-btm" wx:for="{{xkindex}}" wx:key='index'>
     <view bindtap="selectSubject" class="sm-title" data-type="0" data-index="{{index}}">{{item.index!=null?xklist[item.index]:'请选择考试科目'}}</view>
@@ -15,7 +15,7 @@
 </view>
 <!-- 外语成绩 -->
 <view class="com-wrap">
-  <view class="com-title">外语成绩</view>
+  <view class="com-title">外语成绩<text class="red">*</text></view>
   <view class="df cell-wrap line-btm">
     <view class="sm-title" bindtap="selectSubject" data-type="1">{{wyindex!=null?wylist[wyindex]:'请选择外语科目'}}</view>
     <view class="df f1">

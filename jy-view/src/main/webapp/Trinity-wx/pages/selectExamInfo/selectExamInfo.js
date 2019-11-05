@@ -371,13 +371,19 @@ Page({
           }
         }
         let xkindex = that.data.xkindex;
-        for (let i in xkindex) {
-          xkindex[i].value = res.data.bean.xkList[i].kmcj
-          for (let k in that.data.xk) {
-            if (res.data.bean.xkList[i].kmbh == that.data.xk[k].dicval1) {
-              xkindex[i].index = k
+        if (res.data.bean.xkList) {
+          for (let i in xkindex) {
+            xkindex[i].value = res.data.bean.xkList[i].kmcj
+            for (let k in that.data.xk) {
+              if (res.data.bean.xkList[i].kmbh == that.data.xk[k].dicval1) {
+                xkindex[i].index = k
+              }
             }
           }
+        }
+        let zxtype = [];
+        if (res.data.bean.zxlb) {
+          zxtype = res.data.bean.zxlb.split(',')
         }
         console.log(xkindex)
         that.setData({
@@ -386,7 +392,7 @@ Page({
           tcah: res.data.bean.tcah,
           jssm: res.data.bean.jssm,
           files,
-          zxtype: res.data.bean.zxlb.split(','),
+          zxtype: zxtype,
           wyindex: wyindex,
           wycj: res.data.bean.wycj,
           xkindex,
