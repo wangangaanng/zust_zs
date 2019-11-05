@@ -4,26 +4,7 @@
     描述：基本信息1
 -->
 <#--步骤条1 start-->
-<div class="jf-steps">
-    <div class="jf-items">
-        <div class="jf-item jf-active">1、基本信息
-            <div class="jf-box"></div>
-            <div class="jf-box1"></div>
-            <div class="jf-box2"></div>
-        </div>
-        <div class="jf-item ">2、联系人
-            <div class="jf-box"></div>
-            <div class="jf-box1"></div>
-            <div class="jf-box2"></div>
-        </div>
-        <div class="jf-item ">3、学考等第
-            <div class="jf-box"></div>
-            <div class="jf-box1"></div>
-            <div class="jf-box2"></div>
-        </div>
-        <div class="jf-item ">4、选考信息</div>
-    </div>
-</div>
+<#include "com/SWsteps.ftl">
 <#--步骤条 end-->
 
 <#--步骤基本信息1 start-->
