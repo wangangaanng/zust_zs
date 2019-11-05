@@ -100,7 +100,9 @@
             <if test="lmbh != null and lmbh != ''">
 				AND a.lmbh =#{lmbh}
             </if>
-
+			<if test="nf != null and nf != ''">
+				AND a.nf = #{nf}
+			</if>
             <if test="wzly != null and wzly != ''">
                 AND a.wzly LIKE concat('%',#{wzly,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
