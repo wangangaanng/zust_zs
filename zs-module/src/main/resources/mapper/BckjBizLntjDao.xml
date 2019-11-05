@@ -29,7 +29,7 @@
 		a.createtime AS "createtime",
 		a.creator AS "creator",
 		a.creator_name AS "creatorName",
-		a.updatetime AS "updatetime",
+		a.lastupdate AS "lastupdate",
 		a.updator AS "updator",
 		a.updator_name AS "updatorName"
 	</sql>

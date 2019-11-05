@@ -97,8 +97,14 @@
 			<if test="xxbh !=null and xxbh!='' ">
 				 AND a.xxbh=#{xxbh}
 			</if>
+			<if test="sfzh !=null and sfzh!='' ">
+				 AND a.sfzh=#{sfzh}
+			</if>
 			<if test="bmnd !=null and bmnd!='' ">
 				AND a.bmnd=#{bmnd}
+			</if>
+			<if test="state !=null and state!='' ">
+				AND a.state=#{state}
 			</if>
 		</where>
 	</select>

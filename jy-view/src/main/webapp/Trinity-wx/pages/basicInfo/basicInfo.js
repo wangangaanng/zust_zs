@@ -87,7 +87,7 @@ Page({
     common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
       if (res.data.backCode == 0) {
         wx.setStorageSync('email', params.yx);
-        wx.navigateTo({
+        wx.redirectTo({
           url: '../contactors/contactors',
         })
       } else {
