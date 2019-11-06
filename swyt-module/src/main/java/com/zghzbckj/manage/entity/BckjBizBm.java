@@ -52,7 +52,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
     private Date jfsj;        // jfsj
     private String jfpzh;        // jfpzh
     private String jfpzZp;        // jfpz_zp
-    private Date mssj;        // mssj
+    private String mssj;        // mssj
     private String msfzh;        // msfzh
     private String msfzZnxh;        // msfz_znxh
     private Integer msfzSxh;        // msfz_sxh
@@ -72,6 +72,15 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
     private String yzmc;        // zzcj
     private Integer xklbOwid;        // rzbd
     private Integer bklbOwid;        // rzbd
+
+
+    public String getMssj() {
+        return mssj;
+    }
+
+    public void setMssj(String mssj) {
+        this.mssj = mssj;
+    }
 
     public String getFzszRefOwid() {
         return fzszRefOwid;
@@ -359,14 +368,6 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
         this.jfpzZp = jfpzZp;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    public Date getMssj() {
-        return mssj;
-    }
-
-    public void setMssj(Date mssj) {
-        this.mssj = mssj;
-    }
 
     @Length(min = 0, max = 50, message = "msfzh长度必须介于 0 和 50 之间")
     public String getMsfzh() {
