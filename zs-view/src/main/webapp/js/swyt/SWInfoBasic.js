@@ -61,6 +61,8 @@ function saveBasic() {
     }
     ajax("zustswyt/bckjBizJbxx/finishInfo", jsonObj, function (data) {
         if(data.backCode==0){
+            //基本信息完成 下一步获取联系人
+            getContactors();
             $("#basicForm").hide();
             $("#contactForm").show();
             $(".jf-items .jf-item").eq(1).addClass("jf-active");

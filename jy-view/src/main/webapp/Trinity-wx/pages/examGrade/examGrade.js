@@ -112,12 +112,10 @@ Page({
       index
     });
   },
-  //上一步基本信息
-  preStep: function() {
-    wx.navigateTo({
-      url: '../contactors/contactors',
-    })
-  },
+  // //上一步基本信息
+  // preStep: function() {
+    
+  // },
   //科目字典表
   getByType: function(dicType) {
     let that = this;
@@ -143,7 +141,8 @@ Page({
     });
   },
   //完善学考等第
-  nextStep: function () {
+  Step: function (e) {
+    let currstep = e.currentTarget.dataset.index
     let that = this;
     let hkList = [], zhList=[];
     for (let i in that.data.km){
@@ -183,9 +182,15 @@ Page({
     }
     common.ajax('zustswyt/bckjBizCjxx/finishHk', data, function (res) {
       if (res.data.backCode == 0) {
-        wx.navigateTo({
-          url: '../selectExamInfo/selectExamInfo',
-        })
+        if (currstep=='0'){
+          wx.redirectTo({
+            url: '../contactors/contactors',
+          })
+        }else{
+          wx.redirectTo({
+            url: '../selectExamInfo/selectExamInfo',
+          })
+        }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }

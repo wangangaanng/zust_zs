@@ -11,48 +11,48 @@
         <p class="contact-wrap_title col-sm-offset-1">父亲(或其他监护人)</p>
         <div>
             <div class="form-group">
-                <label for="faName" class="col-sm-2 control-label col-sm-offset-1">姓名<span class="red">*</span>：</label>
+                <label for="faxm" class="col-sm-2 control-label col-sm-offset-1">姓名<span class="red">*</span>：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="faName" name="faName" placeholder="请输入姓名" autocomplete="off" value="">
+                    <input type="text" class="form-control" id="faxm" name="faxm" placeholder="请输入姓名" autocomplete="off" value="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="faTel" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+                <label for="falxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="faTel" name="faTel" placeholder="请输入联系电话" autocomplete="off" value="">
+                    <input type="text" class="form-control" id="falxsj" name="falxsj" placeholder="请输入联系电话" autocomplete="off" value="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="faSex" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
+                <label for="faxb" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
                 <div class="col-sm-8">
-                    <select class="form-control" name="faSex" id="faSex">
+                    <select class="form-control" name="faxb" id="faxb">
                         <option value="1" selected>男</option>
                         <option value="2" >女</option>
                     </select>
                 </div>
             </div>
             <div class="form-group">
-                <label for="faEdu" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
+                <label for="fawhcd" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="faEdu" name="faEdu" placeholder="请输入文化程度" autocomplete="off" value="">
+                    <input type="text" class="form-control" id="fawhcd" name="fawhcd" placeholder="请输入文化程度" autocomplete="off" value="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="faCom" class="col-sm-2 control-label col-sm-offset-1">工作单位：</label>
+                <label for="fagzdw" class="col-sm-2 control-label col-sm-offset-1">工作单位：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="faCom" name="faCom" placeholder="请输入工作单位" autocomplete="off" value="">
+                    <input type="text" class="form-control" id="fagzdw" name="fagzdw" placeholder="请输入工作单位" autocomplete="off" value="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="faJob" class="col-sm-2 control-label col-sm-offset-1">职务：</label>
+                <label for="fagzzw" class="col-sm-2 control-label col-sm-offset-1">职务：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="faJob" name="faJob" placeholder="请输入职务" autocomplete="off" value="">
+                    <input type="text" class="form-control" id="fagzzw" name="fagzzw" placeholder="请输入职务" autocomplete="off" value="">
                 </div>
             </div>
             <div class="form-group">
-                <label for="faComTel" class="col-sm-2 control-label col-sm-offset-1">单位联系电话：</label>
+                <label for="fadwdh" class="col-sm-2 control-label col-sm-offset-1">单位联系电话：</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="faComTel" name="faComTel" placeholder="请输入单位联系电话" autocomplete="off" value="">
+                    <input type="number" class="form-control" id="fadwdh" name="fadwdh" placeholder="请输入单位联系电话" autocomplete="off" value="">
                 </div>
             </div>
         </div>
@@ -64,48 +64,48 @@
             <p class="contact-wrap_title col-sm-offset-1">母亲(或其他监护人)</p>
             <div>
                 <div class="form-group">
-                    <label for="moName" class="col-sm-2 control-label col-sm-offset-1">姓名<span class="red">*</span>：</label>
+                    <label for="moxm" class="col-sm-2 control-label col-sm-offset-1">姓名<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="moName" name="moName" placeholder="请输入姓名" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="moxm" name="moxm" placeholder="请输入姓名" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="moTel" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+                    <label for="molxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="moTel" name="moTel" placeholder="请输入联系电话" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="molxsj" name="molxsj" placeholder="请输入联系电话" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="moSex" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
+                    <label for="moxb" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="moSex" id="moSex">
+                        <select class="form-control" name="moxb" id="moxb">
                             <option value="1" selected>男</option>
                             <option value="2" >女</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="moEdu" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
+                    <label for="mowhcd" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="moEdu" name="moEdu" placeholder="请输入文化程度" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="mowhcd" name="mowhcd" placeholder="请输入文化程度" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="moCom" class="col-sm-2 control-label col-sm-offset-1">工作单位：</label>
+                    <label for="mogzdw" class="col-sm-2 control-label col-sm-offset-1">工作单位：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="moCom" name="moCom" placeholder="请输入工作单位" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="mogzdw" name="mogzdw" placeholder="请输入工作单位" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="moJob" class="col-sm-2 control-label col-sm-offset-1">职务：</label>
+                    <label for="mogzzw" class="col-sm-2 control-label col-sm-offset-1">职务：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="moJob" name="moJob" placeholder="请输入职务" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="mogzzw" name="mogzzw" placeholder="请输入职务" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="moComTel" class="col-sm-2 control-label col-sm-offset-1">单位联系电话：</label>
+                    <label for="modwdh" class="col-sm-2 control-label col-sm-offset-1">单位联系电话：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="moComTel" name="moComTel" placeholder="请输入单位联系电话" autocomplete="off" value="">
+                        <input type="number" class="form-control" id="modwdh" name="modwdh" placeholder="请输入单位联系电话" autocomplete="off" value="">
                     </div>
                 </div>
             </div>
@@ -119,46 +119,46 @@
                 <div class="form-group">
                     <label for="teName" class="col-sm-2 control-label col-sm-offset-1">姓名<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="teName" name="teName" placeholder="请输入姓名" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="texm" name="texm" placeholder="请输入姓名" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="teTel" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+                    <label for="telxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="teTel" name="teTel" placeholder="请输入联系电话" autocomplete="off" value="">
+                        <input type="number" class="form-control" id="telxsj" name="telxsj" placeholder="请输入联系电话" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="teSex" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
+                    <label for="texb" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <select class="form-control" name="teSex" id="teSex">
+                        <select class="form-control" name="texb" id="texb">
                             <option value="1" selected>男</option>
                             <option value="2" >女</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="teEdu" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
+                    <label for="tewhcd" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="teEdu" name="teEdu" placeholder="请输入文化程度" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="tewhcd" name="tewhcd" placeholder="请输入文化程度" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="teCom" class="col-sm-2 control-label col-sm-offset-1">工作单位：</label>
+                    <label for="tegzdw" class="col-sm-2 control-label col-sm-offset-1">工作单位：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="teCom" name="teCom" placeholder="请输入工作单位" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="teCom" name="tegzdw" placeholder="请输入工作单位" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="teJob" class="col-sm-2 control-label col-sm-offset-1">职务：</label>
+                    <label for="tegzzw" class="col-sm-2 control-label col-sm-offset-1">职务：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="teJob" name="teJob" placeholder="请输入职务" autocomplete="off" value="">
+                        <input type="text" class="form-control" id="tegzzw" name="tegzzw" placeholder="请输入职务" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="teComTel" class="col-sm-2 control-label col-sm-offset-1">单位联系电话：</label>
+                    <label for="tedwdh" class="col-sm-2 control-label col-sm-offset-1">单位联系电话：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="teComTel" name="teComTel" placeholder="请输入单位联系电话" autocomplete="off" value="">
+                        <input type="number" class="form-control" id="tedwdh" name="tedwdh" placeholder="请输入单位联系电话" autocomplete="off" value="">
                     </div>
                 </div>
             </div>
@@ -168,7 +168,7 @@
     <#--button  start -->
     <div class="row">
         <div class="col-sm-4 col-sm-offset-3">
-            <button class="btn btn-default btn-common yellow" id="showBasic">上一步，基本信息</button>
+            <button class="btn btn-default btn-common yellow" type="submit" id="pre">上一步，基本信息</button>
         </div>
         <div class="col-sm-4">
             <button type="submit" class="btn btn-default btn-common yellow" id="saveContact">下一步，学考信息</button>
