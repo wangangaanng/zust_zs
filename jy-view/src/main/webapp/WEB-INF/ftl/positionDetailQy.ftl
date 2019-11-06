@@ -167,6 +167,11 @@
                                         </#if>
                                     </div>
                                     <div class="tabcontent" style="display: none;">
+                                        <div class="vTools">
+                                            <div class="warn" style="margin-bottom: 10px;">
+                                                温馨提示：参会企业正在逐步审核中，请耐心等待!!
+                                            </div>
+                                        </div>
                                         <table class="table table-bordered" style="text-align: center">
                                             <tr>
                                                 <td>序号</td><td>企业名称</td><td>招聘岗位</td><td>招聘人数</td>

@@ -78,5 +78,8 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     Map<String,Object> logInByteach(Map<String, Object> datamap);
 
+    BckjBizYhxx getZsBySjh(String sjh);
+
+    List<BckjBizYhxx> getZsList(Map<String, Object> dataMap);
 }
 
