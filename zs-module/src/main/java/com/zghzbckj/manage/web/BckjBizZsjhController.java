@@ -82,7 +82,6 @@ public class BckjBizZsjhController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
-
     @PostMapping("saveOne")
     @ResponseBody
     public ResponseMessage saveOne(PublicDataVO dataVO){
