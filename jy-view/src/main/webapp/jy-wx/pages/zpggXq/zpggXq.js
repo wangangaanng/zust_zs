@@ -47,7 +47,7 @@ Page({
 
 var getOne = function (that, owid) {
   var data = { "yhOwid": wx.getStorageSync('yhOwid') ,"owid":owid};
-  common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
+  common.ajax('zustjy/bckjBizJob/getMiniJob', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
