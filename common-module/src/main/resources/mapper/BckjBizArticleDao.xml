@@ -341,9 +341,11 @@
 		SELECT a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj",a.ydcs AS "ydcs"
 		FROM bckj_biz_article a
 		<where>
-		( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
-		AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b WHERE  b.SJHQDX=5 AND b.fid=#{lmbh} )
-		AND a.wzzt = 1
+			( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
+			AND ( a.lmbh IN( SELECT b.code FROM bckj_dic_menu b WHERE b.SJHQDX=5 AND b.fid=#{lmbh} )
+			  OR a.qtbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			)
+			AND a.wzzt = 1
 		</where>
 		ORDER BY ${orderBy}
 	</select>
