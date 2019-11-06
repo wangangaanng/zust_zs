@@ -220,6 +220,7 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
     public Object getArticleType() {
         Map mapParam = Maps.newHashMap();
         mapParam.put("sjhqdx", 5);
+        mapParam.put("bxlx", 1);
         mapParam.put("orderBy", " a.owid ");
         List<BckjDicMenu> meunList = this.dao.findListByMap(mapParam);
         List<Map> mapList = Lists.newArrayList();

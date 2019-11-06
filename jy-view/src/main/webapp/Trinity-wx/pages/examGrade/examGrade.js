@@ -100,16 +100,33 @@ Page({
     let type = e.target.dataset.type;
     let index = Number(e.target.dataset.index);
     let gradeCategory = [];
+    let defaultIndex = 0;
     if (type == "0") {
       gradeCategory = this.data.km[index].dicVal3.split(',')
+      if (!!this.data.km[index].value){
+        for (let i in gradeCategory){
+          if (gradeCategory[i] == this.data.km[index].value){
+            defaultIndex=i
+          }
+        }
+      } 
     }else if (type == "1") {
       gradeCategory = this.data.xm[index].dicVal3.split(',')
+      if (!!this.data.xm[index].value) {
+        for (let i in gradeCategory) {
+          if (gradeCategory[i] == this.data.xm[index].value) {
+            defaultIndex = i
+          }
+        }
+      } 
     }
+    
     this.setData({
       showPop: true,
       gradeCategory,
       type,
-      index
+      index,
+      defaultIndex: defaultIndex
     });
   },
   // //上一步基本信息

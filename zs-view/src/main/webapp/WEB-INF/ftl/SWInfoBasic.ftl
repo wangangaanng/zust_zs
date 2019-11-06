@@ -137,5 +137,23 @@
 <#--选考信息4 start-->
 <#include "SWInfoSelect.ftl">
 <#--选考信息4 end-->
+
+<script>
+    //表单验证触发保存基本信息
+    $.validator.setDefaults({
+        submitHandler: function (form) {
+            switch($(form).attr("id")){
+                case "basicForm":
+                    saveBasic();
+                    break;
+                case "contactForm":
+                    saveContactors();
+                    break;
+            }
+        }
+    });
+</script>
 <script src="${base}/js/swyt/SWInfoBasic.js"></script>
+<script src="${base}/js/swyt/SWinfoContactor.js"></script>
+
 

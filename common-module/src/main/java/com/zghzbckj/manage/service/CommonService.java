@@ -151,7 +151,7 @@ public class CommonService {
         bckjBizYhxxService.saveOrUpdate(yhxx);
     }
 
-    private String getRandom() {
+    public static String getRandom() {
         Random rd = new Random();
         String tmp = "";
         for (int i = 0; i < 6; i++) {
@@ -209,6 +209,7 @@ public class CommonService {
         fileCenter.put("fileClassId", yhRefOwid);
         fileCenter.put("fileName", realName);
         fileCenter.put("fileLabel", fileName);
+        fileCenter.put("fileRandon", type);
         fileCenter.put("fileSize", file.getSize());
         fileCenter.put("fileExtion", type);
         fileCenter.put("createtime", new Date());
