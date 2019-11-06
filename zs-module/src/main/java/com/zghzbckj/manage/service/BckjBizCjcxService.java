@@ -3,6 +3,8 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -11,16 +13,19 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.dao.BckjBizCjcxDao;
 import com.zghzbckj.manage.entity.BckjBizCjcx;
+import com.zghzbckj.manage.entity.BckjBizLntj;
+import com.zghzbckj.manage.entity.BckjBizLqxs;
+import com.zghzbckj.util.MapUtil;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * ccService
@@ -43,6 +48,10 @@ public class BckjBizCjcxService extends CrudService<BckjBizCjcxDao, BckjBizCjcx>
     public List<BckjBizCjcx> findList(BckjBizCjcx bckjBizCjcx) {
         return super.findList(bckjBizCjcx);
     }
+    @Autowired
+    BckjBizZsjhService bckjBizZsjhService;
+    @Autowired
+    BckjBizLqxsService bckjBizLqxsService;
 
     @Override
     public PageInfo<BckjBizCjcx> findPage(Page<BckjBizCjcx> page, BckjBizCjcx bckjBizCjcx) {
@@ -138,5 +147,81 @@ public class BckjBizCjcxService extends CrudService<BckjBizCjcxDao, BckjBizCjcx>
         }else{
             return null;
         }
+    }
+
+    /**
+     * 后台录入成绩查询
+     *
+     * @param path
+     * @return ResponseMessage
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage recordInfo(String path) throws IllegalAccessException, InstantiationException, ParseException {
+        String filename = path;
+        List<List<String>> list = bckjBizZsjhService.getExcelLists(path);
+        List<BckjBizCjcx> bckjBizCjcxes= Lists.newArrayList();
+        List<Map> oldMap =getOldCjcxs();
+        List<String> sfzs= Lists.newArrayList();
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                HashMap<Object, Object> resMap = Maps.newHashMap();
+                //学生信息录入
+                List<String> cellList = list.get(i);//行循环
+                String sfzh = cellList.get(0); //身份证号
+                //如果身份证号为空则退出
+                if (TextUtils.isEmpty(sfzh)) {
+                    break;
+                }
+                sfzs.add(sfzh);
+                resMap.put("sfzh", sfzh);
+                String ksh = cellList.get(1); //考生号
+                resMap.put("ksh", ksh);
+                String xm = cellList.get(2); //姓名
+                resMap.put("xm", xm);
+                String xbdm = cellList.get(3); //性别
+                resMap.put("xbdm", xbdm);
+                String jtdz = cellList.get(4); //考试类别
+                resMap.put("jtdz", jtdz);
+                String yw = cellList.get(5); //考试成绩
+                resMap.put("yw", yw);
+                String jcsj = cellList.get(6); //寄出时间
+                Date date = bckjBizLqxsService.stringtoDate(jcsj);
+                resMap.put("jcsj", date);
+                String memo = cellList.get(7); // 备注
+                resMap.put("memo", memo);
+                String mzdm = cellList.get(8); //是否合格
+                resMap.put("mzdm", mzdm);
+                BckjBizCjcx bckjBizCjcx = BckjBizCjcx.class.newInstance();
+                MapUtil.easySetByMap(resMap,bckjBizCjcx);
+                bckjBizCjcxes.add(bckjBizCjcx);
+            }
+            for (BckjBizCjcx bckjBizCjcx:bckjBizCjcxes){
+                saveOrUpdate(bckjBizCjcx);
+            }
+            HashSet hashSet = new HashSet(sfzs);
+            Integer count =hashSet.size();
+            for (Map map:oldMap){
+                hashSet.add(map.get("sfzh"));
+                if(hashSet.size()!=++count){
+                    BckjBizCjcx bckjBizCjcx = BckjBizCjcx.class.newInstance();
+                    bckjBizCjcx.setOwid(map.get("owid").toString());
+                    delete(bckjBizCjcx);
+                }
+            }
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    private List<Map> getOldCjcxs() {
+        return this.dao.getOldCjcxs();
+    }
+
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveOne(Map<String, Object> mapData) {
+        BckjBizCjcx bckjBizCjcx = JsonUtil.map2Bean(mapData, BckjBizCjcx.class);
+        MapUtil.easySetByMap(mapData,bckjBizCjcx);
+        saveOrUpdate(bckjBizCjcx);
+        return ResponseMessage.sendOK(bckjBizCjcx);
     }
 }

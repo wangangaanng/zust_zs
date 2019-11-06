@@ -98,10 +98,22 @@
 		<include refid="bckjBizLqxsJoins"/>
 		<where>
 			<if test="ksh !=null and ksh!='' ">
-				a.ksh=#{ksh}
+				AND a.ksh=#{ksh}
 			</if>
 			<if test="sfzh !=null and sfzh!='' ">
 				AND a.sfzh=#{sfzh}
+			</if>
+			<if test="mzdm!=null and mzdm!=''">
+				AND a.mzdm=#{mzdm}
+			</if>
+			<if test="lp!=null and lp!=''">
+				AND a.lp=#{lp}
+			</if>
+			<if test="xy!=null and xy!=''">
+				AND a.xy=#{xy}
+			</if>
+			<if test="pc!=null and pc!=''">
+				AND a.pc=#{pc}
 			</if>
 		</where>
 		<choose>
@@ -109,6 +121,7 @@
 				ORDER BY ${orderBy}
 			</when>
 			<otherwise>
+			order by a.ksh desc
 			</otherwise>
 		</choose>
 	</select>
@@ -187,7 +200,7 @@
 			createtime,
 			creator,
 			creator_name,
-			updatetime,
+			lastupdate,
 			updator,
 			updator_name
 		) VALUES (
@@ -247,7 +260,7 @@
 			#{createtime},
 			#{creator},
 			#{creatorName},
-			#{updatetime},
+			#{lastupdate},
 			#{updator},
 			#{updatorName}
 		)
@@ -311,7 +324,7 @@
 			createtime = #{createtime},
 			creator = #{creator},
 			creator_name = #{creatorName},
-			updatetime = #{updatetime},
+			lastupdate = #{lastupdate},
 			updator = #{updator},
 			updator_name = #{updatorName}
 		WHERE owid = #{owid}
@@ -321,5 +334,15 @@
 		DELETE FROM bckj_biz_lqxs
 		WHERE owid = #{owid}
 	</delete>
+
+
+	<select id="getOldLqxs" resultType="Map">
+		SELECT owid as owid ,sfzh as sfzh FROM bckj_biz_lqxs
+	</select>
+
+	<select id="getDicVal1" resultType="String">
+		SELECT b.dic_val1 FROM ourway_sys_dic a,ourway_sys_dic_value b
+		WHERE a.owid =b.dic_ref_owid and a.type=#{type} and b.dic_val2=#{val2}
+	</select>
 	
 </mapper>

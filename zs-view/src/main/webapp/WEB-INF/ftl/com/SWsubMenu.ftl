@@ -4,7 +4,7 @@
     描述：三位一体右边菜单
 -->
 <div class="menu-nav">
-    <div class="menu-title">
+    <div class="menu-title" style="min-height: 70px;">
         <div class="title-chn">三位一体</div>
         <div class="title-en">PROCESS
             <div class="menu-nav-icon"></div>

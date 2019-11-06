@@ -775,13 +775,34 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         return jybm;
     }
 
+    @Transactional(readOnly = false)
     public Map fixJybm(Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
         BckjBizJybm bm = new BckjBizJybm();
+
         BckjBizJybm oldBm = get(mapData.get("owid").toString());
+        BckjBizJob job = jobService.get(oldBm.getJobRefOwid());
         try {
             bm = MapUtils.map2Bean(mapData, BckjBizJybm.class);
             BeanUtil.copyPropertiesIgnoreNull(bm, oldBm);
+            //自定义条件
+
+            if (!TextUtils.isEmpty(job.getZdytj1()) && !TextUtils.isEmpty(oldBm.getTjsd1())) {
+                oldBm.setZdytj1(job.getZdytj1() + "：" + oldBm.getTjsd1());
+            }
+            if (!TextUtils.isEmpty(job.getZdytj2()) && !TextUtils.isEmpty(oldBm.getTjsd2())) {
+                oldBm.setZdytj2(job.getZdytj2() + "：" + oldBm.getTjsd2());
+            }
+            if (!TextUtils.isEmpty(job.getZdytj3()) && !TextUtils.isEmpty(oldBm.getTjsd3())) {
+                oldBm.setZdytj3(job.getZdytj3() + "：" + oldBm.getTjsd3());
+            }
+            if (!TextUtils.isEmpty(job.getZdytj4()) && !TextUtils.isEmpty(oldBm.getTjsd4())) {
+                oldBm.setZdytj4(job.getZdytj4() + "：" + oldBm.getTjsd4());
+            }
+            if (!TextUtils.isEmpty(job.getZdytj5()) && !TextUtils.isEmpty(oldBm.getTjsd5())) {
+                oldBm.setZdytj5(job.getZdytj5() + "：" + oldBm.getTjsd5());
+            }
+
             saveOrUpdate(oldBm);
         } catch (Exception e) {
             e.printStackTrace();

@@ -214,9 +214,7 @@ function uploadOcr(that, path, type) {
     url: app.globalData.ApiUrl + "zustcommon/common/picUpload",
     filePath: path[0],
     name: 'file',
-    header: {
-      "Content-Type": "multipart/form-data"
-    },
+    method: 'POST',
     formData: {
       "data": JSON.stringify(jsonObj)
     },

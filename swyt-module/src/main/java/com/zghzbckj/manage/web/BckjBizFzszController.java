@@ -115,4 +115,31 @@ public class BckjBizFzszController extends BaseController {
     }
 
 
+
+    @PostMapping(value = "zdfpAction")
+    @ResponseBody
+    public ResponseMessage zdfpAction(PublicDataVO dataVO) {
+        try {
+            bckjBizFzszService.zdfpAction();
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping(value = "cxfpAction")
+    @ResponseBody
+    public ResponseMessage cxfpAction(PublicDataVO dataVO) {
+        try {
+            bckjBizFzszService.cxfpAction();
+            return ResponseMessage.sendOK("");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
 }

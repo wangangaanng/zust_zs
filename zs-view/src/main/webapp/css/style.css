@@ -43,6 +43,14 @@ body, div, ul, li, a, img {
     margin: 0px auto;
     display: none;
 }
+.fuye_sr_con{ margin:20px 40px; width: 90%}
+.fuye_sr_con dl{ border:1px solid #e0e0e0; background-color:#fff; padding:20px 0 20px 30px; overflow:hidden;}
+.fuye_sr_con dl dt, .fuye_sr_con dl dd{float:left;}
+.fuye_sr_con dl dt{ margin-right:20px; width:105px; height:105px;}
+.fuye_sr_con dl.success dt{ background-position:0 -250px;}
+.fuye_sr_con dl.error dt{ background-position:-143px -250px;}
+.fuye_sr_con dl dd h4{ height:30px; line-height:30px;}
+.fuye_sr_con dl dd p{ line-height:25px; font-size:14px;}
 .zylb{
     width:100%;
     height: 70px;

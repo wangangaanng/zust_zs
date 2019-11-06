@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.service;
 
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
@@ -11,6 +12,7 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
@@ -18,12 +20,15 @@ import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.BckjBizUserlog;
 import com.zghzbckj.manage.entity.BckjBizYhgl;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.utils.MessageUtil;
+import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -365,7 +370,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
 
 
-
     public void insert(BckjBizYhxx bckjBizYhxx) {
         this.dao.insert(bckjBizYhxx);
     }
@@ -376,7 +380,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     /**
      * 后台根据job 的 owid 获得关注学生信息
-     *
      *
      * @param type
      * @param filterModels
@@ -502,8 +505,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     @Transactional(readOnly = false)
     public void swWxinfo(WxXcxUserModel wxUser) {
-        if(null!=wxUser) {
-            if(null==wxUser.getUnionid()){
+        if (null != wxUser) {
+            if (null == wxUser.getUnionid()) {
                 return;
             }
             Map param = Maps.newHashMap();
@@ -564,5 +567,127 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public void deleteByOwid(String owid) {
         this.dao.deleteByOwid(owid);
+    }
+
+    /**
+     * 招生考生报名
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage candidatesRegistration(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
+        if (!dataMap.get("yzm").toString().equals(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
+        }
+        BckjBizYhgl bckjBizYhgl = BckjBizYhgl.class.newInstance();
+        BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
+        //如果是pc
+        if (dataMap.get("type").toString().equals("1")) {
+            MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+        }
+        //如果是小程序
+        if (dataMap.get("type").toString().equals("2")) {
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "unionid", "openid", "wxid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            MapUtil.easySetByMap(dataMap, bckjBizYhxx);
+            MapUtil.easySetByMap(dataMap, bckjBizYhgl);
+            bckjBizYhxx.setDlzhsj(new Date());
+            bckjBizYhxx.setOwid(IdGen.uuid());
+            bckjBizYhgl.setYhRefOwid(bckjBizYhxx.getOwid());
+            bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
+        }
+        bckjBizYhxx.setYhlx(4);
+        bckjBizYhxx.setExp10("0");
+        this.insert(bckjBizYhxx);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    /**
+     * 招生考生报名发送验证码
+     *
+     * @param dataMap
+     * @return
+     */
+    public String sendBmYzm(Map<String, Object> dataMap) {
+        //生成验证码
+        String yzm = CommonService.getRandom();
+        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        if (!TextUtils.isEmpty(bckjBizYhxx)) {
+            return "此手机号已报名!";
+        }
+        try {
+            MessageUtil.sendMessageCode(dataMap.get("sjh").toString(), yzm);
+            com.zghzbckj.base.util.CacheUtil.setVal(dataMap.get("sjh").toString(), Integer.parseInt(yzm));
+            return "获取成功！";
+        } catch (Exception e) {
+            return "获取失败!";
+        }
+    }
+
+    /**
+     * 考生报名list
+     * @return
+     */
+    public PageInfo<BckjBizYhxx> getZsList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        Page<BckjBizYhxx> page = new Page<>(pageNo, pageSize);
+        dataMap.put("page", page);
+        page.setList(this.dao.getZsList(dataMap));
+        return PageUtils.assimblePageInfo(page);
+    }
+
+    /**
+     * 预约校园开放日
+     *
+     * @param dataMap
+     * @return
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public String apOfCaOpDay(Map<String, Object> dataMap) {
+        if (!dataMap.get("yzm").toString().equals( com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
+            return "验证码输入错误!";
+        }
+        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        bckjBizYhxx.setExp10("1");
+        saveOrUpdate(bckjBizYhxx);
+        return "预约成功！";
+    }
+
+
+    /**
+     * 开放日预约发送验证码
+     *
+     * @param dataMap
+     * @return
+     */
+    public String sendYyYzm(Map<String, Object> dataMap) {
+        //生成验证码
+        String yzm = CommonService.getRandom();
+        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        if (TextUtils.isEmpty(bckjBizYhxx)) {
+            return "该手机号未进行考生报名,不能进行预约!";
+        }
+        try {
+            com.zghzbckj.base.util.CacheUtil.setVal(dataMap.get("sjh").toString(), Integer.parseInt(yzm));
+            CacheUtil.setVal(dataMap.get("sjh").toString(), yzm);
+            return "获取成功！";
+        } catch (Exception e) {
+            return "获取失败!";
+        }
+    }
+
+    /**
+     * 展示校园开发日页面
+     * @return
+     */
+    public List<Map> getShowCaOpDayDate() {
+        List<Map> dicListMapByType = bckjBizJyschemeService.getDicListMapByType(70000);
+        List<Map> resMaps= Lists.newArrayList();
+        HashMap<String, Object> resMap = Maps.newHashMap();
+        for(Map map:dicListMapByType){
+            resMap.put(map.get("val1").toString(),map.get("val2").toString());
+            resMaps.add(resMap);
+        }
+        return resMaps;
     }
 }

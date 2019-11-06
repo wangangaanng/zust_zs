@@ -16,7 +16,7 @@ import java.util.Map;
  * @author cc
  * @version 2019-09-09
  */
-public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
+public class  BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	
 	private static final long serialVersionUID = 1L;
 	private String tpjj;		// tpjj
@@ -33,6 +33,7 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 	private Integer ydcs;		// ydcs
 	private String htmlPath;		// html_path
 	private String nf;		// html_path
+	private String jznf;		// html_path
 	private String qtbh;		// html_path
 	private String attaMm;		// atta_mm
 	private Integer istop;		// istop
@@ -246,5 +247,13 @@ public class BckjBizArticle extends DataWithExpEntity<BckjBizArticle> {
 
 	public void setQtbhname(String qtbhname) {
 		this.qtbhname = qtbhname;
+	}
+
+	public String getJznf() {
+		return jznf;
+	}
+
+	public void setJznf(String jznf) {
+		this.jznf = jznf;
 	}
 }

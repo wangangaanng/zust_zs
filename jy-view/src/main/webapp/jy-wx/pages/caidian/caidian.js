@@ -10,7 +10,8 @@ Page({
     headImgUrl: '',
     name: '',
     xh: '',
-    result: '',
+    zwbt: '',
+    zphJbdd:'',
     owid:'',
   },
 
@@ -158,14 +159,15 @@ Page({
 })
 var getContent = function (that, owid) {//招聘详情
   var data = { "owid": owid, "yhOwid": wx.getStorageSync("yhOwid") };
-  common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
+  common.ajax('zustjy/bckjBizJob/getMiniJob', data, function (res) {
     if (res.data.backCode == 0) {
       res.data.bean.createtime = res.data.bean.createtime.substring(0, 10)
       if (res.data.bean.zphKsrq) {
         res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
       }
       that.setData({
-        result: res.data.bean,
+        zwbt: res.data.bean.zwbt,
+        zphJbdd: res.data.bean.zphJbdd,
       })
 
 

@@ -847,4 +847,29 @@
 		DELETE FROM BCKJ_BIZ_YHXX WHERE OWID=#{owid}
 	</delete>
 
+	<select id="getZsBySjh" resultType="BckjBizYhxx" parameterType="String">
+		SELECT <include refid="bckjBizYhxxColumns"></include>
+		FROM bckj_biz_yhxx a
+		WHERE a.yhlx=4 and a.sjh=#{value }
+
+	</select>
+
+
+	<select id="getZsList"  parameterType="Map" resultType="BckjBizYhxx">
+		SELECT <include refid="bckjBizYhxxColumns"></include>
+		FROM bckj_biz_yhxx a
+		<where>
+			a.yhlx=4
+			<if test="sjh!=null and sjh!=''">
+				and a.sjh=#{sjh}
+			</if>
+			<if test="qxzy!=null and qxzy!=''">
+				and a.qxzy like concat('%',#{qxzy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="exp10!=null and exp10!=''">
+				and a.exp10 = #{exp10}
+			</if>
+		</where>
+	</select>
+
 </mapper>

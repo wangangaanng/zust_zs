@@ -9,6 +9,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.entity.BckjBizLqxs;
 import com.zghzbckj.manage.service.BckjBizLqxsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,6 +80,19 @@ public class BckjBizLqxsController extends BaseController {
         }
     }
 
+    @PostMapping("saveOne")
+    @ResponseBody
+    public ResponseMessage saveOne(PublicDataVO dataVO){
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断id是否为
+            return bckjBizLqxsService.saveOne(mapData);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizZsjh信息失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     @RequestMapping(value = "getOne", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getOne(PublicDataVO dataVO) {
@@ -129,6 +143,31 @@ public class BckjBizLqxsController extends BaseController {
         }
     }
 
+
+    /**
+     * <p>功能描述:后台录取招生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * </ul>
+     */
+    @RequestMapping(value = "recordInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizLqxsService.recordInfo(dataMap.get("path").toString());
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 
 }

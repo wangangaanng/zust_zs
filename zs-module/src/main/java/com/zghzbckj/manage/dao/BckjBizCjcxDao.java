@@ -7,6 +7,9 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizCjcx;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +17,6 @@ import com.zghzbckj.manage.entity.BckjBizCjcx;
  */
 @MyBatisDao
 public interface BckjBizCjcxDao extends CrudDao<BckjBizCjcx> {
-	
+
+    List<Map> getOldCjcxs();
 }
