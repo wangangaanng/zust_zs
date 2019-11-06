@@ -127,6 +127,16 @@ Page({
     common.getPayUrl(this);//获取缴费初始化地址
     that.setData({
       'state': options.state
+    });
+
+    common.getProcssState(function (res) {
+      if (res.data.bean.jfpzZp) {
+        that.setData({
+          proveImg: common.imgPath + res.data.bean.jfpzZp,
+          jfInfo: '缴费证明图片已上传',
+          class1: 'green'
+        })
+      }
     })
   },
 
@@ -142,15 +152,6 @@ Page({
    */
   onShow: function () { 
     var that = this;
-    common.getProcssState(function(res){
-      if (res.data.bean.jfpzZp){
-        that.setData({
-          proveImg: common.imgPath + res.data.bean.jfpzZp,
-          jfInfo: '缴费证明图片已上传',
-          class1: 'green'
-        })
-      }
-    })
   },
 
   /**
