@@ -10,7 +10,8 @@ Page({
     headImgUrl:'',
     name:'',
     xh:'',
-    result:'',
+    zwbt:'',
+    zphJbdd:'',
     owid:'',
     latitude:'',
     longitude:'',
@@ -296,7 +297,8 @@ var getContent = function (that, owid) {//招聘详情
       }
       
       that.setData({
-        result: res.data.bean,
+        zwbt: res.data.bean.zwbt,
+        zphJbdd: res.data.bean.zphJbdd
       })
 
 
