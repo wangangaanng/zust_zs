@@ -5,6 +5,7 @@
 var imgType = "";//区分图片类型：身份证正反面 户籍
 var idType="1";//上传身份证还是上传户籍证明 默认1身份证 2户籍证明
 $(function () {
+
     //浏览器不要自动填充
     $('input:not([autocomplete]),textarea:not([autocomplete]),select:not([autocomplete])').attr('autocomplete', 'off');
 
@@ -94,13 +95,9 @@ function getInfo() {
             if(data.hjzm){
                 $("#hjzm").val(data.hjzm);
                 $("#hjzmImg").attr("src",imagePath+data.hjzm);
-            }
-            switch (data.qq){
-                case "1":
-
-                    break;
-                case "2":
-                    break;
+                $("#confrimType option[value='2']").prop("selected","selected");
+                $("#household").show();
+                $("#idCard").hide();
             }
         }else{
             walert(data.errorMess)

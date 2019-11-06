@@ -3,8 +3,15 @@
     时间：2019-10-25
     描述：基本信息2：添加联系人
  */
+//用于判断联系人上一步还是下一步
+$('#pre').click(function () {
+    preNext = 1;
+});
+$('#saveContact').click(function () {
+    preNext = 0;
+});
 //保存家庭成员信息
-function saveContactors() {
+function saveContactors(a) {
     var params = $("#contactForm").serializeObject();
     var dataArr = [];
     dataArr[0] = {//父亲
@@ -43,7 +50,13 @@ function saveContactors() {
    }
     ajax("zustswyt/bckjBizJtcyxx/finish", data, function (data) {
         if(data.backCode==0){
-
+            console.log(a);
+            if(a==1){//上一步
+                $(".article-detail-text .form-horizontal").eq(0).show().siblings(".form-horizontal").hide();
+            }else{
+                $(".article-detail-text .form-horizontal").eq(2).show().siblings(".form-horizontal").hide();
+                $(".jf-items .jf-item").eq(2).addClass("jf-active");
+            }
         }else{
             walert(data.errorMess)
         }
