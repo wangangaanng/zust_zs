@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.service;
 
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
@@ -677,10 +678,16 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     /**
      * 展示校园开发日页面
-     *
      * @return
      */
-    public String getShowCaOpDayDate() {
-        return bckjBizJyschemeService.getDicVall(70000, "校园开放日");
+    public List<Map> getShowCaOpDayDate() {
+        List<Map> dicListMapByType = bckjBizJyschemeService.getDicListMapByType(70000);
+        List<Map> resMaps= Lists.newArrayList();
+        HashMap<String, Object> resMap = Maps.newHashMap();
+        for(Map map:dicListMapByType){
+            resMap.put(map.get("val1").toString(),map.get("val2").toString());
+            resMaps.add(resMap);
+        }
+        return resMaps;
     }
 }

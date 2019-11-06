@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Savepoint;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,19 @@ public class BckjBizZsjhController extends BaseController {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断id是否为
             return bckjBizZsjhService.saveBckjBizZsjh(mapData);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizZsjh信息失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping("saveOne")
+    @ResponseBody
+    public ResponseMessage saveOne(PublicDataVO dataVO){
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断id是否为
+            return bckjBizZsjhService.saveOne(mapData);
         } catch (Exception e) {
             log.error(e + "保存BckjBizZsjh信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

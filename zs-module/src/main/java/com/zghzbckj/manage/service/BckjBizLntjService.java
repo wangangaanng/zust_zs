@@ -17,6 +17,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.dao.BckjBizLntjDao;
 import com.zghzbckj.manage.entity.BckjBizLntj;
+import com.zghzbckj.manage.entity.BckjBizLqxs;
 import com.zghzbckj.manage.entity.BckjBizZsjh;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
@@ -268,5 +269,13 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
             }
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveOne(Map<String, Object> mapData) {
+        BckjBizLntj bckjBizLntj = JsonUtil.map2Bean(mapData, BckjBizLntj.class);
+        MapUtil.easySetByMap(mapData,bckjBizLntj);
+        saveOrUpdate(bckjBizLntj);
+        return ResponseMessage.sendOK(bckjBizLntj);
     }
 }

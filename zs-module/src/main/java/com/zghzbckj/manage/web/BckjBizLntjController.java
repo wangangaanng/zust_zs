@@ -82,6 +82,20 @@ public class BckjBizLntjController extends BaseController {
         }
     }
 
+
+    @PostMapping("saveOne")
+    @ResponseBody
+    public ResponseMessage saveOne(PublicDataVO dataVO){
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断id是否为
+            return bckjBizLntjService.saveOne(mapData);
+        } catch (Exception e) {
+            log.error(e + "保存BckjBizZsjh信息失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     @RequestMapping(value = "getOne", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getOne(PublicDataVO dataVO) {
