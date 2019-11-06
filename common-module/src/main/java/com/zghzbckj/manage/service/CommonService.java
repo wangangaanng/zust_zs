@@ -151,7 +151,7 @@ public class CommonService {
         bckjBizYhxxService.saveOrUpdate(yhxx);
     }
 
-    private String getRandom() {
+    public static String getRandom() {
         Random rd = new Random();
         String tmp = "";
         for (int i = 0; i < 6; i++) {
