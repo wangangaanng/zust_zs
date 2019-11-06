@@ -98,6 +98,9 @@
 			<if test="sjhqdx !=null ">
 				AND a.sjhqdx=#{sjhqdx}
 			</if>
+			<if test="bxlx !=null ">
+				AND a.bxlx=#{bxlx}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
