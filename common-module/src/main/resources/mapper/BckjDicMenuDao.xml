@@ -279,4 +279,9 @@
 	<select id="countMenu" resultType="java.lang.Long">
 		SELECT COUNT(OWID) FROM bckj_dic_menu
 	</select>
+
+	<select id="getLmmc" resultType="Map">
+			SELECT b.NAME FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
+		a.OWID=b.MENU_REF_OWID  and b.WZBH=#{wzbh} and a.code=#{lmbh}
+	</select>
 </mapper>

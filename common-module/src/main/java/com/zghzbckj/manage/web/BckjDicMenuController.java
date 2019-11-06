@@ -222,14 +222,14 @@ public class BckjDicMenuController extends BaseController {
 
 
     /**
-    *<p>方法:getArticleType TODO 获取全部文章栏目</p>
-    *<ul>
-     *<li> @param dataVO TODO</li>
-    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/11/2 21:35  </li>
-    *</ul>
-    */
+     * <p>方法:getArticleType TODO 获取全部文章栏目</p>
+     * <ul>
+     * <li> @param dataVO TODO</li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/11/2 21:35  </li>
+     * </ul>
+     */
     @RequestMapping(value = "getArticleType", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getArticleType(PublicDataVO dataVO) {
@@ -239,6 +239,35 @@ public class BckjDicMenuController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
             log.info("获取全部文章栏目：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+    }
+
+
+    /**
+    *<p>方法:getLmmc TODO获取一级栏目名称 </p>
+    *<ul>
+     *<li> @param dataVO TODO</li>
+    *<li>@return com.zghzbckj.base.model.ResponseMessage  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/11/6 19:30  </li>
+    *</ul>
+    */
+    @RequestMapping(value = "getLmmc", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getLmmc(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "lmbh","wzbh");
+            if (!validateMsg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
+            }
+            return ResponseMessage.sendOK(bckjDicMenuService.getLmmc(mapData));
+        } catch (CustomerException e) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
+        } catch (Exception e) {
+            log.info("获取一级栏目名：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }
