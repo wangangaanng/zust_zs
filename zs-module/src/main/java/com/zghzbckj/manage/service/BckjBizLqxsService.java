@@ -386,4 +386,11 @@ public class BckjBizLqxsService extends CrudService<BckjBizLqxsDao, BckjBizLqxs>
         return "";
     }
 
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveOne(Map<String, Object> mapData) {
+        BckjBizLqxs bckjBizLqxs = JsonUtil.map2Bean(mapData, BckjBizLqxs.class);
+        MapUtil.easySetByMap(mapData,bckjBizLqxs);
+        saveOrUpdate(bckjBizLqxs);
+        return ResponseMessage.sendOK(bckjBizLqxs);
+    }
 }

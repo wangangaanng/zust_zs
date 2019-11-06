@@ -16,6 +16,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.dao.BckjBizCjcxDao;
 import com.zghzbckj.manage.entity.BckjBizCjcx;
+import com.zghzbckj.manage.entity.BckjBizLntj;
 import com.zghzbckj.manage.entity.BckjBizLqxs;
 import com.zghzbckj.util.MapUtil;
 import org.apache.log4j.Logger;
@@ -216,6 +217,11 @@ public class BckjBizCjcxService extends CrudService<BckjBizCjcxDao, BckjBizCjcx>
     }
 
 
-
-
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveOne(Map<String, Object> mapData) {
+        BckjBizCjcx bckjBizCjcx = JsonUtil.map2Bean(mapData, BckjBizCjcx.class);
+        MapUtil.easySetByMap(mapData,bckjBizCjcx);
+        saveOrUpdate(bckjBizCjcx);
+        return ResponseMessage.sendOK(bckjBizCjcx);
+    }
 }

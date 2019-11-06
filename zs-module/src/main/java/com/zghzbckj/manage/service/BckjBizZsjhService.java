@@ -260,4 +260,11 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
         return list;
     }
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveOne(Map<String, Object> mapData) {
+        BckjBizZsjh bckjBizZsjh = JsonUtil.map2Bean(mapData, BckjBizZsjh.class);
+        MapUtil.easySetByMap(mapData,bckjBizZsjh);
+        saveOrUpdate(bckjBizZsjh);
+        return ResponseMessage.sendOK(bckjBizZsjh);
+    }
 }
