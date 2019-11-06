@@ -17,7 +17,7 @@ Page({
     var that = this;
     var headUrl = wx.getStorageSync('headImg');
     that.setData({
-        'imgUrl': headUrl
+        'imgUrl': headUrl,        
     })
     if (headUrl) {
       that.setData({
@@ -31,7 +31,9 @@ Page({
         'userName': that.data.userName
       })
     } else {
-      common.getInfoBasic(that);
+      if (wx.getStorageSync('yhRefOwid')){
+        common.getInfoBasic(that);
+      }
     }
   },
 
@@ -45,6 +47,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      'xxbh': wx.getStorageSync('xxbh')
+    })
     if (!wx.getStorageSync('yhRefOwid')) {
       wx.navigateTo({
         url: '../login/login'
@@ -92,5 +97,14 @@ Page({
     wx.navigateTo({
       url: '../login/login'
     })
+  },
+  swbm() {
+    if(this.data.xxbh){
+      wx.navigateTo({
+        url: '../Process/Process'
+      })
+    }else{
+      common.toast('您尚未报名', 'none', 2000)
+    }
   }
 })
