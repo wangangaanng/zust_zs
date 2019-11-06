@@ -16,6 +16,7 @@
 		a.wzzt AS "wzzt",
 		a.ydcs AS "ydcs",
 		a.nf AS "nf",
+		a.jznf AS "jznf",
 			a.qtbh AS "qtbh",
 			a.qtbhname AS "qtbhname",
 		a.html_path AS "htmlPath",
@@ -103,6 +104,9 @@
 			<if test="nf != null and nf != ''">
 				AND a.nf = #{nf}
 			</if>
+            <if test="jznf != null and jznf != ''">
+				AND a.jznf = #{jznf}
+			</if>
             <if test="wzly != null and wzly != ''">
                 AND a.wzly LIKE concat('%',#{wzly,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
@@ -136,6 +140,9 @@
             </if>
 			<if test="nf != null and nf != ''">
 				AND a.nf = #{nf}
+			</if>
+            <if test="jznf != null and jznf != ''">
+				AND a.jznf = #{jznf}
 			</if>
             <if test="gjz != null and gjz != ''">
 				AND (a.gjz LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'  OR a.wzbt  LIKE concat('%',#{gjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;')
@@ -184,6 +191,7 @@
 			gjz,
 			memo,
 			nf,
+				jznf,
 			qtbh,
 			qtbhname,
 			createtime,
@@ -229,6 +237,7 @@
 			#{gjz},
 			#{memo},
 			#{nf},
+			#{jznf},
 			#{qtbh},
 			#{qtbhname},
 			#{createtime},
@@ -278,6 +287,7 @@
 			gjz = #{gjz},
 			memo = #{memo},
 				nf =#{nf},
+				jznf =#{jznf},
 			qtbh =#{qtbh},
 			qtbhname =#{qtbhname},
 			createtime = #{createtime},
@@ -331,9 +341,14 @@
 		SELECT a.wzbt AS "wzbt",a.owid AS "owid",a.fbsj AS "fbsj",a.jjnr AS "jjnr",a.tpjj AS "tpjj",a.ydcs AS "ydcs"
 		FROM bckj_biz_article a
 		<where>
-		( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
-		AND a.lmbh IN( SELECT b.code FROM bckj_dic_menu b WHERE  b.SJHQDX=5 AND b.fid=#{lmbh} )
-		AND a.wzzt = 1
+			( a.sxsj &gt; SYSDATE() OR a.sxsj is NULL)
+			AND ( a.lmbh IN( SELECT b.code FROM bckj_dic_menu b WHERE b.SJHQDX=5 AND b.fid=#{lmbh} )
+			  OR a.qtbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			)
+			<if test="gjz!=null ">
+				AND a.gjz =#{gjz}
+			</if>
+			AND a.wzzt = 1
 		</where>
 		ORDER BY ${orderBy}
 	</select>

@@ -10,7 +10,8 @@ Page({
     headImgUrl:'',
     name:'',
     xh:'',
-    result:'',
+    zwbt:'',
+    zphJbdd:'',
     owid:'',
     latitude:'',
     longitude:'',
@@ -270,7 +271,7 @@ Page({
 })
 var getContent = function (that, owid) {//招聘详情
   var data = { "owid": owid, "yhOwid": wx.getStorageSync("yhOwid") };
-  common.ajax('zustjy/bckjBizJob/getOneJob', data, function (res) {
+  common.ajax('zustjy/bckjBizJob/getMiniJob', data, function (res) {
     if (res.data.backCode == 0) {
       that.setData({
         owid: res.data.bean.owid,//真实owid
@@ -296,7 +297,8 @@ var getContent = function (that, owid) {//招聘详情
       }
       
       that.setData({
-        result: res.data.bean,
+        zwbt: res.data.bean.zwbt,
+        zphJbdd: res.data.bean.zphJbdd
       })
 
 

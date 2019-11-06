@@ -98,10 +98,22 @@
 		<include refid="bckjBizLqxsJoins"/>
 		<where>
 			<if test="ksh !=null and ksh!='' ">
-				a.ksh=#{ksh}
+				AND a.ksh=#{ksh}
 			</if>
 			<if test="sfzh !=null and sfzh!='' ">
 				AND a.sfzh=#{sfzh}
+			</if>
+			<if test="mzdm!=null and mzdm!=''">
+				AND a.mzdm=#{mzdm}
+			</if>
+			<if test="lp!=null and lp!=''">
+				AND a.lp=#{lp}
+			</if>
+			<if test="xy!=null and xy!=''">
+				AND a.xy=#{xy}
+			</if>
+			<if test="pc!=null and pc!=''">
+				AND a.pc=#{pc}
 			</if>
 		</where>
 		<choose>

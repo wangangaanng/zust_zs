@@ -24,8 +24,8 @@
 					<map id="map" longitude="{{longitude}}" latitude="{{latitude}}" scale="14"  show-location style="height:120px;width:90%;margin:10px 5% 0px 5%;"></map>
 				</view>
 				<view class="dzdiv">
-					<view>{{result.zwbt}}</view>
-					<view class="dz">{{result.zphJbdd}}</view>
+					<view>{{zwbt}}</view>
+					<view class="dz">{{zphJbdd}}</view>
 				</view>
 			</view>
 			<view>

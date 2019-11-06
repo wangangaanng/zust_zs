@@ -153,4 +153,14 @@ public class BckjBizXxpzService extends CrudService<BckjBizXxpzDao, BckjBizXxpz>
         }
         return page;
     }
+
+    public Object getXxsInfo(Map<String, Object> mapData) {
+        int pageNo= MapUtils.getInt(mapData,"pageNo");
+        int pageSize= MapUtils.getInt(mapData,"pageSize");
+        Page<Map> page = new Page(pageNo, pageSize);
+        mapData.put("page", page);
+        mapData.put("orderBy", "");
+        page.setList(this.dao.findMapListByMap(mapData));
+        return page;
+    }
 }
