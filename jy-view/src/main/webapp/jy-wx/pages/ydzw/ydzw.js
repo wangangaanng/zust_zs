@@ -197,8 +197,8 @@ Page({
       xjhtjList(this, options.owid)
     }
     this.setData({
-      lxr: wx.getStorageSync('qyInfo').qyLxr || '',
-      lxdh: wx.getStorageSync('qyInfo').qyLxrdh || '',
+      'form.lxr': wx.getStorageSync('qyInfo').qyLxr || '',
+      'form.lxdh': wx.getStorageSync('qyInfo').qyLxrdh || '',
     })
   },
 
