@@ -14,5 +14,5 @@ import com.zghzbckj.manage.entity.BckjBizBmmx;
  */
 @MyBatisDao
 public interface BckjBizBmmxDao extends CrudDao<BckjBizBmmx> {
-	
+
 }

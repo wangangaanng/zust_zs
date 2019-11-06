@@ -41,8 +41,10 @@ public class SwytConstant {
     //state=7
     public static final String BMDMSFP = "等待面试分配";
     //state=8
-    public static final String BMXZMSD = "下载面试单";
+    public static final String BMXZMSD = "面试已分配";
     //state=9
+    public static final String XZMSD = "下载面试单";
+    //state=10
     public static final String BMCJCX = "查询成绩";
     public static final String FTLFILE_SUFFIX = ".ftl";
     public static final Integer HKCJ = 10022;

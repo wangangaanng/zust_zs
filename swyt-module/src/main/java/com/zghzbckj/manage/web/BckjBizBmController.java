@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.entity.BckjBizBm;
@@ -369,7 +370,7 @@ public class BckjBizBmController extends BaseController {
         //拒绝 状态为4  通过为5
         Integer state = 5;
         Map resultMap = Maps.newHashMap();
-        resultMap=  bckjBizBmService.submitPurchaseBack(codes, state, mapData);
+        resultMap = bckjBizBmService.submitPurchaseBack(codes, state, mapData);
         if ("true".equals(resultMap.get("result").toString())) {
             //数据回写
             return ResponseMessage.sendOK(resultMap.get("bean"));
@@ -388,7 +389,7 @@ public class BckjBizBmController extends BaseController {
         //拒绝 状态为4  通过为5
         Integer state = 7;
         Map resultMap = Maps.newHashMap();
-        resultMap=   bckjBizBmService.submitPurchaseBack(codes, state, mapData);
+        resultMap = bckjBizBmService.submitPurchaseBack(codes, state, mapData);
         if ("true".equals(resultMap.get("result").toString())) {
             //数据回写
             return ResponseMessage.sendOK(resultMap.get("bean"));
@@ -494,6 +495,31 @@ public class BckjBizBmController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    /**
+     * <p>接口 recordCjInfo.java : <p>
+     * <p>说明：三位一体成绩导入</p>
+     * <pre>
+     * @author cc
+     * @date 2019/11/6 13:51
+     * </pre>
+     */
+    @RequestMapping(value = "recordCjInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordCjInfo(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizBmService.recordCjInfo(dataMap.get("path").toString());
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 

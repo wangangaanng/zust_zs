@@ -31,6 +31,8 @@ public class RecordInfo implements ComponentFileSer {
     public final String qyxxURL = "web/zustjy/bckjBizQyxx/recordQyxxInfo";
     //企业招聘会录入url
     public final String zphURL = "web/zustjy/bckjBizJypm/recordJobInfo";
+    //三位一体成绩
+    public final String cjURL = "web/zustswyt/bckjBizBm/recordCjInfo";
     //招生计划
     public final String zsjhURL = "web/zustzs/bckjBizZsjh/recordInfo";
     //历年招生
@@ -42,7 +44,7 @@ public class RecordInfo implements ComponentFileSer {
     //上传excela保存的本地地址
     public final String savePath = "/mnt/files/zjcFiles/excel/";
     public final String foundPath = "/mnt/files/zjcFiles/";
-     /*public final String FolderPath = "F:\\img\\";*/
+    /*public final String FolderPath = "F:\\img\\";*/
     //地区典表 导入
     public final String dwszURL = "web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -90,6 +92,9 @@ public class RecordInfo implements ComponentFileSer {
         if (pageCA.indexOf("chengji") != -1) {
             url = cjcxURL;
         }
+        if (pageCA.indexOf("cjdr") != -1) {
+            url = cjURL;
+        }
 
         String result = "";
         String path = map.get("filePath").toString();
@@ -97,8 +102,8 @@ public class RecordInfo implements ComponentFileSer {
         String savefilePath = savePath + path;
         copyXsFile(foundfilePath, savefilePath);
 
-      //String filePath = FolderPath + path;  //本地上传路径
-       //copyFile(filePath); //本地上传路径*/
+        //String filePath = FolderPath + path;  //本地上传路径
+        //copyFile(filePath); //本地上传路径*/
 
         Map<String, Object> params = new HashMap<String, Object>();
 
