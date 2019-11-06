@@ -168,6 +168,7 @@ function zphtjList(zphOwid,owid) {
                 if(data.bean.length){
                     zdytjLength=data.bean.length;
                 }
+                zdytjStr='';
                 for(var i=1;i<data.bean.length+1;i++){
                     for(var a in data.bean[i-1]){
                         zdytjObj['zdytj'+i]=a
@@ -374,7 +375,7 @@ function confirmQd(owid) {
             "lxdh": $("#lxdh").val().trim()
         }
         for(var i=1;i<zdytjLength+1;i++){
-            jsonObj['zdytj'+i]=zdytjObj['zdytj'+i]
+            // jsonObj['zdytj'+i]=zdytjObj['zdytj'+i]
             jsonObj['tjsd'+i]=$("#tjsd"+i).val()
         }
         for(var i=1;i<6;i++){

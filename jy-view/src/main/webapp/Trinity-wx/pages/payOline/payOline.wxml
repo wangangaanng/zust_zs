@@ -8,11 +8,11 @@
         <block wx:if="{{state==6}}">
           恭喜你，你的初审已通过。缴费证明图片已提交，请耐心等耐审核！
         </block>
-         <block wx:if="{{state>6}}">
+        <block wx:if="{{state>6}}">
           恭喜你，你的初审已通过，缴费审核已通过。
         </block>
-        <block wx:else>
-          恭喜你，你的初审已通过，缴费完成后将分配面试时间，请点击进入在线缴费环节。缴费成功后，请上传缴费成功证明图片。
+        <block wx:if="{{state<6}}">
+          恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。
         </block>
       </view>
     </view>
@@ -21,20 +21,28 @@
     <view class="sign-wrap">
       <view class="pay-url_wrap">
         <text class="detail-url">{{payDetail}}</text>
+        <view>
+          <block wx:if="{{payUrl!=''}}">
+            <text class="detail-url">缴费地址：{{payUrl}}</text>
+          </block>
+          <block wx:if="{{payUrl==''}}">
+            <text class="detail-url">缴费地址：未设置缴费地址</text>
+          </block>
+        </view>
         <block wx:if="{{state<6}}">
           <view class="pay-button_wrap">
             <block wx:if="{{payUrl!=''}}">
-              <van-button class="copy-btn" size="small" plain hairline type="primary" bind:click="copyUrl" data-text="{{payUrl}}">复制地址</van-button>
+              <van-button class="copy-btn" size="small" plain hairline type="primary" bind:click="copyUrl" data-text="{{payUrl}}">复制缴费地址</van-button>
             </block>
-            <van-button size="small" plain hairline type="primary" bind:click="goPayOline">直接去缴费
-            </van-button>
+            <!-- <van-button size="small" plain hairline type="primary" bind:click="goPayOline">直接去缴费
+            </van-button> -->
           </view>
         </block>
       </view>
     </view>
 
     <view class="sign-wrap {{class1}}">
-      <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="choseImageProve">
+      <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="{{(state<6)?'choseImageProve':''}}">
         <block wx:if="{{state<6}}">
           <van-icon slot="right-icon" name="search" class=" iconfont icon-xiangji" />
         </block>

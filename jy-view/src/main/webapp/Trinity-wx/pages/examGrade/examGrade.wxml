@@ -26,12 +26,12 @@
 
 <!-- 按钮 -->
 <view class="bottom-btn_wrap df">
-  <van-button round type="primary" class="main-button f1" size="large" bindtap="preStep">上一步，联系人</van-button>
-  <van-button round type="primary" class="main-button f1" size="large" bindtap="nextStep">下一步，选考信息</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="Step" data-index='0'>上一步，联系人</van-button>
+  <van-button round type="primary" class="main-button f1" size="large" bindtap="Step" data-index='1'>下一步，选考信息</van-button>
 </view>
 
 
 <!-- 弹出选择等第 -->
 <van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
-  <van-picker show-toolbar columns="{{ gradeCategory }}" bind:cancel="cancelPop" bind:confirm="confirmGrade" />
+  <van-picker show-toolbar columns="{{ gradeCategory }}" default-index='{{defaultIndex}}' bind:cancel="cancelPop" bind:confirm="confirmGrade" />
 </van-popup>

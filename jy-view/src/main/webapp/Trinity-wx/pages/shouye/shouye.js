@@ -19,7 +19,6 @@ Page({
   onLoad: function(options) {
     yhRefOwid = wx.getStorageSync('yhRefOwid')
     this.historyMessage()
-    this.getXxxx()
   },
 
   /**
@@ -33,6 +32,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getXxxx()
     wx.setStorageSync('href', 0)
     this.indexState()
   },

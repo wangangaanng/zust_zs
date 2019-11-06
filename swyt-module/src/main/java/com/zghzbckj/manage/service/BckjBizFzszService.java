@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.beust.jcommander.internal.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -11,8 +12,10 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizBmDao;
 import com.zghzbckj.manage.dao.BckjBizFzszDao;
+import com.zghzbckj.manage.entity.BckjBizBm;
 import com.zghzbckj.manage.entity.BckjBizFzsz;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,9 @@ public class BckjBizFzszService extends CrudService<BckjBizFzszDao, BckjBizFzsz>
     BckjBizBkzyService bkzyService;
     @Autowired
     BckjBizBmDao bmDao;
+    @Autowired
+    BckjBizBmService bmService;
+
 
     private static final Logger log = Logger.getLogger(BckjBizFzszService.class);
 
@@ -161,8 +167,70 @@ public class BckjBizFzszService extends CrudService<BckjBizFzszDao, BckjBizFzsz>
         return ResponseMessage.sendOK(objs);
     }
 
+    @Transactional(readOnly = false)
     public void deleteAll() {
         this.dao.deleteAll();
         return;
+    }
+
+    @Transactional(readOnly = false)
+    public void zdfpAction() {
+        Map prams = Maps.newHashMap();
+        List<BckjBizFzsz> fzszList = findListByParams(prams, "");
+        if (TextUtils.isEmpty(fzszList) || fzszList.size() == 0) {
+            return;
+        }
+        for (BckjBizFzsz fzsz : fzszList) {
+            //已选择
+            Map params = new HashMap<>();
+            params.put("fzszRefOwid", fzsz.getOwid());
+            Integer yxz = bmDao.queryWaitNumber(params);
+            if (yxz >= fzsz.getZhrs()) {
+                continue;
+            }
+            Integer leftNumber = fzsz.getZhrs() - yxz;
+            params.clear();
+            params.put("bklbOwid", fzsz.getDl());
+            params.put("state", 7);
+            params.put("limit", leftNumber);
+            params.put("rand", 1);
+            List<BckjBizBm> bmList = bmDao.findListByMap(params);
+            if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+                for (BckjBizBm bm : bmList) {
+                    bm.setState(8);
+                    bm.setMssj(fzsz.getMemo());
+                    bm.setFzszRefOwid(fzsz.getOwid());
+                    bm.setXybnr(SwytConstant.BMXZMSD);
+                    bmService.saveOrUpdate(bm);
+                }
+            }
+
+
+        }
+    }
+
+    @Transactional(readOnly = false)
+    public void cxfpAction() {
+        Map prams = Maps.newHashMap();
+        List<BckjBizFzsz> fzszList = findListByParams(prams, "");
+        if (TextUtils.isEmpty(fzszList) || fzszList.size() == 0) {
+            return;
+        }
+        for (BckjBizFzsz fzsz : fzszList) {
+            Map params = new HashMap<>();
+            params.put("fzszRefOwid", fzsz.getOwid());
+            params.put("state", 8);
+            List<BckjBizBm> bmList = bmDao.findListByMap(params);
+            if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+                for (BckjBizBm bm : bmList) {
+                    bm.setState(7);
+                    bm.setXybnr(SwytConstant.BMDMSFP);
+                    bm.setFzszRefOwid("");
+                    bm.setMemo("");
+                    bm.setZkzh("");
+                    bmService.saveOrUpdate(bm);
+                }
+            }
+        }
     }
 }

@@ -18,8 +18,8 @@ page {
 }
 
 .mark {
-  height: 60px;
-  width: 60px;
+  height: 50px;
+  width: 55px;
   margin-top: 15px;
 }
 

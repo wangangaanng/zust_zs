@@ -221,6 +221,14 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         return list;
     }
 
+
+//    public static void main(String[] args) {
+//        String a= "25.0";
+//        String b ="25";
+//        System.out.println(a.replaceAll(".0",""));
+//        System.out.println(b.replaceAll(".0",""));
+//    }
+
     @Transactional(readOnly = false)
     public ResponseMessage recordJobInfo(String path) {
         //文件路径
@@ -238,7 +246,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 String qyTysh = cellList.get(1); //企业统一税号
                 //如果企业统一税号为空则退出
                 if (com.ourway.base.utils.TextUtils.isEmpty(qyTysh)) {
-                    break;
+                    continue;
                 }
                 qyshs.add(qyTysh);
                 resMap.put("qyTysh", qyTysh);
@@ -265,11 +273,17 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 String zw4 = cellList.get(14); //岗位4
                 String zw5 = cellList.get(16); //岗位5
 
-                String rs1 = cellList.get(9);
-                String rs2 = cellList.get(11);
-                String rs3 = cellList.get(13);
-                String rs4 = cellList.get(15);
-                String rs5 = cellList.get(17);
+                String rs1 = cellList.get(9).replaceAll(".0", "");
+                String rs2 = cellList.get(11).replaceAll(".0", "");
+                String rs3 = cellList.get(13).replaceAll(".0", "");
+                String rs4 = cellList.get(15).replaceAll(".0", "");
+                String rs5 = cellList.get(17).replaceAll(".0", "");
+
+                boolean isNumRs1 = rs1.matches("[0-9]+");
+                boolean isNumRs2 = rs2.matches("[0-9]+");
+                boolean isNumRs3 = rs3.matches("[0-9]+");
+                boolean isNumRs4 = rs4.matches("[0-9]+");
+                boolean isNumRs5 = rs5.matches("[0-9]+");
                 //团报来源
                 String exp1 = cellList.get(18);
 
@@ -283,9 +297,25 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 bckjBizQyxx.setState(2);
                 qyxxServie.saveOrUpdate(bckjBizQyxx);
                 ///保存职来职往企业报名
-                BckjBizJybm jybm = new BckjBizJybm();
-                jybm.setQyxxRefOwid(bckjBizQyxx.getOwid());
+
                 BckjBizJob job = jobDao.getByName(JyContant.ZWBT);
+
+                Map params = Maps.newHashMap();
+                params.put("qyxxRefOwid", bckjBizQyxx.getOwid());
+                params.put("jobRefOwid", job.getOwid());
+                List<BckjBizJybm> oldJybms = jybmService.findListByParams(params, "");
+                if (!TextUtils.isEmpty(oldJybms) && oldJybms.size() > 0) {
+                    BckjBizJybm oldJybm = oldJybms.get(0);
+                    oldJybm.setState(2);
+                    oldJybm.setMemo("重复报名");
+                    jybmService.saveOrUpdate(oldJybm);
+                    continue;
+                }
+
+                BckjBizJybm jybm = new BckjBizJybm();
+
+
+                jybm.setQyxxRefOwid(bckjBizQyxx.getOwid());
                 jybm.setJobRefOwid(job.getOwid());
                 jybm.setBmlx(JyContant.BMLX_QY);
                 jybm.setBmdx(JyContant.BMDX_ZPH);
@@ -313,19 +343,19 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 if (!TextUtils.isEmpty(zw5)) {
                     jybm.setZw5(zw5);
                 }
-                if (!TextUtils.isEmpty(rs1)) {
+                if (!TextUtils.isEmpty(rs1) && isNumRs1) {
                     jybm.setRs1(rs1);
                 }
-                if (!TextUtils.isEmpty(rs2)) {
+                if (!TextUtils.isEmpty(rs2) && isNumRs2) {
                     jybm.setRs2(rs2);
                 }
-                if (!TextUtils.isEmpty(rs3)) {
+                if (!TextUtils.isEmpty(rs3) && isNumRs3) {
                     jybm.setRs3(rs3);
                 }
-                if (!TextUtils.isEmpty(rs4)) {
+                if (!TextUtils.isEmpty(rs4) && isNumRs4) {
                     jybm.setRs4(rs4);
                 }
-                if (!TextUtils.isEmpty(rs5)) {
+                if (!TextUtils.isEmpty(rs5) && isNumRs5) {
                     jybm.setRs5(rs5);
                 }
                 jybm.setState(1);
@@ -378,19 +408,19 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         if (TextUtils.isEmpty(jybm)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "不存在报名信息");
         }
-        params.clear();
-        params.put("yqRefOwid", yqRefOwid);
-        params.put("jobRefOwid", jobRefOwid);
-        params.put("state", 1);
-        List<BckjBizJybm> bmList = bmDao.findListByMap(params);
-        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0 && list != null && list.size() > 0) {
-            Integer jybmAllSize = jybm.getBmqygs();
-            Integer existSize = bmList.size();
-            Integer bmSize = list.size() + 1;
-            if (existSize + bmSize > jybmAllSize) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "导入失败，分配企业已满，请核实");
-            }
-        }
+//        params.clear();
+//        params.put("yqRefOwid", yqRefOwid);
+//        params.put("jobRefOwid", jobRefOwid);
+//        params.put("state", 1);
+//        List<BckjBizJybm> bmList = bmDao.findListByMap(params);
+//        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0 && list != null && list.size() > 0) {
+//            Integer jybmAllSize = jybm.getBmqygs();
+//            Integer existSize = bmList.size();
+//            Integer bmSize = list.size() + 1;
+//            if (existSize + bmSize > jybmAllSize) {
+//                return ResponseMessage.sendError(ResponseMessage.FAIL, "导入失败，分配企业已满，请核实");
+//            }
+//        }
 
         HashMap<Object, Object> resMap = Maps.newHashMap();
         List<String> qyshs = Lists.newArrayList();

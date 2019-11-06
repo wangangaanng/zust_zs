@@ -3,6 +3,8 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.MapUtils;
@@ -12,17 +14,17 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.dao.BckjBizZsjhDao;
 import com.zghzbckj.manage.entity.BckjBizZsjh;
 import com.zghzbckj.util.ExcelUtils;
+import com.zghzbckj.util.MapUtil;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.util.*;
 
 /**
  * ccService
@@ -200,4 +202,62 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         return fileOutPath;
     }
 
+    /**
+     * 后台录入学生计划
+     *
+     * @param path
+     * @return ResponseMessage
+     */
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public ResponseMessage recordInfo(String path) throws IllegalAccessException, InstantiationException, ParseException {
+        String filename = path;
+        List<List<String>> list = getExcelLists(path);
+        List<BckjBizZsjh> bckjBizZsjhs= Lists.newArrayList();
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                HashMap<Object, Object> resMap = Maps.newHashMap();
+                //学生信息录入
+                List<String> cellList = list.get(i);//行循环
+                String nf = cellList.get(0); //年份
+                //如果年份为空则退出
+                if (TextUtils.isEmpty(nf)) {
+                    break;
+                }
+                resMap.put("nf", nf);
+                String sf = cellList.get(1); //省份
+                resMap.put("sf", sf);
+                String kl = cellList.get(2); //科类
+                resMap.put("kl", kl);
+                String pc = cellList.get(3); //批次
+                resMap.put("pc", pc);
+                String zy = cellList.get(4); //专业
+                resMap.put("zy", zy);
+                String xz = cellList.get(5); //学制
+                resMap.put("xz", xz);
+                String zss = cellList.get(6); //招生数
+                if(!TextUtils.isEmpty(zss)){
+                    resMap.put("zss", Integer.parseInt(zss.substring(0,zss.indexOf("."))));
+                }
+                String xf = cellList.get(7); //学费
+                resMap.put("xf", xf);
+                String syxw = cellList.get(8); //授予学位
+                resMap.put("syxw", syxw);
+                BckjBizZsjh bckjBizZsjh = BckjBizZsjh.class.newInstance();
+                MapUtil.easySetByMap(resMap,bckjBizZsjh);
+                bckjBizZsjhs.add(bckjBizZsjh);
+            }
+            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+                saveOrUpdate(bckjBizZsjh);
+            }
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+    public static List<List<String>> getExcelLists(String filename) {
+        ExcelUtils poi = new ExcelUtils();
+        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = poi.read(filename);
+        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        return list;
+    }
 }
