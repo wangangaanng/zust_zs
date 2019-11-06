@@ -33,5 +33,5 @@
 
 <!-- 弹出选择等第 -->
 <van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
-  <van-picker show-toolbar columns="{{ gradeCategory }}" bind:cancel="cancelPop" bind:confirm="confirmGrade" />
+  <van-picker show-toolbar columns="{{ gradeCategory }}" default-index='{{defaultIndex}}' bind:cancel="cancelPop" bind:confirm="confirmGrade" />
 </van-popup>

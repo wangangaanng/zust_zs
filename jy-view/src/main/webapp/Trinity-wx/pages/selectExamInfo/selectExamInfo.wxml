@@ -79,5 +79,5 @@
 </view>
 <!-- 科目选择 -->
 <van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
-  <van-picker show-toolbar columns="{{ subjectList }}" bind:cancel="cancelPop" bind:confirm="confirmSubject" />
+  <van-picker show-toolbar columns="{{ subjectList }}" default-index='{{defaultIndex}}' bind:cancel="cancelPop" bind:confirm="confirmSubject" />
 </van-popup>
