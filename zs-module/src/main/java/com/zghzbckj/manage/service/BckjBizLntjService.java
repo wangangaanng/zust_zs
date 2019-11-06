@@ -221,7 +221,7 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
         List<List<String>> list = bckjBizZsjhService.getExcelLists(path);
         List<BckjBizLntj> bckjBizLntjs= Lists.newArrayList();
         if (list != null) {
-            for (int i = 1; i < list.size(); i++) {
+                for (int i = 1; i < list.size(); i++) {
                 HashMap<Object, Object> resMap = Maps.newHashMap();
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
@@ -243,22 +243,22 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
                 resMap.put("xz", xz);
                 String lqs = cellList.get(6); //录取数
                 if(!TextUtils.isEmpty(lqs)){
-                    resMap.put("lqs", Double.parseDouble(lqs));
+                    resMap.put("lqs", Integer.parseInt(lqs.substring(0,lqs.indexOf("."))));
                 }
-                String szxy = cellList.get(7); //所属学院
-                resMap.put("szxy", szxy);
-                String pif = cellList.get(8); //平均分
-                if(!TextUtils.isEmpty(pif)){
-                    resMap.put("pif", Double.parseDouble(pif));
-                }
-                String zgf = cellList.get(9); //最高分
+                String zgf = cellList.get(7); //最高分
                 if(!TextUtils.isEmpty(zgf)){
                     resMap.put("zgf", Double.parseDouble(zgf));
                 }
-                String zdf = cellList.get(10); //最低分
+                String zdf = cellList.get(8); //最低分
                 if(!TextUtils.isEmpty(zdf)){
                     resMap.put("zdf", Double.parseDouble(zdf));
                 }
+                String pjf = cellList.get(9); //平均分
+                if(!TextUtils.isEmpty(pjf)){
+                    resMap.put("pjf", Double.parseDouble(pjf));
+                }
+                String szxy = cellList.get(10); //所属学院
+                resMap.put("szxy", szxy);
                 BckjBizLntj bckjBizLntj = BckjBizLntj.class.newInstance();
                 MapUtil.easySetByMap(resMap,bckjBizLntj);
                 bckjBizLntjs.add(bckjBizLntj);

@@ -192,9 +192,13 @@ public class BckjBizLqxsService extends CrudService<BckjBizLqxsDao, BckjBizLqxs>
                 String csny = cellList.get(8); //出生年月
                 resMap.put("csny", csny);
                 String zzmmdm = cellList.get(9); //政治面貌
-                resMap.put("zzmmdm", zzmmdm);
+                resMap.put("zzmmdm", getDicVal1(50008,zzmmdm));
                 String mzdm = cellList.get(10); //民族
-                resMap.put("mzdm", mzdm);
+                if(mzdm.indexOf("汉")!=-1){
+                    resMap.put("mzdm", getDicVal1(50009,"汉族"));
+                }else {
+                    resMap.put("mzdm",  getDicVal1(50009,mzdm));
+                }
                 String kslbdm = cellList.get(11); //考生类别
                 resMap.put("kslbdm", kslbdm);
                 String bylbdm = cellList.get(12); //毕业类别
@@ -289,6 +293,11 @@ public class BckjBizLqxsService extends CrudService<BckjBizLqxsDao, BckjBizLqxs>
             }
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+   public String getDicVal1(Integer type,String val2){
+        return this.dao.getDicVal1( type, val2);
+
     }
 
     private List<Map> getOldLqxs() {

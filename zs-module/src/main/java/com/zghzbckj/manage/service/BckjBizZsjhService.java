@@ -235,7 +235,9 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
                 String xz = cellList.get(5); //学制
                 resMap.put("xz", xz);
                 String zss = cellList.get(6); //招生数
-                resMap.put("zss", zss);
+                if(!TextUtils.isEmpty(zss)){
+                    resMap.put("zss", Integer.parseInt(zss.substring(0,zss.indexOf("."))));
+                }
                 String xf = cellList.get(7); //学费
                 resMap.put("xf", xf);
                 String syxw = cellList.get(8); //授予学位

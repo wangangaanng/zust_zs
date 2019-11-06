@@ -31,10 +31,18 @@ public class RecordInfo implements ComponentFileSer {
     public final String qyxxURL = "web/zustjy/bckjBizQyxx/recordQyxxInfo";
     //企业招聘会录入url
     public final String zphURL = "web/zustjy/bckjBizJypm/recordJobInfo";
+    //招生计划
+    public final String zsjhURL = "web/zustzs/bckjBizZsjh/recordInfo";
+    //历年招生
+    public final String lntjURL = "web/zustzs/bckjBizLntj/recordInfo";
+    //录取招生
+    public final String lqxsURL = "web/zustzs/bckjBizLqxs/recordInfo";
+    //原始成绩
+    public final String cjcxURL = "web/zustzs/bckjBizCjcx/recordInfo";
     //上传excela保存的本地地址
     public final String savePath = "/mnt/files/zjcFiles/excel/";
     public final String foundPath = "/mnt/files/zjcFiles/";
-    //    public final String FolderPath = "F:\\img\\";
+     /*public final String FolderPath = "F:\\img\\";*/
     //地区典表 导入
     public final String dwszURL = "web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -70,14 +78,27 @@ public class RecordInfo implements ComponentFileSer {
         if (pageCA.indexOf("zphbm") != -1) {
             url = zphURL;
         }
+        if (pageCA.indexOf("jihua") != -1) {
+            url = zsjhURL;
+        }
+        if (pageCA.indexOf("linian") != -1) {
+            url = lntjURL;
+        }
+        if (pageCA.indexOf("luqu") != -1) {
+            url = lqxsURL;
+        }
+        if (pageCA.indexOf("chengji") != -1) {
+            url = cjcxURL;
+        }
+
         String result = "";
         String path = map.get("filePath").toString();
         String foundfilePath = foundPath + path;  //线上路径
         String savefilePath = savePath + path;
         copyXsFile(foundfilePath, savefilePath);
 
-//       String filePath = FolderPath + path;  //本地上传路径
-//        copyFile(filePath); //本地上传路径
+      //String filePath = FolderPath + path;  //本地上传路径
+       //copyFile(filePath); //本地上传路径*/
 
         Map<String, Object> params = new HashMap<String, Object>();
 

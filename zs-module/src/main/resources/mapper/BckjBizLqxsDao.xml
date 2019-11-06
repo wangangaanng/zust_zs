@@ -327,5 +327,10 @@
 	<select id="getOldLqxs" resultType="Map">
 		SELECT owid as owid ,sfzh as sfzh FROM bckj_biz_lqxs
 	</select>
+
+	<select id="getDicVal1" resultType="String">
+		SELECT b.dic_val1 FROM ourway_sys_dic a,ourway_sys_dic_value b
+		WHERE a.owid =b.dic_ref_owid and a.type=#{type} and b.dic_val2=#{val2}
+	</select>
 	
 </mapper>
