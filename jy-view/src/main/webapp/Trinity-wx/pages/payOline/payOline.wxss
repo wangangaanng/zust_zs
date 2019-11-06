@@ -21,4 +21,4 @@ page{
 .show-url .van-cell{padding: 9px 15px;}
 .detail-url{color: #333;font-size: 28rpx;word-break: break-all}
 .pay-button_wrap{text-align: center;margin-top: 20rpx;}
-.copy-btn{margin-right:20%;min-width: 76px;}
+.copy-btn{min-width: 76px;}

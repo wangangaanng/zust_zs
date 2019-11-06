@@ -6,6 +6,7 @@
 <#include "com/ZSconfig.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
+    <link rel="stylesheet" href="${base}/css/bootstrap-table.min.css" />
     <link rel="stylesheet" href="${base}/css/style.css" />
     <style>
         a:hover
@@ -13,6 +14,9 @@
             text-decoration:none;
             out-line: none;
         }
+        .fuye_sr_con{
+            width:100%;margin: 20px 0px;}
+
     </style>
 </head>
 <body>
@@ -228,7 +232,7 @@
             <ul class="gongGao_ul">
                 <#if (tzggList??)&&(tzggList.records??)&&(tzggList.records?size>0)>
                     <#list tzggList.records as obj>
-                        <li class="gongGao_ul_li">
+                        <li class="gongGao_ul_li" onclick="linkUrl('wzxq/${obj.owid!''}')">
                             <span class="glyphicon glyphicon-volume-up" style="font-size: 20px;float: left;"></span>
                             <p class="gongGao_title">${obj.wzbt!''}</p>
                         </li>
@@ -249,6 +253,55 @@
                             <!-- <tr><th>Header</th></tr>
                             <tr><td>Data</td></tr> -->
                         </table>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <#--模态弹出2-->
+    <div class="modal" id="mymodal2">
+        <div class="modal-dialog" style="width:1200px;">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="min-height: 200px;">
+                        <div id="lqcx_stuInfo">
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th style="width: 150px">准考证号： </th>
+                                    <th style="width: 250px" id="zkzh"></th>
+                                    <th style="width: 150px" >身份证： </th>
+                                    <th style="width: 250px" id="sfzh"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td style="width: 150px">姓名： </td>
+                                    <td style="width: 250px" id="xm"></td>
+                                    <td style="width: 150px" >联系电话： </td>
+                                    <td style="width: 250px" id="lxdh"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fuye_sr_con">
+                                <dl class="success" style="display:none;" id="successed">
+                                    <dt>
+                                        <img src="${base}/img/smile.png" alt="">
+                                    </dt>
+                                    <dd><h4 class="co_r">恭喜你</h4>
+                                        <p>你已经被<strong class="co_r" id="zhuhe">浙江科技学院 -自动化（机电一体化技术） 预录取,最终录取请查询当地考试院。</strong></p>
+                                        <p id="lqd"></p>
+                                        <p id="ems_dh">EMS单号：1004205824025，请注意查收！！！</p>
+                                    </dd>
+                                </dl>
+                                <dl class="error" style="display:none;" id="failed">
+                                    <dt><img src="${base}/img/depress.png" alt=""></dt>
+                                    <dd><h4></h4>
+                                        <p>很抱歉，目前系统里没有你的录取信息，或者你的录取批次还未开始，请继续关注本网站公告，谢谢！</p>
+                                    </dd>
+                                </dl>
+                            </div>
                     </div>
                 </div>
             </div><!-- /.modal-content -->

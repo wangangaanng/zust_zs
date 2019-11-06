@@ -200,21 +200,24 @@ Page({
   },
   //点击弹出
   selectSubject(e) {
-    console.log(e)
     let type = e.currentTarget.dataset.type;
     let index;
     let subjectList = []
+    let defaultIndex = 0
     if (type == "0") {
       index = e.currentTarget.dataset.index;
       subjectList = this.data.xklist
+      defaultIndex = this.data.xkindex[index].index || 0
     }
     if (type == "1") {
       subjectList = this.data.wylist
+      defaultIndex = this.data.wyindex || 0
     }
     this.setData({
       showPop: true,
       subjectList,
-      xkeq: index
+      xkeq: index,
+      defaultIndex
     });
   },
   // preStep: function() {
@@ -270,7 +273,7 @@ Page({
         jsfj = `"${this.data.jsfj[i]}"`
       }
     }
-    if (!this.data.tcah){
+    if (!this.data.tcah) {
       common.toast('请输入特长和爱好', 'none', 2000)
       return
     }

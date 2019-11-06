@@ -57,14 +57,14 @@ function uploadFile(tempFilePaths, type,fun){
     url: app.globalData.ApiUrl + "zustcommon/common/fileUpload",
     filePath: tempFilePaths[0],
     name: 'file',
-    header: { "Content-Type": "multipart/form-data" },
+    method: 'POST',
     formData: {
       "data": JSON.stringify(jsonObj)
     },
     success: function (res) {
       wx.hideLoading()
       fun(res)
-    },
+     },
     fail: function (e) {
       wx.showModal({
         title: '提示',

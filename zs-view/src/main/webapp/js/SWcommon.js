@@ -6,6 +6,7 @@ var nulltip="<p style='text-align: center;'>暂无数据</p>";
 
 //ajax请求
 function ajax(method, data, successMethod, pageNo, pageSize) {
+    beginLoad();
     if(!isTimeOut()) {
         $.ajax({
             url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
@@ -17,9 +18,13 @@ function ajax(method, data, successMethod, pageNo, pageSize) {
                 timestamp: new Date().getTime()
             },
             method: 'POST',
-            success: successMethod,
+            success: function (res) {
+                finishLoad();
+                successMethod(res);
+            },
             error: function (err) {
-                // walert('系统出错');
+                finishLoad();
+                walert('系统出错');
             }
         })
     }

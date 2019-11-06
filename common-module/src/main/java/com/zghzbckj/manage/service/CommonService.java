@@ -209,6 +209,7 @@ public class CommonService {
         fileCenter.put("fileClassId", yhRefOwid);
         fileCenter.put("fileName", realName);
         fileCenter.put("fileLabel", fileName);
+        fileCenter.put("fileRandon", type);
         fileCenter.put("fileSize", file.getSize());
         fileCenter.put("fileExtion", type);
         fileCenter.put("createtime", new Date());

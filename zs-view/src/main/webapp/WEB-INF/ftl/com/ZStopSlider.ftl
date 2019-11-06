@@ -1,6 +1,6 @@
-<#assign sliderList=[{"imgPath":'http://zsb.zust.edu.cn/files/imgs/20170531112701.JPG'},
-{"imgPath":'http://zsb.zust.edu.cn/files/imgs/20170531112711.jpg'},
-{"imgPath":'http://zsb.zust.edu.cn/files/imgs/20170116182253.jpg'}]>
+<#--<#assign sliderList=[{"imgPath":'http://zsb.zust.edu.cn/files/imgs/20170531112701.JPG'},-->
+<#--{"imgPath":'http://zsb.zust.edu.cn/files/imgs/20170531112711.jpg'},-->
+<#--{"imgPath":'http://zsb.zust.edu.cn/files/imgs/20170116182253.jpg'}]>-->
 <link rel="stylesheet" href="${base}/css/swiper.min.css" />
 <style>
     .swiper-pagination-bullet {
@@ -41,7 +41,7 @@
             <li class="swiper-slide" style="background-color:#fff">
                 <div class="m-width">
                     <a>
-                        <img src="${sliderobj.imgPath}" class="fadein" style="height: 400px;" /></a>
+                        <img src="${imagePath}${sliderobj.xsbt}" class="fadein" style="height: 400px;" /></a>
                 </div>
             </li>
     </#list>

@@ -116,6 +116,20 @@ Page({
   },
   onPullDownRefresh: function () {
     var that = this;
+    this.setData({
+      pageNo1: 1,
+      totalPage1: '',
+      newsList1: [],
+      pageNo2: 1,
+      totalPage2: '',
+      newsList2: [],
+      pageNo3: 1,
+      totalPage3: '',
+      newsList3: [],
+      pageNo4: 1,
+      totalPage4: '',
+      newsList4: [],
+    })
     getAdv(this);
     getList1(this, '0');//职位
     getList2(this, '2');//企业招聘公告
