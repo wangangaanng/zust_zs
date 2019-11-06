@@ -345,6 +345,9 @@
 			AND ( a.lmbh IN( SELECT b.code FROM bckj_dic_menu b WHERE b.SJHQDX=5 AND b.fid=#{lmbh} )
 			  OR a.qtbh LIKE concat('%',#{lmbh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			)
+			<if test="gjz!=null ">
+				AND a.gjz =#{gjz}
+			</if>
 			AND a.wzzt = 1
 		</where>
 		ORDER BY ${orderBy}
