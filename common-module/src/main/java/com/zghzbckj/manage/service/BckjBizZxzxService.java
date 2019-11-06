@@ -170,7 +170,7 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 5) {
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh", "xm");
             if (!msg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.USER_RELOGIN);
             }
             if (dataMap.get("sjh").toString().length() != 11) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);

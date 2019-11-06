@@ -625,8 +625,12 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @return
      */
     public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
+        BckjBizYhxx bckjBizYhxx = bckjBizYhxxService.get(dataMap.get("owid").toString());
+        HashMap<String, Object> sendMap = Maps.newHashMap();
+        sendMap.put("sfz",bckjBizYhxx.getSfz());
+        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(sendMap);
         BckjBizJyscheme bckjBizJyscheme = null;
-        BckjBizSyb xsxh = bckjBizSybService.getOneByXsxh(dataMap.get("xsxh").toString());
+        BckjBizSyb xsxh = bckjBizSybService.getOneByXsxh(oneBySfz.getXsxh());
         if (!com.zghzbckj.util.TextUtils.isEmpty(xsxh)) {
             bckjBizJyscheme = getOneByXsxh(xsxh.getXsxh());
         }

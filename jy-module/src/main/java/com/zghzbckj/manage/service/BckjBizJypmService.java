@@ -221,6 +221,14 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         return list;
     }
 
+
+//    public static void main(String[] args) {
+//        String a= "25.0";
+//        String b ="25";
+//        System.out.println(a.replaceAll(".0",""));
+//        System.out.println(b.replaceAll(".0",""));
+//    }
+
     @Transactional(readOnly = false)
     public ResponseMessage recordJobInfo(String path) {
         //文件路径
@@ -265,11 +273,17 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 String zw4 = cellList.get(14); //岗位4
                 String zw5 = cellList.get(16); //岗位5
 
-                String rs1 = cellList.get(9);
-                String rs2 = cellList.get(11);
-                String rs3 = cellList.get(13);
-                String rs4 = cellList.get(15);
-                String rs5 = cellList.get(17);
+                String rs1 = cellList.get(9).replaceAll(".0", "");
+                String rs2 = cellList.get(11).replaceAll(".0", "");
+                String rs3 = cellList.get(13).replaceAll(".0", "");
+                String rs4 = cellList.get(15).replaceAll(".0", "");
+                String rs5 = cellList.get(17).replaceAll(".0", "");
+
+                boolean isNumRs1 = rs1.matches("[0-9]+");
+                boolean isNumRs2 = rs2.matches("[0-9]+");
+                boolean isNumRs3 = rs3.matches("[0-9]+");
+                boolean isNumRs4 = rs4.matches("[0-9]+");
+                boolean isNumRs5 = rs5.matches("[0-9]+");
                 //团报来源
                 String exp1 = cellList.get(18);
 
@@ -313,19 +327,19 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 if (!TextUtils.isEmpty(zw5)) {
                     jybm.setZw5(zw5);
                 }
-                if (!TextUtils.isEmpty(rs1)) {
+                if (!TextUtils.isEmpty(rs1) && isNumRs1) {
                     jybm.setRs1(rs1);
                 }
-                if (!TextUtils.isEmpty(rs2)) {
+                if (!TextUtils.isEmpty(rs2) && isNumRs2) {
                     jybm.setRs2(rs2);
                 }
-                if (!TextUtils.isEmpty(rs3)) {
+                if (!TextUtils.isEmpty(rs3) && isNumRs3) {
                     jybm.setRs3(rs3);
                 }
-                if (!TextUtils.isEmpty(rs4)) {
+                if (!TextUtils.isEmpty(rs4) && isNumRs4) {
                     jybm.setRs4(rs4);
                 }
-                if (!TextUtils.isEmpty(rs5)) {
+                if (!TextUtils.isEmpty(rs5) && isNumRs5) {
                     jybm.setRs5(rs5);
                 }
                 jybm.setState(1);
