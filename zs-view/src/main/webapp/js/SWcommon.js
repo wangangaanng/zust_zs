@@ -6,7 +6,6 @@ var nulltip="<p style='text-align: center;'>暂无数据</p>";
 
 //ajax请求
 function ajax(method, data, successMethod, pageNo, pageSize) {
-    console.log(localUrl);
     if(!isTimeOut()) {
         $.ajax({
             url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
