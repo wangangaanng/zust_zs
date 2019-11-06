@@ -193,6 +193,26 @@ public class BckjBizJobController extends BaseController {
         }
     }
 
+
+    @RequestMapping(value = "getMiniJob", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage getMiniJob(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+
+            ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJobService.getMiniJob(mapData));
+        } catch (Exception e) {
+
+            log.error(e + "初始BckjBizJob\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
     @RequestMapping(value = "fixJob", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage fixJob(PublicDataVO dataVO) {

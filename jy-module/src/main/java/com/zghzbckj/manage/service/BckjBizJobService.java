@@ -204,7 +204,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
     Integer qdAllNumber = 0;
     Integer bmAllNumber = 0;
     Integer gzAllNumber = 0;
-    Integer successNumber=0;
+    Integer successNumber = 0;
 
     public ResponseMessage findPageBckjBizJobXjh(List<FilterModel> filters, Integer state, Integer pageNo, Integer pageSize) {
         PageInfo<BckjBizJob> page = new PageInfo<>();
@@ -266,7 +266,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         bmAllNumber = 0;
         qdAllNumber = 0;
         gzAllNumber = 0;
-        successNumber =0;
+        successNumber = 0;
         //王显弘改
         records.add(0, job);
         return ResponseMessage.sendOK(page);
@@ -300,7 +300,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 qdAllNumber += number;
                 //签到成功数
                 params.put("state", 1);
-                number= xsgzDao.countNumber(params);
+                number = xsgzDao.countNumber(params);
                 job.setQdSuccess(number);
                 successNumber += number;
             }
@@ -687,6 +687,160 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
     @Transactional(readOnly = false)
+    public BckjBizJob getMiniJob(Map<String, Object> mapData) {
+        BckjBizJob job = new BckjBizJob();
+        String owid = mapData.get("owid").toString();
+        if (owid.length() == 14) {
+            job = this.dao.queryByOwid(owid);
+        } else {
+            job = get(owid);
+        }
+        Map params = new HashMap<>(2);
+        if (!TextUtils.isEmpty(job.getZwGzzn())) {
+            params.put("type", JyContant.GZZN);
+            params.put("dicVal1", job.getZwGzzn());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGzznStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwGzzn())) {
+            params.put("type", JyContant.GZZN);
+            params.put("dicVal1", job.getZwGzzn());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGzznStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwGzxz())) {
+            params.put("type", JyContant.GZXZ);
+            params.put("dicVal1", job.getZwGzxz());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGzxzStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwNlyq())) {
+            params.put("type", JyContant.NLYQ);
+            params.put("dicVal1", job.getZwNlyq());
+            String str = qyxxDao.queryDic(params);
+            job.setZwNlyqStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwXlyq())) {
+            params.put("type", JyContant.XLYQ);
+            params.put("dicVal1", job.getZwXlyq());
+            String str = qyxxDao.queryDic(params);
+            job.setZwXlyqStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwYyyq())) {
+            params.put("type", JyContant.YYYQ);
+            params.put("dicVal1", job.getZwYyyq());
+            String str = qyxxDao.queryDic(params);
+            job.setZwYyyqStr(str);
+        }
+        if (!TextUtils.isEmpty(job.getZwGznx())) {
+            params.put("type", JyContant.GZNX);
+            params.put("dicVal1", job.getZwGznx());
+            String str = qyxxDao.queryDic(params);
+            job.setZwGznxStr(str);
+        }
+
+
+        if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
+            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            if (!TextUtils.isEmpty(qyxx)) {
+                if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
+                    params.put("type", JyContant.GSGM);
+                    params.put("dicVal1", qyxx.getQyGsgm());
+                    String gsgmStr = qyxxDao.queryDic(params);
+                    qyxx.setQyGsgmStr(gsgmStr);
+                }
+                if (!TextUtils.isEmpty(qyxx.getQyHylb())) {
+                    params.put("type", JyContant.HYLB);
+                    params.put("dicVal1", qyxx.getQyHylb());
+                    String hylbStr = qyxxDao.queryDic(params);
+                    qyxx.setQyHylbStr(hylbStr);
+                }
+                if (!TextUtils.isEmpty(qyxx.getQyGsxz())) {
+                    params.put("type", JyContant.GSXZ);
+                    params.put("dicVal1", qyxx.getQyGsxz());
+                    String gsxzStr = qyxxDao.queryDic(params);
+                    qyxx.setQyGsxzStr(gsxzStr);
+                }
+                job.setQyxx(qyxx);
+            }
+        }
+//        //报名企业
+//        params.clear();
+//        params.put("jobRefOwid", job.getOwid());
+//        params.put("state", 1);
+//        List<BckjBizJybm> bmList = bmService.findListByParams(params, " a.qymc desc ");
+//        List<Map> zwList = new ArrayList<>();
+//        Map map = Maps.newHashMap();
+//        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
+//            for (BckjBizJybm jybm : bmList) {
+//                zwList = new ArrayList<>();
+//                if (!TextUtils.isEmpty(jybm.getZw1())) {
+//                    map = Maps.newHashMap();
+//                    map.put("zw", jybm.getZw1());
+//                    map.put("rs", jybm.getRs1());
+//                    zwList.add(map);
+//                }
+//                if (!TextUtils.isEmpty(jybm.getZw2())) {
+//                    map = Maps.newHashMap();
+//                    map.put("zw", jybm.getZw2());
+//                    map.put("rs", jybm.getRs2());
+//                    zwList.add(map);
+//                }
+//                if (!TextUtils.isEmpty(jybm.getZw3())) {
+//                    map = Maps.newHashMap();
+//                    map.put("zw", jybm.getZw3());
+//                    map.put("rs", jybm.getRs3());
+//                    zwList.add(map);
+//                }
+//                if (!TextUtils.isEmpty(jybm.getZw4())) {
+//                    map = Maps.newHashMap();
+//                    map.put("zw", jybm.getZw4());
+//                    map.put("rs", jybm.getRs4());
+//                    zwList.add(map);
+//                }
+//                if (!TextUtils.isEmpty(jybm.getZw5())) {
+//                    map = Maps.newHashMap();
+//                    map.put("zw", jybm.getZw5());
+//                    map.put("rs", jybm.getRs5());
+//                    zwList.add(map);
+//                }
+//                jybm.setZwList(zwList);
+//            }
+//        }
+//        job.setBmList(bmList);
+        //阅读数+1
+        BckjBizJob newJob = get(job.getOwid());
+        if (!TextUtils.isEmpty(newJob.getZwYds())) {
+            newJob.setZwYds(newJob.getZwYds() + 1);
+        } else {
+            newJob.setZwYds(1);
+        }
+        saveOrUpdate(newJob);
+        job.setZwYds(newJob.getZwYds());
+        //查看是否被关注
+        if (!TextUtils.isEmpty(mapData.get("yhOwid"))) {
+            HashMap<String, Object> sendMap = Maps.newHashMap();
+            sendMap.put("jobRefOwid", owid);
+            sendMap.put("yhRefOwid", mapData.get("yhOwid"));
+            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
+                job.setExp2(bckjBizXsgzs.get(0).getOwid());
+            } else {
+                job.setExp2("0");
+            }
+        }
+
+        Map mapParam = Maps.newHashMap();
+        mapParam.put("wzRefOwid", owid);
+        List<Map> files = qyxxDao.getSysFiles(mapParam);
+        job.setFileList(files);
+
+
+        return job;
+    }
+
+
+    @Transactional(readOnly = false)
     public BckjBizJob getOneJob(Map<String, Object> mapData) {
         BckjBizJob job = new BckjBizJob();
         String owid = mapData.get("owid").toString();
@@ -771,8 +925,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         List<BckjBizJybm> bmList = bmService.findListByParams(params, " a.qymc desc ");
         List<Map> zwList = new ArrayList<>();
         Map map = Maps.newHashMap();
-        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0)
-        {
+        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
             for (BckjBizJybm jybm : bmList) {
                 zwList = new ArrayList<>();
                 if (!TextUtils.isEmpty(jybm.getZw1())) {
