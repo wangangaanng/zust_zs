@@ -246,7 +246,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 String qyTysh = cellList.get(1); //企业统一税号
                 //如果企业统一税号为空则退出
                 if (com.ourway.base.utils.TextUtils.isEmpty(qyTysh)) {
-                    break;
+                    continue;
                 }
                 qyshs.add(qyTysh);
                 resMap.put("qyTysh", qyTysh);
@@ -297,9 +297,25 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 bckjBizQyxx.setState(2);
                 qyxxServie.saveOrUpdate(bckjBizQyxx);
                 ///保存职来职往企业报名
-                BckjBizJybm jybm = new BckjBizJybm();
-                jybm.setQyxxRefOwid(bckjBizQyxx.getOwid());
+
                 BckjBizJob job = jobDao.getByName(JyContant.ZWBT);
+
+                Map params = Maps.newHashMap();
+                params.put("qyxxRefOwid", bckjBizQyxx.getOwid());
+                params.put("jobRefOwid", job.getOwid());
+                List<BckjBizJybm> oldJybms = jybmService.findListByParams(params, "");
+                if (!TextUtils.isEmpty(oldJybms) && oldJybms.size() > 0) {
+                    BckjBizJybm oldJybm = oldJybms.get(0);
+                    oldJybm.setState(2);
+                    oldJybm.setMemo("重复报名");
+                    jybmService.saveOrUpdate(oldJybm);
+                    continue;
+                }
+
+                BckjBizJybm jybm = new BckjBizJybm();
+
+
+                jybm.setQyxxRefOwid(bckjBizQyxx.getOwid());
                 jybm.setJobRefOwid(job.getOwid());
                 jybm.setBmlx(JyContant.BMLX_QY);
                 jybm.setBmdx(JyContant.BMDX_ZPH);
@@ -392,19 +408,19 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         if (TextUtils.isEmpty(jybm)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "不存在报名信息");
         }
-        params.clear();
-        params.put("yqRefOwid", yqRefOwid);
-        params.put("jobRefOwid", jobRefOwid);
-        params.put("state", 1);
-        List<BckjBizJybm> bmList = bmDao.findListByMap(params);
-        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0 && list != null && list.size() > 0) {
-            Integer jybmAllSize = jybm.getBmqygs();
-            Integer existSize = bmList.size();
-            Integer bmSize = list.size() + 1;
-            if (existSize + bmSize > jybmAllSize) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "导入失败，分配企业已满，请核实");
-            }
-        }
+//        params.clear();
+//        params.put("yqRefOwid", yqRefOwid);
+//        params.put("jobRefOwid", jobRefOwid);
+//        params.put("state", 1);
+//        List<BckjBizJybm> bmList = bmDao.findListByMap(params);
+//        if (!TextUtils.isEmpty(bmList) && bmList.size() > 0 && list != null && list.size() > 0) {
+//            Integer jybmAllSize = jybm.getBmqygs();
+//            Integer existSize = bmList.size();
+//            Integer bmSize = list.size() + 1;
+//            if (existSize + bmSize > jybmAllSize) {
+//                return ResponseMessage.sendError(ResponseMessage.FAIL, "导入失败，分配企业已满，请核实");
+//            }
+//        }
 
         HashMap<Object, Object> resMap = Maps.newHashMap();
         List<String> qyshs = Lists.newArrayList();

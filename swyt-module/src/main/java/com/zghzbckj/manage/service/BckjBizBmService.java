@@ -11,6 +11,7 @@ import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
+import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
@@ -21,6 +22,7 @@ import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.Html2PdfUtil;
 import com.zghzbckj.manage.utils.MailUtils;
 import com.zghzbckj.manage.utils.TemplateUtils;
+import com.zghzbckj.util.ExcelUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,6 +55,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     BckjBizJbxxService bckjBizJbxxService;
     @Autowired
     BckjBizBmmxDao bmmxDao;
+    @Autowired
+    BckjBizBmDao bmDao;
 
     @Override
     public BckjBizBm get(String owid) {
@@ -100,8 +104,10 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         if (!TextUtils.isEmpty(dataMap.get("state"))) {
             codtionState = Integer.parseInt(dataMap.get("state").toString());
         }
-        if (!TextUtils.isEmpty(state)) {
+        if (!TextUtils.isEmpty(state) || 9 != state) {
             dataMap.put("state", state);
+        } else {
+            dataMap.put("cj", 1);
         }
 
         if (!TextUtils.isEmpty(codtionState)) {
@@ -494,12 +500,16 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public Map submitPurchaseBack(List<String> codes, Integer state, Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
         BckjBizBm bm = get(codes.get(0));
-//        if (SwytConstant.ZT_TG.equals(state)) {
-//            // TODO: 2019/9/18 通过短信
-//
-//        } else if (JyContant.JOB_ZT_JJ.equals(state)) {
-//            // TODO: 2019/9/18 拒绝短信
-//        }
+        if (4 == state) {
+            bm.setXybnr(SwytConstant.BMJJ);
+
+        } else if (5 == state) {
+            bm.setXybnr(SwytConstant.BMDJF);
+        } else if (-1 == state) {
+            bm.setXybnr(SwytConstant.BMDJF);
+        } else if (7 == state) {
+            bm.setXybnr(SwytConstant.BMDMSFP);
+        }
         bm.setState(state);
         saveOrUpdate(bm);
         resultMap = new HashMap<>(2);
@@ -523,7 +533,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     @Transactional(readOnly = false)
     public void genZkz() {
         Map params = Maps.newHashMap();
-        params.put("state", 7);
+        params.put("state", 8);
         params.put("orderBy", " a.bklb_owid,a.mssj");
         List<BckjBizBm> bmList = this.dao.findListByMap(params);
         int zybh;//专业编号
@@ -553,5 +563,54 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     }
 
+    /**
+     * 读取excel
+     *
+     * @param filename
+     * @return
+     */
+    public static List<List<String>> getExcelLists(String filename) {
+        ExcelUtils poi = new ExcelUtils();
+        System.out.println("读取excel文件开始" + "===========" + System.currentTimeMillis());
+        List<List<String>> list = poi.read(filename);
+        System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
+        return list;
+    }
 
+    @Transactional(readOnly = false)
+    public ResponseMessage recordCjInfo(String path) {
+        Map params = Maps.newHashMap();
+        //文件路径
+        String filename = path;
+        List<List<String>> list = getExcelLists(filename);
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                //成绩信息录入
+                List<String> cellList = list.get(i);//行循环
+                String xm = cellList.get(1); //姓名
+                String zkzh = cellList.get(2); //准考证号
+                String mscj = cellList.get(3); //面试成绩
+                String bscj = cellList.get(4); //笔试成绩
+                String zzcj = cellList.get(5); //最终成绩
+                if (TextUtils.isEmpty(xm) || TextUtils.isEmpty(zkzh)) {
+                    continue;
+                }
+                params.clear();
+                params.put("xm", xm);
+                params.put("zkzh", zkzh);
+                BckjBizBm bm = bmDao.getOneByMap(params);
+                if (!TextUtils.isEmpty(bm)) {
+                    bm.setMssj(mscj);
+                    bm.setBscj(bscj);
+                    bm.setZzcj(zzcj);
+                    bm.setState(10);
+                    bm.setXybnr(SwytConstant.BMCJCX);
+                    saveOrUpdate(bm);
+                }
+
+            }
+
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
 }

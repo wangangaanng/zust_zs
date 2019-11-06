@@ -48,6 +48,12 @@ function init()
 		$(".jhcx_icon").next().css("color","rgb(31,26,23)");
 	});
 	$(".cjcx").click(function(){
+		if(getCookie("cx_ksh")){
+			$("#cjcx_zkzh").val(getCookie("cx_ksh"));
+		}
+		if(getCookie("cx_sfzh")){
+            $("#cjcx_sfzh").val(getCookie("cx_sfzh"));
+		}
 		$(".jhcx_form").css("display","none");
 		$(".cjcx_form").css("display","block");
 		$(".lqcx_form").css("display","none");
@@ -70,6 +76,12 @@ function init()
 		$(".cjcx_icon").next().css("color","rgb(31,26,23)");
 	});
 	$(".lqcx").click(function(){
+        if(getCookie("cx_ksh")){
+            $("#lqcx_zkzh").val(getCookie("cx_ksh"));
+        }
+        if(getCookie("cx_sfzh")){
+            $("#lqcx_sfzh").val(getCookie("cx_sfzh"));
+        }
 		$(".jhcx_form").css("display","none");
 		$(".cjcx_form").css("display","none");
 		$(".lqcx_form").css("display","block");
@@ -488,85 +500,177 @@ function jhcx_chaXun(){
     });
 }
 function cjcx_chaXun(){
-    var jsonObj = {
-        "lmbh": lmbh,
-        "wzzt":'1',
-        "isDetail":"1",
-        "pageNo":currPage,
-        "pageSize":pageSize,
-    };
-	ajax(method, jsonObj, function (data) {
-		var x = "";
-		$(".cxRes").empty();
-		$(".cxRes").next().remove();
-		x = "<tr style='height:30px'><th>准考证号</th><th>身份证号</th><th >姓名</th><th>科目名称</th><th>成绩</th><th>录入时间</th><th>是否合格</th><th>备注或名次</th></tr>";
-		if(data.backCode == 1){
-			$.each(data.bean,function(j,k){
-				x += "<tr style='height:30px'><td>"+k.ksh+"</td>";
-				x += "<td>"+k.sfzh+"</td>";
-				x += "<td>"+k.xm+"</td>";
-				x += "<td>"+k.jtdz+"</td>";
-				x += "<td>"+k.yw+"</td>";
-				x += "<td>"+k.createtime.substr(0,10)+"</td>";
-				x += "<td>"+k.mzdm+"</td>";
-				if(k.bz!=null)
-					x += "<td>"+k.bz+"</td>";
-				else
-					x += "<td>"+""+"</td>";
-				x += "</tr>";
-				$(".cxRes").append(x);
-			});
-			$("#mymodal").modal("toggle");
-		}else if(data.backCode == 2){
-			window.location="";
-		}else{
-			walert(data.errorMess);
-		}
-	});
+    //准考证号
+    var ksh = $('#cjcx_zkzh').val();
+    //身份证号
+    var sfzh = $('#cjcx_sfzh').val();
+    if (!emptyCheck(ksh)) {
+        walert("请输入准考证号");
+        return
+    }
+    if (!emptyCheck(sfzh)) {
+        walert("请输入身份证号");
+        return
+    }
+    if (sfzh.length !== 18) {
+        walert("请输入正确的身份证号")
+		return
+    }
+    addCookie("cx_ksh",$('#cjcx_zkzh').val())
+	addCookie("cx_sfzh",$('#cjcx_sfzh').val())
+
+    $("#mymodal").on('hidden.bs.modal',function(){
+        loadcs = 0;
+        curPage = 1;
+    });
+    $('#table-zsjh').bootstrapTable('destroy');
+    if(curPage==1&&loadcs==0){
+        $("#mymodal").modal("toggle");
+    }
+    $('#table-zsjh').bootstrapTable({
+        ajax: function (request) {
+            ajax("zustzs/bckjBizCjcx/cjcx", {
+                "ksh": ksh,
+                "sfzh": sfzh
+            }, function (data) {
+                if (data.backCode === 0) {
+                	var List=[];
+                	if(data.bean){
+                        List.push(data.bean)
+					}
+                    request.success({
+                        row: List,
+                        total:1
+                    })
+                }
+            })
+        },
+        responseHandler:function(res){
+            $('#table-zsjh').bootstrapTable('load', res.row);
+            return {
+                "total":res.total,
+                "pageNumber":1,
+            }
+        },
+        pagination: false, //是否显示分页（*）
+        columns: [
+            {
+                align: 'center',
+                field: 'xm',
+                title: '姓名'
+            },
+            {
+                align: 'center',
+                field: 'jtdz',
+                title: '科目名称'
+            },
+            {
+                align: 'center',
+                field: 'yw',
+                title: '成绩'
+            },
+            {
+                align: 'center',
+                field: 'jcsj',
+                title: '录入时间',
+                formatter:function(value,row,index){
+                    if(row.jcsj){
+                        var value=row.jcsj.substring(0,10);
+                        return value;
+                    }
+                }
+            },
+            {
+                align: 'center',
+                field: 'mzdm',
+                title: '是否合格',
+                formatter:function(value,row,index){
+                    if(row.mzdm){
+                        var value=row.mzdm;
+                        return value;
+                    }else{
+                    	return "无"
+					}
+                }
+            },
+            {
+                align: 'center',
+                field: 'memo',
+                title: '备注或名次',
+                formatter:function(value,row,index){
+                    if(row.memo){
+                        var value=row.memo;
+                        return value;
+                    }else{
+                        return "无"
+                    }
+                }
+            }
+        ]
+    });
 }
 function lqcx_chaXun(){
-	var url = "webAjaxAction!lqcx.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        "input_zkzh": $("#lqcx_zkzh").val(),
-	        "input_sfzh": $("#lqcx_sfzh").val(),
-	        "curPage": 0,
-	        "itemsPerPage": 1
-	    };
-	$.post(url, params, function(data){
-		var x = "";
-		$(".cxRes").empty();
-		$(".cxRes").next().remove();
-		if(data.backCode == 1){
-			if(data.bean!=null){
-				x = "<div><label style='margin-left:30px;' class='lqInfo'>准考证号："+data.bean.ksh+"</label>";
-				x += "<label style='margin-left:30px;' class='lqInfo'>身份证号："+data.bean.sfzh+"</label>";
-				x += "<label style='margin-left:30px;' class='lqInfo'>姓名："+data.bean.xm+"</label></div>";
-				if(data.bean.lxdh!=""&&data.bean.lxdh!=null)
-					x += "<label class='lqInfo'>联系电话："+data.bean.lxdh+"</label>";
-				$(".cxRes").parent().append(x);
-				x = "<img style='float:left;margin:15px' src='"+IMAGEPATH+"smile.png'></img>";
-				x += "<div style='float:left;' class='lqxx'><h4 style='color:red'>恭喜你</h4>";
-				x += "<p>你已经被<label style='color:red'>浙江科技学院"+data.bean.lqzy+"</label>专业 预录取</p>";
-				x += "<p style='color:red'>最终录取请查询当地考试院。</p>";
-				x += "<p>EMS单号：<span  style='cursor: pointer' class='emsUrl' ems='"+data.bean.emsId+"'>"+data.bean.emsId+"</span>，请注意查收！</p></div>";
-				$(".cxRes").append(x);
-				$(".emsUrl").click(function () {
-					var emsUrl=$(this).attr("ems");
-					window.open("http://www.ems.com.cn/?mailNum="+emsUrl,"_blank");
-				})
-			}
-			$("#mymodal").modal("toggle");
-		}else if(data.backCode == 2){
-			window.location="";
-		}else{
-			x = "<img style='float:left;margin:15px' src='"+IMAGEPATH+"depress.png'></img>";
-			x += "<label style='margin-top:60px'>很抱歉，目前系统里没有你的录取信息，或者你的录取批次还未开始，请继续关注本网站公告，谢谢！</label>";
-			$(".cxRes").append(x);
-			$("#mymodal").modal("toggle");
-//			walert(data.errorMess);
-		}
-	});
+	//准考证号
+    var ksh = $('#lqcx_zkzh').val();
+    //身份证号
+    var sfzh = $('#lqcx_sfzh').val();
+    if (!emptyCheck(ksh)) {
+        walert("请输入准考证号");
+        return
+    }
+    if (!emptyCheck(sfzh)) {
+        walert("请输入身份证号");
+        return
+    }
+    if (sfzh.length !== 18) {
+        walert("请输入正确的身份证号")
+        return
+    }
+    addCookie("cx_ksh",$('#lqcx_zkzh').val())
+    addCookie("cx_sfzh",$('#lqcx_sfzh').val())
+    clearTable();
+    $("#mymodal2").on('hidden.bs.modal',function(){
+        loadcs = 0;
+        curPage = 1;
+    });
+    $('#table-zsjh').bootstrapTable('destroy');
+    if(curPage==1&&loadcs==0){
+        $("#mymodal2").modal("toggle");
+    }
+    ajax('zustzs/bckjBizLqxs/lqcx', {"ksh": ksh, "sfzh": sfzh}, function (res) {
+        if (res.backCode === 0) {
+            $("#lqcx_stuInfo").show();
+            $('#zkzh').html(res.bean.ksh);
+            $('#sfzh').html(res.bean.sfzh);
+            $('#lxdh').html(res.bean.lxdh ? res.bean.lxdh : "无");
+            $('#xm').html(res.bean.xm);
+            $('#zhuhe').html("浙江科技学院-" + res.bean.lqzy + "预录取，最终录取请查询当地考试院。");
+            if(null!=res.bean.jcsj) {
+                $("#lqd").html("录取通知单已经于<b>"+lqxx.jcsj+"</b>寄出");
+            }
+            if(null!=res.bean.ems) {
+                $("#ems_dh").html("EMS单号：<b style='cursor: pointer'  class='emsUrl' ems='"+res.bean.ems+"'>"+res.bean.ems+"</b>，请注意查收！！！");
+            }
+            $("#successed").show();
+            $(".emsUrl").click(function () {
+                var emsUrl=$(this).attr("ems");
+                window.open("http://www.ems.com.cn/?mailNum="+emsUrl,"_blank");
+            })
+        } else {
+            ksh = '';
+            sfzh = '';
+            $('.error').show();
+        }
+    })
+}
+function clearTable() {
+    $('#zkzh').html("");
+    $('#sfzh').html("");
+    $('#xm').html("");
+    $('#lxdh').html("");
+    $("#lqcx_stuInfo").hide();
+    $('.success').hide();
+    $('.error').hide();
 }
 function lncx_chaXun(){
     $("#mymodal").on('hidden.bs.modal',function(){

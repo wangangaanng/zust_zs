@@ -221,7 +221,7 @@
 
 	<!--清空所有数据	-->
 	<delete id="deleteAll">
-		DELETE FROM bckj_biz_fzsz
+		DELETE FROM bckj_biz_fzsz WHERE 1=1
 	</delete>
 
 
