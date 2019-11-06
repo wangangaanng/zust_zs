@@ -29,12 +29,6 @@ $(function () {
     })
 });
 
-//表单验证触发保存基本信息
-$.validator.setDefaults({
-    submitHandler: function () {
-       saveBasic();
-    }
-});
 
 //保存基本信息
 function saveBasic() {
@@ -63,6 +57,7 @@ function saveBasic() {
         if(data.backCode==0){
             //基本信息完成 下一步获取联系人
             getContactors();
+
             $("#basicForm").hide();
             $("#contactForm").show();
             $(".jf-items .jf-item").eq(1).addClass("jf-active");
@@ -260,6 +255,45 @@ function initValidate() {
                 email:true
             },
             qq:"required"
+        },
+        errorElement: "em",
+        errorPlacement: function ( error, element ) {
+            error.addClass( "help-block" );
+            if ( element.prop( "type" ) === "checkbox" ) {
+                error.insertAfter( element.parent( "label" ) );
+            } else {
+                error.insertAfter( element );
+            }
+        },
+        highlight: function ( element, errorClass, validClass ) {
+            $( element ).parent().addClass( "has-error" ).removeClass( "has-success" );
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $( element ).parent().removeClass( "has-error" );
+        }
+    });
+
+    //表单验证规则
+    $("#contactForm").validate({
+        rules: {
+            faxm: "required",
+            falxsj: {
+                required: true,
+                isMobile: true
+            },
+            faxb: "required",
+            moxm: "required",
+            molxsj: {
+                required: true,
+                isMobile: true
+            },
+            moxb: "required",
+            texm: "required",
+            telxsj: {
+                required: true,
+                isMobile: true
+            },
+            texb: "required"
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {

@@ -19,7 +19,7 @@
             <div class="form-group">
                 <label for="falxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="falxsj" name="falxsj" placeholder="请输入联系电话" autocomplete="off" value="">
+                    <input type="number" class="form-control" id="falxsj" name="falxsj" placeholder="请输入联系电话" autocomplete="off" value="">
                 </div>
             </div>
             <div class="form-group">
@@ -72,7 +72,7 @@
                 <div class="form-group">
                     <label for="molxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="molxsj" name="molxsj" placeholder="请输入联系电话" autocomplete="off" value="">
+                        <input type="number" class="form-control" id="molxsj" name="molxsj" placeholder="请输入联系电话" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">
@@ -177,21 +177,5 @@
     <#--button  end -->
 </form>
 <#--联系人2 end-->
-<script src="${base}/js/swyt/SWinfoContactor.js"></script>
-<script>
-    //联系人保存
-    $("#saveContact").click(function () {
-        $("#basicForm").hide();
-        $("#contactForm").hide();
-        $("#gradeForm").show();
-        $(".jf-items .jf-item").eq(2).addClass("jf-active");
-    });
-
-    //上一步
-//    $("#showBasic").click(function () {
-//        $("#basicForm").show();
-//        $("#contactForm").hide();
-//    });
-</script>
 
 
