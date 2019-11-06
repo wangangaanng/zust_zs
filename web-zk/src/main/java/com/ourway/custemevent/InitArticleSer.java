@@ -54,7 +54,7 @@ public class InitArticleSer implements PageInitSer {
                     params.remove("#lmbh");
                     responseMessage = JsonPostUtils.executeAPI(params, SINGLE_DETAIL_URL);
                 }
-                if (null!=params.get("lmbh")&&!params.get("lmbh").toString().equals("66")) {
+                if (!params.get("lmbh").toString().equals("66")&&!params.get("lmbh").toString().equals("131")) {
                     baseListbox.setVisible(false);
                     baseNfLabel.setVisible(false);
                 }
@@ -90,7 +90,7 @@ public class InitArticleSer implements PageInitSer {
                         window.setPpt(result);
                     }
                 }
-                if (!(window.getPpt().get("lmbh").toString().contains("66"))) {
+                if (!(window.getPpt().get("lmbh").toString().equals("66"))&&!(window.getPpt().get("lmbh").toString().equals("131"))) {
                     baseListbox.setVisible(false);
                     baseNfLabel.setVisible(false);
                 }

@@ -26,6 +26,17 @@ public class BckjBizPicvid extends DataWithExpEntity<BckjBizPicvid> {
 	private Integer djs;		// djs
 	private String memo;		// memo
 	private String tzlj;		// tzlj
+
+	public Boolean getReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(Boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private Boolean readOnly;
+
 	
 	public BckjBizPicvid() {
 		super();
