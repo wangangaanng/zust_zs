@@ -43,9 +43,6 @@
         <div class="menu-nav">
             <div class="menu-title">
                 <div class="title-chn">科院掠影</div>
-                <div class="title-en">INFORMATION
-                    <div class="menu-nav-icon"></div>
-                </div>
 
             </div>
             <div class="menu-list">
@@ -78,36 +75,32 @@
             </div>
             <div class="swiper-container gallery-top">
                 <div class="swiper-wrapper" id="top-wrapper">
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/F4C8C2EA34C24ACC8FE4A5AB5DEBD928.jpg" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/20170117193721.JPG" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/20170117193134.jpg" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/20170117194038.JPG" alt="">
-                    </div>
+                    <#if (result??)&&(result?size>0)>
+                        <#assign flag=1>
+                        <#list result as obj>
+                            <div class="swiper-slide">
+                                <img src="${imagePath}${obj.xsbt}" alt="">
+                            </div>
+                        </#list>
+                    <#else >
+                        <#assign flag=0>
+                    </#if>
                 </div>
                 <div class="swiper-button-prev swiper-button-white"></div>
                 <div class="swiper-button-next swiper-button-white"></div>
             </div>
             <div class="swiper-container gallery-thumbs" style="margin: 0 2%">
                 <div class="swiper-wrapper" id="bottom-wrapper">
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/F4C8C2EA34C24ACC8FE4A5AB5DEBD928.jpg" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/20170117193721.JPG" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/20170117193134.jpg" alt="">
-                    </div>
-                    <div class="swiper-slide">
-                        <img src="http://zsb.zust.edu.cn/files/imgs/20170117194038.JPG" alt="">
-                    </div>
+                    <#if (result??)&&(result?size>0)>
+                        <#assign flag=1>
+                        <#list result as obj>
+                            <div class="swiper-slide">
+                                <img src="${imagePath}${obj.xsbt}" alt="">
+                            </div>
+                        </#list>
+                    <#else >
+                        <#assign flag=0>
+                    </#if>
                 </div>
             </div>
         </div>
@@ -122,7 +115,7 @@
         slidesPerView: 4,
         loop: true,
         freeMode: true,
-        loopedSlides: 5, //looped slides should be the same
+        loopedSlides: 4, //looped slides should be the same
         watchSlidesVisibility: true,
         watchSlidesProgress: true
     });
@@ -130,7 +123,7 @@
         autoplay: true,
         spaceBetween: 10,
         loop:true,
-        loopedSlides: 5, //looped slides should be the same
+        loopedSlides: 4, //looped slides should be the same
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev'

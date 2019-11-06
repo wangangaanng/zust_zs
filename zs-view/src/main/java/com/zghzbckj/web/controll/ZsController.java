@@ -598,7 +598,7 @@ public class ZsController {
         params.put("zszd", "0");
         PublicData publicData = UnionHttpUtils.manageParam(params, "zustcommon/bckjBizPicvid/getPicList");
         ResponseMessage responseMessage = UnionHttpUtils.doPosts(publicData);
-        view.addObject("result", responseMessage.getBean());
+        view.addObject("result", (List)responseMessage.getBean());
         return view;
     }
 
