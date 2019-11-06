@@ -48,7 +48,7 @@ Page({
    */
   onShow: function () {
     this.setData({
-      'xxbh': wx.getStorageSync('xxbh')
+      'xxbh': wx.getStorageSync('ybmxxbh')
     })
     if (!wx.getStorageSync('yhRefOwid')) {
       wx.navigateTo({
@@ -100,6 +100,7 @@ Page({
   },
   swbm() {
     if(this.data.xxbh){
+      wx.setStorageSync("xxbh", this.data.xxbh);
       wx.navigateTo({
         url: '../Process/Process'
       })
