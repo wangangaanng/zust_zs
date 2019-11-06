@@ -79,6 +79,9 @@
 			<if test="lx!=null and lx!='' ">
 				AND	a.lx=#{lx}
 			</if>
+			<if test="bt != null and bt != ''">
+				AND a.bt LIKE CONCAT('%', #{bt, jdbcType=VARCHAR} ,'%') ESCAPE '&amp;'
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
