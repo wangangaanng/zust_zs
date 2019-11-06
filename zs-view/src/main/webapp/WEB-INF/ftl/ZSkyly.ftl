@@ -47,12 +47,21 @@
             </div>
             <div class="menu-list">
                 <ul class="list-group">
-                    <li class="list-group-item active1" onclick='openUrl("kyly/1/0")'>
-                        <span class="ic-menu"></span>安吉校园风光
-                    </li>
-                    <li class="list-group-item" onclick='openUrl("kyly/1/1")'>
-                        <span class="ic-menu"></span>小和山校园风光
-                    </li>
+                    <#if thirdDir?? && thirdDir != "" && thirdDir == "0">
+                        <li class="list-group-item active1" onclick='openUrl("kyly/1/0")'>
+                            <span class="ic-menu"></span>安吉校园风光
+                        </li>
+                        <li class="list-group-item" onclick='openUrl("kyly/1/1")'>
+                            <span class="ic-menu"></span>小和山校园风光
+                        </li>
+                    <#else>
+                        <li class="list-group-item" onclick='openUrl("kyly/1/0")'>
+                            <span class="ic-menu"></span>安吉校园风光
+                        </li>
+                        <li class="list-group-item active1" onclick='openUrl("kyly/1/1")'>
+                            <span class="ic-menu"></span>小和山校园风光
+                        </li>
+                    </#if>
                 </ul>
             </div>
         </div>
