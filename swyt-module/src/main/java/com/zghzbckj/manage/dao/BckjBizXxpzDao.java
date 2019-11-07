@@ -19,4 +19,6 @@ import java.util.Map;
 public interface BckjBizXxpzDao extends CrudDao<BckjBizXxpz> {
 
     List<Map> findMapListByMap(Map<String, Object> mapData);
+
+    int getBmState(String xxbh);
 }
