@@ -238,4 +238,17 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         }
         return mapList;
     }
+
+    /**
+    *<p>方法:getLmmc TODO获取栏目编号名称 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+    *<li>@return java.util.Map  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/11/6 19:33  </li>
+    *</ul>
+    */
+    public Map  getLmmc(Map<String, Object> mapData) {
+        return this.dao.getLmmc(mapData);
+    }
 }

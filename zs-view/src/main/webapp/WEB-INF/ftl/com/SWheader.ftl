@@ -9,6 +9,7 @@
     .search-btn{ position: absolute;right: 11px;top:10px;}
     .search-ipt{width:100%;background-color:#fff;border: none;line-height: 40px;}
     header .top{height: auto}
+    header .top-logo{margin-left: 0px;margin-top: 0px;}
 </style>
 <header>
     <div class="top">

@@ -66,7 +66,7 @@
     <van-cell-group>
       <van-field value="{{ form.xm }}" name="xm" clearable label="姓名" required placeholder="请输入用姓名" error-message="{{errorList['xm'].msg}}" />
       <van-field value="{{ form.sfzh }}" name="sfzh" clearable label="身份证号" required placeholder="请输入身份证号码" error-message="{{errorList['sfzh'].msg}}" />
-      <van-field label="性别" error-message="" disabled>
+      <van-field label="性别" error-message="" disabled required>
         <van-radio-group value="{{form.xb}}" name="xb" required bind:change="sexSelect" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
           <van-radio name="2" checked-color="#26b887">女</van-radio>

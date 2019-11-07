@@ -143,7 +143,7 @@ function getPayUrl(that) {
         "payDetail": res.data.bean[0].dicVal2
       })
     } else {
-      common.toast(res.data.errorMess, 'none', 2000)
+      toast(res.data.errorMess, 'none', 2000)
     }
   });
 }
@@ -172,7 +172,7 @@ function getInfoBasic(that) {
         'userName': data.xm
       })
     } else {
-      common.toast("获取用户基本信息报错" + res.data.errorMess, 'none', 2000)
+      toast("获取用户基本信息报错" + res.data.errorMess, 'none', 2000)
     }
   })
 }

@@ -41,5 +41,29 @@
 <#--button  end -->
 </form>
 
+<script>
+    //报名表签字上传
+    $(".file-btn").change(function (e) {
+        var $parents = $(this).parents(".upimg-wrap");
+        imgType =  $parents.attr("typeNum");
+        var file = e.target.files[0] || e.dataTransfer.files[0];
+        if (file) {
+            if(file.size>2000000){
+                walert("图片过大，请选择2M以下的图片")
+                return
+            }
+            var reader = new FileReader();
+            reader.onload = function () {
+                $parents.find(".up-btn_img").attr("src",this.result);
+                $parents.find(".up-btn_img").addClass("fullImg");
+                idOcr(imgType,file,function (d) {
+                    $("#hjzm").val(d.bean.fileName);
+                });
+            }
+            reader.readAsDataURL(file);
+        }
+    })
+</script>
+
 
 
