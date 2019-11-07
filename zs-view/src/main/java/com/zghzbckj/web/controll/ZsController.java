@@ -413,6 +413,62 @@ public class ZsController {
         return view;
     }
 
+    @RequestMapping(value = "search", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            view.addObject("key",key);
+        }else {
+            view.addObject("key","");
+        }
+        view.setViewName("ZSsearch");
+
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param = Maps.newHashMap();
+        param.put("wzbh",'0');
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/searchAll");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
+    @RequestMapping(value = "search/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newsList(HttpServletRequest request,ModelAndView view,@PathVariable String currentPage) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            view.addObject("key",key);
+        }else {
+            view.addObject("key","");
+        }
+        view.setViewName("ZSsearch");
+
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+
+        view.addObject("header",getHeader().getBean());
+        Map param = Maps.newHashMap();
+        param.put("wzbh",'0');
+        param.put("gjz",key);
+        param.put("pageNo", currentPage);
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/searchAll");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
 
     @RequestMapping(value = "wzxq/{owid}", method = RequestMethod.GET)
     public ModelAndView wzxq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) throws UnsupportedEncodingException {
