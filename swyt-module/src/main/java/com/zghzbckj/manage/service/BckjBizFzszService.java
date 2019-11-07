@@ -200,7 +200,7 @@ public class BckjBizFzszService extends CrudService<BckjBizFzszDao, BckjBizFzsz>
                     bm.setState(8);
                     bm.setMssj(fzsz.getMemo());
                     bm.setFzszRefOwid(fzsz.getOwid());
-                    bm.setXybnr(SwytConstant.BMXZMSD);
+                    bm.setXybnr(SwytConstant.XZMSD);
                     bmService.saveOrUpdate(bm);
                 }
             }

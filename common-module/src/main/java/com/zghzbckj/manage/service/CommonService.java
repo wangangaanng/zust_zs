@@ -1,10 +1,7 @@
 package com.zghzbckj.manage.service;
 
 import com.beust.jcommander.internal.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.common.CommonConstant;
@@ -241,8 +238,23 @@ public class CommonService {
         return this.commonDao.getXkcj(mapData);
     }
 
+    @Transactional(readOnly = false)
     public ResponseMessage saveBckjDic(Map<String, Object> mapData) {
         try {
+            Map params = Maps.newHashMap();
+            params.put("xxbh", CommonConstant.XXBH);
+            //开始时间 截止时间 是否报名
+            if (!TextUtils.isEmpty(mapData.get("dicVal1"))) {
+                params.put("kssj", mapData.get("dicVal1"));
+
+            }
+            if (!TextUtils.isEmpty(mapData.get("dicVal4"))) {
+                params.put("jzsj", mapData.get("dicVal4"));
+            }
+            if (!TextUtils.isEmpty(mapData.get("dicVal8"))) {
+                params.put("sfks", Integer.parseInt(mapData.get("dicVal8").toString()));
+            }
+            commonDao.updateXxpz(params);
             HttpUtil.doPostJson(CommonModuleContant.BACK_DIC_SAVE_HOST, JsonUtil.toJson(mapData), "UTF-8", true);
         } catch (IOException e1) {
             e1.printStackTrace();
