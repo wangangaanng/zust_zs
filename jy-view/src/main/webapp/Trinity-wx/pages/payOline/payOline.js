@@ -134,6 +134,7 @@ Page({
         that.setData({
           proveImg: common.imgPath + res.data.bean.jfpzZp,
           jfInfo: '缴费证明图片已上传',
+          upProveImg: res.data.bean.jfpzZp,
           class1: 'green'
         })
       }
