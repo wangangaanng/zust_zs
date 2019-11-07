@@ -597,7 +597,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
         }
         bckjBizYhxx.setYhlx(4);
-        bckjBizYhxx.setExp10("0");
+        bckjBizYhxx.setExp10("未预约开放日");
         this.insert(bckjBizYhxx);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
@@ -608,19 +608,19 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * @param dataMap
      * @return
      */
-    public String sendBmYzm(Map<String, Object> dataMap) {
+    public ResponseMessage sendBmYzm(Map<String, Object> dataMap) {
         //生成验证码
         String yzm = CommonService.getRandom();
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
         if (!TextUtils.isEmpty(bckjBizYhxx)) {
-            return "此手机号已报名!";
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"此手机号已报名!");
         }
         try {
             MessageUtil.sendMessageCode(dataMap.get("sjh").toString(), yzm);
             com.zghzbckj.base.util.CacheUtil.setVal(dataMap.get("sjh").toString(), Integer.parseInt(yzm));
-            return "获取成功！";
+            return ResponseMessage.sendOK("获取成功！");
         } catch (Exception e) {
-            return "获取失败!";
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"获取失败!");
         }
     }
 
@@ -648,7 +648,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             return "验证码输入错误!";
         }
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
-        bckjBizYhxx.setExp10("1");
+        bckjBizYhxx.setExp10(dataMap.get("val2").toString());
         saveOrUpdate(bckjBizYhxx);
         return "预约成功！";
     }
@@ -660,19 +660,19 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * @param dataMap
      * @return
      */
-    public String sendYyYzm(Map<String, Object> dataMap) {
+    public ResponseMessage sendYyYzm(Map<String, Object> dataMap) {
         //生成验证码
         String yzm = CommonService.getRandom();
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
         if (TextUtils.isEmpty(bckjBizYhxx)) {
-            return "该手机号未进行考生报名,不能进行预约!";
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"该手机号未进行考生报名,不能进行预约!");
         }
         try {
             com.zghzbckj.base.util.CacheUtil.setVal(dataMap.get("sjh").toString(), Integer.parseInt(yzm));
             CacheUtil.setVal(dataMap.get("sjh").toString(), yzm);
-            return "获取成功！";
+            return ResponseMessage.sendOK("获取成功！") ;
         } catch (Exception e) {
-            return "获取失败!";
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"获取失败!");
         }
     }
 
