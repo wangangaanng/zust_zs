@@ -243,10 +243,12 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setState(0);
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
+            saveOrUpdate(bm);
         } else {
             if (bm.getState() > 0) {
                 throw CustomerException.newInstances("此报名已提交，不能修改");
             }
+            bmParam.setState(bm.getState());
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
         }
         BckjBizBkzy zy = bckjBizBkzyService.get(Long.valueOf(MapUtils.getInt(mapData, "zyOwid")));
