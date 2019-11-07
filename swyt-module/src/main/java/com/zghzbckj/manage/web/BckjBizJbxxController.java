@@ -152,7 +152,7 @@ public class BckjBizJbxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizJbxxService.getInfo(mapData));
+            return ResponseMessage.sendOK(bckjBizJbxxService.getJbxx(mapData));
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {

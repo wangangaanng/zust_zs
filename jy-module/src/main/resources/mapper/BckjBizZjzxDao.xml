@@ -359,4 +359,8 @@
 		SELECT b.dic_val2 FROM ourway_sys_dic a ,ourway_sys_dic_value b
 		WHERE a.owid=b.dic_ref_owid AND a.type=#{type} and b.dic_val1=#{exp4}
 	</select>
+
+	<select id="getFilterKeys" resultType="String">
+		SELECT  key_word from bckj_dic_keys
+	</select>
 </mapper>

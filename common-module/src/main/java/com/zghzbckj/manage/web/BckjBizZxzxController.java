@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -13,14 +14,18 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjDicKeys;
 import com.zghzbckj.manage.service.BckjBizZxzxService;
+import com.zghzbckj.manage.service.BckjDicKeysService;
 import com.zghzbckj.util.IpAdrressUtil;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,6 +41,8 @@ import java.util.Map;
 public class BckjBizZxzxController extends BaseController {
     @Autowired
     private BckjBizZxzxService bckjBizZxzxService;
+    @Autowired
+    BckjDicKeysService bckjDicKeysService;
 
 
     @RequestMapping(value = "/getList")
@@ -120,6 +127,13 @@ public class BckjBizZxzxController extends BaseController {
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "wtnr", "zxlx");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            //关键字过滤map
+            HashMap<String, Object> filterMap = Maps.newHashMap();
+            filterMap.put("content",dataMap.get("wtnr").toString());
+            String filterResult = bckjDicKeysService.filterContent(filterMap);
+            if (!TextUtils.isEmpty(filterResult)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词:"+filterResult);
             }
             String ipAdrress = IpAdrressUtil.getIpAdrress(request);
             dataMap.put("ipAdrress", ipAdrress);
