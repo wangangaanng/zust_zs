@@ -100,6 +100,10 @@ Page({
             list[i].jzsj = list[i].jzsj.substring(5, 10).replace("-", ".")
           }
         }
+        // 目前阶段先确定一个学校
+        if (res.data.bean.list[0].bmState!=0) {
+          wx.setStorageSync('ybmxxbh', res.data.bean.list[0].xxbh);
+        }
         that.setData({
           res: list
         })
