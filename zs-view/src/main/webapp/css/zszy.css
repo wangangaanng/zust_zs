@@ -34,7 +34,7 @@
 .title11{top:-100px;}
 .title div{text-align:center;}
 .xymc{color:black;font-size:20px;font-family:"微软雅黑";}
-.xymcE{color:rgb(150,150,150);cursor:default;}
+.xymcE{color:rgb(150,150,150);cursor:default;display: inline-block;}
 .xymcE:hover{color:rgb(150,150,150);}
 .xyjj{color:rgb(150,150,150);font-size:16px;font-family:"微软雅黑";}
 .xyjj:hover{color:rgb(150,150,150);}

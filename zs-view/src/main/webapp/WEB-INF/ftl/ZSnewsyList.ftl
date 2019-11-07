@@ -30,9 +30,9 @@
                             <#if (menuList??)&&(menuList?size>0)>
                                 <#list menuList as obj>
                                     <#if obj.dicVal2==thirdDirName>
-                                    <li class="list-group-item active1" onclick='openUrl("wzOrTpOrSqnd/${secondDir!''}/${obj_index}")'>
+                                    <li class="list-group-item active1" onclick='openUrl("wzOrTpOrSqnd/${lmbh!''}/${obj_index}")'>
                                     <#else >
-                                    <li class="list-group-item" onclick='openUrl("wzOrTpOrSqnd/${secondDir!''}/${obj_index}")'>
+                                    <li class="list-group-item" onclick='openUrl("wzOrTpOrSqnd/${lmbh!''}/${obj_index}")'>
                                     </#if>
                                     <span class="ic-menu"></span> ${obj.dicVal2!''}
                                 </li>
@@ -101,9 +101,9 @@
             setPage(currentPage, "${result.totalPage!'1'}", function () {
                 AntiSqlValidAll(["#key"],function () {
                     if ($("#key").val()) {
-                        openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
+                        openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
                     } else {
-                        openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/' + currentPage)
+                        openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/' + currentPage)
                     }
                 })
 
@@ -121,9 +121,9 @@
         AntiSqlValidAll(["#key"],function () {
             var key = $("#key").val();
             if (key) {
-                openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/1?key=' + key)
+                openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/1?key=' + key)
             } else {
-                openUrl('wzOrTpOrSqnd/${secondDir!""}/${thirdDir!""}/1')
+                openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/1')
             }
         })
 
