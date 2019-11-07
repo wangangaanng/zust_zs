@@ -135,9 +135,9 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
     public ResponseMessage consult(Map<String, Object> dataMap) {
         BckjBizZxzx bckjBizZxzx = new BckjBizZxzx();
         //就业专家咨询或者就业留言
-        if (MapUtils.getInt(dataMap, "zxlx") != 2 && MapUtils.getInt(dataMap, "zxlx") != 5 && MapUtils.getInt(dataMap, "zxlx") != 1) {
+      /*  if (MapUtils.getInt(dataMap, "zxlx") != 2 && MapUtils.getInt(dataMap, "zxlx") != 5 && MapUtils.getInt(dataMap, "zxlx") != 1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
-        } //就业专家咨询
+        } *///就业专家咨询
         if (Integer.parseInt(dataMap.get("zxlx").toString()) == 2) {
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
             if (!msg.getSuccess()) {
@@ -166,17 +166,19 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
                 bckjBizZxzx.setTwOwid(bckjBizYhxx.getOwid());
             }
         }
-        //就业留言
-        if (Integer.parseInt(dataMap.get("zxlx").toString()) == 5) {
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh", "xm");
-            if (!msg.getSuccess()) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.USER_RELOGIN);
+        //就业留言或者是招生留言
+        if (Integer.parseInt(dataMap.get("zxlx").toString()) == 5||Integer.parseInt(dataMap.get("zxlx").toString()) == 4) {
+            if(Integer.parseInt(dataMap.get("zxlx").toString()) == 5){
+                ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh", "xm");
+                if (!msg.getSuccess()) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.USER_RELOGIN);
+                }
+                if (dataMap.get("sjh").toString().length() != 11) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);
+                }
+                bckjBizZxzx.setDh(dataMap.get("sjh").toString());
+                bckjBizZxzx.setTwName(dataMap.get("xm").toString());
             }
-            if (dataMap.get("sjh").toString().length() != 11) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.SjHError);
-            }
-            bckjBizZxzx.setDh(dataMap.get("sjh").toString());
-            bckjBizZxzx.setTwName(dataMap.get("xm").toString());
         }
         bckjBizZxzx.setZxlx(Integer.parseInt(dataMap.get("zxlx").toString()));
         bckjBizZxzx.setWtnr((dataMap.get("wtnr").toString()));
@@ -313,4 +315,15 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         }
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
+
+    public ResponseMessage showZsMessageList(Integer pageNo, Integer pageSize, String state) {
+        Page<Map<String, Object>> page = new Page<>(pageNo, pageSize);
+        HashMap<String, Object> dataMap = Maps.newHashMap();
+        dataMap.put("zxlx", 4);
+        dataMap.put("page", page);
+        dataMap.put("state", state);
+        page.setList(this.dao.findlyList(dataMap));
+        return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
+    }
+
 }
