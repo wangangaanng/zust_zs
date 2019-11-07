@@ -229,11 +229,13 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             }*/
             //如果不需要签到的
             if (bckjBizJob.getZphSfqd() != null && bckjBizJob.getZphSfqd() == 0) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.FAIL_MESSAGE);
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "不需要签到");
             }
             //判断是否已经定点
-            if (bckjBizJob.getExp5().equals("1")) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "管理员还未设置签到点位，无法签到");
+            if(!TextUtils.isEmpty(bckjBizJob.getExp5())){
+                if (bckjBizJob.getExp5().equals("1")) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "管理员还未设置签到点位，无法签到");
+                }
             }
             //判断job信息是否失效
             if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZwSxsj())) {
@@ -247,14 +249,15 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
                 }
             }
-            //判断签到时间是否在举办时间区间内
-          /*  if (!com.zghzbckj.util.TextUtils.isEmpty(bckjBizJob.getZphJtsj())) {
-                String zphJtsj = bckjBizJob.getZphJtsj();
-                String[] splits = zphJtsj.split("-");
-                if (!JudgeInTimeIntervalUtils.judgeInTimeIntervalUtils(splits[0], splits[1])) {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.OutOfCheckTime);
-                }
-            }*/
+            //判断签到时间是否在签到时间区间内
+          if (!TextUtils.isEmpty(bckjBizJob.getQdsj1())&&!TextUtils.isEmpty(bckjBizJob.getQdsj2())){
+              if(bckjBizJob.getQdsj1().after(new Date())){
+                  return ResponseMessage.sendError(ResponseMessage.FAIL,"签到时间还未开始");
+              }
+              if(bckjBizJob.getQdsj2().before(new Date())){
+                  return ResponseMessage.sendError(ResponseMessage.FAIL,"签到时间已结束");
+              }
+            }
             //根据经纬度判断距离
             ValidateMsg msg = ValidateUtils.isEmpty(datamap, "gpsJd", "gpsWd");
             if (!msg.getSuccess()) {

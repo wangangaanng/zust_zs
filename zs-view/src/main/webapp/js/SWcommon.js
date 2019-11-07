@@ -108,6 +108,23 @@ function idOcr(imgType,file,fun) {
     });
 }
 
+//查询报名所有信息
+function searchAll() {
+    var data = {
+        "applyOwid":getCookie("applyOwid"),
+        "cnszp":cnszp,
+        "bmbZp":bmbZp
+    }
+    ajax("zustswyt/bckjBizBm/getResult", data, function (data) {
+        if(data.backCode==0){
+            var data = data.bean;
+            walert("提交成功");
+            $("#saveBasic").hide();
+        }else{
+            walert(data.errorMess)
+        }
+    })
+}
 
 function keySearch(){
     if (event.keyCode==13){

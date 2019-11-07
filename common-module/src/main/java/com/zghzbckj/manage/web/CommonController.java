@@ -15,6 +15,7 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.service.CommonService;
 import com.zghzbckj.wechat.WechatConstants;
 import com.zghzbckj.wechat.model.AccessToken;
+import com.zghzbckj.wechat.service.AccessTokenInit;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -346,9 +347,10 @@ public class CommonController {
     @RequestMapping(value = "getToken", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getToken(PublicDataVO publicDataVO) {
+
+
+        AccessTokenInit.init();
         AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx618803b392a8c474", AccessToken.class);
-        System.out.println("接口获取token" + accessToken);
-        System.out.println("接口获取tokenStr" + accessToken.getToken());
         return ResponseMessage.sendOK(accessToken.getToken());
     }
 
