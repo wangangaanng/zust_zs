@@ -30,7 +30,7 @@ public class SwytController {
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
         model.addAttribute("localUrl", ApiConstants.localUrl);
-        model.addAttribute("  ", ApiConstants.uploadUrl);
+        model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
     }
    // 三位一体框首页容器
    @RequestMapping(value = "/trinityEnrollment/{pageType}", method = RequestMethod.GET)
@@ -42,6 +42,7 @@ public class SwytController {
        if(StringUtils.isEmpty(swOwid)){
            view.setViewName("SWlogin");
        }else{
+
            //获取学校信息
            Map param = Maps.newHashMap();
            param.put("yhRefOwid",swOwid);
@@ -64,7 +65,6 @@ public class SwytController {
                }
            }
 
-           //s
 
            //去首页：总容器页面
            view.setViewName("trinityEnrollment");
