@@ -23,10 +23,10 @@
         <text class="detail-url">{{payDetail}}</text>
         <view>
           <block wx:if="{{payUrl!=''}}">
-            <text class="detail-url">缴费地址：{{payUrl}}</text>
+            <rich-text class="detail-url">缴费地址：{{payUrl}}</rich-text>
           </block>
           <block wx:if="{{payUrl==''}}">
-            <text class="detail-url">缴费地址：未设置缴费地址</text>
+            <rich-text class="detail-url">缴费地址：未设置缴费地址</rich-text>
           </block>
         </view>
         <block wx:if="{{state<6}}">
