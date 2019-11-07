@@ -77,7 +77,14 @@ public class OpenNoZKPageAction implements ComponentListinerSer {
             if (!TextUtils.isEmpty(rowData.get("zphKsrq"))) {
                 zphKsrq = DateUtil.getDateString(rowData.get("zphKsrq").toString(), "yyyy-MM-dd");
             }
-
+            String qdsj1 = null;
+            if (!TextUtils.isEmpty(rowData.get("qdsj1"))) {
+                qdsj1 = DateUtil.getDateString(rowData.get("qdsj1").toString(), "yyyy-MM-dd HH:mm:ss");
+            }
+            String qdsj2 = null;
+            if (!TextUtils.isEmpty(rowData.get("qdsj2"))) {
+                qdsj2 = DateUtil.getDateString(rowData.get("qdsj2").toString(), "yyyy-MM-dd HH:mm:ss");
+            }
 
             String apiURL = "web/zustcommon/common/getToken";
             PublicData publicData = PublicData.instantce();
@@ -89,7 +96,7 @@ public class OpenNoZKPageAction implements ComponentListinerSer {
 
 
 //            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid");
-            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid") + "&token=" + token;
+            url += "?name=" + rowData.get("zwbt") + "&zphJbdd=" + rowData.get("zphJbdd") + "&zphKsrq=" + zphKsrq + "&zphJtsj=" + rowData.get("zphJtsj") + "&owid=" + rowData.get("owid") + "&token=" + token + "&qdsj1=" + qdsj1 + "&qdsj2=" + qdsj2;
             ComponentWindowSer root = PageUtils.getBaseMainWindow(window);
             if (null == root) {
                 AlterDialog.alert("无tab页面，不能打开");

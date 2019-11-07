@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.web;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import com.zghzbckj.manage.service.BckjBizZjzxService;
 import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -209,6 +211,13 @@ public class BckjBizZjzxController extends BaseController {
             ValidateMsg yhid = ValidateUtils.isEmpty(dataMap, "yhid");
             if(!yhid.getSuccess()){
                 return  ResponseMessage.sendError(2,"登入过期");
+            }
+            //关键字过滤map
+            HashMap<String, Object> filterMap = Maps.newHashMap();
+            filterMap.put("content",dataMap.get("danr").toString());
+            String filterResult = bckjBizZjzxService.filterContent(filterMap);
+            if (!TextUtils.isEmpty(filterResult)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词:"+filterResult);
             }
             return bckjBizZjzxService.replyConsult(dataMap);
         }
