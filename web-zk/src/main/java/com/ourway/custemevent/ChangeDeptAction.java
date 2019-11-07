@@ -47,6 +47,14 @@ public class ChangeDeptAction implements ComponentListinerSer {
                 AlterDialog.alert("请填写GPS半径范围");
                 return;
             }
+            if (TextUtils.isEmpty(e.get("qdsj1"))) {
+                AlterDialog.alert("请填写签到开始时间");
+                return;
+            }
+            if (TextUtils.isEmpty(e.get("qdsj2"))) {
+                AlterDialog.alert("请填写签到截止时间");
+                return;
+            }
             List paramsList = com.ourway.base.zk.utils.JsonUtil.jsonToList(windowParams.toString());
 //            List paramsList = JsonUtil.jsonStr2List(windowParams.toString());
             Map _params = (Map) paramsList.get(0);
@@ -86,6 +94,8 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         if (!TextUtils.isEmpty(e.get("zphGpswd"))) {
                             ppt.put("zphGpswd", e.get("zphGpswd"));
                         }
+                        ppt.put("qdsj1", e.get("qdsj1"));
+                        ppt.put("qdsj2", e.get("qdsj2"));
                         publicData.setData(com.ourway.base.zk.utils.JsonUtil.toJson(ppt));
                         ResponseMessage responseMessage = JsonPostUtils.executeAPI(ppt, apiURL);
                         if (responseMessage.getBackCode() != 0) {
@@ -96,9 +106,9 @@ public class ChangeDeptAction implements ComponentListinerSer {
                         window.getBaseGrid().display();
                         if (isFlag == 0) {
                             if (!TextUtils.isEmpty(e.get("zphGpswd")) && !TextUtils.isEmpty(e.get("zphGpsjd"))) {
-                                AlterDialog.alert("定点成功，请在小程序登录管理员账号进行采点");
-                            } else {
                                 AlterDialog.alert("定位成功！");
+                            } else {
+                                AlterDialog.alert("定点成功，请在小程序登录管理员账号进行采点");
                             }
 
                         } else if (isFlag == 2) {

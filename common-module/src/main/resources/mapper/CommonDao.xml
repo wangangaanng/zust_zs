@@ -3,16 +3,15 @@
 <mapper namespace="com.zghzbckj.manage.dao.CommonDao">
 
 
-
     <select id="getEmploys" resultType="java.util.Map" parameterType="java.util.Map">
         SELECT
         a.*
         FROM
         ourway_sys_employs a
         <where>
-             <if test="empOwid != null and empOwid !=''">
-                 AND a.owid = #{empOwid}
-             </if>
+            <if test="empOwid != null and empOwid !=''">
+                AND a.owid = #{empOwid}
+            </if>
             <if test="empWeixin != null and empWeixin !=''">
                 AND a.emp_weixin = #{empWeixin}
             </if>
@@ -32,7 +31,7 @@
     </select>
     <select id="getEmploysNum" resultType="java.lang.Integer" parameterType="java.util.Map">
         SELECT
-            count(a.owid)
+        count(a.owid)
         FROM
         ourway_sys_employs a
         <where>
@@ -46,7 +45,7 @@
                 AND a.emp_id = #{empId}
             </if>
             <if test="empTel != null and empTel !=''">
-                AND (a.emp_tel = #{empTel}  OR  a.emp_id = #{empTel})
+                AND (a.emp_tel = #{empTel} OR a.emp_id = #{empTel})
             </if>
         </where>
     </select>
@@ -72,12 +71,21 @@
             file_class_id = #{oldOwid}
     </update>
 
+    <update id="updateXxpz" parameterType="java.util.Map">
+        UPDATE
+        bckj_biz_xxpz
+        SET
+        kssj = #{kssj},jzsj = #{jzsj},sfks = #{sfks}
+        WHERE
+        xxbh = #{xxbh}
+    </update>
+
 
     <select id="getDeptInfo" parameterType="java.util.Map" resultType="java.util.Map">
         SELECT
-            *
+        *
         FROM
-           ourway_sys_depat a
+        ourway_sys_depat a
         <where>
             <if test="owid != null and owid !=''">
                 AND a.owid = #{owid}
@@ -91,76 +99,76 @@
             select LAST_INSERT_ID()
         </selectKey>
         INSERT INTO bckj_dic_tree(
-            owid,
-            fid,
-            path,
-            cc,
-            px,
-            dic_type,
-            dic_code,
-            dic_name,
-            alias,
-            dic_desc,
-            attach_file,
-            memo,
-            createtime,
-            creator,
-            creator_name,
-            lastupdate,
-            updator,
-            updator_name,
-            ver,
-            vertime,
-            dept_id,
-            dept_path,
-            delflg,
-            state,
-            exp1,
-			exp2,
-			exp3,
-			exp4,
-			exp5,
-			exp6,
-			exp7,
-			exp8,
-			exp9,
-			exp10
+        owid,
+        fid,
+        path,
+        cc,
+        px,
+        dic_type,
+        dic_code,
+        dic_name,
+        alias,
+        dic_desc,
+        attach_file,
+        memo,
+        createtime,
+        creator,
+        creator_name,
+        lastupdate,
+        updator,
+        updator_name,
+        ver,
+        vertime,
+        dept_id,
+        dept_path,
+        delflg,
+        state,
+        exp1,
+        exp2,
+        exp3,
+        exp4,
+        exp5,
+        exp6,
+        exp7,
+        exp8,
+        exp9,
+        exp10
         ) VALUES (
-                     null,
-                     #{fid},
-                     #{path},
-                     #{cc},
-                     #{px},
-                     #{dicType},
-                     #{dicCode},
-                     #{dicName},
-                     #{alias},
-                     #{dicDesc},
-                     #{attachFile},
-                     #{memo},
-                     #{createtime},
-                     #{creator},
-                     #{creatorName},
-                     #{lastupdate},
-                     #{updator},
-                     #{updatorName},
-                     #{ver},
-                     #{vertime},
-                     #{deptId},
-                     #{deptPath},
-                     #{delflg},
-                     #{state},
-                     #{exp1},
-                    #{exp2},
-                    #{exp3},
-                    #{exp4},
-                    #{exp5},
-                    #{exp6},
-                    #{exp7},
-                    #{exp8},
-                    #{exp9},
-                    #{exp10}
-                 )
+        null,
+        #{fid},
+        #{path},
+        #{cc},
+        #{px},
+        #{dicType},
+        #{dicCode},
+        #{dicName},
+        #{alias},
+        #{dicDesc},
+        #{attachFile},
+        #{memo},
+        #{createtime},
+        #{creator},
+        #{creatorName},
+        #{lastupdate},
+        #{updator},
+        #{updatorName},
+        #{ver},
+        #{vertime},
+        #{deptId},
+        #{deptPath},
+        #{delflg},
+        #{state},
+        #{exp1},
+        #{exp2},
+        #{exp3},
+        #{exp4},
+        #{exp5},
+        #{exp6},
+        #{exp7},
+        #{exp8},
+        #{exp9},
+        #{exp10}
+        )
     </insert>
 
     <update id="updateDicTree">

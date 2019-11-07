@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -412,7 +409,7 @@ public class BckjBizJobController extends BaseController {
     @ResponseBody
     public ResponseMessage setJbdd(PublicDataVO publicDataVO) {
         Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
-        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "zphJbdd", "zphGpsbj");
+        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "owid", "zphJbdd", "zphGpsbj", "qdsj1", "qdsj2");
         if (!msg.getSuccess()) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
         }
@@ -433,7 +430,8 @@ public class BckjBizJobController extends BaseController {
 //        }
         job.setZphGpsbj(Integer.parseInt(mapData.get("zphGpsbj").toString()));
         job.setZphJbdd(mapData.get("zphJbdd").toString());
-
+        job.setQdsj1(DateUtil.getDate(mapData.get("qdsj1").toString(), "yyyy-MM-dd HH:mm:ss"));
+        job.setQdsj2(DateUtil.getDate(mapData.get("qdsj2").toString(), "yyyy-MM-dd HH:mm:ss"));
         bckjBizJobService.saveOrUpdate(job);
         return ResponseMessage.sendOK(job);
     }

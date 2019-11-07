@@ -66,7 +66,6 @@ public class ZsController {
         ResponseMessage result3  = UnionHttpUtils.doPosts(publicData3);
         view.addObject("zszyList",result3.getBean());
 
-
         //计划查询条件
         Map param4=Maps.newHashMap();
         param4.put("nf", "");
@@ -88,6 +87,14 @@ public class ZsController {
         PublicData publicData5 = UnionHttpUtils.manageParam(param5, "zustzs/bckjBizLntj/getChanges");
         ResponseMessage result5 = UnionHttpUtils.doPosts(publicData5);
         view.addObject("conditionLn", result5.getBean());
+
+        //获取栏目名称-招生专业
+        Map param6=Maps.newHashMap();
+        param6.put("wzbh","0");
+        param6.put("lmbh","129");
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/bckjDicMenu/getLmmc");
+        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
+        view.addObject("zszyLmmc",result6.getBean());
         return view;
     }
     @RequestMapping(value = "zszy", method = RequestMethod.GET)
@@ -198,8 +205,9 @@ public class ZsController {
         }
         return view;
     }
-    @RequestMapping(value = "wzOrTpOrSqnd/{secondDir}/{thirdDir}", method = RequestMethod.GET)
-    public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
+
+    @RequestMapping(value = "wzOrTpOrSqnd/{lmbh}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh, @PathVariable String thirdDir) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
             key = new String(key.getBytes("ISO-8859-1"),"utf-8");
@@ -211,15 +219,26 @@ public class ZsController {
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
-        view.addObject("secondDir",secondDir);
+        view.addObject("lmbh",lmbh);
+        //获取栏目名称
+        Map param6=Maps.newHashMap();
+        param6.put("wzbh","0");
+        param6.put("lmbh",lmbh);
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/bckjDicMenu/getLmmc");
+        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
+        if((null!=((Map) result6.getBean()))&&(null!=((Map) result6.getBean()).get("NAME"))) {
+            view.addObject("secondDirName",((Map) result6.getBean()).get("NAME"));
+        }else{
+            view.addObject("secondDirName","");
+        }
         view.addObject("thirdDir",thirdDir);
-        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+
         //招生计划年度
         view.addObject("thirdDirName",  ((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal2").toString());
         view.addObject("menuList",((List<Map>) getZsYears().getBean()));
         String nf=((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal1").toString();
         Map param = Maps.newHashMap();
-        param.put("lmbh","66");
+        param.put("lmbh",lmbh);
         param.put("wzzt","1");
         param.put("isDetail","1");
         param.put("nf",nf);
@@ -235,8 +254,8 @@ public class ZsController {
         return view;
     }
 
-    @RequestMapping(value = "wzOrTpOrSqnd/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
-    public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
+    @RequestMapping(value = "wzOrTpOrSqnd/{lmbh}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
             view.addObject("key", key);
@@ -248,15 +267,26 @@ public class ZsController {
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
-        view.addObject("secondDir",secondDir);
+        view.addObject("lmbh",lmbh);
+        //获取栏目名称
+        Map param6=Maps.newHashMap();
+        param6.put("wzbh","0");
+        param6.put("lmbh",lmbh);
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/bckjDicMenu/getLmmc");
+        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
+        if((null!=((Map) result6.getBean()))&&(null!=((Map) result6.getBean()).get("NAME"))) {
+            view.addObject("secondDirName",((Map) result6.getBean()).get("NAME"));
+        }else{
+            view.addObject("secondDirName","");
+        }
         view.addObject("thirdDir",thirdDir);
-        view.addObject("secondDirName",((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("NAME").toString());
+
         //招生计划年度
         view.addObject("thirdDirName",  ((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal2").toString());
         view.addObject("menuList",((List<Map>) getZsYears().getBean()));
         String nf=((List<Map>) getZsYears().getBean()).get(Integer.valueOf(thirdDir)).get("dicVal1").toString();
         Map param = Maps.newHashMap();
-        param.put("lmbh","66");
+        param.put("lmbh",lmbh);
         param.put("wzzt","1");
         param.put("isDetail","1");
         param.put("nf",nf);
@@ -271,6 +301,118 @@ public class ZsController {
         }
         return view;
     }
+
+    @RequestMapping(value = "wzOrTpOrSqLm/{lmbh}/{thirdDir}", method = RequestMethod.GET)
+    public ModelAndView newslmList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh,@PathVariable String thirdDir) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+        }else {
+            key="";
+        }
+        view.setViewName("ZSnewslmList");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+
+        view.addObject("lmbh",lmbh);
+        //获取栏目名称
+        Map param6=Maps.newHashMap();
+        param6.put("wzbh","0");
+        param6.put("lmbh",lmbh);
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/bckjDicMenu/getLmmc");
+        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
+        if((null!=((Map) result6.getBean()))&&(null!=((Map) result6.getBean()).get("NAME"))) {
+            view.addObject("secondDirName",((Map) result6.getBean()).get("NAME"));
+        }else{
+            view.addObject("secondDirName","");
+        }
+        view.addObject("thirdDir",thirdDir);
+
+
+        //获取子栏目
+        Map param5=Maps.newHashMap();
+        param5.put("wzbh","0");
+        param5.put("fid",lmbh);
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/bckjDicMenu/getLmMenu");
+        ResponseMessage result5  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("menuList",(List<Map>) result5.getBean());
+        view.addObject("thirdDirName",((List<Map>) result5.getBean()).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+        String lmid=((List<Map>) result5.getBean()).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        Map param = Maps.newHashMap();
+        param.put("lmbh",lmid);
+        param.put("wzzt","1");
+        param.put("isDetail","1");
+        param.put("gjz",key);
+        param.put("pageNo", '1');
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
+
+    @RequestMapping(value = "wzOrTpOrSqLm/{lmbh}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
+    public ModelAndView newslmList(HttpServletRequest request,ModelAndView view,@PathVariable String lmbh,@PathVariable String thirdDir ,@PathVariable String currentPage) throws UnsupportedEncodingException {
+        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        if(null!=key){
+            view.addObject("key", key);
+        }else {
+            view.addObject("key","");
+        }
+        view.setViewName("ZSnewslmList");
+        view.addObject("key",key);
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+
+        view.addObject("lmbh",lmbh);
+        //获取栏目名称
+        Map param6=Maps.newHashMap();
+        param6.put("wzbh","0");
+        param6.put("lmbh",lmbh);
+        PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustcommon/bckjDicMenu/getLmmc");
+        ResponseMessage result6  = UnionHttpUtils.doPosts(publicData6);
+        if((null!=((Map) result6.getBean()))&&(null!=((Map) result6.getBean()).get("NAME"))) {
+            view.addObject("secondDirName",((Map) result6.getBean()).get("NAME"));
+        }else{
+            view.addObject("secondDirName","");
+        }
+        view.addObject("thirdDir",thirdDir);
+
+
+        //获取子栏目
+        Map param5=Maps.newHashMap();
+        param5.put("wzbh","0");
+        param5.put("fid",lmbh);
+        PublicData publicData5= UnionHttpUtils.manageParam(param5,"zustcommon/bckjDicMenu/getLmMenu");
+        ResponseMessage result5  = UnionHttpUtils.doPosts(publicData5);
+        view.addObject("menuList",(List<Map>) result5.getBean());
+        view.addObject("thirdDirName",((List<Map>) result5.getBean()).get(Integer.valueOf(thirdDir)).get("NAME").toString());
+
+        String lmid=((List<Map>) result5.getBean()).get(Integer.valueOf(thirdDir)).get("CODE").toString();
+        Map param = Maps.newHashMap();
+        param.put("lmbh",lmid);
+        param.put("wzzt","1");
+        param.put("isDetail","1");
+        param.put("gjz",key);
+        param.put("pageNo", currentPage);
+        param.put("pageSize", "20");
+        ResponseMessage resultMess  = new ResponseMessage();
+        PublicData _data = UnionHttpUtils.manageParam(param, "zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(_data);
+        if(null!=resultMess.getBean()) {
+            view.addObject("result",(Map) resultMess.getBean());
+        }
+
+        return view;
+    }
+
 
     @RequestMapping(value = "wzxq/{owid}", method = RequestMethod.GET)
     public ModelAndView wzxq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) throws UnsupportedEncodingException {

@@ -228,9 +228,9 @@
                     </div>
                     <div class="first_Paginationtxtcont">
                         <ul style="list-style-type: none;">
-                            <li><a href="">招生动态</a></li>
+                            <li><a href="${base}/wzOrTpOrSqLm/119/0">招生动态</a></li>
                             <li><a href="${base}/cjcx/1/0">查询服务</a></li>
-                            <li><a href="">奖助学金</a></li>
+                            <li><a href="${base}/wzOrTpOrSqLm/130/0">奖助学金</a></li>
                             <li><a href="${base}/wzOrTpOrSq/2/0">合作办学</a></li>
                         </ul>
                     </div>
@@ -240,7 +240,7 @@
                         <li><a href="${base}/wzOrTpOrSq/3/0">招生计划</a></li>
                         <li><a href="${base}/wzOrTpOrSq/4/0">招生政策</a></li>
                         <li><a href="${base}/wzOrTpOrSq/5/0">在线咨询</a></li>
-                        <li><a href="">招生简章</a></li>
+                        <li><a href="${base}/wzOrTpOrSqnd/131/0">招生简章</a></li>
                     </ul>
                 </div>
                 <div class="third_Pagination">
