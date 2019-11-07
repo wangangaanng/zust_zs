@@ -298,7 +298,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         article.setYdcs(article.getYdcs()+1);
         saveOrUpdate(article);
         Map mapArticle=Maps.newHashMap();
-        BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr");
+        BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr","ydcs");
         mapArticle.put("fbsj",DateUtil.getDateString(article.getFbsj(),CommonConstant.DATETIME_FROMART));
         Map param=Maps.newHashMap();
         param.put("lmbh",article.getLmbh());
