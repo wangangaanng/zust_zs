@@ -273,6 +273,9 @@
 		<if test="bxlx !=null">
 			AND a.BXLX=#{bxlx}
 		</if>
+		<if test="type !=null">
+			AND b.type=#{type}
+		</if>
 		ORDER BY b.PX
 	</select>
 
