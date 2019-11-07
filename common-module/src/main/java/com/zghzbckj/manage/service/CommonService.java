@@ -254,6 +254,12 @@ public class CommonService {
             if (!TextUtils.isEmpty(mapData.get("dicVal8"))) {
                 params.put("sfks", Integer.parseInt(mapData.get("dicVal8").toString()));
             }
+            String url = "";
+            if (!TextUtils.isEmpty(mapData.get("dicVal5"))) {
+                // TODO: 2019/11/7  调用接口 生成pdf，反回文件路径
+                url = "";
+                mapData.put("memo", url);
+            }
             commonDao.updateXxpz(params);
             HttpUtil.doPostJson(CommonModuleContant.BACK_DIC_SAVE_HOST, JsonUtil.toJson(mapData), "UTF-8", true);
         } catch (IOException e1) {

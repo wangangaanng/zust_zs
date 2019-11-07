@@ -118,6 +118,9 @@ public class DicValueController {
             if (!TextUtils.isEmpty(dataMap.get("dicVal8"))) {
                 dicVal.setDicVal8(dataMap.get("dicVal8").toString());
             }
+            if (!TextUtils.isEmpty(dataMap.get("memo"))) {
+                dicVal.setMemo(dataMap.get("memo").toString());
+            }
             dicValue.saveOrUpdate(dicVal);
             CacheUtil.setVal(WebConstants.SWYT_SYSTEM_PARAM, dicVal);
             return ResponseMessage.sendOK(dicVal);
