@@ -33,7 +33,7 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/2017zszy.png" />
-                <a val="按专业招生" name="zszy" onclick="changeNews(this)">2019招生专业</a>
+                <a val="0" name="zszy" onclick="changeNews(this)">${zszyLmmc.NAME!''}</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zydh.png" />
@@ -62,9 +62,9 @@
                 <#if (zszyList??)&&(zszyList?size>0)>
                     <#list zszyList as obj>
                         <#if obj_index==0>
-                            <li val="${obj.dicVal1!''}" name='zszy' style='background-color: #008784;' onClick='changeNews(this)'><a class='zylb_li_a' style="color: white;">${obj.dicVal2!''}</a></li>
+                            <li val="${obj.dicVal2!''}" name='zszy' style='background-color: #008784;' onClick='changeNews(this)'><a class='zylb_li_a' style="color: white;">${obj.dicVal2!''}</a></li>
                         <#else >
-                            <li val="${obj.dicVal1!''}" name='zszy' style='' onClick='changeNews(this)'><a class='zylb_li_a'>${obj.dicVal2!''}</a></li>
+                            <li val="${obj.dicVal2!''}" name='zszy' style='' onClick='changeNews(this)'><a class='zylb_li_a'>${obj.dicVal2!''}</a></li>
                         </#if>
                     </#list>
                 </#if>

@@ -59,7 +59,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .checkbox-wrap .checkbox{padding-top: 5px;}
 .checkbox span{line-height: 14px;}
 .file-btn{position: absolute;width:100%;height: 100%;opacity: 0;cursor: pointer;top: 0px;}
-.file-btn_wrap{position: relative;width: 180px;height: 120px;border: 1px dashed #008784;border-radius: 4px;text-align: center;line-height: 116px;background: rgba(241,241,241,0,3)}
+.file-btn_wrap{position: relative;width: 179px;overflow:hidden;height: 120px;border: 1px dashed #008784;border-radius: 4px;text-align: center;line-height: 116px;background: rgba(241,241,241,0,3)}
 .upimg-wrap{display: inline-block;margin-top: 10px;position: relative;text-align: center}
 .up-btn_img{width: 44px;}
 
