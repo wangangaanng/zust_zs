@@ -72,7 +72,7 @@
           <van-radio name="2" checked-color="#26b887">女</van-radio>
         </van-radio-group>
       </van-field>
-      <van-field value="{{ form.mz }}" name="mz" clearable label="民族" required placeholder="请选择民族" error-message="{{errorList['mz'].msg}}" />
+      <van-field value="{{ form.mz }}" name="mz" clearable label="民族" required placeholder="请输入民族" error-message="{{errorList['mz'].msg}}" />
       <van-field value="{{ form.jtzz }}" name="jtzz" clearable label="通讯地址" required placeholder="请输入通讯地址" error-message="{{errorList['jtzz'].msg}}" />
       <van-field value="{{ form.lxdh }}" name="lxdh" clearable label="联系电话" required placeholder="请输入联系电话" error-message="{{errorList['lxdh'].msg}}" />
       <van-field value="{{ form.yx }}" name="yx" label="电子邮箱" placeholder="请输入电子邮箱" required error-message="{{errorList['yx'].msg}}" />

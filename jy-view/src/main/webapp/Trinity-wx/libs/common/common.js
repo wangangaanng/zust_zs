@@ -148,7 +148,7 @@ function getPayUrl(that) {
   });
 }
 
-//报名表所有查询
+//报名表所有查询 
 function getProcssState(fun) {
   var data = { "applyOwid": wx.getStorageSync('applyOwid') }
   ajax('zustswyt/bckjBizBm/getResult', data, function (res) {
