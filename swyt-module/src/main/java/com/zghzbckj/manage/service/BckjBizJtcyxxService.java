@@ -7,6 +7,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
@@ -139,7 +140,12 @@ public class BckjBizJtcyxxService extends CrudService<BckjBizJtcyxxDao, BckjBizJ
     public boolean finish(Map<String, Object> mapData) throws CustomerException {
         BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
         if(null==jbxx){
-            throw CustomerException.newInstances("用户基本信息不存在");
+            jbxx=new BckjBizJbxx();
+            jbxx.setYhRefOwid(MapUtils.getString(mapData,"yhRefOwid"));
+            jbxx.setXkState(0);
+            jbxx.setHkState(0);
+            jbxx.setJtcyState(0);
+            bckjBizJbxxService.saveOrUpdate(jbxx);
         }
         if(jbxx.getJtcyState()!=1) {
             jbxx.setJtcyState(1);
