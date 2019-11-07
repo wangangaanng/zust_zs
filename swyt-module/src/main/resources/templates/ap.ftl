@@ -168,7 +168,7 @@
             </td>
         </tr>
 		<tr>
-			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">准考证号：
+			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">准考证号
 			</td>
 			<td align="center" colspan="7" valign="middle" class="contentFont han" style="width: 300px;">
 			${zkzh}
