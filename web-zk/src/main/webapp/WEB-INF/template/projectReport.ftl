@@ -93,7 +93,15 @@
             display: block;
             margin-top: 13px;
         }
-        .flex div{text-indent: 6rem;font-family: "Microsoft Yahei", "微软雅黑";font-size: 20px;font-style:normal;line-height: 85px;}
+
+        .flex div {
+            text-indent: 6rem;
+            font-family: "Microsoft Yahei", "微软雅黑";
+            font-size: 20px;
+            font-style: normal;
+            line-height: 85px;
+        }
+
         @page {
             size: A4;
             margin: 0;
@@ -178,14 +186,14 @@
     <table width="100%" align="center" style="margin-top: 20px;border-collapse:collapse">
         <tr>
             <td align="left">
-                <#--<img src="img/logo.png" width="80px"/>-->
-                <img src="charisma/img/qrLogo.png" style="width:500px;margin-left: 88px;" />
+            <#--<img src="img/logo.png" width="80px"/>-->
+                <img src="charisma/img/qrLogo.png" style="width:500px;margin-left: 88px;"/>
             </td>
         </tr>
 
     </table>
     <table width="100%" align="center" style="margin-top: 60px;border-collapse:collapse">
-        <#--<tr>-->
+    <#--<tr>-->
             <#--<td align="center" valign="middle"-->
                 <#--style="font-weight:bold;font-size:30px;color:#000000;font-style: normal;">-->
             <#--&lt;#&ndash;内蒙古 . 包头市项目投资报告&ndash;&gt;-->
@@ -196,8 +204,8 @@
     <div class="flex">
         <div style="text-align: center;font-size: 25px;">${map.name}</div>
         <div>举办地点：${map.zphJbdd}</div>
-        <div>举办日期：${map.zphKsrq}</div>
-        <div>具体时间：${map.zphJtsj}</div>
+        <div>举办日期：${map.zphKsrq} <span style="margin-left: 50px;">${map.zphJtsj}</span></div>
+        <div>签到时间：${map.qdsj1}<span style="margin-left: 50px;">~</span><span style="margin-left: 50px;">${map.qdsj2}</span></div>
     </div>
     <table width="80%" align="center" style="margin-top: 100px;border-collapse:collapse">
         <tr>
