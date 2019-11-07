@@ -101,7 +101,7 @@ Page({
   swbm() {
     if(this.data.xxbh){
       wx.setStorageSync("xxbh", this.data.xxbh);
-      wx.navigateTo({
+      wx.redirectTo({
         url: '../Process/Process'
       })
     }else{

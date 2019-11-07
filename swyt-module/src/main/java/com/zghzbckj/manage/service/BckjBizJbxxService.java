@@ -137,7 +137,11 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
     public boolean finishInfo(Map<String, Object> mapData) {
         BckjBizJbxx indata = this.dao.findOneByMap(mapData);
         BckjBizJbxx param = JsonUtil.map2Bean(mapData, BckjBizJbxx.class);
-        BeanUtil.copyPropertiesIgnoreNull(param, indata);
+        if(null==indata){
+            indata=param;
+        }else {
+            BeanUtil.copyPropertiesIgnoreNull(param, indata);
+        }
         indata.setState(1);
         this.saveOrUpdate(indata);
         return Boolean.TRUE;
@@ -166,7 +170,6 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      * @param mapData
      * @return
      */
-    @Transactional(readOnly = false)
     public BckjBizJbxx getIndexState(Map<String, Object> mapData) {
         BckjBizJbxx indata = this.dao.findStateByMap(mapData);
         if (null == indata) {
@@ -176,7 +179,6 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
             bckjBizJbxx.setHkState(0);
             bckjBizJbxx.setXkState(0);
             bckjBizJbxx.setJtcyState(0);
-            saveOrUpdate(bckjBizJbxx);
         }
         return indata;
     }

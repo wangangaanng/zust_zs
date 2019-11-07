@@ -473,18 +473,16 @@ public class BckjBizYhxxController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            String resStr="";
             if (type.equals("1")){
-                resStr= bckjBizYhxxService.sendBmYzm(dataMap);
+                return bckjBizYhxxService.sendBmYzm(dataMap);
             }else if(type.equals("2")){
-                resStr = bckjBizYhxxService.sendYyYzm(dataMap);
+                return bckjBizYhxxService.sendYyYzm(dataMap);
             }
-            return ResponseMessage.sendOK(resStr);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
-
     }
 
     /**
@@ -497,7 +495,7 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage apOfCaOpDay(PublicDataVO dataVO){
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh", "yzm");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh", "yzm","val2");
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }

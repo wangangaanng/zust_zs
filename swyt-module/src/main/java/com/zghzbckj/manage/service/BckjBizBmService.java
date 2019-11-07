@@ -50,7 +50,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     BckjBizBmmxService bckjBizBmmxService;
     @Autowired
     BckjBizCjxxService bckjBizCjxxService;
-
+    @Autowired
+    BckjBizXxpzService bckjBizXxpzService;
     @Autowired
     BckjBizJbxxService bckjBizJbxxService;
     @Autowired
@@ -230,6 +231,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      */
     @Transactional(readOnly = false)
     public String submit(Map<String, Object> mapData) throws Exception {
+        doCheckSubTime(MapUtils.getString(mapData,"xxbh"));
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
         mapData.put("bmnd", bmnd);
         BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
@@ -258,6 +260,18 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         applyCjxx(bm.getOwid(), param);
         saveOrUpdate(bm);
         return bm.getOwid();
+    }
+
+    /**
+     * 查找报名状态
+     * @param xxbh
+     * @throws CustomerException
+     */
+    private void doCheckSubTime(String xxbh) throws CustomerException{
+        int bmzt= bckjBizXxpzService.getBmState(xxbh);
+        if(bmzt!=1){
+            throw CustomerException.newInstances("当前时间未开放报名");
+        }
     }
 
     /**
@@ -309,7 +323,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * </ul>
      */
     public BckjBizBm getResult(Map<String, Object> mapData) throws CustomerException {
-        BckjBizBm bm = getBmxx(mapData);
+        BckjBizBm bm = this.dao.getOneByMap(mapData);
         return bm;
     }
 
@@ -323,8 +337,9 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     private BckjBizBm getBmxx(Map<String, Object> mapData) throws CustomerException {
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
-            throw CustomerException.newInstances("无报名信息");
+            throw CustomerException.newInstances("无信息");
         }
+        doCheckSubTime(bm.getXxbh());
         return bm;
     }
 
@@ -361,11 +376,13 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public Object submitJft(Map<String, Object> mapData) {
         BckjBizBm bm = getBmxx(mapData);
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
+        bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"),CommonConstant.DATETIME_FROMART));
         bm.setState(6);
         bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
         return Boolean.TRUE;
     }
+
 
     /**
      * <p>方法:getApply TODO </p>
@@ -427,6 +444,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         if (null == bm) {
             throw CustomerException.newInstances("报名表不存在");
         }
+        doCheckSubTime(bm.getXxbh());
         if (bm.getState() == 1) {
             bm.setState(2);
             bm.setXybnr(SwytConstant.BMPZSC);
@@ -462,6 +480,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         if (null == bm) {
             throw CustomerException.newInstances("报名表不存在");
         }
+        doCheckSubTime(bm.getXxbh());
         if (bm.getState() == 8) {
             bm.setState(9);
             bm.setXybnr(SwytConstant.BMCJCX);
@@ -502,11 +521,10 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         BckjBizBm bm = get(codes.get(0));
         if (4 == state) {
             bm.setXybnr(SwytConstant.BMJJ);
-
         } else if (5 == state) {
             bm.setXybnr(SwytConstant.BMDJF);
         } else if (-1 == state) {
-            bm.setXybnr(SwytConstant.BMDJF);
+            bm.setXybnr(SwytConstant.CXTJBMSQ);
         } else if (7 == state) {
             bm.setXybnr(SwytConstant.BMDMSFP);
         }

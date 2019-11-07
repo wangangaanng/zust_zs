@@ -133,6 +133,7 @@ public class BckjBizArticleController extends BaseController {
                 result = bckjBizArticleService.getWzList(mapData);
             } else {
                 if(mapData.get("lmbh").toString().equals("115")){
+                    //学校简介
                     mapData.put("lmbh",22);
                 }
                 result = bckjBizArticleService.getWzDetail(mapData);

@@ -23,26 +23,28 @@ public class CommonConstant {
     public static final String USER_RELOGIN = "登录过期，请重新登录！";
     public static final String ERROR_MESSAGE = "错误信息";
     public static final String DATE_FROMART = "yyyy-MM-dd";
+    public static final String DATETIME_FROMART = "yyyy-MM-dd HH:mm:ss";
     public static final String USER_KEY = "USER_KEY";
     public static final String USER_MES = "获取用户权限失败！";
     public static final String MERCHASNT_MES = "获取商户信息失败！";
     public static final String SESSION_ID = "sessionId";
-    public static final String SQL_MAP ="sqlMap";
-    public static  final String Fail_InquiryArchives="档案信息获取失败";
-    public static  final  String ErrorForIdentityCard="身份证号码格式错误";
-    public static  final String GetMessageFail="获取信息失败";
-    public  static  final  String NoAccounctExists="不存在该账号";
-    public  static  final  String PasswordError="密码错误";
-    public   static  final String NewPasswordNotMatch="两次新密码不一致";
-    public   static  final String OutOfCheckInRange="超出签到范围";
-    public static  final String BeyondTime="超出截止时间";
-    public static  final String Unfollow="取消关注";
-    public static  final String AlreadyCheck="已签到";
-    public static  final String OutOfCheckTime="不在签到时间";
+    public static final String SQL_MAP = "sqlMap";
+    public static final String Fail_InquiryArchives = "档案信息获取失败";
+    public static final String ErrorForIdentityCard = "身份证号码格式错误";
+    public static final String GetMessageFail = "获取信息失败";
+    public static final String NoAccounctExists = "不存在该账号";
+    public static final String PasswordError = "密码错误";
+    public static final String NewPasswordNotMatch = "两次新密码不一致";
+    public static final String OutOfCheckInRange = "超出签到范围";
+    public static final String BeyondTime = "超出截止时间";
+    public static final String Unfollow = "取消关注";
+    public static final String AlreadyCheck = "已签到";
+    public static final String OutOfCheckTime = "不在签到时间";
     public static final String SYSTEM_FILE_PATH = "F:\\img\\";
-    public  static String WX_CODE="wx01";
-    public  static String RepeatXsxh="重复学生学号";
-    public  static String SjHError="手机号格式错误";
+    public static final String XXBH = "1";
+    public static String WX_CODE = "wx01";
+    public static String RepeatXsxh = "重复学生学号";
+    public static String SjHError = "手机号格式错误";
 
 
     public final static String picPath = "C:\\files\\pic\\";
@@ -57,7 +59,7 @@ public class CommonConstant {
     public static String API_KEY = "dMST2glOiL4Z1RCx6I42AG0N";
     public static String SECRET_KEY = "QQ2PADGVib0vzlz0GZN9EpSRFtKtZla4";
 
-    public  static  String XXMC="浙江科技学院";
+    public static String XXMC = "浙江科技学院";
 
 
 }
