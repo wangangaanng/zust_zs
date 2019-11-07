@@ -4,6 +4,8 @@
 
     <sql id="bckjBizJobColumns">
 		a.owid AS "owid",
+		a.qdsj1 AS "qdsj1",
+		a.qdsj2 AS "qdsj2",
 		a.zph_bmxz AS "zphBmxz",
 		a.qyxx_ref_owid AS "qyxxRefOwid",
 		a.zwbt AS "zwbt",
@@ -340,6 +342,8 @@
     <insert id="insert">
 		INSERT INTO bckj_biz_job(
 			owid,
+			qdsj1,
+			qdsj2,
 			zph_bmxz,
 			qyxx_ref_owid,
 			zwbt,
@@ -412,6 +416,8 @@
 			exp10
 		) VALUES (
 			#{owid},
+			#{qdsj1},
+            #{qdsj2},
 			#{zphBmxz},
 			#{qyxxRefOwid},
 			#{zwbt},
@@ -488,6 +494,8 @@
     <update id="update">
 		UPDATE bckj_biz_job SET 	
 			owid = #{owid},
+			qdsj1 =#{qdsj1},
+			qdsj2 =#{qdsj2},
 			zph_bmxz =#{zphBmxz},
 			qyxx_ref_owid = #{qyxxRefOwid},
 			zwbt = #{zwbt},

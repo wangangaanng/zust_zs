@@ -39,6 +39,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     BckjBizJbxxService bckjBizJbxxService;
     @Autowired
     CommonDao commonDao;
+
     @Override
     public BckjBizCjxx get(String owid) {
         return super.get(owid);
@@ -128,43 +129,47 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     }
 
     /**
-    *<p>方法:finishHk TODO完善会考成绩 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return boolean  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 13:52  </li>
-    *</ul>
-    */
+     * <p>方法:finishHk TODO完善会考成绩 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 13:52  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
     public boolean finishHk(Map<String, Object> mapData) throws CustomerException {
-        BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
-        if(null==jbxx){
-            throw CustomerException.newInstances("用户基本信息不存在");
+        BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
+        if (null == jbxx) {
+            jbxx = new BckjBizJbxx();
+            jbxx.setYhRefOwid(MapUtils.getString(mapData, "yhRefOwid"));
+            jbxx.setXkState(0);
+            jbxx.setHkState(0);
+            jbxx.setJtcyState(0);
+            bckjBizJbxxService.saveOrUpdate(jbxx);
         }
-        if(jbxx.getHkState()!=1) {
+        if (jbxx.getHkState() != 1) {
             jbxx.setHkState(1);
             bckjBizJbxxService.saveOrUpdate(jbxx);
         }
-        mapData.put("lx","0");
-        mapData.put("lx2",2);
+        mapData.put("lx", "0");
+        mapData.put("lx2", 2);
         this.dao.deleteByHkZh(mapData);
-        saveList(mapData,"zhList",2);
-        saveList(mapData,"hkList",0);
+        saveList(mapData, "zhList", 2);
+        saveList(mapData, "hkList", 0);
         return Boolean.TRUE;
     }
 
     /**
-     *
      * @param dataMap
-     * @param listName  列表参数名
-     * @param lx 类型
+     * @param listName 列表参数名
+     * @param lx       类型
      */
     private void saveList(Map<String, Object> dataMap, String listName, int lx) {
-        List<Map<String,Object> >dataList= (List<Map<String, Object>>) dataMap.get(listName);
-        for(Map<String,Object> mapOne:dataList){
-            BckjBizCjxx jtcyxx=JsonUtil.map2Bean(mapOne,BckjBizCjxx.class);
-            jtcyxx.setYhRefOwid(MapUtils.getString(dataMap,"yhRefOwid"));
+        List<Map<String, Object>> dataList = (List<Map<String, Object>>) dataMap.get(listName);
+        for (Map<String, Object> mapOne : dataList) {
+            BckjBizCjxx jtcyxx = JsonUtil.map2Bean(mapOne, BckjBizCjxx.class);
+            jtcyxx.setYhRefOwid(MapUtils.getString(dataMap, "yhRefOwid"));
             jtcyxx.setLx(lx);
             saveOrUpdate(jtcyxx);
         }
@@ -172,33 +177,38 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
 
 
     /**
-    *<p>方法:finishXk TODO完善选考成绩 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return boolean  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/24 14:52  </li>
-    *</ul>
-    */
+     * <p>方法:finishXk TODO完善选考成绩 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return boolean  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/24 14:52  </li>
+     * </ul>
+     */
     @Transactional(readOnly = false)
-    public boolean finishXk(Map<String, Object> mapData) throws CustomerException{
-        BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
-        if(null==jbxx){
-            throw CustomerException.newInstances("用户基本信息不存在");
+    public boolean finishXk(Map<String, Object> mapData) throws CustomerException {
+        BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
+        if (null == jbxx) {
+            jbxx = new BckjBizJbxx();
+            jbxx.setYhRefOwid(MapUtils.getString(mapData, "yhRefOwid"));
+            jbxx.setXkState(0);
+            jbxx.setHkState(0);
+            jbxx.setJtcyState(0);
+            bckjBizJbxxService.saveOrUpdate(jbxx);
         }
-        if(jbxx.getXkState()!=1) {
+        if (jbxx.getXkState() != 1) {
             jbxx.setXkState(1);
         }
-        BckjBizJbxx param=JsonUtil.map2Bean(mapData,BckjBizJbxx.class);
+        BckjBizJbxx param = JsonUtil.map2Bean(mapData, BckjBizJbxx.class);
         //防止默认的0覆盖
         param.setState(null);
-        BeanUtil.copyPropertiesIgnoreNull(param,jbxx);
+        BeanUtil.copyPropertiesIgnoreNull(param, jbxx);
         bckjBizJbxxService.saveOrUpdate(jbxx);
-        mapData.put("lx",1);
+        mapData.put("lx", 1);
         this.dao.deleteByHkZh(mapData);
-        saveList(mapData,"xkList",1);
-        mapData.put("jbxxOwid",jbxx.getOwid());
-        if(!TextUtils.isEmpty(mapData.get("jsfj"))) {
+        saveList(mapData, "xkList", 1);
+        mapData.put("jbxxOwid", jbxx.getOwid());
+        if (!TextUtils.isEmpty(mapData.get("jsfj"))) {
             this.commonDao.deleteFilesByjbxx(mapData);
             this.commonDao.updateFileByjbxx(mapData);
         }
@@ -206,25 +216,25 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     }
 
     /**
-    *<p>方法:getXkcj TODO获取选考成绩 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/25 14:27  </li>
-    *</ul>
-    */
-    public Map<String,Object> getXkcj(Map<String, Object> mapData) throws CustomerException{
-        BckjBizJbxx jbxx=bckjBizJbxxService.getInfo(mapData);
-        if(null==jbxx){
+     * <p>方法:getXkcj TODO获取选考成绩 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.util.Map<java.lang.String,java.lang.Object>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/25 14:27  </li>
+     * </ul>
+     */
+    public Map<String, Object> getXkcj(Map<String, Object> mapData) throws CustomerException {
+        BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
+        if (null == jbxx) {
             throw CustomerException.newInstances("用户基本信息不存在");
         }
-        Map<String,Object> result= JackSonJsonUtils.objectToMap(jbxx);
-        mapData.put("lx",1);
-        mapData.put("orderBy","a.xssx");
-        result.put("xkList",this.dao.findListByMap(mapData));
-        List<Map> fileList=commonDao.findFileByJbxx(jbxx.getOwid());
-        result.put("jsfj",fileList);
+        Map<String, Object> result = JackSonJsonUtils.objectToMap(jbxx);
+        mapData.put("lx", 1);
+        mapData.put("orderBy", "a.xssx");
+        result.put("xkList", this.dao.findListByMap(mapData));
+        List<Map> fileList = commonDao.findFileByJbxx(jbxx.getOwid());
+        result.put("jsfj", fileList);
         return result;
     }
 }

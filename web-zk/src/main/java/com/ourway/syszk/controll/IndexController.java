@@ -120,6 +120,8 @@ public class IndexController extends SpringZkBaseControl {
             String zphJbdd = request.getParameter("zphJbdd");
             String zphKsrq = request.getParameter("zphKsrq");
             String zphJtsj = request.getParameter("zphJtsj");
+            String qdsj1 = request.getParameter("qdsj1");
+            String qdsj2 = request.getParameter("qdsj2");
             String owid = request.getParameter("owid");
             String token = request.getParameter("token");
             System.out.println("token:" + token);
@@ -145,6 +147,16 @@ public class IndexController extends SpringZkBaseControl {
                 map.put("name", name);
             } else {
                 map.put("name", "待定");
+            }
+            if (!TextUtils.isEmpty(qdsj1)) {
+                map.put("qdsj1", qdsj1);
+            } else {
+                map.put("qdsj1", "待定");
+            }
+            if (!TextUtils.isEmpty(qdsj2)) {
+                map.put("qdsj2", qdsj2);
+            } else {
+                map.put("qdsj2", "待定");
             }
             if (!TextUtils.isEmpty(zphJbdd)) {
                 map.put("zphJbdd", zphJbdd);
