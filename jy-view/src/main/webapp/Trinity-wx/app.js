@@ -33,7 +33,7 @@ App({
     // })
   },
   globalData: {
-    ApiUrl: 'https://job.zust.edu.cn/gate/',//'http://192.168.3.222:8888/',//192.168.3.110:8888/
+    ApiUrl: 'https://job.zust.edu.cn/gate/',//'http://192.168.3.222:8888/',//192.168.3.110:8888/ job.zust.edu.cn/gate/
     localimgUrl: '',
     imgPath: 'https://job.zust.edu.cn/zjcFiles/',
     yhRefOwid:'',

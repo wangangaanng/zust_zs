@@ -67,6 +67,7 @@ public class JyContant {
     public static final int ZWLB_ZW = 0;
     public static final int ZWLB_ZPH = 3;
     public static final int ZWLB_XJH = 4;
+    public static final int ZWLB_JZ = 8;
     public static final String ZW_PRO = "浙江省";
     public static final String ZW_CITY = "杭州市";
     public static final String ZW_AREA = "西湖区";
