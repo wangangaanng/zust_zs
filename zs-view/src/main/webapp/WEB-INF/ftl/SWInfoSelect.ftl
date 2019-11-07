@@ -5,15 +5,39 @@
 -->
 
 <#--学考等第 start-->
-<form class="form-horizontal basic-from" id="selectForm" method="" action="" target="baFrame" style="display: none">
+<form class="form-horizontal basic-from" id="selectForm" method="" action="" target="baFrame" style="">
     <#--学考等第 start-->
     <div class="contact-wrap">
         <p class="contact-wrap_title col-sm-offset-1">选考信息</p>
-        <div>
+        <div id="xkkm">
             <div class="form-group">
                 <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
                     <select class="form-control label-select">
-                        <option value="1" selected>请选择选考科目</option>
+                        <option>请选择选考科目</option>
+                    </select>
+                    <span class="red">*</span>
+                </label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="请输入分数" autocomplete="off">
+                    <span style="position: absolute;right: 25px;top: 7px;">分</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
+                    <select class="form-control label-select">
+                        <option>请选择选考科目</option>
+                    </select>
+                    <span class="red">*</span>
+                </label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="请输入分数" autocomplete="off">
+                    <span style="position: absolute;right: 25px;top: 7px;">分</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
+                    <select class="form-control label-select">
+                        <option>请选择选考科目</option>
                     </select>
                     <span class="red">*</span>
                 </label>
@@ -32,9 +56,8 @@
         <div>
             <div class="form-group">
                 <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
-                    <select class="form-control label-select">
-                        <option selected disabled>请选择一门外语</option>
-                        <option value="1" >英语</option>
+                    <select class="form-control label-select" id="wyyz">
+                        <option>请选择一门外语</option>
                     </select>
                     <span class="red">*</span>
                 </label>
@@ -56,27 +79,27 @@
                    专项类别(可多选) <span class="red">*</span>
                 </label>
                 <div class="col-sm-8">
-                    <ul class="checkbox-wrap">
-                        <li>
-                            <div class="checkbox">
-                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>学科竞赛类</span></label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="checkbox">
-                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>科技创新类</span></label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="checkbox">
-                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>科技创新类</span></label>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="checkbox">
-                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>科技创新类</span></label>
-                            </div>
-                        </li>
+                    <ul class="checkbox-wrap" id="zxlb">
+<#--                        <li>-->
+<#--                            <div class="checkbox">-->
+<#--                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>学科竞赛类</span></label>-->
+<#--                            </div>-->
+<#--                        </li>-->
+<#--                        <li>-->
+<#--                            <div class="checkbox">-->
+<#--                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>科技创新类</span></label>-->
+<#--                            </div>-->
+<#--                        </li>-->
+<#--                        <li>-->
+<#--                            <div class="checkbox">-->
+<#--                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>科技创新类</span></label>-->
+<#--                            </div>-->
+<#--                        </li>-->
+<#--                        <li>-->
+<#--                            <div class="checkbox">-->
+<#--                                <label class="checkbox"><input type="checkbox" name="checkbox1" value="111" /><span>科技创新类</span></label>-->
+<#--                            </div>-->
+<#--                        </li>-->
                     </ul>
                 </div>
             </div>
@@ -85,12 +108,22 @@
                 <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次<span class="red">*</span>：</label>
                 <div class="col-sm-10 col-sm-offset-1">
                     <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="8" placeholder="请输入荣誉竞赛信息"></textarea>
+                    <div class="upimg-wrap" style="float: left;">
+                        <ul id="fileList">
+                            <li>
+                                <div class="file-btn_wrap" style="margin-right: 10px;">
+                                    <img src="${base}/img/img-up.png">
+                                </div>
+                                <label class="uploadlabel">删除</label>
+                            </li>
+                        </ul>
+                    </div>
                     <div class="upimg-wrap">
                         <div class="file-btn_wrap">
                              <img src="${base}/img/img-up.png" class="up-btn_img"/>
-                            <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                            <input type="file" class="file-btn file1" name="file" id="file3" accept="image/jpeg,image/jpg,image/png,image/svg" />
                         </div>
-                        <label class="uploadlabel" for="file">上传证明图片(可多张）</label>
+                        <label class="uploadlabel" for="file3">上传证明图片(可多张）</label>
                     </div>
                 </div>
             </div>
