@@ -261,6 +261,29 @@ public class BckjBizZxzxController extends BaseController {
 
 
     /**
+     * <p>功能描述:后台显示招生留言列表</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/11/7</li>
+     * </ul>
+     */
+    @PostMapping("showZsMessageList/{state}")
+    @ResponseBody
+    public ResponseMessage showZsMessageList(PublicDataVO dataVO, @PathVariable("state") String state) {
+        try {
+            return bckjBizZxzxService.showZsMessageList(dataVO.getPageNo(), dataVO.getPageSize(), state);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
+    /**
      * <p>功能描述:后台获得就业留言详情</p >
      * <ul>
      * <li>@param </li>

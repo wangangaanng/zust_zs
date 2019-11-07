@@ -163,7 +163,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         String pageSize=MapUtils.getString(mapData,"pageSize");
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
         mapData.put("page", page);
-        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");
+        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.fbsj DESC");
         page.setList(this.dao.findMapByShort(mapData));
         PageInfo<BckjBizArticle> pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());
@@ -298,22 +298,24 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         article.setYdcs(article.getYdcs()+1);
         saveOrUpdate(article);
         Map mapArticle=Maps.newHashMap();
-        BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr");
-        mapArticle.put("fbsj",DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART));
+        BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr","ydcs");
+        String fbsj=DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART);
+        String fbsjStr=DateUtil.getDateString(article.getFbsj(),CommonConstant.DATETIME_FROMART);
+        mapArticle.put("fbsj",fbsj);
         Map param=Maps.newHashMap();
         param.put("lmbh",article.getLmbh());
-        param.put("orderBy"," a.istop DESC,a.sxh desc");
-        param.put("sxh"," AND a.sxh < "+ article.getSxh());
+        param.put("orderBy"," a.istop DESC,a.sxh desc ,a.fbsj DESC");
+        param.put("sxh"," AND a.sxh <= "+ article.getSxh() +" AND a.fbsj < '"+fbsjStr+"'");
         List<BckjBizArticle> mapList=this.dao.findMapByShort(param);
         mapArticle.put("upArticle",0);
         mapArticle.put("downArticle",0);
         if(null!=mapList&&mapList.size()>0){
-            mapArticle.put("upArticle",mapList.get(mapList.size()-1));
+            mapArticle.put("downArticle",mapList.get(0));
         }
-        param.put("sxh"," AND a.sxh > "+ article.getSxh());
+        param.put("sxh"," AND a.sxh >= "+ article.getSxh()+" AND a.fbsj > '"+fbsjStr+"'");
         List<BckjBizArticle> mapList2=this.dao.findMapByShort(param);
         if(null!=mapList2&&mapList2.size()>0){
-            mapArticle.put("downArticle",mapList2.get(0));
+            mapArticle.put("upArticle",mapList2.get(mapList2.size()-1));
         }
 //        putLmbh(article.getLmbh(),mapArticle);
         return mapArticle;
