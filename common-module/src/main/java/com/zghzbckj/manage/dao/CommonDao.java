@@ -42,4 +42,6 @@ public interface CommonDao {
     int deleteFiles(Map<String, Object> params);
 
     int insertFile(Map<String, Object> fileCenter);
+
+    int updateXxpz(Map params);
 }

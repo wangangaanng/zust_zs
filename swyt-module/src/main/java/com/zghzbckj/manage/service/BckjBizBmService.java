@@ -502,11 +502,10 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         BckjBizBm bm = get(codes.get(0));
         if (4 == state) {
             bm.setXybnr(SwytConstant.BMJJ);
-
         } else if (5 == state) {
             bm.setXybnr(SwytConstant.BMDJF);
         } else if (-1 == state) {
-            bm.setXybnr(SwytConstant.BMDJF);
+            bm.setXybnr(SwytConstant.CXTJBMSQ);
         } else if (7 == state) {
             bm.setXybnr(SwytConstant.BMDMSFP);
         }
