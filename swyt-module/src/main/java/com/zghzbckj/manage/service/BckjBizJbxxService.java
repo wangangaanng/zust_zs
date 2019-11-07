@@ -139,6 +139,9 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
         BckjBizJbxx param = JsonUtil.map2Bean(mapData, BckjBizJbxx.class);
         if(null==indata){
             indata=param;
+            indata.setXkState(0);
+            indata.setHkState(0);
+            indata.setJtcyState(0);
         }else {
             BeanUtil.copyPropertiesIgnoreNull(param, indata);
         }
