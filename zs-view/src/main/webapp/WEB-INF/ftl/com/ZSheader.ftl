@@ -49,7 +49,7 @@
                                 </div></div>
                             <ul class="clearfix subnav fr">
                                 <#list headerY as sub>
-                                    <li onclick='openUrl("wzOrTpOrSqnd/${obj_index}/${sub_index}")'><a>${sub.dicVal2}</a></li>
+                                    <li onclick='openUrl("wzOrTpOrSqnd/${obj.CODE!''}/${sub_index}")'><a>${sub.dicVal2}</a></li>
                                 </#list>
                             </ul>
                         </div>

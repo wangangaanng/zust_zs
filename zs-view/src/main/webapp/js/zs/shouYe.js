@@ -7,6 +7,7 @@ var xsts = 10;//记录学院动态显示条数
 var res = 0;
 var lb = "";//新闻关键字
 $(document).ready(function(){
+	// lb=$("#zylb").find("li").eq(0).attr("val");
 	init();
 });
 
@@ -19,12 +20,6 @@ function init()
 	// init_xyIntro();
 	//初始化查询选项
 	// init_chaXun();
-    $(".zylb").find("li").click(function(){
-        $(".zylb_li_a").parent().css("background-color","white");
-        $(".zylb_li_a").css("color","rgb(150,150,150)");
-        $(this).css("background-color","#008784");
-        $(this).find("a").css("color","white");
-    });
 	$(".jhcx").click(function(){
 		$(".jhcx_form").css("display","block");
 		$(".cjcx_form").css("display","none");
@@ -159,38 +154,8 @@ function init_lbt(){
 	});
 }
 
-function getLabel(){
-	var url = "webAjaxAction!zxxwLabel.htm";
-	var params = {
-	        "sessionId": _sessionid,
-	        timestamp : new Date().getTime()
-	    };
-	$.post(url, params, function(data){
-		if(data.backCode == 0){
-			var str = "";
-            $("#zylb").empty();
-			$.each(data.bean,function(j,p){
-				if(emptyCheck(p)){
-			    str = "<li val='"+p.value+"' name='"+name+"' style='width: "+(16*p.length+20)+"px' onClick='changeNews(this)'><a class='zylb_li_a'>"+p.value+"</a></li>";
-			    $("#zylb").append(str);
-				}
-			});
-			$(".zylb").find("li").first().css("background-color","rgb(85,167,153)");
-			$(".zylb").find("li").first().find("a").css("color","white");
-			lb = $(".zylb").find("li").first().attr("val");
-			$(".zylb").find("li").click(function(){
-				$(".zylb_li_a").parent().css("background-color","white");
-				$(".zylb_li_a").css("color","rgb(150,150,150)");
-				$(this).css("background-color","rgb(85,167,153)");
-				$(this).find("a").css("color","white");
-			});
-		}else {
-		}
-	});
-}
-
 function changeNews(obj){
-	// lb = $(obj).attr("val");
+	lb = convertStr($(obj).attr("val"),"");
 	currPage=1;
 	var type=$(obj).attr("type");
 	if(emptyCheck($(obj).attr("name"))){
@@ -202,9 +167,21 @@ function changeNews(obj){
         $(".dyn_details").css("margin-top","30px");
 		getList('119',1);//一级
 	}else if(name=='zszy'){//招生专业
+		if(lb==0){//栏目
+            $(".zylb_li_a").parent().css("background-color","white");
+            $(".zylb_li_a").css("color","rgb(150,150,150)");
+            $(".zylb").find("li").first().css("background-color","#008784");
+            $(".zylb").find("li").first().find("a").css("color","white");
+            lb = $(".zylb").find("li").first().attr("val");
+		}else{
+            $(".zylb_li_a").parent().css("background-color","white");
+            $(".zylb_li_a").css("color","rgb(150,150,150)");
+            $(obj).css("background-color","#008784");
+            $(obj).find("a").css("color","white");
+		}
         $("#zylbDiv").show();
         $(".dyn_details").css("margin-top","0px");
-		// getListOne('119');
+		getList('129',1);
 	}else if(name=='zsjd'){//生源基地
         $("#zylbDiv").hide();
         $(".dyn_details").css("margin-top","30px");
@@ -215,7 +192,7 @@ function init_details(name) {
     if(name=='zsdt'){//招生动态
         getList('119',1);//一级
     }else if(name=='zszy'){//招生专业
-        // getListOne('119');
+        getList('129',1);//一级
     }else if(name=='zsjd'){//生源基地
         getList('126',2)//二级
     }
@@ -228,6 +205,7 @@ function getList(lmbh,type) {
             "lmbh": lmbh,
             "pageNo":currPage,
             "pageSize":pageSize,
+			"gjz":lb,
         };
         method="zustcommon/bckjBizArticle/searchByYjlm"
 	}else if(type==2){//二级
@@ -243,6 +221,12 @@ function getList(lmbh,type) {
     ajax(method, jsonObj, function (data) {
         var x = "";
         if(data.backCode == 0){
+            if(currPage==data.bean.totalPage){
+                $(".detail_more").hide();
+            }else{
+                $(".detail_more").show();
+            }
+            moreFlag = true;
             if((data.bean.records)&&(data.bean.records.length>0)){
                 $.each(data.bean.records,function(j,k){
                     x = "<div class='detail' articleId='"+k.owid+"'><a href=''>";
@@ -272,12 +256,6 @@ function getList(lmbh,type) {
                         $(".detail:eq("+i+")").css("margin-right","0px");
                 });
 			}
-			if(currPage==data.bean.totalPage){
-            	$(".detail_more").hide();
-			}else{
-                $(".detail_more").show();
-			}
-            moreFlag = true;
         }else if(data.backCode == 2){
             window.location="";
         }else{

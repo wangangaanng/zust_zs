@@ -137,7 +137,7 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
                 sf.append(oneKey.getKeyWord()+ CommonModuleContant.SPILE_DOUHAO);
             }
         }
-        return sf.toString();
+        return sf.substring(0,sf.lastIndexOf(","));
     }
 
 }

@@ -70,7 +70,7 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public PageInfo<BckjBizJbxx> findPageBckjBizJbxx(List<FilterModel> filters,Integer pageNo, Integer pageSize) {
+    public PageInfo<BckjBizJbxx> findPageBckjBizJbxx(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
@@ -137,9 +137,12 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
     public boolean finishInfo(Map<String, Object> mapData) {
         BckjBizJbxx indata = this.dao.findOneByMap(mapData);
         BckjBizJbxx param = JsonUtil.map2Bean(mapData, BckjBizJbxx.class);
-        if(null==indata){
-            indata=param;
-        }else {
+        if (null == indata) {
+            indata = param;
+            indata.setXkState(0);
+            indata.setHkState(0);
+            indata.setJtcyState(0);
+        } else {
             BeanUtil.copyPropertiesIgnoreNull(param, indata);
         }
         indata.setState(1);
@@ -158,9 +161,6 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
      */
     public BckjBizJbxx getInfo(Map<String, Object> mapData) {
         BckjBizJbxx indata = this.dao.findOneByMap(mapData);
-        if (null == indata||TextUtils.isEmpty(indata.getXm())) {
-              indata = this.dao.findByUser(mapData);
-        }
         return indata;
     }
 
@@ -203,5 +203,18 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
         }
 
         return returnDatas;
+    }
+
+    /**
+     * 获取基本信息
+     * @param mapData
+     * @return
+     */
+    public BckjBizJbxx getJbxx(Map<String, Object> mapData) {
+        BckjBizJbxx indata = this.dao.findOneByMap(mapData);
+        if (null == indata || TextUtils.isEmpty(indata.getXm())) {
+            indata = this.dao.findByUser(mapData);
+        }
+        return indata;
     }
 }

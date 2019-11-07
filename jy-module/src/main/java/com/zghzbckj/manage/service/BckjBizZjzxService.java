@@ -278,8 +278,6 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
     }
 
 
-
-
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage saveConsultInfo(List<Map<String, Object>> components) {
         try {
@@ -358,19 +356,19 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
 
     public ResponseMessage getConsultsOne(Map<String, Object> dataMap) {
         Map<String, Object> consultsOne = this.dao.getConsultsOne(dataMap);
-        if(!TextUtils.isEmpty(consultsOne)){
-            if(!TextUtils.isEmpty(consultsOne.get("exp4"))){
-                String zxfx= getDicVal2ByVal1(60001,consultsOne.get("exp4").toString());
-                consultsOne.put("exp4",zxfx);
+        if (!TextUtils.isEmpty(consultsOne)) {
+            if (!TextUtils.isEmpty(consultsOne.get("exp4"))) {
+                String zxfx = getDicVal2ByVal1(60001, consultsOne.get("exp4").toString());
+                consultsOne.put("exp4", zxfx);
             }
         }
         Map<String, Object> consultsOne1 = this.dao.getConsultsOne(dataMap);
-        consultsOne1.put("exp4",consultsOne.get("exp4"));
+        consultsOne1.put("exp4", consultsOne.get("exp4"));
         return ResponseMessage.sendOK(consultsOne);
     }
 
-    private String getDicVal2ByVal1(Integer type , String exp4) {
-       return this.dao.getDicVal2ByVal1(type,exp4);
+    private String getDicVal2ByVal1(Integer type, String exp4) {
+        return this.dao.getDicVal2ByVal1(type, exp4);
     }
 
     public Map getConsultsReplyDay() {
@@ -383,5 +381,18 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
                 resMap.put("hfts", "无设置");
         }
         return resMap;
+    }
+
+
+    public String filterContent(HashMap<String, Object> filterMap) {
+        String content = filterMap.get("content").toString();
+        List<String> filters = this.dao.getFilterKeys();
+        StringBuffer sf = new StringBuffer();
+        for (String str : filters) {
+            if (content.indexOf(str) != -1) {
+                sf.append(str + ",");
+            }
+        }
+        return sf.substring(0, sf.lastIndexOf(","));
     }
 }

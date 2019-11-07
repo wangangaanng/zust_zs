@@ -87,6 +87,25 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     private boolean readOnly;
     private Integer zphBmxz;
     private Integer sfbm;
+    private Date qdsj1;
+    private Date qdsj2;
+
+
+    public Date getQdsj1() {
+        return qdsj1;
+    }
+
+    public void setQdsj1(Date qdsj1) {
+        this.qdsj1 = qdsj1;
+    }
+
+    public Date getQdsj2() {
+        return qdsj2;
+    }
+
+    public void setQdsj2(Date qdsj2) {
+        this.qdsj2 = qdsj2;
+    }
 
     public Integer getQdSuccess() {
         return qdSuccess;
@@ -99,7 +118,6 @@ public class BckjBizJob extends DataWithExpEntity<BckjBizJob> {
     public Integer getSfbm() {
         return sfbm;
     }
-
 
 
     public void setSfbm(Integer sfbm) {

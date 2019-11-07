@@ -53,7 +53,14 @@
 		<include refid="bckjBizXxpzJoins"/>
 		WHERE a.owid = #{owid}
 	</select>
-	
+	<select id="getBmState" resultType="java.lang.Integer">
+		SELECT
+			a.sfks
+		FROM bckj_biz_xxpz a
+		<include refid="bckjBizXxpzJoins"/>
+		WHERE a.xxbh = #{xxbh}
+	</select>
+
 	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizXxpz">
 		SELECT 
 			<include refid="bckjBizXxpzColumns"/>

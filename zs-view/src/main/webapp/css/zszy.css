@@ -19,27 +19,37 @@
 .zkds{width: 1200px;height:1700px;margin-left: auto;margin-right: auto;background:url(../img/xyzy_han.png);}
 .xyzy{width: 600px;height: 260px;display: inline-block;margin: 0px;padding: 0px;float:left;}
 .title{position:relative;}
-.title1{top:60px;}
-.title2{top:90px;}
-.title3{top:60px;}
-.title4{top:25px;}
-.title5{top:45px;}
-.title6{top:-10px;}
-.title7{top:30px;}
+.title1{top:60px;height: 245px;}
+.title2{top:90px;height: 180px;}
+.title3{top:60px;height: 230px;}
+.title4{top:25px;height: 210px;}
+.title5{top:45px;height: 228px;}
+.title6{top:-10px;height: 280px;}
+.title7{top:30px;height: 320px;}
 #jgxyzy{position:relative;top:19px;}
-.title8{top:25px;}
-.title9{top:5px;}
-.title10{top:-90px;}
-.title11{top:-56px;}
-.title11{top:-100px;}
+.title8{top:25px;height: 190px;}
+.title9{top:5px;height: 183px;}
+.title10{top:-90px;height: 350px;}
+.title11{top:-100px;height: 250px;}
+.title12{height: 250px;}
 .title div{text-align:center;}
 .xymc{color:black;font-size:20px;font-family:"微软雅黑";}
-.xymcE{color:rgb(150,150,150);cursor:default;}
+.xymcE{color:rgb(150,150,150);cursor:default;display: inline-block;}
 .xymcE:hover{color:rgb(150,150,150);}
 .xyjj{color:rgb(150,150,150);font-size:16px;font-family:"微软雅黑";}
 .xyjj:hover{color:rgb(150,150,150);}
-.ztxy{color:rgb(85,167,153);font-size:16px;font-family:"微软雅黑";margin-left:80px;}
-.ztxy:hover{color:rgb(85,167,153);}
-.zy{color:rgb(150,150,150);position:relative;}
-.zy:hover{color:rgb(85,167,153);}
+.ztxy{color:#008784;font-size:16px;font-family:"微软雅黑";margin-left:80px;}
+.ztxy:hover{color:#008784;}
+.zy{color:rgb(150,150,150);position:relative;    width: 20px;flex: 1; writing-mode: vertical-lr;padding-top: 5px;border-left: 2px solid #dcdcdc;}
+.zy:hover{color:#008784;text-decoration: none;}
+.xyzy a:hover{text-decoration: none;}
 .ysgc{width:70px;height:50px;position:relative;top:-31px;left:79px;}
+.zydiv{
+	display: flex;
+	align-items: flex-start;
+	height: calc(100% - 75px);
+	margin-top: 10px;
+	border-top:3.5px solid #dcdcdc;
+	margin: 10px 0px 0px 0px;
+	padding: 0px 10px;
+}

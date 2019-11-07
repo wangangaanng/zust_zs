@@ -163,4 +163,8 @@ public class BckjBizXxpzService extends CrudService<BckjBizXxpzDao, BckjBizXxpz>
         page.setList(this.dao.findMapListByMap(mapData));
         return page;
     }
+
+    public int getBmState(String xxbh) {
+        return this.dao.getBmState(xxbh);
+    }
 }
