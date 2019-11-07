@@ -44,7 +44,7 @@ function login(url,user) {//1学生 0企业
     }else{
         user=1;//默认学生
         title='学生登录'
-        label1='请输入身份证或学号'
+        label1='请输入身份证号'
         label2='请输入身份证后六位'
     }
     var layer1;
