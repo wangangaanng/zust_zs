@@ -37,7 +37,7 @@ Page({
         wx.setStorageSync('hasLogin', '0');
         common.toast('密码设置成功', 'none', 1500);
         setTimeout(function () {
-          wx.navigateTo({
+          wx.redirectTo({
             url: '../login/login',
           });
         }, 2000);

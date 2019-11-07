@@ -93,7 +93,7 @@
                         <label>
                             <i class="icon bg-login_user"></i>
                         </label>
-                        <input type="text" id="yhDlzh" onkeydown="keyLogin()" placeholder="请输入身份证或学号" class="login-act">
+                        <input type="text" id="yhDlzh" onkeydown="keyLogin()" placeholder="请输入身份证号" class="login-act">
                     </li>
                     <li>
                         <label>

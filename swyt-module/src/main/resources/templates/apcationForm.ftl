@@ -139,7 +139,7 @@
     <table width="100%" align="center" style="border-collapse:collapse">
         <tr>
             <td align="center">
-                <h1 style="margin: 8px; font-style: initial;">浙江科技学院“三位一体”综合评价招生申请表</h1>
+                <h1 style="margin: 8px; font-style: initial;">浙江科技学院${bmnd}年“三位一体”综合评价招生申请表</h1>
             </td>
         </tr>
     </table>
