@@ -105,7 +105,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         if (!TextUtils.isEmpty(dataMap.get("state"))) {
             codtionState = Integer.parseInt(dataMap.get("state").toString());
         }
-        if (!TextUtils.isEmpty(state) || 9 != state) {
+        if (!TextUtils.isEmpty(state) && 9 != state) {
             dataMap.put("state", state);
         } else {
             dataMap.put("cj", 1);
@@ -118,8 +118,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             String date = DateUtil.getAfterDate(dataMap.get("sqsj2").toString(), 1);
             dataMap.put("sqsj2", date);
         }
-        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj"))) {
-            String date = DateUtil.getAfterDate(dataMap.get("jfsj").toString(), 1);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("jfsj2").toString(), 1);
             dataMap.put("jfsj2", date);
         }
         PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
@@ -231,7 +231,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      */
     @Transactional(readOnly = false)
     public String submit(Map<String, Object> mapData) throws Exception {
-        doCheckSubTime(MapUtils.getString(mapData,"xxbh"));
+        doCheckSubTime(MapUtils.getString(mapData, "xxbh"));
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
         mapData.put("bmnd", bmnd);
         BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
@@ -264,12 +264,13 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     /**
      * 查找报名状态
+     *
      * @param xxbh
      * @throws CustomerException
      */
-    private void doCheckSubTime(String xxbh) throws CustomerException{
-        int bmzt= bckjBizXxpzService.getBmState(xxbh);
-        if(bmzt!=1){
+    private void doCheckSubTime(String xxbh) throws CustomerException {
+        int bmzt = bckjBizXxpzService.getBmState(xxbh);
+        if (bmzt != 1) {
             throw CustomerException.newInstances("当前时间未开放报名");
         }
     }
@@ -376,7 +377,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public Object submitJft(Map<String, Object> mapData) {
         BckjBizBm bm = getBmxx(mapData);
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
-        bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"),CommonConstant.DATETIME_FROMART));
+        bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"), CommonConstant.DATETIME_FROMART));
         bm.setState(6);
         bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
@@ -605,11 +606,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             for (int i = 1; i < list.size(); i++) {
                 //成绩信息录入
                 List<String> cellList = list.get(i);//行循环
-                String xm = cellList.get(1); //姓名
-                String zkzh = cellList.get(2); //准考证号
-                String mscj = cellList.get(3); //面试成绩
-                String bscj = cellList.get(4); //笔试成绩
-                String zzcj = cellList.get(5); //最终成绩
+                String xm = cellList.get(0); //姓名
+                String zkzh = cellList.get(1); //准考证号
+                String mscj = cellList.get(2); //面试成绩
+                String bscj = cellList.get(3); //笔试成绩
+                String zzcj = cellList.get(4); //最终成绩
                 if (TextUtils.isEmpty(xm) || TextUtils.isEmpty(zkzh)) {
                     continue;
                 }
@@ -618,7 +619,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                 params.put("zkzh", zkzh);
                 BckjBizBm bm = bmDao.getOneByMap(params);
                 if (!TextUtils.isEmpty(bm)) {
-                    bm.setMssj(mscj);
+                    bm.setMscj(mscj);
                     bm.setBscj(bscj);
                     bm.setZzcj(zzcj);
                     bm.setState(10);

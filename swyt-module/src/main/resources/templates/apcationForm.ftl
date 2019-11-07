@@ -6,7 +6,7 @@
     <title></title>
     <style mce_bogus="1" type="text/css">
         body {
-            font-size: 12px;
+            font-size: 10px;
             color: #000000;
             font-family: SimHei;
             margin: 0 auto;
@@ -124,13 +124,13 @@
         }
 
         .contentFont {
-            font-size: 14px;
+            font-size: 12px;
             font-style: normal;
         }
 
         .han {
             margin: 10px;
-            padding: 9px;
+            padding: 7px 9px;
         }
     </style>
 </head>
@@ -144,10 +144,11 @@
         </tr>
     </table>
     <div style="font-style: normal;font-weight: 400;text-align: center;">
-        <span>学科类别：</span><span style="margin-right: 20px;">${xklb}</span>
-        <span>外语语种：</span><span style="margin-right: 20px;">${yzmc}</span>
-        <span>类别：</span><span style="margin-right: 20px;">${bklb}</span>
-        <span>招生专业：</span><span style="margin-right: 20px;">${xzzymc}</span>
+        <span>学科类别：</span><span style="margin-right: 1
+        0px;">${xklb}</span>
+        <span>外语语种：</span><span style="margin-right: 10px;">${yzmc}</span>
+        <span>类别：</span><span style="margin-right: 10px;">${bklb}</span>
+        <span>招生专业：</span><span style="margin-right: 10px;">${xzzymc}</span>
     </div>
     <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0"
            style="margin-top: 10px;border-collapse:collapse">
@@ -225,8 +226,6 @@
             </td>
             </#list>
         </tr>
-
-        ///
         <tr>
             <td align="center" colspan="12" valign="middle" class="contentFont han" style="width: 120px;">综合素质评价
             </td>

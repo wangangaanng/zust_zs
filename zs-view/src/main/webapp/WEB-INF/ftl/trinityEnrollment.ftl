@@ -13,6 +13,10 @@
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
+    <script>
+        //申请表owid
+        var formOwid = "${applyOwid!""}";
+    </script>
 </head>
 
 <body>
@@ -53,34 +57,45 @@
                         ${((data_index?number)==(page?number))?string(data,'')}
                     </#list>
                 </div>
+            <#--没有报名表 且不是我的报名表-->
+            <#if (applyOwid=="")&&(page!='0')>
+                <div class="article-detail-text">
+                    <ul class="list-group row">
+                        <div class="article-detail-text null-txt">
+                            <p>还未提交报名表</p>
+                        </div>
+                    </ul>
+                </div>
+            <#else>
                 <div class="article-detail-text">
                     <#switch page>
                         <#case "0">
-                             <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
-                            <#include "SWInfoBasic.ftl">
-                            <#break>
+                    <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
+                        <#include "SWInfoBasic.ftl">
+                        <#break>
                         <#case "2">
-                            <#--拍照上传-->
+                        <#--拍照上传-->
                             <#include "SWphotoUpload.ftl">
                             <#break>
                         <#case "3">
-                            <#--初审结果/缴费-->
+                        <#--初审结果/缴费-->
                             <#include "SWpayOnline.ftl">
                             <#break>
                         <#case "4">
-                            <#--分组信息-->
+                        <#--分组信息-->
                             <#include "SWgroupInfo.ftl">
                             <#break>
                         <#case "5">
-                            <#--面试通知单-->
+                        <#--面试通知单-->
                             <#include "SWofferNotice.ftl">
                             <#break>
                         <#case "6">
-                            <#--成绩查询-->
+                        <#--成绩查询-->
                             <#include "SWquerySearch.ftl">
                             <#break>
                     </#switch>
                 </div>
+            </#if>
             </div>
         </div>
 
