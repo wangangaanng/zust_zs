@@ -229,7 +229,7 @@ public class CommonController {
             //判断id是否为
             return commonService.saveBckjDic(mapData);
         } catch (Exception e) {
-            log.error(e + "保存BckjBizMidcompNews信息失败\r\n" + e.getStackTrace()[0], e);
+            log.error(e + "保存信息失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
