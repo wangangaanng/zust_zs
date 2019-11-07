@@ -16,6 +16,7 @@ Page({
     sendMailType:'',//发送邮箱还是发送面试通知到
     stringLable:'',//报名表还是面试通知单
     tipString:'',//头部提示
+    sureTip:'',
   },
   
   //发送邮箱
@@ -30,7 +31,7 @@ Page({
     }
     Dialog.confirm({
       title: '确认邮箱地址',
-      message: this.data.stringLable + '将发送到：' + params.email
+      message: this.data.sureTip + '将发送到：' + params.email
     }).then(() => {
       that.setData({
         "mailAddress": params.email
@@ -61,7 +62,7 @@ Page({
     }
     common.ajax(curUrl, data, function (res) {
       if (res.data.backCode == 0) {
-        common.toast(that.data.stringLable +'已成功发送到' + email+',请注意查收', 'none', 3000)
+        common.toast(that.data.sureTip +'已成功发送到' + email+',请注意查收', 'none', 3000)
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
@@ -116,12 +117,14 @@ Page({
       case "sign": //报名表
         that.setData({
           stringLable: '报名表',
+          sureTip:'报名表和承诺书',
           tipString:'你的报名表已成功提交'
         });
         break;
       case "offer": //面试通知单
         that.setData({
           stringLable:'面试通知单',
+          sureTip: '面试通知单',
           tipString: '恭喜你已成功通过初审'
         });
         break;
