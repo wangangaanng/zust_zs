@@ -12,7 +12,7 @@ page{background: rgb(245,245,245)}
 .border-area textarea{height:182rpx;padding: 20rpx;width: 100%;box-sizing: border-box;font-size: 30rpx;}
 .clear{height: 15px;width: 15px;background-color: #CD292A;text-align: center;border-radius: 50%;position: absolute;
 top: -7px;right: -7px;}
-.weui-uploader__file{position: relative;}
+.weui-uploader__file{position: relative;margin-right: 20px;margin-bottom: 20px;}
 .weui-uploader__bd{overflow:auto;display: table;width: 100%;}
 .weui-uploader__files{position: relative;}
 .red{color: red;}
