@@ -29,12 +29,12 @@
                             <ul class="list-group">
                             <#if (menuList??)&&(menuList?size>0)>
                                 <#list menuList as obj>
-                                    <#if obj.dicVal2==thirdDirName>
-                                    <li class="list-group-item active1" onclick='openUrl("wzOrTpOrSqnd/${lmbh!''}/${obj_index}")'>
+                                    <#if obj_index==thirdDir?number>
+                                    <li class="list-group-item active1" onclick='openUrl("wzOrTpOrSqLm/${lmbh!''}/${obj_index}")'>
                                     <#else >
-                                    <li class="list-group-item" onclick='openUrl("wzOrTpOrSqnd/${lmbh!''}/${obj_index}")'>
+                                    <li class="list-group-item" onclick='openUrl("wzOrTpOrSqLm/${lmbh!''}/${obj_index}")'>
                                     </#if>
-                                    <span class="ic-menu"></span> ${obj.dicVal2!''}
+                                    <span class="ic-menu"></span> ${obj.NAME!''}
                                 </li>
                                 </#list>
                             </#if>
@@ -101,9 +101,9 @@
             setPage(currentPage, "${result.totalPage!'1'}", function () {
                 AntiSqlValidAll(["#key"],function () {
                     if ($("#key").val()) {
-                        openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
+                        openUrl('wzOrTpOrSqLm/${lmbh!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
                     } else {
-                        openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/' + currentPage)
+                        openUrl('wzOrTpOrSqLm/${lmbh!""}/${thirdDir!""}/' + currentPage)
                     }
                 })
 
@@ -121,9 +121,9 @@
         AntiSqlValidAll(["#key"],function () {
             var key = $("#key").val();
             if (key) {
-                openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/1?key=' + key)
+                openUrl('wzOrTpOrSqLm/${lmbh!""}/${thirdDir!""}/1?key=' + key)
             } else {
-                openUrl('wzOrTpOrSqnd/${lmbh!""}/${thirdDir!""}/1')
+                openUrl('wzOrTpOrSqLm/${lmbh!""}/${thirdDir!""}/1')
             }
         })
 
