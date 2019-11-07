@@ -33,7 +33,7 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/2017zszy.png" />
-                <a val="0" name="zszy" onclick="changeNews(this)">${zszyLmmc.name!''}</a>
+                <a val="0" name="zszy" onclick="changeNews(this)">${zszyLmmc.NAME!''}</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zydh.png" />
