@@ -74,7 +74,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .link-url{background: #f5b900;color: #FFF;padding: 2px 20px;border-radius: 10px;cursor: pointer;text-decoration: none;}
 .link-url:hover{text-decoration: none;color: #FFF;}
 .link-url .glyphicon-hand-up{margin-right: 4px;position: relative;top: 2px;font-size: 13px;}
-
+.img-full{width: 100%;height: 100%;border-radius: 4px;}
 /*分组信息*/
 .group-wrap{background: #fafafa}
 .group-wrap .list-group{padding: 28px 50px;}
