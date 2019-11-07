@@ -288,8 +288,12 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             BckjBizBmmx bmmx = new BckjBizBmmx();
             bmmx.setBmRefOwid(bmOwid);
             bmmx.setLx(one.getLx());
+            if(one.getLx()==1) {
+                bmmx.setMxnr(String.valueOf(one.getKmcj()));
+            }else{
+                bmmx.setMxnr(String.valueOf(one.getKmdj()));
+            }
             bmmx.setMxsx(one.getXssx());
-            bmmx.setMxnr(String.valueOf(one.getKmcj()));
             bmmx.setMxmc(one.getKmmc());
             bckjBizBmmxService.saveOrUpdate(bmmx);
         }
