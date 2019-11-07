@@ -139,15 +139,16 @@
 <#--选考信息4 end-->
 
 <script>
+    var preNext = 0;
     //表单验证触发保存基本信息
     $.validator.setDefaults({
-        submitHandler: function (form) {
+        submitHandler: function (form,a) {
             switch($(form).attr("id")){
                 case "basicForm":
                     saveBasic();
                     break;
                 case "contactForm":
-                    saveContactors();
+                    saveContactors(preNext);
                     break;
             }
         }

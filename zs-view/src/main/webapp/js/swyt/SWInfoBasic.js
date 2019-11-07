@@ -5,6 +5,7 @@
 var imgType = "";//区分图片类型：身份证正反面 户籍
 var idType="1";//上传身份证还是上传户籍证明 默认1身份证 2户籍证明
 $(function () {
+
     //浏览器不要自动填充
     $('input:not([autocomplete]),textarea:not([autocomplete]),select:not([autocomplete])').attr('autocomplete', 'off');
 
@@ -94,13 +95,9 @@ function getInfo() {
             if(data.hjzm){
                 $("#hjzm").val(data.hjzm);
                 $("#hjzmImg").attr("src",imagePath+data.hjzm);
-            }
-            switch (data.qq){
-                case "1":
-
-                    break;
-                case "2":
-                    break;
+                $("#confrimType option[value='2']").prop("selected","selected");
+                $("#household").show();
+                $("#idCard").hide();
             }
         }else{
             walert(data.errorMess)
@@ -125,13 +122,57 @@ function uploadImg(){
                 $parents.find(".up-btn_img").addClass("fullImg");
                 switch (imgType){
                     case "1"://户籍证明
-                        idOcr(imgType,file);//1是普通文件
+                        idOcr(imgType,file,function (d) {
+                            $("#hjzm").val(d.bean.fileName);
+                        });//1是普通文件
                         break;
                     case "2"://2身份证正面
-                        idOcr(imgType,file);//1是普通文件
+                        idOcr(imgType,file,function (d) {
+                            switch (d.bean.image_status!="normal") {
+                                case "reversed_side":
+                                    statusStr = "身份证正反面颠倒，请重新选择";
+                                    break;
+                                case "non_idcard":
+                                    statusStr = "上传的图片中不包含身份证，请重新选择"
+                                    break;
+                                case "blurred":
+                                    statusStr = "身份证模糊，请重新选择"
+                                    break;
+                                case "other_type_card":
+                                    statusStr = "上传照片为其他类型证照，请重新选择"
+                                    break;
+                                case "over_exposure":
+                                    statusStr = "身份证关键字段反光或过曝，请重新选择"
+                                    break;
+                                case "over_dark":
+                                    statusStr = "身份证欠曝（亮度过低），请重新选择"
+                                    break;
+                                default:
+                                    statusStr = status;
+                                    break;
+                            }
+
+                            if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
+                            if(d.bean['姓名']&&d.bean['姓名'].words){$("#xm").val(d.bean['姓名'].words);}
+                            if(d.bean['性别']){
+                                if(d.bean['性别'].words == "男"){
+                                    $("#xb option[value='1']").prop("selected","selected");
+                                    $("#xb").val("1");
+                                }
+                                if(d.bean['性别'].words == "女"){
+                                    $("#xb option[value='2']").prop("selected","selected");
+                                    $("#xb").val("2");
+                                }
+                            }
+                            if(d.bean['民族']&&d.bean['民族'].words){$("#mz").val(d.bean['民族'].words);}
+                            if(d.bean['住址']&&d.bean['住址'].words){$("#jtzz").val(d.bean['住址'].words);}
+                            if(d.bean['公民身份号码']&&d.bean['公民身份号码'].words){$("#sfzh").val(d.bean['公民身份号码'].words);}
+                        });//1是普通文件
                         break;
                     case "3"://身份证反面
-                        idOcr(imgType,file);//1是普通文件
+                        idOcr(imgType,file,function (d) {
+                            $("#sfzfm").val(d.bean.fileName);
+                        });//1是普通文件
                         break;
                 }
             }
@@ -141,84 +182,84 @@ function uploadImg(){
 }
 
 //身份证Ocr识别
-function idOcr(imgType,file) {
-    var thisType= imgType;
-    (thisType=="3")?imgType=2:imgType;
-    var fd = new FormData();
-    fd.append("file",file);
-    fd.append("method","zustcommon/common/picUpload")
-    fd.append('data', JSON.stringify({
-        "type": imgType
-    }));
-    beginLoad();
-    $.ajax({
-        url:  hostUrl+'/webAjax/picUpload',
-        type: "POST",
-        processData: false,
-        contentType: false,
-        data: fd,
-        success: function(d) {
-            finishLoad();
-            if(d.backCode==0){
-                switch (thisType){
-                    case "1"://户籍
-                        $("#hjzm").val(d.bean.fileName);
-                        break;
-                    case "2"://身份证正面
-                        switch (d.bean.image_status!="normal") {
-                            case "reversed_side":
-                                statusStr = "身份证正反面颠倒，请重新选择";
-                                break;
-                            case "non_idcard":
-                                statusStr = "上传的图片中不包含身份证，请重新选择"
-                                break;
-                            case "blurred":
-                                statusStr = "身份证模糊，请重新选择"
-                                break;
-                            case "other_type_card":
-                                statusStr = "上传照片为其他类型证照，请重新选择"
-                                break;
-                            case "over_exposure":
-                                statusStr = "身份证关键字段反光或过曝，请重新选择"
-                                break;
-                            case "over_dark":
-                                statusStr = "身份证欠曝（亮度过低），请重新选择"
-                                break;
-                            default:
-                                statusStr = status;
-                                break;
-                        }
-
-                        if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
-                        if(d.bean['姓名']){$("#xm").val(d.bean['姓名'].words);}
-                        if(d.bean['性别']){
-                            if(d.bean['性别'].words == "男"){
-                                $("#xb option[value='1']").prop("selected","selected");
-                                $("#xb").val("1");
-                            }
-                            if(d.bean['性别'].words == "女"){
-                                $("#xb option[value='2']").prop("selected","selected");
-                                $("#xb").val("2");
-                            }
-                        }
-                        if(d.bean['民族']){$("#mz").val(d.bean['民族'].words);}
-                        if(d.bean['住址']){$("#jtzz").val(d.bean['住址'].words);}
-                        if(d.bean['公民身份号码']&&d.bean['公民身份号码'].words){$("#sfzh").val(d.bean['公民身份号码'].words);}
-                        break;
-                    case "3"://身份证反面
-                        $("#sfzfm").val(d.bean.fileName);
-                        break;
-                }
-                walert("上传成功");
-            }else{
-                walert(d.errorMess)
-            }
-        },
-        fail:function () {
-            finishLoad()
-        }
-    });
-}
+// function idOcr(imgType,file) {
+//     var thisType= imgType;
+//     (thisType=="3")?imgType=2:imgType;
+//     var fd = new FormData();
+//     fd.append("file",file);
+//     fd.append("method","zustcommon/common/picUpload")
+//     fd.append('data', JSON.stringify({
+//         "type": imgType
+//     }));
+//     beginLoad();
+//     $.ajax({
+//         url:  hostUrl+'/webAjax/picUpload',
+//         type: "POST",
+//         processData: false,
+//         contentType: false,
+//         data: fd,
+//         success: function(d) {
+//             finishLoad();
+//             if(d.backCode==0){
+//                 switch (thisType){
+//                     case "1"://户籍
+//                         $("#hjzm").val(d.bean.fileName);
+//                         break;
+//                     case "2"://身份证正面
+//                         switch (d.bean.image_status!="normal") {
+//                             case "reversed_side":
+//                                 statusStr = "身份证正反面颠倒，请重新选择";
+//                                 break;
+//                             case "non_idcard":
+//                                 statusStr = "上传的图片中不包含身份证，请重新选择"
+//                                 break;
+//                             case "blurred":
+//                                 statusStr = "身份证模糊，请重新选择"
+//                                 break;
+//                             case "other_type_card":
+//                                 statusStr = "上传照片为其他类型证照，请重新选择"
+//                                 break;
+//                             case "over_exposure":
+//                                 statusStr = "身份证关键字段反光或过曝，请重新选择"
+//                                 break;
+//                             case "over_dark":
+//                                 statusStr = "身份证欠曝（亮度过低），请重新选择"
+//                                 break;
+//                             default:
+//                                 statusStr = status;
+//                                 break;
+//                         }
+//
+//                         if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
+//                         if(d.bean['姓名']){$("#xm").val(d.bean['姓名'].words);}
+//                         if(d.bean['性别']){
+//                             if(d.bean['性别'].words == "男"){
+//                                 $("#xb option[value='1']").prop("selected","selected");
+//                                 $("#xb").val("1");
+//                             }
+//                             if(d.bean['性别'].words == "女"){
+//                                 $("#xb option[value='2']").prop("selected","selected");
+//                                 $("#xb").val("2");
+//                             }
+//                         }
+//                         if(d.bean['民族']){$("#mz").val(d.bean['民族'].words);}
+//                         if(d.bean['住址']){$("#jtzz").val(d.bean['住址'].words);}
+//                         if(d.bean['公民身份号码']&&d.bean['公民身份号码'].words){$("#sfzh").val(d.bean['公民身份号码'].words);}
+//                         break;
+//                     case "3"://身份证反面
+//                         $("#sfzfm").val(d.bean.fileName);
+//                         break;
+//                 }
+//                 walert("上传成功");
+//             }else{
+//                 walert(d.errorMess)
+//             }
+//         },
+//         fail:function () {
+//             finishLoad()
+//         }
+//     });
+// }
 
 //初始化验证信息
 function initValidate() {

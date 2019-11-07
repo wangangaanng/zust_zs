@@ -157,7 +157,7 @@ page {
 .signUp .text {
   color: #fe4648;
   font-size: 13px;
-  line-height: 34px;
+  line-height: 20px;
 }
 
 .signUp .button {
