@@ -227,7 +227,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     public Map<String, Object> getXkcj(Map<String, Object> mapData) throws CustomerException {
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
         if (null == jbxx) {
-            throw CustomerException.newInstances("用户基本信息不存在");
+            return null;
         }
         Map<String, Object> result = JackSonJsonUtils.objectToMap(jbxx);
         mapData.put("lx", 1);

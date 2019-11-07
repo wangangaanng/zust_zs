@@ -29,7 +29,7 @@ Page({
     if (!this.data.yhDlzh){
       wx.showToast({
         icon:'none',
-        title: '请输入身份证或学号',
+        title: '请输入身份证号',
       })
       return false
     } else if (!this.data.yhDlmm) {

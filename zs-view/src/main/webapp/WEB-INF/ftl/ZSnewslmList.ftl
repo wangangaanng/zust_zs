@@ -9,9 +9,6 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
 </head>
-<style>
-
-</style>
 
 <body>
     <#include "com/ZSheader.ftl">

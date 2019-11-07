@@ -12,7 +12,12 @@ package com.zghzbckj.common;
  * @author xby
  */
 public class CommonModuleContant {
+
+    public static final String FTLFILE_SUFFIX = ".ftl";
+    //文件名
     public static final String SWTYFILEPATH = "swytFiles";
+    //字体文件
+    public static final String FONTS_TTF = "/swytFiles/fonts";
     public static final String SPILE_DOUHAO = ",";
     public static final String BACKEJ_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getSeclm.do";
 
@@ -23,7 +28,7 @@ public class CommonModuleContant {
     public static final String BACK_DIC_SAVE_HOST = "http://172.16.13.109:8080/webApi/dicValue/saveDic.do";
     public static final String BACK_URL_HOST = "http://172.16.13.109:8080/webApi/dicValue/getByType.do";
 
-    //        public final static String picPath = "C:\\files\\pic\\";
+//        public final static String picPath = "C:\\files\\pic\\";
     public final static String picPath = "/mnt/files/zjcFiles/pic";
     public final static String PIC_PNG = "PNG";
     public final static String PIC_JPG = "JPG";

@@ -37,7 +37,9 @@ public class SwytController {
    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String pageType,@CookieValue(value = "swOwid",required = false) String swOwid) throws UnsupportedEncodingException {
         //pageType跳转到的页面
        view.addObject("page",pageType);
-        swOwid = "1b47f10b042a4f2b877a47d107fda132";
+
+       swOwid = "1b47f10b042a4f2b877a47d107fda132";
+       String applyOwid = "";//表明表id
        //判断是否有个人owid 没有说明没登陆
        if(StringUtils.isEmpty(swOwid)){
            view.setViewName("SWlogin");
@@ -57,7 +59,8 @@ public class SwytController {
                List<Map<String, Object>> List = (List<Map<String, Object>>) records.get("list");
                //申请表owid 未申请没有改字段
                if(!StringUtils.isEmpty(List.get(0).get("applyOwid"))){
-                   view.addObject("applyOwid",List.get(0).get("applyOwid"));
+                   applyOwid = List.get(0).get("applyOwid").toString();
+                   view.addObject("applyOwid",applyOwid);
                    //报名进行到的状态
                    view.addObject("processState",List.get(0).get("bmState"));
                }else{
@@ -65,6 +68,22 @@ public class SwytController {
                }
            }
 
+           //进入不同页面初始化处理
+           switch (pageType){
+               case "2"://获取报名表和承诺书签字
+                       Map param2 = Maps.newHashMap();
+                       param2.put("applyOwid",applyOwid);
+                       ResponseMessage resultMess2  = new ResponseMessage();
+                       PublicData _data2 = UnionHttpUtils.manageParam(param2, "zustswyt/bckjBizBm/getResult");
+                       resultMess2 = UnionHttpUtils.doPosts(_data2);
+                       if(!StringUtils.isEmpty(resultMess2.getBean())) {
+                           Map<String, Object> records2 = (Map<String, Object>) resultMess2.getBean();
+                           view.addObject("bmbZp",records2.get("bmbZp"));
+                           view.addObject("cnszp",records2.get("cnszp"));
+                       }
+                   break;
+
+           }
 
            //去首页：总容器页面
            view.setViewName("trinityEnrollment");

@@ -20,10 +20,10 @@
 
     <view class="sign-wrap">
       <view class="pay-url_wrap">
-        <text class="detail-url">{{payDetail}}</text>
+        <rich-text class="detail-url" nodes="{{payDetail}}"></rich-text>
         <view>
           <block wx:if="{{payUrl!=''}}">
-            <text class="detail-url">缴费地址：{{payUrl}}</text>
+            <rich-text class="detail-url" nodes="缴费地址：{{payUrl}}"></rich-text>
           </block>
           <block wx:if="{{payUrl==''}}">
             <text class="detail-url">缴费地址：未设置缴费地址</text>

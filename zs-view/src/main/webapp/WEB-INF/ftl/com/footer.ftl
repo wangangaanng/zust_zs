@@ -210,12 +210,11 @@
         </div>
         <div class="linkweb">
             <ul style="list-style-type: none;">
-                <li><a href="http://www.zjzs.net/">浙江教育网</a></li>
-                <li><a href="http://gk.zjedu.gov.cn">浙江省阳光高考信息平台</a></li>
-                <li><a href="http://www.zust.edu.cn">浙江科技学院</a></li>
-                <li><a href="http://www.chinagaokao.com.cn">中国高考招生网</a></li>
-                <li><a href="http://xyh.zust.edu.cn">浙江科技学院校友联谊网</a></li>
-                <li><a href="http://xsc.zust.edu.cn">浙江科技学院学工部</a></li>
+                <#if (footer??)&&(footer?size>0)>
+                    <#list footer as obj>
+                        <li><a href="${obj.tzlj!''}" target="_blank">${obj.bt!''}</a></li>
+                    </#list>
+                </#if>
             </ul>
         </div>
     </div>

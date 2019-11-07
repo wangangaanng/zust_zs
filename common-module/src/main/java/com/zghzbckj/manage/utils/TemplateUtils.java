@@ -1,7 +1,7 @@
 package com.zghzbckj.manage.utils;
 
 import com.zghzbckj.base.util.SpringContextHolder;
-import com.zghzbckj.common.SwytConstant;
+import com.zghzbckj.common.CommonModuleContant;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -20,7 +20,7 @@ public class TemplateUtils {
         try {
             Configuration configuration = SpringContextHolder.getBean(Configuration.class);
             configuration.setDefaultEncoding("UTF-8");
-            Template temp = configuration.getTemplate(ftl + SwytConstant.FTLFILE_SUFFIX);
+            Template temp = configuration.getTemplate(ftl + CommonModuleContant.FTLFILE_SUFFIX);
             //以classpath下面的static目录作为静态页面的存储目录，同时命名生成的静态html文件名称
             temp.setEncoding("UTF-8");
             Writer file = new StringWriter();

@@ -3,7 +3,12 @@
     时间：2019-10-26
     描述：拍照上传
 -->
-<#assign tip="请考生上传：报名表签字和承诺书签字"/>
+<#--3表示已经提交承诺书和表明表 -->
+<#if (processState>2)>
+        <#assign tip="报名表签字和承诺书签字已提交"/>
+    <#else>
+        <#assign tip="请考生上传：报名表签字和承诺书签字"/>
+</#if>
 <#include "com/SWtip.ftl">
 <div class="form-horizontal basic-from" id="picForm" method="" action="" target="baFrame">
     <div class="form-group">
@@ -11,10 +16,16 @@
         <div class="col-sm-4">
             <div class="upimg-wrap" typeNum="1">
                 <div class="file-btn_wrap">
-                    <img src="${base}/img/img-up.png" class="up-btn_img"/>
+                    <#if bmbZp??&&bmbZp!="">
+                        <img src="${imagePath}${bmbZp}" class="up-btn_img img-full"/>
+                    <#else>
+                        <img src="${base}/img/img-up.png" class="up-btn_img"/>
+                    </#if>
+                    <#if (processState<3)>
                     <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                    </#if>
                 </div>
-                <label class="uploadlabel" for="file">上传签字报名表</label>
+                <label class="uploadlabel" for="${(processState<3)?string("file","")}">${(processState<3)?string("上传签字报名表","已上传成功")}</label>
             </div>
         </div>
         <div class="col-sm-4 has-error">
@@ -27,10 +38,16 @@
         <div class="col-sm-4">
             <div class="upimg-wrap" typeNum="2">
                 <div class="file-btn_wrap">
-                    <img src="${base}/img/img-up.png" class="up-btn_img"/>
+                    <#if cnszp??&&cnszp!="">
+                            <img src="${imagePath}${cnszp}" class="up-btn_img img-full"/>
+                        <#else>
+                            <img src="${base}/img/img-up.png" class="up-btn_img"/>
+                    </#if>
+                    <#if (processState<3)>
                     <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                    </#if>
                 </div>
-                <label class="uploadlabel" for="file">上传签字承诺书</label>
+                <label class="uploadlabel" for="${(processState<3)?string("file","")}">${(processState<3)?string("上传签字承诺书","已上传成功")}</label>
             </div>
         </div>
         <div class="col-sm-4 has-error">
@@ -39,11 +56,13 @@
     </div>
 
 <#--button  start -->
-    <div class="form-group">
-        <div class="col-sm-4 text-center col-sm-offset-2">
-            <button  id="saveBasic" class="btn btn-default btn-common yellow">确认上传</button>
+    <#if (processState<3)>
+        <div class="form-group">
+            <div class="col-sm-4 text-center col-sm-offset-2">
+                <button  id="saveBasic" class="btn btn-default btn-common yellow">确认上传</button>
+            </div>
         </div>
-    </div>
+    </#if>
 <#--button  end -->
 </div>
 

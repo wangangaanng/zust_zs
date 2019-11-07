@@ -89,6 +89,7 @@ function getCode(mobile, type, that) {//that 小程序中的this 【type 0：注
   }
   ajax('zustcommon/common/sendCode', data, function (res) {
     if (res.data.backCode == 0) {
+      toast("发送成功，注意查收", 'none', 2000);
       countDown(that);//倒计时
     } else {
       toast(res.data.errorMess, 'none', 2000)
@@ -148,7 +149,7 @@ function getPayUrl(that) {
   });
 }
 
-//报名表所有查询
+//报名表所有查询 
 function getProcssState(fun) {
   var data = { "applyOwid": wx.getStorageSync('applyOwid') }
   ajax('zustswyt/bckjBizBm/getResult', data, function (res) {

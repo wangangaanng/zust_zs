@@ -62,38 +62,6 @@
             outline: 2cm #FFEAEA solid;
         }
 
-        .water-print {
-            background-color: #FFFFFF;
-            background-image: url(img/img_logo2.png);
-            background-repeat: repeat;
-        }
-
-        .noprint h6 {
-            margin: 0px;
-            font-style: normal;
-            color: #333;
-            text-align: center
-        }
-
-        .noprint {
-            position: fixed;
-            bottom: 50px;
-            right: 100px;
-            text-decoration: none;
-            z-index: 99999;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: rgba(0, 0, 0, 0.1)
-        }
-
-        .noprint img {
-            width: 39px;
-            margin: 0 auto;
-            display: block;
-            margin-top: 13px;
-        }
-
         @page {
             size: A4 landscape;
             margin: 0;
@@ -133,51 +101,59 @@
             padding: 12px;
         }
     </style>
-    <script type="text/javascript">
-        var projectTitle = "${mianInfo.projectTitle}";
-        var projectRefOwid = "${projectRefOwid}";
-        var reviewListRefId = "${reviewListRefId}";
-        var planRefId = "${planRefId}";
-
-        function doPrint() {
-            bdhtml = window.document.body.innerHTML;
-            sprnstr = "<!--startprint-->";
-            eprnstr = "<!--endprint-->";
-            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
-            console.log(prnhtml);
-            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-            console.log(prnhtml);
-            window.document.body.innerHTML = prnhtml;
-            window.print();
-        }
-
-    </script>
 </head>
 <body>
 <!--startprint-->
 <!--第一页开始-->
 <div class="page">
-    <a href="javascript:doPrint()" class="noprint">
-        <img src="img/print.png"/>
-        <h6>打印</h6>
-    </a>
-    <table width="100%" align="center" style="border-collapse:collapse">
-        <tr>
-            <td align="center">
-                <h1 style="font-style: initial;margin: 5px;">浙江科技学院三位一体报名承诺书</h1>
-            </td>
-        </tr>
-    </table>
-	<div style="font-style: normal;font-weight: 400;margin: 40px 40px 0;word-wrap:break-word">
-		123131321asdfasdasdasdsa,zjxjhcjkashfjkahfjksdhnjkxcnbjkhjkwhtjfkhjcbnjkhsejfnsjkhdjkfhsdajkfhghfbjksdhfjkhsndjkfhjksdhfjkhzxcjkccvjkhfjksadhfjkhdjk
-	</div>
-	<div style="font-style: normal;font-weight: 400;margin: 40px 40px 0;word-wrap:break-word">
-		1.按键hi殴打季后赛噢大家好 <br>
-		2.静安寺欧弟就阿斯蒂阿斯欧弟就 <br>
-		3.阿萨德教圣诞节
-	</div>
-	<div style="text-align: right;margin-right: 150px;font-style: normal;margin-top: 10px;font-weight: 400;position: absolute;bottom: 50px;right: 0;">本人签名：</div>
-	<div style="text-align: right;margin-right: 150px;font-style: normal;margin-top: 10px;font-weight: 400;position: absolute;bottom: 20px;right: 0;">日期：</div>
+	<div style="font-style: normal;font-weight: 400;width: 17cm;">
+        <p style="text-align: center;">浙江科技学院</p>
+
+        <p style="text-align: center;">2017年&ldquo;三位一体&rdquo;综合测试考生须知</p>
+
+        <p><strong>各位考生：</strong></p>
+
+        <p>&nbsp;&nbsp;&nbsp;&nbsp; 首先非常感谢你能在紧张的高考复习阶段，参加我校的&ldquo;三位一体&rdquo;招生考试，现将3月25、26日综合测试的流程和注意事项公告如下：</p>
+
+        <p>1、<strong>报到</strong>：3月25日10:00-18:00考生须携带身份证原件（或户口本），三位一体综合测试报到单（须在三位一体报名系统中打印），到杭州市西湖区留和路318号，浙江科技学院小和山校区闻理园A4-122报到，核验身份，录取指纹。如考生不能本人来，须由家长签字备案，并在综合面试结束后，补录指纹信息。</p>
+
+        <p>2、<strong>笔试：</strong>报考建筑学专业学生必须在<strong>18：30之前到A4-122集中</strong>，晚上进行建筑学专业测试，&nbsp;21:00结束，其余专业无笔试。</p>
+
+        <p>3、<strong>口语测试：</strong>参加国际交流类（中德联合培养、中德合作办学、设计学类项目学生）必须在<strong>18：30之前到</strong><strong>闻理园</strong><strong>A4-122集中</strong>，晚上进行英语口语测试，测试时间为19:00-21:00，测试场地为闻理园A3五楼语音室。</p>
+
+        <p>4、<strong>面试：上午场</strong><strong>考生</strong><strong>须在</strong><strong>3</strong><strong>月</strong><strong>26</strong><strong>日</strong><strong>7</strong><strong>：</strong><strong>3</strong><strong>0～</strong><strong>8</strong><strong>：</strong><strong>0</strong><strong>0</strong>凭面试通知单和身份证（身份证丢失可以提供户口簿）在<strong>闻理园A4-122集中，</strong>随后考生由工作人员引导至A2二楼侯考区抽取面试顺序号，并领取的号码吊牌。下午场考生务必在11:45之前凭证到<strong>闻理园A4-122集中</strong><strong>，</strong><strong>12:00开始考试</strong><strong>。</strong></p>
+
+        <p>5、学校在3月25日晚上6:30~7:00，在<strong>闻理园A4-122</strong>举办国际交流类专场答家长问活动<strong>，</strong>3月26日9:30~11:00闻理园A4-122三位一体招生学院分场讲座（考生及家长可选择参加）；同时中德合作馆全天开放，欢迎家长及考生参观。</p>
+
+        <p>6、考试过程采用全封闭，考试全程由工作人员引导，考生必须听从现场指挥，不得提前擅自行动。</p>
+
+        <p>7、<strong>考试全程均不能使用通信工具，若有携带进入侯考室后请关机后卸下电池板。在考试过程中若出现手机铃声，或携带与考试相关任何介质资料，则视为作弊。（注：</strong>2015年11月1日起正式颁布实施的《中华人民共和国刑法修正案(九)》(以下简称刑九)明确规定,在法律规定的国家考试中组织考试作弊等行为将构成犯罪。<strong>）</strong></p>
+
+        <p>8、<strong>除本人编号外，考试过程当中不得透露自己的姓名、学校和有关自身家庭背景的任何信息</strong>。</p>
+
+        <p>9、根据考试实际情况,面试时专家有可能会打断你的回答。</p>
+
+        <p>10、面试间隙,不允许考生之间作任何交流，请保持考场肃静和环境整洁。</p>
+
+        <p>11、考生承诺保证提交所有材料的真实和准确性，了解并承担不实材料所带来的所有后果。</p>
+
+        <p>12、考生不得携带任何考试资料出考场，不得向外界透露有关考试内容的任何信息。</p>
+
+        <p>13、4月15日以后考生可以登陆浙江科技学院&ldquo;三位一体&rdquo;综合评价招生报名系统，查询相关成绩。</p>
+
+        <p>14、考生的独立自主性也是大学的重要内容，各位家长一律不得进入候考、测试场所，全程由考生独立完成。</p>
+
+        <p>祝你考试顺利，取得佳绩!</p>
+
+        <p>&nbsp;</p>
+
+        <p style="text-align: right;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 浙江科技学院招生处</p>
+
+        <p style="text-align: right;">2017年3月25日</p>
+
+    </div>
+	<div style="width:16cm;text-align: right;margin-right: 90px;font-style: normal;margin-top: 10px;font-weight: 400;">本人签名：</div>
+	<div style="width:16cm;text-align: right;margin-right: 90px;font-style: normal;margin-top: 10px;font-weight: 400;">日期：</div>
 </div>
 <!--endprint-->
 </body>
