@@ -209,7 +209,7 @@
     <insert id="insertFile">
         INSERT INTO ourway_sys_files( OWID,FILE_CLASS,FILE_CLASS_ID,FILE_NAME,FILE_LABEL,FILE_SIZE,FILE_PATH,FILE_EXTION, FILE_RANDON,CREATETIME
             )
-        VALUES(#{owid},#{fileClass},#{fileClassId},#{fileName},#{fileLabel},#{fileSize},#{filePath},#{fileExtion} ,#{fileRandon}
+        VALUES(#{owid},#{fileClass},#{fileClassId},#{fileName},#{fileLabel},#{fileSize},#{filePath},#{fileExtion} ,#{fileRandon},
         #{createtime})
     </insert>
 
