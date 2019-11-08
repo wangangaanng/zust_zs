@@ -635,9 +635,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     public PageInfo<BckjBizYhxx> getZsList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        if(!TextUtils.isEmpty(dataMap.get("csrq").toString())){
-         dataMap.put("csrq",DateUtil.getDate(dataMap.get("csrq").toString(),"yyyy"));
-        }
         Page<BckjBizYhxx> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
         page.setList(this.dao.getZsList(dataMap));
