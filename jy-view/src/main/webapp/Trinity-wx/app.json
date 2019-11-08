@@ -4,10 +4,10 @@
   },
   "pages": [
     "pages/shouye/shouye",
+    "pages/Process/Process",
     "pages/login/login",
     "pages/basicInfo/basicInfo",
     "pages/payOline/payOline",
-    "pages/Process/Process",
     "pages/sendMail/sendMail",
     "pages/uploadSignature/uploadSignature",
     "pages/register/register",

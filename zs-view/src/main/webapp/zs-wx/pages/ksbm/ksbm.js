@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hidden1: 'block',
     modal1:false,
     yzmStr1: '发送验证码',
     seconds1: 60,
@@ -139,7 +140,6 @@ Page({
     })
   },
   send(e) {
-    console.log(e)
     if (this.data.sjh.trim() && this.data.sjh.trim().length==11){
       if (/^1[34578]\d{9}$/.test(this.data.sjh.trim())){
           if (!this.data.disabled1) {
@@ -162,7 +162,6 @@ Page({
    
   },
   send1(e) {
-    console.log(e)
     if (this.data.sjh1.trim() && this.data.sjh1.trim().length == 11) {
       if (/^1[34578]\d{9}$/.test(this.data.sjh1.trim())) {
         if (!this.data.disabled2) {
@@ -185,15 +184,15 @@ Page({
 
   },
   clickTab(e) {
-    console.log(e.detail.index)
-    if (e.detail.index==1){
+    console.log(e)
+    if (e.detail.name==1){
       this.setData({
         list:[]
       })
       getShowCaOpDayDate(this)
     }
     this.setData({
-      currentTab: e.detail.index
+      currentTab: e.detail.name
     })
   },
   submit(){
@@ -353,9 +352,7 @@ var count = function (that, type) {
       disabled2: true
     })
     djs1(that)
-  }
-  
-  
+  } 
 }
 
 var djs = function (that){
@@ -400,13 +397,20 @@ var getShowCaOpDayDate = function (that) {
   var data = {};
   common.ajax('zustcommon/bckjBizYhxx/getShowCaOpDayDate', data, function (res) {
     if (res.data.backCode == 0) {
+      
       if(res.data.bean && res.data.bean.length>0){
         for(var i in res.data.bean){
-          if (res.data.bean[i]['校园开放日'])
+          if (res.data.bean[i]['校园开放日']){
             res.data.bean[i].rq = res.data.bean[i]['校园开放日']
+          }
         }
         that.setData({
-          list: res.data.bean
+          list: res.data.bean,
+          hidden1:'none'
+        })
+      }else{
+        that.setData({
+          hidden1: 'block'
         })
       }
 
