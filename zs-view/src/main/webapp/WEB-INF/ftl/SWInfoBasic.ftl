@@ -8,7 +8,7 @@
 <#--步骤条 end-->
 
 <#--步骤基本信息1 start-->
-<form class="form-horizontal" id="basicForm" method="" action="" target="bcFrame" style="display: none;">
+<form class="form-horizontal" id="basicForm" method="" action="" target="bcFrame" style="">
 
     <div class="form-group pr">
         <label for="qyGsjs" class="col-sm-2 control-label label-select_wrap  col-sm-offset-1">
@@ -154,9 +154,9 @@
         }
     });
 </script>
-<#--<script src="${base}/js/swyt/SWInfoBasic.js"></script>-->
-<#--<script src="${base}/js/swyt/SWinfoContactor.js"></script>-->
-<#--<script src="${base}/js/swyt/SWInfoGrade.js"></script>-->
+<script src="${base}/js/swyt/SWInfoBasic.js"></script>
+<script src="${base}/js/swyt/SWinfoContactor.js"></script>
+<script src="${base}/js/swyt/SWInfoGrade.js"></script>
 <script src="${base}/js/swyt/SWInfoSelect.js"></script>
 
 
