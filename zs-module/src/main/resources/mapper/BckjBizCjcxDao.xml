@@ -98,7 +98,7 @@
 		<include refid="bckjBizCjcxJoins"/>
 		<where>
 			<if test="ksh !=null and ksh!='' ">
-				a.ksh=#{ksh}
+				a.ksh LIKE concat(#{ksh,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sfzh !=null and sfzh!='' ">
 				AND a.sfzh=#{sfzh}

@@ -13,6 +13,7 @@
 
 <body>
 <#include "com/ZSheader.ftl">
+<img class="ejgg" style="width:100%;height:300px;" src="${base}/img/loginbackgrouind2.jpg">
 <div class="main">
     <div class="container">
         <div class="content">

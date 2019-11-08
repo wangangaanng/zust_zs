@@ -7,6 +7,8 @@ import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizXyzy;
 
+import java.util.Map;
+
 /**
  * ccDAO接口
  * @author cc
@@ -14,5 +16,6 @@ import com.zghzbckj.manage.entity.BckjBizXyzy;
  */
 @MyBatisDao
 public interface BckjBizXyzyDao extends CrudDao<BckjBizXyzy> {
-	
+
+    void deleteApply(Map<String, Object> mapData);
 }

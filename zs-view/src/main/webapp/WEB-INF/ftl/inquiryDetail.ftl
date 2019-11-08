@@ -41,7 +41,7 @@
 <#include "com/ZSheader.ftl">
 <div class="main">
     <div class="container">
-    <#include "com/route.ftl">
+    <#--<#include "com/route.ftl">-->
         <div class="content">
             <#if result??>
                 <div class="article-detail-title">

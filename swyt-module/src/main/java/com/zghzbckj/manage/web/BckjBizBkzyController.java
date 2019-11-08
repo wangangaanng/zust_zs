@@ -194,11 +194,56 @@ public class BckjBizBkzyController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "listByDl", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage listByDl(PublicDataVO publicDataVO) {
+        Map params = Maps.newHashMap();
+        params.put("cc", 1);
+        List<BckjBizBkzy> buys = bckjBizBkzyService.findListByParams(params, " a.px ");
+        if (buys == null || buys.size() == 0) {
+            return null;
+        }
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (BckjBizBkzy buy : buys) {
+            Map temp = new HashMap();
+            temp.put("label", buy.getName());
+            temp.put("value", buy.getName());
+            maps.add(temp);
+        }
+        return ResponseMessage.sendOK(maps);
+    }
+
+    @RequestMapping(value = "listByBk", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage listByBk(PublicDataVO publicDataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(publicDataVO.getData());
+        Map params = Maps.newHashMap();
+        params.put("cc", 2);
+        if (!TextUtils.isEmpty(dataMap.get("dicName"))) {
+            Map temp = Maps.newHashMap();
+            temp.put("name", dataMap.get("dicName").toString());
+            BckjBizBkzy bzkz = bckjBizBkzyService.findOneByParams(temp, "");
+            if (!TextUtils.isEmpty(bzkz)) {
+                params.put("fid", bzkz.getOwid());
+            }
+        }
+        List<BckjBizBkzy> buys = bckjBizBkzyService.findListByParams(params, " a.px ");
+        if (buys == null || buys.size() == 0) {
+            return null;
+        }
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (BckjBizBkzy buy : buys) {
+            Map temp = new HashMap();
+            temp.put("label", buy.getName());
+            temp.put("value", buy.getName());
+            maps.add(temp);
+        }
+        return ResponseMessage.sendOK(maps);
+    }
 
     @RequestMapping(value = "listByName", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage listByName(PublicDataVO publicDataVO) {
-        ResponseMessage responseMessage = new ResponseMessage();
         Map params = Maps.newHashMap();
         params.put("cc", 2);
         List<BckjBizBkzy> buys = bckjBizBkzyService.findListByParams(params, " a.px ");
@@ -215,6 +260,33 @@ public class BckjBizBkzyController extends BaseController {
         return ResponseMessage.sendOK(maps);
     }
 
+    @RequestMapping(value = "listByZy", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage listByZy(PublicDataVO publicDataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(publicDataVO.getData());
+        Map params = Maps.newHashMap();
+        params.put("cc", 3);
+        if (!TextUtils.isEmpty(dataMap.get("dicName"))) {
+            Map temp = Maps.newHashMap();
+            temp.put("name", dataMap.get("dicName").toString());
+            BckjBizBkzy bzkz = bckjBizBkzyService.findOneByParams(temp, "");
+            if (!TextUtils.isEmpty(bzkz)) {
+                params.put("fid", bzkz.getOwid());
+            }
+        }
+        List<BckjBizBkzy> buys = bckjBizBkzyService.findListByParams(params, " a.px ");
+        if (buys == null || buys.size() == 0) {
+            return null;
+        }
+        List<Map<String, Object>> maps = new ArrayList<>();
+        for (BckjBizBkzy buy : buys) {
+            Map temp = new HashMap();
+            temp.put("label", buy.getName());
+            temp.put("value", buy.getName());
+            maps.add(temp);
+        }
+        return ResponseMessage.sendOK(maps);
+    }
 
     @RequestMapping(value = "getNumber", method = RequestMethod.POST)
     @ResponseBody

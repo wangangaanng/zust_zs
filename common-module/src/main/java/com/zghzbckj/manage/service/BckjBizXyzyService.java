@@ -3,16 +3,19 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Lists;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
+import com.zghzbckj.base.model.BaseTree;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.manage.dao.BckjBizXyzyDao;
 import com.zghzbckj.manage.entity.BckjBizXyzy;
+import com.zghzbckj.manage.entity.BckjDicMenu;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -125,5 +128,51 @@ public class BckjBizXyzyService extends CrudService<BckjBizXyzyDao, BckjBizXyzy>
     public List<BckjBizXyzy> getZyList(Map<String, Object> mapData) {
         List<BckjBizXyzy> lists = findListByParams(mapData, " a.createtime desc ");
         return lists;
+    }
+
+    public Object listTree(List<FilterModel> filters) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        List<BckjBizXyzy> xyzys = this.dao.findListByMap(dataMap);
+        List<BaseTree> baseTreeList = Lists.newArrayList();
+        if (xyzys.size() > 0) {
+            for (BckjBizXyzy xyzy : xyzys) {
+                BaseTree bt = new BaseTree();
+                bt.setOwid(xyzy.getOwid().intValue());
+                bt.setFid(xyzy.getParentId().intValue());
+                bt.setName(xyzy.getMz());
+                bt.setPath(xyzy.getPath());
+                baseTreeList.add(bt);
+            }
+        }
+        return baseTreeList;
+    }
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public Object removeTree(Map<String, Object> mapData) {
+        this.deleteByMap(mapData);
+        this.dao.deleteApply(mapData);
+        return mapData;
+    }
+
+    @Transactional(readOnly = false)
+    public BaseTree saveTree(Map<String, Object> mapData) {
+        BckjBizXyzy bckjBizXyzy = JsonUtil.map2Bean(mapData, BckjBizXyzy.class);
+        bckjBizXyzy.setParentId(Long.valueOf(mapData.get("fid").toString()));
+        if (TextUtils.isEmpty(bckjBizXyzy.getOwid())) {
+            this.save(bckjBizXyzy);
+            if (!TextUtils.isEmpty(bckjBizXyzy.getPath()) && bckjBizXyzy.getPath().endsWith("//")) {
+                String path = bckjBizXyzy.getPath().substring(0, bckjBizXyzy.getPath().length() - 1);
+                bckjBizXyzy.setPath(path + bckjBizXyzy.getOwid() + "/");
+            } else {
+                bckjBizXyzy.setPath(bckjBizXyzy.getPath() + bckjBizXyzy.getOwid() + "/");
+            }
+        }
+        this.saveOrUpdate(bckjBizXyzy);
+        BaseTree tree = new BaseTree();
+        tree.setOwid(bckjBizXyzy.getOwid().intValue());
+        tree.setId(bckjBizXyzy.getOwid().intValue());
+        tree.setFid(bckjBizXyzy.getParentId().intValue());
+        tree.setName(bckjBizXyzy.getMz());
+        tree.setPath(bckjBizXyzy.getPath());
+        return tree;
     }
 }

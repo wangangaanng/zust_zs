@@ -152,7 +152,7 @@ public class BckjDicMenuController extends BaseController {
     @RequestMapping(value = "updateMove", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage updateMove(HttpServletRequest request, PublicDataVO data) {
-        List<Map> datas = JsonUtil.jsonToList(data.getData(), Map.class);
+            List<Map> datas = JsonUtil.jsonToList(data.getData(), Map.class);
 
         List<BckjDicMenu> movePolicy = new ArrayList<>(datas.size());
         for (Map menuData : datas) {
