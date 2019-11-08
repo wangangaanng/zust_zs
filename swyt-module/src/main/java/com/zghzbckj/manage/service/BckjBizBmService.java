@@ -146,7 +146,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                 Map params = Maps.newHashMap();
                 params.put("bmRefOwid", bm.getOwid());
                 params.put("orderBy", "a.mxsx");
-                params.put("lx", SwytConstant.BMMX_LX_HK);
+                params.put("lx", "0");
                 List<BckjBizBmmx> mxList = bmmxDao.findListByMap(params);
                 if (mxList != null && mxList.size() > 0) {
                     for (BckjBizBmmx mx : mxList) {
@@ -572,7 +572,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public List<Map> listDicByType(Integer hkcj) {
         Map params = Maps.newHashMap();
         params.put("type", hkcj);
-        params.put("orderBy", "a.dic_val4");
+        params.put("orderBy", " CAST(a.dic_val4 AS SIGNED)");
         List<Map> results = this.dao.listDicByType(params);
         return results;
 
@@ -654,6 +654,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                     bm.setZzcj(zzcj);
                     bm.setState(10);
                     bm.setXybnr(SwytConstant.BMCJCX);
+                    bm.setLrsj(new Date());
                     saveOrUpdate(bm);
                 }
 
