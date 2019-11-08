@@ -74,11 +74,13 @@ public class SwytController {
            ResponseMessage resultMess2  = new ResponseMessage();
            PublicData _data2 = UnionHttpUtils.manageParam(param2, "zustswyt/bckjBizBm/getResult");
            resultMess2 = UnionHttpUtils.doPosts(_data2);
-           if(!StringUtils.isEmpty(resultMess2.getBean())) {
+           if(null != resultMess2.getBean()) {
                Map<String, Object> records2 = (Map<String, Object>) resultMess2.getBean();
                view.addObject("bmbZp",records2.get("bmbZp"));
                view.addObject("cnszp",records2.get("cnszp"));
                view.addObject("email",records2.get("yx"));
+               view.addObject("payTime",records2.get("jfsj"));
+               view.addObject("payProveImg",records2.get("jfpzZp"));
            }
            //不同页面不同初始化
            switch (pageType){
@@ -91,10 +93,10 @@ public class SwytController {
                    ResponseMessage resultMess4  = new ResponseMessage();
                    PublicData _data4 = UnionHttpUtils.manageParam(param4, "zustcommon/common/getByType");
                    resultMess4 = UnionHttpUtils.doPosts(_data4);
-                   Map<String, Object> records4 = (Map<String, Object>) resultMess4.getBean();
+                   List<Map<String, Object>> records4 = (List<Map<String, Object>>) resultMess4.getBean();
                    if(!StringUtils.isEmpty(records4)) {
-                       view.addObject("payMess",records4.get("dicVal2"));
-                       view.addObject("payUrl",records4.get("dicVal3"));
+                       view.addObject("payMess",records4.get(0).get("dicVal2"));
+                       view.addObject("payUrl",records4.get(0).get("dicVal3"));
                    }
                    break;
                default://报名表或者面试通知单打印 1或5
