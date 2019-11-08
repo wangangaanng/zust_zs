@@ -188,6 +188,9 @@ Page({
             Major: Major,
             enrollmentMajor: res.data.bean
           })
+          if (!!that.data.xzzymc){
+            that.submit()
+          }
         }
       } else {
         common.toast(res.data.errorMess, 'none', 2000)

@@ -9,6 +9,7 @@
     "van-field": "vant-weapp/field",
     "van-area": "vant-weapp/area",
     "van-dialog": "vant-weapp/dialog",
+    "van-divider": "vant-weapp/divider",
     "van-popup": "vant-weapp/popup"
   }
 }
