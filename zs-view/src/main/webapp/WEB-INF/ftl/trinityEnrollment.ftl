@@ -73,8 +73,13 @@
                     <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
                         <#include "SWInfoBasic.ftl">
                         <#break>
+                        <#case "1">
+                        <#--报名表承诺书打印-->
+                            <#assign fileName="报名表"/>
+                            <#include "SWofferNotice.ftl">
+                            <#break>
                         <#case "2">
-                        <#--拍照上传-->
+                        <#--签字拍照上传-->
                             <#include "SWphotoUpload.ftl">
                             <#break>
                         <#case "3">
@@ -87,6 +92,7 @@
                             <#break>
                         <#case "5">
                         <#--面试通知单-->
+                            <#assign fileName="面试通知单"/>
                             <#include "SWofferNotice.ftl">
                             <#break>
                         <#case "6">

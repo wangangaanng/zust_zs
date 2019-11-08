@@ -89,7 +89,7 @@ function swYtzc() {
         walert('请输入密码')
         return
     }
-    if(swMm.length>16||swMm.length<11){
+    if(swMm.length>16||swMm.length<6){
         walert('密码长度不正确')
         return
     }

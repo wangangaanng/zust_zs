@@ -51,10 +51,10 @@ function isTimeOut() {
 //调用附件上传接口
 function fileUpload(type,file,fun) {
     var fd = new FormData();
-    fd.append("yhRefOwid",getCookie("swOwid"));
     fd.append("file",file);
     fd.append('data', JSON.stringify({
-        "type": type
+        "type": type,
+        "yhRefOwid":getCookie("swOwid")
     }));
     beginLoad();
     console.log(uploadUrl);

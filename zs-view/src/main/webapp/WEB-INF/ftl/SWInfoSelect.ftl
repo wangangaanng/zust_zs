@@ -5,44 +5,44 @@
 -->
 
 <#--学考等第 start-->
-<form class="form-horizontal basic-from" id="selectForm" method="" action="" target="baFrame" style="">
+<div class="form-horizontal basic-from" id="selectForm" style="">
     <#--学考等第 start-->
     <div class="contact-wrap">
         <p class="contact-wrap_title col-sm-offset-1">选考信息</p>
         <div id="xkkm">
             <div class="form-group">
-                <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
+                <label for="" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
                     <select class="form-control label-select">
-                        <option>请选择选考科目</option>
+                        <option value="">请选择选考科目</option>
                     </select>
                     <span class="red">*</span>
                 </label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="请输入分数" autocomplete="off">
+                    <input type="number" class="form-control" id="" name="zwXs" placeholder="请输入分数" autocomplete="off">
                     <span style="position: absolute;right: 25px;top: 7px;">分</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
+                <label for="" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
                     <select class="form-control label-select">
-                        <option>请选择选考科目</option>
+                        <option value="">请选择选考科目</option>
                     </select>
                     <span class="red">*</span>
                 </label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="请输入分数" autocomplete="off">
+                    <input type="number" class="form-control" id="" name="zwXs" placeholder="请输入分数" autocomplete="off">
                     <span style="position: absolute;right: 25px;top: 7px;">分</span>
                 </div>
             </div>
             <div class="form-group">
-                <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
+                <label for="" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
                     <select class="form-control label-select">
-                        <option>请选择选考科目</option>
+                        <option value="">请选择选考科目</option>
                     </select>
                     <span class="red">*</span>
                 </label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="请输入分数" autocomplete="off">
+                    <input type="number" class="form-control" id="" name="zwXs" placeholder="请输入分数" autocomplete="off">
                     <span style="position: absolute;right: 25px;top: 7px;">分</span>
                 </div>
             </div>
@@ -55,14 +55,14 @@
         <p class="contact-wrap_title col-sm-offset-1">外语成绩</p>
         <div>
             <div class="form-group">
-                <label for="qyGsxz" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
+                <label for="" class="col-sm-2 control-label label-select_wrap col-sm-offset-1">
                     <select class="form-control label-select" id="wyyz">
-                        <option>请选择一门外语</option>
+                        <option value="">请选择一门外语</option>
                     </select>
                     <span class="red">*</span>
                 </label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="zwXs" name="zwXs" placeholder="请输入分数" autocomplete="off">
+                    <input type="number" class="form-control" id="wycj" name="zwXs" placeholder="请输入分数" autocomplete="off">
                     <span style="position: absolute;right: 25px;top: 7px;">分</span>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         <p class="contact-wrap_title col-sm-offset-1">专项类别</p>
         <div>
             <div class="form-group">
-                <label for="qyGsxz" class="col-sm-2 control-label col-sm-offset-1">
+                <label for="" class="col-sm-2 control-label col-sm-offset-1">
                    专项类别(可多选) <span class="red">*</span>
                 </label>
                 <div class="col-sm-8">
@@ -107,15 +107,9 @@
             <div class="form-group">
                 <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次<span class="red">*</span>：</label>
                 <div class="col-sm-10 col-sm-offset-1">
-                    <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="8" placeholder="请输入荣誉竞赛信息"></textarea>
+                    <textarea class="form-control" id="jssm" name="jssm" rows="8" placeholder="请输入荣誉竞赛信息(最长150字)" oninput="if(value.length>150){value=value.substring(0,150)}"></textarea>
                     <div class="upimg-wrap" style="float: left;">
                         <ul id="fileList">
-                            <li>
-                                <div class="file-btn_wrap" style="margin-right: 10px;">
-                                    <img src="${base}/img/img-up.png">
-                                </div>
-                                <label class="uploadlabel">删除</label>
-                            </li>
                         </ul>
                     </div>
                     <div class="upimg-wrap">
@@ -131,14 +125,14 @@
             <div class="form-group">
                 <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参与的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或者职责）<span class="red">*</span>：</label>
                 <div class="col-sm-10 col-sm-offset-1">
-                    <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="8" placeholder="请输入高中阶段参与的社会工作和课外活动（"></textarea>
+                    <textarea class="form-control" id="qtqk" name="qtqk" rows="8" placeholder="请输入高中阶段参与的社会工作和课外活动(最长150字)" oninput="if(value.length>150){value=value.substring(0,150)}"></textarea>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">特长爱好<span class="red">*</span>：</label>
                 <div class="col-sm-10 col-sm-offset-1">
-                    <textarea class="form-control" id="zwGwzz" name="zwGwzz" rows="8" placeholder="请输入特长爱好"></textarea>
+                    <textarea class="form-control" id="tcah" name="tcah" rows="8" placeholder="请输入特长爱好(最长150字)" oninput="if(value.length>150){value=value.substring(0,150)}"></textarea>
                 </div>
             </div>
 
@@ -152,11 +146,11 @@
             <button type="submit" class="btn btn-default btn-common yellow">上一步，学考等第</button>
         </div>
         <div class="col-sm-4">
-            <button type="submit" class="btn btn-default btn-common yellow">完成</button>
+            <button type="submit" class="btn btn-default btn-common yellow" onclick="finishXk()">完成</button>
         </div>
     </div>
     <#--button  end -->
-</form>
+</div>
 <#--学考等第 end-->
 
 

@@ -99,28 +99,9 @@
 
         .han {
             margin: 10px;
-            padding: 12px;
+            padding: 8px 12px;
         }
     </style>
-    <script type="text/javascript">
-        var projectTitle = "${mianInfo.projectTitle}";
-        var projectRefOwid = "${projectRefOwid}";
-        var reviewListRefId = "${reviewListRefId}";
-        var planRefId = "${planRefId}";
-
-        function doPrint() {
-            bdhtml = window.document.body.innerHTML;
-            sprnstr = "<!--startprint-->";
-            eprnstr = "<!--endprint-->";
-            prnhtml = bdhtml.substr(bdhtml.indexOf(sprnstr) + 17);
-            console.log(prnhtml);
-            prnhtml = prnhtml.substring(0, prnhtml.indexOf(eprnstr));
-            console.log(prnhtml);
-            window.document.body.innerHTML = prnhtml;
-            window.print();
-        }
-
-    </script>
 </head>
 <body>
 <!--startprint-->
@@ -129,33 +110,37 @@
     <table width="100%" align="center" style="border-collapse:collapse">
         <tr>
             <td align="center">
-                <h1 style="font-style: initial;margin: 5px;">浙江科技学院2019年“三位一体”综合评价招生综合测试通知单</h1>
+                <h1 style="font-style: initial;margin: 5px;">浙江科技学院${bmnd}年“三位一体”综合评价招生综合测试通知单</h1>
             </td>
         </tr>
     </table>
 	<div style="font-style: normal;font-weight: 400;text-align: center;">
-		<span>学科类别：</span><span style="margin-right: 20px;">普通类</span>
-		<span>外语语种：</span><span style="margin-right: 20px;">英语</span>
-		<span>类别：</span><span style="margin-right: 20px;">综合类</span>
-		<span>招生专业：</span><span style="margin-right: 20px;">计算机科学与技术</span>
+		<span>学科类别：</span><span style="margin-right: 20px;">${xklb}</span>
+		<span>外语语种：</span><span style="margin-right: 20px;">${yzmc}</span>
+		<span>类别：</span><span style="margin-right: 20px;">${bklb}</span>
+		<span>招生专业：</span><span style="margin-right: 20px;">${xzzymc}</span>
 	</div>
     <table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" style="margin-top: 10px;border-collapse:collapse">
         <tr>
             <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">姓名
             </td>
             <td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
+			${xm}
             </td>
             <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">性别
             </td>
             <td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
+			${xbStr}
             </td>
 			<td align="center"  valign="middle" class="contentFont han" style="width: 150px;">QQ:
 			</td>
 			<td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
+			${qq}
 			</td>
             <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">民族
             </td>
             <td align="center"  valign="middle" class="contentFont han" style="width: 50px;">
+			${mz}
             </td>
 			<td align="center"  rowspan="4" valign="middle" class="contentFont han" style="width: 300px;">请粘贴一寸照
 			</td>
@@ -163,70 +148,78 @@
         <tr>
 			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">通讯地址</td>
 			<td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+			${jtzz}
 			</td>
             <td align="center" valign="middle" class="contentFont han" style="width: 180px;">电子邮箱</td>
             <td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+			${yx}
             </td>
         </tr>
         <tr>
 			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">身份证号
 			</td>
 			<td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+			${sfzh}
 			</td>
             <td align="center" valign="middle" class="contentFont han" style="width: 160px;">手机号
             </td>
             <td align="center"  colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+			${lxdh}
             </td>
         </tr>
 		<tr>
-			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">准考证号：
+			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">准考证号
 			</td>
 			<td align="center" colspan="7" valign="middle" class="contentFont han" style="width: 300px;">
+			${zkzh}
 			</td>
 		</tr>
 		<tr>
 			<td align="center" colspan="9" valign="middle" class="contentFont han" style="width: 180px;">
-				祝贺你，你已获得浙江科技学院2019年“三位一体”综合评价招生综合面试资格。<br>
-				您的面试时间为<span style="color: red;font-size: 16px;margin-left: 10px;">2019-08-01</span>
+				祝贺您，您已获得浙江科技学院${bmnd}年“三位一体”综合评价招生综合面试资格。<br>
+				您的面试时间为<span style="color: red;font-size: 16px;margin-left: 10px;">${mssj}</span>
 			</td>
 		</tr>
 		<tr>
 			<td align="left" colspan="9" valign="middle" class="contentFont han" style="width: 180px;">
-				4月21日上午9:00-17:00到闻理院A4-122报到，国际交流类（包括设计学类中德联合培养）考生18:00进行外语能力测试，
-				4月22日上午考生8:00之前，下午场考生12:00之前在A4-122报到，统一到候考区抽签分组，进行面试。
+				${mssm}
 			</td>
 		</tr>
     </table>
 	<table width="100%" align="center" style="margin-top: 20px;border-collapse:collapse">
 	    <tr>
 	        <td align="center">
-	            <h1 style="font-style: initial;margin: 5px;">浙江科技学院2019年“三位一体”综合评价招生综合测试通知单(复联)</h1>
+	            <h1 style="font-style: initial;margin: 5px;">浙江科技学院${bmnd}年“三位一体”综合评价招生综合测试通知单(复联)</h1>
 	        </td>
 	    </tr>
 	</table>
 	<div style="font-style: normal;font-weight: 400;text-align: center;">
-		<span>学科类别：</span><span style="margin-right: 20px;">普通类</span>
-		<span>外语语种：</span><span style="margin-right: 20px;">英语</span>
-		<span>类别：</span><span style="margin-right: 20px;">综合类</span>
-		<span>招生专业：</span><span style="margin-right: 20px;">计算机科学与技术</span>
+		<span>学科类别：</span><span style="margin-right: 20px;">${xklb}</span>
+		<span>外语语种：</span><span style="margin-right: 20px;">${yzmc}</span>
+		<span>类别：</span><span style="margin-right: 20px;">${bklb}</span>
+		<span>招生专业：</span><span style="margin-right: 20px;">${xzzymc}</span>
 	</div>
 	<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" style="margin-top: 10px;border-collapse:collapse">
 	    <tr>
 	        <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">姓名
 	        </td>
 	        <td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
+				${xm}
 	        </td>
 	        <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">性别
 	        </td>
 	        <td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
+				${xbStr}
 	        </td>
 			<td align="center"  valign="middle" class="contentFont han" style="width: 150px;">QQ:
 			</td>
 			<td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
+				${qq}
 			</td>
 	        <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">民族
 	        </td>
 	        <td align="center"  valign="middle" class="contentFont han" style="width: 50px;">
+				${mz}
 	        </td>
 			<td align="center"  rowspan="4" valign="middle" class="contentFont han" style="width: 300px;">请粘贴一寸照
 			</td>
@@ -234,20 +227,21 @@
 	    <tr>
 			<td align="center" valign="middle" class="contentFont han" style="width: 180px;">身份证号</td>
 			<td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+				${sfzh}
 			</td>
 	        <td align="center" valign="middle" class="contentFont han" style="width: 180px;">准考证号</td>
 	        <td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
+				${zkzh}
 	        </td>
 	    </tr>
 		<tr>
 			<td align="left" colspan="8" valign="middle" class="contentFont han" style="width: 180px;">
-				4月21日上午9:00-17:00到闻理园A4-122报到，国际交流类(包括设计学类中德联合培养)考生18:00进行外语能力测试，4月
-				22日上午考生8:00之前，下午场考生12:00之前在A4-122报到，统一到候考区抽签分组，进入面试。
+				${mssm}
 			</td>
 		</tr>
 		<tr>
 			<td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 180px;">
-				面试时间:<span style="color: red;font-size: 16px;margin: 0 10px;">2019-08-01</span> 考生抽签号：
+				面试时间:<span style="color: red;font-size: 16px;margin: 0 10px;">${mssj}</span>
 			</td>
 		</tr>
 	</table>

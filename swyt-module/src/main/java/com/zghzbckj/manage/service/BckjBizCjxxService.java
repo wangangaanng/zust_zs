@@ -208,10 +208,11 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         this.dao.deleteByHkZh(mapData);
         saveList(mapData, "xkList", 1);
         mapData.put("jbxxOwid", jbxx.getOwid());
-        if (!TextUtils.isEmpty(mapData.get("jsfj"))) {
-            this.commonDao.deleteFilesByjbxx(mapData);
-            this.commonDao.updateFileByjbxx(mapData);
+        if (TextUtils.isEmpty(mapData.get("jsfj"))) {
+            mapData.put("jsfj","''");
         }
+        this.commonDao.deleteFilesByjbxx(mapData);
+        this.commonDao.updateFileByjbxx(mapData);
         return Boolean.TRUE;
     }
 
