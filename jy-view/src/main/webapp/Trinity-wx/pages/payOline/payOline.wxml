@@ -49,6 +49,8 @@
       </van-cell>
       <image src="{{proveImg}}" data-src="{{proveImg}}" data-index='{{1}}' bindtap="previewImage" hidden="{{(proveImg=='')}}"></image>
     </view>
+    <van-field class="mail" value="{{mailAddress}}" name="email" placeholder="邮箱地址" left-icon=" iconfont icon-mail" error-message="" clearable>
+    </van-field>
 
     <block wx:if="{{state<6}}">
       <view class="main-btn_wrap button">
