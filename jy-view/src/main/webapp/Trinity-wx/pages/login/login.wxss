@@ -1,5 +1,7 @@
 /* pages/login/login.wxss */
-
+page{
+  padding-bottom: 80rpx;
+}
 .input-wrap .iconfont {
   position: absolute;
   font-size: 40rpx;
