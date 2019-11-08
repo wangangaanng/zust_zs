@@ -18,9 +18,9 @@ page {
 }
 
 .mark {
-  height: 50px;
-  width: 55px;
-  margin-top: 15px;
+  height: 100rpx;
+  width: 110rpx;
+  margin-top: 45rpx;
 }
 
 .mark-view {
