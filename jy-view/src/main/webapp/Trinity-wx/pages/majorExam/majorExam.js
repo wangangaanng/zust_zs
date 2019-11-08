@@ -266,6 +266,10 @@ Page({
     });
   },
   openDialog() {
+    if (this.data.index1 == null || this.data.index2 == null || this.data.index3 == null){
+      common.toast('尚未选择', 'none', 2000)
+      return
+    }
     Dialog.confirm({
       title: '报名表确认',
       message: '请确认报名表。（预览报名表点击页面上方按钮）'
