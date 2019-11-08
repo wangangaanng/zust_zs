@@ -1,0 +1,13 @@
+/**index.wxss**/
+.van-grid{background: #fff;}
+.van-tabs{margin-top: 10px;}
+.index-swiper{height: 400rpx;}
+.index-swiper image{width:750rpx;height: 100%;}
+.uni-media-list-text-content{color: #333;white-space: nowrap;-webkit-line-clamp:1;}
+
+.uni-list{margin-top:10rpx;}
+
+.pull-left{float: left;display: flex;display: -webkit-flex;align-items:flex-end;}
+.pull-right{float: right;display: flex;display: -webkit-flex;align-items:flex-end;}
+.glyphicon{margin-right: 8rpx;}
+.syd-time{ color: #008784;font-size: 26rpx;}

@@ -1,0 +1,43 @@
+<!--index.wxml  bindtap="newsDetail"-->
+<swiper class='index-swiper' indicator-dots="true" autoplay="true" indicator-color="#ffffff" indicator-active-color="#008783">
+  <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+    <swiper-item>
+      <image src='{{imgPath+item.xsbt}}' data-owid="{{item.owid}}"></image>
+    </swiper-item>
+  </block>
+</swiper>
+<van-grid square>
+  <van-grid-item icon="{{item.icon}}" text="{{item.text}}" data-index="{{index}}" data-url="{{item.url}}" url="{{item.url}}" wx:for="{{ menuList }}" wx:key=""></van-grid-item>
+</van-grid>
+<view class="float-btn" bindtap="url1">
+  <image src="../../static/index-icon09.png"></image>
+</view>
+<image src='../../static/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
+
+
+<view class="uni-list">
+  <block wx:for="{{newsList1}}" wx:key="{{index}}">
+    <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="newsDetail">
+      <view class="uni-media-list">
+        <view class="news-image">
+          <image src="{{imgPath}}{{item.tpjj}}"></image>
+        </view>
+        <view class="uni-media-list-body">
+          <view class="uni-media-list-text-top" >{{item.wzbt}}</view>
+          <view class="uni-media-list-text-bottom">
+            <view class="pull-left">
+              <span class="glyphicon glyphicon-time"></span>
+              <span class="syd-time">{{item.fbsj}}</span>
+            </view>
+            <view class="pull-right">
+              <span class="glyphicon glyphicon-eye-open"></span>
+              <span class="syd-time">{{item.ydcs}}</span>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+  <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+  

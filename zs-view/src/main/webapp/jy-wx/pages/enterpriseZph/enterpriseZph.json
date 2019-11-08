@@ -1,8 +1,0 @@
-{
-  "navigationBarTitleText": "已申请列表",
-  "usingComponents": {
-    "van-icon":"vant-weapp/icon",
-    "van-search": "vant-weapp/search",
-    "van-divider": "vant-weapp/divider"
-  }
-}

@@ -1,0 +1,28 @@
+{
+  "usingComponents": {
+    "van-button": "vant-weapp/button"
+  },
+  "pages": [
+    "pages/index/index",
+    "pages/plan/plan",
+    "pages/lnfs/lnfs",
+    "pages/zsjh/zsjh",
+    "pages/jhcx/jhcx",
+    "pages/search1/search1",
+    "pages/search2/search2",
+    "pages/search/search",
+    "pages/ksbm/ksbm",
+    "pages/syjd/syjd",
+    "pages/newsList/newsList",
+    "pages/newsDetail/newsDetail",
+    "pages/consult/consult"
+    
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#008783",
+    "navigationBarTitleText": "浙江科技学院招生",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
+}

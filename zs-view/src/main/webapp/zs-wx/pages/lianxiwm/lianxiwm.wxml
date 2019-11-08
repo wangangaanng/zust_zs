@@ -1,0 +1,9 @@
+<!--pages/lianxiwm/lianxiwm.wxml-->
+<view class="route">
+  <view class="route-chn">联系我们</view>
+  <view class="route-eng">CONTACT US</view>
+</view>
+<view class="table" wx:if="{{result.wznr}}">
+      <import src="../../libs/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
+</view>
