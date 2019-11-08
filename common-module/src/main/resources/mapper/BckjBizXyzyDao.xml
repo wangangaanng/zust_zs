@@ -97,7 +97,17 @@
         </choose>
     </select>
 
+
+	<delete id="deleteByMap" parameterType="Map">
+		DELETE FROM  bckj_biz_xyzy
+		WHERE owid=#{owid}
+	</delete>
+
+
     <insert id="insert">
+		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
 		INSERT INTO bckj_biz_xyzy(
 			owid,
 			parent_id,
@@ -202,5 +212,10 @@
 		DELETE FROM bckj_biz_xyzy
 		WHERE owid = #{owid}
 	</delete>
-	
+
+	<delete id="deleteApply">
+		DELETE FROM bckj_biz_xyzy
+		WHERE owid = #{owid}
+	</delete>
+
 </mapper>

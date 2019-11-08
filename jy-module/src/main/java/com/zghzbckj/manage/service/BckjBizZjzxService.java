@@ -393,6 +393,6 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
                 sf.append(str + ",");
             }
         }
-        return sf.substring(0, sf.lastIndexOf(","));
+        return sf.toString();
     }
 }
