@@ -141,12 +141,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     public boolean finishHk(Map<String, Object> mapData) throws CustomerException {
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
         if (null == jbxx) {
-            jbxx = new BckjBizJbxx();
-            jbxx.setYhRefOwid(MapUtils.getString(mapData, "yhRefOwid"));
-            jbxx.setXkState(0);
-            jbxx.setHkState(0);
-            jbxx.setJtcyState(0);
-            bckjBizJbxxService.saveOrUpdate(jbxx);
+            createJbxx(jbxx,mapData);
         }
         if (jbxx.getHkState() != 1) {
             jbxx.setHkState(1);
@@ -177,6 +172,21 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
 
 
     /**
+     * 新建用户基本信息
+     * @param jbxx
+     * @param data
+     */
+    private void createJbxx(BckjBizJbxx jbxx,Map data){
+        jbxx = new BckjBizJbxx();
+        jbxx.setYhRefOwid(MapUtils.getString(data, "yhRefOwid"));
+        jbxx.setXkState(0);
+        jbxx.setHkState(0);
+        jbxx.setJtcyState(0);
+        bckjBizJbxxService.doCopyAreaInfo(data,jbxx);
+        bckjBizJbxxService.saveOrUpdate(jbxx);
+    }
+
+    /**
      * <p>方法:finishXk TODO完善选考成绩 </p>
      * <ul>
      * <li> @param mapData TODO</li>
@@ -189,12 +199,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     public boolean finishXk(Map<String, Object> mapData) throws CustomerException {
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
         if (null == jbxx) {
-            jbxx = new BckjBizJbxx();
-            jbxx.setYhRefOwid(MapUtils.getString(mapData, "yhRefOwid"));
-            jbxx.setXkState(0);
-            jbxx.setHkState(0);
-            jbxx.setJtcyState(0);
-            bckjBizJbxxService.saveOrUpdate(jbxx);
+            createJbxx(jbxx,mapData);
         }
         if (jbxx.getXkState() != 1) {
             jbxx.setXkState(1);

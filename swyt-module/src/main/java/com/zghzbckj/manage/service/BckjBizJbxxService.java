@@ -10,6 +10,7 @@ import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.dao.BckjBizJbxxDao;
 import com.zghzbckj.manage.entity.BckjBizJbxx;
 import org.apache.log4j.Logger;
@@ -142,12 +143,33 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
             indata.setXkState(0);
             indata.setHkState(0);
             indata.setJtcyState(0);
+            doCopyAreaInfo(mapData,indata);
         } else {
             BeanUtil.copyPropertiesIgnoreNull(param, indata);
         }
         indata.setState(1);
         this.saveOrUpdate(indata);
         return Boolean.TRUE;
+    }
+
+    /**
+    *<p>方法:doCopyAreaInfo TODO取省市区数据 </p>
+    *<ul>
+     *<li> @param mapData TODO</li>
+     *<li> @param indata TODO</li>
+    *<li>@return void  </li>
+    *<li>@author D.chen.g </li>
+    *<li>@date 2019/11/8 16:20  </li>
+    *</ul>
+    */
+    public void doCopyAreaInfo(Map<String, Object> mapData, BckjBizJbxx indata) throws CustomerException {
+        BckjBizJbxx jbxxArea=this.dao.findByUser(mapData);
+        if(null==jbxxArea){
+            throw CustomerException.newInstances("不存在注册信息");
+        }
+        indata.setArea(jbxxArea.getArea());
+        indata.setCity(jbxxArea.getCity());
+        indata.setProv(jbxxArea.getProv());
     }
 
     /**

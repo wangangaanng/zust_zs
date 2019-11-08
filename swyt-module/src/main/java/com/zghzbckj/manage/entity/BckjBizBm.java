@@ -74,6 +74,16 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
     private Integer bklbOwid;        // rzbd
 
     private String mssm;        // ms
+    private Date lrsj;
+
+
+    public Date getLrsj() {
+        return lrsj;
+    }
+
+    public void setLrsj(Date lrsj) {
+        this.lrsj = lrsj;
+    }
 
     public String getMssm() {
         return mssm;

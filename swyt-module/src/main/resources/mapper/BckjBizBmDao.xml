@@ -4,13 +4,14 @@
 
     <sql id="bckjBizBmColumns">
 		a.owid AS "owid",
+		a.lrsj AS "lrsj",
 		a.fzsz_ref_owid AS "fzszRefOwid",
 		a.bkzy_ref_owid AS "bkzyRefOwid",
 		a.xxbh AS "xxbh",
 		a.user_ref_owid AS "userRefOwid",
 		a.xm AS "xm",
 		a.xb AS "xb",
-			a.lxdh AS "lxdh",
+		a.lxdh AS "lxdh",
 		a.jtzz AS "jtzz",
 		a.bmnd AS "bmnd",
 		a.mz AS "mz",
@@ -104,12 +105,12 @@
             <if test="bmnd !=null and bmnd!='' ">
                 AND a.bmnd=#{bmnd}
             </if>
-			<if test="xm !=null and xm!='' ">
-				AND a.xm=#{xm}
-			</if>
-			<if test="zkzh !=null and zkzh!='' ">
-				AND a.zkzh=#{zkzh}
-			</if>
+            <if test="xm !=null and xm!='' ">
+                AND a.xm=#{xm}
+            </if>
+            <if test="zkzh !=null and zkzh!='' ">
+                AND a.zkzh=#{zkzh}
+            </if>
 
             <if test="state !=null and state!='' ">
                 AND a.state=#{state}
@@ -262,6 +263,7 @@
     <insert id="insert">
 		INSERT INTO bckj_biz_bm(
 			owid,
+			lrsj,
 			fzsz_ref_owid,
 			bkzy_ref_owid,
 			xxbh,
@@ -338,6 +340,7 @@
 			state
 		) VALUES (
 			#{owid},
+			#{lrsj},
 			#{fzszRefOwid},
 			#{bkzyRefOwid},
 			#{xxbh},
@@ -418,6 +421,7 @@
     <update id="update">
 		UPDATE bckj_biz_bm SET 	
 			owid = #{owid},
+			lrsj =#{lrsj},
 			fzsz_ref_owid =#{fzszRefOwid},
 			bkzy_ref_owid = #{bkzyRefOwid},
 			xxbh = #{xxbh},
@@ -539,17 +543,28 @@
     </select>
 
 
+    <select id="todoMan" parameterType="Map" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        from bckj_biz_bm a
+        <where>
+            <if test="state != null and state  != ''">
+                AND a.state = #{state}
+            </if>
+        </where>
+    </select>
 
-	<select id="todoMan" parameterType="Map" resultType="java.lang.Integer">
-		SELECT
-		count(1)
-		from bckj_biz_bm a
-		<where>
-			<if test="state != null and state  != ''">
-				AND a.state = #{state}
-			</if>
-		</where>
-	</select>
-
+    <select id="getBmNumber" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, xklb AS xklb,bklb AS bklb,xzzymc AS xzzymc
+        FROM bckj_biz_bm a
+        <where>
+            <!--<if test="zwlx != null and zwlx != ''">-->
+            <!--AND zwlx=#{zwlx}-->
+            <!--</if>-->
+        </where>
+        <if test="groupBy != null and groupBy != ''">
+            GROUP BY #{groupBy}
+        </if>
+    </select>
 
 </mapper>

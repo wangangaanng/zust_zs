@@ -23,7 +23,8 @@
     "pages/drawGroup/drawGroup",
     "pages/xw/xw",
     "pages/index/index",
-    "pages/payLink/payLink"
+    "pages/payLink/payLink",
+    "pages/myApply/myApply"
   ],
   "window": {
     "backgroundTextStyle": "light",
