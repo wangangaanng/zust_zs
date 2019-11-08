@@ -538,4 +538,18 @@
         </where>
     </select>
 
+
+
+	<select id="todoMan" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		from bckj_biz_bm a
+		<where>
+			<if test="state != null and state  != ''">
+				AND a.state = #{state}
+			</if>
+		</where>
+	</select>
+
+
 </mapper>
