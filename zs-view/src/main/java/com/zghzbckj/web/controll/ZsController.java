@@ -136,7 +136,6 @@ public class ZsController {
         }else {
             key="";
         }
-        view.setViewName("ZSnewsList");
         view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
@@ -148,7 +147,18 @@ public class ZsController {
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         String bxlx=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("BXLX").toString();
         String lmbh=((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("CODE").toString();
-        if(bxlx.equals("1")){//列表
+        if(bxlx.equals("0")){
+            view.setViewName("ZSarticleTpl");
+            Map param=Maps.newHashMap();
+            param.put("lmbh",lmbh);
+            param.put("wzzt","1");
+            param.put("isDetail",bxlx);
+            PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizArticle/getMuArticle");
+            ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+            view.addObject("bxlx",bxlx);
+            view.addObject("result",result.getBean());
+        }else if(bxlx.equals("1")){//列表
+            view.setViewName("ZSnewsList");
             view.addObject("bxlx",bxlx);
             Map param = Maps.newHashMap();
             param.put("lmbh",lmbh);
@@ -163,7 +173,8 @@ public class ZsController {
             if(null!=resultMess.getBean()) {
                 view.addObject("result",(Map) resultMess.getBean());
             }
-
+        }else{
+            view.setViewName("ZSarticleTpl");
         }
         return view;
     }
