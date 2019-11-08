@@ -1,0 +1,96 @@
+{
+	"description": "项目配置文件",
+	"packOptions": {
+		"ignore": []
+	},
+	"setting": {
+		"urlCheck": false,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"coverView": true,
+		"nodeModules": true,
+		"autoAudits": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.9.0",
+	"appid": "wx23b62a29acfdac44",
+	"projectname": "zs-wx",
+	"debugOptions": {
+		"hidedInDevtools": []
+	},
+	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/syjd/syjd",
+					"pathName": "pages/syjd/syjd",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/consult/consult",
+					"pathName": "pages/consult/consult",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "pages/newsList/newsList",
+					"pathName": "pages/newsList/newsList",
+					"query": "fid=66",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/ksbm/ksbm",
+					"pathName": "pages/ksbm/ksbm",
+					"query": "fid=65",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/consult/consult",
+					"pathName": "pages/consult/consult",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
+}

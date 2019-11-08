@@ -1,0 +1,41 @@
+
+<view class="syd-list">
+  <block wx:for="{{newsList1}}" wx:key="{{index}}">
+  <view class="syd-item" bindtap="detail" data-owid="{{item.owid}}">
+    <view class="syd-content">
+      <image src='{{imgPath+item.tpjj}}'></image>
+      <view class="syd-mc">{{item.wzbt}}</view>
+      <view class="syd-js">{{item.jjnr}}</view>
+      <view class="syd-tj">
+        <view class="pull-left">
+          <span class="glyphicon glyphicon-time"></span>
+          <span class="syd-time">{{item.fbsj}}</span>
+        </view>
+        <view class="pull-right">
+          <span class="glyphicon glyphicon-eye-open"></span>
+          <span class="syd-time">{{item.ydcs}}</span>
+        </view>
+      </view>
+    </view>
+  </view>
+  </block>
+<!-- <view class="syd-item" >
+    <view class="syd-content">
+      <image src='../../static/headImg.png'></image>
+      <view class="syd-mc">浙江科技学院浙江科技学院</view>
+      <view class="syd-js">浙江科技学院zhejiangk浙江科技学院zhejiangk浙江科技学院zhejiangk</view>
+      <view class="syd-tj">
+        <view class="pull-left">
+          <span class="glyphicon glyphicon-time"></span>
+          <span class="syd-time">2019-05-11</span>
+        </view>
+        <view class="pull-right">
+          <span class="glyphicon glyphicon-eye-open"></span>
+          <span class="syd-time">123</span>
+        </view>
+      </view>
+    </view>
+  </view> -->
+  
+</view>
+ <van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
