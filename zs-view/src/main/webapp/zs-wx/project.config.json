@@ -24,7 +24,7 @@
 	"compileType": "miniprogram",
 	"libVersion": "2.9.0",
 	"appid": "wx23b62a29acfdac44",
-	"projectname": "mini",
+	"projectname": "zs-wx",
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
