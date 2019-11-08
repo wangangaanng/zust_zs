@@ -18,7 +18,6 @@ import com.zghzbckj.manage.entity.BckjDicKeys;
 import com.zghzbckj.manage.service.BckjBizZxzxService;
 import com.zghzbckj.manage.service.BckjDicKeysService;
 import com.zghzbckj.util.IpAdrressUtil;
-import com.zghzbckj.wechat.utils.WeixinUtils;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -132,10 +131,11 @@ public class BckjBizZxzxController extends BaseController {
             //关键字过滤map
             HashMap<String, Object> filterMap = Maps.newHashMap();
             filterMap.put("content",dataMap.get("wtnr").toString());
-            Map<String, Object> map = WeixinUtils.filterContent(filterMap, "wx01");
-            /*if (!TextUtils.isEmpty(map)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词:"+filterResult);
-            }*/
+            String filterStr = bckjDicKeysService.filterContent(filterMap);
+            if(!TextUtils.isEmpty(filterStr)){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词:"+filterStr);
+            }
+
             String ipAdrress = IpAdrressUtil.getIpAdrress(request);
             dataMap.put("ipAdrress", ipAdrress);
             return bckjBizZxzxService.consult(dataMap);
