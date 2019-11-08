@@ -1,6 +1,5 @@
 {
   "navigationBarTextStyle":"white",
-  "navigationBarBackgroundColor": "#CCEAE1",
   "usingComponents": {
     "authorize": "../../pages/auth/auth",
     "van-icon": "vant-weapp/icon"

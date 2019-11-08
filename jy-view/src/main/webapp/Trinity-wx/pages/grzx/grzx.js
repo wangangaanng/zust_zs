@@ -96,8 +96,12 @@ Page({
 
   },
   loginOut: function () {
-    wx.setStorageSync("hasLogin", "0");
-    wx.setStorageSync("mobile", "");
+    var that = this;
+    wx.setStorageSync("yhRefOwid", "");
+    that.setData({
+      "hasLogin":false
+    })
+    //wx.setStorageSync("mobile", "");
     wx.navigateTo({
       url: '../login/login'
     })
