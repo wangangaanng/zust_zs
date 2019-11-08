@@ -4,12 +4,13 @@
     描述：分组信息
 -->
 <#assign groupList=[
-    {"label":"考生姓名","value":"张小凡"}
-    ,{"label":"学科类别","value":"普通类"}
-    ,{"label":"外语语种","value":"英语"}
-    ,{"label":"招生专业","value":"计算机科学与技术"}
-    ,{"label":"准考证号","value":"20191028"}
-    ,{"label":"抽签结果","value":"等待结果"}]
+    {"label":"考生姓名","value":nameStu!""}
+    ,{"label":"学科类别","value":subjectType!""}
+    ,{"label":"外语语种","value":languageType!""}
+    ,{"label":"报考类别","value":examType!""}
+    ,{"label":"招生专业","value":major!""}
+    ,{"label":"准考证号","value":examNum!"暂无"}
+    ,{"label":"面试时间","value":faceTime!"暂无"}]
 />
 <div class="group-wrap">
     <ul class="list-group row">
