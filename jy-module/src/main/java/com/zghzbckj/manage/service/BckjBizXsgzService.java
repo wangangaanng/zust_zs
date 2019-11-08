@@ -209,7 +209,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 if(xsgz.getState()==0){
                     bckjBizXsgz.setOwid(xsgz.getOwid());
                 }else {
-                    return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.AlreadyCheck);
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "您已签到过！");
                 }
             }
         }
@@ -275,7 +275,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             sendMap.put("unionid",yhxxVo.getUnionid());
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(sendMap);
             if (!TextUtils.isEmpty(oneByUnionId)&& oneByUnionId.getState()==1) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "该微信号已签到");
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "该微信已签到过,不能在签到");
             }
         }
         //如果为新的关注

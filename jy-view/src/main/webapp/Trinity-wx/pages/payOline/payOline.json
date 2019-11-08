@@ -4,6 +4,8 @@
     "topBck":"/components/topBck/topBck",
     "van-cell": "vant-weapp/cell",
     "van-cell-group": "vant-weapp/cell-group",
-    "van-dialog": "vant-weapp/dialog"
+    "van-dialog": "vant-weapp/dialog",
+    "van-datetime-picker": "vant-weapp/datetime-picker",
+    "van-popup": "vant-weapp/popup"
   }
 }

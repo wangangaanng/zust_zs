@@ -17,7 +17,7 @@ Page({
     contactType:'',//判断当前点击是谁
     defaultIndex:0,//弹出框默认显示第几个
 
-    fatherWhCode:'',
+    fatherWhCode:'', //文化程度的码 传给后台
     motherWhCode: '',
     teacherWhCode: '',
   },
