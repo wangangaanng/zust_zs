@@ -279,16 +279,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // if (!wx.getStorageSync('unionid')) {
-    //   this.setData({
-    //     isauthorize: true,
-    //   })
-    // } else {
-    //   this.setData({
-    //     isauthorize: false,
-    //   })
-
-    // }
+    if (!wx.getStorageSync('unionid')) {
+      this.setData({
+        isauthorize: true,
+      })
+    } else {
+      this.setData({
+        isauthorize: false,
+      })
+    }
 
   },
 
