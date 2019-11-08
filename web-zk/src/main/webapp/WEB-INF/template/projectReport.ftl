@@ -204,8 +204,8 @@
     <div class="flex">
         <div style="text-align: center;font-size: 25px;">${map.name}</div>
         <div>举办地点：${map.zphJbdd}</div>
-        <div>举办日期：${map.zphKsrq} <span style="margin-left: 50px;">${map.zphJtsj}</span></div>
-        <div>签到时间：${map.qdsj1}<span style="margin-left: 50px;">~</span><span style="margin-left: 50px;">${map.qdsj2}</span></div>
+        <div>举办日期：${map.zphKsrq} <span >${map.zphJtsj}</span></div>
+        <div>签到时间：${map.qdsj1}<span >~</span><span>${map.qdsj2}</span></div>
     </div>
     <table width="80%" align="center" style="margin-top: 100px;border-collapse:collapse">
         <tr>

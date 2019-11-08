@@ -24,4 +24,6 @@ public interface BckjBizJbxxDao extends CrudDao<BckjBizJbxx> {
     BckjBizJbxx findByUser(Map<String, Object> mapData);
 
     int updatePsw(Map params);
+
+    Integer countNumber(Map<String, Object> dataMap);
 }

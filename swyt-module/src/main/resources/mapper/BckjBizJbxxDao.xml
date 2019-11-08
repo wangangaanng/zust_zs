@@ -381,5 +381,12 @@
 		WHERE owid = #{owid}
 	</delete>
 
+	<select id="countNumber" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		from bckj_biz_jbxx a
+		<where>
+		</where>
+	</select>
 
 </mapper>
