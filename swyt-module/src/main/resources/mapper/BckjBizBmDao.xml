@@ -551,5 +551,17 @@
 		</where>
 	</select>
 
+	<select id="getBmNumber" resultType="java.util.Map">
+		SELECT COUNT(*) AS value, xklb AS xklb,bklb AS bklb,xzzymc AS xzzymc
+		FROM bckj_biz_bm a
+		<where>
+			<!--<if test="zwlx != null and zwlx != ''">-->
+				<!--AND zwlx=#{zwlx}-->
+			<!--</if>-->
+		</where>
+		<if test="groupBy != null and groupBy != ''">
+			GROUP BY #{groupBy}
+		</if>
+	</select>
 
 </mapper>
