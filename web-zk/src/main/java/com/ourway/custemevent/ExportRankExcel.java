@@ -23,7 +23,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 /**
  *<p>功能描述:导出就业排行榜表格。根据学院合并 ExportRankExcel</p >

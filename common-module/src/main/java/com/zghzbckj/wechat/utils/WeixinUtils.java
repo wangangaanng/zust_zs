@@ -6,6 +6,7 @@ package com.zghzbckj.wechat.utils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.DateUtil;
+import com.ourway.base.utils.JackSonJsonUtils;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.util.CacheUtil;
@@ -229,21 +230,25 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
      * 调用微信接口进行关键字过滤
      * coder wangangaanng
      */
-  /*  public static String filterContent(Map<String, Object> mapData){
-
+   public static Map<String, Object> filterContent(Map<String, Object> mapData, String weCode){
+       int result = 0;
+       AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
+       String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
+       String jsonMenu = JSONObject.fromObject(mapData).toString();
+       // 调用接口发送数据到微信服务器
+       JSONObject jsonObject = httpRequest(requestUrl, "POST", jsonMenu);
+       log.info(jsonObject.toString()+"------------------------------------------mesBack");
+       if (null != jsonObject) {
+           if (0 != jsonObject.getInt("errcode")) {
+               result = jsonObject.getInt("errcode");
+               log.info(jsonObject.toString()+"errorcode==="+result);
+           }
+       }
+       String jsonStr = jsonObject.toString();
+       Map<String, Object> resMap = JsonUtil.jsonToMap(jsonStr);
+       return resMap;
     }
 
-    public String filterContent(Map<String, Object> mapData) {
-        String content=mapData.get("content").toString();
-        List<BckjDicKeys> allKeys=this.dao.findListByMap(mapData);
-        StringBuffer sf=new StringBuffer();
-        for(BckjDicKeys oneKey:allKeys){
-            if(content.contains(oneKey.getKeyWord())){
-                sf.append(oneKey.getKeyWord()+ CommonModuleContant.SPILE_DOUHAO);
-            }
-        }
-        return sf.toString();
-    }*/
 
 
     /**

@@ -32,7 +32,7 @@ public class Html2PdfUtil {
         mapData.put("wznr",content);
         String htmlData= TemplateUtils.freeMarkerContent(mapData,"ad");
         String fileName= CommonModuleContant.SWTYFILEPATH+File.separator+PROMISE_NAME;
-        createPdf(htmlData,Global.getConfig(CommonModuleContant.SWTYFILEPATH+fileName));
+        createPdf(htmlData,Global.getConfig(CommonModuleContant.SWTYFILEPATH)+fileName);
         return fileName;
     }
 

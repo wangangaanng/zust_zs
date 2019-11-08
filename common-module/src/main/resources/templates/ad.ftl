@@ -47,8 +47,8 @@
             width: 21cm;
             height: 15cm;
             padding: 1cm;
-            margin: 1cm auto;
-            border: 1px #D3D3D3 solid;
+            margin: 0 auto;
+            /*border: 1px #D3D3D3 solid;*/
             border-radius: 5px;
             background: white;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -109,8 +109,8 @@
 	<div style="font-style: normal;font-weight: 400;width: 17cm;">
        ${wznr!''}
     </div>
-	<div style="width:16cm;text-align: right;margin-right: 90px;font-style: normal;margin-top: 10px;font-weight: 400;">本人签名：</div>
-	<div style="width:16cm;text-align: right;margin-right: 90px;font-style: normal;margin-top: 10px;font-weight: 400;">日期：</div>
+	<div style="width:16cm;text-align: right;margin-right: 120px;font-style: normal;margin-top: 10px;font-weight: 400;">本人签名：</div>
+	<div style="width:16cm;text-align: right;margin-right: 120px;font-style: normal;margin-top: 10px;font-weight: 400;">日期：</div>
 </div>
 <!--endprint-->
 </body>
