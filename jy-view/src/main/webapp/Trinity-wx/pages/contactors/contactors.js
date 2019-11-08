@@ -217,7 +217,8 @@ Page({
     this.setData({
       showPop: false,
     });
-  }
+  },
+  
 })
 
 //获取联系人信息

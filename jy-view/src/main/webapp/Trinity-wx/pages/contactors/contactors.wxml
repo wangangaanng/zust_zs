@@ -7,7 +7,7 @@
     <view class="com-title">父亲(或其他监护人)</view>
     <van-cell-group>
       <van-field value="{{father.xm}}" name="faName" error-message="{{errorList['faName'].msg}}" clearable label="姓名" placeholder="请输入姓名" required />
-      <van-field value="{{father.lxsj}}" name="faTel" error-message="{{errorList['faTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
+      <van-field value="{{father.lxsj}}" type="number" name="faTel" error-message="{{errorList['faTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
       <van-field label="性别" error-message="{{errorList['faSex'].msg}}" disabled required>
         <van-radio-group value="{{father.xb}}" name="faSex" bind:change="sexSelect" data-id="1" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
@@ -30,7 +30,7 @@
     <view class="com-title">母亲(或其他监护人)</view>
     <van-cell-group>
       <van-field value="{{ mother.xm }}" name="moName" error-message="{{errorList['moName'].msg}}" clearable label="姓名" placeholder="请输入姓名" required/>
-      <van-field value="{{ mother.lxsj }}" name="moTel" error-message="{{errorList['moTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
+      <van-field value="{{ mother.lxsj }}" type="number" name="moTel" error-message="{{errorList['moTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
       <van-field label="性别" error-message="{{errorList['moSex'].msg}}" disabled required>
         <van-radio-group value="{{mother.xb}}" name="moSex" bind:change="sexSelect" data-id="2" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
@@ -43,7 +43,7 @@
       <!-- <van-field value="{{ mother.whcd }}" name="moEdu" error-message="{{errorList['moEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" /> -->
       <van-field value="{{ mother.gzdw }}" name="moCom" error-message="{{errorList['moCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
       <van-field value="{{ mother.gzzw }}" name="moJob" error-message="{{errorList['moJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
-      <van-field value="{{ mother.dwdh }}" name="moComTel" error-message="{{errorList['moComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
+      <van-field value="{{ mother.dwdh }}" type="number" name="moComTel" error-message="{{errorList['moComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
     </van-cell-group>
   </view>
 
@@ -51,7 +51,7 @@
     <view class="com-title">高中联系人</view>
     <van-cell-group>
       <van-field value="{{ teacher.xm }}" name="teName" error-message="{{errorList['teName'].msg}}" clearable label="姓名" placeholder="请输入姓名" required/>
-      <van-field value="{{ teacher.lxsj }}" name="teTel" error-message="{{errorList['teTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
+      <van-field value="{{ teacher.lxsj }}" type="number" name="teTel" error-message="{{errorList['teTel'].msg}}" clearable label="联系电话" placeholder="请输入联系电话" required/>
       <van-field label="性别" error-message="{{errorList['teSex'].msg}}" disabled required>
         <van-radio-group value="{{teacher.xb}}" name="teSex" bind:change="sexSelect" data-id="3" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
@@ -64,7 +64,7 @@
       <!-- <van-field value="{{ teacher.whcd }}" name="teEdu" error-message="{{errorList['teEdu'].msg}}" clearable label="文化程度" placeholder="请输入文化程度" /> -->
       <van-field value="{{ teacher.gzdw }}" name="teCom" error-message="{{errorList['teCom'].msg}}" clearable label="工作单位" placeholder="请输入工作单位" />
       <van-field value="{{ teacher.gzzw }}" name="teJob" error-message="{{errorList['teJob'].msg}}" clearable label="职务" placeholder="请输入职务" />
-      <van-field value="{{ teacher.dwdh }}" name="teComTel" error-message="{{errorList['teComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
+      <van-field value="{{ teacher.dwdh }}" type="number" name="teComTel" error-message="{{errorList['teComTel'].msg}}" clearable label="单位联系电话" placeholder="请输入工作单位联系电话" />
     </van-cell-group>
   </view>
 
