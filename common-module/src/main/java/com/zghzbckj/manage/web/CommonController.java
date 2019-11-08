@@ -347,8 +347,6 @@ public class CommonController {
     @RequestMapping(value = "getToken", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage getToken(PublicDataVO publicDataVO) {
-
-
         AccessTokenInit.init();
         AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx618803b392a8c474", AccessToken.class);
         return ResponseMessage.sendOK(accessToken.getToken());

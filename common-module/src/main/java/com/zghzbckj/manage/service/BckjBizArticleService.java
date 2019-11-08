@@ -336,7 +336,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
             String pageSize=MapUtils.getString(mapData,"pageSize");
             Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
             mapData.put("page", page);
-            mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");
+            mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.fbsj DESC");
             page.setList(this.dao.findMapByKey(mapData));
             PageInfo<BckjBizArticle> pageInfo = new PageInfo();
             pageInfo.setRecords(page.getList());
@@ -364,7 +364,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         String pageSize=MapUtils.getString(mapData,"pageSize");
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
         mapData.put("page", page);
-        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,fbsj DESC");
+        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.fbsj DESC");
         page.setList(this.dao.findYjBylmbh(mapData));
         PageInfo<BckjBizArticle> pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());

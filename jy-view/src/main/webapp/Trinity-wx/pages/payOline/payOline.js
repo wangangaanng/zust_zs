@@ -1,5 +1,6 @@
 // pages/payOline/payOline.js
 var common = require('../../libs/common/common.js');
+var util = require('../../utils/util.js')
 //确认邮箱弹出框
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
@@ -12,10 +13,15 @@ Page({
     class1: '',
     proveImg: '',
     upProveImg: '',
-    payDetail:'',//缴费说明
-    payUrl:'',
-    state:'' ,//流程进行带的状态
-    class1:''
+    payDetail: '',//缴费说明
+    payUrl: '',
+    state: '',//流程进行带的状态
+    class1: '',
+    payTime: '', //缴费时间
+    showPop: false,
+    currentDate: new Date().getTime(),
+    minDate: new Date().getTime() - 86400000 * 200,
+    maxDate: new Date().getTime() + 86400000 * 365,
   },
 
   //选择图片
@@ -60,13 +66,18 @@ Page({
   //上传缴费证明
   upPayImg: function () {
     var that = this;
+    if (this.data.payTime == "") {
+      common.toast('请先选择缴费时间', 'none')
+      return;
+    }
     if (this.data.upProveImg == "") {
       common.toast('请先上传缴费证明图片', 'none')
       return;
     }
     var data = {
       "applyOwid": wx.getStorageSync("applyOwid"),
-      "jfpzZp": that.data.upProveImg
+      "jfpzZp": that.data.upProveImg,
+      "jfsj": that.data.payTime
     }
     common.ajax('zustswyt/bckjBizBm/submitJft', data, function (res) {
       console.log(console.log(res.data.backCode));
@@ -99,20 +110,20 @@ Page({
   },
 
   //跳转到外部链接支付页面
-  goPayOline:function(){
+  goPayOline: function () {
     wx.navigateTo({
       url: '../payLink/payLink',
     })
   },
 
   //复制链接地址
-  copyUrl:function(e){
+  copyUrl: function (e) {
     wx.setClipboardData({
       data: e.currentTarget.dataset.text,
       success: function (res) {
         wx.getClipboardData({
           success: function (res) {
-            common.toast("复制成功 黏贴到浏览器打开",'none')
+            common.toast("复制成功 黏贴到浏览器打开", 'none')
           }
         })
       }
@@ -123,6 +134,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(this.data.currentDate)
     let that = this;
     common.getPayUrl(this);//获取缴费初始化地址
     that.setData({
@@ -135,7 +147,8 @@ Page({
           proveImg: common.imgPath + res.data.bean.jfpzZp,
           jfInfo: '缴费证明图片已上传',
           upProveImg: res.data.bean.jfpzZp,
-          class1: 'green'
+          class1: 'green',
+          payTime: (res.data.bean.jfsj).substring(0, 10)
         })
       }
     })
@@ -151,7 +164,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () { 
+  onShow: function () {
     var that = this;
   },
 
@@ -160,5 +173,26 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  //取消pop
+  cancelPop() {
+    this.setData({
+      showPop: false
+    });
+  },
+  //显示文化程度弹出
+  showTime(e) {
+    let that = this;
+    that.setData({
+      showPop: true,
+    });
+  },
+  confirmTime(e) {
+    let that = this;
+    var date = util.formatTime1(new Date(e.detail));
+    that.setData({
+      showPop: false,
+      payTime: date
+    });
   }
 })

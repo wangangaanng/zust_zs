@@ -670,8 +670,48 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             toManNumber = this.dao.todoMan(dataMap);
         } else {
             dataMap.clear();
-            toManNumber =jbxxDao.countNumber(dataMap);
+            toManNumber = jbxxDao.countNumber(dataMap);
         }
         return toManNumber;
+    }
+
+    public Map<String, Object> bmPie(Map<String, Object> dataMap) {
+        Integer type = Integer.parseInt(dataMap.get("type").toString());
+        if (1 == type) {
+            dataMap.put("groupBy", "xklb");
+        }
+        if (2 == type) {
+            dataMap.put("groupBy", "bklb");
+        }
+        if (3 == type) {
+            dataMap.put("groupBy", "xzzymc");
+        }
+        List<Map<String, Object>> bmList = bmDao.getBmNumber(dataMap);
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> objectMap = Maps.newHashMap();
+        Map<String, Object> params = Maps.newHashMap();
+        int total = 0;
+        for (Map<String, Object> bm : bmList) {
+            if (1 == type) {
+                objectMap.put("name", MapUtils.getString(bm, "xklb"));
+            }
+            if (2 == type) {
+                objectMap.put("name", MapUtils.getString(bm, "bklb"));
+            }
+            if (3 == type) {
+                objectMap.put("name", MapUtils.getString(bm, "xzzymc"));
+            }
+            objectMap.put("value", MapUtils.getInt(bm, "value"));
+            total += MapUtils.getInt(bm, "value");
+            resultList.add(objectMap);
+        }
+        //饼图数据
+        result.put("pieData", resultList);
+        //总数
+        result.put("total", total);
+        //涉及行业
+        result.put("lb", bmList.size());
+        return result;
     }
 }
