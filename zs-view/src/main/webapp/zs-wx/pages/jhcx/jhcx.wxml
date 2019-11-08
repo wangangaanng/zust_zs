@@ -1,0 +1,54 @@
+
+<form bindsubmit="submitForm">
+<van-cell-group>
+  <van-cell title="年份" value="{{nfStr}}" is-link arrow-direction="down" data-type="1" bind:click="showBottom" />
+  <van-popup show="{{ show.nf }}" position="bottom" custom-style="height: 540rpx" data-type="1" bind:close="hideBottom">
+    <van-picker show-toolbar title="年份" value-key="nf" columns="{{nfColumns}}" data-type="1" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="省份" value="{{sfStr}}" is-link arrow-direction="down" data-type="2" bind:click="showBottom" />
+  <van-popup show="{{ show.sf }}" position="bottom" custom-style="height: 540rpx" data-type="2" bind:close="hideBottom">
+    <van-picker show-toolbar title="年份" value-key="sf" columns="{{sfColumns}}" data-type="2" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="科类" value="{{klStr}}" is-link arrow-direction="down" data-type="3" bind:click="showBottom" />
+  <van-popup show="{{ show.kl }}" position="bottom" custom-style="height: 540rpx" data-type="3" bind:close="hideBottom">
+    <van-picker show-toolbar title="科类" value-key="kl" columns="{{klColumns}}" data-type="3" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="批次" value="{{pcStr}}" is-link arrow-direction="down" data-type="4" bind:click="showBottom" />
+  <van-popup show="{{ show.pc }}" position="bottom" custom-style="height: 540rpx" data-type="4" bind:close="hideBottom">
+    <van-picker show-toolbar title="批次" value-key="pc" columns="{{pcColumns}}" data-type="4" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+  <van-cell title="专业" value="{{zyStr}}" is-link arrow-direction="down" data-type="5" bind:click="showBottom" />
+  <van-popup show="{{ show.zy }}" position="bottom" custom-style="height: 540rpx" data-type="5" bind:close="hideBottom">
+    <van-picker show-toolbar title="专业" value-key="zy" columns="{{zyColumns}}" data-type="5" bind:confirm="onConfirm" bind:cancel="onCancel" />
+  </van-popup>
+   </van-cell-group>
+</form>
+<view class="float-btn" hidden='{{floorstatus}}' bindtap="reset">
+  <image src="../../static/ic-reset.png"></image>
+</view>
+<image src='../../static/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
+
+<block wx:for="{{list}}" wx:key="{{index}}">
+<view class="res-item">
+  <view class="oh">
+    <view class="pull-left"><span class="res-key">年份：</span>{{item.nf?item.nf:''}}</view>
+    <view class="pull-right"><span class="res-key">省份：</span>{{item.sf?item.sf:''}}</view>
+  </view>
+  <view class="oh">
+    <view class="pull-left"><span class="res-key">科类：</span>{{item.kl?item.kl:''}}</view>
+    <view class="pull-right"><span class="res-key">批次：</span>{{item.pc?item.pc:''}}</view>
+  </view>
+  <view class="oh">
+    <view class="pull-left"><span class="res-key">专业：</span>{{item.zy?item.zy:''}}</view>
+  </view>
+  <view class="oh">
+    <view class="pull-left"><span class="res-key">学制：</span>{{item.xz?item.xz:''}}</view>
+    <view class="pull-right"><span class="res-key">授予学位：</span>{{item.syxw?item.syxw:''}}</view>
+  </view>
+  <view class="oh">
+    <view class="pull-left"><span class="res-key">招生数：</span>{{item.zss?item.zss:''}}</view>
+    <view class="pull-right"><span class="res-key">学费/年：</span>{{item.xf?item.xf:''}}</view>
+  </view>
+</view>
+</block>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo<totalPage?'display:none':'display:block;'}}">没有更多了</van-divider>

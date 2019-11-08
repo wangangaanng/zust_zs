@@ -1,0 +1,25 @@
+ <van-cell-group>
+   <van-field input-align="right" bindinput="getsfzh" value="{{sfzh}}" type="idcard" label="身份证号" placeholder="输入内容" required />
+  <van-field input-align="right" bindinput="getksh" value="{{ksh}}" label="准考证号" placeholder="输入内容" required />
+
+<button class="common-button" hover-class='common-btn-hover' bindtap="submit1" >查询</button>
+</van-cell-group>
+
+<view class="cell" wx:if="{{result}}">
+    <view class="content">
+      <view class="table">
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">姓名：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xm}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">录取专业：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.lqzy}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">ems单号：</view>
+            <view class="td td-value" v-if="{{result.ems}}" bindtap="copy" data-ems="{{result.ems}}" style="width:calc(100% - 180rpx)">{{result.ems}}</view>
+          </view>
+      </view>
+    </view>
+  </view>

@@ -134,9 +134,42 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         return this.dao.getByMajor(collegeName, majorName);
     }
 
+    /**
+     *<p>功能描述:清空所有数据 deleteAll</p >
+     *<ul>
+     *<li>@param []</li>
+     *<li>@return void</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/7 15:00</li>
+     *</ul>
+     */
     @Transactional(readOnly = false)
     public void deleteAll() {
         bckjBizJypmDao.deleteAll();
+    }
+
+    /**
+     *<p>功能描述:导出合并单元格的excel exportRankExcel</p >
+     *<ul>
+     *<li>@param []</li>
+     *<li>@return java.lang.String</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/8 10:22</li>
+     *</ul>
+     */
+    public String exportRankExcel() {
+        Map<String, Object> params = new HashMap<>();
+        String[] title = {"所在学院", "所在专业", "毕业生人数（人）", "就业人数（人）", "就业率（%）", "排名"};
+        //本地测试
+//        String filePath = "F:\\img\\export\\";
+        //线上正式
+        String filePath = "/mnt/files/zjcFiles/export";
+        String fileName = System.currentTimeMillis() + ".xls";
+        List<Map<String, Object>> dataList = listRank(params);
+        ExcelUtils.exportRankExcel(title, dataList, filePath + fileName);
+        return fileName;
     }
 
     /**

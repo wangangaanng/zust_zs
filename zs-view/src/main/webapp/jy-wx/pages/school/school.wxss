@@ -1,3 +1,0 @@
-/* pages/school/school.wxss */
-page{background: #fff;}
-.scroll{position: absolute;top: 50px;bottom: 0px}

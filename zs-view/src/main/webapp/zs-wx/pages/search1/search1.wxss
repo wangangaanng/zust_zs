@@ -1,0 +1,33 @@
+/* pages/search1/search1.wxss */
+
+.cell{background: #fff;margin-bottom: 30rpx;}
+/* .title{font-size: 35rpx;text-align: left;padding: 35rpx 20rpx;border-bottom: 1px solid #e4e4e4;} */
+.title{font-size: 35rpx;text-align: left;padding: 35rpx 35rpx;border-bottom: 1px solid #e4e4e4;}
+.titlebt{font-size: 35rpx;text-align: left;padding: 40rpx 35rpx 30rpx;}
+.content{padding: 20rpx 20rpx;border-bottom: 1px solid #e4e4e4;}
+.content p{font-size: 30rpx;color: #474747;}
+.article{
+		width: calc(100% - 70rpx);
+		overflow: hidden;
+		line-height: 50rpx;
+		font-size: 32rpx;
+		color: #474747;
+		padding: 30rpx 35rpx;
+	}
+.table {
+  border: 0px solid darkgray;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  min-height: 60rpx;
+  align-items: center;
+}
+.td {
+    width:40%;
+    justify-content: center;
+    text-align: left;
+    font-size: 30rpx;
+}
+.td-name{color: #595959;text-align: right;}

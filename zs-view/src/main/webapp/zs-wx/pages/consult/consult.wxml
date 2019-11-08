@@ -1,0 +1,94 @@
+<van-tabs swipeable bind:click="clicktab">
+  <van-tab title="考试问答区">
+  <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore1" lower-threshold="100">
+  <block wx:for="{{list1}}" wx:key="{{index}}">
+    <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="newsDetail">
+      <view class="uni-media-list">
+        <!-- <view class="news-image">
+          <image src="{{imgPath}}{{item.tpjj}}"></image>
+        </view> -->
+        <view class="uni-media-list-body">
+          <view class="uni-media-list-text-top" >{{item.wzbt}}</view>
+          <view class="uni-media-list-text-bottom" style="margin-top:20rpx;">
+            <view class="pull-left">
+              <span class="glyphicon glyphicon-time"></span>
+              <span class="syd-time">{{item.fbsj}}</span>
+            </view>
+            <view class="pull-right">
+              <span class="glyphicon glyphicon-eye-open"></span>
+              <span class="syd-time">{{item.ydcs}}</span>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+<van-divider contentPosition="center" textColor="#008783" style="{{pageNo1<totalPage1?'display:none':'display:block;'}}">没有更多了</van-divider>
+  </scroll-view>
+  </van-tab>
+  <van-tab title="在线咨询">
+  <scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore2" lower-threshold="100">
+    <view>
+    <view>
+      <block wx:for="{{list2}}" wx:key="{{index}}">
+        <view class="l-item">
+          <view class="l-ask">
+          <view>
+            <image src="../../static/icon-ask.png"></image>
+            {{item.LYIP}}的提问：
+            <view class="ask-time">{{item.TWRQ}}</view>
+          </view>
+          <view class="ask-nr">{{item.WTNR}}</view>
+          </view>
+          <view class="l-ask">
+          <view wx:if="{{item.DANR}}">
+            <image src="../../static/icon-ans.png"></image>
+            管理员的回答：
+            <view class="ask-time">{{item.HDRQ}}</view>
+          </view>
+          <view class="ask-nr">{{item.DANR}}</view>
+          </view>
+        </view>
+        </block>
+    </view>
+      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
+    </view>
+    <view class="float-btn1" bindtap="ask">我要咨询</view>
+    </scroll-view>
+  </van-tab>
+  <van-tab title="问卷调查">
+    <!-- <van-search
+    value="{{ key }}"
+    placeholder="请输入搜索关键词"
+    use-action-slot
+    bind:clear="onClear"
+    bind:change="onChange"
+    bind:search="onSearch"
+    shape="round"
+  >
+    <view slot="action" bind:tap="onSearch">搜索</view>
+  </van-search> -->
+<scroll-view  style='position:fixed;top:44px;bottom:0px;' scroll-y bindscrolltolower="loadMore3" lower-threshold="100">
+   
+        <view class="uni-list">
+        <block wx:for="{{list3}}" wx:for-item="itm" wx:for-index="idx" wx:key="">
+            <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{itm.owid}}" bindtap="{{itm.sfyx==1?'diaocha':''}}" >
+              <view class="uni-media-list">
+                <view class="uni-media-list-body">
+                  <view class="uni-media-list-text-top">{{itm.wjmc}}</view>
+                  <view class="uni-media-list-text-content">开始时间：<span>{{itm.kssj}}</span></view>
+                  <view class="uni-media-list-text-content">结束时间：<span>{{itm.jssj}}</span></view>
+                </view>
+                <view class="btn-right" wx:if="{{itm.sfyx==1}}" data-owid="{{itm.owid}}" bindtap="diaocha"><van-button type="primary" size="small">进入</van-button></view>
+                <view class="btn-right" wx:else><van-button plain type="primary" color="red" size="small">已过期</van-button></view>
+              </view>
+            </view>
+        </block>
+          </view>
+        <van-divider contentPosition="center" textColor="#008783" style="{{pageNo3<totalPage3?'display:none':'display:block;'}}">没有更多了</van-divider>
+  </scroll-view>
+  </van-tab>
+</van-tabs>
+
+<import src="../../templates/textarea/index.wxml" />
+  <template is="zxmodal" data="{{modal1,wtnr}}" />

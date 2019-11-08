@@ -394,6 +394,10 @@ function jhcx_chaXun(){
                         row: convertStr(data.bean.records, []),
                         total: data.bean.totalCount
                     })
+                }else{
+                    request.success({
+                        row : [],
+                    });
                 }
             })
         },
@@ -505,13 +509,14 @@ function cjcx_chaXun(){
     if(curPage==1&&loadcs==0){
         $("#mymodal").modal("toggle");
     }
+    var errorMess="";
     $('#table-zsjh').bootstrapTable({
         ajax: function (request) {
             ajax("zustzs/bckjBizCjcx/cjcx", {
                 "ksh": ksh,
                 "sfzh": sfzh
             }, function (data) {
-                if (data.backCode === 0) {
+                if (data.backCode == 0) {
                 	var List=[];
                 	if(data.bean){
                         List.push(data.bean)
@@ -520,7 +525,12 @@ function cjcx_chaXun(){
                         row: List,
                         total:1
                     })
-                }
+                }else{
+                    errorMess=data.errorMess
+                    request.success({
+                        row : [],
+                    });
+				}
             })
         },
         responseHandler:function(res){
@@ -529,6 +539,14 @@ function cjcx_chaXun(){
                 "total":res.total,
                 "pageNumber":1,
             }
+        },
+        formatNoMatches:function(){
+        	if(errorMess){
+                return errorMess;
+			}else{
+                return '没有找到记录'
+			}
+
         },
         pagination: false, //是否显示分页（*）
         columns: [
@@ -675,6 +693,10 @@ function lncx_chaXun(){
                         row: convertStr(data.bean.records, []),
                         total: data.bean.totalCount
                     })
+                }else{
+                    request.success({
+                        row : [],
+                    });
                 }
             })
         },

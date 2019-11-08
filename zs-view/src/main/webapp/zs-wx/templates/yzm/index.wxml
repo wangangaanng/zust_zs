@@ -1,0 +1,27 @@
+<template name="yzmmodal">
+    <view wx:if="{{modal1}}" class="modal">
+      <view class="modal-content">
+        <view class="modal-title">预约({{rq}})</view>
+        <view>
+         <van-cell-group>
+            <van-field input-align="right" bindinput="getsjh1" value="{{sjh1}}" type="number" label="手机号码" placeholder="输入内容"  /> 
+            <van-field
+            value="{{ yzm1 }}"
+             bindinput="getyzm1"
+            center
+            label="短信验证码"
+            placeholder="请输入验证码"
+            border="{{ true }}"
+            use-button-slot
+          >
+            <van-button slot="button" size="small" bindtap="send1" disabled="{{disabled2}}" type="primary">{{yzmStr1}}</van-button>
+          </van-field>
+          </van-cell-group>
+        </view>
+        <view class="btns">
+          <button bindtap="cancel">取消</button>
+          <button class="green" bindtap="confirm">提交</button>
+        </view>
+      </view>
+    </view>
+</template>

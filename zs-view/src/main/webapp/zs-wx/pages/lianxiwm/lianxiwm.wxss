@@ -1,0 +1,8 @@
+/* pages/lianxiwm/lianxiwm.wxss */
+.table {
+  margin-left: 50rpx;
+}
+.route-chn{color: #008783;font-size: 45rpx;letter-spacing: 2px;}
+.route-eng{color: #6a6a6a;font-size: 26rpx;}
+.route{margin: 100rpx 50rpx 0;}
+.route::after{content: '';width: 130rpx;height: 4rpx;background: #008783;display: block;margin: 15rpx 0 30rpx 0;}
