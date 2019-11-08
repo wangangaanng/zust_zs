@@ -540,7 +540,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         String view = MapUtils.getString(mapData, "applyOwid") + File.separator + SwytConstant.SWTYMSTZD;
         String htmlData = TemplateUtils.freeMarkerContent(bm, "ap");
         if (TextUtils.isEmpty(htmlData)) {
-            throw CustomerException.newInstances("生成面试单");
+            throw CustomerException.newInstances("生成面试单失败");
         }
         Html2PdfUtil.createPdf(htmlData, Global.getConfig(SwytConstant.SWTYFILEPATH) + view);
         return SwytConstant.SWTYFILEPATH + File.separator + view;
