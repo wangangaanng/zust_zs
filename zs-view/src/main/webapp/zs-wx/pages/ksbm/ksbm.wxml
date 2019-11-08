@@ -29,7 +29,7 @@
   </van-tab>
   <van-tab title="预约校园开放">
     <van-cell-group>
-    <block wx:for="{{list}}">
+    <block wx:for="{{list}}" wx:key="index">
     <van-cell
     title="开放日：{{item.rq}}"
     border="{{ true }}"
@@ -38,6 +38,7 @@
     </van-cell>
     </block>
   </van-cell-group>
+  <van-divider contentPosition="center" textColor="#008783" style="display:{{hidden1}};margin-top:100rpx;">暂无开放日</van-divider>
   </van-tab>
 </van-tabs>
 

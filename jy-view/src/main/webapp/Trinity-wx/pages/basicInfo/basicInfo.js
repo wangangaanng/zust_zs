@@ -255,7 +255,6 @@ function getInfoBasic(that) {
   common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data.bean;
-      console.log(common.imgPath + data.hjzm);
       if (data.xb) {
         data['xb'] = data['xb'].toString();//性别转string
       }

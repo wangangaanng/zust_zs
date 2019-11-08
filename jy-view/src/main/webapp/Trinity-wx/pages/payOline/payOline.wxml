@@ -41,6 +41,14 @@
       </view>
     </view>
 
+    <!-- 2019-11-01 add 缴费时间 start-->
+    <view class="sign-wrap">
+      <van-cell-group>
+        <van-cell title="缴费时间" name="teEdu" is-link value="{{(payTime!='')?payTime:'-- 请选择 --'}}" arrow-direction="down" bind:click="{{(state==5)?'showTime':''}}" data-type="3" data-code="{{teacherWhCode}}" />
+      </van-cell-group>
+    </view>
+    <!-- 2019-11-01 add 缴费时间 end-->
+
     <view class="sign-wrap {{class1}}">
       <van-cell title="{{jfInfo}}" border="{{false}}" bind:click="{{(state<6)?'choseImageProve':''}}">
         <block wx:if="{{state<6}}">
@@ -59,3 +67,9 @@
 </view>
 
 <van-dialog id="van-dialog" />
+
+
+<!-- 弹出选择缴费时间 -->
+<van-popup show="{{showPop}}" position="bottom">
+  <van-datetime-picker type="date" value="{{ currentDate }}" bind:confirm="confirmTime"  bind:cancel="cancelPop"  min-date="{{ minDate }}"  max-date="{{maxDate}}"/>
+</van-popup>

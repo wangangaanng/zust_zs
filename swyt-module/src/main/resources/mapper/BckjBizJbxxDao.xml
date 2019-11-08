@@ -178,7 +178,7 @@
         </choose>
     </select>
     <select id="findByUser" resultType="com.zghzbckj.manage.entity.BckjBizJbxx">
-		select a.xb AS "xb",a.xm AS "xm",a.sw_zh AS "lxdh" FROM bckj_biz_yhxx a
+		select a.xb AS "xb",a.xm AS "xm",a.sw_zh AS "lxdh",a.prov AS "prov",a.city AS "city", a.area AS "area" FROM bckj_biz_yhxx a
 		where a.owid=#{yhRefOwid}
 	</select>
 

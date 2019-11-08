@@ -12,12 +12,20 @@ Page({
     },
     detailList:[],//联系人信息
     errorList: '', //错误信息重组
+    eduCategory:[],//文化程度
+    showPop:false,
+    contactType:'',//判断当前点击是谁
+    defaultIndex:0,//弹出框默认显示第几个
+
+    fatherWhCode:'', //文化程度的码 传给后台
+    motherWhCode: '',
+    teacherWhCode: '',
   },
   //点击想下一步保存联系人
   contactForm: function(e) {
+    let that = this;
     let curId = e.detail.target.id;
     const params = e.detail.value;
-    console.log(params);
     //传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(params)) {
       common.errorHash(this.WxValidate.errorList, this);
@@ -28,7 +36,7 @@ Page({
       "cylb":0
       ,"xm": params.faName
       , "xb": params.faSex
-      , "whcd": params.faEdu
+      , "whcd": that.data.fatherWhCode
       , "gzdw": params.faCom
       , "gzzw": params.faJob
       , "lxsj": params.faTel
@@ -38,7 +46,7 @@ Page({
       "cylb": 1
       , "xm": params.moName
       , "xb": params.moSex
-      , "whcd": params.moEdu
+      , "whcd": that.data.motherWhCode
       , "gzdw": params.moCom
       , "gzzw": params.moJob
       , "lxsj": params.moTel
@@ -48,7 +56,7 @@ Page({
       "cylb": 2
       , "xm": params.teName
       , "xb": params.teSex
-      , "whcd": params.teEdu
+      , "whcd": that.data.teacherWhCode
       , "gzdw": params.teCom
       , "gzzw": params.teJob
       , "lxsj": params.teTel
@@ -58,6 +66,7 @@ Page({
       "dataList": dataArr,
       "yhRefOwid": wx.getStorageSync('yhRefOwid')
     } 
+    //console.log(data);
     common.ajax('zustswyt/bckjBizJtcyxx/finish', data, function(res) {
       if (res.data.backCode == 0) {
         switch (curId){
@@ -82,7 +91,7 @@ Page({
    */
   onLoad: function(options) {
     this.initValidate();
-    getContactor(this);
+    getEdu(this);//文化程度
   },
 
   /**
@@ -139,7 +148,7 @@ Page({
     switch (event.currentTarget.dataset.id){
       case "1":
         this.setData({
-          ['father.xb']: event.detail
+          ['father.xb']: event.detail,
         });
       break;
       case "2":
@@ -154,6 +163,62 @@ Page({
         break;  
     }
   },
+  //取消pop
+  cancelPop() {
+    this.setData({
+      showPop: false
+    });
+  },
+  //显示文化程度弹出
+  showEduList(e) {
+    let that = this;
+    let type = e.target.dataset.type;
+    let code = e.target.dataset.code;
+    let eduArr = that.data.eduCategory;
+    let index = (code != '') ? code:0;
+    //打开默认当前选中项目
+    for (let i in eduArr) {
+      if (eduArr[i].value == code) {
+        index = i
+      }
+    }
+    console.log(index);
+    that.setData({
+      showPop: true,
+      contactType: type,
+      defaultIndex: index
+    });
+  },
+  //确认选择文化程度
+  confirmEdu(event){
+    var that = this;
+    const {value, index } = event.detail;
+    //console.log(value);
+    switch (that.data.contactType){
+      case "1": //父亲
+        that.setData({
+          ['father.whcd']: value.text,
+          fatherWhCode: value.value
+        });
+      break;
+      case "2": //母亲
+        that.setData({
+          ['mother.whcd']: value.text,
+          motherWhCode: value.value
+        });
+      break;
+      case "3": //老师
+        that.setData({
+          ['teacher.whcd']: value.text,
+          teacherWhCode: value.value
+        });
+      break;
+    }
+    this.setData({
+      showPop: false,
+    });
+  },
+  
 })
 
 //获取联系人信息
@@ -164,25 +229,56 @@ function getContactor(that) {
   common.ajax('zustswyt/bckjBizJtcyxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
       var list = res.data.bean;
+      var whArr = that.data.eduCategory;
       if (list&&list.length>0){
         for (var i = 0; i < list.length; i++) {
           switch (list[i].cylb) {
-            case 0:
-              if (list[i].xb) {
-                list[i].xb = list[i].xb.toString();
+            case 0: //父亲
+
+             //性别处理
+              if (list[i].xb) {list[i].xb = list[i].xb.toString();}
+
+              //文化程度处理
+              if (list[i].whcd){
+                let thisWh = list[i].whcd;
+                for (let j in whArr){
+                  if (list[i].whcd == whArr[j].value){
+                    that.data.fatherWhCode = list[i].whcd;
+                    list[i].whcd = whArr[j].text;
+                  }
+                }
               }
+
               that.data.father = list[i];
               break;
-            case 1:
-              if (list[i].xb) {
-                list[i].xb = list[i].xb.toString();
+            case 1: //母亲
+              if (list[i].xb) {list[i].xb = list[i].xb.toString();}
+
+              if (list[i].whcd) {
+                let thisWh = list[i].whcd;
+                for (let j in whArr) {
+                  if (list[i].whcd == whArr[j].value) {
+                    that.data.motherWhCode = list[i].whcd;
+                    list[i].whcd = whArr[j].text;
+                  }
+                }
               }
+
               that.data.mother = list[i];
               break;
-            case 2:
-              if (list[i].xb){
-                list[i].xb = list[i].xb.toString();
+            case 2: //老师
+              if (list[i].xb){list[i].xb = list[i].xb.toString();}
+
+              if (list[i].whcd) {
+                let thisWh = list[i].whcd;
+                for (let j in whArr) {
+                  if (list[i].whcd == whArr[j].value) {
+                    that.data.teacherWhCode = list[i].whcd;
+                    list[i].whcd = whArr[j].text;
+                  }
+                }
               }
+
               that.data.teacher = list[i];
               break;
           }
@@ -190,11 +286,39 @@ function getContactor(that) {
         that.setData({
           father: that.data.father,
           mother: that.data.mother,
-          teacher: that.data.teacher
+          teacher: that.data.teacher,
+          fatherWhCode: that.data.fatherWhCode, //文化程度传给接口
+          motherWhCode: that.data.motherWhCode,
+          teacherWhCode: that.data.teacherWhCode
         });
       }
     } else {
       common.toast(res.data.errorMess, 'none', 2000)
     }
   })
+}
+
+//获取文化程度
+function getEdu(that) {
+  var data = {
+    "dicType": '10012',//字典表缴费说明
+  }
+  common.ajax('zustcommon/common/getByType', data, function (res) {
+    if (res.data.backCode == 0) {
+      let data = res.data.bean;
+      var cloArr = [];
+      for (var i = 0; i < data.length; i++){
+        cloArr.push({ "text": data[i].dicVal2, "value": data[i].dicVal1})
+      }
+      that.setData({
+        "eduCategory": cloArr,
+      });
+
+      //获取联系人 文化程度需要进行匹配
+      getContactor(that);
+
+    } else {
+      common.toast(res.data.errorMess, 'none', 2000)
+    }
+  });
 }
