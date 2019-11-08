@@ -5,7 +5,7 @@
 -->
 
 <#--学考等第 start-->
-<div class="form-horizontal basic-from" id="selectForm" style="display: none；">
+<div class="form-horizontal basic-from" id="selectForm" style="display: none;">
     <#--学考等第 start-->
     <div class="contact-wrap">
         <p class="contact-wrap_title col-sm-offset-1">选考信息</p>
