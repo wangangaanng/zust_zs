@@ -1,0 +1,14 @@
+{
+  "usingComponents": {
+    "authorize": "../../pages/auth/auth",
+    "van-tab": "vant-weapp/tab",
+    "van-tabs": "vant-weapp/tabs",
+    "van-cell-group": "vant-weapp/cell-group",
+    "van-cell": "vant-weapp/cell",
+    "van-picker": "vant-weapp/picker",
+    "van-field": "vant-weapp/field",
+    "van-area": "vant-weapp/area",
+    "van-dialog": "vant-weapp/dialog",
+    "van-popup": "vant-weapp/popup"
+  }
+}

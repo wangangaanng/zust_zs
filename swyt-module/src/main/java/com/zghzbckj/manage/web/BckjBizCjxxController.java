@@ -153,7 +153,7 @@ public class BckjBizCjxxController extends BaseController {
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
-            log.info("获取营业日志失败：" + e);
+            log.info("TODO获取会考成绩：" + e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
         }
     }

@@ -127,13 +127,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         } else if ("3".equals(zwlx.toString())) {
             dataMap.put("over", 1);
             dataMap.put("zwlx", "3");
-        }
-        //-------------------------------->  改开始
-        // 王显弘改  收集待举办和已举办的joblist
-        else if ("7".equals(zwlx.toString())) {
+        } else if ("7".equals(zwlx.toString())) {
             dataMap.put("zwlx", "3");
         }
-        //-------------------------------->  改结束
         if (JyContant.ZWLB_ZW == zwlx) {
             page = findPageWithCompany(dataMap, pageNo, pageSize, " a.createtime desc ");
         } else {
@@ -215,6 +211,9 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (state == 7) {
             dataMap.put("zwlx", JyContant.ZWLB_ZPH);
         }
+        if (state ==8) {
+            dataMap.put("zwlx", JyContant.ZWLB_JZ);
+        }
         //王显弘改          -------》该结束
         //1待举办 2已举办  3报名中
         if (1 == state) {
@@ -228,7 +227,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("ddw", 1);
         }
         //      --------->>  王显弘改  开始
-        if (state == 5 || state == 7) {
+        if (state == 5 || state == 7|| state == 8) {
             dataMap.put("wait", 1);
             page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
             List<BckjBizJob> records = page.getRecords();
@@ -249,7 +248,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             page.setRecords(records);
         } else {
             //《--------------------    结束
-            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+                page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
             //      --------->>   王显弘改  开始
         }
         //《--------------------   结束

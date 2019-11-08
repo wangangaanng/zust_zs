@@ -51,10 +51,10 @@ function isTimeOut() {
 //调用附件上传接口
 function fileUpload(type,file,fun) {
     var fd = new FormData();
-    fd.append("yhRefOwid",getCookie("swOwid"));
     fd.append("file",file);
     fd.append('data', JSON.stringify({
-        "type": type
+        "type": type,
+        "yhRefOwid":getCookie("swOwid")
     }));
     beginLoad();
     console.log(uploadUrl);
@@ -108,6 +108,23 @@ function idOcr(imgType,file,fun) {
     });
 }
 
+//查询报名所有信息
+function searchAll() {
+    var data = {
+        "applyOwid":getCookie("applyOwid"),
+        "cnszp":cnszp,
+        "bmbZp":bmbZp
+    }
+    ajax("zustswyt/bckjBizBm/getResult", data, function (data) {
+        if(data.backCode==0){
+            var data = data.bean;
+            walert("提交成功");
+            $("#saveBasic").hide();
+        }else{
+            walert(data.errorMess)
+        }
+    })
+}
 
 function keySearch(){
     if (event.keyCode==13){

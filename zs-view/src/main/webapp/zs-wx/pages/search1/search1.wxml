@@ -1,0 +1,37 @@
+ <van-cell-group>
+   <van-field input-align="right" bindinput="getsfzh" value="{{sfzh}}" type="idcard" label="身份证号" placeholder="输入内容" required />
+  <van-field input-align="right" bindinput="getksh" value="{{ksh}}" label="准考证号" placeholder="输入内容" required />
+
+<button class="common-button" hover-class='common-btn-hover' bindtap="submit1" >查询</button>
+</van-cell-group>
+
+<view class="cell" wx:if="{{result}}">
+    <view class="content">
+      <view class="table">
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">姓名：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.xm}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">科目名称：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.jtdz}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">成绩：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.yw}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">录入时间：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.jcsj}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">是否合格：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.mzdm}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">备注或名次：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.memo?result.memo:''}}</view>
+          </view>
+      </view>
+    </view>
+  </view>

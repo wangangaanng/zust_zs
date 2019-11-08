@@ -94,14 +94,14 @@ Page({
   loginOut: function () {
     wx.setStorageSync("hasLogin", "0");
     wx.setStorageSync("mobile", "");
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../login/login'
     })
   },
   swbm() {
     if(this.data.xxbh){
       wx.setStorageSync("xxbh", this.data.xxbh);
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../Process/Process'
       })
     }else{

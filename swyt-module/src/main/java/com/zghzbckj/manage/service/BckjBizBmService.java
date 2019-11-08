@@ -13,6 +13,7 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.common.SwytConstant;
@@ -105,7 +106,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         if (!TextUtils.isEmpty(dataMap.get("state"))) {
             codtionState = Integer.parseInt(dataMap.get("state").toString());
         }
-        if (!TextUtils.isEmpty(state) || 9 != state) {
+        if (!TextUtils.isEmpty(state) && 9 != state) {
             dataMap.put("state", state);
         } else {
             dataMap.put("cj", 1);
@@ -118,8 +119,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             String date = DateUtil.getAfterDate(dataMap.get("sqsj2").toString(), 1);
             dataMap.put("sqsj2", date);
         }
-        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj"))) {
-            String date = DateUtil.getAfterDate(dataMap.get("jfsj").toString(), 1);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("jfsj2").toString(), 1);
             dataMap.put("jfsj2", date);
         }
         PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
@@ -231,7 +232,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      */
     @Transactional(readOnly = false)
     public String submit(Map<String, Object> mapData) throws Exception {
-        doCheckSubTime(MapUtils.getString(mapData,"xxbh"));
+        doCheckSubTime(MapUtils.getString(mapData, "xxbh"));
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
         mapData.put("bmnd", bmnd);
         BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
@@ -242,10 +243,12 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             bm.setState(0);
             bm.setBmnd(bmnd);
             bm.setXybnr(SwytConstant.BMXZQZ);
+            saveOrUpdate(bm);
         } else {
             if (bm.getState() > 0) {
                 throw CustomerException.newInstances("此报名已提交，不能修改");
             }
+            bmParam.setState(bm.getState());
             BeanUtil.copyPropertiesIgnoreNull(bmParam, bm);
         }
         BckjBizBkzy zy = bckjBizBkzyService.get(Long.valueOf(MapUtils.getInt(mapData, "zyOwid")));
@@ -264,12 +267,13 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     /**
      * 查找报名状态
+     *
      * @param xxbh
      * @throws CustomerException
      */
-    private void doCheckSubTime(String xxbh) throws CustomerException{
-        int bmzt= bckjBizXxpzService.getBmState(xxbh);
-        if(bmzt!=1){
+    private void doCheckSubTime(String xxbh) throws CustomerException {
+        int bmzt = bckjBizXxpzService.getBmState(xxbh);
+        if (bmzt != 1) {
             throw CustomerException.newInstances("当前时间未开放报名");
         }
     }
@@ -286,8 +290,12 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             BckjBizBmmx bmmx = new BckjBizBmmx();
             bmmx.setBmRefOwid(bmOwid);
             bmmx.setLx(one.getLx());
+            if(one.getLx()==1) {
+                bmmx.setMxnr(String.valueOf(one.getKmcj()));
+            }else{
+                bmmx.setMxnr(String.valueOf(one.getKmdj()));
+            }
             bmmx.setMxsx(one.getXssx());
-            bmmx.setMxnr(String.valueOf(one.getKmcj()));
             bmmx.setMxmc(one.getKmmc());
             bckjBizBmmxService.saveOrUpdate(bmmx);
         }
@@ -376,7 +384,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public Object submitJft(Map<String, Object> mapData) {
         BckjBizBm bm = getBmxx(mapData);
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
-        bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"),CommonConstant.DATETIME_FROMART));
+        bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"), CommonConstant.DATE_FROMART));
         bm.setState(6);
         bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
@@ -405,7 +413,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
                 "xm", "xbStr", "qq", "mz", "jtzz", "yx", "sfzh", "lxdh",
-                "wycj", "zxlb", "jssm", "qtqk", "tcah", "yzmc"};
+                "wycj", "zxlb", "jssm", "qtqk", "tcah", "yzmc","bmnd"};
         Map datas = BeanUtil.obj2Map(bm, bmStrs);
         Map paramCjxx = Maps.newConcurrentMap();
         paramCjxx.put("yhRefOwid", bm.getUserRefOwid());
@@ -456,7 +464,9 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         Map value = Maps.newHashMap();
         value.put("to", email);
         value.put("subject", "浙江科技学院三位一体综合评价招生申请表");
-        value.put("content", "");
+        Map mapsDic= CacheUtil.getVal("swyt10025",Map.class);
+        String mmss= MapUtils.getString(mapsDic,"dicVal6");
+        value.put("content", mmss);
         List<String> fileList = Lists.newArrayList();
         fileList.add(cns);
         fileList.add(saveFilePath);
@@ -480,21 +490,24 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         if (null == bm) {
             throw CustomerException.newInstances("报名表不存在");
         }
+
         doCheckSubTime(bm.getXxbh());
         if (bm.getState() == 8) {
             bm.setState(9);
             bm.setXybnr(SwytConstant.BMCJCX);
             saveOrUpdate(bm);
         }
-        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) + owid + SwytConstant.SWTYMSTZD;
-        if (MailUtils.fileIsExist(view)) {
+        String view = Global.getConfig(SwytConstant.SWTYFILEPATH) + owid+File.separator + SwytConstant.SWTYMSTZD;
+        if (!MailUtils.fileIsExist(view)) {
             throw CustomerException.newInstances("面试通知单文件尚未生成");
         }
         String email = MapUtils.getString(mapData, "yx");
         Map value = Maps.newHashMap();
         value.put("to", email);
-        value.put("subject", CacheUtil.getVal("swyt.view.subject"));//"浙江科技学院三位一体综合评价招生综合测试通知单"
-        value.put("content", CacheUtil.getVal("swyt.view.content"));
+        value.put("subject","浙江科技学院三位一体综合测试通知单");
+        Map mapsDic= CacheUtil.getVal("swyt10025",Map.class);
+        String mmss= MapUtils.getString(mapsDic,"dicVal7");
+        value.put("content",mmss);
         List<String> fileList = Lists.newArrayList();
         fileList.add(view);
         MailUtils.sendMails(fileList, value);
@@ -510,9 +523,24 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
      * <li>@date 2019/10/27 21:03  </li>
      * </ul>
      */
-    public String getNotice(Map<String, Object> mapData) {
-        String view = SwytConstant.SWTYFILEPATH + File.separator + MapUtils.getString(mapData, "applyOwid") + SwytConstant.SWTYMSTZD;
-        return view;
+    public String getNotice(Map<String, Object> mapData) throws IOException {
+        BckjBizBm bm = getBmxx(mapData);
+        if (null == bm) {
+            throw CustomerException.newInstances("报名表不存在");
+        }
+//        String mmss="4月21日上午9:00-17:00到闻理院A4-122报到，国际交流类（包括设计学类中德联合培养）考生\n" +
+//                "18:00进行外语能力测试， 4月22日上午考生8:00之前，下午场考生12:00之前在A4-122报到，统一\n" +
+//                "到候考区抽签分组，进行面试。";//
+        Map mapsDic= CacheUtil.getVal("swyt10025",Map.class);
+        String mmss= MapUtils.getString(mapsDic,"memo");
+        bm.setMssm(mmss);
+        String view = MapUtils.getString(mapData, "applyOwid") + File.separator+SwytConstant.SWTYMSTZD;
+        String htmlData = TemplateUtils.freeMarkerContent(bm, "ap");
+        if (TextUtils.isEmpty(htmlData)) {
+            throw CustomerException.newInstances("生成面试单");
+        }
+        Html2PdfUtil.createPdf(htmlData, Global.getConfig(SwytConstant.SWTYFILEPATH )+view);
+        return SwytConstant.SWTYFILEPATH + File.separator + view;
     }
 
     @Transactional(readOnly = false)
@@ -605,11 +633,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             for (int i = 1; i < list.size(); i++) {
                 //成绩信息录入
                 List<String> cellList = list.get(i);//行循环
-                String xm = cellList.get(1); //姓名
-                String zkzh = cellList.get(2); //准考证号
-                String mscj = cellList.get(3); //面试成绩
-                String bscj = cellList.get(4); //笔试成绩
-                String zzcj = cellList.get(5); //最终成绩
+                String xm = cellList.get(0); //姓名
+                String zkzh = cellList.get(1); //准考证号
+                String mscj = cellList.get(2); //面试成绩
+                String bscj = cellList.get(3); //笔试成绩
+                String zzcj = cellList.get(4); //最终成绩
                 if (TextUtils.isEmpty(xm) || TextUtils.isEmpty(zkzh)) {
                     continue;
                 }
@@ -618,7 +646,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                 params.put("zkzh", zkzh);
                 BckjBizBm bm = bmDao.getOneByMap(params);
                 if (!TextUtils.isEmpty(bm)) {
-                    bm.setMssj(mscj);
+                    bm.setMscj(mscj);
                     bm.setBscj(bscj);
                     bm.setZzcj(zzcj);
                     bm.setState(10);

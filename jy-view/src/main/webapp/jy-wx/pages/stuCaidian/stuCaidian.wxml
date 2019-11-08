@@ -7,6 +7,8 @@
         <view class="uni-media-list-body">
           <view class="uni-media-list-text-top" wx:if="{{itm.zwlx==3}}">[职来职往]{{itm.zwbt}}</view>
           <view class="uni-media-list-text-top" wx:elif="{{itm.zwlx==4}}">[宣讲会]{{itm.zwbt}}</view>
+          <view class="uni-media-list-text-top" wx:elif="{{itm.zwlx==8}}">[讲座]{{itm.zwbt}}</view>
+          <view class="uni-media-list-text-top" wx:else>{{itm.zwbt}}</view>
           <view class="uni-media-list-text-content">地点：<span>{{itm.zphJbdd}}</span></view>
           <view class="uni-media-list-text-content">时间：<span>{{itm.zphKsrq}} {{itm.zphJtsj}}</span></view>
         </view>

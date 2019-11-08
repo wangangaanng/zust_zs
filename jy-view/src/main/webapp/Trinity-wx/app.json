@@ -3,14 +3,14 @@
     "van-button": "vant-weapp/button"
   },
   "pages": [
+    "pages/shouye/shouye",
     "pages/login/login",
+    "pages/basicInfo/basicInfo",
     "pages/payOline/payOline",
     "pages/Process/Process",
-    "pages/shouye/shouye",
     "pages/sendMail/sendMail",
     "pages/uploadSignature/uploadSignature",
     "pages/register/register",
-    "pages/basicInfo/basicInfo",
     "pages/grzx/grzx",
     "pages/messageCenter/messageCenter",
     "pages/majorExam/majorExam",
@@ -23,7 +23,6 @@
     "pages/drawGroup/drawGroup",
     "pages/xw/xw",
     "pages/index/index",
-    "pages/confirmApplication/confirmApplication",
     "pages/payLink/payLink"
   ],
   "window": {
