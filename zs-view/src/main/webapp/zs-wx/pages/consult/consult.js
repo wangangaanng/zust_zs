@@ -28,7 +28,8 @@ Page({
     totalPage1: ''
   },
   clicktab: function (e) {
-    if (e.detail.index == 1) {
+    console.log(e)
+    if (e.detail.name == 1) {
       this.setData({
         modal1: false,
         wtnr: '',
@@ -43,7 +44,7 @@ Page({
     this.setData({
       modal1: false,
       wtnr: '',
-      currentTab: e.detail.index
+      currentTab: e.detail.name
     })
   },
   /**
