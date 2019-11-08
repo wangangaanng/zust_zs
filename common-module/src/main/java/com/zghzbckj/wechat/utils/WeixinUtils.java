@@ -9,6 +9,8 @@ import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.util.CacheUtil;
+import com.zghzbckj.common.CommonModuleContant;
+import com.zghzbckj.manage.entity.BckjDicKeys;
 import net.sf.json.JSONException;
 import com.zghzbckj.manage.entity.SysWxconfig;
 import com.zghzbckj.wechat.WechatConstants;
@@ -44,6 +46,7 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
     public final static String oauth2_1_url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
     public final static String oauth2_2_url = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
     public final static String getuser_info_url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+    public final static String filter_url="https://api.weixin.qq.com/wxa/msg_sec_check?access_token=ACCESS_TOKEN";
 
     public static JSONObject httpRequest(String requestUrl,
                                          String requestMethod, String outputStr) {
@@ -220,6 +223,27 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
         }
         return accessToken.getToken();
     }
+
+
+    /**
+     * 调用微信接口进行关键字过滤
+     * coder wangangaanng
+     */
+  /*  public static String filterContent(Map<String, Object> mapData){
+
+    }
+
+    public String filterContent(Map<String, Object> mapData) {
+        String content=mapData.get("content").toString();
+        List<BckjDicKeys> allKeys=this.dao.findListByMap(mapData);
+        StringBuffer sf=new StringBuffer();
+        for(BckjDicKeys oneKey:allKeys){
+            if(content.contains(oneKey.getKeyWord())){
+                sf.append(oneKey.getKeyWord()+ CommonModuleContant.SPILE_DOUHAO);
+            }
+        }
+        return sf.toString();
+    }*/
 
 
     /**
