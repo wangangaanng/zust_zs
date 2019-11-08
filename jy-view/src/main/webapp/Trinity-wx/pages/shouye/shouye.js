@@ -168,7 +168,7 @@ Page({
         url: href
       })
     }else{
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../login/login',
       })
     }
@@ -180,7 +180,7 @@ Page({
         url: '../Process/Process',
       })
     }else{
-      wx.redirectTo({
+      wx.navigateTo({
         url: '../login/login',
       })
     }
