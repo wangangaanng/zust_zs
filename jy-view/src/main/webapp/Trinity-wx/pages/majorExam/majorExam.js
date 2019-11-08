@@ -153,19 +153,36 @@ Page({
             subject: subject,
             subjectCategory: res.data.bean
           })
+          if (wx.getStorageSync('applyOwid')) {
+            that.getResult()
+          }
         } else if (that.data.type == '1') {
           let project = [];
           for (let i in res.data.bean) {
             project.push(res.data.bean[i].name)
+            if (that.data.bklb == res.data.bean[i].name){
+              that.setData({
+                index2: i,
+                type:2
+              })
+            }
           }
           that.setData({
             project: project,
             projectType: res.data.bean
           })
+          if(that.data.bklb){
+            that.indexState(that.data.projectType[that.data.index2].owid)
+          }
         } else if (that.data.type == '2') {
           let Major = [];
           for (let i in res.data.bean) {
             Major.push(res.data.bean[i].name)
+            if (that.data.xzzymc == res.data.bean[i].name) {
+              that.setData({
+                index3: i
+              })
+            }
           }
           that.setData({
             Major: Major,
@@ -240,20 +257,6 @@ Page({
       if (res.data.backCode == 0) {
         wx.setStorageSync('sqbOwid', res.data.bean)
         that.getApply(res.data.bean)
-        // wx.showModal({
-        //   title: '提示',
-        //   showCancel: false,
-        //   content: '报名表提交成功',
-        //   success(res) {
-        //     if (res.confirm) {
-        //       wx.navigateTo({
-        //         url: '../Process/Process'
-        //       })
-        //     } else if (res.cancel) {
-        //       console.log('用户点击取消')
-        //     }
-        //   }
-        // })
       } else {
         common.toast(res.data.errorMess, 'none', 2000)
       }
@@ -278,5 +281,29 @@ Page({
       })
     }).catch(() => { // on cancel
     });
+  },
+  getResult() {
+    var that = this;
+    let data = {
+      applyOwid: wx.getStorageSync('applyOwid'),
+    }
+    common.ajax('zustswyt/bckjBizBm/getResult', data, function(res) {
+      if (res.data.backCode == 0) {
+        for (var i in that.data.subject) {
+          if (that.data.subject[i] == res.data.bean.xklb) {
+            that.setData({
+              bklb: res.data.bean.bklb,
+              xklb: res.data.bean.xklb,
+              xzzymc: res.data.bean.xzzymc,
+              index1: i,
+              type:1
+            })
+            that.indexState(that.data.subjectCategory[i].owid)
+          }
+        }
+      } else {
+        common.toast(res.data.errorMess, 'none', 2000)
+      }
+    })
   }
 })

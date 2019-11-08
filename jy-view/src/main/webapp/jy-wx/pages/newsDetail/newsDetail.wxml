@@ -4,7 +4,7 @@
 		<view class="article-nav">
 			<view class="article-nav-left">
 				<image class="icon" src="../../static/icon-time.png"></image>
-				{{content.createtime?content.createtime:"暂无"}}
+				{{content.createtime?content.createtime:content.fbsj}}
 			</view>
 			<view class="article-nav-right">
 				<image class="icon" src="../../static/icon-eye.png"></image>

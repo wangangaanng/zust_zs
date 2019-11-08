@@ -75,6 +75,10 @@
                             row : convertStr(data.bean.records,[]),
                             total: data.bean.totalCount
                         });
+                    }else{
+                        request.success({
+                            row : [],
+                        });
                     }
                 })
             },

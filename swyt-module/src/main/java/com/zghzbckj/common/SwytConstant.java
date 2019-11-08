@@ -22,7 +22,7 @@ public class SwytConstant {
     public static final String SWTYCNS = "承诺书.pdf";
     public static final String SWTYSQB = "浙江科技学院三位一体综合评价招生申请表.pdf";
 
-    public static final String SWTYMSTZD = "浙江科技学院三位一体综合综合测试通知单.pdf";
+    public static final String SWTYMSTZD = "浙江科技学院三位一体综合测试通知单.pdf";
     //state=-1
     public static final String CXTJBMSQ = "重新提交报名申请";
     //state=0

@@ -189,6 +189,28 @@ public class BckjBizJypmController extends BaseController {
         }
     }
 
+    /**
+     *<p>功能描述:导出合并单元格的excel</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/8 10:22</li>
+     *</ul>
+     */
+    @PostMapping(value = "exportRankExcel")
+    @ResponseBody
+    public ResponseMessage exportRankExcel(PublicDataVO dataVO) {
+        try {
+            String fileName = bckjBizJypmService.exportRankExcel();
+            return ResponseMessage.sendOK(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
     @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {

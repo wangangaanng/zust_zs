@@ -22,7 +22,7 @@
                         <img src="${base}/img/img-up.png" class="up-btn_img"/>
                     </#if>
                     <#if (processState<3)>
-                    <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                        <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
                     </#if>
                 </div>
                 <label class="uploadlabel" for="${(processState<3)?string("file","")}">${(processState<3)?string("上传签字报名表","已上传成功")}</label>
@@ -44,7 +44,7 @@
                             <img src="${base}/img/img-up.png" class="up-btn_img"/>
                     </#if>
                     <#if (processState<3)>
-                    <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                        <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
                     </#if>
                 </div>
                 <label class="uploadlabel" for="${(processState<3)?string("file","")}">${(processState<3)?string("上传签字承诺书","已上传成功")}</label>
@@ -79,8 +79,9 @@
             walert("请上传承诺书照片")
             return;
         }
-       var index = layer.confirm('确认提交，确认提交后将不可再修改！', {
+       var index = layer.confirm('确认提交后将不可再修改！', {
             btn: ['确认','取消'] //按钮
+           ,title:"确认提交"
         }, function(){
             layer.close(index);
             savePic();
@@ -88,6 +89,7 @@
         });
     });
 
+    //最终确认提交承诺书和报名表
     function savePic() {
         var data = {
             "applyOwid":formOwid,//申请表owid在trinityEnrollment取得
