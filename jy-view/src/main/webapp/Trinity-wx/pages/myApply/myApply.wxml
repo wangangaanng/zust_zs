@@ -1,0 +1,30 @@
+<!--pages/myApply/myApply.wxml-->
+<view class="conter" wx:for='{{res}}' wx:key='index'>
+  <view class="conter-right">
+    <view class="conter-right-name">报名时间</view>
+    <view class="conter-right-date">{{item.kssj}}-{{item.jzsj}}</view>
+  </view>
+  <view class="conter-left">
+    <view class="cont-img-view">
+      <image src="{{item.logo}}" class="cont-img"></image>
+    </view>
+    <view class="cont-name">{{item.xxmc}}</view>
+    <view class="conter-left-ul">
+      <text class="conter-left-li" wx:for='{{item.xxbq}}' wx:key='*this' wx:for-index="idx" wx:for-item="itemName">{{itemName}}</text>
+    </view>
+  </view>
+  <view class="jieshao">
+    {{item.xcjs}}
+  </view>
+  <view class="signUp">
+    <view class="button" wx:if="{{(item.bmState==0||!item.bmState)&&item.sfks==1}}" bindtap='setxxbh' data-url='{{item.xxbh}}'>我要报名</view>
+    <view class="button ybm" wx:if="{{item.bmState&&item.bmState!=0}}" data-url='{{item.xxbh}}' bindtap='setxxbh'>已报名</view>
+    <view class="text" wx:if="{{item.bmzy}}">已选专业:{{item.bmzy}}</view>
+  </view>
+  <view class="step" wx:if='{{item.xybCz}}'>
+    下一步：{{item.xybCz}}
+  </view>
+</view>
+<view class="weui-loadmore weui-loadmore_line" wx:if="{{res.length==0}}">
+  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+</view>

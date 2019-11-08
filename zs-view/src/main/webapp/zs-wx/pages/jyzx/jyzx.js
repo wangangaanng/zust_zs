@@ -83,7 +83,7 @@ Page({
     supervisorList(this)
   },
   clickTab(e){
-    if(e.detail.index==1){
+    if(e.detail.name==1){
       this.setData({
         modal1: false,
         wtnr: '',
@@ -95,7 +95,7 @@ Page({
       historyConsult(this)
     }
     this.setData({
-      currentTab: e.detail.index
+      currentTab: e.detail.name
     })
   },
   detail(e){

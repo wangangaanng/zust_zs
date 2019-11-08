@@ -25,15 +25,15 @@
                       <em>{{itm.year}}</em>
                     </view>
                     <view class="uni-media-list-body">
-                      <view class="uni-media-list-text-top">{{itm.wzbt}}</view>
+                      <view class="uni-media-list-text-top">{{itm.wzbt?itm.wzbt:''}}</view>
                       <view class="uni-media-list-text-bottom">
                       <view class="pull-left">
                         <span class="glyphicon glyphicon-time"></span>
-                        <span class="syd-time">{{itm.fbsj}}</span>
+                        <span class="syd-time">{{itm.fbsj?itm.fbsj:''}}</span>
                       </view>
                       <view class="pull-right">
                         <span class="glyphicon glyphicon-eye-open"></span>
-                        <span class="syd-time">{{itm.ydcs}}</span>
+                        <span class="syd-time">{{itm.ydcs?itm.ydcs:'0'}}</span>
                       </view>
                     </view>
                     </view>
@@ -61,15 +61,15 @@
                       <em>{{itm.year}}</em>
                     </view>
                     <view class="uni-media-list-body">
-                      <view class="uni-media-list-text-top">{{itm.wzbt}}</view>
+                      <view class="uni-media-list-text-top">{{itm.wzbt?itm.wzbt:''}}</view>
                       <view class="uni-media-list-text-bottom">
                       <view class="pull-left">
                         <span class="glyphicon glyphicon-time"></span>
-                        <span class="syd-time">{{itm.fbsj}}</span>
+                        <span class="syd-time">{{itm.fbsj?itm.fbsj:''}}</span>
                       </view>
                       <view class="pull-right">
                         <span class="glyphicon glyphicon-eye-open"></span>
-                        <span class="syd-time">{{itm.ydcs}}</span>
+                        <span class="syd-time">{{itm.ydcs?itm.ydcs:'0'}}</span>
                       </view>
                     </view>
                     </view>
