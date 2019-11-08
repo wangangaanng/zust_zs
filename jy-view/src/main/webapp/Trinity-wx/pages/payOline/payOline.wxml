@@ -44,7 +44,7 @@
     <!-- 2019-11-01 add 缴费时间 start-->
     <view class="sign-wrap">
       <van-cell-group>
-        <van-cell title="缴费时间" name="teEdu" is-link value="{{(payTime!='')?payTime:'-- 请选择 --'}}" arrow-direction="down" bind:click="{{(payTime!='')?showTime:''}}" data-type="3" data-code="{{teacherWhCode}}" />
+        <van-cell title="缴费时间" name="teEdu" is-link value="{{(payTime!='')?payTime:'-- 请选择 --'}}" arrow-direction="down" bind:click="{{(payTime!='')?'':'showTime'}}" data-type="3" data-code="{{teacherWhCode}}" />
       </van-cell-group>
     </view>
     <!-- 2019-11-01 add 缴费时间 end-->
