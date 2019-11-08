@@ -68,7 +68,7 @@ Page({
 
   clickTab: function (e) {
     this.setData({
-      currentTab: e.detail.index
+      currentTab: e.detail.name
     })
   },
   newsDetail(e) {
