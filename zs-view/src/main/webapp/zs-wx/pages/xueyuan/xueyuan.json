@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "van-cell": "vant-weapp/cell",
+    "van-collapse": "vant-weapp/collapse",
+    "van-collapse-item": "vant-weapp/collapse-item"
+  }
+}

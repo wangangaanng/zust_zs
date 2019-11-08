@@ -1,4 +1,0 @@
-<!--pages/xueyuan/xueyuan.wxml-->
-<block wx:for="{{list}}" wx:key="index">
-  <van-cell is-link title="{{item.wzbt}}" link-type="navigateTo" url="../newsDetail/newsDetail?owid={{item.owid}}"/>
-</block>

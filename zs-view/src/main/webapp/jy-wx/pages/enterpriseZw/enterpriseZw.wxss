@@ -1,4 +1,0 @@
-/* pages/zhiwei/zhiwei.wxss */
-
-.van-button--danger{width:65px !important;height: 245rpx !important;line-height: 245rpx !important;
-}

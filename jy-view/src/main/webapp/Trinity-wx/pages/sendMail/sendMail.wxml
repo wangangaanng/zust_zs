@@ -3,7 +3,7 @@
   <topBck>
     <view class="df">
       <icon class="iconfont icon-tongzhi" style=""></icon>
-      <view class="f1 notice-detail">{{tipString}},请确认邮箱地址。点击确认发送，{{stringLable}}将发送到你的邮箱。</view>
+      <view class="f1 notice-detail">{{tipString}},请确认邮箱地址。点击确认发送，{{sureTip}}将发送到你的邮箱。</view>
     </view>
 
     <form bindsubmit="sendMailForm">

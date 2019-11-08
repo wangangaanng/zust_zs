@@ -233,7 +233,7 @@ public class BckjBizBmController extends BaseController {
         try {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             //判断owid是否为空
-            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid", "jfpzZp","jfsj");
+            ValidateMsg validateMsg = ValidateUtils.isEmpty(mapData, "applyOwid", "jfpzZp", "jfsj");
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
@@ -522,6 +522,44 @@ public class BckjBizBmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+    //首页统计
+    @PostMapping(value = "todoMan")
+    @ResponseBody
+    public ResponseMessage todoMan(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "state");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+        }
+        try {
+            Integer todoMan = bckjBizBmService.todoMan(dataMap);
+            return ResponseMessage.sendOK(todoMan);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+//    @PostMapping(value = "jobPieDl")
+//    @ResponseBody
+//    public ResponseMessage jobPieDl(PublicDataVO dataVO) {
+//        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+//
+//        //0职位
+//        dataMap.put("zwlx", 0);
+//        //工作职能
+//        dataMap.put("groupBy", "zw_gzzn");
+//        try {
+//            Map<String, Object> result = bckjBizBmService.getJobPie(dataMap);
+//            return ResponseMessage.sendOK(result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+//        }
+//    }
 
 
 }

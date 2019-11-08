@@ -1,8 +1,0 @@
-{
-  "usingComponents": {
-    "van-tab": "vant-weapp/tab",
-    "van-tabs": "vant-weapp/tabs",
-    "van-divider": "vant-weapp/divider",
-    "van-dialog": "vant-weapp/dialog"
-  }
-}

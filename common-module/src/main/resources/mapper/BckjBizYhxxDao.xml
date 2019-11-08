@@ -869,6 +869,9 @@
 			<if test="exp10!=null and exp10!=''">
 				and a.exp10 = #{exp10}
 			</if>
+			<if test="csrq!=null and csrq!=''">
+				and DATE_FORMAT(a.crsq,'%Y') = DATE_FORMAT(#{csrq},'%Y')
+			</if>
 		</where>
 	</select>
 

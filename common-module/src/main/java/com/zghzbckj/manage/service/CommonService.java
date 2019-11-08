@@ -9,6 +9,7 @@ import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.utils.Html2PdfUtil;
 import com.zghzbckj.manage.utils.HttpUtil;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.HttpBackUtil;
@@ -256,9 +257,7 @@ public class CommonService {
             }
             String url = "";
             if (!TextUtils.isEmpty(mapData.get("dicVal5"))) {
-                // TODO: 2019/11/7  调用接口 生成pdf，反回文件路径
-                url = "";
-                mapData.put("memo", url);
+                Html2PdfUtil.doPromise(mapData.get("dicVal5").toString());
             }
             commonDao.updateXxpz(params);
             HttpUtil.doPostJson(CommonModuleContant.BACK_DIC_SAVE_HOST, JsonUtil.toJson(mapData), "UTF-8", true);

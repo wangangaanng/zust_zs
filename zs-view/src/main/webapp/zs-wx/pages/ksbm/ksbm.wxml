@@ -1,0 +1,47 @@
+
+<van-tabs sticky animated bind:click="clickTab">
+  <van-tab title="考生报名">
+    <van-cell-group>
+    <van-field input-align="right" bindinput="getxm" value="{{xm}}" label="姓名" placeholder="输入内容" required />
+    <van-field input-align="right" bindinput="getsjh" value="{{sjh}}" type="number" label="手机号码" placeholder="输入内容" required /> 
+    <van-field
+    value="{{ yzm }}"
+    bindinput="getyzm"
+    required
+    center
+    name="yzm"
+    label="短信验证码"
+    placeholder="输入验证码"
+    border="{{ true }}"
+    use-button-slot
+  >
+    <van-button slot="button" size="small" bindtap="send" data-type="1" disabled="{{disabled1}}" type="primary">{{yzmStr}}</van-button>
+  </van-field>
+  <van-field input-align="right" bindinput="getexp" value="{{exp9}}" label="地区" placeholder="输入内容" required />
+  <van-field input-align="right" bindinput="getqxzy" value="{{qxzy}}" label="意向专业" placeholder="输入内容" required />
+  
+   
+  
+
+<button class="common-button" disabled="{{btndisabled}}" hover-class='common-btn-hover' bindtap="submit" >提交</button>
+</van-cell-group>
+
+  </van-tab>
+  <van-tab title="预约校园开放">
+    <van-cell-group>
+    <block wx:for="{{list}}">
+    <van-cell
+    title="开放日：{{item.rq}}"
+    border="{{ true }}"
+  >
+    <van-button size="small" bindtap="yy" data-rq="{{item.rq}}" type="primary">预约</van-button>
+    </van-cell>
+    </block>
+  </van-cell-group>
+  </van-tab>
+</van-tabs>
+
+<authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>
+
+<import src="../../templates/yzm/index.wxml" />
+  <template is="yzmmodal" data="{{modal1,yzmStr1,seconds1,rq}}" />

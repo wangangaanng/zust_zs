@@ -30,6 +30,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -596,6 +597,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhgl.setYhRefOwid(bckjBizYhxx.getOwid());
             bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
         }
+        //设置报名年份
+        SimpleDateFormat sdf=new SimpleDateFormat("yyyy");
+        String format = sdf.format(new Date());
+        bckjBizYhxx.setExp8(format);
         bckjBizYhxx.setYhlx(4);
         bckjBizYhxx.setExp10("未预约开放日");
         this.insert(bckjBizYhxx);
@@ -630,6 +635,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     public PageInfo<BckjBizYhxx> getZsList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if(!TextUtils.isEmpty(dataMap.get("csrq").toString())){
+         dataMap.put("csrq",DateUtil.getDate(dataMap.get("csrq").toString(),"yyyy"));
+        }
         Page<BckjBizYhxx> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
         page.setList(this.dao.getZsList(dataMap));

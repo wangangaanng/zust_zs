@@ -129,7 +129,7 @@
 	
 	<insert id="insert">
 		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
-			select LAST_INSERT_ID()
+				select LAST_INSERT_ID()
 		</selectKey>
 		INSERT INTO bckj_dic_menu(
 			owid,

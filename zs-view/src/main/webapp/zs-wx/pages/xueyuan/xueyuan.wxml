@@ -1,0 +1,15 @@
+<!--pages/xueyuan/xueyuan.wxml-->
+<!-- <block wx:for="{{list}}" wx:key="index"> -->
+  <van-collapse value="{{ activeName }}" bind:change="onChange" accordion>
+    <block wx:for="{{list}}" wx:key="index">
+      <van-collapse-item title="{{item.NAME}}" name="{{item.NAME}}">
+        <!-- 提供多样店铺模板，快速搭建网上商城 -->
+        <block wx:for="{{item.zyList}}" wx:key="" wx:for-item="itm">
+          <van-cell is-link title="{{itm.wzbt}}" link-type="navigateTo" url="../newsDetail/newsDetail?owid={{itm.owid}}"/>
+        </block>
+         <van-cell title="暂无专业数据" wx:if="{{item.zyList.length==0}}"/>
+      </van-collapse-item>
+    </block>
+  </van-collapse>
+  <!-- <van-cell is-link title="{{item.NAME}}" link-type="navigateTo" url="../newsDetail/newsDetail?owid={{item.owid}}"/> -->
+<!-- </block> -->

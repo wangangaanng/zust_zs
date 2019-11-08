@@ -10,3 +10,6 @@ hs_err_pid*
 /out/*
 /classes/
 # /web-api/src/main/resources/app/config.properties
+node_modules
+package-lock.json
+/zs-view/src/main/webapp/zs-wx/miniprogram_npm/

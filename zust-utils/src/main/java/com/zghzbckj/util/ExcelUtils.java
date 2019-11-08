@@ -2,11 +2,9 @@ package com.zghzbckj.util;
 
 import com.ourway.base.utils.DateUtil;
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -21,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by jackson on 17-8-8.
@@ -435,6 +434,66 @@ public class ExcelUtils {
 //        }
         return "重命名成功！";
     }
+
+    public static void exportRankExcel(String[] title, List<Map<String, Object>> dataList, String fileOutPutUrl) {
+        HSSFWorkbook workbook = new HSSFWorkbook();
+        HSSFSheet sheet = workbook.createSheet();
+        HSSFRow row = sheet.createRow(0);
+        HSSFCell cell = null;
+        CellStyle cellStyle = workbook.createCellStyle();
+        cellStyle.setAlignment(HorizontalAlignment.CENTER);
+        cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+        for (int i=0; i<title.length; i++) {
+            cell = row.createCell(i);
+            cell.setCellValue(title[i]);
+            cell.setCellStyle(cellStyle);
+        }
+        int ksrow = 1;
+        int rowNumber = 1;
+        List<Map<String, Object>> list = null;
+        for (int i = 0; i < dataList.size(); i++) {
+            list = (List<Map<String, Object>>) dataList.get(i).get("pmzyList");
+            for (int j = 0; j < list.size(); j++) {
+                sheet.setColumnWidth(i, 20*256);
+                HSSFRow hssfRow = sheet.createRow(rowNumber);
+                HSSFCell hssfCell0 = hssfRow.createCell(0);
+                hssfCell0.setCellValue(list.get(0).get("szxy").toString());
+                hssfCell0.setCellStyle(cellStyle);
+                HSSFCell hssfCell1 = hssfRow.createCell(1);
+                hssfCell1.setCellValue(list.get(j).get("pmzy").toString());
+                hssfCell1.setCellStyle(cellStyle);
+                HSSFCell hssfCell2 = hssfRow.createCell(2);
+                hssfCell2.setCellValue(list.get(j).get("pmbyrs").toString());
+                hssfCell2.setCellStyle(cellStyle);
+                HSSFCell hssfCell3 = hssfRow.createCell(3);
+                hssfCell3.setCellValue(list.get(j).get("pmqyrs").toString());
+                hssfCell3.setCellStyle(cellStyle);
+                HSSFCell hssfCell4 = hssfRow.createCell(4);
+                hssfCell4.setCellValue(list.get(j).get("pmjyl").toString());
+                hssfCell4.setCellStyle(cellStyle);
+                HSSFCell hssfCell5 = hssfRow.createCell(5);
+                hssfCell5.setCellValue(i+1);
+                hssfCell5.setCellStyle(cellStyle);
+                rowNumber++;
+            }
+            CellRangeAddress cell1 = new CellRangeAddress(ksrow, ksrow+list.size()-1, 0 ,0);
+            sheet.addMergedRegion(cell1);
+            CellRangeAddress cell2 = new CellRangeAddress(ksrow, ksrow+list.size()-1, 5 ,5);
+            sheet.addMergedRegion(cell2);
+            ksrow += list.size();
+        }
+        File file = new File(fileOutPutUrl);
+        try {
+            file.createNewFile();
+            //将excel写入
+            FileOutputStream stream = FileUtils.openOutputStream(file);
+            workbook.write(stream);
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 
