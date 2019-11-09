@@ -74,11 +74,20 @@ public class SwytController {
            ResponseMessage resultMess2  = new ResponseMessage();
            PublicData _data2 = UnionHttpUtils.manageParam(param2, "zustswyt/bckjBizBm/getResult");
            resultMess2 = UnionHttpUtils.doPosts(_data2);
-           if(!StringUtils.isEmpty(resultMess2.getBean())) {
+           if(null != resultMess2.getBean()) {
                Map<String, Object> records2 = (Map<String, Object>) resultMess2.getBean();
-               view.addObject("bmbZp",records2.get("bmbZp"));
-               view.addObject("cnszp",records2.get("cnszp"));
-               view.addObject("email",records2.get("yx"));
+               view.addObject("bmbZp",records2.get("bmbZp"));//报名表签字zp
+               view.addObject("cnszp",records2.get("cnszp"));//承诺书签字zp
+               view.addObject("email",records2.get("yx"));//邮箱
+               view.addObject("payTime",records2.get("jfsj"));//缴费时间
+               view.addObject("payProveImg",records2.get("jfpzZp"));//缴费凭证zp
+               view.addObject("nameStu",records2.get("xm"));//姓名
+               view.addObject("subjectType",records2.get("xklb"));//学科类别
+               view.addObject("languageType",records2.get("yzmc"));//外语语种
+               view.addObject("examType",records2.get("bklb"));//报考类别
+               view.addObject("major",records2.get("xzzymc"));//招生专业
+               view.addObject("examNum",records2.get("zkzh"));//准考证号
+               view.addObject("faceTime",records2.get("mssj"));//面试时间
            }
            //不同页面不同初始化
            switch (pageType){
@@ -91,10 +100,13 @@ public class SwytController {
                    ResponseMessage resultMess4  = new ResponseMessage();
                    PublicData _data4 = UnionHttpUtils.manageParam(param4, "zustcommon/common/getByType");
                    resultMess4 = UnionHttpUtils.doPosts(_data4);
-                   Map<String, Object> records4 = (Map<String, Object>) resultMess4.getBean();
+//                   if(StringUtils.isEmpty(resultMess4)) {
+//                      return view;
+//                   }
+                   List<Map<String, Object>> records4 = (List<Map<String, Object>>) resultMess4.getBean();
                    if(!StringUtils.isEmpty(records4)) {
-                       view.addObject("payMess",records4.get("dicVal2"));
-                       view.addObject("payUrl",records4.get("dicVal3"));
+                       view.addObject("payMess",records4.get(0).get("dicVal2"));
+                       view.addObject("payUrl",records4.get(0).get("dicVal3"));
                    }
                    break;
                default://报名表或者面试通知单打印 1或5

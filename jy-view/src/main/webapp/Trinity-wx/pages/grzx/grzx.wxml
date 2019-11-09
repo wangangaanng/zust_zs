@@ -6,8 +6,10 @@
 <view class="name">{{userName}}</view>
 <view class="tel">{{userMobile}}</view>
 <!-- <van-cell wx:if="{{xxbh}}" title="我的报名" icon="../../../static/wdbm.png" is-link url="/pages/Process/Process"/> -->
+<block wx:if='{{hasLogin}}'>
 <van-cell title="我的报名" icon="../../../static/wdbm.png" is-link bindtap='swbm'/>
 <van-cell title="修改密码" icon="../../../static/xgmm.png" is-link url="/pages/forgetPsw/forgetPsw"/>
+</block>
 <view class="button">
-  <button bindtap="loginOut">退出</button>
+  <button bindtap="loginOut">{{hasLogin?'退出':'登录'}}</button>
 </view>
