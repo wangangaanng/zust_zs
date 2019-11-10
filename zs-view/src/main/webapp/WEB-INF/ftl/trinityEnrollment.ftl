@@ -97,7 +97,7 @@
                             <#break>
                         <#case "6">
                         <#--成绩查询-->
-                            <#include "SWquerySearch.ftl">
+                            <#include "SWgroupInfo.ftl">
                             <#break>
                     </#switch>
                 </div>

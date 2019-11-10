@@ -88,6 +88,9 @@ public class SwytController {
                view.addObject("major",records2.get("xzzymc"));//招生专业
                view.addObject("examNum",records2.get("zkzh"));//准考证号
                view.addObject("faceTime",records2.get("mssj"));//面试时间
+               view.addObject("writeScore",records2.get("bscj"));//笔试时间
+               view.addObject("faceScore",records2.get("mscj"));//面试时间
+               view.addObject("finalScore",records2.get("zzcj"));//最终成绩
            }
            //不同页面不同初始化
            switch (pageType){
