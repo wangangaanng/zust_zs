@@ -7,7 +7,7 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
-    <link rel="stylesheet" href="${base}/css/style.css"/>
+    <link rel="stylesheet" href="${base}/css/swytFonts.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <style>
         .top{position: relative;height: 500px!important;}
@@ -36,11 +36,13 @@
         <div class="login_left">
             <div class="login_title">登录</div>
             <div class="login_input">
-                <img src="${base}/img/phone.png">
+                <span class="iconfont icon-shouji"></span>
+                <#--<img src="${base}/img/phone.png">-->
                 <input type="number" placeholder="请输入手机号码" id="swZh" oninput="if(value.length>11)value=value.slice(0,11)">
             </div>
             <div class="login_input">
-                <img src="${base}/img/password.png">
+                <#--<img src="${base}/img/password.png">-->
+                <span class="iconfont icon-denglu-mima"></span>
                 <input type="password" placeholder="请输入密码" id="swMm">
             </div>
             <div class="forget"><a href="trinityPsw">忘记密码？</a></div>

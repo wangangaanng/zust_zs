@@ -8,6 +8,7 @@
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
     <link rel="stylesheet" href="${base}/css/style.css"/>
+    <link rel="stylesheet" href="${base}/css/swytFonts.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <style>
         .top{position: relative;height: 500px!important;}
@@ -34,23 +35,27 @@
 <div class="w1200">
     <div class="login">
         <div class="login_left">
-            <div class="login_title">登录</div>
+            <div class="login_title">忘记密码</div>
             <div class="login_input">
-                <img src="${base}/img/phone.png">
+                <span class="iconfont icon-shouji"></span>
+                <#--<img src="${base}/img/phone.png">-->
                 <input type="number" oninput="if(value.length>11)value=value.slice(0,11)" placeholder="请输入手机号码" id="swZh">
             </div>
             <div class="login_input">
-                <img src="${base}/img/yzm.png">
+                <span class="iconfont icon-yanzhengma1"></span>
+                <#--<img src="${base}/img/yzm.png">-->
                 <input style="padding-right: 100px;" type="text" placeholder="请输入验证码" id="yzm">
                 <div class="getymz" onclick="sendCode()">获取验证码</div>
             </div>
             <div class="login_input">
-                <img src="${base}/img/password.png">
-                <input style="padding-right: 40px;" type="password" placeholder="请输入密码(11-16位)" id="swMm">
+                <span class="iconfont icon-denglu-mima"></span>
+                <#--<img src="${base}/img/password.png">-->
+                <input style="padding-right: 40px;" type="password" placeholder="请输入密码(6-16位)" id="swMm">
                 <i class="glyphicon glyphicon-eye-close" onclick="eye(this)" value="0"></i>
             </div>
             <div class="login_input">
-                <img src="${base}/img/password.png">
+                <span class="iconfont icon-denglu-mima"></span>
+                <#--<img src="${base}/img/password.png">-->
                 <input style="padding-right: 40px;" type="password" placeholder="确认密码" id="swMm2">
                 <i class="glyphicon glyphicon-eye-close" onclick="eye(this)" value="0"></i>
             </div>
