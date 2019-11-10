@@ -22,8 +22,10 @@
 <body>
 <#include "com/SWheader.ftl">
 <div class="frame-wrap">
+
     <#--menu constant-->
-   <#assign menuList=["我的报名表","报名表打印","拍照上传","初审结果/缴费","分组信息","面试通知单打印","成绩查询","在线提问"] />
+    <#--在线提问暂时隐藏-->
+    <#assign menuList=["我的报名表","报名表承诺书打印","拍照上传","初审结果/缴费","面试时间","面试通知单打印","成绩查询"] />
 
     <#--swiper start-->
     <div class="swiper-container index-swiper">
@@ -69,42 +71,68 @@
             <#else>
                 <div class="article-detail-text">
                     <#switch page>
+
                         <#case "0">
-                    <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
-                        <#include "SWInfoBasic.ftl">
+                            <#--报名表容器：1：基本信息 2：联系人 3：学考等第 4：招考信息-->
+                           <#include "SWInfoBasic.ftl">
                         <#break>
+
                         <#case "1">
-                        <#--报名表承诺书打印-->
+                            <#--报名表承诺书打印-->
                             <#assign fileName="报名表"/>
                             <#include "SWofferNotice.ftl">
                             <#break>
+
                         <#case "2">
-                        <#--签字拍照上传-->
-                            <#include "SWphotoUpload.ftl">
+                            <#--签字拍照上传-->
+                            <#if (processState>2)>
+                                <#include "SWphotoUpload.ftl">
+                            <#else>
+                                <#include "com/SWprocessState.ftl">
+                            </#if>
                             <#break>
+
                         <#case "3">
-                        <#--初审结果/缴费-->
-                            <#include "SWpayOnline.ftl">
+                            <#--初审结果/缴费-->
+                            <#if (processState>4)>
+                                <#include "SWpayOnline.ftl">
+                            <#else>
+                                <#include "com/SWprocessState.ftl">
+                            </#if>
                             <#break>
+
                         <#case "4">
-                        <#--分组信息-->
-                            <#include "SWgroupInfo.ftl">
+                            <#--分组信息-->
+                            <#if (processState>6)>
+                                <#include "SWgroupInfo.ftl">
+                            <#else>
+                                <#include "com/SWprocessState.ftl">
+                            </#if>
                             <#break>
+
                         <#case "5">
-                        <#--面试通知单-->
+                            <#--面试通知单打印-->
+                            <#if (processState>8)>
+                                <#include "SWofferNotice.ftl">
+                            <#else>
+                                <#include "com/SWprocessState.ftl">
+                            </#if>
                             <#assign fileName="面试通知单"/>
-                            <#include "SWofferNotice.ftl">
                             <#break>
+
                         <#case "6">
-                        <#--成绩查询-->
-                            <#include "SWgroupInfo.ftl">
+                            <#--成绩查询-->
+                            <#if (processState>9)>
+                                <#include "SWgroupInfo.ftl">
+                            <#else>
+                                <#include "com/SWprocessState.ftl">
+                            </#if>
                             <#break>
                     </#switch>
                 </div>
             </#if>
             </div>
         </div>
-
     </div>
 <#--content start -->
 </div>

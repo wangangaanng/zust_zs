@@ -30,6 +30,7 @@
 
 <div class="group-wrap">
     <ul class="list-group row">
+     <#--成绩查询头部特有的展示成绩   start-->
     <#if page="6">
         <div class="grade-result row">
             <div class="col-sm-3 tc  col-sm-offset-2">
@@ -46,6 +47,9 @@
             </div>
         </div>
     </#if>
+     <#--成绩查询头部特有的展示成绩   end-->
+
+     <#--共用列表部分  start-->
     <#list groupList as list>
         <#if list_has_next>
             <li class="list-group-item ">
@@ -59,6 +63,7 @@
             </li>
         </#if>
     </#list>
+     <#--共用列表部分  end-->
     </ul>
 </div>
 

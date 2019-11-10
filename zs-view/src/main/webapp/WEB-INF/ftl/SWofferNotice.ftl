@@ -26,6 +26,9 @@
     </ul>
 </div>
 <script>
+    <#if fileName=="报名表">
+        <#assign fileName="报名表和承诺书"/>
+    </#if>
     $("#sendMail").click(function () {
         var email = $("#email").val();
         if(emptyCheck(email)){
