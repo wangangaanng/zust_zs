@@ -92,8 +92,9 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .search-score_label{font-size: 16px;color: #595959}
 .grade-result{padding: 11px 0px;}
 
-.sw-tip{background: rgba(235,235,235,0.5);color: #333; border-radius: 4px;  padding: 9px 10px;  font-size: 13px;margin-bottom: 20px;}
+.sw-tip{background: rgba(235,235,235,0.5);color: #FF0000; border-radius: 0px;  padding: 5px 10px;  font-size: 13px;margin-bottom: 20px;}
 .sw-tip .glyphicon-list-alt{margin-right: 4px;top: 2px;}
+.icon-tongzhi:before{font-size: 14px;}
 .null-txt{text-align: center;height: 347px;}
 .null-txt p{margin-top: 10px;font-size: 16px;font-weight: bold;color:#008784 }
 .preview-btn{color: #008784;background: rgba(0,135,132,0.1);border:1px solid  #008784}

@@ -4,6 +4,16 @@
     描述：初审结果/在线缴费
 -->
 <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
+<#if (processState==6) >
+    <#assign tip="恭喜你，你的初审已通过。缴费证明图片已提交，请耐心等耐审核！"/>
+</#if>
+<#if (processState>6) >
+    <#assign tip="恭喜你，你的初审已通过，缴费审核已通过。"/>
+</#if>
+<#if (processState<6) >
+    <#assign tip="恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。"/>
+</#if>
+<#include "com/SWtip.ftl">
 <div class="pay-online row">
     <ul class="col-sm-offset-1">
         <li>
@@ -55,7 +65,7 @@
 
         <#if (processState>5)>
             <li>
-                <p class="contact-wrap_title ${(processState>6)?string('active','')}">${(processState==6)?string('等待缴费审核','已缴费')}</p>
+                <p class="contact-wrap_title ${(processState>6)?string('active','')}">${(processState==6)?string('等待缴费确认','已缴费')}</p>
             </li>
         </#if>
     </ul>

@@ -12,6 +12,7 @@
     <title>${swyt_title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
+    <link rel="stylesheet" href="${base}/css/swytFonts.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <script>
         //申请表owid

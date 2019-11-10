@@ -1,10 +1,18 @@
 <!--
     作者：2515421994@qq.com
     时间：2019-10-26
-    描述：面试通知单
+    描述：报名表1和面试通知单发送到邮箱5
 -->
-<#assign tip="请考生确认邮箱地址，点击确认后报名表和承诺书将发送至邮箱"/>
 <div class="group-wrap">
+<#switch page>
+    <#case "1">
+        <#assign tip="你的报名表已成功提交,请确认邮箱地址。点击确认发送，报名表和承诺书将发送到你的邮箱。"/>
+        <#break>
+    <#case "5">
+        <#assign tip="恭喜你已成功通过初审，请确认邮箱地址。点击确认发送，面试通知单将发送到你的邮箱。"/>
+        <#break>
+</#switch>
+<#include "com/SWtip.ftl">
     <ul class="list-group row">
         <div class="grade-result row">
         </div>
@@ -20,7 +28,7 @@
         </li>
         <div class="form-group">
             <div class="col-sm-12 text-center" style="margin-top: 60px;">
-                <button type="submit" id="sendMail" class="btn btn-default btn-common yellow">发送到邮箱</button>
+                <button type="submit" id="sendMail" class="btn btn-default btn-common yellow">确认发送</button>
             </div>
         </div>
     </ul>
