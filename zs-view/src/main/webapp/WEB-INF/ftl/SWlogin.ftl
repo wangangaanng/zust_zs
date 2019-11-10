@@ -43,13 +43,13 @@
                 <img src="${base}/img/password.png">
                 <input type="password" placeholder="请输入密码" id="swMm">
             </div>
-            <div class="forget"><a href="SWYTpassword">忘记密码？</a></div>
+            <div class="forget"><a href="trinityPsw">忘记密码？</a></div>
             <div class="login_bun" onclick="swYtLogin()">登录</div>
         </div>
         <div class="login_right">
             <div class="login_right_border">
                 <div>还没有账号</div>
-                <div class="registered" onclick="window.location.href='SWregistered'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div class="registered" onclick="window.location.href='trinityRegister'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
                 <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
             </div>

@@ -136,19 +136,19 @@ public class SwytController {
        }
        return view;
    }
-    @RequestMapping(value = "SWlogin", method = RequestMethod.GET)
+    @RequestMapping(value = "trinitylogin", method = RequestMethod.GET)
     public ModelAndView SWlogin(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWlogin");
         return view;
     }
 
-    @RequestMapping(value = "SWregistered", method = RequestMethod.GET)
+    @RequestMapping(value = "trinityRegister", method = RequestMethod.GET)
     public ModelAndView SWregistered(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWregistered");
         return view;
     }
 
-    @RequestMapping(value = "SWpassword", method = RequestMethod.GET)
+    @RequestMapping(value = "trinityPsw", method = RequestMethod.GET)
     public ModelAndView SWYTpassword(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWpassword");
         return view;
