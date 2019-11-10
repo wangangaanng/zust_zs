@@ -80,19 +80,21 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .img-full{width: 100%;height: 100%;border-radius: 4px;}
 /*分组信息*/
 .group-wrap{background: #fafafa}
-.group-wrap .list-group{padding: 0px 50px;min-height: 403px;}
+.group-wrap .list-group{padding: 17px 50px;min-height: 403px;}
 .group-wrap .list-group-item{background: transparent}
 .group-label{margin-right: 60px;}
 .group-wrap .list-group-item{border: none;border-bottom: 1px dashed #eee}
+.group-wrap .list-group-item label{margin-bottom: 0px!important;}
 .group-wrap .list-group-item:last-child{border-bottom: none}
 .group-value{font-weight: normal;font-size: 15px;}
 .wait{background: rgba(214,48,48,0.26);color: #d43030;padding: 1px 12px;}
-.search-score{color: #008784;font-size: 22px;}
+.search-score{color: #008784;font-size: 22px;margin-left: 4px;}
 .search-score_label{font-size: 16px;color: #595959}
 .grade-result{padding: 11px 0px;}
 
-.sw-tip{background: rgba(235,235,235,0.5);color: #333; border-radius: 4px;  padding: 9px 10px;  font-size: 13px;margin-bottom: 20px;}
+.sw-tip{background: rgba(235,235,235,0.5);color: #FF0000; border-radius: 0px;  padding: 5px 10px;  font-size: 13px;margin-bottom: 20px;}
 .sw-tip .glyphicon-list-alt{margin-right: 4px;top: 2px;}
+.icon-tongzhi:before{font-size: 14px;}
 .null-txt{text-align: center;height: 347px;}
 .null-txt p{margin-top: 10px;font-size: 16px;font-weight: bold;color:#008784 }
 .preview-btn{color: #008784;background: rgba(0,135,132,0.1);border:1px solid  #008784}
@@ -119,3 +121,4 @@ header .top-logo{margin-top: 100px;margin-left: 200px;}
 .login_right_border{margin: 80px 0 0 70px;color: #505050;}
 .registered{margin: 15px 0 40px;color: #f5b900;cursor: pointer;}
 .getymz{ position: absolute; right: 0px; line-height: 47px;top: 0; padding: 0 10px;color: #008784;cursor: pointer;-webkit-user-select: none; -ms-user-select: none; }
+.login_input span.iconfont{position: absolute!important;left: 10px;font-size: 20px;color: #008784;top: 10px;z-index: 99}

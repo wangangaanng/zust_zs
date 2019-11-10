@@ -4,6 +4,16 @@
     描述：初审结果/在线缴费
 -->
 <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
+<#if (processState==6) >
+    <#assign tip="恭喜你，你的初审已通过。缴费证明图片已提交，请耐心等耐审核！"/>
+</#if>
+<#if (processState>6) >
+    <#assign tip="恭喜你，你的初审已通过，缴费审核已通过。"/>
+</#if>
+<#if (processState<6) >
+    <#assign tip="恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。"/>
+</#if>
+<#include "com/SWtip.ftl">
 <div class="pay-online row">
     <ul class="col-sm-offset-1">
         <li>
@@ -53,12 +63,11 @@
             </div>
         </li>
 
-       <#-- <li>
-            <p class="contact-wrap_title">等待缴费审核</p>
-            <div class="pay-online_ctxt">
-                <h5>缴费证明您已上传成功，请等待缴费审核</h5>
-            </div>
-        </li>-->
+        <#if (processState>5)>
+            <li>
+                <p class="contact-wrap_title ${(processState>6)?string('active','')}">${(processState==6)?string('等待缴费确认','已缴费')}</p>
+            </li>
+        </#if>
     </ul>
     <#--button  start -->
     <#if (processState==5)>
@@ -82,7 +91,7 @@
         <#elseif (processState??&&processState>5)>
             $(".file-btn").hide();
             $(".uploadlabel").attr("for","").html("已上传");
-            $(".contact-wrap_title").addClass("active")
+            $(".pay-online li").eq(1).find(".contact-wrap_title").addClass("active");
     </#if>
 
     //报名表签字上传
@@ -103,8 +112,8 @@
                 //调用上传接口
                 idOcr(imgType,file,function (d) {
                     payProveImg = d.bean.fileName;
-                    $(".contact-wrap_title").addClass("active")
-                    walert("缴费证明图片上传成功")
+                    $(".pay-online li").eq(1).find(".contact-wrap_title").addClass("active");
+                    walert("缴费证明图片上传成功,请等待审核")
                 });
             }
             reader.readAsDataURL(file);
