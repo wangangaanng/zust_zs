@@ -19,7 +19,7 @@
                 <div class="title">三位一体招生网</div>
                 <#if nameStu??>
                     <div class="user-info" id="stuInfo">
-                        <a href="${base}/stuCenter/0">欢迎您<span id="stuName">${nameStu!""}</span></a>,<a href="${base}/trinitylogin" onclick="loginout()">退出</a>
+                        <a href="${base}/stuCenter/0">欢迎您<span id="stuName">${nameStu!""}</span></a>,<a href="#" id="outBtn">退出</a>
                     </div>
                 </#if>
                 <span class="search-bar">
@@ -30,3 +30,9 @@
         </div>
     </div>
 </header>
+<script>
+    $("#outBtn").click(function () {
+        window.location.href = "${base}/trinitylogin";
+        delCookie("swOwid");
+    });
+</script>
