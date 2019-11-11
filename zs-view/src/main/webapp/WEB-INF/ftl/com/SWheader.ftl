@@ -10,13 +10,17 @@
     .search-ipt{width:100%;background-color:#fff;border: none;line-height: 40px;}
     header .top{height: auto}
     header .top-logo{margin-left: 0px;margin-top: 0px;}
+    header .logo{margin: 40px 0px;}
+    header .top-logo .user-info{position: relative; right: 0px; top: 0px;  color: #fff;  margin-top: 73px;  float: right;}
 </style>
 <header>
     <div class="top">
         <div class="container">
             <div class="top-logo">
                 <img class="logo" src="${base}/img/logo-zust.png">
-                <div class="title">三位一体招生网</div>
+                <div class="title">
+                    三位一体招生网
+                </div>
                 <#if nameStu??>
                     <div class="user-info" id="stuInfo">
                         欢迎您<span id="stuName">${nameStu!""}</span>, <a href="#" id="outBtn">退出</a>

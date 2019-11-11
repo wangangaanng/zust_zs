@@ -34,7 +34,7 @@
         height: 100%;
         margin: 0 auto;
         display: flex;
-        padding: 40px 0px 20px;
+        padding: 80px 0px 20px;
         border-bottom: 1px solid #e5e5e5;
     }
     .first_Paginationtxtcont>ul>li,.second_Pagination>ul>li,.third_Pagination>ul>li{

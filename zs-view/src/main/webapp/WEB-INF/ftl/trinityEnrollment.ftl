@@ -26,7 +26,7 @@
 
     <#--menu constant-->
     <#--在线提问暂时隐藏-->
-    <#assign menuList=["我的报名表","报名表承诺书打印","拍照上传","初审结果/缴费","面试时间","面试通知单打印","成绩查询"] />
+    <#assign menuList=["我的报名表","报名表承诺书打印","拍照上传","初审结果/缴费","面试时间","面试通知单打印","成绩查询","在线提问"] />
 
     <#--swiper start-->
     <div class="swiper-container index-swiper">

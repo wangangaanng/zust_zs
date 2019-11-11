@@ -23,7 +23,11 @@
 <script>
     $(".list-group li").click(function () {
         var index = $(this).index();
-        window.location.href="${base}/trinityEnrollment/"+index;
-        $(this).addClass("active1").siblings().removeClass("active1");
+        if(index==7){
+            window.location.href="${base}/zxtw/5/1";
+        }else{
+            window.location.href="${base}/trinityEnrollment/"+index;
+            $(this).addClass("active1").siblings().removeClass("active1");
+        }
     });
 </script>
