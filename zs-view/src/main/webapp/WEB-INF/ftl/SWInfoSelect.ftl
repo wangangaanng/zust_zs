@@ -76,7 +76,7 @@
         <div>
             <div class="form-group">
                 <label for="" class="col-sm-2 control-label col-sm-offset-1">
-                   专项类别(可多选) <span class="red">*</span>
+                   专项类别(可多选)
                 </label>
                 <div class="col-sm-8">
                     <ul class="checkbox-wrap" id="zxlb">
@@ -105,7 +105,7 @@
             </div>
 
             <div class="form-group">
-                <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次<span class="red">*</span>：</label>
+                <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参加的竞赛类别、竞赛名称、时间、竞赛级别、取得名次：</label>
                 <div class="col-sm-10 col-sm-offset-1">
                     <textarea class="form-control" id="jssm" name="jssm" rows="8" placeholder="请输入荣誉竞赛信息(最长150字)" oninput="if(value.length>150){value=value.substring(0,150)}"></textarea>
                     <div class="upimg-wrap" style="float: left;">
@@ -123,7 +123,7 @@
             </div>
 
             <div class="form-group">
-                <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参与的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或者职责）<span class="red">*</span>：</label>
+                <label for="zwGwzz" class="col-sm-10 control-label col-sm-offset-1 label-full">高中阶段参与的社会工作和课外活动（含活动时间、受过何种奖励、本人在活动中的职务或者职责）：</label>
                 <div class="col-sm-10 col-sm-offset-1">
                     <textarea class="form-control" id="qtqk" name="qtqk" rows="8" placeholder="请输入高中阶段参与的社会工作和课外活动(最长150字)" oninput="if(value.length>150){value=value.substring(0,150)}"></textarea>
                 </div>
@@ -143,13 +143,53 @@
     <#--button  start -->
     <div class="row">
         <div class="col-sm-4 col-sm-offset-2">
-            <button type="submit" class="btn btn-default btn-common yellow">上一步，学考等第</button>
+            <button type="submit" class="btn btn-default btn-common yellow" onclick="finishXk(1)">上一步，学考等第</button>
         </div>
         <div class="col-sm-4">
-            <button type="submit" class="btn btn-default btn-common yellow" onclick="finishXk()">完成</button>
+            <button type="submit" class="btn btn-default btn-common yellow" onclick="finishXk(2)">完成</button>
         </div>
     </div>
     <#--button  end -->
+</div>
+<div id="majorExam" style="display:none;padding: 80px 50px;">
+    <div class="form-horizontal basic-from">
+        <div class="contact-wrap">
+            <div class="form-group">
+                <label class="col-sm-3 control-label  col-sm-offset-1">学科类别<span class="red">*</span>：</label>
+                <div class="col-sm-7">
+                    <select class="form-control label-select" style="width: 100%;" id="Major1">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label  col-sm-offset-1">报考类别<span class="red">*</span>：</label>
+                <div class="col-sm-7">
+                    <select class="form-control label-select" style="width: 100%;" id="Major2">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label  col-sm-offset-1">招生专业<span class="red">*</span>：</label>
+                <div class="col-sm-7">
+                    <select class="form-control label-select" style="width: 100%;" id="Major3">
+                        <option value="">请选择</option>
+                    </select>
+                </div>
+            </div>
+            <div style="display: none;text-align: right;padding-right: 0;margin-bottom: 30px;" class="col-sm-11" id="getApply">
+                <a href="" target="_Blank">报名表预览</a>
+            </div>
+        </div>
+        <#--button  start -->
+        <div class="row" style="text-align: center;">
+            <div class="col-sm-12">
+                <button type="submit" class="btn btn-default btn-common yellow" onclick="confirmApply()">确认提交报名表</button>
+            </div>
+        </div>
+        <#--button  end -->
+    </div>
 </div>
 <#--学考等第 end-->
 
