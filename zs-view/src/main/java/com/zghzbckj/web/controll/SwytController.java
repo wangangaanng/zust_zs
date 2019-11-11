@@ -57,7 +57,7 @@ public class SwytController {
                Map<String, Object> records = (Map<String, Object>) resultMess.getBean();
                //单条学院数据
                List<Map<String, Object>> List = (List<Map<String, Object>>) records.get("list");
-               //申请表owid 未申请没有改字段
+               //申请表owid 未申请没有该字段
                if(!StringUtils.isEmpty(List.get(0).get("applyOwid"))){
                    applyOwid = List.get(0).get("applyOwid").toString();
                    view.addObject("applyOwid",applyOwid);
@@ -65,6 +65,7 @@ public class SwytController {
                    view.addObject("processState",List.get(0).get("bmState"));
                }else{
                    view.addObject("applyOwid","");
+                   view.addObject("processState",0);
                }
            }
 
