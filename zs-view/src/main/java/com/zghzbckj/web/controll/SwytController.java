@@ -42,7 +42,7 @@ public class SwytController {
        String applyOwid = "";//表明表id
        //判断是否有个人owid 没有说明没登陆
        if(StringUtils.isEmpty(swOwid)){
-           view.setViewName("trinitylogin");
+           view.setViewName("SWlogin");
        }else{
 
            //获取学校信息
