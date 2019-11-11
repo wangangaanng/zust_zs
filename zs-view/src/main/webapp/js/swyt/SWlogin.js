@@ -27,8 +27,10 @@ function swYtLogin() {
     }
     ajax('zustcommon/bckjBizYhxx/swYtLogin',data,function (res) {
         if(res.backCode==0){
-            addCookie('swOwid',res.bean.owid)
-            window.location.href='trinityEnrollment/0';
+            addCookie('swOwid',res.bean.owid);
+            window.location.href=base+'/trinityEnrollment/0';
+        }else {
+            walert(res.errorMess)
         }
     })
 }

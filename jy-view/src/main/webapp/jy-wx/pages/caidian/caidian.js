@@ -22,6 +22,7 @@ Page({
     var that = this;
     wx.getLocation({
       type: 'gcj02',// 默认wgs84
+      isHighAccuracy: true,
       success: function (res) {
         that.setData({
           latitude: res.latitude.toFixed(5),
@@ -62,6 +63,7 @@ Page({
     var that = this;
     wx.getLocation({
       type: 'gcj02',// 默认wgs84
+      isHighAccuracy: true,
       success: function (res2) {
         that.setData({
           latitude: res2.latitude.toFixed(5),

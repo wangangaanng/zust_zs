@@ -1,5 +1,4 @@
 {
-  "navigationStyle":"custom",
   "navigationBarTextStyle":"white",
   "usingComponents": {
     "authorize": "../../pages/auth/auth",

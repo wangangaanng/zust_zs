@@ -9,6 +9,28 @@ var lb = "";//新闻关键字
 $(document).ready(function(){
 	// lb=$("#zylb").find("li").eq(0).attr("val");
 	init();
+    $.each($(".gongGao_title"),function(j,k){
+        $(k).click(function(){
+            var isOpen = $(this).next().css("display");
+            $(".gongGao_title").prev().css("color","black");
+            $(".gongGao_title").css("color","black");
+            if(isOpen=="none"){
+                $(this).prev().css("color","#008784");
+                $(this).css("color","#008784");
+                $(".gongGao_introdiv").slideUp(300);
+                $(this).next().slideDown(300);
+                var li_num = $(this).parent().attr("num");
+                if(li_num>2)
+                    $(".gongGao_ul_li:eq("+(li_num-2)+")").prevAll().slideUp(300);
+            }
+            else{
+                $(this).prev().css("color","black");
+                $(this).css("color","black");
+                $(this).next().slideUp(300);
+                $(".gongGao_ul_li").slideDown(300);
+            }
+        });
+    });
 });
 
 function init()

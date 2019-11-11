@@ -61,6 +61,16 @@ public class BckjBizLqxs extends DataWithExpEntity<BckjBizLqxs> {
 	private String memo;		// memo
 	private Date jcsj;		// jcsj
 	private String ems;		// ems
+
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private boolean readOnly;
 	
 	public BckjBizLqxs() {
 		super();

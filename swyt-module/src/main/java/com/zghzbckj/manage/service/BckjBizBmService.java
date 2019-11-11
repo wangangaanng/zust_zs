@@ -146,7 +146,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                 Map params = Maps.newHashMap();
                 params.put("bmRefOwid", bm.getOwid());
                 params.put("orderBy", "a.mxsx");
-                params.put("lx", SwytConstant.BMMX_LX_HK);
+                params.put("lx", "0");
                 List<BckjBizBmmx> mxList = bmmxDao.findListByMap(params);
                 if (mxList != null && mxList.size() > 0) {
                     for (BckjBizBmmx mx : mxList) {
@@ -165,6 +165,25 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                 bmMap.put("owid", bm.getOwid());
                 bmMap.put("state", bm.getState());
                 mapList.add(bmMap);
+                params.put("lx", SwytConstant.BMMX_LX_XK);
+                mxList = bmmxDao.findListByMap(params);
+                int i = 1;
+                if (mxList != null && mxList.size() > 0) {
+                    for (BckjBizBmmx mx : mxList) {
+                        String mxmc = mx.getMxmc();
+                        String mxnr = mx.getMxnr();
+                        if (1 == i) {
+                            bmMap.put("xkcj1",mxmc + ":" + mxnr);
+                        }
+                        if (2 == i) {
+                            bmMap.put("xkcj2",mxmc + ":" + mxnr);
+                        }
+                        if (3 == i) {
+                            bmMap.put("xkcj3",mxmc + ":" + mxnr);
+                        }
+                        i++;
+                    }
+                }
             }
         }
 
@@ -572,7 +591,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public List<Map> listDicByType(Integer hkcj) {
         Map params = Maps.newHashMap();
         params.put("type", hkcj);
-        params.put("orderBy", "a.dic_val4");
+        params.put("orderBy", " CAST(a.dic_val4 AS SIGNED)");
         List<Map> results = this.dao.listDicByType(params);
         return results;
 
@@ -654,6 +673,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                     bm.setZzcj(zzcj);
                     bm.setState(10);
                     bm.setXybnr(SwytConstant.BMCJCX);
+                    bm.setLrsj(new Date());
                     saveOrUpdate(bm);
                 }
 

@@ -217,7 +217,6 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
             mapData.put("jsfj","''");
         }
         this.commonDao.deleteFilesByjbxx(mapData);
-        this.commonDao.updateFileByjbxx(mapData);
         return Boolean.TRUE;
     }
 
@@ -239,7 +238,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         mapData.put("lx", 1);
         mapData.put("orderBy", "a.xssx");
         result.put("xkList", this.dao.findListByMap(mapData));
-        List<Map> fileList = commonDao.findFileByJbxx(jbxx.getOwid());
+        List<Map> fileList = commonDao.findFileByJbxx(jbxx.getYhRefOwid());
         result.put("jsfj", fileList);
         return result;
     }
