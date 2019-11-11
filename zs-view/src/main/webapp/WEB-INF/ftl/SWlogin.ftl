@@ -68,24 +68,6 @@
                 <div>Copyright © job.zust.edu.cn All Right reserved 沪ICP备10005749号-3</div>
                 <div>技术支持：杭州步长科技有限公司 &nbsp;&nbsp;&nbsp;电话：0571-81109247</div>
             </div>
-            <div class="ewm">
-                <div class="ewmxq">
-                    <div class="ewm-border">
-                        <img src="${base}/img/ewm-jiuye.png">
-                    </div>
-                    <div class="ewmsm">
-                        科院微就业
-                    </div>
-                </div>
-                <div class="ewmxq">
-                    <div class="ewm-border">
-                        <img src="${base}/img/ewm-qq.png">
-                    </div>
-                    <div class="ewmsm">
-                        企业QQ群
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>

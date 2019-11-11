@@ -77,6 +77,7 @@ function getContactors() {
                             key = x;
                             value = p[x];
                             (key == "xb")?($("#faxb option[value='"+p[x]+"']").prop("selected","selected")):'';
+                            (key == "whcd")?($("#fawhcd option[value='"+p[x]+"']").prop("selected","selected")):'';
                             $("input[name='fa"+key+"']").val(value);
                         }
                         break;
@@ -85,6 +86,7 @@ function getContactors() {
                             key = x;
                             value = p[x];
                             (key == "xb")?($("#moxb option[value='"+p[x]+"']").prop("selected","selected")):'';
+                            (key == "whcd")?($("#mowhcd option[value='"+p[x]+"']").prop("selected","selected")):'';
                             $("input[name='mo"+key+"']").val(value);
                         }
                         break;
@@ -93,6 +95,7 @@ function getContactors() {
                             key = x;
                             value = p[x];
                             (key == "xb")?($("#texb option[value='"+p[x]+"']").prop("selected","selected")):'';
+                            (key == "whcd")?($("#tewhcd option[value='"+p[x]+"']").prop("selected","selected")):'';
                             $("input[name='te"+key+"']").val(value);
                         }
                         break;
