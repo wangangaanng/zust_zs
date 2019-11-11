@@ -61,6 +61,7 @@ Page({
             })
             wx.getLocation({
               type: 'gcj02',// 默认wgs84
+              isHighAccuracy:true,
               success: function (res) {
                 // var latitude = "markers[0].latitude"
                 // var longitude = "markers[0].longitude"
@@ -139,6 +140,7 @@ Page({
     var that = this
     wx.getLocation({
       type: 'gcj02',// 默认wgs84
+      isHighAccuracy: true,
       success: function (res) {
         that.setData({
           latitude: res.latitude,
