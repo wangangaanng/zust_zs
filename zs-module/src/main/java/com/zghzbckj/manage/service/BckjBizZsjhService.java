@@ -187,9 +187,9 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         List<BckjBizZsjh> dataList = this.dao.findListByMap(dataMap);
         List<List<String>> excelList = new ArrayList<>(dataList.size());
         //本地
-        String filePath = "F:\\img\\";
+//        String filePath = "F:\\img\\";
         //正式
-//        String filePath = "/mnt/files/zjcFiles/excel";
+        String filePath = "/mnt/files/zjcFiles/excel";
         String fileOutPath = System.currentTimeMillis() + ".xls";
         String[] title = {"年份", "省份", "科类", "批次", "专业", "学制", "招生数", "学费/年", "授予学位"};
         for (BckjBizZsjh data : dataList) {
