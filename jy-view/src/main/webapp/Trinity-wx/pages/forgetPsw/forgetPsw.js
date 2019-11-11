@@ -120,9 +120,9 @@ Page({
     });
   },
   //获取手机号码
-  telBlur(e) {
+  telInput(e) {
     this.setData({
-      tel: e.detail.value
+      tel: e.detail
     });
   },
   initValidate() {

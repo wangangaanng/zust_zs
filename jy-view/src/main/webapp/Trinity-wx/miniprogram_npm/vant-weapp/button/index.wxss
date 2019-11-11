@@ -133,6 +133,7 @@
   padding: 0 8px;
   font-size: 12px;
   line-height: 28px;
+  color: #26b887;
 }
 
 .van-button--mini {
