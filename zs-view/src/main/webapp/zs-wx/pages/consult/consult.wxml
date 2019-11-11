@@ -33,7 +33,7 @@
       <block wx:for="{{list2}}" wx:key="{{index}}">
         <view class="l-item">
           <view class="l-ask">
-          <view>
+          <view style="font-size:28rpx;">
             <image src="../../static/icon-ask.png"></image>
             {{item.LYIP}}的提问：
             <view class="ask-time">{{item.TWRQ}}</view>
@@ -41,7 +41,7 @@
           <view class="ask-nr">{{item.WTNR}}</view>
           </view>
           <view class="l-ask">
-          <view wx:if="{{item.DANR}}">
+          <view wx:if="{{item.DANR}}" style="font-size:28rpx;">
             <image src="../../static/icon-ans.png"></image>
             管理员的回答：
             <view class="ask-time">{{item.HDRQ}}</view>
@@ -79,7 +79,7 @@
                   <view class="uni-media-list-text-content">开始时间：<span>{{itm.kssj}}</span></view>
                   <view class="uni-media-list-text-content">结束时间：<span>{{itm.jssj}}</span></view>
                 </view>
-                <view class="btn-right" wx:if="{{itm.sfyx==1}}" data-owid="{{itm.owid}}" bindtap="diaocha"><van-button type="primary" size="small">进入</van-button></view>
+                <view class="btn-right" wx:if="{{itm.sfyx==1}}" data-owid="{{itm.owid}}"><van-button type="primary" size="small">进入</van-button></view>
                 <view class="btn-right" wx:else><van-button plain type="primary" color="red" size="small">已过期</van-button></view>
               </view>
             </view>

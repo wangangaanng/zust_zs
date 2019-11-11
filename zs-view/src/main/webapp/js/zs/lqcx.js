@@ -34,7 +34,7 @@ function queryIn() {
             $('#xm').html(res.bean.xm);
             $('#zhuhe').html("浙江科技学院-" + res.bean.lqzy + "预录取，最终录取请查询当地考试院。");
             if(null!=res.bean.jcsj) {
-                $("#lqd").html("录取通知单已经于<b>"+lqxx.jcsj+"</b>寄出");
+                $("#lqd").html("录取通知单已经于<b>"+res.bean.jcsj+"</b>寄出");
             }
             if(null!=res.bean.ems) {
                 $("#ems_dh").html("EMS单号：<b style='cursor: pointer'  class='emsUrl' ems='"+res.bean.ems+"'>"+res.bean.ems+"</b>，请注意查收！！！");

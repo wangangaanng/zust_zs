@@ -1,1 +1,5 @@
 /* pages/jhcx/jhcx.wxss */
+
+.btn-view{padding: 20rpx;overflow: hidden;}
+.btn-view van-button{margin: 10rpx;float: left}
+.btn-icon view{line-height: 21px;vertical-align: middle}

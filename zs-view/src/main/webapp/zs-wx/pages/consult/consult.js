@@ -358,7 +358,7 @@ var getList2 = function (that) {//
       var totalPage = res.data.bean.totalPage;
       that.setData({
         list2: list2,
-        totalPage1: totalPage,
+        totalPage2: totalPage,
       })
     } else {
       wx.showToast({
