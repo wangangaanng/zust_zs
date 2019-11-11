@@ -56,6 +56,15 @@ public class BckjBizJbxx extends DataWithExpEntity<BckjBizJbxx> {
     private Integer jtcyState;
     private String swytDlzh;
     private String swytDlmm;
+    private boolean readOnly;
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
 
     public String getSwytDlzh() {
         return swytDlzh;

@@ -128,6 +128,12 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
 
+        List<BckjBizBm> records = page.getRecords();
+        BckjBizBm bm = new BckjBizBm();
+        bm.setXm("共有：" + page.getTotalCount() + "条报名信息");
+        bm.setReadOnly(true);
+        records.add(0, bm);
+
         return page;
     }
 
@@ -173,13 +179,13 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                         String mxmc = mx.getMxmc();
                         String mxnr = mx.getMxnr();
                         if (1 == i) {
-                            bmMap.put("xkcj1",mxmc + ":" + mxnr);
+                            bmMap.put("xkcj1", mxmc + ":" + mxnr);
                         }
                         if (2 == i) {
-                            bmMap.put("xkcj2",mxmc + ":" + mxnr);
+                            bmMap.put("xkcj2", mxmc + ":" + mxnr);
                         }
                         if (3 == i) {
-                            bmMap.put("xkcj3",mxmc + ":" + mxnr);
+                            bmMap.put("xkcj3", mxmc + ":" + mxnr);
                         }
                         i++;
                     }

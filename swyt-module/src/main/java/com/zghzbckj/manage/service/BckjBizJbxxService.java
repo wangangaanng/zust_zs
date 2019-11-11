@@ -78,6 +78,13 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
             dataMap.put("createtime2", date);
         }
         PageInfo<BckjBizJbxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+
+        List<BckjBizJbxx> records = page.getRecords();
+        BckjBizJbxx jbxx = new BckjBizJbxx();
+        jbxx.setXm("共有：" + page.getTotalCount() + "个用户");
+        jbxx.setReadOnly(true);
+        records.add(0, jbxx);
+
         return page;
     }
 
@@ -143,7 +150,7 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
             indata.setXkState(0);
             indata.setHkState(0);
             indata.setJtcyState(0);
-            doCopyAreaInfo(mapData,indata);
+            doCopyAreaInfo(mapData, indata);
         } else {
             BeanUtil.copyPropertiesIgnoreNull(param, indata);
         }
@@ -153,18 +160,18 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
     }
 
     /**
-    *<p>方法:doCopyAreaInfo TODO取省市区数据 </p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-     *<li> @param indata TODO</li>
-    *<li>@return void  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/11/8 16:20  </li>
-    *</ul>
-    */
+     * <p>方法:doCopyAreaInfo TODO取省市区数据 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li> @param indata TODO</li>
+     * <li>@return void  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/11/8 16:20  </li>
+     * </ul>
+     */
     public void doCopyAreaInfo(Map<String, Object> mapData, BckjBizJbxx indata) throws CustomerException {
-        BckjBizJbxx jbxxArea=this.dao.findByUser(mapData);
-        if(null==jbxxArea){
+        BckjBizJbxx jbxxArea = this.dao.findByUser(mapData);
+        if (null == jbxxArea) {
             throw CustomerException.newInstances("不存在注册信息");
         }
         indata.setArea(jbxxArea.getArea());
@@ -229,6 +236,7 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
 
     /**
      * 获取基本信息
+     *
      * @param mapData
      * @return
      */
