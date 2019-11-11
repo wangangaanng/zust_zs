@@ -106,7 +106,7 @@
                 $('#wtnr').val("");
                 walert("提交成功，请等待回答")
             } else {
-                walert("提交失败")
+                walert(res.errorMess)
             }
         })
     }

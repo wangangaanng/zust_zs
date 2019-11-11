@@ -156,7 +156,7 @@ public class BckjBizXyzyService extends CrudService<BckjBizXyzyDao, BckjBizXyzy>
     @Transactional(readOnly = false)
     public BaseTree saveTree(Map<String, Object> mapData) {
         BckjBizXyzy bckjBizXyzy = JsonUtil.map2Bean(mapData, BckjBizXyzy.class);
-        bckjBizXyzy.setParentId(Long.valueOf(mapData.get("fid").toString()));
+        bckjBizXyzy.setParentId(Long.valueOf(mapData.get("parentId").toString()));
         if (TextUtils.isEmpty(bckjBizXyzy.getOwid())) {
             this.save(bckjBizXyzy);
             if (!TextUtils.isEmpty(bckjBizXyzy.getPath()) && bckjBizXyzy.getPath().endsWith("//")) {
