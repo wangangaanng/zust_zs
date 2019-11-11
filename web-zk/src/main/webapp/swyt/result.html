@@ -1,0 +1,159 @@
+<html>
+<head>
+    <title>Web Socket Echo Test</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9">
+    <script type="text/javascript" src="jquery-1.12.2.js"></script>
+    <script>
+        var ws = null;
+        var count = 0;
+        function setConnected(connected) {
+            document.getElementById('connect').disabled = connected;
+           // document.getElementById('disconnect').disabled = !connected;
+           // document.getElementById('echo').disabled  = !connected;
+        }
+
+        function connect() {
+            var target = document.getElementById('target').value;
+            if (target == '') {
+                alert('Please select server side connection implementation.');
+                return;
+            }
+            if ('WebSocket' in window) {
+                ws = new WebSocket(target);
+            } else if ('MozWebSocket' in window) {
+                ws = new MozWebSocket(target);
+            } else {
+                alert('WebSocket is not supported by this browser.');
+                return;
+            }
+
+            ws.onopen = function () {
+                setConnected(true);
+                log('Info:');
+            };
+            ws.onmessage = function (event) {
+                log('Received: ' + event.data);
+                if(event.data instanceof ArrayBuffer){
+                    var bytes = new Uint8Array(event.data);
+                    alert(bytes.length + " : " + bytes[0]);
+                }
+            };
+            ws.onclose = function (event) {
+                setConnected(false);
+                log('Info: WebSocket connection closed, Code: ' + event.code + (event.reason == "" ? "" : ", Reason: " + event.reason));
+            };
+
+        }
+
+        function disconnect() {
+            if (ws != null) {
+                ws.doClose();
+                ws = null;
+            }
+            setConnected(false);
+        }
+
+        function echo() {
+            if (ws != null) {
+                var message = document.getElementById('message').value;
+                log('Sent: ' + message);
+                ws.send(JSON.stringify({'textMessage': message}));
+                count++
+            } else {
+                alert('WebSocket connection not established, please connect.');
+            }
+        }
+
+        function log(message) {
+            if(message.length<=15)
+                return;
+            var echomsg = $('#echomsg');
+            var _mess = message.split(":");
+            if(_mess.length<=5)
+                return;
+            var _newDiv = "<div ";
+            if(_mess[1]==-1){
+                _newDiv +=" class='errorDiv'>";
+            }else
+                _newDiv +=" class='correctDiv'>";
+            _newDiv +="<ul><li>"+_mess[2]+"</li><li>"+_mess[3]+"</li><li>"+_mess[4]+"</li><li>"+_mess[5]+"</li><li>"+_mess[6]+"</li></ul>";
+            _newDiv +="</div>";
+            echomsg.prepend(_newDiv);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Remove elements with "noscript" class - <noscript> is not allowed in XHTML
+            var noscripts = document.getElementsByClassName("noscript");
+            for (var i = 0; i < noscripts.length; i++) {
+                noscripts[i].parentNode.removeChild(noscripts[i]);
+            }
+        }, false);
+    </script>
+    <style>
+        .correctDiv{
+            height: 30px;
+            width: 100%;
+            background-color: #3e8f3e;
+        }
+        .correctDiv ul li{
+            width: 15%;
+            font-size: 14px;
+            line-height: 30px;
+            float: left;
+            text-align: center;
+            list-style: none;
+            color: #fff;
+            font-weight: bold;
+        }
+        .errorDiv{
+            height: 30px;
+            width: 100%;
+            background-color: #ff0000;
+        }
+        .errorDiv ul li{
+            width: 15%;
+            font-size: 14px;
+            line-height: 30px;
+            float: left;
+            text-align: center;
+            list-style: none;
+            color: #fff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body style="margin: 0px;">
+<div style="background-color: #00C1B3;height: 30px;width: 100%;font-weight:bold;text-align: center;line-height: 30px;font-family: 'Microsoft YaHei'">
+    浙江科技学院招就处三位一体人证合一实时监控系统
+</div>
+<div>
+    <input id="target" type="text" size="40" value="ws://39.108.158.159:8081/zust/echo" style="width: 350px" /> <button id="connect" onclick="connect();">Connect</button>
+</div>
+<div id="echomsg">
+    <!--<div class="correctDiv">-->
+
+    <!--</div>-->
+      <!--<div class="correctDiv">-->
+          <!--<ul>-->
+             <!--<li>339005198012262319</li>-->
+             <!--<li>周宝刚</li>-->
+             <!--<li>国际处</li>-->
+             <!--<li>2018上午</li>-->
+             <!--<li>28号</li>-->
+             <!--<li>通过</li>-->
+          <!--</ul>-->
+      <!--</div>-->
+    <!--<div class="errorDiv">-->
+        <!--<ul>-->
+            <!--<li>339005198012262319</li>-->
+            <!--<li>周宝刚</li>-->
+            <!--<li>国际处</li>-->
+            <!--<li>2018上午</li>-->
+            <!--<li>28号</li>-->
+            <!--<li>通过</li>-->
+        <!--</ul>-->
+    <!--</div>-->
+</div>
+</body>
+</html>
