@@ -44,7 +44,7 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/swytbmxt.png" />
-                <a href="${base}/SWlogin" target="_blank">三位一体</a>
+                <a href="${base}/trinityEnrollment/0" target="_blank">三位一体</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/xsybdxt.png" />
