@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-    <#include "com/config.ftl">
+    <#include "com/ZSconfig.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
@@ -106,7 +106,7 @@
                 $('#wtnr').val("");
                 walert("提交成功，请等待回答")
             } else {
-                walert("提交失败")
+                walert(res.errorMess)
             }
         })
     }

@@ -5,8 +5,8 @@
 <form bindsubmit="changePswForm" class="form-wrap">
   <van-cell-group>
 
-    <van-field  value="{{tel}}" type="number" name="tel"  bindblur='telBlur'  placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message=""  use-button-slot>
-     <van-button slot="button" size="small" plain hairline  type="primary" bind:click="sendCode" disabled="{{disabled}}">{{time}}</van-button>
+    <van-field  value="{{tel}}" type="number" name="tel"  bindInput='telInput'  placeholder="手机号码" left-icon=" iconfont icon-shouji" error-message=""  use-button-slot>
+     <van-button slot="button" size="small" plain type="primary" bind:click="sendCode" disabled="{{disabled}}">{{time}}</van-button>
     </van-field> 
     <van-field value="{{code}}" name="code" type="number" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message="" clearable/>
 

@@ -256,11 +256,8 @@
             <if test="zwlx != null and zwlx != ''">
                 AND zwlx=#{zwlx}
             </if>
-            <if test="year != null and year != ''">
-                AND YEAR(createtime)=#{year}
-            </if>
-            <if test="month != null and month != ''">
-                AND month(createtime)=#{month}
+            <if test="date != null and date != ''">
+                AND YEAR(createtime)=SUBSTRING(#{date}, 1, 4) AND MONTH(createtime)=SUBSTRING(#{date}, 5)
             </if>
         </where>
     </select>
@@ -273,11 +270,8 @@
             <if test="zwlx != null and zwlx != ''">
                 AND zwlx=#{zwlx}
             </if>
-            <if test="year != null and year != ''">
-                AND YEAR(createtime)=#{year}
-            </if>
-            <if test="month != null and month != ''">
-                AND month(zph_ksrq)=#{month}
+            <if test="date != null and date != ''">
+                AND YEAR(zph_ksrq)=SUBSTRING(#{date}, 1, 4) AND MONTH(zph_ksrq)=SUBSTRING(#{date}, 5)
             </if>
         </where>
     </select>

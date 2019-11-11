@@ -34,7 +34,14 @@
             <div class="form-group">
                 <label for="fawhcd" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
                 <div class="col-sm-8">
-                    <input type="text" class="form-control" id="fawhcd" name="fawhcd" placeholder="请输入文化程度" autocomplete="off" value="">
+                    <select class="form-control" name="fawhcd" id="fawhcd">
+                        <option  disabled selected>-- 请选择 --</option>
+                       <#if (culList??&&culList?size>0)>
+                           <#list culList as data>
+                               <option value="${data.dicVal1!""}" >${data.dicVal2!""}</option>
+                           </#list>
+                       </#if>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -79,15 +86,23 @@
                     <label for="moxb" class="col-sm-2 control-label  col-sm-offset-1">性别<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <select class="form-control" name="moxb" id="moxb">
-                            <option value="1" selected>男</option>
-                            <option value="2" >女</option>
+                            <option value="1">男</option>
+                            <option value="2" selected>女</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="mowhcd" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="mowhcd" name="mowhcd" placeholder="请输入文化程度" autocomplete="off" value="">
+                        <select class="form-control" name="mowhcd" id="mowhcd">
+                            <option  disabled selected>-- 请选择 --</option>
+                        <#if (culList??&&culList?size>0)>
+                            <#list culList as data>
+                                <option value="${data.dicVal1!""}">${data.dicVal2!""}</option>
+                            </#list>
+                        </#if>
+                        </select>
+                        <#--<input type="text" class="form-control" id="mowhcd" name="mowhcd" placeholder="请输入文化程度" autocomplete="off" value="">-->
                     </div>
                 </div>
                 <div class="form-group">
@@ -140,7 +155,15 @@
                 <div class="form-group">
                     <label for="tewhcd" class="col-sm-2 control-label col-sm-offset-1">文化程度：</label>
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" id="tewhcd" name="tewhcd" placeholder="请输入文化程度" autocomplete="off" value="">
+                        <select class="form-control" name="tewhcd" id="tewhcd">
+                            <option  disabled selected>-- 请选择 --</option>
+                            <#if (culList??&&culList?size>0)>
+                                <#list culList as data>
+                                    <option value="${data.dicVal1!""}">${data.dicVal2!""}</option>
+                                </#list>
+                            </#if>
+                        </select>
+                        <#--<input type="text" class="form-control" id="tewhcd" name="tewhcd" placeholder="请输入文化程度" autocomplete="off" value="">-->
                     </div>
                 </div>
                 <div class="form-group">

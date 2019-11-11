@@ -118,7 +118,10 @@ public class DicValueController {
             if (!TextUtils.isEmpty(dataMap.get("dicVal8"))) {
                 dicVal.setDicVal8(dataMap.get("dicVal8").toString());
             }
+
             if (!TextUtils.isEmpty(dataMap.get("memo"))) {
+                dic.setMemo(dataMap.get("memo").toString());
+                dicService.saveOrUpdate(dic);
                 dicVal.setMemo(dataMap.get("memo").toString());
             }
             dicValue.saveOrUpdate(dicVal);

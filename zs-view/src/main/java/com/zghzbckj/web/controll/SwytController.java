@@ -107,6 +107,17 @@ public class SwytController {
 
            //不同页面不同初始化
            switch (pageType){
+               case "0": //基本信息
+                   //字典获取文化程度
+                   Map paramCulture = Maps.newHashMap();
+                   paramCulture.put("dicType","10012");
+                   ResponseMessage resultCulture  = new ResponseMessage();
+                   PublicData dataCulture = UnionHttpUtils.manageParam(paramCulture, "zustcommon/common/getByType");
+                   resultCulture = UnionHttpUtils.doPosts(dataCulture);
+                   List<Map<String, Object>> recordsCulture = (List<Map<String, Object>>) resultCulture.getBean();
+                   if(!StringUtils.isEmpty(recordsCulture)) {
+                       view.addObject("culList",recordsCulture);
+                   }
                case "2"://获取报名表和承诺书签字
                    break;
                case "3"://缴费
