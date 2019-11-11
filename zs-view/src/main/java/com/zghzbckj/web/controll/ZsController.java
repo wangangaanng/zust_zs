@@ -48,15 +48,15 @@ public class ZsController {
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizPicvid/getPicList");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("sliderList",result.getBean());
-        //通知公告
+        //通知公告-取招生动态前几条
         Map param2=Maps.newHashMap();
-        param2.put("lmbh","120");
-        param2.put("wzzt","1");
-        param2.put("isDetail","1");
+        param2.put("lmbh","119");
+//        param2.put("wzzt","1");
+//        param2.put("isDetail","1");
         param2.put("gjz","");
         param2.put("pageNo", '1');
         param2.put("pageSize", "7");
-        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/bckjBizArticle/getMuArticle");
+        PublicData publicData2= UnionHttpUtils.manageParam(param2,"zustcommon/bckjBizArticle/searchByYjlm");
         ResponseMessage result2  = UnionHttpUtils.doPosts(publicData2);
         view.addObject("tzggList",result2.getBean());
         //招生专业关键字
