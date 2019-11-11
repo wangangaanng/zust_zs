@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <#include "com/config.ftl">
+    <#include "com/ZSconfig.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
 </head>
