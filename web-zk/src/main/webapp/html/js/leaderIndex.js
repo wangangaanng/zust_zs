@@ -13,15 +13,64 @@ var nullThisTip='<a class="wrap-list">暂无</a>';
 var deptId="";//科室编号
 var reginCode="";//地区编号
 var currentYear=(new Date()).getFullYear()
+var minDate="";
+var maxDate="";
 
 $(document).ready(function(){
-    $("#year").text(currentYear);
-    $(".dropdown-menu").html('<li><a>'+currentYear+'</a></li> <li><a>'+(currentYear-1)+'</a></li> <li><a>'+(currentYear-2)+'</a></li>')
-    $(".dropdown-menu").on("click",'li',function () {
-        currentYear=$(this).text();
-        $("#year").text(currentYear);
+    minDate=currentYear+"01"
+    maxDate=currentYear+"12"
+    $('#datetimepicker').val(minDate);
+    $('#datetimepicker2').val(maxDate);
+    $('#datetimepicker').datetimepicker({
+        format: 'yyyymm',
+        weekStart: 1,
+        autoclose: true,
+        startView: 3,
+        minView: 3,
+        forceParse: false,
+        language:'zh-CN'
+    }).on('changeDate',function(ev) {
+        minDate=$("#datetimepicker").val();
+
+        var dataArr = [];
+        var data = new Date(ev.date);
+//        var year = data.getFullYear();
+        data.setMonth(data.getMonth()-1, 1); //获取到当前月份,设置月份
+        for (var i = 0; i < 12; i++) {
+            data.setMonth(data.getMonth() + 1); //每次循环一次 月份值加1
+            var m = data.getMonth() + 1;
+            m = m < 10 ? "0" + m : m;
+            dataArr.push(data.getFullYear() + "-" + m);
+        }
+        if (ev.date) {
+            $('#datetimepicker2').datetimepicker('setStartDate', dataArr[0])
+            $('#datetimepicker2').datetimepicker('setEndDate', dataArr[11])
+            maxDate="";
+            $('#datetimepicker2').val("");
+        } else {
+            $('#datetimepicker2').datetimepicker('setStartDate', "")
+            $('#datetimepicker2').datetimepicker('setEndDate', "")
+        }
+    });
+    $('#datetimepicker2').datetimepicker({
+        format: 'yyyymm',
+        weekStart: 1,
+        autoclose: true,
+        startView: 3,
+        minView: 3,
+        forceParse: false,
+        language:'zh-CN'
+    }).on('changeDate',function(e) {
+        maxDate = $("#datetimepicker2").val();
         initBar();
-    })
+    });
+    // $("#year").text(currentYear);
+    // $(".dropdown-menu").html('<li><a>'+currentYear+'</a></li> <li><a>'+(currentYear-1)+'</a></li> <li><a>'+(currentYear-2)+'</a></li>')
+    // $(".dropdown-menu").on("click",'li',function () {
+    //     currentYear=$(this).text();
+    //     $("#year").text(currentYear);
+    //     initBar();
+    // })
     getJob(3);//待举办招聘会
     getJob(4);//待举办宣讲会
     getQy();//待审核企业
@@ -194,16 +243,19 @@ function topChart(isAll) {
 function initBar(isAll) {
     if(!isAll){isAll=false}
     var params = {
-        year:currentYear
+        minDate:minDate,
+        maxDate:maxDate,
+        // year:currentYear
     };
     var barChart = echarts.init(document.getElementById('indexBar'));
     var legendData = [];
     var seriesData = [];
+    var monthList=[];
     barChart.showLoading({ color: '#5caefd'});
     window.parent.ajax('web/zustjy/common/jobBarChart',params,function(data){
         barChart.hideLoading();
         if(data.backCode == 0) {
-
+            monthList=data.bean.monthList;
             var nameArr = ["职位数","招聘会数","宣讲会数"];
             legendData = nameArr;
             var lineData = [data.bean.series[0].data,data.bean.series[1].data,data.bean.series[2].data];
@@ -289,7 +341,7 @@ function initBar(isAll) {
                 xAxis: [
                     {
                         type: 'category',
-                        data: ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"],
+                        data: monthList,
                         axisTick: {
                             inside: true
                         }

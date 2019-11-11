@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="bootstrap/v3/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bootstrap/v3/bootstrap/css/bootstrap-datetimepicker.css">
     <link rel="stylesheet" href="html/css/common.css" />
     <link rel="stylesheet" href="html/css/style.css" />
     <style>
@@ -39,10 +40,36 @@
         }
         .btn-group{
             position: absolute;
-            right: 100px;
+            right: 200px;
             top:35px;
             z-index:11;
         }
+        .btn-group2{
+            right: 100px;
+        }
+        .btn-group button{
+            padding: 0px;
+            cursor: auto;
+        }
+        .btn-group button input{
+            float: left;
+            background: no-repeat;
+            border: none;
+            color: #fff;
+            font-size: 16px;
+            width: 80px;
+            background-color: rgba(0,0,0,0) !important;
+            border:none;
+            box-shadow: none;
+        }
+        .caret{
+            top: 5px;
+            position: relative;
+            right: 10px;
+            cursor: auto;
+        }
+        .datetimepicker table tr td span.disabled{border: 1px solid #999 !important;}
+        .datetimepicker table tr td span.month{border-top: solid 1px #009cff;}
     </style>
     <script type="text/javascript">
         <#include "comTem/comUtil.ftl" />
@@ -129,13 +156,15 @@
             <div class="bottom-wrap" style="margin-top: 20px;">
                 <div  class="point-chart">
                     <p><span>分类汇总</span></p>
-                    <div class="btn-group">
+                    <div class="btn-group ">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span id="year"></span> <span class="caret"></span>
+                            <input name="startTm" id="datetimepicker" type='text' class="form-control input-sm" readonly="readonly"/><span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu">
-
-                        </ul>
+                    </div>
+                    <div class="btn-group btn-group2">
+                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <input name="startTm" id="datetimepicker2" type='text' class="form-control input-sm" readonly="readonly"/><span class="caret"></span>
+                        </button>
                     </div>
                     <div id="indexBar">
 
@@ -148,9 +177,31 @@
 <!--content end-->
 <script type="text/javascript" src="html/js/jquery-3.2.1.min.js" ></script>
 <script type="text/javascript" src="bootstrap/v3/bootstrap/js/bootstrap.min.js" ></script>
+<script type="text/javascript" src="bootstrap/v3/bootstrap/js/bootstrap-datetimepicker.js" ></script>
+<script type="text/javascript" src="bootstrap/v3/bootstrap/js/bootstrap-datetimepicker.zh-CN.js" ></script>
 <script type="text/javascript" src="html/js/echarts.min.js" ></script>
 <script type="text/javascript" src="html/js/swiper.min.js"></script>
 <script type="text/javascript" src="html/js/common.js"></script>
 <script type="text/javascript" src="html/js/leaderIndex.js" ></script>
+<script>
+    $('#datetimepicker').datetimepicker({
+        format: 'yyyymm',
+        weekStart: 1,
+        autoclose: true,
+        startView: 3,
+        minView: 3,
+        forceParse: false,
+        language:'zh-CN'
+    });
+    $('#datetimepicker2').datetimepicker({
+        format: 'yyyymm',
+        weekStart: 1,
+        autoclose: true,
+        startView: 3,
+        minView: 3,
+        forceParse: false,
+        language:'zh-CN'
+    });
+</script>
 </body>
 </html>
