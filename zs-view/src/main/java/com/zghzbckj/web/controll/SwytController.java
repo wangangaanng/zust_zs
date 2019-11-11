@@ -37,6 +37,7 @@ public class SwytController {
    public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String pageType,@CookieValue(value = "swOwid",required = false) String swOwid) throws UnsupportedEncodingException {
         //pageType跳转到的页面
        view.addObject("page",pageType);
+       view.addObject("footer",getFooter().getBean());
 
        //测试用户owid:swOwid = "1b47f10b042a4f2b877a47d107fda132";
        String applyOwid = "";//表明表id
@@ -148,21 +149,37 @@ public class SwytController {
        }
        return view;
    }
+
+    //三位一体登录
     @RequestMapping(value = "trinitylogin", method = RequestMethod.GET)
     public ModelAndView SWlogin(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWlogin");
         return view;
     }
 
+    //三位一体注册
     @RequestMapping(value = "trinityRegister", method = RequestMethod.GET)
     public ModelAndView SWregistered(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWregistered");
         return view;
     }
 
+    //三位一体忘记密码
     @RequestMapping(value = "trinityPsw", method = RequestMethod.GET)
     public ModelAndView SWYTpassword(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWpassword");
         return view;
+    }
+
+    //友情链接
+    public ResponseMessage getFooter(){
+        //底部链接友情链接
+        Map param=Maps.newHashMap();
+        param.put("lmbh","128");
+        param.put("lx","2");
+        param.put("zszd","0");
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizPicvid/getPicList");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        return result;
     }
 }
