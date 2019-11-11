@@ -81,9 +81,16 @@ public class BckjBizCjcxService extends CrudService<BckjBizCjcxDao, BckjBizCjcx>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizCjcx(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizCjcx(List<FilterModel> filters, Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         PageInfo<BckjBizCjcx> page = findPage(dataMap, pageNo, pageSize, null);
+        List<BckjBizCjcx> records = page.getRecords();
+        BckjBizCjcx bckjBizCjcx = BckjBizCjcx.class.newInstance();
+        bckjBizCjcx.setSfzh("共有"+page.getTotalCount()+"条");
+        bckjBizCjcx.setState(null);
+        bckjBizCjcx.setReadOnly(true);
+        records.add(0,bckjBizCjcx);
+        page.setRecords(records);
         return ResponseMessage.sendOK(page);
     }
 

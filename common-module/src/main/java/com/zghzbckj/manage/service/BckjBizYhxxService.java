@@ -633,11 +633,18 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * 考生报名list
      * @return
      */
-    public PageInfo<BckjBizYhxx> getZsList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public PageInfo<BckjBizYhxx> getZsList(List<FilterModel> filters, Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         Page<BckjBizYhxx> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
-        page.setList(this.dao.getZsList(dataMap));
+        List<BckjBizYhxx> zsList = this.dao.getZsList(dataMap);
+        BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
+        page.setList(zsList);
+        bckjBizYhxx.setXm("共有"+page.getCount()+"条");
+        bckjBizYhxx.setState(null);
+        bckjBizYhxx.setReadOnly(true);
+        zsList.add(0,bckjBizYhxx);
+        page.setList(zsList);
         return PageUtils.assimblePageInfo(page);
     }
 

@@ -228,31 +228,33 @@ public class ExcelUtils {
         }
 
     }
-    public static String stmodifyExcelData(String data){
+
+    public static String stmodifyExcelData(String data) {
         data.replaceAll(" ", "");
-        int dianCount=0;
-        int eCount =0;
-        int finalNum=0;
-        if(data.indexOf(".")!=-1&&data.indexOf("E")==-1){
-            data=data.substring(0, data.indexOf("."));
-        }else if(data.indexOf(".")!=-1&&data.indexOf("E")!=-1){
-            dianCount=data.indexOf(".");
-            data=data.replaceAll("\\.", "");
-                eCount=data.indexOf("E");
-                finalNum=Integer.parseInt(data.substring(data.indexOf("E")+1));
-                if((eCount-dianCount)<finalNum){
-                    data = data.substring(0, data.indexOf("E"));
-                    for(int count=0;count<(finalNum-(eCount-dianCount));count++){
-                        data=data+"0";
-                    }
-                }else {
-                    data=data.substring(0,data.indexOf("E"));
+        int dianCount = 0;
+        int eCount = 0;
+        int finalNum = 0;
+        if (data.indexOf(".") != -1 && data.indexOf("E") == -1) {
+            data = data.substring(0, data.indexOf("."));
+        } else if (data.indexOf(".") != -1 && data.indexOf("E") != -1) {
+            dianCount = data.indexOf(".");
+            data = data.replaceAll("\\.", "");
+            eCount = data.indexOf("E");
+            finalNum = Integer.parseInt(data.substring(data.indexOf("E") + 1));
+            if ((eCount - dianCount) < finalNum) {
+                data = data.substring(0, data.indexOf("E"));
+                for (int count = 0; count < (finalNum - (eCount - dianCount)); count++) {
+                    data = data + "0";
                 }
+            } else {
+                data = data.substring(0, data.indexOf("E"));
+            }
         }
         return data;
     }
-    public static String modifyExcelData(String data){
-        return data.substring(0,data.indexOf(".")) ;
+
+    public static String modifyExcelData(String data) {
+        return data.substring(0, data.indexOf("."));
     }
 
     /***
@@ -300,7 +302,6 @@ public class ExcelUtils {
             e.printStackTrace();
         }
     }
-
 
     public static ArrayList<ArrayList<String>> xlsx_reader(String excel_url) throws IOException {
         //读取xlsx文件
@@ -395,12 +396,12 @@ public class ExcelUtils {
         return str.replaceAll("[\\s\\?]", "").replace("　", "");
     }
 
-    public static String rename(String path){
+    public static String rename(String path) {
 
         //文件夹路径
         File folder = new File(path);
         //判断文件夹是否存在
-        if(!folder.exists()){
+        if (!folder.exists()) {
             return "文件夹不存在";
         }
         //文件夹下所有的文件数组
@@ -415,12 +416,12 @@ public class ExcelUtils {
         return "重命名成功！";
     }
 
-    public static String rename1(String path,String extion){
+    public static String rename1(String path, String extion) {
 
         //文件夹路径
         File folder = new File(path);
         //判断文件夹是否存在
-        if(!folder.exists()){
+        if (!folder.exists()) {
             return "文件夹不存在";
         }
         //文件夹下所有的文件数组
@@ -435,6 +436,16 @@ public class ExcelUtils {
         return "重命名成功！";
     }
 
+    /**
+     * <p>功能描述:导出合并单元格的数据 exportRankExcel</p >
+     * <ul>
+     * <li>@param [title, dataList, fileOutPutUrl]</li>
+     * <li>@return void</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/11/8 14:14</li>
+     * </ul>
+     */
     public static void exportRankExcel(String[] title, List<Map<String, Object>> dataList, String fileOutPutUrl) {
         HSSFWorkbook workbook = new HSSFWorkbook();
         HSSFSheet sheet = workbook.createSheet();
@@ -443,7 +454,7 @@ public class ExcelUtils {
         CellStyle cellStyle = workbook.createCellStyle();
         cellStyle.setAlignment(HorizontalAlignment.CENTER);
         cellStyle.setVerticalAlignment(VerticalAlignment.CENTER);
-        for (int i=0; i<title.length; i++) {
+        for (int i = 0; i < title.length; i++) {
             cell = row.createCell(i);
             cell.setCellValue(title[i]);
             cell.setCellStyle(cellStyle);
@@ -454,7 +465,7 @@ public class ExcelUtils {
         for (int i = 0; i < dataList.size(); i++) {
             list = (List<Map<String, Object>>) dataList.get(i).get("pmzyList");
             for (int j = 0; j < list.size(); j++) {
-                sheet.setColumnWidth(i, 20*256);
+                sheet.setColumnWidth(i, 20 * 256);
                 HSSFRow hssfRow = sheet.createRow(rowNumber);
                 HSSFCell hssfCell0 = hssfRow.createCell(0);
                 hssfCell0.setCellValue(list.get(0).get("szxy").toString());
@@ -472,13 +483,13 @@ public class ExcelUtils {
                 hssfCell4.setCellValue(list.get(j).get("pmjyl").toString());
                 hssfCell4.setCellStyle(cellStyle);
                 HSSFCell hssfCell5 = hssfRow.createCell(5);
-                hssfCell5.setCellValue(i+1);
+                hssfCell5.setCellValue(i + 1);
                 hssfCell5.setCellStyle(cellStyle);
                 rowNumber++;
             }
-            CellRangeAddress cell1 = new CellRangeAddress(ksrow, ksrow+list.size()-1, 0 ,0);
+            CellRangeAddress cell1 = new CellRangeAddress(ksrow, ksrow + list.size() - 1, 0, 0);
             sheet.addMergedRegion(cell1);
-            CellRangeAddress cell2 = new CellRangeAddress(ksrow, ksrow+list.size()-1, 5 ,5);
+            CellRangeAddress cell2 = new CellRangeAddress(ksrow, ksrow + list.size() - 1, 5, 5);
             sheet.addMergedRegion(cell2);
             ksrow += list.size();
         }
@@ -493,7 +504,6 @@ public class ExcelUtils {
             e.printStackTrace();
         }
     }
-
 }
 
 

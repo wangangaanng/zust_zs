@@ -38,11 +38,11 @@ public class SwytController {
         //pageType跳转到的页面
        view.addObject("page",pageType);
 
-       swOwid = "1b47f10b042a4f2b877a47d107fda132";
+       //测试用户owid:swOwid = "1b47f10b042a4f2b877a47d107fda132";
        String applyOwid = "";//表明表id
        //判断是否有个人owid 没有说明没登陆
        if(StringUtils.isEmpty(swOwid)){
-           view.setViewName("SWlogin");
+           view.setViewName("trinitylogin");
        }else{
 
            //获取学校信息
@@ -76,10 +76,33 @@ public class SwytController {
            resultMess2 = UnionHttpUtils.doPosts(_data2);
            if(!StringUtils.isEmpty(resultMess2.getBean())) {
                Map<String, Object> records2 = (Map<String, Object>) resultMess2.getBean();
-               view.addObject("bmbZp",records2.get("bmbZp"));
-               view.addObject("cnszp",records2.get("cnszp"));
-               view.addObject("email",records2.get("yx"));
+               view.addObject("bmbZp",records2.get("bmbZp"));//报名表签字zp
+               view.addObject("cnszp",records2.get("cnszp"));//承诺书签字zp
+               view.addObject("email",records2.get("yx"));//邮箱
+               view.addObject("payTime",records2.get("jfsj"));//缴费时间
+               view.addObject("payProveImg",records2.get("jfpzZp"));//缴费凭证zp
+               view.addObject("nameStu",records2.get("xm"));//姓名
+               view.addObject("subjectType",records2.get("xklb"));//学科类别
+               view.addObject("languageType",records2.get("yzmc"));//外语语种
+               view.addObject("examType",records2.get("bklb"));//报考类别
+               view.addObject("major",records2.get("xzzymc"));//招生专业
+               view.addObject("examNum",records2.get("zkzh"));//准考证号
+               view.addObject("faceTime",records2.get("mssj"));//面试时间
+               view.addObject("writeScore",records2.get("bscj"));//笔试时间
+               view.addObject("faceScore",records2.get("mscj"));//面试时间
+               view.addObject("finalScore",records2.get("zzcj"));//最终成绩
            }
+           //获取学生基本信息
+           Map param5 = Maps.newHashMap();
+           param5.put("yhRefOwid",swOwid);
+           ResponseMessage resultMess5  = new ResponseMessage();
+           PublicData _data5 = UnionHttpUtils.manageParam(param, "zustswyt/bckjBizJbxx/getInfo");
+           resultMess5 = UnionHttpUtils.doPosts(_data5);
+           if(!StringUtils.isEmpty(resultMess5.getBean())) {
+               Map<String, Object> records5 = (Map<String, Object>) resultMess5.getBean();
+               view.addObject("nameStu",records5.get("xm"));//姓名
+           }
+
            //不同页面不同初始化
            switch (pageType){
                case "2"://获取报名表和承诺书签字
@@ -91,10 +114,13 @@ public class SwytController {
                    ResponseMessage resultMess4  = new ResponseMessage();
                    PublicData _data4 = UnionHttpUtils.manageParam(param4, "zustcommon/common/getByType");
                    resultMess4 = UnionHttpUtils.doPosts(_data4);
-                   Map<String, Object> records4 = (Map<String, Object>) resultMess4.getBean();
+//                   if(StringUtils.isEmpty(resultMess4)) {
+//                      return view;
+//                   }
+                   List<Map<String, Object>> records4 = (List<Map<String, Object>>) resultMess4.getBean();
                    if(!StringUtils.isEmpty(records4)) {
-                       view.addObject("payMess",records4.get("dicVal2"));
-                       view.addObject("payUrl",records4.get("dicVal3"));
+                       view.addObject("payMess",records4.get(0).get("dicVal2"));
+                       view.addObject("payUrl",records4.get(0).get("dicVal3"));
                    }
                    break;
                default://报名表或者面试通知单打印 1或5
@@ -121,19 +147,19 @@ public class SwytController {
        }
        return view;
    }
-    @RequestMapping(value = "SWlogin", method = RequestMethod.GET)
+    @RequestMapping(value = "trinitylogin", method = RequestMethod.GET)
     public ModelAndView SWlogin(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWlogin");
         return view;
     }
 
-    @RequestMapping(value = "SWregistered", method = RequestMethod.GET)
+    @RequestMapping(value = "trinityRegister", method = RequestMethod.GET)
     public ModelAndView SWregistered(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWregistered");
         return view;
     }
 
-    @RequestMapping(value = "SWpassword", method = RequestMethod.GET)
+    @RequestMapping(value = "trinityPsw", method = RequestMethod.GET)
     public ModelAndView SWYTpassword(HttpServletRequest request,ModelAndView view) {
         view.setViewName("SWpassword");
         return view;

@@ -219,7 +219,7 @@ public class BckjBizJyschemeController extends BaseController {
     public ResponseMessage getOneJyschemeQt(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid","xsxh");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.USER_RELOGIN);
             }

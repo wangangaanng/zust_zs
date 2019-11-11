@@ -58,6 +58,13 @@ public class IndexController extends SpringZkBaseControl {
         return "leaderIndex";
     }
 
+
+    @RequestMapping("/swytIndex")
+    public String swytIndex(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        return "swytIndex";
+    }
+
     @RequestMapping("/loginNewDetail")
     public String newsDetail(HttpServletRequest request) {
         CookieUtils.setRequest(request);

@@ -417,11 +417,13 @@ public class BckjBizBmController extends BaseController {
             if (!TextUtils.isEmpty(mapData.get("jjly"))) {
                 bm.setJjly(mapData.get("jjly").toString());
             }
+            bm.setXybnr(SwytConstant.BMJJ);
         }
         if (-1 == state) {
             if (!TextUtils.isEmpty(mapData.get("memo"))) {
                 bm.setMemo(mapData.get("memo").toString());
             }
+            bm.setXybnr(SwytConstant.CXTJBMSQ);
         }
         bm.setState(state);
         bckjBizBmService.saveOrUpdate(bm);
@@ -542,24 +544,30 @@ public class BckjBizBmController extends BaseController {
         }
     }
 
-
-//    @PostMapping(value = "jobPieDl")
-//    @ResponseBody
-//    public ResponseMessage jobPieDl(PublicDataVO dataVO) {
-//        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-//
-//        //0职位
-//        dataMap.put("zwlx", 0);
-//        //工作职能
-//        dataMap.put("groupBy", "zw_gzzn");
-//        try {
-//            Map<String, Object> result = bckjBizBmService.getJobPie(dataMap);
-//            return ResponseMessage.sendOK(result);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
-//        }
-//    }
+    /**
+     * <p>接口 bmPie.java : <p>
+     * <p>说明：饼图</p>
+     * <pre>
+     * @author cc
+     * @date 2019/11/8 11:47
+     * </pre>
+     */
+    @PostMapping(value = "bmPie")
+    @ResponseBody
+    public ResponseMessage bmPie(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "type");
+        if (!msg.getSuccess()) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+        }
+        try {
+            Map<String, Object> result = bckjBizBmService.bmPie(dataMap);
+            return ResponseMessage.sendOK(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
 
 
 }

@@ -106,11 +106,11 @@ Page({
    */
   onShow: function() {
     //已经登录跳转到首页
-    if (wx.getStorageSync("hasLogin")==1){
-      wx.reLaunch({
-        url: '../shouye/shouye',
-      })
-    }
+    // if (wx.getStorageSync("hasLogin")==1){
+    //   wx.reLaunch({
+    //     url: '../shouye/shouye',
+    //   })
+    // }
   },
 
   /**

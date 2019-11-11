@@ -30,6 +30,16 @@ public class BckjBizZsjh extends DataWithExpEntity<BckjBizZsjh> {
 	private BigDecimal xf;		// xf
 	private String syxw;		// syxw
 
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private boolean readOnly;
+
 	
 	public BckjBizZsjh() {
 		super();
