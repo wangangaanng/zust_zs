@@ -114,8 +114,8 @@
                     </div>
                     <div class="upimg-wrap">
                         <div class="file-btn_wrap">
-                             <img src="${base}/img/img-up.png" class="up-btn_img"/>
-                            <input type="file" class="file-btn file1" name="file" id="file3" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                             <img src="${base}/img/img-up.png" class="up-btn_img1"/>
+                            <input type="file" class="file-btn file1" name="file3" id="file3" accept="image/jpeg,image/jpg,image/png,image/svg" />
                         </div>
                         <label class="uploadlabel" for="file3">上传证明图片(可多张）</label>
                     </div>

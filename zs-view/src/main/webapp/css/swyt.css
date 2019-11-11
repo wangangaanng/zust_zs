@@ -65,6 +65,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .file-btn_wrap{position: relative;width: 179px;overflow:hidden;height: 120px;border: 1px dashed #008784;border-radius: 4px;text-align: center;line-height: 116px;background: rgba(241,241,241,0,3)}
 .upimg-wrap{display: inline-block;margin-top: 10px;position: relative;text-align: center}
 .up-btn_img{width: 44px;}
+.up-btn_img1{width: 44px;}
 
 /*在线支付*/
 .pay-online ul{padding-left: 14px;}
@@ -107,7 +108,7 @@ header .top-logo{margin-top: 100px;margin-left: 200px;}
 .login_title{font-size: 23px;text-align: center;color: #008784;font-weight: 600;margin-bottom: 50px;}
 .login_input{text-align: center;width:300px;margin: 0 auto 20px;position: relative;}
 .login_input2{width:300px;margin: 0 auto 20px;position: relative;}
-.login_input input{background: #F7F7F7;font-size: 14px;border-radius: 3px;outline: 0;border:none;    -webkit-appearance:none;/*去除阴影边框*/    -webkit-tap-highlight-color:rgba(0,0,0,0);/*点击高亮的颜色*/    line-height: 45px;  padding-left: 40px;  width: 300px;}
+.login_input input{background: #F7F7F7;font-size: 14px;border-radius: 3px;outline: 0;border:none;    -webkit-appearance:none;/*去除阴影边框*/    -webkit-tap-highlight-color:rgba(0,0,0,0);/*点击高亮的颜色*/    height: 47px;  padding-left: 40px;  width: 300px;}
 .login_input .btn-group>.btn:first-child{width: 300px;background: #F7F7F7;border: none;height: 45px;text-align: left;text-indent: 2rem;color: #008784 !important;}
 .login_input2 select{border-radius: 3px;outline: 0;text-indent: 1rem; margin-right: 11px;position:relative;width: 90px;background: #F7F7F7;border: none;height: 45px;text-align: left;color: #008784 !important;}
 .login_input .btn-group.open .dropdown-toggle{box-shadow: none;}

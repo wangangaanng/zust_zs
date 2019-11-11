@@ -2,6 +2,7 @@ var jsfj = [];
 var readyNum = 0;
 var Major;
 var currApplyOwid = '';
+
 $(document).ready(function () {
     $('#Major1').change(function () {
         var value = $('#Major1 option:selected').val()

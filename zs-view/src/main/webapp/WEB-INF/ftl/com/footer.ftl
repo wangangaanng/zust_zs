@@ -236,7 +236,7 @@
                 </div>
                 <div class="second_Pagination">
                     <ul style="list-style-type: none;">
-                        <li><a href="${base}/wzOrTpOrSq/3/0">招生计划</a></li>
+                        <li><a href="${base}/wzOrTpOrSqnd/66/0">招生计划</a></li>
                         <li><a href="${base}/wzOrTpOrSq/4/0">招生政策</a></li>
                         <li><a href="${base}/wzOrTpOrSq/5/0">在线咨询</a></li>
                         <li><a href="${base}/wzOrTpOrSqnd/131/0">招生简章</a></li>

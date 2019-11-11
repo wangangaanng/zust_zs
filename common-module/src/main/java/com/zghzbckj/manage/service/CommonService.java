@@ -204,7 +204,7 @@ public class CommonService {
         if (MapUtils.getInt(mapData, "type") == 1) {
             return fileCenter;
         }
-        String yhRefOwid = MapUtils.getString(mapData, "yhRefOwid");
+        String yhRefOwid = MapUtils.getString(mapData, "yhRefOwid")+CommonModuleContant.SWTYFILEPATH;
         fileCenter.put("owid", TextUtils.getUUID());
         fileCenter.put("fileClass", "BckjBizJbxx");
         fileCenter.put("fileClassId", yhRefOwid);
