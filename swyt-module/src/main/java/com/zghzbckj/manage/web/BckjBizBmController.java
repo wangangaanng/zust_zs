@@ -417,11 +417,13 @@ public class BckjBizBmController extends BaseController {
             if (!TextUtils.isEmpty(mapData.get("jjly"))) {
                 bm.setJjly(mapData.get("jjly").toString());
             }
+            bm.setXybnr(SwytConstant.BMJJ);
         }
         if (-1 == state) {
             if (!TextUtils.isEmpty(mapData.get("memo"))) {
                 bm.setMemo(mapData.get("memo").toString());
             }
+            bm.setXybnr(SwytConstant.CXTJBMSQ);
         }
         bm.setState(state);
         bckjBizBmService.saveOrUpdate(bm);

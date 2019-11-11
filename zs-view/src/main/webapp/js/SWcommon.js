@@ -38,7 +38,7 @@ function keySearch(){
 
 //判断登录过期
 function isTimeOut() {
-    addCookie("swOwid","359f287a40bb4fe98b0fd80766a91b4f");
+    //测试用户owid：addCookie("swOwid","359f287a40bb4fe98b0fd80766a91b4f");
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
     if(!getCookie("swOwid")){

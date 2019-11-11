@@ -32,6 +32,16 @@ public class BckjBizLntj extends DataWithExpEntity<BckjBizLntj> {
 	private BigDecimal pjf;		// pjf
 	private String szxy;		// szxy
 
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private boolean readOnly;
+
 	public BckjBizLntj() {
 		super();
 	}

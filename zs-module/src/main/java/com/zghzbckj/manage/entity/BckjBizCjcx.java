@@ -62,6 +62,16 @@ public class BckjBizCjcx extends DataWithExpEntity<BckjBizCjcx> {
 	private String memo;		// memo
 	private Date jcsj;		// jcsj
 	private String ems;		// ems
+
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
+	private boolean readOnly;
 	
 	public BckjBizCjcx() {
 		super();

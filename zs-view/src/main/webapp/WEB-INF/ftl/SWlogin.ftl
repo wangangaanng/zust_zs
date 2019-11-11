@@ -7,7 +7,7 @@
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
-    <link rel="stylesheet" href="${base}/css/style.css"/>
+    <link rel="stylesheet" href="${base}/css/swytFonts.css"/>
     <link rel="stylesheet" href="${base}/css/swyt.css"/>
     <style>
         .top{position: relative;height: 500px!important;}
@@ -36,20 +36,22 @@
         <div class="login_left">
             <div class="login_title">登录</div>
             <div class="login_input">
-                <img src="${base}/img/phone.png">
+                <span class="iconfont icon-shouji"></span>
+                <#--<img src="${base}/img/phone.png">-->
                 <input type="number" placeholder="请输入手机号码" id="swZh" oninput="if(value.length>11)value=value.slice(0,11)">
             </div>
             <div class="login_input">
-                <img src="${base}/img/password.png">
+                <#--<img src="${base}/img/password.png">-->
+                <span class="iconfont icon-denglu-mima"></span>
                 <input type="password" placeholder="请输入密码" id="swMm">
             </div>
-            <div class="forget"><a href="SWYTpassword">忘记密码？</a></div>
+            <div class="forget"><a href="trinityPsw">忘记密码？</a></div>
             <div class="login_bun" onclick="swYtLogin()">登录</div>
         </div>
         <div class="login_right">
             <div class="login_right_border">
                 <div>还没有账号</div>
-                <div class="registered" onclick="window.location.href='SWregistered'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div class="registered" onclick="window.location.href='trinityRegister'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
                 <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
             </div>

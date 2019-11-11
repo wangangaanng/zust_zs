@@ -230,7 +230,9 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
      * 调用微信接口进行关键字过滤
      * coder wangangaanng
      */
-   public static Map<String, Object> filterContent(Map<String, Object> mapData, String weCode){
+   public static Map<String, Object> filterContent(Map<String, Object> mapData){
+       //使用就业code
+       String weCode="wx01";
        int result = 0;
        AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
        String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
