@@ -158,6 +158,11 @@ public class BckjBizDcwjController extends BaseController {
             if (TextUtils.isEmpty(questionnaire)) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "调查问卷为空");
             }
+            //判断调查问卷是否已开始
+            if (System.currentTimeMillis() < questionnaire.getKssj().getTime() ||
+                    System.currentTimeMillis() > questionnaire.getKssj().getTime()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "不在调查时间范围内");
+            }
             //判断调查人数是否已满
             int maxNumber = bckjBizDcwjJgService.countPeople(dataMap.get("dcwjRefOwid").toString());
             if (maxNumber >= questionnaire.getDcrs() && !questionnaire.getDcrs().toString().equals("0")) {
