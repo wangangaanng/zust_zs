@@ -140,6 +140,7 @@
 
 <script>
     var xxbh = '${xxbh}';
+    var processState = '${processState}'
     console.log($('#majorExam'))
     var preNext = 0;
     //表单验证触发保存基本信息

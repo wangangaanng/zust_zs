@@ -130,6 +130,6 @@ function swYtzc() {
     };
     console.log(data)
     ajax('zustcommon/bckjBizYhxx/swYtzc',data,function () {
-        window.location.href='SWYTlogin'
+        window.location.href='trinitylogin'
     })
 }

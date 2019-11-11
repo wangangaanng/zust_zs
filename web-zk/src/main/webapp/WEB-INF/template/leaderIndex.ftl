@@ -40,7 +40,7 @@
         }
         .btn-group{
             position: absolute;
-            right: 200px;
+            right: 225px;
             top:35px;
             z-index:11;
         }
@@ -62,6 +62,12 @@
             border:none;
             box-shadow: none;
         }
+        .btn-group_label{
+            position: absolute;
+            right: 200px;
+            top:38px;
+            z-index:11;}
+        .form-control[readonly]{    cursor: initial;  }
         .caret{
             top: 5px;
             position: relative;
@@ -161,7 +167,7 @@
                             <input name="startTm" id="datetimepicker" type='text' class="form-control input-sm" readonly="readonly"/><span class="caret"></span>
                         </button>
                     </div>
-                    <div class="btn-group btn-group2">
+                    <label class="btn-group_label">至</label><div class="btn-group btn-group2">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <input name="startTm" id="datetimepicker2" type='text' class="form-control input-sm" readonly="readonly"/><span class="caret"></span>
                         </button>
