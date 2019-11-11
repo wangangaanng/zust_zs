@@ -99,7 +99,7 @@
         }
         var data = {
             wtnr: $('#wtnr').val(),
-            zxlx: 1
+            zxlx: 4
         };
         ajax("zustcommon/bckjBizZxzx/consult", data, function (res) {
             if (res.backCode === 0) {
