@@ -71,6 +71,19 @@ Page({
     getList1(this);
 
   },
+  onPullDownRefresh: function () {
+    var that = this;
+    this.setData({
+      pageNo1: 1,
+      totalPage1: '',
+      newsList1: [],
+    })
+    getPicList(this);//轮播
+    getLm(this);
+    getList1(this);
+    //当逻辑执行完后关闭刷新    
+    wx.stopPullDownRefresh()
+  },
   onReachBottom: function () {
     var that = this;
     if ((that.data.pageNo1 + 1) <= that.data.totalPage1) {

@@ -1,4 +1,5 @@
 {
+  "enablePullDownRefresh": true,
   "usingComponents": {
     "van-grid": "vant-weapp/grid",
     "van-grid-item": "vant-weapp/grid-item",

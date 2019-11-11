@@ -40,7 +40,7 @@
             <ol class="breadcrumb">
                 <li><a href="${base}/">首页</a></li>
                 <li><a href="#">个人中心</a></li>
-                <li class="active">生源信息</li>
+                <li class="active">就业方案</li>
             </ol>
         </div>
         <div class="content">
@@ -198,7 +198,7 @@
                         </div>
                         <label for="dwdh" class="col-sm-2 control-label">单位联系电话：</label>
                         <div class="col-sm-3">
-                            <input class="form-control" id="dwdh" name="dwdh" value="${(result.dwlxr)!''}" placeholder="" autocomplete="off">
+                            <input class="form-control" id="dwdh" name="dwdh" value="${(result.dwdh)!''}" placeholder="" autocomplete="off">
                         </div>
                     </div>
                     <#--<div class="form-group">
@@ -350,12 +350,12 @@
                             <input type="text" class="form-control" id="datddh" name="datddh" value="${(result.datddh)!''}" placeholder="" autocomplete="off">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <#--<div class="form-group">
                         <label for="xjcqk" class="col-sm-2 control-label">下基层情况：</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control" id="xjcqk" name="xjcqk" value="${(result.xjcqk)!''}" placeholder="" autocomplete="off">
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="bzone" class="col-sm-2 control-label">备注一：</label>
                         <div class="col-sm-8">
