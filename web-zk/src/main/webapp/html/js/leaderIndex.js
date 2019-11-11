@@ -76,7 +76,7 @@ function getQy() {
                     }
                 })
             }else{
-                str='<p style="text-align: center;margin: 20px auto;">暂无数据</p>'
+                str="<div class = 'null-tip'><img src = 'img/index_nulltip.png' style='margin-top: 0px'/><p style='margin-top: 10px'>查询结果暂为空</p></div>";
             }
 
             $("#xxqy").append(str);
