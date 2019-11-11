@@ -80,7 +80,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .img-full{width: 100%;height: 100%;border-radius: 4px;}
 /*分组信息*/
 .group-wrap{background: #fafafa}
-.group-wrap .list-group{padding: 17px 50px;min-height: 403px;}
+.group-wrap .list-group{padding: 18px 50px;min-height: 372px}
 .group-wrap .list-group-item{background: transparent}
 .group-label{margin-right: 60px;}
 .group-wrap .list-group-item{border: none;border-bottom: 1px dashed #eee}
@@ -92,7 +92,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .search-score_label{font-size: 16px;color: #595959}
 .grade-result{padding: 11px 0px;}
 
-.sw-tip{background: rgba(235,235,235,0.5);color: #FF0000; border-radius: 0px;  padding: 5px 10px;  font-size: 13px;margin-bottom: 20px;}
+.sw-tip{background: rgba(235,235,235,0.5);color: #FF0000; border-radius: 0px;  padding: 5px 10px;  font-size: 13px;margin-bottom: 0px;}
 .sw-tip .glyphicon-list-alt{margin-right: 4px;top: 2px;}
 .icon-tongzhi:before{font-size: 14px;}
 .null-txt{text-align: center;height: 347px;}

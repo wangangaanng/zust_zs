@@ -13,7 +13,7 @@
         <#break>
 </#switch>
 <#include "com/SWtip.ftl">
-    <ul class="list-group row">
+    <ul class="list-group row" style="padding: 60px 50px;">
         <div class="grade-result row">
         </div>
         <li class="list-group-item col-sm-offset-2 col-sm-8">
@@ -62,17 +62,17 @@
             "yx":email,
         }
         switch (${page}){
-            case "1"://报名表
+            case 1://报名表
                 curUrl = arrUrl[0];
                 break;
-            case "5"://面试通知单
+            case 5://面试通知单
                 curUrl = arrUrl[1];
                 break;
         }
         ajax(curUrl, data, function (data) {
             if(data.backCode==0){
                 var data = data.bean;
-                walert("发送成功，请注意查收");
+                walert("邮件发送成功，请注意查收");
             }else{
                 walert(data.errorMess)
             }

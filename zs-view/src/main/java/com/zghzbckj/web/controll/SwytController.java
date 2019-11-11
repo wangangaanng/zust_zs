@@ -151,7 +151,7 @@ public class SwytController {
                        PublicData _data3 = UnionHttpUtils.manageParam(param3, "zustswyt/bckjBizBm/notice");
                        resultMess3 = UnionHttpUtils.doPosts(_data3);
                    }
-                   if(!StringUtils.isEmpty(resultMess3.getBean())) {
+                   if(!StringUtils.isEmpty(resultMess3.getBean())&&resultMess3.getBackCode()==0) {
                        view.addObject("filePath",resultMess3.getBean());
                    }
 
