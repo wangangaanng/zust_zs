@@ -203,9 +203,9 @@ Page({
     });
   },
   //获取手机号码
-  telBlur(e){
+  telInput(e){
     this.setData({
-      ["form.tel"]: e.detail.value
+      ["form.tel"]: e.detail
     });
   }
 })

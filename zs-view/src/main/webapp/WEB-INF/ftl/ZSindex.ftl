@@ -16,6 +16,9 @@
         }
         .fuye_sr_con{
             width:100%;margin: 20px 0px;}
+        .gongGao_introdiv a{
+            color: rgb(100,100,100);
+        }
 
     </style>
 </head>
@@ -41,11 +44,11 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/swytbmxt.png" />
-                <a href="">三位一体</a>
+                <a href="${base}/trinityEnrollment/0" target="_blank">三位一体</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/xsybdxt.png" />
-                <a href="">预报到</a>
+                <a href="http://ybd.zust.edu.cn/" target="_blank">预报到</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zsjd.png" />
@@ -232,9 +235,14 @@
             <ul class="gongGao_ul">
                 <#if (tzggList??)&&(tzggList.records??)&&(tzggList.records?size>0)>
                     <#list tzggList.records as obj>
-                        <li class="gongGao_ul_li" onclick="linkUrl('wzxq/${obj.owid!''}')">
+                        <li class="gongGao_ul_li" num='${obj_index}'>
                             <span class="glyphicon glyphicon-volume-up" style="font-size: 20px;float: left;"></span>
                             <p class="gongGao_title">${obj.wzbt!''}</p>
+                            <div class="gongGao_introdiv" style="display:none;width:335px;height:80px;line-height:20px;overflow:hidden;">
+                                <a onclick="linkUrl('wzxq/${obj.owid!''}')">
+                                    <p class="gongGao_intro">${obj.jjnr!''}</p>
+                                </a>
+                            </div>
                         </li>
                     </#list>
                 </#if>
