@@ -78,6 +78,16 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
     private String xkcj1;
     private String xkcj2;
     private String xkcj3;
+    private boolean readOnly;
+
+    public boolean isReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(boolean readOnly) {
+        this.readOnly = readOnly;
+    }
+
 
     public String getXkcj1() {
         return xkcj1;

@@ -180,7 +180,14 @@ public class CommonController {
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
         try {
             Map<String, Object> result = new HashMap<>();
+            int minDate = MapUtils.getInt(dataMap, "minDate");
+            int maxDate = MapUtils.getInt(dataMap, "maxDate");
+            if (minDate >= maxDate) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "开始日期不能大于结束日期");
+            }
             result.put("series", commonService.getJobBar(dataMap));
+            result.put("monthList", commonService.getMonthBetweenDates(MapUtils.getString(dataMap, "minDate"),
+                    MapUtils.getString(dataMap, "maxDate")));
             return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();

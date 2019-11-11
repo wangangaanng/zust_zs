@@ -1,5 +1,6 @@
 package com.zghzbckj.manage.service;
 
+import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.MapUtils;
 
 import com.zghzbckj.manage.dao.CommonDao;
@@ -9,6 +10,8 @@ import com.zghzbckj.manage.dao.CommonDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -200,7 +203,7 @@ public class CommonService {
      *<li>@date 2019/10/22 15:25  </li>
      *</ul>
      */
-    public List<Map<String, Object>> getJobBar(Map<String, Object> dataMap) {
+    public List<Map<String, Object>> getJobBar(Map<String, Object> dataMap) throws ParseException {
         //zwlx  0职位数 3招聘会数 4宣讲会数
         String[] zwlxList = {"0", "3", "4"};
         List<Map<String, Object>> resultList = new ArrayList<>(3);
@@ -208,7 +211,7 @@ public class CommonService {
         List<Integer> dataList = null;
         for (String zwlx : zwlxList) {
             resultMap = new HashMap<>();
-            dataList = listMonth(zwlx, MapUtils.getString(dataMap, "year"));
+            dataList = listMonth(zwlx, MapUtils.getString(dataMap, "minDate"), MapUtils.getString(dataMap, "maxDate"));
             resultMap.put("type", "bar");
             resultMap.put("data", dataList);
             if ("0".equals(zwlx)) {
@@ -232,19 +235,46 @@ public class CommonService {
      *<li>@date 2019/10/23 13:48  </li>
      *</ul>
      */
-    private List<Integer> listMonth(String zwlx, String year) {
+    private List<Integer> listMonth(String zwlx, String minDate, String maxDate) throws ParseException {
         List<Integer> result = new ArrayList<>(12);
-        for (int i = 1; i <= 12; i++) {
+        List<String> months = getMonthBetweenDates(minDate, maxDate);
+        System.out.println(months);
+        for (String date : months) {
             if ("0".equals(zwlx)) {
                 //职位根据创建时间
-                result.add(commonDao.getJobNumberByCreatetime(zwlx, i, year));
+                result.add(commonDao.getJobNumberByCreatetime(zwlx, date));
             } else {
                 //招聘会、宣讲会根据开始日期
-                result.add(commonDao.getJobNumberByZphKsrq(zwlx, i, year));
+                result.add(commonDao.getJobNumberByZphKsrq(zwlx, date));
             }
         }
         return result;
     }
 
+    /**
+     *<p>功能描述:时间段之间内的月份列表 getMonthBetweenDates</p >
+     *<ul>
+     *<li>@param [minDate, maxDate]</li>
+     *<li>@return java.util.List<java.lang.String></li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/11 16:36</li>
+     *</ul>
+     */
+    public List<String> getMonthBetweenDates(String minDate, String maxDate) throws ParseException {
+        List<String> result = new ArrayList<>();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMM");
+        Calendar min = Calendar.getInstance();
+        Calendar max = Calendar.getInstance();
+        min.setTime(formatter.parse(minDate));
+        max.setTime(formatter.parse(maxDate));
+        min.set(min.get(Calendar.YEAR), min.get(Calendar.MONTH), 1);
+        max.set(max.get(Calendar.YEAR), max.get(Calendar.MONTH), 2);
+        while (min.before(max)) {
+            result.add(formatter.format(min.getTime()));
+            min.add(Calendar.MONTH, 1);
+        }
+        return result;
+    }
 
 }

@@ -10,10 +10,14 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.manage.dao.BckjBizJbxxDao;
 import com.zghzbckj.manage.service.BckjBizJbxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -32,11 +36,13 @@ import java.util.Map;
 public class BckjBizJbxxController extends BaseController {
     @Autowired
     private BckjBizJbxxService bckjBizJbxxService;
+    @Autowired
+    private BckjBizJbxxDao jbxxDao;
 
 
     @RequestMapping(value = "/getList")
     @ResponseBody
-    public ResponseMessage getListApi( PublicDataVO dataVO) {
+    public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return ResponseMessage.sendOK(bckjBizJbxxService.findPageBckjBizJbxx(filters, dataVO.getPageNo(), dataVO.getPageSize()));
@@ -208,5 +214,21 @@ public class BckjBizJbxxController extends BaseController {
             return ResponseMessage.sendOK(datas);
         }
     }
+
+//    @RequestMapping(value = "queryOwidByYh", method = RequestMethod.POST)
+//    @ResponseBody
+//    public ResponseMessage queryOwidByYh(PublicDataVO publicDataVO) {
+//        Map<String, Object> mapData = JsonUtil.jsonToMap(publicDataVO.getData());
+//        ValidateMsg msg = ValidateUtils.isEmpty(mapData, "yhRefROwid");
+//        if (!msg.getSuccess()) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+//        }
+//        BckjBizJbxx jbxx = jbxxDao.findOneByMap(mapData);
+//        if (jbxx == null) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
+//        }
+//        return ResponseMessage.sendOK(jbxx.getOwid());
+//    }
+
 
 }
