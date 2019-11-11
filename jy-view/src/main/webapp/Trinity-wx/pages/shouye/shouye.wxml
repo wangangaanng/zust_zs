@@ -59,7 +59,7 @@
 <view class="FQA">
   <view class="FQA-li" wx:for='{{historyMessage}}' wx:key='index'>
     <image src="../../static/wen.png" class="FQA-li-img"></image>
-    <view class="quetion">来自{{item.TW_NAME}}的提问：{{item.WTNR}}</view>
+    <view class="quetion">来自{{item.LYIP}}的提问：{{item.WTNR}}</view>
     <view class="da">
       <image src="../../static/da.png" class="FQA-li-img"></image>
       <view class="quetion">管理员的回复：{{item.DANR}}</view>

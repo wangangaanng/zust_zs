@@ -1,26 +1,26 @@
 var xklist;//选考列表
 var zhlist;//综合列表
-$(document).ready(function () {
-    //选考信息保存
-    // $("#saveGrade").click(function () {
-        // $("#basicForm").hide();
-        // $("#contactForm").hide();
-        // $("#gradeForm").hide();
-        // $("#selectForm").show();
-        // $(".jf-items .jf-item").eq(3).addClass("jf-active");
-    // });
-    getByType('10022');
-    getByType('10023');
-});
+// $(document).ready(function () {
+//     //选考信息保存
+//     // $("#saveGrade").click(function () {
+//         // $("#basicForm").hide();
+//         // $("#contactForm").hide();
+//         // $("#gradeForm").hide();
+//         // $("#selectForm").show();
+//         // $(".jf-items .jf-item").eq(3).addClass("jf-active");
+//     // });
+//     getByType111('10022');
+//     getByType111('10023');
+// });
 
-function getByType(e) {
+function getByType111(e) {
     var data = {
         dicType: e
     }
     ajax('zustcommon/common/getByType', data, function (res) {
         if (res.backCode == 0) {
             if (e == '10022') {
-                getHkcj(0)
+                getHkcj1(0)
                 xklist = res.bean;
                 for (var i in res.bean) {
                     var dicVal3 = res.bean[i].dicVal3.split(',');
@@ -35,7 +35,7 @@ function getByType(e) {
                     $('#xk10022').append(str)
                 }
             } else if (e == '10023') {
-                getHkcj(2)
+                getHkcj1(2)
                 zhlist = res.bean;
                 for (var i in res.bean) {
                     var dicVal3 = res.bean[i].dicVal3.split(',');
@@ -116,7 +116,7 @@ function finishHk(e) {
     })
 }
 
-function getHkcj(e) {
+function getHkcj1(e) {
     ajax('zustswyt/bckjBizCjxx/getHkcj', {yhRefOwid: getCookie('swOwid'),lx:e}, function (res) {
         if(res.backCode == 0){
             if(e=='0'){

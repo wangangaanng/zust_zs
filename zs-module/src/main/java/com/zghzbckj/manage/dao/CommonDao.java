@@ -19,6 +19,11 @@ import java.util.Map;
 @MyBatisDao
 public interface CommonDao {
 
+    List<Map<String, Object>> getListLntj();
+
+    Map<String, Object> getOneDic(Map<String, Object> dataMap);
+
+    List<Map<String, Object>> listDicVal(Map<String, Object> dataMap);
 
     Map<String, Object> getEmploys(Map<String, Object> param);
 

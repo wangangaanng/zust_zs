@@ -139,6 +139,8 @@
 <#--选考信息4 end-->
 
 <script>
+    var xxbh = '${xxbh}';
+    console.log($('#majorExam'))
     var preNext = 0;
     //表单验证触发保存基本信息
     $.validator.setDefaults({

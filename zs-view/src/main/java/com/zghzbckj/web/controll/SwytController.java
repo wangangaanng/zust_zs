@@ -62,9 +62,11 @@ public class SwytController {
                if(!StringUtils.isEmpty(List.get(0).get("applyOwid"))){
                    applyOwid = List.get(0).get("applyOwid").toString();
                    view.addObject("applyOwid",applyOwid);
+                   view.addObject("xxbh",List.get(0).get("xxbh"));
                    //报名进行到的状态
                    view.addObject("processState",List.get(0).get("bmState"));
                }else{
+                   view.addObject("xxbh",List.get(0).get("xxbh"));
                    view.addObject("applyOwid","");
                    view.addObject("processState",0);
                }
