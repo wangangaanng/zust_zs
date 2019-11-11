@@ -690,8 +690,8 @@ public class ZsController {
         Map<String, Object> params = new HashMap<>();
         params.put("pageNo", "1");
         params.put("pageSize", "10");
-        //1 招生在线咨询
-        params.put("zxlx", "1");
+        //4 招生在线咨询
+        params.put("zxlx", "4");
         PublicData publicData = UnionHttpUtils.manageParam(params, "zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result = UnionHttpUtils.doPosts(publicData);
         view.addObject("result", (Map) result.getBean());
