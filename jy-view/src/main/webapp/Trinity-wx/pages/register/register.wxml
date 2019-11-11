@@ -2,7 +2,7 @@
 <!-- 表单 -->
 <form bindsubmit="formRegister" class="form-wrap">
   <van-cell-group>
-    <van-field value="{{form.tel}}" type="number" name="tel" placeholder="手机号码" bindinput='telInput' left-icon=" iconfont icon-shouji" error-message="" clearable>
+    <van-field value="{{form.tel}}" type="number" name="tel" placeholder="手机号码" bindinput='telInput' left-icon=" iconfont icon-shouji" error-message="" use-button-slot>
       <van-button slot="button" size="small" plain   type="primary" disabled="{{disabled}}" bind:click="sendCode">{{time}}</van-button>
     </van-field>
     <van-field value="{{form.code}}" type="number" name="code" placeholder="验证码" left-icon=" iconfont icon-yanzhengma1" error-message="" clearable/>
