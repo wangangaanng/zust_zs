@@ -261,6 +261,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
             bm = bmParam;
+            bm.setRzbd(0);
             bm.setSqsj(new Date());
             bm.setState(0);
             bm.setBmnd(bmnd);

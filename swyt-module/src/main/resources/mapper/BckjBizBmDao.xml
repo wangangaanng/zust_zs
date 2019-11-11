@@ -115,6 +115,9 @@
             <if test="state !=null and state!='' ">
                 AND a.state=#{state}
             </if>
+			<if test="stateCheck !=null and stateCheck!='' ">
+                AND a.state &gt; #{stateCheck}
+            </if>
         </where>
     </select>
     <select id="getBmxx" resultType="Map">

@@ -17,7 +17,6 @@ import java.util.Date;
 public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 	
 	private static final long serialVersionUID = 1L;
-	private String owid;		// owid
 	private String headImage;		// head_image
 	private String name;		// name
 	private Integer xb;		// xb
@@ -31,28 +30,7 @@ public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 	private String faceImage;		// face_image
 	private String source;		// source
 	private String deviceid;		// deviceid
-	private Date createtime;		// createtime
-	private String creator;		// creator
-	private String creatorName;		// creator_name
-	private Date lastupdate;		// lastupdate
-	private String updator;		// updator
-	private String updatorName;		// updator_name
-	private String ver;		// ver
-	private Date vertime;		// vertime
-	private String deptId;		// dept_id
-	private String deptPath;		// dept_path
-	private String delflg;		// 0：正常 -1：删除 -100模板另存
-	private String state;		// -1 :作废 0：正常可修改  100：工作流完成 1-99是流程
-	private String exp1;		// exp1
-	private String exp2;		// exp2
-	private String exp3;		// exp3
-	private String exp4;		// exp4
-	private String exp5;		// exp5
-	private String exp6;		// exp6
-	private String exp7;		// exp7
-	private String exp8;		// exp8
-	private String exp9;		// exp9
-	private String exp10;		// exp10
+	private Integer isBm;
 	
 	public BckjBizCard() {
 		super();
@@ -171,5 +149,12 @@ public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 		this.deviceid = deviceid;
 	}
 
-	
+
+	public Integer getIsBm() {
+		return isBm;
+	}
+
+	public void setIsBm(Integer isBm) {
+		this.isBm = isBm;
+	}
 }

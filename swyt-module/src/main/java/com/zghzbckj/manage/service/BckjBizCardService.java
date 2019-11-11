@@ -153,12 +153,17 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
         Map map=Maps.newHashMap();
         map.put("bmnd",bmnd);
-        map.put("state",8);
+        map.put("stateCheck",7);
         map.put("sfzh",appBizCard.getNumber());
         BckjBizBm bm=bckjBizBmDao.getOneByMap(map);
         if(null==bm){
             MyWebSocket.sendInfo("-1:"+appBizCard.getNumber()+":"+appBizCard.getName()+":-:-:-");
+            appBizCard.setIsBm(0);
+            saveOrUpdate(appBizCard);
             return;
+        }else{
+            appBizCard.setIsBm(1);
+            saveOrUpdate(appBizCard);
         }
         MyWebSocket.sendInfo("0:"+appBizCard.getNumber()+":"+appBizCard.getName()+":"+bm.getZkzh()+":"+bm.getXzzymc()+":"+bm.getMssj());
         if(appBizCard.getIsPass()==0) {
