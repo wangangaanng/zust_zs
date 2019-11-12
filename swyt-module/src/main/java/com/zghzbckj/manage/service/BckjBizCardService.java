@@ -151,6 +151,8 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
         }
         saveOrUpdate(appBizCard);
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
+        //表示年度信息
+        appBizCard.setExp1(bmnd);
         Map map=Maps.newHashMap();
         map.put("bmnd",bmnd);
         map.put("stateCheck",7);
