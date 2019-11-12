@@ -11,6 +11,7 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.common.CustomerException;
+import com.zghzbckj.common.SwytConstant;
 import com.zghzbckj.manage.dao.BckjBizCjxxDao;
 import com.zghzbckj.manage.dao.CommonDao;
 import com.zghzbckj.manage.entity.BckjBizCjxx;
@@ -212,10 +213,11 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         mapData.put("lx", 1);
         this.dao.deleteByHkZh(mapData);
         saveList(mapData, "xkList", 1);
-        mapData.put("jbxxOwid", jbxx.getOwid());
+        mapData.put("yhRefOwidTemp", jbxx.getYhRefOwid()+ SwytConstant.SWTYFILEPATH);
         if (TextUtils.isEmpty(mapData.get("jsfj"))) {
             mapData.put("jsfj","''");
         }
+        this.commonDao.updateFileByjbxx(mapData);
         this.commonDao.deleteFilesByjbxx(mapData);
         return Boolean.TRUE;
     }

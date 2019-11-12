@@ -68,7 +68,7 @@ function forgetPwd() {
         walert('请输入密码')
         return
     }
-    if(swMm.length>16||swMm.length<11){
+    if(swMm.length>16||swMm.length<6){
         walert('密码长度不正确')
         return
     }
@@ -86,6 +86,10 @@ function forgetPwd() {
         yzm:yzm
     }
     ajax('zustcommon/bckjBizYhxx/forgetPwd',data,function (res) {
-        seconds()
+        if(res.backCode==0){
+            window.location.href='trinitylogin'
+        }else{
+            walert()
+        }
     })
 }

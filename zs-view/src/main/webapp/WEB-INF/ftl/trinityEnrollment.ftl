@@ -86,7 +86,7 @@
 
                         <#case "2">
                             <#--签字拍照上传-->
-                            <#if (processState>2)>
+                            <#if (processState>1)>
                                 <#include "SWphotoUpload.ftl">
                             <#else>
                                 <#include "com/SWprocessState.ftl">
@@ -113,12 +113,12 @@
 
                         <#case "5">
                             <#--面试通知单打印-->
-                            <#if (processState>8)>
+                            <#assign fileName="面试通知单"/>
+                            <#if (processState>7)>
                                 <#include "SWofferNotice.ftl">
                             <#else>
                                 <#include "com/SWprocessState.ftl">
                             </#if>
-                            <#assign fileName="面试通知单"/>
                             <#break>
 
                         <#case "6">

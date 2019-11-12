@@ -14,7 +14,7 @@
     <#assign tip="恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。"/>
 </#if>
 <#include "com/SWtip.ftl">
-<div class="pay-online row">
+<div class="pay-online row mt20">
     <ul class="col-sm-offset-1">
         <li>
             <p class="contact-wrap_title active">报名表初审结果</p>
@@ -37,7 +37,11 @@
                             <span class="red">*</span>
                         </label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="payTime" name="payTime" ${(processState??&&processState>5)?string('disabled','')} value="${payTime?substring(0,10)!""}" placeholder="请选择时间" autocomplete="off">
+                            <#if payTime??>
+                                <input type="text" class="form-control" id="payTime" name="payTime" ${(processState??&&processState>5)?string('disabled','')} value="${payTime?substring(0,10)!""}" placeholder="请选择时间" autocomplete="off">
+                                <#else>
+                                    <input type="text" class="form-control" id="payTime" name="payTime" ${(processState??&&processState>5)?string('disabled','')} value="" placeholder="请选择时间" autocomplete="off">
+                            </#if>
                         </div>
                     </div>
                     <div class="form-group">
