@@ -480,7 +480,7 @@ public class ZsController {
     }
 
     @RequestMapping(value = "wzxq/{owid}", method = RequestMethod.GET)
-    public ModelAndView wzxq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) throws UnsupportedEncodingException {
+        public ModelAndView wzxq(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("ZSnewsDetail");
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
