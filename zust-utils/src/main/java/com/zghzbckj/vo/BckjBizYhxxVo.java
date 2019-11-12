@@ -22,10 +22,39 @@ public class BckjBizYhxxVo  extends DataWithExpEntity<BckjBizYhxxVo>{
     private String prov;		// prov
     private String city;		// city
     private String area;		// area
+
     private String dlzh;		// dlzh
     private Date dlzhsj;		// dlzhsj
     private String yhDlzh;
     private String yhDlmm;
+    private String swZh;
+    private String swMm;
+    private String qxzy;
+
+    public String getSwZh() {
+        return swZh;
+    }
+
+    public void setSwZh(String swZh) {
+        this.swZh = swZh;
+    }
+
+    public String getSwMm() {
+        return swMm;
+    }
+
+    public void setSwMm(String swMm) {
+        this.swMm = swMm;
+    }
+
+    public String getQxzy() {
+        return qxzy;
+    }
+
+    public void setQxzy(String qxzy) {
+        this.qxzy = qxzy;
+    }
+
     public Integer getYhlx() {
         return yhlx;
     }

@@ -83,7 +83,30 @@
         FROM bckj_biz_yhxx a
         <include refid="bckjBizYhxxJoins"/>
         <where>
-
+			<if test="createtime1 != null and createtime1 !=''  ">
+				AND a.createtime &gt;= #{createtime1}
+			</if>
+			<if test="createtime2 != null and createtime2 !=''  ">
+				AND a.createtime &lt;= #{createtime2}
+			</if>
+			<if test="yhlx != null and yhlx !=''  ">
+				AND a.yhlx= #{yhlx}
+			</if>
+			<if test="swZh != null and swZh !=''  ">
+				AND a.sw_zh= #{swZh}
+			</if>
+			<if test="xm != null and xm != ''">
+				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="prov != null and prov != ''">
+				AND a.prov LIKE concat('%',#{prov,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="city != null and city != ''">
+				AND a.city LIKE concat('%',#{city,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="area != null and area != ''">
+				AND a.area LIKE concat('%',#{area,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
         </where>
         <choose>
             <when test="orderBy != null and orderBy != ''">

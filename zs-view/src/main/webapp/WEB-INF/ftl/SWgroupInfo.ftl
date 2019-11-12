@@ -22,8 +22,6 @@
     ,{"label":"报考类别","value":examType!""}
     ,{"label":"招生专业","value":major!""}
     ,{"label":"准考证号","value":examNum!"暂无"}
-    ,{"label":"笔试时间","value":writeScore!"暂无"}
-    ,{"label":"面试时间","value":faceScore!"暂无"}
     ]
     />
 </#if>
@@ -38,7 +36,7 @@
                 <label class="search-score">${writeScore!"暂无"}</label>
             </div>
             <div class="col-sm-3 tc">
-                <label class="search-score_label">面试时间 </label>
+                <label class="search-score_label">面试成绩 </label>
                 <label class="search-score">${faceScore!"暂无"}</label>
             </div>
             <div class="col-sm-3 tc">

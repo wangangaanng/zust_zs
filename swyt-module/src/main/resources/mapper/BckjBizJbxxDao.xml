@@ -387,8 +387,8 @@
 	<select id="countNumber" parameterType="Map" resultType="java.lang.Integer">
 		SELECT
 		count(1)
-		from bckj_biz_jbxx a
-		<where>
+		from bckj_biz_yhxx a where a.yhlx =3
+ 		<where>
 		</where>
 	</select>
 

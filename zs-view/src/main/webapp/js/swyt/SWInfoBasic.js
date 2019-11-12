@@ -5,12 +5,15 @@
 var imgType = "";//区分图片类型：身份证正反面 户籍
 var idType="1";//上传身份证还是上传户籍证明 默认1身份证 2户籍证明
 $(function () {
+    //已经提交报名表 不可在修改与提交
     if(processState!=0){
         $('#basicForm').find('button[type=submit]').hide()
         $('#contactForm').find('button[type=submit]').hide()
         $('#gradeForm').find('button[type=submit]').hide()
         $('#selectForm').find('button[type=submit]').hide()
-        $('#selectForm').find('.upimg-wrap').eq(1).hide()
+        $('#selectForm').find('.upimg-wrap').eq(1).hide();
+        $(".file-btn").hide();
+        $(".uploadlabel").html("已上传");
     }
 
     //浏览器不要自动填充
@@ -121,15 +124,15 @@ function getInfo() {
             $("#qq").val(data.qq);
             if(data.sfzzm){
                 $("#sfzzm").val(data.sfzzm);
-                $("#sfzzmImg").attr("src",imagePath+data.sfzzm);
+                $("#sfzzmImg").attr("src",imagePath+data.sfzzm).addClass("fullImg");
             }
             if(data.sfzfm){
                 $("#sfzfm").val(data.sfzfm);
-                $("#sfzfmImg").attr("src",imagePath+data.sfzzm);
+                $("#sfzfmImg").attr("src",imagePath+data.sfzfm).addClass("fullImg");
             }
             if(data.hjzm){
                 $("#hjzm").val(data.hjzm);
-                $("#hjzmImg").attr("src",imagePath+data.hjzm);
+                $("#hjzmImg").attr("src",imagePath+data.hjzm).addClass("fullImg");
                 $("#confrimType option[value='2']").prop("selected","selected");
                 $("#household").show();
                 $("#idCard").hide();
@@ -228,7 +231,7 @@ function uploadImg(){
     })
 }
 
-//初始化验证信息
+//初始化验证信息 包括联系人和基本信息表单
 function initValidate() {
     // 身份证号码验证
     $.validator.addMethod("isIdCardNo", function(value, element) {
@@ -323,25 +326,28 @@ function initValidate() {
 
 function process(e) {
     switch (e) {
-        case 1:
+        case 1://基本信息
             $("#basicForm").show();
             $("#contactForm").hide();
             $("#gradeForm").hide();
             $("#selectForm").hide();
             break;
-        case 2:
+        case 2://联系人
+            if(!emptyCheck($("#faxm").val())&&!emptyCheck($("#falxsj").val())){
+                getContactors();
+            }
             $("#basicForm").hide();
             $("#contactForm").show();
             $("#gradeForm").hide();
             $("#selectForm").hide();
             break;
-        case 3:
+        case 3: //学考信息
             $("#basicForm").hide();
             $("#contactForm").hide();
             $("#gradeForm").show();
             $("#selectForm").hide();
             break;
-        case 4:
+        case 4: //选考信息
             $("#basicForm").hide();
             $("#contactForm").hide();
             $("#gradeForm").hide();

@@ -17,6 +17,7 @@ import java.util.Date;
 public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 	
 	private static final long serialVersionUID = 1L;
+	private String owid;		// owid
 	private String headImage;		// head_image
 	private String name;		// name
 	private Integer xb;		// xb
