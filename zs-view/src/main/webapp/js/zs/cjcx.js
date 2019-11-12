@@ -14,12 +14,11 @@ function queryGrade() {
     var sfzh = $('#input_sfzh').val();
     if (!(!!(sfzh))) {
         walert("请输入身份证号");
+        return;
     }
     if (!(!!(ksh))) {
         walert("请输入准考证号");
-    }
-    if (sfzh.length !== 18) {
-        walert("请输入正确的身份证号")
+        return;
     }
     var data = {
         ksh: ksh,

@@ -3,7 +3,6 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -23,7 +22,6 @@ import com.zghzbckj.vo.BckjBizYhxxVo;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.EscapedErrors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -52,12 +50,26 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage getListApi(PublicDataVO dataVO) {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return bckjBizYhxxService.findPageBckjBizYhxx(filters, dataVO.getPageNo(), dataVO.getPageSize());
+            return bckjBizYhxxService.findPageBckjBizYhxx(filters,null, dataVO.getPageNo(), dataVO.getPageSize());
         } catch (Exception e) {
             log.error(e + "获取bckjBizYhxx列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
+
+    @RequestMapping(value = "/getSwytList")
+    @ResponseBody
+    public ResponseMessage getSwytList(PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizYhxxService.findPageBckjBizYhxx(filters,3, dataVO.getPageNo(), dataVO.getPageSize());
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizYhxx列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     /**
      * 考生报名list
@@ -499,7 +511,7 @@ public class BckjBizYhxxController extends BaseController {
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhxxService.apOfCaOpDay(dataMap));
+            return bckjBizYhxxService.apOfCaOpDay(dataMap);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);

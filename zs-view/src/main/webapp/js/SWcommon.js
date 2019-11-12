@@ -42,7 +42,7 @@ function isTimeOut() {
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
     if(!getCookie("swOwid")){
-        window.location.href=url+"/SWlogin";
+        window.location.href=url+"/trinitylogin";
     }else{
         return false;
     }

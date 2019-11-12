@@ -263,9 +263,9 @@ function exportExcel() {
             //本地
             // window.open("http://127.0.0.1:8081/files/" + res.bean);
             //测试服务器
-            window.open("http://192.168.3.222:8080/zjcFiles/excel/" + res.bean);
+            // window.open("http://192.168.3.222:8080/zjcFiles/excel/" + res.bean);
             //正式
-            // window.open("https://job.zust.edu.cn/zjcFiles/" + res.bean);
+            window.open("https://job.zust.edu.cn/zjcFiles/excel/" + res.bean);
         } else {
             walert("导出失败")
         }

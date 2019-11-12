@@ -26,7 +26,11 @@ function sendCode() {
         type:'1'
     };
     ajax('zustcommon/common/sendCode',data,function (res) {
-        seconds()
+        if(res.backCode==0){
+            seconds()
+        }else {
+            walert(res.errorMess)
+        }
     })
 }
 
@@ -87,9 +91,9 @@ function forgetPwd() {
     }
     ajax('zustcommon/bckjBizYhxx/forgetPwd',data,function (res) {
         if(res.backCode==0){
-            window.location.href='trinitylogin'
+            window.location.href=base+'/trinitylogin'
         }else{
-            walert()
+            walert(res.errorMess)
         }
     })
 }

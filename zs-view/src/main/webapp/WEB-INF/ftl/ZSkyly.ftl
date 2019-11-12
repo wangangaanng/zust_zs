@@ -74,7 +74,7 @@
                 </div>
 
                 <ol class="breadcrumb">
-                    <li><a href="/">首页</a></li>
+                    <li><a href="${base}">首页</a></li>
                     <li><a href="#">科院掠影</a></li>
                     <#if thirdDir?? && thirdDir != "" && thirdDir == "0">
                         <li><a href="#">安吉校园风光</a></li>

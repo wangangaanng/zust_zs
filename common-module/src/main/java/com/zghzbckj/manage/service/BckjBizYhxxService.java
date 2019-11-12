@@ -29,13 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -99,9 +95,24 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizYhxx(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizYhxx(List<FilterModel> filters,Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizYhxx> page = findPage(dataMap, pageNo, pageSize, null);
+        if(!TextUtils.isEmpty(state)){
+            dataMap.put("yhlx",state);
+        }
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
+            dataMap.put("createtime2", date);
+        }
+        PageInfo<BckjBizYhxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+
+
+        List<BckjBizYhxx> records = page.getRecords();
+        BckjBizYhxx jbxx = new BckjBizYhxx();
+        jbxx.setXm("共有：" + page.getTotalCount() + "个用户");
+        jbxx.setReadOnly(true);
+        records.add(0, jbxx);
+
         return ResponseMessage.sendOK(page);
     }
 
@@ -578,6 +589,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (!dataMap.get("yzm").toString().equals(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
         }
+        BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        if (!TextUtils.isEmpty(bckjBizYhxx1)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"此手机号已报名!");
+        }
         BckjBizYhgl bckjBizYhgl = BckjBizYhgl.class.newInstance();
         BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
         //如果是pc
@@ -655,14 +670,17 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * @return
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
-    public String apOfCaOpDay(Map<String, Object> dataMap) {
+    public ResponseMessage apOfCaOpDay(Map<String, Object> dataMap) {
         if (!dataMap.get("yzm").toString().equals( com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
-            return "验证码输入错误!";
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"验证码输入错误!");
         }
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        if(bckjBizYhxx.getExp10().indexOf("未预约开放日")!=-1){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"已预约");
+        }
         bckjBizYhxx.setExp10(dataMap.get("val2").toString());
         saveOrUpdate(bckjBizYhxx);
-        return "预约成功！";
+        return ResponseMessage.sendOK("预约成功！");
     }
 
 
@@ -680,8 +698,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             return ResponseMessage.sendError(ResponseMessage.FAIL,"该手机号未进行考生报名,不能进行预约!");
         }
         try {
+            MessageUtil.sendMessageCode(dataMap.get("sjh").toString(), yzm);
             com.zghzbckj.base.util.CacheUtil.setVal(dataMap.get("sjh").toString(), Integer.parseInt(yzm));
-            CacheUtil.setVal(dataMap.get("sjh").toString(), yzm);
             return ResponseMessage.sendOK("获取成功！") ;
         } catch (Exception e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL,"获取失败!");
@@ -695,10 +713,16 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public List<Map> getShowCaOpDayDate() {
         List<Map> dicListMapByType = bckjBizJyschemeService.getDicListMapByType(70000);
         List<Map> resMaps= Lists.newArrayList();
-        HashMap<String, Object> resMap = Maps.newHashMap();
         for(Map map:dicListMapByType){
+            HashMap<String, Object> resMap = Maps.newHashMap();
             resMap.put(map.get("val1").toString(),map.get("val2").toString());
-            resMaps.add(resMap);
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.ORA_DATE_FORMAT);
+            /*if(DateUtil.getDate(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd"))){
+
+            }*/
+            if(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).before(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd"))){
+                resMaps.add(resMap);
+            }
         }
         return resMaps;
     }

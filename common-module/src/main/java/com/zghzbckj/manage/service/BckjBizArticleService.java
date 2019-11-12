@@ -295,8 +295,6 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
     @Transactional(readOnly = false)
     public Map getArticlDeatil(String owid) {
         BckjBizArticle article= get(owid);
-        article.setYdcs(article.getYdcs()+1);
-        saveOrUpdate(article);
         Map mapArticle=Maps.newHashMap();
         BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr","ydcs");
         String fbsj=DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART);
