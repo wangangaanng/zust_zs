@@ -81,9 +81,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="mz" class="col-sm-2 control-label  col-sm-offset-1">名族<span class="red">*</span>：</label>
+        <label for="mz" class="col-sm-2 control-label  col-sm-offset-1">民族<span class="red">*</span>：</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="mz"  name="mz" value="" placeholder="请输入名族" >
+            <input type="text" class="form-control" id="mz"  name="mz" value="" placeholder="请输入民族" >
         </div>
     </div>
     <div class="form-group">
