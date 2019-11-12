@@ -102,7 +102,7 @@
                 <div>已有账号</div>
                 <div class="registered" onclick="window.location.href='${base}/trinitylogin'">登录<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
-                <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
+                <div><img src="${base}/img/xcx-ewm.jpg" class="login-icon"></div>
             </div>
 
         </div>

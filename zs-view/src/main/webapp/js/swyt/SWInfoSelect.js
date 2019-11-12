@@ -245,15 +245,15 @@ function getMajors(e) {
                 }
             }
             if(Major==1){
+                $('#Major2').html('<option value="">请选择</option>')
+                $('#Major3').html('<option value="">请选择</option>')
                 for(var i in res.bean){
-                    $('#Major2').html('<option value="">请选择</option>')
-                    $('#Major3').html('<option value="">请选择</option>')
                     $('#Major2').append('<option value="'+res.bean[i].owid+'">'+res.bean[i].name+'</option>')
                 }
             }
             if(Major==2){
+                $('#Major3').html('<option value="">请选择</option>')
                 for(var i in res.bean){
-                    $('#Major3').html('<option value="">请选择</option>')
                     $('#Major3').append('<option value="'+res.bean[i].owid+'">'+res.bean[i].name+'</option>')
                 }
             }
