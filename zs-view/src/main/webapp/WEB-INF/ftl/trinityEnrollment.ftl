@@ -60,7 +60,7 @@
                         ${((data_index?number)==(page?number))?string(data,'')}
                     </#list>
                 </div>
-            <#--没有报名表 且不是我的报名表-->
+            <#--没有报名表 且不是 我的报名表-->
             <#if (applyOwid=="")&&(page!='0')>
                 <div class="article-detail-text">
                     <ul class="list-group row">
