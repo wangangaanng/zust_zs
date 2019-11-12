@@ -11,3 +11,8 @@
 .pull-right{float: right;display: flex;display: -webkit-flex;align-items:flex-end;}
 .glyphicon{margin-right: 8rpx;}
 .syd-time{ color: #008784;font-size: 26rpx;}
+
+.van-grid-item__text{
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

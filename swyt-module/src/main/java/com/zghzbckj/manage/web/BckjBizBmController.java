@@ -419,6 +419,12 @@ public class BckjBizBmController extends BaseController {
             }
             bm.setXybnr(SwytConstant.BMJJ);
         }
+        if (5 == state) {
+            if (!TextUtils.isEmpty(mapData.get("jjly"))) {
+                bm.setJjly(mapData.get("jjly").toString());
+            }
+            bm.setXybnr(SwytConstant.BMDJF);
+        }
         if (-1 == state) {
             if (!TextUtils.isEmpty(mapData.get("memo"))) {
                 bm.setMemo(mapData.get("memo").toString());

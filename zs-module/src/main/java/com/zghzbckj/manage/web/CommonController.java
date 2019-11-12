@@ -35,6 +35,16 @@ public class CommonController {
         return ResponseMessage.sendOK("OK");
     }
 
+    /**
+     *<p>功能描述:历年统计饼图 lntjPieChart</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/12 13:47</li>
+     *</ul>
+     */
     @PostMapping(value = "lntjPieChart")
     @ResponseBody
     public ResponseMessage getLntj(PublicDataVO dataVO) {
@@ -47,11 +57,22 @@ public class CommonController {
         }
     }
 
+    /**
+     *<p>功能描述:招生计划饼图 zsjhPieChart</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/12 13:47</li>
+     *</ul>
+     */
     @PostMapping(value = "zsjhPieChart")
     @ResponseBody
     public ResponseMessage getZsjh(PublicDataVO dataVO) {
         try {
-            return ResponseMessage.sendOK("");
+            Map<String, Object> result = commonService.getZsjhPie();
+            return ResponseMessage.sendOK(result);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

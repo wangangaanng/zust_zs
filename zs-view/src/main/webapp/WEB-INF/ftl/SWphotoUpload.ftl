@@ -44,10 +44,10 @@
                             <img src="${base}/img/img-up.png" class="up-btn_img"/>
                     </#if>
                     <#if (processState<3)>
-                        <input type="file" class="file-btn" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
+                        <input type="file" class="file-btn" value="" class="file1" name="file" id="file2" accept="image/jpeg,image/jpg,image/png,image/svg" />
                     </#if>
                 </div>
-                <label class="uploadlabel" for="${(processState<3)?string("file","")}">${(processState<3)?string("上传签字承诺书","已上传成功")}</label>
+                <label class="uploadlabel" for="${(processState<3)?string("file2","")}">${(processState<3)?string("上传签字承诺书","已上传成功")}</label>
             </div>
         </div>
         <div class="col-sm-4 has-error">

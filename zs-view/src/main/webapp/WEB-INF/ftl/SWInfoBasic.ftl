@@ -25,8 +25,8 @@
                         <div class="file-btn_wrap">
                             <img src="${base}/img/img-up.png" class="up-btn_img" id="sfzzmImg">
                         </div>
-                        <input type="file"   class="file-btn" data-type="2"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
-                        <label class="uploadlabel"  for="file">上传身份证正面</label>
+                        <input type="file"   class="file-btn" data-type="2"  value="" id="upFace" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <label class="uploadlabel"  for="upFace">上传身份证正面</label>
                     </div>
                 </div>
                 <div style="text-align: center;" class="col-sm-4">
@@ -34,8 +34,8 @@
                         <div class="file-btn_wrap">
                             <img src="${base}/img/img-up.png" class="up-btn_img" id="sfzfmImg">
                         </div>
-                        <input type="file" class="file-btn" value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
-                        <label class="uploadlabel" for="file">上传身份证反面</label>
+                        <input type="file" class="file-btn" value="" name="file" id="upBck" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <label class="uploadlabel" for="file" id="upBck">上传身份证反面</label>
                     </div>
                 </div>
                 <div class="col-sm-4 has-error">
@@ -48,8 +48,8 @@
                         <div class="file-btn_wrap">
                             <img src="${base}/img/img-up.png" class="up-btn_img" id="hjzmImg">
                         </div>
-                        <input type="file"   class="file-btn" data-type="1"  value="" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
-                        <label class="uploadlabel"  for="file">户籍证明</label>
+                        <input type="file"   class="file-btn" data-type="1"  value="" id="upHouseHold" name="file" accept="image/jpeg,image/jpg,image/png,image/svg">
+                        <label class="uploadlabel"  for="upHouseHold">上传户籍证明</label>
                     </div>
                 </div>
                 <div class="col-sm-4 has-error">
