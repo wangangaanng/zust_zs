@@ -188,35 +188,37 @@ function getXkcj() {
     }
     ajax('zustswyt/bckjBizCjxx/getXkcj', data, function (res) {
         if (res.backCode == 0) {
-            $('#jssm').val(res.bean.jssm);
-            $('#qtqk').val(res.bean.qtqk);
-            $('#tcah').val(res.bean.tcah);
-            $('#wycj').val(res.bean.wycj);
-            var zxlb = [];
-            if(res.bean.zxlb){
-                zxlb = res.bean.zxlb.split(',');
-            }
-            for(var i in zxlb){
-               $('input[name=zxlb]').each(function () {
-                   if($(this).val()==zxlb[i]){
-                       $(this).attr('checked',true)
-                   }
-               })
-            }
-            for(var i in res.bean.xkList){
-                $('#xkkm').find('.form-group').eq(i).find('select').val(res.bean.xkList[i].kmbh)
-                $('#xkkm').find('.form-group').eq(i).find('input').val(res.bean.xkList[i].kmcj)
-            }
-            $('#wyyz').val(res.bean.wyyz)
-            for(var i in res.bean.jsfj){
-                var str = '<li style="float: left;">' +
-                    '<div class="file-btn_wrap" style="margin-right: 10px;">' +
-                    '<img src="'+imagePath+res.bean.jsfj[i].filePath+'">' +
-                    '</div>' +
-                    '<label class="uploadlabel" onclick="removeJsfj(this)">删除</label>' +
-                    '</li>';
-                $('#fileList').append(str)
-                jsfj.push(res.bean.jsfj[i].owid)
+            if(emptyCheck(res.bean)){
+                $('#jssm').val(res.bean.jssm);
+                $('#qtqk').val(res.bean.qtqk);
+                $('#tcah').val(res.bean.tcah);
+                $('#wycj').val(res.bean.wycj);
+                var zxlb = [];
+                if(res.bean.zxlb){
+                    zxlb = res.bean.zxlb.split(',');
+                }
+                for(var i in zxlb){
+                   $('input[name=zxlb]').each(function () {
+                       if($(this).val()==zxlb[i]){
+                           $(this).attr('checked',true)
+                       }
+                   })
+                }
+                for(var i in res.bean.xkList){
+                    $('#xkkm').find('.form-group').eq(i).find('select').val(res.bean.xkList[i].kmbh)
+                    $('#xkkm').find('.form-group').eq(i).find('input').val(res.bean.xkList[i].kmcj)
+                }
+                $('#wyyz').val(res.bean.wyyz)
+                for(var i in res.bean.jsfj){
+                    var str = '<li style="float: left;">' +
+                        '<div class="file-btn_wrap" style="margin-right: 10px;">' +
+                        '<img src="'+imagePath+res.bean.jsfj[i].filePath+'">' +
+                        '</div>' +
+                        '<label class="uploadlabel" onclick="removeJsfj(this)">删除</label>' +
+                        '</li>';
+                    $('#fileList').append(str)
+                    jsfj.push(res.bean.jsfj[i].owid)
+                }
             }
         } else {
             walert(res.errorMess)
