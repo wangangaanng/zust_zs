@@ -99,6 +99,9 @@
 			<if test="exp1 != null and exp1 != ''">
 				AND a.exp1 = #{exp1}
 			</if>
+			<if test="isBm != null and isBm != ''">
+				AND a.is_bm = #{isBm}
+			</if>
 			<if test="createtime1 != null and createtime1 !=''  ">
 				AND a.createtime &gt;= #{createtime1}
 			</if>

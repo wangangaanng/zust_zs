@@ -561,7 +561,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         BckjBizJybm bm = get(codes.get(0));
         //报名对象  0招聘会 1宣讲会
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
-        if (1 == state) {
+        if (1 == state)
+        {
             if (bmdx == JyContant.BMDX_ZPH) {
                 BckjBizJob job = jobService.get(bm.getJobRefOwid());
 //                Map params = Maps.newHashMap();
@@ -700,7 +701,9 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
             }
 
 
-        } else if (2 == state) {
+        }
+
+        else if (2 == state) {
             if (bmdx == JyContant.BMDX_ZPH) {
                 BckjBizJob job = jobService.get(bm.getJobRefOwid());
                 String content = JyContant.ZPH_REJECT_MESS;

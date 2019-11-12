@@ -44,7 +44,7 @@
             z-index:11;
         }
         .pie-list li{width: 33.3%;}
-        .pie-list_wrap .pie-wrap{height: 500px !important;}
+        .pie-list_wrap .pie-wrap{height: 400px !important;}
     </style>
     <script type="text/javascript">
         <#include "comTem/comUtil.ftl" />
