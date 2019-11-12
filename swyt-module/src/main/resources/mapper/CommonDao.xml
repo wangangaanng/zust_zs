@@ -188,12 +188,12 @@
 
 
     <update id="updateFileByjbxx" >
-        UPDATE ourway_sys_files SET  file_class_id= #{jbxxOwid} WHERE file_class_id =#{yhRefOwid}
+        UPDATE ourway_sys_files SET  file_class_id= #{yhRefOwid} WHERE file_class_id =#{yhRefOwidTemp}
     </update>
 
 
     <delete id="deleteFilesByjbxx" >
-        DELETE FROM ourway_sys_files WHERE file_class_id= #{jbxxOwid} AND owid NOT IN(${jsfj})
+        DELETE FROM ourway_sys_files WHERE file_class_id= #{yhRefOwid} AND owid NOT IN(${jsfj})
     </delete>
 
     <select id="findFileByJbxx" resultType="Map">
