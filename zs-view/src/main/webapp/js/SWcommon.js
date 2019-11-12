@@ -38,14 +38,11 @@ function keySearch(){
 
 //判断登录过期
 function isTimeOut() {
-    //测试用户owid：addCookie("swOwid","359f287a40bb4fe98b0fd80766a91b4f");
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
     if(!getCookie("swOwid")){
         walert("登录超时，请重新登录");
-        window.setTimeout(function () {
-            window.location.href=url+"trinitylogin";
-        },1500)
+        window.location.href=url+"trinitylogin";
     }else{
         return false;
     }
