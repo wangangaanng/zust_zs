@@ -1,4 +1,8 @@
 <style>
+    .shouYe_div_foot ul{
+        margin: 0;
+        padding: 0;
+    }
     .shouYe_div_foot
     {
         width: 1200px;
