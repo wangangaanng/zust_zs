@@ -32,17 +32,15 @@
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
                     <div class="swiper-wrapper">
-                    <#list first as objl>
-                        <#if (objl_index==0)&&(objl??)&&(objl?size>0)>
+                        <#if (newsImg??)&&(newsImg?size>0)>
                             <#assign count=0>
-                            <#list objl as obj>
+                            <#list newsImg as obj>
                                 <#if (obj.tpjj??)&&(count<5)>
                                     <div class="swiper-slide"><img alt="${obj.wzbt}" title="${obj.wzbt}" onclick="openUrl('newsDetail/${obj.owid!''}')" src="${imagePath+obj.tpjj}" /></div>
                                     <#assign count+=1>
                                 </#if>
                             </#list>
                         </#if>
-                    </#list>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>

@@ -23,6 +23,12 @@ public interface CommonDao {
 
     List<Map<String, Object>> getListZsjh();
 
+    List<Map<String, Object>> getListKsbm();
+
+    List<Map<String, Object>> getListCjcx();
+
+    List<Map<String, Object>> getListLqxs(Map<String, Object> dataMap);
+
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
     List<Map<String, Object>> listDicVal(Map<String, Object> dataMap);
