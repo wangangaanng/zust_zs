@@ -29,13 +29,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 /**
@@ -99,9 +95,24 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      * <li>@date 2018/9/5 9:47  </li>
      * </ul>
      */
-    public ResponseMessage findPageBckjBizYhxx(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+    public ResponseMessage findPageBckjBizYhxx(List<FilterModel> filters,Integer state, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizYhxx> page = findPage(dataMap, pageNo, pageSize, null);
+        if(!TextUtils.isEmpty(state)){
+            dataMap.put("yhlx",state);
+        }
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
+            dataMap.put("createtime2", date);
+        }
+        PageInfo<BckjBizYhxx> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+
+
+        List<BckjBizYhxx> records = page.getRecords();
+        BckjBizYhxx jbxx = new BckjBizYhxx();
+        jbxx.setXm("共有：" + page.getTotalCount() + "个用户");
+        jbxx.setReadOnly(true);
+        records.add(0, jbxx);
+
         return ResponseMessage.sendOK(page);
     }
 

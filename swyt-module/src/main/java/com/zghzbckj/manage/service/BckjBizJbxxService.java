@@ -88,6 +88,7 @@ public class BckjBizJbxxService extends CrudService<BckjBizJbxxDao, BckjBizJbxx>
         return page;
     }
 
+
     /**
      * <p>方法:savebckjBizJbxx TODO保存BckjBizJbxx信息 </p>
      * <ul>

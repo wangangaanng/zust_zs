@@ -24,9 +24,9 @@ public class CommonModuleContant {
 //       public static final String BACK_TYPE_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getValueByDic.do";
 //   public static final String BACK_DIC_SAVE_HOST = "http://127.0.0.1:8080/webApi/dicValue/saveDic.do";
 //   public static final String BACK_URL_HOST = "http://127.0.0.1:8080/webApi/dicValue/getByType.do";
-public static final String BACK_TYPE_URL_HOST = "http://172.16.13.109:8080/webApi/dicValue/getValueByDic.do";
-    public static final String BACK_DIC_SAVE_HOST = "http://172.16.13.109:8080/webApi/dicValue/saveDic.do";
-    public static final String BACK_URL_HOST = "http://172.16.13.109:8080/webApi/dicValue/getByType.do";
+public static final String BACK_TYPE_URL_HOST = "http://172.16.13.107:8080/webApi/dicValue/getValueByDic.do";
+    public static final String BACK_DIC_SAVE_HOST = "http://172.16.13.107:8080/webApi/dicValue/saveDic.do";
+    public static final String BACK_URL_HOST = "http://172.16.13.107:8080/webApi/dicValue/getByType.do";
 
 //        public final static String picPath = "C:\\files\\pic\\";
     public final static String picPath = "/mnt/files/zjcFiles/pic";
