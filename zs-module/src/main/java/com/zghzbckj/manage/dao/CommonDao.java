@@ -21,6 +21,8 @@ public interface CommonDao {
 
     List<Map<String, Object>> getListLntj();
 
+    List<Map<String, Object>> getListZsjh();
+
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
     List<Map<String, Object>> listDicVal(Map<String, Object> dataMap);

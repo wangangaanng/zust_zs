@@ -726,4 +726,20 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         }
         return resMaps;
     }
+
+    @Transactional(readOnly = false)
+    public Map proxyLogin(Map<String, Object> datamap) {
+        Map<String, Object> map = this.dao.logIn(datamap);
+        if(!TextUtils.isEmpty(map)&&!TextUtils.isEmpty(map.get("owid"))) {
+            this.dao.updateDlsj(map.get("owid").toString());
+            Map mapRes=Maps.newHashMap();
+            mapRes.put("stuOwid",map.get("owid"));
+            mapRes.put("stuSjh",map.get("sjh"));
+            mapRes.put("stuXm",map.get("xm"));
+            mapRes.put("userType",1);
+            mapRes.put("yhOwid",map.get("owid"));
+            return mapRes;
+        }
+        return map;
+    }
 }

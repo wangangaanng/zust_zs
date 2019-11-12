@@ -64,7 +64,8 @@ public class ExportRankExcel implements ComponentListinerSer {
             }
             ResponseMessage responseMessage = JsonPostUtils.executeAPI("web/zustjy/bckjBizJypm/exportRankExcel");
             String result =  (String)responseMessage.getBean();
-            URL url = new URL("http://127.0.0.1:8080/zjcFiles/export/" + result);
+//            URL url = new URL("http://127.0.0.1:8080/zjcFiles/export/" + result);
+            URL url = new URL("https://job.zust.edu.cn/zjcFiles/export/" + result);
             Filedownload.save( url, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
         } catch (Exception e) {
             e.printStackTrace();

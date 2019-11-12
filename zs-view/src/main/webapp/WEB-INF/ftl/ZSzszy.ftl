@@ -55,7 +55,12 @@
                                             <#list zyList as zy>
                                                 <#if zy_index==xy_index>
                                                     <#list zy as obj>
-                                                        <a href="${base}/wzxq/${obj.owid!''}" class="zy" target="_blank">${obj.mz!''}</a>
+                                                    <#if obj.articleUrl??>
+                                                        <a href="${obj.articleUrl!''}" class="zy" target="_blank">${obj.mz!''}</a>
+                                                    <#else >
+                                                        <a onclick="javascript:walert('暂无介绍')" class="zy">${obj.mz!''}</a>
+                                                    </#if>
+
                                                     </#list>
                                                 </#if>
                                             </#list>
