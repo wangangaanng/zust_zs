@@ -347,8 +347,8 @@
 
 
 	<select id="getOneByDlzh" resultType="Map" parameterType="String">
-		SELECT owid as owid ,yh_dlzh as dlzh  from bckj_biz_yhxx
-		where yh_dlzh=#{dlzh}
+		SELECT b.owid as owid ,a.owid as yhid ,a.yh_dlzh as dlzh  from bckj_biz_yhxx a,bckj_biz_zjzx b
+		where a.yh_dlzh=#{dlzh}  and a.owid =b.yhid
 	</select>
 
 	<delete id="deleteYhxx" parameterType="String" >
