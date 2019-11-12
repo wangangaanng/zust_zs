@@ -42,6 +42,45 @@ Page({
     btndisabled: false,
     parentId: ''
   },
+  delcondition(e){
+    if (e.currentTarget.dataset.type==1){
+      this.setData({
+        nfStr: '请选择',
+        'form.nf': ''
+      })
+    } else if (e.currentTarget.dataset.type == 2) {
+      this.setData({
+        sfStr: '请选择',
+        'form.sf': ''
+      })
+    } else if (e.currentTarget.dataset.type == 3) {
+      this.setData({
+        klStr: '请选择',
+        'form.kl': ''
+      })
+    } else if (e.currentTarget.dataset.type == 4) {
+      this.setData({
+        pcStr: '请选择',
+        'form.pc': ''
+      })
+    } else if (e.currentTarget.dataset.type == 5) {
+      this.setData({
+        zyStr: '请选择',
+        'form.zy': ''
+      })
+    }
+    getChanges(this)
+    this.setData({
+      pageNo: 1,
+      totalPage: '',
+      list: [],
+    })
+    if (!this.data.form.nf && !this.data.form.sf && !this.data.form.kl && !this.data.form.pc && !this.data.form.zy) {
+
+    } else {
+      getResult(this)
+    }
+  },
   onConfirm(e) {
     if (e.target.dataset.type == 1) {
       const { nf } = e.detail.value;

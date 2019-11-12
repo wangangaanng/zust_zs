@@ -135,7 +135,7 @@ body, div, ul, li, a, img {
     color: #008784;
     text-align: center;
     width: 155px;
-    height: 35px;
+    /*height: 35px;*/
     line-height: 35px;
     border-radius: 3%;
     border: 2px solid #008784;

@@ -137,7 +137,7 @@ public class BckjBizZxzxController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词:"+filterStr);
             }*/
             Map<String, Object> map = WeixinUtils.filterContent(filterMap);
-            if(!TextUtils.isEmpty(map.get("errmsg").toString().indexOf("risky"))){
+            if(!TextUtils.isEmpty(map.get("errmsg"))&&(map.get("errmsg").toString().indexOf("risky")!=-1)){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,"咨询内容中含不合理信息,请重新修改咨询内容");
             }
             String ipAdrress = IpAdrressUtil.getIpAdrress(request);

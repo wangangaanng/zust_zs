@@ -185,4 +185,36 @@
         WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
     </select>
 
+    <select id="getListLntj" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, NF AS name
+        FROM bckj_biz_lntj
+        WHERE NF IS NOT NULL
+        GROUP BY NF
+    </select>
+
+    <!--查询字典表值    -->
+    <select id="getOneDic" parameterType="java.util.Map" resultType="java.util.Map">
+        SELECT a.* FROM ourway_sys_dic_value a,ourway_sys_dic b WHERE a.dic_ref_owid=b.owid
+        <if test="dicType != null and dicType !=''">
+            AND b.TYPE=#{dicType}
+        </if>
+        <if test="dicVal1 != null and dicVal1 !=''">
+            AND a.dic_val1=#{dicVal1}
+        </if>
+        <if test="dicVal3 != null and dicVal3 !=''">
+            AND a.dic_val3=#{dicVal3}
+        </if>
+    </select>
+
+    <!--查询字典表列表值    -->
+    <select id="listDicVal" parameterType="java.util.Map" resultType="java.util.Map">
+        select * from ourway_sys_dic a,ourway_sys_dic_value b
+        <where>a.owid=b.dic_ref_owid
+            and a.type = #{dicType}
+            <if test="dicVal1 != null and dicVal1 !=''">
+                AND b.dicVal1 = #{dicVal1}
+            </if>
+        </where>
+    </select>
+
 </mapper>

@@ -10,7 +10,7 @@
         <#assign tip="请考生上传：报名表签字和承诺书签字"/>
 </#if>
 <#include "com/SWtip.ftl">
-<div class="form-horizontal basic-from" id="picForm" method="" action="" target="baFrame">
+<div class="form-horizontal basic-from mt20" id="picForm" method="" action="" target="baFrame">
     <div class="form-group">
         <label for="qyFrsfz" class="col-sm-2 control-label  col-sm-offset-1">报名表签字上传<span class="red">*</span>：</label>
         <div class="col-sm-4">
@@ -101,6 +101,7 @@
                 var data = data.bean;
                 walert("提交成功");
                 $(".file-btn").hide();
+                $("#tip-detail").html("报名表签字和承诺书签字已提交");
                 $(".uploadlabel").html("已上传成功").attr("for"," ");
                 $("#saveBasic").hide();
             }else{

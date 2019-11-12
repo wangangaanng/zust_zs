@@ -1,31 +1,28 @@
 var jsfj = [];
 var readyNum = 0;
+var Major;
+var currApplyOwid = '';
+
 $(document).ready(function () {
-    getByType('10020');
-    getByType('10024');
-    getXkkm();
-    var t = setInterval(function () {
-        if(readyNum==3){
-            getXkcj()
-            clearInterval(t)
+    $('#Major1').change(function () {
+        var value = $('#Major1 option:selected').val()
+        Major = 1;
+        if(emptyCheck(value)){
+            getMajors(value)
         }
-    },100)
-    $('#file3').change(function () {
-        console.log($('#file3').prop('files'))
-        var str = '<li style="float: left;">' +
-            '<div class="file-btn_wrap" style="margin-right: 10px;">' +
-            '<img src="'+URL.createObjectURL($('#file3')[0].files[0])+'">' +
-            '</div>' +
-            '<label class="uploadlabel" onclick="removeJsfj(this)">删除</label>' +
-            '</li>';
-        $('#fileList').append(str)
-        fileUpload(2, $('#file3')[0].files[0], function (res) {
-            if (res.backCode == 0) {
-                jsfj.push(res.bean.owid);
-            } else {
-                walert(res.errorMess)
-            }
-        })
+    })
+    $('#Major2').change(function () {
+        var value = $('#Major2 option:selected').val()
+        Major = 2;
+        if(emptyCheck(value)){
+            getMajors(value)
+        }
+    })
+    $('#Major3').change(function () {
+        var value = $('#Major3 option:selected').val()
+        if(emptyCheck(value)){
+            saveSubmit()
+        }
     })
 })
 function removeJsfj(e) {
@@ -81,7 +78,7 @@ function getXkkm() {
     })
 }
 
-function finishXk() {
+function finishXk(e) {
     var xkList = [];
     $('#xkkm').find('select').each(function () {
         if(!emptyCheck($(this).find('option:selected').val())){
@@ -153,6 +150,10 @@ function finishXk() {
     var jssm = $('#jssm').val();
     var qtqk = $('#qtqk').val();
     var tcah = $('#tcah').val();
+    if(!emptyCheck(tcah)){
+        walert('请填写特长爱好')
+        return
+    }
     var data = {
         "yhRefOwid":getCookie('swOwid'),
         "xkList":xkList,
@@ -167,7 +168,15 @@ function finishXk() {
     }
     ajax('zustswyt/bckjBizCjxx/finishXk', data, function (res) {
         if (res.backCode == 0) {
-
+            if(e==1){
+                $("#basicForm").hide();
+                $("#contactForm").hide();
+                $("#gradeForm").show();
+                $("#selectForm").hide();
+                $(".jf-items .jf-item").eq(3).removeClass("jf-active");
+            }else if(e==2){
+                getMajors('-1')
+            }
         } else {
             walert(res.errorMess)
         }
@@ -183,7 +192,10 @@ function getXkcj() {
             $('#qtqk').val(res.bean.qtqk);
             $('#tcah').val(res.bean.tcah);
             $('#wycj').val(res.bean.wycj);
-            var zxlb = res.bean.zxlb.split(',');
+            var zxlb = [];
+            if(res.bean.zxlb){
+                zxlb = res.bean.zxlb.split(',');
+            }
             for(var i in zxlb){
                $('input[name=zxlb]').each(function () {
                    if($(this).val()==zxlb[i]){
@@ -210,4 +222,105 @@ function getXkcj() {
             walert(res.errorMess)
         }
     })
+}
+function getMajors(e) {
+    var data = {
+        xxbh: xxbh,
+        fid: e
+    }
+    ajax('zustswyt/bckjBizBkzy/getMajors', data, function (res) {
+        if (res.backCode == 0) {
+            if(e==-1){
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    area: '600px',
+                    content: $('#majorExam')
+                });
+                for(var i in res.bean){
+                    $('#Major1').append('<option value="'+res.bean[i].owid+'">'+res.bean[i].name+'</option>')
+                }
+            }
+            if(Major==1){
+                for(var i in res.bean){
+                    $('#Major2').html('<option value="">请选择</option>')
+                    $('#Major3').html('<option value="">请选择</option>')
+                    $('#Major2').append('<option value="'+res.bean[i].owid+'">'+res.bean[i].name+'</option>')
+                }
+            }
+            if(Major==2){
+                for(var i in res.bean){
+                    $('#Major3').html('<option value="">请选择</option>')
+                    $('#Major3').append('<option value="'+res.bean[i].owid+'">'+res.bean[i].name+'</option>')
+                }
+            }
+        } else {
+            walert(res.errorMess)
+        }
+    })
+}
+
+function saveSubmit() {
+    var xklb = $('#Major1 option:selected').html();
+    var bklb = $('#Major2 option:selected').html();
+    var zyOwid = $('#Major3 option:selected').val();
+    var xklbOwid = $('#Major1 option:selected').val();
+    var bklbOwid = $('#Major2 option:selected').val();
+    var data = {
+        'userRefOwid':getCookie('swOwid'),
+        'xxbh': xxbh,
+        'xklb': xklb,
+        'bklb': bklb,
+        'zyOwid': zyOwid,
+        'xklbOwid': xklbOwid,
+        'bklbOwid': bklbOwid,
+    }
+    ajax('zustswyt/bckjBizBm/submit', data, function (res) {
+        if (res.backCode == 0) {
+            currApplyOwid = res.bean
+            getApply(res.bean)
+        } else {
+            walert(res.errorMess)
+        }
+    })
+}
+
+function getApply(applyOwid) {
+    var data = {
+        applyOwid: applyOwid,
+    }
+    ajax('zustswyt/bckjBizBm/getApply', data, function (res) {
+        if (res.backCode == 0) {
+            $('#getApply').find('a').attr('href',imagePath+res.bean)
+            $('#getApply').show();
+        } else {
+            walert(res.errorMess)
+        }
+    })
+}
+function confirmApply(){
+    var zyOwid = $('#Major3 option:selected').val();
+    var xklbOwid = $('#Major1 option:selected').val();
+    var bklbOwid = $('#Major2 option:selected').val();
+    if(!emptyCheck(zyOwid)||!emptyCheck(xklbOwid)||!emptyCheck(bklbOwid)){
+        walert('请选择类别')
+        return
+    }
+    layer.confirm('请确认报名表。（预览报名表点击页面上方按钮）', {
+        btn: ['确认','取消'] //按钮
+    }, function(){
+        var data = {
+            applyOwid: currApplyOwid,
+        }
+        ajax('zustswyt/bckjBizBm/confirmApply', data, function (res) {
+            if (res.backCode == 0) {
+               window.location.href=base+'/trinityEnrollment/1'
+            } else {
+                walert(res.errorMess)
+            }
+        })
+    }, function(){
+        console.log(1)
+    });
 }

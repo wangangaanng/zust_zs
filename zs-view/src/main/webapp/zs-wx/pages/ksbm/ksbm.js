@@ -396,15 +396,18 @@ var getShowCaOpDayDate = function (that) {
   var data = {};
   common.ajax('zustcommon/bckjBizYhxx/getShowCaOpDayDate', data, function (res) {
     if (res.data.backCode == 0) {
-      
+      var arr=[];
       if(res.data.bean && res.data.bean.length>0){
-        for(var i in res.data.bean){
-          if (res.data.bean[i]['校园开放日']){
-            res.data.bean[i].rq = res.data.bean[i]['校园开放日']
+        for (var i = 0; i < res.data.bean.length;i++){
+          for (var k in res.data.bean[i]){
+            var obj={}
+            obj.name=k;
+            obj.rq = res.data.bean[i][k]
+            arr.push(obj)
           }
         }
         that.setData({
-          list: res.data.bean,
+          list: arr,
           hidden1:'none'
         })
       }else{

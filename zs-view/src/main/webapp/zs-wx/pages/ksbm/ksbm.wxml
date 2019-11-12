@@ -31,7 +31,7 @@
     <van-cell-group>
     <block wx:for="{{list}}" wx:key="index">
     <van-cell
-    title="开放日：{{item.rq}}"
+    title="{{item.name}}：{{item.rq}}"
     border="{{ true }}"
   >
     <van-button size="small" bindtap="yy" data-rq="{{item.rq}}" type="primary">预约</van-button>

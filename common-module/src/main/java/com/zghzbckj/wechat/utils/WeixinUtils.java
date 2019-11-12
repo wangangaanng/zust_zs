@@ -232,7 +232,7 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
      */
    public static Map<String, Object> filterContent(Map<String, Object> mapData){
        //使用就业code
-       String weCode="wx01";
+       String weCode="wx02";
        int result = 0;
        AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
        String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());

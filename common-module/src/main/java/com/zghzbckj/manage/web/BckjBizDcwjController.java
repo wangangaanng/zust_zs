@@ -160,7 +160,7 @@ public class BckjBizDcwjController extends BaseController {
             }
             //判断调查问卷是否已开始
             if (System.currentTimeMillis() < questionnaire.getKssj().getTime() ||
-                    System.currentTimeMillis() > questionnaire.getKssj().getTime()) {
+                    System.currentTimeMillis() > questionnaire.getJssj().getTime()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "不在调查时间范围内");
             }
             //判断调查人数是否已满
