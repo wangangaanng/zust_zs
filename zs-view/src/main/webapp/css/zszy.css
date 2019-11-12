@@ -40,7 +40,7 @@
 .xyjj:hover{color:rgb(150,150,150);}
 .ztxy{color:#008784;font-size:16px;font-family:"微软雅黑";margin-left:80px;}
 .ztxy:hover{color:#008784;}
-.zy{color:rgb(150,150,150);position:relative;    width: 20px;flex: 1; writing-mode: vertical-lr;padding-top: 5px;border-left: 2px solid #dcdcdc;}
+.zy{color:rgb(150,150,150);position:relative;    width: 20px;flex: 1; writing-mode: vertical-lr;padding-top: 5px;border-left: 2px solid #dcdcdc;cursor: pointer;}
 .zy:hover{color:#008784;text-decoration: none;}
 .xyzy a:hover{text-decoration: none;}
 .ysgc{width:70px;height:50px;position:relative;top:-31px;left:79px;}

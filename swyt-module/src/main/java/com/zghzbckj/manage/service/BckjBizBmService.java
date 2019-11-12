@@ -560,10 +560,14 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 //        String mmss="4月21日上午9:00-17:00到闻理院A4-122报到，国际交流类（包括设计学类中德联合培养）考生\n" +
 //                "18:00进行外语能力测试， 4月22日上午考生8:00之前，下午场考生12:00之前在A4-122报到，统一\n" +
 //                "到候考区抽签分组，进行面试。";//
+        if (TextUtils.isEmpty(bm.getZkzh())) {
+            throw CustomerException.newInstances("准考证号生成中，请稍后再试");
+        }
         Map mapsDic = CacheUtil.getVal("swyt10025", Map.class);
         String mmss = MapUtils.getString(mapsDic, "memo");
         bm.setMssm(mmss);
         String view = MapUtils.getString(mapData, "applyOwid") + File.separator + SwytConstant.SWTYMSTZD;
+
         String htmlData = TemplateUtils.freeMarkerContent(bm, "ap");
         if (TextUtils.isEmpty(htmlData)) {
             throw CustomerException.newInstances("生成面试单失败");

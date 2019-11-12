@@ -169,6 +169,28 @@ public class BckjBizYhxxController extends BaseController {
         }
     }
 
+    /**
+     * 统一登录接口
+     * @param dataVO
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "proxyLogin", method = RequestMethod.POST)
+    public ResponseMessage proxyLogin(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> datamap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(datamap, "yhDlzh");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.proxyLogin(datamap));
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 
     /**
      * <p>功能描述:更改密码</p >
@@ -534,5 +556,23 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+    /**
+     * 后台展示校园开发日页面
+     * @return
+     */
+    @PostMapping("getCaOpDayDateList")
+    @ResponseBody
+    public ResponseMessage getCaOpDayDateList(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizYhxxService.getCaOpDayDateList(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 }

@@ -136,6 +136,7 @@ Page({
       return false
     }
     params.owid=wx.getStorageSync('yhOwid')
+    params.qyFrsfz = params.qyTysh
     common.ajax('zustjy/bckjBizQyxx/fixCompany', params, function (res) {
       if (res.data.backCode == 0) {
         wx.showModal({
@@ -165,9 +166,9 @@ Page({
       qyTysh: {
         required: true,
       },
-      qyFrsfz: {
-        required: true,
-      },
+      // qyFrsfz: {
+      //   required: true,
+      // },
       qyFrdbxm: {
         required: true
       },
@@ -226,9 +227,9 @@ Page({
       qyTysh: {
         required: '请填写企业统一信用代码'
       },
-      qyFrsfz: {
-        required: '请填写法人身份证号',
-      },
+      // qyFrsfz: {
+      //   required: '请填写法人身份证号',
+      // },
       qyFrdbxm: {
         required: '请填写法人姓名',
       },

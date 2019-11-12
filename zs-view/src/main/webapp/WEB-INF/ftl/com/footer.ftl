@@ -273,7 +273,7 @@
         </div>
     </div>
     <div class="third_link">
-        <p class="third_linktxt">版权所有 © 2015浙江科技学院招生办公室 浙ICP备05014576号<p>
+        <p class="third_linktxt">版权所有 © 2019浙江科技学院招生办公室 浙ICP备05014576号<p>
     </div>
 </div>
 <div class="foot_back1"></div>

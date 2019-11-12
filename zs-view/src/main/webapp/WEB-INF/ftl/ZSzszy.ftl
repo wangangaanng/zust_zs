@@ -43,8 +43,8 @@
                                         <#--<a class="xymcE"></a>-->
                                     <#--</div>-->
                                     <div style="margin-top: 10px;">
-                                        <a class="xyjj" href="${base}/wzOrTpOrSq/6/${xy_index}" target="_blank">学院简介</a>
-                                        <a class="ztxy" href="${xy.articleUrl!''}" target="_blank">直通学院</a>
+                                        <a class="xyjj" href="${xy.articleUrl!''}" target="_blank">学院简介</a>
+                                        <a class="ztxy" href="${xy.tp!''}" target="_blank">直通学院</a>
                                     </div>
                                     <#if xy_index%2==0>
                                         <div class="zydiv" style="margin-right: ${(((xy_index+1)/2)?ceiling)*9.6}px;">
@@ -55,7 +55,12 @@
                                             <#list zyList as zy>
                                                 <#if zy_index==xy_index>
                                                     <#list zy as obj>
-                                                        <a href="${base}/wzxq/${obj.owid!''}" class="zy" target="_blank">${obj.mz!''}</a>
+                                                    <#if obj.articleUrl??>
+                                                        <a href="${obj.articleUrl!''}" class="zy" target="_blank">${obj.mz!''}</a>
+                                                    <#else >
+                                                        <a onclick="javascript:walert('暂无介绍')" class="zy">${obj.mz!''}</a>
+                                                    </#if>
+
                                                     </#list>
                                                 </#if>
                                             </#list>

@@ -184,19 +184,19 @@
 		<include refid="bckjBizLntjJoins"/>
 		<where>
 			<if test="nf !=null and nf !='' ">
-				a.nf like concat('%',#{nf, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+				AND a.nf like concat('%',#{nf, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="pc !=null and pc !=''">
-				and a.pc=#{pc}
+				AND a.pc like concat('%',#{pc, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sf !=null and sf !=''">
-				and a.sf=#{sf}
+				AND a.sf like concat('%',#{sf, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="kl !=null and kl!='' ">
-				and a.kl=#{kl}
+				AND a.kl like concat('%',#{kl, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="zy !=null and zy!='' ">
-				and a.zy=#{zy}
+				AND a.zy like concat('%',#{zy, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>

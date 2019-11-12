@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-    <#include "com/config.ftl">
+    <#include "com/SWconfig.ftl">
     <title>${title!''}</title>
     <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="${base}/css/swiper.min.css"/>
@@ -22,12 +22,6 @@
             <div class="top-logo">
                 <img class="logo" src="${base}/img/logo-zust.png">
                 <div class="title">三位一体招生网</div>
-                <div class="user-info" id="qyInfo" style="display: none;">
-                    <a href="/enterpriseService/0">欢迎您<span id="qyName"></span></a>,<a href="#" onclick="loginout()">退出</a>
-                </div>
-                <div class="user-info" id="stuInfo" style="display: none;">
-                    <a href="/stuCenter/0">欢迎您<span id="stuName"></span></a>,<a href="#" onclick="loginout()">退出</a>
-                </div>
             </div>
         </div>
     </div>

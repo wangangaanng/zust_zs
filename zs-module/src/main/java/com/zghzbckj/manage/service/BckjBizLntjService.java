@@ -196,7 +196,7 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
         //本地
 //        String filePath = "F:\\img\\";
         //正式
-        String filePath = "/mnt/files/zjcFiles/excel";
+        String filePath = "/mnt/files/zjcFiles/excel/";
         String fileOutPath = System.currentTimeMillis() + ".xls";
         String[] title = {"年份", "省份", "科类", "批次", "专业", "学制", "录取数", "最高分", "最低分", "平均分"};
         for (BckjBizLntj data : dataList) {

@@ -185,11 +185,46 @@
         WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
     </select>
 
+    <!--历年统计根据年份    -->
     <select id="getListLntj" resultType="java.util.Map">
         SELECT COUNT(*) AS value, NF AS name
         FROM bckj_biz_lntj
         WHERE NF IS NOT NULL
         GROUP BY NF
+    </select>
+
+    <!--招生计划统计根据年份    -->
+    <select id="getListZsjh" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, NF AS name
+        FROM bckj_biz_zsjh
+        WHERE NF IS NOT NULL
+        GROUP BY NF
+    </select>
+
+    <!--考生报名统计根据倾向专业    -->
+    <select id="getListKsbm" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, QXZY AS name
+        FROM bckj_biz_yhxx
+        WHERE yhlx=4
+        GROUP BY QXZY
+    </select>
+
+    <!--原始成绩统计根据时间-->
+    <select id="getListCjcx" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, JTDZ AS name
+        FROM bckj_biz_cjcx
+        GROUP BY JTDZ
+    </select>
+
+    <!--录取学生统计根据录取专业    -->
+    <select id="getListLqxs" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, LQZY AS name
+        FROM bckj_biz_lqxs
+        GROUP BY LQZY
+        ORDER BY value DESC
+        <if test="limit != null and limit != ''">
+            LIMIT ${limit}
+        </if>
     </select>
 
     <!--查询字典表值    -->

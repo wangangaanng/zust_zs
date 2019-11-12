@@ -85,7 +85,7 @@ Page({
           title: '预约成功',
           icon: 'none'
         })
-        this.setData({
+        that.setData({
           modal1: false,
           sjh1: '',
           yzm1: '',
@@ -429,8 +429,14 @@ var getShowCaOpDayDate = function (that) {
 var sendYzm = function (that, type) {
   var data;
   if(type==1){
+    that.setData({
+      disabled1: true
+    })
     data = { "sjh": that.data.sjh };
   } else if (type == 2) {
+    that.setData({
+      disabled2: true
+    })
     data = { "sjh": that.data.sjh1 };
   }
   common.ajax('zustcommon/bckjBizYhxx/sendYzm/' + type, data, function (res) {
@@ -441,6 +447,15 @@ var sendYzm = function (that, type) {
       })
       count(that, type)
     } else {
+      if (type == 1) {
+        that.setData({
+          disabled1: false
+        })
+      } else if (type == 2) {
+        that.setData({
+          disabled2: false
+        })
+      }
       wx.showToast({
         title: res.data.errorMess,
         icon: 'none',

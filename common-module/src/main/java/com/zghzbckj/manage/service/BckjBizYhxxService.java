@@ -717,13 +717,47 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             HashMap<String, Object> resMap = Maps.newHashMap();
             resMap.put(map.get("val1").toString(),map.get("val2").toString());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.ORA_DATE_FORMAT);
-            /*if(DateUtil.getDate(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd"))){
-
-            }*/
+            if((DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd")))){
+                resMaps.add(resMap);
+            }
             if(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).before(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd"))){
                 resMaps.add(resMap);
             }
         }
         return resMaps;
+    }
+
+    public PageInfo<Map> getCaOpDayDateList(Map<String, Object> dataMap) {
+        Page<Map> page = new Page<>(MapUtils.getInt(dataMap, "pageNo"), MapUtils.getInt(dataMap, "pageSize"));
+        dataMap.put("page",page);
+         List<Map> lists=this.dao.getCaOpDayDateList(dataMap);
+         for (Map map:lists){
+             map.put("state","1");
+             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.ORA_DATE_FORMAT);
+             if((DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("dicVal2").toString(),"yyyy-MM-dd")))){
+                 map.put("state","2");
+             }
+             if(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).before(DateUtil.getDate(map.get("dicVal2").toString(),"yyyy-MM-dd"))){
+                 map.put("state","2");
+             }
+         }
+         page.setList(lists);
+         return  PageUtils.assimblePageInfo(page);
+    }
+
+    @Transactional(readOnly = false)
+    public Map proxyLogin(Map<String, Object> datamap) {
+        Map<String, Object> map = this.dao.logIn(datamap);
+        if(!TextUtils.isEmpty(map)&&!TextUtils.isEmpty(map.get("owid"))) {
+            this.dao.updateDlsj(map.get("owid").toString());
+            Map mapRes=Maps.newHashMap();
+            mapRes.put("stuOwid",map.get("owid"));
+            mapRes.put("stuSjh",map.get("sjh"));
+            mapRes.put("stuXm",map.get("xm"));
+            mapRes.put("userType",1);
+            mapRes.put("yhOwid",map.get("owid"));
+            return mapRes;
+        }
+        return map;
     }
 }

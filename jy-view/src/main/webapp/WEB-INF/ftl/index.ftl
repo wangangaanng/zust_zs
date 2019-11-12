@@ -32,17 +32,15 @@
                 <!-- Swiper -->
                 <div class="swiper-container news-swiper">
                     <div class="swiper-wrapper">
-                    <#list first as objl>
-                        <#if (objl_index==0)&&(objl??)&&(objl?size>0)>
+                        <#if (newsImg??)&&(newsImg?size>0)>
                             <#assign count=0>
-                            <#list objl as obj>
+                            <#list newsImg as obj>
                                 <#if (obj.tpjj??)&&(count<5)>
                                     <div class="swiper-slide"><img alt="${obj.wzbt}" title="${obj.wzbt}" onclick="openUrl('newsDetail/${obj.owid!''}')" src="${imagePath+obj.tpjj}" /></div>
                                     <#assign count+=1>
                                 </#if>
                             </#list>
                         </#if>
-                    </#list>
                     </div>
                     <!-- Add Pagination -->
                     <div class="swiper-pagination"></div>
@@ -128,7 +126,7 @@
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="password" id="qyFrsfz" onkeydown="keyLogin()" placeholder="请输入法人身份证后六位" class="login-pswd">
+                        <input type="password" id="qyFrsfz" onkeydown="keyLogin()" placeholder="法人身份证后六位或统一信用码后六位" class="login-pswd">
                     </li>
                     <li>
                         还没有账号？<a href="${base}/enterpriseReg">注册</a>
@@ -465,7 +463,7 @@
             return;
         }
         if(!$("#qyFrsfz").val().trim()){
-            walert("请填写法人身份证后六位");
+            walert("请填写法人身份证后六位或统一信用码后六位");
             return;
         }
         var jsonObj={
@@ -494,6 +492,15 @@
     }
 
     $(document).ready(function () {
+        if(getQueryString("mess")==1){
+            layer.open({
+                title:'提示',
+                content: '不存在该用户信息，请联系招就处电话：0571-85124573',
+                yes: function(index, layero){
+                    layer.close(index);
+                }
+            });
+        }
 
         if(getCookie("userType")){
             if(getCookie("userType")==0){

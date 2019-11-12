@@ -4,7 +4,6 @@
     
 	<sql id="bckjBizCardColumns">
 		a.owid AS "owid",
-		a.head_image AS "headImage",
 		a.name AS "name",
 		a.xb AS "xb",
 		a.folk AS "folk",
@@ -15,7 +14,6 @@
 		a.is_bm AS "isBm",
 		a.number AS "number",
 		a.face_value AS "faceValue",
-		a.face_image AS "faceImage",
 		a.source AS "source",
 		a.deviceid AS "deviceid",
 		a.createtime AS "createtime",

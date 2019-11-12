@@ -41,7 +41,7 @@ App({
   globalData: {
     userInfo: '',
     lj: '',
-    ApiUrl: 'http://localhost:8888/',//'http://172.16.13.106:8888/',//'http://192.168.3.222:8888/',//
+    ApiUrl: 'https://job.zust.edu.cn/gate/',//'http://172.16.13.106:8888/',//'http://192.168.3.222:8888/',//
     localimgUrl: '',
     imgPath: 'https://job.zust.edu.cn/zjcFiles/',
     openId: '',
