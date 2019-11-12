@@ -42,7 +42,10 @@ function isTimeOut() {
     var url = window.location.href;;
     url = url.split("trinityEnrollment")[0];
     if(!getCookie("swOwid")){
-        window.location.href=url+"/trinitylogin";
+        walert("登录超时，请重新登录");
+        window.setTimeout(function () {
+            window.location.href=url+"trinitylogin";
+        },1500)
     }else{
         return false;
     }

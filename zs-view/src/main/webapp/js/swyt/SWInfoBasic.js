@@ -6,7 +6,7 @@ var imgType = "";//区分图片类型：身份证正反面 户籍
 var idType="1";//上传身份证还是上传户籍证明 默认1身份证 2户籍证明
 $(function () {
     //已经提交报名表 不可在修改与提交
-    if(processState!=0){
+    if(processState>0){
         $('#basicForm').find('button[type=submit]').hide()
         $('#contactForm').find('button[type=submit]').hide()
         $('#gradeForm').find('button[type=submit]').hide()
