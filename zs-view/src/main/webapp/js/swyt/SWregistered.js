@@ -5,7 +5,6 @@ $(document).ready(function () {
         var val = $(this).html()
         $('#sex').html(val);
         sex = $(this).parents('li').index()+1;
-        console.log(sex)
     })
 });
 
@@ -54,7 +53,11 @@ function sendCode() {
         type:'2'
     };
     ajax('zustcommon/common/sendCode',data,function (res) {
-        seconds()
+        if(res.backCode==0){
+            seconds()
+        }else {
+            walert(res.errorMess)
+        }
     })
 }
 
@@ -130,6 +133,10 @@ function swYtzc() {
     };
     console.log(data)
     ajax('zustcommon/bckjBizYhxx/swYtzc',data,function () {
-        window.location.href='trinitylogin'
+        if(res.backCode==0){
+            window.location.href='trinitylogin'
+        }else {
+            walert(res.errorMess)
+        }
     })
 }

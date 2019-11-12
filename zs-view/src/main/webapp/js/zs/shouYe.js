@@ -262,9 +262,9 @@ function getList(lmbh,type) {
                     x += "<span class='glyphicon glyphicon-time'></span><p class='detail_date'>"+(convertStr(k.fbsj,'2017-01-01')).substr(0,10)+"</p>";
                     x += "<div class='rnum'>";
                     if(k.ydcs!="0"&&k.ydcs!=null)
-                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+(parseInt(k.ydcs)+500)+"</p>";
+                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+parseInt(k.ydcs)+"</p>";
                     else{
-                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>"+parseInt(Math.random()*300+100)+"</p>";
+                        x += "<span class='glyphicon glyphicon-eye-open'></span><p class='detail_num'>0</p>";
                     }
                     x += "</div></div>";
                     $(".dyn_details").append(x);
