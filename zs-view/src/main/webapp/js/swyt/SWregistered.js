@@ -134,7 +134,7 @@ function swYtzc() {
     console.log(data)
     ajax('zustcommon/bckjBizYhxx/swYtzc',data,function () {
         if(res.backCode==0){
-            window.location.href='trinitylogin'
+            window.location.href=base+'/trinitylogin'
         }else {
             walert(res.errorMess)
         }
