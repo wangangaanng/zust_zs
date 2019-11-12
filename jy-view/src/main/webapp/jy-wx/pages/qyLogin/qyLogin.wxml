@@ -16,7 +16,7 @@
           border="{{ false }}"
         />
         <van-field
-          placeholder="请输入法人身份证后六位"
+          placeholder="法人身份证后六位或信用码后六位"
           type="password"
           bindinput="getqyFrsfz"
           value="{{qyFrsfz}}"

@@ -30,14 +30,6 @@ Page({
         icon: 'none'
       })
       return false
-    }else{
-      if (that.data.sfzh.trim().length!=18){
-        wx.showToast({
-          title: '身份证号长度有误',
-          icon: 'none'
-        })
-        return false
-      }
     }
 
     if (!that.data.ksh.trim()) {
