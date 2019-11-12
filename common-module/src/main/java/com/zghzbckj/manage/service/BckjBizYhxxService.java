@@ -586,7 +586,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage candidatesRegistration(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
-        if (!dataMap.get("yzm").toString().equals(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
+        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))==-1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
         }
         BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap.get("sjh").toString());
@@ -671,11 +671,11 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage apOfCaOpDay(Map<String, Object> dataMap) {
-        if (!dataMap.get("yzm").toString().equals( com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
+        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))==-1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL,"验证码输入错误!");
         }
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
-        if(bckjBizYhxx.getExp10().indexOf("未预约开放日")!=-1){
+        if(bckjBizYhxx.getExp10().indexOf("未预约开放日")==-1){
             return ResponseMessage.sendError(ResponseMessage.FAIL,"已预约");
         }
         bckjBizYhxx.setExp10(dataMap.get("val2").toString());
