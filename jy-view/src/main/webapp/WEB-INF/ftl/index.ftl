@@ -494,6 +494,15 @@
     }
 
     $(document).ready(function () {
+        if(getQueryString("mess")==1){
+            layer.open({
+                title:'提示',
+                content: '不存在该用户信息，请联系招就处电话：0571-85124573',
+                yes: function(index, layero){
+                    layer.close(index);
+                }
+            });
+        }
 
         if(getCookie("userType")){
             if(getCookie("userType")==0){
