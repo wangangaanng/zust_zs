@@ -41,7 +41,7 @@
             </div>
             <div class="col-sm-3 tc">
                 <label class="search-score_label">最终成绩 </label>
-                <label class="search-score">${faceScore!"暂无"}</label>
+                <label class="search-score">${finalScore!"暂无"}</label>
             </div>
         </div>
     </#if>
