@@ -11,7 +11,11 @@
     <#assign tip="恭喜你，你的初审已通过，缴费审核已通过。"/>
 </#if>
 <#if (processState<6) >
-    <#assign tip="恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。"/>
+    <#if processState ==5 && rePayMess?? && rePayMess !="">
+            <#assign tip=rePayMess+"请尽快修改"/>
+        <#else>
+            <#assign tip="恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。"/>
+    </#if>
 </#if>
 <#include "com/SWtip.ftl">
 <div class="pay-online row mt20">

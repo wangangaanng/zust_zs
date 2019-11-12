@@ -101,13 +101,29 @@ public class DemoController {
                 paramn.put("pageSize","10");
                 PublicData _data= UnionHttpUtils.manageParam(paramn,"zustcommon/bckjBizArticle/getMuArticle");
                 resultMess = UnionHttpUtils.doPosts(_data);
-                if((null!=((Map) resultMess.getBean()))&&(null!=((Map) resultMess.getBean()).get("records"))) {
+                if((null!=(resultMess.getBean()))&&(null!=((Map) resultMess.getBean()).get("records"))) {
                     wzList.add(((Map) resultMess.getBean()).get("records"));
                 }else {
                     wzList.add(Lists.newArrayList());
                 }
             }
             view.addObject("first",wzList);
+        }
+        //新闻轮播图
+        Map paramm=Maps.newHashMap();
+        paramm.put("lmbh","26");
+        paramm.put("wzzt","1");
+        paramm.put("isDetail","1");
+        paramm.put("pageNo",'1');
+        paramm.put("pageSize","20");
+        PublicData dataImg= UnionHttpUtils.manageParam(paramm,"zustcommon/bckjBizArticle/getMuArticle");
+        resultMess = UnionHttpUtils.doPosts(dataImg);
+        if(null!=resultMess.getBean()) {
+            if(null!=((Map) resultMess.getBean()).get("records")) {
+                view.addObject("newsImg",((Map) resultMess.getBean()).get("records"));
+            }else {
+                view.addObject("newsImg",Lists.newArrayList());
+            }
         }
 
         //招聘信息-菜单
