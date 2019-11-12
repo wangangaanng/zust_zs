@@ -29,7 +29,7 @@
                         <#if (result??)&&(result.records??)&&(result.records?size>0)>
                             <#assign flag=1>
                             <#list result.records as obj>
-                                <li><a href="${base}/newsDetail/${obj.owid!''}">
+                                <li><a href="${base}/wzxq/${obj.owid!''}">
                                     <div class="article">${obj.wzbt!''}</div>
                                     <div class="article-time">
                                         <#if obj.fbsj?exists>
