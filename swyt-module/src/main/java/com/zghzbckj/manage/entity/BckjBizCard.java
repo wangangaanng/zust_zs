@@ -53,7 +53,8 @@ public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 	private String exp8;		// exp8
 	private String exp9;		// exp9
 	private String exp10;		// exp10
-	
+
+
 	public BckjBizCard() {
 		super();
 	}
