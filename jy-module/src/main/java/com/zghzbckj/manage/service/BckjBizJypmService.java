@@ -165,7 +165,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         //本地测试
 //        String filePath = "F:\\img\\export\\";
         //线上正式
-        String filePath = "/mnt/files/zjcFiles/export";
+        String filePath = "/mnt/files/zjcFiles/export/";
         String fileName = System.currentTimeMillis() + ".xls";
         List<Map<String, Object>> dataList = listRank(params);
         ExcelUtils.exportRankExcel(title, dataList, filePath + fileName);

@@ -185,9 +185,18 @@
         WHERE a.CONFIG_TYPE = 'pro' AND (a.CONFIG_NO = 'SYSTEM_FILE_PATH' OR a.CONFIG_NO ='REPORT_IMG_PATH' OR a.CONFIG_NO ='SCAN_LOGIN_URL')
     </select>
 
+    <!--历年统计    -->
     <select id="getListLntj" resultType="java.util.Map">
         SELECT COUNT(*) AS value, NF AS name
         FROM bckj_biz_lntj
+        WHERE NF IS NOT NULL
+        GROUP BY NF
+    </select>
+
+    <!--招生计划统计    -->
+    <select id="getListZsjh" resultType="java.util.Map">
+        SELECT COUNT(*) AS value, NF AS name
+        FROM bckj_biz_zsjh
         WHERE NF IS NOT NULL
         GROUP BY NF
     </select>
