@@ -16,7 +16,7 @@
         <div class="col-sm-4">
             <div class="upimg-wrap" typeNum="1">
                 <div class="file-btn_wrap">
-                    <#if bmbZp??&&bmbZp!="">
+                    <#if bmbZp??&&bmbZp!=""&&(processState>2)>
                         <img src="${imagePath}${bmbZp}" class="up-btn_img img-full"/>
                     <#else>
                         <img src="${base}/img/img-up.png" class="up-btn_img"/>
@@ -38,7 +38,7 @@
         <div class="col-sm-4">
             <div class="upimg-wrap" typeNum="2">
                 <div class="file-btn_wrap">
-                    <#if cnszp??&&cnszp!="">
+                    <#if cnszp??&&cnszp!=""&&(processState>2)>
                             <img src="${imagePath}${cnszp}" class="up-btn_img img-full"/>
                         <#else>
                             <img src="${base}/img/img-up.png" class="up-btn_img"/>
