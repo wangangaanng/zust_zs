@@ -45,4 +45,4 @@
 <authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>
 
 <import src="../../templates/yzm/index.wxml" />
-  <template is="yzmmodal" data="{{modal1,yzmStr1,seconds1,rq}}" />
+  <template is="yzmmodal" data="{{modal1,yzmStr1,seconds1,rq,disabled2}}" />
