@@ -4,6 +4,7 @@ import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
@@ -20,10 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * <p>方法 DemoController : <p>
@@ -40,6 +38,40 @@ public class DemoController {
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
         model.addAttribute("uploadUrl", ApiConstants.uploadUrl);
+    }
+
+    //创建cookie，并将新cookie添加到“响应对象”response中。
+    public void addCookie(HttpServletResponse response,Map<String,String> val){
+        Set<String> keys=val.keySet();
+        Cookie cookie;
+        for(String key:keys) {
+            Object valData=val.get(key);
+            if(null!=valData) {
+                cookie = new Cookie(key, valData.toString());//创建新cookie
+            }else{
+                cookie = new Cookie(key, CommonConstants.EMPTY_STR);//创建新cookie
+            }
+            cookie.setMaxAge(60 * 60);// 设置存在时间为5分钟
+            cookie.setPath("/");//设置作用域
+            response.addCookie(cookie);//将cookie添加到response的cookie数组中返回给客户端
+        }
+    }
+
+    @RequestMapping(value = "/proxyLogin", method = RequestMethod.GET)
+    public ModelAndView proxyLogin(HttpServletRequest request,ModelAndView view,HttpServletResponse response) {
+        String  studentId=request.getHeader("cas_user");
+//        String  studentId=request.getParameter("cas_user");
+        Map param2=Maps.newHashMap();
+        param2.put("yhDlzh",studentId);
+        PublicData loginData= UnionHttpUtils.manageParam(param2,"zustcommon/bckjBizYhxx/proxyLogin");
+        ResponseMessage result  = UnionHttpUtils.doPosts(loginData);
+        if(null==result||null==result.getBean()){
+            view.setViewName("redirect:/?mess=1");
+        }else {
+            addCookie(response,(Map<String,String>)result.getBean());
+            view.setViewName("redirect:/");
+        }
+         return  view;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
