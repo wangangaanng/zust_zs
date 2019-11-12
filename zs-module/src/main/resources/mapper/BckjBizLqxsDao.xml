@@ -107,13 +107,13 @@
 				AND a.mzdm=#{mzdm}
 			</if>
 			<if test="lp!=null and lp!=''">
-				AND a.lp=#{lp}
+				AND a.lp LIKE concat(#{lp,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="xy!=null and xy!=''">
-				AND a.xy=#{xy}
+				AND a.xy LIKE concat(#{xy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="pc!=null and pc!=''">
-				AND a.pc=#{pc}
+				AND a.pc LIKE concat(#{pc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>

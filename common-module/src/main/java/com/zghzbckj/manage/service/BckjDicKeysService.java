@@ -4,14 +4,19 @@
 package com.zghzbckj.manage.service;
 
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.dao.BckjDicKeysDao;
 import com.zghzbckj.manage.entity.BckjDicKeys;
+import com.zghzbckj.wechat.WechatConstants;
+import com.zghzbckj.wechat.model.AccessToken;
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +25,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.zghzbckj.wechat.utils.WeixinUtils.httpRequest;
 
 /**
  * ccService
@@ -32,6 +39,8 @@ import java.util.Map;
 public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys> {
 
     private static final Logger log = Logger.getLogger(BckjDicKeysService.class);
+
+    public final static String filter_url="https://api.weixin.qq.com/wxa/msg_sec_check?access_token=ACCESS_TOKEN";
 
     @Override
     public BckjDicKeys get(String owid) {
@@ -139,5 +148,28 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
         }
         return sf.toString();
     }
+    /*public static String filterContent(Map<String, Object> mapData){
+        //使用就业code
+        String weCode="wx02";
+        int result = 0;
+        AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
+        String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
+        String jsonMenu = JSONObject.fromObject(mapData).toString();
+        // 调用接口发送数据到微信服务器
+        JSONObject jsonObject = httpRequest(requestUrl, "POST", jsonMenu);
+        log.info(jsonObject.toString()+"------------------------------------------mesBack");
+        if (null != jsonObject) {
+            if (0 != jsonObject.getInt("errcode")) {
+                result = jsonObject.getInt("errcode");
+                log.info(jsonObject.toString()+"errorcode==="+result);
+            }
+        }
+        String jsonStr = jsonObject.toString();
+        Map<String, Object> resMap = JsonUtil.jsonToMap(jsonStr);
+        if(!TextUtils.isEmpty(resMap.get("errmsg"))&&(resMap.get("errmsg").toString().indexOf("risky")!=-1)){
+            return "咨询内容中含不合理信息,请重新修改咨询内容";
+        }
+        return "";
+    }*/
 
 }
