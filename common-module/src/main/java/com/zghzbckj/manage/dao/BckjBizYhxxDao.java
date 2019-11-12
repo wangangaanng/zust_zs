@@ -81,5 +81,7 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     BckjBizYhxx getZsBySjh(String sjh);
 
     List<BckjBizYhxx> getZsList(Map<String, Object> dataMap);
+
+    List<Map> getCaOpDayDateList(Map<String, Object> dataMap);
 }
 
