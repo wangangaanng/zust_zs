@@ -43,8 +43,8 @@
                                         <#--<a class="xymcE"></a>-->
                                     <#--</div>-->
                                     <div style="margin-top: 10px;">
-                                        <a class="xyjj" href="${base}/wzOrTpOrSq/6/${xy_index}" target="_blank">学院简介</a>
-                                        <a class="ztxy" href="${xy.articleUrl!''}" target="_blank">直通学院</a>
+                                        <a class="xyjj" href="${xy.articleUrl!''}" target="_blank">学院简介</a>
+                                        <a class="ztxy" href="${xy.tp!''}" target="_blank">直通学院</a>
                                     </div>
                                     <#if xy_index%2==0>
                                         <div class="zydiv" style="margin-right: ${(((xy_index+1)/2)?ceiling)*9.6}px;">

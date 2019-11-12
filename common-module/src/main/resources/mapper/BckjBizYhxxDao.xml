@@ -95,6 +95,9 @@
 			<if test="swZh != null and swZh !=''  ">
 				AND a.sw_zh= #{swZh}
 			</if>
+			<if test="state != null and state !=''  ">
+				AND a.state= #{state}
+			</if>
 			<if test="xm != null and xm != ''">
 				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>

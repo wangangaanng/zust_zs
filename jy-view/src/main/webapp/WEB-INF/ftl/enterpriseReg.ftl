@@ -494,6 +494,7 @@
                                 yes: function(index1, layero){
                                     window.location.href="${base}/";
                                     layer.close(index1);
+                                    layer.close(index);
                                 }
                             });
                         }else{

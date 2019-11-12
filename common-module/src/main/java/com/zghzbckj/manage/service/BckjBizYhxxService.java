@@ -100,6 +100,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if(!TextUtils.isEmpty(state)){
             dataMap.put("yhlx",state);
         }
+        dataMap.put("state",1);
+
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
             dataMap.put("createtime2", date);
