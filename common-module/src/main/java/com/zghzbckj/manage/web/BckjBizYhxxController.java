@@ -191,6 +191,7 @@ public class BckjBizYhxxController extends BaseController {
     }
 
 
+
     /**
      * <p>功能描述:更改密码</p >
      * <ul>
@@ -555,5 +556,23 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+    /**
+     * 后台展示校园开发日页面
+     * @return
+     */
+    @PostMapping("getCaOpDayDateList")
+    @ResponseBody
+    public ResponseMessage getCaOpDayDateList(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizYhxxService.getCaOpDayDateList(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 }

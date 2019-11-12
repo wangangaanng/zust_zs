@@ -90,7 +90,7 @@
                             </#if>
                         </div>
                     </div>
-                    <div class="form-group">
+                   <#-- <div class="form-group">
                         <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号<span class="red">*</span>：</label>
                         <div class="col-sm-8">
                             <#if (cInfo.qyFrsfz)??>
@@ -99,7 +99,7 @@
                                 <input type="text" class="form-control" id="qyFrsfz" name="qyFrsfz" value="" placeholder="" autocomplete="off">
                             </#if>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label for="qyProv" class="col-sm-2 control-label">所在省份<span class="red">*</span>：</label>
                         <div class="col-sm-2">

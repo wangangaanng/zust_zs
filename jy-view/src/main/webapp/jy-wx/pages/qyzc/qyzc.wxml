@@ -13,15 +13,15 @@
   <van-field value="{{form.qyTysh}}" name="qyTysh" input-align="right" required label="填写代码" placeholder="组织机构代码或者统一信用码" />
  </van-cell-group>
 
- <view class="q-top">
+ <!-- <view class="q-top">
   <view class="img-scyyzz1">
     <image src="{{sfz}}" bindtap="upload" data-type="2"></image>
   </view>
-</view>
+</view> -->
 
 
  <van-cell-group>
-  <van-field input-align="right" type="idcard" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" required />
+  <!-- <van-field input-align="right" type="idcard" value="{{form.qyFrsfz}}" name="qyFrsfz" label="法人身份证号" placeholder="输入内容" required /> -->
   <van-field input-align="right" value="{{form.qyFrdbxm}}" name="qyFrdbxm" label="法人姓名" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.qymc}}" name="qymc" label="公司名称" placeholder="输入内容" required />
   <van-field input-align="right" value="{{form.qyZczj}}" name="qyZczj" label="注册资本" placeholder="输入内容" required />

@@ -85,7 +85,7 @@ Page({
           title: '预约成功',
           icon: 'none'
         })
-        this.setData({
+        that.setData({
           modal1: false,
           sjh1: '',
           yzm1: '',

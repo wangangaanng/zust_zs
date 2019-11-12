@@ -9,6 +9,7 @@ import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JackSonJsonUtils;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.manage.entity.BckjDicKeys;
@@ -230,9 +231,9 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
      * 调用微信接口进行关键字过滤
      * coder wangangaanng
      */
-   public static Map<String, Object> filterContent(Map<String, Object> mapData){
+   public static String filterContent(Map<String, Object> mapData){
        //使用就业code
-       String weCode="wx02";
+       String weCode="wx01";
        int result = 0;
        AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
        String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
@@ -248,7 +249,10 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
        }
        String jsonStr = jsonObject.toString();
        Map<String, Object> resMap = JsonUtil.jsonToMap(jsonStr);
-       return resMap;
+       if(!TextUtils.isEmpty(resMap.get("errmsg"))&&(resMap.get("errmsg").toString().indexOf("risky")!=-1)){
+           return "咨询内容中含不合理信息,请重新修改咨询内容";
+       }
+       return "";
     }
 
 
