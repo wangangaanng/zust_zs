@@ -229,6 +229,11 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         if (TextUtils.isEmpty(dcwj.getOwid())) {
             dcwj.setSfyx(1);
         }
+        if (dcwj.getJssj().getTime() > System.currentTimeMillis()) {
+            dcwj.setSfyx(1);
+        } else {
+            dcwj.setSfyx(0);
+        }
         //调查问卷题目为空，设置状态为1 0为前端可见
         if (TextUtils.isEmpty(tmList) || tmList.size() <= 0) {
             dcwj.setState(1);
