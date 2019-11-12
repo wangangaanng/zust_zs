@@ -84,7 +84,18 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
      */
     public PageInfo<BckjBizCard> findPageBckjBizCard(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizCard> page = findPage(dataMap, pageNo, pageSize, null);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
+            dataMap.put("createtime2", date);
+        }
+        PageInfo<BckjBizCard> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
+
+        List<BckjBizCard> records = page.getRecords();
+        BckjBizCard jbxx = new BckjBizCard();
+        jbxx.setExp1("共有：" + page.getTotalCount() + "条信息");
+        jbxx.setReadOnly(true);
+        records.add(0, jbxx);
+
         return page;
     }
 
