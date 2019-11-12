@@ -85,7 +85,7 @@
 </div>
 <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
 <script>
-    var payProveImg = "";//缴费证明图片
+    var payProveImg = "${payProveImg!""}";//缴费证明图片
     var payTime = "";//缴费时间
     //init选择支付年月日 5待缴费
     <#if processState??&&processState==5>
