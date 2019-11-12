@@ -17,7 +17,6 @@ import java.util.Date;
 public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 	
 	private static final long serialVersionUID = 1L;
-	private String owid;		// owid
 	private String headImage;		// head_image
 	private String name;		// name
 	private Integer xb;		// xb
@@ -32,7 +31,61 @@ public class BckjBizCard extends DataWithExpEntity<BckjBizCard> {
 	private String source;		// source
 	private String deviceid;		// deviceid
 	private Integer isBm;
-	
+	private boolean readOnly;
+	private String xklb;
+	private String zxlb;
+	private String bklb;
+	private Integer rzbd;
+	private String xzzymc;
+
+	public String getXzzymc() {
+		return xzzymc;
+	}
+
+	public void setXzzymc(String xzzymc) {
+		this.xzzymc = xzzymc;
+	}
+
+	public String getXklb() {
+		return xklb;
+	}
+
+	public void setXklb(String xklb) {
+		this.xklb = xklb;
+	}
+
+	public String getZxlb() {
+		return zxlb;
+	}
+
+	public void setZxlb(String zxlb) {
+		this.zxlb = zxlb;
+	}
+
+	public String getBklb() {
+		return bklb;
+	}
+
+	public void setBklb(String bklb) {
+		this.bklb = bklb;
+	}
+
+	public Integer getRzbd() {
+		return rzbd;
+	}
+
+	public void setRzbd(Integer rzbd) {
+		this.rzbd = rzbd;
+	}
+
+	public boolean isReadOnly() {
+		return readOnly;
+	}
+
+	public void setReadOnly(boolean readOnly) {
+		this.readOnly = readOnly;
+	}
+
 	public BckjBizCard() {
 		super();
 	}
