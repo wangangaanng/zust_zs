@@ -91,7 +91,7 @@ function forgetPwd() {
     }
     ajax('zustcommon/bckjBizYhxx/forgetPwd',data,function (res) {
         if(res.backCode==0){
-            window.location.href='trinitylogin'
+            window.location.href=base+'/trinitylogin'
         }else{
             walert(res.errorMess)
         }

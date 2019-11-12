@@ -79,62 +79,8 @@
             </div>
         </div>
 
-        <#include "com/footer.ftl">
-            <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
-            <script src="${base}/js/bootstrap-paginator.min.js" type="text/javascript"></script>
-<script>
-    var currentPage="${result.currentPage!'1'}"
-    $(document).ready(function () {
-        if("${flag}"==0){
-            $(".content-list").append(nulltip)
-        }else {
-            setPage(currentPage, "${result.totalPage!'1'}", function () {
-                AntiSqlValidAll(["#key"],function () {
-                    if ($("#key").val()) {
-                        openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
-                    } else {
-                        openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage)
-                    }
-                })
-
-            })
-        }
-
-    })
-    document.onkeydown = function(e){
-        if(e.keyCode==13)
-        {
-            search();
-        }
-    }
-    function search() {
-        AntiSqlValidAll(["#key"],function () {
-            var key = $("#key").val();
-            if (key) {
-                openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1?key=' + key)
-            } else {
-                openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1')
-            }
-        })
-
-    }
-    function setPage(pageCurrent, pageSum, callback) {
-        $(".pagination").bootstrapPaginator({
-            //设置版本号
-            bootstrapMajorVersion: 3,
-            // 显示第几页
-            currentPage: pageCurrent,
-            // 总页数
-            totalPages: pageSum,
-            //当单击操作按钮的时候, 执行该函数, 调用ajax渲染页面
-            onPageClicked: function (event,originalEvent,type,page) {
-                // 把当前点击的页码赋值给currentPage, 调用ajax,渲染页面
-                currentPage = page
-                callback && callback()
-            }
-        })
-    }
-</script>
+    <#include "com/footer.ftl">
+    <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 
 </html>

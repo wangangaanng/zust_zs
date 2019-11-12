@@ -36,7 +36,7 @@
 </header>
 <script>
     $("#outBtn").click(function () {
+        addCookie("swOwid","")
         window.location.href = "${base}/trinitylogin";
-        delCookie("swOwid");
     });
 </script>

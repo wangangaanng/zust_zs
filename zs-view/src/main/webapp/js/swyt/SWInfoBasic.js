@@ -131,6 +131,7 @@ function getInfo() {
                 $("#sfzfmImg").attr("src",imagePath+data.sfzfm).addClass("fullImg");
             }
             if(data.hjzm){
+                idType = "2";
                 $("#hjzm").val(data.hjzm);
                 $("#hjzmImg").attr("src",imagePath+data.hjzm).addClass("fullImg");
                 $("#confrimType option[value='2']").prop("selected","selected");

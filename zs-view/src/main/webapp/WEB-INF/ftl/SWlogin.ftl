@@ -45,15 +45,15 @@
                 <span class="iconfont icon-denglu-mima"></span>
                 <input type="password" placeholder="请输入密码" id="swMm">
             </div>
-            <div class="forget"><a href="trinityPsw">忘记密码？</a></div>
+            <div class="forget"><a href="${base}/trinityPsw">忘记密码？</a></div>
             <div class="login_bun" onclick="swYtLogin()">登录</div>
         </div>
         <div class="login_right">
             <div class="login_right_border">
                 <div>还没有账号</div>
-                <div class="registered" onclick="window.location.href='trinityRegister'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
+                <div class="registered" onclick="window.location.href='${base}/trinityRegister'">立即注册<span class="glyphicon glyphicon-arrow-right" style="margin-left: 5px;"></span></div>
                 <div>手机小程序登录</div>
-                <div><img src="${base}/img/xcx-ewm.png" class="login-icon"></div>
+                <div><img src="${base}/img/xcx-ewm.jpg" class="login-icon"></div>
             </div>
 
         </div>

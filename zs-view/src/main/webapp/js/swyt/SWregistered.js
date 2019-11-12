@@ -132,9 +132,9 @@ function swYtzc() {
         qxzy:qxzy
     };
     console.log(data)
-    ajax('zustcommon/bckjBizYhxx/swYtzc',data,function () {
+    ajax('zustcommon/bckjBizYhxx/swYtzc',data,function (res) {
         if(res.backCode==0){
-            window.location.href='trinitylogin'
+            window.location.href=base+'/trinitylogin'
         }else {
             walert(res.errorMess)
         }
