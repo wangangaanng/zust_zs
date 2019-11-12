@@ -516,10 +516,6 @@ function cjcx_chaXun(){
         walert("请输入身份证号");
         return
     }
-    if (sfzh.length !== 18) {
-        walert("请输入正确的身份证号")
-		return
-    }
     addCookie("cx_ksh",$('#cjcx_zkzh').val())
 	addCookie("cx_sfzh",$('#cjcx_sfzh').val())
 
@@ -640,10 +636,6 @@ function lqcx_chaXun(){
         walert("请输入身份证号");
         return
     }
-    if (sfzh.length !== 18) {
-        walert("请输入正确的身份证号")
-        return
-    }
     addCookie("cx_ksh",$('#lqcx_zkzh').val())
     addCookie("cx_sfzh",$('#lqcx_sfzh').val())
     clearTable();
@@ -664,7 +656,7 @@ function lqcx_chaXun(){
             $('#xm').html(res.bean.xm);
             $('#zhuhe').html("浙江科技学院-" + res.bean.lqzy + "预录取，最终录取请查询当地考试院。");
             if(null!=res.bean.jcsj) {
-                $("#lqd").html("录取通知单已经于<b>"+lqxx.jcsj+"</b>寄出");
+                $("#lqd").html("录取通知单已经于<b>"+res.bean.jcsj+"</b>寄出");
             }
             if(null!=res.bean.ems) {
                 $("#ems_dh").html("EMS单号：<b style='cursor: pointer'  class='emsUrl' ems='"+res.bean.ems+"'>"+res.bean.ems+"</b>，请注意查收！！！");
