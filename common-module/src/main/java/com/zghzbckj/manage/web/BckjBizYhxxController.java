@@ -499,7 +499,7 @@ public class BckjBizYhxxController extends BaseController {
             if(!msg.getSuccess()){
                 return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhxxService.apOfCaOpDay(dataMap));
+            return bckjBizYhxxService.apOfCaOpDay(dataMap);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
