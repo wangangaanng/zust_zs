@@ -126,7 +126,7 @@
                         <label>
                             <i class="icon bg-login_password"></i>
                         </label>
-                        <input type="password" id="qyFrsfz" onkeydown="keyLogin()" placeholder="请输入法人身份证后六位" class="login-pswd">
+                        <input type="password" id="qyFrsfz" onkeydown="keyLogin()" placeholder="法人身份证后六位或统一信用码后六位" class="login-pswd">
                     </li>
                     <li>
                         还没有账号？<a href="${base}/enterpriseReg">注册</a>
@@ -463,7 +463,7 @@
             return;
         }
         if(!$("#qyFrsfz").val().trim()){
-            walert("请填写法人身份证后六位");
+            walert("请填写法人身份证后六位或统一信用码后六位");
             return;
         }
         var jsonObj={

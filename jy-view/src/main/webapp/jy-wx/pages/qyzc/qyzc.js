@@ -70,17 +70,17 @@ Page({
       return false
     }
 
-    if (params.qyFrsfz.trim().length!=18){
-      wx.showModal({
-        content: '法人身份证长度有误',
-        showCancel: false,
-      })
-      return false
-    }
-
+    // if (params.qyFrsfz.trim().length!=18){
+    //   wx.showModal({
+    //     content: '法人身份证长度有误',
+    //     showCancel: false,
+    //   })
+    //   return false
+    // }
+    params.qyFrsfz = params.qyTysh
     wx.showModal({
       title: '提示',
-      content: `您的企业税号为${params.qyTysh}，法人身份证号为${params.qyFrsfz}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
+      content: `您的企业税号为${params.qyTysh}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
       success(res) {
         if (res.confirm) {
           console.log('用户点击确定')
@@ -122,56 +122,56 @@ Page({
   initValidate() {
     // 验证字段的规则
     const rules = {
-      // qyTysh: {
-      //   required: true,
-      // },
+      qyTysh: {
+        required: true,
+      },
       // qyFrsfz: {
       //   required: true
       // },
-      // qyFrdbxm: {
-      //   required: true
-      // },
-      // qymc: {
-      //   required: true
-      // },
-      // qydz: {
-      //   required: true
-      // },
-      // qyZczj: {
-      //   required: true
-      // },
-      // qyProv: {
-      //   required: true
-      // },
-      // qyCity: {
-      //   required: true
-      // },
-      // qyArea: {
-      //   required: true
-      // },
-      // qyLxr: {
-      //   required: true
-      // },
-      // qyLxrdh: {
-      //   required: true,
-      //   tel: true,
-      // },
-      // qyYx: {
-      //   required: true,
-      //   email: true,
-      // },
-      // qylxfs: {
-      //   required: true
-      // },
-      // qyGsxz: {
-      //   required: true
-      // },
-      // qyHylb: {
-      //   required: true
-      // },
-      // qyGsgm: {
-      //   required: true
-      // },
+      qyFrdbxm: {
+        required: true
+      },
+      qymc: {
+        required: true
+      },
+      qydz: {
+        required: true
+      },
+      qyZczj: {
+        required: true
+      },
+      qyProv: {
+        required: true
+      },
+      qyCity: {
+        required: true
+      },
+      qyArea: {
+        required: true
+      },
+      qyLxr: {
+        required: true
+      },
+      qyLxrdh: {
+        required: true,
+        tel: true,
+      },
+      qyYx: {
+        required: true,
+        email: true,
+      },
+      qylxfs: {
+        required: true
+      },
+      qyGsxz: {
+        required: true
+      },
+      qyHylb: {
+        required: true
+      },
+      qyGsgm: {
+        required: true
+      },
       qyGsjs: {
         required: true,
         minlength:150
@@ -186,9 +186,9 @@ Page({
       qyTysh: {
         required: '请填写企业统一信用代码'
       },
-      qyFrsfz: {
-        required: '请填写法人身份证号'
-      },
+      // qyFrsfz: {
+      //   required: '请填写法人身份证号'
+      // },
       qyFrdbxm: {
         required: '请填写法人姓名',
       },
