@@ -17,7 +17,7 @@
 <div class="pay-online row mt20">
     <ul class="col-sm-offset-1">
         <li>
-            <p class="contact-wrap_title active">报名表初审结果</p>
+            <p class="contact-wrap_title active">缴费说明</p>
             <div class="pay-online_ctxt">
                 <h5>${payMess!""}</h5>
                 <h5>请点击前往缴费地址：
