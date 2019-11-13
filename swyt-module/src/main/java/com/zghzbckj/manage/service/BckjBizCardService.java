@@ -41,7 +41,7 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
     private static final Logger log = Logger.getLogger(BckjBizCardService.class);
     @Autowired
     BckjBizBmDao bckjBizBmDao;
-    @Autowired
+@Autowired
     BckjBizBmService bckjBizBmService;
 
     @Override
@@ -88,6 +88,8 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
             dataMap.put("createtime2", date);
         }
+        //报名表状态>7
+        dataMap.put("cj", 1);
         PageInfo<BckjBizCard> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
 
         List<BckjBizCard> records = page.getRecords();
