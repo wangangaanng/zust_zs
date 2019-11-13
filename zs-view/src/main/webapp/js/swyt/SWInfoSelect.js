@@ -219,6 +219,9 @@ function getXkcj() {
                     $('#fileList').append(str)
                     jsfj.push(res.bean.jsfj[i].owid)
                 }
+                if(processState>0){
+                    $('#selectForm').find('.uploadlabel').remove()
+                }
             }
         } else {
             walert(res.errorMess)
