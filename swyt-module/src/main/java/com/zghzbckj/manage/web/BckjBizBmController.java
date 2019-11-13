@@ -411,6 +411,8 @@ public class BckjBizBmController extends BaseController {
         if (bm == null) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "查无");
         }
+        String lxdh = bm.getLxdh();
+        String content = "";
         Integer state = Integer.parseInt(mapData.get("state").toString());
         //state 4 拒绝   -1打回修改
         if (4 == state) {
@@ -418,6 +420,15 @@ public class BckjBizBmController extends BaseController {
                 bm.setJjly(mapData.get("jjly").toString());
             }
             bm.setXybnr(SwytConstant.BMJJ);
+            content = SwytConstant.REJECT_MESS;
+            if (!TextUtils.isEmpty(bm.getJjly())) {
+                content += "原因：" + bm.getJjly();
+            }
+            try {
+                MessageUtil.sendMessage(lxdh, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         if (5 == state) {
             if (!TextUtils.isEmpty(mapData.get("jjly"))) {
@@ -430,6 +441,15 @@ public class BckjBizBmController extends BaseController {
                 bm.setMemo(mapData.get("memo").toString());
             }
             bm.setXybnr(SwytConstant.CXTJBMSQ);
+            content = SwytConstant.FIX_MESS;
+            if (!TextUtils.isEmpty(bm.getMemo())) {
+                content += "原因：" + bm.getMemo();
+            }
+            try {
+                MessageUtil.sendMessage(lxdh, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         bm.setState(state);
         bckjBizBmService.saveOrUpdate(bm);

@@ -53,4 +53,9 @@ public class SwytConstant {
     public static final Integer BMMX_LX_HK = 0;
     public static final Integer BMMX_LX_XK = 1;
     public static final Integer BMMX_LX_ZH = 2;
+    public static String PASS_MESS = "恭喜您！您的三位一体报名已通过初审，请登录网站或小程序进行报名缴费操作。";
+    public static String REJECT_MESS = "很抱歉，您的三位一体报名未通过初审。";
+    public static String FIX_MESS = "您的三位一体报名已被管理员打回修改，请登录网站或小程序重新提交报名表。";
+    public static String ZKZH_MESS = "您的面试已分配，准考证已生成，请登录网站或小程序下载面试通知单";
+    public static String MONEY_PASS_MESS = "您的缴费已确认，请耐心等待管理员分配面试时间。";
 }
