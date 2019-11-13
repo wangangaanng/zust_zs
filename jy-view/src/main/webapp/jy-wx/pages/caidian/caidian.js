@@ -59,6 +59,54 @@ Page({
     }
 
   },
+  chooseGPS(){//地图采点
+    var that = this;
+    wx.chooseLocation({
+      success:function(res){
+        that.setData({
+          latitude: res.latitude.toFixed(5),
+          longitude: res.longitude.toFixed(5)
+        })
+        wx.showModal({
+          title: '提示',
+          content: '您已选择采点位置，是否确认提交',
+          confirmColor: '#008783',
+          success(res) {
+            if (res.confirm) {
+              cd(that);
+            } else if (res.cancel) {
+
+            }
+          }
+        })
+      },fail: function (res) {
+        wx.showModal({
+          title: '提示',
+          content: '未获取到您的位置，请打开设置后重试',
+          confirmColor: '#008783',
+          success(res) {
+            if (res.confirm) {
+              wx.openSetting({
+                success: function (osrs) {
+                  // 出发条件是返回的时候
+                  wx.getLocation({
+                    success: function (locationinfo) {
+                      that.onLoad(that.data.option);
+                    },
+                    fail: function (fres) {
+
+                    }
+                  })
+                }
+              })
+            } else if (res.cancel) {
+
+            }
+          }
+        })
+      }
+    })
+  },
   caidian(){
     var that = this;
     wx.getLocation({
