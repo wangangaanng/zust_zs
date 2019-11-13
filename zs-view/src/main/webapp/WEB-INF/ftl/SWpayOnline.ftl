@@ -121,7 +121,7 @@
                 idOcr(imgType,file,function (d) {
                     payProveImg = d.bean.fileName;
                     $(".pay-online li").eq(1).find(".contact-wrap_title").addClass("active");
-                    walert("缴费证明图片上传成功,请等待审核")
+                    walert("缴费证明图片上传成功")
                 });
             }
             reader.readAsDataURL(file);
