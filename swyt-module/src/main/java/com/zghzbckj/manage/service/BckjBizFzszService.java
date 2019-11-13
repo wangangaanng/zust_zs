@@ -190,7 +190,7 @@ public class BckjBizFzszService extends CrudService<BckjBizFzszDao, BckjBizFzsz>
             }
             Integer leftNumber = fzsz.getZhrs() - yxz;
             params.clear();
-            params.put("bklbOwid", fzsz.getDl());
+            params.put("bklbOwid", Integer.parseInt(fzsz.getDl()));
             params.put("state", 7);
             params.put("limit", leftNumber);
             params.put("rand", 1);
@@ -228,6 +228,7 @@ public class BckjBizFzszService extends CrudService<BckjBizFzszDao, BckjBizFzsz>
                     bm.setFzszRefOwid("");
                     bm.setMemo("");
                     bm.setZkzh("");
+                    bm.setMssj("");
                     bmService.saveOrUpdate(bm);
                 }
             }

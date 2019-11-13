@@ -634,6 +634,11 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         if (!com.zghzbckj.util.TextUtils.isEmpty(xsxh)) {
             bckjBizJyscheme = getOneByXsxh(xsxh.getXsxh());
         }
+        if(TextUtils.isEmpty(bckjBizJyscheme)){
+            dataMap.put("xsxm",bckjBizYhxx.getXm());
+            dataMap.put("sfz",oneBySfz.getSfz());
+            bckjBizJyscheme = getJyselfInfo(dataMap);
+        }
         return bckjBizJyscheme;
     }
 
@@ -677,11 +682,17 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     }
 
     public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
+        BckjBizJyscheme bckjBizJyscheme=null;
         BckjBizYhxx bckjBizYhxx = bckjBizYhxxService.get(dataMap.get("owid").toString());
         HashMap<String, Object> sendMap = Maps.newHashMap();
         sendMap.put("sfz",bckjBizYhxx.getSfz());
         BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(sendMap);
-        BckjBizJyscheme bckjBizJyscheme = this.dao.getOneByXsxh(oneBySfz.getXsxh());
+        bckjBizJyscheme= this.dao.getOneByXsxh(oneBySfz.getXsxh());
+        if(com.zghzbckj.util.TextUtils.isEmpty(bckjBizJyscheme)){
+            dataMap.put("xsxm",bckjBizYhxx.getXm());
+            dataMap.put("sfz",oneBySfz.getSfz());
+            bckjBizJyscheme = getJyselfInfo(dataMap);
+        }
         if (!TextUtils.isEmpty(bckjBizJyscheme)) {
             if (!TextUtils.isEmpty(bckjBizJyscheme.getDwszdmc())) {
                 bckjBizJyscheme.setDwszdmc(getDicVall(50005, bckjBizJyscheme.getDwszdmc()));

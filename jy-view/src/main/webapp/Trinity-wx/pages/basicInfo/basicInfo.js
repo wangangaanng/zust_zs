@@ -113,6 +113,9 @@ Page({
       sizeType: ['compressed'], // 可以指定是原图还是压缩图
       sourceType: ['camera', 'album'], // 可以指定来源是相册还是相机，默认二者都有
       success: function (res) {
+        wx.showLoading({
+          title: '上传中',
+        })
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         var tempFilePaths = res.tempFilePaths;
         if (type == "2") {//身份证正面

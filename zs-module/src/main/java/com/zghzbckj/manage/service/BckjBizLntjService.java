@@ -251,20 +251,23 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
                 resMap.put("xz", xz);
                 String lqs = cellList.get(6); //录取数
                 if(!TextUtils.isEmpty(lqs)){
-                    resMap.put("lqs", Integer.parseInt(lqs.substring(0,lqs.indexOf("."))));
+                resMap.put("lqs", Integer.parseInt(lqs.substring(0,lqs.indexOf("."))));
                 }
                 String zgf = cellList.get(7); //最高分
-                if(!TextUtils.isEmpty(zgf)){
+                resMap.put("zgf", zgf);
+                /*if(!TextUtils.isEmpty(zgf)){
                     resMap.put("zgf", Double.parseDouble(zgf));
-                }
+                }*/
                 String zdf = cellList.get(8); //最低分
-                if(!TextUtils.isEmpty(zdf)){
+                resMap.put("zdf", zdf);
+               /* if(!TextUtils.isEmpty(zdf)){
                     resMap.put("zdf", Double.parseDouble(zdf));
-                }
+                }*/
                 String pjf = cellList.get(9); //平均分
-                if(!TextUtils.isEmpty(pjf)){
+                resMap.put("pjf", pjf);
+               /* if(!TextUtils.isEmpty(pjf)){
                     resMap.put("pjf", Double.parseDouble(pjf));
-                }
+                }*/
                 String szxy = cellList.get(10); //所属学院
                 resMap.put("szxy", szxy);
                 BckjBizLntj bckjBizLntj = BckjBizLntj.class.newInstance();
