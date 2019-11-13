@@ -150,9 +150,9 @@ Page({
       , studyArea: {
         required: true
       }
-      , major: {
-        required: true
-      }
+      // , major: {
+      //   required: true
+      // }
     }
 
     // 验证字段的提示信息，若不传则调用默认的信息
@@ -182,9 +182,9 @@ Page({
       , studyArea: {
         required: '请选择学籍地址',
       }
-      , major: {
-        required: '请填写倾向专业',
-      }
+      // , major: {
+      //   required: '请填写倾向专业',
+      // }
     }
     this.WxValidate = new WxValidate(rules, messages)
   },

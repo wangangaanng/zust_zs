@@ -4,7 +4,9 @@
 package com.zghzbckj.manage.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.DataWithExpEntity;
+import com.zghzbckj.common.CommonConstant;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
@@ -452,6 +454,9 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
 
     @Length(min = 0, max = 50, message = "zkzh长度必须介于 0 和 50 之间")
     public String getZkzh() {
+        if(null==this.zkzh){
+            return CommonConstants.EMPTY_STR;
+        }
         return zkzh;
     }
 
