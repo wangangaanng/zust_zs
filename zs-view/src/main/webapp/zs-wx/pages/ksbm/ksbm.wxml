@@ -17,7 +17,7 @@
   >
     <van-button slot="button" size="small" bindtap="send" data-type="1" disabled="{{disabled1}}" type="primary">{{yzmStr}}</van-button>
   </van-field>
-  <van-field input-align="right" bindinput="getexp" value="{{exp9}}" label="地区" placeholder="输入内容" required />
+  <van-field input-align="right" bindinput="getexp" value="{{exp9}}" label="家庭地址" placeholder="输入内容" required />
   <van-field input-align="right" bindinput="getqxzy" value="{{qxzy}}" label="意向专业" placeholder="输入内容" required />
   
    
