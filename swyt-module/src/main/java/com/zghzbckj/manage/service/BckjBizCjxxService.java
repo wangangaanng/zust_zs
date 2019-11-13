@@ -148,8 +148,8 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
             jbxx.setHkState(1);
             bckjBizJbxxService.saveOrUpdate(jbxx);
         }
-        mapData.put("lx", "0");
-        mapData.put("lx2", 2);
+        mapData.put("lx", "2");
+        mapData.put("lx2", "0");
         this.dao.deleteByHkZh(mapData);
         saveList(mapData, "zhList", 2);
         saveList(mapData, "hkList", 0);
