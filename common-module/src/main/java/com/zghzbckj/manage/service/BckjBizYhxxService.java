@@ -238,8 +238,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhkz.setXsxy(oneBySfz.getXsxy());
             bckjBizYhkz.setXsbj(oneBySfz.getXsbj());
             bckjBizYhkz.setXszy(oneBySfz.getXszy());
-            bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
-            insert(bckjBizYhxx);
+            BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(oneBySfz.getYhRefOwid());
+            if(com.zghzbckj.util.TextUtils.isEmpty(oneByYhRefOwid)){
+                bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+            }
+            ResponseMessage oneByOwid = getOneByOwid(oneBySfz.getYhRefOwid());
+            if(TextUtils.isEmpty(oneByOwid)){
+                insert(bckjBizYhxx);
+            }
         }
         //如果为学生的小程序登入
         if (!TextUtils.isEmpty(datamap.get("type")) && datamap.get("type").toString().indexOf("xcx") != -1) {

@@ -227,43 +227,52 @@ public class BckjBizLqxsService extends CrudService<BckjBizLqxsDao, BckjBizLqxs>
                 String sjr = cellList.get(20); //收件人
                 resMap.put("sjr", sjr);
                 String tdcj = cellList.get(21); //投档成绩
-                if(!TextUtils.isEmpty(tdcj)){
+                resMap.put("tdcj", tdcj);
+                /*if(!TextUtils.isEmpty(tdcj)){
                     resMap.put("tdcj", Double.parseDouble(tdcj));
-                }
+                }*/
                 String tdzy = cellList.get(22); //投档志愿
                 resMap.put("tdzy", tdzy);
                 String yw = cellList.get(23); //语文
-                if(!TextUtils.isEmpty(yw)){
+               /* if(!TextUtils.isEmpty(yw)){
                     resMap.put("yw", Double.parseDouble(yw));
-                }
+                }*/
+                resMap.put("yw", yw);
                 String sx = cellList.get(24); //数学
-                if(!TextUtils.isEmpty(sx)){
+                /*if(!TextUtils.isEmpty(sx)){
                     resMap.put("sx", Double.parseDouble(sx));
-                }
+                }*/
+                resMap.put("sx", sx);
                 String wy = cellList.get(25); //外语
-                if(!TextUtils.isEmpty(wy)){
+               /* if(!TextUtils.isEmpty(wy)){
                     resMap.put("wy", Double.parseDouble(wy));
-                }
+                }*/
+                resMap.put("wy", wy);
                 String zhw = cellList.get(26); //综合文
-                if(!TextUtils.isEmpty(zhw)){
+                /*if(!TextUtils.isEmpty(zhw)){
                     resMap.put("zhw", Double.parseDouble(zhw));
-                }
+                }*/
+                resMap.put("zhw", zhw);
                 String zhl = cellList.get(27); //综合理
-                if(!TextUtils.isEmpty(zhl)){
+                /*if(!TextUtils.isEmpty(zhl)){
                     resMap.put("zhl", Double.parseDouble(zhl));
-                }
+                }*/
+                resMap.put("zhl", zhl);
                 String mk = cellList.get(28); //模块(技能加分)
-                if(!TextUtils.isEmpty(mk)){
+                /*if(!TextUtils.isEmpty(mk)){
                     resMap.put("mk", Double.parseDouble(mk));
-                }
+                }*/
+                resMap.put("mk", mk);
                 String mscj = cellList.get(29); //美术省统考成绩
-                if(!TextUtils.isEmpty(mscj)){
+                /*if(!TextUtils.isEmpty(mscj)){
                     resMap.put("mscj", Double.parseDouble(mscj));
-                }
+                }*/
+                resMap.put("mscj", mscj);
                 String mszhcj = cellList.get(30); //美术综合成绩
-                if(!TextUtils.isEmpty(mszhcj)){
+                /*if(!TextUtils.isEmpty(mszhcj)){
                     resMap.put("mszhcj", Double.parseDouble(mszhcj));
-                }
+                }*/
+                resMap.put("mszhcj", mszhcj);
                 String xy = cellList.get(31); //录取学院
                 resMap.put("xy", xy);
                 String xz = cellList.get(32); //学制
