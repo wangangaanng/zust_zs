@@ -13,13 +13,13 @@
         <#break>
 </#switch>
 <#include "com/SWtip.ftl">
-    <#if fileName??&&fileName!="">
+    <#if filePath??&&filePath!="">
         <ul class="list-group row" style="padding: 60px 50px;">
             <div class="grade-result row">
             </div>
             <li class="list-group-item col-sm-offset-2 col-sm-8">
-                <label class="group-label">${fileName}：</label>
-                <a type="button" class="btn btn-default fr preview-btn" target="_blank" href="${imagePath}${filePath}">预览${fileName}</a>
+                <label class="group-label">${fileName!""}：</label>
+                <a type="button" class="btn btn-default fr preview-btn" target="_blank" href="${imagePath}${filePath!""}">预览${fileName!""}</a>
             </li>
             <li class="list-group-item col-sm-offset-2 col-sm-8">
                 <label class="group-label">邮箱地址：</label>
@@ -34,7 +34,9 @@
             </div>
         </ul>
     <#else>
-        ${upErrrMess!"请等待系统生成面试单"}
+    <div class="null-txt">
+        <p style="padding: 20px;">${upErrrMess!"请等待系统生成面试单"}</p>
+    </div>
     </#if>
 </div>
 <script>
