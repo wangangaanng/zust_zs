@@ -145,6 +145,30 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         return page;
     }
 
+
+
+    public PageInfo<BckjBizBm> getHistoryList(List<FilterModel> filters,  Integer pageNo, Integer pageSize) {
+        Integer codtionState = null;
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("sqsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("sqsj2").toString(), 1);
+            dataMap.put("sqsj2", date);
+        }
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("jfsj2").toString(), 1);
+            dataMap.put("jfsj2", date);
+        }
+        PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
+        List<BckjBizBm> records = page.getRecords();
+        BckjBizBm bm = new BckjBizBm();
+        bm.setXm("共有：" + page.getTotalCount() + "条报名信息");
+        bm.setReadOnly(true);
+        records.add(0, bm);
+
+        return page;
+    }
+
+
     private PageInfo<BckjBizBm> findPageWithGrade(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
         Page page = new Page(pageNo, pageSize);
         paramsMap.put("page", page);
@@ -423,6 +447,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
         bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"), CommonConstant.DATE_FROMART));
         bm.setState(6);
+        bm.setJjly(null);
         bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
         return Boolean.TRUE;

@@ -223,7 +223,7 @@
 			address = #{address},
 			validterm = #{validterm},
 			is_pass = #{isPass},
-			is_bm = #{Bm},
+			is_bm = #{isBm},
 			number = #{number},
 			face_value = #{faceValue},
 			face_image = #{faceImage},

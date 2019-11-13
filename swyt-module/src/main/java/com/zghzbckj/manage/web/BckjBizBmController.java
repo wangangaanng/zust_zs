@@ -53,6 +53,20 @@ public class BckjBizBmController extends BaseController {
         }
     }
 
+
+    @RequestMapping(value = "/getHistoryList")
+    @ResponseBody
+    public ResponseMessage getHistoryList( PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return ResponseMessage.sendOK(bckjBizBmService.getHistoryList(filters, dataVO.getPageNo(), dataVO.getPageSize()));
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizBm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
     @PostMapping(value = "deleteList")
     @ResponseBody
     public ResponseMessage deleteList(PublicDataVO dataVO) {
