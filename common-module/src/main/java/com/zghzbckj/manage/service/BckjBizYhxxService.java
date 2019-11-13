@@ -744,7 +744,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         String yzm = CommonService.getRandom();
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
         if (TextUtils.isEmpty(bckjBizYhxx)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"该手机号未进行考生报名,不能进行预约!");
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"未考生报名,不能预约!");
         }
         try {
             MessageUtil.sendMessageCode(dataMap.get("sjh").toString(), yzm);
