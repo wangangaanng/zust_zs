@@ -40,6 +40,13 @@ public class ZsController {
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
+        //顶部广告
+        Map paramgg=Maps.newHashMap();
+        paramgg.put("dicType","10028");
+        PublicData publicDatagg= UnionHttpUtils.manageParam(paramgg,"zustcommon/common/getByType");
+        ResponseMessage gg  = UnionHttpUtils.doPosts(publicDatagg);
+        view.addObject("gg",gg.getBean());
+
         Map param=Maps.newHashMap();
         //轮播图
         param.put("lmbh","127");
