@@ -96,6 +96,7 @@ public class SwytController {
                view.addObject("faceScore",records2.get("mscj"));//面试时间
                view.addObject("finalScore",records2.get("zzcj"));//最终成绩
                view.addObject("rePayMess",records2.get("jjly"));//最终成绩
+               view.addObject("backMemo",records2.get("memo"));//退回修改理由
            }
            //获取学生基本信息
            Map param5 = Maps.newHashMap();
