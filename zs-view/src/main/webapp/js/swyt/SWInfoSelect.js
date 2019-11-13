@@ -244,6 +244,9 @@ function getMajors(e) {
                     content: $('#majorExam')
                 });
                 $('#Major1').html('<option value="">请选择</option>')
+                $('#Major2').html('<option value="">请选择</option>')
+                $('#Major3').html('<option value="">请选择</option>')
+                $('#getApply').hide();
                 for(var i in res.bean){
                     $('#Major1').append('<option value="'+res.bean[i].owid+'">'+res.bean[i].name+'</option>')
                 }
