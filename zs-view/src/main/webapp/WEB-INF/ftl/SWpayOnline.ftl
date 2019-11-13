@@ -11,7 +11,7 @@
     <#assign tip="恭喜你，报名表初审已通过，缴费审核已通过。"/>
 </#if>
 <#if (processState<6) >
-    <#if (processState ==5 && rePayMess?? && rePayMess !="")>
+    <#if (processState ==5 && rePayMess?? && rePayMess !="" && rePayMess !="undifined")>
             <#assign tip="恭喜你，报名表初审通过。缴费已退回，退回理由："+rePayMess />
         <#else>
             <#assign tip="恭喜你，报名表初审通过。缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。"/>
