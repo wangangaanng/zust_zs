@@ -229,6 +229,13 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
         if (TextUtils.isEmpty(dcwj.getOwid())) {
             dcwj.setSfyx(1);
         }
+        //结束时间+23:59:59
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dcwj.getJssj());
+        calendar.add(Calendar.HOUR, 23);
+        calendar.add(Calendar.MINUTE, 59);
+        calendar.add(Calendar.SECOND, 59);
+        dcwj.setJssj(calendar.getTime());
         if (dcwj.getJssj().getTime() > System.currentTimeMillis()) {
             dcwj.setSfyx(1);
         } else {

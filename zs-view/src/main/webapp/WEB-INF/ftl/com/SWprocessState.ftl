@@ -6,7 +6,11 @@
 <div class="article-detail-text null-txt">
 <#switch processState>
     <#case -1>
-        <p>已退回，请尽快修改提交。</p>
+        <#if backMemo??&&backMemo!=""&&backMemo!="undifined">
+                <p>已退回，请从我的报名表开始尽快修改后提交。退回理由：${backMemo!""}</p>
+            <#else>
+                <p>已退回，请从我的报名表开始尽快修改后提交。</p>
+        </#if>
         <#break>
     <#case 0>
         <p>还未提交报名表</p>
@@ -21,14 +25,14 @@
         <p>报名表签字和承诺书签字已经提交，请耐心等待审核。</p>
         <#break>
     <#case 4>
-        <#if rePayMess??&&rePayMess!="">
+        <#if rePayMess??&&rePayMess!=""&&rePayMess!="undifined">
                 <p>很遗憾，报名表初审已拒绝！拒绝理由：${rePayMess!""}</p>
             <#else>
                 <p>很遗憾，报名表初审已拒绝！</p>
         </#if>
         <#break>
     <#case 5>
-        <#if rePayMess??&&rePayMess!="">
+        <#if rePayMess??&&rePayMess!=""&&rePayMess!="undifined">
                 <p>恭喜你，报名表初审通过，下一步：“初审结果/缴费”。缴费已退回，退回理由：${rePayMess!""}</p>
             <#else>
                 <p>恭喜你，报名表初审通过，下一步：“初审结果/缴费”</p>

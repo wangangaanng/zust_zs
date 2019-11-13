@@ -118,6 +118,9 @@ Page({
         index1: e.detail.index,
         index2: null,
         index3: null,
+        bklb: null,
+        xklb: null,
+        xzzymc: null
       });
       this.indexState(this.data.subjectCategory[e.detail.index].owid)
     } else if (this.data.type == '2') {
@@ -125,12 +128,15 @@ Page({
         open: false,
         index2: e.detail.index,
         index3: null,
+        xklb: null,
+        xzzymc: null
       });
       this.indexState(this.data.projectType[e.detail.index].owid)
     } else if (this.data.type == '3') {
       this.setData({
         open: false,
         index3: e.detail.index,
+        xzzymc: null
       });
       that.submit()
     }
@@ -160,10 +166,10 @@ Page({
           let project = [];
           for (let i in res.data.bean) {
             project.push(res.data.bean[i].name)
-            if (that.data.bklb == res.data.bean[i].name){
+            if (that.data.bklb == res.data.bean[i].name) {
               that.setData({
                 index2: i,
-                type:2
+                type: 2
               })
             }
           }
@@ -171,7 +177,7 @@ Page({
             project: project,
             projectType: res.data.bean
           })
-          if(that.data.bklb){
+          if (that.data.bklb) {
             that.indexState(that.data.projectType[that.data.index2].owid)
           }
         } else if (that.data.type == '2') {
@@ -188,7 +194,7 @@ Page({
             Major: Major,
             enrollmentMajor: res.data.bean
           })
-          if (!!that.data.xzzymc){
+          if (!!that.data.xzzymc) {
             that.submit()
           }
         }
@@ -266,7 +272,7 @@ Page({
     });
   },
   openDialog() {
-    if (this.data.index1 == null || this.data.index2 == null || this.data.index3 == null){
+    if (this.data.index1 == null || this.data.index2 == null || this.data.index3 == null) {
       common.toast('尚未选择', 'none', 2000)
       return
     }
@@ -303,7 +309,7 @@ Page({
               xklb: res.data.bean.xklb,
               xzzymc: res.data.bean.xzzymc,
               index1: i,
-              type:1
+              type: 1
             })
             that.indexState(that.data.subjectCategory[i].owid)
           }

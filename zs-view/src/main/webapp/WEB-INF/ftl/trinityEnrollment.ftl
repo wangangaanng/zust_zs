@@ -81,7 +81,11 @@
                         <#case "1">
                             <#--报名表承诺书打印-->
                             <#assign fileName="报名表"/>
-                            <#include "SWofferNotice.ftl">
+                            <#if (processState>0)>
+                                <#include "SWofferNotice.ftl">
+                                <#else>
+                                    <#include "com/SWprocessState.ftl">
+                            </#if>
                             <#break>
 
                         <#case "2">

@@ -182,6 +182,9 @@
             <if test="userRefOwid != null and userRefOwid != ''">
                 AND a.user_ref_owid = #{userRefOwid}
             </if>
+			<if test="bmnd != null and bmnd != ''">
+				AND a.bmnd = #{bmnd}
+			</if>
             <if test="sqsj1 != null and sqsj1 !=''  ">
                 AND a.sqsj &gt;= #{sqsj1}
             </if>
@@ -569,5 +572,19 @@
             GROUP BY #{groupBy}
         </if>
     </select>
+
+
+	<select id="queryFileNumber" parameterType="Map" resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		from ourway_sys_files  a
+		<where>
+
+			<if test="fileClassId != null and fileClassId  != ''">
+				AND a.file_class_id = #{fileClassId}
+			</if>
+		</where>
+	</select>
+
 
 </mapper>
