@@ -96,22 +96,27 @@ function topChart() {
         window.parent.ajax('web/zustswyt/bckjBizBm/bmPie',{type:k+1},function(data){
             pieChart[k].hideLoading();
             if(data.backCode == 0) {
-                var str1='<tr><td>总人数</td><td><span>'+data.bean.total+'人</span></td>';
-                str1 +='<tr><td>类别数</td><td><span>'+data.bean.lb+'</span></td>'
+                //var str1='<tr><td>总人数</td><td><span>'+data.bean.total+'人</span></td>';
+                //str1 +='<tr><td>类别数</td><td><span>'+data.bean.lb+'</span></td>'
+                var str1 ='';
+                var str2 = '<div style="text-align: center;font-size: 18px;color: #009cff;margin-bottom: 20px;"><span>总人数:'+data.bean.total+'人</span><span style="margin-left: 20px;">类别数:'+data.bean.lb+'</span></div>';
                 for(var g=0;g<data.bean.pieData.length;g++){
                     str1+='<tr><td>'+data.bean.pieData[g].name+'</td><td><span>'+data.bean.pieData[g].value+'人</span></td>'
                 }
                 if(k==0){
                     colorList = ['#43cfa9', '#43a9cf','#3e8be2','#2b63f0','#5144fd',"#aa4ef8",'#f84ebe','#ff635e','#ff8746','#ffb22d','#fed755','#92cf43','#2fa4f5',"#7089fa"];
                     $("#qytj").html(str1);
+                    $("#qytj").before(str2);
                 }
                 if(k==1){
                     colorList = ["#009cff","#ffb22d",'#43cfa9','#aa4ef8','#ff635e'];
                     $("#zwtj").html(str1);
+                    $("#zwtj").before(str2);
                 }
                 if(k==2){
                     colorList = ["#92cf43","#f84ebe","#ff635e","#ff8746","#ffb22d"];
                     $("#zphtj").html(str1);
+                    $("#zphtj").before(str2);
                 }
                 if((data.bean.pieData)&&(data.bean.pieData.length>0)){
                     dataPie = data.bean.pieData;
