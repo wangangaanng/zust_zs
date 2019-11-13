@@ -374,7 +374,7 @@ var djs = function (that){
 }
 
 var djs1 = function (that) {
-  if (that.data.seconds1 > 0) {
+  if (that.data.seconds1 > 0 && that.data.disabled2) {
     that.data.seconds1--
     setTimeout(function () {
       that.setData({
