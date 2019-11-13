@@ -41,7 +41,7 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
     private static final Logger log = Logger.getLogger(BckjBizCardService.class);
     @Autowired
     BckjBizBmDao bckjBizBmDao;
-    @Autowired
+@Autowired
     BckjBizBmService bckjBizBmService;
 
     @Override
@@ -162,7 +162,6 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
         if (1 == appBizCard.getIsPass()) {
             throw CustomerException.newInstances("已过滤");
         }
-        saveOrUpdate(appBizCard);
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
         //表示年度信息
         appBizCard.setExp1(bmnd);
@@ -174,12 +173,11 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
         if (null == bm) {
             MyWebSocket.sendInfo("-1:" + appBizCard.getNumber() + ":" + appBizCard.getName() + ":-:-:-");
             appBizCard.setIsBm(0);
-            saveOrUpdate(appBizCard);
             return;
         } else {
             appBizCard.setIsBm(1);
-            saveOrUpdate(appBizCard);
         }
+        saveOrUpdate(appBizCard);
         MyWebSocket.sendInfo("0:" + appBizCard.getNumber() + ":" + appBizCard.getName() + ":" + bm.getZkzh() + ":" + bm.getXzzymc() + ":" + bm.getMssj());
         if (appBizCard.getIsPass() == 0) {
             bm.setRzbd(1);

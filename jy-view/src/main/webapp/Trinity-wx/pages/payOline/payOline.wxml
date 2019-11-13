@@ -6,13 +6,18 @@
       <icon class="iconfont icon-tongzhi" style=""></icon>
       <view class="f1 notice-detail">
         <block wx:if="{{state==6}}">
-          恭喜你，你的初审已通过。缴费证明图片已提交，请耐心等耐审核！
+          恭喜你，报名表初审已通过。缴费证明图片已提交，请耐心等耐审核！
         </block>
         <block wx:if="{{state>6}}">
-          恭喜你，你的初审已通过，缴费审核已通过。
+          恭喜你，报名表初审已通过，缴费审核已通过。
         </block>
         <block wx:if="{{state<6}}">
-          恭喜你，你的初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。
+          <block wx:if="{{state==5&&returnPayReason!=''}}">
+            恭喜你，报名表初审通过。缴费已退回，退回理由：{{returnPayReason}}
+          </block>
+          <block wx:else>
+            恭喜你，报名表初审已通过，缴费完成后将分配面试时间。缴费成功后，请上传缴费成功证明图片。
+          </block>
         </block>
       </view>
     </view>

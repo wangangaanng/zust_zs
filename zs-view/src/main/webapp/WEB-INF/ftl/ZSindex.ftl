@@ -23,6 +23,16 @@
     </style>
 </head>
 <body>
+<#if (gg??)&&(gg?size>0)>
+    <#list gg as obj>
+        <#if (obj_index==0)&&(obj.dicVal3?boolean)&&(obj.dicVal2??)>
+        <div style="background-color:#f00808;color: #fff;">
+            <marquee>${obj.dicVal2!''}</marquee>
+        </div>
+        </#if>
+    </#list>
+</#if>
+
 <#include "com/ZSheader.ftl">
 <#include "com/ZStopSlider.ftl">
 <!-- S frame-content -->
