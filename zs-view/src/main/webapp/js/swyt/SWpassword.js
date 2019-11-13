@@ -25,13 +25,34 @@ function sendCode() {
         swZh:swZh,
         type:'1'
     };
-    ajax('zustcommon/common/sendCode',data,function (res) {
-        if(res.backCode==0){
-            seconds()
-        }else {
-            walert(res.errorMess)
+    $.ajax({
+        url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
+        data: {
+            "method": 'zustcommon/common/sendCode',
+            "data": JSON.stringify(data),
+            timestamp: new Date().getTime()
+        },
+        method: 'POST',
+        success: function (res) {
+            finishLoad();
+            if(res.backCode==0){
+                seconds()
+            }else {
+                walert(res.errorMess)
+            }
+        },
+        error: function (err) {
+            finishLoad();
+            walert('系统出错');
         }
     })
+    // ajax('zustcommon/common/sendCode',data,function (res) {
+    //     if(res.backCode==0){
+    //         seconds()
+    //     }else {
+    //         walert(res.errorMess)
+    //     }
+    // })
 }
 
 var time = 60;
@@ -89,11 +110,32 @@ function forgetPwd() {
         swMm:swMm,
         yzm:yzm
     }
-    ajax('zustcommon/bckjBizYhxx/forgetPwd',data,function (res) {
-        if(res.backCode==0){
-            window.location.href=base+'/trinitylogin'
-        }else{
-            walert(res.errorMess)
+    $.ajax({
+        url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
+        data: {
+            "method": 'zustcommon/bckjBizYhxx/forgetPwd',
+            "data": JSON.stringify(data),
+            timestamp: new Date().getTime()
+        },
+        method: 'POST',
+        success: function (res) {
+            finishLoad();
+            if(res.backCode==0){
+                window.location.href=base+'/trinitylogin'
+            }else{
+                walert(res.errorMess)
+            }
+        },
+        error: function (err) {
+            finishLoad();
+            walert('系统出错');
         }
     })
+    // ajax('zustcommon/bckjBizYhxx/forgetPwd',data,function (res) {
+    //     if(res.backCode==0){
+    //         window.location.href=base+'/trinitylogin'
+    //     }else{
+    //         walert(res.errorMess)
+    //     }
+    // })
 }

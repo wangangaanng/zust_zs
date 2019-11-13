@@ -18,6 +18,7 @@ Page({
     state: '',//流程进行带的状态
     class1: '',
     payTime: '', //缴费时间
+    returnPayReason:'', //缴费缴费理由
     showPop: false,
     currentDate: new Date().getTime(),
     minDate: new Date().getTime() - 86400000 * 200,
@@ -148,7 +149,8 @@ Page({
           jfInfo: '缴费证明图片已上传',
           upProveImg: res.data.bean.jfpzZp,
           class1: 'green',
-          payTime: (res.data.bean.jfsj).substring(0, 10)
+          payTime: (res.data.bean.jfsj).substring(0, 10),
+          returnPayReason: res.data.bean.jjly,
         })
       }
     })

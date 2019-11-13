@@ -24,6 +24,7 @@ import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.Html2PdfUtil;
 import com.zghzbckj.manage.utils.MailUtils;
 import com.zghzbckj.manage.utils.TemplateUtils;
+import com.zghzbckj.manage.web.MessageUtil;
 import com.zghzbckj.util.ExcelUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +66,12 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     @Override
     public BckjBizBm get(String owid) {
-        return super.get(owid);
+        BckjBizBm bm = super.get(owid);
+        Map params = Maps.newHashMap();
+        params.put("fileClassId", bm.getUserRefOwid());
+        Integer number = this.dao.queryFileNumber(params);
+        bm.setJsfj(number.toString() + "个文件");
+        return bm;
     }
 
     @Override
@@ -126,6 +132,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
             String date = DateUtil.getAfterDate(dataMap.get("jfsj2").toString(), 1);
             dataMap.put("jfsj2", date);
         }
+        String nf = DateUtil.getDateStr("yyyy");
+        dataMap.put("bmnd", nf);
         PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
 
         List<BckjBizBm> records = page.getRecords();
@@ -136,6 +144,29 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
         return page;
     }
+
+
+    public PageInfo<BckjBizBm> getHistoryList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+        Integer codtionState = null;
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("sqsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("sqsj2").toString(), 1);
+            dataMap.put("sqsj2", date);
+        }
+        if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("jfsj2"))) {
+            String date = DateUtil.getAfterDate(dataMap.get("jfsj2").toString(), 1);
+            dataMap.put("jfsj2", date);
+        }
+        PageInfo<BckjBizBm> page = findPageWithGrade(dataMap, pageNo, pageSize, " a.sqsj desc ");
+        List<BckjBizBm> records = page.getRecords();
+        BckjBizBm bm = new BckjBizBm();
+        bm.setXm("共有：" + page.getTotalCount() + "条报名信息");
+        bm.setReadOnly(true);
+        records.add(0, bm);
+
+        return page;
+    }
+
 
     private PageInfo<BckjBizBm> findPageWithGrade(Map<String, Object> paramsMap, Integer pageNo, Integer pageSize, String orderBy) {
         Page page = new Page(pageNo, pageSize);
@@ -415,6 +446,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
         bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"), CommonConstant.DATE_FROMART));
         bm.setState(6);
+        bm.setJjly(null);
         bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
         return Boolean.TRUE;
@@ -437,7 +469,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         String fileName = bm.getOwid() + File.separator + SwytConstant.SWTYSQB;
 
-        if (bm.getState() != 0) {
+        if (bm.getState() > 0) {
             return SwytConstant.SWTYFILEPATH + File.separator + fileName;
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
@@ -580,14 +612,33 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     public Map submitPurchaseBack(List<String> codes, Integer state, Map<String, Object> mapData) {
         Map resultMap = new HashMap<>(2);
         BckjBizBm bm = get(codes.get(0));
+        if (TextUtils.isEmpty(bm)) {
+            resultMap.put("result", "false");
+            resultMap.put("msg", "无报名表");
+            return resultMap;
+        }
+        String lxdh = bm.getLxdh();
         if (4 == state) {
             bm.setXybnr(SwytConstant.BMJJ);
         } else if (5 == state) {
             bm.setXybnr(SwytConstant.BMDJF);
+            String content = SwytConstant.PASS_MESS;
+            try {
+                MessageUtil.sendMessage(lxdh, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (-1 == state) {
             bm.setXybnr(SwytConstant.CXTJBMSQ);
         } else if (7 == state) {
             bm.setXybnr(SwytConstant.BMDMSFP);
+            String content = SwytConstant.MONEY_PASS_MESS;
+            lxdh = bm.getLxdh();
+            try {
+                MessageUtil.sendMessage(lxdh, content);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         bm.setState(state);
         saveOrUpdate(bm);
@@ -627,6 +678,15 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
                 xh++;
                 bm.setZkzh(_xh);
                 saveOrUpdate(bm);
+
+                String content = SwytConstant.ZKZH_MESS;
+                String lxdh = bm.getLxdh();
+                try {
+                    MessageUtil.sendMessage(lxdh, content);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
             }
         }
     }
@@ -724,6 +784,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         Map<String, Object> params = Maps.newHashMap();
         int total = 0;
         for (Map<String, Object> bm : bmList) {
+            objectMap = Maps.newHashMap();
             if (1 == type) {
                 objectMap.put("name", MapUtils.getString(bm, "xklb"));
             }

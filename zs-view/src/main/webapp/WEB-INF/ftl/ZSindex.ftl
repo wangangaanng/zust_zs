@@ -23,6 +23,16 @@
     </style>
 </head>
 <body>
+<#if (gg??)&&(gg?size>0)>
+    <#list gg as obj>
+        <#if (obj_index==0)&&(obj.dicVal3?boolean)&&(obj.dicVal2??)>
+        <div style="background-color:#f00808;color: #fff;">
+            <marquee>${obj.dicVal2!''}</marquee>
+        </div>
+        </#if>
+    </#list>
+</#if>
+
 <#include "com/ZSheader.ftl">
 <#include "com/ZStopSlider.ftl">
 <!-- S frame-content -->
@@ -40,16 +50,16 @@
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/zydh.png" />
-                <a href="${base}/zszy">专业导航</a>
+                <a href="${base}/zszy" target="_blank">专业导航</a>
             </div>
             <div class="index-nav_item">
                 <img src="${base}/img/swytbmxt.png" />
                 <a href="${base}/trinityEnrollment/0" target="_blank">三位一体</a>
             </div>
-            <div class="index-nav_item">
-                <img src="${base}/img/xsybdxt.png" />
-                <a href="http://ybd.zust.edu.cn/" target="_blank">预报到</a>
-            </div>
+            <#--<div class="index-nav_item">-->
+                <#--<img src="${base}/img/xsybdxt.png" />-->
+                <#--<a href="http://ybd.zust.edu.cn/" target="_blank">预报到</a>-->
+            <#--</div>-->
             <div class="index-nav_item">
                 <img src="${base}/img/zsjd.png" />
                 <a name="zsjd" onclick="changeNews(this)">生源基地</a>

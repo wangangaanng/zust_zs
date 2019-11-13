@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zghzbckj.manage.dao.BckjBizCardDao">
-    
-	<sql id="bckjBizCardColumns">
+
+    <sql id="bckjBizCardColumns">
 		a.owid AS "owid",
 		a.name AS "name",
 		a.xb AS "xb",
@@ -39,100 +39,103 @@
 		a.exp9 AS "exp9",
 		a.exp10 AS "exp10"
 	</sql>
-	
-	<sql id="bckjBizCardJoins">
-	</sql>
-    
-	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizCard">
-		SELECT 
-			<include refid="bckjBizCardColumns"/>
-		FROM bckj_biz_card a
-		<include refid="bckjBizCardJoins"/>
-		WHERE a.owid = #{owid}
-	</select>
-	
-	<select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizCard">
-		SELECT 
-			<include refid="bckjBizCardColumns"/>
-		FROM bckj_biz_card a
-		<include refid="bckjBizCardJoins"/>
-		<where>
-			
-			<if test="name != null and name != ''">
-				AND a.name LIKE 
-					<if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
-					<if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
-					<if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
-			</if>
-			<if test="number != null and number != ''">
-				AND a.number = #{number}
-			</if>
-		</where>
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-		<select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizCard">
-	        SELECT
-			b.zxlb AS zxlb,
-			b.xklb AS xklb,
-			b.bklb AS bklb,
-			b.rzbd AS rzbd,
-			b.xzzymc AS xzzymc,
-			<include refid="bckjBizCardColumns"/>
-		FROM   bckj_biz_bm b
-		RIGHT JOIN	bckj_biz_card a ON a.number = b.sfzh
-		<include refid="bckjBizCardJoins"/>
-		<where>
-			<if test="name != null and name != ''">
-				AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test="number != null and number != ''">
-				AND a.number = #{number}
-			</if>
-			<if test="exp1 != null and exp1 != ''">
-				AND a.exp1 = #{exp1}
-			</if>
-			<if test="isBm != null and isBm != ''">
-				AND a.is_bm = #{isBm}
-			</if>
-			<if test="createtime1 != null and createtime1 !=''  ">
-				AND a.createtime &gt;= #{createtime1}
-			</if>
-			<if test="createtime2 != null and createtime2 !=''  ">
-				AND a.createtime &lt;= #{createtime2}
-			</if>
-		</where>
-		<choose>
-			<when test="orderBy != null and orderBy != ''">
-				ORDER BY ${orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	<select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizCard">
-		SELECT 
-			<include refid="bckjBizCardColumns"/>
-		FROM bckj_biz_card a
-		<include refid="bckjBizCardJoins"/>
-		<where>
-			
-		</where>		
-		<choose>
-			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
-				ORDER BY ${page.orderBy}
-			</when>
-			<otherwise>
-			</otherwise>
-		</choose>
-	</select>
-	
-	<insert id="insert">
+
+    <sql id="bckjBizCardJoins">
+    </sql>
+
+    <select id="get" resultType="com.zghzbckj.manage.entity.BckjBizCard">
+        SELECT
+        <include refid="bckjBizCardColumns"/>
+        FROM bckj_biz_card a
+        <include refid="bckjBizCardJoins"/>
+        WHERE a.owid = #{owid}
+    </select>
+
+    <select id="findList" resultType="com.zghzbckj.manage.entity.BckjBizCard">
+        SELECT
+        <include refid="bckjBizCardColumns"/>
+        FROM bckj_biz_card a
+        <include refid="bckjBizCardJoins"/>
+        <where>
+
+            <if test="name != null and name != ''">
+                AND a.name LIKE
+                <if test="dbName == 'oracle'">'%'||#{name}||'%'</if>
+                <if test="dbName == 'mssql'">'%'+#{name}+'%'</if>
+                <if test="dbName == 'mysql'">concat('%',#{name},'%')</if>
+            </if>
+            <if test="number != null and number != ''">
+                AND a.number = #{number}
+            </if>
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizCard">
+        SELECT
+        b.zxlb AS zxlb,
+        b.xklb AS xklb,
+        b.bklb AS bklb,
+        b.rzbd AS rzbd,
+        b.xzzymc AS xzzymc,
+        <include refid="bckjBizCardColumns"/>
+        FROM bckj_biz_bm b
+        RIGHT JOIN bckj_biz_card a ON a.number = b.sfzh
+        <include refid="bckjBizCardJoins"/>
+        <where>
+            <if test="name != null and name != ''">
+                AND a.name LIKE concat('%',#{name,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="number != null and number != ''">
+                AND a.number = #{number}
+            </if>
+            <if test="exp1 != null and exp1 != ''">
+                AND a.exp1 = #{exp1}
+            </if>
+            <if test="isBm != null and isBm != ''">
+                AND a.is_bm = #{isBm}
+            </if>
+            <if test="createtime1 != null and createtime1 !=''  ">
+                AND a.createtime &gt;= #{createtime1}
+            </if>
+            <if test="createtime2 != null and createtime2 !=''  ">
+                AND a.createtime &lt;= #{createtime2}
+            </if>
+            <if test=" cj != null and cj != '' ">
+                AND b.state>7
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+    <select id="findAllList" resultType="com.zghzbckj.manage.entity.BckjBizCard">
+        SELECT
+        <include refid="bckjBizCardColumns"/>
+        FROM bckj_biz_card a
+        <include refid="bckjBizCardJoins"/>
+        <where>
+
+        </where>
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY ${page.orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
 		INSERT INTO bckj_biz_card(
 			owid,
 			head_image,
@@ -211,8 +214,8 @@
 			#{exp10}
 		)
 	</insert>
-	
-	<update id="update">
+
+    <update id="update">
 		UPDATE bckj_biz_card SET 	
 			owid = #{owid},
 			head_image = #{headImage},
@@ -223,7 +226,7 @@
 			address = #{address},
 			validterm = #{validterm},
 			is_pass = #{isPass},
-			is_bm = #{Bm},
+			is_bm = #{isBm},
 			number = #{number},
 			face_value = #{faceValue},
 			face_image = #{faceImage},
@@ -253,10 +256,10 @@
 			exp10 = #{exp10}
 		WHERE owid = #{owid}
 	</update>
-	
-	<delete id="delete">
+
+    <delete id="delete">
 		DELETE FROM bckj_biz_card
 		WHERE owid = #{owid}
 	</delete>
-	
+
 </mapper>

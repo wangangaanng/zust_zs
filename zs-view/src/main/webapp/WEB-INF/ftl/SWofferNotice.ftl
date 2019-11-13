@@ -13,25 +13,31 @@
         <#break>
 </#switch>
 <#include "com/SWtip.ftl">
-    <ul class="list-group row" style="padding: 60px 50px;">
-        <div class="grade-result row">
-        </div>
-        <li class="list-group-item col-sm-offset-2 col-sm-8">
-            <label class="group-label">${fileName}：</label>
-            <a type="button" class="btn btn-default fr preview-btn" target="_blank" href="${imagePath}${filePath}">预览${fileName}</a>
-        </li>
-        <li class="list-group-item col-sm-offset-2 col-sm-8">
-            <label class="group-label">邮箱地址：</label>
-            <label class="group-value fr" style="width: 70%">
-                <input type="text" class="form-control" name="email" id="email"  value="${(email??&&email!="")?string(email,'')}" placeholder="请输入邮箱" style="text-align: right;background: inherit">
-            </label>
-        </li>
-        <div class="form-group">
-            <div class="col-sm-12 text-center" style="margin-top: 60px;">
-                <button type="submit" id="sendMail" class="btn btn-default btn-common yellow">确认发送</button>
+    <#if filePath??&&filePath!="">
+        <ul class="list-group row" style="padding: 60px 50px;">
+            <div class="grade-result row">
             </div>
-        </div>
-    </ul>
+            <li class="list-group-item col-sm-offset-2 col-sm-8">
+                <label class="group-label">${fileName!""}：</label>
+                <a type="button" class="btn btn-default fr preview-btn" target="_blank" href="${imagePath}${filePath!""}">预览${fileName!""}</a>
+            </li>
+            <li class="list-group-item col-sm-offset-2 col-sm-8">
+                <label class="group-label">邮箱地址：</label>
+                <label class="group-value fr" style="width: 70%">
+                    <input type="text" class="form-control" name="email" id="email"  value="${(email??&&email!="")?string(email,'')}" placeholder="请输入邮箱" style="text-align: right;background: inherit">
+                </label>
+            </li>
+            <div class="form-group">
+                <div class="col-sm-12 text-center" style="margin-top: 60px;">
+                    <button type="submit" id="sendMail" class="btn btn-default btn-common yellow">确认发送</button>
+                </div>
+            </div>
+        </ul>
+    <#else>
+    <div class="null-txt">
+        <p style="padding: 20px;">${upErrrMess!"请等待系统生成面试单"}</p>
+    </div>
+    </#if>
 </div>
 <script>
     <#if fileName=="报名表">

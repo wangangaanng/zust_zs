@@ -134,9 +134,9 @@
             <if test="createtime1 != null and createtime1 !=''  ">
                 AND a.createtime &gt;= #{createtime1}
             </if>
-			<if test="yhRefOwid != null and yhRefOwid !=''  ">
-				AND a.yh_ref_owid =#{yhRefOwid}
-			</if>
+            <if test="yhRefOwid != null and yhRefOwid !=''  ">
+                AND a.yh_ref_owid =#{yhRefOwid}
+            </if>
             <if test="createtime2 != null and createtime2 !=''  ">
                 AND a.createtime &lt;= #{createtime2}
             </if>
@@ -384,12 +384,12 @@
 		WHERE owid = #{owid}
 	</delete>
 
-	<select id="countNumber" parameterType="Map" resultType="java.lang.Integer">
-		SELECT
-		count(1)
-		from bckj_biz_yhxx a where a.yhlx =3
- 		<where>
-		</where>
-	</select>
+    <select id="countNumber" parameterType="Map" resultType="java.lang.Integer">
+        SELECT
+        count(1)
+        from bckj_biz_yhxx a where a.yhlx =3 and a.state = 1
+        <where>
+        </where>
+    </select>
 
 </mapper>

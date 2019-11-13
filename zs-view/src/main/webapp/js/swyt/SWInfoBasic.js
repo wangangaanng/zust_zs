@@ -353,7 +353,6 @@ function process(e) {
             $("#contactForm").hide();
             $("#gradeForm").hide();
             $("#selectForm").show();
-            $('#selectForm').find('.uploadlabel').remove()
             break;
     }
 }
