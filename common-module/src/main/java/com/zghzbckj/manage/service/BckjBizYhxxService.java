@@ -458,12 +458,18 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             //获得总人数
             String Sum = this.dao.getYhxxQdSum(dataMap);
             //签到未成功人数
+            page = new Page<>(pageNo, pageSize);
+            dataMap.put("page", page);
             String NoSuccessSum = this.dao.getYhxxQdNoSuccessSum(dataMap);
             //签到成功人数
+            page = new Page<>(pageNo, pageSize);
+            dataMap.put("page", page);
             String SuccessSum = this.dao.getYhxxQdSuccessSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
             resMap.put("xsxh", "签到总人数：" + Sum + "其中 成功人数:" + SuccessSum + "未成功人数:" + NoSuccessSum);
             resMap.put("readonly", true);
+            page = new Page<>(pageNo, pageSize);
+            dataMap.put("page", page);
             resLists = this.dao.getYhxxQdInfo(dataMap);
             resLists.add(0, resMap);
         }
@@ -473,15 +479,20 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             Map<String, Object> resMap = Maps.newHashMap();
             resMap.put("xsxh", "关注总人数：" + sum);
             resMap.put("readonly", true);
+            page = new Page<>(pageNo, pageSize);
+            dataMap.put("page", page);
             resLists = this.dao.getYhxxGzInfo(dataMap);
             resLists.add(0, resMap);
         }
         //如果为报名
         if (type == 2) {
+            dataMap.put("page", page);
             String sum = this.dao.getYhxxBmSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
             resMap.put("xsxh", "报名总人数：" + sum);
             resMap.put("readonly", true);
+            page = new Page<>(pageNo, pageSize);
+            dataMap.put("page", page);
             resLists = this.dao.getYhxxBmInfo(dataMap);
             resLists.add(0, resMap);
         }
