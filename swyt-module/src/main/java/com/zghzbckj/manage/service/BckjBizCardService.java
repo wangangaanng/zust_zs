@@ -41,7 +41,7 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
     private static final Logger log = Logger.getLogger(BckjBizCardService.class);
     @Autowired
     BckjBizBmDao bckjBizBmDao;
-@Autowired
+    @Autowired
     BckjBizBmService bckjBizBmService;
 
     @Override
@@ -88,8 +88,6 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
             dataMap.put("createtime2", date);
         }
-        //报名表状态>7
-        dataMap.put("cj", 1);
         PageInfo<BckjBizCard> page = findPage(dataMap, pageNo, pageSize, " a.createtime desc ");
 
         List<BckjBizCard> records = page.getRecords();
@@ -173,13 +171,17 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
         if (null == bm) {
             MyWebSocket.sendInfo("-1:" + appBizCard.getNumber() + ":" + appBizCard.getName() + ":-:-:-");
             appBizCard.setIsBm(0);
+            saveOrUpdate(appBizCard);
             return;
         } else {
             appBizCard.setIsBm(1);
+            saveOrUpdate(appBizCard);
         }
-        saveOrUpdate(appBizCard);
-        MyWebSocket.sendInfo("0:" + appBizCard.getNumber() + ":" + appBizCard.getName() + ":" + bm.getZkzh() + ":" + bm.getXzzymc() + ":" + bm.getMssj());
-        if (appBizCard.getIsPass() == 0) {
+        if(null==bm.getMssj()){
+            MyWebSocket.sendInfo("0:" + appBizCard.getNumber() + ":" + appBizCard.getName() + ":" + bm.getZkzh() + ":" + bm.getXzzymc() + ":" + "无面试时间");
+        }else {
+            MyWebSocket.sendInfo("0:" + appBizCard.getNumber() + ":" + appBizCard.getName() + ":" + bm.getZkzh() + ":" + bm.getXzzymc() + ":" + bm.getMssj());
+        }if (appBizCard.getIsPass() == 0) {
             bm.setRzbd(1);
         } else {
             //未通过
