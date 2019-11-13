@@ -32,7 +32,7 @@ Page({
     let pageTitle = '';
     switch (options.type){
       case 'group':
-        pageTitle = '面试分组';
+        pageTitle = '面试时间';
         break;
       break;
       case 'grade':
