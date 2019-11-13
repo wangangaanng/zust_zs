@@ -486,7 +486,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         }
         //如果为报名
         if (type == 2) {
-            dataMap.put("page", page);
             String sum = this.dao.getYhxxBmSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
             resMap.put("xsxh", "报名总人数：" + sum);

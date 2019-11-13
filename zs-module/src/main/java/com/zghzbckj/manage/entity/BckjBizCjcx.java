@@ -44,16 +44,16 @@ public class BckjBizCjcx extends DataWithExpEntity<BckjBizCjcx> {
 	private String kstc;		// kstc
 	private String ksjlhcf;		// ksjlhcf
 	private String sjr;		// sjr
-	private BigDecimal tdcj;		// tdcj
+	private String tdcj;		// tdcj
 	private String tdzy;		// tdzy
-	private BigDecimal yw;		// yw
-	private BigDecimal sx;		// sx
-	private BigDecimal wy;		// wy
-	private BigDecimal zhw;		// zhw
-	private BigDecimal zhl;		// zhl
-	private BigDecimal mk;		// mk
-	private BigDecimal mscj;		// mscj
-	private BigDecimal mszhcj;		// mszhcj
+	private String yw;		// yw
+	private String sx;		// sx
+	private String wy;		// wy
+	private String zhw;		// zhw
+	private String zhl;		// zhl
+	private String mk;		// mk
+	private String mscj;		// mscj
+	private String mszhcj;		// mszhcj
 	private String xy;		// xy
 	private String xz;		// 一年，四年，三年
 	private String lp;		// lp
@@ -294,11 +294,11 @@ public class BckjBizCjcx extends DataWithExpEntity<BckjBizCjcx> {
 		this.sjr = sjr;
 	}
 	
-	public BigDecimal getTdcj() {
+	public String getTdcj() {
 		return tdcj;
 	}
 
-	public void setTdcj(BigDecimal tdcj) {
+	public void setTdcj(String tdcj) {
 		this.tdcj = tdcj;
 	}
 	
@@ -311,67 +311,67 @@ public class BckjBizCjcx extends DataWithExpEntity<BckjBizCjcx> {
 		this.tdzy = tdzy;
 	}
 	
-	public BigDecimal getYw() {
+	public String getYw() {
 		return yw;
 	}
 
-	public void setYw(BigDecimal yw) {
+	public void setYw(String yw) {
 		this.yw = yw;
 	}
 	
-	public BigDecimal getSx() {
+	public String getSx() {
 		return sx;
 	}
 
-	public void setSx(BigDecimal sx) {
+	public void setSx(String sx) {
 		this.sx = sx;
 	}
 	
-	public BigDecimal getWy() {
+	public String getWy() {
 		return wy;
 	}
 
-	public void setWy(BigDecimal wy) {
+	public void setWy(String wy) {
 		this.wy = wy;
 	}
 	
-	public BigDecimal getZhw() {
+	public String getZhw() {
 		return zhw;
 	}
 
-	public void setZhw(BigDecimal zhw) {
+	public void setZhw(String zhw) {
 		this.zhw = zhw;
 	}
 	
-	public BigDecimal getZhl() {
+	public String getZhl() {
 		return zhl;
 	}
 
-	public void setZhl(BigDecimal zhl) {
+	public void setZhl(String zhl) {
 		this.zhl = zhl;
 	}
 	
-	public BigDecimal getMk() {
+	public String getMk() {
 		return mk;
 	}
 
-	public void setMk(BigDecimal mk) {
+	public void setMk(String mk) {
 		this.mk = mk;
 	}
 	
-	public BigDecimal getMscj() {
+	public String getMscj() {
 		return mscj;
 	}
 
-	public void setMscj(BigDecimal mscj) {
+	public void setMscj(String mscj) {
 		this.mscj = mscj;
 	}
 	
-	public BigDecimal getMszhcj() {
+	public String getMszhcj() {
 		return mszhcj;
 	}
 
-	public void setMszhcj(BigDecimal mszhcj) {
+	public void setMszhcj(String mszhcj) {
 		this.mszhcj = mszhcj;
 	}
 	

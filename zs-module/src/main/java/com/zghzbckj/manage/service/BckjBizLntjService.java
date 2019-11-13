@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -208,9 +209,11 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
             colList.add(data.getZy());
             colList.add(data.getXz());
             colList.add(data.getLqs().toString());
-            colList.add(data.getZdf().toPlainString());
-            colList.add(data.getZdf().toPlainString());
-            colList.add(data.getPjf().toPlainString());
+            colList.add(data.getZdf());
+            colList.add(data.getZdf());
+            colList.add(data.getPjf());
+            BigDecimal b=new BigDecimal(22);
+
             excelList.add(colList);
         }
         ExcelUtils.writeContentToExcel(title, excelList, filePath + fileOutPath);

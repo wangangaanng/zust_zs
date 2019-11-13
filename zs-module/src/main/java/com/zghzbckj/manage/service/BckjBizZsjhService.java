@@ -201,7 +201,7 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
             colList.add(data.getZy());
             colList.add(data.getXz());
             colList.add(data.getZss().toString());
-            colList.add(data.getXf().toPlainString());
+            colList.add(data.getXf());
             colList.add(data.getSyxw());
             excelList.add(colList);
         }
