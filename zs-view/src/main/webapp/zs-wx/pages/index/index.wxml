@@ -2,7 +2,7 @@
 <swiper class='index-swiper' indicator-dots="true" autoplay="true" indicator-color="#ffffff" indicator-active-color="#008783">
   <block wx:for="{{imgUrls}}" wx:key="{{index}}">
     <swiper-item>
-      <image src='{{imgPath+item.xsbt}}' data-owid="{{item.owid}}"></image>
+      <image src='{{imgPath+item.xsbt}}' mode="scaleToFill" data-owid="{{item.owid}}"></image>
     </swiper-item>
   </block>
 </swiper>
@@ -20,7 +20,7 @@
     <view class="uni-list-cell" hover-class="uni-list-cell-hover" data-owid="{{item.owid}}" bindtap="newsDetail">
       <view class="uni-media-list">
         <view class="news-image">
-          <image src="{{imgPath}}{{item.tpjj}}"></image>
+          <image src="{{item.tpjj?imgPath+item.tpjj:defaultimg}}"></image>
         </view>
         <view class="uni-media-list-body">
           <view class="uni-media-list-text-top" >{{item.wzbt}}</view>

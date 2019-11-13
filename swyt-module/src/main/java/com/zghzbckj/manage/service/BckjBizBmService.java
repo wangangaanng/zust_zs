@@ -146,8 +146,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     }
 
 
-
-    public PageInfo<BckjBizBm> getHistoryList(List<FilterModel> filters,  Integer pageNo, Integer pageSize) {
+    public PageInfo<BckjBizBm> getHistoryList(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Integer codtionState = null;
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("sqsj2"))) {
@@ -470,7 +469,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         String fileName = bm.getOwid() + File.separator + SwytConstant.SWTYSQB;
 
-        if (bm.getState()>0) {
+        if (bm.getState() > 0) {
             return SwytConstant.SWTYFILEPATH + File.separator + fileName;
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
@@ -785,6 +784,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         Map<String, Object> params = Maps.newHashMap();
         int total = 0;
         for (Map<String, Object> bm : bmList) {
+            objectMap = Maps.newHashMap();
             if (1 == type) {
                 objectMap.put("name", MapUtils.getString(bm, "xklb"));
             }
