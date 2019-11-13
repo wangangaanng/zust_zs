@@ -437,7 +437,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         String fileName = bm.getOwid() + File.separator + SwytConstant.SWTYSQB;
 
-        if (bm.getState() != 0) {
+        if (bm.getState()>0) {
             return SwytConstant.SWTYFILEPATH + File.separator + fileName;
         }
         String[] bmStrs = {"xklb", "wyyz", "bklb", "xzzymc",
