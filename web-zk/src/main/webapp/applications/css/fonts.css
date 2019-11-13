@@ -129,4 +129,28 @@
 .xsfw:before {  content: "\00C2";  }
 .lxwm:before {  content: "\00C1";  }
 
+/*2019/11/13 add S  +++++++++++++++++++++++++++*/
+/*系统配置*/
+.xtpz:before {  content: "\00B5";  } /*系统配置*/
+/*文章中心*/
+.zsdt:before {  content: "\02DB";  } /*招生动态*/
+.hzbx:before {  content: "\017C";  }/*合作办学*/
+.zsjh:before {  content: "\015F";  }/*招生计划*/
+.zszc:before {  content: "\00B0";  }/*招生政策*/
+.zxzx:before {  content: "\00B1";  }/*在线咨询*/
+.xyzy:before {  content: "\00B7";  }/*学院专业*/
+.xzky:before {  content: "\02DD";  }/*学在科院*/
+.jzxj:before {  content: "\0105";  }/*奖助学金*/
+.zsjz:before {  content: "\015F";  }/*招生简章*/
+/*招生管理*/
+.zsjz:before {  content: "\00BB";  }/*招生管理*/
+.zsbm:before {  content: "\013D";  }/*考生报名管理*/
+/*校园开放日和合作办学相同 hzbx*/
+.zsly:before {  content: "\0154";  }/*招生留言*/
+/*学院专业维护 与学院专业同 .xyzy*/
+.kyly:before {  content: "\00B6";  }/*科院略影*/
+.gggl:before {  content: "\00B8";  }/*广告管理*/
+
+
+
 

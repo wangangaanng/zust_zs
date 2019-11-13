@@ -27,7 +27,7 @@ public class BckjBizZsjh extends DataWithExpEntity<BckjBizZsjh> {
 	private String zy;		// zy
 	private String xz;		// 一年，四年，三年
 	private Integer zss;		// zss
-	private BigDecimal xf;		// xf
+	private String xf;		// xf
 	private String syxw;		// syxw
 
 	public boolean isReadOnly() {
@@ -117,11 +117,11 @@ public class BckjBizZsjh extends DataWithExpEntity<BckjBizZsjh> {
 		this.zss = zss;
 	}
 	
-	public BigDecimal getXf() {
+	public String getXf() {
 		return xf;
 	}
 
-	public void setXf(BigDecimal xf) {
+	public void setXf(String xf) {
 		this.xf = xf;
 	}
 	

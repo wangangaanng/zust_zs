@@ -228,7 +228,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         }
         //      --------->>  王显弘改  开始
         if (state == 5 || state == 7|| state == 8) {
-            dataMap.put("wait", 1);
+            /*dataMap.put("wait", 1);
             page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
             List<BckjBizJob> records = page.getRecords();
             for (BckjBizJob bckjBizJob : records) {
@@ -245,7 +245,18 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
             page.setTotalCount(page.getTotalCount() + page2.getTotalCount());
             records.addAll(records2);
-            page.setRecords(records);
+            page.setRecords(records);*/
+            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+            List<BckjBizJob> records = page.getRecords();
+            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            String format = simpleDateFormat.format(new Date());
+            for (BckjBizJob bckjBizJob:records){
+                if(bckjBizJob.getZphKsrq().equals(DateUtil.getDate(format,"yyyy-MM-dd"))||bckjBizJob.getZphKsrq().after(DateUtil.getDate(format,"yyyy-MM-dd"))){
+                    bckjBizJob.setState(2);
+                } else {
+                    bckjBizJob.setState(1);
+                }
+            }
         } else {
             //《--------------------    结束
                 page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
