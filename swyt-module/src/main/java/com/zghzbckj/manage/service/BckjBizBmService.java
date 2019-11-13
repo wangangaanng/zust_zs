@@ -415,6 +415,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         bm.setJfpzZp(MapUtils.getString(mapData, "jfpzZp"));
         bm.setJfsj(DateUtil.getDate(MapUtils.getString(mapData, "jfsj"), CommonConstant.DATE_FROMART));
         bm.setState(6);
+        bm.setJjly(null);
         bm.setXybnr(SwytConstant.BMDDQR);
         saveOrUpdate(bm);
         return Boolean.TRUE;
