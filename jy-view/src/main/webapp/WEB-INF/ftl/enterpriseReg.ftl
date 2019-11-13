@@ -47,7 +47,7 @@
                     </div>
                     <div class="upload-sm">上传营业执照自动识别统一信用代码<span class="red">*</span></div>
                 </div>
-                <div class="form-group">
+                <#--<div class="form-group">
                     <label for="qyFrsfz" class="col-sm-2 control-label">法人身份证号<span class="red">*</span>：</label>
                     <div class="col-sm-8">
                         <input type="text" class="form-control" id="qyFrsfz" name="qyFrsfz" placeholder="" autocomplete="off">
@@ -57,7 +57,7 @@
                         <img src="${base}/img/upload.png" id="sfz" alt="" />
                     </div>
                     <div class="upload-sm">上传法人身份证正面照，自动识别、填充</div>
-                </div>
+                </div>-->
                 <div class="form-group">
                     <label for="qyFrdbxm" class="col-sm-2 control-label">法人姓名<span class="red">*</span>：</label>
                     <div class="col-sm-10">
@@ -375,10 +375,10 @@
             $("#registerForm").validate({
                 rules: {
                     qyTysh:"required",
-                    qyFrsfz:{
-                        required: true,
-                        isIdCardNo: true
-                    },
+                    // qyFrsfz:{
+                    //     required: true,
+                    //     isIdCardNo: true
+                    // },
                     qyFrdbxm:"required",
                     qymc:"required",
                     qyZczj:"required",
@@ -406,10 +406,10 @@
                 },
                 messages: {
                     qyTysh: "请填写",
-                    qyFrsfz:  {
-                        required: "请填写",
-                        isIdCardNo: "请填写正确身份证号码"
-                    },
+                    // qyFrsfz:  {
+                    //     required: "请填写",
+                    //     isIdCardNo: "请填写正确身份证号码"
+                    // },
                     qyFrdbxm: "请填写",
                     qymc: "请填写",
                     qyZczj:"请填写",
@@ -474,21 +474,17 @@
                 title: '提示',
                 btn:['确定','取消'],
                 skin: 'layui-layer-rim', //加上边框
-                area: ['400px', '300px'], //宽高
+                area: ['400px', '240px'], //宽高
                 content: '  <div class="lxr-modal">' +
                 '              <div class="row">\n'+
                 '                <label class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">企业税号：</label>\n' +
                 '                <div class="col-sm-7" style="padding:0;line-height: 34px;">\n' +$("#qyTysh").val()+
                 '                </div>' +
                 '             </div>' +
-                '             <div class="row">\n' +
-                '                <label class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">法人身份证号：</label>\n' +
-                '                <div class="col-sm-7" style="padding:0;line-height: 34px;">\n' +$("#qyFrsfz").val()+
-                '                </div>\n' +
-                '             </div>\n' +
                 '           <div class="col-sm-11 col-sm-offset-1">请确认您的注册信息，点击确定进行注册，点击取消进行修改。</div></div>' ,
                 btn1:function(index, layero){
                     var jsonObj = $("#registerForm").serializeObject()
+                    jsonObj.qyFrsfz=$("#qyTysh").val()
                     ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
                         if(data.backCode==0){
                             layer.open({
@@ -498,6 +494,7 @@
                                 yes: function(index1, layero){
                                     window.location.href="${base}/";
                                     layer.close(index1);
+                                    layer.close(index);
                                 }
                             });
                         }else{

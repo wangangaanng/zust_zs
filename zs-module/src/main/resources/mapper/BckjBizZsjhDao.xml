@@ -185,16 +185,16 @@
 				a.nf like concat('%',#{nf, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="pc !=null and pc !=''">
-				and a.pc=#{pc}
+				and a.pc like concat('%',#{pc, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="sf !=null and sf !=''">
 				and a.sf=#{sf}
 			</if>
 			<if test="kl !=null and kl!='' ">
-				and a.kl=#{kl}
+				and a.kl like concat('%',#{kl, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 			<if test="zy !=null and zy!='' ">
-				and a.zy=#{zy}
+				and a.zy like concat('%',#{zy, jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
 		</where>
 		<choose>

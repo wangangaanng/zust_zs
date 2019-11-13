@@ -25,12 +25,34 @@ function swYtLogin() {
         swZh:swZh,
         swMm:swMm
     }
-    ajax('zustcommon/bckjBizYhxx/swYtLogin',data,function (res) {
+    $.ajax({
+        url: localUrl,//'http://localhost:8011/webAjax/executeAPI/',//'https://job.zust.edu.cn//gate/'+method,
+        data: {
+            "method": 'zustcommon/bckjBizYhxx/swYtLogin',
+            "data": JSON.stringify(data),
+            timestamp: new Date().getTime()
+        },
+        method: 'POST',
+        success: function (res) {
+            finishLoad();
+            if(res.backCode==0){
+                addCookie('swOwid',res.bean.owid);
+                window.location.href=base+'/trinityEnrollment/0';
+            }else{
+                walert(res.errorMess)
+            }
+        },
+        error: function (err) {
+            finishLoad();
+            walert('系统出错');
+        }
+    })
+   /* ajax('zustcommon/bckjBizYhxx/swYtLogin',data,function (res) {
         if(res.backCode==0){
             addCookie('swOwid',res.bean.owid);
             window.location.href=base+'/trinityEnrollment/0';
         }else {
             walert(res.errorMess)
         }
-    })
+    })*/
 }

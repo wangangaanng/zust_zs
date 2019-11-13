@@ -38,7 +38,7 @@ function keySearch(){
 
 //判断登录过期
 function isTimeOut() {
-    var url = window.location.href;;
+    var url = window.location.href;
     url = url.split("trinityEnrollment")[0];
     if(!getCookie("swOwid")){
         walert("登录超时，请重新登录");

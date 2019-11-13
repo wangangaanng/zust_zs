@@ -95,6 +95,9 @@
 			<if test="swZh != null and swZh !=''  ">
 				AND a.sw_zh= #{swZh}
 			</if>
+			<if test="state != null and state !=''  ">
+				AND a.state= #{state}
+			</if>
 			<if test="xm != null and xm != ''">
 				AND a.xm LIKE concat('%',#{xm,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
@@ -896,6 +899,12 @@
 				and a.exp8=#{exp8}
 			</if>
 		</where>
+	</select>
+
+
+	<select id="getCaOpDayDateList" parameterType="Map" resultType="Map">
+		SELECT b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2 from ourway_sys_dic a ,ourway_sys_dic_value b
+		where a.owid =b.dic_ref_owid and a.type =70000
 	</select>
 
 </mapper>

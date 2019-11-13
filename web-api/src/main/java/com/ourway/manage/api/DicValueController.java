@@ -211,6 +211,25 @@ public class DicValueController {
     }
 
 
+    @RequestMapping(value = "fileJsfj", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage fileJsfj(HttpServletRequest request, HttpServletResponse response,
+                                         PublicDataVO data) {
+        List<Map<String, Object>> datas = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map = new HashMap<>();
+        map.put("fileName", "竞赛附件");
+        map.put("fileExt", "PDF,DOC,DOCX,JPG,PNG,JPEG,RAR,ZIP,XLS,XLSX");
+        map.put("fileDesc", "只能上传.pdf文件和.doc文件和.docx文件和.jpg文件和.png文件和.jpeg文件和.rar文件和.zip文件和.xls文件和.xlsx文件");
+        map.put("fileTemplate", null);
+        map.put("fileTemplateExten", "");
+        map.put("fileCode", "BckjBizJbxx");
+        map.put("fileNum", "-1");
+        datas.add(map);
+        return ResponseMessage.sendOK(datas);
+    }
+
+
+
     @RequestMapping(value = "removeFiles", method = RequestMethod.POST)
     @ResponseBody
     public ResponseMessage removeFiles(PublicDataVO dataVO) {

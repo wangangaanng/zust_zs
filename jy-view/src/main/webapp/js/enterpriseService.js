@@ -141,7 +141,7 @@ $(document).ready(function () {
         rules: {
             qymc:"required",
             qyTysh:"required",
-            qyFrsfz:"required",
+            // qyFrsfz:"required",
             qydz:"required",
             qyZczj:"required",
             qyProv:"required",
@@ -165,7 +165,7 @@ $(document).ready(function () {
         messages: {
             qymc: "请填写",
             qyTysh:"请填写",
-            qyFrsfz:"请填写",
+            // qyFrsfz:"请填写",
             qydz: "请填写",
             qyZczj: "请填写",
             qyProv: "请选择",
@@ -218,6 +218,7 @@ function fixCompany() {
     if(!isTimeOut()){
         var jsonObj = $("#registerForm").serializeObject()
         jsonObj.owid=getCookie("qyOwid")
+        jsonObj.qyFrsfz=$("#qyTysh").val()
         // console.log(jsonObj)
         ajax("zustjy/bckjBizQyxx/fixCompany", jsonObj, function (data) {
             if(data.backCode==0){

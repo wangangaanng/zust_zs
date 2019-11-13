@@ -17,9 +17,7 @@ import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
-import com.zghzbckj.manage.entity.BckjBizUserlog;
-import com.zghzbckj.manage.entity.BckjBizYhgl;
-import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
@@ -100,6 +98,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if(!TextUtils.isEmpty(state)){
             dataMap.put("yhlx",state);
         }
+        dataMap.put("state",1);
+
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
             dataMap.put("createtime2", date);
@@ -172,50 +172,82 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage logIn(Map<String, Object> datamap) throws ParseException {
+        BckjBizSyb oneBySfz=null;
         Map<String, Object> resMap = Maps.newHashMap();
         //根据账号登入
         Map<String, Object> map = this.dao.logIn(datamap);
         if (TextUtils.isEmpty(map)) {
             map = this.dao.logInBySfz(datamap);
-            if (TextUtils.isEmpty(map)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
-            }
-        }
-        if (!(datamap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString()))) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.PasswordError);
-        }
-        //如果不是为学生
-        if (Integer.parseInt(map.get("olx").toString()) != 0) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
-        }
-        //根据学号去查询毕业年份如果已毕业则不能登入
-      /*  Map<String, Object> bynfMap = bckjBizSybService.getBynfBySfz(map);
-        if (!TextUtils.isEmpty(bynfMap)) {
-            if (!TextUtils.isEmpty(bynfMap.get("bynf"))) {
-                String REGEX_CHINESE = "[\u4e00-\u9fa5]";//中文正则
-                // 去除中文
-                Pattern pat = Pattern.compile(REGEX_CHINESE);
-                Matcher mat = pat.matcher(bynfMap.get("bynf").toString());
-                String year = mat.replaceAll("").substring(0, 4);
-                String month = "07";
-                String day = "01";
-                String dateStr = (year + "-" + month + "-" + day);
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Date byDate = sdf.parse(dateStr);
-                Date currentDate = new Date();
-                if (byDate.before(currentDate)) {
+             if (TextUtils.isEmpty(map)) {
+                 datamap.put("sfz",datamap.get("yhDlzh").toString());
+                 oneBySfz = bckjBizSybService.getOneBySfz(datamap);
+                 datamap.remove("sfz");
+                if(TextUtils.isEmpty(oneBySfz)){
+                    oneBySfz= bckjBizSybService.getOneByXsxh(datamap.get("yhDlzh").toString());
+                }
+                if(TextUtils.isEmpty(oneBySfz)){
                     return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
                 }
             }
-        }*/
-        //如果为学生的小程序登入
+        }
+        if(!TextUtils.isEmpty(map)){
+            if (!(datamap.get("yhDlmm").toString().equalsIgnoreCase(map.get("yhDlmm").toString()))) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.PasswordError);
+            }
+            //如果不是为学生
+            if (Integer.parseInt(map.get("olx").toString()) != 0) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.NoAccounctExists);
+            }
+        }
+        if(!TextUtils.isEmpty(oneBySfz)){
+            if (!(datamap.get("yhDlmm").toString().equalsIgnoreCase(TextUtils.MD5(oneBySfz.getSfz().substring(oneBySfz.getSfz().length()-6))))) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.PasswordError);
+            }
+        }
+        BckjBizYhxx bckjBizYhxx = null;
+        BckjBizYhkz bckjBizYhkz=null;
+        if(!com.zghzbckj.util.TextUtils.isEmpty(oneBySfz)&&com.zghzbckj.util.TextUtils.isEmpty(map)){
 
+            bckjBizYhxx=new BckjBizYhxx();
+            bckjBizYhkz=new BckjBizYhkz();
+            bckjBizYhxx.setXm(oneBySfz.getXm());
+            bckjBizYhxx.setSfz(oneBySfz.getSfz());
+            bckjBizYhxx.setYhDlmm(TextUtils.MD5(oneBySfz.getSfz().substring(oneBySfz.getSfz().length()-6)));
+            if(!TextUtils.isEmpty(oneBySfz.getSjh())){
+                bckjBizYhxx.setSjh(oneBySfz.getSjh());
+            }
+            if(!com.zghzbckj.util.TextUtils.isEmpty(oneBySfz.getXsxh())){
+                bckjBizYhkz.setXsxh(oneBySfz.getXsxh());
+                bckjBizYhxx.setYhDlzh(oneBySfz.getXsxh());
+            }
+            bckjBizYhkz.setOlx(0);
+            bckjBizYhxx.setYhlx(1);
+            if(!TextUtils.isEmpty(oneBySfz.getXb())) {
+                bckjBizYhxx.setXb(oneBySfz.getXb());
+            }
+            if(!TextUtils.isEmpty(oneBySfz.getCsrq())) {
+                bckjBizYhxx.setCsrq(oneBySfz.getCsrq());
+            }
+            if(!TextUtils.isEmpty(oneBySfz.getMz())) {
+                bckjBizYhxx.setMz(oneBySfz.getMz());
+            }
+            if(!TextUtils.isEmpty(oneBySfz.getYhRefOwid())) {
+                bckjBizYhxx.setOwid(oneBySfz.getYhRefOwid());
+                bckjBizYhkz.setYhRefOwid(oneBySfz.getYhRefOwid());
+            }
+            bckjBizYhkz.setXsxy(oneBySfz.getXsxy());
+            bckjBizYhkz.setXsbj(oneBySfz.getXsbj());
+            bckjBizYhkz.setXszy(oneBySfz.getXszy());
+            bckjBizYhkzService.saveOrUpdate(bckjBizYhkz);
+            insert(bckjBizYhxx);
+        }
+        //如果为学生的小程序登入
         if (!TextUtils.isEmpty(datamap.get("type")) && datamap.get("type").toString().indexOf("xcx") != -1) {
             ValidateMsg msg = ValidateUtils.isEmpty(datamap, "unionid", "openid", "wxid");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            BckjBizYhxx bckjBizYhxx = this.dao.getOneByCondition(map);
+            bckjBizYhxx=this.dao.getOneByCondition(map);
             BckjBizYhgl bckjBizYhgl = new BckjBizYhgl();
             bckjBizYhxx.setUnionid(datamap.get("unionid").toString());
             bckjBizYhgl.setOpenid(datamap.get("openid").toString());
@@ -245,14 +277,25 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
         }
         //设置最近登录时间
-        this.dao.updateDlsj(map.get("owid").toString());
-        resMap.put("olx", map.get("olx"));
-        resMap.put("owid", map.get("owid"));
-        resMap.put("yhtx", map.get("yhtx"));
-        resMap.put("sjh", map.get("sjh"));
-        resMap.put("xsxh", map.get("xsxh"));
-        resMap.put("xm", map.get("xm"));
-        addLog(map);
+        if(!com.zghzbckj.util.TextUtils.isEmpty(map)){
+            this.dao.updateDlsj(map.get("owid").toString());
+            resMap.put("olx", map.get("olx"));
+            resMap.put("owid", map.get("owid"));
+            resMap.put("yhtx", map.get("yhtx"));
+            resMap.put("sjh", map.get("sjh"));
+            resMap.put("xsxh", map.get("xsxh"));
+            resMap.put("xm", map.get("xm"));
+            addLog(map);
+        }else {
+            this.dao.updateDlsj(bckjBizYhxx.getOwid());
+            resMap.put("olx",bckjBizYhkz.getOlx());
+            resMap.put("owid", bckjBizYhxx.getOwid());
+            resMap.put("yhtx", bckjBizYhxx.getYhtx());
+            resMap.put("sjh", bckjBizYhxx.getSjh());
+            resMap.put("xsxh", bckjBizYhkz.getXsxh());
+            resMap.put("xm", bckjBizYhxx.getXm());
+            addLog(resMap);
+        }
         return ResponseMessage.sendOK(resMap);
     }
 
@@ -586,7 +629,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage candidatesRegistration(Map<String, Object> dataMap) throws IllegalAccessException, InstantiationException {
-        if (!dataMap.get("yzm").toString().equals(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
+        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))==-1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
         }
         BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap.get("sjh").toString());
@@ -671,12 +714,12 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      */
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public ResponseMessage apOfCaOpDay(Map<String, Object> dataMap) {
-        if (!dataMap.get("yzm").toString().equals( com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))) {
+        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString()))==-1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL,"验证码输入错误!");
         }
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
-        if(bckjBizYhxx.getExp10().indexOf("未预约开放日")!=-1){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"已预约");
+        if(bckjBizYhxx.getExp10().indexOf("未预约开放日")==-1){
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"您已预约过开放日，不能再次预约!");
         }
         bckjBizYhxx.setExp10(dataMap.get("val2").toString());
         saveOrUpdate(bckjBizYhxx);
@@ -717,14 +760,32 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             HashMap<String, Object> resMap = Maps.newHashMap();
             resMap.put(map.get("val1").toString(),map.get("val2").toString());
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.ORA_DATE_FORMAT);
-            /*if(DateUtil.getDate(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd"))){
-
-            }*/
+            if((DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd")))){
+                resMaps.add(resMap);
+            }
             if(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).before(DateUtil.getDate(map.get("val2").toString(),"yyyy-MM-dd"))){
                 resMaps.add(resMap);
             }
         }
         return resMaps;
+    }
+
+    public PageInfo<Map> getCaOpDayDateList(Map<String, Object> dataMap) {
+        Page<Map> page = new Page<>(MapUtils.getInt(dataMap, "pageNo"), MapUtils.getInt(dataMap, "pageSize"));
+        dataMap.put("page",page);
+         List<Map> lists=this.dao.getCaOpDayDateList(dataMap);
+         for (Map map:lists){
+             map.put("state","1");
+             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DateUtil.ORA_DATE_FORMAT);
+             if((DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).equals(DateUtil.getDate(map.get("dicVal2").toString(),"yyyy-MM-dd")))){
+                 map.put("state","2");
+             }
+             if(DateUtil.getDate(simpleDateFormat.format(new Date()),DateUtil.ORA_DATE_FORMAT).before(DateUtil.getDate(map.get("dicVal2").toString(),"yyyy-MM-dd"))){
+                 map.put("state","2");
+             }
+         }
+         page.setList(lists);
+         return  PageUtils.assimblePageInfo(page);
     }
 
     @Transactional(readOnly = false)

@@ -35,7 +35,7 @@ Page({
     } else if (!this.data.qyFrsfz) {
       wx.showToast({
         icon: 'none',
-        title: '请输入法人身份证后六位',
+        title: '请输入法人身份证后六位或统一信用码后六位',
       })
       return false
     }

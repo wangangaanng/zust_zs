@@ -196,10 +196,10 @@
 
     function operateFormatterZt(value, row, index) {
         if(row.sfyx==1){
-            var c = '<span style="color: green;">进行中</span>';
+            var c = '<span style="color: green;">有效</span>';
             return c;
         }else if(row.sfyx==0){
-            var d = '<span style="color: red;">已过期</span> ';
+            var d = '<span style="color: red;">无效</span> ';
             return d;
         }
 
