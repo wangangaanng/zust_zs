@@ -29,10 +29,11 @@
 				</view>
 			</view>
 			<view>
+        <view class="qdbt defcor" bindtap="chooseGPS">地图采点</view>
 				<view class="qddiv" bindtap="caidian">
 					<view>
 						<image src="../../static/qd.png"></image>
-						<view style="color:#fff;">采点</view>
+						<view style="color:#fff;">实地采点</view>
 					</view>
 				</view>
 			</view>

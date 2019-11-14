@@ -1,5 +1,5 @@
  <van-cell-group>
-   <van-field input-align="right" bindinput="getsfzh" value="{{sfzh}}" type="idcard" label="身份证号" placeholder="输入内容" required />
+   <van-field input-align="right" bindinput="getsfzh" value="{{sfzh}}"  label="身份证号" placeholder="输入内容" required />
   <van-field input-align="right" bindinput="getksh" value="{{ksh}}" label="准考证号" placeholder="输入内容" required />
 
 <button class="common-button" hover-class='common-btn-hover' bindtap="submit1" >查询</button>

@@ -80,27 +80,49 @@ Component({
                 method: 'POST',
                 success: function (res) {
                   wx.hideLoading();
-                  if (res.data.bean) {
-                    openId = res.data.bean.openId;
-                    unionid = res.data.bean.unionid;
-                    app.globalData.openId = res.data.bean.openId;
-                    app.globalData.unionid = res.data.bean.unionid;
-                    wx.setStorageSync('openId', openId);
-                    wx.setStorageSync('unionid', unionid);
-                  }
-                  that.setData({ show: false });
-                  // that.triggerEvent('myevent');
-                  if (that.data.type == 1) {
-                    // wx.navigateTo({
-                    //   url: '../stuLogin/stuLogin',
-                    // })
-                  } else if (that.data.type == 2) {
-                    // wx.navigateTo({
-                    //   url: '../qyLogin/qyLogin',
-                    // })
-                  } else if (that.data.type == 3) {
+                  if (res.data.backCode == 0){
+                    if (res.data.bean) {
+                      if (res.data.bean.unionid){
+                        openId = res.data.bean.openId;
+                        unionid = res.data.bean.unionid;
+                        app.globalData.openId = res.data.bean.openId;
+                        app.globalData.unionid = res.data.bean.unionid;
+                        wx.setStorageSync('openId', openId);
+                        wx.setStorageSync('unionid', unionid);
+                      }else{
+                        wx.showToast({
+                          title: '获取用户信息失败，请重新授权',
+                          icon:'none'
+                        })
+                      }
+                      
+                    } else {
+                      wx.showToast({
+                        title: '获取用户信息失败，请重新授权',
+                        icon: 'none'
+                      })
+                    }
+                    that.setData({ show: false });
                     that.triggerEvent('myevent');
+                  } else {
+                    wx.showToast({
+                      title: res.data.errorMess,
+                      icon: 'none',
+                      duration: 2000
+                    })
                   }
+                  
+                  // if (that.data.type == 1) {
+                  //   // wx.navigateTo({
+                  //   //   url: '../stuLogin/stuLogin',
+                  //   // })
+                  // } else if (that.data.type == 2) {
+                  //   // wx.navigateTo({
+                  //   //   url: '../qyLogin/qyLogin',
+                  //   // })
+                  // } else if (that.data.type == 3) {
+                  //   that.triggerEvent('myevent');
+                  // }
 
                   // if (wx.getStorageSync("fxid")) {
                   //   wx.reLaunch({

@@ -212,12 +212,7 @@
 	<delete id="deleteByHkZh">
 		DELETE FROM bckj_biz_cjxx
 		WHERE yh_ref_owid = #{yhRefOwid}
-		<if test="lx !=null and lx!= '' ">
 			AND lx=#{lx}
-		</if>
-		<if test="lx2 !=null and lx2!= '' ">
-			OR  lx=#{lx2}
-		</if>
 	</delete>
 	
 </mapper>
