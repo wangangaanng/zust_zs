@@ -125,6 +125,7 @@ Page({
     const rules = {
       qyTysh: {
         required: true,
+        minlength: 10
       },
       // qyFrsfz: {
       //   required: true
@@ -185,7 +186,8 @@ Page({
     // 验证字段的提示信息，若不传则调用默认的信息
     const messages = {
       qyTysh: {
-        required: '请填写企业统一信用代码'
+        required: '请填写企业统一信用代码',
+        minlength: "企业统一信用代码不得少于10个字符",
       },
       // qyFrsfz: {
       //   required: '请填写法人身份证号'
