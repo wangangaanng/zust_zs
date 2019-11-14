@@ -27,6 +27,8 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .list-group-item.active1{font-weight: bold}
 .green{color: #008784;}
 .fb{font-weight: bold}
+.active2{background: rgba(0,135,132,0.05)!important;}
+.list-group-item.active2 .ic-menu{background-position:-57px -23px!important;background-color: #008784;border-radius: 50%;}
 /*swiper*/
 .swiper-pagination{bottom: 14px!important;}
 .swiper-pagination-bullet{width: 15px;height: 15px; background: inherit; border: 1px solid #008784;opacity: 1;}
@@ -35,7 +37,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .swiper-slide img,.swiper-slide{border-radius: 0px 0px 4px 4px;}
 
 .content-list{width: 955px;min-height: 489px;}
-.articleTpl-title::before{height: 20px;visibility: hidden;}
+.articleTpl-title::before{height: 20px;visibility: hidden;display: none}
 
 /*基本信息*/
 .jf-item{width: 25%;}
@@ -85,7 +87,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .group-wrap .list-group-item{background: transparent}
 .group-label{margin-right: 60px;}
 .group-wrap .list-group-item{border: none;border-bottom: 1px dashed #eee}
-.group-wrap .list-group-item label{margin-bottom: 0px!important;}
+.group-wrap .list-group-item label{margin-bottom: 0px!important;line-height: 34px;height: 34px;display: inline-block}
 .group-wrap .list-group-item:last-child{border-bottom: none}
 .group-value{font-weight: normal;font-size: 15px;}
 .wait{background: rgba(214,48,48,0.26);color: #d43030;padding: 1px 12px;}
