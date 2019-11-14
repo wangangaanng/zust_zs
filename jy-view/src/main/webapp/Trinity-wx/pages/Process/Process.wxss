@@ -70,16 +70,25 @@ page {
   text-align: center;
 }
 
+.head_out{
+  position: absolute;
+  width: 36rpx;
+  height: 36rpx;
+  right: -12rpx;
+  bottom: 17rpx;
+}
+
 .lc-row {
   font-size: 18px;
   color: #fff;
   background-color: #26b887;
   border-radius: 3px;
-  height: 35px;
-  line-height: 35px;
+  height: 70rpx;
+  line-height: 70rpx;
   width: 157px;
   margin: 0 auto;
   text-align: center;
+  position: relative;
 }
 
 .arrow {

@@ -125,4 +125,7 @@ Page({
       }
     });
   },
+  showTipTJ:function(e){
+    common.toast('报名表已提交', 'none', 2000)
+  }
 })

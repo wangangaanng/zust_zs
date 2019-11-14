@@ -84,6 +84,7 @@ public class BckjBizCardService extends CrudService<BckjBizCardDao, BckjBizCard>
      */
     public PageInfo<BckjBizCard> findPageBckjBizCard(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        dataMap.put("cj",7);
         if (!com.ourway.base.utils.TextUtils.isEmpty(dataMap.get("createtime2"))) {
             String date = DateUtil.getAfterDate(dataMap.get("createtime2").toString(), 1);
             dataMap.put("createtime2", date);
