@@ -1,6 +1,8 @@
 <!--pages/sendMail/sendMail.wxml-->
 <view>
   <topBck>
+
+  <block wx:if="{{errorMess==''}}">
     <view class="df">
       <icon class="iconfont icon-tongzhi" style=""></icon>
       <view class="f1 notice-detail">
@@ -20,6 +22,11 @@
         <button formType="submit">确认发送</button>
       </view>
     </form>
+  </block>
+
+  <block wx:else>
+    <p class="mess-tip">{{errorMess}}</p>
+  </block>
 
   </topBck>
 

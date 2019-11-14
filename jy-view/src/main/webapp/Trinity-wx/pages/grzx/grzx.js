@@ -98,8 +98,11 @@ Page({
   loginOut: function () {
     var that = this;
     wx.setStorageSync("yhRefOwid", "");
+    wx.setStorageSync("userName", "");
+    wx.setStorageSync("mobile", "");
     that.setData({
-      "hasLogin":false
+      "hasLogin":false,
+      "userMobile":''
     })
     //wx.setStorageSync("mobile", "");
     wx.navigateTo({
