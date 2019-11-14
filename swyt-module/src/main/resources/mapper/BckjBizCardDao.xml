@@ -107,7 +107,7 @@
                 AND a.createtime &lt;= #{createtime2}
             </if>
             <if test=" cj != null and cj != '' ">
-                AND b.state>7
+                AND b.state &gt; 7
             </if>
         </where>
         <choose>

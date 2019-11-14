@@ -77,7 +77,8 @@ Page({
     //   })
     //   return false
     // }
-    params.qyFrsfz = params.qyTysh
+    params.qyTysh = params.qyTysh.trim()
+    params.qyFrsfz = params.qyTysh.trim()
     wx.showModal({
       title: '提示',
       content: `您的企业税号为${params.qyTysh}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
