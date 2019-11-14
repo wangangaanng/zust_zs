@@ -37,7 +37,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .swiper-slide img,.swiper-slide{border-radius: 0px 0px 4px 4px;}
 
 .content-list{width: 955px;min-height: 489px;}
-.articleTpl-title::before{height: 20px;visibility: hidden;}
+.articleTpl-title::before{height: 20px;visibility: hidden;display: none}
 
 /*基本信息*/
 .jf-item{width: 25%;}
