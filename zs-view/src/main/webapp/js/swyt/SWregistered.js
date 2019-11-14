@@ -137,10 +137,10 @@ function swYtzc() {
         walert('请选择学籍区')
         return
     }
-    if(!(!!qxzy)){
+    /*if(!(!!qxzy)){
         walert('请输入倾向专业')
         return
-    }
+    }*/
     var data = {
         swZh:swZh,
         xm:xm,
