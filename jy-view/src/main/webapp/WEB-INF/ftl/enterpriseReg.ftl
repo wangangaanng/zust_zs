@@ -484,7 +484,8 @@
                 '           <div class="col-sm-11 col-sm-offset-1">请确认您的注册信息，点击确定进行注册，点击取消进行修改。</div></div>' ,
                 btn1:function(index, layero){
                     var jsonObj = $("#registerForm").serializeObject()
-                    jsonObj.qyFrsfz=$("#qyTysh").val()
+                    jsonObj.qyTysh=$("#qyTysh").val().trim()
+                    jsonObj.qyFrsfz=$("#qyTysh").val().trim()
                     ajax("zustjy/bckjBizQyxx/companyRegister", jsonObj, function (data) {
                         if(data.backCode==0){
                             layer.open({
