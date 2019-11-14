@@ -83,14 +83,21 @@ Component({
                   //console.log(res);
                   if (res.data.bean) {
                     //console.log(res.data.bean.openId);
-                    openId = res.data.bean.openId;
-                    unionid = res.data.bean.unionid;
-                    app.globalData.openId = res.data.bean.openId;
-                    app.globalData.unionid = res.data.bean.unionid;
-                    wx.setStorageSync('openId', openId);
-                    wx.setStorageSync('unionid', unionid);
+                    if (res.data.bean.unionid){
+                      openId = res.data.bean.openId;
+                      unionid = res.data.bean.unionid;
+                      app.globalData.openId = res.data.bean.openId;
+                      app.globalData.unionid = res.data.bean.unionid;
+                      wx.setStorageSync('openId', openId);
+                      wx.setStorageSync('unionid', unionid);
+                      that.setData({ show: false });
+                    }else{
+                      wx.showToast({
+                        title: '获取用户信息失败，请重新授权',
+                        icon: 'none'
+                      })
+                    }
                   }
-                  that.setData({ show: false });
                 },
                 fail: function () {
                   wx.hideLoading();

@@ -405,7 +405,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     private BckjBizBm getBmxx(Map<String, Object> mapData) throws CustomerException {
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
-            throw CustomerException.newInstances("无信息");
+            throw CustomerException.newInstances("报名信息为空");
         }
         doCheckSubTime(bm.getXxbh());
         return bm;

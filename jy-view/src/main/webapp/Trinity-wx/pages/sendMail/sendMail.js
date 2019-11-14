@@ -17,6 +17,7 @@ Page({
     stringLable:'',//报名表还是面试通知单
     tipString:'',//头部提示
     sureTip:'',
+    errorMess:'',//有错误或者面试通知单未生成
   },
   
   //发送邮箱
@@ -158,9 +159,13 @@ Page({
       if (res.data.backCode == 0) {
         that.setData({
           filePath: res.data.bean,
+          errorMess:''
         });
       } else {
-        common.toast(res.data.errorMess, 'none', 2000)
+        that.setData({
+          errorMess: res.data.errorMess
+        })
+        //common.toast(res.data.errorMess, 'none', 2000)
       }
     });
   },

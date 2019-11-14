@@ -137,7 +137,7 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
         return ResponseMessage.sendOK(objs);
     }
 
-    public String filterContent(Map<String, Object> mapData) {
+ /*   public String filterContent(Map<String, Object> mapData) {
         String content=mapData.get("content").toString();
         List<BckjDicKeys> allKeys=this.dao.findListByMap(mapData);
         StringBuffer sf=new StringBuffer();
@@ -147,29 +147,25 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
             }
         }
         return sf.toString();
-    }
-    /*public static String filterContent(Map<String, Object> mapData){
+    }*/
+    public  String filterContent(Map<String, Object> mapData){
         //使用就业code
-        String weCode="wx02";
-        int result = 0;
+        String weCode="wx01";
         AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
         String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
         String jsonMenu = JSONObject.fromObject(mapData).toString();
         // 调用接口发送数据到微信服务器
         JSONObject jsonObject = httpRequest(requestUrl, "POST", jsonMenu);
         log.info(jsonObject.toString()+"------------------------------------------mesBack");
-        if (null != jsonObject) {
-            if (0 != jsonObject.getInt("errcode")) {
-                result = jsonObject.getInt("errcode");
-                log.info(jsonObject.toString()+"errorcode==="+result);
-            }
+        if (null== jsonObject) {
+            return null;
         }
         String jsonStr = jsonObject.toString();
         Map<String, Object> resMap = JsonUtil.jsonToMap(jsonStr);
         if(!TextUtils.isEmpty(resMap.get("errmsg"))&&(resMap.get("errmsg").toString().indexOf("risky")!=-1)){
-            return "咨询内容中含不合理信息,请重新修改咨询内容";
+            return CommonModuleContant.USER_FILTER_LOG;
         }
-        return "";
-    }*/
+        return null;
+    }
 
 }
