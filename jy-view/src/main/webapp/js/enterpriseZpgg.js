@@ -47,19 +47,21 @@ $(document).ready(function () {
 
 })
 
+var E, editor;
 function addZpgg() {
     if(!isTimeOut()) {
 
         layer1=layer.open({
             type: 1,
             title:'招聘公告信息',
+            fixed:true,
             skin: 'layui-layer-rim', //加上边框
-            area: ['860px', '540px'], //宽高
+            area: ['1000px', '750px'], //宽高
             content: '<div class="lxr-modal">' +
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="zwbt" class="col-sm-2 control-label text-right" style="line-height: 34px;">标题<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-8">\n' +
+            '                                <div class="col-sm-10">\n' +
             '                                    <input type="text" class="form-control" id="zwbt" name="zwbt" value="" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
@@ -67,11 +69,11 @@ function addZpgg() {
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="zwPro" class="col-sm-2 control-label text-right" style="line-height: 34px;">所在省<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-3">\n' +
+            '                                <div class="col-sm-4">\n' +
             '                                    <select class="form-control" onchange="getCity()" name="zwPro" id="zwPro"><option value="">请选择</option></select>\n' +
             '                                </div>\n' +
             '                                <label for="zwCity" class="col-sm-2 control-label text-right" style="line-height: 34px;">所在市<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-3" style="position: relative;">\n' +
+            '                                <div class="col-sm-4" style="position: relative;">\n' +
             '                                    <select class="form-control"  name="zwCity" id="zwCity"><option value="">请选择</option></select>\n' +
             '                            </div>\n' +
             '                            </div>\n' +
@@ -79,11 +81,11 @@ function addZpgg() {
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="zwMxxy" class="col-sm-2 control-label text-right" style="line-height: 34px;">面向学院：</label>\n' +
-            '                                <div class="col-sm-3">\n' +
+            '                                <div class="col-sm-4">\n' +
             '                                    <select  class="form-control" id="zwMxxy"  name="zwMxxy" onchange="getZyList1()"><option value="">请选择</option></select>\n' +
             '                                </div>\n' +
             '                                <label for="zwMxzy" class="col-sm-2 control-label text-right" style="line-height: 34px;">面向专业：</label>\n' +
-            '                                <div class="col-sm-3">\n' +
+            '                                <div class="col-sm-4">\n' +
             '                                    <select  class="form-control" id="zwMxzy"  name="zwMxzy" ><option value="">请选择</option></select>\n' +
             '                                </div>\n' +
             '                            </div>\n' +
@@ -91,7 +93,7 @@ function addZpgg() {
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="zwgjz" class="col-sm-2 control-label text-right" style="line-height: 34px;">关键字：</label>\n' +
-            '                                <div class="col-sm-8">\n' +
+            '                                <div class="col-sm-10">\n' +
             '                                    <input type="text" class="form-control" id="zwgjz" name="zwgjz" value="" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
@@ -99,8 +101,10 @@ function addZpgg() {
             '                        <div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="memo" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-left: 0;">详细介绍<span class="red">*</span>：</label>\n' +
-            '                                <div class="col-sm-8">\n' +
-            '                                    <textarea  class="form-control" id="memo" style="resize: none;" rows="6" name="memo" placeholder="" autocomplete="off"></textarea>\n' +
+            '                                <div class="col-sm-10">\n' +
+            '<div id="div1" style="max-height: 330px;">\n' +
+            '</div><p style="color: red;margin-top: 5px;">注：请控制简介内容宽度在输入框范围之内，否则会影响展示</p>\n' +
+            // '                                    <textarea  class="form-control" id="memo" style="resize: none;" rows="6" name="memo" placeholder="" autocomplete="off"></textarea>\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                            </div>\n' +
@@ -110,6 +114,35 @@ function addZpgg() {
             '                            </div>\n' +
             '                        </div></div>'
         });
+
+        E = window.wangEditor
+        editor = new E('#div1')
+        // 忽略粘贴内容中的图片
+        editor.customConfig.pasteIgnoreImg = true
+        editor.customConfig.menus = [
+            'head',  // 标题
+            'bold',  // 粗体
+            'fontSize',  // 字号
+            // 'fontName',  // 字体
+            // 'italic',  // 斜体
+            // 'underline',  // 下划线
+            // 'strikeThrough',  // 删除线
+            // 'foreColor',  // 文字颜色
+            // 'backColor',  // 背景颜色
+            // 'link',  // 插入链接
+            // 'list',  // 列表
+            'justify',  // 对齐方式
+            // 'quote',  // 引用
+            // 'emoticon',  // 表情
+            // 'image',  // 插入图片
+            // 'table',  // 表格
+            // 'video',  // 插入视频
+            // 'code',  // 插入代码
+            'undo',  // 撤销
+            // 'redo'  // 重复
+        ]
+        editor.create()
+
     }
 
     cityData3.forEach(function(e) {
@@ -166,15 +199,16 @@ function confirmQd() {
             walert("请选择所在市")
             return
         }
-        if(!$("#memo").val().trim()){
+        if(!editor.txt.text().trim()){
             walert("请填写详细介绍")
             return
         }else{
-            if($("#memo").val().trim().length<50){
+            if(editor.txt.text().trim().length<50){
                 walert("详细介绍不得少于50个字")
                 return
             }
         }
+
         var jsonObj ={
             "zwlx":2,
             "qyxxRefOwid":getCookie("qyOwid"),
@@ -182,9 +216,9 @@ function confirmQd() {
             "zwPro":$("#zwPro").val(),
             "zwCity":$("#zwCity").val(),
             "zwgjz":$("#zwgjz").val(),
-            "zwMxxy":$("#zwMxxy option:selected").html(),
-            "zwMxzy":$("#zwMxzy option:selected").html(),
-            "memo":$("#memo").val(),
+            "zwMxxy":$("#zwMxxy option:selected").attr("data-mz"),
+            "zwMxzy":$("#zwMxzy option:selected").attr("data-mz"),
+            "memo":editor.txt.html()//$("#memo").val(),
 
         }
 
@@ -217,7 +251,7 @@ function getZyList() {
                 if(data.bean && data.bean.length>0){
                     var str='';
                     for(var i=0;i<data.bean.length;i++){
-                        str+='<option value="'+data.bean[i].owid+'">'+data.bean[i].mz+'</option>'
+                        str+='<option data-mz="'+data.bean[i].mz+'" value="'+data.bean[i].owid+'">'+data.bean[i].mz+'</option>'
                     }
                     $("#zwMxxy").append(str)
                 }
@@ -230,6 +264,10 @@ function getZyList() {
 
 function getZyList1() {
     if(!isTimeOut()){
+        if(!$("#zwMxxy").val()){
+            $("#zwMxzy").html('<option value="">请选择</option>')
+            return
+        }
         var jsonObj = {
             "parentId":$("#zwMxxy").val()
         }
@@ -238,7 +276,7 @@ function getZyList1() {
                 if(data.bean && data.bean.length>0){
                     var str='';
                     for(var i=0;i<data.bean.length;i++){
-                        str+='<option value="'+data.bean[i].owid+'">'+data.bean[i].mz+'</option>'
+                        str+='<option data-mz="'+data.bean[i].mz+'" value="'+data.bean[i].owid+'">'+data.bean[i].mz+'</option>'
                     }
                     $("#zwMxzy").append(str)
                 }
@@ -373,10 +411,10 @@ window.operateEvents = {
                             str+='                        <div class="row">\n' +
                                 '                            <div class="form-group">\n' +
                                 '                                <label for="zwMxxy" class="col-sm-2 control-label text-right" style="line-height: 34px;">面向学院：</label>\n' +
-                                '                                <div class="col-sm-3" style="line-height: 34px;">\n'  +data.bean.zwMxxy+
+                                '                                <div class="col-sm-4" style="line-height: 34px;">\n'  +data.bean.zwMxxy+
                                 '                                </div>\n' +
                                 '                                <label for="zwMxzy" class="col-sm-2 control-label text-right" style="line-height: 34px;">面向专业：</label>\n' +
-                                '                                <div class="col-sm-3" style="line-height: 34px;">\n'  +data.bean.zwMxzy+
+                                '                                <div class="col-sm-4" style="line-height: 34px;">\n'  +data.bean.zwMxzy+
                                 '                                </div>\n' +
                                 '                            </div>\n' +
                                 '                            </div>\n'
@@ -385,7 +423,7 @@ window.operateEvents = {
                             str+='                        <div class="row">\n' +
                                 '                            <div class="form-group">\n' +
                                 '                                <label for="zwMxxy" class="col-sm-2 control-label text-right" style="line-height: 34px;">面向学院：</label>\n' +
-                                '                                <div class="col-sm-3" style="line-height: 34px;">\n'  +data.bean.zwMxxy+
+                                '                                <div class="col-sm-4" style="line-height: 34px;">\n'  +data.bean.zwMxxy+
                                 '                                </div>\n' +
                                 '                            </div>\n' +
                                 '                            </div>\n'
@@ -394,7 +432,7 @@ window.operateEvents = {
                             str+='                        <div class="row">\n' +
                                 '                            <div class="form-group">\n' +
                                 '                                <label for="zwgjz" class="col-sm-2 control-label text-right" style="line-height: 34px;">关键字：</label>\n' +
-                                '                                <div class="col-sm-8" style="line-height: 34px;">\n'  +data.bean.zwgjz+
+                                '                                <div class="col-sm-10" style="line-height: 34px;">\n'  +data.bean.zwgjz+
                                 '                                </div>\n' +
                                 '                            </div>\n' +
                                 '                        </div>\n'
@@ -404,29 +442,29 @@ window.operateEvents = {
                             type: 1,
                             title:'招聘公告信息',
                             skin: 'layui-layer-rim', //加上边框
-                            area: ['860px', '540px'], //宽高
+                            area: ['1000px', '720px'], //宽高
                             content: '<div class="lxr-modal">' +
                             '                        <div class="row">\n' +
                             '                            <div class="form-group">\n' +
                             '                                <label for="zwbt" class="col-sm-2 control-label text-right" style="line-height: 34px;">标题：</label>\n' +
-                            '                                <div class="col-sm-8" style="line-height: 34px;">\n' +data.bean.zwbt+
+                            '                                <div class="col-sm-10" style="line-height: 34px;">\n' +data.bean.zwbt+
                             '                                </div>\n' +
                             '                            </div>\n' +
                             '                        </div>\n' +
                             '                        <div class="row">\n' +
                             '                            <div class="form-group">\n' +
                             '                                <label for="zwPro" class="col-sm-2 control-label text-right" style="line-height: 34px;">所在省：</label>\n' +
-                            '                                <div class="col-sm-3" style="line-height: 34px;">\n' +data.bean.zwPro+
+                            '                                <div class="col-sm-4" style="line-height: 34px;">\n' +data.bean.zwPro+
                             '                                </div>\n' +
                             '                                <label for="zwCity" class="col-sm-2 control-label text-right" style="line-height: 34px;">所在市：</label>\n' +
-                            '                                <div class="col-sm-3" style="position: relative;line-height: 34px;">\n'  +data.bean.zwCity+
+                            '                                <div class="col-sm-4" style="position: relative;line-height: 34px;">\n'  +data.bean.zwCity+
                             '                            </div>\n' +
                             '                            </div>\n' +
                             '                            </div>\n' +str+
                             '                        <div class="row">\n' +
                             '                            <div class="form-group">\n' +
                             '                                <label for="memo" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-left: 0;">详细介绍：</label>\n' +
-                            '                                <div class="col-sm-8" style="line-height: 34px;">\n'  +data.bean.memo+
+                            '                                <div class="col-sm-10" style="line-height: 34px;">\n'  +data.bean.memo+
                             '                                </div>\n' +
                             '                            </div>\n' +
                             '                            </div>\n' +
