@@ -44,6 +44,12 @@
 		where exp1=#{dcwjRefOwid}
 	</select>
 
+	<!--根据调查问卷的owid删除调查结果	-->
+	<delete id="deleteByDcwj">
+		DELETE FROM bckj_biz_dcwj_jg
+		WHERE exp1 = #{dcwjRefOwid}
+	</delete>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjJg">
 		SELECT 
 			<include refid="bckjBizDcwjJgColumns"/>
