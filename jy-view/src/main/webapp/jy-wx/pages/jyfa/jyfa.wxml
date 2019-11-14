@@ -108,7 +108,7 @@
     <van-picker show-toolbar title="用人单位性质名称" value-key="dicVal2" columns="{{gzzwlbmcColumns}}" data-type="20" bind:confirm="onConfirm" bind:cancel="onCancel" />
   </van-popup>
   <van-field input-align="right" value="{{form.dwlxr}}" name="dwlxr" label="单位联系人" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.dwdh}}" name="dwdh" label="单位联系电话" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.dwdh}}" name="dwdh" label="单位联系电话" type="number" placeholder="输入内容" />
   
 <view class="form-title">报到证信息</view>
  <van-cell title="报到证签发类别名称" value="{{bdzqflbmcStr}}" is-link arrow-direction="down" data-type="24" bind:click="showBottom" />
@@ -171,7 +171,7 @@
   <van-field value="{{form.datdxxdz}}" name="datdxxdz" label="档案投递详细地址" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   </view>
   <van-field input-align="right" value="{{form.datddw}}" name="datddw" label="档案投递单位" placeholder="输入内容" />
-  <van-field input-align="right" value="{{form.datddh}}" name="datddh" label="档案投递电话" placeholder="输入内容" />
+  <van-field input-align="right" value="{{form.datddh}}" name="datddh" label="档案投递电话" type="number" placeholder="输入内容" />
   <view hidden="{{hidden1}}">
   <van-field value="{{form.hkqydz}}" name="hkqydz" label="户口迁移地址" input-align="right" type="textarea" placeholder="输入内容" rows="1" autosize />
   </view>

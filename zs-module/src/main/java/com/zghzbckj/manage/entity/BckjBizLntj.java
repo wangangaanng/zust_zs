@@ -27,9 +27,9 @@ public class BckjBizLntj extends DataWithExpEntity<BckjBizLntj> {
 	private String zy;		// zy
 	private String xz;		// 一年，四年，三年
 	private Integer lqs;		// lqs
-	private BigDecimal zgf;		// zgf
-	private BigDecimal zdf;		// zdf
-	private BigDecimal pjf;		// pjf
+	private String zgf;		// zgf
+	private String zdf;		// zdf
+	private String pjf;		// pjf
 	private String szxy;		// szxy
 
 	public boolean isReadOnly() {
@@ -118,27 +118,27 @@ public class BckjBizLntj extends DataWithExpEntity<BckjBizLntj> {
 		this.lqs = lqs;
 	}
 	
-	public BigDecimal getZgf() {
+	public String getZgf() {
 		return zgf;
 	}
 
-	public void setZgf(BigDecimal zgf) {
+	public void setZgf(String zgf) {
 		this.zgf = zgf;
 	}
 	
-	public BigDecimal getZdf() {
+	public String getZdf() {
 		return zdf;
 	}
 
-	public void setZdf(BigDecimal zdf) {
+	public void setZdf(String zdf) {
 		this.zdf = zdf;
 	}
 	
-	public BigDecimal getPjf() {
+	public String getPjf() {
 		return pjf;
 	}
 
-	public void setPjf(BigDecimal pjf) {
+	public void setPjf(String pjf) {
 		this.pjf = pjf;
 	}
 	

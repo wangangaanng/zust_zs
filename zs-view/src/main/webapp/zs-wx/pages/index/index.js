@@ -6,6 +6,7 @@ var imgPath = app.globalData.imgPath;
 Page({
   data: {
     imgPath:imgPath,
+    defaultimg:'../../static/headImg.png',
     imgUrls: [],
     menuList: [
       { text: '招生计划', icon: '../../../static/index-icon01.png', url: '../plan/plan' }, 

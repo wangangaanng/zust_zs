@@ -569,7 +569,7 @@
             <!--</if>-->
         </where>
         <if test="groupBy != null and groupBy != ''">
-            GROUP BY #{groupBy}
+            GROUP BY ${groupBy}
         </if>
     </select>
 
