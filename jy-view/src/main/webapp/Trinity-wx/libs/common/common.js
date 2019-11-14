@@ -171,7 +171,10 @@ function getInfoBasic(that) {
       var data = res.data.bean;
       that.setData({
         'userName': data.xm
-      })
+      });
+      //缓存信息 避免每次都调用接口
+      wx.setStorageSync("email", data.yx);
+      wx.setStorageSync("userName", data.xm)
     } else {
       toast("获取用户基本信息报错" + res.data.errorMess, 'none', 2000)
     }
