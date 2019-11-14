@@ -282,6 +282,9 @@
                                                         d.bean["社会信用代码"].words=d.bean["社会信用代码"].words.trim().substring(0,18)
                                                     }
                                                     $("#qyTysh").val(d.bean["社会信用代码"].words)
+                                                    if(d.bean["社会信用代码"].words.trim().length<10){
+                                                        $("#qyTysh").val("")
+                                                    }
                                                 }
                                             }
                                         }
@@ -374,7 +377,10 @@
 
             $("#registerForm").validate({
                 rules: {
-                    qyTysh:"required",
+                    qyTysh:{
+                        required: true,
+                        minlength: 10
+                    },
                     // qyFrsfz:{
                     //     required: true,
                     //     isIdCardNo: true
@@ -405,7 +411,10 @@
                     }
                 },
                 messages: {
-                    qyTysh: "请填写",
+                    qyTysh:  {
+                        required: "请填写",
+                        minlength: "长度不得少于10个字符"
+                    },
                     // qyFrsfz:  {
                     //     required: "请填写",
                     //     isIdCardNo: "请填写正确身份证号码"
