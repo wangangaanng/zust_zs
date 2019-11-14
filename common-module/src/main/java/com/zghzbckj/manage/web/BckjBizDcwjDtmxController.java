@@ -47,6 +47,7 @@ public class BckjBizDcwjDtmxController extends BaseController {
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
     private Map<String, Object> map = new HashMap<>(1);
+    private String dcwjRefOwid = "";
 
     @RequestMapping(value = "/setOwid")
     @ResponseBody
@@ -54,6 +55,7 @@ public class BckjBizDcwjDtmxController extends BaseController {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             map.put("dcwjRefOwid", dataMap.get("owid"));
+            dcwjRefOwid = MapUtils.getString(dataMap, "owid");
         } catch (Exception e) {
             log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
         }
@@ -74,8 +76,10 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getResultList(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(map, dataVO.getPageNo(), dataVO.getPageSize());
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+            dataMap.put("dcwjRefOwid", MapUtils.getString(dataMap, "owid"));
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();
@@ -97,7 +101,8 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage listQuestionName(PublicDataVO dataVO) {
         Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-        List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(map, "dcwjRefOwid"));
+        dataMap.put("dcwjRefOwid", dcwjRefOwid);
+        List<Map<String, Object>> questionList = bckjBizDcwjTmDao.listQuestion(MapUtils.getString(dataMap, "dcwjRefOwid"));
         if (TextUtils.isEmpty(questionList) || questionList.size() <= 0) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "题目列表为空");
         }

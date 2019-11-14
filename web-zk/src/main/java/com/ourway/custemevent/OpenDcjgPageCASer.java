@@ -34,10 +34,7 @@ public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implem
         } else {
             List<Map> paramsList = JsonUtil.jsonToList(windowParams.toString(), Map.class);
             Map<String, Object> _params = (Map) paramsList.get(0);
-            if (TextUtils.isEmpty(_params.get("attr"))) {
-                AlterDialog.alert(I18nUtil.getLabelContent("未配置属性"));
-
-            } else if (TextUtils.isEmpty(_params.get("gridId"))) {
+            if (TextUtils.isEmpty(_params.get("gridId"))) {
                 AlterDialog.alert(I18nUtil.getLabelContent("未设置表格"));
             } else if (TextUtils.isEmpty(_params.get("title"))) {
                 AlterDialog.alert(I18nUtil.getLabelContent("未设置标签"));
@@ -52,16 +49,33 @@ public class OpenDcjgPageCASer extends com.ourway.base.zk.main.MainAction implem
                 } else if (null != datas && datas.size() > 0) {
                     Map<String, Object> data = (Map) datas.get(0);
                     String wjmc = data.get("wjmc").toString();
-                    String pageCa = _params.get("attr").toString();
+                    String pageCa = _params.get("pageCa").toString();
+                    _params.put("#owid",data.get("owid"));
                     Component comp = Path.getComponent("/mainWin");
+                    PageVO vo = PageDataUtil.detailPageByCa(pageCa);
+                    String url="";
+                    if (vo.getPageCustomer().intValue() == 0) {
+                        url = vo.getPageTemplatePath();
+                    } else {
+                        url = vo.getPageCa();
+                    }
                     com.ourway.base.zk.main.MainAction root = null;
                     if (comp instanceof ManageMainAction) {
                         root = (com.ourway.base.zk.main.MainAction) comp;
                     }
-
                     try {
                         JsonPostUtils.executeAPI(data, _params.get("apiUrl").toString());
-                        root.openFunByPageCa(_params.get("title") + ":" + wjmc, pageCa, 4);
+                        Component winEdit1 = Executions.createComponents(url, (Component) null, _params);
+                        if (winEdit1 instanceof BaseWindow) {
+                            BaseWindow _win1 = (BaseWindow) winEdit1;
+                            _win1.setParentPpt(_params);
+                            String tabId = root.openNewTab(_win1, _params.get("title") + ":" + wjmc);
+                            _win1.setTabId(tabId + "_window");
+                            _win1.setTopWindow(window);
+                            if (_win1.isClosePage()) {
+                                root.closeTabWin(_win1);
+                            }
+                        }
                     } catch (Exception var15) {
                         AlterDialog.alert(I18nUtil.getLabelContent("public.sys.error.openError"));
                     }

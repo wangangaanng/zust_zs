@@ -70,13 +70,13 @@ Page({
       return false
     }
 
-    // if (params.qyFrsfz.trim().length!=18){
-    //   wx.showModal({
-    //     content: '法人身份证长度有误',
-    //     showCancel: false,
-    //   })
-    //   return false
-    // }
+    if (params.qyTysh.trim().length<10){
+      wx.showModal({
+        content: '企业统一税号长度有误，请重新填写',
+        showCancel: false,
+      })
+      return false
+    }
     params.qyTysh = params.qyTysh.trim()
     params.qyFrsfz = params.qyTysh.trim()
     wx.showModal({
@@ -382,9 +382,11 @@ Page({
                       if (d.bean["社会信用代码"].words.trim().length>18){
                         d.bean["社会信用代码"].words = d.bean["社会信用代码"].words.trim().substring(0, 18)
                       }
-                      that.setData({
-                        'form.qyTysh': d.bean["社会信用代码"].words
-                      })
+                      if (d.bean["社会信用代码"].words.trim().length > 10){
+                        that.setData({
+                          'form.qyTysh': d.bean["社会信用代码"].words
+                        })
+                      }
                     } 
                   } 
                 } 
