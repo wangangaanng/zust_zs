@@ -54,7 +54,7 @@ function addZpgg() {
         layer1=layer.open({
             type: 1,
             title:'招聘公告信息',
-            fixed:true,
+            scrollbar: false,
             skin: 'layui-layer-rim', //加上边框
             area: ['1000px', '750px'], //宽高
             content: '<div class="lxr-modal">' +
