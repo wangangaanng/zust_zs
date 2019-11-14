@@ -671,10 +671,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         int xh = 1;
         String _xh = "";
         String nf = DateUtil.getDateStr("yyyy");
+        nf = nf.substring(2, 4);
         if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
             for (BckjBizBm bm : bmList) {
                 _xh = getFixLen(xh, 4);
-                _xh = nf + bm.getBklbOwid() + _xh;
+                _xh = nf + getFixLen(bm.getBklbOwid(),3) + _xh;
                 xh++;
                 bm.setZkzh(_xh);
                 saveOrUpdate(bm);
