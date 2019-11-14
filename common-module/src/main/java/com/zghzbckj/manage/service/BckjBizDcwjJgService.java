@@ -72,6 +72,21 @@ public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizD
     }
 
     /**
+     *<p>功能描述:根据调查问卷的owid删除结果 deleteByDcwj</p >
+     *<ul>
+     *<li>@param [dcwjRefOwid]</li>
+     *<li>@return void</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/14 16:21</li>
+     *</ul>
+     */
+    @Transactional(readOnly = false)
+    public void deleteByDcwj(String dcwjRefOwid) {
+        this.dao.deleteByDcwj(dcwjRefOwid);
+    }
+
+    /**
      *<p>方法:查询调查人数 countPeople TODO </p>
      *<ul>
      *<li> @param dcwjRefOwid TODO</li>
@@ -136,7 +151,7 @@ public class BckjBizDcwjJgService extends CrudService<BckjBizDcwjJgDao, BckjBizD
      */
     public ResponseMessage findPageBckjBizDcwjJg(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizDcwjJg> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizDcwjJg> page = findPage(dataMap, pageNo, pageSize, "exp1");
         List<BckjBizDcwjJg> records = page.getRecords();
         //统计行
         BckjBizDcwjJg jg = new BckjBizDcwjJg();

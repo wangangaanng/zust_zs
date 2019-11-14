@@ -17,5 +17,7 @@ import org.apache.ibatis.annotations.Param;
 public interface BckjBizDcwjJgDao extends CrudDao<BckjBizDcwjJg> {
 
     int countPeople(@Param("dcwjRefOwid") String dcwjRefOwid);
+
+    void deleteByDcwj(@Param("dcwjRefOwid") String dcwjRefOwid);
 	
 }
