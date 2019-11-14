@@ -87,7 +87,7 @@ button.yellow:hover{  color: #fff !important;  background-color: #f5b900 !import
 .group-wrap .list-group-item{background: transparent}
 .group-label{margin-right: 60px;}
 .group-wrap .list-group-item{border: none;border-bottom: 1px dashed #eee}
-.group-wrap .list-group-item label{margin-bottom: 0px!important;}
+.group-wrap .list-group-item label{margin-bottom: 0px!important;line-height: 34px;height: 34px;display: inline-block}
 .group-wrap .list-group-item:last-child{border-bottom: none}
 .group-value{font-weight: normal;font-size: 15px;}
 .wait{background: rgba(214,48,48,0.26);color: #d43030;padding: 1px 12px;}
