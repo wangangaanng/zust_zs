@@ -78,19 +78,19 @@ Page({
       phone: currAccount,
     });
 
-    wx.getSetting({
-      success(res) {
-        if (!res.authSetting['scope.userInfo']) {
-          that.setData({
-            isauthorize: true,
-          })
-        } else {
-          that.setData({
-            isauthorize: false,
-          })
-        }
-      }
-    })
+    // wx.getSetting({
+    //   success(res) {
+    //     if (!res.authSetting['scope.userInfo']) {
+    //       that.setData({
+    //         isauthorize: true,
+    //       })
+    //     } else {
+    //       that.setData({
+    //         isauthorize: false,
+    //       })
+    //     }
+    //   }
+    // })
 
   },
 
@@ -105,6 +105,16 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (!wx.getStorageSync('unionid')) {
+      this.setData({
+        isauthorize: true,
+      })
+    } else {
+      this.setData({
+        isauthorize: false,
+      })
+
+    }
     //已经登录跳转到首页
     // if (wx.getStorageSync("hasLogin")==1){
     //   wx.reLaunch({
