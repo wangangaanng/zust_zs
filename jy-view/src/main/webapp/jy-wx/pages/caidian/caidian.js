@@ -79,31 +79,6 @@ Page({
             }
           }
         })
-      },fail: function (res) {
-        wx.showModal({
-          title: '提示',
-          content: '未获取到您的位置，请打开设置后重试',
-          confirmColor: '#008783',
-          success(res) {
-            if (res.confirm) {
-              wx.openSetting({
-                success: function (osrs) {
-                  // 出发条件是返回的时候
-                  wx.getLocation({
-                    success: function (locationinfo) {
-                      that.onLoad(that.data.option);
-                    },
-                    fail: function (fres) {
-
-                    }
-                  })
-                }
-              })
-            } else if (res.cancel) {
-
-            }
-          }
-        })
       }
     })
   },
