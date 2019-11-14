@@ -22,16 +22,16 @@
             <li class="list-group-item ${((2)==(page?number))?string('active1','')} ${(processState>2)?string('active2','')}">
                 拍照上传<span class="ic-menu"></span>
             </li>
-            <li class="list-group-item ${((3)==(page?number))?string('active1','')} ${(processState>6)?string('active2','')}">
+            <li class="list-group-item ${((3)==(page?number))?string('active1','')} ${(processState>6)?string('active2','')} ${(processState==4)?string('active3','')}">
                 初审结果/缴费<span class="ic-menu"></span>
             </li>
-            <li class="list-group-item ${((4)==(page?number))?string('active1','')} ${(processState>7)?string('active2','')}">
+            <li class="list-group-item ${((4)==(page?number))?string('active1','')} ${(processState>7)?string('active2','')} ">
                 面试时间<span class="ic-menu"></span>
             </li>
-            <li class="list-group-item ${((5)==(page?number))?string('active1','')} ${(processState>8)?string('active2','')}">
+            <li class="list-group-item ${((5)==(page?number))?string('active1','')} ${(processState>8)?string('active2','')} ">
                 面试通知单打印<span class="ic-menu"></span>
             </li>
-            <li class="list-group-item ${((6)==(page?number))?string('active1','')} ${(processState>9)?string('active2','')}">
+            <li class="list-group-item ${((6)==(page?number))?string('active1','')} ${(processState>9)?string('active2','')} ">
                 成绩查询<span class="ic-menu"></span>
             </li>
             <li class="list-group-item ${((7)==(page?number))?string('active1','')} ">
