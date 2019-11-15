@@ -405,7 +405,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
     private BckjBizBm getBmxx(Map<String, Object> mapData) throws CustomerException {
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
-            throw CustomerException.newInstances("无信息");
+            throw CustomerException.newInstances("报名信息为空");
         }
         doCheckSubTime(bm.getXxbh());
         return bm;
@@ -671,10 +671,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         int xh = 1;
         String _xh = "";
         String nf = DateUtil.getDateStr("yyyy");
+        nf = nf.substring(2, 4);
         if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
             for (BckjBizBm bm : bmList) {
                 _xh = getFixLen(xh, 4);
-                _xh = nf + bm.getBklbOwid() + _xh;
+                _xh = nf + getFixLen(bm.getBklbOwid(),3) + _xh;
                 xh++;
                 bm.setZkzh(_xh);
                 saveOrUpdate(bm);

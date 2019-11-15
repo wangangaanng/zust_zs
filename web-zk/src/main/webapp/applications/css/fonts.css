@@ -144,7 +144,7 @@
 .zsjz:before {  content: "\015F";  }/*招生简章*/
 /*招生管理*/
 .zsjz:before {  content: "\00BB";  }/*招生管理*/
-.zsjz:before {  content: "\013D";  }/*考生报名管理*/
+.zsbm:before {  content: "\013D";  }/*考生报名管理*/
 /*校园开放日和合作办学相同 hzbx*/
 .zsly:before {  content: "\0154";  }/*招生留言*/
 /*学院专业维护 与学院专业同 .xyzy*/

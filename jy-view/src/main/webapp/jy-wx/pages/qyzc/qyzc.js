@@ -70,14 +70,15 @@ Page({
       return false
     }
 
-    // if (params.qyFrsfz.trim().length!=18){
-    //   wx.showModal({
-    //     content: '法人身份证长度有误',
-    //     showCancel: false,
-    //   })
-    //   return false
-    // }
-    params.qyFrsfz = params.qyTysh
+    if (params.qyTysh.trim().length<10){
+      wx.showModal({
+        content: '企业统一税号长度有误，请重新填写',
+        showCancel: false,
+      })
+      return false
+    }
+    params.qyTysh = params.qyTysh.trim()
+    params.qyFrsfz = params.qyTysh.trim()
     wx.showModal({
       title: '提示',
       content: `您的企业税号为${params.qyTysh}。请确认您的注册信息，点击确认进行注册，点击取消进行修改。`,
@@ -124,6 +125,7 @@ Page({
     const rules = {
       qyTysh: {
         required: true,
+        minlength: 10
       },
       // qyFrsfz: {
       //   required: true
@@ -184,7 +186,8 @@ Page({
     // 验证字段的提示信息，若不传则调用默认的信息
     const messages = {
       qyTysh: {
-        required: '请填写企业统一信用代码'
+        required: '请填写企业统一信用代码',
+        minlength: "企业统一信用代码不得少于10个字符",
       },
       // qyFrsfz: {
       //   required: '请填写法人身份证号'
@@ -379,9 +382,11 @@ Page({
                       if (d.bean["社会信用代码"].words.trim().length>18){
                         d.bean["社会信用代码"].words = d.bean["社会信用代码"].words.trim().substring(0, 18)
                       }
-                      that.setData({
-                        'form.qyTysh': d.bean["社会信用代码"].words
-                      })
+                      if (d.bean["社会信用代码"].words.trim().length > 10){
+                        that.setData({
+                          'form.qyTysh': d.bean["社会信用代码"].words
+                        })
+                      }
                     } 
                   } 
                 } 

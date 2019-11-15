@@ -4,8 +4,8 @@
   },
   "pages": [
     "pages/shouye/shouye",
-    "pages/register/register",
     "pages/Process/Process",
+    "pages/register/register",
     "pages/login/login",
     "pages/basicInfo/basicInfo",
     "pages/payOline/payOline",
@@ -29,7 +29,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#26b887",
-    "navigationBarTitleText": "浙江科技学院三位一体",
+    "navigationBarTitleText": "三位一体",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#26b887"
   },

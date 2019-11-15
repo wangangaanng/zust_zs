@@ -26,7 +26,7 @@ Page({
 
     if (wx.getStorageSync('userName')) {
       that.setData({
-        'userName': that.data.userName
+        'userName': wx.getStorageSync('userName')
       })
     } else {
       if (wx.getStorageSync('yhRefOwid')) {
@@ -52,7 +52,7 @@ Page({
       common.toast('请先登录', 'none', 2000)
       that.setData({
         "hasLogin": false,
-        "userName": "浙江科技学院三位一体"
+        "userName": "三位一体"
       })
     } else { //已经登录
       that.setData({
@@ -98,8 +98,11 @@ Page({
   loginOut: function () {
     var that = this;
     wx.setStorageSync("yhRefOwid", "");
+    wx.setStorageSync("userName", "");
+    wx.setStorageSync("mobile", "");
     that.setData({
-      "hasLogin":false
+      "hasLogin":false,
+      "userMobile":''
     })
     //wx.setStorageSync("mobile", "");
     wx.navigateTo({

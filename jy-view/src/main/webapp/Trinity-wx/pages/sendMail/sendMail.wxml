@@ -1,14 +1,19 @@
 <!--pages/sendMail/sendMail.wxml-->
 <view>
   <topBck>
+
+  <block wx:if="{{errorMess==''}}">
     <view class="df">
       <icon class="iconfont icon-tongzhi" style=""></icon>
-      <view class="f1 notice-detail">{{tipString}},请确认邮箱地址。点击确认发送，{{sureTip}}将发送到你的邮箱。</view>
+      <view class="f1 notice-detail">
+        {{tipString}},请确认邮箱地址。点击确认发送，{{sureTip}}将发送到你的邮箱。
+        {{stringLable=="报名表"?"报名表和承诺书请签字后拍照上传！":""}}
+      </view>
     </view>
 
     <form bindsubmit="sendMailForm">
       <van-field class="mail" value="{{stringLable}}" disabled placeholder="报名表" left-icon=" iconfont icon-jtbmb" error-message="">
-        <van-button slot="button" size="small" plain hairline type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">{{stringLable}}预览</van-button>
+        <van-button slot="button" size="small" plain  type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">{{stringLable}}预览</van-button>
       </van-field>
       <van-field class="mail" value="{{mailAddress}}" name="email" placeholder="邮箱地址" left-icon=" iconfont icon-mail" error-message="" clearable>
       </van-field>
@@ -17,6 +22,11 @@
         <button formType="submit">确认发送</button>
       </view>
     </form>
+  </block>
+
+  <block wx:else>
+    <p class="mess-tip">{{errorMess}}</p>
+  </block>
 
   </topBck>
 

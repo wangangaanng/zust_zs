@@ -89,7 +89,7 @@ public class BckjBizJybmController extends BaseController {
     @ResponseBody
     public ResponseMessage getListZph(PublicDataVO dataVO) {
         try {
-            map.clear();
+//            map.clear();
             map.put("bmlx", JyContant.BMDX_ZPH);
             map.put("bmdx", JyContant.BMLX_QY);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
@@ -99,6 +99,7 @@ public class BckjBizJybmController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+
 
 
     @RequestMapping(value = "/getList")

@@ -303,7 +303,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
     }
 
     /**
-     * <p>方法:removeOrder TODO多条删除BckjBizDcwj </p>
+     * <p>方法:removeOrder TODO多条删除BckjBizDcwj以及对应的调查结果 </p>
      * <ul>
      * <li> @param codes TODO</li>
      * <li>@return com.zghzbckj.base.model.ResponseMessage  </li>
@@ -319,6 +319,7 @@ public class BckjBizDcwjService extends CrudService<BckjBizDcwjDao, BckjBizDcwj>
             BckjBizDcwj bckjBizDcwj = new BckjBizDcwj();
             bckjBizDcwj.setOwid(owid);
             this.dao.delete(bckjBizDcwj);
+            bckjBizDcwjJgService.deleteByDcwj(owid);
             params.put("owid", owid);
             objs.add(params);
         }

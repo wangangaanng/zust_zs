@@ -9,3 +9,5 @@ page{background:rgba(245,245,245);height: 100%;}
 .van-field__input--disabled{color: #333!important;}
 .van-button--small{height: 26px!important;line-height: 26px!important;}
 .df{margin-bottom: 40rpx;}
+
+.mess-tip{padding: 100rpx 0rpx;color: #26b887;text-align: center;width: 100%;display: block}

@@ -33,16 +33,15 @@ Page({
    */
   onShow: function() {
     var that = this;
-    that.getXxxx();
-    that.indexState();
-
     if (wx.getStorageSync('userName')) {
       that.setData({
-        'userName': that.data.userName
+        userName: wx.getStorageSync('userName')
       })
     } else {
       common.getInfoBasic(that);
     }
+    that.getXxxx();
+    that.indexState();
   },
 
   /**
@@ -126,4 +125,7 @@ Page({
       }
     });
   },
+  showTipTJ:function(e){
+    common.toast('报名表已提交', 'none', 2000)
+  }
 })

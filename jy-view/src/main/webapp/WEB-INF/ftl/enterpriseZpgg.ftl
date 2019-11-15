@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="${base}/js/laydate/theme/default/laydate.css" />
 </head>
 <style>
-    .layui-layer-content{overflow-y:auto !important;}
+    .layui-layer-content{overflow:auto !important;}
+    .lxr-modal {
+        padding: 15px;
+    }
 </style>
 <body>
 
@@ -93,6 +96,7 @@
 <script src="${base}/js/bootstrap-table-zh-CN.min.js" type="text/javascript"></script>
 <script src="${base}/js/city1.js" type="text/javascript"></script>
 <script src="${base}/js/laydate/laydate.js" type="text/javascript"></script>
+<script src="${base}/js/release/wangEditor.min.js" type="text/javascript"></script>
 <script src="${base}/js/enterpriseZpgg.js" type="text/javascript"></script>
 </body>
 
