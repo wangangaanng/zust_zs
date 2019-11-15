@@ -36,7 +36,7 @@ function ajax(method, data, successMethod,hideload) {
     },
     fail: function (err) {
       wx.showToast({
-        title: '系统错误，请联系管理员',
+        title: '请连接zust校内网后重试',
         icon: 'none',
         duration: 2000
       })

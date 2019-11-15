@@ -48,16 +48,17 @@ function isTimeOut() {
     }
 }
 
-//调用附件上传接口
-function fileUpload(type,file,fun) {
+//调用附件上传接口 1表示普通文件 2 竞赛文件（多张） 3：身份证识别
+function fileUpload(imgType,file,fun) {
+    var thisType= imgType;
+    (imgType=="4")?thisType=1:thisType;//4:户籍证明
     var fd = new FormData();
     fd.append("file",file);
     fd.append('data', JSON.stringify({
-        "type": type,
+        "type": thisType,
         "yhRefOwid":getCookie("swOwid")
     }));
     beginLoad();
-    console.log(uploadUrl);
     $.ajax({
         url:  uploadUrl,
         type: "POST",
@@ -74,33 +75,6 @@ function fileUpload(type,file,fun) {
             }else{
                 walert(d.errorMess)
             }
-        },
-        fail:function () {
-            finishLoad()
-        }
-    });
-}
-
-//身份证识别 以及单张图片上传
-function idOcr(imgType,file,fun) {
-    var thisType= imgType;
-    (thisType=="3")?imgType=2:imgType;
-    var fd = new FormData();
-    fd.append("file",file);
-    fd.append("method","zustcommon/common/picUpload")
-    fd.append('data', JSON.stringify({
-        "type": imgType
-    }));
-    beginLoad();
-    $.ajax({
-        url:  hostUrl+'/webAjax/picUpload',
-        type: "POST",
-        processData: false,
-        contentType: false,
-        data: fd,
-        success: function(d) {
-            finishLoad();
-            fun(d);
         },
         fail:function () {
             finishLoad()

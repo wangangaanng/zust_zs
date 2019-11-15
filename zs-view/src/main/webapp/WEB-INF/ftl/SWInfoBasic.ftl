@@ -21,7 +21,7 @@
         <div class="col-sm-8" style="padding: 0px;">
             <div id="idCard">
                 <div style="text-align: center;" class="col-sm-4">
-                    <div class="upimg-wrap" typeNum="2">
+                    <div class="upimg-wrap" typeNum="3">
                         <div class="file-btn_wrap">
                             <img src="${base}/img/img-up.png" class="up-btn_img" id="sfzzmImg">
                         </div>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div style="text-align: center;" class="col-sm-4">
-                    <div class="upimg-wrap"  typeNum="3">
+                    <div class="upimg-wrap"  typeNum="1">
                         <div class="file-btn_wrap">
                             <img src="${base}/img/img-up.png" class="up-btn_img" id="sfzfmImg">
                         </div>
@@ -44,7 +44,7 @@
             </div>
             <div id="household" style="display: none">
                 <div style="text-align: center;" class="col-sm-4">
-                    <div class="upimg-wrap" typeNum="1">
+                    <div class="upimg-wrap" typeNum="4">
                         <div class="file-btn_wrap">
                             <img src="${base}/img/img-up.png" class="up-btn_img" id="hjzmImg">
                         </div>
