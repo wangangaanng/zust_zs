@@ -44,6 +44,13 @@
             top:35px;
             z-index:11;
         }
+        #selection {
+            width: 80px;
+            position: absolute;
+            right: 95px;
+            top:35px;
+            z-index:11;
+        }
         .btn-group2{
             right: 100px;
         }
@@ -89,18 +96,6 @@
     <div class="common-right">
         <!--bottom begin-->
         <div class="comcontent-wrap index-wrap">
-
-<#--            <div class="content">-->
-<#--                <div class="box" id="xxzph">-->
-<#--                    <p class="atitle">待举办招聘会</p>-->
-<#--                </div>-->
-<#--                <div class="box" id="xxxjh">-->
-<#--                    <p class="atitle">待举办宣讲会</p>-->
-<#--                </div>-->
-<#--                <div class="box" id="xxqy">-->
-<#--                    <p class="atitle">待审核企业</p>-->
-<#--                </div>-->
-<#--            </div>-->
             <div class="top-wrap" style="margin-top: 0px;border-radius: 0px;">
                 <ul class="pie-list">
                     <li>
@@ -109,23 +104,13 @@
                             <div id="taskcartogram" class="pie-wrap">
 
                             </div>
-                            <div class="piechat-title" >
-                                <table id="qytj">
-
-                                </table>
-                            </div>
                         </div>
                     </li>
                     <li>
                         <div class="pie-list_wrap" >
-                            <p><span>招生计划</span></p>
+                            <p><span>招生统计</span></p>
                             <div id="taskcartogram2" class="pie-wrap">
 
-                            </div>
-                            <div class="piechat-title">
-                                <table id="zwtj">
-
-                                </table>
                             </div>
                         </div>
                     </li>
@@ -135,23 +120,13 @@
                             <div id="taskcartogram3" class="pie-wrap">
 
                             </div>
-                            <div class="piechat-title">
-                                <table id="zphtj">
-
-                                </table>
-                            </div>
                         </div>
                     </li>
                     <li>
                         <div class="pie-list_wrap">
-                            <p><span>原始成绩</span></p>
+                            <p><span>考试类别</span></p>
                             <div id="taskcartogram4" class="pie-wrap">
 
-                            </div>
-                            <div class="piechat-title">
-                                <table id="xjhtj">
-
-                                </table>
                             </div>
                         </div>
                     </li>
@@ -162,16 +137,11 @@
             <div class="bottom-wrap" style="margin-top: 20px;">
                 <div  class="point-chart">
                     <p><span>专业录取</span></p>
-                    <div class="btn-group ">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <input name="startTm" id="datetimepicker" type='text' class="form-control input-sm" readonly="readonly"/><span class="caret"></span>
-                        </button>
-                    </div>
-                    <label class="btn-group_label">至</label><div class="btn-group btn-group2">
-                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <input name="startTm" id="datetimepicker2" type='text' class="form-control input-sm" readonly="readonly"/><span class="caret"></span>
-                        </button>
-                    </div>
+                    <select id="selection" class="form-control" onchange="change()">
+                        <option value="15">前15</option>
+                        <option value="10" selected="selected">前10</option>
+                        <option value="5">前5</option>
+                    </select>
                     <div id="indexBar">
 
                     </div>
@@ -190,24 +160,7 @@
 <script type="text/javascript" src="html/js/common.js"></script>
 <script type="text/javascript" src="html/js/zswIndex.js" ></script>
 <script>
-    $('#datetimepicker').datetimepicker({
-        format: 'yyyymm',
-        weekStart: 1,
-        autoclose: true,
-        startView: 3,
-        minView: 3,
-        forceParse: false,
-        language:'zh-CN'
-    });
-    $('#datetimepicker2').datetimepicker({
-        format: 'yyyymm',
-        weekStart: 1,
-        autoclose: true,
-        startView: 3,
-        minView: 3,
-        forceParse: false,
-        language:'zh-CN'
-    });
+
 </script>
 </body>
 </html>
