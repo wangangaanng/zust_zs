@@ -228,7 +228,7 @@
                 AND a.state = #{state}
             </if>
             <if test=" cj != null and cj != '' ">
-                AND a.state>=9
+                AND a.state>=8
             </if>
             <if test=" bmnd != null and bmnd != '' ">
                 AND a.bmnd = #{bmnd}

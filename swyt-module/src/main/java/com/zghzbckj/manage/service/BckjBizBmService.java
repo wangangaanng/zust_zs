@@ -117,7 +117,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         }
         if (!TextUtils.isEmpty(state) && 9 != state) {
             dataMap.put("state", state);
-        } else {
+        }
+        else {
             dataMap.put("cj", 1);
         }
 

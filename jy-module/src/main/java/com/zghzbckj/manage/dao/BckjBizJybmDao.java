@@ -3,7 +3,6 @@
  */
 package com.zghzbckj.manage.dao;
 
-import com.google.common.collect.Lists;
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
@@ -29,4 +28,6 @@ public interface BckjBizJybmDao extends CrudDao<BckjBizJybm> {
     Integer countNumber(Map params);
 
     List<BckjBizJob> getAllBmInfo(Map<String, Object> dataMap);
+
+    List<BckjBizJybm> findListByMapInfo(Map params);
 }

@@ -42,6 +42,44 @@
 		a.exp10 AS "exp10"
 	</sql>
 
+
+
+    <sql id="bckjBizXsgzColumnsInfo">
+        a.owid AS "owid",
+        a.job_ref_owid AS "jobRefOwid",
+        a.yh_ref_owid AS "yhRefOwid",
+        a.gzlx AS "gzlx",
+        a.xxlb AS "xxlb",
+        a.yynr AS "yynr",
+        a.gzsj AS "gzsj",
+        a.lxdh AS "lxdh",
+        a.lxr AS "lxr",
+        a.memo AS "memo",
+        a.createtime AS "createtime",
+        a.creator AS "creator",
+        a.creator_name AS "creatorName",
+        a.lastupdate AS "lastupdate",
+        a.updator AS "updator",
+        a.updator_name AS "updatorName",
+        a.ver AS "ver",
+        a.vertime AS "vertime",
+        a.dept_id AS "deptId",
+        a.dept_path AS "deptPath",
+        a.delflg AS "delflg",
+        a.state AS "state",
+        a.exp1 AS "exp1",
+        a.exp2 AS "exp2",
+        a.exp3 AS "exp3",
+        a.exp4 AS "exp4",
+        a.exp5 AS "exp5",
+        a.exp6 AS "exp6",
+        a.exp7 AS "exp7",
+        a.exp8 AS "exp8",
+        a.exp9 AS "exp9",
+        a.exp10 AS "exp10"
+    </sql>
+
+
     <sql id="bckjBizXsgzJoins">
     </sql>
 
@@ -69,6 +107,52 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="findListByMapInfo" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
+        SELECT
+        b.exp1 AS "gsqymc",
+        b.zwbt AS "zwbt",
+        b.exp6 AS "qyLxr",
+        b.exp7 AS "qyLxrdh",
+        <include refid="bckjBizXsgzColumnsInfo"/>
+        FROM bckj_biz_xsgz a
+        LEFT JOIN bckj_biz_job b ON a.job_ref_owid = b.owid
+        <include refid="bckjBizXsgzJoins"/>
+        <where>
+            <if test="zwbt != null and zwbt  != ''">
+                AND b.zwbt like CONCAT('%', #{zwbt},'%')
+            </if>
+            <if test="gsqymc != null and gsqymc  != ''">
+                AND b.exp1 like CONCAT('%', #{gsqymc},'%')
+            </if>
+            <if test="jobRefOwid != null and jobRefOwid != ''">
+                AND a.job_ref_owid = #{jobRefOwid}
+            </if>
+            <if test="lxr != null and lxr != ''">
+                AND a.lxr = #{lxr}
+            </if>
+            <if test="yhRefOwid != null and yhRefOwid != ''">
+                AND a.yh_ref_owid = #{yhRefOwid}
+            </if>
+            <if test="gzlx != null and gzlx != ''">
+                AND a.gzlx = #{gzlx}
+            </if>
+            <if test="xxlb != null and xxlb != ''">
+                AND a.xxlb = #{xxlb}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy != null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findListByMap" resultType="com.zghzbckj.manage.entity.BckjBizXsgz">
         SELECT
         b.exp1 AS "gsqymc",

@@ -652,7 +652,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 if (!TextUtils.isEmpty(dataMap.get("xxlb"))) {
                     params.put("xxlb", dataMap.get("xxlb").toString());
                 }
-                List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
+                List<BckjBizXsgz> xsgzList = xsgzDao.findListByMapInfo(params);
                 job.setXsgzList(xsgzList);
                 job.setNumber(xsgzList.size());
                 params.clear();
@@ -660,7 +660,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 if (!TextUtils.isEmpty(dataMap.get("yhRefOwid"))) {
                     params.put("yhRefOwid", dataMap.get("yhRefOwid").toString());
                 }
-                List<BckjBizJybm> bmList = bmDao.findListByMap(params);
+                List<BckjBizJybm> bmList = bmDao.findListByMapInfo(params);
                 if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
                     job.setSfbm(2);
                 } else {
