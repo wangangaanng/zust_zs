@@ -1,10 +1,11 @@
 package com.zghzbckj.manage.service;
 
 import com.beust.jcommander.internal.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.baiduapi.constants.BaiDuApiInfo;
+import com.ourway.baiduapi.dto.InfoDTO;
+import com.ourway.baiduapi.utils.Base64ImageUtils;
+import com.ourway.baiduapi.utils.HttpClientUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.common.CommonConstant;
@@ -16,6 +17,7 @@ import com.zghzbckj.manage.utils.Html2PdfUtil;
 import com.zghzbckj.manage.utils.HttpUtil;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.HttpBackUtil;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  * <dl>
@@ -191,18 +190,25 @@ public class CommonService {
      * </ul>
      */
     @Transactional(readOnly = false)
-    public Map<String, Object> saveFile(MultipartFile file, Map mapData) throws IOException, CustomerException {
+    public Map<String, Object> saveFile(MultipartFile file, Map mapData) throws Exception {
         String fileName = file.getOriginalFilename();
         String type = fileName.indexOf(CommonModuleContant.SPILT_POINT) != -1 ? fileName.substring(fileName.lastIndexOf(CommonModuleContant.SPILT_POINT) + 1, fileName.length()) : null;
         String realName = String.valueOf(System.currentTimeMillis());
         String trueFileName = CommonModuleContant.SWTYFILEPATH + File.separator + realName + CommonConstant.SPILT_POINT + type;
         String path = Global.getConfig(CommonModuleContant.SWTYFILEPATH);
-        File tarFile = new File(path + trueFileName);
+        String allPathFile=path + trueFileName;
+        File tarFile = new File(allPathFile);
         file.transferTo(tarFile);
         Map<String, Object> fileCenter = Maps.newHashMap();
         fileCenter.put("filePath", trueFileName);
         if (MapUtils.getInt(mapData, "type") == 1) {
             return fileCenter;
+        }
+        if (MapUtils.getInt(mapData, "type") == 3) {
+           Map mapResult= ocrPic(allPathFile,trueFileName,2);
+            mapResult.put("fileName", trueFileName);
+            fileCenter.put("filePath", trueFileName);
+           return mapResult;
         }
         String yhRefOwid = MapUtils.getString(mapData, "yhRefOwid")+CommonModuleContant.SWTYFILEPATH;
         fileCenter.put("owid", TextUtils.getUUID());
@@ -269,4 +275,72 @@ public class CommonService {
         }
         return ResponseMessage.sendOK(null);
     }
+
+    public  String getToKen() {
+        String access_token_url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + CommonModuleContant.API_KEY + "&client_secret=" + CommonModuleContant.SECRET_KEY;
+        CloseableHttpResponse response = HttpClientUtils.doHttpsGet(access_token_url, (String) null);
+        String result = HttpClientUtils.toString(response);
+        Map tokenMap = JsonUtil.jsonToMap(result);
+        if (null != tokenMap && !TextUtils.isEmpty(tokenMap.get("access_token"))) {
+            BaiDuApiInfo.TOKEN = tokenMap.get("access_token").toString();
+            return BaiDuApiInfo.TOKEN;
+        } else {
+            return null;
+        }
+    }
+
+    public Map ocrPic(String path, String fileName, Integer type) throws Exception {
+        Map<String, String> vat = new HashMap<>();
+        InfoDTO resultBack = Base64ImageUtils.getImageStrFromPath(path);
+        String baidToken = getToKen();
+        Map<String, String> headers =  Maps.newHashMap();
+        headers.put("Content-Type", "application/x-www-form-urlencoded");
+        Map<String, String> bodys = Maps.newHashMap();
+        bodys.put("image", (String) resultBack.getValue());
+        bodys.put("detect_direction", "false");
+        if (1 == type) {
+            bodys.put("accuracy", "high");//可选值：normal,high参数选normal或为空使用快速服务；选择high使用高精度服务，但是时延会根据具体图片有相应的增加
+            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.LICENSE_URL + baidToken, headers, bodys);
+            String result = HttpClientUtils.toString(backResponse);
+            if (!TextUtils.isEmpty(result)) {
+                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
+                vat = (Map<String, String>) idcardDTO.get("words_result");
+                if (null == vat) {
+                    vat = Maps.newHashMap();
+                }
+                vat.put("fileName", "pic/" + fileName);
+            }
+        } else if (2 == type) {
+            bodys.put("id_card_side", "front");
+            bodys.put("detect_risk", "true");
+            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.ID_URL + baidToken, headers, bodys);
+            String result = HttpClientUtils.toString(backResponse);
+            if (!TextUtils.isEmpty(result)) {
+                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
+                vat = (Map<String, String>) idcardDTO.get("words_result");
+                if (null == vat) {
+                    vat = new HashMap(1);
+                }
+                vat.put("image_status", idcardDTO.get("image_status").toString());
+                vat.put("fileName", "pic/" + fileName);
+            }
+        } else if (3 == type) {
+            bodys.put("id_card_side", "back");
+            bodys.put("detect_risk", "true");
+            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.ID_URL + baidToken, headers, bodys);
+            String result = HttpClientUtils.toString(backResponse);
+            if (!TextUtils.isEmpty(result)) {
+                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
+                vat = (Map<String, String>) idcardDTO.get("words_result");
+                if (null == vat) {
+                    vat = new HashMap(1);
+                }
+                vat.put("image_status", idcardDTO.get("image_status").toString());
+                vat.put("fileName", "pic/" + fileName);
+            }
+        }
+
+        return vat;
+    }
+
 }
