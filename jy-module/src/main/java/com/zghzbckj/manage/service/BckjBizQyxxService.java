@@ -234,7 +234,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         Map params = Maps.newHashMap();
         params.put("qyFrsfz", getSfzStr);
         params.put("qyTysh", mapData.get("qyTysh"));
-        BckjBizQyxx company = qyxxDao.getOne(params);
+        BckjBizQyxx company = qyxxDao.getOneInfo(params);
         if (TextUtils.isEmpty(company)) {
             resultMap.put("result", "false");
             resultMap.put("msg", JyContant.SH_ERROR_MESSAGE);

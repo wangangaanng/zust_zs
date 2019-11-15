@@ -34,6 +34,9 @@ import java.util.Map;
  */
 public class OpenNoZKPageAction implements ComponentListinerSer {
     //[{"pageCa":"打开的路径","gridId":"回掉的grid","title":""}]
+
+
+
     @Override
     public void doAction(BaseWindow window, Event event, PageControlVO pgvo) {
         Object windowParams = pgvo.getLayoutComponent().getEventDataContent();
@@ -79,11 +82,11 @@ public class OpenNoZKPageAction implements ComponentListinerSer {
             }
             String qdsj1 = null;
             if (!TextUtils.isEmpty(rowData.get("qdsj1"))) {
-                qdsj1 = DateUtil.getDateString(rowData.get("qdsj1").toString(), "yyyy-MM-dd HH:mm:ss");
+                qdsj1 = DateUtil.getDateString(rowData.get("qdsj1").toString(), "HH:mm:ss");
             }
             String qdsj2 = null;
             if (!TextUtils.isEmpty(rowData.get("qdsj2"))) {
-                qdsj2 = DateUtil.getDateString(rowData.get("qdsj2").toString(), "yyyy-MM-dd HH:mm:ss");
+                qdsj2 = DateUtil.getDateString(rowData.get("qdsj2").toString(), "HH:mm:ss");
             }
 
             String apiURL = "web/zustcommon/common/getToken";

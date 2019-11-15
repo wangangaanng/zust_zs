@@ -218,8 +218,8 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         if (TextUtils.isEmpty(mapData.get("jsfj"))) {
             mapData.put("jsfj","''");
         }
-        this.commonDao.updateFileByjbxx(mapData);
         this.commonDao.deleteFilesByjbxx(mapData);
+        this.commonDao.updateFileByjbxx(mapData);
         return Boolean.TRUE;
     }
 
