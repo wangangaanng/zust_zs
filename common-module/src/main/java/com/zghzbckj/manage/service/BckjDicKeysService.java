@@ -40,7 +40,7 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
 
     private static final Logger log = Logger.getLogger(BckjDicKeysService.class);
 
-    public final static String filter_url="https://api.weixin.qq.com/wxa/msg_sec_check?access_token=ACCESS_TOKEN";
+    public final static String filter_url = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token=ACCESS_TOKEN";
 
     @Override
     public BckjDicKeys get(String owid) {
@@ -97,19 +97,19 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
      */
     @Transactional(readOnly = false)
     public ResponseMessage saveBckjDicKeys(Map<String, Object> dataMap) {
-        List<BckjDicKeys> keys=null;
+        List<BckjDicKeys> keys = null;
         if (null != dataMap.get("dataList")) {
             List<Map<String, Object>> components = (List) dataMap.get("dataList");
             keys = JsonUtil.map2List(components, BckjDicKeys.class);
-        }else{
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"no data");
+        } else {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "no data");
         }
-        for(BckjDicKeys one:keys){
-           if(one.getUpdateFlag()==2){
-               this.delete(one);
-           }else{
-               this.saveOrUpdate(one);
-           }
+        for (BckjDicKeys one : keys) {
+            if (one.getUpdateFlag() == 2) {
+                this.delete(one);
+            } else {
+                this.saveOrUpdate(one);
+            }
         }
         return ResponseMessage.sendOK(this.findList(new BckjDicKeys()));
     }
@@ -137,32 +137,32 @@ public class BckjDicKeysService extends CrudService<BckjDicKeysDao, BckjDicKeys>
         return ResponseMessage.sendOK(objs);
     }
 
- /*   public String filterContent(Map<String, Object> mapData) {
-        String content=mapData.get("content").toString();
-        List<BckjDicKeys> allKeys=this.dao.findListByMap(mapData);
-        StringBuffer sf=new StringBuffer();
-        for(BckjDicKeys oneKey:allKeys){
-            if(content.contains(oneKey.getKeyWord())){
-                sf.append(oneKey.getKeyWord()+ CommonModuleContant.SPILE_DOUHAO);
-            }
-        }
-        return sf.toString();
-    }*/
-    public  String filterContent(Map<String, Object> mapData){
+    //    public String filterContent(Map<String, Object> mapData) {
+//        String content = mapData.get("content").toString();
+//        List<BckjDicKeys> allKeys = this.dao.findListByMap(mapData);
+//        StringBuffer sf = new StringBuffer();
+//        for (BckjDicKeys oneKey : allKeys) {
+//            if (content.contains(oneKey.getKeyWord())) {
+//                sf.append(oneKey.getKeyWord() + CommonModuleContant.SPILE_DOUHAO);
+//            }
+//        }
+//        return sf.toString();
+//    }
+    public String filterContent(Map<String, Object> mapData) {
         //使用就业code
-        String weCode="wx01";
+        String weCode = "wx01";
         AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + weCode, AccessToken.class);
-        String requestUrl=filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
+        String requestUrl = filter_url.replace("ACCESS_TOKEN", accessToken.getToken());
         String jsonMenu = JSONObject.fromObject(mapData).toString();
         // 调用接口发送数据到微信服务器
         JSONObject jsonObject = httpRequest(requestUrl, "POST", jsonMenu);
-        log.info(jsonObject.toString()+"------------------------------------------mesBack");
-        if (null== jsonObject) {
+        log.info(jsonObject.toString() + "------------------------------------------mesBack");
+        if (null == jsonObject) {
             return null;
         }
         String jsonStr = jsonObject.toString();
         Map<String, Object> resMap = JsonUtil.jsonToMap(jsonStr);
-        if(!TextUtils.isEmpty(resMap.get("errmsg"))&&(resMap.get("errmsg").toString().indexOf("risky")!=-1)){
+        if (!TextUtils.isEmpty(resMap.get("errmsg")) && (resMap.get("errmsg").toString().indexOf("risky") != -1)) {
             return CommonModuleContant.USER_FILTER_LOG;
         }
         return null;

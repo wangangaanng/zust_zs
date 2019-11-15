@@ -246,7 +246,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             page.setTotalCount(page.getTotalCount() + page2.getTotalCount());
             records.addAll(records2);
             page.setRecords(records);*/
-            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+
+            if (state == 7 || state == 5) {
+                page = findPageWithNumber(dataMap, pageNo, pageSize, " a.zph_ksrq  desc ");
+            } else {
+                page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+            }
             List<BckjBizJob> records = page.getRecords();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String format = simpleDateFormat.format(new Date());

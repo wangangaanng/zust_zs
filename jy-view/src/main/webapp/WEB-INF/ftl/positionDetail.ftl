@@ -403,6 +403,7 @@
         </div>
     </div>
     <#include "com/footer.ftl">
+    <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
     <script>
         var jlowid="${result.exp2!'0'}"
         $(".position-tabbar ul li").click(function () {
@@ -442,33 +443,8 @@
             }
         }
         function applyJob2() {
-            <#--var bmdx="${result.zwlx!''}";-->
-            <#--if(bmdx=='0'){-->
-                <#--bmdx=2-->
-            <#--}else if(bmdx=='3'){-->
-                <#--bmdx=0-->
-            <#--}else if(bmdx=='4'){-->
-                <#--bmdx=1-->
-            <#--}-->
             if(getCookie('qyOwid')){
                 window.location.href="${base}/jobFair/1/"+"${result.owid!''}"
-                <#--var jsonObj={-->
-                    <#--"jobRefOwid":"${result.owid!''}",-->
-                    <#--"bmlx":'0',-->
-                    <#--"bmdx":bmdx,-->
-                    <#--"qyxxRefOwid":getCookie('qyOwid'),-->
-                <#--}-->
-                <#--ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {-->
-                    <#--if(data.backCode==0){-->
-                        <#--layer.msg('申请成功', {icon: 1});-->
-                    <#--}else if(data.backCode==2){-->
-                        <#--layer.msg("请先登录", {icon: 2});-->
-                        <#--setTimeout('window.location.href=base+"/"',1500);-->
-                    <#--}else{-->
-                        <#--layer.msg(data.errorMess, {icon: 2});-->
-                    <#--}-->
-
-                <#--})-->
             }else{
                 login("",0)//企业登录
             }

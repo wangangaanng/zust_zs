@@ -52,6 +52,16 @@
 		a.state AS "state"
 	</sql>
 
+
+    <sql id="bckjBizQyxxColumnsInfo">
+        a.owid AS "owid",
+        a.qymc AS "qymc",
+        a.qy_lxr AS "qyLxr",
+        a.qy_lxrdh AS "qyLxrdh",
+        a.qy_yx AS "qyYx"
+    </sql>
+
+
     <sql id="bckjBizQyxxJoins">
     </sql>
 
@@ -61,6 +71,29 @@
         FROM bckj_biz_qyxx a
         <include refid="bckjBizQyxxJoins"/>
         WHERE a.owid = #{owid}
+    </select>
+
+    <select id="getOneInfo" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
+        SELECT
+        <include refid="bckjBizQyxxColumnsInfo"/>
+        FROM bckj_biz_qyxx a
+        <include refid="bckjBizQyxxJoins"/>
+        <where>
+            <if test="qyTysh != null and qyTysh != ''">
+                AND a.qy_tysh = #{qyTysh}
+            </if>
+            <if test="qyFrsfz != null and qyFrsfz != ''">
+                AND a.qy_frsfz LIKE concat('%',#{qyFrsfz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="qymc != null and qymc != ''">
+                AND a.qymc = #{qymc}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+        </where>
+
+
     </select>
 
 
@@ -416,9 +449,6 @@
         FROM BCKJ_BIZ_QYXX a
         WHERE a.qy_tysh=#{qyTysh}
     </select>
-
-
-
 
 
 </mapper>

@@ -161,17 +161,17 @@ function uploadImg(){
                 $parents.find(".up-btn_img").attr("src",this.result);
                 $parents.find(".up-btn_img").addClass("fullImg");
                 switch (imgType){
-                    case "1"://户籍证明
-                        idOcr(imgType,file,function (d) {
+                    case "4"://户籍证明
+                        fileUpload(imgType,file,function (d) {
                             if(d.backCode==0){
-                                $("#hjzm").val(d.bean.fileName);
+                                $("#hjzm").val(d.bean.filePath);
                             }else{
                                 walert(d.errorMess)
                             }
-                        });//1是普通文件
+                        });//是普通文件
                         break;
-                    case "2"://2身份证正面
-                        idOcr(imgType,file,function (d) {
+                    case "3"://身份证正面
+                        fileUpload(imgType,file,function (d) {
                             if(d.backCode==0){
                                 if(d.bean.image_status!="normal"){
                                     switch (d.bean.image_status) {
@@ -222,10 +222,10 @@ function uploadImg(){
                             }
                         });//1是普通文件
                         break;
-                    case "3"://身份证反面
-                        idOcr(imgType,file,function (d) {
+                    case "1"://身份证反面
+                        fileUpload(imgType,file,function (d) {
                             if(d.backCode==0){
-                                $("#sfzfm").val(d.bean.fileName);
+                                $("#sfzfm").val(d.bean.filePath);
                             }else {
                                 walert(d.errorMess)
                             }
