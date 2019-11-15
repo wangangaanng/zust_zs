@@ -105,7 +105,6 @@
     //报名表签字上传
     $(".file-btn").change(function (e) {
         var $parents = $(this).parents(".upimg-wrap");
-        imgType =  $parents.attr("typeNum");
         var file = e.target.files[0] || e.dataTransfer.files[0];
         if (file) {
             if(file.size>2000000){
@@ -118,7 +117,7 @@
                 $parents.find(".up-btn_img").attr("src",this.result);
                 $parents.find(".up-btn_img").addClass("fullImg");
                 //调用上传接口
-                idOcr(imgType,file,function (d) {
+                fileUpload("1",file,function (d) {
                     payProveImg = d.bean.fileName;
                     $(".pay-online li").eq(1).find(".contact-wrap_title").addClass("active");
                     walert("缴费证明图片上传成功")

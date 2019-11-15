@@ -36,7 +36,7 @@
     <div class="form-group">
         <label for="qyFrsfz" class="col-sm-2 control-label  col-sm-offset-1">承诺书签字上传<span class="red">*</span>：</label>
         <div class="col-sm-4">
-            <div class="upimg-wrap" typeNum="2">
+            <div class="upimg-wrap" typeNum="4">
                 <div class="file-btn_wrap">
                     <#if cnszp??&&cnszp!=""&&(processState>2)>
                             <img src="${imagePath}${cnszp}" class="up-btn_img img-full"/>
@@ -125,16 +125,15 @@
                 $parents.find(".up-btn_img").attr("src",this.result);
                 $parents.find(".up-btn_img").addClass("fullImg");
                 //调用上传接口
-                idOcr(imgType,file,function (d) {
-
+                fileUpload(imgType,file,function (d) {
                     switch(imgType){
                         case "1"://报名表
                             walert("报名表签字上传成功");
-                            bmbZp = d.bean.fileName;
+                            bmbZp = d.bean.filePath;
                             break;
-                        case "2"://承诺书
+                        case "4"://承诺书
                             walert("承诺书签字上传成功");
-                            cnszp = d.bean.fileName;
+                            cnszp = d.bean.filePath;
                             break;
                     }
                 });
