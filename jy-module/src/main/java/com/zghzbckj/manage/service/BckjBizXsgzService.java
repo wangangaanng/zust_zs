@@ -345,6 +345,11 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
         sendMap.put("jobRefOwid", bckjBizXsgz.getJobRefOwid());
         sendMap.put("yhRefOwid", bckjBizXsgz.getYhRefOwid());
         List<BckjBizXsgz> bckjbiz = this.dao.findListByMap(sendMap);
+        //去掉铭感信息
+        for (BckjBizXsgz bckjBizXsgz1:bckjbiz){
+            bckjBizXsgz1.setLxdh("");
+            bckjBizXsgz1.setLxr("");
+        }
         if (!TextUtils.isEmpty(bckjbiz) && bckjbiz.size() > 0) {
             return ResponseMessage.sendOK(bckjbiz);
         }
