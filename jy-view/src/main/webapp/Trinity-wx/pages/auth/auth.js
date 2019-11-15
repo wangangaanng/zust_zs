@@ -97,6 +97,11 @@ Component({
                         icon: 'none'
                       })
                     }
+                  }else{
+                    wx.showToast({
+                      title: '获取用户信息失败，请重新授权',
+                      icon: 'none'
+                    })
                   }
                 },
                 fail: function () {

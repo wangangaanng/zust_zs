@@ -36,7 +36,7 @@ function ajax(method, data, successMethod,hideload) {
     },
     fail: function (err) {
       wx.showToast({
-        title: '请求失败，请联系管理员',
+        title: '请求频繁，请稍后再试',
         icon: 'none',
         duration: 2000
       })
