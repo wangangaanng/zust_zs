@@ -100,7 +100,11 @@ function idOcr(imgType,file,fun) {
         data: fd,
         success: function(d) {
             finishLoad();
-            fun(d);
+            if(d.backCode==0){
+                fun(d);
+            }else{
+                walert(d.errorMess)
+            }
         },
         fail:function () {
             finishLoad()

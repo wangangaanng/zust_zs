@@ -126,6 +126,7 @@
                 $parents.find(".up-btn_img").addClass("fullImg");
                 //调用上传接口
                 idOcr(imgType,file,function (d) {
+
                     switch(imgType){
                         case "1"://报名表
                             walert("报名表签字上传成功");
