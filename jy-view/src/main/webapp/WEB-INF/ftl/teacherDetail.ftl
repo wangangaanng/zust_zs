@@ -82,6 +82,7 @@
     </div>
 </div>
 <input type="hidden" id="teacherOwid" value="${towid}" />
+<input type="hidden" id="owid" value="${(detail.owid)!''}" />
 <#include "com/footer.ftl">
 <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 <script>
@@ -114,7 +115,7 @@
             }
             var jsonObj = {
                 "wtnr": $("#wtnr").val(),
-                "owid": $("#teacherOwid").val(),
+                "owid": $("#owid").val(),
                 "zxlx": 2,
                 "studentOwid": getCookie("stuOwid")
             }
