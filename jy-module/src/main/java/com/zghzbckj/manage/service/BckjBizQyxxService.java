@@ -546,4 +546,6 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     public List<Map> getDicListMapByType(Integer i) {
         return this.dao.getDicListMapByType(i);
     }
+
+
 }
