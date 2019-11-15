@@ -59,7 +59,6 @@ function fileUpload(imgType,file,fun) {
         "yhRefOwid":getCookie("swOwid")
     }));
     beginLoad();
-    console.log(uploadUrl);
     $.ajax({
         url:  uploadUrl,
         type: "POST",
@@ -73,37 +72,6 @@ function fileUpload(imgType,file,fun) {
                 //d.bean.filePath;
                 console.log(d.bean.filePath);
                 return fun(d);
-            }else{
-                walert(d.errorMess)
-            }
-        },
-        fail:function () {
-            finishLoad()
-        }
-    });
-}
-
-//身份证识别 以及单张图片上传
-function idOcr(imgType,file,fun) {
-    var thisType= imgType;
-    (thisType=="3")?imgType=2:imgType;
-    var fd = new FormData();
-    fd.append("file",file);
-    //fd.append("method","zustcommon/common/picUpload")
-    fd.append('data', JSON.stringify({
-        "type": imgType
-    }));
-    beginLoad();
-    $.ajax({
-        url:  uploadUrl,
-        type: "POST",
-        processData: false,
-        contentType: false,
-        data: fd,
-        success: function(d) {
-            finishLoad();
-            if(d.backCode==0){
-                fun(d);
             }else{
                 walert(d.errorMess)
             }
