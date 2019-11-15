@@ -135,14 +135,14 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
     }
 
     /**
-     *<p>功能描述:清空所有数据 deleteAll</p >
-     *<ul>
-     *<li>@param []</li>
-     *<li>@return void</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/11/7 15:00</li>
-     *</ul>
+     * <p>功能描述:清空所有数据 deleteAll</p >
+     * <ul>
+     * <li>@param []</li>
+     * <li>@return void</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/11/7 15:00</li>
+     * </ul>
      */
     @Transactional(readOnly = false)
     public void deleteAll() {
@@ -150,14 +150,14 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
     }
 
     /**
-     *<p>功能描述:导出合并单元格的excel exportRankExcel</p >
-     *<ul>
-     *<li>@param []</li>
-     *<li>@return java.lang.String</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/11/8 10:22</li>
-     *</ul>
+     * <p>功能描述:导出合并单元格的excel exportRankExcel</p >
+     * <ul>
+     * <li>@param []</li>
+     * <li>@return java.lang.String</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/11/8 10:22</li>
+     * </ul>
      */
     public String exportRankExcel() {
         Map<String, Object> params = new HashMap<>();
@@ -339,9 +339,18 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 List<BckjBizJybm> oldJybms = jybmService.findListByParams(params, "");
                 if (!TextUtils.isEmpty(oldJybms) && oldJybms.size() > 0) {
                     BckjBizJybm oldJybm = oldJybms.get(0);
-                    oldJybm.setState(2);
-                    oldJybm.setMemo("重复报名");
+                    oldJybm.setState(1);
+                    oldJybm.setExp1(exp1);
+                    oldJybm.setZwbh(zwbh);
                     jybmService.saveOrUpdate(oldJybm);
+                    //发送通知短信
+                    String content = JyContant.ZPH_PASS_MESS + zwbh + "，地点：" + job.getZphJbdd() + ",举办日期：" + DateUtil.getDateString(job.getZphKsrq(), "yyyy-MM-dd") + "，具体时间：" + job.getZphJtsj() + "，展位现场分配";
+                    String mobile = qyLxrdh;
+                    try {
+                        MessageUtil.sendMessage(mobile, content);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     continue;
                 }
 

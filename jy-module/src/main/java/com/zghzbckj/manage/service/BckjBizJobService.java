@@ -211,7 +211,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         if (state == 7) {
             dataMap.put("zwlx", JyContant.ZWLB_ZPH);
         }
-        if (state ==8) {
+        if (state == 8) {
             dataMap.put("zwlx", JyContant.ZWLB_JZ);
         }
         //王显弘改          -------》该结束
@@ -227,7 +227,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             dataMap.put("ddw", 1);
         }
         //      --------->>  王显弘改  开始
-        if (state == 5 || state == 7|| state == 8) {
+        if (state == 5 || state == 7 || state == 8) {
             /*dataMap.put("wait", 1);
             page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
             List<BckjBizJob> records = page.getRecords();
@@ -248,10 +248,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             page.setRecords(records);*/
             page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
             List<BckjBizJob> records = page.getRecords();
-            SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String format = simpleDateFormat.format(new Date());
-            for (BckjBizJob bckjBizJob:records){
-                if(bckjBizJob.getZphKsrq().equals(DateUtil.getDate(format,"yyyy-MM-dd"))||bckjBizJob.getZphKsrq().after(DateUtil.getDate(format,"yyyy-MM-dd"))){
+            for (BckjBizJob bckjBizJob : records) {
+                if (bckjBizJob.getZphKsrq().equals(DateUtil.getDate(format, "yyyy-MM-dd")) || bckjBizJob.getZphKsrq().after(DateUtil.getDate(format, "yyyy-MM-dd"))) {
                     bckjBizJob.setState(2);
                 } else {
                     bckjBizJob.setState(1);
@@ -259,7 +259,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             }
         } else {
             //《--------------------    结束
-                page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
             //      --------->>   王显弘改  开始
         }
         //《--------------------   结束
@@ -526,7 +526,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
         if (!TextUtils.isEmpty(responseYhxx.getBean())) {
             resultMap.put("result", "false");
-            resultMap.put("msg", "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+//            resultMap.put("msg", "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
+            if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+                resultMap.put("msg", responseYhxx.getBean().toString());
+            }
             return resultMap;
         }
         BckjBizJob job = new BckjBizJob();

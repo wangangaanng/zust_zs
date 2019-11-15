@@ -3,10 +3,8 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.google.common.collect.Lists;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -209,6 +207,29 @@ public class BckjBizZsjhController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+
+    /**
+     * 得到筛选的list
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getCustomList")
+    @ResponseBody
+    public ResponseMessage getCustomList(PublicDataVO dataVO){
+        List<String> lists = Lists.newArrayList();
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            lists = bckjBizZsjhService.getCustomList(dataMap);
+            return ResponseMessage.sendOK(lists);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 
 

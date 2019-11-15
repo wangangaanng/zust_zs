@@ -81,10 +81,10 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         PageInfo<BckjBizZsjh> page = findPage(dataMap, pageNo, pageSize, null);
         List<BckjBizZsjh> records = page.getRecords();
         BckjBizZsjh bckjBizZsjh = BckjBizZsjh.class.newInstance();
-        bckjBizZsjh.setNf("共有:"+page.getTotalCount()+"条");
+        bckjBizZsjh.setNf("共有:" + page.getTotalCount() + "条");
         bckjBizZsjh.setReadOnly(true);
         bckjBizZsjh.setState(null);
-        records.add(0,bckjBizZsjh);
+        records.add(0, bckjBizZsjh);
         page.setRecords(records);
         return ResponseMessage.sendOK(page);
     }
@@ -134,14 +134,14 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
     }
 
     /**
-    *<p>方法:getChanges TODO招生计划查询条件数据获取</p>
-    *<ul>
-     *<li> @param mapData TODO</li>
-    *<li>@return java.util.List<com.zghzbckj.manage.entity.BckjBizZsjh>  </li>
-    *<li>@author D.chen.g </li>
-    *<li>@date 2019/10/14 15:33  </li>
-    *</ul>
-    */
+     * <p>方法:getChanges TODO招生计划查询条件数据获取</p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return java.util.List<com.zghzbckj.manage.entity.BckjBizZsjh>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/14 15:33  </li>
+     * </ul>
+     */
     public Map<String, Object> getChanges(Map<String, Object> mapData) {
         Map<String, Object> result = new HashMap<>();
         List<BckjBizZsjh> nfList = this.dao.findListByNf(mapData);
@@ -158,30 +158,30 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
     }
 
     /**
-     *<p>方法:getResult TODO招生计划分页获取查询结果 </p>
-     *<ul>
-     *<li> @param mapData TODO</li>
-     *<li>@return com.zghzbckj.base.entity.PageInfo<com.zghzbckj.manage.entity.BckjBizZsjh>  </li>
-     *<li>@author D.chen.g </li>
-     *<li>@date 2019/10/14 16:00  </li>
-     *</ul>
+     * <p>方法:getResult TODO招生计划分页获取查询结果 </p>
+     * <ul>
+     * <li> @param mapData TODO</li>
+     * <li>@return com.zghzbckj.base.entity.PageInfo<com.zghzbckj.manage.entity.BckjBizZsjh>  </li>
+     * <li>@author D.chen.g </li>
+     * <li>@date 2019/10/14 16:00  </li>
+     * </ul>
      */
     public PageInfo<BckjBizZsjh> getResult(Map<String, Object> mapData) {
-        Integer pageNo= MapUtils.getInt(mapData,"pageNo");
-        Integer pageSize= MapUtils.getInt(mapData,"pageSize");
+        Integer pageNo = MapUtils.getInt(mapData, "pageNo");
+        Integer pageSize = MapUtils.getInt(mapData, "pageSize");
         PageInfo<BckjBizZsjh> page = findPage(mapData, pageNo, pageSize, " a.createtime DESC");
         return page;
     }
 
     /**
-     *<p>功能描述:导出招生计划excel表格 generateExcel</p >
-     *<ul>
-     *<li>@param [dataMap]</li>
-     *<li>@return java.lang.String</li>
-     *<li>@throws </li>
-     *<li>@author xuyux</li>
-     *<li>@date 2019/11/4 19:42</li>
-     *</ul>
+     * <p>功能描述:导出招生计划excel表格 generateExcel</p >
+     * <ul>
+     * <li>@param [dataMap]</li>
+     * <li>@return java.lang.String</li>
+     * <li>@throws </li>
+     * <li>@author xuyux</li>
+     * <li>@date 2019/11/4 19:42</li>
+     * </ul>
      */
     public String generateExcel(Map<String, Object> dataMap) {
         List<BckjBizZsjh> dataList = this.dao.findListByMap(dataMap);
@@ -219,7 +219,7 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
     public ResponseMessage recordInfo(String path) throws IllegalAccessException, InstantiationException, ParseException {
         String filename = path;
         List<List<String>> list = getExcelLists(path);
-        List<BckjBizZsjh> bckjBizZsjhs= Lists.newArrayList();
+        List<BckjBizZsjh> bckjBizZsjhs = Lists.newArrayList();
         if (list != null) {
             for (int i = 1; i < list.size(); i++) {
                 HashMap<Object, Object> resMap = Maps.newHashMap();
@@ -242,18 +242,18 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
                 String xz = cellList.get(5); //学制
                 resMap.put("xz", xz);
                 String zss = cellList.get(6); //招生数
-                if(!TextUtils.isEmpty(zss)){
-                    resMap.put("zss", Integer.parseInt(zss.substring(0,zss.indexOf("."))));
+                if (!TextUtils.isEmpty(zss)) {
+                    resMap.put("zss", Integer.parseInt(zss.substring(0, zss.indexOf("."))));
                 }
                 String xf = cellList.get(7); //学费
                 resMap.put("xf", xf);
                 String syxw = cellList.get(8); //授予学位
                 resMap.put("syxw", syxw);
                 BckjBizZsjh bckjBizZsjh = BckjBizZsjh.class.newInstance();
-                MapUtil.easySetByMap(resMap,bckjBizZsjh);
+                MapUtil.easySetByMap(resMap, bckjBizZsjh);
                 bckjBizZsjhs.add(bckjBizZsjh);
             }
-            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+            for (BckjBizZsjh bckjBizZsjh : bckjBizZsjhs) {
                 saveOrUpdate(bckjBizZsjh);
             }
         }
@@ -267,11 +267,54 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         System.out.println("读取excel文件完成" + "===========" + System.currentTimeMillis());
         return list;
     }
-    @Transactional(readOnly = false,rollbackFor = Exception.class)
+
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
     public ResponseMessage saveOne(Map<String, Object> mapData) {
         BckjBizZsjh bckjBizZsjh = JsonUtil.map2Bean(mapData, BckjBizZsjh.class);
-        MapUtil.easySetByMap(mapData,bckjBizZsjh);
+        MapUtil.easySetByMap(mapData, bckjBizZsjh);
         saveOrUpdate(bckjBizZsjh);
         return ResponseMessage.sendOK(bckjBizZsjh);
     }
+
+    /**
+     * 得到筛选的list
+     * @param dataMap
+     * @return
+     */
+    public List<String> getCustomList(Map<String, Object> dataMap) {
+        List<String> lists = Lists.newArrayList();
+        if (dataMap.get("key").equals("nf")) {
+            List<BckjBizZsjh> bckjBizZsjhs = this.dao.findListByNf(dataMap);
+            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+                lists.add(bckjBizZsjh.getNf());
+            }
+        }
+        if (dataMap.get("key").equals("sf")) {
+            List<BckjBizZsjh> bckjBizZsjhs = this.dao.findListBySf(dataMap);
+            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+                lists.add(bckjBizZsjh.getSf());
+            }
+        }
+        if (dataMap.get("key").equals("pc")) {
+            List<BckjBizZsjh> bckjBizZsjhs = this.dao.findListByPc(dataMap);
+            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+                lists.add(bckjBizZsjh.getPc());
+            }
+        }
+        if (dataMap.get("key").equals("kl")) {
+            List<BckjBizZsjh> bckjBizZsjhs = this.dao.findListByKl(dataMap);
+            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+                lists.add(bckjBizZsjh.getKl());
+            }
+        }
+        if (dataMap.get("key").equals("zy")) {
+            List<BckjBizZsjh> bckjBizZsjhs = this.dao.findListByZy(dataMap);
+            for (BckjBizZsjh bckjBizZsjh:bckjBizZsjhs){
+                lists.add(bckjBizZsjh.getZy());
+            }
+        }
+        return lists;
+    }
+
+
 }

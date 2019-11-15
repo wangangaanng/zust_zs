@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.service;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
@@ -17,6 +18,7 @@ import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
 import com.zghzbckj.manage.entity.BckjBizJybm;
 import com.zghzbckj.manage.entity.BckjBizQyxx;
+import com.zghzbckj.manage.web.MailUtils;
 import com.zghzbckj.manage.web.MessageUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import org.apache.log4j.Logger;
@@ -561,8 +563,7 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         BckjBizJybm bm = get(codes.get(0));
         //报名对象  0招聘会 1宣讲会
         Integer bmdx = Integer.parseInt(mapData.get("bmdx").toString());
-        if (1 == state)
-        {
+        if (1 == state) {
             if (bmdx == JyContant.BMDX_ZPH) {
                 BckjBizJob job = jobService.get(bm.getJobRefOwid());
 //                Map params = Maps.newHashMap();
@@ -605,6 +606,17 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+
+                BckjBizQyxx qyxx = qyxxService.get(bm.getQyxxRefOwid());
+                if (!TextUtils.isEmpty(qyxx) && !TextUtils.isEmpty(qyxx.getQyYx())) {
+                    Map value = Maps.newHashMap();
+                    value.put("to", qyxx.getQyYx());
+                    value.put("subject", "浙江科技学院招聘会审核");
+                    value.put("content", content);
+                    List<String> fileList = Lists.newArrayList();
+                    MailUtils.sendMails(fileList, value);
+                }
+
 
             } else if (bmdx == JyContant.BMDX_XJH) {
 //
@@ -698,12 +710,22 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
                     e.printStackTrace();
                 }
 
+
+                BckjBizQyxx qyxx = qyxxService.get(bm.getQyxxRefOwid());
+                if (!TextUtils.isEmpty(qyxx) && !TextUtils.isEmpty(qyxx.getQyYx())) {
+                    Map value = Maps.newHashMap();
+                    value.put("to", qyxx.getQyYx());
+                    value.put("subject", "浙江科技学院宣讲会审核");
+                    value.put("content", content);
+                    List<String> fileList = Lists.newArrayList();
+                    MailUtils.sendMails(fileList, value);
+                }
+
+
             }
 
 
-        }
-
-        else if (2 == state) {
+        } else if (2 == state) {
             if (bmdx == JyContant.BMDX_ZPH) {
                 BckjBizJob job = jobService.get(bm.getJobRefOwid());
                 String content = JyContant.ZPH_REJECT_MESS;

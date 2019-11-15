@@ -322,5 +322,10 @@
 		DELETE FROM bckj_biz_yhkz
 		WHERE  yh_ref_owid = #{yhRefOwid}
 	</update>
+
+	<update id="updateXsxh" parameterType="Map">
+		UPDATE bckj_biz_yhkz SET xsxh=#{xsxh}
+		WHERE yh_ref_owid = #{yhRefOwid}
+	</update>
 	
 </mapper>

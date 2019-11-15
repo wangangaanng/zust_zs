@@ -43,4 +43,6 @@ public interface BckjBizYhkzDao extends CrudDao<BckjBizYhkz> {
     void updateSudentInfo(BckjBizYhkz bckjBizYhkz);
 
     void deleteByYhRefOwid(String yhRefOwid);
+
+    void updateXsxh(Map<String, Object> xxMap);
 }

@@ -755,4 +755,59 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         String sfz=dataMap.get("sfz").toString();
         return this.dao.getOneBySfz(sfz);
     }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage updateXsxh(String path) {
+        String filename = path;
+        List<List<String>> list = getExcelLists(path);
+        List<Map> listMap= Lists.newArrayList();
+        List<Map> kzMaps= Lists.newArrayList();
+        List<Map> xxMaps= Lists.newArrayList();
+        List<Map> sydMaps= Lists.newArrayList();
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                HashMap<String, Object> resMap = Maps.newHashMap();
+                //学生信息录入
+                List<String> cellList = list.get(i);//行循环
+                String sfz = cellList.get(1); //xsxh
+                //如果年份为空则退出
+                if (TextUtils.isEmpty(sfz)) {
+                    break;
+                }
+                resMap.put("sfz", sfz);
+                String xsxh = cellList.get(0); //省份
+                resMap.put("xsxh", xsxh);
+                listMap.add(resMap);
+            }
+            if (!TextUtils.isEmpty(listMap)&&listMap.size()>0){
+               for (Map map:listMap){
+                   BckjBizSyb oneBySfz = getOneBySfz(map);
+                   Map<String,Object> kzMap= Maps.newHashMap();
+                   Map<String,Object> sydMap= Maps.newHashMap();
+                   Map<String,Object> xxMap= Maps.newHashMap();
+                   kzMap.put("yhRefOwid",oneBySfz.getYhRefOwid());
+                   sydMap.put("owid",oneBySfz.getOwid());
+                   xxMap.put("owid",oneBySfz.getYhRefOwid());
+                   if(!TextUtils.isEmpty(map.get("xsxh"))){
+                       kzMap.put("xsxh",map.get("xsxh"));
+                       sydMap.put("xsxh",map.get("xsxh"));
+                       xxMap.put("yhDlzh",map.get("xsxh"));
+                       kzMaps.add(kzMap);
+                       xxMaps.add(xxMap);
+                       sydMaps.add(sydMap);
+                   }
+               }
+               for (Map map:kzMaps){
+                   bckjBizYhkzService.updateXsxh(map);
+               }
+               for (Map map:xxMaps){
+                   bckjBizYhxxService.updateDlzh(map);
+               }
+               for(Map map:sydMaps){
+                    this.dao.updateXsxh(map);
+                }
+            }
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
 }

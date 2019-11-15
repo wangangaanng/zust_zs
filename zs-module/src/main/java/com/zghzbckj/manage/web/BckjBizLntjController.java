@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.google.common.collect.Lists;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
@@ -209,6 +210,26 @@ public class BckjBizLntjController extends BaseController {
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 得到筛选的list
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getCustomList")
+    @ResponseBody
+    public ResponseMessage getCustomList(PublicDataVO dataVO){
+        List<String> lists = Lists.newArrayList();
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            lists = bckjBizLntjService.getCustomList(dataMap);
+            return ResponseMessage.sendOK(lists);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
 
