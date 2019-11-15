@@ -453,4 +453,30 @@ public class BckjBizSybController extends BaseController {
     }
 
 
+    /**
+     * <p>功能描述:修改学生学号</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * </ul>
+     */
+    @PostMapping("updateXsxh")
+    @ResponseBody
+    public ResponseMessage updateXsxh(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizSybService.updateXsxh(dataMap.get("path").toString());
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 }

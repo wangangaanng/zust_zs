@@ -819,4 +819,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         }
         return map;
     }
+@Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void updateDlzh(Map<String, Object> xxMap) {
+        this.dao.updateDlzh(xxMap);
+    }
 }

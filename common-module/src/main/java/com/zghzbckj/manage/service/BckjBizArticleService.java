@@ -249,7 +249,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         mapFilter.put("content",article.getWzbt()+article.getJjnr());
         String filterResult=bckjDicKeysService.filterContent(mapFilter);
         if(!TextUtils.isEmpty(filterResult)){
-            return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词"+filterResult);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,filterResult);
         }
         mapFilter.put("content",article.getWznr());
          filterResult=bckjDicKeysService.filterContent(mapFilter);

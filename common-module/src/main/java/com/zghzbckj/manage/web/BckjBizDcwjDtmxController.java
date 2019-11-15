@@ -46,7 +46,7 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
-    private Map<String, Object> map = new HashMap<>(1);
+    private Map<String, Object> map = new HashMap<>();
 
     @RequestMapping(value = "/setOwid")
     @ResponseBody
@@ -74,8 +74,10 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @ResponseBody
     public ResponseMessage getResultList(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(map, dataVO.getPageNo(), dataVO.getPageSize());
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+            dataMap.put("dcwjRefOwid", MapUtils.getString(dataMap, "owid"));
+            PageInfo<Map<String, Object>> pageInfo = bckjBizDcwjJgService.listResult(dataMap, dataVO.getPageNo(), dataVO.getPageSize());
             return ResponseMessage.sendOK(pageInfo);
         } catch (Exception e) {
             e.printStackTrace();

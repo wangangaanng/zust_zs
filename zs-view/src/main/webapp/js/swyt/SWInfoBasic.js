@@ -12,8 +12,9 @@ $(function () {
         $('#gradeForm').find('button[type=submit]').hide()
         $('#selectForm').find('button[type=submit]').hide()
         $('#selectForm').find('.upimg-wrap').eq(1).hide();
+        //隐藏于阻止点击上传
         $(".file-btn").hide();
-        $(".uploadlabel").html("已上传");
+        $(".uploadlabel").html("已上传").attr("for","");
     }
 
     //浏览器不要自动填充
@@ -160,43 +161,48 @@ function uploadImg(){
                 $parents.find(".up-btn_img").attr("src",this.result);
                 $parents.find(".up-btn_img").addClass("fullImg");
                 switch (imgType){
-                    case "1"://户籍证明
-                        idOcr(imgType,file,function (d) {
+                    case "4"://户籍证明
+                        fileUpload(imgType,file,function (d) {
                             if(d.backCode==0){
-                                $("#hjzm").val(d.bean.fileName);
+                                $("#hjzm").val(d.bean.filePath);
                             }else{
                                 walert(d.errorMess)
                             }
-                        });//1是普通文件
+                        });//是普通文件
                         break;
-                    case "2"://2身份证正面
-                        idOcr(imgType,file,function (d) {
+                    case "3"://身份证正面
+                        fileUpload(imgType,file,function (d) {
                             if(d.backCode==0){
-                                switch (d.bean.image_status!="normal") {
-                                    case "reversed_side":
-                                        statusStr = "身份证正反面颠倒，请重新选择";
-                                        break;
-                                    case "non_idcard":
-                                        statusStr = "上传的图片中不包含身份证，请重新选择"
-                                        break;
-                                    case "blurred":
-                                        statusStr = "身份证模糊，请重新选择"
-                                        break;
-                                    case "other_type_card":
-                                        statusStr = "上传照片为其他类型证照，请重新选择"
-                                        break;
-                                    case "over_exposure":
-                                        statusStr = "身份证关键字段反光或过曝，请重新选择"
-                                        break;
-                                    case "over_dark":
-                                        statusStr = "身份证欠曝（亮度过低），请重新选择"
-                                        break;
-                                    default:
-                                        statusStr = status;
-                                        break;
+                                if(d.bean.image_status!="normal"){
+                                    switch (d.bean.image_status) {
+                                        case "reversed_side":
+                                            statusStr = "身份证正反面颠倒，请重新选择";
+                                            break;
+                                        case "non_idcard":
+                                            statusStr = "上传的图片中不包含身份证，请重新选择"
+                                            break;
+                                        case "blurred":
+                                            statusStr = "身份证模糊，请重新选择"
+                                            break;
+                                        case "other_type_card":
+                                            statusStr = "上传照片为其他类型证照，请重新选择"
+                                            break;
+                                        case "over_exposure":
+                                            statusStr = "身份证关键字段反光或过曝，请重新选择"
+                                            break;
+                                        case "over_dark":
+                                            statusStr = "身份证欠曝（亮度过低），请重新选择"
+                                            break;
+                                        default:
+                                            if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
+                                            statusStr = status;
+                                            break;
+                                    }
+                                    $("#idCard .error-tip").html(statusStr);
+                                }else{
+                                    if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
+                                    $("#idCard .error-tip").html("");
                                 }
-
-                                if(d.bean.fileName){$("#sfzzm").val(d.bean.fileName);}
                                 if(d.bean['姓名']&&d.bean['姓名'].words){$("#xm").val(d.bean['姓名'].words);}
                                 if(d.bean['性别']){
                                     if(d.bean['性别'].words == "男"){
@@ -216,10 +222,10 @@ function uploadImg(){
                             }
                         });//1是普通文件
                         break;
-                    case "3"://身份证反面
-                        idOcr(imgType,file,function (d) {
+                    case "1"://身份证反面
+                        fileUpload(imgType,file,function (d) {
                             if(d.backCode==0){
-                                $("#sfzfm").val(d.bean.fileName);
+                                $("#sfzfm").val(d.bean.filePath);
                             }else {
                                 walert(d.errorMess)
                             }

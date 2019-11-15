@@ -1,11 +1,10 @@
 package com.zghzbckj.manage.web;
 
 import com.google.common.collect.Maps;
-import com.ourway.baiduapi.constants.BaiDuApiInfo;
-import com.ourway.baiduapi.dto.InfoDTO;
-import com.ourway.baiduapi.utils.Base64ImageUtils;
-import com.ourway.baiduapi.utils.HttpClientUtils;
-import com.ourway.base.utils.*;
+import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
+import com.ourway.base.utils.ValidateMsg;
+import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
@@ -16,7 +15,6 @@ import com.zghzbckj.manage.service.CommonService;
 import com.zghzbckj.wechat.WechatConstants;
 import com.zghzbckj.wechat.model.AccessToken;
 import com.zghzbckj.wechat.service.AccessTokenInit;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -107,9 +104,7 @@ public class CommonController {
                 path = CommonModuleContant.picPath + File.separator + trueFileName;
                 try {
                     file.transferTo(new File(path));
-                    Map resultMap = Maps.newHashMap();
-                    resultMap = ocrPic(path, trueFileName, Integer.parseInt(dataMap.get("type").toString()));
-//                    System.out.println(JackSonJsonUtils.toJson(resultMap));
+                    Map resultMap  = commonService.ocrPic(path, trueFileName, Integer.parseInt(dataMap.get("type").toString()));
                     return ResponseMessage.sendOK(resultMap);
                 } catch (IOException e) {
                     return ResponseMessage.sendError(ResponseMessage.FAIL, "upload failed");
@@ -122,72 +117,6 @@ public class CommonController {
         }
     }
 
-    public static String getToKen() {
-        String access_token_url = "https://aip.baidubce.com/oauth/2.0/token?grant_type=client_credentials&client_id=" + CommonModuleContant.API_KEY + "&client_secret=" + CommonModuleContant.SECRET_KEY;
-        CloseableHttpResponse response = HttpClientUtils.doHttpsGet(access_token_url, (String) null);
-        String result = HttpClientUtils.toString(response);
-        Map tokenMap = JsonUtil.jsonToMap(result);
-        if (null != tokenMap && !TextUtils.isEmpty(tokenMap.get("access_token"))) {
-            BaiDuApiInfo.TOKEN = tokenMap.get("access_token").toString();
-            return BaiDuApiInfo.TOKEN;
-        } else {
-            return null;
-        }
-    }
-
-    public Map ocrPic(String path, String fileName, Integer type) throws Exception {
-        Map<String, String> vat = new HashMap<>();
-        InfoDTO resultBack = Base64ImageUtils.getImageStrFromPath(path);
-        String baidToken = getToKen();
-        Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Content-Type", "application/x-www-form-urlencoded");
-        Map<String, String> bodys = new HashMap<String, String>();
-        bodys.put("image", (String) resultBack.getValue());
-        bodys.put("detect_direction", "false");
-        if (1 == type) {
-            bodys.put("accuracy", "high");//可选值：normal,high参数选normal或为空使用快速服务；选择high使用高精度服务，但是时延会根据具体图片有相应的增加
-            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.LICENSE_URL + baidToken, headers, bodys);
-            String result = HttpClientUtils.toString(backResponse);
-            if (!TextUtils.isEmpty(result)) {
-                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
-                vat = (Map<String, String>) idcardDTO.get("words_result");
-                if (null == vat) {
-                    vat = new HashMap(1);
-                }
-                vat.put("fileName", "pic/" + fileName);
-            }
-        } else if (2 == type) {
-            bodys.put("id_card_side", "front");
-            bodys.put("detect_risk", "true");
-            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.ID_URL + baidToken, headers, bodys);
-            String result = HttpClientUtils.toString(backResponse);
-            if (!TextUtils.isEmpty(result)) {
-                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
-                vat = (Map<String, String>) idcardDTO.get("words_result");
-                if (null == vat) {
-                    vat = new HashMap(1);
-                }
-                vat.put("image_status", idcardDTO.get("image_status").toString());
-                vat.put("fileName", "pic/" + fileName);
-            }
-        } else if (3 == type) {
-            bodys.put("id_card_side", "back");
-            bodys.put("detect_risk", "true");
-            CloseableHttpResponse backResponse = HttpClientUtils.doHttpsPost(CommonModuleContant.ID_URL + baidToken, headers, bodys);
-            String result = HttpClientUtils.toString(backResponse);
-            if (!TextUtils.isEmpty(result)) {
-                Map idcardDTO = JackSonJsonUtils.jsonToMap(result);
-                vat = (Map<String, String>) idcardDTO.get("words_result");
-                if (null == vat) {
-                    vat = new HashMap(1);
-                }
-                vat.put("image_status", idcardDTO.get("image_status").toString());
-                vat.put("fileName", "pic/" + fileName);
-            }
-        }
-
-        return vat;
-    }
 
 
     @RequestMapping(value = "getByType", method = RequestMethod.POST)
@@ -333,7 +262,8 @@ public class CommonController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "文件不大于5MB");
             }
 
-            return ResponseMessage.sendOK(commonService.saveFile(file, mapData));
+
+                return ResponseMessage.sendOK(commonService.saveFile(file, mapData));
 
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
