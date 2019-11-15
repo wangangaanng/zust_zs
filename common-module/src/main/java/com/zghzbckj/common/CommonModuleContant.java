@@ -42,6 +42,7 @@ public static final String BACK_TYPE_URL_HOST = "http://172.16.13.107:8080/webAp
     public static String API_KEY = "dMST2glOiL4Z1RCx6I42AG0N";
     public static String SECRET_KEY = "QQ2PADGVib0vzlz0GZN9EpSRFtKtZla4";
     public final static String USER_LOGIN_LOG = "用户登录";
+    public final static String USER_FILTER_LOG = "内容中含敏感信息,请重新修改后提交或保存";
 
 
 }
