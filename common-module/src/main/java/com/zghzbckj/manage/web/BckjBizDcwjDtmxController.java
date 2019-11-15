@@ -46,7 +46,7 @@ public class BckjBizDcwjDtmxController extends BaseController {
     @Autowired
     BckjBizDcwjTmService bckjBizDcwjTmService;
 
-    private Map<String, Object> map = new HashMap<>(1);
+    private Map<String, Object> map = new HashMap<>();
 
     @RequestMapping(value = "/setOwid")
     @ResponseBody

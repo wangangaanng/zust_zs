@@ -907,4 +907,9 @@
 		where a.owid =b.dic_ref_owid and a.type =70000
 	</select>
 
+	<update id="updateDlzh" parameterType="Map">
+		UPDATE BCKJ_BIZ_YHXX SET yh_dlzh=#{yhDlzh}
+		WHERE owid=#{owid}
+	</update>
+
 </mapper>

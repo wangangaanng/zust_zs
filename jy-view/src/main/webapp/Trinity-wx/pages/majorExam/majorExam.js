@@ -285,8 +285,8 @@ Page({
       }
       common.ajax('zustswyt/bckjBizBm/confirmApply', data, function(res) {
         if (res.data.backCode == 0) {
-          wx.navigateTo({
-            url: '../Process/Process'
+          wx.navigateBack({
+            delta: 1
           })
         } else {
           common.toast(res.data.errorMess, 'none', 2000)

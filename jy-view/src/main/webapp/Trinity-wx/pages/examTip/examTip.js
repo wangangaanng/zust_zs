@@ -66,7 +66,7 @@ Page({
 
   },
   perfectInfo:function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '../basicInfo/basicInfo',
     })
   }
