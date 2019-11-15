@@ -40,7 +40,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    getByType1(this)
+    getByType2(this)
   },
   showBottom(e) {
     this.toggle('bottom', true);
@@ -112,12 +112,14 @@ var getByType1 = function (that) {
   });
 }
 
-var getByType2 = function (that, year) {
+var getByType2 = function (that) {
   that.setData({
     list: [],
     hidden1: true
   })
-  var data = { "pmnf": year };
+  var data = { 
+    // "pmnf": year 
+    };
   common.ajax('zustjy/bckjBizJypm/jypmList', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
