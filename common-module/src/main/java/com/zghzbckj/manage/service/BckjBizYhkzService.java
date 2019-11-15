@@ -206,4 +206,8 @@ public class BckjBizYhkzService extends CrudService<BckjBizYhkzDao, BckjBizYhkz>
     public void deleteByYhRefOwid(String yhRefOwid) {
         this.dao.deleteByYhRefOwid(yhRefOwid);
     }
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void updateXsxh(Map<String, Object> xxMap) {
+        this.dao.updateXsxh(xxMap);
+    }
 }

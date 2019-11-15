@@ -606,4 +606,9 @@
 		limit 20
 	</select>
 
+	<update id="updateXsxh" parameterType="Map">
+		UPDATE BCKJ_BIZ_SYB SET xsxh=#{xsxh}
+		WHERE owid=#{owid}
+	</update>
+
 </mapper>

@@ -43,4 +43,6 @@ public interface BckjBizSybDao extends CrudDao<BckjBizSyb> {
     List<Map> getOldSybs();
 
     List<Map> getSmallRoutine(Map<String, Object> dataMap);
+
+    void updateXsxh(Map<String, Object> sydMap);
 }

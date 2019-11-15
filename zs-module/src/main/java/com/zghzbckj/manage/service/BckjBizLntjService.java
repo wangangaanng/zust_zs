@@ -291,4 +291,48 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
         saveOrUpdate(bckjBizLntj);
         return ResponseMessage.sendOK(bckjBizLntj);
     }
+
+    /**
+     * 得到筛选的list
+     * @param dataMap
+     * @return
+     */
+    public List<String> getCustomList(Map<String, Object> dataMap) {
+        List<String> lists = Lists.newArrayList();
+        if (dataMap.get("key").equals("nf")) {
+            List<BckjBizLntj> bckjBizLntjs = this.dao.findListByNf(dataMap);
+            for (BckjBizLntj bckjBizLntj:bckjBizLntjs){
+                lists.add(bckjBizLntj.getNf());
+            }
+        }
+        if (dataMap.get("key").equals("sf")) {
+            List<BckjBizLntj> bckjBizLntjs = this.dao.findListBySf(dataMap);
+            for (BckjBizLntj bckjBizLntj:bckjBizLntjs){
+                lists.add(bckjBizLntj.getSf());
+            }
+        }
+        if (dataMap.get("key").equals("pc")) {
+            List<BckjBizLntj> bckjBizLntjs = this.dao.findListByPc(dataMap);
+            for (BckjBizLntj bckjBizLntj:bckjBizLntjs){
+                lists.add(bckjBizLntj.getPc());
+            }
+        }
+        if (dataMap.get("key").equals("kl")) {
+            List<BckjBizLntj> bckjBizLntjs = this.dao.findListByKl(dataMap);
+            for (BckjBizLntj bckjBizLntj:bckjBizLntjs){
+                lists.add(bckjBizLntj.getKl());
+            }
+        }
+        if (dataMap.get("key").equals("zy")) {
+            List<BckjBizLntj> bckjBizLntjs = this.dao.findListByZy(dataMap);
+            for (BckjBizLntj bckjBizLntj:bckjBizLntjs){
+                lists.add(bckjBizLntj.getZy());
+            }
+        }
+        return lists;
+    }
+
+
+
+
 }
