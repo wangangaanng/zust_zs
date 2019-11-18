@@ -22,21 +22,26 @@
       <van-icon name="arrow" />
     </view>
   </scroll-view>
-    <scroll-view class="scroll" scroll-y scroll-top="{{top}}"  bindscrolltolower="pagination">
-      <navigator wx:for="{{list}}" wx:key='index' url="../wxDetail/wxDetail?owid={{item.owid}}" class="list">
+  <scroll-view class="scroll" scroll-y scroll-top="{{top}}" bindscrolltolower="pagination">
+    <navigator wx:for="{{list}}" wx:key='index' url="../wxDetail/wxDetail?owid={{item.owid}}" class="list">
+      <block wx:if='{{item.tpjj !=""&&item.tpjj !=undefined}}'>
         <image src="{{imgPath+item.tpjj}}" class="li-left"></image>
-        <view class="li-right">
-          <view class="li-right-title">{{item.wzbt}}</view>
-          <view class="li-right-detail">{{item.jjnr}}</view>
-          <view class="li-right-date">{{item.fbsj}}</view>
-        </view>
-      </navigator>
-      <view class="weui-loadmore weui-loadmore_line" wx:if="{{zwsj}}">
-        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">未搜索到内容</view>
+      </block>
+      <block wx:else>
+        <image src="../../static/mark.png" class="li-left" style="padding:0px 10px;box-sizing:border-box;"></image>
+      </block>
+      <view class="li-right">
+        <view class="li-right-title">{{item.wzbt}}</view>
+        <view class="li-right-detail">{{item.jjnr}}</view>
+        <view class="li-right-date">{{item.fbsj}}</view>
       </view>
-      <view class="weui-loadmore weui-loadmore_line" wx:if="{{totalPage==pageNo}}">
-        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多了</view>
-      </view>
-    </scroll-view>
+    </navigator>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{zwsj}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">未搜索到内容</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{totalPage==pageNo}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">没有更多了</view>
+    </view>
+  </scroll-view>
   <!-- </view> -->
 </view>
