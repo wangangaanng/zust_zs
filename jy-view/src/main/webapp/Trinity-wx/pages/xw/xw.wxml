@@ -28,7 +28,7 @@
         <image src="{{imgPath+item.tpjj}}" class="li-left"></image>
       </block>
       <block wx:else>
-        <image src="../../static/mark.png" class="li-left" style="padding:0px 10px;box-sizing:border-box;"></image>
+        <image src="../../static/mark.png" class="li-left" style="padding:0px 12px;box-sizing:border-box;"></image>
       </block>
       <view class="li-right">
         <view class="li-right-title">{{item.wzbt}}</view>
