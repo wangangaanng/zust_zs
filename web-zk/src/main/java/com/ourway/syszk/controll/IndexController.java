@@ -65,6 +65,12 @@ public class IndexController extends SpringZkBaseControl {
         return "swytIndex";
     }
 
+    @RequestMapping("zswIndex")
+    public String zswIndex(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        return "zswIndex";
+    }
+
     @RequestMapping("/loginNewDetail")
     public String newsDetail(HttpServletRequest request) {
         CookieUtils.setRequest(request);

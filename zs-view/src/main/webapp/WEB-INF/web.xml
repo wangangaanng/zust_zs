@@ -113,12 +113,9 @@
     <extension>zul</extension>
     <mime-type>text/html</mime-type>
   </mime-mapping>
-  <error-page>
-    <error-code>404</error-code>
-    <location>/error.html</location>
-  </error-page>
+
 
   <welcome-file-list>
-    <welcome-file>/</welcome-file>
+    <welcome-file>/index.html</welcome-file>
   </welcome-file-list>
 </web-app>

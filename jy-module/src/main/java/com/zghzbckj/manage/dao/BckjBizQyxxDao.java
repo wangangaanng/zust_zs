@@ -43,4 +43,8 @@ public interface BckjBizQyxxDao extends CrudDao<BckjBizQyxx> {
     List<Map> getDicListMapByType(Integer i);
 
     BckjBizQyxx getOneCompanyByTysh(BckjBizQyxx bckjBizQyxx);
+
+    BckjBizQyxx getOneInfo(Map params);
+
+    BckjBizQyxx getQyxxInfo( String qyxxRefOwid);
 }

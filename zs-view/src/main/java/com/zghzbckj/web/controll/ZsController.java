@@ -2,7 +2,6 @@ package com.zghzbckj.web.controll;
 
 import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.JsonUtil;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
 import com.zghzbckj.web.utils.PropertiesUtil;
@@ -10,7 +9,10 @@ import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +36,7 @@ public class ZsController {
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
     }
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/","index","IndexPage!shouYe.htm"}, method = RequestMethod.GET)
     public ModelAndView ZSindex(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
