@@ -13,7 +13,7 @@
     .table{ margin: 0 40px; width: 90%; text-align: center;}
     .table th{ text-align: center;}
     .fuye_sr_con{ margin:20px 40px; width: 90%}
-    .fuye_sr_con dl{ border:1px solid #e0e0e0; background-color:#fff; padding:20px 0 20px 30px; overflow:hidden;}
+    .fuye_sr_con dl{ border:1px solid #e0e0e0; background-color:#fff; padding:20px 0 20px 30px; overflow:hidden;position: relative;}
     .fuye_sr_con dl dt, .fuye_sr_con dl dd{float:left;}
     .fuye_sr_con dl dt{ margin-right:20px; width:105px; height:105px;}
     .fuye_sr_con dl.success dt{ background-position:0 -250px;}
@@ -21,6 +21,11 @@
     .fuye_sr_con dl dd h4{ height:30px; line-height:30px;}
     .fuye_sr_con dl dd p{ line-height:25px; font-size:14px;}
     .co_r{ color:#ff0000;}
+    .print-btn{position: absolute;
+        right: 20px;
+        background: #f5b900;
+        color: #fff;
+        padding: 0px 10px;}
 </style>
 <body>
 <#include "com/ZSheader.ftl">
@@ -74,9 +79,16 @@
                             <img src="../../img/smile.png" alt="">
                         </dt>
                         <dd><h4 class="co_r">恭喜你</h4>
-                            <p>你已经被<strong class="co_r" id="zhuhe">浙江科技学院 -自动化（机电一体化技术） 预录取,最终录取请查询当地考试院。</strong></p>
+                            <p>你已经被<strong class="co_r" id="zhuhe">
+                                <#--浙江科技学院 -自动化（机电一体化技术） 预录取,最终录取请查询当地考试院。-->
+                            </strong></p>
                             <p id="lqd"></p>
-                            <p id="ems_dh">EMS单号：1004205824025，请注意查收！！！</p>
+                            <p id="ems_dh">
+                                <#--EMS单号：1004205824025，请注意查收！！！-->
+                            </p>
+                        </dd>
+                        <dd class="print-btn">
+                            打印
                         </dd>
                     </dl>
                     <dl class="error" style="display:none;" id="failed">

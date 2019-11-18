@@ -74,9 +74,13 @@
                             <img src="../../img/smile.png" alt="">
                         </dt>
                         <dd><h4 class="co_r">恭喜你</h4>
-                            <p>你已经被<strong class="co_r" id="zhuhe">浙江科技学院 -自动化（机电一体化技术） 预录取,最终录取请查询当地考试院。</strong></p>
+                            <p>你已经被<strong class="co_r" id="zhuhe">
+                                <#--浙江科技学院 -自动化（机电一体化技术） 预录取,最终录取请查询当地考试院。-->
+                            </strong></p>
                             <p id="lqd"></p>
-                            <p id="ems_dh">EMS单号：1004205824025，请注意查收！！！</p>
+                            <p id="ems_dh">
+                                <#--EMS单号：1004205824025，请注意查收！！！-->
+                            </p>
                         </dd>
                     </dl>
                     <dl class="error" style="display:none;" id="failed">

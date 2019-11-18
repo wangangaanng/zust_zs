@@ -1,8 +1,12 @@
+var lqowid=""
 $(document).ready(function () {
     $('#input_sfzh, #input_zkzh').keyup(function (event) {
         if (event.keyCode === 13) {
             queryGrade();
         }
+    })
+    $('body').on('click','.print-btn',function () {
+        window.open(base+'/paper/'+lqowid);
     })
 });
 
@@ -27,6 +31,7 @@ function queryIn() {
     ajax('zustzs/bckjBizLqxs/lqcx', data, function (res) {
         clearTable();
         if (res.backCode === 0) {
+            lqowid=res.bean.owid;
             $('#zkzh').html(res.bean.ksh);
             $('#sfzh').html(res.bean.sfzh);
             $('#lxdh').html(res.bean.lxdh ? res.bean.lxdh : "无");

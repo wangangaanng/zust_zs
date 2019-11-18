@@ -501,9 +501,14 @@ public class ZsController {
         view.addObject("result",result.getBean());
         return view;
     }
-    @RequestMapping(value = "paper", method = RequestMethod.GET)
-    public ModelAndView paper(HttpServletRequest request,ModelAndView view) {
+    @RequestMapping(value = "paper/{owid}", method = RequestMethod.GET)
+    public ModelAndView paper(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("ZSpaper");
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustzs/bckjBizLqxs/getOne");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
         return view;
     }
 
