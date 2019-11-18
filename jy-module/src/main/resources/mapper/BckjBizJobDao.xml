@@ -179,7 +179,7 @@
             </if>
             <if test="zwgjz != null and zwgjz != ''">
                 AND( a.zwgjz LIKE concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' OR a.zwbt LIKE
-                concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
+                concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
             </if>
             <if test="zwPro != null and zwPro != ''">
                 AND a.zw_pro LIKE concat('%',#{zwProv,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
