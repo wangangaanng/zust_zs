@@ -96,7 +96,9 @@ public class OpenNewListWindows implements ComponentListinerSer {
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生报名");
                 }else if(vo.getPageCa().indexOf("xsqd")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生签到");
-                }else {
+                }else if(vo.getPageCa().indexOf("xuanchuan")!=-1){
+                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"dicVal1")+"---参加人员详情");
+                } else {
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt"));
                 }
                 //根据指定的pageCa打开关注，报名，签到标题
