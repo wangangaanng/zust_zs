@@ -162,6 +162,7 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         List<BckjBizBm> records = page.getRecords();
         BckjBizBm bm = new BckjBizBm();
         bm.setXm("共有：" + page.getTotalCount() + "条报名信息");
+        bm.setState(null);
         bm.setReadOnly(true);
         records.add(0, bm);
 
