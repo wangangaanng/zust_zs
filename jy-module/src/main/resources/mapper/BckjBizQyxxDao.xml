@@ -68,7 +68,6 @@
 		a.qy_zczj AS "qyZczj",
 		a.qy_gsjs AS "qyGsjs",
 		a.qy_zcsj AS "qyZcsj",
-		a.qy_frsfz AS "qyFrsfz",
 		a.qy_yyzzzp AS "qyYyzzzp",
 		a.qy_frsfzzp AS "qyFrsfzzp",
 		a.qybq AS "qybq",
