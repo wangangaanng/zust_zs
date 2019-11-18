@@ -499,7 +499,11 @@ public class ZsController {
         view.addObject("result",result.getBean());
         return view;
     }
-
+    @RequestMapping(value = "paper", method = RequestMethod.GET)
+    public ModelAndView paper(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("ZSpaper");
+        return view;
+    }
 
     public ResponseMessage getHeader() {
         Map param= Maps.newHashMap();
