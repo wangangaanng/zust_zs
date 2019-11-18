@@ -8,6 +8,7 @@ import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizSyb;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -85,5 +86,12 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     List<Map> getCaOpDayDateList(Map<String, Object> dataMap);
 
     void updateDlzh(Map<String, Object> xxMap);
+
+    List<Map> getXchBm(Map<String, Object> dataMap);
+    String getXchBmSum(Map<String, Object> dataMap);
+
+    Map<String,Object> getOneDicByOwid(String owid);
+
+    void updateDicByMap(Map<String, Object> dicMap);
 }
 

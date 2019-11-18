@@ -32,7 +32,7 @@ public class CommonConstant {
     public static final String Fail_InquiryArchives = "档案信息获取失败";
     public static final String ErrorForIdentityCard = "身份证号码格式错误";
     public static final String GetMessageFail = "获取信息失败";
-    public static final String NoAccounctExists = "不存在该账号";
+    public static final String NoAccounctExists = "不存在该账号,请检查输入信息是否有误";
     public static final String PasswordError = "密码错误";
     public static final String NewPasswordNotMatch = "两次新密码不一致";
     public static final String OutOfCheckInRange = "超出签到范围";
