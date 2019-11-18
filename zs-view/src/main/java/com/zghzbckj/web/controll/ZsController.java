@@ -140,7 +140,7 @@ public class ZsController {
     }
     @RequestMapping(value = "wzOrTpOrSq/{secondDir}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -189,7 +189,7 @@ public class ZsController {
 
     @RequestMapping(value = "wzOrTpOrSq/{secondDir}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -228,7 +228,7 @@ public class ZsController {
 
     @RequestMapping(value = "wzOrTpOrSqnd/{lmbh}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh, @PathVariable String thirdDir) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -276,7 +276,7 @@ public class ZsController {
 
     @RequestMapping(value = "wzOrTpOrSqnd/{lmbh}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -324,7 +324,7 @@ public class ZsController {
 
     @RequestMapping(value = "wzOrTpOrSqLm/{lmbh}/{thirdDir}", method = RequestMethod.GET)
     public ModelAndView newslmList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh,@PathVariable String thirdDir) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -379,7 +379,7 @@ public class ZsController {
 
     @RequestMapping(value = "wzOrTpOrSqLm/{lmbh}/{thirdDir}/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newslmList(HttpServletRequest request,ModelAndView view,@PathVariable String lmbh,@PathVariable String thirdDir ,@PathVariable String currentPage) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -435,7 +435,7 @@ public class ZsController {
 
     @RequestMapping(value = "search", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
@@ -463,7 +463,7 @@ public class ZsController {
     }
     @RequestMapping(value = "search/{currentPage}", method = RequestMethod.GET)
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view,@PathVariable String currentPage) throws UnsupportedEncodingException {
-        String key = PropertiesUtil.filterChar(request.getParameter("key"));
+        String key = request.getParameter("key");
         if(null!=key){
             key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
