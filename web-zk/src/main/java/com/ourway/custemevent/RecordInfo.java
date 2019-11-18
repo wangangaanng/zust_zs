@@ -41,10 +41,13 @@ public class RecordInfo implements ComponentFileSer {
     public final String lqxsURL = "web/zustzs/bckjBizLqxs/recordInfo";
     //原始成绩
     public final String cjcxURL = "web/zustzs/bckjBizCjcx/recordInfo";
+    //修改学号
+    public final String updateURL = "web/zustcommon/bckjBizSyb/updateXsxh";
+
     //上传excel保存的本地地址
-    public final String savePath = "/mnt/files/zjcFiles/excel/";
-    public final String foundPath = "/mnt/files/zjcFiles/";
-//    public final String FolderPath = "F:\\img\\";
+   // public final String savePath = "/mnt/files/zjcFiles/excel/";
+   // public final String foundPath = "/mnt/files/zjcFiles/";
+   public final String FolderPath = "F:\\img\\";
     //地区典表 导入
     public final String dwszURL = "web/zustjy/bckjBizJyscheme/dqRecordInfo";
 
@@ -95,15 +98,17 @@ public class RecordInfo implements ComponentFileSer {
         if (pageCA.indexOf("cjdr") != -1) {
             url = cjURL;
         }
-
+        if(pageCA.indexOf("kaoshengbaoming")!=-1){
+            url=updateURL;
+        }
         String result = "";
         String path = map.get("filePath").toString();
-        String foundfilePath = foundPath + path;  //线上路径
-        String savefilePath = savePath + path;
-        copyXsFile(foundfilePath, savefilePath);
+       // String foundfilePath = foundPath + path;  //线上路径
+        // String savefilePath = savePath + path;
+       // copyXsFile(foundfilePath, savefilePath);
 
-//        String savefilePath = FolderPath + path;  //本地上传路径
-//        copyFile(savefilePath); //本地上传路径*/
+        String savefilePath = FolderPath + path;  //本地上传路径
+        copyFile(savefilePath); //本地上传路径*/
 
         Map<String, Object> params = new HashMap<String, Object>();
 

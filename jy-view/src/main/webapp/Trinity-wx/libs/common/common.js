@@ -36,7 +36,7 @@ function ajax(method, data, successMethod,hideload) {
     },
     fail: function (err) {
       wx.showToast({
-        title: '请求频繁，请稍后再试',
+        title: '请求频繁，请稍后再试或使用校内网',
         icon: 'none',
         duration: 2000
       })

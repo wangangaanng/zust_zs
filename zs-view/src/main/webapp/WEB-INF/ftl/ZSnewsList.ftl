@@ -78,7 +78,7 @@
             setPage(currentPage, "${result.totalPage!'1'}", function () {
                 AntiSqlValidAll(["#key"],function () {
                     if ($("#key").val()) {
-                        openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + $("#key").val())
+                        openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage + '/?key=' + encodeURI($("#key").val().trim()))
                     } else {
                         openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/' + currentPage)
                     }
@@ -96,9 +96,9 @@
     }
     function search() {
         AntiSqlValidAll(["#key"],function () {
-            var key = $("#key").val();
+            var key = $("#key").val().trim();
             if (key) {
-                openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1?key=' + key)
+                openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1?key=' + encodeURI(key))
             } else {
                 openUrl('wzOrTpOrSq/${secondDir!""}/${thirdDir!""}/1')
             }

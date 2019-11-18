@@ -83,7 +83,8 @@
                 $(".content-list").append(nulltip)
             }else {
                 setPage(currentPage, "${result.totalPage!'1'}", function () {
-                    openUrl('search/'+currentPage+'/?key='+$("#gjz22").val().trim())
+                    var keys=$("#gjz22").val().trim();
+                    openUrl('search/'+currentPage+'/?key='+encodeURI(keys));
                 })
             }
 

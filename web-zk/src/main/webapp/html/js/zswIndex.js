@@ -36,13 +36,16 @@ function initPie(isAll) {
         if(urlArr[k]){
             window.parent.ajax(urlArr[k],paramsArr[k],function(data){
                 pieChart[k].hideLoading();
-                if(data.backCode == 0) {
+                if(data.backCode == 0 && data.bean) {
                     if((data.bean.pieData)&&(data.bean.pieData.length>0)){
                         dataPie = data.bean.pieData;
                     }else{
                         $(chartDom[k]).removeAttr("_echarts_instance_");
                         $(chartDom[k]).html(nullTip);
                     }
+                } else{
+                    $(chartDom[k]).removeAttr("_echarts_instance_");
+                    $(chartDom[k]).html(nullTip);
                 }
                 pieOption = {
                     backgroundColor: 'inhert',
@@ -155,7 +158,7 @@ function initBar(isAll) {
                     y2: 25,
                     x: 60,
                     x2:20,
-                    bottom: "15%"
+                    bottom: "20%"
                 },
                 //animationDuration: 4000,
                 tooltip: {

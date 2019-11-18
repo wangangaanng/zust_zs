@@ -5,10 +5,7 @@ package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.BeanUtil;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.MapUtils;
-import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -19,11 +16,13 @@ import com.zghzbckj.manage.dao.BckjBizZsjhDao;
 import com.zghzbckj.manage.entity.BckjBizZsjh;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
+import com.zghzbckj.util.PageUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -316,5 +315,70 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         return lists;
     }
 
-
+    /**
+     * 后台展示招生宣传信息
+     * @param dataMap
+     * @pageNo
+     * @pageSize
+     * @return
+     */
+    public PageInfo<Map<String, Object>> getPropaganda(Map<String, Object> dataMap, Integer pageNo, Integer pageSize) {
+        Page<Map<String,Object>> page=new Page<>(pageNo,pageSize);
+        dataMap.put("page",page);
+        List<Map<String, Object>> dicListMap = this.dao.getDicListMap(dataMap);
+        for(Map<String,Object> map:dicListMap){
+            if(TextUtils.isEmpty(map.get("dicVal5"))){
+                map.put("dicVal5","0");
+            }
+        }
+        for (Map map:dicListMap){
+            map.put("state","1");
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if((DateUtil.getDate(simpleDateFormat.format(new Date()),"yyyy-MM-dd HH:mm:ss").equals(DateUtil.getDate(map.get("dicVal2").toString(),"yyyy-MM-dd HH:mm:ss")))){
+                map.put("state","2");
+            }
+            if(DateUtil.getDate(simpleDateFormat.format(new Date()),"yyyy-MM-dd HH:mm:ss").before(DateUtil.getDate(map.get("dicVal2").toString(),"yyyy-MM-dd HH:mm:ss"))){
+                map.put("state","2");
+            }
+        }
+        page.setList(this.dao.getDicListMap(dataMap));
+         return PageUtils.assimblePageInfo(page);
+    }
+    /**
+     * 展示宣传会list
+     * @return
+     */
+    public List<Map> getPropagandaQt(Map dataMap, Integer pageNo, Integer pageSize) {
+        Page<Map<String, Object>> page = new Page<>(pageNo, pageSize);
+        dataMap.put("page", page);
+        List<Map> dicListMapByType = this.dao.getDicListMap(dataMap);
+        List<Map> resMaps = Lists.newArrayList();
+        for (Map map : dicListMapByType) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            if ((DateUtil.getDate(simpleDateFormat.format(new Date()), "yyyy-MM-dd HH:mm:ss").equals(DateUtil.getDate(map.get("dicVal2").toString(), "yyyy-MM-dd HH:mm:ss")))) {
+                resMaps.add(map);
+            }
+            if (DateUtil.getDate(simpleDateFormat.format(new Date()), "yyyy-MM-dd HH:mm:ss").before(DateUtil.getDate(map.get("dicVal2").toString(), "yyyy-MM-dd HH:mm:ss"))) {
+                resMaps.add(map);
+            }
+        }
+        return resMaps;
+    }
+    /**
+     * 后台宣传会报名下拉框
+     * @return
+     */
+    public List<String> getCustomDicList(Map<String, Object> dataMap) {
+        List<String> strList = Lists.newArrayList();
+        if(dataMap.get("key").equals("xsxy")){
+            strList=this.dao.getCustomDicListXsxy(dataMap);
+        }
+        if(dataMap.get("key").equals("xsbj")){
+            strList=this.dao.getCustomDicListXsbj(dataMap);
+        }
+        if(dataMap.get("key").equals("xszy")){
+            strList=this.dao.getCustomDicListXszy(dataMap);
+        }
+        return  strList;
+    }
 }

@@ -52,7 +52,6 @@
         a.xxlb AS "xxlb",
         a.yynr AS "yynr",
         a.gzsj AS "gzsj",
-        a.lxdh AS "lxdh",
         a.lxr AS "lxr",
         a.memo AS "memo",
         a.createtime AS "createtime",
@@ -499,11 +498,9 @@
             </if>
         </where>
     </select>
-
-
-
-
-
-
-
+    <select id="getOneXchByYhRefOwid" resultType="BckjBizXsgz" >
+        SELECT <include refid="bckjBizXsgzColumns"></include>
+        FROM BCKJ_BIZ_XSGZ a WHERE
+        a.xxlb=#{i} and a.yh_ref_owid=#{yhRefOwid} and a.job_ref_owid=#{owid}
+    </select>
 </mapper>

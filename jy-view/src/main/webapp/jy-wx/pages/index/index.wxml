@@ -16,6 +16,31 @@
 <view class="float-btn" bindtap="btntap"><image src="../../static/icon-tools.png"></image></view>
 <image src='../../static/top.png' class='goTop' hidden='{{!floorstatus}}' bindtap="goTop"></image>
 <van-tabs animated bind:click="clicktab">
+  <van-tab title="职来职往">
+    <view class="uni-list">
+      <block wx:for="{{newsList3}}" wx:key="{{index}}">
+				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
+					<view class="uni-media-list">
+            <view class="news-date">
+              <span>{{item.date}}</span>
+              <em>{{item.year}}</em>
+            </view>
+						<view class="uni-media-list-body">
+							<view class="uni-media-list-text-top" wx:if="{{item.old==1}}"><span class="tag-grey">过期</span>{{item.zwbt}}</view>
+              <view class="uni-media-list-text-top" wx:else>{{item.zwbt}}</view>
+							<view class="uni-media-list-text-content">
+							举办地点：{{item.zphJbdd}}
+							</view>
+							<view class="uni-media-list-text-bottom">
+								<view class="uni-media-list-text-bottom-left">举办时间：{{item.zphKsrq}} {{item.zphJtsj}}</view>
+							</view>
+						</view>
+					</view>
+				</view>
+      </block>
+    </view>
+     <van-divider contentPosition="center" textColor="#008783" style="{{pageNo3<totalPage3?'display:none':'display:block;'}}">没有更多了</van-divider>
+  </van-tab>
   <van-tab title="最新职位">
     <view class="uni-list">
       <block wx:for="{{newsList1}}" wx:key="{{index}}">
@@ -65,31 +90,6 @@
       </block>
     </view>
      <van-divider contentPosition="center" textColor="#008783" style="{{pageNo2<totalPage2?'display:none':'display:block;'}}">没有更多了</van-divider>
-  </van-tab>
-  <van-tab title="职来职往">
-    <view class="uni-list">
-      <block wx:for="{{newsList3}}" wx:key="{{index}}">
-				<view class="uni-list-cell" hover-class="uni-list-cell-hover" data-lx="{{item.zwlx}}" data-owid="{{item.owid}}" bindtap="positionDetail">
-					<view class="uni-media-list">
-            <view class="news-date">
-              <span>{{item.date}}</span>
-              <em>{{item.year}}</em>
-            </view>
-						<view class="uni-media-list-body">
-							<view class="uni-media-list-text-top" wx:if="{{item.old==1}}"><span class="tag-grey">过期</span>{{item.zwbt}}</view>
-              <view class="uni-media-list-text-top" wx:else>{{item.zwbt}}</view>
-							<view class="uni-media-list-text-content">
-							举办地点：{{item.zphJbdd}}
-							</view>
-							<view class="uni-media-list-text-bottom">
-								<view class="uni-media-list-text-bottom-left">举办时间：{{item.zphKsrq}} {{item.zphJtsj}}</view>
-							</view>
-						</view>
-					</view>
-				</view>
-      </block>
-    </view>
-     <van-divider contentPosition="center" textColor="#008783" style="{{pageNo3<totalPage3?'display:none':'display:block;'}}">没有更多了</van-divider>
   </van-tab>
   <van-tab title="宣讲会信息">
     <view class="uni-list">

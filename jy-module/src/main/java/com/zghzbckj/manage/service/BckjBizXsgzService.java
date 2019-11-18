@@ -475,4 +475,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
     }
 
 
+    public BckjBizXsgz getOneXchByYhRefOwid(String yhRefOwid,String owid) {
+        return this.dao.getOneXchByYhRefOwid(yhRefOwid,owid,9);
+    }
 }

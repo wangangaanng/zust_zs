@@ -759,7 +759,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
-            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+//            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            BckjBizQyxx qyxx = qyxxDao.getQyxxInfo(job.getQyxxRefOwid());
             if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
@@ -840,7 +841,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             HashMap<String, Object> sendMap = Maps.newHashMap();
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
-            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            List<BckjBizXsgz> bckjBizXsgzs = xsgzDao.findListByMapInfo(sendMap);
             if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
                 job.setExp2(bckjBizXsgzs.get(0).getOwid());
             } else {
@@ -913,7 +914,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
-            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+//            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            BckjBizQyxx qyxx = qyxxDao.getQyxxInfo(job.getQyxxRefOwid());
             if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
@@ -994,7 +996,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             HashMap<String, Object> sendMap = Maps.newHashMap();
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
-            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            List<BckjBizXsgz> bckjBizXsgzs = xsgzDao.findListByMapInfo(sendMap);
             if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
                 job.setExp2(bckjBizXsgzs.get(0).getOwid());
             } else {

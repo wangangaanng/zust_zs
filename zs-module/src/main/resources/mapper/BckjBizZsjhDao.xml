@@ -319,5 +319,28 @@
 		DELETE FROM bckj_biz_zsjh
 		WHERE owid = #{owid}
 	</delete>
+
+
+	<select id="getDicListMap" resultType="Map">
+		SELECT a.owid as owid , b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2,b.dic_val3 as dicVal3,b.dic_val4 as dicVal4,b.dic_val5 as dicVal5
+		FROM  ourway_sys_dic a, ourway_sys_dic_value b
+		WHERE a.owid=b.dic_ref_owid and a.type=70003
+	</select>
+
+	<select id="getCustomDicListXsxy" parameterType="Map" resultType="String">
+		SELECT DISTINCT b.xsxy as xsxy
+		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
+		where  b.xsxy IS NOT NULL and c.xxlb=9 and a.owid = c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
+	</select>
+	<select id="getCustomDicListXszy" parameterType="Map" resultType="String">
+		SELECT  DISTINCT  b.xszy as xszy
+		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
+		where  b.xszy IS NOT NULL and c.xxlb=9 and a.owid = c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
+	</select>
+	<select id="getCustomDicListXsbj" parameterType="Map" resultType="String">
+		SELECT DISTINCT b.xsbj as xsbj
+		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
+		where  b.xsbj IS NOT NULL and c.xxlb=9 and a.owid = c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
+	</select>
 	
 </mapper>
