@@ -3,8 +3,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="Content-Style-Type" content="text/css"/>
-    <title></title>
+    <title>浙江科技学院招生网</title>
     <#assign base=request.contextPath />
+    <link rel="icon" href="${base}/img/zust.ico" type="image/x-icon"/>
     <style mce_bogus="1" type="text/css">
         body{user-select: none; font-size:12px; color:#000000;font-family:pingfang sc light;margin: 0 auto;}
         body {font-family: pingfang sc light;font-weight:bold;background:none;margin-left: auto;margin-right: auto;}
