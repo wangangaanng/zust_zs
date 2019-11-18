@@ -52,7 +52,6 @@
         a.xxlb AS "xxlb",
         a.yynr AS "yynr",
         a.gzsj AS "gzsj",
-        a.lxdh AS "lxdh",
         a.lxr AS "lxr",
         a.memo AS "memo",
         a.createtime AS "createtime",

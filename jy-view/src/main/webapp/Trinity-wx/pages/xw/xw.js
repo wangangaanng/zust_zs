@@ -92,7 +92,8 @@ Page({
       index1: e.currentTarget.dataset.index1,
       current: 0,
       pageNo: 1,
-      list: []
+      list: [],
+      value:''
     })
     this.getMuArticle(this.data.array[e.currentTarget.dataset.index1].CODE)
   },
