@@ -11,7 +11,7 @@
         .page {
             /*width: 21cm;*/
             width: 29.7cm;
-            /*height: 21cm;*/
+            height: 18cm;
             padding: 1cm;
             margin: 1cm auto;
             border: 1px #D3D3D3 solid;
@@ -76,9 +76,9 @@
     <#if result??>
         <p style="margin: 0;padding-top: 100px;font-size: 25px;line-height: 100px;width: 90%;margin-left: 5%;">
             <a class="name">${result.xm!''}</a>同学：<br/>
-            祝贺你被我校<a class="zy">${result.lqzy!''}</a>录取！最终录取请查询当地考试院。
+            祝贺你被我校<a class="zy">${result.lqzy!''}</a>预录取！最终录取请查询当地考试院。
             <#if result.jcsj?exists>
-                录取通知单已经于${result.jcsj?substring(0,10)}寄出
+                录取通知单已经于${result.jcsj?substring(0,10)}寄出，
             </#if>
             <#if result.ems?exists>
                 EMS单号：${result.ems!''}，请注意查收！！！
