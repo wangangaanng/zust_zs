@@ -54,7 +54,7 @@ function searchAll() {
     if($("#gjz22").val().trim()){
         var key=$("#gjz22").val().trim()
         if(testSql(key,$("#gjz22"))){
-            window.location.href=base+'/search?key='+key
+            window.location.href=base+'/search?key='+encodeURI(key)
         }
     }else{
         layer.tips("请输入关键字！", $("#gjz22"), {tips: 1})

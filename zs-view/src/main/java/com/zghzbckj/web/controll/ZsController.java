@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,11 +142,11 @@ public class ZsController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
-            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            key= URLDecoder.decode(key, "UTF-8");
+            view.addObject("key", key);
         }else {
-            key="";
+            view.addObject("key","");
         }
-        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
@@ -190,6 +191,7 @@ public class ZsController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view, @PathVariable String secondDir, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
+            key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
         }else {
             view.addObject("key","");
@@ -228,12 +230,12 @@ public class ZsController {
     public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh, @PathVariable String thirdDir) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
-            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            key= URLDecoder.decode(key, "UTF-8");
+            view.addObject("key", key);
         }else {
-            key="";
+            view.addObject("key","");
         }
         view.setViewName("ZSnewsyList");
-        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
@@ -276,12 +278,12 @@ public class ZsController {
     public ModelAndView newsyList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh, @PathVariable String thirdDir,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
+            key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
         }else {
             view.addObject("key","");
         }
         view.setViewName("ZSnewsyList");
-        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
@@ -324,12 +326,12 @@ public class ZsController {
     public ModelAndView newslmList(HttpServletRequest request,ModelAndView view, @PathVariable String lmbh,@PathVariable String thirdDir) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
-            key = new String(key.getBytes("ISO-8859-1"),"utf-8");
+            key= URLDecoder.decode(key, "UTF-8");
+            view.addObject("key", key);
         }else {
-            key="";
+            view.addObject("key","");
         }
         view.setViewName("ZSnewslmList");
-        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
@@ -379,12 +381,12 @@ public class ZsController {
     public ModelAndView newslmList(HttpServletRequest request,ModelAndView view,@PathVariable String lmbh,@PathVariable String thirdDir ,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
+            key= URLDecoder.decode(key, "UTF-8");
             view.addObject("key", key);
         }else {
             view.addObject("key","");
         }
         view.setViewName("ZSnewslmList");
-        view.addObject("key",key);
         view.addObject("header",getHeader().getBean());
         view.addObject("headerY",getZsYears().getBean());
         view.addObject("footer",getFooter().getBean());
@@ -435,7 +437,8 @@ public class ZsController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
-            view.addObject("key",key);
+            key= URLDecoder.decode(key, "UTF-8");
+            view.addObject("key", key);
         }else {
             view.addObject("key","");
         }
@@ -462,7 +465,8 @@ public class ZsController {
     public ModelAndView newsList(HttpServletRequest request,ModelAndView view,@PathVariable String currentPage) throws UnsupportedEncodingException {
         String key = PropertiesUtil.filterChar(request.getParameter("key"));
         if(null!=key){
-            view.addObject("key",key);
+            key= URLDecoder.decode(key, "UTF-8");
+            view.addObject("key", key);
         }else {
             view.addObject("key","");
         }
