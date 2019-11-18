@@ -294,10 +294,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             addLog(map);
         }else {
             this.dao.updateDlsj(bckjBizYhxx.getOwid());
-            resMap.put("olx",bckjBizYhkz.getOlx());
+            /*resMap.put("olx",bckjBizYhkz.getOlx());*/
             resMap.put("owid", bckjBizYhxx.getOwid());
             resMap.put("yhtx", bckjBizYhxx.getYhtx());
-            resMap.put("sjh", bckjBizYhxx.getSjh());
+            /*resMap.put("sjh", bckjBizYhxx.getSjh());*/
             resMap.put("xsxh", bckjBizYhkz.getXsxh());
             resMap.put("xm", bckjBizYhxx.getXm());
             addLog(resMap);
@@ -406,6 +406,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         saveOrUpdate(bckjBizYhxx);
         bckjBizYhgl.setYhRefOwid(bckjBizYhxx.getOwid());
         bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
+        map.remove("sfz");
+        map.remove("sjh");
         return ResponseMessage.sendOK(map);
     }
 

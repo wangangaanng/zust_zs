@@ -31,4 +31,6 @@ public interface BckjBizXsgzDao extends CrudDao<BckjBizXsgz> {
     Integer countNumber(Map params);
 
     Integer countGzNumber(Map params);
+
+    List<BckjBizXsgz> findListByMapInfo(Map params);
 }

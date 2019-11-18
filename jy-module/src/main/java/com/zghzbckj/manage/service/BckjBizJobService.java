@@ -246,7 +246,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             page.setTotalCount(page.getTotalCount() + page2.getTotalCount());
             records.addAll(records2);
             page.setRecords(records);*/
-            page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+
+            if (state == 7 || state == 5) {
+                page = findPageWithNumber(dataMap, pageNo, pageSize, " a.zph_ksrq  desc ");
+            } else {
+                page = findPageWithNumber(dataMap, pageNo, pageSize, " a.exp5,a.createtime  desc ");
+            }
             List<BckjBizJob> records = page.getRecords();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String format = simpleDateFormat.format(new Date());
@@ -647,7 +652,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 if (!TextUtils.isEmpty(dataMap.get("xxlb"))) {
                     params.put("xxlb", dataMap.get("xxlb").toString());
                 }
-                List<BckjBizXsgz> xsgzList = xsgzDao.findListByMap(params);
+                List<BckjBizXsgz> xsgzList = xsgzDao.findListByMapInfo(params);
                 job.setXsgzList(xsgzList);
                 job.setNumber(xsgzList.size());
                 params.clear();
@@ -655,7 +660,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
                 if (!TextUtils.isEmpty(dataMap.get("yhRefOwid"))) {
                     params.put("yhRefOwid", dataMap.get("yhRefOwid").toString());
                 }
-                List<BckjBizJybm> bmList = bmDao.findListByMap(params);
+                List<BckjBizJybm> bmList = bmDao.findListByMapInfo(params);
                 if (!TextUtils.isEmpty(bmList) && bmList.size() > 0) {
                     job.setSfbm(2);
                 } else {
@@ -754,7 +759,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
-            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+//            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            BckjBizQyxx qyxx = qyxxDao.getQyxxInfo(job.getQyxxRefOwid());
             if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
@@ -835,7 +841,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             HashMap<String, Object> sendMap = Maps.newHashMap();
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
-            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            List<BckjBizXsgz> bckjBizXsgzs = xsgzDao.findListByMapInfo(sendMap);
             if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
                 job.setExp2(bckjBizXsgzs.get(0).getOwid());
             } else {
@@ -908,7 +914,8 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
-            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+//            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
+            BckjBizQyxx qyxx = qyxxDao.getQyxxInfo(job.getQyxxRefOwid());
             if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
@@ -989,7 +996,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
             HashMap<String, Object> sendMap = Maps.newHashMap();
             sendMap.put("jobRefOwid", owid);
             sendMap.put("yhRefOwid", mapData.get("yhOwid"));
-            List<BckjBizXsgz> bckjBizXsgzs = bckjBizXsgzService.findListByMap(sendMap);
+            List<BckjBizXsgz> bckjBizXsgzs = xsgzDao.findListByMapInfo(sendMap);
             if (!TextUtils.isEmpty(bckjBizXsgzs) && bckjBizXsgzs.size() > 0) {
                 job.setExp2(bckjBizXsgzs.get(0).getOwid());
             } else {

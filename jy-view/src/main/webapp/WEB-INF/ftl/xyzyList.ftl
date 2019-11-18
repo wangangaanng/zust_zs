@@ -85,6 +85,7 @@
         </div>
 
     <#include "com/footer.ftl">
+    <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
 </body>
 
 </html>

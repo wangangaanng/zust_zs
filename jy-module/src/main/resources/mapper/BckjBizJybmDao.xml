@@ -71,6 +71,76 @@
 		a.exp10 AS "exp10"
 	</sql>
 
+
+
+	<sql id="bckjBizJybmColumnsInfo">
+		a.owid AS "owid",
+		a.yq_ref_owid AS "yqRefOwid",
+		a.yqmc AS "yqmc",
+		a.bmqygs AS "bmqygs",
+		a.qyxx_ref_owid AS "qyxxRefOwid",
+		a.job_ref_owid AS "jobRefOwid",
+		a.yh_ref_owid AS "yhRefOwid",
+		a.bmlx AS "bmlx",
+		a.bmdx AS "bmdx",
+		a.bmsj AS "bmsj",
+		a.zwbh AS "zwbh",
+		a.qymc AS "qymc",
+		a.qysh AS "qysh",
+		a.xjhsqly AS "xjhsqly",
+		a.sfxz AS "sfxz",
+		a.xjsj AS "xjsj",
+		a.sftz AS "sftz",
+		a.tzsj AS "tzsj",
+		a.jkr AS "jkr",
+		a.jkrjs AS "jkrjs",
+		a.memo AS "memo",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state",
+		a.xgfj AS "xgfj",
+		a.zdytj1 AS "zdytj1",
+		a.zdytj2 AS "zdytj2",
+		a.zdytj3 AS "zdytj3",
+		a.zdytj4 AS "zdytj4",
+		a.zdytj5 AS "zdytj5",
+		a.tjsd1 AS "tjsd1",
+		a.tjsd2 AS "tjsd2",
+		a.tjsd3 AS "tjsd3",
+		a.tjsd4 AS "tjsd4",
+		a.tjsd5 AS "tjsd5",
+		a.zw1 AS "zw1",
+		a.zw2 AS "zw2",
+		a.zw3 AS "zw3",
+		a.zw4 AS "zw4",
+		a.zw5 AS "zw5",
+		a.rs1 AS "rs1",
+		a.rs2 AS "rs2",
+		a.rs3 AS "rs3",
+		a.rs4 AS "rs4",
+		a.rs5 AS "rs5",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10"
+	</sql>
+
+
     <sql id="bckjBizJybmJoins">
     </sql>
 
@@ -176,6 +246,88 @@
             </otherwise>
         </choose>
     </select>
+
+
+
+	<select id="findListByMapInfo" resultType="com.zghzbckj.manage.entity.BckjBizJybm">
+		SELECT
+		b.zwbt AS "zwbt",
+		b.zw_pro AS "zwPro",
+		b.zw_city AS "zwCity",
+		b.zw_area AS "zwArea",
+		b.zph_jbdd AS "zphJbdd",
+		b.zph_ksrq AS "zphKsrq",
+		b.zph_jtsj AS "zphJtsj",
+		b.exp1 AS "gsqymc",
+		b.exp3 AS "xxlxr",
+		b.exp4 AS "xxlxrdh",
+		b.exp6 AS "qyLxr",
+		b.exp7 AS "qyLxrdh",
+		<include refid="bckjBizJybmColumnsInfo"/>
+		FROM bckj_biz_job b
+		RIGHT JOIN bckj_biz_jybm a ON a.job_ref_owid = b.owid
+		<where>
+			<if test="zwbt != null and zwbt  != ''">
+				AND b.zwbt LIKE concat('%',#{zwbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="gsqymc != null and gsqymc  != ''">
+				AND b.exp1 LIKE concat('%',#{gsqymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="qyxxRefOwid != null and qyxxRefOwid  != ''">
+				AND a.qyxx_ref_owid = #{qyxxRefOwid}
+			</if>
+			<if test="jobRefOwid != null and jobRefOwid  != ''">
+				AND a.job_ref_owid = #{jobRefOwid}
+			</if>
+			<if test="yqRefOwid != null and yqRefOwid  != ''">
+				AND a.yq_ref_owid = #{yqRefOwid}
+			</if>
+			<if test="lxr != null and lxr  != ''">
+				AND a.lxr = #{lxr}
+			</if>
+			<if test="yhRefOwid != null and yhRefOwid != ''">
+				AND a.yh_ref_owid = #{yhRefOwid}
+			</if>
+			<if test="state != null and state != ''">
+				AND a.state = #{state}
+			</if>
+			<if test="bmlx != null and bmlx != ''">
+				AND a.bmlx = #{bmlx}
+			</if>
+			<if test="bmdx != null and bmdx != ''">
+				AND a.bmdx = #{bmdx}
+			</if>
+			<if test="qymc != null and qymc != ''">
+				AND a.qymc LIKE concat('%',#{qymc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test="qysh != null and qysh != ''">
+				AND a.qysh = #{qysh}
+			</if>
+			<if test=" zdytj1 != null and zdytj1 != '' ">
+				AND a.zdytj1 LIKE concat('%',#{zdytj1,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" zdytj2 != null and zdytj2 != '' ">
+				AND a.zdytj2 LIKE concat('%',#{zdytj2,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" zdytj3 != null and zdytj3 != '' ">
+				AND a.zdytj3 LIKE concat('%',#{zdytj3,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" zdytj4 != null and zdytj4 != '' ">
+				AND a.zdytj4 LIKE concat('%',#{zdytj4,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+			<if test=" zdytj5 != null and zdytj5 != '' ">
+				AND a.zdytj5 LIKE concat('%',#{zdytj5,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+			</if>
+		</where>
+		<choose>
+			<when test="orderBy != null and orderBy != ''">
+				ORDER BY ${orderBy}
+			</when>
+			<otherwise>
+			</otherwise>
+		</choose>
+	</select>
+
 
 
     <select id="findListByMapXjh" resultType="com.zghzbckj.manage.entity.BckjBizJybm">

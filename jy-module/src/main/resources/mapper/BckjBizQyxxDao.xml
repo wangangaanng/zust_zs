@@ -52,6 +52,61 @@
 		a.state AS "state"
 	</sql>
 
+	<sql id="bckjBizQyxxColumnsMg">
+		a.owid AS "owid",
+		a.qy_tysh AS "qyTysh",
+		a.qymc AS "qymc",
+		a.qydz AS "qydz",
+		a.qy_prov AS "qyProv",
+		a.qy_city AS "qyCity",
+		a.qy_area AS "qyArea",
+		a.qy_gsxz AS "qyGsxz",
+		a.qy_hylb AS "qyHylb",
+		a.qy_gsgm AS "qyGsgm",
+		a.qy_gswz AS "qyGswz",
+		a.qy_frdbxm AS "qyFrdbxm",
+		a.qy_zczj AS "qyZczj",
+		a.qy_gsjs AS "qyGsjs",
+		a.qy_zcsj AS "qyZcsj",
+		a.qy_yyzzzp AS "qyYyzzzp",
+		a.qy_frsfzzp AS "qyFrsfzzp",
+		a.qybq AS "qybq",
+		a.memo AS "memo",
+		a.hmdqzt AS "hmdqzt",
+		a.exp1 AS "exp1",
+		a.exp2 AS "exp2",
+		a.exp3 AS "exp3",
+		a.exp4 AS "exp4",
+		a.exp5 AS "exp5",
+		a.exp6 AS "exp6",
+		a.exp7 AS "exp7",
+		a.exp8 AS "exp8",
+		a.exp9 AS "exp9",
+		a.exp10 AS "exp10",
+		a.createtime AS "createtime",
+		a.creator AS "creator",
+		a.creator_name AS "creatorName",
+		a.lastupdate AS "lastupdate",
+		a.updator AS "updator",
+		a.updator_name AS "updatorName",
+		a.ver AS "ver",
+		a.vertime AS "vertime",
+		a.dept_id AS "deptId",
+		a.dept_path AS "deptPath",
+		a.delflg AS "delflg",
+		a.state AS "state"
+	</sql>
+
+
+    <sql id="bckjBizQyxxColumnsInfo">
+        a.owid AS "owid",
+        a.qymc AS "qymc",
+        a.qy_lxr AS "qyLxr",
+        a.qy_lxrdh AS "qyLxrdh",
+        a.qy_yx AS "qyYx"
+    </sql>
+
+
     <sql id="bckjBizQyxxJoins">
     </sql>
 
@@ -61,6 +116,41 @@
         FROM bckj_biz_qyxx a
         <include refid="bckjBizQyxxJoins"/>
         WHERE a.owid = #{owid}
+    </select>
+
+
+
+	<select id="getQyxxInfo" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
+		SELECT
+		<include refid="bckjBizQyxxColumnsMg"/>
+		FROM bckj_biz_qyxx a
+		<include refid="bckjBizQyxxJoins"/>
+		WHERE a.owid = #{owid}
+	</select>
+
+
+
+	<select id="getOneInfo" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
+        SELECT
+        <include refid="bckjBizQyxxColumnsInfo"/>
+        FROM bckj_biz_qyxx a
+        <include refid="bckjBizQyxxJoins"/>
+        <where>
+            <if test="qyTysh != null and qyTysh != ''">
+                AND a.qy_tysh = #{qyTysh}
+            </if>
+            <if test="qyFrsfz != null and qyFrsfz != ''">
+                AND a.qy_frsfz LIKE concat('%',#{qyFrsfz,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
+            </if>
+            <if test="qymc != null and qymc != ''">
+                AND a.qymc = #{qymc}
+            </if>
+            <if test="state != null and state != ''">
+                AND a.state = #{state}
+            </if>
+        </where>
+
+
     </select>
 
 
@@ -87,7 +177,11 @@
 
     </select>
 
-    <select id="getExistOne" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
+
+
+
+
+	<select id="getExistOne" resultType="com.zghzbckj.manage.entity.BckjBizQyxx">
         SELECT
         <include refid="bckjBizQyxxColumns"/>
         FROM bckj_biz_qyxx a
@@ -416,9 +510,6 @@
         FROM BCKJ_BIZ_QYXX a
         WHERE a.qy_tysh=#{qyTysh}
     </select>
-
-
-
 
 
 </mapper>

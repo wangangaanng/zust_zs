@@ -89,7 +89,7 @@ public class BckjBizJybmController extends BaseController {
     @ResponseBody
     public ResponseMessage getListZph(PublicDataVO dataVO) {
         try {
-//            map.clear();
+            map.clear();
             map.put("bmlx", JyContant.BMDX_ZPH);
             map.put("bmdx", JyContant.BMLX_QY);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
@@ -100,7 +100,19 @@ public class BckjBizJybmController extends BaseController {
         }
     }
 
-
+    @RequestMapping(value = "/getListZphBy")
+    @ResponseBody
+    public ResponseMessage getListZphBy(PublicDataVO dataVO) {
+        try {
+            map.put("bmlx", JyContant.BMDX_ZPH);
+            map.put("bmdx", JyContant.BMLX_QY);
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.findPageBckjBizJybm(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
 
     @RequestMapping(value = "/getList")
     @ResponseBody
