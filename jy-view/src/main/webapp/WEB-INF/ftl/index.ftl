@@ -201,27 +201,27 @@
                                 <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li title="${obj.zwbt!''}">${obj.zwbt!''}</li>
-                                        <#if objl_index==0>
+                                        <#if obj.zwlx==1>
                                             <li title="${obj.zwCity!''}"><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
                                             </li>
-                                        <#elseif objl_index==1>
+                                        <#elseif obj.zwlx==2>
                                             <li>
                                                 <#if obj.createtime?exists>
                                                ${obj.createtime?substring(0,10)}
                                             </#if>
                                             </li>
-                                        <#elseif objl_index==2>
+                                        <#elseif obj.zwlx==3>
                                             <li title="${obj.zphJbdd!''}"><i class="icon bg-icon_dz"></i>${obj.zphJbdd!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
                                             </li>
-                                        <#elseif objl_index==3>
+                                        <#elseif obj.zwlx==0>
                                             <li title="${obj.qymc!''}">${obj.qymc!''}</li>
                                             <li>
                                                 <#if obj.createtime?exists>
