@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "录取查询",
   "usingComponents": {
     "van-cell-group": "vant-weapp/cell-group",
     "van-cell": "vant-weapp/cell",
