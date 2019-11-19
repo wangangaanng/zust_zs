@@ -1,26 +1,8 @@
 package com.ourway.custemevent;
 
 import com.ourway.apply.ManageMainAction;
-import com.ourway.base.utils.*;
-import com.ourway.base.zk.component.BaseGrid;
-import com.ourway.base.zk.component.BaseWindow;
-import com.ourway.base.zk.models.PageControlVO;
-import com.ourway.base.zk.models.PageVO;
-import com.ourway.base.zk.service.ComponentListinerSer;
-import com.ourway.base.zk.utils.AlterDialog;
-import com.ourway.base.zk.utils.GridUtils;
-import com.ourway.base.zk.utils.data.I18nUtil;
-import com.ourway.base.zk.utils.data.PageDataUtil;
-import org.zkoss.zk.ui.*;
-import org.zkoss.zk.ui.event.Event;
-
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.zk.component.BaseGrid;
 import com.ourway.base.zk.component.BaseWindow;
@@ -28,16 +10,15 @@ import com.ourway.base.zk.models.PageControlVO;
 import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.service.ComponentListinerSer;
 import com.ourway.base.zk.utils.AlterDialog;
-import com.ourway.base.zk.utils.GridUtils;
+import com.ourway.base.zk.utils.data.I18nUtil;
 import com.ourway.base.zk.utils.data.PageDataUtil;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Path;
 import org.zkoss.zk.ui.event.Event;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Created by D.chen.g on 2018/6/7.
@@ -76,30 +57,34 @@ public class OpenNewListWindows implements ComponentListinerSer {
             } else {
                 url = vo.getPageCa();
             }
-            Map mapParam=datas.get(0);
-            _params.put("#owid", MapUtils.getString(mapParam,"owid"));
+            Map mapParam = datas.get(0);
+            _params.put("#owid", MapUtils.getString(mapParam, "owid"));
             Component comp = Path.getComponent("/mainWin");
             com.ourway.base.zk.main.MainAction root = null;
             if (comp instanceof ManageMainAction) {
                 root = (com.ourway.base.zk.main.MainAction) comp;
             }
-            Component winEdit = Executions.createComponents(url, (Component)null, _params);
+            Component winEdit = Executions.createComponents(url, (Component) null, _params);
             if (winEdit instanceof BaseWindow) {
-                BaseWindow _win = (BaseWindow)winEdit;
+                BaseWindow _win = (BaseWindow) winEdit;
                 if (!com.ourway.base.zk.utils.TextUtils.isEmpty(_params.get("windowCss"))) {
                     _win.setStyle(_params.get("windowCss").toString());
                 }
-                String tabId="";
-                if(vo.getPageCa().indexOf("xsgz")!=-1){
-                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生关注");
-                }else if(vo.getPageCa().indexOf("xsbm")!=-1){
-                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生报名");
-                }else if(vo.getPageCa().indexOf("xsqd")!=-1){
-                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生签到");
-                }else if(vo.getPageCa().indexOf("xuanchuan")!=-1){
-                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"dicVal1")+"---参加人员详情");
+                String tabId = "";
+                if (vo.getPageCa().indexOf("xsgz") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生关注");
+                } else if (vo.getPageCa().indexOf("xsbm") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生报名");
+                } else if (vo.getPageCa().indexOf("xsqd") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生签到");
+                } else if (vo.getPageCa().indexOf("xuanchuan") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "dicVal1") + "---参加人员详情");
+                } else if (vo.getPageCa().indexOf("zphbm") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---企业报名");
+                    _params.put("#jobRefOwid", MapUtils.getString(mapParam, "owid"));
+                    _params.put("#owid", "");
                 } else {
-                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt"));
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt"));
                 }
                 //根据指定的pageCa打开关注，报名，签到标题
 

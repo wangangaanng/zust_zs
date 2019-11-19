@@ -597,23 +597,23 @@ public class BckjBizYhxxController extends BaseController {
      * @param dataVO
      * @return
      */
-    @PostMapping("zsXchBm")
-    @ResponseBody
-    public ResponseMessage zsXchBm(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return bckjBizYhxxService.zsXchBm(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE, e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
-        }
-
-    }
+//    @PostMapping("zsXchBm")
+//    @ResponseBody
+//    public ResponseMessage zsXchBm(PublicDataVO dataVO){
+//        try {
+//            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+//            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
+//            if(!msg.getSuccess()){
+//                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+//            }
+//            return bckjBizYhxxService.zsXchBm(dataMap);
+//        }
+//        catch (Exception e){
+//            log.error(CommonConstant.ERROR_MESSAGE, e);
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+//        }
+//
+//    }
 
 
 }

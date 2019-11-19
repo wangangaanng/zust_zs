@@ -16,10 +16,8 @@ import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
-import com.zghzbckj.feign.BckjBizXsgzSer;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.*;
-import com.zghzbckj.manage.utils.MD5Util;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
@@ -56,8 +54,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     BckjBizJyschemeService bckjBizJyschemeService;
     @Autowired
     private BckjBizUserlogService bckjBizUserlogService;
-    @Autowired
-    BckjBizXsgzSer bckjbizXsgzSer;
+//    @Autowired
+//    BckjBizXsgzSer bckjbizXsgzSer;
 
 
     @Override
@@ -844,51 +842,51 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
 
 
-    @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public ResponseMessage zsXchBm(Map<String, Object> dataMap) throws Exception {
-        Map<String, Object> dicMap = this.dao.getOneDicByOwid(dataMap.get("owid").toString());
-        Integer dicVal5 = MapUtils.getInt(dicMap, "dicVal5");
-        Integer dicVal4 = MapUtils.getInt(dicMap, "dicVal4");
-        if (dicVal4 <= dicVal5) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "已达报名最多人数,报名失败");
-        }
-        dicVal5++;
-        dicMap.put("dicVal5", dicVal5.toString());
-        BckjBizYhxx sfz = getOneBySfz(dataMap.get("sfz").toString());
-        if (TextUtils.isEmpty(sfz)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "无法找到此生源,请检查输入信息是否有误");
-        }
-        ResponseMessage oneXsgz = bckjbizXsgzSer.getOneXchByYhRefOwid(sfz.getOwid(), dataMap.get("owid").toString());
-        if (!TextUtils.isEmpty(oneXsgz) && oneXsgz.getBackCode() == 0 && !TextUtils.isEmpty(oneXsgz.getBean())) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "您已报名,无法再次报名!");
-        }
-        String dicOwid = dataMap.get("owid").toString();
-        dataMap.remove("owid");
-        MapUtil.easySetByMap(dataMap, sfz);
-        BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(sfz.getOwid());
-        MapUtil.easySetByMap(dataMap, oneByYhRefOwid);
-        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
-        MapUtil.easySetByMap(dataMap, oneBySfz);
-        bckjBizSybService.saveOrUpdate(oneBySfz);
-        bckjBizYhkzService.saveOrUpdate(oneByYhRefOwid);
-        saveOrUpdate(sfz);
-        HashMap<String, Object> xsgzMap = Maps.newHashMap();
-        xsgzMap.put("jobRefOwid", dicOwid);
-        xsgzMap.put("yhRefOwid", sfz.getOwid());
-        xsgzMap.put("xxlb", 9);
-        xsgzMap.put("gzsj", new Date());
-        ResponseMessage responseMessage = bckjbizXsgzSer.mapXsgzInfo(xsgzMap);
-        if (!TextUtils.isEmpty(responseMessage) && responseMessage.getBackCode() == 0 && !TextUtils.isEmpty(responseMessage.getBean())) {
-            if (CommonConstant.SUCCESS_MESSAGE.equals(responseMessage.getBean().toString())) {
-                MessageUtil.sendMessage(dataMap.get("sjh").toString(), "感谢您报名参加" + dicMap.get("dicVal1").toString() + ",开始时间为" + dicMap.get("dicVal2").toString() + ",举办地点为" + dicMap.get("dicVal3") + ",请您实时关注");
-            }
-            dicMap.put("owid", dicOwid);
-            this.dao.updateDicByMap(dicMap);
-            return ResponseMessage.sendOK("报名成功,请查收短信");
-        }
-        return ResponseMessage.sendError(ResponseMessage.FAIL, "报名失败");
-
-    }
+//    @Transactional(readOnly = false, rollbackFor = Exception.class)
+//    public ResponseMessage zsXchBm(Map<String, Object> dataMap) throws Exception {
+//        Map<String, Object> dicMap = this.dao.getOneDicByOwid(dataMap.get("owid").toString());
+//        Integer dicVal5 = MapUtils.getInt(dicMap, "dicVal5");
+//        Integer dicVal4 = MapUtils.getInt(dicMap, "dicVal4");
+//        if (dicVal4 <= dicVal5) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "已达报名最多人数,报名失败");
+//        }
+//        dicVal5++;
+//        dicMap.put("dicVal5", dicVal5.toString());
+//        BckjBizYhxx sfz = getOneBySfz(dataMap.get("sfz").toString());
+//        if (TextUtils.isEmpty(sfz)) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "无法找到此生源,请检查输入信息是否有误");
+//        }
+//        ResponseMessage oneXsgz = bckjbizXsgzSer.getOneXchByYhRefOwid(sfz.getOwid(), dataMap.get("owid").toString());
+//        if (!TextUtils.isEmpty(oneXsgz) && oneXsgz.getBackCode() == 0 && !TextUtils.isEmpty(oneXsgz.getBean())) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "您已报名,无法再次报名!");
+//        }
+//        String dicOwid = dataMap.get("owid").toString();
+//        dataMap.remove("owid");
+//        MapUtil.easySetByMap(dataMap, sfz);
+//        BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(sfz.getOwid());
+//        MapUtil.easySetByMap(dataMap, oneByYhRefOwid);
+//        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
+//        MapUtil.easySetByMap(dataMap, oneBySfz);
+//        bckjBizSybService.saveOrUpdate(oneBySfz);
+//        bckjBizYhkzService.saveOrUpdate(oneByYhRefOwid);
+//        saveOrUpdate(sfz);
+//        HashMap<String, Object> xsgzMap = Maps.newHashMap();
+//        xsgzMap.put("jobRefOwid", dicOwid);
+//        xsgzMap.put("yhRefOwid", sfz.getOwid());
+//        xsgzMap.put("xxlb", 9);
+//        xsgzMap.put("gzsj", new Date());
+//        ResponseMessage responseMessage = bckjbizXsgzSer.mapXsgzInfo(xsgzMap);
+//        if (!TextUtils.isEmpty(responseMessage) && responseMessage.getBackCode() == 0 && !TextUtils.isEmpty(responseMessage.getBean())) {
+//            if (CommonConstant.SUCCESS_MESSAGE.equals(responseMessage.getBean().toString())) {
+//                MessageUtil.sendMessage(dataMap.get("sjh").toString(), "感谢您报名参加" + dicMap.get("dicVal1").toString() + ",开始时间为" + dicMap.get("dicVal2").toString() + ",举办地点为" + dicMap.get("dicVal3") + ",请您实时关注");
+//            }
+//            dicMap.put("owid", dicOwid);
+//            this.dao.updateDicByMap(dicMap);
+//            return ResponseMessage.sendOK("报名成功,请查收短信");
+//        }
+//        return ResponseMessage.sendError(ResponseMessage.FAIL, "报名失败");
+//
+//    }
 
 
     public PageInfo<Map> getQdList(Integer zwlx, List<FilterModel> filterModels, Integer pageSize, Integer pageNo) {
