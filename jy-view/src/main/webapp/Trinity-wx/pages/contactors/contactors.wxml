@@ -19,7 +19,7 @@
       <van-field label="性别"class="relation" titleWidth="90rpx" error-message="{{errorList['faSex'].msg}}" disabled required>
         <van-radio-group value="{{father.xb}}" name="faSex" bind:change="sexSelect" data-id="1" slot="right-icon" class="select-group">
           <van-radio name="1" checked-color="#26b887">男</van-radio>
-          <van-radio name="2" checked-color="#26b887">女</van-radio>
+          <van-radio name="2" checked-color="#26b887" style="width:133px;">女</van-radio>
         </van-radio-group>
       </van-field>
 
