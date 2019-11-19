@@ -287,4 +287,14 @@
 			SELECT b.NAME FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
 		a.OWID=b.MENU_REF_OWID  and b.WZBH=#{wzbh} and a.code=#{lmbh}
 	</select>
+
+
+	<select id="findByEmpType" resultType="Map">
+			SELECT b.NAME AS "label", a.OWID AS "value" FROM bckj_dic_menu a,bckj_dic_menu_apply b WHERE
+		a.OWID=b.MENU_REF_OWID  AND a.sjhqdx =#{sjhqdx} AND a.bxlx=#{bxlx}
+		<if test="wzbh!=null and wzbh!=''">
+			AND b.wzbh=#{wzbh}
+		</if>
+		ORDER BY a.owid
+	</select>
 </mapper>
