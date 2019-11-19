@@ -95,7 +95,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
      */
     public ResponseMessage findPageBckjBizArticle(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizArticle> page = findPage(dataMap, pageNo, pageSize, " a.fbsj DESC");
+        PageInfo<BckjBizArticle> page = findPage(dataMap, pageNo, pageSize, " a.createtime DESC");
         List<BckjBizArticle> records = page.getRecords();
         BckjBizArticle articleCount = new BckjBizArticle();
         articleCount.setWzbt("共有：" + page.getTotalCount() + "篇文章");
@@ -163,7 +163,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         String pageSize=MapUtils.getString(mapData,"pageSize");
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
         mapData.put("page", page);
-        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.fbsj DESC");
+        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.createtime DESC");
         page.setList(this.dao.findMapByShort(mapData));
         PageInfo<BckjBizArticle> pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());
@@ -298,24 +298,23 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         Map mapArticle=Maps.newHashMap();
         BeanUtil.copy2Map(mapArticle,article,"fbr","wzbt","wzly","wznr","ydcs");
         String fbsj=DateUtil.getDateString(article.getFbsj(),CommonConstant.DATE_FROMART);
-        String fbsjStr=DateUtil.getDateString(article.getFbsj(),CommonConstant.DATETIME_FROMART);
+        String fbsjStr=DateUtil.getDateString(article.getCreatetime(),CommonConstant.DATETIME_FROMART);
         mapArticle.put("fbsj",fbsj);
         Map param=Maps.newHashMap();
         param.put("lmbh",article.getLmbh());
-        param.put("orderBy"," a.istop DESC,a.sxh desc ,a.fbsj DESC");
-        param.put("sxh"," AND a.sxh <= "+ article.getSxh() +" AND a.fbsj < '"+fbsjStr+"'");
+        param.put("orderBy"," a.istop DESC,a.sxh desc ,a.createtime DESC");
+        param.put("sxh"," AND a.sxh <= "+ article.getSxh() +" AND a.createtime < '"+fbsjStr+"'");
         List<BckjBizArticle> mapList=this.dao.findMapByShort(param);
         mapArticle.put("upArticle",0);
         mapArticle.put("downArticle",0);
         if(null!=mapList&&mapList.size()>0){
             mapArticle.put("downArticle",mapList.get(0));
         }
-        param.put("sxh"," AND a.sxh >= "+ article.getSxh()+" AND a.fbsj > '"+fbsjStr+"'");
+        param.put("sxh"," AND a.sxh >= "+ article.getSxh()+" AND a.createtime > '"+fbsjStr+"'");
         List<BckjBizArticle> mapList2=this.dao.findMapByShort(param);
         if(null!=mapList2&&mapList2.size()>0){
             mapArticle.put("upArticle",mapList2.get(mapList2.size()-1));
         }
-//        putLmbh(article.getLmbh(),mapArticle);
         return mapArticle;
     }
 
@@ -334,7 +333,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
             String pageSize=MapUtils.getString(mapData,"pageSize");
             Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
             mapData.put("page", page);
-            mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.fbsj DESC");
+            mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.createtime DESC");
             page.setList(this.dao.findMapByKey(mapData));
             PageInfo<BckjBizArticle> pageInfo = new PageInfo();
             pageInfo.setRecords(page.getList());
@@ -362,7 +361,7 @@ public class BckjBizArticleService extends CrudService<BckjBizArticleDao, BckjBi
         String pageSize=MapUtils.getString(mapData,"pageSize");
         Page<BckjBizArticle> page = new Page(Integer.valueOf(pageNo), Integer.valueOf(pageSize));
         mapData.put("page", page);
-        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.fbsj DESC");
+        mapData.put("orderBy", " a.istop DESC,a.sxh DESC,a.createtime DESC");
         page.setList(this.dao.findYjBylmbh(mapData));
         PageInfo<BckjBizArticle> pageInfo = new PageInfo();
         pageInfo.setRecords(page.getList());
