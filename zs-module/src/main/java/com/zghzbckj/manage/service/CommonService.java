@@ -40,12 +40,16 @@ public class CommonService {
     public Map<String, Object> getLntjPie() {
         Map<String, Object> result = new HashMap<>();
         List<String> nfList = new ArrayList<>();
+        int zrs = 0;
         List<Map<String, Object>> dataList = commonDao.getListLntj();
         for (Map<String, Object> data : dataList) {
             nfList.add(MapUtils.getString(data, "name"));
+            zrs += MapUtils.getInt(data, "value");
         }
         result.put("pieData", dataList);
         result.put("nfList", nfList);
+        result.put("zrs", zrs);
+        result.put("lb", dataList.size());
         return result;
     }
 
@@ -62,12 +66,16 @@ public class CommonService {
     public Map<String, Object> getZsjhPie() {
         Map<String, Object> result = new HashMap<>();
         List<String> nfList = new ArrayList<>();
+        int zrs = 0;
         List<Map<String, Object>> dataList = commonDao.getListZsjh();
         for (Map<String, Object> data : dataList) {
             nfList.add(MapUtils.getString(data, "name"));
+            zrs += MapUtils.getInt(data, "value");
         }
         result.put("pieData", dataList);
         result.put("nfList", nfList);
+        result.put("zrs", zrs);
+        result.put("lb", dataList.size());
         return result;
     }
 
@@ -84,24 +92,32 @@ public class CommonService {
     public Map<String, Object> getKsbmPie() {
         Map<String, Object> result = new HashMap<>();
         List<String> nfList = new ArrayList<>();
+        int zrs = 0;
         List<Map<String, Object>> dataList = commonDao.getListKsbm();
         for (Map<String, Object> data : dataList) {
             nfList.add(MapUtils.getString(data, "name"));
+            zrs += MapUtils.getInt(data, "value");
         }
         result.put("pieData", dataList);
         result.put("zyList", nfList);
+        result.put("zrs", zrs);
+        result.put("lb", dataList.size());
         return result;
     }
 
     public Map<String, Object> getCjcxPie() {
         Map<String, Object> result = new HashMap<>();
         List<String> nfList = new ArrayList<>();
+        int zrs = 0;
         List<Map<String, Object>> dataList = commonDao.getListCjcx();
         for (Map<String, Object> data : dataList) {
             nfList.add(MapUtils.getString(data, "name"));
+            zrs += MapUtils.getInt(data, "value");
         }
         result.put("pieData", dataList);
         result.put("nfList", nfList);
+        result.put("zrs", zrs);
+        result.put("lb", dataList.size());
         return result;
     }
 
