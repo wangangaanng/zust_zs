@@ -11,6 +11,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.dao.BckjBizJbxxDao;
+import com.zghzbckj.manage.entity.BckjBizJbxx;
 import com.zghzbckj.manage.service.BckjBizJbxxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -158,7 +159,11 @@ public class BckjBizJbxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizJbxxService.getJbxx(mapData));
+            BckjBizJbxx reult=bckjBizJbxxService.getJbxx(mapData);
+            if(null==reult){
+                return  ResponseMessage.sendOK(reult);
+            }
+            return ResponseMessage.sendOK(com.zghzbckj.util.TextUtils.base64Code(JsonUtil.toJson(reult)));
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {

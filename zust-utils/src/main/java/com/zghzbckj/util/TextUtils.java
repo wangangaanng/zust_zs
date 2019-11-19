@@ -1,5 +1,7 @@
 package com.zghzbckj.util;
 
+import com.zghzbckj.CommonConstants;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,6 +12,7 @@ import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -18,6 +21,7 @@ import java.util.regex.Pattern;
 public class TextUtils {
     static Pattern numberPattern = Pattern.compile("[0-9]*");
     protected static MessageDigest messagedigest = null;
+    final static Base64.Encoder encoder = Base64.getEncoder();
 
     static {
         try {
@@ -268,5 +272,12 @@ public class TextUtils {
         String uuid = "";
         uuid = UUID.randomUUID().toString().replaceAll("-", "").toUpperCase();
         return uuid;
+    }
+
+
+    public static String base64Code(String text) throws Exception {
+         byte[] textByte = text.getBytes(CommonConstants.CHARSET_UTF_8);
+        final String encodedText = encoder.encodeToString(textByte);
+       return encodedText;
     }
 }
