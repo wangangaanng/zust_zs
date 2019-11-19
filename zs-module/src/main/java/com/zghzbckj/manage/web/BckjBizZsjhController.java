@@ -12,6 +12,7 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizZsjhService;
+import com.zghzbckj.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -230,7 +231,66 @@ public class BckjBizZsjhController extends BaseController {
         }
     }
 
+    /**
+     * 后台宣传会报名下拉框
+     * dataVO
+     * @return
+     */
+    @PostMapping("getCustomDicList")
+    @ResponseBody
+    public ResponseMessage getCustomDicList(PublicDataVO dataVO){
+        List resList = Lists.newArrayList();
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            resList=bckjBizZsjhService.getCustomDicList(dataMap);
+            return ResponseMessage.sendOK(resList);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
+
+    /**
+     * 后台展示招生宣传信息
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getPropaganda")
+    @ResponseBody
+    public ResponseMessage getPropaganda(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizZsjhService.getPropaganda(dataMap, MapUtils.getInt(dataMap,"pageNo"),MapUtils.getInt(dataMap,"pageSize")));
+
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 展示宣传会list
+     * @return
+     */
+    @PostMapping("getPropagandaQt")
+    @ResponseBody
+    public ResponseMessage getPropagandaQt(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "pageSize", "pageNo");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizZsjhService.getPropagandaQt(dataMap,MapUtils.getInt(dataMap,"pageNo"),MapUtils.getInt(dataMap,"pageSize")));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 
 }

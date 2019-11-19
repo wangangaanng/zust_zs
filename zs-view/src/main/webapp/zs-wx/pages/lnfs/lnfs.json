@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "历年分数/名次",
   "usingComponents": {
     "van-cell-group": "vant-weapp/cell-group",
     "van-cell": "vant-weapp/cell",

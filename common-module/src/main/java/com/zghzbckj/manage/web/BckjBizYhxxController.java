@@ -357,6 +357,23 @@ public class BckjBizYhxxController extends BaseController {
         }
     }
 
+    /**
+     * 后台统计签到   3:职来职往     4：宣讲会    8：讲座
+     * @return
+     */
+    @PostMapping("getQdList/{zwlx}")
+    @ResponseBody
+    public ResponseMessage getQdList(@PathVariable("zwlx") Integer zwlx, PublicDataVO dataVO){
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return ResponseMessage.sendOK(bckjBizYhxxService.getQdList(zwlx, filterModels, dataVO.getPageSize(), dataVO.getPageNo()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
     /**
      * <p>方法:swYtzc TODO三位一体注册接口 </p>
@@ -572,6 +589,30 @@ public class BckjBizYhxxController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+
+
+    /**
+     * 招生宣传报名
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("zsXchBm")
+    @ResponseBody
+    public ResponseMessage zsXchBm(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizYhxxService.zsXchBm(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+
     }
 
 

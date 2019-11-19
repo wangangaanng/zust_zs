@@ -17,17 +17,17 @@ public class CustomList implements ComponentInitSer {
 
     public final String ZSJH_URL_CUSTOM = "web/zustzs/bckjBizZsjh/getCustomList";
     public final String LNTJ_URL_CUSTOM = "web/zustzs/bckjBizLntj/getCustomList";
-
+    public final String Xch_BaoMing_URL = "web/zustzs/bckjBizZsjh/getCustomDicList";
 
     @Override
     public void doAction(BaseWindow baseWindow, Component component, PageControlVO pageControlVO) {
+        Map<String, Object> parentArgs = baseWindow.getParentArgs();
         String pageCA = baseWindow.getPageCA();
         Listitem item = new Listitem(I18nUtil.getLabelContent("public.sys.select"), "");
         item.setParent(component);
         item.setSelected(true);
         HashMap<String, Object> sendMap = Maps.newHashMap();
         ResponseMessage responseMessage=null;
-
         //招生计划nf
         if (pageCA.indexOf("zhaoshengjihua") != -1) {
             if (pageControlVO.getKjAttribute().equals("nf")) {
@@ -96,6 +96,24 @@ public class CustomList implements ComponentInitSer {
             if (pageControlVO.getKjAttribute().equals("zy")) {
                 sendMap.put("key", "zy");
                 responseMessage= JsonPostUtils.executeAPI(sendMap, LNTJ_URL_CUSTOM);
+            }
+        }
+        //宣传报名list
+        if(pageCA.indexOf("baoming")!=-1){
+            if (pageControlVO.getKjAttribute().equals("xszy")) {
+                sendMap.put("key", "xszy");
+                sendMap.put("owid", parentArgs.get("#owid"));
+                responseMessage= JsonPostUtils.executeAPI(sendMap,Xch_BaoMing_URL);
+            }
+            if (pageControlVO.getKjAttribute().equals("xsxy")) {
+                sendMap.put("key", "xsxy");
+                sendMap.put("owid", parentArgs.get("#owid"));
+                responseMessage= JsonPostUtils.executeAPI(sendMap,Xch_BaoMing_URL);
+            }
+            if (pageControlVO.getKjAttribute().equals("xsbj")) {
+                sendMap.put("key", "xsbj");
+                sendMap.put("owid", parentArgs.get("#owid"));
+                responseMessage= JsonPostUtils.executeAPI(sendMap,Xch_BaoMing_URL);
             }
         }
         List<String> lists=null;

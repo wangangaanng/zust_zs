@@ -141,7 +141,7 @@ public class BckjBizZxzxController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL,filterContent);
             }
             String ipAdrress = IpAdrressUtil.getIpAdrress(request);
-            dataMap.put("ipAdrress", ipAdrress);
+            dataMap.put("ipAdrress", "xxxx");
             return bckjBizZxzxService.consult(dataMap);
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);

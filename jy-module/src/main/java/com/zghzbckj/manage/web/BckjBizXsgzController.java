@@ -15,14 +15,14 @@ import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
+import com.zghzbckj.manage.entity.BckjBizXsgz;
 import com.zghzbckj.manage.service.BckjBizXsgzService;
 import com.zghzbckj.util.ExcelUtils;
+import com.zghzbckj.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import sun.nio.cs.ext.IBM037;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -285,6 +285,33 @@ public class BckjBizXsgzController extends BaseController {
             }
             return bckjBizXsgzService.zwSubcribeList(dataMap);
         } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping("save")
+    @ResponseBody
+    public ResponseMessage save(@RequestBody Map<String, Object> dataMap) {
+        try {
+            BckjBizXsgz bckjBizXsgz = BckjBizXsgz.class.newInstance();
+            MapUtil.easySetByMap(dataMap,bckjBizXsgz);
+            bckjBizXsgzService.saveOrUpdate(bckjBizXsgz);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    @PostMapping("getOneXchByYhRefOwid")
+    @ResponseBody
+    public ResponseMessage getOneXchByYhRefOwid(@RequestParam("yhRefOwid") String yhRefOwid,@RequestParam("owid") String owid){
+        try {
+            return ResponseMessage.sendOK(bckjBizXsgzService.getOneXchByYhRefOwid(yhRefOwid,owid));
+        }
+        catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }

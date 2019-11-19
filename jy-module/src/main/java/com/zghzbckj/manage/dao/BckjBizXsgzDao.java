@@ -26,11 +26,11 @@ public interface BckjBizXsgzDao extends CrudDao<BckjBizXsgz> {
 
     BckjBizXsgz getOneByUnionId(Map sendMap);
 
-    Map<String,Object> qdSuccessInfo(HashMap<String, Object> sendMap);
-
     Integer countNumber(Map params);
 
     Integer countGzNumber(Map params);
 
     List<BckjBizXsgz> findListByMapInfo(Map params);
+
+    BckjBizXsgz getOneXchByYhRefOwid(String yhRefOwid,String owid, int i);
 }

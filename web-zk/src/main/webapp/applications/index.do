@@ -90,7 +90,7 @@
         </hlayout>
         <div sclass="indexFooter" >
             <label style="font-color:#000000;font-size:12px;text-align:center;width:100%;"
-                   value="Copyright © 2019 浙江科技学院. All Rights Reserved  "></label>
+                   value="技术支持： 杭州步长科技有限公司  "></label>
         </div>
     </window>
 </zk>

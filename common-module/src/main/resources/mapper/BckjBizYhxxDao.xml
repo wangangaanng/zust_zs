@@ -592,7 +592,7 @@
     </select>
 
 
-    <select id="getYhxxQdInfo" parameterType="Map" resultType="Map">
+    	<select id="getYhxxQdInfo" parameterType="Map" resultType="Map">
         SELECT
           a.owid AS owid,
           a.xm AS xm,
@@ -625,8 +625,14 @@
              <if test="sjh!=null and sjh!=''">
                  and a.sjh=#{sjh}
              </if>
+             <if test="state !=null and state!=''">
+				 and d.state =#{state}
+			 </if>
+			 <if test="zwlx!=null and zwlx!=''">
+				 and b.zwlx=#{zwlx}
+			 </if>
          </where>
-        ORDER BY c.xsxh asc
+        ORDER BY  d.state desc,c.xsxh asc
 	</select>
 
 
@@ -638,6 +644,9 @@
             <if test="owid!=null and owid!=''">
                 and b.owid=#{owid}
             </if>
+            <if test="zwlx!=null and zwlx!=''">
+				and b.zwlx=#{zwlx}
+			</if>
             <if test="xsxh!=null and xsxh!=''">
                 and c.xsxh=#{xsxh}
             </if>
@@ -645,7 +654,7 @@
                 and a.xm=#{xm}
             </if>
             <if test="xsxy!=null and xsxy!=''">
-                and c.xsxy=#{xsxh}
+                and c.xsxy=#{xsxy}
             </if>
             <if test="xsbj!=null and xsbj!=''">
                 and c.xsbj=#{xsbj}
@@ -675,7 +684,7 @@
 				and a.xm=#{xm}
 			</if>
 			<if test="xsxy!=null and xsxy!=''">
-				and c.xsxy=#{xsxh}
+				and c.xsxy=#{xsxy}
 			</if>
 			<if test="xsbj!=null and xsbj!=''">
 				and c.xsbj=#{xsbj}
@@ -685,6 +694,9 @@
 			</if>
 			<if test="sjh!=null and sjh!=''">
 				and a.sjh=#{sjh}
+			</if>
+			<if test="zwlx!=null and zwlx!=''">
+				and b.zwlx=#{zwlx}
 			</if>
 		</where>
 	</select>
@@ -705,7 +717,7 @@
 				and a.xm=#{xm}
 			</if>
 			<if test="xsxy!=null and xsxy!=''">
-				and c.xsxy=#{xsxh}
+				and c.xsxy=#{xsxy}
 			</if>
 			<if test="xsbj!=null and xsbj!=''">
 				and c.xsbj=#{xsbj}
@@ -715,6 +727,9 @@
 			</if>
 			<if test="sjh!=null and sjh!=''">
 				and a.sjh=#{sjh}
+			</if>
+			<if test="zwlx!=null and zwlx!=''">
+				and b.zwlx=#{zwlx}
 			</if>
 		</where>
 	</select>
@@ -739,7 +754,7 @@
                 and a.xm=#{xm}
             </if>
             <if test="xsxy!=null and xsxy!=''">
-                and d.xsxy=#{xsxh}
+                and d.xsxy=#{xsxy}
             </if>
             <if test="xsbj!=null and xsbj!=''">
                 and d.xsbj=#{xsbj}
@@ -772,7 +787,7 @@
                 and a.xm=#{xm}
             </if>
             <if test="xsxy!=null and xsxy!=''">
-                and c.xsxy=#{xsxh}
+                and c.xsxy=#{xsxy}
             </if>
             <if test="xsbj!=null and xsbj!=''">
                 and c.xsbj=#{xsbj}
@@ -803,7 +818,7 @@
                 and a.xm=#{xm}
             </if>
             <if test="xsxy!=null and xsxy!=''">
-                and c.xsxy=#{xsxh}
+                and c.xsxy=#{xsxy}
             </if>
             <if test="xsbj!=null and xsbj!=''">
                 and c.xsbj=#{xsbj}
@@ -835,7 +850,7 @@
                 and a.xm=#{xm}
             </if>
             <if test="xsxy!=null and xsxy!=''">
-                and c.xsxy=#{xsxh}
+                and c.xsxy=#{xsxy}
             </if>
             <if test="xsbj!=null and xsbj!=''">
                 and c.xsbj=#{xsbj}
@@ -903,13 +918,77 @@
 
 
 	<select id="getCaOpDayDateList" parameterType="Map" resultType="Map">
-		SELECT b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2 from ourway_sys_dic a ,ourway_sys_dic_value b
+		SELECT a.owid as owid ,b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2 from ourway_sys_dic a ,ourway_sys_dic_value b
 		where a.owid =b.dic_ref_owid and a.type =70000
 	</select>
 
 	<update id="updateDlzh" parameterType="Map">
 		UPDATE BCKJ_BIZ_YHXX SET yh_dlzh=#{yhDlzh}
 		WHERE owid=#{owid}
+	</update>
+
+	<select id="getXchBm" parameterType="Map" resultType="Map">
+		SELECT a.sjh ,a.xm,b.xsxh,b.xsxy,b.xszy,b.xsbj
+		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
+		<where>
+			c.xxlb=9 and a.owid =c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
+			<if test="xsxh!=null and xsxh!=''">
+				and b.xsxh=#{xsxh}
+			</if>
+			<if test="xm!=null and xm!=''">
+				and  a.xm=#{xm}
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and b.xsxy=#{xsxy}
+			</if>
+			<if test="xsbj!=null and xsbj!=''">
+				and b.xsbj=#{xsbj}
+			</if>
+			<if test="xszy!=null and xszy!=''">
+				and b.xszy=#{xszy}
+			</if>
+			<if test="sjh!=null and sjh!=''">
+				and a.sjh=#{sjh}
+			</if>
+		</where>
+	</select>
+
+	<select id="getXchBmSum" parameterType="Map" resultType="String">
+		SELECT count(*) as num
+		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
+		<where>
+			c.xxlb=9 and a.owid =c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
+			<if test="xsxh!=null and xsxh!=''">
+				and b.xsxh=#{xsxh}
+			</if>
+			<if test="xm!=null and xm!=''">
+				and a.xm=#{xm}
+			</if>
+			<if test="xsxy!=null and xsxy!=''">
+				and b.xsxy=#{xsxy}
+			</if>
+			<if test="xsbj!=null and xsbj!=''">
+				and b.xsbj=#{xsbj}
+			</if>
+			<if test="xszy!=null and xszy!=''">
+				and b.xszy=#{xszy}
+			</if>
+			<if test="sjh!=null and sjh!=''">
+				and a.sjh=#{sjh}
+			</if>
+		</where>
+	</select>
+
+	<select id="getOneDicByOwid" resultType="Map" parameterType="String">
+		select b.dic_val1 as dicVal1 , b.dic_val2 as dicVal2,b.dic_val3 as dicVal3,
+		b.dic_val4 as dicVal4,b.dic_val5 as dicVal5
+		from ourway_sys_dic_value b
+		where dic_ref_owid =#{value}
+	</select>
+
+	<update id="updateDicByMap" parameterType="Map">
+		UPDATE OURWAY_SYS_DIC_VALUE SET DIC_VAL5=#{dicVal5}
+		WHERE dic_ref_owid=#{owid}
 	</update>
 
 </mapper>

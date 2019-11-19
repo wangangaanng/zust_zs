@@ -104,13 +104,23 @@
                             <div id="taskcartogram" class="pie-wrap">
 
                             </div>
+                            <div class="piechat-title" >
+                                <table id="qytj">
+
+                                </table>
+                            </div>
                         </div>
                     </li>
                     <li>
                         <div class="pie-list_wrap" >
-                            <p><span>招生统计</span></p>
+                            <p><span>招生计划</span></p>
                             <div id="taskcartogram2" class="pie-wrap">
 
+                            </div>
+                            <div class="piechat-title">
+                                <table id="zwtj">
+
+                                </table>
                             </div>
                         </div>
                     </li>
@@ -120,6 +130,11 @@
                             <div id="taskcartogram3" class="pie-wrap">
 
                             </div>
+                            <div class="piechat-title">
+                                <table id="zphtj">
+
+                                </table>
+                            </div>
                         </div>
                     </li>
                     <li>
@@ -127,6 +142,11 @@
                             <p><span>考试类别</span></p>
                             <div id="taskcartogram4" class="pie-wrap">
 
+                            </div>
+                            <div class="piechat-title">
+                                <table id="xjhtj">
+
+                                </table>
                             </div>
                         </div>
                     </li>

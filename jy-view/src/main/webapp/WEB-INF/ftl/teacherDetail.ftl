@@ -125,10 +125,12 @@
                     layer.open({
                         title: '提示',
                         content: '咨询已提交，请等待回复。',
-                        yes: function (index, layero) {
-                            layer.close(index);
+                        yes: function (index1, layero) {
+                            layer.close(index1);
                         }
                     });
+                }else{
+                    walert(data.errorMess)
                 }
             })
         }

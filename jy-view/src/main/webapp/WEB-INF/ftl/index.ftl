@@ -100,6 +100,9 @@
                         <input type="password" id="yhDlmm" onkeydown="keyLogin()" placeholder="请输入身份证后六位" class="login-pswd">
                     </li>
                     <li>
+                        <a href="https://authserver.zust.edu.cn/authserver/login?service=https://job.zust.edu.cn/proxyLogin">校内统一身份认证登录</a>
+                    </li>
+                    <li>
                         <input type="button" onclick="stuLogin()" value="登录" class="login-btn">
                     </li>
                 </ul>
@@ -201,27 +204,27 @@
                                 <li data-owid="${obj.owid}" onclick="openUrl('positionDetail/${obj.owid!''}')">
                                     <ul class="job">
                                         <li title="${obj.zwbt!''}">${obj.zwbt!''}</li>
-                                        <#if objl_index==0>
+                                        <#if obj.zwlx==1>
                                             <li title="${obj.zwCity!''}"><i class="icon bg-icon_dz"></i>${obj.zwCity!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
                                             </li>
-                                        <#elseif objl_index==1>
+                                        <#elseif obj.zwlx==2>
                                             <li>
                                                 <#if obj.createtime?exists>
                                                ${obj.createtime?substring(0,10)}
                                             </#if>
                                             </li>
-                                        <#elseif objl_index==2>
+                                        <#elseif obj.zwlx==3>
                                             <li title="${obj.zphJbdd!''}"><i class="icon bg-icon_dz"></i>${obj.zphJbdd!''}</li>
                                             <li>
                                                 <#if obj.zphKsrq?exists>
                                                ${obj.zphKsrq?substring(0,10)}
                                             </#if>
                                             </li>
-                                        <#elseif objl_index==3>
+                                        <#elseif obj.zwlx==0>
                                             <li title="${obj.qymc!''}">${obj.qymc!''}</li>
                                             <li>
                                                 <#if obj.createtime?exists>
@@ -495,8 +498,18 @@
         if(getQueryString("mess")==1){
             layer.open({
                 title:'提示',
-                content: '不存在该用户信息，请联系招就处电话：0571-85124573',
+                content: '尚未获取到当前认证学号，请直接在首页登录',
                 yes: function(index, layero){
+                    window.location.replace(base+'/')
+                    layer.close(index);
+                }
+            });
+        }else if(getQueryString("mess")==2){
+            layer.open({
+                title:'提示',
+                content: '请在首页用身份证和身份证后六位登录后在生源信息完善学号',
+                yes: function(index, layero){
+                    window.location.replace(base+'/')
                     layer.close(index);
                 }
             });

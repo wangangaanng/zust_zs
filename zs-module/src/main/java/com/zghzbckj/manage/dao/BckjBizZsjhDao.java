@@ -27,5 +27,13 @@ public interface BckjBizZsjhDao extends CrudDao<BckjBizZsjh> {
     List<BckjBizZsjh> findListByPc(Map<String, Object> dataMap);
 
     List<BckjBizZsjh> findListByZy(Map<String, Object> dataMap);
-	
+
+    List<Map<String,Object>> getDicListMap(Map<String, Object> dataMap);
+
+
+    List<String> getCustomDicListXsxy(Map<String, Object> dataMap);
+
+    List<String> getCustomDicListXsbj(Map<String, Object> dataMap);
+
+    List<String> getCustomDicListXszy(Map<String, Object> dataMap);
 }
