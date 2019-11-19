@@ -223,6 +223,9 @@ public class BckjBizBmController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
            BckjBizBm bm=bckjBizBmService.getResult(mapData);
+            if(null==bm){
+                return ResponseMessage.sendOK(bm);
+            }
             return ResponseMessage.sendOK(com.zghzbckj.util.TextUtils.base64Code(JsonUtil.toJson(bm)));
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
