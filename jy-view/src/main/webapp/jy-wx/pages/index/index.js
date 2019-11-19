@@ -140,7 +140,7 @@ Page({
   },
   onReachBottom: function () {
     var that = this;
-    if (this.data.currentTab==0){
+    if (this.data.currentTab==1){
       if ((that.data.pageNo1 + 1) <= that.data.totalPage1) {
         that.setData({
           pageNo1: that.data.pageNo1 + 1,
@@ -148,7 +148,7 @@ Page({
         getList1(that, '0');//职位
       }
     }
-    if (this.data.currentTab == 1) {
+    if (this.data.currentTab == 2) {
       if ((that.data.pageNo2 + 1) <= that.data.totalPage2) {
         that.setData({
           pageNo2: that.data.pageNo2 + 1,
@@ -156,7 +156,7 @@ Page({
         getList2(that, '2');//企业招聘公告
       }
     }
-    if (this.data.currentTab == 2) {
+    if (this.data.currentTab == 0) {
       if ((that.data.pageNo3 + 1) <= that.data.totalPage3) {
         that.setData({
           pageNo3: that.data.pageNo3 + 1,

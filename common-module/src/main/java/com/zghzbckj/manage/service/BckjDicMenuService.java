@@ -4,18 +4,15 @@
 package com.zghzbckj.manage.service;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.ourway.base.utils.BeanUtil;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
-import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.BaseTree;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
-import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.manage.dao.BckjDicMenuDao;
 import com.zghzbckj.manage.entity.BckjDicMenu;
 import org.apache.log4j.Logger;
@@ -217,26 +214,11 @@ public class BckjDicMenuService extends CrudService<BckjDicMenuDao, BckjDicMenu>
         return yjMenu;
     }
 
-    public Object getArticleType() {
-        Map mapParam = Maps.newHashMap();
+    public Object getArticleType(  Map mapParam ) {
         mapParam.put("sjhqdx", 5);
         mapParam.put("bxlx", 1);
-        mapParam.put("orderBy", " a.owid ");
-        List<BckjDicMenu> meunList = this.dao.findListByMap(mapParam);
-        List<Map> mapList = Lists.newArrayList();
-        String outOwid = CacheUtil.getVal("twiceLmbh");
-        if (null == outOwid) {
-            outOwid = CommonConstants.EMPTY_STR;
-        }
-        for (BckjDicMenu one : meunList) {
-            if (!outOwid.contains(one.getOwid().toString())) {
-                mapParam = Maps.newHashMap();
-                mapParam.put("label", one.getName());
-                mapParam.put("value", one.getOwid());
-                mapList.add(mapParam);
-            }
-        }
-        return mapList;
+        List<Map > meunList = this.dao.findByEmpType(mapParam);
+        return meunList;
     }
 
     /**

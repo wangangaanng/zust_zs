@@ -5,7 +5,8 @@ page{background: rgb(245,245,245)}
 .van-cell:after{left:0px!important;}
 .van-field__error-message{text-align: right!important;}
 .select-group{display: flex;}
-.van-radio{margin-left: 66rpx;}
+.van-radio{margin-left: 66rpx;min-width: 98px;}
 .van-cell--required:before{left: -7px!important;}
 .van-cell__value{color: #595959!important}
 .van-cell__title{max-width: 150px!important;}
+.relation .van-cell__title{max-width: 80px!important;flex: 0}

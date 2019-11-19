@@ -3,6 +3,7 @@ package com.ourway.custemevent;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.zk.component.*;
+import com.ourway.base.zk.models.EmployVO;
 import com.ourway.base.zk.models.PageVO;
 import com.ourway.base.zk.models.ResponseMessage;
 import com.ourway.base.zk.service.PageInitSer;
@@ -21,13 +22,14 @@ public class InitArticleSer implements PageInitSer {
 
     @Override
     public void initPage(BaseWindow window, Map args, PageVO pageVO) {
+        EmployVO user= ZKSessionUtils.getZkUser();
         boolean flag = null != args;
         if (flag) {
             if (TextUtils.isEmpty(pageVO.getPageParams())) {
                 AlterDialog.alert("未定义apiUrl调用接口");
                 return;
             }
-            initCompBox(window);
+            initCompBox(window,user.getEmpId());
             List<Map> paramsList = JsonUtil.jsonToList(pageVO.getPageParams(), Map.class);
             Map<String, Object> _params = paramsList.get(0);
             Map<String, Object> _rowMap = (Map<String, Object>) args.get("ppt");
@@ -66,7 +68,7 @@ public class InitArticleSer implements PageInitSer {
                 BaseIntbox intbox = (BaseIntbox) window.getFellowIfAny("mainTableGrid_sxh");
                 intbox.setValue(1);
                 BaseTextbox textbox = (BaseTextbox) window.getFellowIfAny("mainTableGrid_fbr");
-                textbox.setValue(ZKSessionUtils.getZkUser().getEmpName());
+                textbox.setValue(user.getEmpName());
                 return;
             } else {
                 if (!TextUtils.isEmpty(responseMessage.getBean())) {
@@ -101,9 +103,18 @@ public class InitArticleSer implements PageInitSer {
         }
 
         }
-    private void initCompBox(BaseWindow window) {
+    private void initCompBox(BaseWindow window,String empType) {
         BaseChosenbox combobox = (BaseChosenbox) window.getFellowIfAny("mainTableGrid_qtbh");
-        ResponseMessage mess = JsonPostUtils.executeAPI("", INIT_CHOSE_URL);
+        Map param=Maps.newHashMap();
+        if(!TextUtils.isEmpty(empType)){
+            if(empType.equals("zsw")){
+                param.put("wzbh","0");
+            }
+            if(empType.equals("zjc1")){
+                param.put("wzbh","1");
+            }
+        }
+        ResponseMessage mess = JsonPostUtils.executeAPI(param, INIT_CHOSE_URL);
         if (null != mess && mess.getBackCode() == 0) {
             List<Map<String, Object>> list = (List) mess.getBean();
             ListModelList<String> values = new ListModelList(list.size());

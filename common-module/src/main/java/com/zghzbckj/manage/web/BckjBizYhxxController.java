@@ -394,7 +394,9 @@ public class BckjBizYhxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhxxService.swYtzc(mapData));
+            BckjBizYhxx result=bckjBizYhxxService.swYtzc(mapData);
+            result.setSwZh(null);
+            return ResponseMessage.sendOK(result);
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
@@ -422,7 +424,9 @@ public class BckjBizYhxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhxxService.loginSwty(mapData));
+            BckjBizYhxx yhxx=bckjBizYhxxService.loginSwty(mapData);
+            yhxx.setSwZh(null);
+            return ResponseMessage.sendOK(yhxx);
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
