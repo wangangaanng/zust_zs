@@ -89,8 +89,20 @@ public class OpenNewListWindows implements ComponentListinerSer {
                 if (!com.ourway.base.zk.utils.TextUtils.isEmpty(_params.get("windowCss"))) {
                     _win.setStyle(_params.get("windowCss").toString());
                 }
-                String tabId="";
-                if(vo.getPageCa().indexOf("xsgz")!=-1){
+                String tabId = "";
+                if (vo.getPageCa().indexOf("xsgz") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生关注");
+                } else if (vo.getPageCa().indexOf("xsbm") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生报名");
+                } else if (vo.getPageCa().indexOf("xsqd") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生签到");
+                } else if (vo.getPageCa().indexOf("xuanchuan") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "dicVal1") + "---参加人员详情");
+                } else if (vo.getPageCa().indexOf("zphbm") != -1) {
+                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---企业报名");
+                    _params.put("#jobRefOwid", MapUtils.getString(mapParam, "owid"));
+                    _params.put("#owid", "");
+                }else if(vo.getPageCa().indexOf("xsgz")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生关注");
                 }else if(vo.getPageCa().indexOf("xsbm")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生报名");
@@ -98,7 +110,14 @@ public class OpenNewListWindows implements ComponentListinerSer {
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生签到");
                 }else if(vo.getPageCa().indexOf("xuanchuan")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"dicVal1")+"---参加人员详情");
-                } else {
+                }
+                else if (vo.getPageCa().indexOf("xjhqiaodaotongji")!=-1){
+                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"xm")+"---宣讲会签到详情");
+                }else if (vo.getPageCa().indexOf("zlzwqiaodaotongji")!=-1){
+                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"xm")+"---职来职往签到详情");
+                }else if (vo.getPageCa().indexOf("zjxjhqiaodaotongji")!=-1){
+                    tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"xm")+"---讲座签到详情");
+                } else{
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt"));
                 }
                 //根据指定的pageCa打开关注，报名，签到标题

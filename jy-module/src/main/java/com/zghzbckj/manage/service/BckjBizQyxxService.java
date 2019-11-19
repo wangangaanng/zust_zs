@@ -16,6 +16,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.JyContant;
+import com.zghzbckj.feign.BckjBizYhkzSer;
 import com.zghzbckj.manage.dao.BckjBizJobDao;
 import com.zghzbckj.manage.dao.BckjBizQyxxDao;
 import com.zghzbckj.manage.entity.BckjBizJob;
@@ -52,6 +53,8 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     BckjBizJobDao jobDao;
     @Autowired
     BckjBizJybmService jybmService;
+    @Autowired
+    BckjBizYhkzSer keyFilter;
 
 
     @Override
@@ -205,6 +208,18 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             //审核开关 0表示关 1表示开
             String flag = CacheUtil.getVal(JyContant.KG + JyContant.QYSH);
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
+                String qymc = company.getQymc();
+                Map _params = new HashMap<>();
+                _params.put("content", qymc);
+                ResponseMessage responseYhxx = keyFilter.keyFilterQuery(_params);
+                if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+                    company.setState(JyContant.QY_ZT_JJ);
+                    saveOrUpdate(company);
+                    resultMap.put("result", "false");
+                    resultMap.put("msg", responseYhxx.getBean());
+                    return resultMap;
+                }
+
                 company.setState(JyContant.QY_ZT_TG);
                 String sfzStr = company.getQyFrsfz();
                 String content = JyContant.QY_PASS_MESS + company.getQyTysh() + "，您的登录密码：" + sfzStr.substring(sfzStr.length() - 6, sfzStr.length());

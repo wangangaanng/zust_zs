@@ -71,7 +71,7 @@ function initPie(isAll) {
                     backgroundColor: 'inhert',
                     tooltip: {
                         trigger: 'item',
-                        formatter: "{b} : {c} ({d}%)" //"{b} : {c} ({d}%)"
+                        formatter: "{b}: {c}人 ({d}%)" //"{b} : {c} ({d}%)"
                     },
                     series: [
                         {

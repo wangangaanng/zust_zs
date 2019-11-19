@@ -217,7 +217,7 @@ function getContactor(that) {
   }
   common.ajax('zustswyt/bckjBizJtcyxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
-      var list = res.data.bean;
+      var list = JSON.parse(common.base64Decode(res.data.bean));
       var whArr = that.data.eduCategory;
       if (list && list.length > 0) {
         for (var i = 0; i < list.length; i++) {

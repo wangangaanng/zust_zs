@@ -154,7 +154,8 @@ function getProcssState(fun) {
   var data = { "applyOwid": wx.getStorageSync('applyOwid') }
   ajax('zustswyt/bckjBizBm/getResult', data, function (res) {
     if (res.data.backCode == 0) {
-      fun(res);
+      var data = JSON.parse(base64_decode(res.data.bean));
+      fun(data);
     } else {
       toast(res.data.errorMess, 'none', 2000)
     }
@@ -162,19 +163,20 @@ function getProcssState(fun) {
 }
 
 //获取基本信息 用于个人中心 和process用户名称显示
-function getInfoBasic(that) {
+function getInfoBasic(that,fun) {
   var data = {
     "yhRefOwid": wx.getStorageSync('yhRefOwid')
   }
   ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
     if (res.data.backCode == 0) {
-      var data = res.data.bean;
+      var data = JSON.parse(base64_decode(res.data.bean));
       that.setData({
         'userName': data.xm
       });
       //缓存信息 避免每次都调用接口
       wx.setStorageSync("email", data.yx);
-      wx.setStorageSync("userName", data.xm)
+      wx.setStorageSync("userName", data.xm);
+      fun(data);
     } else {
       toast("获取用户基本信息报错" + res.data.errorMess, 'none', 2000)
     }

@@ -151,7 +151,7 @@
                 and a.zph_ksrq &gt;= #{startTime}
             </if>
             <if test="endTime != null and endTime != '' ">
-                and a.zph_ksrq &lt;= #{endTime}
+                and a.zph_ksrq &lt;= #{endTime} and a.zwlx != 8
             </if>
             <if test="zwbt != null and zwbt != ''">
                 AND a.zwbt LIKE concat('%',#{zwbt,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
@@ -179,7 +179,7 @@
             </if>
             <if test="zwgjz != null and zwgjz != ''">
                 AND( a.zwgjz LIKE concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' OR a.zwbt LIKE
-                concat('%',#{zphJbdd,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
+                concat('%',#{zwgjz,jdbcType=VARCHAR},'%') ESCAPE '&amp;' )
             </if>
             <if test="zwPro != null and zwPro != ''">
                 AND a.zw_pro LIKE concat('%',#{zwProv,jdbcType=VARCHAR},'%') ESCAPE '&amp;'

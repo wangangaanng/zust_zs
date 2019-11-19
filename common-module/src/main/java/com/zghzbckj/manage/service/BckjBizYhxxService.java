@@ -16,10 +16,8 @@ import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
-import com.zghzbckj.feign.BckjBizXsgzSer;
 import com.zghzbckj.manage.dao.BckjBizYhxxDao;
 import com.zghzbckj.manage.entity.*;
-import com.zghzbckj.manage.utils.MD5Util;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
@@ -32,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.alibaba.druid.support.monitor.annotation.AggregateType.Sum;
 
 
 /**
@@ -56,8 +56,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     BckjBizJyschemeService bckjBizJyschemeService;
     @Autowired
     private BckjBizUserlogService bckjBizUserlogService;
-    @Autowired
-    BckjBizXsgzSer bckjbizXsgzSer;
+//    @Autowired
+//    BckjBizXsgzSer bckjbizXsgzSer;
 
 
     @Override
@@ -266,9 +266,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                /* if (!TextUtils.isEmpty(datamap.get("nickname"))) {
                     bckjBizYhxx.setXm(datamap.get("nickname").toString());
                 }*/
-            if (!TextUtils.isEmpty(datamap.get("gender"))) {
+            /*if (!TextUtils.isEmpty(datamap.get("gender"))) {
                 bckjBizYhxx.setXb(Integer.parseInt(datamap.get("gender").toString()));
-            }
+            }*/
             if (!TextUtils.isEmpty(datamap.get("city"))) {
                 bckjBizYhxx.setCity(datamap.get("city").toString());
             }
@@ -388,12 +388,12 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         bckjBizYhgl.setOpenid(dataMap.get("openid").toString());
         bckjBizYhgl.setWxbh(dataMap.get("wxid").toString());
         bckjBizYhgl.setGzsj(new Date());
-           /* if (!TextUtils.isEmpty(dataMap.get("nickname"))) {
-                bckjBizYhxx.setXm(dataMap.get("nickname").toString());
-            }*/
-        if (!TextUtils.isEmpty(dataMap.get("gender"))) {
+        /* if (!TextUtils.isEmpty(dataMap.get("nickname"))) {
+            bckjBizYhxx.setXm(dataMap.get("nickname").toString());
+        }*/
+       /* if (!TextUtils.isEmpty(dataMap.get("gender"))) {
             bckjBizYhxx.setXb(Integer.parseInt(dataMap.get("gender").toString()));
-        }
+        }*/
         if (!TextUtils.isEmpty(dataMap.get("city"))) {
             bckjBizYhxx.setCity(dataMap.get("city").toString());
         }
@@ -844,81 +844,75 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
 
 
-    @Transactional(readOnly = false, rollbackFor = Exception.class)
-    public ResponseMessage zsXchBm(Map<String, Object> dataMap) throws Exception {
-        Map<String, Object> dicMap = this.dao.getOneDicByOwid(dataMap.get("owid").toString());
-        Integer dicVal5 = MapUtils.getInt(dicMap, "dicVal5");
-        Integer dicVal4 = MapUtils.getInt(dicMap, "dicVal4");
-        if (dicVal4 <= dicVal5) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "已达报名最多人数,报名失败");
-        }
-        dicVal5++;
-        dicMap.put("dicVal5", dicVal5.toString());
-        BckjBizYhxx sfz = getOneBySfz(dataMap.get("sfz").toString());
-        if (TextUtils.isEmpty(sfz)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "无法找到此生源,请检查输入信息是否有误");
-        }
-        ResponseMessage oneXsgz = bckjbizXsgzSer.getOneXchByYhRefOwid(sfz.getOwid(), dataMap.get("owid").toString());
-        if (!TextUtils.isEmpty(oneXsgz) && oneXsgz.getBackCode() == 0 && !TextUtils.isEmpty(oneXsgz.getBean())) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "您已报名,无法再次报名!");
-        }
-        String dicOwid = dataMap.get("owid").toString();
-        dataMap.remove("owid");
-        MapUtil.easySetByMap(dataMap, sfz);
-        BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(sfz.getOwid());
-        MapUtil.easySetByMap(dataMap, oneByYhRefOwid);
-        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
-        MapUtil.easySetByMap(dataMap, oneBySfz);
-        bckjBizSybService.saveOrUpdate(oneBySfz);
-        bckjBizYhkzService.saveOrUpdate(oneByYhRefOwid);
-        saveOrUpdate(sfz);
-        HashMap<String, Object> xsgzMap = Maps.newHashMap();
-        xsgzMap.put("jobRefOwid", dicOwid);
-        xsgzMap.put("yhRefOwid", sfz.getOwid());
-        xsgzMap.put("xxlb", 9);
-        xsgzMap.put("gzsj", new Date());
-        ResponseMessage responseMessage = bckjbizXsgzSer.mapXsgzInfo(xsgzMap);
-        if (!TextUtils.isEmpty(responseMessage) && responseMessage.getBackCode() == 0 && !TextUtils.isEmpty(responseMessage.getBean())) {
-            if (CommonConstant.SUCCESS_MESSAGE.equals(responseMessage.getBean().toString())) {
-                MessageUtil.sendMessage(dataMap.get("sjh").toString(), "感谢您报名参加" + dicMap.get("dicVal1").toString() + ",开始时间为" + dicMap.get("dicVal2").toString() + ",举办地点为" + dicMap.get("dicVal3") + ",请您实时关注");
-            }
-            dicMap.put("owid", dicOwid);
-            this.dao.updateDicByMap(dicMap);
-            return ResponseMessage.sendOK("报名成功,请查收短信");
-        }
-        return ResponseMessage.sendError(ResponseMessage.FAIL, "报名失败");
-
-    }
+//    @Transactional(readOnly = false, rollbackFor = Exception.class)
+//    public ResponseMessage zsXchBm(Map<String, Object> dataMap) throws Exception {
+//        Map<String, Object> dicMap = this.dao.getOneDicByOwid(dataMap.get("owid").toString());
+//        Integer dicVal5 = MapUtils.getInt(dicMap, "dicVal5");
+//        Integer dicVal4 = MapUtils.getInt(dicMap, "dicVal4");
+//        if (dicVal4 <= dicVal5) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "已达报名最多人数,报名失败");
+//        }
+//        dicVal5++;
+//        dicMap.put("dicVal5", dicVal5.toString());
+//        BckjBizYhxx sfz = getOneBySfz(dataMap.get("sfz").toString());
+//        if (TextUtils.isEmpty(sfz)) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "无法找到此生源,请检查输入信息是否有误");
+//        }
+//        ResponseMessage oneXsgz = bckjbizXsgzSer.getOneXchByYhRefOwid(sfz.getOwid(), dataMap.get("owid").toString());
+//        if (!TextUtils.isEmpty(oneXsgz) && oneXsgz.getBackCode() == 0 && !TextUtils.isEmpty(oneXsgz.getBean())) {
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, "您已报名,无法再次报名!");
+//        }
+//        String dicOwid = dataMap.get("owid").toString();
+//        dataMap.remove("owid");
+//        MapUtil.easySetByMap(dataMap, sfz);
+//        BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(sfz.getOwid());
+//        MapUtil.easySetByMap(dataMap, oneByYhRefOwid);
+//        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
+//        MapUtil.easySetByMap(dataMap, oneBySfz);
+//        bckjBizSybService.saveOrUpdate(oneBySfz);
+//        bckjBizYhkzService.saveOrUpdate(oneByYhRefOwid);
+//        saveOrUpdate(sfz);
+//        HashMap<String, Object> xsgzMap = Maps.newHashMap();
+//        xsgzMap.put("jobRefOwid", dicOwid);
+//        xsgzMap.put("yhRefOwid", sfz.getOwid());
+//        xsgzMap.put("xxlb", 9);
+//        xsgzMap.put("gzsj", new Date());
+//        ResponseMessage responseMessage = bckjbizXsgzSer.mapXsgzInfo(xsgzMap);
+//        if (!TextUtils.isEmpty(responseMessage) && responseMessage.getBackCode() == 0 && !TextUtils.isEmpty(responseMessage.getBean())) {
+//            if (CommonConstant.SUCCESS_MESSAGE.equals(responseMessage.getBean().toString())) {
+//                MessageUtil.sendMessage(dataMap.get("sjh").toString(), "感谢您报名参加" + dicMap.get("dicVal1").toString() + ",开始时间为" + dicMap.get("dicVal2").toString() + ",举办地点为" + dicMap.get("dicVal3") + ",请您实时关注");
+//            }
+//            dicMap.put("owid", dicOwid);
+//            this.dao.updateDicByMap(dicMap);
+//            return ResponseMessage.sendOK("报名成功,请查收短信");
+//        }
+//        return ResponseMessage.sendError(ResponseMessage.FAIL, "报名失败");
+//
+//    }
 
 
     public PageInfo<Map> getQdList(Integer zwlx, List<FilterModel> filterModels, Integer pageSize, Integer pageNo) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
         Page<Map> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
-        List<Map> resLists = null;
-        //签到
-        if (zwlx == 3 || zwlx == 4 || zwlx == 8) {
-            //获得总人数
-            String Sum = this.dao.getYhxxQdSum(dataMap);
-            //签到未成功人数
-            page = new Page<>(pageNo, pageSize);
-            dataMap.put("page", page);
-            String NoSuccessSum = this.dao.getYhxxQdNoSuccessSum(dataMap);
-            //签到成功人数
-            page = new Page<>(pageNo, pageSize);
-            dataMap.put("page", page);
-            String SuccessSum = this.dao.getYhxxQdSuccessSum(dataMap);
-            Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("xsxh", "签到总人数：" + Sum + "其中 成功人数:" + SuccessSum + "未成功人数:" + NoSuccessSum);
-            resMap.put("readonly", true);
-            page = new Page<>(pageNo, pageSize);
-            dataMap.put("page", page);
-            dataMap.put("order","group by  ");
-            resLists = this.dao.getYhxxQdInfo(dataMap);
-            resLists.add(0, resMap);
-        }
-        page.setList(resLists);
+        dataMap.put("zwlx", zwlx);
+        //获得总人数
+        List<Map> qdLists=this.dao.getQdList(dataMap);
+        Map<String, Object> resMap = Maps.newHashMap();
+        resMap.put("xsxh", "签到统计总人数:" + page.getCount());
+        resMap.put("readonly", true);
+        qdLists.add(0,resMap);
+        page.setList(qdLists);
         return PageUtils.assimblePageInfo(page);
 
+    }
+
+    public PageInfo<Map> getQd(Map<String, Object> dataMap, Integer type) {
+        dataMap.put("zwlx",type);
+        Page<Map> page=new Page<>(MapUtils.getInt(dataMap,"pageNo"),MapUtils.getInt(dataMap,"pageSize"));
+        dataMap.put("page",page);
+        List<Map> qd = this.dao.getQd(dataMap);
+        page.setList(qd);
+       return PageUtils.assimblePageInfo(page);
     }
 }
