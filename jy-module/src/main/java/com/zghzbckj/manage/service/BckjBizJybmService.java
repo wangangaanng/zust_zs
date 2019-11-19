@@ -88,8 +88,8 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
      */
     public ResponseMessage findPageBckjBizJybm(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
-            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        if (!TextUtils.isEmpty(map.get("owid"))) {
+            dataMap.put("jobRefOwid", map.get("owid").toString());
         }
         if (!TextUtils.isEmpty(map.get("bmlx"))) {
             dataMap.put("bmlx", map.get("bmlx").toString());
@@ -147,6 +147,70 @@ public class BckjBizJybmService extends CrudService<BckjBizJybmDao, BckjBizJybm>
         records.add(0, job);
         return ResponseMessage.sendOK(page);
     }
+
+
+    public ResponseMessage getListZphBm(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        if (!TextUtils.isEmpty(map.get("jobRefOwid"))) {
+            dataMap.put("jobRefOwid", map.get("jobRefOwid").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmlx"))) {
+            dataMap.put("bmlx", map.get("bmlx").toString());
+        }
+        if (!TextUtils.isEmpty(map.get("bmdx"))) {
+            dataMap.put("bmdx", map.get("bmdx").toString());
+        }
+        dataMap.put("time", "1");
+        PageInfo<BckjBizJybm> page = findPage(dataMap, pageNo, pageSize, "a.state, a.createtime desc ");
+        List<BckjBizJybm> records = page.getRecords();
+        if (!TextUtils.isEmpty(records) && records.size() > 0) {
+            for (BckjBizJybm jybm : records) {
+                String zw = "";
+                Integer rs = 0;
+                if (!TextUtils.isEmpty(jybm.getZw1())) {
+                    zw += jybm.getZw1();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw2())) {
+                    zw += "、" + jybm.getZw2();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw3())) {
+                    zw += "、" + jybm.getZw3();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw4())) {
+                    zw += "、" + jybm.getZw4();
+                }
+                if (!TextUtils.isEmpty(jybm.getZw5())) {
+                    zw += "、" + jybm.getZw5();
+                }
+                jybm.setZw(zw);
+                if (!TextUtils.isEmpty(jybm.getRs1())) {
+                    rs += Integer.parseInt(jybm.getRs1());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs2())) {
+                    rs += Integer.parseInt(jybm.getRs2());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs3())) {
+                    rs += Integer.parseInt(jybm.getRs3());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs4())) {
+                    rs += Integer.parseInt(jybm.getRs4());
+                }
+                if (!TextUtils.isEmpty(jybm.getRs5())) {
+                    rs += Integer.parseInt(jybm.getRs5());
+                }
+                jybm.setRs(rs.toString());
+            }
+        }
+
+
+        BckjBizJybm job = new BckjBizJybm();
+        job.setZwbt("共有：" + page.getTotalCount() + "条信息");
+        job.setReadOnly(true);
+        job.setState(null);
+        records.add(0, job);
+        return ResponseMessage.sendOK(page);
+    }
+
 
     public ResponseMessage findPageBckjBizJybmZw(List<FilterModel> filters, Integer pageNo, Integer pageSize, Map map) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);

@@ -93,5 +93,10 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     Map<String,Object> getOneDicByOwid(String owid);
 
     void updateDicByMap(Map<String, Object> dicMap);
+
+
+    List<Map> getQdList(Map<String, Object> dataMap);
+
+    List<Map> getQd(Map<String, Object> dataMap);
 }
 

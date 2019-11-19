@@ -352,7 +352,7 @@
 	</select>
 
 	<delete id="deleteYhxx" parameterType="String" >
-		DELETE FROM bckj_biz_yhxx where owid=#{value }
+		DELETE FROM bckj_biz_yhxx where owid=#{value}
 	</delete>
 
 	<select id="getDicVal2ByVal1"  resultType="String" >

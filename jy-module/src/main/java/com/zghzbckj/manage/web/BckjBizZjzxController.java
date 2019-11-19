@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.RepeatException;
+import com.zghzbckj.feign.BckjDicKeysSer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
@@ -39,7 +40,8 @@ import java.util.Map;
 public class BckjBizZjzxController extends BaseController {
 	@Autowired
 	private BckjBizZjzxService bckjBizZjzxService;
-
+    @Autowired
+    BckjDicKeysSer bckjDicKeysSer;
 
 	@RequestMapping(value = "/getList")
     @ResponseBody
@@ -215,9 +217,11 @@ public class BckjBizZjzxController extends BaseController {
             //关键字过滤map
             HashMap<String, Object> filterMap = Maps.newHashMap();
             filterMap.put("content",dataMap.get("danr").toString());
-            String filterResult = bckjBizZjzxService.filterContent(filterMap);
-            if (!TextUtils.isEmpty(filterResult)){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"标题或简介中请去除如下字词:"+filterResult);
+            ResponseMessage responseMessage = bckjDicKeysSer.jyKeyFilter(filterMap);
+            if(!TextUtils.isEmpty(responseMessage)&&responseMessage.getBackCode()==0){
+                if(!TextUtils.isEmpty(responseMessage.getBean())){
+                    return responseMessage.sendError(ResponseMessage.FAIL,responseMessage.getBean().toString());
+                }
             }
             return bckjBizZjzxService.replyConsult(dataMap);
         }
