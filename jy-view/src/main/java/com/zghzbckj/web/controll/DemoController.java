@@ -60,13 +60,15 @@ public class DemoController {
     @RequestMapping(value = "/proxyLogin", method = RequestMethod.GET)
     public ModelAndView proxyLogin(HttpServletRequest request,ModelAndView view,HttpServletResponse response) {
         String  studentId=request.getHeader("cas_user");
-//        String  studentId=request.getParameter("cas_user");
+        if(TextUtils.isEmpty(studentId)){
+            view.setViewName("redirect:/?mess=1");
+        }
         Map param2=Maps.newHashMap();
         param2.put("yhDlzh",studentId);
         PublicData loginData= UnionHttpUtils.manageParam(param2,"zustcommon/bckjBizYhxx/proxyLogin");
         ResponseMessage result  = UnionHttpUtils.doPosts(loginData);
         if(null==result||null==result.getBean()){
-            view.setViewName("redirect:/?mess=1");
+            view.setViewName("redirect:/?mess=2");
         }else {
             addCookie(response,(Map<String,String>)result.getBean());
             view.setViewName("redirect:/");
