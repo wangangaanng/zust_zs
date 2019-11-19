@@ -235,6 +235,8 @@
                         <div class="col-sm-8">
                             <#if (cInfo.qyYyzzzp)??>
                             <img src="${imagePath}${cInfo.qyYyzzzp}" id="yyzz" style="width: 150px;height: 180px;" />
+                                <#else>
+                                <img src="" id="yyzz" style="width: 150px;height: 180px;display: none;" />
                             </#if>
                             <div style="width: 150px;text-align: center;">
                                 <#--<img src="${base}/img/upload.png" id="yyzz"  style="width: 150px;max-height: 180px;" />-->
@@ -242,6 +244,11 @@
                                 <input type="file" style="display: none;" value="" class="file1" name="file" id="file" accept="image/jpeg,image/jpg,image/png,image/svg" />
                             </div>
 
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="qyGsjs" class="col-sm-2 control-label"></label>
+                        <div class="col-sm-8" style="color:red;">注：图片上传成功后需点击“修改”按钮进行保存
                         </div>
                     </div>
                     <input type="hidden" id="qyYyzzzp" name="qyYyzzzp" />

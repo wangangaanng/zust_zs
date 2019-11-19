@@ -50,7 +50,9 @@ $(document).ready(function () {
                 fd.append('data', JSON.stringify({
                     "type": 1
                 }));
+                $("#yyzz").show()
                 $("#yyzz").attr("src",this.result)
+
                 beginLoad()
                 $.ajax({
                     url:  base+'/webAjax/picUpload',

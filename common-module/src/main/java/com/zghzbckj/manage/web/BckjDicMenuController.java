@@ -234,7 +234,9 @@ public class BckjDicMenuController extends BaseController {
     @ResponseBody
     public ResponseMessage getArticleType(PublicDataVO dataVO) {
         try {
-            return ResponseMessage.sendOK(bckjDicMenuService.getArticleType());
+            Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
+            //判断owid是否为空
+            return ResponseMessage.sendOK(bckjDicMenuService.getArticleType(mapData));
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {

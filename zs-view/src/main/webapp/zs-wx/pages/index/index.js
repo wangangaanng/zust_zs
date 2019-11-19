@@ -9,14 +9,16 @@ Page({
     defaultimg:'../../static/headImg.png',
     imgUrls: [],
     menuList: [
-      { text: '招生计划', icon: '../../../static/index-icon01.png', url: '../plan/plan' }, 
       { text: '招生专业', icon: '../../../static/index-icon02.png', url: '../newsList/newsList?lmbh=129' }, 
       { text: '专业导航', icon: '../../../static/index-icon03.png', url: '../xueyuan/xueyuan' }, 
-      { text: '考生报名', icon: '../../../static/index-icon04.png', url: '../ksbm/ksbm' }, 
-      { text: '查询中心', icon: '../../../static/index-icon05.png', url: '../search/search' }, 
-      { text: '招生政策', icon: '../../../static/index-icon06.png', url: '../newsList/newsList?fid=67' }, 
+      { text: '生源基地', icon: '../../../static/index-icon08.png', url: '../syjd/syjd' },
+      { text: '查询中心', icon: '../../../static/index-icon05.png', url: '../search/search' },
       { text: '合作办学', icon: '../../../static/index-icon07.png', url: '../newsList/newsList?fid=65' }, 
-      { text: '生源基地', icon: '../../../static/index-icon08.png', url: '../syjd/syjd' }],
+      { text: '招生计划', icon: '../../../static/index-icon01.png', url: '../plan/plan' },       
+      { text: '招生政策', icon: '../../../static/index-icon06.png', url: '../newsList/newsList?fid=67' }, 
+      { text: '考生报名', icon: '../../../static/index-icon04.png', url: '../ksbm/ksbm' }
+      
+    ],
     pageSize: 20,
     pageNo1: 1,
     totalPage1: '',
@@ -155,7 +157,7 @@ var getLm = function (that) {
   common.ajax('zustcommon/bckjDicMenu/getLmmc', data, function (res) {
     if (res.data.backCode == 0) {
       if (res.data.bean && res.data.bean.NAME) {
-        that.data.menuList[1].text = res.data.bean.NAME
+        that.data.menuList[0].text = res.data.bean.NAME
         that.setData({
           menuList: that.data.menuList
         })

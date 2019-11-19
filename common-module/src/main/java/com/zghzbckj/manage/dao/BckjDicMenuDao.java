@@ -27,4 +27,6 @@ public interface BckjDicMenuDao extends CrudDao<BckjDicMenu> {
     long deleteApply(Map<String, Object> mapData);
 
     Map getLmmc(Map<String, Object> mapData);
+
+    List<Map> findByEmpType(Map mapParam);
 }

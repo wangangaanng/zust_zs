@@ -36,13 +36,36 @@ function initPie(isAll) {
         if(urlArr[k]){
             window.parent.ajax(urlArr[k],paramsArr[k],function(data){
                 pieChart[k].hideLoading();
-                if(data.backCode == 0) {
+                if(data.backCode == 0 && data.bean) {
+                    if(k==0){
+                        colorList = ['#43cfa9', '#43a9cf','#3e8be2','#2b63f0','#5144fd',"#aa4ef8",'#f84ebe','#ff635e','#ff8746','#ffb22d','#fed755','#92cf43','#2fa4f5',"#7089fa"];
+                        var str1 = '<tr><td>总人数</td><td><span>'+data.bean.zrs+'</span></td><td>类别数</td><td><span>'+data.bean.lb+'</span></td></tr>';
+                        $("#qytj").html(str1);
+                    }
+                    if(k==1){
+                        colorList = ["#009cff","#ffb22d",'#43cfa9','#aa4ef8','#ff635e'];
+                        var str2 = '<tr><td>总人数</td><td><span>'+data.bean.zrs+'</span></td><td>类别数</td><td><span>'+data.bean.lb+'</span></td></tr>';
+                        $("#zwtj").html(str2);
+                    }
+                    if(k==2){
+                        colorList = ["#92cf43","#f84ebe","#ff635e","#ff8746","#ffb22d"];
+                        var str3 = '<tr><td>总人数</td><td><span>'+data.bean.zrs+'</span></td><td>类别数</td><td><span>'+data.bean.lb+'</span></td></tr>';
+                        $("#zphtj").html(str3);
+                    }
+                    if(k==3){
+                        colorList = ["#009cff","#ffb22d","#f84ebe","#ff8746","#ffb22d"];
+                        var str4 = '<tr><td>总人数</td><td><span>'+data.bean.zrs+'</span></td><td>类别数</td><td><span>'+data.bean.lb+'</span></td></tr>';
+                        $("#xjhtj").html(str4);
+                    }
                     if((data.bean.pieData)&&(data.bean.pieData.length>0)){
                         dataPie = data.bean.pieData;
                     }else{
                         $(chartDom[k]).removeAttr("_echarts_instance_");
                         $(chartDom[k]).html(nullTip);
                     }
+                } else{
+                    $(chartDom[k]).removeAttr("_echarts_instance_");
+                    $(chartDom[k]).html(nullTip);
                 }
                 pieOption = {
                     backgroundColor: 'inhert',
@@ -155,7 +178,7 @@ function initBar(isAll) {
                     y2: 25,
                     x: 60,
                     x2:20,
-                    bottom: "15%"
+                    bottom: "20%"
                 },
                 //animationDuration: 4000,
                 tooltip: {
