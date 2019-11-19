@@ -188,6 +188,8 @@
             if(data.backCode==0){
                walert("留言成功")
                 layer.close(layer1)
+            }else{
+                walert(data.errorMess)
             }
         })
     }

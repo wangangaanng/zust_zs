@@ -845,7 +845,7 @@ public class DemoController {
         view.addObject("thirdDirName",  ((List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu"))).get(Integer.valueOf(thirdDir)).get("NAME").toString());
         view.addObject("menuList",(List<Map>) (((List<Map>) getHeader().getBean()).get(Integer.valueOf(secondDir)).get("chirdMenu")));
         Map param=Maps.newHashMap();
-        param.put("pageNo",'1');
+        param.put("pageNo","1");
         param.put("pageSize","12");
         param.put("zxlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
@@ -866,7 +866,7 @@ public class DemoController {
         Map param=Maps.newHashMap();
         param.put("pageNo",currentPage);
         param.put("pageSize","12");
-        param.put("zwlx","5");
+        param.put("zxlx","5");
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizZxzx/historyMessage");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("result",result.getBean());

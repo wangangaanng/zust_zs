@@ -1,4 +1,5 @@
 {
+  "navigationBarTitleText": "成绩查询",
   "usingComponents": {
     "van-cell-group": "vant-weapp/cell-group",
     "van-cell": "vant-weapp/cell",

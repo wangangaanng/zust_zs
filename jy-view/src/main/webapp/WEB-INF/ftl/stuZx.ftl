@@ -195,10 +195,12 @@
                     layer.open({
                         title: '提示',
                         content: tip,
-                        yes: function (index, layero) {
-                            layer.close(index);
+                        yes: function (index1, layero) {
+                            layer.close(index1);
                         }
                     });
+                }else{
+                    walert(data.errorMess)
                 }
             })
         }
