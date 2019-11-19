@@ -142,15 +142,15 @@ Page({
       'state': options.state
     });
 
-    common.getProcssState(function (res) {
-      if (res.data.bean.jfpzZp) {
+    common.getProcssState(function (data) {
+      if (data.jfpzZp) {
         that.setData({
-          proveImg: common.imgPath + res.data.bean.jfpzZp,
+          proveImg: common.imgPath + data.jfpzZp,
           jfInfo: '缴费证明图片已上传',
-          upProveImg: res.data.bean.jfpzZp,
+          upProveImg: data.jfpzZp,
           class1: 'green',
-          payTime: (res.data.bean.jfsj).substring(0, 10),
-          returnPayReason: res.data.bean.jjly,
+          payTime: (data.jfsj).substring(0, 10),
+          returnPayReason: data.jjly,
         })
       }
     })
