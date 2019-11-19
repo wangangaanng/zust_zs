@@ -153,7 +153,8 @@ public class BckjBizJtcyxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizJtcyxxService.findListByParams(mapData, "a.xssx"));
+            List list=bckjBizJtcyxxService.findListByParams(mapData, "a.xssx");
+            return ResponseMessage.sendOK(com.zghzbckj.util.TextUtils.base64Code(JsonUtil.toJson(list)));
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {

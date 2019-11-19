@@ -44,8 +44,7 @@ Page({
       title: pageTitle
     })
 
-    common.getProcssState(function(res){
-      var data = res.data.bean;
+    common.getProcssState(function (data){
       if (data.mssj){
         that.data.mssj = data.mssj
       }else{

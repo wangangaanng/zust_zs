@@ -51,6 +51,7 @@ public class BckjBizJybmController extends BaseController {
             Map<String, Object> mapData = JsonUtil.jsonToMap(dataVO.getData());
             map.put("jobRefOwid", mapData.get("owid"));
             map.put("bmlx", JyContant.BMLX_QY);
+
         } catch (Exception e) {
             log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
         }
@@ -70,6 +71,7 @@ public class BckjBizJybmController extends BaseController {
             log.error(e + "失败\r\n" + e.getStackTrace()[0], e);
         }
     }
+
     @RequestMapping(value = "/getListAllZw")
     @ResponseBody
     public ResponseMessage getListAllZw(PublicDataVO dataVO) {
@@ -100,10 +102,28 @@ public class BckjBizJybmController extends BaseController {
         }
     }
 
+
+    @RequestMapping(value = "/getListZphBm")
+    @ResponseBody
+    public ResponseMessage getListZphBm(PublicDataVO dataVO) {
+        try {
+            map.clear();
+            map.put("bmlx", JyContant.BMDX_ZPH);
+            map.put("bmdx", JyContant.BMLX_QY);
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJybmService.getListZphBm(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJybm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
     @RequestMapping(value = "/getListZphBy")
     @ResponseBody
     public ResponseMessage getListZphBy(PublicDataVO dataVO) {
         try {
+            map.clear();
             map.put("bmlx", JyContant.BMDX_ZPH);
             map.put("bmdx", JyContant.BMLX_QY);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
@@ -144,7 +164,7 @@ public class BckjBizJybmController extends BaseController {
             //企业对象
             map.put("bmlx", 0);
 //            map.put("state", 0);
-            map.put("wait",1);
+            map.put("wait", 1);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizJybmService.findPageBckjBizJybmXjh(filters, dataVO.getPageNo(), dataVO.getPageSize(), map);
         } catch (Exception e) {

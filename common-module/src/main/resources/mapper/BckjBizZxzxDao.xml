@@ -328,9 +328,9 @@
 	</update>
 
 	<select id="historyMessage" parameterType="Map" resultType="Map">
-		select <include refid="bckjBizZxzxColumns"></include> from bckj_biz_zxzx a
-		where exp1=2 and zxlx=#{zxlx}
-		order by  createtime desc
+		select * from bckj_biz_zxzx
+		where exp1=2 and zxlx=#{zxlx} and danr is not null
+		order by  twrq desc
 	</select>
 
 	<update id="faBu" parameterType="Map">

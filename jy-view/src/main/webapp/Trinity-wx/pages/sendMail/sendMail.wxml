@@ -30,7 +30,7 @@
 
   </topBck>
 
-  <view class="bottom-txt">浙江科技学院 三位一体</view>
+  <!-- <view class="bottom-txt">浙江科技学院 三位一体</view> -->
 </view>
 
 <van-dialog id="van-dialog" />

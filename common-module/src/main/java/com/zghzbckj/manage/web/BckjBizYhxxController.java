@@ -414,7 +414,9 @@ public class BckjBizYhxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhxxService.swYtzc(mapData));
+            BckjBizYhxx result=bckjBizYhxxService.swYtzc(mapData);
+            result.setSwZh(null);
+            return ResponseMessage.sendOK(result);
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
@@ -442,7 +444,9 @@ public class BckjBizYhxxController extends BaseController {
             if (!validateMsg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, validateMsg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizYhxxService.loginSwty(mapData));
+            BckjBizYhxx yhxx=bckjBizYhxxService.loginSwty(mapData);
+            yhxx.setSwZh(null);
+            return ResponseMessage.sendOK(yhxx);
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {
@@ -617,23 +621,23 @@ public class BckjBizYhxxController extends BaseController {
      * @param dataVO
      * @return
      */
-    @PostMapping("zsXchBm")
-    @ResponseBody
-    public ResponseMessage zsXchBm(PublicDataVO dataVO){
-        try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
-            if(!msg.getSuccess()){
-                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-            }
-            return bckjBizYhxxService.zsXchBm(dataMap);
-        }
-        catch (Exception e){
-            log.error(CommonConstant.ERROR_MESSAGE, e);
-            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
-        }
-
-    }
+//    @PostMapping("zsXchBm")
+//    @ResponseBody
+//    public ResponseMessage zsXchBm(PublicDataVO dataVO){
+//        try {
+//            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+//            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
+//            if(!msg.getSuccess()){
+//                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+//            }
+//            return bckjBizYhxxService.zsXchBm(dataMap);
+//        }
+//        catch (Exception e){
+//            log.error(CommonConstant.ERROR_MESSAGE, e);
+//            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+//        }
+//
+//    }
 
 
 }

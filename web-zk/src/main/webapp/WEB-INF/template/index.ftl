@@ -49,7 +49,9 @@
     </article>
 
 </div>
-<div style="position: absolute; bottom: 1%; width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #fffefe;">浙江科技学院版权所有<span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved</div>
+<div style="position: absolute; bottom: 1%; width: 100%;text-align: center;padding-top: 20px;font-size: 14px;color: #fffefe;">技术支持：杭州步长科技有限公司
+<#--    <span style="margin-left:10px;margin-right:10px;"><span >•</span></span><span style="margin-left:10px;margin-right:10px;"></span>copyright © 2019 . All rights reserved-->
+</div>
 <!--content-wrap end-->
 <#--<script src="html/js/jquery.min.js"></script>-->
 <script src="html/js/jquery-3.2.1.min.js"></script>

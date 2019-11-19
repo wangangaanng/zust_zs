@@ -1,9 +1,10 @@
 /* pages/teaService/teaService.wxss */
-page{background: #ffffff;}
+page{background: #ffffff;overflow-x: hidden;}
 .stu-h{
-
+overflow-x: hidden;
 }
 .ellipse{
+  overflow-x: hidden;
   width: 120%;
   margin-left: -10%;
   height: 220px;

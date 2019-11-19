@@ -2,6 +2,7 @@
 .login-btn{margin: 100rpx 30rpx;background: #008783;color: #fff;}
 
 .ellipse{
+  overflow-x: hidden;
   width: 120%;
   margin-left: -10%;
   height: 220px;
