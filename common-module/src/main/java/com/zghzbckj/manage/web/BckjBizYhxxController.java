@@ -358,7 +358,27 @@ public class BckjBizYhxxController extends BaseController {
     }
 
     /**
-     * 后台统计签到   3:职来职往     4：宣讲会    8：讲座
+     * 后台根据job 的 owid 获得关注单个学生的签到信息
+     *
+     * @param dataVO
+     * @param type   3:职来职往 4：宣讲会 8：讲座
+     * @return
+     */
+    @ResponseBody
+    public ResponseMessage getQd(@PathVariable("type") Integer type, PublicDataVO dataVO){
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+            return ResponseMessage.sendOK(bckjBizYhxxService.getQd(dataMap,type));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 后台统计签到   3:职来职往    4：宣讲会    8：讲座
      * @return
      */
     @PostMapping("getQdList/{zwlx}")
