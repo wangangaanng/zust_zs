@@ -187,7 +187,7 @@
 
     <!--历年统计根据年份    -->
     <select id="getListLntj" resultType="java.util.Map">
-        SELECT COUNT(*) AS value, NF AS name
+        SELECT SUM(LQS) AS value, NF AS name
         FROM bckj_biz_lntj
         WHERE NF IS NOT NULL
         GROUP BY NF
@@ -195,7 +195,7 @@
 
     <!--招生计划统计根据年份    -->
     <select id="getListZsjh" resultType="java.util.Map">
-        SELECT COUNT(*) AS value, NF AS name
+        SELECT SUM(ZSS) AS value, NF AS name
         FROM bckj_biz_zsjh
         WHERE NF IS NOT NULL
         GROUP BY NF
