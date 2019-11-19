@@ -2,6 +2,8 @@
 var common = require('../../libs/common/common.js');
 import WxValidate from '../../utils/WxValidate';
 const app = getApp();
+//确认身份证弹出
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
   /**
@@ -72,27 +74,33 @@ Page({
       this.setData({
         errorList: {}
       });
-      common.toast(imgError, 'none', 2000)
       if (nullMark == 1) {
+        common.toast(imgError, 'none', 2000)
         return;
       }
     }
-    console.log(params);
-    params.yhRefOwid = wx.getStorageSync("yhRefOwid");
-    params.sfzzm = that.upFaceImg;
-    params.sfzfm = that.upFaceBck;
-    params.hjzm = that.upHouseHold;
-    delete params['1'];
-    delete params['2']
-    common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
-      if (res.data.backCode == 0) {
-        wx.setStorageSync('email', params.yx);
-        wx.redirectTo({
-          url: '../contactors/contactors',
-        })
-      } else {
-        common.toast(res.data.errorMess, 'none', 2000)
-      }
+    Dialog.confirm({
+      title: '确认信息',
+      message: '请确认身份证号:' + params.sfzh + '\n请确认手机号:' + params.lxdh
+    }).then(() => {
+      console.log(params);
+      params.yhRefOwid = wx.getStorageSync("yhRefOwid");
+      params.sfzzm = that.upFaceImg;
+      params.sfzfm = that.upFaceBck;
+      params.hjzm = that.upHouseHold;
+      delete params['1'];
+      delete params['2']
+      common.ajax('zustswyt/bckjBizJbxx/finishInfo', params, function (res) {
+        if (res.data.backCode == 0) {
+          wx.setStorageSync('email', params.yx);
+          wx.redirectTo({
+            url: '../contactors/contactors',
+          })
+        } else {
+          common.toast(res.data.errorMess, 'none', 2000)
+        }
+      });
+    }).catch(() => {// on cancel
     });
   },
   /**
@@ -141,7 +149,7 @@ Page({
                     faceBck: tempFilePaths[0],
                     upFaceBck: that.data.upFaceBck
                   });
-                  break; 
+                  break;
               }
             } else {
               common.toast('上传失败', 'none', 2000);
@@ -195,9 +203,6 @@ Page({
       yx: {
         required: true,
         email: true
-      },
-      qq: {
-        required: true
       }
     }
     this.WxValidate = new WxValidate(rules, '')
@@ -224,7 +229,7 @@ function uploadOcr(that, path, type) {
     success: function (res) {
       wx.hideLoading();
       let d = JSON.parse(res.data);
-      if (d.backCode==0) {
+      if (d.backCode == 0) {
         //是被信息回显  
         ocrImgStatus(d, d.bean.image_status, that);
       } else {
@@ -262,7 +267,7 @@ function getInfoBasic(that) {
         data['xb'] = data['xb'].toString();//性别转string
       }
       that.data.form = data;
-      if (data.sfzzm){
+      if (data.sfzzm) {
         that.setData({
           faceImg: common.imgPath + data.sfzzm, //临时页面显示的身份证正面
           upFaceImg: data.sfzzm,//上传身份证正面
@@ -274,18 +279,18 @@ function getInfoBasic(that) {
           upFaceBck: data.sfzfm,//身份证反面
         });
       }
-      if (data.hjzm){
+      if (data.hjzm) {
         that.setData({
           houseHold: common.imgPath + (data.hjzm.replace("\\", "/")),//临时页面显示的户籍证明
           upHouseHold: data.hjzm,//户籍证明 
         });
       }
-      
+
       if (data.hjzm) {//如果有户籍证明就默认显示户籍证明 其他情况就都是选身份证默认
         that.setData({
           idType: '2',//户籍证明
         });
-      }else{
+      } else {
         that.setData({
           idType: '1',//身份证
         });
@@ -333,7 +338,7 @@ function ocrImgStatus(d, status, that) {
         break;
     }
     common.toast(statusStr, 'none', 2000);
-  }else{
+  } else {
     that.setData({
       'upFaceImg': d.bean.fileName,
     })
