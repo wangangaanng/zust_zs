@@ -69,5 +69,10 @@ Page({
     wx.redirectTo({
       url: '../basicInfo/basicInfo',
     })
+  },
+  perfectQr:function(){
+    wx.redirectTo({
+      url: '../majorExam/majorExam',
+    })
   }
 })
