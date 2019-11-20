@@ -108,7 +108,7 @@
 
                         <#case "4">
                             <#--分组信息-->
-                            <#if (processState>7)>
+                            <#if (processState>6)>
                                 <#include "SWgroupInfo.ftl">
                             <#else>
                                 <#include "com/SWprocessState.ftl">
