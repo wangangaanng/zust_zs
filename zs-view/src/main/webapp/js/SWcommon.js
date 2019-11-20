@@ -30,12 +30,6 @@ function ajax(method, data, successMethod, pageNo, pageSize) {
     }
 }
 
-function keySearch(){
-    if (event.keyCode==13){
-        searchAll()
-    }
-}
-
 //判断登录过期
 function isTimeOut() {
     var url = window.location.href;
@@ -133,29 +127,7 @@ function utf8_decode(utftext) { // utf-8解码
     return string;
 }
 
-//查询报名所有信息
-function searchAll() {
-    var data = {
-        "applyOwid":getCookie("applyOwid"),
-        "cnszp":cnszp,
-        "bmbZp":bmbZp
-    }
-    ajax("zustswyt/bckjBizBm/getResult", data, function (data) {
-        if(data.backCode==0){
-            var data = data.bean;
-            walert("提交成功");
-            $("#saveBasic").hide();
-        }else{
-            walert(data.errorMess)
-        }
-    })
-}
 
-function keySearch(){
-    if (event.keyCode==13){
-        searchAll()
-    }
-}
 // Close HTML Tags --------------------------------------------
 function closeHTML(str){
     var arrTags=["span","font","b","u","i","h1","h2","h3","h4","h5","h6","p","li","ul","table","div"];
@@ -176,18 +148,6 @@ function closeHTML(str){
          }*/
     }
     return str;
-}
-
-function searchAll() {
-    if($("#searchAll").val().trim()){
-        var key=$("#searchAll").val().trim()
-        if(testSql(key,$("#searchAll"))){
-            window.location.href=base+'/search?key='+key
-        }
-    }else{
-        layer.tips("请输入关键字！", $("#searchAll"), {tips: 1})
-        return
-    }
 }
 
 function testSql(val,obj) {
