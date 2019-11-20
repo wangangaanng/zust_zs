@@ -100,7 +100,7 @@
                 <ul class="pie-list">
                     <li>
                         <div class="pie-list_wrap" >
-                            <p><span>历年统计</span></p>
+                            <p><span>历年录取</span></p>
                             <div id="taskcartogram" class="pie-wrap">
 
                             </div>

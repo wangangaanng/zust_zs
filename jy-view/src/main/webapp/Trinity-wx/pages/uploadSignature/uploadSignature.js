@@ -134,8 +134,7 @@ Page({
     var that = this;
     this.initValidate();
     //判断状态
-    common.getProcssState(function(res){
-      var data = res.data.bean;
+    common.getProcssState(function(data){
       if (data.state>2){
         that.setData({
           'signImg': common.imgPath + data.bmbZp,

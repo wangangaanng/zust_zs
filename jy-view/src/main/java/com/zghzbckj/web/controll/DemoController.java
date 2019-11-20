@@ -62,6 +62,7 @@ public class DemoController {
         String  studentId=request.getHeader("cas_user");
         if(TextUtils.isEmpty(studentId)){
             view.setViewName("redirect:/?mess=1");
+            return  view;
         }
         Map param2=Maps.newHashMap();
         param2.put("yhDlzh",studentId);

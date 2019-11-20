@@ -7,8 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
 import java.util.Map;
 
 @FeignClient(value = "zustJYModule")
@@ -18,4 +16,5 @@ public interface BckjBizXsgzSer {
     ResponseMessage mapXsgzInfo(@RequestBody Map<String,Object> dataMap);
     @RequestMapping(value = "/bckjBizXsgz/getOneXchByYhRefOwid", method = RequestMethod.POST)
     ResponseMessage getOneXchByYhRefOwid(@RequestParam("yhRefOwid") String yhRefOwid,@RequestParam("owid") String owid);
+
 }

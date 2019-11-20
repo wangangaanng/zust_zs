@@ -400,10 +400,10 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         String zwbt = bckjBizJob.getZwbt();
         Map params = new HashMap<>();
         params.put("content", zwbt);
-//        ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
-//        if (!TextUtils.isEmpty(responseYhxx.getBean())) {
-//            return ResponseMessage.sendError(ResponseMessage.FAIL, "包含不可用关键字:" + responseYhxx.getBean().toString().substring(0, responseYhxx.getBean().toString().length() - 1));
-//        }
+        ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
+        if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL,  responseYhxx.getBean().toString());
+        }
 
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
             BckjBizJob bckjBizJobIndata = get(mapData.get("owid").toString());

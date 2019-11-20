@@ -107,9 +107,46 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let that = this;
     this.initValidate();
     //获取基本信息填充
-    getInfoBasic(this);
+    common.getInfoBasic(this,function(data){
+      if (data.xb) {
+        data['xb'] = data['xb'].toString();//性别转string
+      }
+      that.data.form = data;
+      if (data.sfzzm) {
+        that.setData({
+          faceImg: common.imgPath + data.sfzzm, //临时页面显示的身份证正面
+          upFaceImg: data.sfzzm,//上传身份证正面
+        });
+      }
+      if (data.sfzfm) {
+        that.setData({
+          faceBck: common.imgPath + (data.sfzfm.replace("\\", "/")),//临时页面显示的身份证方面
+          upFaceBck: data.sfzfm,//身份证反面
+        });
+      }
+      if (data.hjzm) {
+        that.setData({
+          houseHold: common.imgPath + (data.hjzm.replace("\\", "/")),//临时页面显示的户籍证明
+          upHouseHold: data.hjzm,//户籍证明 
+        });
+      }
+
+      if (data.hjzm) {//如果有户籍证明就默认显示户籍证明 其他情况就都是选身份证默认
+        that.setData({
+          idType: '2',//户籍证明
+        });
+      } else {
+        that.setData({
+          idType: '1',//身份证
+        });
+      }
+      that.setData({
+        form: data,
+      });
+    });
   },
 
   //点击上传图片
@@ -255,54 +292,6 @@ function uploadOcr(that, path, type) {
   })
 }
 
-//获取基本信息
-function getInfoBasic(that) {
-  var data = {
-    "yhRefOwid": wx.getStorageSync('yhRefOwid')
-  }
-  common.ajax('zustswyt/bckjBizJbxx/getInfo', data, function (res) {
-    if (res.data.backCode == 0) {
-      var data = res.data.bean;
-      if (data.xb) {
-        data['xb'] = data['xb'].toString();//性别转string
-      }
-      that.data.form = data;
-      if (data.sfzzm) {
-        that.setData({
-          faceImg: common.imgPath + data.sfzzm, //临时页面显示的身份证正面
-          upFaceImg: data.sfzzm,//上传身份证正面
-        });
-      }
-      if (data.sfzfm) {
-        that.setData({
-          faceBck: common.imgPath + (data.sfzfm.replace("\\", "/")),//临时页面显示的身份证方面
-          upFaceBck: data.sfzfm,//身份证反面
-        });
-      }
-      if (data.hjzm) {
-        that.setData({
-          houseHold: common.imgPath + (data.hjzm.replace("\\", "/")),//临时页面显示的户籍证明
-          upHouseHold: data.hjzm,//户籍证明 
-        });
-      }
-
-      if (data.hjzm) {//如果有户籍证明就默认显示户籍证明 其他情况就都是选身份证默认
-        that.setData({
-          idType: '2',//户籍证明
-        });
-      } else {
-        that.setData({
-          idType: '1',//身份证
-        });
-      }
-      that.setData({
-        form: data,
-      });
-    } else {
-      common.toast(res.data.errorMess, 'none', 2000)
-    }
-  });
-}
 
 function ocrImgStatus(d, status, that) {
   let statusStr = "";

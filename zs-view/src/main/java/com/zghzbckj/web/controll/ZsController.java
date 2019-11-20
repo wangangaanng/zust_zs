@@ -4,7 +4,6 @@ import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
-import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ public class ZsController {
     public void setConfig(Model model) {
         model.addAttribute("imagePath", ApiConstants.imagePath);
     }
-    @RequestMapping(value = {"/","index","IndexPage!shouYe.htm"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/","index","IndexPage!shouYe.htm","IndexPage.htm"}, method = RequestMethod.GET)
     public ModelAndView ZSindex(HttpServletRequest request,ModelAndView view) {
         view.setViewName("ZSindex");
         view.addObject("header",getHeader().getBean());
