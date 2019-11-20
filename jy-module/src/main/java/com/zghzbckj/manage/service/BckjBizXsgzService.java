@@ -275,7 +275,7 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
             sendMap.put("unionid",yhxxVo.getUnionid());
             BckjBizXsgz oneByUnionId = this.dao.getOneByUnionId(sendMap);
             if (!TextUtils.isEmpty(oneByUnionId)&& oneByUnionId.getState()==1) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL, "该微信已签到过,不能在签到");
+                return ResponseMessage.sendError(ResponseMessage.FAIL, "该微信已签到过,不能再签到");
             }
         }
         //如果为新的关注

@@ -327,5 +327,9 @@
 		DELETE FROM bckj_biz_lntj
 		WHERE owid = #{owid}
 	</delete>
+
+	<select id="sumLqs" resultType="String">
+		SELECT sum(lqs) as sumLqs FROM bckj_biz_lntj
+	</select>
 	
 </mapper>

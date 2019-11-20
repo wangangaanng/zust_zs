@@ -409,4 +409,12 @@ public class BckjBizLqxsService extends CrudService<BckjBizLqxsDao, BckjBizLqxs>
         saveOrUpdate(bckjBizLqxs);
         return ResponseMessage.sendOK(bckjBizLqxs);
     }
+
+    public List<String> getCustomList(Map<String, Object> dataMap) {
+        List<String> lists = Lists.newArrayList();
+        if (dataMap.get("key").equals("lqzy")) {
+            lists = this.dao.findListByLqzy(dataMap);
+        }
+        return lists;
+    }
 }

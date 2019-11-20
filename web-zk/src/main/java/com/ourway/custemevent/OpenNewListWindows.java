@@ -96,8 +96,6 @@ public class OpenNewListWindows implements ComponentListinerSer {
                     tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生报名");
                 } else if (vo.getPageCa().indexOf("xsqd") != -1) {
                     tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生签到");
-                } else if (vo.getPageCa().indexOf("xuanchuan") != -1) {
-                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "dicVal1") + "---参加人员详情");
                 } else if (vo.getPageCa().indexOf("zphbm") != -1) {
                     tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---企业报名");
                     _params.put("#jobRefOwid", MapUtils.getString(mapParam, "owid"));
@@ -108,20 +106,18 @@ public class OpenNewListWindows implements ComponentListinerSer {
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生报名");
                 }else if(vo.getPageCa().indexOf("xsqd")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt")+"---学生签到");
-                }else if(vo.getPageCa().indexOf("xuanchuan")!=-1){
+                }else if(vo.getPageCa().indexOf("zhaoshengxuanchuanbaomingxiangqing")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"dicVal1")+"---参加人员详情");
-                }
-                else if (vo.getPageCa().indexOf("xjhqiaodaotongji")!=-1){
+                } else if (vo.getPageCa().indexOf("xjhqiaodaotongji")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"xm")+"---宣讲会签到详情");
                 }else if (vo.getPageCa().indexOf("zlzwqiaodaotongji")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"xm")+"---职来职往签到详情");
                 }else if (vo.getPageCa().indexOf("zjxjhqiaodaotongji")!=-1){
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"xm")+"---讲座签到详情");
-                } else{
+                } else {
                     tabId = root.openNewTab(_win,MapUtils.getString(mapParam,"zwbt"));
                 }
                 //根据指定的pageCa打开关注，报名，签到标题
-
                 _win.setTabId(tabId + "_window");
                 _win.setTopWindow(window);
                 if (_win.isClosePage()) {

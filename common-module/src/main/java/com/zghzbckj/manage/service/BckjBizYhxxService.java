@@ -13,6 +13,7 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
+import com.zghzbckj.base.util.PageUtil;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
@@ -504,7 +505,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (type == 9) {
             String sum = this.dao.getXchBmSum(dataMap);
             Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("xsxh", "参加总人数：" + sum);
+            resMap.put("xm", "参加总人数：" + sum);
             resMap.put("readonly", true);
             page = new Page<>(pageNo, pageSize);
             dataMap.put("page", page);
@@ -914,5 +915,54 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         List<Map> qd = this.dao.getQd(dataMap);
         page.setList(qd);
        return PageUtils.assimblePageInfo(page);
+    }
+
+    public List<String> getCustomList(Map<String, Object> dataMap) {
+        List<String> lists = Lists.newArrayList();
+        if (dataMap.get("key").toString().indexOf("xszy")!=-1){
+            lists=this.dao.getCustomListXszy(dataMap);
+        }
+        if (dataMap.get("key").toString().indexOf("xsxy")!=-1){
+            lists=this.dao.getCustomListXsxy(dataMap);
+        }if (dataMap.get("key").toString().indexOf("xsbj")!=-1){
+            lists=this.dao.getCustomListXsbj(dataMap);
+        }
+        return lists;
+    }
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void deleteBaoMing(List<Map> deleteMaps) {
+        this.dao.deleteBaoMing(deleteMaps);
+    }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void saveBaoMing(List<Map> saveMaps) throws IllegalAccessException, InstantiationException {
+        List<BckjBizYhxx> yhxxes= Lists.newArrayList();
+        for (Map<String,Object> map:saveMaps){
+            BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
+            bckjBizYhxx.setYhlx(5);
+            MapUtil.easySetByMap(map,bckjBizYhxx);
+            yhxxes.add(bckjBizYhxx);
+        }
+        saveOrUpdateAll(yhxxes);
+    }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void updateBaoMing(List<Map> updateMaps) {
+        List<BckjBizYhxx> bckjBizYhxxes= Lists.newArrayList();
+        for (Map map:updateMaps){
+            BckjBizYhxx bckjBizYhxx = get(map.get("owid").toString());
+            MapUtil.easySetByMap(map,bckjBizYhxx);
+            bckjBizYhxxes.add(bckjBizYhxx);
+        }
+        saveOrUpdateAll(bckjBizYhxxes);
+    }
+
+    public PageInfo<Map> getXchBaoMingList(Map<String, Object> dataMap) {
+        Page<Map> page=new Page<>(MapUtils.getInt(dataMap,"pageNo"),MapUtils.getInt(dataMap,"pageSize"));
+        dataMap.put("yhlx",5);
+        dataMap.put("exp2",dataMap.get("owid"));
+        dataMap.remove("owid");
+        page.setList(this.dao.getXchBaoMingList(dataMap));
+        return PageUtils.assimblePageInfo(page);
     }
 }

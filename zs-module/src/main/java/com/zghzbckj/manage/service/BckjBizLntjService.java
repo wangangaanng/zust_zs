@@ -89,7 +89,10 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
         PageInfo<BckjBizLntj> page = findPage(dataMap, pageNo, pageSize, null);
         List<BckjBizLntj> records = page.getRecords();
         BckjBizLntj bckjBizLntj = BckjBizLntj.class.newInstance();
+        String lqs=this.dao.sumLqs();
+        bckjBizLntj.setSf("录取数统计:"+lqs+"人");
         bckjBizLntj.setNf("共有"+page.getTotalCount()+"条");
+
         bckjBizLntj.setState(null);
         bckjBizLntj.setReadOnly(true);
         records.add(0,bckjBizLntj);

@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.google.common.collect.Lists;
 import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
@@ -167,6 +168,33 @@ public class BckjBizLqxsController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
+
+
+    /**
+     * <p>功能描述:后台录取招生信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * </ul>
+     */
+    @PostMapping("getCustomList")
+    @ResponseBody
+    public ResponseMessage getCustomList(PublicDataVO dataVO){
+        List<String> lists = Lists.newArrayList();
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            lists = bckjBizLqxsService.getCustomList(dataMap);
+            return ResponseMessage.sendOK(lists);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+
     }
 
 
