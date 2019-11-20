@@ -204,21 +204,22 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         try {
             company = MapUtils.map2Bean(mapData, BckjBizQyxx.class);
             company.setState(JyContant.QY_ZT_DSH);
+
+            String qymc = company.getQymc();
+            Map _params = new HashMap<>();
+            _params.put("content", qymc);
+            ResponseMessage responseYhxx = keyFilter.keyFilterQuery(_params);
+            if (!TextUtils.isEmpty(responseYhxx.getBean())) {
+                resultMap.put("result", "false");
+                resultMap.put("msg", responseYhxx.getBean());
+                return resultMap;
+            }
+
             saveOrUpdate(company);
             //审核开关 0表示关 1表示开
             String flag = CacheUtil.getVal(JyContant.KG + JyContant.QYSH);
             if (!TextUtils.isEmpty(flag) && "1".equals(flag)) {
-                String qymc = company.getQymc();
-                Map _params = new HashMap<>();
-                _params.put("content", qymc);
-                ResponseMessage responseYhxx = keyFilter.keyFilterQuery(_params);
-                if (!TextUtils.isEmpty(responseYhxx.getBean())) {
-                    company.setState(JyContant.QY_ZT_JJ);
-                    saveOrUpdate(company);
-                    resultMap.put("result", "false");
-                    resultMap.put("msg", responseYhxx.getBean());
-                    return resultMap;
-                }
+
 
                 company.setState(JyContant.QY_ZT_TG);
                 String sfzStr = company.getQyFrsfz();
