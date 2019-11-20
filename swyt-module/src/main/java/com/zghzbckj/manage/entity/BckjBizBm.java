@@ -6,7 +6,6 @@ package com.zghzbckj.manage.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.entity.DataWithExpEntity;
-import com.zghzbckj.common.CommonConstant;
 import org.hibernate.validator.constraints.Length;
 
 import java.util.Date;
@@ -398,7 +397,7 @@ public class BckjBizBm extends DataWithExpEntity<BckjBizBm> {
         this.jjly = jjly;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     public Date getJfsj() {
         return jfsj;
     }
