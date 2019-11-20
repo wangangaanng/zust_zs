@@ -1,0 +1,90 @@
+/* pages/qyInfo/qyInfo.wxss */
+
+page{background: #f3f3f5;}
+.cell{background: #fff;margin-bottom: 30rpx;}
+/* .title{font-size: 35rpx;text-align: left;padding: 35rpx 20rpx;border-bottom: 1px solid #e4e4e4;} */
+.title{font-size: 35rpx;text-align: left;padding: 35rpx 35rpx;border-bottom: 1px solid #e4e4e4;}
+.titlebt{font-size: 35rpx;text-align: left;padding: 40rpx 35rpx 30rpx;}
+.content{padding: 20rpx 20rpx;border-bottom: 1px solid #e4e4e4;}
+.content p{font-size: 30rpx;color: #474747;}
+.article{
+		width: calc(100% - 70rpx);
+		overflow: hidden;
+		line-height: 50rpx;
+		font-size: 32rpx;
+		color: #474747;
+		padding: 30rpx 35rpx;
+	}
+.table {
+  border: 0px solid darkgray;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  min-height: 60rpx;
+  align-items: center;
+}
+.td {
+    width:40%;
+    justify-content: center;
+    text-align: left;
+    font-size: 30rpx;
+}
+.td-name{color: #595959;}
+.float-btn2{
+  background: #00aba5;
+  border: 1px solid #008783;
+  color: #fff;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  position: fixed;
+  top: 730rpx;
+  right: 35rpx;
+  font-size: 29rpx;
+  padding: 15rpx;
+  text-align: center;
+  z-index: 100;
+}
+.float-btn3{
+  background: #00aba5;
+  border: 1px solid #008783;
+  color: #fff;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  position: fixed;
+  top: 860rpx;
+  right: 35rpx;
+  font-size: 29rpx;
+  padding: 15rpx;
+  text-align: center;
+  z-index: 100;
+}
+
+.van-icon-close{position: absolute !important;top: 5px;right: 5px;font-size: 20px !important;}
+.van-cell{border: 1px solid #eee;margin-bottom: 15px;}
+.van-icon{
+  color: #008784;
+}
+.van-button{height: 45px !important;line-height: 45px !important;}
+.search-content{padding: 20px;}
+
+.article-nav {
+    position: relative;
+	    display: flex;
+	    flex-direction: row;
+	    justify-content: space-between;
+		font-size: 28rpx;
+    padding: 0rpx 35rpx 30rpx;
+	}
+  .article-nav::after{content: '';width: 100%;height: 1px;background: #d5d5d5;position: absolute;left: 0;right: 0;bottom: 0;}
+	.article-nav-left,.article-nav-right{display: flex;height: 35rpx;line-height: 35rpx;}
+	.icon{
+		width: 35rpx;height: 35rpx;display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		margin-right: 8rpx;
+	}

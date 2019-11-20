@@ -834,7 +834,9 @@ ul.pagination {
 /**/
 .xInfo { padding-top: 15px; padding-bottom: 15px;padding-left: 0px;list-style: none;margin: 0;}
 .xInfo li { height: 30px; line-height: 22px; color: #aaaaaa; font-size: 16px;}
-.xInfo li span { color: #666666; }
+.xInfo li span { color: #666666; white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow: hidden;}
 .xInfo-2 { border-bottom: 0; border-top: 1px solid #ececec; }
 .xInfo-2 li { width: 33%; float: left; }
 .tInfo-2 li { width: auto; float: none; }
