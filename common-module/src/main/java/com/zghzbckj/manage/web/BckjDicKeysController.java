@@ -117,6 +117,22 @@ public class BckjDicKeysController extends BaseController {
         }
     }
 
+    @PostMapping("jyKeyFilter")
+    @ResponseBody
+    public ResponseMessage jyKeyFilter(@RequestBody Map<String,Object> keyMap){
+        try {
+            ValidateMsg msg = ValidateUtils.isEmpty(keyMap, "content");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjDicKeysService.filterContent(keyMap));
+        }
+        catch (Exception e){
+            log.info("关键字过滤失败：" + e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "系统繁忙");
+        }
+
+    }
 
     @RequestMapping(value = "keyFilterQuery", method = RequestMethod.POST)
     @ResponseBody

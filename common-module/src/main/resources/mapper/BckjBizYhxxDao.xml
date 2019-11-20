@@ -592,47 +592,47 @@
 	</select>
 
 
-	<select id="getYhxxQdInfo" parameterType="Map" resultType="Map">
-		SELECT
-		a.owid AS owid,
-		a.xm AS xm,
-		a.sjh AS sjh,
-		c.xsxh AS xsxh,
-		c.xsxy AS xsxy,
-		c.xszy AS xszy,
-		c.xsbj AS xsbj,
-		d.gzsj AS gzsj,
-		d.exp10 AS exp10,
-		d.state AS state
-		from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
-		<where>
-			a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and d.xxlb=1 and b.owid=#{owid}
-			<if test="xsxh!=null and xsxh!=''">
-				and c.xsxh=#{xsxh}
-			</if>
-			<if test="xm!=null and xm!=''">
-				and a.xm=#{xm}
-			</if>
-			<if test="xsxy!=null and xsxy!=''">
-				and c.xsxy=#{xsxh}
-			</if>
-			<if test="xsbj!=null and xsbj!=''">
-				and c.xsbj=#{xsbj}
-			</if>
-			<if test="xszy!=null and xszy!=''">
-				and d.xszy=#{xszy}
-			</if>
-			<if test="sjh!=null and sjh!=''">
-				and a.sjh=#{sjh}
-			</if>
-			<if test="state !=null and state!=''">
-				and d.state =#{state}
-			</if>
-			<if test="zwlx!=null and zwlx!=''">
-				and b.zwlx=#{zwlx}
-			</if>
-		</where>
-		ORDER BY  d.state desc,c.xsxh asc
+    	<select id="getYhxxQdInfo" parameterType="Map" resultType="Map">
+        SELECT
+          a.owid AS owid,
+          a.xm AS xm,
+          a.sjh AS sjh,
+          c.xsxh AS xsxh,
+          c.xsxy AS xsxy,
+          c.xszy AS xszy,
+          c.xsbj AS xsbj,
+          d.gzsj AS gzsj,
+          d.exp10 AS exp10,
+          d.state AS state
+        from bckj_biz_yhkz c,bckj_biz_xsgz d, bckj_biz_yhxx a , bckj_biz_job b
+         <where>
+             a.owid=c.yh_ref_owid and a.yhlx=1 and c.olx=0 and b.owid = d.job_ref_owid and d.yh_ref_owid=a.owid and d.xxlb=1 and b.owid=#{owid}
+             <if test="xsxh!=null and xsxh!=''">
+                and c.xsxh=#{xsxh}
+             </if>
+             <if test="xm!=null and xm!=''">
+                and a.xm=#{xm}
+             </if>
+             <if test="xsxy!=null and xsxy!=''">
+                and c.xsxy=#{xsxh}
+             </if>
+             <if test="xsbj!=null and xsbj!=''">
+                and c.xsbj=#{xsbj}
+             </if>
+             <if test="xszy!=null and xszy!=''">
+                and d.xszy=#{xszy}
+             </if>
+             <if test="sjh!=null and sjh!=''">
+                 and a.sjh=#{sjh}
+             </if>
+             <if test="state !=null and state!=''">
+				 and d.state =#{state}
+			 </if>
+			 <if test="zwlx!=null and zwlx!=''">
+				 and b.zwlx=#{zwlx}
+			 </if>
+         </where>
+        ORDER BY  d.state desc,c.xsxh asc ,d.gzsj desc
 	</select>
 
 

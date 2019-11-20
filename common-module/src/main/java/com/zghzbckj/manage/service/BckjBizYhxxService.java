@@ -31,6 +31,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import static com.alibaba.druid.support.monitor.annotation.AggregateType.Sum;
+
 
 /**
  * ccService
@@ -264,9 +266,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
                /* if (!TextUtils.isEmpty(datamap.get("nickname"))) {
                     bckjBizYhxx.setXm(datamap.get("nickname").toString());
                 }*/
-            if (!TextUtils.isEmpty(datamap.get("gender"))) {
+            /*if (!TextUtils.isEmpty(datamap.get("gender"))) {
                 bckjBizYhxx.setXb(Integer.parseInt(datamap.get("gender").toString()));
-            }
+            }*/
             if (!TextUtils.isEmpty(datamap.get("city"))) {
                 bckjBizYhxx.setCity(datamap.get("city").toString());
             }
@@ -386,12 +388,12 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         bckjBizYhgl.setOpenid(dataMap.get("openid").toString());
         bckjBizYhgl.setWxbh(dataMap.get("wxid").toString());
         bckjBizYhgl.setGzsj(new Date());
-           /* if (!TextUtils.isEmpty(dataMap.get("nickname"))) {
-                bckjBizYhxx.setXm(dataMap.get("nickname").toString());
-            }*/
-        if (!TextUtils.isEmpty(dataMap.get("gender"))) {
+        /* if (!TextUtils.isEmpty(dataMap.get("nickname"))) {
+            bckjBizYhxx.setXm(dataMap.get("nickname").toString());
+        }*/
+       /* if (!TextUtils.isEmpty(dataMap.get("gender"))) {
             bckjBizYhxx.setXb(Integer.parseInt(dataMap.get("gender").toString()));
-        }
+        }*/
         if (!TextUtils.isEmpty(dataMap.get("city"))) {
             bckjBizYhxx.setCity(dataMap.get("city").toString());
         }
@@ -893,30 +895,24 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
         Page<Map> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
-        List<Map> resLists = null;
-        //签到
-        if (zwlx == 3 || zwlx == 4 || zwlx == 8) {
-            //获得总人数
-            String Sum = this.dao.getYhxxQdSum(dataMap);
-            //签到未成功人数
-            page = new Page<>(pageNo, pageSize);
-            dataMap.put("page", page);
-            String NoSuccessSum = this.dao.getYhxxQdNoSuccessSum(dataMap);
-            //签到成功人数
-            page = new Page<>(pageNo, pageSize);
-            dataMap.put("page", page);
-            String SuccessSum = this.dao.getYhxxQdSuccessSum(dataMap);
-            Map<String, Object> resMap = Maps.newHashMap();
-            resMap.put("xsxh", "签到总人数：" + Sum + "其中 成功人数:" + SuccessSum + "未成功人数:" + NoSuccessSum);
-            resMap.put("readonly", true);
-            page = new Page<>(pageNo, pageSize);
-            dataMap.put("page", page);
-            dataMap.put("order","group by  ");
-            resLists = this.dao.getYhxxQdInfo(dataMap);
-            resLists.add(0, resMap);
-        }
-        page.setList(resLists);
+        dataMap.put("zwlx", zwlx);
+        //获得总人数
+        List<Map> qdLists=this.dao.getQdList(dataMap);
+        Map<String, Object> resMap = Maps.newHashMap();
+        resMap.put("xsxh", "签到统计总人数:" + page.getCount());
+        resMap.put("readonly", true);
+        qdLists.add(0,resMap);
+        page.setList(qdLists);
         return PageUtils.assimblePageInfo(page);
 
+    }
+
+    public PageInfo<Map> getQd(Map<String, Object> dataMap, Integer type) {
+        dataMap.put("zwlx",type);
+        Page<Map> page=new Page<>(MapUtils.getInt(dataMap,"pageNo"),MapUtils.getInt(dataMap,"pageSize"));
+        dataMap.put("page",page);
+        List<Map> qd = this.dao.getQd(dataMap);
+        page.setList(qd);
+       return PageUtils.assimblePageInfo(page);
     }
 }
