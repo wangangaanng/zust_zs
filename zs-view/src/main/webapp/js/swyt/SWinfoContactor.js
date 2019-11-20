@@ -70,7 +70,7 @@ function getContactors() {
     }
     ajax("zustswyt/bckjBizJtcyxx/getInfo", data, function (data) {
         if(data.backCode==0){
-            $.each(data.bean,function (k,p) {
+            $.each(JSON.parse(base64_decode(data.bean)),function (k,p) {
                 switch(p.cylb){
                     case 0:
                         for (x in p) {
