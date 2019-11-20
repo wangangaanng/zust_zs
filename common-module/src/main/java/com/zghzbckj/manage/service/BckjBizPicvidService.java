@@ -74,10 +74,10 @@ public class BckjBizPicvidService extends CrudService<BckjBizPicvidDao, BckjBizP
      */
     public ResponseMessage findPageBckjBizPicvid(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        PageInfo<BckjBizPicvid> page = findPage(dataMap, pageNo, pageSize, null);
+        PageInfo<BckjBizPicvid> page = findPage(dataMap, pageNo, pageSize, "zszd");
         List<BckjBizPicvid> records = page.getRecords();
         BckjBizPicvid picvid = new BckjBizPicvid();
-        picvid.setLmbh("共有"+ records.size() + "张图片" );
+        picvid.setLmbh("共有"+ page.getTotalCount() + "张图片" );
         picvid.setReadOnly(true);
         records.add(0, picvid);
         return ResponseMessage.sendOK(page);

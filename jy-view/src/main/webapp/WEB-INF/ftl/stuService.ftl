@@ -72,7 +72,7 @@
     })
 
     function inquiryArchives(){
-        if(getCookie('stuOwid')) {
+        // if(getCookie('stuOwid')) {
             if (!$("#xsxm").val().trim()) {
                 walert("请输入姓名")
                 return;
@@ -196,9 +196,9 @@
                     walert(data.errorMess)
                 }
             })
-        }else{
-            login();
-        }
+        // }else{
+        //     login();
+        // }
     }
 
     function closeLayer(){

@@ -3,6 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
@@ -25,8 +26,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Filter;
 
 
 /**
@@ -342,7 +345,7 @@ public class BckjBizYhxxController extends BaseController {
      * 后台根据job 的 owid 获得关注学生信息
      *
      * @param dataVO
-     * @param type   0:关注 1：签到 2：报名
+     * @param type   0:关注 1：签到 2：报名  9:招生宣传会
      * @return
      */
     @PostMapping("getYhxxInfoList/{type}")
@@ -365,6 +368,7 @@ public class BckjBizYhxxController extends BaseController {
      * @return
      */
     @ResponseBody
+    @PostMapping("getQd/{type}")
     public ResponseMessage getQd(@PathVariable("type") Integer type, PublicDataVO dataVO){
         try {
             List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
@@ -615,6 +619,22 @@ public class BckjBizYhxxController extends BaseController {
         }
     }
 
+    /**
+     * 后台统计学生签到获得下拉框中的值
+     * @return
+     */
+    @PostMapping("getCustomList")
+    @ResponseBody
+    public ResponseMessage getCustomList(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizYhxxService.getCustomList(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
     /**
      * 招生宣传报名
@@ -638,6 +658,70 @@ public class BckjBizYhxxController extends BaseController {
 //        }
 //
 //    }
+
+    /**
+     * 后台保存和删除 招生宣传报名人员信息
+     * @return
+     */
+    @PostMapping("saveBaoMingInfo")
+    @ResponseBody
+    public ResponseMessage saveBaoMingInfo(PublicDataVO dataVO){
+        try {
+            List<Map> deleteMaps = Lists.newArrayList();
+            List<Map> saveMaps = Lists.newArrayList();
+            List<Map> updateMaps = Lists.newArrayList();
+            Map<String, Object> map = JsonUtil.jsonToMap(dataVO.getData());
+            List<Map> dataList =(List<Map>) map.get("dataList");
+            for (Map<String,Object> map1 :dataList){
+                if(map1.get("updateFlag").toString().equals("2")){
+                    deleteMaps.add(map1);
+                    continue;
+                }
+                if (map1.get("updateFlag").toString().equals("1")&&TextUtils.isEmpty(map1.get("owid"))){
+                    saveMaps.add(map1);
+                    continue;
+                }
+                updateMaps.add(map1);
+            }
+            if(!TextUtils.isEmpty(deleteMaps)&&deleteMaps.size()>0){
+                bckjBizYhxxService.deleteBaoMing(deleteMaps);
+            }
+            if(!TextUtils.isEmpty(saveMaps)&&saveMaps.size()>0){
+                bckjBizYhxxService.saveBaoMing(saveMaps);
+            }
+            if(!TextUtils.isEmpty(updateMaps)&&updateMaps.size()>0){
+                bckjBizYhxxService.updateBaoMing(updateMaps);
+            }
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    /**
+     * 后台获得招生报名list
+     * @return
+     */
+    @PostMapping("getXchBaoMingList")
+    @ResponseBody
+    public ResponseMessage getXchBaoMingList(PublicDataVO dataVO){
+        try {
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+            return ResponseMessage.sendOK(bckjBizYhxxService.getXchBaoMingList(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
+
+
 
 
 }
