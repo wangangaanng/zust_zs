@@ -3,6 +3,7 @@
     时间：2019-10-26
     描述：分组信息page==4 和成绩查询page==6
 -->
+<#--examNum长度小于1-->
 <#if examNum??&&(examNum?length lt 1)>
     <#assign examNum="生成中请等待"/>
 </#if>
