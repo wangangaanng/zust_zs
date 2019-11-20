@@ -4,6 +4,7 @@
   },
   "pages": [
     "pages/index/index",
+    "pages/openDay/openDay",
     "pages/plan/plan",
     "pages/lnfs/lnfs",
     "pages/zsjh/zsjh",

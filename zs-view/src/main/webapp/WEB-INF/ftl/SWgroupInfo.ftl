@@ -3,6 +3,14 @@
     时间：2019-10-26
     描述：分组信息page==4 和成绩查询page==6
 -->
+<#--examNum长度小于1-->
+<#if examNum??&&(examNum?length lt 1)>
+    <#assign examNum="生成中请等待"/>
+</#if>
+<#--processState==7 已缴费，等待分配面试时间 防止之前的无效时间显示-->
+<#if processState<8>
+    <#assign faceTime="生成中请等待"/>
+</#if>
 <#if page=="4">
     <#assign groupList=[
     {"label":"考生姓名","value":nameStu!""}
@@ -10,8 +18,8 @@
     ,{"label":"外语语种","value":languageType!""}
     ,{"label":"报考类别","value":examType!""}
     ,{"label":"招生专业","value":major!""}
-    ,{"label":"准考证号","value":examNum!"暂无"}
-    ,{"label":"面试时间","value":faceTime!"暂无"}
+    ,{"label":"准考证号","value":examNum!"生成中请等待"}
+    ,{"label":"面试时间","value":faceTime!"生成中请等待"}
     ]
     />
 <#elseif page=="6">
@@ -21,7 +29,7 @@
     ,{"label":"外语语种","value":languageType!""}
     ,{"label":"报考类别","value":examType!""}
     ,{"label":"招生专业","value":major!""}
-    ,{"label":"准考证号","value":examNum!"暂无"}
+    ,{"label":"准考证号","value":examNum!"生成中请等待"}
     ]
     />
 </#if>

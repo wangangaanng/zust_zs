@@ -1,8 +1,10 @@
 package com.zghzbckj.web.controll;
 
 import com.google.common.collect.Maps;
+import com.ourway.base.utils.JsonUtil;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
+import com.zghzbckj.web.utils.MD5Util;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -75,11 +77,11 @@ public class SwytController {
            //获取所有的报名进程所有信息
            Map param2 = Maps.newHashMap();
            param2.put("applyOwid",applyOwid);
-           ResponseMessage resultMess2  = new ResponseMessage();
            PublicData _data2 = UnionHttpUtils.manageParam(param2, "zustswyt/bckjBizBm/getResult");
-           resultMess2 = UnionHttpUtils.doPosts(_data2);
+           ResponseMessage resultMess2 = UnionHttpUtils.doPosts(_data2);
            if(!StringUtils.isEmpty(resultMess2.getBean())) {
-               Map<String, Object> records2 = (Map<String, Object>) resultMess2.getBean();
+               String beanStr=MD5Util.base64Code(resultMess2.getBean().toString());
+               Map<String, Object> records2 = JsonUtil.jsonToMap(beanStr);
                view.addObject("bmbZp",records2.get("bmbZp"));//报名表签字zp
                view.addObject("cnszp",records2.get("cnszp"));//承诺书签字zp
                view.addObject("email",records2.get("yx"));//邮箱
@@ -105,7 +107,8 @@ public class SwytController {
            PublicData _data5 = UnionHttpUtils.manageParam(param, "zustswyt/bckjBizJbxx/getInfo");
            resultMess5 = UnionHttpUtils.doPosts(_data5);
            if(!StringUtils.isEmpty(resultMess5.getBean())) {
-               Map<String, Object> records5 = (Map<String, Object>) resultMess5.getBean();
+               String beanStr=MD5Util.base64Code(resultMess5.getBean().toString());
+               Map<String, Object> records5 = JsonUtil.jsonToMap(beanStr);
                view.addObject("nameStu",records5.get("xm"));//姓名
            }
 

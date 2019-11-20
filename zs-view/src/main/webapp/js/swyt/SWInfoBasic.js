@@ -114,7 +114,7 @@ function getInfo() {
     }
     ajax("zustswyt/bckjBizJbxx/getInfo", data, function (data) {
         if(data.backCode==0){
-            var data = data.bean;
+            var data =  JSON.parse(base64_decode(data.bean));
             $("#xm").val(data.xm);
             $("#xb option[value='"+data.xb+"']").prop("selected","selected");
             $("#sfzh").val(data.sfzh);
@@ -271,8 +271,7 @@ function initValidate() {
             yx: { //邮箱
                 required: true,
                 email:true
-            },
-            qq:"required"
+            }
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {

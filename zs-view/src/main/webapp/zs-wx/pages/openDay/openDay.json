@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "authorize": "../../pages/auth/auth",
+    "van-field": "vant-weapp/field",
+    "van-icon": "vant-weapp/icon",
+    "van-tab": "vant-weapp/tab",
+    "van-tabs": "vant-weapp/tabs"
+  }
+}
