@@ -107,7 +107,8 @@ public class SwytController {
            PublicData _data5 = UnionHttpUtils.manageParam(param, "zustswyt/bckjBizJbxx/getInfo");
            resultMess5 = UnionHttpUtils.doPosts(_data5);
            if(!StringUtils.isEmpty(resultMess5.getBean())) {
-               Map<String, Object> records5 = (Map<String, Object>) resultMess5.getBean();
+               String beanStr=MD5Util.base64Code(resultMess5.getBean().toString());
+               Map<String, Object> records5 = JsonUtil.jsonToMap(beanStr);
                view.addObject("nameStu",records5.get("xm"));//姓名
            }
 
