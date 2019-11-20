@@ -271,8 +271,7 @@ function initValidate() {
             yx: { //邮箱
                 required: true,
                 email:true
-            },
-            qq:"required"
+            }
         },
         errorElement: "em",
         errorPlacement: function ( error, element ) {

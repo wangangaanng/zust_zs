@@ -14,8 +14,8 @@ $('#saveContact').click(function () {
 function saveContactors(a) {
     var params = $("#contactForm").serializeObject();
     var dataArr = [];
-    dataArr[0] = {//父亲
-        "cylb":0
+    dataArr[1] = {//父亲
+        "cylb":params.facylb
         ,"xm": params.faxm
         , "xb": params.faxb
         , "whcd": params.fawhcd
@@ -24,17 +24,7 @@ function saveContactors(a) {
         , "lxsj": params.falxsj
         , "dwdh": params.fadwdh
     };
-    dataArr[1] = {//母亲
-        "cylb": 1
-        ,"xm": params.moxm
-        , "xb": params.moxb
-        , "whcd": params.mowhcd
-        , "gzdw": params.mogzdw
-        , "gzzw": params.mogzzw
-        , "lxsj": params.molxsj
-        , "dwdh": params.modwdh
-    }
-    dataArr[2] = {//高中老师
+    dataArr[0] = {//高中老师
         "cylb": 2
         ,"xm": params.texm
         , "xb": params.texb
@@ -71,8 +61,26 @@ function getContactors() {
     ajax("zustswyt/bckjBizJtcyxx/getInfo", data, function (data) {
         if(data.backCode==0){
             $.each(JSON.parse(base64_decode(data.bean)),function (k,p) {
-                switch(p.cylb){
-                    case 0:
+                if(p.cylb==0||p.cylb==1){ //父亲母亲
+                    for (x in p) {
+                        key = x;
+                        value = p[x];
+                        (key == "cylb")?($("#facylb option[value='"+p[x]+"']").prop("selected","selected")):''; //关系回显
+                        (key == "xb")?($("#faxb option[value='"+p[x]+"']").prop("selected","selected")):''; //性别回显
+                        (key == "whcd")?($("#fawhcd option[value='"+p[x]+"']").prop("selected","selected")):''; //文化程度回显
+                        $("input[name='fa"+key+"']").val(value);
+                    }
+                }else{//高中联系人
+                    for (x in p) {
+                        key = x;
+                        value = p[x];
+                        (key == "xb")?($("#texb option[value='"+p[x]+"']").prop("selected","selected")):'';
+                        (key == "whcd")?($("#tewhcd option[value='"+p[x]+"']").prop("selected","selected")):'';
+                        $("input[name='te"+key+"']").val(value);
+                    }
+                }
+               /* switch(p.cylb){
+                    case 0: //父亲母亲
                         for (x in p) {
                             key = x;
                             value = p[x];
@@ -81,7 +89,7 @@ function getContactors() {
                             $("input[name='fa"+key+"']").val(value);
                         }
                         break;
-                    case 1:
+                    case 1: //其他
                         for (x in p) {
                             key = x;
                             value = p[x];
@@ -90,7 +98,7 @@ function getContactors() {
                             $("input[name='mo"+key+"']").val(value);
                         }
                         break;
-                    case 2:
+                    case 2: //高中联系人
                         for (x in p) {
                             key = x;
                             value = p[x];
@@ -99,7 +107,7 @@ function getContactors() {
                             $("input[name='te"+key+"']").val(value);
                         }
                         break;
-                }
+                }*/
             });
         }else{
             walert(data.errorMess)
