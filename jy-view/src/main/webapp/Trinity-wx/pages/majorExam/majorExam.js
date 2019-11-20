@@ -300,23 +300,19 @@ Page({
     let data = {
       applyOwid: wx.getStorageSync('applyOwid'),
     }
-    common.ajax('zustswyt/bckjBizBm/getResult', data, function(res) {
-      if (res.data.backCode == 0) {
-        for (var i in that.data.subject) {
-          if (that.data.subject[i] == res.data.bean.xklb) {
-            that.setData({
-              bklb: res.data.bean.bklb,
-              xklb: res.data.bean.xklb,
-              xzzymc: res.data.bean.xzzymc,
-              index1: i,
-              type: 1
-            })
-            that.indexState(that.data.subjectCategory[i].owid)
-          }
+    common.getProcssState(function (data){
+      for (var i in that.data.subject) {
+        if (that.data.subject[i] == data.xklb) {
+          that.setData({
+            bklb: data.bklb,
+            xklb: data.xklb,
+            xzzymc: data.xzzymc,
+            index1: i,
+            type: 1
+          })
+          that.indexState(that.data.subjectCategory[i].owid)
         }
-      } else {
-        common.toast(res.data.errorMess, 'none', 2000)
       }
-    })
+    });
   }
 })
