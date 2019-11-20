@@ -176,7 +176,7 @@
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 160px;">QQ
             </td>
             <td align="center" colspan="3" valign="middle" class="contentFont han" style="width: 300px;">
-            ${qq}
+            ${qq!''}
             </td>
             <td align="center" colspan="1" valign="middle" class="contentFont han" style="width: 180px;">电子邮箱</td>
             <td align="center" colspan="4" valign="middle" class="contentFont han" style="width: 300px;">
