@@ -39,16 +39,21 @@ Page({
         pageTitle = '成绩查询';
         break;
     }
-    console.log(options.type);
     wx.setNavigationBarTitle({
       title: pageTitle
     })
 
     common.getProcssState(function (data){
-      if (data.mssj){
+      //state==8 才有面试时间 避免state==6时错误显示
+      if (data.mssj && data.state>7){
         that.data.mssj = data.mssj
       }else{
-        that.data.mssj = data.xybnr
+        //xybnr 面试时间生成中的提示
+        if (data.xybnr && data.xybnr!=''){
+          that.data.mssj = data.xybnr
+        }else{
+          that.data.mssj = "生成中请等待"
+        }
       }
       that.setData({
         'state': data.state,
