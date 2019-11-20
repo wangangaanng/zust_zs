@@ -173,7 +173,6 @@ function finishXk(e) {
                 $("#contactForm").hide();
                 $("#gradeForm").show();
                 $("#selectForm").hide();
-                $(".jf-items .jf-item").eq(3).removeClass("jf-active");
             }else if(e==2){
                 getMajors('-1')
             }

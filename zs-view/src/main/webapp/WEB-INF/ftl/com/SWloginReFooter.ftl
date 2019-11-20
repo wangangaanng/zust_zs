@@ -98,7 +98,7 @@
                     <p class="mesitem">招生办电话:<span style="color:#67B687 ;">0571-85070165</span></a>&nbsp;&nbsp;&nbsp;Email:<span style="color:#5B9DB7 ;">zsb165@zust.edu.cn</span></p>
                     <p class="mesitem">传&nbsp;&nbsp;&nbsp;真:85071165&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;邮 编:310023</p>
                     <p class="mesitem">QQ&nbsp;&nbsp;&nbsp;群:158252915&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;地 址:杭州市小和山高教园区</p>
-                    <p>版权所有 © 2015浙江科技学院招生办公室 浙ICP备05014576号<p></p>
+                    <p>版权所有 © 2019浙江科技学院招生办公室 浙ICP备05014576号<p></p>
                 </div>
             </div>
             <div class="gzwxdiv">

@@ -8,7 +8,7 @@
 <form class="form-horizontal basic-from" id="contactForm" method="" action="" target="baFrame" style="display: none">
     <#--父亲 start-->
     <div class="contact-wrap">
-        <p class="contact-wrap_title col-sm-offset-1">父亲(或其他监护人)</p>
+        <p class="contact-wrap_title col-sm-offset-1">父亲/母亲(或其他监护人)</p>
         <div>
             <div class="form-group">
                 <label for="faxm" class="col-sm-2 control-label col-sm-offset-1">姓名<span class="red">*</span>：</label>
@@ -17,9 +17,18 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="falxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+                <label for="falxsj" class="col-sm-2 control-label col-sm-offset-1">手机号<span class="red">*</span>：</label>
                 <div class="col-sm-8">
-                    <input type="number" class="form-control" id="falxsj" name="falxsj" placeholder="请输入联系电话" autocomplete="off" value="">
+                    <input type="number" class="form-control" id="falxsj" name="falxsj" placeholder="请输入监护人手机号" autocomplete="off" value="">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="faxb" class="col-sm-2 control-label  col-sm-offset-1">关系<span class="red">*</span>：</label>
+                <div class="col-sm-8">
+                    <select class="form-control" name="facylb" id="facylb">
+                        <option value="0" selected>父亲/母亲</option>
+                        <option value="1" >其他监护人</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">
@@ -67,7 +76,7 @@
     <#--父亲 end-->
 
     <#--母亲 start-->
-        <div class="contact-wrap">
+       <#-- <div class="contact-wrap">
             <p class="contact-wrap_title col-sm-offset-1">母亲(或其他监护人)</p>
             <div>
                 <div class="form-group">
@@ -102,7 +111,7 @@
                             </#list>
                         </#if>
                         </select>
-                        <#--<input type="text" class="form-control" id="mowhcd" name="mowhcd" placeholder="请输入文化程度" autocomplete="off" value="">-->
+                        &lt;#&ndash;<input type="text" class="form-control" id="mowhcd" name="mowhcd" placeholder="请输入文化程度" autocomplete="off" value="">&ndash;&gt;
                     </div>
                 </div>
                 <div class="form-group">
@@ -124,7 +133,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     <#--母亲 end-->
 
     <#--高中联系人 start-->
@@ -138,9 +147,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="telxsj" class="col-sm-2 control-label col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+                    <label for="telxsj" class="col-sm-2 control-label col-sm-offset-1">手机号<span class="red">*</span>：</label>
                     <div class="col-sm-8">
-                        <input type="number" class="form-control" id="telxsj" name="telxsj" placeholder="请输入联系电话" autocomplete="off" value="">
+                        <input type="number" class="form-control" id="telxsj" name="telxsj" placeholder="请输入手机号" autocomplete="off" value="">
                     </div>
                 </div>
                 <div class="form-group">

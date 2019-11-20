@@ -78,6 +78,14 @@
         ajax(curUrl, data, function (data) {
             if(data.backCode==0){
                 var data = data.bean;
+                switch (${page}){
+                    case 1://报名表
+                        $(".list-group .list-group-item").eq(1).addClass("active2");
+                        break;
+                    case 5://面试通知单
+                        $(".list-group .list-group-item").eq(5).addClass("active2");
+                        break;
+                }
                 walert("邮件发送成功，请注意查收");
             }else{
                 walert(data.errorMess)

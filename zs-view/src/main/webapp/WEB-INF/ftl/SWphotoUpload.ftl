@@ -101,9 +101,11 @@
                 var data = data.bean;
                 walert("提交成功");
                 $(".file-btn").hide();
-                $("#tip-detail").html("报名表签字和承诺书签字已提交");
+                $("#tip-detail").html("报名表签字和承诺书签字已提交,请等待初审");
                 $(".uploadlabel").html("已上传成功").attr("for"," ");
                 $("#saveBasic").hide();
+                $(".list-group .list-group-item").eq(2).addClass("active2");
+                $(".list-group .list-group-item").eq(3).addClass("active4");
             }else{
                 walert(data.errorMess)
             }

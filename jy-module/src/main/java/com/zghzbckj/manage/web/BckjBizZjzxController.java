@@ -3,26 +3,25 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
-import com.zghzbckj.common.CommonConstant;
-import com.zghzbckj.common.RepeatException;
-import com.zghzbckj.feign.BckjDicKeysSer;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
 import com.ourway.base.utils.ValidateMsg;
 import com.ourway.base.utils.ValidateUtils;
+import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
-import com.zghzbckj.CommonConstants;
-import org.springframework.web.bind.annotation.*;
-import com.zghzbckj.manage.entity.BckjBizZjzx;
+import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.feign.BckjDicKeysSer;
 import com.zghzbckj.manage.service.BckjBizZjzxService;
-import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -220,7 +219,7 @@ public class BckjBizZjzxController extends BaseController {
             ResponseMessage responseMessage = bckjDicKeysSer.jyKeyFilter(filterMap);
             if(!TextUtils.isEmpty(responseMessage)&&responseMessage.getBackCode()==0){
                 if(!TextUtils.isEmpty(responseMessage.getBean())){
-                    return responseMessage.sendError(ResponseMessage.FAIL,responseMessage.getBean().toString());
+                    return ResponseMessage.sendError(ResponseMessage.FAIL,responseMessage.getBean().toString());
                 }
             }
             return bckjBizZjzxService.replyConsult(dataMap);

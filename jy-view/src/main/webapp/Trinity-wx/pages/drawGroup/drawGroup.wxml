@@ -11,8 +11,8 @@
       <van-field value="{{ subject }}" disabled label="学科类别：" border="{{false}}" />
       <van-field value="{{ language }}" disabled label="外语语种：" border="{{false}}" />
       <van-field value="{{ type }}" disabled label="报考类别：" border="{{false}}" />
-      <van-field value="{{ major }}" disabled label="招生专业:" border="{{false}}" />
-      <van-field value="{{ number }}" disabled label="准考证号:" border="{{false}}" />
+      <van-field value="{{ major }}" disabled  autosize  type="textarea" label="招生专业:" border="{{false}}" />
+      <van-field value="{{ (number=='')?'生成中请等待':number }}" disabled label="准考证号:" border="{{false}}" />
       <!-- 2个页面共用部分 E-->
 
       <!-- 页面分组查询 S-->
