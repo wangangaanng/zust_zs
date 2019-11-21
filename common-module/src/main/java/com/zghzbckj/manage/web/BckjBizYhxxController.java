@@ -5,10 +5,7 @@ package com.zghzbckj.manage.web;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -19,6 +16,7 @@ import com.zghzbckj.common.CustomerException;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
 import com.zghzbckj.manage.utils.SmallAppUtil;
+import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -367,12 +365,14 @@ public class BckjBizYhxxController extends BaseController {
      * @param type   3:职来职往 4：宣讲会 8：讲座
      * @return
      */
+   /* web/zustcommon/bckjBizYhxx/getQd/4*/
     @ResponseBody
     @PostMapping("getQd/{type}")
     public ResponseMessage getQd(@PathVariable("type") Integer type, PublicDataVO dataVO){
         try {
             List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+            /*Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());*/
             return ResponseMessage.sendOK(bckjBizYhxxService.getQd(dataMap,type));
         }
         catch (Exception e){
@@ -518,14 +518,14 @@ public class BckjBizYhxxController extends BaseController {
 
 
     /**
-     * 招生考生报名
+     * 招生考生报名与开放日预约
      */
     @PostMapping("candidatesRegistration")
     @ResponseBody
     public ResponseMessage candidatesRegistration(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "sjh", "exp9", "qxzy", "yzm", "type");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "sjh", "exp9", "qxzy", "yzm", "type","owid");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
@@ -587,7 +587,7 @@ public class BckjBizYhxxController extends BaseController {
     }
 
     /**
-     * 展示校园开发日页面
+     * 展示校园开发日list
      * @return
      */
     @PostMapping("getShowCaOpDayDate")
@@ -603,7 +603,32 @@ public class BckjBizYhxxController extends BaseController {
     }
 
     /**
+     * 页面展示校园开放日详情
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getCaOpDetail")
+    @ResponseBody
+    public ResponseMessage getCaOpDetail(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizYhxxService.getOneDicByOwid(dataMap.get("owid").toString()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
+    /**
      * 后台展示校园开发日页面
+     * @param dataVO
      * @return
      */
     @PostMapping("getCaOpDayDateList")
@@ -641,57 +666,48 @@ public class BckjBizYhxxController extends BaseController {
      * @param dataVO
      * @return
      */
-//    @PostMapping("zsXchBm")
-//    @ResponseBody
-//    public ResponseMessage zsXchBm(PublicDataVO dataVO){
-//        try {
-//            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-//            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
-//            if(!msg.getSuccess()){
-//                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
-//            }
-//            return bckjBizYhxxService.zsXchBm(dataMap);
-//        }
-//        catch (Exception e){
-//            log.error(CommonConstant.ERROR_MESSAGE, e);
-//            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
-//        }
-//
-//    }
+    @PostMapping("zsXchBm")
+    @ResponseBody
+    public ResponseMessage zsXchBm(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "xm", "xsxh", "xszy", "xsxy", "sjh", "sfz", "xsbj","owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizYhxxService.zsXchBm(dataMap);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
     /**
-     * 后台保存和删除 招生宣传报名人员信息
+     * 后台新增招生宣传报名人员信息
      * @return
      */
     @PostMapping("saveBaoMingInfo")
     @ResponseBody
     public ResponseMessage saveBaoMingInfo(PublicDataVO dataVO){
         try {
-            List<Map> deleteMaps = Lists.newArrayList();
-            List<Map> saveMaps = Lists.newArrayList();
-            List<Map> updateMaps = Lists.newArrayList();
             Map<String, Object> map = JsonUtil.jsonToMap(dataVO.getData());
-            List<Map> dataList =(List<Map>) map.get("dataList");
-            for (Map<String,Object> map1 :dataList){
-                if(map1.get("updateFlag").toString().equals("2")){
-                    deleteMaps.add(map1);
-                    continue;
-                }
-                if (map1.get("updateFlag").toString().equals("1")&&TextUtils.isEmpty(map1.get("owid"))){
-                    saveMaps.add(map1);
-                    continue;
-                }
-                updateMaps.add(map1);
+            BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
+            bckjBizYhxx.setYhlx(5);
+            bckjBizYhxx.setExp2(map.get("keyJob").toString());
+            Map<String, Object> dicMap = bckjBizYhxxService.getOneDicByOwid(bckjBizYhxx.getExp2());
+            Integer dicVal5 = MapUtils.getInt(dicMap, "dicVal5");
+            Integer dicVal4 = MapUtils.getInt(dicMap, "dicVal4");
+            if (dicVal4 <= dicVal5) {
+                    return ResponseMessage.sendError(ResponseMessage.FAIL, "已达报名最多人数,报名失败");
             }
-            if(!TextUtils.isEmpty(deleteMaps)&&deleteMaps.size()>0){
-                bckjBizYhxxService.deleteBaoMing(deleteMaps);
-            }
-            if(!TextUtils.isEmpty(saveMaps)&&saveMaps.size()>0){
-                bckjBizYhxxService.saveBaoMing(saveMaps);
-            }
-            if(!TextUtils.isEmpty(updateMaps)&&updateMaps.size()>0){
-                bckjBizYhxxService.updateBaoMing(updateMaps);
-            }
+            dicVal5=dicVal5+1;
+            dicMap.put("dicVal5",dicVal5.toString());
+            map.remove("owid");
+            dicMap.put("owid",map.get("keyJob"));
+            bckjBizYhxxService.updateDicByMap(dicMap);
+            MapUtil.easySetByMap(map,bckjBizYhxx);
+            bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
             return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
         catch (Exception e){
@@ -720,7 +736,104 @@ public class BckjBizYhxxController extends BaseController {
 
     }
 
+    /**
+     * 后台删除zs报名信息
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("deleteZsInfo")
+    @ResponseBody
+    public ResponseMessage deleteZsInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            List<Map> dataLists = (List<Map>) dataMap.get("dataList");
+            if(!TextUtils.isEmpty(dataLists)&&dataLists.size()>0){
+                for (Map map : dataLists){
+                    if(map.get("updateFlag").toString().equals("2")){
+                        bckjBizYhxxService.deleteByOwid(map.get("owid").toString());
+                    }
+                }
+            }
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"保存成功，请刷新页面");
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
+    @PostMapping("getOneBaoMingInfo")
+    @ResponseBody
+    public ResponseMessage getOneBaoMingInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizYhxxService.get(dataMap.get("owid").toString()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 后台删除开放日
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("deleteKaiInfo")
+    @ResponseBody
+    public ResponseMessage deleteKaiInfo(PublicDataVO dataVO){
+        try {
+            List<Object> list =  JsonUtil.jsonToList(dataVO.getData());
+            if (!com.zghzbckj.util.TextUtils.isEmpty(list)&&list.size()>0){
+                for (Object o:list){
+                    bckjBizYhxxService.deleteDicByOwid(((Map)o).get("owid").toString());
+                }
+            }
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 后台获得开放日详情
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getOneKaiFangInfo")
+    @ResponseBody
+    public ResponseMessage getOneKaiFangInfo(PublicDataVO dataVO){
+            try {
+                Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                return ResponseMessage.sendOK(bckjBizYhxxService.getOneDicByOwid(dataMap.get("owid").toString()));
+            }
+            catch (Exception e){
+                log.error(CommonConstant.ERROR_MESSAGE, e);
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+            }
+
+    }
+
+    /**
+     * 后台保存开放入
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("saveKaiFangInfo")
+    @ResponseBody
+    public ResponseMessage saveKaiFangInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> map = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK("");
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
 
 
 
