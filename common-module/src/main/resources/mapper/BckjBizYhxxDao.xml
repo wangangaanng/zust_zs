@@ -918,7 +918,9 @@
 
 
 	<select id="getCaOpDayDateList" parameterType="Map" resultType="Map">
-		SELECT a.owid as owid ,b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2 from ourway_sys_dic a ,ourway_sys_dic_value b
+		SELECT a.owid as owid ,b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2 ,b.dic_val3 as dicVal3,b.dic_val4 as dicVal4
+		 ,b.dic_val7 as dicVal7 ,b.dic_val8 as dicVal8
+		 from ourway_sys_dic a ,ourway_sys_dic_value b
 		where a.owid =b.dic_ref_owid and a.type =70000
 	</select>
 
@@ -974,8 +976,8 @@
 	</select>
 
 	<select id="getOneDicByOwid" resultType="Map" parameterType="String">
-		select b.dic_val1 as dicVal1 , b.dic_val2 as dicVal2,b.dic_val3 as dicVal3,
-		b.dic_val4 as dicVal4,b.dic_val5 as dicVal5
+		select b.dic_ref_owid as owid , b.dic_val1 as dicVal1 , b.dic_val2 as dicVal2,b.dic_val3 as dicVal3,
+		b.dic_val4 as dicVal4,b.dic_val5 as dicVal5,b.dic_val6 as dicVal6,b.dic_val7 as dicVal7,b.dic_val8 as dicVal8
 		from ourway_sys_dic_value b
 		where dic_ref_owid =#{value}
 	</select>
@@ -1068,11 +1070,16 @@
 	</select>
 
 	<select id="getXchBaoMingList" parameterType="Map" resultType="Map">
-		SELECT sjh ,xm,exp1 ,exp2 ,xb
+		SELECT sjh ,xm,exp1 ,exp2 ,xb ,owid
 		FROM bckj_biz_yhxx
 		WHERE yhlx=#{yhlx}
 		AND  exp2=#{exp2}
 	</select>
+
+
+	<update id="deleteDicByOwid" parameterType="String">
+		DELETE FROM  OURWAY_SYS_DIC_VALUE  WHERE dic_ref_owid=#{value}
+	</update>
 
 
 

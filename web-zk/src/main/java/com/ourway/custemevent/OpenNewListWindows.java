@@ -67,8 +67,13 @@ public class OpenNewListWindows implements ComponentListinerSer {
             }
             BaseGrid grid2 = (BaseGrid) window.getFellowIfAny(_params.get("gridId").toString());
             List<Map<String, Object>> datas = grid2.getSelectRowsData();
+
             if (null != datas && datas.size() > 1) {
-                AlterDialog.alert(I18nUtil.getLabelContent("public.sys.onlySelectOne"));
+                AlterDialog.alert(I18nUtil.getLabelContent("请选择一条数据"));
+                return;
+            }
+            if (!TextUtils.isEmpty(datas) && datas.size()==0) {
+                AlterDialog.alert(I18nUtil.getLabelContent("请选择一条数据"));
                 return;
             }
             if (vo.getPageCustomer().intValue() == 0) {
@@ -90,13 +95,7 @@ public class OpenNewListWindows implements ComponentListinerSer {
                     _win.setStyle(_params.get("windowCss").toString());
                 }
                 String tabId = "";
-                if (vo.getPageCa().indexOf("xsgz") != -1) {
-                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生关注");
-                } else if (vo.getPageCa().indexOf("xsbm") != -1) {
-                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生报名");
-                } else if (vo.getPageCa().indexOf("xsqd") != -1) {
-                    tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---学生签到");
-                } else if (vo.getPageCa().indexOf("zphbm") != -1) {
+                if (vo.getPageCa().indexOf("zphbm") != -1) {
                     tabId = root.openNewTab(_win, MapUtils.getString(mapParam, "zwbt") + "---企业报名");
                     _params.put("#jobRefOwid", MapUtils.getString(mapParam, "owid"));
                     _params.put("#owid", "");
