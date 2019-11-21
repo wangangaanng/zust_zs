@@ -12,3 +12,6 @@
 .btns button::after{border-radius: 0 !important;}
 .btns button.green{border-left: none !important; color: #008783;}
 .btns button.green:after{border-left: none !important;}
+.van-cell__left-icon-wrap,.van-cell__right-icon-wrap {
+  height: 45px !important;
+}
