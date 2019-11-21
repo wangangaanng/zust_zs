@@ -177,7 +177,7 @@
 		<tr>
 			<td align="center" colspan="9" valign="middle" class="contentFont han" style="width: 180px;">
 				祝贺您，您已获得浙江科技学院${bmnd}年“三位一体”综合评价招生综合面试资格。<br>
-				您的面试时间为<span style="color: red;font-size: 16px;margin-left: 10px;">${mssj}</span>
+				您的面试时间为 <span style="color: red;font-size: 16px;">${mssj}</span>
 			</td>
 		</tr>
 		<tr>
@@ -241,7 +241,7 @@
 		</tr>
 		<tr>
 			<td align="center" colspan="8" valign="middle" class="contentFont han" style="width: 180px;">
-				面试时间:<span style="color: red;font-size: 16px;margin: 0 10px;">${mssj}</span>
+				面试时间: <span style="color: red;font-size: 16px;">${mssj}</span>
 			</td>
 		</tr>
 	</table>
