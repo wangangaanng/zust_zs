@@ -135,7 +135,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(this.data.currentDate)
     let that = this;
     common.getPayUrl(this);//获取缴费初始化地址
     that.setData({

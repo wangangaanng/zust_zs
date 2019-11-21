@@ -154,6 +154,7 @@ function loginout2() {
         document.cookie  = "stuOwid=;path="+base;
         document.cookie  = "userType=;path="+base;
         document.cookie  = "yhOwid=;path="+base;
+        document.cookie  = "zustLogin=;path="+base;
     }else{
         document.cookie  = "stuXm=;path=/";
         document.cookie  = "qyInfo=;path=/";
@@ -162,9 +163,18 @@ function loginout2() {
         document.cookie  = "stuOwid=;path=/";
         document.cookie  = "userType=;path=/";
         document.cookie  = "yhOwid=;path=/";
+        document.cookie  = "zustLogin=;path=/";
     }
 }
 function loginout() {
+    var type="";
+    var isTy="";
+    if(getCookie('userType')==1){
+        type=1;
+    }
+    if(getCookie('zustLogin')==1){
+        isTy=1;
+    }
     if(base){
         document.cookie  = "stuXm=;path="+base;
         document.cookie  = "qyInfo=;path="+base;
@@ -173,6 +183,7 @@ function loginout() {
         document.cookie  = "stuOwid=;path="+base;
         document.cookie  = "userType=;path="+base;
         document.cookie  = "yhOwid=;path="+base;
+        document.cookie  = "zustLogin=;path="+base;
     }else{
         document.cookie  = "stuXm=;path=/";
         document.cookie  = "qyInfo=;path=/";
@@ -181,8 +192,18 @@ function loginout() {
         document.cookie  = "stuOwid=;path=/";
         document.cookie  = "userType=;path=/";
         document.cookie  = "yhOwid=;path=/";
+        document.cookie  = "zustLogin=;path=/";
     }
-    window.location.href=base+"/"
+    if(type==1){//学生退出
+        if(isTy==1){//统一认证
+            window.location.href=base+"/proxyLogin/logout.jsp"
+        }else{
+            window.location.href=base+"/logout"
+        }
+    }else{//企业退出
+        window.location.href=base+"/"
+    }
+
 }
 
 var userKey = '';

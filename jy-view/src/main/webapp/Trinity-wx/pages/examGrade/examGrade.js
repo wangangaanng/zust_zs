@@ -72,67 +72,28 @@ Page({
   onShareAppMessage: function() {
 
   },
-  confirmGrade(e) {
-    console.log(e)
-    if (this.data.type == "0") {
-      let km = this.data.km;
-      km[this.data.index].value = e.detail.value
-      this.setData({
-        km,
-        showPop: false
-      })
-    } else if (this.data.type == "1") {
-      let xm = this.data.xm;
-      xm[this.data.index].value = e.detail.value
-      this.setData({
-        xm,
-        showPop: false
-      })
-    }
-  },
-  cancelPop() {
-    this.setData({
-      showPop: false
-    });
-  },
   showSubject(e) {
+    console.log(e)
     let that = this;
     let type = e.target.dataset.type;
+    let value = e.target.dataset.value;
     let index = Number(e.target.dataset.index);
-    let gradeCategory = [];
-    let defaultIndex = 0;
+    // let gradeCategory = [];
+    // let defaultIndex = 0;
     if (type == "0") {
-      gradeCategory = this.data.km[index].dicVal3.split(',')
-      if (!!this.data.km[index].value){
-        for (let i in gradeCategory){
-          if (gradeCategory[i] == this.data.km[index].value){
-            defaultIndex=i
-          }
-        }
-      } 
+      let km = that.data.km
+      km[index].value = value
+      that.setData({
+        km: km
+      })
     }else if (type == "1") {
-      gradeCategory = this.data.xm[index].dicVal3.split(',')
-      if (!!this.data.xm[index].value) {
-        for (let i in gradeCategory) {
-          if (gradeCategory[i] == this.data.xm[index].value) {
-            defaultIndex = i
-          }
-        }
-      } 
+      let xm = that.data.xm
+      xm[index].value = value
+      that.setData({
+        xm: xm
+      })
     }
-    
-    this.setData({
-      showPop: true,
-      gradeCategory,
-      type,
-      index,
-      defaultIndex: defaultIndex
-    });
   },
-  // //上一步基本信息
-  // preStep: function() {
-    
-  // },
   //科目字典表
   getByType: function(dicType) {
     let that = this;
@@ -141,14 +102,19 @@ Page({
     }
     common.ajax('zustcommon/common/getByType', data, function(res) {
       if (res.data.backCode == 0) {
+        let map = res.data.bean
+        for (let i in map) {
+          map[i].map = map[i].dicVal3.split(',')
+        }
+        
         if (dicType == '10022') {
           that.setData({
-            km: res.data.bean
+            km: map
           })
           that.getHkcj('0')
         } else if (dicType == '10023') {
           that.setData({
-            xm: res.data.bean
+            xm: map
           })
           that.getHkcj('2')
         }
