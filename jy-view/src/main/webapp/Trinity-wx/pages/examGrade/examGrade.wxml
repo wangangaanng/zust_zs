@@ -8,9 +8,12 @@
       <text class="red">*</text>
     </view>
   </view>
-  <van-cell-group>
-    <van-cell wx:for="{{km}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="0" data-index="{{index}}" />
-  </van-cell-group>
+  <view class="cell" wx:for="{{km}}" wx:key='index'>
+    <view class="cell_left">{{item.dicVal2}}</view>
+    <view class="cell_right">
+      <view bindtap="showSubject" data-type="0" data-index="{{index}}" data-value="{{itemName}}" wx:for="{{item.map}}" wx:for-index="idx" wx:for-item="itemName" wx:key='idx' class="{{(item.value==itemName)?'active':''}}">{{itemName}}</view>
+    </view>
+  </view>
 </view>
 
 <view class="com-wrap" style="padding:0px;">
@@ -19,9 +22,12 @@
       <text class="red">*</text>
     </view>
   </view>
-  <van-cell-group>
-    <van-cell wx:for="{{xm}}" wx:key='index' title="{{item.dicVal2}}" is-link value="{{item.value?item.value:'-- 请选择等第 --'}}" arrow-direction="down" bind:click="showSubject" data-type="1" data-index="{{index}}" />
-  </van-cell-group>
+  <view class="cell" wx:for="{{xm}}" wx:key='index'>
+    <view class="cell_left">{{item.dicVal2}}</view>
+    <view class="cell_right">
+      <view bindtap="showSubject" data-type="1" data-index="{{index}}" data-value="{{itemName}}" wx:for="{{item.map}}" wx:for-index="idx" wx:for-item="itemName" wx:key='idx' class="{{(item.value==itemName)?'active':''}}">{{itemName}}</view>
+    </view>
+  </view>
 </view>
 
 <!-- 按钮 -->
@@ -29,9 +35,3 @@
   <van-button round type="primary" class="main-button f1" size="large" bindtap="Step" data-index='0'>上一步，联系人</van-button>
   <van-button round type="primary" class="main-button f1" size="large" bindtap="Step" data-index='1'>下一步，选考信息</van-button>
 </view>
-
-
-<!-- 弹出选择等第 -->
-<van-popup show="{{showPop}}" bind:close="cancelPop" position="bottom">
-  <van-picker show-toolbar columns="{{ gradeCategory }}" default-index='{{defaultIndex}}' bind:cancel="cancelPop" bind:confirm="confirmGrade" />
-</van-popup>

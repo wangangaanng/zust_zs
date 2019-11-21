@@ -121,7 +121,7 @@ Page({
   })
 
 var getPicList = function (that) {//首页轮播:
-  var data = { "lmbh": "127", "lx": "0", "zszd": "0" };
+  var data = { "lmbh": "127", "lx": "0", "zszd": "1" };
   common.ajax('zustcommon/bckjBizPicvid/getPicList', data, function (res) {
     if (res.data.backCode == 0) {
       var arr = [];

@@ -118,7 +118,7 @@
                 $parents.find(".up-btn_img").addClass("fullImg");
                 //调用上传接口
                 fileUpload("1",file,function (d) {
-                    payProveImg = d.bean.fileName;
+                    payProveImg = d.bean.filePath;
                     $(".pay-online li").eq(1).find(".contact-wrap_title").addClass("active");
                     walert("缴费证明图片上传成功")
                 });
@@ -143,6 +143,7 @@
             ,title:"确认提交"
         }, function(){
             layer.close(index);
+            console.log(payProveImg);
             imgAjax();
         }, function(){
         });
