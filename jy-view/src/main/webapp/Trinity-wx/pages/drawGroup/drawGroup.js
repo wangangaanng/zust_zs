@@ -49,7 +49,7 @@ Page({
         that.data.mssj = data.mssj
       }else{
         //xybnr 面试时间生成中的提示
-        if (data.xybnr && data.xybnr!=''){
+        if (common.emptyCheck(data.xybnr)){
           that.data.mssj = data.xybnr
         }else{
           that.data.mssj = "生成中请等待"

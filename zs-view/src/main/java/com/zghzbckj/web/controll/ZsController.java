@@ -504,6 +504,31 @@ public class ZsController {
         view.addObject("result",result.getBean());
         return view;
     }
+    @RequestMapping(value = "public", method = RequestMethod.GET)
+    public ModelAndView zspublicList(HttpServletRequest request,ModelAndView view) {
+        view.setViewName("ZSpublicList");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param=Maps.newHashMap();
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizYhxx/getShowCaOpDayDate");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
+        return view;
+    }
+    @RequestMapping(value = "public/{owid}", method = RequestMethod.GET)
+    public ModelAndView zspublic(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
+        view.setViewName("ZSpublic");
+        view.addObject("header",getHeader().getBean());
+        view.addObject("headerY",getZsYears().getBean());
+        view.addObject("footer",getFooter().getBean());
+        Map param=Maps.newHashMap();
+        param.put("owid",owid);
+        PublicData publicData= UnionHttpUtils.manageParam(param,"zustcommon/bckjBizYhxx/getCaOpDetail");
+        ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+        view.addObject("result",result.getBean());
+        return view;
+    }
     @RequestMapping(value = "paper/{owid}", method = RequestMethod.GET)
     public ModelAndView paper(HttpServletRequest request,ModelAndView view, @PathVariable String owid) {
         view.setViewName("ZSpaper");

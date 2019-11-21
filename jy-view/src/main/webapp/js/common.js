@@ -165,6 +165,10 @@ function loginout2() {
     }
 }
 function loginout() {
+    var type="";
+    if(getCookie('userType')==1){
+        type=1;
+    }
     if(base){
         document.cookie  = "stuXm=;path="+base;
         document.cookie  = "qyInfo=;path="+base;
@@ -182,7 +186,12 @@ function loginout() {
         document.cookie  = "userType=;path=/";
         document.cookie  = "yhOwid=;path=/";
     }
-    window.location.href=base+"/"
+    if(type==1){//学生退出
+        window.location.href=base+"/logout"
+    }else{
+        window.location.href=base+"/"
+    }
+
 }
 
 var userKey = '';
