@@ -11,13 +11,181 @@ Page({
    * 页面的初始数据
    */
   data: {
+    modal1: false,
     isauthorize: false,
     imgPath: imgPath,
     result: '',
-    old: '',
-    table: '',
+    yzmStr1: '发送验证码',
+    seconds1: 60,
+    disabled1: false,
+    xm: '',
+    exp9: '',
+    qxzy: '',
+    sjh1: '',
+    yzm1: '',
   },
+  cancel: function () {
+    this.setData({
+      modal1: false,
+      sjh1: '',
+      yzm1: '',
+      yzmStr1: '发送验证码',
+      seconds1: 60,
+      disabled2: false,
+      rq: ''
+    });
+  },
+  confirm() {
+    var that = this
+    if (!this.data.xm.trim()) {
+      wx.showToast({
+        title: '请输入姓名',
+        icon: 'none'
+      })
+      return false
+    }
+    if (this.data.sjh1.trim() && this.data.sjh1.trim().length == 11) {
+      if (/^1[34578]\d{9}$/.test(this.data.sjh1.trim())) {
 
+      } else {
+        wx.showToast({
+          title: '手机号有误',
+          icon: 'none'
+        })
+        return false
+      }
+    } else {
+      wx.showToast({
+        title: '请输入11位手机号',
+        icon: 'none'
+      })
+      return false
+    }
+    if (!this.data.yzm1.trim()) {
+      wx.showToast({
+        title: '请输入验证码',
+        icon: 'none'
+      })
+      return false
+    }
+    if (!this.data.exp9.trim()) {
+      wx.showToast({
+        title: '请输入家庭地址',
+        icon: 'none'
+      })
+      return false
+    }
+    if (!this.data.qxzy.trim()) {
+      wx.showToast({
+        title: '请输入意向专业',
+        icon: 'none'
+      })
+      return false
+    }
+
+    var data = {
+      "openid": wx.getStorageSync('openId'),
+      "unionid": wx.getStorageSync('unionid'),
+      "wxid": '02',
+      "type": '2',
+      "nickname": wx.getStorageSync('userInfo').nickName,
+      "gender": wx.getStorageSync('userInfo').gender,
+      "city": wx.getStorageSync('userInfo').city,
+      "province": wx.getStorageSync('userInfo').province,
+      "country": wx.getStorageSync('userInfo').country,
+      "avatarUrl": wx.getStorageSync('userInfo').avatarUrl,
+      "xm": that.data.xm,
+      "exp9": that.data.exp9,
+      "qxzy": that.data.qxzy,
+      "sjh": that.data.sjh1,
+      "yzm": that.data.yzm1,
+      "owid": that.data.option.owid
+    };
+    common.ajax('zustcommon/bckjBizYhxx/candidatesRegistration', data, function (res) {
+      if (res.data.backCode == 0) {
+        wx.showToast({
+          title: '预约成功',
+          icon: 'none'
+        })
+        that.setData({
+          modal1: false,
+          sjh1: '',
+          yzm1: '',
+          yzmStr1: '发送验证码',
+          seconds1: 60,
+          disabled2: false,
+          rq: ''
+        });
+      } else {
+        wx.showToast({
+          title: res.data.errorMess,
+          icon: 'none',
+          duration: 2000
+        })
+      }
+    });
+
+  },
+  getxm(e) {
+    this.setData({
+      xm: e.detail
+    })
+  },
+  getsjh1(e) {
+    this.setData({
+      sjh1: e.detail
+    })
+  },
+  getyzm1(e) {
+    this.setData({
+      yzm1: e.detail
+    })
+  },
+  getexp(e) {
+    this.setData({
+      exp9: e.detail
+    })
+  },
+  getqxzy(e) {
+    this.setData({
+      qxzy: e.detail
+    })
+  },
+  send1(e) {
+    if (this.data.sjh1.trim() && this.data.sjh1.trim().length == 11) {
+      if (/^1[34578]\d{9}$/.test(this.data.sjh1.trim())) {
+        if (!this.data.disabled2) {
+          sendYzm(this, '2')
+        }
+      } else {
+        wx.showToast({
+          title: '手机号有误',
+          icon: 'none'
+        })
+        return false
+      }
+    } else {
+      wx.showToast({
+        title: '请输入11位手机号',
+        icon: 'none'
+      })
+      return false
+    }
+
+  },
+  applyDay(){
+    this.setData({
+      modal1: true,
+      yzmStr1: '发送验证码',
+      seconds1: 60,
+      disabled1: false,
+      xm: '',
+      exp9: '',
+      qxzy: '',
+      sjh1: '',
+      yzm1: '',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -43,9 +211,9 @@ Page({
     //   })
     // }
 
-    // if (options.owid) {
-    //   getContent(this, options.owid);
-    // }
+    if (options.owid) {
+      getCaOpDetail(this, options.owid);
+    }
   },
 
   /**
@@ -54,7 +222,11 @@ Page({
   onReady: function () {
 
   },
-
+  makecall(){
+    wx.makePhoneCall({
+      phoneNumber: '0571-85070165'
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -84,111 +256,123 @@ Page({
   }
 })
 
-var getContent = function (that, owid) {//招聘详情
-  var data = { "owid": owid, "yhOwid": wx.getStorageSync("yhOwid") };
-  common.ajax('zustjy/bckjBizJob/getMiniJob', data, function (res) {
+var getCaOpDetail = function (that, owid) {//招聘详情
+  var data = { "owid": owid };
+  common.ajax('zustcommon/bckjBizYhxx/getCaOpDetail', data, function (res) {
     if (res.data.backCode == 0) {
-      res.data.bean.sfkbm = false;
-      if (res.data.bean.state == 2) {
-        if (res.data.bean.zphSfbm == 0) {
-          res.data.bean.sfkbm = false;
-        } else if (res.data.bean.zphSfbm == 1) {
-          res.data.bean.sfkbm = true;
+      
+      if (res.data.bean) {
+        var obj={}
+        obj.dicVal1 = res.data.bean.dicVal1 ? res.data.bean.dicVal1 : ''
+        obj.dicVal2 = res.data.bean.dicVal2 ? res.data.bean.dicVal2 : ''
+        obj.dicVal3 = res.data.bean.dicVal3 ? res.data.bean.dicVal3 : ''
+        obj.dicVal4 = res.data.bean.dicVal4 ? res.data.bean.dicVal4 : ''
+        obj.dicVal5 = res.data.bean.dicVal5 ? res.data.bean.dicVal5 : ''
+        obj.dicVal7 = res.data.bean.dicVal7 ? res.data.bean.dicVal7 : ''
+
+
+        if (res.data.bean.dicVal5) {
+          var dicVal5 = res.data.bean.dicVal5
+          WxParse.wxParse('dicVal5', 'html', dicVal5, that, 5);
         }
-
-      } else if (res.data.bean.state == 6) {
-        res.data.bean.sfkbm = false;
-      } else {
-        res.data.bean.sfkbm = false;
-      }
-      if (res.data.bean.zphBmjzsj && util.compareToday(res.data.bean.zphBmjzsj)) {
-        res.data.bean.sfkbm = false;
-      }
-      if (res.data.bean.zphKsrq && util.compareToday(res.data.bean.zphKsrq)) {
-        res.data.bean.sfkbm = false;
-      }
-
-      res.data.bean.createtime = res.data.bean.createtime.substring(0, 16)
-      if (res.data.bean.zphKsrq) {
-        // if (res.data.bean.zwlx == 4) {
-        //   res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 16)
-        // } else {
-        res.data.bean.zphKsrq = res.data.bean.zphKsrq.substring(0, 10)
-        // }
-      }
-      if (res.data.bean.zphBmjzsj) {
-        res.data.bean.zphBmjzsj = res.data.bean.zphBmjzsj.substring(0, 10)
-      }
-      var memo = res.data.bean.memo
-      WxParse.wxParse('memo', 'html', memo, that, 5);
-      if (res.data.bean.zwGwzz) {
-        var zwGwzz = res.data.bean.zwGwzz
-        WxParse.wxParse('zwGwzz', 'html', zwGwzz, that, 5);
-      }
-      if ((res.data.bean.qyxx) && (res.data.bean.qyxx.qyGsjs)) {
-        var qyGsjs = res.data.bean.qyxx.qyGsjs
-        WxParse.wxParse('qyGsjs', 'html', qyGsjs, that, 5);
-      }
-      that.setData({
-        result: res.data.bean,
-      })
-      if (res.data.bean.zwSxsj) {
-        var thetime = res.data.bean.zwSxsj;
-        var d = new Date(Date.parse(thetime.replace(/-/g, "/")));
-
-        var curDate = new Date();
-        if (d <= curDate) {
-          that.setData({
-            old: '1',
-          })
-        }
-      }
-      if ((res.data.bean.exp2) && (res.data.bean.exp2 != "0")) {
         that.setData({
-          jlowid: res.data.bean.exp2,
-          isSc: true
-        })
-      } else {
-        that.setData({
-          isSc: false
-        })
-      }
-      if ((res.data.bean.zwlx == 3) || (res.data.bean.zwlx == 4)) {
-        if (res.data.bean.zphSfbm == 1) {
-          that.setData({
-            sfbm: true
-          })
-        } else {
-          that.setData({
-            sfbm: false
-          })
-        }
-      }
-
-      if ((res.data.bean.bmList) && (res.data.bean.bmList.length > 0)) {
-        var str = '<table style="width:100%;border-left:1px solid #eee;text-align: center"><tr><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">序号</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">企业名称</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">招聘岗位</td> <td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">招聘人数</td></tr>'
-        for (var i = 0; i < res.data.bean.bmList.length; i++) {
-          var qy = res.data.bean.bmList[i];
-          if ((qy.zwList) && (qy.zwList.length > 0)) {
-            for (var j = 0; j < qy.zwList.length; j++) {
-              var gw = qy.zwList[j];
-              if (j == 0) {
-
-                str += '<tr><td rowspan = "' + qy.zwList.length + '" style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + parseInt(i + 1) + '</td><td rowspan="' + qy.zwList.length + '" style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + qy.qymc + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.zw + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.rs + '</td></tr>'
-              }
-              else {
-                str += '<tr><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.zw + '</td><td style="border-right:1px solid #eee;border-bottom:1px solid #eee;">' + gw.rs + '</td></tr>'
-              }
-            }
-          }
-        }
-        str += '</table>'
-        that.setData({
-          table: str
+          result: obj,
         })
       }
 
     } else {
+      wx.showToast({
+        title: res.data.errorMess,
+        icon: 'none',
+        duration: 2000
+      })
+    }
+  });
+}
+
+
+var count = function (that, type) {
+  if (type == 1) {
+    that.setData({
+      disabled1: true
+    })
+    djs(that)
+  } else if (type == 2) {
+    that.setData({
+      disabled2: true
+    })
+    djs1(that)
+  }
+}
+
+var djs = function (that) {
+  if (that.data.seconds > 0) {
+    that.data.seconds--
+    setTimeout(function () {
+      that.setData({
+        seconds: that.data.seconds,
+        yzmStr: `剩余${that.data.seconds}秒`
+      })
+      djs(that)
+    }, 1000)
+  } else {
+    that.setData({
+      disabled1: false,
+      seconds: 60,
+      yzmStr: '发送验证码'
+    })
+  }
+}
+
+var djs1 = function (that) {
+  if (that.data.seconds1 > 0 && that.data.disabled2) {
+    that.data.seconds1--
+    setTimeout(function () {
+      that.setData({
+        seconds1: that.data.seconds1,
+        yzmStr1: `剩余${that.data.seconds1}秒`
+      })
+      djs1(that)
+    }, 1000)
+  } else {
+    that.setData({
+      disabled2: false,
+      seconds1: 60,
+      yzmStr1: '发送验证码'
+    })
+  }
+}
+
+var sendYzm = function (that, type) {
+  var data;
+  if (type == 1) {
+    that.setData({
+      disabled1: true
+    })
+    data = { "sjh": that.data.sjh };
+  } else if (type == 2) {
+    that.setData({
+      disabled2: true
+    })
+    data = { "sjh": that.data.sjh1 };
+  }
+  common.ajax('zustcommon/bckjBizYhxx/sendYzm/' + type, data, function (res) {
+    if (res.data.backCode == 0) {
+      wx.showToast({
+        title: '验证码已发送',
+        icon: 'none'
+      })
+      count(that, type)
+    } else {
+      if (type == 1) {
+        that.setData({
+          disabled1: false
+        })
+      } else if (type == 2) {
+        that.setData({
+          disabled2: false
+        })
+      }
       wx.showToast({
         title: res.data.errorMess,
         icon: 'none',
