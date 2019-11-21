@@ -98,5 +98,15 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     List<Map> getQdList(Map<String, Object> dataMap);
 
     List<Map> getQd(Map<String, Object> dataMap);
+
+    List<String> getCustomListXszy(Map<String, Object> dataMap);
+
+    List<String> getCustomListXsxy(Map<String, Object> dataMap);
+
+    List<String> getCustomListXsbj(Map<String, Object> dataMap);
+
+    void deleteBaoMing(List<Map> deleteMaps);
+
+    List<Map> getXchBaoMingList(Map<String, Object> dataMap);
 }
 

@@ -21,4 +21,6 @@ public interface BckjBizLqxsDao extends CrudDao<BckjBizLqxs> {
     List<Map>  getOldLqxs();
 
     String getDicVal1(Integer type, String val2);
+
+    List<String> findListByLqzy(Map<String, Object> dataMap);
 }

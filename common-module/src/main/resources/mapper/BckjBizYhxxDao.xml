@@ -928,27 +928,21 @@
 	</update>
 
 	<select id="getXchBm" parameterType="Map" resultType="Map">
-		SELECT a.sjh ,a.xm,b.xsxh,b.xsxy,b.xszy,b.xsbj
+		SELECT a.sjh ,a.xm,a.exp1,a.xb
 		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
 		<where>
-			c.xxlb=9 and a.owid =c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
-			<if test="xsxh!=null and xsxh!=''">
-				and b.xsxh=#{xsxh}
-			</if>
+			c.xxlb=9 and a.owid =c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid} and a.yhlx=5
 			<if test="xm!=null and xm!=''">
 				and  a.xm=#{xm}
 			</if>
-			<if test="xsxy!=null and xsxy!=''">
-				and b.xsxy=#{xsxy}
-			</if>
-			<if test="xsbj!=null and xsbj!=''">
-				and b.xsbj=#{xsbj}
-			</if>
-			<if test="xszy!=null and xszy!=''">
-				and b.xszy=#{xszy}
-			</if>
 			<if test="sjh!=null and sjh!=''">
 				and a.sjh=#{sjh}
+			</if>
+			<if test="xb!=null and xb!=''">
+				and a.xb=#{xb}
+			</if>
+			<if test="exp1!=null and exp1!=''">
+				and a.exp1=#{exp1}
 			</if>
 		</where>
 	</select>
@@ -957,7 +951,7 @@
 		SELECT count(*) as num
 		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
 		<where>
-			c.xxlb=9 and a.owid =c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
+			c.xxlb=9 and a.owid =c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid} and a.yhlx=5
 			<if test="xsxh!=null and xsxh!=''">
 				and b.xsxh=#{xsxh}
 			</if>
@@ -990,5 +984,98 @@
 		UPDATE OURWAY_SYS_DIC_VALUE SET DIC_VAL5=#{dicVal5}
 		WHERE dic_ref_owid=#{owid}
 	</update>
+
+	<select id="getQdList" resultType="Map" parameterType="Map">
+		SELECT
+			a.owid as owid,
+  			k.xsxh AS xsxh,
+  			a.xm AS xm,
+  			k.xsxy AS xsxy,
+  			k.xszy AS xszy,
+  			k.xsbj AS xsbj,
+  			b.qdSum AS qdSum,
+  			b.qdSuccessSum AS qdSuccessSum
+		FROM
+  			bckj_biz_yhxx a
+  		RIGHT JOIN
+			(SELECT
+			  x.yh_ref_owid AS yhid,
+			  COUNT(*) AS qdSum,
+			  SUM(
+				CASE
+				  WHEN x.state = '1'
+				  THEN 1
+				  ELSE 0
+				END) AS qdSuccessSum
+			FROM
+			  `bckj_biz_xsgz` X LEFT JOIN bckj_biz_job j ON j.owid =X.job_ref_owid
+			WHERE xxlb = 1 and j.zwlx=#{zwlx}
+			GROUP BY yhid) b
+			ON a.owid = b.yhid
+		  LEFT JOIN bckj_biz_yhkz k
+			ON a.owid = k.yh_ref_owid
+			<where>
+				a.yhlx=1 AND k.olx=0
+				<if test="xsxh!=null and xsxh!=''">
+					AND k.xsxh=#{xsxh}
+				</if>
+				<if test="xm!=null and xm!=''">
+					AND a.xm=#{xm}
+				</if>
+				<if test="xsxy!=null and xsxy!=''">
+					AND k.xsxy=#{xsxy}
+				</if>
+				<if test="xszy!=null and xszy!=''">
+					AND k.xszy=#{xszy}
+				</if>
+				<if test="xsbj!=null and xsbj!=''">
+					AND k.xsbj=#{xsbj}
+				</if>
+			</where>
+			ORDER BY xsxh DESC ,qdSuccessSum desc
+	</select>
+
+	<select id="getQd" resultType="Map" parameterType="Map">
+		SELECT b.zwbt as zwbt ,k.xsxh as xsxh ,a.xm as xm ,k.xsxy as xsxy ,k.xszy as xszy,
+		a.sjh as sjh,k.xsbj as xsbj,x.gzsj as gzsj ,x.exp10 as exp10 ,x.state as state
+		FROM bckj_biz_job b,bckj_biz_xsgz x RIGHT JOIN bckj_biz_yhxx a ON a.owid=x.yh_ref_owid LEFT JOIN
+		bckj_biz_yhkz k ON k.yh_ref_owid = a.owid
+		<where>
+			a.owid =#{owid} and x.job_ref_owid = b.owid and b.zwlx=#{zwlx}
+			<if test="state!=null and state !=''">
+			  AND x.state =#{state}
+			</if>
+		</where>
+	</select>
+
+
+	<select id="getCustomListXszy" resultType="String" parameterType="Map">
+		SELECT distinct b.xszy as xszy from bckj_biz_yhkz b ,bckj_biz_xsgz a ,bckj_biz_job j
+		WHERE  b.xszy IS NOT NULL and a.yh_ref_owid = b.yh_ref_owid and a.job_ref_owid = j.owid and j.zwlx=#{zwlx}
+		order by b.xszy desc
+	</select>
+
+	<select id="getCustomListXsxy" resultType="String" parameterType="Map">
+		SELECT distinct b.xsxy as xsxy from bckj_biz_yhkz b ,bckj_biz_xsgz a ,bckj_biz_job j
+		WHERE  b.xsxy IS NOT NULL and a.yh_ref_owid = b.yh_ref_owid and a.job_ref_owid = j.owid and j.zwlx=#{zwlx}
+		order by b.xsxy desc
+	</select>
+
+	<select id="getCustomListXsbj" resultType="String" parameterType="Map">
+		SELECT distinct b.xsbj as xsbj from bckj_biz_yhkz b ,bckj_biz_xsgz a ,bckj_biz_job j
+		WHERE  b.xsbj IS NOT NULL and a.yh_ref_owid = b.yh_ref_owid and a.job_ref_owid = j.owid and j.zwlx=#{zwlx}
+		order by b.xsbj desc
+	</select>
+
+	<select id="getXchBaoMingList" parameterType="Map" resultType="Map">
+		SELECT sjh ,xm,exp1 ,exp2 ,xb
+		FROM bckj_biz_yhxx
+		WHERE yhlx=#{yhlx}
+		AND  exp2=#{exp2}
+	</select>
+
+
+
+
 
 </mapper>

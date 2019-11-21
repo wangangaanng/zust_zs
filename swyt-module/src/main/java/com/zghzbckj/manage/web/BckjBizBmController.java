@@ -4,10 +4,7 @@
 package com.zghzbckj.manage.web;
 
 import com.google.common.collect.Maps;
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -226,7 +223,7 @@ public class BckjBizBmController extends BaseController {
             if(null==bm){
                 return ResponseMessage.sendOK(bm);
             }
-            return ResponseMessage.sendOK(com.zghzbckj.util.TextUtils.base64Code(JsonUtil.toJson(bm)));
+            return ResponseMessage.sendOK(com.zghzbckj.util.TextUtils.base64Code(JackSonJsonUtils.toJson(bm)));
         } catch (CustomerException e) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, e.getMsgDes());
         } catch (Exception e) {

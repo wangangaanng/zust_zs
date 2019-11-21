@@ -80,6 +80,8 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         PageInfo<BckjBizZsjh> page = findPage(dataMap, pageNo, pageSize, null);
         List<BckjBizZsjh> records = page.getRecords();
         BckjBizZsjh bckjBizZsjh = BckjBizZsjh.class.newInstance();
+        String zss=this.dao.sumZss();
+        bckjBizZsjh.setSf("历年招生数统计:"+zss+"人");
         bckjBizZsjh.setNf("共有:" + page.getTotalCount() + "条");
         bckjBizZsjh.setReadOnly(true);
         bckjBizZsjh.setState(null);
