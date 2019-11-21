@@ -565,7 +565,7 @@
 
 
 	<select id="getDicListMapByType" resultType="Map">
-		SELECT dic_val1 as val1 ,dic_val2 as val2 FROM OURWAY_SYS_DIC a,OURWAY_SYS_DIC_VALUE b
+		SELECT a.owid as owid ,dic_val1 as val1 ,dic_val2 as val2 FROM OURWAY_SYS_DIC a,OURWAY_SYS_DIC_VALUE b
 		WHERE a.owid = b.dic_ref_owid and a.type=#{type}
 	</select>
 

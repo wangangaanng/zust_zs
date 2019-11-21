@@ -740,10 +740,10 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         bckjBizSybService.updateBySfz(bckjBizSyb);
         //设置就业所在地的省份
         if (TextUtils.isEmpty(getDicVal(50005, bckjBizJyscheme.getDwszdmc()))) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "填写有误,请重新填写!");
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "单位所在地填写有误,请重新填写!");
         }
         if (TextUtils.isEmpty(getDicVal(50005, bckjBizJyscheme.getBdzqwszdmc()))) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "填写有误,请重新填写!");
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "报到证签往所在地填写有误,请重新填写!");
         }
         bckjBizJyscheme.setDwszdmc(getDicVal(50005, bckjBizJyscheme.getDwszdmc()));
         bckjBizJyscheme.setBdzqwszdmc(getDicVal(50005, bckjBizJyscheme.getBdzqwszdmc()));
