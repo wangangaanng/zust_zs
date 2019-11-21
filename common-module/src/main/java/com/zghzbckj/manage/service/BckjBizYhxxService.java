@@ -13,7 +13,6 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
-import com.zghzbckj.base.util.PageUtil;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
@@ -25,7 +24,6 @@ import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.apache.log4j.Logger;
-import org.bouncycastle.asn1.icao.DataGroupHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +31,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static com.alibaba.druid.support.monitor.annotation.AggregateType.Sum;
 
 
 /**
@@ -861,6 +857,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             mapRes.put("stuOwid", map.get("owid"));
             mapRes.put("stuSjh", map.get("sjh"));
             mapRes.put("stuXm", map.get("xm"));
+            mapRes.put("stuXh", map.get("yhDlzh"));
             mapRes.put("userType", 1);
             mapRes.put("yhOwid", map.get("owid"));
             return mapRes;
