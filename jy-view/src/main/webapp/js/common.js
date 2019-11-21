@@ -187,7 +187,7 @@ function loginout() {
         document.cookie  = "yhOwid=;path=/";
     }
     if(type==1){//学生退出
-        window.location.href=base+"/logout"
+        window.location.href="https://job.zust.edu.cn/proxyLogin/logout.jsp"
     }else{
         window.location.href=base+"/"
     }
