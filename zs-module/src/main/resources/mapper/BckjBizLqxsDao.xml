@@ -115,6 +115,9 @@
 			<if test="pc!=null and pc!=''">
 				AND a.pc LIKE concat(#{pc,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
 			</if>
+			<if test="lqzy!=null and lqzy!=''">
+				AND a.lqzy = #{lqzy}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
@@ -344,5 +347,11 @@
 		SELECT b.dic_val1 FROM ourway_sys_dic a,ourway_sys_dic_value b
 		WHERE a.owid =b.dic_ref_owid and a.type=#{type} and b.dic_val2=#{val2}
 	</select>
+
+
+<select id="findListByLqzy" resultType="String" >
+	SELECT DISTINCT lqzy FROM bckj_biz_lqxs WHERE
+	lqzy IS NOT NULL
+</select>
 	
 </mapper>

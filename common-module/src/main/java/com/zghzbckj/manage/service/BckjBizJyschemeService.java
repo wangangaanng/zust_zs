@@ -760,16 +760,18 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      */
     public BckjBizJyscheme queryDocument(Map<String, Object> dataMap) {
         BckjBizJyscheme bckjBizJyscheme = null;
-        BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);
+        /*BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);*/
         //如果由此生源就根据
-        if (!TextUtils.isEmpty(oneBySfz)) {
+      /*  if (!TextUtils.isEmpty(oneBySfz)) {
             if (!TextUtils.isEmpty(oneBySfz.getXsxh())) {
                 bckjBizJyscheme = getOneByXsxh(oneBySfz.getXsxh());
             }
-        }
-        if (!TextUtils.isEmpty(getJyselfInfo(dataMap))){
+        }*/
+        bckjBizJyscheme = getJyselfInfo(dataMap);
+
+        /*if (!TextUtils.isEmpty(getJyselfInfo(dataMap))){
             bckjBizJyscheme = getJyselfInfo(dataMap);
-        }
+        }*/
         if (!TextUtils.isEmpty(bckjBizJyscheme)) {
             bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005, bckjBizJyscheme.getBdzqwszdmc()));
             bckjBizJyscheme.setByqx(getDicVall(50001, bckjBizJyscheme.getByqx()));

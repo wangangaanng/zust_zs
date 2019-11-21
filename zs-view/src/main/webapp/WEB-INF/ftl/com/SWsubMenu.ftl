@@ -22,7 +22,7 @@
             <li class="list-group-item ${((2)==(page?number))?string('active1','')} ${(processState>2)?string('active2','')}">
                 拍照上传<span class="ic-menu"></span>
             </li>
-            <li class="list-group-item ${((3)==(page?number))?string('active1','')} ${(processState>6)?string('active2','')} ${(processState==4)?string('active3','')}">
+            <li class="list-group-item ${((3)==(page?number))?string('active1','')} ${(processState>6)?string('active2','')} ${(processState==4)?string('active3','')} ${(processState==3||processState==6)?string('active4','')}">
                 初审结果/缴费<span class="ic-menu"></span>
             </li>
             <li class="list-group-item ${((4)==(page?number))?string('active1','')} ${(processState>7)?string('active2','')} ">

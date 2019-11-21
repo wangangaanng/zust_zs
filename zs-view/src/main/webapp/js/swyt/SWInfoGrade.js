@@ -102,7 +102,6 @@ function finishHk(e) {
                 $("#contactForm").show();
                 $("#gradeForm").hide();
                 $("#selectForm").hide();
-                $(".jf-items .jf-item").eq(2).removeClass("jf-active");
             }else {
                 $("#basicForm").hide();
                 $("#contactForm").hide();

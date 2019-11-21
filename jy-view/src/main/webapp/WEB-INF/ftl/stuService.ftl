@@ -72,7 +72,7 @@
     })
 
     function inquiryArchives(){
-        if(getCookie('stuOwid')) {
+        // if(getCookie('stuOwid')) {
             if (!$("#xsxm").val().trim()) {
                 walert("请输入姓名")
                 return;
@@ -151,12 +151,12 @@
                             str+='<div class="da-item"><div>报到证签往所在地：</div><p>'+p.bdzqwszdmc+'</p></div>'
                         }
                         if(p.bdkssj){
-                            str+='<div class="da-item"><div>报到开始时间：</div><p>'+p.bdkssj+'</p></div>'
+                            str+='<div class="da-item"><div>报到开始时间：</div><p>'+p.bdkssj.substring(0,10)+'</p></div>'
                         }
                         if(p.bdjssj){
-                            str+='<div class="da-item"><div>报到结束时间：</div><p>'+p.bdjssj+'</p></div>'
+                            str+='<div class="da-item"><div>报到结束时间：</div><p>'+p.bdjssj.substring(0,10)+'</p></div>'
                         }
-                        if(p.datdxxdz){
+                        if(p.datddh){
                             str+='<div class="da-item"><div>档案投递电话：</div><p>'+p.datddh+'</p></div>'
                         }
                         if(p.datddw){
@@ -196,9 +196,9 @@
                     walert(data.errorMess)
                 }
             })
-        }else{
-            login();
-        }
+        // }else{
+        //     login();
+        // }
     }
 
     function closeLayer(){

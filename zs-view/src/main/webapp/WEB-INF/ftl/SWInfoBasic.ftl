@@ -93,9 +93,9 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="lxdh" class="col-sm-2 control-label  col-sm-offset-1">联系电话<span class="red">*</span>：</label>
+        <label for="lxdh" class="col-sm-2 control-label  col-sm-offset-1">手机号<span class="red">*</span>：</label>
         <div class="col-sm-8">
-            <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="请输入联系电话"  value="">
+            <input type="text" class="form-control" id="lxdh" name="lxdh" placeholder="请输入手机号"  value="">
         </div>
     </div>
 
@@ -106,7 +106,7 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="qyGsxz" class="col-sm-2 control-label  col-sm-offset-1">QQ号<span class="red">*</span>：</label>
+        <label for="qyGsxz" class="col-sm-2 control-label  col-sm-offset-1">QQ号：</label>
         <div class="col-sm-8">
             <input type="text" class="form-control" id="qq" name="qq" placeholder="请输入QQ号"  value="">
         </div>
@@ -141,14 +141,21 @@
 <script>
     var xxbh = '${xxbh}';
     var processState = '${processState}'
-    console.log($('#majorExam'))
     var preNext = 0;
     //表单验证触发保存基本信息
     $.validator.setDefaults({
         submitHandler: function (form,a) {
+            var thisObj = $("#basicForm").serializeObject();
             switch($(form).attr("id")){
                 case "basicForm":
-                    saveBasic();
+                    var index = layer.confirm('身份证号: '+thisObj.sfzh+'<br>手机号: '+thisObj.lxdh, {
+                        btn: ['确认','取消'] //按钮
+                        ,title:"确认信息"
+                    }, function(){
+                        layer.close(index);
+                        saveBasic();
+                    }, function(){
+                    });
                     break;
                 case "contactForm":
                     saveContactors(preNext);

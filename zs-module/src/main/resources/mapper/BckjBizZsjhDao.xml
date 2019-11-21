@@ -342,5 +342,9 @@
 		from bckj_biz_yhxx a,bckj_biz_yhkz b,bckj_biz_xsgz c
 		where  b.xsbj IS NOT NULL and c.xxlb=9 and a.owid = c.yh_ref_owid and a.owid = b.yh_ref_owid and c.job_ref_owid =#{owid}
 	</select>
+
+	<select id="sumZss" resultType="String">
+		SELECT sum(zss) as sumZss FROM bckj_biz_zsjh
+	</select>
 	
 </mapper>

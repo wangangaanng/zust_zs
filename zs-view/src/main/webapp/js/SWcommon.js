@@ -30,12 +30,6 @@ function ajax(method, data, successMethod, pageNo, pageSize) {
     }
 }
 
-function keySearch(){
-    if (event.keyCode==13){
-        searchAll()
-    }
-}
-
 //判断登录过期
 function isTimeOut() {
     var url = window.location.href;
@@ -82,29 +76,58 @@ function fileUpload(imgType,file,fun) {
     });
 }
 
-//查询报名所有信息
-function searchAll() {
-    var data = {
-        "applyOwid":getCookie("applyOwid"),
-        "cnszp":cnszp,
-        "bmbZp":bmbZp
-    }
-    ajax("zustswyt/bckjBizBm/getResult", data, function (data) {
-        if(data.backCode==0){
-            var data = data.bean;
-            walert("提交成功");
-            $("#saveBasic").hide();
-        }else{
-            walert(data.errorMess)
+function base64_decode(input) { // 敏感信息解码，配合decodeURIComponent使用
+    var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    var output = "";
+    var chr1, chr2, chr3;
+    var enc1, enc2, enc3, enc4;
+    var i = 0;
+    input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+    while (i < input.length) {
+        enc1 = base64EncodeChars.indexOf(input.charAt(i++));
+        enc2 = base64EncodeChars.indexOf(input.charAt(i++));
+        enc3 = base64EncodeChars.indexOf(input.charAt(i++));
+        enc4 = base64EncodeChars.indexOf(input.charAt(i++));
+        chr1 = (enc1 << 2) | (enc2 >> 4);
+        chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+        chr3 = ((enc3 & 3) << 6) | enc4;
+        output = output + String.fromCharCode(chr1);
+        if (enc3 != 64) {
+            output = output + String.fromCharCode(chr2);
         }
-    })
+        if (enc4 != 64) {
+            output = output + String.fromCharCode(chr3);
+        }
+    }
+    return utf8_decode(output);
 }
 
-function keySearch(){
-    if (event.keyCode==13){
-        searchAll()
+function utf8_decode(utftext) { // utf-8解码
+    var string = '';
+    var i = 0;
+    var c = 0;
+    var c1 = 0;
+    var c2 = 0;
+    while (i < utftext.length) {
+        c = utftext.charCodeAt(i);
+        if (c < 128) {
+            string += String.fromCharCode(c);
+            i++;
+        } else if ((c > 191) && (c < 224)) {
+            c1 = utftext.charCodeAt(i + 1);
+            string += String.fromCharCode(((c & 31) << 6) | (c1 & 63));
+            i += 2;
+        } else {
+            c1 = utftext.charCodeAt(i + 1);
+            c2 = utftext.charCodeAt(i + 2);
+            string += String.fromCharCode(((c & 15) << 12) | ((c1 & 63) << 6) | (c2 & 63));
+            i += 3;
+        }
     }
+    return string;
 }
+
+
 // Close HTML Tags --------------------------------------------
 function closeHTML(str){
     var arrTags=["span","font","b","u","i","h1","h2","h3","h4","h5","h6","p","li","ul","table","div"];
@@ -125,18 +148,6 @@ function closeHTML(str){
          }*/
     }
     return str;
-}
-
-function searchAll() {
-    if($("#searchAll").val().trim()){
-        var key=$("#searchAll").val().trim()
-        if(testSql(key,$("#searchAll"))){
-            window.location.href=base+'/search?key='+key
-        }
-    }else{
-        layer.tips("请输入关键字！", $("#searchAll"), {tips: 1})
-        return
-    }
 }
 
 function testSql(val,obj) {

@@ -1,6 +1,5 @@
-<!--
-  xiayuwei  基本信息  2019.10.21
--->
+<!--xiayuwei  基本信息  2019.10.21-->
+<wxs module="filter" src="../filter.wxs"></wxs>
 <view class="com-wrap">
   <view class="com-title">基本信息</view>
   <view class="cell-wrap">
@@ -17,10 +16,10 @@
     <view wx:if="{{idType=='1'}}">
       <view class="img-null_tip" hidden="{{showIdError}}">身份证正反面必传</view>
       <view class="btn-upload" bindtap='takePhoto' data-type="2">
-        <view wx:if="{{faceImg!=''}}">
+        <view wx:if="{{filter.emptyCheck(faceImg)}}">
           <image src="{{faceImg}}"></image>
         </view>
-        <view wx:elif="{{faceImg==''}}">
+        <view wx:else>
           <view class="btn-upload_wrap">
             <i class=" iconfont icon-paizhao"></i>
             <view class="btn-txt">点击拍摄身份证正面（人像面）</view>
@@ -28,10 +27,10 @@
         </view>
       </view>
       <view class="btn-upload" style="margin-top:28rpx;" bindtap='takePhoto' data-type="3">
-        <view wx:if="{{faceBck!=''}}">
+        <view wx:if="{{filter.emptyCheck(faceBck)}}">
           <image src="{{faceBck}}"></image>
         </view>
-        <view wx:elif="{{faceBck==''}}">
+        <view wx:else>
           <view class="btn-upload_wrap">
             <i class=" iconfont icon-paizhao"></i>
             <view class="btn-txt">点击拍摄身份证反面（国徽面）</view>
@@ -45,10 +44,10 @@
     <view wx:if="{{idType=='2'}}">
       <view class="img-null_tip" hidden="{{showHJError}}">户籍证明必传</view>
       <view class="btn-upload" bindtap='takePhoto' data-type="1">
-        <view wx:if="{{houseHold!=''}}">
+        <view wx:if="{{filter.emptyCheck(houseHold)}}">
           <image src="{{houseHold}}"></image>
         </view>
-        <view wx:elif="{{houseHold==''}}">
+        <view wx:else>
           <view class="btn-upload_wrap">
             <i class=" iconfont icon-paizhao"></i>
             <view class="btn-txt">点击拍摄户籍证明</view>

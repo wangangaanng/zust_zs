@@ -1,0 +1,63 @@
+<!--pages/qyInfo/qyInfo.wxml-->
+
+  <view class="cell">
+      <view class="titlebt" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
+      <view class="titlebt" wx:else>{{result.zwbt}}</view>
+      <view class="article-nav">
+        <view class="article-nav-left">
+          <image class="icon" src="../../static/icon-time.png"></image>
+          {{result.createtime}}
+        </view>
+        <view class="article-nav-right">
+          <image class="icon" src="../../static/icon-eye.png"></image>
+          {{result.zwYds?result.zwYds:0}}
+        </view>
+      </view>
+    <view class="content">
+      <view class="table">
+          <view class="tr" wx:if="{{result.zphKsrq}}">
+            <view class="td td-name"  style="width:180rpx;">举办时间：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}} {{result.zphJtsj}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">具体城市：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwCity}}</view>
+          </view>
+          <view class="tr">
+            <view class="td td-name"  style="width:180rpx;">举办地点：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJbdd}}</view>
+          </view>
+          <view class="tr" wx:if="{{result.zphBmjzsj}}">
+            <view class="td td-name"  style="width:180rpx;">报名截止：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphBmjzsj}}</view>
+          </view>
+          <view class="tr" wx:if="{{(result.zphSfqd)&&(result.zphSfqd==0)}}">
+            <view class="td td-name"  style="width:180rpx;">是否要签到：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">不需要</view>
+          </view>
+          <view class="tr" wx:if="{{(result.zphSfqd)&&(result.zphSfqd==1)}}">
+            <view class="td td-name"  style="width:180rpx;">是否要签到：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">需要</view>
+          </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell" wx:if="{{result.memo}}">
+    <view class="title">详情</view>
+    <view class="content">
+      <template is="wxParse" data="{{wxParseData:memo.nodes}}"/>
+		</view>
+    <view class="article" wx:if="{{result.fileList.length>0}}">
+      附件
+        <block wx:for="{{result.fileList}}" wx:key="">
+          <view>
+            <span style="color:#337ab7" bindtap="wxParseTagATap" data-src="{{imgPath+item.FILE_PATH}}">{{item.FILE_LABEL}}</span>
+          </view>
+        </block>
+    </view>
+  </view>
+
+
+<view class="float-btn3" bindtap="applyJob">我要报名</view>
+
+<authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>

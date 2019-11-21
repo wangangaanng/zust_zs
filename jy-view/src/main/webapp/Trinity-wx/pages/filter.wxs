@@ -1,0 +1,11 @@
+//判空
+function emptyCheck(val) {
+  if (val !== null && val !== undefined && val !== '') {
+    return true;
+  } else
+    return false;
+}
+
+module.exports = {
+  emptyCheck: emptyCheck
+}

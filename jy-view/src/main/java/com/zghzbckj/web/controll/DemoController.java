@@ -77,7 +77,7 @@ public class DemoController {
          return  view;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/","logout"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());

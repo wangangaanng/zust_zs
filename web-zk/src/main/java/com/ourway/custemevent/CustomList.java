@@ -18,7 +18,8 @@ public class CustomList implements ComponentInitSer {
     public final String ZSJH_URL_CUSTOM = "web/zustzs/bckjBizZsjh/getCustomList";
     public final String LNTJ_URL_CUSTOM = "web/zustzs/bckjBizLntj/getCustomList";
     public final String Xch_BaoMing_URL = "web/zustzs/bckjBizZsjh/getCustomDicList";
-
+    public final String LQXS_URL="web/zustzs/bckjBizLqxs/getCustomList";
+    public final String QDLIST_URL="web/bckjBizYhxx/getCustomList";
     @Override
     public void doAction(BaseWindow baseWindow, Component component, PageControlVO pageControlVO) {
         Map<String, Object> parentArgs = baseWindow.getParentArgs();
@@ -98,8 +99,14 @@ public class CustomList implements ComponentInitSer {
                 responseMessage= JsonPostUtils.executeAPI(sendMap, LNTJ_URL_CUSTOM);
             }
         }
+        if(pageCA.indexOf("luquzhaosheng")!=-1){
+            if (pageControlVO.getKjAttribute().equals("lqzy")) {
+                sendMap.put("key", "lqzy");
+                responseMessage= JsonPostUtils.executeAPI(sendMap, LQXS_URL);
+            }
+        }
         //宣传报名list
-        if(pageCA.indexOf("baoming")!=-1){
+        if(pageCA.indexOf("zhaoshengxuanchuanbaomingxiangqing")!=-1){
             if (pageControlVO.getKjAttribute().equals("xszy")) {
                 sendMap.put("key", "xszy");
                 sendMap.put("owid", parentArgs.get("#owid"));
@@ -114,6 +121,28 @@ public class CustomList implements ComponentInitSer {
                 sendMap.put("key", "xsbj");
                 sendMap.put("owid", parentArgs.get("#owid"));
                 responseMessage= JsonPostUtils.executeAPI(sendMap,Xch_BaoMing_URL);
+            }
+        }
+        //统计签到专业下拉框
+        if(pageCA.indexOf("xjhqiaodaotongji")!=-1) {
+            if (pageControlVO.getKjAttribute().equals("xszy")) {
+                sendMap.put("key", "xszy");
+                sendMap.put("zwlx",8);
+                responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
+            }
+        }
+        if (pageCA.indexOf("zlzwqiaodaotongji")!=-1) {
+            if (pageControlVO.getKjAttribute().equals("xsxy")) {
+                sendMap.put("key", "xsxy");
+                sendMap.put("zwlx",8);
+                responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
+            }
+        }
+        if(pageCA.indexOf("zjxjhqiaodaotongji")!=-1){
+            if(pageControlVO.getKjAttribute().equals("xsbj")){
+                sendMap.put("key", "xsbj");
+                sendMap.put("zwlx",8);
+                responseMessage= JsonPostUtils.executeAPI(sendMap,QDLIST_URL);
             }
         }
         List<String> lists=null;
