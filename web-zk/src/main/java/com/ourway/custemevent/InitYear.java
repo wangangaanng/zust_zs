@@ -24,7 +24,7 @@ public class InitYear implements ComponentInitSer {
         try {
             String year = DateUtil.getDateStr("yyyy");
             Integer years = Integer.parseInt(year);
-            for (int i = years ; i >= 2018; i--) {
+            for (int i = years ; i >= 2019; i--) {
                 label = String.valueOf(i);
                 value = String.valueOf(i);
                 Listitem item = new Listitem(label, value);
