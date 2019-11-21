@@ -8,7 +8,10 @@
         var ws = null;
         var count = 0;
         function setConnected(connected) {
+            if (connected) {
             document.getElementById('connect').disabled = connected;
+             document.getElementById('connect').style.backgroundColor = "#999";
+            }
            // document.getElementById('disconnect').disabled = !connected;
            // document.getElementById('echo').disabled  = !connected;
         }
