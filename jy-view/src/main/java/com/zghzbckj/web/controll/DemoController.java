@@ -60,7 +60,6 @@ public class DemoController {
     @RequestMapping(value = "/proxyLogin", method = RequestMethod.GET)
     public ModelAndView proxyLogin(HttpServletRequest request,ModelAndView view,HttpServletResponse response) {
         String  studentId=request.getHeader("cas_user");
-        System.out.println(studentId+"====================================================================");
         if(TextUtils.isEmpty(studentId)){
             view.setViewName("redirect:/?mess=1");
             return  view;
@@ -78,7 +77,7 @@ public class DemoController {
          return  view;
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/","logout"}, method = RequestMethod.GET)
     public ModelAndView index(HttpServletRequest request,ModelAndView view) {
         view.setViewName("index");
         view.addObject("header",getHeader().getBean());
