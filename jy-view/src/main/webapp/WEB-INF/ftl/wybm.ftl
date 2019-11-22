@@ -54,7 +54,6 @@
                         </div>
                         <select style="width: 200px;float: right;" onchange="searchXjh()" class="form-control" id="zwlx" name="zwlx">
                             <option value="">请选择职位类型</option>
-                            <option value="0">职位</option>
                             <option value="3">职来职往</option>
                             <option value="4">宣讲会</option>
                         </select>
