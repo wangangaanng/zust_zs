@@ -9,6 +9,8 @@ import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JackSonJsonUtils;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.ourway.base.zk.ZKConstants;
+import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.CommonModuleContant;
@@ -19,7 +21,14 @@ import com.zghzbckj.wechat.WechatConstants;
 import com.zghzbckj.wechat.model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 
 import javax.net.ssl.HttpsURLConnection;
@@ -537,6 +546,83 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
             return null;
         }
     }
+
+
+    /**
+     * 生成小程序码
+     */
+    public static String getXcxMa(String owid,String accessToken){
+      /*  AccessToken accessToken = CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + 02, AccessToken.class);*/
+        String timeStamp="";
+        if(owid.length()>15){
+             timeStamp = owid.substring(0, 14);
+        }
+        String picName = DateUtil.getTimeStamp() + ".png";
+        getminiqrQr(timeStamp,accessToken,picName);
+        return CommonModuleContant.ZSFILEPATH +"/"+picName;
+
+    }
+
+    /**
+     * 生成小程序码
+     */
+    public static Map getminiqrQr(String sceneStr, String accessToken, String picName) {
+        System.out.println("开始小程序二维码生成");
+        RestTemplate rest = new RestTemplate();
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+        try {
+            String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + accessToken;
+            Map<String, Object> param = new HashMap<>();
+            param.put("scene", sceneStr);
+            param.put("page", "pages/openDay/openDay");
+            param.put("width", 430);
+            param.put("auto_color", false);
+            Map<String, Object> line_color = new HashMap<>();
+            line_color.put("r", 0);
+            line_color.put("g", 0);
+            line_color.put("b", 0);
+            param.put("line_color", line_color);
+            System.out.println("调用生成微信URL接口传参:" + param);
+            MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+            HttpEntity requestEntity = new HttpEntity(param, headers);
+            ResponseEntity<byte[]> entity = rest.exchange(url, HttpMethod.POST, requestEntity, byte[].class, new Object[0]);
+            System.out.println("调用小程序生成微信永久小程序码URL接口返回结果:" + entity.getBody());
+            byte[] result = entity.getBody();
+            System.out.println(Base64.encodeBase64String(result));
+            inputStream = new ByteArrayInputStream(result);
+            File file = new File(CommonModuleContant.ZSFILEPATH+"/" + picName);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            outputStream = new FileOutputStream(file);
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((len = inputStream.read(buf, 0, 1024)) != -1) {
+                outputStream.write(buf, 0, len);
+            }
+            outputStream.flush();
+        } catch (Exception e) {
+            System.out.println("调用小程序生成微信永久小程序码URL接口异常");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return null;
+    }
+
 
     /**
      * <p>方法:doCreateTempQRCODE 传入有效期和参数，生成临时微信二维码 </p>

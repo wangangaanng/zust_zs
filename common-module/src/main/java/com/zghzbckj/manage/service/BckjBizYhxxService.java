@@ -23,7 +23,11 @@ import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
+import com.zghzbckj.wechat.WechatConstants;
+import com.zghzbckj.wechat.model.AccessToken;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
+import com.zghzbckj.wechat.service.AccessTokenInit;
+import com.zghzbckj.wechat.utils.WeixinUtils;
 import org.apache.log4j.Logger;
 import org.bouncycastle.asn1.icao.DataGroupHash;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -997,5 +1001,25 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     @Transactional(readOnly = false,rollbackFor = Exception.class)
     public void deleteDicByOwid(String owid) {
         this.dao.deleteDicByOwid(owid);
+    }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public void saveOrUpdateDic(Map<String, Object> map) {
+        if(com.zghzbckj.util.TextUtils.isEmpty(map.get("owid"))){
+            Map<String, Object> dicMap = Maps.newHashMap();
+            dicMap.put("type",70000);
+            dicMap.put("createTime",new Date());
+            this.dao.saveDic(dicMap);
+            AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx02", AccessToken.class);
+            String path = WeixinUtils.getXcxMa(dicMap.get("owid").toString(), accessToken.getToken());
+            map.put("dicVal6",path);
+            map.put("dicRefOwid",dicMap.get("owid"));
+            map.put("owid",IdGen.uuid());
+            map.put("createTime",new Date());
+            map.put("dicVal8",0);
+            this.dao.saveDicVal(map);
+        }else {
+            this.dao.updateDicVal(map);
+        }
     }
 }

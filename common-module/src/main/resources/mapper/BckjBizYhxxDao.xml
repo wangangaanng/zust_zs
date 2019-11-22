@@ -1082,7 +1082,51 @@
 	</update>
 
 
+	<insert id="saveDic" parameterType="Map">
+		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+			select LAST_INSERT_ID()
+		</selectKey>
+		insert into ourway_sys_dic(owid,type,createtime)values(#{owid},#{type},#{createTime})
+	</insert>
 
+	<update id="updateDicVal" parameterType="Map">
+		UPDATE ourway_sys_dic_value SET
+		dic_val1=#{dicVal1},
+		dic_val2=#{dicVal2},
+		dic_val3=#{dicVal3},
+		dic_val4=#{dicVal4},
+		dic_val5=#{dicVal5},
+		dic_val6=#{dicVal6},
+		dic_val7=#{dicVal7},
+		dic_val8=#{dicVal8}
+		WHERE owid=#{owid}
+	</update>
 
-
+	<insert id="saveDicVal" parameterType="Map">
+			INSERT INTO ourway_sys_dic_value(
+			owid,
+			dic_ref_owid,
+			dic_val1,
+			dic_val2,
+			dic_val3,
+			dic_val4,
+			dic_val5,
+			dic_val6,
+			dic_val7,
+			dic_val8,
+			createtime
+			)VALUES(
+			#{owid},
+			#{dicRefOwid},
+			#{dicVal1},
+			#{dicVal2},
+			#{dicVal3},
+			#{dicVal4},
+			#{dicVal5},
+			#{dicVal6},
+			#{dicVal7},
+			#{dicVal8},
+			#{createTime}
+			)
+	</insert>
 </mapper>

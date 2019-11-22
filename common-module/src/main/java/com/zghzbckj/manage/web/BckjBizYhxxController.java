@@ -817,6 +817,8 @@ public class BckjBizYhxxController extends BaseController {
 
     }
 
+
+
     /**
      * 后台保存开放入
      * @param dataVO
@@ -827,7 +829,8 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage saveKaiFangInfo(PublicDataVO dataVO){
         try {
             Map<String, Object> map = JsonUtil.jsonToMap(dataVO.getData());
-            return ResponseMessage.sendOK("");
+                bckjBizYhxxService.saveOrUpdateDic(map);
+                return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE, e);
