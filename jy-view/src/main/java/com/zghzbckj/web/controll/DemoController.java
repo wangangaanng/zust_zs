@@ -8,6 +8,7 @@ import com.zghzbckj.CommonConstants;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
+import com.zghzbckj.web.utils.MD5Util;
 import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
@@ -47,7 +48,12 @@ public class DemoController {
         for(String key:keys) {
             Object valData=val.get(key);
             if(null!=valData) {
-                cookie = new Cookie(key, valData.toString());//创建新cookie
+                String valStr=valData.toString();
+                if(key.equals("stuXh")){
+                    cookie = new Cookie(key, MD5Util.base64DeCode(valStr));//创建新cookie
+                }else {
+                    cookie = new Cookie(key, valStr);//创建新cookie
+                }
             }else{
                 cookie = new Cookie(key, CommonConstants.EMPTY_STR);//创建新cookie
             }
