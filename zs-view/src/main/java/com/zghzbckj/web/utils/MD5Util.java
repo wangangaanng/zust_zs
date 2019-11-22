@@ -10,7 +10,7 @@ import java.util.Base64;
 public class MD5Util {
 	final static Base64.Decoder decoder = Base64.getDecoder();
 
-	public static String base64Code(String text)  {
+	public static String base64DeCode(String text)  {
 		 String encodedText="";
 		try {
 			encodedText = new String(decoder.decode(text), CommonConstant.CHARSET_UTF_8);

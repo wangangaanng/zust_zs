@@ -8,6 +8,7 @@ import com.zghzbckj.CommonConstants;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
+import com.zghzbckj.web.utils.MD5Util;
 import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
@@ -41,13 +42,18 @@ public class DemoController {
     }
 
     //创建cookie，并将新cookie添加到“响应对象”response中。
-    public void addCookie(HttpServletResponse response,Map<String,String> val){
+    public void addZustCookie(HttpServletResponse response,Map<String,String> val){
         Set<String> keys=val.keySet();
         Cookie cookie;
         for(String key:keys) {
             Object valData=val.get(key);
             if(null!=valData) {
-                cookie = new Cookie(key, valData.toString());//创建新cookie
+                String valStr=valData.toString();
+                if(key.equals("stuXh")){
+                    cookie = new Cookie(key, MD5Util.base64DeCode(valStr));//创建新cookie
+                }else {
+                    cookie = new Cookie(key, valStr);//创建新cookie
+                }
             }else{
                 cookie = new Cookie(key, CommonConstants.EMPTY_STR);//创建新cookie
             }
@@ -55,6 +61,8 @@ public class DemoController {
             cookie.setPath("/");//设置作用域
             response.addCookie(cookie);//将cookie添加到response的cookie数组中返回给客户端
         }
+        cookie = new Cookie("zustLogin", "1");//创建新cookie
+        response.addCookie(cookie);
     }
 
     @RequestMapping(value = "/proxyLogin", method = RequestMethod.GET)
@@ -71,7 +79,7 @@ public class DemoController {
         if(null==result||null==result.getBean()){
             view.setViewName("redirect:/?mess=2");
         }else {
-            addCookie(response,(Map<String,String>)result.getBean());
+            addZustCookie(response,(Map<String,String>)result.getBean());
             view.setViewName("redirect:/");
         }
          return  view;

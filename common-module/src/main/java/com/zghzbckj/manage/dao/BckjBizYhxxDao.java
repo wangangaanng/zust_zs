@@ -110,5 +110,11 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     List<Map> getXchBaoMingList(Map<String, Object> dataMap);
 
     void deleteDicByOwid(String owid);
+
+    void saveDic(Map<String, Object> map);
+
+    void updateDicVal(Map<String, Object> map);
+
+    void saveDicVal(Map<String, Object> map);
 }
 
