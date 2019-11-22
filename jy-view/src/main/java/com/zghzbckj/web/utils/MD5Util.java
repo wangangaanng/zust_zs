@@ -1,11 +1,25 @@
 package com.zghzbckj.web.utils;
 
 
+import com.zghzbckj.web.constant.CommonConstant;
 
-
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.util.Base64;
 
 public class MD5Util {
+
+	final static Base64.Decoder decoder = Base64.getDecoder();
+
+	public static String base64DeCode(String text)  {
+		String encodedText="";
+		try {
+			encodedText = new String(decoder.decode(text), CommonConstant.CHARSET_UTF_8);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return encodedText;
+	}
 
 	private static String byteArrayToHexString(byte b[]) {
 		StringBuffer resultSb = new StringBuffer();

@@ -13,7 +13,6 @@ import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
-import com.zghzbckj.base.util.PageUtil;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
@@ -29,7 +28,6 @@ import com.zghzbckj.wechat.model.WxXcxUserModel;
 import com.zghzbckj.wechat.service.AccessTokenInit;
 import com.zghzbckj.wechat.utils.WeixinUtils;
 import org.apache.log4j.Logger;
-import org.bouncycastle.asn1.icao.DataGroupHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,8 +35,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static com.alibaba.druid.support.monitor.annotation.AggregateType.Sum;
 
 
 /**
@@ -857,14 +853,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
 
     @Transactional(readOnly = false)
-    public Map proxyLogin(Map<String, Object> datamap) {
+    public Map proxyLogin(Map<String, Object> datamap) throws Exception {
         Map<String, Object> map = this.dao.logIn(datamap);
         if (!TextUtils.isEmpty(map) && !TextUtils.isEmpty(map.get("owid"))) {
             this.dao.updateDlsj(map.get("owid").toString());
             Map mapRes = Maps.newHashMap();
             mapRes.put("stuOwid", map.get("owid"));
-            mapRes.put("stuSjh", map.get("sjh"));
             mapRes.put("stuXm", map.get("xm"));
+            mapRes.put("stuXh", com.zghzbckj.util.TextUtils.base64Code(map.get("yhDlzh").toString()));
             mapRes.put("userType", 1);
             mapRes.put("yhOwid", map.get("owid"));
             return mapRes;

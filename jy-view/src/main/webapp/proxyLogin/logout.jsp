@@ -5,7 +5,7 @@
 	session.invalidate();
 	// ids的退出地址
 	String casLogoutURL = request.getHeader("cas_logout_url");
-	String redirectURL=casLogoutURL+URLEncoder.encode("https://job.zust.edu.cn/"); // 地址需要根据环境修改（域名+上下文）
+	String redirectURL=casLogoutURL+URLEncoder.encode("https://job.zust.edu.cn/logout"); // 地址需要根据环境修改（域名+上下文）
 	response.sendRedirect(redirectURL);
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
