@@ -29,7 +29,7 @@
   </view>
   <view class="cell" wx:if="{{result.dicVal5}}">
     <view class="title">详情</view>
-    <view class="content">
+    <view class="content parsehtml">
     <import src="../../libs/wxParse/wxParse.wxml"/>
       <template is="wxParse" data="{{wxParseData:dicVal5.nodes}}"/>
 		</view>
@@ -37,7 +37,7 @@
   </view>
 
 
-<view class="float-btn3" bindtap="applyDay">我要报名</view>
+<view class="float-btn3" bindtap="applyDay">我要预约</view>
 
 <authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>
 

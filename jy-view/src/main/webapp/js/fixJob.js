@@ -153,19 +153,6 @@ $(document).ready(function () {
     });
 })
 
-function getOneJob() {
-    var jsonObj ={
-        "owid":$("#zwOwid").val(),
-        "yhOwid":getCookie("qyOwid")
-    }
-    ajax("zustjy/bckjBizJob/getOneJob", jsonObj, function (data) {
-        if(data.backCode==0){
-
-
-        }
-    })
-}
-
 $.validator.setDefaults({
     submitHandler: function () {
         fixJob()
