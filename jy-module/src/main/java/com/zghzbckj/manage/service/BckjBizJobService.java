@@ -402,7 +402,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
         params.put("content", zwbt);
         ResponseMessage responseYhxx = keyFilter.keyFilterQuery(params);
         if (!TextUtils.isEmpty(responseYhxx.getBean())) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL,  responseYhxx.getBean().toString());
+            return ResponseMessage.sendError(ResponseMessage.FAIL, responseYhxx.getBean().toString());
         }
 
         if (!TextUtils.isEmpty(mapData.get("owid"))) {
@@ -705,7 +705,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
     @Transactional(readOnly = false)
-    public BckjBizJob getMiniJob(Map<String, Object> mapData) {
+    public BckjBizJob getMiniJob(Map<String, Object> mapData) throws Exception {
         BckjBizJob job = new BckjBizJob();
         String owid = mapData.get("owid").toString();
         if (owid.length() == 14) {
@@ -759,8 +759,13 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
-//            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
             BckjBizQyxx qyxx = qyxxDao.getQyxxInfo(job.getQyxxRefOwid());
+            //BASE64加密
+            qyxx.setQyLxrdh(TextUtils.base64Code(qyxx.getQyLxrdh()));
+            qyxx.setQylxfs(TextUtils.base64Code(qyxx.getQylxfs()));
+            qyxx.setQyYx(TextUtils.base64Code(qyxx.getQyYx()));
+
+
             if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
@@ -860,7 +865,7 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
     @Transactional(readOnly = false)
-    public BckjBizJob getOneJob(Map<String, Object> mapData) {
+    public BckjBizJob getOneJob(Map<String, Object> mapData) throws Exception {
         BckjBizJob job = new BckjBizJob();
         String owid = mapData.get("owid").toString();
         if (owid.length() == 14) {
@@ -914,8 +919,12 @@ public class BckjBizJobService extends CrudService<BckjBizJobDao, BckjBizJob> {
 
 
         if (!TextUtils.isEmpty(job.getQyxxRefOwid())) {
-//            BckjBizQyxx qyxx = qyxxService.get(job.getQyxxRefOwid());
             BckjBizQyxx qyxx = qyxxDao.getQyxxInfo(job.getQyxxRefOwid());
+            //BASE64加密
+            qyxx.setQyLxrdh(TextUtils.base64Code(qyxx.getQyLxrdh()));
+            qyxx.setQylxfs(TextUtils.base64Code(qyxx.getQylxfs()));
+            qyxx.setQyYx(TextUtils.base64Code(qyxx.getQyYx()));
+
             if (!TextUtils.isEmpty(qyxx)) {
                 if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
                     params.put("type", JyContant.GSGM);
