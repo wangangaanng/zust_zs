@@ -410,6 +410,19 @@ var getOneCompany = function (that) {
   common.ajax('zustjy/bckjBizQyxx/getOneCompany', data, function (res) {
     if (res.data.backCode == 0) {
       var data = res.data;
+      if (data.bean.qyLxrdh){
+        data.bean.qyLxrdh = common.base64Decode(data.bean.qyLxrdh)
+      }
+      if (data.bean.qyFrsfz) {
+        data.bean.qyFrsfz = common.base64Decode(data.bean.qyFrsfz)
+      }
+      if (data.bean.qylxfs) {
+        data.bean.qylxfs = common.base64Decode(data.bean.qylxfs)
+      }
+      if (data.bean.qyYx) {
+        data.bean.qyYx = common.base64Decode(data.bean.qyYx)
+      }
+
       that.setData({
         form:data.bean,
         gsxzStr: data.bean.qyGsxzStr,

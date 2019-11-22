@@ -31,11 +31,11 @@ public class BmjfRejectAction implements ComponentListinerSer {
 
         try {
             Map e = window.bindAll2Ppt(true);
-//            if (TextUtils.isEmpty(e.get("zphJbdd"))) {
-//                AlterDialog.alert("请选择举办地点");
-//                return;
-//            }
-//
+            if (TextUtils.isEmpty(e.get("jjly"))) {
+                AlterDialog.alert("请填写拒绝理由");
+                return;
+            }
+
             List paramsList = com.ourway.base.zk.utils.JsonUtil.jsonToList(windowParams.toString());
             Map _params = (Map) paramsList.get(0);
             if (TextUtils.isEmpty(_params.get("gridId"))) {

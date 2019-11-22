@@ -18,6 +18,8 @@ Page({
     yzmStr1: '发送验证码',
     seconds1: 60,
     disabled1: false,
+    disabled2: false,
+    owid:'',
     xm: '',
     exp9: '',
     qxzy: '',
@@ -99,7 +101,7 @@ Page({
       "qxzy": that.data.qxzy,
       "sjh": that.data.sjh1,
       "yzm": that.data.yzm1,
-      "owid": that.data.option.owid
+      "owid": that.data.owid
     };
     common.ajax('zustcommon/bckjBizYhxx/candidatesRegistration', data, function (res) {
       if (res.data.backCode == 0) {
@@ -193,26 +195,26 @@ Page({
     var that = this;
     if (options.owid) {//列表进入
       that.setData({
-        option: options
+        owid: options.owid
       })
     } else if (options.scene) {//扫码签到
       that.setData({
-        option: options
+        owid: options.scene
       })
     }
 
-    // if (!wx.getStorageSync('unionid')) {
-    //   this.setData({
-    //     isauthorize: true,
-    //   })
-    // } else {
-    //   this.setData({
-    //     isauthorize: false,
-    //   })
-    // }
+    if (!wx.getStorageSync('unionid')) {
+      this.setData({
+        isauthorize: true,
+      })
+    } else {
+      this.setData({
+        isauthorize: false,
+      })
+    }
 
-    if (options.owid) {
-      getCaOpDetail(this, options.owid);
+    if (this.data.owid) {
+      getCaOpDetail(this);
     }
   },
 
@@ -256,8 +258,8 @@ Page({
   }
 })
 
-var getCaOpDetail = function (that, owid) {//招聘详情
-  var data = { "owid": owid };
+var getCaOpDetail = function (that) {//招聘详情
+  var data = { "owid": that.data.owid };
   common.ajax('zustcommon/bckjBizYhxx/getCaOpDetail', data, function (res) {
     if (res.data.backCode == 0) {
       

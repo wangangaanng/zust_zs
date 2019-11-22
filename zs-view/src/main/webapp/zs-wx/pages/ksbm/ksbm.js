@@ -281,15 +281,15 @@ Page({
   onLoad: function (options) {
 
     getShowCaOpDayDate(this)
-    if (!wx.getStorageSync('unionid')) {
-      this.setData({
-        isauthorize: true,
-      })
-    } else {
-      this.setData({
-        isauthorize: false,
-      })
-    }
+    // if (!wx.getStorageSync('unionid')) {
+    //   this.setData({
+    //     isauthorize: true,
+    //   })
+    // } else {
+    //   this.setData({
+    //     isauthorize: false,
+    //   })
+    // }
 
   },
   yy(e){

@@ -210,6 +210,18 @@ var getContent = function (that, owid) {//招聘详情
         var qyGsjs = res.data.bean.qyxx.qyGsjs
         WxParse.wxParse('qyGsjs', 'html', qyGsjs, that, 5);
       }
+      if (res.data.bean.qyxx) {
+        if (res.data.bean.qyxx.qyLxrdh) {
+          res.data.bean.qyxx.qyLxrdh = common.base64Decode(res.data.bean.qyxx.qyLxrdh)
+        }
+        if (res.data.bean.qyxx.qylxfs) {
+          res.data.bean.qyxx.qylxfs = common.base64Decode(res.data.bean.qyxx.qylxfs)
+        }
+        if (res.data.bean.qyxx.qyYx) {
+          res.data.bean.qyxx.qyYx = common.base64Decode(res.data.bean.qyxx.qyYx)
+        }
+      }
+
       that.setData({
         result: res.data.bean,
       })

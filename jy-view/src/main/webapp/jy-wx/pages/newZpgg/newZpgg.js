@@ -284,7 +284,7 @@ var getOneCompany = function (that) {
       if (data.bean) {
         if (data.bean.qyYx) {
           that.setData({
-            'form.zwLxyx': data.bean.qyYx
+            'form.zwLxyx': common.base64Decode(data.bean.qyYx)
           })
         }
         if (data.bean.qyProv && data.bean.qyCity && data.bean.qyArea) {
