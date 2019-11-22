@@ -785,12 +785,14 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage deleteKaiInfo(PublicDataVO dataVO){
         try {
             List<Object> list =  JsonUtil.jsonToList(dataVO.getData());
+            List<Map> owids= Lists.newArrayList();
             if (!com.zghzbckj.util.TextUtils.isEmpty(list)&&list.size()>0){
                 for (Object o:list){
                     bckjBizYhxxService.deleteDicByOwid(((Map)o).get("owid").toString());
+                    owids.add(((Map)o));
                 }
             }
-            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+            return ResponseMessage.sendOK(owids);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE, e);
