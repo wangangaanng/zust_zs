@@ -1099,7 +1099,7 @@
 		dic_val6=#{dicVal6},
 		dic_val7=#{dicVal7},
 		dic_val8=#{dicVal8}
-		WHERE owid=#{owid}
+		WHERE dic_ref_owid=#{owid}
 	</update>
 
 	<insert id="saveDicVal" parameterType="Map">

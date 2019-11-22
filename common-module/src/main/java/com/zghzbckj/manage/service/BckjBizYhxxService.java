@@ -1006,8 +1006,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             dicMap.put("type",70000);
             dicMap.put("createTime",new Date());
             this.dao.saveDic(dicMap);
-            AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx02", AccessToken.class);
-            String path = WeixinUtils.getXcxMa(dicMap.get("owid").toString(), accessToken.getToken());
+            AccessTokenInit.init();
+            AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx38a4e3d339a16b98", AccessToken.class);
+            System.out.println(accessToken.getToken());
+            String path = WeixinUtils.getXcxMa(dicMap.get("owid").toString(), accessToken.getToken(),"pages/openDay/openDay");
             map.put("dicVal6",path);
             map.put("dicRefOwid",dicMap.get("owid"));
             map.put("owid",IdGen.uuid());
