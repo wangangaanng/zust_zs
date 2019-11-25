@@ -285,10 +285,13 @@ public class DemoController {
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
 
         Map map= (Map) result.getBean();
-        Map map1= (Map) map.get("qyxx");
-        map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
-        map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
-        map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        if(!TextUtils.isEmpty(map.get("qyxx"))){
+            Map map1= (Map) map.get("qyxx");
+            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        }
+
         view.addObject("result",map);
 
 //        content.put("memo", MapUtils.getString(content,"memo").replace("\n",CommonConstant.EMPTY_STR));
@@ -307,10 +310,12 @@ public class DemoController {
         view.addObject("qybz",qybz);
 
         Map map= (Map) result.getBean();
-        Map map1= (Map) map.get("qyxx");
-        map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
-        map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
-        map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        if(!TextUtils.isEmpty(map.get("qyxx"))){
+            Map map1= (Map) map.get("qyxx");
+            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        }
         view.addObject("result",map);
 
         return view;
@@ -326,10 +331,12 @@ public class DemoController {
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
 
         Map map= (Map) result.getBean();
-        Map map1= (Map) map.get("qyxx");
-        map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
-        map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
-        map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        if(!TextUtils.isEmpty(map.get("qyxx"))){
+            Map map1= (Map) map.get("qyxx");
+            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        }
         view.addObject("result",map);
         view.addObject("zw",zw);
         return view;
@@ -563,10 +570,12 @@ public class DemoController {
             ResponseMessage jobDetail  = UnionHttpUtils.doPosts(publicData6);
 
             Map map= (Map) jobDetail.getBean();
-            Map map1= (Map) map.get("qyxx");
-            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
-            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
-            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+            if(!TextUtils.isEmpty(map.get("qyxx"))){
+                Map map1= (Map) map.get("qyxx");
+                map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+                map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+                map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+            }
             view.addObject("jobDetail",map);
 
             return view;
@@ -657,10 +666,12 @@ public class DemoController {
                 ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
 
                 Map map= (Map) result.getBean();
-                Map map1= (Map) map.get("qyxx");
-                map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
-                map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
-                map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+                if(!TextUtils.isEmpty(map.get("qyxx"))){
+                    Map map1= (Map) map.get("qyxx");
+                    map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+                    map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+                    map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+                }
                 view.addObject("oneJob",map);
 
             }
