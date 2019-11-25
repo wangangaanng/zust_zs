@@ -19,7 +19,7 @@ public class CustomList implements ComponentInitSer {
     public final String LNTJ_URL_CUSTOM = "web/zustzs/bckjBizLntj/getCustomList";
     public final String Xch_BaoMing_URL = "web/zustzs/bckjBizZsjh/getCustomDicList";
     public final String LQXS_URL="web/zustzs/bckjBizLqxs/getCustomList";
-    public final String QDLIST_URL="web/bckjBizYhxx/getCustomList";
+    public final String QDLIST_URL="web/zustcommon/bckjBizYhxx/getCustomList";
     @Override
     public void doAction(BaseWindow baseWindow, Component component, PageControlVO pageControlVO) {
         Map<String, Object> parentArgs = baseWindow.getParentArgs();
@@ -127,18 +127,54 @@ public class CustomList implements ComponentInitSer {
         if(pageCA.indexOf("xjhqiaodaotongji")!=-1) {
             if (pageControlVO.getKjAttribute().equals("xszy")) {
                 sendMap.put("key", "xszy");
+                sendMap.put("zwlx",4);
+                responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
+            }
+        } else if(pageCA.indexOf("zlzwqiaodaotongji")!=-1) {
+            if (pageControlVO.getKjAttribute().equals("xszy")) {
+                sendMap.put("key", "xszy");
+                sendMap.put("zwlx",3);
+                responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
+            }
+        } else if(pageCA.indexOf("zjxjhqiaodaotongji")!=-1) {
+            if (pageControlVO.getKjAttribute().equals("xszy")) {
+                sendMap.put("key", "xszy");
                 sendMap.put("zwlx",8);
                 responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
             }
         }
-        if (pageCA.indexOf("zlzwqiaodaotongji")!=-1) {
+        if (pageCA.indexOf("xjhqiaodaotongji")!=-1) {
+            if (pageControlVO.getKjAttribute().equals("xsxy")) {
+                sendMap.put("key", "xsxy");
+                sendMap.put("zwlx",4);
+                responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
+            }
+        }else  if (pageCA.indexOf("zlzwqiaodaotongji")!=-1) {
+            if (pageControlVO.getKjAttribute().equals("xsxy")) {
+                sendMap.put("key", "xsxy");
+                sendMap.put("zwlx",3);
+                responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
+            }
+        }else  if (pageCA.indexOf("zjxjhqiaodaotongji")!=-1) {
             if (pageControlVO.getKjAttribute().equals("xsxy")) {
                 sendMap.put("key", "xsxy");
                 sendMap.put("zwlx",8);
                 responseMessage = JsonPostUtils.executeAPI(sendMap, QDLIST_URL);
             }
         }
-        if(pageCA.indexOf("zjxjhqiaodaotongji")!=-1){
+        if(pageCA.indexOf("xjhqiaodaotongji")!=-1){
+            if(pageControlVO.getKjAttribute().equals("xsbj")){
+                sendMap.put("key", "xsbj");
+                sendMap.put("zwlx",4);
+                responseMessage= JsonPostUtils.executeAPI(sendMap,QDLIST_URL);
+            }
+        }else if(pageCA.indexOf("zlzwqiaodaotongji")!=-1){
+            if(pageControlVO.getKjAttribute().equals("xsbj")){
+                sendMap.put("key", "xsbj");
+                sendMap.put("zwlx",3);
+                responseMessage= JsonPostUtils.executeAPI(sendMap,QDLIST_URL);
+            }
+        }else if(pageCA.indexOf("zjxjhqiaodaotongji")!=-1){
             if(pageControlVO.getKjAttribute().equals("xsbj")){
                 sendMap.put("key", "xsbj");
                 sendMap.put("zwlx",8);

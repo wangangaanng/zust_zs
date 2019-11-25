@@ -18,9 +18,9 @@ public class CommonModuleContant {
     public static final String SWTYFILEPATH = "swytFiles";
     //文件名
     //线上
-    public static final String ZSFILEPATH = "/mnt/zjcFiles/zsFiles";
+    public static final String ZSFILEPATH = "/mnt/files/zjcFiles/zsFiles";
     //本地
-   /* public static final String ZSFILEPATH = "F:\\zsFiles";*/
+    /*public static final String ZSFILEPATH = "F:\\zsFiles";*/
     //字体文件
     public static final String FONTS_TTF = "/swytFiles/fonts";
     public static final String SPILE_DOUHAO = ",";

@@ -60,8 +60,13 @@ public class SaveActionCust implements ComponentListinerSer{
                     }
                 }
                 Map<String, Object> map = mapList.get(0);
-
-                ppt.put("keyJob",map.get("xb").toString().substring(map.get("xb").toString().indexOf(":")+1));
+                String pageCA = window.getPageCA();
+                if (pageCA.indexOf("web/zhaoshengxuanchuanbaoming2detail.do")!=-1){
+                    ppt.put("fatherOwid",map.get("dicVal2"));
+                }
+                if(pageCA.indexOf("web/baomingxiangqingdetail.do")!=-1){
+                    ppt.put("keyJob",map.get("xb"));
+                }
                 ResponseMessage message = JsonPostUtils.executeAPI(ppt, _params.get("url").toString());
                 if (null == message) {
                     AlterDialog.alert("操作失败");

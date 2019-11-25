@@ -888,10 +888,10 @@
 		DELETE FROM BCKJ_BIZ_YHXX WHERE OWID=#{owid}
 	</delete>
 
-	<select id="getZsBySjh" resultType="BckjBizYhxx" parameterType="String">
+	<select id="getZsBySjh" resultType="BckjBizYhxx" parameterType="Map">
 		SELECT <include refid="bckjBizYhxxColumns"></include>
 		FROM bckj_biz_yhxx a
-		WHERE a.yhlx=4 and a.sjh=#{value }
+		WHERE a.yhlx=4 and a.sjh=#{sjh } and a.exp10=#{owid}
 
 	</select>
 
@@ -901,14 +901,14 @@
 		FROM bckj_biz_yhxx a
 		<where>
 			a.yhlx=4
+			<if test="owid!=null and owid!=''">
+				and exp10=#{owid}
+			</if>
 			<if test="sjh!=null and sjh!=''">
 				and a.sjh=#{sjh}
 			</if>
 			<if test="qxzy!=null and qxzy!=''">
 				and a.qxzy like concat('%',#{qxzy,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
-			</if>
-			<if test="exp10!=null and exp10!=''">
-				and a.exp10 = #{exp10}
 			</if>
 			<if test="exp8!=null and exp8!=''">
 				and a.exp8=#{exp8}
@@ -922,6 +922,7 @@
 		 ,b.dic_val7 as dicVal7 ,b.dic_val8 as dicVal8
 		 from ourway_sys_dic a ,ourway_sys_dic_value b
 		where a.owid =b.dic_ref_owid and a.type =70000
+		order by b.dic_val2 desc
 	</select>
 
 	<update id="updateDlzh" parameterType="Map">
@@ -984,6 +985,10 @@
 
 	<update id="updateDicByMap" parameterType="Map">
 		UPDATE OURWAY_SYS_DIC_VALUE SET DIC_VAL5=#{dicVal5}
+		WHERE dic_ref_owid=#{owid}
+	</update>
+	<update id="updateDicByMap2" parameterType="Map">
+		UPDATE OURWAY_SYS_DIC_VALUE SET DIC_VAL8=#{dicVal8}
 		WHERE dic_ref_owid=#{owid}
 	</update>
 
@@ -1083,9 +1088,9 @@
 
 
 	<insert id="saveDic" parameterType="Map">
-		<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
+		<!--<selectKey resultType="java.lang.Long" keyProperty="owid" order="AFTER">
 			select LAST_INSERT_ID()
-		</selectKey>
+		</selectKey>-->
 		insert into ourway_sys_dic(owid,type,createtime)values(#{owid},#{type},#{createTime})
 	</insert>
 
@@ -1129,4 +1134,18 @@
 			#{createTime}
 			)
 	</insert>
+
+	<select id="getWeiXinYhList" parameterType="Map" resultType="Map">
+		SELECT a.xm as ksxm ,a.sjh as kssjh ,a.unionid,a.prov ,a.city,a.area,b.openid from bckj_biz_yhxx a ,bckj_biz_yhgl b
+		WHERE b.yh_ref_owid =a.owid
+	</select>
+
+
+	<select id="getDicMaxOwid" resultType="Integer">
+		SELECT MAX(owid) FROM `ourway_sys_dic`
+	</select>
+
+	<select id="getOneByDicVal1"  parameterType="String">
+		SELECT a.dic_val1 as dicVal1 FROM OURWAY_SYS_DIC_VALUE  a ,ourway_sys_dic b WHERE a.dic_ref_owid =b.owid and b.type=#{type}
+	</select>
 </mapper>
