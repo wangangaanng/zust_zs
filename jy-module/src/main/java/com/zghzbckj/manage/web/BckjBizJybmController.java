@@ -44,6 +44,7 @@ public class BckjBizJybmController extends BaseController {
     private BckjBizJybmService bckjBizJybmService;
     private static Map<String, Object> map = new HashMap<>();
 
+
     @RequestMapping(value = "/setOwid")
     @ResponseBody
     public void setOwid(PublicDataVO dataVO) {

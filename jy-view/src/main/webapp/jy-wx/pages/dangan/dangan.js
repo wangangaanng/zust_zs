@@ -86,7 +86,12 @@ Page({
           if (res.data.bean.bdjssj) {
             res.data.bean.bdjssj = res.data.bean.bdjssj.substr(0, 10)
           }
-          
+          if (res.data.bean.datddh) {
+            res.data.bean.datddh = common.base64Decode(res.data.bean.datddh)
+          }
+          if (res.data.bean.dwdh) {
+            res.data.bean.dwdh = common.base64Decode(res.data.bean.dwdh)
+          }
           that.setData({
             isSearch: true,
             // mzName:mzName,

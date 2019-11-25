@@ -10,6 +10,7 @@ import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CustomerException;
@@ -20,6 +21,7 @@ import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.vo.BckjBizYhxxVo;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.cache.RedisCache;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -80,8 +82,10 @@ public class BckjBizYhxxController extends BaseController {
     @ResponseBody
     public ResponseMessage getZsList(PublicDataVO dataVO){
         try {
+            String sessionId = dataVO.getSessionId();
+            String owid = CacheUtil.getVal(sessionId);
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
-            return ResponseMessage.sendOK(bckjBizYhxxService.getZsList(filters, dataVO.getPageNo(), dataVO.getPageSize()));
+            return ResponseMessage.sendOK(bckjBizYhxxService.getZsList(owid,filters, dataVO.getPageNo(), dataVO.getPageSize()));
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE,e);
@@ -110,6 +114,37 @@ public class BckjBizYhxxController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
         }
     }
+    @PostMapping(value = "deleteListZsxcRy")
+    @ResponseBody
+    public ResponseMessage deleteListZsxcRy(PublicDataVO dataVO){
+        try {
+            if (TextUtils.isEmpty(dataVO.getData())) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_NOPARAMS);
+            }
+
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+            Integer size = list.size();
+            List<String> codes = new ArrayList<String>(list.size());
+            String exp2 = ((Map<String, Object>) list.get(0)).get("exp2").toString();
+
+            for (Object obj : list) {
+                codes.add(((Map<String, Object>) obj).get("owid").toString());
+            }
+            Map<String, Object> oneDicByOwid = bckjBizYhxxService.getOneDicByOwid(exp2);
+            String dicVal5 = oneDicByOwid.get("dicVal5").toString();
+            int i = Integer.parseInt(dicVal5) - size;
+            oneDicByOwid.put("dicVal5",i+"");
+            bckjBizYhxxService.saveOrUpdateDic(oneDicByOwid,70003);
+
+            ResponseMessage data = bckjBizYhxxService.removeOrder(codes);
+            return data;
+        } catch (Exception e) {
+            log.error(e + "删除BckjBizYhkz列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+
 
     @RequestMapping(value = "saveInfo", method = RequestMethod.POST)
     @ResponseBody
@@ -548,7 +583,7 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage sendYzm(@PathVariable("type") String type, PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh");
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "sjh","owid");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
@@ -694,7 +729,7 @@ public class BckjBizYhxxController extends BaseController {
             Map<String, Object> map = JsonUtil.jsonToMap(dataVO.getData());
             BckjBizYhxx bckjBizYhxx = BckjBizYhxx.class.newInstance();
             bckjBizYhxx.setYhlx(5);
-            bckjBizYhxx.setExp2(map.get("keyJob").toString());
+            bckjBizYhxx.setExp2(map.get("keyJob").toString().substring(map.get("keyJob").toString().indexOf(":")+1));
             Map<String, Object> dicMap = bckjBizYhxxService.getOneDicByOwid(bckjBizYhxx.getExp2());
             Integer dicVal5 = MapUtils.getInt(dicMap, "dicVal5");
             Integer dicVal4 = MapUtils.getInt(dicMap, "dicVal4");
@@ -704,7 +739,7 @@ public class BckjBizYhxxController extends BaseController {
             dicVal5=dicVal5+1;
             dicMap.put("dicVal5",dicVal5.toString());
             map.remove("owid");
-            dicMap.put("owid",map.get("keyJob"));
+            dicMap.put("owid",map.get("keyJob").toString().substring(map.get("keyJob").toString().indexOf(":")+1));
             bckjBizYhxxService.updateDicByMap(dicMap);
             MapUtil.easySetByMap(map,bckjBizYhxx);
             bckjBizYhxxService.saveOrUpdate(bckjBizYhxx);
@@ -776,7 +811,7 @@ public class BckjBizYhxxController extends BaseController {
     }
 
     /**
-     * 后台删除开放日
+     * 后台删除开放日 宣讲会
      * @param dataVO
      * @return
      */
@@ -785,12 +820,14 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage deleteKaiInfo(PublicDataVO dataVO){
         try {
             List<Object> list =  JsonUtil.jsonToList(dataVO.getData());
+            List<Map> owids= Lists.newArrayList();
             if (!com.zghzbckj.util.TextUtils.isEmpty(list)&&list.size()>0){
                 for (Object o:list){
                     bckjBizYhxxService.deleteDicByOwid(((Map)o).get("owid").toString());
+                    owids.add(((Map)o));
                 }
             }
-            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+            return ResponseMessage.sendOK(owids);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE, e);
@@ -808,14 +845,43 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage getOneKaiFangInfo(PublicDataVO dataVO){
             try {
                 Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                String sessionId = dataVO.getSessionId();
+               /* if(TextUtils.isEmpty(dataMap.get("owid"))){
+                   String owid= this.bckjBizYhxxService.getDicMaxOwid();
+                   dataMap.put("owid",owid);
+                }*/
+                com.zghzbckj.base.util.CacheUtil.setVal(sessionId,dataMap.get("owid"));
                 return ResponseMessage.sendOK(bckjBizYhxxService.getOneDicByOwid(dataMap.get("owid").toString()));
             }
             catch (Exception e){
                 log.error(CommonConstant.ERROR_MESSAGE, e);
                 return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
             }
-
     }
+
+
+
+    /**
+     * 后台展示微信关联用户list
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("getWeiXinYhList")
+    @ResponseBody
+    public ResponseMessage getWeiXinYhList(PublicDataVO dataVO){
+        try {
+            /*String sessionId = dataVO.getSessionId();
+            String owid = CacheUtil.getVal((sessionId));*/
+            return ResponseMessage.sendOK(bckjBizYhxxService.getWeiXinYhList(dataVO.getPageNo(), dataVO.getPageSize()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
 
     /**
      * 后台保存开放入
@@ -827,13 +893,53 @@ public class BckjBizYhxxController extends BaseController {
     public ResponseMessage saveKaiFangInfo(PublicDataVO dataVO){
         try {
             Map<String, Object> map = JsonUtil.jsonToMap(dataVO.getData());
-            return ResponseMessage.sendOK("");
+                String sessionId=dataVO.getSessionId();
+                map.put("sessionId",sessionId);
+                return bckjBizYhxxService.saveOrUpdateDic(map,70000);
         }
         catch (Exception e){
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+    /**
+     * 后台获得一个招生宣传详情
+     * @return
+     */
+    @PostMapping("getOneZsxcInfo")
+    @ResponseBody
+    public ResponseMessage getOneZsxcInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+           return ResponseMessage.sendOK( bckjBizYhxxService.getOneDicByOwid(dataMap.get("owid").toString()));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 后台保存招生宣传
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("saveZsxcInfo")
+    @ResponseBody
+    public ResponseMessage saveZsxcInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            bckjBizYhxxService.saveOrUpdateDic(dataMap,70003);
+            return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+
+    }
+
 
 
 

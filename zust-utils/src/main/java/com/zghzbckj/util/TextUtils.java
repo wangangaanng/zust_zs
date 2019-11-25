@@ -220,13 +220,13 @@ public class TextUtils {
 
 
     /***
-     *<p>方法:toGBK TODO中文转GBK内码</p>
-     *<ul>
-     *<li> @param source TODO</li>
-     *<li>@return java.lang.String  </li>
-     *<li>@author D.cehn.g </li>
-     *<li>@date 2018/2/6 15:45  </li>
-     *</ul>
+     * <p>方法:toGBK TODO中文转GBK内码</p>
+     * <ul>
+     * <li> @param source TODO</li>
+     * <li>@return java.lang.String  </li>
+     * <li>@author D.cehn.g </li>
+     * <li>@date 2018/2/6 15:45  </li>
+     * </ul>
      */
     public static String toGBK(String source) throws UnsupportedEncodingException {
         StringBuilder sb = new StringBuilder();
@@ -276,8 +276,11 @@ public class TextUtils {
 
 
     public static String base64Code(String text) throws Exception {
-         byte[] textByte = text.getBytes(CommonConstants.CHARSET_UTF_8);
+        if (TextUtils.isEmpty(text)) {
+            text = CommonConstants.EMPTY_STR;
+        }
+        byte[] textByte = text.getBytes(CommonConstants.CHARSET_UTF_8);
         final String encodedText = encoder.encodeToString(textByte);
-       return encodedText;
+        return encodedText;
     }
 }

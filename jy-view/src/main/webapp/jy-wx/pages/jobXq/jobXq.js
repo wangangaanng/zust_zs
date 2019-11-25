@@ -459,6 +459,17 @@ var getOneJob = function (that, owid) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
+        if(data.bean.qyxx){
+          if (data.bean.qyxx.qyLxrdh) {
+            data.bean.qyxx.qyLxrdh = common.base64Decode(data.bean.qyxx.qyLxrdh)
+          }
+          if (data.bean.qyxx.qylxfs) {
+            data.bean.qyxx.qylxfs = common.base64Decode(data.bean.qyxx.qylxfs)
+          }
+          if (data.bean.qyxx.qyYx) {
+            data.bean.qyxx.qyYx = common.base64Decode(data.bean.qyxx.qyYx)
+          }
+        }
         that.setData({
           form: data.bean,
           area: `${data.bean.zwPro}-${data.bean.zwCity}-${data.bean.zwArea}`,

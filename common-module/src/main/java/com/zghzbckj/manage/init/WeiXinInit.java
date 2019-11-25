@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Order(1)
 @Component
 public class WeiXinInit implements CommandLineRunner {
-    private static final Logger logger = LoggerFactory.getLogger(ApplicationStartup.class);
+    private static final Logger logger = LoggerFactory.getLogger(WeiXinInit.class);
     @Override
     public void run(String... args) throws Exception {
         logger.info("系统参数初始化中....");

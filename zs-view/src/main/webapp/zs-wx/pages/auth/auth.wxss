@@ -1,6 +1,5 @@
 /* pages/auth/auth.wxss */
 .login-btn{margin: 100rpx 30rpx;background: #008783;color: #fff;}
-
 .ellipse{
   width: 120%;
   margin-left: -10%;
@@ -53,3 +52,10 @@
   margin-top: 20rpx;
   font-size: 38rpx;
 }
+
+.modal{width: 100%;height: 100%;background: rgba(0, 0, 0, .7);position: fixed;left: 0;top: 0;z-index: 999999990;}
+.modal-title{width: 100%;text-align:center;padding: 20rpx 0;}
+.modal-content{
+  width: 84%;background-color: #fff;position: fixed;left: 8%;top: 150rpx;z-index: 999999999;border-radius: 5rpx;
+}
+.modal-content textarea{width: 95%;height: 320rpx;padding: 20rpx;}

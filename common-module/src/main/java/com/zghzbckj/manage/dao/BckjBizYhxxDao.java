@@ -79,7 +79,7 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
 
     Map<String,Object> logInByteach(Map<String, Object> datamap);
 
-    BckjBizYhxx getZsBySjh(String sjh);
+    BckjBizYhxx getZsBySjh(Map<String,Object> dataMap);
 
     List<BckjBizYhxx> getZsList(Map<String, Object> dataMap);
 
@@ -110,5 +110,19 @@ public interface BckjBizYhxxDao extends CrudDao<BckjBizYhxx> {
     List<Map> getXchBaoMingList(Map<String, Object> dataMap);
 
     void deleteDicByOwid(String owid);
+
+    void saveDic(Map<String, Object> map);
+
+    void updateDicVal(Map<String, Object> map);
+
+    void saveDicVal(Map<String, Object> map);
+
+    List<Map> getWeiXinYhList(Map<Object, Object> dataMap);
+
+    int getDicMaxOwid();
+
+    String getOneByDicVal1(String dicVal1,int type);
+
+    void updateDicByMap2(Map<String, Object> dicMap);
 }
 

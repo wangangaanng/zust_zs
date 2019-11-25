@@ -328,11 +328,11 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         Page<Map<String,Object>> page=new Page<>(pageNo,pageSize);
         dataMap.put("page",page);
         List<Map<String, Object>> dicListMap = this.dao.getDicListMap(dataMap);
-        for(Map<String,Object> map:dicListMap){
+       /* for(Map<String,Object> map:dicListMap){
             if(TextUtils.isEmpty(map.get("dicVal5"))){
                 map.put("dicVal5","0");
             }
-        }
+        }*/
         for (Map map:dicListMap){
             map.put("state","1");
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -343,6 +343,11 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
                 map.put("state","2");
             }
         }
+        Map<String, Object> tjMap = Maps.newHashMap();
+        tjMap.put("dicVal1","共有"+page.getCount()+"数据");
+        tjMap.put("dicVal2",dataMap.get("owid"));
+        tjMap.put("readOnly",true);
+        dicListMap.add(0,tjMap);
         page.setList(this.dao.getDicListMap(dataMap));
          return PageUtils.assimblePageInfo(page);
     }
@@ -383,4 +388,6 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         }
         return  strList;
     }
+
+
 }

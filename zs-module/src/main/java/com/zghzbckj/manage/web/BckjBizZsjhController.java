@@ -9,6 +9,7 @@ import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.service.BckjBizZsjhService;
@@ -261,8 +262,11 @@ public class BckjBizZsjhController extends BaseController {
     @ResponseBody
     public ResponseMessage getPropaganda(PublicDataVO dataVO){
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
-            return ResponseMessage.sendOK(bckjBizZsjhService.getPropaganda(dataMap, MapUtils.getInt(dataMap,"pageNo"),MapUtils.getInt(dataMap,"pageSize")));
+            /*Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());*/
+            List<FilterModel> filterModels = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            Map<String, Object> dataMap = FilterModel.doHandleMap(filterModels);
+          /*  String owid = CacheUtil.getVal(dataVO.getSessionId());*/
+            return ResponseMessage.sendOK(bckjBizZsjhService.getPropaganda(dataMap,dataVO.getPageNo(),dataVO.getPageSize()));
 
         }
         catch (Exception e){
@@ -270,6 +274,17 @@ public class BckjBizZsjhController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * 展示宣传会list

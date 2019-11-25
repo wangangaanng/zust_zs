@@ -9,6 +9,8 @@ import com.ourway.base.utils.DateUtil;
 import com.ourway.base.utils.JackSonJsonUtils;
 import com.ourway.base.utils.JsonUtil;
 import com.ourway.base.utils.TextUtils;
+import com.ourway.base.zk.ZKConstants;
+import com.zghzbckj.base.config.Global;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.common.CommonModuleContant;
@@ -19,7 +21,14 @@ import com.zghzbckj.wechat.WechatConstants;
 import com.zghzbckj.wechat.model.*;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.codec.binary.Base64;
 import org.apache.log4j.Logger;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 
 import javax.net.ssl.HttpsURLConnection;
@@ -30,6 +39,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -537,6 +547,77 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
             return null;
         }
     }
+
+
+    /**
+     * 生成小程序码
+     * @param  owid
+     * @param accessToken
+     * @param pageName
+     */
+    public static String getXcxMa(String owid,String accessToken,String pageName){
+        String timeStamp="";
+        timeStamp=owid;
+        if(owid.length()>15){
+             timeStamp = owid.substring(0, 14);
+        }
+        String picName = DateUtil.getTimeStamp() + ".png";
+        try {
+            getminiqrQr(timeStamp,accessToken,picName,pageName);
+        }catch (Exception e){
+            log.error("调用微信小程序生成接口出错");
+        }
+        return  "/zsFiles/"+picName;
+
+    }
+
+    /**
+     * 生成小程序码
+     */
+    public static String getminiqrQr(String sceneStr, String accessToken, String picName,String pageName) throws IOException {
+        log.info("======生成微信小程序码开始=====");
+        long nowTime = System.currentTimeMillis();
+        //二维码图片
+        URL getCodeUrl = new URL("https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + accessToken);
+        HttpURLConnection httpURLConnection = (HttpURLConnection) getCodeUrl.openConnection();
+        httpURLConnection.setRequestMethod("POST");// 提交模式
+        httpURLConnection.setDoOutput(true);
+        httpURLConnection.setDoInput(true);
+        PrintWriter printWriter = new PrintWriter(httpURLConnection.getOutputStream());
+        JSONObject paramJson = new JSONObject();
+        //在上线之前测试的版本中，页面不能跳转，跳转页面的参数名定义为path，可在模拟器上进行测试
+        //paramJson.accumulate("scene", qrCreateBean.getSerialNo()).accumulate("path", "pages/goods/goods");
+        //上线后，跳转页面的参数需定义为page，否则会找不到跳转页面
+        paramJson.accumulate("scene", sceneStr).accumulate("page", pageName);
+        paramJson.put("auto_color", false);
+        JSONObject lineColor = new JSONObject();
+        lineColor.put("r", 0);
+        lineColor.put("g", 0);
+        lineColor.put("b", 0);
+        paramJson.put("line_color", lineColor);
+        printWriter.write(paramJson.toString());
+        printWriter.flush();
+        String contentType = httpURLConnection.getContentType();
+        if (contentType.contains("json")) {
+            log.info("调用微信小程序生成接口出错,token失效");
+            return "1";
+        } else {
+            BufferedInputStream bis = new BufferedInputStream(httpURLConnection.getInputStream());
+            //小程序码图片写出存储的路径
+            File file = new File(CommonModuleContant.ZSFILEPATH + "/" + picName);
+            OutputStream ost = new FileOutputStream(file);
+            int len;
+            byte[] arr = new byte[1024];
+            while ((len = bis.read(arr)) != -1) {
+                ost.write(arr, 0, len);
+                ost.flush();
+            }
+            ost.close();
+            log.info("========生成微信小程序码结束===========");
+        }
+        return "";
+    }
+
 
     /**
      * <p>方法:doCreateTempQRCODE 传入有效期和参数，生成临时微信二维码 </p>

@@ -324,7 +324,7 @@
 	<select id="getDicListMap" resultType="Map">
 		SELECT a.owid as owid , b.dic_val1 as dicVal1 ,b.dic_val2 as dicVal2,b.dic_val3 as dicVal3,b.dic_val4 as dicVal4,b.dic_val5 as dicVal5
 		FROM  ourway_sys_dic a, ourway_sys_dic_value b
-		WHERE a.owid=b.dic_ref_owid and a.type=70003
+		WHERE a.owid=b.dic_ref_owid and a.type=70003 and b.dic_val6=#{owid}
 	</select>
 
 	<select id="getCustomDicListXsxy" parameterType="Map" resultType="String">
