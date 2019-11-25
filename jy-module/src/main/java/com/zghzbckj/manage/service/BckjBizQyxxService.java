@@ -174,15 +174,15 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
     }
 
 
-    public static void main(String[] args) {
-        String str = "91330108586547926H- (1/1)";
-        String a = "9133010877T3580641H";
-
-        System.out.println(a.length());
-        if (str.length() > 18) {
-            System.out.println(str.substring(0, 18));
-        }
-    }
+//    public static void main(String[] args) {
+//        String str = "91330108586547926H- (1/1)";
+//        String a = "9133010877T3580641H";
+//
+//        System.out.println(a.length());
+//        if (str.length() > 18) {
+//            System.out.println(str.substring(0, 18));
+//        }
+//    }
 
 
     @Transactional(readOnly = false)
@@ -302,7 +302,7 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
         return resultMap;
     }
 
-    public BckjBizQyxx getOneCompany(String owid) {
+    public BckjBizQyxx getOneCompany(String owid) throws Exception {
         BckjBizQyxx qyxx = get(owid);
         Map params = new HashMap<>(2);
         if (!TextUtils.isEmpty(qyxx.getQyGsgm())) {
@@ -323,6 +323,11 @@ public class BckjBizQyxxService extends CrudService<BckjBizQyxxDao, BckjBizQyxx>
             String gsxzStr = qyxxDao.queryDic(params);
             qyxx.setQyGsxzStr(gsxzStr);
         }
+        //BASE64加密
+        qyxx.setQyLxrdh(TextUtils.base64Code(qyxx.getQyLxrdh()));
+        qyxx.setQyFrsfz(TextUtils.base64Code(qyxx.getQyFrsfz()));
+        qyxx.setQylxfs(TextUtils.base64Code(qyxx.getQylxfs()));
+        qyxx.setQyYx(TextUtils.base64Code(qyxx.getQyYx()));
         return qyxx;
     }
 

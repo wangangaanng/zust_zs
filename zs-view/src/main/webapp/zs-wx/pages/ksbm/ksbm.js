@@ -31,7 +31,7 @@ Page({
     list:[],
     rq:''
   },
-  yy(e){
+  yy1(e){
     this.setData({
       modal1: true,
       rq: e.currentTarget.dataset.rq
@@ -279,18 +279,24 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!wx.getStorageSync('unionid')) {
-      this.setData({
-        isauthorize: true,
-      })
-    } else {
-      this.setData({
-        isauthorize: false,
-      })
-    }
+
+    getShowCaOpDayDate(this)
+    // if (!wx.getStorageSync('unionid')) {
+    //   this.setData({
+    //     isauthorize: true,
+    //   })
+    // } else {
+    //   this.setData({
+    //     isauthorize: false,
+    //   })
+    // }
 
   },
-
+  yy(e){
+    wx.navigateTo({
+      url: '../openDay/openDay?owid=' + e.currentTarget.dataset.owid,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -393,21 +399,24 @@ var djs1 = function (that) {
 }
 
 var getShowCaOpDayDate = function (that) {
+  that.setData({
+    list: []
+  })
   var data = {};
   common.ajax('zustcommon/bckjBizYhxx/getShowCaOpDayDate', data, function (res) {
     if (res.data.backCode == 0) {
       var arr=[];
       if(res.data.bean && res.data.bean.length>0){
-        for (var i = 0; i < res.data.bean.length;i++){
-          for (var k in res.data.bean[i]){
-            var obj={}
-            obj.name=k;
-            obj.rq = res.data.bean[i][k]
-            arr.push(obj)
-          }
-        }
+        // for (var i = 0; i < res.data.bean.length;i++){
+        //   for (var k in res.data.bean[i]){
+        //     var obj={}
+        //     obj.name=k;
+        //     obj.rq = res.data.bean[i][k]
+        //     arr.push(obj)
+        //   }
+        // }
         that.setData({
-          list: arr,
+          list: res.data.bean,
           hidden1:'none'
         })
       }else{

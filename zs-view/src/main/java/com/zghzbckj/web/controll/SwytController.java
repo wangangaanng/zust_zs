@@ -80,7 +80,7 @@ public class SwytController {
            PublicData _data2 = UnionHttpUtils.manageParam(param2, "zustswyt/bckjBizBm/getResult");
            ResponseMessage resultMess2 = UnionHttpUtils.doPosts(_data2);
            if(!StringUtils.isEmpty(resultMess2.getBean())) {
-               String beanStr=MD5Util.base64Code(resultMess2.getBean().toString());
+               String beanStr=MD5Util.base64DeCode(resultMess2.getBean().toString());
                Map<String, Object> records2 = JsonUtil.jsonToMap(beanStr);
                view.addObject("bmbZp",records2.get("bmbZp"));//报名表签字zp
                view.addObject("cnszp",records2.get("cnszp"));//承诺书签字zp
@@ -107,7 +107,7 @@ public class SwytController {
            PublicData _data5 = UnionHttpUtils.manageParam(param, "zustswyt/bckjBizJbxx/getInfo");
            resultMess5 = UnionHttpUtils.doPosts(_data5);
            if(!StringUtils.isEmpty(resultMess5.getBean())) {
-               String beanStr=MD5Util.base64Code(resultMess5.getBean().toString());
+               String beanStr=MD5Util.base64DeCode(resultMess5.getBean().toString());
                Map<String, Object> records5 = JsonUtil.jsonToMap(beanStr);
                view.addObject("nameStu",records5.get("xm"));//姓名
            }

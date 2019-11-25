@@ -118,6 +118,9 @@
 			<if test="lqzy!=null and lqzy!=''">
 				AND a.lqzy = #{lqzy}
 			</if>
+			<if test="xm!=null and xm!=''">
+				AND a.xm=#{xm}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">

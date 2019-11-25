@@ -12,8 +12,8 @@ import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.service.CrudService;
+import com.zghzbckj.base.util.CacheUtil;
 import com.zghzbckj.base.util.IdGen;
-import com.zghzbckj.base.util.PageUtil;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.common.CommonModuleContant;
 import com.zghzbckj.common.CustomerException;
@@ -23,9 +23,12 @@ import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.manage.utils.MessageUtil;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
+import com.zghzbckj.wechat.WechatConstants;
+import com.zghzbckj.wechat.model.AccessToken;
 import com.zghzbckj.wechat.model.WxXcxUserModel;
+import com.zghzbckj.wechat.service.AccessTokenInit;
+import com.zghzbckj.wechat.utils.WeixinUtils;
 import org.apache.log4j.Logger;
-import org.bouncycastle.asn1.icao.DataGroupHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +36,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import static com.alibaba.druid.support.monitor.annotation.AggregateType.Sum;
 
 
 /**
@@ -673,10 +674,10 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         dicVal8=dicVal8+1;
         dicMap.put("dicVal8", dicVal8);
         dicMap.put("owid",dataMap.get("owid"));
-        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
+        /*if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
-        }
-        BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        }*/
+        BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap);
         if (!TextUtils.isEmpty(bckjBizYhxx1)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "此手机号已报名!");
         }
@@ -709,6 +710,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             bckjBizYhxx.setDlzhsj(new Date());
             bckjBizYhxx.setOwid(IdGen.uuid());
             bckjBizYhgl.setYhRefOwid(bckjBizYhxx.getOwid());
+            bckjBizYhgl.setOwid("");
             bckjBizYhglService.saveOrUpdate(bckjBizYhgl);
         }
         //设置报名年份
@@ -719,7 +721,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         /*bckjBizYhxx.setExp10("未预约开放日");*/
         bckjBizYhxx.setExp10(dataMap.get("owid").toString());
         this.insert(bckjBizYhxx);
-        this.dao.updateDicByMap(dicMap);
+        this.dao.updateDicByMap2(dicMap);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
@@ -732,7 +734,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public ResponseMessage sendBmYzm(Map<String, Object> dataMap) {
         //生成验证码
         String yzm = CommonService.getRandom();
-        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap);
         if (!TextUtils.isEmpty(bckjBizYhxx)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "此手机号已报名!");
         }
@@ -750,8 +752,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
      *
      * @return
      */
-    public PageInfo<BckjBizYhxx> getZsList(List<FilterModel> filters, Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {
+    public PageInfo<BckjBizYhxx> getZsList(String owid,List<FilterModel> filters, Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        dataMap.put("owid",owid);
         Page<BckjBizYhxx> page = new Page<>(pageNo, pageSize);
         dataMap.put("page", page);
         List<BckjBizYhxx> zsList = this.dao.getZsList(dataMap);
@@ -776,7 +779,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
         }
-        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap);
         if (bckjBizYhxx.getExp10().indexOf("未预约开放日") == -1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "您已预约过开放日，不能再次预约!");
         }
@@ -795,7 +798,7 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public ResponseMessage sendYyYzm(Map<String, Object> dataMap) {
         //生成验证码
         String yzm = CommonService.getRandom();
-        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap.get("sjh").toString());
+        BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap);
         if (TextUtils.isEmpty(bckjBizYhxx)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "未考生报名,不能预约!");
         }
@@ -853,14 +856,14 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     }
 
     @Transactional(readOnly = false)
-    public Map proxyLogin(Map<String, Object> datamap) {
+    public Map proxyLogin(Map<String, Object> datamap) throws Exception {
         Map<String, Object> map = this.dao.logIn(datamap);
         if (!TextUtils.isEmpty(map) && !TextUtils.isEmpty(map.get("owid"))) {
             this.dao.updateDlsj(map.get("owid").toString());
             Map mapRes = Maps.newHashMap();
             mapRes.put("stuOwid", map.get("owid"));
-            mapRes.put("stuSjh", map.get("sjh"));
             mapRes.put("stuXm", map.get("xm"));
+            mapRes.put("stuXh", com.zghzbckj.util.TextUtils.base64Code(map.get("yhDlzh").toString()));
             mapRes.put("userType", 1);
             mapRes.put("yhOwid", map.get("owid"));
             return mapRes;
@@ -998,4 +1001,72 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
     public void deleteDicByOwid(String owid) {
         this.dao.deleteDicByOwid(owid);
     }
+
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveOrUpdateDic(Map<String, Object> map,Integer type) {
+        if(com.zghzbckj.util.TextUtils.isEmpty(map.get("owid"))){
+            Map<String, Object> dicMap = Maps.newHashMap();
+            dicMap.put("type",type);
+            dicMap.put("createTime",new Date());
+            if(type==70000){
+                String owid= getDicMaxOwid();
+                Long aLong = Long.valueOf(owid);
+                dicMap.put("owid",aLong);
+                AccessTokenInit.init();
+                AccessToken accessToken = com.zghzbckj.base.util.CacheUtil.getVal(WechatConstants.WECHAT_REDIS_PREX + "wx38a4e3d339a16b98", AccessToken.class);
+                System.out.println(accessToken.getToken());
+                String path = WeixinUtils.getXcxMa(dicMap.get("owid").toString(), accessToken.getToken(),"pages/openDay/openDay");
+                map.put("dicVal6",path);
+                map.put("dicRefOwid",dicMap.get("owid"));
+                map.put("owid",IdGen.uuid());
+                map.put("createTime",new Date());
+                map.put("dicVal8",0);
+            }
+            if(type==70003){
+                String dicMaxOwid = getDicMaxOwid();
+                int i = Integer.parseInt(dicMaxOwid);
+                dicMap.put("owid",i);
+                map.put("owid",IdGen.uuid());
+                map.put("dicRefOwid",dicMap.get("owid"));
+                map.put("dicVal5",0);
+                map.put("dicVal6",map.get("fatherOwid"));
+                map.put("createTime",new Date());
+            }
+            this.dao.saveDic(dicMap);
+            this.dao.saveDicVal(map);
+        }else {
+            this.dao.updateDicVal(map);
+        }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+
+    /**
+     * 后台展示微信关联用户list
+     * @param owid
+     * @return
+     */
+    public PageInfo<Map> getWeiXinYhList( Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {
+        Map<Object, Object> dataMap = Maps.newHashMap();
+        Page<Map> page = new Page<>(pageNo, pageSize);
+        dataMap.put("page", page);
+        List<Map> zsList = this.dao.getWeiXinYhList(dataMap);
+        page.setList(zsList);
+        HashMap<Object, Object> tjMap = Maps.newHashMap();
+        tjMap.put("ksxm","共有" + page.getCount() + "条");
+        tjMap.put("readOnly",true);
+        zsList.add(0, tjMap);
+        page.setList(zsList);
+        return PageUtils.assimblePageInfo(page);
+    }
+
+    public String getDicMaxOwid() {
+        Integer dicMaxOwid = this.dao.getDicMaxOwid();
+        dicMaxOwid=dicMaxOwid+1;
+        return dicMaxOwid+"";
+
+
+    }
+
 }

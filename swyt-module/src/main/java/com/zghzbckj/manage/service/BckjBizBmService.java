@@ -296,6 +296,11 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         doCheckSubTime(MapUtils.getString(mapData, "xxbh"));
         String bmnd = DateUtil.getCurrentDate(CommonConstant.DATE_FROMART).substring(0, 4);
         mapData.put("bmnd", bmnd);
+        Map param = Maps.newHashMap();
+        param.put("yhRefOwid", MapUtils.getString(mapData,"userRefOwid"));
+        BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(param);
+        mapData.put("sfzh",jbxx.getSfzh());
+        doCheckSameIdCard(mapData);
         BckjBizBm bmParam = JsonUtil.map2Bean(mapData, BckjBizBm.class);
         BckjBizBm bm = this.dao.getOneByMap(mapData);
         if (null == bm) {
@@ -317,14 +322,19 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
         bm.setBkzyRefOwid(Long.valueOf(zy.getOwid()));
         bm.setXzzylj(zy.getPath());
         bm.setXzzymc(zy.getName());
-        Map param = Maps.newHashMap();
-        param.put("yhRefOwid", bm.getUserRefOwid());
-        BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(param);
+
         BeanUtil.copyBean(jbxx, bm, "xm", "sfzh", "xb", "tcah", "qq", "yx", "mz", "wyyz",
                 "wycj", "lxdh", "jtzz", "zxlb", "jssm", "qtqk", "yzmc");
         applyCjxx(bm.getOwid(), param);
         saveOrUpdate(bm);
         return bm.getOwid();
+    }
+
+    private void doCheckSameIdCard(Map<String, Object> mapData) throws CustomerException {
+        BckjBizBm bm=this.dao.getOneBySfz(mapData);
+        if(null!=bm){
+            throw CustomerException.newInstances("一个身份证只能报名一次，请不要重复提交");
+        }
     }
 
     /**

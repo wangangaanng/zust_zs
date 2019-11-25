@@ -20,7 +20,7 @@ Page({
     },
     lx:'',
     lxStr:'请选择',
-    lxColumns: [{ dicVal1: '0', dicVal2: '职位' }, { dicVal1: '3', dicVal2: '职来职往' }, { dicVal1: '4', dicVal2: '宣讲会' }],
+    lxColumns: [ { dicVal1: '3', dicVal2: '职来职往' }, { dicVal1: '4', dicVal2: '宣讲会' }],
   },
   /**
    * 生命周期函数--监听页面加载

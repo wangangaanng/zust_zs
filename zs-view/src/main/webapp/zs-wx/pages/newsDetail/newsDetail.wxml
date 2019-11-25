@@ -11,7 +11,7 @@
 				{{content.ydcs}}
 			</view>
 		</view>
-		<view class="article" wx:if="{{content.wznr}}">
+		<view class="article parsehtml" wx:if="{{content.wznr}}">
 			<import src="../../libs/wxParse/wxParse.wxml"/>
       <template is="wxParse" data="{{wxParseData:template.nodes}}"/>
 		</view>

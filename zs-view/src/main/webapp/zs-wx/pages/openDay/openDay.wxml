@@ -1,63 +1,72 @@
 <!--pages/qyInfo/qyInfo.wxml-->
 
   <view class="cell">
-      <view class="titlebt" wx:if="{{old==1}}"><span class="tag-grey">过期</span>{{result.zwbt}}</view>
-      <view class="titlebt" wx:else>{{result.zwbt}}</view>
-      <view class="article-nav">
-        <view class="article-nav-left">
-          <image class="icon" src="../../static/icon-time.png"></image>
-          {{result.createtime}}
-        </view>
-        <view class="article-nav-right">
-          <image class="icon" src="../../static/icon-eye.png"></image>
-          {{result.zwYds?result.zwYds:0}}
-        </view>
-      </view>
+      <view class="title" >{{result.dicVal1}}</view>
     <view class="content">
       <view class="table">
-          <view class="tr" wx:if="{{result.zphKsrq}}">
-            <view class="td td-name"  style="width:180rpx;">举办时间：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphKsrq}} {{result.zphJtsj}}</view>
+          <view class="tr" wx:if="{{result.dicVal2}}">
+            <view class="td td-name"  style="width:180rpx;">开始时间：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.dicVal2}}</view>
+          </view>
+           <view class="tr" wx:if="{{result.dicVal7}}">
+            <view class="td td-name"  style="width:180rpx;">结束时间：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.dicVal7}}</view>
+          </view>
+          <view class="tr" wx:if="{{result.dicVal3}}">
+            <view class="td td-name"  style="width:180rpx;">活动地点：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.dicVal3}}</view>
+          </view>
+          <view class="tr" wx:if="{{result.dicVal4}}">
+            <view class="td td-name"  style="width:180rpx;">注意事项：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)">报名限额{{result.dicVal4}}人，报满即止。</view>
           </view>
           <view class="tr">
-            <view class="td td-name"  style="width:180rpx;">具体城市：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zwCity}}</view>
-          </view>
-          <view class="tr">
-            <view class="td td-name"  style="width:180rpx;">举办地点：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphJbdd}}</view>
-          </view>
-          <view class="tr" wx:if="{{result.zphBmjzsj}}">
-            <view class="td td-name"  style="width:180rpx;">报名截止：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">{{result.zphBmjzsj}}</view>
-          </view>
-          <view class="tr" wx:if="{{(result.zphSfqd)&&(result.zphSfqd==0)}}">
-            <view class="td td-name"  style="width:180rpx;">是否要签到：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">不需要</view>
-          </view>
-          <view class="tr" wx:if="{{(result.zphSfqd)&&(result.zphSfqd==1)}}">
-            <view class="td td-name"  style="width:180rpx;">是否要签到：</view>
-            <view class="td td-value" style="width:calc(100% - 180rpx)">需要</view>
+            <view class="td td-name"  style="width:180rpx;">咨询电话：</view>
+            <view class="td td-value" style="width:calc(100% - 180rpx)" bindtap="makecall">0571-85070165</view>
           </view>
       </view>
     </view>
   </view>
-  <view class="cell" wx:if="{{result.memo}}">
+  <view class="cell" wx:if="{{result.dicVal5}}">
     <view class="title">详情</view>
-    <view class="content">
-      <template is="wxParse" data="{{wxParseData:memo.nodes}}"/>
+    <view class="content parsehtml">
+    <import src="../../libs/wxParse/wxParse.wxml"/>
+      <template is="wxParse" data="{{wxParseData:dicVal5.nodes}}"/>
 		</view>
-    <view class="article" wx:if="{{result.fileList.length>0}}">
-      附件
-        <block wx:for="{{result.fileList}}" wx:key="">
-          <view>
-            <span style="color:#337ab7" bindtap="wxParseTagATap" data-src="{{imgPath+item.FILE_PATH}}">{{item.FILE_LABEL}}</span>
-          </view>
-        </block>
-    </view>
+    
   </view>
 
 
-<view class="float-btn3" bindtap="applyJob">我要报名</view>
+<view class="float-btn3" bindtap="applyDay">我要预约</view>
 
 <authorize show="{{isauthorize}}" bindmyevent="onLoad"></authorize>
+
+<view wx:if="{{modal1}}" class="modal">
+  <view class="modal-content">
+    <view class="modal-title">预约信息</view>
+    <view>
+      <van-cell-group>
+        <van-field input-align="right" bindinput="getxm" value="{{xm}}" label="姓名" placeholder="输入内容" required />
+        <van-field input-align="right" bindinput="getsjh1" value="{{sjh1}}" type="number" label="手机号码" placeholder="输入内容" required /> 
+        <van-field
+          value="{{ yzm1 }}"
+          bindinput="getyzm1"
+          center
+          label="短信验证码"
+          placeholder="请输入验证码"
+          border="{{ true }}"
+          use-button-slot
+          required
+        >
+        <van-button slot="button" size="small" bindtap="send1" disabled="{{disabled2}}" type="primary">{{yzmStr1}}</van-button>
+      </van-field>
+      <van-field input-align="right" bindinput="getexp" value="{{exp9}}" label="家庭地址" placeholder="输入内容" required />
+      <van-field input-align="right" bindinput="getqxzy" value="{{qxzy}}" label="意向专业" placeholder="输入内容" required />
+      </van-cell-group>
+    </view>
+    <view class="btns">
+      <button bindtap="cancel">取消</button>
+      <button class="green" bindtap="confirm">提交</button>
+    </view>
+  </view>
+</view>

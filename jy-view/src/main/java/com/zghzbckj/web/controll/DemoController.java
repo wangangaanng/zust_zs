@@ -3,11 +3,13 @@ package com.zghzbckj.web.controll;
 import com.beust.jcommander.internal.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.JsonUtil;
+import com.ourway.base.utils.MapUtils;
 import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.web.constant.Constant;
 import com.zghzbckj.web.model.PublicData;
 import com.zghzbckj.web.model.ResponseMessage;
+import com.zghzbckj.web.utils.MD5Util;
 import com.zghzbckj.web.utils.PropertiesUtil;
 import com.zghzbckj.web.utils.UnionHttpUtils;
 import org.apache.log4j.Logger;
@@ -47,7 +49,12 @@ public class DemoController {
         for(String key:keys) {
             Object valData=val.get(key);
             if(null!=valData) {
-                cookie = new Cookie(key, valData.toString());//创建新cookie
+                String valStr=valData.toString();
+                if(key.equals("stuXh")){
+                    cookie = new Cookie(key, MD5Util.base64DeCode(valStr));//创建新cookie
+                }else {
+                    cookie = new Cookie(key, valStr);//创建新cookie
+                }
             }else{
                 cookie = new Cookie(key, CommonConstants.EMPTY_STR);//创建新cookie
             }
@@ -276,9 +283,18 @@ public class DemoController {
         param.put("yhOwid",stuOwid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-        Map content=(Map)result.getBean();
+
+        Map map= (Map) result.getBean();
+        if(!TextUtils.isEmpty(map.get("qyxx"))){
+            Map map1= (Map) map.get("qyxx");
+            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        }
+
+        view.addObject("result",map);
+
 //        content.put("memo", MapUtils.getString(content,"memo").replace("\n",CommonConstant.EMPTY_STR));
-        view.addObject("result",content);
         return view;
     }
 
@@ -292,7 +308,16 @@ public class DemoController {
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
         view.addObject("qybz",qybz);
-        view.addObject("result",result.getBean());
+
+        Map map= (Map) result.getBean();
+        if(!TextUtils.isEmpty(map.get("qyxx"))){
+            Map map1= (Map) map.get("qyxx");
+            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        }
+        view.addObject("result",map);
+
         return view;
     }
     @RequestMapping(value = "positionDetail/{qybz}/{zw}/{owid}", method = RequestMethod.GET)
@@ -304,8 +329,16 @@ public class DemoController {
         param.put("owid",owid);
         PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
         ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
+
+        Map map= (Map) result.getBean();
+        if(!TextUtils.isEmpty(map.get("qyxx"))){
+            Map map1= (Map) map.get("qyxx");
+            map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+            map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+            map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+        }
+        view.addObject("result",map);
         view.addObject("zw",zw);
-        view.addObject("result",result.getBean());
         return view;
     }
     @RequestMapping(value = "inquiry", method = RequestMethod.GET)
@@ -480,7 +513,12 @@ public class DemoController {
             param6.put("owid",qyOwid);
             PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizQyxx/getOneCompany");
             ResponseMessage result  = UnionHttpUtils.doPosts(publicData6);
-            view.addObject("result",result.getBean());
+            Map map= (Map) result.getBean();
+            map.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map,"qyLxrdh")));
+            map.put("qyFrsfz",MD5Util.base64DeCode(MapUtils.getString(map,"qyFrsfz")));
+            map.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map,"qylxfs")));
+            map.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map,"qyYx")));
+            view.addObject("result",map);
             return view;
         }else{
             view.setViewName("redirect:/redirectIndex");
@@ -530,7 +568,16 @@ public class DemoController {
             param6.put("yhOwid",qyOwid);
             PublicData publicData6= UnionHttpUtils.manageParam(param6,"zustjy/bckjBizJob/getOneJob");
             ResponseMessage jobDetail  = UnionHttpUtils.doPosts(publicData6);
-            view.addObject("jobDetail",jobDetail.getBean());
+
+            Map map= (Map) jobDetail.getBean();
+            if(!TextUtils.isEmpty(map.get("qyxx"))){
+                Map map1= (Map) map.get("qyxx");
+                map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+                map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+                map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+            }
+            view.addObject("jobDetail",map);
+
             return view;
         }else{
             view.setViewName("redirect:/redirectIndex");
@@ -590,7 +637,12 @@ public class DemoController {
 
             PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
             ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
-            view.addObject("cInfo",cInfo.getBean());
+            Map map= (Map) cInfo.getBean();
+            map.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map,"qyLxrdh")));
+            map.put("qyFrsfz",MD5Util.base64DeCode(MapUtils.getString(map,"qyFrsfz")));
+            map.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map,"qylxfs")));
+            map.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map,"qyYx")));
+            view.addObject("cInfo",map);
             return view;
         }else{
             view.setViewName("redirect:/redirectIndex");
@@ -612,7 +664,16 @@ public class DemoController {
                 param.put("owid",owid);
                 PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizJob/getOneJob");
                 ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
-                view.addObject("oneJob",result.getBean());
+
+                Map map= (Map) result.getBean();
+                if(!TextUtils.isEmpty(map.get("qyxx"))){
+                    Map map1= (Map) map.get("qyxx");
+                    map1.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map1,"qyLxrdh")));
+                    map1.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map1,"qylxfs")));
+                    map1.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map1,"qyYx")));
+                }
+                view.addObject("oneJob",map);
+
             }
             return view;
         }else{
@@ -989,7 +1050,12 @@ public class DemoController {
                 param3.put("owid",qyOwid);
                 PublicData publicData3= UnionHttpUtils.manageParam(param3,"zustjy/bckjBizQyxx/getOneCompany");
                 ResponseMessage cInfo  = UnionHttpUtils.doPosts(publicData3);
-                view.addObject("cInfo",cInfo.getBean());
+                Map map= (Map) cInfo.getBean();
+                map.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map,"qyLxrdh")));
+                map.put("qyFrsfz",MD5Util.base64DeCode(MapUtils.getString(map,"qyFrsfz")));
+                map.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map,"qylxfs")));
+                map.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map,"qyYx")));
+                view.addObject("cInfo",map);
             }else if(secondDir.equals("1")){//职位信息
                 view.setViewName("enterpriseZw");
             }else if(secondDir.equals("2")){//宣讲会
@@ -1001,7 +1067,12 @@ public class DemoController {
                 param33.put("owid",qyOwid);
                 PublicData publicData33= UnionHttpUtils.manageParam(param33,"zustjy/bckjBizQyxx/getOneCompany");
                 ResponseMessage result  = UnionHttpUtils.doPosts(publicData33);
-                view.addObject("result",result.getBean());
+                Map map= (Map) result.getBean();
+                map.put("qyLxrdh",MD5Util.base64DeCode(MapUtils.getString(map,"qyLxrdh")));
+                map.put("qyFrsfz",MD5Util.base64DeCode(MapUtils.getString(map,"qyFrsfz")));
+                map.put("qylxfs",MD5Util.base64DeCode(MapUtils.getString(map,"qylxfs")));
+                map.put("qyYx",MD5Util.base64DeCode(MapUtils.getString(map,"qyYx")));
+                view.addObject("result",map);
                 view.setViewName("enterpriseZpgg");
             }
             return view;
@@ -1071,8 +1142,15 @@ public class DemoController {
                 param1.put("owid",stuOwid);
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getOneQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+
                 if(null!=result1.getBean()) {
-                    view.addObject("stuInfo",result1.getBean());
+
+                Map map= (Map) result1.getBean();
+                map.put("sfz",MD5Util.base64DeCode(MapUtils.getString(map,"sfz")));
+                map.put("sjh",MD5Util.base64DeCode(MapUtils.getString(map,"sjh")));
+                map.put("jtdh",MD5Util.base64DeCode(MapUtils.getString(map,"jtdh")));
+                view.addObject("stuInfo",map);
+//                    view.addObject("stuInfo",result1.getBean());
                 }
             }else if(secondDir.equals("5")){//就业方案
                 view.setViewName("stuJyfa");
@@ -1081,7 +1159,10 @@ public class DemoController {
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizJyscheme/getOneJyschemeQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
-                    view.addObject("result",result1.getBean());
+                    Map map= (Map) result1.getBean();
+                    map.put("dwdh",MD5Util.base64DeCode(MapUtils.getString(map,"dwdh")));
+                    map.put("datddh",MD5Util.base64DeCode(MapUtils.getString(map,"datddh")));
+                    view.addObject("result",map);
                 }
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
@@ -1184,7 +1265,13 @@ public class DemoController {
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getOneQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
-                    view.addObject("stuInfo",result1.getBean());
+                    Map map= (Map) result1.getBean();
+                    map.put("sfz",MD5Util.base64DeCode(MapUtils.getString(map,"sfz")));
+                    map.put("sjh",MD5Util.base64DeCode(MapUtils.getString(map,"sjh")));
+                    map.put("jtdh",MD5Util.base64DeCode(MapUtils.getString(map,"jtdh")));
+                    view.addObject("stuInfo",map);
+
+//                    view.addObject("stuInfo",result1.getBean());
                 }
             }else if(secondDir.equals("5")){//就业方案
                 view.setViewName("stuJyfa");
@@ -1193,7 +1280,10 @@ public class DemoController {
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizJyscheme/getOneJyschemeQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
-                    view.addObject("result",result1.getBean());
+                    Map map= (Map) result1.getBean();
+                    map.put("dwdh",MD5Util.base64DeCode(MapUtils.getString(map,"dwdh")));
+                    map.put("datddh",MD5Util.base64DeCode(MapUtils.getString(map,"datddh")));
+                    view.addObject("result",map);
                 }
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");

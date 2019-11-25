@@ -106,6 +106,9 @@
 			<if test="mzdm!=null and mzdm!=''">
 				AND a.mzdm=#{mzdm}
 			</if>
+			<if test="xm!=null and xm!=''">
+				AND a.xm=#{xm}
+			</if>
 		</where>
 		<choose>
 			<when test="orderBy != null and orderBy != ''">
