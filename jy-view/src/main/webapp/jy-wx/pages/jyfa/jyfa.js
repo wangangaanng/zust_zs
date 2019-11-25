@@ -602,7 +602,14 @@ var getOne = function (that) {
     if (res.data.backCode == 0) {
       var data = res.data;
       if (data.bean) {
-        
+        if (data.bean.datddh) {
+          data.bean.datddh = common.base64Decode(data.bean.datddh)
+        }
+        if (data.bean.dwdh) {
+          data.bean.dwdh = common.base64Decode(data.bean.dwdh)
+          console.log(' data.bean.dwdh', data.bean.dwdh)
+        }
+
         if (!data.bean.xm) {
           data.bean.xm = wx.getStorageSync('stuInfo').xm || ''
         }

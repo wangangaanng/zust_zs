@@ -132,7 +132,7 @@
                             str+='<div class="da-item"><div>单位联系人：</div><p>'+p.dwlxr+'</p></div>'
                         }
                         if(p.dwdh){
-                            str+='<div class="da-item"><div>单位电话：</div><p>'+p.dwdh+'</p></div>'
+                            str+='<div class="da-item"><div>单位电话：</div><p>'+base64_decode(p.dwdh)+'</p></div>'
                         }
                         if(p.gzzwlbmc){
                             str+='<div class="da-item"><div>工作职位类别：</div><p>'+p.gzzwlbmc+'</p></div>'
@@ -157,7 +157,7 @@
                             str+='<div class="da-item"><div>报到结束时间：</div><p>'+p.bdjssj.substring(0,10)+'</p></div>'
                         }
                         if(p.datddh){
-                            str+='<div class="da-item"><div>档案投递电话：</div><p>'+p.datddh+'</p></div>'
+                            str+='<div class="da-item"><div>档案投递电话：</div><p>'+base64_decode(p.datddh)+'</p></div>'
                         }
                         if(p.datddw){
                             str+='<div class="da-item"><div>档案投递单位：</div><p>'+p.datddw+'</p></div>'
@@ -181,6 +181,7 @@
                         index = layer.open({
                             type: 1,
                             title: '查询结果',
+                            scrollbar: false,
                             skin: 'layui-layer-rim', //加上边框
                             area: ['750px', '450px'], //宽高
                             content: '<div class="lxr-modal1">\n' +str+

@@ -356,7 +356,7 @@ var sendYzm = function (that, type) {
     that.setData({
       disabled2: true
     })
-    data = { "sjh": that.data.sjh1 };
+    data = { "sjh": that.data.sjh1,"owid": that.data.owid};
   }
   common.ajax('zustcommon/bckjBizYhxx/sendYzm/' + type, data, function (res) {
     if (res.data.backCode == 0) {

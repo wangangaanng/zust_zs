@@ -1142,8 +1142,15 @@ public class DemoController {
                 param1.put("owid",stuOwid);
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getOneQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
+
                 if(null!=result1.getBean()) {
-                    view.addObject("stuInfo",result1.getBean());
+
+                Map map= (Map) result1.getBean();
+                map.put("sfz",MD5Util.base64DeCode(MapUtils.getString(map,"sfz")));
+                map.put("sjh",MD5Util.base64DeCode(MapUtils.getString(map,"sjh")));
+                map.put("jtdh",MD5Util.base64DeCode(MapUtils.getString(map,"jtdh")));
+                view.addObject("stuInfo",map);
+//                    view.addObject("stuInfo",result1.getBean());
                 }
             }else if(secondDir.equals("5")){//就业方案
                 view.setViewName("stuJyfa");
@@ -1152,7 +1159,10 @@ public class DemoController {
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizJyscheme/getOneJyschemeQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
-                    view.addObject("result",result1.getBean());
+                    Map map= (Map) result1.getBean();
+                    map.put("dwdh",MD5Util.base64DeCode(MapUtils.getString(map,"dwdh")));
+                    map.put("datddh",MD5Util.base64DeCode(MapUtils.getString(map,"datddh")));
+                    view.addObject("result",map);
                 }
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
@@ -1255,7 +1265,13 @@ public class DemoController {
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizSyb/getOneQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
-                    view.addObject("stuInfo",result1.getBean());
+                    Map map= (Map) result1.getBean();
+                    map.put("sfz",MD5Util.base64DeCode(MapUtils.getString(map,"sfz")));
+                    map.put("sjh",MD5Util.base64DeCode(MapUtils.getString(map,"sjh")));
+                    map.put("jtdh",MD5Util.base64DeCode(MapUtils.getString(map,"jtdh")));
+                    view.addObject("stuInfo",map);
+
+//                    view.addObject("stuInfo",result1.getBean());
                 }
             }else if(secondDir.equals("5")){//就业方案
                 view.setViewName("stuJyfa");
@@ -1264,7 +1280,10 @@ public class DemoController {
                 PublicData publicData1= UnionHttpUtils.manageParam(param1,"zustcommon/bckjBizJyscheme/getOneJyschemeQt");
                 ResponseMessage result1  = UnionHttpUtils.doPosts(publicData1);
                 if(null!=result1.getBean()) {
-                    view.addObject("result",result1.getBean());
+                    Map map= (Map) result1.getBean();
+                    map.put("dwdh",MD5Util.base64DeCode(MapUtils.getString(map,"dwdh")));
+                    map.put("datddh",MD5Util.base64DeCode(MapUtils.getString(map,"datddh")));
+                    view.addObject("result",map);
                 }
                 Map param=Maps.newHashMap();//生源地
                 param.put("dicType","50005");
