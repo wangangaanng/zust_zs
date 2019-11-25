@@ -41,9 +41,12 @@
                             <div class="article-detail-text">
                                 <ul class="xyzy">
                                 <#if (result??)&&(result?size>0)>
+                                    <#assign flag=1>
                                     <#list result as obj>
                                         <li><a href="${base}/public/${obj.owid?c!''}" target="_blank">${obj.val1!''}</a></li>
                                     </#list>
+                                <#else >
+                                    <#assign flag=0>
                                 </#if>
                                 </ul>
 
@@ -58,6 +61,13 @@
 
     <#include "com/footer.ftl">
     <script src="${base}/js/bootstrap.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            if ("${flag}" == 0) {
+                $(".xyzy").append(nulltip)
+            }
+        })
+    </script>
 </body>
-
+</script>
 </html>

@@ -52,10 +52,6 @@
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.yrdwmc}}</view>
         </view>
         <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">用人单位代码：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.yrdwdm}}</view>
-        </view>
-        <view class="tr">
           <view class="td td-name"  style="width:300rpx;">用人单位性质：</view>
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.yrdwxzmc}}</view>
         </view>
@@ -63,18 +59,19 @@
           <view class="td td-name"  style="width:300rpx;">用人单位行业类别：</view>
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dwhylbmc}}</view>
         </view>
-         <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">单位联系人：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dwlxr}}</view>
-        </view>
-        <view class="tr">
-          <view class="td td-name"  style="width:300rpx;">单位电话：</view>
-          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.dwdh}}</view>
-        </view>
         <view class="tr">
           <view class="td td-name"  style="width:300rpx;">工作职位类别：</view>
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.gzzwlbmc}}</view>
         </view>
+        <view class="tr" wx:if="result.exp3">
+          <view class="td td-name"  style="width:300rpx;">邮寄编号：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.exp3}}</view>
+        </view>
+        <view class="tr" wx:if="result.exp2">
+          <view class="td td-name"  style="width:300rpx;">报到证编号：</view>
+          <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.exp2}}</view>
+        </view>
+
          <view class="tr">
           <view class="td td-name"  style="width:300rpx;">报到证签发类别：</view>
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzqflbmc}}</view>
@@ -87,7 +84,6 @@
           <view class="td td-name"  style="width:300rpx;">报到证签往所在地：</view>
           <view class="td td-value" style="width:calc(100% - 300rpx)">{{result.bdzqwszdmc}}</view>
         </view>
-
 
         <view class="tr">
           <view class="td td-name"  style="width:300rpx;">报到开始时间：</view>

@@ -99,7 +99,7 @@
     }
     .first_Paginationtxtcont>ul>li,.second_Pagination>ul>li,.third_Pagination>ul>li{
         margin-bottom: 8px;
-        width: 60px;
+        width: 80px;
     }
     .first_Paginationtxtcont>ul>li>a,.second_Pagination>ul>li>a,.third_Pagination>ul>li>a
     {
@@ -251,6 +251,7 @@
                         <li><a href="${base}/wzOrTpOrSq/6/0">学院专业</a></li>
                         <li><a href="${base}/kyly/1/0">科院掠影</a></li>
                         <li><a href="${base}/wzOrTpOrSq/7/0">学在科院</a></li>
+                        <li><a href="${base}/public">校园开放日</a></li>
                     </ul>
                 </div>
             </div>

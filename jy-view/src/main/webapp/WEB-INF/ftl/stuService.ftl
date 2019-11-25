@@ -114,9 +114,6 @@
                         if(p.yrdwmc){
                             str+='<div class="da-item"><div>用人单位名称：</div><p>'+p.yrdwmc+'</p></div>'
                         }
-                        if(p.yrdwdm){
-                            str+='<div class="da-item"><div>用人单位代码：</div><p>'+p.yrdwdm+'</p></div>'
-                        }
                         if(p.yrdwxzmc){
                             str+='<div class="da-item"><div>用人单位性质：</div><p>'+p.yrdwxzmc+'</p></div>'
                         }
@@ -127,13 +124,13 @@
                             str+='<div class="da-item"><div>单位所在地：</div><p>'+p.dwszdmc+'</p></div>'
                         }
 
+                        if(p.exp3){
+                            str+='<div class="da-item"><div>邮寄编号：</div><p>'+p.exp3+'</p></div>'
+                        }
+                        if(p.exp2){
+                            str+='<div class="da-item"><div>报到证编号：</div><p>'+p.exp2+'</p></div>'
+                        }
 
-                        if(p.dwlxr){
-                            str+='<div class="da-item"><div>单位联系人：</div><p>'+p.dwlxr+'</p></div>'
-                        }
-                        if(p.dwdh){
-                            str+='<div class="da-item"><div>单位电话：</div><p>'+base64_decode(p.dwdh)+'</p></div>'
-                        }
                         if(p.gzzwlbmc){
                             str+='<div class="da-item"><div>工作职位类别：</div><p>'+p.gzzwlbmc+'</p></div>'
                         }
