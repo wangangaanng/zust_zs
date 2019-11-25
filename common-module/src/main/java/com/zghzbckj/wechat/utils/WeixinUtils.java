@@ -567,7 +567,7 @@ private static final Logger log = Logger.getLogger(WeixinUtils.class);
         }catch (Exception e){
             log.error("调用微信小程序生成接口出错");
         }
-        return  "/zjcFiles/zsFiles"+"/"+picName;
+        return  "/zsFiles/"+picName;
 
     }
 

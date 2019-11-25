@@ -4,6 +4,7 @@ package com.ourway.utils;
 import com.ourway.base.zk.utils.TextUtils;
 
 import java.math.BigDecimal;
+import java.util.Random;
 
 /**
  * Created by jackson on 2018/5/19.
@@ -148,4 +149,6 @@ public class DigitalUtil {
     public static void main(String[] args) {
 //        System.out.println(roundUpToInteger(8.0));
     }
+
+
 }
