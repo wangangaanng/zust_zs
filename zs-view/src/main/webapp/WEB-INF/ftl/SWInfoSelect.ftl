@@ -188,7 +188,7 @@
                 <button type="submit" style="width: 150px;" class="btn btn-default btn-common yellow" onclick="layer.closeAll()">取消</button>
             </div>
             <div class="col-sm-6">
-                <button type="submit" style="width: 150px;" class="btn btn-default btn-common yellow" onclick="confirmApply()">确认提交报名表</button>
+                <button type="submit" style="width: 150px;" class="btn btn-default btn-common yellow" id="confirmApply" onclick="confirmApply()">确认提交报名表</button>
             </div>
         </div>
         <#--button  end -->
