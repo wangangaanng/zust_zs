@@ -220,6 +220,7 @@
             <if test="createtime2 != null and createtime2 !=''  ">
                 AND a.createtime &lt;= #{createtime2}
             </if>
+
             <if test="zwQymc != null and zwQymc != ''">
                 AND b.qymc = #{zwQymc}
             </if>
@@ -250,9 +251,7 @@
             <if test=" zdytj5 != null and zdytj5 != '' ">
                 AND a.zdytj5 LIKE concat('%',#{zdytj5,jdbcType=VARCHAR},'%') ESCAPE '&amp;'
             </if>
-            <if test="createtime1 != null and createtime1 !='' and createtime2 != null and createtime2 !='' ">
-                AND a.createtime &gt;= #{createtime1} AND a.createtime &lt;= #{createtime2}
-            </if>
+
             <if test="zphKsrq1 != null and zphKsrq1 !='' and zphKsrq2 != null and zphKsrq2 !='' ">
                 AND a.zph_ksrq &gt;= #{zphKsrq1} AND a.zph_ksrq &lt;= #{zphKsrq2}
             </if>
