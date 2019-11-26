@@ -1104,7 +1104,7 @@ public class DemoController {
                 Map param=Maps.newHashMap();
                 param.put("pageNo",'1');
                 param.put("pageSize","12");
-                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/showInfoListQt");
                 ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
                 view.addObject("tlist",result.getBean());
             }else if(secondDir.equals("1")){//咨询列表
@@ -1220,7 +1220,7 @@ public class DemoController {
                 Map param=Maps.newHashMap();
                 param.put("pageNo",currentPage);
                 param.put("pageSize","12");
-                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/supervisorList");
+                PublicData publicData= UnionHttpUtils.manageParam(param,"zustjy/bckjBizZjzx/showInfoListQt");
                 ResponseMessage result  = UnionHttpUtils.doPosts(publicData);
                 if(null!=result.getBean()) {
                     view.addObject("tlist",result.getBean());
