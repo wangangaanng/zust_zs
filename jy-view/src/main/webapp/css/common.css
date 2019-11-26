@@ -1338,15 +1338,12 @@ button.green:hover{
 }
 
 .teacher-detail .t-sm {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
     margin: 12px;
     text-indent: 2em;
-    display: -webkit-box;
-    overflow: hidden;
-    white-space: normal!important;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    word-wrap: break-word;
-    -webkit-line-clamp: 4;
     height: 80px;
 }
 
