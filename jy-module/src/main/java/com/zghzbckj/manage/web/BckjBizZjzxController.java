@@ -391,6 +391,40 @@ public class BckjBizZjzxController extends BaseController {
         }
     }
 
+
+
+
+    /**
+     * <p>功能描述:后台得到专家详情信息</p >
+     * <ul>
+     * <li>@param </li>
+     * <li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     * <li>@throws </li>
+     * <li>@author wangangaanng</li>
+     * <li>@date 2019/9/23</li>
+     * </ul>
+     */
+    @PostMapping("getConsultsOneHt")
+    @ResponseBody
+    public ResponseMessage getConsultsOneHt(PublicDataVO dataVO){
+        try{
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "owid");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return bckjBizZjzxService.getConsultsOneHt(dataMap);
+        }
+        catch (Exception e)
+        {
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
+
     /**
      * 获得字典表中专家回复的天数
      * @return

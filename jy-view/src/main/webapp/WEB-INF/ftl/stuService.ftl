@@ -127,9 +127,9 @@
                         if(p.exp3){
                             str+='<div class="da-item"><div>邮寄编号：</div><p>'+p.exp3+'</p></div>'
                         }
-                        if(p.exp2){
-                            str+='<div class="da-item"><div>报到证编号：</div><p>'+p.exp2+'</p></div>'
-                        }
+//                        if(p.exp2){
+                            str+='<div class="da-item"><div>报到证编号：</div><p>暂无</p></div>'
+//                        }
 
                         if(p.gzzwlbmc){
                             str+='<div class="da-item"><div>工作职位类别：</div><p>'+p.gzzwlbmc+'</p></div>'
