@@ -778,17 +778,23 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         /*if (!TextUtils.isEmpty(getJyselfInfo(dataMap))){
             bckjBizJyscheme = getJyselfInfo(dataMap);
         }*/
-        if (!TextUtils.isEmpty(bckjBizJyscheme)) {
-            bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005, bckjBizJyscheme.getBdzqwszdmc()));
-            bckjBizJyscheme.setByqx(getDicVall(50001, bckjBizJyscheme.getByqx()));
-            bckjBizJyscheme.setYrdwxzmc(getDicVall(50002, bckjBizJyscheme.getYrdwxzmc()));
-            bckjBizJyscheme.setDwhylbmc(getDicVall(50003, bckjBizJyscheme.getDwhylbmc()));
-            bckjBizJyscheme.setDwszdmc(getDicVall(50005, bckjBizJyscheme.getDwszdmc()));
-            bckjBizJyscheme.setGzzwlbmc(getDicVall(50004, bckjBizJyscheme.getGzzwlbmc()));
-            bckjBizJyscheme.setBdzqflbmc(getDicVall(50007, bckjBizJyscheme.getBdzqflbmc()));
-        }
+        try {
+            if (!TextUtils.isEmpty(bckjBizJyscheme)) {
+                bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005, bckjBizJyscheme.getBdzqwszdmc()));
+                bckjBizJyscheme.setByqx(getDicVall(50001, bckjBizJyscheme.getByqx()));
+                bckjBizJyscheme.setYrdwxzmc(getDicVall(50002, bckjBizJyscheme.getYrdwxzmc()));
+                bckjBizJyscheme.setDwhylbmc(getDicVall(50003, bckjBizJyscheme.getDwhylbmc()));
+                bckjBizJyscheme.setDwszdmc(getDicVall(50005, bckjBizJyscheme.getDwszdmc()));
+                bckjBizJyscheme.setGzzwlbmc(getDicVall(50004, bckjBizJyscheme.getGzzwlbmc()));
+                bckjBizJyscheme.setBdzqflbmc(getDicVall(50007, bckjBizJyscheme.getBdzqflbmc()));
+            }
             bckjBizJyscheme.setDwdh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDwdh()));
             bckjBizJyscheme.setDatddh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDatddh()));
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
         return bckjBizJyscheme;
     }
 

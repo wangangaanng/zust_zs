@@ -799,8 +799,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         //生成验证码
         String yzm = CommonService.getRandom();
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap);
-        if (TextUtils.isEmpty(bckjBizYhxx)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "未考生报名,不能预约!");
+         if (TextUtils.isEmpty(bckjBizYhxx)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "此手机号已报名!");
         }
         try {
             MessageUtil.sendMessageCode(dataMap.get("sjh").toString(), yzm);
