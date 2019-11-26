@@ -55,5 +55,5 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     List<Map> getDicListMapByType(int type);
 
-    BckjBizJyscheme getJyselfInfo(Map<String, Object> dataMap);
+    List<BckjBizJyscheme> getJyselfInfo(Map<String, Object> dataMap);
 }

@@ -430,7 +430,7 @@
 	<select id="getJyselfInfo" parameterType="Map" resultType="BckjBizJyscheme">
 		SELECT <include refid="bckjBizJyschemeColumns"></include>
 		FROM bckj_biz_jyscheme a ,bckj_biz_job_plan_other b
-		WHERE a.xsxh=b.name and a.xm=#{xsxm} and b.val=#{sfz}
+		WHERE a.xsxh=b.name and a.xm=#{xsxm} and b.val=#{sfz} order by createtime desc
 	</select>
 
 

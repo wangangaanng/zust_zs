@@ -459,7 +459,11 @@ public class BckjBizXsgzService extends CrudService<BckjBizXsgzDao, BckjBizXsgz>
                 dataMap.put("zwlx", 2);
             }
         }
-        page.setList(this.dao.studentSubcribeList(dataMap));
+        List<Map<String, Object>> mapList = this.dao.studentSubcribeList(dataMap);
+        for(Map map:mapList){
+            map.put("lxdh","");
+        }
+        page.setList(mapList);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 
