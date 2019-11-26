@@ -288,7 +288,7 @@
 		b.owid as owid ,a.owid as yhid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1,b.zjjj as zjjj,
 		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4
-		from bckj_biz_yhxx a ,bckj_biz_zjzx b
+		from bckj_biz_yhxx a ,bckj_biz_zjzx b where a.owid = b.yhid
 		order by b.zjxm desc
 	</select>
 
@@ -317,6 +317,12 @@
 		</if>
 		<if  test="exp1 != null and exp1!=''">
 			 a.exp1=#{exp1},
+		</if>
+		<if  test="exp2 != null and exp2!=''">
+			a.exp2=#{exp2},
+		</if>
+		<if  test="exp3 != null and exp3!=''">
+			a.exp3=#{exp3},
 		</if>
 		<if  test="exp4 != null and exp4!=''">
 			a.exp4=#{exp4},

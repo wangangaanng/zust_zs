@@ -377,6 +377,8 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         return ResponseMessage.sendOK(consultsOne);
     }
 
+
+
     private String getDicVal2ByVal1(Integer type, String exp4) {
         return this.dao.getDicVal2ByVal1(type, exp4);
     }
@@ -404,5 +406,10 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             }
         }
         return sf.toString();
+    }
+
+    public ResponseMessage getConsultsOneHt(Map<String, Object> dataMap) {
+        Map<String, Object> consultsOne = this.dao.getConsultsOne(dataMap);
+        return ResponseMessage.sendOK(consultsOne);
     }
 }
