@@ -273,7 +273,16 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         Page<Map<String, Object>> page = new Page(pageNo, pageSize);
         dataMap.put("page", page);
-        page.setList(this.dao.showInfoListQt(dataMap));
+        List<Map<String, Object>> mapList = this.dao.showInfoListQt(dataMap);
+        if(!TextUtils.isEmpty(mapList)&&mapList.size()>0){
+            for (Map map:mapList){
+                if(!TextUtils.isEmpty(map.get("exp4"))){
+                        String zxfx = getDicVal2ByVal1(60001, map.get("exp4").toString());
+                        map.put("exp4",zxfx);
+                }
+            }
+        }
+        page.setList(mapList);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 

@@ -318,6 +318,9 @@
 		<if  test="exp1 != null and exp1!=''">
 			 a.exp1=#{exp1},
 		</if>
+		<if  test="exp4 != null and exp4!=''">
+			a.exp4=#{exp4},
+		</if>
 		<if test="zjxx != null and zjxx!=''">
 			a.zjxx=#{zjxx},
 		</if>
