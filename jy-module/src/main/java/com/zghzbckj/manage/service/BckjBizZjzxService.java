@@ -344,7 +344,7 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             bckjbizyhxxSer.insertInfo(bckjBizYhxx);
             saveOrUpdate(bckjBizZjzx);
         } else {
-            bckjBizYhxx.setOwid(oneByDlzh.get("yhid"));
+            bckjBizYhxx.setOwid(dataMap.get("yhid").toString());
             bckjBizYhxx.setYhDlmm(com.zghzbckj.util.TextUtils.MD5(bckjBizZjzx.getExp1()));
             bckjBizYhxx.setYhlx(1);
             ResponseMessage responseMessage = bckjbizyhxxSer.saveconInfo(bckjBizYhxx);
