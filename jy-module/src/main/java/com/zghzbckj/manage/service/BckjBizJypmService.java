@@ -187,9 +187,17 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmjyl");
         List<BckjBizJypm> records = page.getRecords();
+        Map<String, Object> data = this.dao.statistic();
+        BigDecimal pmbyrs = new BigDecimal(MapUtils.getInt(data, "pmbyrs"));
+        BigDecimal pmqyrs = new BigDecimal(MapUtils.getInt(data, "pmqyrs") * 100);
+        BigDecimal pmjyl = pmqyrs.divide(pmbyrs,1, RoundingMode.DOWN);
         //统计行
         BckjBizJypm jypm = new BckjBizJypm();
-        jypm.setSzxy("共有：" + page.getTotalCount() + "个专业");
+        jypm.setSzxy("共有：" + MapUtils.getString(data, "szxy") + "个学院");
+        jypm.setPmzy("共有：" + page.getTotalCount() + "个专业");
+        jypm.setPmbyrs(MapUtils.getInt(data, "pmbyrs"));
+        jypm.setPmqyrs(MapUtils.getInt(data, "pmqyrs"));
+        jypm.setPmjyl(pmjyl);
         jypm.setReadOnly(true);
         records.add(0, jypm);
         return ResponseMessage.sendOK(page);

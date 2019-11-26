@@ -11,7 +11,7 @@
       </van-cell-group>
     </view>
     <!-- 按钮 -->
-    <view class="btn" wx:if="{{index1!=null&&index2!=null&&index3!=null}}">
+    <view class="btn" wx:if="{{openTable}}">
       <text style="font-size:14px;">报名表:</text>
       <van-button slot="button" style="float:right;margin-top: -3px;" size="small" plain hairline type="primary" bind:click="openFile" data-src="{{imgPath+filePath}}">报名表预览</van-button>
     </view>

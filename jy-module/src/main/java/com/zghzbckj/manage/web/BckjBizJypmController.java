@@ -3,10 +3,7 @@
  */
 package com.zghzbckj.manage.web;
 
-import com.ourway.base.utils.JsonUtil;
-import com.ourway.base.utils.TextUtils;
-import com.ourway.base.utils.ValidateMsg;
-import com.ourway.base.utils.ValidateUtils;
+import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
 import com.zghzbckj.base.model.PublicDataVO;
@@ -205,6 +202,18 @@ public class BckjBizJypmController extends BaseController {
         try {
             String fileName = bckjBizJypmService.exportRankExcel();
             return ResponseMessage.sendOK(fileName);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    @PostMapping(value = "saveLn")
+    @ResponseBody
+    public ResponseMessage saveLn(PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK("ok");
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);

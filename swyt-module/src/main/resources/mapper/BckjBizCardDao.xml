@@ -84,7 +84,7 @@
         b.rzbd AS rzbd,
         b.xzzymc AS xzzymc,
         <include refid="bckjBizCardColumns"/>
-        FROM bckj_biz_bm b
+        FROM ( SELECT c.* FROM bckj_biz_bm c WHERE c.state > 7) b
         RIGHT JOIN bckj_biz_card a ON a.number = b.sfzh
         <include refid="bckjBizCardJoins"/>
         <where>
