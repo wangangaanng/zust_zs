@@ -587,7 +587,7 @@
     </select>
     <select id="getOneBySfz" resultType="com.zghzbckj.manage.entity.BckjBizBm">
         SELECT
-       a.owid AS "owid"
+       a.owid AS "owid",a.user_ref_owid AS "userRefOwid"
         FROM bckj_biz_bm a
         <include refid="bckjBizBmJoins"/>
         <where>
