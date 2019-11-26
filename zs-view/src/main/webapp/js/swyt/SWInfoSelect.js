@@ -289,6 +289,7 @@ function saveSubmit() {
             currApplyOwid = res.bean
             getApply(res.bean)
         } else {
+            $('#confirmApply').attr('onclick','walert("'+res.errorMess+'")');
             walert(res.errorMess)
         }
     })

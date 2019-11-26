@@ -43,6 +43,12 @@
 	<sql id="bckjBizJypmJoins">
 	</sql>
 
+	<!--全校统计	-->
+	<select id="statistic" resultType="java.util.Map">
+		SELECT COUNT(DISTINCT szxy) AS szxy, SUM(pmbyrs) AS pmbyrs, SUM(pmqyrs) AS pmqyrs
+		FROM bckj_biz_jypm
+	</select>
+
 	<!--根据排名年份统计学院毕业人数、就业人数	-->
 	<select id="collegeStats" resultType="java.util.Map">
 		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmqyrs) as pmqyrs

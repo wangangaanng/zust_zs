@@ -1137,7 +1137,7 @@
 
 	<select id="getWeiXinYhList" parameterType="Map" resultType="Map">
 		SELECT a.xm as ksxm ,a.sjh as kssjh ,a.unionid,a.prov ,a.city,a.area,b.openid from bckj_biz_yhxx a ,bckj_biz_yhgl b
-		WHERE b.yh_ref_owid =a.owid
+		WHERE b.yh_ref_owid =a.owid and a.yhlx=4
 	</select>
 
 

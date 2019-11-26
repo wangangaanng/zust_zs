@@ -674,9 +674,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         dicVal8=dicVal8+1;
         dicMap.put("dicVal8", dicVal8);
         dicMap.put("owid",dataMap.get("owid"));
-        /*if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
+        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
-        }*/
+        }
         BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap);
         if (!TextUtils.isEmpty(bckjBizYhxx1)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "此手机号已报名!");
@@ -799,8 +799,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         //生成验证码
         String yzm = CommonService.getRandom();
         BckjBizYhxx bckjBizYhxx = this.dao.getZsBySjh(dataMap);
-        if (TextUtils.isEmpty(bckjBizYhxx)) {
-            return ResponseMessage.sendError(ResponseMessage.FAIL, "未考生报名,不能预约!");
+         if (TextUtils.isEmpty(bckjBizYhxx)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "此手机号已报名!");
         }
         try {
             MessageUtil.sendMessageCode(dataMap.get("sjh").toString(), yzm);
@@ -1044,7 +1044,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     /**
      * 后台展示微信关联用户list
-     * @param owid
+     * @param pageNo
+     * @param pageSize
      * @return
      */
     public PageInfo<Map> getWeiXinYhList( Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {

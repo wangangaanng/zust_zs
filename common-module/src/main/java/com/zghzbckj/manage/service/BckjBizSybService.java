@@ -691,9 +691,16 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
      * @param dataMap
      * @return
      */
-    public BckjBizSyb getOneXcx(Map<String, Object> dataMap) {
+    public BckjBizSyb getOneXcx(Map<String, Object> dataMap) throws Exception {
         BckjBizSyb bckjBizSyb = this.dao.getOneQt(dataMap.get("owid").toString());
-        bckjBizSyb.setSyd(bckjBizJyschemeService.getDicVall(50005, bckjBizSyb.getSyd()));
+        if(!TextUtils.isEmpty(bckjBizSyb.getSyd())){
+            bckjBizSyb.setSyd(bckjBizJyschemeService.getDicVall(50005, bckjBizSyb.getSyd()));
+        }
+        if(!TextUtils.isEmpty(bckjBizSyb)){
+                bckjBizSyb.setSfz(com.zghzbckj.util.TextUtils.base64Code(bckjBizSyb.getSfz()));
+                bckjBizSyb.setSjh(com.zghzbckj.util.TextUtils.base64Code(bckjBizSyb.getSjh()));
+                bckjBizSyb.setJtdh(com.zghzbckj.util.TextUtils.base64Code(bckjBizSyb.getJtdh()));
+        }
         return bckjBizSyb;
     }
 

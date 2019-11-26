@@ -118,7 +118,7 @@
                     </li>
                     <li>
                         <div class="pie-list_wrap" >
-                            <p><span>职位统计</span></p>
+                            <p><span>职位发布数</span></p>
                             <div id="taskcartogram2" class="pie-wrap">
 
                             </div>
