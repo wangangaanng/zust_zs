@@ -142,7 +142,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     public boolean finishHk(Map<String, Object> mapData) throws CustomerException {
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
         if (null == jbxx) {
-            createJbxx(jbxx,mapData);
+            jbxx= createJbxx(jbxx,mapData);
         }
         if (jbxx.getHkState() != 1) {
             jbxx.setHkState(1);
@@ -178,7 +178,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
      * @param jbxx
      * @param data
      */
-    private void createJbxx(BckjBizJbxx jbxx,Map data){
+    private BckjBizJbxx createJbxx(BckjBizJbxx jbxx,Map data){
         jbxx = new BckjBizJbxx();
         jbxx.setYhRefOwid(MapUtils.getString(data, "yhRefOwid"));
         jbxx.setXkState(0);
@@ -186,6 +186,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
         jbxx.setJtcyState(0);
         bckjBizJbxxService.doCopyAreaInfo(data,jbxx);
         bckjBizJbxxService.saveOrUpdate(jbxx);
+        return jbxx;
     }
 
     /**
@@ -201,7 +202,7 @@ public class BckjBizCjxxService extends CrudService<BckjBizCjxxDao, BckjBizCjxx>
     public boolean finishXk(Map<String, Object> mapData) throws CustomerException {
         BckjBizJbxx jbxx = bckjBizJbxxService.getInfo(mapData);
         if (null == jbxx) {
-            createJbxx(jbxx,mapData);
+            jbxx=createJbxx(jbxx,mapData);
         }
         if (jbxx.getXkState() != 1) {
             jbxx.setXkState(1);
