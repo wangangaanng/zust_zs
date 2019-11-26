@@ -363,7 +363,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
                 for (int n = 1; n < fieldLists.size(); n++) {
                     BckjBizJobPlanOther bckjBizJobPlanOther = BckjBizJobPlanOther.class.newInstance();
                     bckjBizJobPlanOther.setName(xsxh);
-                    bckjBizJobPlanOther.setCode(fieldLists.get(n - 1));
+                    bckjBizJobPlanOther.setCode(fieldLists.get(n));
                     bckjBizJobPlanOther.setVal(cellList.get(26 + n));
                     jos.add(bckjBizJobPlanOther);
                 }
@@ -624,7 +624,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param
      * @return
      */
-    public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) {
+    public BckjBizJyscheme getOneJyschemeQt(Map<String, Object> dataMap) throws Exception {
         BckjBizYhxx bckjBizYhxx = bckjBizYhxxService.get(dataMap.get("owid").toString());
         HashMap<String, Object> sendMap = Maps.newHashMap();
         sendMap.put("sfz",bckjBizYhxx.getSfz());
@@ -638,6 +638,10 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             dataMap.put("xsxm",bckjBizYhxx.getXm());
             dataMap.put("sfz",oneBySfz.getSfz());
             bckjBizJyscheme = getJyselfInfo(dataMap);
+        }
+        if(!TextUtils.isEmpty(bckjBizJyscheme)){
+                bckjBizJyscheme.setDwdh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDwdh()));
+                bckjBizJyscheme.setDatddh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDatddh()));
         }
         return bckjBizJyscheme;
     }
@@ -681,7 +685,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
     }
 
-    public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) {
+    public BckjBizJyscheme getOneJyschemeXcx(Map<String, Object> dataMap) throws Exception {
         BckjBizJyscheme bckjBizJyscheme=null;
         BckjBizYhxx bckjBizYhxx = bckjBizYhxxService.get(dataMap.get("owid").toString());
         HashMap<String, Object> sendMap = Maps.newHashMap();
@@ -700,6 +704,10 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             if (!TextUtils.isEmpty(bckjBizJyscheme.getBdzqwszdmc())) {
                 bckjBizJyscheme.setBdzqwszdmc(getDicVall(50005, bckjBizJyscheme.getBdzqwszdmc()));
             }
+        }
+        if(!TextUtils.isEmpty(bckjBizJyscheme)){
+                bckjBizJyscheme.setDwdh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDwdh()));
+                bckjBizJyscheme.setDatddh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDatddh()));
         }
         return bckjBizJyscheme;
     }
@@ -758,7 +766,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
      * @param dataMap
      * @return queryDocument
      */
-    public BckjBizJyscheme queryDocument(Map<String, Object> dataMap) {
+    public BckjBizJyscheme queryDocument(Map<String, Object> dataMap) throws Exception {
         BckjBizJyscheme bckjBizJyscheme = null;
         /*BckjBizSyb oneBySfz = bckjBizSybService.getOneBySfz(dataMap);*/
         //如果由此生源就根据
@@ -781,11 +789,18 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             bckjBizJyscheme.setGzzwlbmc(getDicVall(50004, bckjBizJyscheme.getGzzwlbmc()));
             bckjBizJyscheme.setBdzqflbmc(getDicVall(50007, bckjBizJyscheme.getBdzqflbmc()));
         }
+            bckjBizJyscheme.setDwdh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDwdh()));
+            bckjBizJyscheme.setDatddh(com.zghzbckj.util.TextUtils.base64Code(bckjBizJyscheme.getDatddh()));
         return bckjBizJyscheme;
     }
 
 
     private BckjBizJyscheme getJyselfInfo(Map<String, Object> dataMap) {
-        return this.dao.getJyselfInfo(dataMap);
+        List<BckjBizJyscheme> jyselfInfo = this.dao.getJyselfInfo(dataMap);
+        if(!TextUtils.isEmpty(jyselfInfo)&&jyselfInfo.size()>0){
+            return jyselfInfo.get(0);
+        }else {
+            return new BckjBizJyscheme();
+        }
     }
 }

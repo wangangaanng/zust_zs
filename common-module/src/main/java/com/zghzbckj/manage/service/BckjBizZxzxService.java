@@ -248,6 +248,7 @@ public class BckjBizZxzxService extends CrudService<BckjBizZxzxDao, BckjBizZxzx>
         for(BckjBizZxzx bckjBizZxzx:listByMap){
             BckjBizYhkz oneByYhRefOwid = bckjBizYhkzService.getOneByYhRefOwid(bckjBizZxzx.getTwOwid());
             bckjBizZxzx.setExp1(oneByYhRefOwid.getXsbj());
+            bckjBizZxzx.setDh("");
         }
         page.setList(listByMap);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));

@@ -1044,7 +1044,8 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
 
     /**
      * 后台展示微信关联用户list
-     * @param owid
+     * @param pageNo
+     * @param pageSize
      * @return
      */
     public PageInfo<Map> getWeiXinYhList( Integer pageNo, Integer pageSize) throws IllegalAccessException, InstantiationException {

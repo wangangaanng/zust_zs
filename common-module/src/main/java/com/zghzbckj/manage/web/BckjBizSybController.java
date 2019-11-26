@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.web;
 
 import com.alibaba.fastjson.JSON;
+import com.itextpdf.io.util.TextUtil;
 import com.ourway.base.utils.*;
 import com.zghzbckj.CommonConstants;
 import com.zghzbckj.base.model.FilterModel;
@@ -106,7 +107,7 @@ public class BckjBizSybController extends BaseController {
 
 
     /**
-     * 后台展示一条学生生源信息
+     * 前台展示一条学生生源信息
      *
      * @param dataVO
      * @return ResponseMessage
@@ -121,7 +122,13 @@ public class BckjBizSybController extends BaseController {
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
             }
-            return ResponseMessage.sendOK(bckjBizSybService.getOneQt(mapData.get("owid").toString()));
+            BckjBizSyb bckjBizSyb = bckjBizSybService.getOneQt(mapData.get("owid").toString());
+            if(!TextUtils.isEmpty(bckjBizSyb)){
+                    bckjBizSyb.setSfz(com.zghzbckj.util.TextUtils.base64Code(bckjBizSyb.getSfz()));
+                    bckjBizSyb.setSjh(com.zghzbckj.util.TextUtils.base64Code(bckjBizSyb.getSjh()));
+                    bckjBizSyb.setJtdh(com.zghzbckj.util.TextUtils.base64Code(bckjBizSyb.getJtdh()));
+            }
+            return ResponseMessage.sendOK(bckjBizSyb);
         } catch (Exception e) {
             log.error(e + "初始BckjBizSyb\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
