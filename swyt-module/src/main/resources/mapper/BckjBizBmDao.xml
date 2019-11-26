@@ -585,6 +585,15 @@
             </if>
         </where>
     </select>
-
+    <select id="getOneBySfz" resultType="com.zghzbckj.manage.entity.BckjBizBm">
+        SELECT
+       a.owid AS "owid"
+        FROM bckj_biz_bm a
+        <include refid="bckjBizBmJoins"/>
+        <where>
+            a.sfzh=#{sfzh}
+           AND a.bmnd=#{bmnd}
+        </where>
+    </select>
 
 </mapper>

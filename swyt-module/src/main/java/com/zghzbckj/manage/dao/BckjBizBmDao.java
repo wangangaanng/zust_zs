@@ -31,4 +31,6 @@ public interface BckjBizBmDao extends CrudDao<BckjBizBm> {
     List<Map<String,Object>> getBmNumber(Map<String, Object> dataMap);
 
     Integer queryFileNumber(Map params);
+
+    BckjBizBm getOneBySfz(Map<String, Object> mapData);
 }

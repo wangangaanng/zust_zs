@@ -628,6 +628,16 @@ var getOne = function (that) {
         data.bean.csrq = data.bean.csrq ? data.bean.csrq.substring(0, 10) : ''
         data.bean.rxnf = data.bean.rxnf ? data.bean.rxnf.substring(0, 10) : ''
         data.bean.byrq = data.bean.byrq ? data.bean.byrq.substring(0, 10) : ''
+
+        if (data.bean.sfz) {
+          data.bean.sfz = common.base64Decode(data.bean.sfz)
+        }
+        if (data.bean.sjh) {
+          data.bean.sjh = common.base64Decode(data.bean.sjh)
+        }
+        if (data.bean.jtdh) {
+          data.bean.jtdh = common.base64Decode(data.bean.jtdh)
+        }
         that.setData({
           form: data.bean,
           owid: data.bean.owid,
