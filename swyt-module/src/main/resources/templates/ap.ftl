@@ -135,7 +135,7 @@
 			<td align="center"  valign="middle" class="contentFont han" style="width: 150px;">QQ:
 			</td>
 			<td align="center"  valign="middle" class="contentFont han" style="width: 150px;">
-			${qq}
+			${qq!''}
 			</td>
             <td align="center"  valign="middle" class="contentFont han" style="width: 120px;">民族
             </td>
