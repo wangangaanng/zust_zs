@@ -332,7 +332,8 @@ public class BckjBizBmService extends CrudService<BckjBizBmDao, BckjBizBm> {
 
     private void doCheckSameIdCard(Map<String, Object> mapData) throws CustomerException {
         BckjBizBm bm=this.dao.getOneBySfz(mapData);
-        if(null!=bm){
+        String yhRefOwid= MapUtils.getString(mapData,"userRefOwid");
+        if(null!=bm && !yhRefOwid.equals(bm.getUserRefOwid())){
             throw CustomerException.newInstances("一个身份证只能报名一次，请不要重复提交");
         }
     }
