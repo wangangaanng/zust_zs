@@ -273,7 +273,16 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         Page<Map<String, Object>> page = new Page(pageNo, pageSize);
         dataMap.put("page", page);
-        page.setList(this.dao.showInfoListQt(dataMap));
+        List<Map<String, Object>> mapList = this.dao.showInfoListQt(dataMap);
+        if(!TextUtils.isEmpty(mapList)&&mapList.size()>0){
+            for (Map map:mapList){
+                if(!TextUtils.isEmpty(map.get("exp4"))){
+                        String zxfx = getDicVal2ByVal1(60001, map.get("exp4").toString());
+                        map.put("exp4",zxfx);
+                }
+            }
+        }
+        page.setList(mapList);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 
@@ -368,6 +377,8 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         return ResponseMessage.sendOK(consultsOne);
     }
 
+
+
     private String getDicVal2ByVal1(Integer type, String exp4) {
         return this.dao.getDicVal2ByVal1(type, exp4);
     }
@@ -395,5 +406,10 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
             }
         }
         return sf.toString();
+    }
+
+    public ResponseMessage getConsultsOneHt(Map<String, Object> dataMap) {
+        Map<String, Object> consultsOne = this.dao.getConsultsOne(dataMap);
+        return ResponseMessage.sendOK(consultsOne);
     }
 }
