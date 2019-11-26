@@ -7,7 +7,7 @@ package com.zghzbckj.manage.dao;
 import com.zghzbckj.base.dao.CrudDao;
 import com.zghzbckj.base.dao.MyBatisDao;
 import com.zghzbckj.manage.entity.BckjBizJyscheme;
-import com.zghzbckj.manage.entity.BckjBizSyb;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
 import java.util.List;
@@ -38,9 +38,9 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
 
     void deleteByXsxh(String xsxh);
 
-    List<String> getDicVal(int type ,String val);
+    List<String> getDicVal(@Param("type")int type ,@Param("val")String val);
 
-    List<String> getDicVall(int type, String val1);
+    List<String> getDicVall(@Param("type") int type, @Param("val1")String val1);
 
     List<String> getDicListByType(int type);
 
