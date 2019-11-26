@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    openTable:false,
     open: false,
     index1: null, //学科
     index2: null, //类别
@@ -264,6 +265,9 @@ Page({
     }
     common.ajax('zustswyt/bckjBizBm/submit', data, function(res) {
       if (res.data.backCode == 0) {
+        that.setData({
+          openTable:true
+        })
         wx.setStorageSync('sqbOwid', res.data.bean)
         that.getApply(res.data.bean)
       } else {
@@ -274,6 +278,10 @@ Page({
   openDialog() {
     if (this.data.index1 == null || this.data.index2 == null || this.data.index3 == null) {
       common.toast('尚未选择', 'none', 2000)
+      return
+    }
+    if (!this.data.openTable){
+      common.toast('一个身份证只能报名一次，请不要重复提交', 'none', 2000)
       return
     }
     Dialog.confirm({
