@@ -93,11 +93,11 @@ function init()
 		$(".cjcx_icon").next().css("color","rgb(31,26,23)");
 	});
 	$(".lqcx").click(function(){
-        if(getCookie("cx_ksh")){
-            $("#lqcx_zkzh").val(getCookie("cx_ksh"));
+        if(getCookie("lq_ksh")){
+            $("#lqcx_zkzh").val(getCookie("lq_ksh"));
         }
-        if(getCookie("cx_sfzh")){
-            $("#lqcx_sfzh").val(getCookie("cx_sfzh"));
+        if(getCookie("lq_sfzh")){
+            $("#lqcx_sfzh").val(getCookie("lq_sfzh"));
         }
 		$(".jhcx_form").css("display","none");
 		$(".cjcx_form").css("display","none");
@@ -636,8 +636,8 @@ function lqcx_chaXun(){
         walert("请输入身份证号");
         return
     }
-    addCookie("cx_ksh",$('#lqcx_zkzh').val())
-    addCookie("cx_sfzh",$('#lqcx_sfzh').val())
+    addCookie("lq_ksh",$('#lqcx_zkzh').val())
+    addCookie("lq_sfzh",$('#lqcx_sfzh').val())
     clearTable();
     $("#mymodal2").on('hidden.bs.modal',function(){
         loadcs = 0;

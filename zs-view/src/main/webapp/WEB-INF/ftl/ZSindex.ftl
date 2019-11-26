@@ -186,13 +186,13 @@
                     <span class="queryButton" onclick="jhcx_init()">重置</span>
                 </div>
                 <div class="cjcx_form">
-                    <input id="cjcx_zkzh" class="input_zkzh" type="text" name="input_zkzh" placeholder="请输入准考证号" value="" />
                     <input id="cjcx_sfzh" class="input_sfzh" type="text" name="input_sfzh" placeholder="请输入身份证号" value="" />
+                    <input id="cjcx_zkzh" class="input_zkzh" type="text" name="input_zkzh" placeholder="请输入准考证号" value="" />
                     <span id="cjcx_chaXun" class="queryButton" onclick="cjcx_chaXun()">查询</span>
                 </div>
                 <div class="lqcx_form">
-                    <input id="lqcx_zkzh" class="input_zkzh" type="text" name="input_zkzh" placeholder="请输入准考证号" value="" />
                     <input id="lqcx_sfzh" class="input_sfzh" type="text" name="input_sfzh" placeholder="请输入身份证号" value="" />
+                    <input id="lqcx_zkzh" class="input_zkzh" type="text" name="input_zkzh" placeholder="请输入准考证号" value="" />
                     <span id="lqcx_chaXun" class="queryButton" onclick="lqcx_chaXun()">查询</span>
                 </div>
                 <div class="lncx_form">
