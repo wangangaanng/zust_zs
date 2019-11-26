@@ -65,7 +65,7 @@
                             <span style="margin-left: 40px;">咨询方向：${(detail.exp4)!''} </span>
                             </#if>
                             <#if (detail.exp3)??>
-                            <span style="margin-left: 40px;">部门：${(detail.exp3)!''} </span>
+                            <span style="margin-left: 40px;">所在部门：${(detail.exp3)!''} </span>
                             </#if>
                         </p>
                         <p class="td-sm">

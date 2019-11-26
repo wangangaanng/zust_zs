@@ -81,7 +81,7 @@
                             <div class="teacher-detail">
                                 <div class="t-name">${obj.zjxm!''}</div>
                                 <div class="t-xhx"><span></span></div>
-                                <div class="t-sm">${obj.zjxx!'暂无信息'}</div>
+                                <div class="t-sm">咨询方向：${obj.exp4!'暂无'}。所在部门：${obj.exp3!''}。${obj.zjxx!'暂无信息'}</div>
                                 <div class="t-btn">
                                     <button class="btn t-zx green" onclick="question('${obj.owid}')">我要咨询</button>
                                     <button class="btn t-xq" onclick="window.open('${base}/teacherDetail/${obj.yhid}')">查看详情</button>
