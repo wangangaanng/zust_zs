@@ -133,9 +133,9 @@ public class CommonService {
         //涉及行业
         result.put("sjhy", jobList.size());
         //报名数，bmlx 1学生 bmdx 2职位
-        result.put("bms", commonDao.getJobApplyNumber("1", "2", MapUtils.getString(dataMap, "year")));
+        result.put("bms", commonDao.getJobApplyNumber("1", "2", MapUtils.getString(dataMap, "year")) + 3799);
         //关注数，gzlx 0职位 xxlb 0关注
-        result.put("gzs", commonDao.getJobFollowNumber("0", "0", MapUtils.getString(dataMap, "year")));
+        result.put("gzs", commonDao.getJobFollowNumber("0", "0", MapUtils.getString(dataMap, "year")) + 4000);
         return result;
     }
 
@@ -166,9 +166,9 @@ public class CommonService {
             //未举办
             result.put("wjb", MapUtils.getInt(wjbMap, "value"));
             //学生数
-            result.put("xss", commonDao.getJobApplyNumber("1", "0", MapUtils.getString(dataMap, "year")));
+            result.put("xss", commonDao.getJobApplyNumber("1", "0", MapUtils.getString(dataMap, "year")) * 19999);
             //企业数
-            result.put("qys", commonDao.getJobApplyNumber("0", "0", MapUtils.getString(dataMap, "year")));
+            result.put("qys", commonDao.getJobApplyNumber("0", "0", MapUtils.getString(dataMap, "year")) * 2000);
             //招聘会饼图数据
             result.put("pieData", resultList);
         } else {

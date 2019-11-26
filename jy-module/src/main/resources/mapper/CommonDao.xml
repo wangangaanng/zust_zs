@@ -211,7 +211,7 @@
     <select id="getListCompanyNumber" resultType="java.util.Map">
         SELECT COUNT(*) AS value, a.state
         FROM bckj_biz_qyxx a
-        <where>a.state=1 OR a.state=2
+        <where>a.state=1 OR a.state=2 OR a.state=3
             <if test="year != null and year != ''">
                 AND YEAR(createtime)=#{year}
             </if>

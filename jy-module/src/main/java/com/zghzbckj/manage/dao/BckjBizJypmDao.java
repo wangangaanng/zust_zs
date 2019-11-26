@@ -19,6 +19,8 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
 
+    Map<String, Object> statistic();
+
     List<Map<String, Object>> collegeStats();
 
     List<Map<String, Object>> majorList(@Param("szxy") String szxy);
