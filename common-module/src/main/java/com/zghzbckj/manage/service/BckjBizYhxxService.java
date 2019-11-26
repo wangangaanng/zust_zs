@@ -674,9 +674,9 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         dicVal8=dicVal8+1;
         dicMap.put("dicVal8", dicVal8);
         dicMap.put("owid",dataMap.get("owid"));
-        /*if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
+        if (dataMap.get("yzm").toString().indexOf(com.zghzbckj.base.util.CacheUtil.getVal(dataMap.get("sjh").toString())) == -1) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "验证码输入错误!");
-        }*/
+        }
         BckjBizYhxx bckjBizYhxx1 = this.dao.getZsBySjh(dataMap);
         if (!TextUtils.isEmpty(bckjBizYhxx1)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "此手机号已报名!");
