@@ -47,6 +47,8 @@ public class BckjBizDcwjTmService extends CrudService<BckjBizDcwjTmDao, BckjBizD
 
     @Autowired
     BckjBizDcwjDtmxDao bckjBizDcwjDtmxDao;
+    @Autowired
+    BckjBizDcwjTmDao bckjBizDcwjTmDao;
 
     @Override
     public BckjBizDcwjTm get(String owid) {
@@ -72,6 +74,11 @@ public class BckjBizDcwjTmService extends CrudService<BckjBizDcwjTmDao, BckjBizD
     @Transactional(readOnly = false)
     public void delete(BckjBizDcwjTm bckjBizDcwjTm) {
         super.delete(bckjBizDcwjTm);
+    }
+
+    @Transactional(readOnly = false)
+    public void deleteByDcwj(String dcwjRefOwid) {
+        this.dao.deleteByDcwj(dcwjRefOwid);
     }
 
     /**
@@ -137,6 +144,10 @@ public class BckjBizDcwjTmService extends CrudService<BckjBizDcwjTmDao, BckjBizD
         }
         tm.setReadOnly(true);
         return tm;
+    }
+
+    public List<BckjBizDcwjTm> listDcwjTm(String dcwjRefOwid) {
+        return bckjBizDcwjTmDao.listDcwjTm(dcwjRefOwid);
     }
 
     /**

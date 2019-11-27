@@ -113,9 +113,11 @@ Page({
     common.ajax('zustswyt/bckjBizJbxx/indexState', data, function(res) {
       if (res.data.backCode == 0) {
         let state = 0;
-        let bean = res.data.bean;
-        if (bean.state == 1 && bean.xkState == 1 && bean.hkState == 1 && bean.jtcyState == 1) {
-          state = 1
+        if (res.data.bean){
+          let bean = res.data.bean;
+          if (bean.state == 1 && bean.xkState == 1 && bean.hkState == 1 && bean.jtcyState == 1) {
+            state = 1
+          }
         }
         that.setData({
           state: state

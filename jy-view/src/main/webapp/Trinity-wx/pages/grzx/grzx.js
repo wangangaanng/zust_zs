@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userName: '',
+    userName: '三位一体',
     userMobile: '',
     imgUrl: '../../static/logo.png',
     hasLogin: false
@@ -24,13 +24,15 @@ Page({
       })
     }
 
-    if (wx.getStorageSync('userName')) {
+    if (wx.getStorageSync('registerName')) {
       that.setData({
-        'userName': wx.getStorageSync('userName')
+        'userName': wx.getStorageSync('registerName')
       })
     } else {
-      if (wx.getStorageSync('yhRefOwid')) {
-        common.getInfoBasic(that);
+      if (wx.getStorageSync('nickName')) {
+        that.setData({
+          'userName': wx.getStorageSync('nickName')
+        })
       }
     }
   },

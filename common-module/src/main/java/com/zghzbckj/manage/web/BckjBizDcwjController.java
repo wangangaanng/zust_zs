@@ -282,6 +282,37 @@ public class BckjBizDcwjController extends BaseController {
         return ResponseMessage.sendOK(dcwj);
     }
 
+    /**
+     *<p>功能描述:复制调查问卷 copyDcwj</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/27 10:37</li>
+     *</ul>
+     */
+    @PostMapping(value = "copyDcwj")
+    @ResponseBody
+    public ResponseMessage copyDcwj(PublicDataVO dataVO) {
+        Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+        BckjBizDcwj dcwj = bckjBizDcwjService.get(MapUtils.getString(dataMap, "owid"));
+        List<BckjBizDcwjTm> tmList = bckjBizDcwjTmService.listDcwjTm(MapUtils.getString(dataMap, "owid"));
+        if (TextUtils.isEmpty(dcwj)) {
+            return ResponseMessage.sendError(ResponseMessage.FAIL, "无此调查问卷");
+        }
+        //复制新的调查问卷
+        dcwj.setOwid("");
+        dcwj.setWjmc(DateUtil.getDateStr("yyyyMMddHHmmss"));
+        bckjBizDcwjService.save(dcwj);
+        for (BckjBizDcwjTm tm : tmList) {
+            tm.setOwid("");
+            tm.setDcwjRefOwid(dcwj.getOwid());
+            bckjBizDcwjTmService.save(tm);
+        }
+        return ResponseMessage.sendOK("OK");
+    }
+
     @RequestMapping(value = "/getList")
     @ResponseBody
     public ResponseMessage getListApi(PublicDataVO dataVO) {

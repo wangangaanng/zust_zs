@@ -149,6 +149,11 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         bckjBizJypmDao.deleteAll();
     }
 
+    @Transactional(readOnly = false)
+    public void deleteThisYear(String nf) {
+        bckjBizJypmDao.deleteThisYear(nf);
+    }
+
     /**
      * <p>功能描述:导出合并单元格的excel exportRankExcel</p >
      * <ul>
@@ -185,18 +190,52 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        dataMap.put("isNull", "yes");
         PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmjyl");
         List<BckjBizJypm> records = page.getRecords();
-        Map<String, Object> data = this.dao.statistic();
-        BigDecimal pmbyrs = new BigDecimal(MapUtils.getInt(data, "pmbyrs"));
-        BigDecimal pmqyrs = new BigDecimal(MapUtils.getInt(data, "pmqyrs") * 100);
+        Map<String, Object> data = this.dao.statistic(dataMap);
+        int byrs = MapUtils.getInt(data, "pmbyrs");
+        int qyrs = MapUtils.getInt(data, "pmqyrs");
+        if (byrs < 0 || qyrs < 0) {
+            byrs += 1;
+            qyrs += 1;
+        }
+        BigDecimal pmbyrs = new BigDecimal(byrs);
+        BigDecimal pmqyrs = new BigDecimal(qyrs * 100);
         BigDecimal pmjyl = pmqyrs.divide(pmbyrs,1, RoundingMode.DOWN);
         //统计行
         BckjBizJypm jypm = new BckjBizJypm();
         jypm.setSzxy("共有：" + MapUtils.getString(data, "szxy") + "个学院");
         jypm.setPmzy("共有：" + page.getTotalCount() + "个专业");
-        jypm.setPmbyrs(MapUtils.getInt(data, "pmbyrs"));
-        jypm.setPmqyrs(MapUtils.getInt(data, "pmqyrs"));
+        jypm.setPmbyrs(byrs);
+        jypm.setPmqyrs(qyrs);
+        jypm.setPmjyl(pmjyl);
+        jypm.setReadOnly(true);
+        records.add(0, jypm);
+        return ResponseMessage.sendOK(page);
+    }
+
+    public ResponseMessage findPageBckjBizJypmNf(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
+        Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
+        dataMap.put("isNotNull", "yes");
+        PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmnf,pmjyl");
+        List<BckjBizJypm> records = page.getRecords();
+        Map<String, Object> data = this.dao.statistic(dataMap);
+        int byrs = MapUtils.getInt(data, "pmbyrs");
+        int qyrs = MapUtils.getInt(data, "pmqyrs");
+        if (byrs < 0 || qyrs < 0) {
+            byrs += 1;
+            qyrs += 1;
+        }
+        BigDecimal pmbyrs = new BigDecimal(byrs);
+        BigDecimal pmqyrs = new BigDecimal(qyrs * 100);
+        BigDecimal pmjyl = pmqyrs.divide(pmbyrs,1, RoundingMode.DOWN);
+        //统计行
+        BckjBizJypm jypm = new BckjBizJypm();
+        jypm.setSzxy("共有：" + MapUtils.getString(data, "szxy") + "个学院");
+        jypm.setPmzy("共有：" + page.getTotalCount() + "个专业");
+        jypm.setPmbyrs(byrs);
+        jypm.setPmqyrs(qyrs);
         jypm.setPmjyl(pmjyl);
         jypm.setReadOnly(true);
         records.add(0, jypm);

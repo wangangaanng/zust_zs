@@ -23,4 +23,8 @@ public interface BckjBizDcwjTmDao extends CrudDao<BckjBizDcwjTm> {
 
     List<Map<String, Object>> listQuestion(@Param("dcwjRefOwid") String dcwjRefOwid);
 
+    List<BckjBizDcwjTm> listDcwjTm(@Param("dcwjRefOwid") String dcwjRefOwid);
+
+    void deleteByDcwj(@Param("dcwjRefOwid") String dcwjRefOwid);
+
 }

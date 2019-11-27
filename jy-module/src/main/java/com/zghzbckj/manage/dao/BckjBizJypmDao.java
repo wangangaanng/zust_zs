@@ -19,7 +19,7 @@ import java.util.Map;
 @MyBatisDao
 public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
 
-    Map<String, Object> statistic();
+    Map<String, Object> statistic(Map<String, Object> dataMap);
 
     List<Map<String, Object>> collegeStats();
 
@@ -28,4 +28,6 @@ public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
     BckjBizJypm getByMajor(@Param("collegeName") String collegeName, @Param("majorName") String majorName);
 
     void deleteAll();
+
+    void deleteThisYear(@Param("nf") String nf);
 }
