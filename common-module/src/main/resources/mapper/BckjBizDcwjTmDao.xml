@@ -81,6 +81,19 @@
 		where a.dcwj_ref_owid=#{dcwjRefOwid}
 		order by tmsx
 	</select>
+
+	<!--根据问卷的owid查询问卷的题目	-->
+	<select id="listDcwjTm" resultType="com.zghzbckj.manage.entity.BckjBizDcwjTm">
+		select <include refid="bckjBizDcwjTmColumns"/>
+		from bckj_biz_dcwj_tm a
+		where a.dcwj_ref_owid=#{dcwjRefOwid}
+		order by tmsx
+	</select>
+
+	<!--根据调查问卷owid删除题目	-->
+	<delete id="deleteByDcwj">
+		DELETE FROM bckj_biz_dcwj_tm WHERE dcwj_ref_owid=#{dcwjRefOwid}
+	</delete>
     
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizDcwjTm">
 		SELECT 
