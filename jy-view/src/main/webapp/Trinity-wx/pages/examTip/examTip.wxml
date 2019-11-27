@@ -9,7 +9,7 @@
      <button  formType="submit" bindtap="perfectInfo">{{state==1?"去确认":"去完善"}}</button>
   </view> -->
   <view class="main-btn_wrap button" style="display:flex;">
-    <button style="flex:1;margin-right:15px;" bindtap="perfectQr">已确认</button>
+    <button style="flex:1;margin-right:15px;" bindtap="perfectQr" wx:if='{{state==1}}'>已确认</button>
     <button style="flex:1;" bindtap="perfectInfo">去完善</button>
   </view>
 </view>
