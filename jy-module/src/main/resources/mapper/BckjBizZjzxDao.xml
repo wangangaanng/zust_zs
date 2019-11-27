@@ -260,7 +260,7 @@
 		select
 		a.owid as owid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1,b.zjjj as zjjj,
-		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4
+		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4 , b.exp5 as exp5
 		from bckj_biz_yhxx a ,bckj_biz_zjzx b
 		<where>
 			a.owid = b.yhid AND  a.yhlx=1
@@ -287,7 +287,7 @@
 		select
 		b.owid as owid ,a.owid as yhid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 		b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1,b.zjjj as zjjj,
-		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4
+		b.zjxx as zjxx, b.zjtx as zjtx ,a.sjh as sjh ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4 ,b.exp5 as exp5
 		from bckj_biz_yhxx a ,bckj_biz_zjzx b where a.owid = b.yhid
 		order by b.zjxm desc
 	</select>
@@ -305,15 +305,17 @@
 			a.exp2=#{exp2},
 			a.exp3=#{exp3},
 			a.exp4=#{exp4},
+			a.exp5=#{exp5},
 			a.zjxx=#{zjxx},
 			a.zjjj=#{zjjj}
 			where a.yhid = #{yhid}
 	</update>
+
 	<select id="getConsultsOne" parameterType="Map"  resultType="Map" >
 			select
 			b.owid as owid ,a.owid as yhid ,b.zjxm as zjxm ,a.xb as xb , a.yh_dlzh as yhDlzh , a.yh_Dlmm as yhDlmm ,b.zjlxfs as zjlxfs,
 			b.zjzw as zjzw, b.szzy as szzy ,b.zjbgs as  zjbgs , a.yx as yx ,b.szxy as szxy ,b.exp1 as exp1 ,b.zjjj as zjjj,
-			b.zjxx as zjxx ,b.zjtx as zjtx ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4 ,a.sjh as sjh
+			b.zjxx as zjxx ,b.zjtx as zjtx ,b.exp2 as exp2 ,b.exp3 as exp3 ,b.exp4 as exp4 ,a.sjh as sjh ,b.exp5 as exp5
 			from bckj_biz_yhxx a ,bckj_biz_zjzx b
 			<where>
 				a.owid = b.yhid AND  a.yhlx=1 and a.owid =#{owid}
@@ -341,5 +343,9 @@
 
 	<select id="getFilterKeys" resultType="String">
 		SELECT  key_word from bckj_dic_keys
+	</select>
+
+	<select id="getZxfx" resultType="Map">
+		SELECT b.dic_val2 as label ,b.dic_val1 as value from  ourway_sys_dic a ,ourway_sys_dic_value b where b.dic_ref_owid=a.owid and a.type=60001
 	</select>
 </mapper>

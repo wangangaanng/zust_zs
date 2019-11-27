@@ -264,7 +264,18 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
         Page<Map<String, Object>> page = new Page(pageNo, pageSize);
         dataMap.put("page", page);
-        page.setList(this.dao.showInfoList(dataMap));
+        List<Map<String, Object>> mapList = this.dao.showInfoList(dataMap);
+        for (Map map:mapList){
+            if(TextUtils.isEmpty(map.get("exp3"))){
+                map.put("exp3","暂无信息");
+            }
+            if(TextUtils.isEmpty(map.get("exp5"))){
+                map.put("exp4","暂无信息");
+            }else {
+                map.put("exp4",map.get("exp5").toString().substring(0,map.get("exp5").toString().length()-1));
+            }
+        }
+        page.setList(mapList);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
 
@@ -276,12 +287,24 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         List<Map<String, Object>> mapList = this.dao.showInfoListQt(dataMap);
         if(!TextUtils.isEmpty(mapList)&&mapList.size()>0){
             for (Map map:mapList){
+                if(TextUtils.isEmpty(map.get("exp3"))){
+                    map.put("exp3","暂无信息");
+                }
+                if(TextUtils.isEmpty(map.get("exp5"))){
+                    map.put("exp4","暂无信息");
+                }else {
+                    map.put("exp4",map.get("exp5").toString().substring(0,map.get("exp5").toString().length()-1));
+                }
+            }
+        }
+       /* if(!TextUtils.isEmpty(mapList)&&mapList.size()>0){
+            for (Map map:mapList){
                 if(!TextUtils.isEmpty(map.get("exp4"))){
                         String zxfx = getDicVal2ByVal1(60001, map.get("exp4").toString());
                         map.put("exp4",zxfx);
                 }
             }
-        }
+        }*/
         page.setList(mapList);
         return ResponseMessage.sendOK(PageUtils.assimblePageInfo(page));
     }
@@ -318,9 +341,25 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
         BckjBizYhxxVo bckjBizYhxx = new BckjBizYhxxVo();
         BckjBizZjzx bckjBizZjzx = new BckjBizZjzx();
         MapUtil.easySetByMap(dataMap, bckjBizZjzx);
+
+        if(null!=dataMap.get("exp4")) {
+            List<Map<String, Object>> _list = (List<Map<String, Object>>) dataMap.get("exp4");
+            String _ids = "";
+            String names="";
+            for (Map<String, Object> map : _list) {
+                _ids += map.get("value") +",";
+                names +=map.get("label")+",";
+            }
+            bckjBizZjzx.setExp4(_ids);
+            bckjBizZjzx.setExp5(names);
+        }else{
+            bckjBizZjzx.setExp4(null);
+            bckjBizZjzx.setExp5(null);
+        }
         dataMap.remove("exp2");//办公司电话
         dataMap.remove("exp3");//部门
-        dataMap.remove("exp4");//咨询方向
+        dataMap.remove("exp4");//咨询方向代码
+        dataMap.remove("exp5");//咨询方向中文
         MapUtil.easySetByMap(dataMap, bckjBizYhxx);
         if (ClassUtils.isAllFieldNull(bckjBizYhxx) && ClassUtils.isAllFieldNull(bckjBizZjzx)) {
             return ResponseMessage.sendOK("无保存内容");
@@ -366,14 +405,16 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
 
     public ResponseMessage getConsultsOne(Map<String, Object> dataMap) {
         Map<String, Object> consultsOne = this.dao.getConsultsOne(dataMap);
-        if (!TextUtils.isEmpty(consultsOne)) {
-            if (!TextUtils.isEmpty(consultsOne.get("exp4"))) {
-                String zxfx = getDicVal2ByVal1(60001, consultsOne.get("exp4").toString());
-                consultsOne.put("exp4", zxfx);
-            }
-        }
-        Map<String, Object> consultsOne1 = this.dao.getConsultsOne(dataMap);
-        consultsOne1.put("exp4", consultsOne.get("exp4"));
+      if(!TextUtils.isEmpty(consultsOne)){
+          if(TextUtils.isEmpty(consultsOne.get("exp3"))){
+              consultsOne.put("exp3","暂无信息");
+          }
+          if(TextUtils.isEmpty(consultsOne.get("exp5"))){
+              consultsOne.put("exp5","暂无信息");
+          }else {
+              consultsOne.put("exp5",consultsOne.get("exp5").toString().substring(0,consultsOne.get("exp5").toString().length()-1));
+          }
+      }
         return ResponseMessage.sendOK(consultsOne);
     }
 
@@ -411,5 +452,9 @@ public class BckjBizZjzxService extends CrudService<BckjBizZjzxDao, BckjBizZjzx>
     public ResponseMessage getConsultsOneHt(Map<String, Object> dataMap) {
         Map<String, Object> consultsOne = this.dao.getConsultsOne(dataMap);
         return ResponseMessage.sendOK(consultsOne);
+    }
+
+    public List<Map> getZxfx() {
+        return this.dao.getZxfx();
     }
 }
