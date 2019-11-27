@@ -439,6 +439,21 @@ public class BckjBizZjzxController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
+    }
 
+    /**
+     * 返回专家咨询方式
+     * @return
+     */
+    @PostMapping("getZjZxfx")
+    @ResponseBody
+    public ResponseMessage getZjZxfx(){
+        try {
+            return  ResponseMessage.sendOK(bckjBizZjzxService.getZxfx());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
     }
 }

@@ -44,4 +44,6 @@ public interface BckjBizZjzxDao extends CrudDao<BckjBizZjzx> {
     String getDicVal2ByVal1(Integer type , String exp4);
 
     List<String> getFilterKeys();
+
+    List<Map> getZxfx();
 }
