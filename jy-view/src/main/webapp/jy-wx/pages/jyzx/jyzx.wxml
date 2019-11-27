@@ -13,7 +13,10 @@
           </view>
           <view class="t-jj">
             <view class="t-xm">{{item.zjxm?item.zjxm:'暂无姓名'}}</view>
+            <view class="t-xq" wx:if="{{item.exp4}}">咨询方向：{{item.exp4?item.exp4:''}}</view>
+            <view class="t-xq" wx:if="{{item.exp3}}">部门：{{item.exp3?item.exp3:''}}</view>
             <view class="t-xq">{{item.zjxx?item.zjxx:'暂无信息'}}</view>
+
           </view>
         </view>
         <view class="t-cz">

@@ -193,7 +193,7 @@ Page({
 
 var supervisorList = function (that) {//新闻快递轮播图
   var data = { "pageNo": that.data.pageNo, "pageSize": that.data.pageSize };
-  common.ajax('zustjy/bckjBizZjzx/supervisorList', data, function (res) {
+  common.ajax('zustjy/bckjBizZjzx/showInfoListQt', data, function (res) {
     if (res.data.backCode == 0) {
       var list;
       if (res.data.bean.records && res.data.bean.records.length > 0) {
