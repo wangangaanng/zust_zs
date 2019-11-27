@@ -208,11 +208,28 @@ public class BckjBizJypmController extends BaseController {
         }
     }
 
+    /**
+     *<p>功能描述:保存历年排行榜数据 saveLn</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/26 17:13</li>
+     *</ul>
+     */
     @PostMapping(value = "saveLn")
     @ResponseBody
     public ResponseMessage saveLn(PublicDataVO dataVO) {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            List<BckjBizJypm> jypmList = bckjBizJypmService.findListByParams(dataMap, null);
+            bckjBizJypmService.deleteThisYear(DateUtil.getDateStr("yyyy"));
+            for (BckjBizJypm jypm : jypmList) {
+                jypm.setOwid("");
+                jypm.setPmnf(DateUtil.getDateStr("yyyy"));
+                bckjBizJypmService.save(jypm);
+            }
             return ResponseMessage.sendOK("ok");
         } catch (Exception e) {
             e.printStackTrace();
@@ -226,6 +243,28 @@ public class BckjBizJypmController extends BaseController {
         try {
             List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
             return bckjBizJypmService.findPageBckjBizJypm(filters, dataVO.getPageNo(), dataVO.getPageSize());
+        } catch (Exception e) {
+            log.error(e + "获取bckjBizJypm列表失败\r\n" + e.getStackTrace()[0], e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     *<p>功能描述:历年排行榜列表 getListByNf</p >
+     *<ul>
+     *<li>@param [dataVO]</li>
+     *<li>@return com.zghzbckj.base.model.ResponseMessage</li>
+     *<li>@throws </li>
+     *<li>@author xuyux</li>
+     *<li>@date 2019/11/26 17:14</li>
+     *</ul>
+     */
+    @PostMapping(value = "getListByNf")
+    @ResponseBody
+    public ResponseMessage getListByNf(PublicDataVO dataVO) {
+        try {
+            List<FilterModel> filters = JsonUtil.jsonToList(dataVO.getData(), FilterModel.class);
+            return bckjBizJypmService.findPageBckjBizJypmNf(filters, dataVO.getPageNo(), dataVO.getPageSize());
         } catch (Exception e) {
             log.error(e + "获取bckjBizJypm列表失败\r\n" + e.getStackTrace()[0], e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstants.ERROR_SYS_MESSAG);
