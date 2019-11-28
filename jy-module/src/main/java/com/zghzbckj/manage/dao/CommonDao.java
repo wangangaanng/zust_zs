@@ -43,6 +43,8 @@ public interface CommonDao {
 
     Map<String, Object> getMapYjbNumber(Map<String, Object> dataMap);
 
+    Integer getQdNumber (@Param("zwlx") String zwlx, @Param("xxlb") String xxlb);
+
     Map<String, Object> getOneDic(Map<String, Object> dataMap);
 
     List<Map<String, Object>> listDicVal(Map<String, Object> dataMap);

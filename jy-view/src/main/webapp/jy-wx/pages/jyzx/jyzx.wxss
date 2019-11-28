@@ -7,7 +7,7 @@ page{background-color: #F3F3F5;}
 .t-tx view image{width: 114rpx;height: 114rpx;border-radius: 50%;}
 .t-tx image{width: 100%;height: 100%;}
 .t-jj{margin-left: 130rpx;}
-.t-xm{font-size: 32rpx;color: #212121;margin-bottom: 20rpx;}
+.t-xm{font-size: 32rpx;color: #212121;margin-bottom: 10rpx;}
 .t-xq{font-size: 26rpx;
       color: #636363;
       text-overflow: -o-ellipsis-lastline;

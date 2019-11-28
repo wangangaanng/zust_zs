@@ -71,7 +71,7 @@ Page({
     var that=this;
     common.ajax('zustcommon/bckjBizJyscheme/queryDocument', data, function (res) {
       if (res.data.backCode == 0) {
-        if (res.data.bean){
+        if ((res.data.bean) && (res.data.bean.xm)){//有查询结果
           // if (res.data.bean.sfz){
           //   res.data.bean.csrq = res.data.bean.sfz.substring(6, 10) + '年' + res.data.bean.sfz.substring(10, 12) + '月' + res.data.bean.sfz.substring(12, 14) + '日'
           // }
@@ -103,9 +103,9 @@ Page({
           })
         }else{
           wx.showToast({
-            title: '未查询到您的档案数据',
+            title: '未查询到您的档案，请确认输入是否有误',
             icon: 'none',
-            duration: 2000
+            duration: 3000
           })
         }
 
