@@ -104,6 +104,12 @@
 		DELETE FROM bckj_biz_jypm WHERE PMNF=#{nf}
 	</delete>
 
+	<select id="sumPmrs" resultType="java.util.Map">
+		SELECT SUM(pmbyrs) AS pmbyrs, SUM(pmqyrs) AS pmqyrs, "合计" AS pmzy, CAST(SUM(pmqyrs)*100/ SUM(pmbyrs) AS DECIMAL(18,2)) AS pmjyl
+		FROM bckj_biz_jypm
+		WHERE pmnf IS NULL
+	</select>
+
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		SELECT 
 			<include refid="bckjBizJypmColumns"/>

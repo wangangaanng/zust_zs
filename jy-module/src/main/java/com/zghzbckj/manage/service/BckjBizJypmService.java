@@ -30,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -92,12 +93,17 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public List<Map<String, Object>> listRank(Map<String, Object> dataMap) {
         //统计学院就业情况
+        BigDecimal pmbyzrs = null;
+        BigDecimal pmqyzrs = null;
         List<Map<String, Object>> collegeList = this.dao.collegeStats();
+        if (collegeList.size() <= 0) {
+            return null;
+        }
         for (Map<String, Object> college : collegeList) {
             List<Map<String, Object>> majorList = this.dao.majorList(MapUtils.getString(college, "szxy"));
-            Map<String, Object> statsMap = new HashMap<>();
-            BigDecimal pmbyzrs = new BigDecimal(MapUtils.getInt(college, "pmbyrs"));
-            BigDecimal pmqyzrs = new BigDecimal(MapUtils.getInt(college, "pmqyrs") * 100);
+            Map<String, Object> statsMap = new HashMap<>(4);
+            pmbyzrs = new BigDecimal(MapUtils.getInt(college, "pmbyrs"));
+            pmqyzrs = new BigDecimal(MapUtils.getInt(college, "pmqyrs") * 100);
             statsMap.put("pmzy", "合计");
             statsMap.put("pmbyrs", college.get("pmbyrs"));
             statsMap.put("pmqyrs", college.get("pmqyrs"));
@@ -118,6 +124,12 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
                 return 1;
             }
         });
+        //全校合计
+        List<Map<String, Object>> list = this.dao.sumPmrs();
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("szxy", "全校");
+        map.put("pmzyList", list);
+        collegeList.add(map);
         return collegeList;
     }
 
