@@ -129,7 +129,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
         Map<String, Object> map = new HashMap<>(2);
         map.put("szxy", "全校");
         map.put("pmzyList", list);
-        collegeList.add(map);
+        collegeList.add(0, map);
         return collegeList;
     }
 
