@@ -107,7 +107,9 @@
         a.qymc AS "qymc",
         a.qy_lxr AS "qyLxr",
         a.qy_lxrdh AS "qyLxrdh",
-        a.qy_yx AS "qyYx"
+        a.qy_yx AS "qyYx",
+        a.qy_tysh AS "qyTysh",
+        a.qy_frsfz AS "qyFrsfz"
     </sql>
 
 

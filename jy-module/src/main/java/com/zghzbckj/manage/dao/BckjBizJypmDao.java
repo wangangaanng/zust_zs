@@ -30,4 +30,6 @@ public interface BckjBizJypmDao extends CrudDao<BckjBizJypm> {
     void deleteAll();
 
     void deleteThisYear(@Param("nf") String nf);
+
+    List<Map<String, Object>> sumPmrs();
 }

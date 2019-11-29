@@ -293,7 +293,7 @@
         </where>
     </select>
 
-    <!--根据学生关注表关注类型、类型统计学生关注数量 state=1通过 gzlx=1职位 xxlb=0 关注    -->
+    <!--根据学生关注表关注类型、类型统计学生关注数量 state=1通过 gzlx=1职位 xxlb=0 关注 xxlb=1签到   -->
     <select id="getJobFollowNumber" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM bckj_biz_xsgz
@@ -336,6 +336,12 @@
                 AND YEAR(createtime)=#{year}
             </if>
         </where>
+    </select>
+
+    <select id="getQdNumber" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM bckj_biz_job a, bckj_biz_xsgz b
+        WHERE a.zwlx=#{zwlx} AND b.xxlb=#{xxlb} AND b.job_ref_owid = a.owid
     </select>
 
     <!--查询字典表值    -->

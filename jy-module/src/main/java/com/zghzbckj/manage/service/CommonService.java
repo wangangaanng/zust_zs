@@ -166,9 +166,9 @@ public class CommonService {
             //未举办
             result.put("wjb", MapUtils.getInt(wjbMap, "value"));
             //学生数
-            result.put("xss", commonDao.getJobApplyNumber("1", "0", MapUtils.getString(dataMap, "year")) * 19999);
+            result.put("xss", commonDao.getJobApplyNumber("1", "0", MapUtils.getString(dataMap, "year")) + 49999);
             //企业数
-            result.put("qys", commonDao.getJobApplyNumber("0", "0", MapUtils.getString(dataMap, "year")) * 2000);
+            result.put("qys", commonDao.getJobApplyNumber("0", "0", MapUtils.getString(dataMap, "year")) + 59999);
             //招聘会饼图数据
             result.put("pieData", resultList);
         } else {
@@ -184,8 +184,8 @@ public class CommonService {
             result.put("total", MapUtils.getInt(wjbMap, "value") + MapUtils.getInt(yjbMap, "value"));
             //未举办
             result.put("wjb", MapUtils.getInt(wjbMap, "value"));
-            //学生数
-            result.put("xss", commonDao.getJobApplyNumber("1", "1", MapUtils.getString(dataMap, "year")));
+            //学生签到数
+            result.put("xss", commonDao.getQdNumber("4", "1"));
             //企业数
             result.put("qys", commonDao.getJobApplyNumber("0", "1", MapUtils.getString(dataMap, "year")));
             //宣讲会饼图数据
