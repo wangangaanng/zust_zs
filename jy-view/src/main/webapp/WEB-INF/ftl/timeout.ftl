@@ -13,8 +13,8 @@
     $(document).ready(function () {
         layer.open({
             title: '提示',
-            closeBtn:false
-            ,content: '登录超时，请重新登录',
+            closeBtn: 0,
+            content: '登录超时，请重新登录',
             yes:function (index) {
                 window.location.href=base+"/"
                 layer.close(index)

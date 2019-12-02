@@ -228,6 +228,7 @@ function confirmQd() {
                 layer1=null;
                 layer.open({
                     title:'提示',
+                    closeBtn: 0,
                     content: '发布成功',
                     yes: function(index, layero){
                         layer.close(index);
