@@ -4,6 +4,7 @@
 package com.zghzbckj.manage.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.ourway.base.utils.TextUtils;
 import com.zghzbckj.base.entity.DataWithExpEntity;
 import org.hibernate.validator.constraints.Length;
 
@@ -248,6 +249,9 @@ public class BckjBizQyxx extends DataWithExpEntity<BckjBizQyxx> {
 
     @Length(min = 0, max = 20, message = "qy_frsfz长度必须介于 0 和 20 之间")
     public String getQyFrsfz() {
+        if(TextUtils.isEmpty(this.qyFrsfz)){
+            return this.qyTysh;
+        }
         return qyFrsfz;
     }
 

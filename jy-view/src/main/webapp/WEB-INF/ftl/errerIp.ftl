@@ -13,8 +13,9 @@
     $(document).ready(function () {
         layer.open({
             title: '提示',
-            closeBtn:false
-            ,content: '请登录学校内网查看该网页',
+            closeBtn: 0,
+            scrollbar: false,
+            content: '请登录学校内网查看该网页',
             yes:function (index) {
                 window.location.href="${base}/"
                 layer.close(index)

@@ -228,6 +228,8 @@ function confirmQd() {
                 layer1=null;
                 layer.open({
                     title:'提示',
+                    closeBtn: 0,
+                    scrollbar: false,
                     content: '发布成功',
                     yes: function(index, layero){
                         layer.close(index);
@@ -441,6 +443,7 @@ window.operateEvents = {
                         layer2=layer.open({
                             type: 1,
                             title:'招聘公告信息',
+                            scrollbar: false,
                             skin: 'layui-layer-rim', //加上边框
                             area: ['1000px', '720px'], //宽高
                             content: '<div class="lxr-modal">' +

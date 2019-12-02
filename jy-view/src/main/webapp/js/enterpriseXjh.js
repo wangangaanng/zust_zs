@@ -84,20 +84,23 @@ function xjhtjList() {
 var layer1;
 function applyXjh(){
     if(!isTimeOut()){
+        var qyLxr=JSON.parse(getCookie("qyInfo")).qyLxr || '';
+        var qyLxrdh=JSON.parse(getCookie("qyInfo")).qyLxrdh || '';
         layer1=layer.open({
             type: 1,
             title:'申请信息',
+            scrollbar: false,
             skin: 'layui-layer-rim', //加上边框
             area: ['860px', '600px'], //宽高
             content: '<div class="lxr-modal"><div class="row">\n' +
             '                            <div class="form-group">\n' +
             '                                <label for="lxr" class="col-sm-2 col-sm-offset-1 control-label text-right" style="line-height: 34px;">联系人<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
-            '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+JSON.parse(getCookie("qyInfo")).qyLxr+'" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+qyLxr+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;">联系人手机<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3">\n' +
-            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+JSON.parse(getCookie("qyInfo")).qyLxrdh+'" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+qyLxrdh+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                        </div>\n' +
@@ -222,13 +225,15 @@ function confirmQd() {
             jsonObj['tjsd'+i]=$("#tjsd"+i).val()
         }
 
-        console.log(jsonObj)
+        // console.log(jsonObj)
         ajax("zustjy/bckjBizJybm/applyJob", jsonObj, function (data) {
             if(data.backCode==0){
                 layer.close(layer1)
                 layer1=null;
                 layer.open({
                     title:'提示',
+                    closeBtn: 0,
+                    scrollbar: false,
                     content: '宣讲会申请成功，请等待审核。',
                     yes: function(index, layero){
                         layer.close(index);

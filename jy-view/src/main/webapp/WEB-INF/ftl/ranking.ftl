@@ -157,16 +157,30 @@
                             var str='';
                             $.each(p.pmzyList,function (m,n) {
                                 if(m==0){
-                                    str='<tr>\n' +
-                                            '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
-                                            '<td>'+n.pmzy+'</td>\n' +
-                                            '<td>'+n.pmbyrs+'</td>\n' +
-                                            '<td>'+n.pmqyrs+'</td>\n' +
-                                            /*'<td>'+n.pmyprs+'</td>\n' +
-                                            '<td>'+n.pmqyl+'%</td>\n' +*/
-                                            '<td>'+n.pmjyl+'%</td>\n' +
-                                            '<td rowspan="'+p.pmzyList.length+'" class="xypm">'+parseInt(k+1)+'</td>\n' +
-                                            '</tr>'
+                                    if(k!=0){
+                                        str='<tr>\n' +
+                                                '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
+                                                '<td>'+n.pmzy+'</td>\n' +
+                                                '<td>'+n.pmbyrs+'</td>\n' +
+                                                '<td>'+n.pmqyrs+'</td>\n' +
+                                                /*'<td>'+n.pmyprs+'</td>\n' +
+                                                '<td>'+n.pmqyl+'%</td>\n' +*/
+                                                '<td>'+n.pmjyl+'%</td>\n' +
+                                                '<td rowspan="'+p.pmzyList.length+'" class="xypm">'+parseInt(k)+'</td>\n' +
+                                                '</tr>'
+                                    }else{//第一行合计
+                                        str='<tr style="background: #fff8e2;">\n' +
+                                                '<td rowspan="'+p.pmzyList.length+'" class="xymc">'+p.szxy+'</td>\n' +
+                                                '<td>'+n.pmzy+'</td>\n' +
+                                                '<td>'+n.pmbyrs+'</td>\n' +
+                                                '<td>'+n.pmqyrs+'</td>\n' +
+                                                /*'<td>'+n.pmyprs+'</td>\n' +
+                                                '<td>'+n.pmqyl+'%</td>\n' +*/
+                                                '<td>'+n.pmjyl+'%</td>\n' +
+                                                '<td rowspan="'+p.pmzyList.length+'" class="xypm"></td>\n' +
+                                                '</tr>'
+                                    }
+
                                 }else{
                                     var totalClass='';
                                     if(n.pmzy=="合计"){
@@ -195,8 +209,9 @@
                         })
                     }else{
                         layer.open({
-                            title: '提示'
-                            ,content: '暂无数据'
+                            title: '提示',
+                            scrollbar: false,
+                            content: '暂无数据'
                         });
                     }
                 }else{
