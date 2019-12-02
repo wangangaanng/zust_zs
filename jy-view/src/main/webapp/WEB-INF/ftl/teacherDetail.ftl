@@ -95,6 +95,7 @@
         if(!isTimeOut()) {
             layer.open({
                 type: 1,
+                scrollbar: false,
                 title: '填写咨询内容',
                 btn: ["提交", "取消"],
                 skin: 'layui-layer-rim', //加上边框
@@ -124,6 +125,7 @@
                     layer.close(index)
                     layer.open({
                         title: '提示',
+                        scrollbar: false,
                         content: '咨询已提交，请等待回复。',
                         yes: function (index1, layero) {
                             layer.close(index1);

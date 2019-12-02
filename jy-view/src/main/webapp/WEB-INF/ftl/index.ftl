@@ -498,6 +498,8 @@
         if(getQueryString("mess")==1){
             layer.open({
                 title:'提示',
+                scrollbar: false,
+                closeBtn: 0,
                 content: '尚未获取到当前认证学号，请直接在首页登录',
                 yes: function(index, layero){
                     window.location.replace(base+'/')
@@ -507,6 +509,8 @@
         }else if(getQueryString("mess")==2){
             layer.open({
                 title:'提示',
+                scrollbar: false,
+                closeBtn: 0,
                 content: '请在首页用身份证和身份证后六位登录后在生源信息完善学号',
                 yes: function(index, layero){
                     window.location.replace(base+'/')

@@ -127,6 +127,7 @@
         layer1=layer.open({
             type: 1,
             title: '留言',
+            scrollbar: false,
             skin: 'layui-layer-rim', //加上边框
             area: ['750px', '480px'], //宽高
             content: '<div class="message-content" style="padding: 15px;height: 80px;">\n' +

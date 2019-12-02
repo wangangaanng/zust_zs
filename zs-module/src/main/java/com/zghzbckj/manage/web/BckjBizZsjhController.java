@@ -232,6 +232,24 @@ public class BckjBizZsjhController extends BaseController {
         }
     }
 
+
+    /**
+     * 下拉框联动
+     * @return
+     */
+    @PostMapping("getListBoxLinkage")
+    @ResponseBody
+    public ResponseMessage getListBoxLinkage(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizZsjhService.getListBoxLinkage(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
     /**
      * 后台宣传会报名下拉框
      * dataVO

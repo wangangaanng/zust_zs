@@ -331,5 +331,26 @@
 	<select id="sumLqs" resultType="String">
 		SELECT sum(lqs) as sumLqs FROM bckj_biz_lntj
 	</select>
+
+	<select id="getListBoxLinkage" parameterType="Map" resultType="Map">
+		SELECT distinct #{filterKey} as label, distinct #{filterKey} as value FROM bckj_biz_lntj
+		<where>
+			<if test="nf!=null and nf!=''">
+				nf=#{nf}
+			</if>
+			<if test="sf!=null and sf!=''">
+				sf=#{sf}
+			</if>
+			<if test="kl!=null and kl!=''">
+				kl=#{kl}
+			</if>
+			<if test="pc!=null and pc!=''">
+				pc=#{pc}
+			</if>
+			<if test="zy!=null and zy!=''">
+				zy=#{zy}
+			</if>
+		</where>
+	</select>
 	
 </mapper>

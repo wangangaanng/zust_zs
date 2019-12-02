@@ -161,6 +161,7 @@
         layer.open({
             type: 1,
             title:'填写咨询内容',
+            scrollbar: false,
             btn:["提交","取消"],
             skin: 'layui-layer-rim', //加上边框
             area: ['450px', '320px'], //宽高
@@ -194,6 +195,7 @@
                     }
                     layer.open({
                         title: '提示',
+                        scrollbar: false,
                         content: tip,
                         yes: function (index1, layero) {
                             layer.close(index1);
@@ -209,6 +211,7 @@
     function removeHistoryConsult(a,obj){
         layer.open({
             title:'提示',
+            scrollbar: false,
             content: '确定要删除该条记录？',
             yes: function(index, layero){
                 var jsonObj ={

@@ -389,5 +389,27 @@ public class BckjBizZsjhService extends CrudService<BckjBizZsjhDao, BckjBizZsjh>
         return  strList;
     }
 
+    /**
+     * 下拉框联动
+     * @return
+     */
+    public List<Map> getListBoxLinkage(Map<String, Object> dataMap) {
+        return getListBoxLinkageAuto(dataMap);
+    }
+
+    private List<Map> getListBoxLinkageAuto(Map<String, Object> dataMap){
+        Set<String> strings = dataMap.keySet();
+        Iterator<String> it = strings.iterator();
+        List<Map> resList = Lists.newArrayList();
+        while (it.hasNext()){
+            Map<String, Object> resMap = Maps.newHashMap();
+            String str = it.next();
+            dataMap.put("filterKey",str);
+            resMap.put(str,this.dao.getListBoxLinkage(dataMap));
+            resList.add(resMap);
+        }
+        return resList;
+    }
+
 
 }

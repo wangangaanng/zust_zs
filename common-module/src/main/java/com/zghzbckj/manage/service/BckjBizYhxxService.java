@@ -717,9 +717,13 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
         String format = sdf.format(new Date());
         bckjBizYhxx.setExp8(format);
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");
+        String format1 = sdf1.format(new Date());
+        bckjBizYhxx.setExp7(format1);
         bckjBizYhxx.setYhlx(4);
         /*bckjBizYhxx.setExp10("未预约开放日");*/
         bckjBizYhxx.setExp10(dataMap.get("owid").toString());
+
         this.insert(bckjBizYhxx);
         this.dao.updateDicByMap2(dicMap);
         return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
@@ -920,7 +924,6 @@ public class BckjBizYhxxService extends CrudService<BckjBizYhxxDao, BckjBizYhxx>
             return ResponseMessage.sendOK("报名成功,请查收短信");
         }
         return ResponseMessage.sendError(ResponseMessage.FAIL, "报名失败");
-
     }
 
 

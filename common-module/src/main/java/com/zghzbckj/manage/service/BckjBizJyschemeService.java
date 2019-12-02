@@ -6,6 +6,7 @@ package com.zghzbckj.manage.service;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.ourway.base.utils.TextUtils;
+import com.ourway.base.utils.ValidateUtils;
 import com.zghzbckj.base.entity.Page;
 import com.zghzbckj.base.entity.PageInfo;
 import com.zghzbckj.base.model.FilterModel;
@@ -14,10 +15,7 @@ import com.zghzbckj.base.service.CrudService;
 import com.zghzbckj.base.util.IdGen;
 import com.zghzbckj.common.CommonConstant;
 import com.zghzbckj.manage.dao.BckjBizJyschemeDao;
-import com.zghzbckj.manage.entity.BckjBizJobPlanOther;
-import com.zghzbckj.manage.entity.BckjBizJyscheme;
-import com.zghzbckj.manage.entity.BckjBizSyb;
-import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.entity.*;
 import com.zghzbckj.util.ExcelUtils;
 import com.zghzbckj.util.MapUtil;
 import com.zghzbckj.util.PageUtils;
@@ -27,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -75,6 +74,8 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
     BckjBizYhxxService bckjBizYhxxService;
     @Autowired
     BckjBizJobPlanOtherService bckjBizJobPlanOtherService;
+    @Autowired
+    BckjBizJyDyInfoService bckjBizJyDyInfoService;
 
 
     /**
@@ -235,7 +236,6 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         //文件路径
         String filename = path;
         List<List<String>> list = bckjBizSybService.getExcelLists(path);
-        HashMap<Object, Object> resMap = Maps.newHashMap();
         List<BckjBizJyscheme> jys = new ArrayList();
         List<BckjBizJobPlanOther> jos = new ArrayList();
         List<String> xsxhs = Lists.newArrayList();
@@ -259,6 +259,7 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         }
         if (list != null) {
             for (int i = 2; i < list.size(); i++) {
+                HashMap<Object, Object> resMap = Maps.newHashMap();
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
                 String xsxh = cellList.get(0); //学生学号
@@ -774,7 +775,23 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
             }
         }*/
         bckjBizJyscheme = getJyselfInfo(dataMap);
-
+        if(!TextUtils.isEmpty(bckjBizJyscheme)&&!TextUtils.isEmpty(bckjBizJyscheme.getXsxh())){
+                String bdzbh = bckjBizJobPlanOtherService.getOneByXsxhCode(bckjBizJyscheme.getXsxh(), "bdzbh");
+                if(TextUtils.isEmpty(bdzbh)){
+                    bckjBizJyscheme.setExp2("");
+                }else {
+                    bckjBizJyscheme.setExp2(bdzbh);
+            }
+                String ems = bckjBizJobPlanOtherService.getOneByXsxhCode(bckjBizJyscheme.getXsxh(), "ems");
+                if(TextUtils.isEmpty(ems)){
+                    bckjBizJyscheme.setExp3("");
+                }else {
+                    bckjBizJyscheme.setExp3(ems);
+                }
+                bckjBizJyscheme.setDwlxr("");
+                bckjBizJyscheme.setDwdh("");
+                bckjBizJyscheme.setYrdwdm("");
+        }
         /*if (!TextUtils.isEmpty(getJyselfInfo(dataMap))){
             bckjBizJyscheme = getJyselfInfo(dataMap);
         }*/
@@ -794,7 +811,6 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         catch (Exception e){
             e.printStackTrace();
         }
-
         return bckjBizJyscheme;
     }
 
@@ -806,5 +822,175 @@ public class BckjBizJyschemeService extends CrudService<BckjBizJyschemeDao, Bckj
         }else {
             return new BckjBizJyscheme();
         }
+    }
+
+
+    /**
+     * <p>功能描述:录入就业方案报到证编号</p >
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage recordInfoBh(String path,String type) throws IllegalAccessException, InstantiationException {
+        //用来存放错误信息
+        String error = "";
+        //文件路径
+        String filename = path;
+        List<List<String>> list = bckjBizSybService.getExcelLists(path);
+        List<BckjBizJobPlanOther> jos = new ArrayList();
+        List<String> xsxhs = Lists.newArrayList();
+        //获得jobplan中的数据 key:学号    value:报到证编号
+        List<Map<String,Object>> bdzbhs=this.dao.jobOtherGetByCode(type);
+        //读取自定义扩展字段
+        if (list != null) {
+            for (int i = 1; i < list.size(); i++) {
+                HashMap<Object, Object> resMap = Maps.newHashMap();
+                //学生信息录入
+                List<String> cellList = list.get(i);//行循环
+                String xsxh = cellList.get(0); //学生学号
+                //如果学号为空则退出
+                if (TextUtils.isEmpty(xsxh)) {
+                    break;
+                }
+                resMap.put("name",xsxh);
+                resMap.put("code",type);
+                xsxhs.add(xsxh);
+                String bdzbh = cellList.get(1);  //学生报到证编号
+                resMap.put("val",bdzbh);
+                BckjBizJobPlanOther bckjBizJobPlanOther = BckjBizJobPlanOther.class.newInstance();
+                MapUtil.easySetByMap(resMap,bckjBizJobPlanOther);
+                jos.add(bckjBizJobPlanOther);
+            }
+            }
+            //判断excel表中是否存在重复的xsxh
+            Set<String> xsxhSet = new HashSet<>();
+            int count = 1;
+            for (String xsxh : xsxhs) {
+                xsxhSet.add(xsxh);
+                if (xsxhSet.size() != count++) {
+                    return ResponseMessage.sendOK("导入失败,学生学号存在重复:" + xsxh);
+                }
+            }
+            Set<String> results = new HashSet<>(xsxhs);
+            Thread t = new Thread(new Runnable() {
+                // run方法具体重写
+                public void run() {
+                    for (Map map : bdzbhs) {
+                        int count = results.size();
+                        results.add(map.get("xsxh").toString());
+                        if (results.size() != (++count)) {
+                            bckjBizJobPlanOtherService.deleteOneByOwid(map.get("owid"));
+                            count--;
+                            //这里不删除bckjBizStudentExpand
+                            //* bckjBizStudentExpandService.deleteBySfz(bckjBizSyb.getSfz());*//*
+                        }
+                    }
+                }
+            });
+            t.start();
+            for (BckjBizJobPlanOther bckjBizJobPlanOther : jos) {
+                bckjBizJobPlanOtherService.saveOrUpdate(bckjBizJobPlanOther);
+            }
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+
+    /**
+     * 刷新动态就业信息
+     * @return
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage getJyDynamicInfo(Map<String, Object> dataMap) throws ParseException, IllegalAccessException, InstantiationException {
+        String currentYear = dataMap.get("nf").toString();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+        Date parse = simpleDateFormat.parse(currentYear);
+        dataMap.put("currentYear",parse);
+        //获得该年份的所有同学
+        List<Map> jyDynamicInfo = this.dao.getJyDynamicInfo(dataMap);
+        List<Map> xyDynamicInfo = this.dao.getxyDynamicInfo(dataMap);
+        List<Map> zyDynamicInfo = this.dao.getzyDynamicInfo(dataMap);
+        List<BckjBizJyDyInfo> jyDyInfos= Lists.newArrayList();
+
+        if(TextUtils.isEmpty(jyDynamicInfo)&&jyDynamicInfo.size()<=0){
+            BckjBizJyDyInfo bckjBizJyDyInfo = BckjBizJyDyInfo.class.newInstance();
+            bckjBizJyDyInfo.setNf(currentYear);
+            //state：0学生就业信息不全，无法生存，1生成成功
+            bckjBizJyDyInfo.setState(0);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,"数据不全,无法生成!!!");
+        }
+        for (Map map:xyDynamicInfo){
+            int sum=0;
+            BckjBizJyDyInfo dyInfo=null;
+            Map<Object, Object> dealMap = Maps.newHashMap();
+            for(Map map1:zyDynamicInfo){
+                int xb=0;
+                if(map1.get("xsxy").equals(map.get("xsxy"))){
+                    int count = 0;
+                    xb++;
+                    for (Map map2:jyDynamicInfo){
+                        if(map2.get("xszy").equals(map1.get("xszy"))){
+                            count++;
+                        }
+                    }
+                    dealMap.put("zy"+xb,map1.get("xszy"));
+                    dealMap.put("rs"+xb,count);
+                    dealMap.put("zysum",xb);
+                    sum=sum+count;
+                }
+            }
+            dealMap.put("sum",sum);
+            dyInfo=bckjBizJyDyInfoService.getOngByXsxyNfXlcc(dataMap);
+            if(TextUtils.isEmpty(dyInfo)){
+                dyInfo = BckjBizJyDyInfo.class.newInstance();
+                dyInfo.setNf(dataMap.get("currentYear").toString());
+                dyInfo.setXsxy(map.get("xsxy").toString());
+                dyInfo.setSfxs(0);
+                dyInfo.setXlcc(dataMap.get("xlcc").toString());
+            }
+            MapUtil.easySetByMap(dealMap,dyInfo);
+            jyDyInfos.add(dyInfo);
+        }
+        bckjBizJyDyInfoService.saveOrUpdateAll(jyDyInfos);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+
+    /**
+     * 展示就业动态信息
+     * @return
+     */
+
+    public List<BckjBizJyDyInfo> showJyDyInfo(Map dataMap) {
+        return bckjBizJyDyInfoService.getNfListByNfXlcc(dataMap);
+    }
+
+    /**
+     * 后台保存联系人 联系电话
+     * @param list
+     * @return
+     */
+    @Transactional(readOnly = false,rollbackFor = Exception.class)
+    public ResponseMessage saveJyDyInfo(List<Object> list) {
+        List<BckjBizJyDyInfo> jyDyInfos= Lists.newArrayList();
+        for (Object o:list){
+            String owid = ((Map) o).get("owid").toString();
+            BckjBizJyDyInfo oneByOwid = bckjBizJyDyInfoService.getOneByOwid(owid);
+            if(!TextUtils.isEmpty(oneByOwid)){
+                MapUtil.easySetByMap( ((Map) o),oneByOwid);
+            }
+            jyDyInfos.add(oneByOwid);
+        }
+        bckjBizJyDyInfoService.saveOrUpdateAll(jyDyInfos);
+        return ResponseMessage.sendOK(CommonConstant.SUCCESS_MESSAGE);
+    }
+
+
+
+    /**
+     * 取出就业动态信息的年份
+     * @return
+     */
+    public Map<String,Object> getJyDyNf() {
+        return this.dao.getJyDyNf();
     }
 }

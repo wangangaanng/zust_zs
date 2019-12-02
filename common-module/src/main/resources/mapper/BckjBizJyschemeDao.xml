@@ -569,4 +569,63 @@
 		WHERE a.owid = b.dic_ref_owid and a.type=#{type}
 	</select>
 
+
+	<select id="jobOtherGetByCode" resultType="Map" >
+		SELECT name as xsxh ,owid as owid from bckj_biz_job_plan_other where code=#{value}
+	</select>
+
+	<select id="getJyDynamicInfo" resultType="Map">
+		SELECT
+		  a.xsxh,
+		  a.xm,
+		  a.xszy
+		FROM
+		  bckj_biz_syb a,
+		  bckj_biz_jyscheme b
+		WHERE DATE_FORMAT(b.bdkssj, '%Y') = #{currentYear} and a.xsxh=b.xsxh and a.xlcc like concat('%',#{xlcc},'%')
+		  AND a.xsxy IS NOT NULL
+		  AND a.xszy IS NOT NULL
+	</select>
+
+	<select id="getxyDynamicInfo" resultType="Map">
+		SELECT DISTINCT
+		  a.xsxy AS xsxy
+		FROM
+		  bckj_biz_syb a,
+		  bckj_biz_jyscheme b
+		WHERE DATE_FORMAT(b.bdkssj, '%Y') = #{currentYear} and a.xsxh=b.xsxh and  a.xlcc like concat('%',#{xlcc},'%')
+		  a.xsxy IS NOT NULL
+		  AND a.xszy IS NOT NULL
+	</select>
+
+	<select id="getzyDynamicInfo" resultType="Map">
+			SELECT DISTINCT
+			  a.xsxy AS xsxy,
+			  c.xszy AS xszy
+			FROM
+			  (SELECT DISTINCT
+				a.xsxh AS xsxh,
+				a.xszy AS xszy
+			  FROM
+				bckj_biz_syb a,
+				bckj_biz_jyscheme b
+			  WHERE DATE_FORMAT(b.bdkssj, '%Y') =#{currentYear} and a.xlcc like concat('%',#{xlcc},'%')
+				AND a.xsxh = b.xsxh
+				AND a.xsxy IS NOT NULL
+				AND a.xszy IS NOT NULL) c,
+			  bckj_biz_syb a
+			WHERE c.xszy = a.xszy
+			  AND c.xsxh = a.xsxh and a.xlcc like concat('%',#{xlcc},'%')
+	</select>
+
+
+	<select id="getJyDyNf" resultType="Map">
+		SELECT DISTINCT
+			DATE_FORMAT(BDKSSJ, '%Y') AS nf
+		FROM
+		    bckj_biz_jyscheme
+	    WHERE  BDKSSJ IS NOT NULL
+
+	</select>
+
 </mapper>

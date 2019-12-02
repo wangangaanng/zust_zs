@@ -38,4 +38,6 @@ public interface BckjBizZsjhDao extends CrudDao<BckjBizZsjh> {
     List<String> getCustomDicListXszy(Map<String, Object> dataMap);
 
     String sumZss();
+
+    List getListBoxLinkage(Map<String, Object> dataMap);
 }

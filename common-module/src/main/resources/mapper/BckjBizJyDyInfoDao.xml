@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zghzbckj.manage.dao.BckjBizJyDyInfoDao">
+
+
+
+	<sql id="bckjBizJyDyInfoColumns">
+		a.owid AS "owid",
+		a.nf AS "nf",
+		a.xsxy AS "xsxy",
+		a.zy1 AS "zy1",
+		a.zy2 AS "zy2",
+	 	a.zy3 AS "zy3",
+	 	a.zy4 AS "zy4",
+	 	a.zy5 AS "zy5",
+	 	a.zy6 AS "zy6",
+		a.zy7 AS "zy7",
+		a.zy8 AS "zy8",
+	 	a.zy9 AS "zy9",
+	 	a.zy10 AS "zy10",
+		a.rs1 AS "rs1",
+ 		a.rs2 AS "rs2",
+		a.rs3 AS "rs3",
+		a.rs4 AS "rs4",
+	 	a.rs5 AS "rs5",
+	 	a.rs6 AS "rs6",
+		a.rs7 AS "rs7",
+	 	a.rs8 AS "rs8",
+		a.rs9 AS "rs9",
+		a.rs10 AS "rs10",
+		a.lxr AS "lxr",
+		a.lxfs AS "lxfs",
+		a.sum AS "sum",
+		a.zysum as "zusum",
+		a.sfxs AS "sfxs",
+		a.xlcc as "xlcc",
+		a.state AS "state"
+	</sql>
+
+
+
+    <insert id="insert">
+		INSERT INTO bckj_biz_jy_dy_info(
+			owid,
+			nf,
+	        xsxy ,
+			zy1 ,
+			zy2,
+			zy3,
+	 		zy4,
+	 		zy5,
+	 		zy6,
+			zy7,
+			zy8,
+	 		zy8,
+			zy9,
+			zy10,
+ 			rs1,
+			rs2,
+			rs3,
+	 		rs4,
+			rs5,
+ 			rs6,
+			rs7,
+	 		rs8,
+			rs9,
+ 			rs10,
+	 		lxr,
+			lxfs,
+ 			sum,
+ 			zysum,
+ 			sfxs,
+ 			xlcc,
+	 		state
+		) VALUES (
+			#{owid},
+			#{nf},
+			#{xsxy},
+	        #{zy1} ,
+			#{zy2} ,
+			#{zy3},
+			#{zy4},
+	 		#{zy5},
+	 		#{zy6},
+	 		#{zy7},
+			#{zy8},
+			#{zy9},
+	 		#{zy10},
+			#{rs1},
+			#{rs2},
+ 			#{rs3},
+			#{rs4},
+			#{rs5},
+	 		#{rs6},
+			#{rs7},
+ 			#{rs8},
+			#{rs9},
+	 		#{rs10},
+			#{lxr},
+ 			#{lxfs},
+	 		#{sum},
+	 		#{zysum},
+			#{sfxs},
+			#{xlcc},
+ 			#{state}
+		)
+	</insert>
+
+
+
+
+	<update id="update">
+		UPDATE bckj_biz_jy_dy_info SET
+			owid=#{owid},
+			nf=#{nf},
+	        xsxy=#{xsxy} ,
+			zy1=#{zy1} ,
+			zy2=#{zy2},
+			zy3=#{zy3},
+	 		zy4=#{zy4},
+	 		zy5=#{zy5},
+	 		zy6=#{zy6},
+			zy7=#{zy7},
+			zy8=#{zy8},
+	 		zy9=#{zy9},
+			zy10=#{zy10},
+			rs1=#{rs1},
+ 			rs2=#{rs2},
+			rs3=#{rs3},
+			rs4=#{rs4},
+	 		rs5=#{rs5},
+			rs6=#{rs6},
+ 			rs7=#{rs7},
+			rs8=#{rs8},
+	 		rs9=#{rs9},
+			rs10=#{rs10},
+ 			lxr=#{lxr},
+	 		lxfs=#{lxfs},
+			sum=#{sum},
+			zysum=#{zysum},
+ 			sfxs=#{sfxs},
+ 			xlcc=#{xlcc},
+ 			state=#{state}
+		WHERE owid = #{owid}
+	</update>
+
+
+	<delete id="deleteOneByXsxyNfXlcc" parameterType="Map">
+		DELETE FROM bckj_biz_jy_dy_info WHERE nf=#{nf} and xsxy=#{xsxy} and a.xlcc=#{xlcc}
+	</delete>
+
+	<select id="getOngByXsxyNfXlcc" parameterType="Map" resultType="BckjBizJyDyInfo">
+		SELECT <include refid="bckjBizJyDyInfoColumns"></include>
+		FROM bckj_biz_jy_dy_info a WHERE a.xsxy=#{xsxy} and a.nf=#{nf} and a.xlcc=#{xlcc}
+	</select>
+
+	<select id="getNfListByNfXlcc" parameterType="Map" resultType="BckjBizJyDyInfo">
+		SELECT <include refid="bckjBizJyDyInfoColumns"></include>
+		FROM bckj_biz_jy_dy_info a WHERE  a.xsxy=#{xsxy} and a.xlcc=#{xlcc}
+	</select>
+
+
+	<select id="getOneByOwid" parameterType="String" resultType="BckjBizJyDyInfo">
+		SELECT <include refid="bckjBizJyDyInfoColumns"/>
+		FROM bckj_biz_jy_dy_info a WHERE  a.owid=#{owid}
+	</select>
+</mapper>

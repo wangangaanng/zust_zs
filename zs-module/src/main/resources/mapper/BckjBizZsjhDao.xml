@@ -346,5 +346,5 @@
 	<select id="sumZss" resultType="String">
 		SELECT sum(zss) as sumZss FROM bckj_biz_zsjh
 	</select>
-	
+
 </mapper>

@@ -362,6 +362,8 @@
                     if (data.backCode == 0) {
                         layer.open({
                             title: '提示',
+                            closeBtn: 0,
+                            scrollbar: false,
                             content: '职位发布成功',
                             yes: function (index, layero) {
                                 window.location.href='${base}/enterpriseService/1'

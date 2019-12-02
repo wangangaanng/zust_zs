@@ -170,6 +170,7 @@ function fixJob() {
             if (data.backCode == 0) {
                 layer.open({
                     title: '提示',
+                    scrollbar: false,
                     content: '职位发布成功',
                     yes: function (index, layero) {
                         layer.close(index);
