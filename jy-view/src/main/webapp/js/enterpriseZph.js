@@ -232,6 +232,7 @@ function getOne(owid) {
                 layer1=layer.open({
                     type: 1,
                     title:'招聘信息',
+                    scrollbar: false,
                     skin: 'layui-layer-rim', //加上边框
                     area: ['800px', '700px'], //宽高
                     content: '<div class="lxr-modal">\n' +

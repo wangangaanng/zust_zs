@@ -249,9 +249,12 @@ var pageSize=10;
 
     var layer1;
     function order() {
+        var qyLxr=JSON.parse(getCookie("qyInfo")).qyLxr || '';
+        var qyLxrdh=JSON.parse(getCookie("qyInfo")).qyLxrdh || '';
         layer1=layer.open({
             type: 1,
             title:'招聘信息',
+            scrollbar: false,
             skin: 'layui-layer-rim', //加上边框
             area: ['800px', '700px'], //宽高
             content: '<div class="lxr-modal">\n' +
@@ -259,11 +262,11 @@ var pageSize=10;
             '                           <div class="form-group">\n' +
             '                                <label for="lxr" class="col-sm-4 control-label text-right" style="line-height: 34px;padding-right: 0;">联系人<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-3" style="padding:0;">\n' +
-            '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+JSON.parse(getCookie("qyInfo")).qyLxr+'" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxr" name="lxr" value="'+qyLxr+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                                <label for="lxdh" class="col-sm-2 control-label text-right" style="line-height: 34px;padding-right: 0;">联系人手机号<span class="red">*</span>：</label>\n' +
             '                                <div class="col-sm-2" style="padding:0;">\n' +
-            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+JSON.parse(getCookie("qyInfo")).qyLxrdh+'" placeholder="" autocomplete="off">\n' +
+            '                                    <input type="text" class="form-control" id="lxdh" name="lxdh" value="'+qyLxrdh+'" placeholder="" autocomplete="off">\n' +
             '                                </div>\n' +
             '                            </div>\n' +
             '                        </div>\n' +zdytjStr+

@@ -209,8 +209,9 @@
                         })
                     }else{
                         layer.open({
-                            title: '提示'
-                            ,content: '暂无数据'
+                            title: '提示',
+                            scrollbar: false,
+                            content: '暂无数据'
                         });
                     }
                 }else{

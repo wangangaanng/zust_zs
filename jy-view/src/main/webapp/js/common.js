@@ -51,6 +51,7 @@ function login(url,user) {//1学生 0企业
     layer1=layer.open({
         type: 1,
         title:title,
+        scrollbar: false,
         skin: 'layui-layer-rim', //加上边框
         area: ['420px', '240px'], //宽高
         content: '<div class="lxr-modal ohidden"><div class="row">\n' +

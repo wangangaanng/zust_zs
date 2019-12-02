@@ -13,6 +13,7 @@
     $(document).ready(function () {
         layer.open({
             title: '提示',
+            scrollbar: false,
             closeBtn: 0,
             content: '登录超时，请重新登录',
             yes:function (index) {

@@ -123,6 +123,7 @@
         if(tips){
             layer.open({
                 title:'提示',
+                scrollbar: false,
                 content: tips,
                 yes: function(index, layero){
                     layer.close(index);

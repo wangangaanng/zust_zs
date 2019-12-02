@@ -480,6 +480,7 @@
             layer.open({
                 type: 1,
                 closeBtn: 0,
+                scrollbar: false,
                 title: '提示',
                 btn:['确定','取消'],
                 skin: 'layui-layer-rim', //加上边框
@@ -500,6 +501,7 @@
                             layer.open({
                                 title:'提示',
                                 closeBtn: 0,
+                                scrollbar: false,
                                 content: '注册成功，待后台人员审核通过，便可登录。',
                                 yes: function(index1, layero){
                                     window.location.href="${base}/";
