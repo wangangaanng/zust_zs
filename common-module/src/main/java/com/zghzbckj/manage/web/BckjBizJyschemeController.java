@@ -13,16 +13,16 @@ import com.zghzbckj.base.model.PublicDataVO;
 import com.zghzbckj.base.model.ResponseMessage;
 import com.zghzbckj.base.web.BaseController;
 import com.zghzbckj.common.CommonConstant;
+import com.zghzbckj.manage.entity.BckjBizJyDyInfo;
 import com.zghzbckj.manage.entity.BckjBizJyscheme;
 import com.zghzbckj.manage.entity.BckjBizYhxx;
+import com.zghzbckj.manage.entity.BckjBizZxzx;
 import com.zghzbckj.manage.service.BckjBizJyschemeService;
 import com.zghzbckj.manage.service.BckjBizYhxxService;
+import org.bouncycastle.asn1.icao.DataGroupHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -151,7 +151,7 @@ public class BckjBizJyschemeController extends BaseController {
     @ResponseBody
     public ResponseMessage recordInfo(PublicDataVO dataVO) {
         try {
-            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+                Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
             if (!msg.getSuccess()) {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
@@ -162,6 +162,29 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+    /**
+     * <p>功能描述:录入就业方案报到证编号</p >
+     */
+    @RequestMapping(value = "recordBh/{type}", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseMessage recordBh(@PathVariable("type") String type, PublicDataVO dataVO) {
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "path");
+            if (!msg.getSuccess()) {
+                return ResponseMessage.sendError(ResponseMessage.FAIL, msg.toString());
+            }
+            return bckjBizJyschemeService.recordInfoBh(dataMap.get("path").toString(),type);
+        } catch (Exception e) {
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+
+
 
     /**
      * <p>功能描述:后台显示就业方案列表</p >
@@ -273,11 +296,10 @@ public class BckjBizJyschemeController extends BaseController {
                 return ResponseMessage.sendError(ResponseMessage.FAIL, "无法查找此生源");
             }*/
             BckjBizJyscheme oneJyschemeQt = bckjBizJyschemeService.queryDocument(dataMap);
-            if (TextUtils.isEmpty(oneJyschemeQt)) {
-                return ResponseMessage.sendError(ResponseMessage.FAIL,"未找到你的档案信息");
-            } else {
-                return ResponseMessage.sendOK(oneJyschemeQt);
+            if(TextUtils.isEmpty(oneJyschemeQt)||TextUtils.isEmpty(oneJyschemeQt.getXsxh())){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"无此生档案,请检查输入信息是否有误");
             }
+            return ResponseMessage.sendOK(oneJyschemeQt);
         } catch (Exception e) {
             log.error(CommonConstant.ERROR_MESSAGE, e);
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
@@ -370,6 +392,95 @@ public class BckjBizJyschemeController extends BaseController {
             return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
         }
     }
+
+    /**
+     * 刷新动态就业信息
+     * @return
+     */
+    @PostMapping("getJyDynamicInfo")
+    @ResponseBody
+    public ResponseMessage getJyDynamicInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateMsg msg = ValidateUtils.isEmpty(dataMap, "nf","xxlc");
+            if(!msg.getSuccess()){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,msg.toString());
+            }
+            return ResponseMessage.sendOK(bckjBizJyschemeService.getJyDynamicInfo(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 展示就业动态信息
+     * @return
+     */
+    @PostMapping("showJyDyInfo")
+    @ResponseBody
+    public ResponseMessage showJyDyInfo(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            ValidateUtils.isEmpty(dataMap,"nf","xlcc");
+            List<BckjBizJyDyInfo> nfListByNfXlcc = bckjBizJyschemeService.showJyDyInfo(dataMap);
+            if(TextUtils.isEmpty(nfListByNfXlcc)&&nfListByNfXlcc.size()<=0){
+                return ResponseMessage.sendError(ResponseMessage.FAIL,"无数据，请先刷新");
+            }
+            Integer maxSum=0;
+            Integer maxZySum=0;
+            for (BckjBizJyDyInfo bckjBizJyDyInfo:nfListByNfXlcc){
+                maxSum=bckjBizJyDyInfo.getSum()+maxSum;
+                maxZySum=maxZySum+bckjBizJyDyInfo.getZysum();
+            }
+            for (BckjBizJyDyInfo bckjBizJyDyInfo:nfListByNfXlcc){
+                bckjBizJyDyInfo.setSum(maxSum);
+                bckjBizJyDyInfo.setZysum(maxZySum);
+            }
+            return ResponseMessage.sendOK(nfListByNfXlcc);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+
+    /**
+     * 后台保存联系人 联系电话
+     * @param dataVO
+     * @return
+     */
+    @PostMapping("saveJyDyInfo")
+    @ResponseBody
+    public ResponseMessage saveJyDyInfo(PublicDataVO dataVO){
+        try {
+            List<Object> list = JsonUtil.jsonToList(dataVO.getData());
+            return bckjBizJyschemeService.saveJyDyInfo(list);
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
+    /**
+     * 获取就业动态信息的年份
+     * @return
+     */
+    @PostMapping("getJyDyNf")
+    @ResponseBody
+    public ResponseMessage getJyDyNf(){
+        try {
+            return ResponseMessage.sendOK(bckjBizJyschemeService.getJyDyNf());
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE, e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL, CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 
 
 }

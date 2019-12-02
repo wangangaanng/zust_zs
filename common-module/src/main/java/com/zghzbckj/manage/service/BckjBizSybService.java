@@ -169,7 +169,6 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         //文件路径
         String filename = path;
         List<List<String>> list = getExcelLists(filename);
-        HashMap<Object, Object> resMap = Maps.newHashMap();
         List<BckjBizYhxx> yhxxes = new ArrayList();
         List<BckjBizYhkz> yhkzes = new ArrayList();
         List<BckjBizSyb> sybs = new ArrayList();
@@ -192,6 +191,7 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         }
         if (list != null) {
             for (int i = 2; i < list.size(); i++) {
+                HashMap<Object, Object> resMap = Maps.newHashMap();
                 //学生信息录入
                 List<String> cellList = list.get(i);//行循环
                 String sfz = cellList.get(4); //身份证号
@@ -587,11 +587,11 @@ public class BckjBizSybService extends CrudService<BckjBizSybDao, BckjBizSyb> {
         if (split.length == 1) {
             sdf = new SimpleDateFormat("yyyy");
         } else if (split.length == 2) {
-            sdf = new SimpleDateFormat("yyyy-MM ");
+            sdf = new SimpleDateFormat("yyyy-MM");
         } else if (split.length == 3) {
             sdf = new SimpleDateFormat("yyyy-MM-dd");
         }
-        DateUtil.getDate(dateStr,"yyyy-MM-dd");
+     /*   DateUtil.getDate(dateStr,"yyyy-MM-dd");*/
         Date utilDate = sdf.parse(dateStr);
         return utilDate;
     }

@@ -127,4 +127,18 @@
 	<update id="deleteByName" parameterType="String" >
 		DELETE FROM bckj_biz_job_plan_other where name=#{value}
 	</update>
+	<update id="deleteBdzhByName" parameterType="Map" >
+		DELETE FROM bckj_biz_job_plan_other where name=#{name} and code=#{code}
+	</update>
+
+
+	<select id="getOneByXsxhCode" resultType="String" >
+		SELECT val FROM bckj_biz_job_plan_other WHERE name =#{name} and code =#{code}
+	</select>
+	<update id="deleteOneByOwid" parameterType="String">
+		DELETE FROM bckj_biz_job_plan_other WHERE owid=#{value}
+	</update>
+
+
+
 </mapper>

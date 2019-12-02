@@ -29,7 +29,6 @@ public interface BckjBizLntjDao extends CrudDao<BckjBizLntj> {
 
     List<BckjBizLntj> findListByZy(Map<String, Object> dataMap);
 
-
-
     String sumLqs();
+
 }

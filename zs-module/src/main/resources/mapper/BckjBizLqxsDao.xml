@@ -356,5 +356,7 @@
 	SELECT DISTINCT lqzy FROM bckj_biz_lqxs WHERE
 	lqzy IS NOT NULL
 </select>
+
+
 	
 </mapper>

@@ -233,4 +233,22 @@ public class BckjBizLntjController extends BaseController {
         }
     }
 
+
+    /**
+     * 下拉框联动
+     * @return
+     */
+    @PostMapping("getListBoxLinkage")
+    @ResponseBody
+    public ResponseMessage getListBoxLinkage(PublicDataVO dataVO){
+        try {
+            Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
+            return ResponseMessage.sendOK(bckjBizLntjService.getListBoxLinkage(dataMap));
+        }
+        catch (Exception e){
+            log.error(CommonConstant.ERROR_MESSAGE,e);
+            return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
+        }
+    }
+
 }

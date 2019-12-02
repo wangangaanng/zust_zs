@@ -56,4 +56,14 @@ public interface BckjBizJyschemeDao extends CrudDao<BckjBizJyscheme> {
     List<Map> getDicListMapByType(int type);
 
     List<BckjBizJyscheme> getJyselfInfo(Map<String, Object> dataMap);
+
+    List<Map<String, Object>> jobOtherGetByCode(String bdzbh);
+
+    List<Map> getJyDynamicInfo(Map<String, Object> dataMap);
+
+    List<Map> getxyDynamicInfo(Map<String, Object> dataMap);
+
+    List<Map> getzyDynamicInfo(Map<String, Object> dataMap);
+
+    Map<String, Object> getJyDyNf();
 }

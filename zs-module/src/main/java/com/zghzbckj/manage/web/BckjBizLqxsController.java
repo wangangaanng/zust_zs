@@ -193,8 +193,6 @@ public class BckjBizLqxsController extends BaseController {
             log.error(CommonConstant.ERROR_MESSAGE,e);
             return ResponseMessage.sendError(ResponseMessage.FAIL,CommonConstant.ERROR_SYS_MESSAG);
         }
-
-
     }
 
 

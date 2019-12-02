@@ -417,4 +417,6 @@ public class BckjBizLqxsService extends CrudService<BckjBizLqxsDao, BckjBizLqxs>
         }
         return lists;
     }
+
+
 }

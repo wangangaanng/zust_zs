@@ -28,10 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * ccService
@@ -336,6 +333,33 @@ public class BckjBizLntjService extends CrudService<BckjBizLntjDao, BckjBizLntj>
     }
 
 
-
+    /**
+     * 下拉框联动
+     * @return
+     */
+    public List<Map> getListBoxLinkage(Map<String, Object> dataMap) {
+        final List<BckjBizLntj> listByNf = this.dao.findListByNf(dataMap);
+        final List<BckjBizLntj> listBySf = this.dao.findListBySf(dataMap);
+        final List<BckjBizLntj> listByKl = this.dao.findListByKl(dataMap);
+        final List<BckjBizLntj> listByPc = this.dao.findListByPc(dataMap);
+        final List<BckjBizLntj> listByZy = this.dao.findListByZy(dataMap);
+        Map<Object, Object> resMap1 = Maps.newHashMap();
+        Map<Object, Object> resMap2 = Maps.newHashMap();
+        Map<Object, Object> resMap3 = Maps.newHashMap();
+        Map<Object, Object> resMap4 = Maps.newHashMap();
+        Map<Object, Object> resMap5 = Maps.newHashMap();
+        resMap1.put("nf",listByNf);
+        resMap2.put("sf",listBySf);
+        resMap3.put("kl",listByKl);
+        resMap4.put("pc",listByPc);
+        resMap5.put("zy",listByZy);
+        List<Map> resList = com.beust.jcommander.internal.Lists.newArrayList();
+        resList.add(resMap1);
+        resList.add(resMap2);
+        resList.add(resMap3);
+        resList.add(resMap4);
+        resList.add(resMap5);
+        return resList;
+    }
 
 }
