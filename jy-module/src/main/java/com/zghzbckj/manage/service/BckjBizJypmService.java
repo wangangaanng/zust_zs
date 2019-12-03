@@ -202,7 +202,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
      */
     public ResponseMessage findPageBckjBizJypm(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        dataMap.put("isNull", "yes");
+        dataMap.put("state", 0);
         PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmjyl");
         List<BckjBizJypm> records = page.getRecords();
         Map<String, Object> data = this.dao.statistic(dataMap);
@@ -229,7 +229,7 @@ public class BckjBizJypmService extends CrudService<BckjBizJypmDao, BckjBizJypm>
 
     public ResponseMessage findPageBckjBizJypmNf(List<FilterModel> filters, Integer pageNo, Integer pageSize) {
         Map<String, Object> dataMap = FilterModel.doHandleMap(filters);
-        dataMap.put("isNotNull", "yes");
+        dataMap.put("state", 1);
         PageInfo<BckjBizJypm> page = findPage(dataMap, pageNo, pageSize, "pmnf,pmjyl");
         List<BckjBizJypm> records = page.getRecords();
         Map<String, Object> data = this.dao.statistic(dataMap);

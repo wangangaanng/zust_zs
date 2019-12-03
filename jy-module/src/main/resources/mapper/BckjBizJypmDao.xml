@@ -43,7 +43,7 @@
 	<sql id="bckjBizJypmJoins">
 	</sql>
 
-	<!--全校统计	-->
+	<!--全校统计 state 0 当年 1 历年	-->
 	<select id="statistic" resultType="java.util.Map">
 		SELECT COUNT(DISTINCT szxy) AS szxy, SUM(pmbyrs) AS pmbyrs, SUM(pmqyrs) AS pmqyrs
 		FROM bckj_biz_jypm
@@ -57,29 +57,26 @@
 			<if test="pmnf != null and pmnf != ''">
 				and pmnf=#{pmnf}
 			</if>
-			<if test="isNull != null and isNull != ''">
-				AND pmnf IS NULL
-			</if>
-			<if test="isNotNull != null and isNotNull != ''">
-				AND pmnf IS NOT NULL
+			<if test="state != null and isNull != ''">
+				AND state=#{state}
 			</if>
 		</where>
 	</select>
 
-	<!--根据排名年份统计学院毕业人数、就业人数	-->
+	<!--根据当年排名统计学院毕业人数、就业人数	-->
 	<select id="collegeStats" resultType="java.util.Map">
 		select szxy, pmnf, SUM(pmbyrs) as pmbyrs, SUM(pmqyrs) as pmqyrs
 		from bckj_biz_jypm
-		where pmnf is null
+		where state="0"
 		group by szxy
 	</select>
 
-	<!--根据排名年份、所在学院获取专业的毕业人数、就业人数	-->
+	<!--根据当年排名、所在学院获取专业的毕业人数、就业人数	-->
 	<select id="majorList" resultType="java.util.Map">
 		select <include refid="bckjBizJypmColumns"/>
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"/>
-		<where>a.pmnf is null
+		<where>a.state="0"
 			<if test="szxy != null and szxy != ''">
 				and	a.szxy=#{szxy}
 			</if>
@@ -87,27 +84,29 @@
 		order by pmjyl desc
 	</select>
 
-	<!--根据排名专业、所在学院和排名年份查询专业	-->
+	<!--导入时根据排名专业、所在学院查询当年专业	-->
 	<select id="getByMajor" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
 		select <include refid="bckjBizJypmColumns"></include>
 		from bckj_biz_jypm a
 		<include refid="bckjBizJypmJoins"></include>
-		where a.pmzy=#{majorName} and a.szxy=#{collegeName}
+		where a.pmzy=#{majorName} and a.szxy=#{collegeName} and a.state="0"
 	</select>
 
-	<!--清空所有数据	-->
+	<!--清空当年所有数据 当年 state=0	-->
 	<delete id="deleteAll">
-		DELETE FROM bckj_biz_jypm WHERE pmnf IS NULL
+		DELETE FROM bckj_biz_jypm WHERE state="0"
 	</delete>
 
+	<!--根据年份清空历年数据 历年 state=1	-->
 	<delete id="deleteThisYear">
-		DELETE FROM bckj_biz_jypm WHERE PMNF=#{nf}
+		DELETE FROM bckj_biz_jypm WHERE PMNF=#{nf} AND STATE="1"
 	</delete>
 
+	<!--统计当年人数	-->
 	<select id="sumPmrs" resultType="java.util.Map">
 		SELECT SUM(pmbyrs) AS pmbyrs, SUM(pmqyrs) AS pmqyrs, "合计" AS pmzy, CAST(SUM(pmqyrs)*100/ SUM(pmbyrs) AS DECIMAL(18,2)) AS pmjyl
 		FROM bckj_biz_jypm
-		WHERE pmnf IS NULL
+		WHERE STATE="0"
 	</select>
 
 	<select id="get" resultType="com.zghzbckj.manage.entity.BckjBizJypm">
@@ -149,11 +148,8 @@
 			<if test="pmnf != null and pmnf != ''">
 				and a.pmnf=#{pmnf}
 			</if>
-			<if test="isNull != null and isNull != ''">
-				AND a.pmnf IS NULL
-			</if>
-			<if test="isNotNull != null and isNotNull != ''">
-				AND a.pmnf IS NOT NULL
+			<if test="state != null and state != ''">
+				AND a.state=#{state}
 			</if>
 		</where>
 		<choose>

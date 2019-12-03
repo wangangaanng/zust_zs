@@ -121,13 +121,19 @@ public class BckjBizJypmController extends BaseController {
 
             for (int i = 2; i < list.size(); i++) {
                 ArrayList<String> cellList = list.get(i);
-                String szxy = cellList.get(0);    //所在学院
-                String pmzy = cellList.get(1);    //排名专业
-//                String pmnf = cellList.get(2);    //排名年份
+                //所在学院
+                String szxy = cellList.get(0);
+                //排名专业
+                String pmzy = cellList.get(1);
+                //排名年份
+                String pmnf = cellList.get(2);
 //                String pmyf = cellList.get(3);    //排名月份
-                String pmbyrs = cellList.get(2);  //排名毕业人数
-                String pmqyrs = cellList.get(3);  //就业人数
-                String pmjyl = cellList.get(4);   //排名就业率
+                //排名毕业人数
+                String pmbyrs = cellList.get(3);
+                //就业人数
+                String pmqyrs = cellList.get(4);
+                //排名就业率
+                String pmjyl = cellList.get(5);
 
                 BckjBizJypm jypm = new BckjBizJypm();
                 //根据不同年份学院专业名称查询
@@ -135,7 +141,7 @@ public class BckjBizJypmController extends BaseController {
                 if (!TextUtils.isEmpty(major)) {
                     jypm.setOwid(major.getOwid());
                 }
-                jypm.easySet("szxy", szxy, "pmzy", pmzy);
+                jypm.easySet("szxy", szxy, "pmzy", pmzy, "pmnf", pmnf);
                 jypm.setPmbyrs(Integer.parseInt(pmbyrs));
                 jypm.setPmqyrs(Integer.parseInt(pmqyrs));
                 jypm.setPmjyl(new BigDecimal(pmjyl));
@@ -224,10 +230,11 @@ public class BckjBizJypmController extends BaseController {
         try {
             Map<String, Object> dataMap = JsonUtil.jsonToMap(dataVO.getData());
             List<BckjBizJypm> jypmList = bckjBizJypmService.findListByParams(dataMap, null);
-            bckjBizJypmService.deleteThisYear(DateUtil.getDateStr("yyyy"));
+            bckjBizJypmService.deleteThisYear(MapUtils.getString(dataMap, "pmnf"));
             for (BckjBizJypm jypm : jypmList) {
                 jypm.setOwid("");
-                jypm.setPmnf(DateUtil.getDateStr("yyyy"));
+                jypm.setPmnf(MapUtils.getString(dataMap, "pmnf"));
+                jypm.setState(1);
                 bckjBizJypmService.save(jypm);
             }
             return ResponseMessage.sendOK("ok");
