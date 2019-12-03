@@ -57,6 +57,18 @@ public class IndexController extends SpringZkBaseControl {
         CookieUtils.setRequest(request);
         return "leaderIndex";
     }
+    @RequestMapping("/syslDetail")
+    public String syslDetail(HttpServletRequest request) {
+        CookieUtils.setRequest(request);
+        try {
+            String nf = request.getParameter("year");
+            request.setAttribute("nf", nf);
+            return "syslDetail";
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/error.htm";
+    }
 
 
     @RequestMapping("/swytIndex")
