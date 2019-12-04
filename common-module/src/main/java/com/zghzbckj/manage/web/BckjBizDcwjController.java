@@ -301,9 +301,10 @@ public class BckjBizDcwjController extends BaseController {
         if (TextUtils.isEmpty(dcwj)) {
             return ResponseMessage.sendError(ResponseMessage.FAIL, "无此调查问卷");
         }
-        //复制新的调查问卷
+        //复制新的调查问卷，默认未发布 state=1
         dcwj.setOwid("");
-        dcwj.setWjmc(DateUtil.getDateStr("yyyyMMddHHmmss"));
+        dcwj.setWjmc(dcwj.getWjmc() + "-复制");
+        dcwj.setState(1);
         bckjBizDcwjService.save(dcwj);
         for (BckjBizDcwjTm tm : tmList) {
             tm.setOwid("");
