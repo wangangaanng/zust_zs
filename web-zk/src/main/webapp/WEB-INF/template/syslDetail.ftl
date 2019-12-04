@@ -53,7 +53,7 @@
                 "xlcc":'硕',
             }
         }
-        ajax("web/zustcommon/bckjBizJyscheme/showJyDyInfo",params,function(data){
+        window.parent.ajax("web/zustcommon/bckjBizJyscheme/showJyDyInfo",params,function(data){
             if(data.backCode == 0) {
                 var str = '';
                 var bt = "";
@@ -104,7 +104,7 @@
             list.push(obj);
         })
         var params=list
-        ajax("web/zustcommon/bckjBizJyscheme/saveJyDyInfo",params,function(data) {
+        window.parent.ajax("web/zustcommon/bckjBizJyscheme/saveJyDyInfo",params,function(data) {
             if (data.backCode == 0) {
 
             }
