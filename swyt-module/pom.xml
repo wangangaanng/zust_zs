@@ -43,7 +43,7 @@
         <qrcode.version>3.3.0</qrcode.version>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
-        <commons-beanutils.version>1.9.1</commons-beanutils.version>
+        <commons-beanutils.version>1.9.2</commons-beanutils.version>
         <baidu.version>1.0.3</baidu.version>
         <jackson.version>2.9.6</jackson.version>
         <baiduapisdk.version>4.1.0</baiduapisdk.version>
