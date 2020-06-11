@@ -75,7 +75,7 @@
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.8.3</version>
+            <version>1.9.2</version>
         </dependency>
         <!--用來處理常用的編碼方法的工具類包，例如DES、SHA1、MD5、Base64等等 -->
         <dependency>
