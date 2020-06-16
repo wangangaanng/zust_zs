@@ -19,7 +19,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <springversion>4.2.6.RELEASE</springversion>
+        <springversion>5.2.7.RELEASE</springversion>
         <junitversion>4.11</junitversion>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
         <hibernate.version>5.0.9.Final</hibernate.version>
