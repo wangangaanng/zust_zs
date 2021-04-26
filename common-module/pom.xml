@@ -44,7 +44,7 @@
         <aliyuncore.version>3.2.3</aliyuncore.version>
         <jbarcode.version>0.2.8</jbarcode.version>
         <qrcode.version>3.3.0</qrcode.version>
-        <commons-io.version>2.4</commons-io.version>
+        <commons-io.version>2.7</commons-io.version>
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-beanutils.version>1.9.1</commons-beanutils.version>
         <baidu.version>1.0.3</baidu.version>
