@@ -48,7 +48,7 @@
         <commons-lang3.version>3.3.2</commons-lang3.version>
         <commons-beanutils.version>1.9.1</commons-beanutils.version>
         <baidu.version>1.0.3</baidu.version>
-        <jackson.version>2.9.6</jackson.version>
+        <jackson.version>2.13.4.1</jackson.version>
         <baiduapisdk.version>4.1.0</baiduapisdk.version>
         <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
         <zust-utils>4.0.0</zust-utils>
