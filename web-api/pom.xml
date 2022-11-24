@@ -16,7 +16,7 @@
         <springversion>4.2.6.RELEASE</springversion>
         <junitversion>4.11</junitversion>
         <commons.fileupload.version>1.2.1</commons.fileupload.version>
-        <hibernate.version>5.0.9.Final</hibernate.version>
+        <hibernate.version>5.3.20.Final</hibernate.version>
         <activiti.version>5.22.0</activiti.version>
     </properties>
     <dependencies>
